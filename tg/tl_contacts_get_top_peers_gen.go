@@ -75,6 +75,14 @@ type ContactsGetTopPeersRequest struct {
 // ContactsGetTopPeersRequestTypeID is TL type id of ContactsGetTopPeersRequest.
 const ContactsGetTopPeersRequestTypeID = 0xd4982db5
 
+// Ensuring interfaces in compile-time for ContactsGetTopPeersRequest.
+var (
+	_ bin.Encoder     = &ContactsGetTopPeersRequest{}
+	_ bin.Decoder     = &ContactsGetTopPeersRequest{}
+	_ bin.BareEncoder = &ContactsGetTopPeersRequest{}
+	_ bin.BareDecoder = &ContactsGetTopPeersRequest{}
+)
+
 func (g *ContactsGetTopPeersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -281,6 +289,59 @@ func (g *ContactsGetTopPeersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (g *ContactsGetTopPeersRequest) Decode(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode contacts.getTopPeers#d4982db5 to nil")
+	}
+	if err := b.ConsumeID(ContactsGetTopPeersRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: %w", err)
+	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ContactsGetTopPeersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode contacts.getTopPeers#d4982db5 to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field flags: %w", err)
+		}
+	}
+	g.Correspondents = g.Flags.Has(0)
+	g.BotsPm = g.Flags.Has(1)
+	g.BotsInline = g.Flags.Has(2)
+	g.PhoneCalls = g.Flags.Has(3)
+	g.ForwardUsers = g.Flags.Has(4)
+	g.ForwardChats = g.Flags.Has(5)
+	g.Groups = g.Flags.Has(10)
+	g.Channels = g.Flags.Has(15)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field offset: %w", err)
+		}
+		g.Offset = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field limit: %w", err)
+		}
+		g.Limit = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field hash: %w", err)
+		}
+		g.Hash = value
+	}
+	return nil
+}
+
 // SetCorrespondents sets value of Correspondents conditional field.
 func (g *ContactsGetTopPeersRequest) SetCorrespondents(value bool) {
 	if value {
@@ -423,67 +484,6 @@ func (g *ContactsGetTopPeersRequest) GetLimit() (value int) {
 func (g *ContactsGetTopPeersRequest) GetHash() (value int) {
 	return g.Hash
 }
-
-// Decode implements bin.Decoder.
-func (g *ContactsGetTopPeersRequest) Decode(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't decode contacts.getTopPeers#d4982db5 to nil")
-	}
-	if err := b.ConsumeID(ContactsGetTopPeersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: %w", err)
-	}
-	return g.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (g *ContactsGetTopPeersRequest) DecodeBare(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't decode contacts.getTopPeers#d4982db5 to nil")
-	}
-	{
-		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field flags: %w", err)
-		}
-	}
-	g.Correspondents = g.Flags.Has(0)
-	g.BotsPm = g.Flags.Has(1)
-	g.BotsInline = g.Flags.Has(2)
-	g.PhoneCalls = g.Flags.Has(3)
-	g.ForwardUsers = g.Flags.Has(4)
-	g.ForwardChats = g.Flags.Has(5)
-	g.Groups = g.Flags.Has(10)
-	g.Channels = g.Flags.Has(15)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field offset: %w", err)
-		}
-		g.Offset = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field limit: %w", err)
-		}
-		g.Limit = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field hash: %w", err)
-		}
-		g.Hash = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for ContactsGetTopPeersRequest.
-var (
-	_ bin.Encoder     = &ContactsGetTopPeersRequest{}
-	_ bin.Decoder     = &ContactsGetTopPeersRequest{}
-	_ bin.BareEncoder = &ContactsGetTopPeersRequest{}
-	_ bin.BareDecoder = &ContactsGetTopPeersRequest{}
-)
 
 // ContactsGetTopPeers invokes method contacts.getTopPeers#d4982db5 returning error if any.
 // Get most used peers

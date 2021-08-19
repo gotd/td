@@ -41,6 +41,14 @@ type AccountGetPrivacyRequest struct {
 // AccountGetPrivacyRequestTypeID is TL type id of AccountGetPrivacyRequest.
 const AccountGetPrivacyRequestTypeID = 0xdadbc950
 
+// Ensuring interfaces in compile-time for AccountGetPrivacyRequest.
+var (
+	_ bin.Encoder     = &AccountGetPrivacyRequest{}
+	_ bin.Decoder     = &AccountGetPrivacyRequest{}
+	_ bin.BareEncoder = &AccountGetPrivacyRequest{}
+	_ bin.BareDecoder = &AccountGetPrivacyRequest{}
+)
+
 func (g *AccountGetPrivacyRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -122,11 +130,6 @@ func (g *AccountGetPrivacyRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetKey returns value of Key field.
-func (g *AccountGetPrivacyRequest) GetKey() (value InputPrivacyKeyClass) {
-	return g.Key
-}
-
 // Decode implements bin.Decoder.
 func (g *AccountGetPrivacyRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -153,13 +156,10 @@ func (g *AccountGetPrivacyRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountGetPrivacyRequest.
-var (
-	_ bin.Encoder     = &AccountGetPrivacyRequest{}
-	_ bin.Decoder     = &AccountGetPrivacyRequest{}
-	_ bin.BareEncoder = &AccountGetPrivacyRequest{}
-	_ bin.BareDecoder = &AccountGetPrivacyRequest{}
-)
+// GetKey returns value of Key field.
+func (g *AccountGetPrivacyRequest) GetKey() (value InputPrivacyKeyClass) {
+	return g.Key
+}
 
 // AccountGetPrivacy invokes method account.getPrivacy#dadbc950 returning error if any.
 // Get privacy settings of current account

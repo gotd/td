@@ -41,6 +41,19 @@ type PaymentsPaymentResult struct {
 // PaymentsPaymentResultTypeID is TL type id of PaymentsPaymentResult.
 const PaymentsPaymentResultTypeID = 0x4e5f810d
 
+// construct implements constructor of PaymentsPaymentResultClass.
+func (p PaymentsPaymentResult) construct() PaymentsPaymentResultClass { return &p }
+
+// Ensuring interfaces in compile-time for PaymentsPaymentResult.
+var (
+	_ bin.Encoder     = &PaymentsPaymentResult{}
+	_ bin.Decoder     = &PaymentsPaymentResult{}
+	_ bin.BareEncoder = &PaymentsPaymentResult{}
+	_ bin.BareDecoder = &PaymentsPaymentResult{}
+
+	_ PaymentsPaymentResultClass = &PaymentsPaymentResult{}
+)
+
 func (p *PaymentsPaymentResult) Zero() bool {
 	if p == nil {
 		return true
@@ -122,11 +135,6 @@ func (p *PaymentsPaymentResult) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUpdates returns value of Updates field.
-func (p *PaymentsPaymentResult) GetUpdates() (value UpdatesClass) {
-	return p.Updates
-}
-
 // Decode implements bin.Decoder.
 func (p *PaymentsPaymentResult) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -153,18 +161,10 @@ func (p *PaymentsPaymentResult) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PaymentsPaymentResultClass.
-func (p PaymentsPaymentResult) construct() PaymentsPaymentResultClass { return &p }
-
-// Ensuring interfaces in compile-time for PaymentsPaymentResult.
-var (
-	_ bin.Encoder     = &PaymentsPaymentResult{}
-	_ bin.Decoder     = &PaymentsPaymentResult{}
-	_ bin.BareEncoder = &PaymentsPaymentResult{}
-	_ bin.BareDecoder = &PaymentsPaymentResult{}
-
-	_ PaymentsPaymentResultClass = &PaymentsPaymentResult{}
-)
+// GetUpdates returns value of Updates field.
+func (p *PaymentsPaymentResult) GetUpdates() (value UpdatesClass) {
+	return p.Updates
+}
 
 // PaymentsPaymentVerificationNeeded represents TL type `payments.paymentVerificationNeeded#d8411139`.
 // Payment was not successful, additional verification is needed
@@ -177,6 +177,19 @@ type PaymentsPaymentVerificationNeeded struct {
 
 // PaymentsPaymentVerificationNeededTypeID is TL type id of PaymentsPaymentVerificationNeeded.
 const PaymentsPaymentVerificationNeededTypeID = 0xd8411139
+
+// construct implements constructor of PaymentsPaymentResultClass.
+func (p PaymentsPaymentVerificationNeeded) construct() PaymentsPaymentResultClass { return &p }
+
+// Ensuring interfaces in compile-time for PaymentsPaymentVerificationNeeded.
+var (
+	_ bin.Encoder     = &PaymentsPaymentVerificationNeeded{}
+	_ bin.Decoder     = &PaymentsPaymentVerificationNeeded{}
+	_ bin.BareEncoder = &PaymentsPaymentVerificationNeeded{}
+	_ bin.BareDecoder = &PaymentsPaymentVerificationNeeded{}
+
+	_ PaymentsPaymentResultClass = &PaymentsPaymentVerificationNeeded{}
+)
 
 func (p *PaymentsPaymentVerificationNeeded) Zero() bool {
 	if p == nil {
@@ -254,11 +267,6 @@ func (p *PaymentsPaymentVerificationNeeded) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (p *PaymentsPaymentVerificationNeeded) GetURL() (value string) {
-	return p.URL
-}
-
 // Decode implements bin.Decoder.
 func (p *PaymentsPaymentVerificationNeeded) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -285,18 +293,10 @@ func (p *PaymentsPaymentVerificationNeeded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PaymentsPaymentResultClass.
-func (p PaymentsPaymentVerificationNeeded) construct() PaymentsPaymentResultClass { return &p }
-
-// Ensuring interfaces in compile-time for PaymentsPaymentVerificationNeeded.
-var (
-	_ bin.Encoder     = &PaymentsPaymentVerificationNeeded{}
-	_ bin.Decoder     = &PaymentsPaymentVerificationNeeded{}
-	_ bin.BareEncoder = &PaymentsPaymentVerificationNeeded{}
-	_ bin.BareDecoder = &PaymentsPaymentVerificationNeeded{}
-
-	_ PaymentsPaymentResultClass = &PaymentsPaymentVerificationNeeded{}
-)
+// GetURL returns value of URL field.
+func (p *PaymentsPaymentVerificationNeeded) GetURL() (value string) {
+	return p.URL
+}
 
 // PaymentsPaymentResultClass represents payments.PaymentResult generic type.
 //
@@ -381,276 +381,4 @@ func (b *PaymentsPaymentResultBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PaymentsPaymentResultClass as nil")
 	}
 	return b.PaymentResult.Encode(buf)
-}
-
-// PaymentsPaymentResultClassArray is adapter for slice of PaymentsPaymentResultClass.
-type PaymentsPaymentResultClassArray []PaymentsPaymentResultClass
-
-// Sort sorts slice of PaymentsPaymentResultClass.
-func (s PaymentsPaymentResultClassArray) Sort(less func(a, b PaymentsPaymentResultClass) bool) PaymentsPaymentResultClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PaymentsPaymentResultClass.
-func (s PaymentsPaymentResultClassArray) SortStable(less func(a, b PaymentsPaymentResultClass) bool) PaymentsPaymentResultClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PaymentsPaymentResultClass.
-func (s PaymentsPaymentResultClassArray) Retain(keep func(x PaymentsPaymentResultClass) bool) PaymentsPaymentResultClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PaymentsPaymentResultClassArray) First() (v PaymentsPaymentResultClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PaymentsPaymentResultClassArray) Last() (v PaymentsPaymentResultClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PaymentsPaymentResultClassArray) PopFirst() (v PaymentsPaymentResultClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PaymentsPaymentResultClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PaymentsPaymentResultClassArray) Pop() (v PaymentsPaymentResultClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsPaymentsPaymentResult returns copy with only PaymentsPaymentResult constructors.
-func (s PaymentsPaymentResultClassArray) AsPaymentsPaymentResult() (to PaymentsPaymentResultArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PaymentsPaymentResult)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPaymentsPaymentVerificationNeeded returns copy with only PaymentsPaymentVerificationNeeded constructors.
-func (s PaymentsPaymentResultClassArray) AsPaymentsPaymentVerificationNeeded() (to PaymentsPaymentVerificationNeededArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PaymentsPaymentVerificationNeeded)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// PaymentsPaymentResultArray is adapter for slice of PaymentsPaymentResult.
-type PaymentsPaymentResultArray []PaymentsPaymentResult
-
-// Sort sorts slice of PaymentsPaymentResult.
-func (s PaymentsPaymentResultArray) Sort(less func(a, b PaymentsPaymentResult) bool) PaymentsPaymentResultArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PaymentsPaymentResult.
-func (s PaymentsPaymentResultArray) SortStable(less func(a, b PaymentsPaymentResult) bool) PaymentsPaymentResultArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PaymentsPaymentResult.
-func (s PaymentsPaymentResultArray) Retain(keep func(x PaymentsPaymentResult) bool) PaymentsPaymentResultArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PaymentsPaymentResultArray) First() (v PaymentsPaymentResult, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PaymentsPaymentResultArray) Last() (v PaymentsPaymentResult, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PaymentsPaymentResultArray) PopFirst() (v PaymentsPaymentResult, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PaymentsPaymentResult
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PaymentsPaymentResultArray) Pop() (v PaymentsPaymentResult, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PaymentsPaymentVerificationNeededArray is adapter for slice of PaymentsPaymentVerificationNeeded.
-type PaymentsPaymentVerificationNeededArray []PaymentsPaymentVerificationNeeded
-
-// Sort sorts slice of PaymentsPaymentVerificationNeeded.
-func (s PaymentsPaymentVerificationNeededArray) Sort(less func(a, b PaymentsPaymentVerificationNeeded) bool) PaymentsPaymentVerificationNeededArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PaymentsPaymentVerificationNeeded.
-func (s PaymentsPaymentVerificationNeededArray) SortStable(less func(a, b PaymentsPaymentVerificationNeeded) bool) PaymentsPaymentVerificationNeededArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PaymentsPaymentVerificationNeeded.
-func (s PaymentsPaymentVerificationNeededArray) Retain(keep func(x PaymentsPaymentVerificationNeeded) bool) PaymentsPaymentVerificationNeededArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PaymentsPaymentVerificationNeededArray) First() (v PaymentsPaymentVerificationNeeded, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PaymentsPaymentVerificationNeededArray) Last() (v PaymentsPaymentVerificationNeeded, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PaymentsPaymentVerificationNeededArray) PopFirst() (v PaymentsPaymentVerificationNeeded, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PaymentsPaymentVerificationNeeded
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PaymentsPaymentVerificationNeededArray) Pop() (v PaymentsPaymentVerificationNeeded, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

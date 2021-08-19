@@ -65,6 +65,14 @@ type MessagesGetPollVotesRequest struct {
 // MessagesGetPollVotesRequestTypeID is TL type id of MessagesGetPollVotesRequest.
 const MessagesGetPollVotesRequestTypeID = 0xb86e380e
 
+// Ensuring interfaces in compile-time for MessagesGetPollVotesRequest.
+var (
+	_ bin.Encoder     = &MessagesGetPollVotesRequest{}
+	_ bin.Decoder     = &MessagesGetPollVotesRequest{}
+	_ bin.BareEncoder = &MessagesGetPollVotesRequest{}
+	_ bin.BareDecoder = &MessagesGetPollVotesRequest{}
+)
+
 func (g *MessagesGetPollVotesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -210,51 +218,6 @@ func (g *MessagesGetPollVotesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetPollVotesRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetID returns value of ID field.
-func (g *MessagesGetPollVotesRequest) GetID() (value int) {
-	return g.ID
-}
-
-// SetOption sets value of Option conditional field.
-func (g *MessagesGetPollVotesRequest) SetOption(value []byte) {
-	g.Flags.Set(0)
-	g.Option = value
-}
-
-// GetOption returns value of Option conditional field and
-// boolean which is true if field was set.
-func (g *MessagesGetPollVotesRequest) GetOption() (value []byte, ok bool) {
-	if !g.Flags.Has(0) {
-		return value, false
-	}
-	return g.Option, true
-}
-
-// SetOffset sets value of Offset conditional field.
-func (g *MessagesGetPollVotesRequest) SetOffset(value string) {
-	g.Flags.Set(1)
-	g.Offset = value
-}
-
-// GetOffset returns value of Offset conditional field and
-// boolean which is true if field was set.
-func (g *MessagesGetPollVotesRequest) GetOffset() (value string, ok bool) {
-	if !g.Flags.Has(1) {
-		return value, false
-	}
-	return g.Offset, true
-}
-
-// GetLimit returns value of Limit field.
-func (g *MessagesGetPollVotesRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetPollVotesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -314,13 +277,50 @@ func (g *MessagesGetPollVotesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetPollVotesRequest.
-var (
-	_ bin.Encoder     = &MessagesGetPollVotesRequest{}
-	_ bin.Decoder     = &MessagesGetPollVotesRequest{}
-	_ bin.BareEncoder = &MessagesGetPollVotesRequest{}
-	_ bin.BareDecoder = &MessagesGetPollVotesRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetPollVotesRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetID returns value of ID field.
+func (g *MessagesGetPollVotesRequest) GetID() (value int) {
+	return g.ID
+}
+
+// SetOption sets value of Option conditional field.
+func (g *MessagesGetPollVotesRequest) SetOption(value []byte) {
+	g.Flags.Set(0)
+	g.Option = value
+}
+
+// GetOption returns value of Option conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetPollVotesRequest) GetOption() (value []byte, ok bool) {
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.Option, true
+}
+
+// SetOffset sets value of Offset conditional field.
+func (g *MessagesGetPollVotesRequest) SetOffset(value string) {
+	g.Flags.Set(1)
+	g.Offset = value
+}
+
+// GetOffset returns value of Offset conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetPollVotesRequest) GetOffset() (value string, ok bool) {
+	if !g.Flags.Has(1) {
+		return value, false
+	}
+	return g.Offset, true
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetPollVotesRequest) GetLimit() (value int) {
+	return g.Limit
+}
 
 // MessagesGetPollVotes invokes method messages.getPollVotes#b86e380e returning error if any.
 // Get poll results for non-anonymous polls

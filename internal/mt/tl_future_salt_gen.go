@@ -42,6 +42,14 @@ type FutureSalt struct {
 // FutureSaltTypeID is TL type id of FutureSalt.
 const FutureSaltTypeID = 0x949d9dc
 
+// Ensuring interfaces in compile-time for FutureSalt.
+var (
+	_ bin.Encoder     = &FutureSalt{}
+	_ bin.Decoder     = &FutureSalt{}
+	_ bin.BareEncoder = &FutureSalt{}
+	_ bin.BareDecoder = &FutureSalt{}
+)
+
 func (f *FutureSalt) Zero() bool {
 	if f == nil {
 		return true
@@ -66,17 +74,6 @@ func (f *FutureSalt) String() string {
 	}
 	type Alias FutureSalt
 	return fmt.Sprintf("FutureSalt%+v", Alias(*f))
-}
-
-// FillFrom fills FutureSalt from given interface.
-func (f *FutureSalt) FillFrom(from interface {
-	GetValidSince() (value int)
-	GetValidUntil() (value int)
-	GetSalt() (value int64)
-}) {
-	f.ValidSince = from.GetValidSince()
-	f.ValidUntil = from.GetValidUntil()
-	f.Salt = from.GetSalt()
 }
 
 // TypeID returns type id in TL schema.
@@ -138,21 +135,6 @@ func (f *FutureSalt) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValidSince returns value of ValidSince field.
-func (f *FutureSalt) GetValidSince() (value int) {
-	return f.ValidSince
-}
-
-// GetValidUntil returns value of ValidUntil field.
-func (f *FutureSalt) GetValidUntil() (value int) {
-	return f.ValidUntil
-}
-
-// GetSalt returns value of Salt field.
-func (f *FutureSalt) GetSalt() (value int64) {
-	return f.Salt
-}
-
 // Decode implements bin.Decoder.
 func (f *FutureSalt) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -193,10 +175,17 @@ func (f *FutureSalt) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for FutureSalt.
-var (
-	_ bin.Encoder     = &FutureSalt{}
-	_ bin.Decoder     = &FutureSalt{}
-	_ bin.BareEncoder = &FutureSalt{}
-	_ bin.BareDecoder = &FutureSalt{}
-)
+// GetValidSince returns value of ValidSince field.
+func (f *FutureSalt) GetValidSince() (value int) {
+	return f.ValidSince
+}
+
+// GetValidUntil returns value of ValidUntil field.
+func (f *FutureSalt) GetValidUntil() (value int) {
+	return f.ValidUntil
+}
+
+// GetSalt returns value of Salt field.
+func (f *FutureSalt) GetSalt() (value int64) {
+	return f.Salt
+}

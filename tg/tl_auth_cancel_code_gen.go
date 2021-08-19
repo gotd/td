@@ -46,6 +46,14 @@ type AuthCancelCodeRequest struct {
 // AuthCancelCodeRequestTypeID is TL type id of AuthCancelCodeRequest.
 const AuthCancelCodeRequestTypeID = 0x1f040578
 
+// Ensuring interfaces in compile-time for AuthCancelCodeRequest.
+var (
+	_ bin.Encoder     = &AuthCancelCodeRequest{}
+	_ bin.Decoder     = &AuthCancelCodeRequest{}
+	_ bin.BareEncoder = &AuthCancelCodeRequest{}
+	_ bin.BareDecoder = &AuthCancelCodeRequest{}
+)
+
 func (c *AuthCancelCodeRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -132,16 +140,6 @@ func (c *AuthCancelCodeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (c *AuthCancelCodeRequest) GetPhoneNumber() (value string) {
-	return c.PhoneNumber
-}
-
-// GetPhoneCodeHash returns value of PhoneCodeHash field.
-func (c *AuthCancelCodeRequest) GetPhoneCodeHash() (value string) {
-	return c.PhoneCodeHash
-}
-
 // Decode implements bin.Decoder.
 func (c *AuthCancelCodeRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -175,13 +173,15 @@ func (c *AuthCancelCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthCancelCodeRequest.
-var (
-	_ bin.Encoder     = &AuthCancelCodeRequest{}
-	_ bin.Decoder     = &AuthCancelCodeRequest{}
-	_ bin.BareEncoder = &AuthCancelCodeRequest{}
-	_ bin.BareDecoder = &AuthCancelCodeRequest{}
-)
+// GetPhoneNumber returns value of PhoneNumber field.
+func (c *AuthCancelCodeRequest) GetPhoneNumber() (value string) {
+	return c.PhoneNumber
+}
+
+// GetPhoneCodeHash returns value of PhoneCodeHash field.
+func (c *AuthCancelCodeRequest) GetPhoneCodeHash() (value string) {
+	return c.PhoneCodeHash
+}
 
 // AuthCancelCode invokes method auth.cancelCode#1f040578 returning error if any.
 // Cancel the login verification code

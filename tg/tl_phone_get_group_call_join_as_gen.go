@@ -40,6 +40,14 @@ type PhoneGetGroupCallJoinAsRequest struct {
 // PhoneGetGroupCallJoinAsRequestTypeID is TL type id of PhoneGetGroupCallJoinAsRequest.
 const PhoneGetGroupCallJoinAsRequestTypeID = 0xef7c213a
 
+// Ensuring interfaces in compile-time for PhoneGetGroupCallJoinAsRequest.
+var (
+	_ bin.Encoder     = &PhoneGetGroupCallJoinAsRequest{}
+	_ bin.Decoder     = &PhoneGetGroupCallJoinAsRequest{}
+	_ bin.BareEncoder = &PhoneGetGroupCallJoinAsRequest{}
+	_ bin.BareDecoder = &PhoneGetGroupCallJoinAsRequest{}
+)
+
 func (g *PhoneGetGroupCallJoinAsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -121,11 +129,6 @@ func (g *PhoneGetGroupCallJoinAsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *PhoneGetGroupCallJoinAsRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
 // Decode implements bin.Decoder.
 func (g *PhoneGetGroupCallJoinAsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -152,13 +155,10 @@ func (g *PhoneGetGroupCallJoinAsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneGetGroupCallJoinAsRequest.
-var (
-	_ bin.Encoder     = &PhoneGetGroupCallJoinAsRequest{}
-	_ bin.Decoder     = &PhoneGetGroupCallJoinAsRequest{}
-	_ bin.BareEncoder = &PhoneGetGroupCallJoinAsRequest{}
-	_ bin.BareDecoder = &PhoneGetGroupCallJoinAsRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *PhoneGetGroupCallJoinAsRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
 
 // PhoneGetGroupCallJoinAs invokes method phone.getGroupCallJoinAs#ef7c213a returning error if any.
 //

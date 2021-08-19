@@ -41,6 +41,19 @@ type MessagesFeaturedStickersNotModified struct {
 // MessagesFeaturedStickersNotModifiedTypeID is TL type id of MessagesFeaturedStickersNotModified.
 const MessagesFeaturedStickersNotModifiedTypeID = 0xc6dc0c66
 
+// construct implements constructor of MessagesFeaturedStickersClass.
+func (f MessagesFeaturedStickersNotModified) construct() MessagesFeaturedStickersClass { return &f }
+
+// Ensuring interfaces in compile-time for MessagesFeaturedStickersNotModified.
+var (
+	_ bin.Encoder     = &MessagesFeaturedStickersNotModified{}
+	_ bin.Decoder     = &MessagesFeaturedStickersNotModified{}
+	_ bin.BareEncoder = &MessagesFeaturedStickersNotModified{}
+	_ bin.BareDecoder = &MessagesFeaturedStickersNotModified{}
+
+	_ MessagesFeaturedStickersClass = &MessagesFeaturedStickersNotModified{}
+)
+
 func (f *MessagesFeaturedStickersNotModified) Zero() bool {
 	if f == nil {
 		return true
@@ -117,11 +130,6 @@ func (f *MessagesFeaturedStickersNotModified) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (f *MessagesFeaturedStickersNotModified) GetCount() (value int) {
-	return f.Count
-}
-
 // Decode implements bin.Decoder.
 func (f *MessagesFeaturedStickersNotModified) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -148,18 +156,10 @@ func (f *MessagesFeaturedStickersNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFeaturedStickersClass.
-func (f MessagesFeaturedStickersNotModified) construct() MessagesFeaturedStickersClass { return &f }
-
-// Ensuring interfaces in compile-time for MessagesFeaturedStickersNotModified.
-var (
-	_ bin.Encoder     = &MessagesFeaturedStickersNotModified{}
-	_ bin.Decoder     = &MessagesFeaturedStickersNotModified{}
-	_ bin.BareEncoder = &MessagesFeaturedStickersNotModified{}
-	_ bin.BareDecoder = &MessagesFeaturedStickersNotModified{}
-
-	_ MessagesFeaturedStickersClass = &MessagesFeaturedStickersNotModified{}
-)
+// GetCount returns value of Count field.
+func (f *MessagesFeaturedStickersNotModified) GetCount() (value int) {
+	return f.Count
+}
 
 // MessagesFeaturedStickers represents TL type `messages.featuredStickers#b6abc341`.
 // Featured stickersets
@@ -181,6 +181,19 @@ type MessagesFeaturedStickers struct {
 
 // MessagesFeaturedStickersTypeID is TL type id of MessagesFeaturedStickers.
 const MessagesFeaturedStickersTypeID = 0xb6abc341
+
+// construct implements constructor of MessagesFeaturedStickersClass.
+func (f MessagesFeaturedStickers) construct() MessagesFeaturedStickersClass { return &f }
+
+// Ensuring interfaces in compile-time for MessagesFeaturedStickers.
+var (
+	_ bin.Encoder     = &MessagesFeaturedStickers{}
+	_ bin.Decoder     = &MessagesFeaturedStickers{}
+	_ bin.BareEncoder = &MessagesFeaturedStickers{}
+	_ bin.BareDecoder = &MessagesFeaturedStickers{}
+
+	_ MessagesFeaturedStickersClass = &MessagesFeaturedStickers{}
+)
 
 func (f *MessagesFeaturedStickers) Zero() bool {
 	if f == nil {
@@ -299,31 +312,6 @@ func (f *MessagesFeaturedStickers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (f *MessagesFeaturedStickers) GetHash() (value int) {
-	return f.Hash
-}
-
-// GetCount returns value of Count field.
-func (f *MessagesFeaturedStickers) GetCount() (value int) {
-	return f.Count
-}
-
-// GetSets returns value of Sets field.
-func (f *MessagesFeaturedStickers) GetSets() (value []StickerSetCoveredClass) {
-	return f.Sets
-}
-
-// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
-func (f *MessagesFeaturedStickers) MapSets() (value StickerSetCoveredClassArray) {
-	return StickerSetCoveredClassArray(f.Sets)
-}
-
-// GetUnread returns value of Unread field.
-func (f *MessagesFeaturedStickers) GetUnread() (value []int64) {
-	return f.Unread
-}
-
 // Decode implements bin.Decoder.
 func (f *MessagesFeaturedStickers) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -391,18 +379,30 @@ func (f *MessagesFeaturedStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFeaturedStickersClass.
-func (f MessagesFeaturedStickers) construct() MessagesFeaturedStickersClass { return &f }
+// GetHash returns value of Hash field.
+func (f *MessagesFeaturedStickers) GetHash() (value int) {
+	return f.Hash
+}
 
-// Ensuring interfaces in compile-time for MessagesFeaturedStickers.
-var (
-	_ bin.Encoder     = &MessagesFeaturedStickers{}
-	_ bin.Decoder     = &MessagesFeaturedStickers{}
-	_ bin.BareEncoder = &MessagesFeaturedStickers{}
-	_ bin.BareDecoder = &MessagesFeaturedStickers{}
+// GetCount returns value of Count field.
+func (f *MessagesFeaturedStickers) GetCount() (value int) {
+	return f.Count
+}
 
-	_ MessagesFeaturedStickersClass = &MessagesFeaturedStickers{}
-)
+// GetSets returns value of Sets field.
+func (f *MessagesFeaturedStickers) GetSets() (value []StickerSetCoveredClass) {
+	return f.Sets
+}
+
+// GetUnread returns value of Unread field.
+func (f *MessagesFeaturedStickers) GetUnread() (value []int64) {
+	return f.Unread
+}
+
+// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
+func (f *MessagesFeaturedStickers) MapSets() (value StickerSetCoveredClassArray) {
+	return StickerSetCoveredClassArray(f.Sets)
+}
 
 // MessagesFeaturedStickersClass represents messages.FeaturedStickers generic type.
 //
@@ -503,331 +503,4 @@ func (b *MessagesFeaturedStickersBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesFeaturedStickersClass as nil")
 	}
 	return b.FeaturedStickers.Encode(buf)
-}
-
-// MessagesFeaturedStickersClassArray is adapter for slice of MessagesFeaturedStickersClass.
-type MessagesFeaturedStickersClassArray []MessagesFeaturedStickersClass
-
-// Sort sorts slice of MessagesFeaturedStickersClass.
-func (s MessagesFeaturedStickersClassArray) Sort(less func(a, b MessagesFeaturedStickersClass) bool) MessagesFeaturedStickersClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesFeaturedStickersClass.
-func (s MessagesFeaturedStickersClassArray) SortStable(less func(a, b MessagesFeaturedStickersClass) bool) MessagesFeaturedStickersClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesFeaturedStickersClass.
-func (s MessagesFeaturedStickersClassArray) Retain(keep func(x MessagesFeaturedStickersClass) bool) MessagesFeaturedStickersClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesFeaturedStickersClassArray) First() (v MessagesFeaturedStickersClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesFeaturedStickersClassArray) Last() (v MessagesFeaturedStickersClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesFeaturedStickersClassArray) PopFirst() (v MessagesFeaturedStickersClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesFeaturedStickersClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesFeaturedStickersClassArray) Pop() (v MessagesFeaturedStickersClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsMessagesFeaturedStickersNotModified returns copy with only MessagesFeaturedStickersNotModified constructors.
-func (s MessagesFeaturedStickersClassArray) AsMessagesFeaturedStickersNotModified() (to MessagesFeaturedStickersNotModifiedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessagesFeaturedStickersNotModified)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessagesFeaturedStickers returns copy with only MessagesFeaturedStickers constructors.
-func (s MessagesFeaturedStickersClassArray) AsMessagesFeaturedStickers() (to MessagesFeaturedStickersArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessagesFeaturedStickers)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyModified appends only Modified constructors to
-// given slice.
-func (s MessagesFeaturedStickersClassArray) AppendOnlyModified(to []*MessagesFeaturedStickers) []*MessagesFeaturedStickers {
-	for _, elem := range s {
-		value, ok := elem.AsModified()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsModified returns copy with only Modified constructors.
-func (s MessagesFeaturedStickersClassArray) AsModified() (to []*MessagesFeaturedStickers) {
-	return s.AppendOnlyModified(to)
-}
-
-// FirstAsModified returns first element of slice (if exists).
-func (s MessagesFeaturedStickersClassArray) FirstAsModified() (v *MessagesFeaturedStickers, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// LastAsModified returns last element of slice (if exists).
-func (s MessagesFeaturedStickersClassArray) LastAsModified() (v *MessagesFeaturedStickers, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// PopFirstAsModified returns element of slice (if exists).
-func (s *MessagesFeaturedStickersClassArray) PopFirstAsModified() (v *MessagesFeaturedStickers, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// PopAsModified returns element of slice (if exists).
-func (s *MessagesFeaturedStickersClassArray) PopAsModified() (v *MessagesFeaturedStickers, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// MessagesFeaturedStickersNotModifiedArray is adapter for slice of MessagesFeaturedStickersNotModified.
-type MessagesFeaturedStickersNotModifiedArray []MessagesFeaturedStickersNotModified
-
-// Sort sorts slice of MessagesFeaturedStickersNotModified.
-func (s MessagesFeaturedStickersNotModifiedArray) Sort(less func(a, b MessagesFeaturedStickersNotModified) bool) MessagesFeaturedStickersNotModifiedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesFeaturedStickersNotModified.
-func (s MessagesFeaturedStickersNotModifiedArray) SortStable(less func(a, b MessagesFeaturedStickersNotModified) bool) MessagesFeaturedStickersNotModifiedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesFeaturedStickersNotModified.
-func (s MessagesFeaturedStickersNotModifiedArray) Retain(keep func(x MessagesFeaturedStickersNotModified) bool) MessagesFeaturedStickersNotModifiedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesFeaturedStickersNotModifiedArray) First() (v MessagesFeaturedStickersNotModified, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesFeaturedStickersNotModifiedArray) Last() (v MessagesFeaturedStickersNotModified, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesFeaturedStickersNotModifiedArray) PopFirst() (v MessagesFeaturedStickersNotModified, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesFeaturedStickersNotModified
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesFeaturedStickersNotModifiedArray) Pop() (v MessagesFeaturedStickersNotModified, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessagesFeaturedStickersArray is adapter for slice of MessagesFeaturedStickers.
-type MessagesFeaturedStickersArray []MessagesFeaturedStickers
-
-// Sort sorts slice of MessagesFeaturedStickers.
-func (s MessagesFeaturedStickersArray) Sort(less func(a, b MessagesFeaturedStickers) bool) MessagesFeaturedStickersArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesFeaturedStickers.
-func (s MessagesFeaturedStickersArray) SortStable(less func(a, b MessagesFeaturedStickers) bool) MessagesFeaturedStickersArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesFeaturedStickers.
-func (s MessagesFeaturedStickersArray) Retain(keep func(x MessagesFeaturedStickers) bool) MessagesFeaturedStickersArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesFeaturedStickersArray) First() (v MessagesFeaturedStickers, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesFeaturedStickersArray) Last() (v MessagesFeaturedStickers, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesFeaturedStickersArray) PopFirst() (v MessagesFeaturedStickers, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesFeaturedStickers
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesFeaturedStickersArray) Pop() (v MessagesFeaturedStickers, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

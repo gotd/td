@@ -77,6 +77,14 @@ type Authorization struct {
 // AuthorizationTypeID is TL type id of Authorization.
 const AuthorizationTypeID = 0xad01d61d
 
+// Ensuring interfaces in compile-time for Authorization.
+var (
+	_ bin.Encoder     = &Authorization{}
+	_ bin.Decoder     = &Authorization{}
+	_ bin.BareEncoder = &Authorization{}
+	_ bin.BareDecoder = &Authorization{}
+)
+
 func (a *Authorization) Zero() bool {
 	if a == nil {
 		return true
@@ -308,114 +316,6 @@ func (a *Authorization) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetCurrent sets value of Current conditional field.
-func (a *Authorization) SetCurrent(value bool) {
-	if value {
-		a.Flags.Set(0)
-		a.Current = true
-	} else {
-		a.Flags.Unset(0)
-		a.Current = false
-	}
-}
-
-// GetCurrent returns value of Current conditional field.
-func (a *Authorization) GetCurrent() (value bool) {
-	return a.Flags.Has(0)
-}
-
-// SetOfficialApp sets value of OfficialApp conditional field.
-func (a *Authorization) SetOfficialApp(value bool) {
-	if value {
-		a.Flags.Set(1)
-		a.OfficialApp = true
-	} else {
-		a.Flags.Unset(1)
-		a.OfficialApp = false
-	}
-}
-
-// GetOfficialApp returns value of OfficialApp conditional field.
-func (a *Authorization) GetOfficialApp() (value bool) {
-	return a.Flags.Has(1)
-}
-
-// SetPasswordPending sets value of PasswordPending conditional field.
-func (a *Authorization) SetPasswordPending(value bool) {
-	if value {
-		a.Flags.Set(2)
-		a.PasswordPending = true
-	} else {
-		a.Flags.Unset(2)
-		a.PasswordPending = false
-	}
-}
-
-// GetPasswordPending returns value of PasswordPending conditional field.
-func (a *Authorization) GetPasswordPending() (value bool) {
-	return a.Flags.Has(2)
-}
-
-// GetHash returns value of Hash field.
-func (a *Authorization) GetHash() (value int64) {
-	return a.Hash
-}
-
-// GetDeviceModel returns value of DeviceModel field.
-func (a *Authorization) GetDeviceModel() (value string) {
-	return a.DeviceModel
-}
-
-// GetPlatform returns value of Platform field.
-func (a *Authorization) GetPlatform() (value string) {
-	return a.Platform
-}
-
-// GetSystemVersion returns value of SystemVersion field.
-func (a *Authorization) GetSystemVersion() (value string) {
-	return a.SystemVersion
-}
-
-// GetAPIID returns value of APIID field.
-func (a *Authorization) GetAPIID() (value int) {
-	return a.APIID
-}
-
-// GetAppName returns value of AppName field.
-func (a *Authorization) GetAppName() (value string) {
-	return a.AppName
-}
-
-// GetAppVersion returns value of AppVersion field.
-func (a *Authorization) GetAppVersion() (value string) {
-	return a.AppVersion
-}
-
-// GetDateCreated returns value of DateCreated field.
-func (a *Authorization) GetDateCreated() (value int) {
-	return a.DateCreated
-}
-
-// GetDateActive returns value of DateActive field.
-func (a *Authorization) GetDateActive() (value int) {
-	return a.DateActive
-}
-
-// GetIP returns value of IP field.
-func (a *Authorization) GetIP() (value string) {
-	return a.IP
-}
-
-// GetCountry returns value of Country field.
-func (a *Authorization) GetCountry() (value string) {
-	return a.Country
-}
-
-// GetRegion returns value of Region field.
-func (a *Authorization) GetRegion() (value string) {
-	return a.Region
-}
-
 // Decode implements bin.Decoder.
 func (a *Authorization) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -527,10 +427,110 @@ func (a *Authorization) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for Authorization.
-var (
-	_ bin.Encoder     = &Authorization{}
-	_ bin.Decoder     = &Authorization{}
-	_ bin.BareEncoder = &Authorization{}
-	_ bin.BareDecoder = &Authorization{}
-)
+// SetCurrent sets value of Current conditional field.
+func (a *Authorization) SetCurrent(value bool) {
+	if value {
+		a.Flags.Set(0)
+		a.Current = true
+	} else {
+		a.Flags.Unset(0)
+		a.Current = false
+	}
+}
+
+// GetCurrent returns value of Current conditional field.
+func (a *Authorization) GetCurrent() (value bool) {
+	return a.Flags.Has(0)
+}
+
+// SetOfficialApp sets value of OfficialApp conditional field.
+func (a *Authorization) SetOfficialApp(value bool) {
+	if value {
+		a.Flags.Set(1)
+		a.OfficialApp = true
+	} else {
+		a.Flags.Unset(1)
+		a.OfficialApp = false
+	}
+}
+
+// GetOfficialApp returns value of OfficialApp conditional field.
+func (a *Authorization) GetOfficialApp() (value bool) {
+	return a.Flags.Has(1)
+}
+
+// SetPasswordPending sets value of PasswordPending conditional field.
+func (a *Authorization) SetPasswordPending(value bool) {
+	if value {
+		a.Flags.Set(2)
+		a.PasswordPending = true
+	} else {
+		a.Flags.Unset(2)
+		a.PasswordPending = false
+	}
+}
+
+// GetPasswordPending returns value of PasswordPending conditional field.
+func (a *Authorization) GetPasswordPending() (value bool) {
+	return a.Flags.Has(2)
+}
+
+// GetHash returns value of Hash field.
+func (a *Authorization) GetHash() (value int64) {
+	return a.Hash
+}
+
+// GetDeviceModel returns value of DeviceModel field.
+func (a *Authorization) GetDeviceModel() (value string) {
+	return a.DeviceModel
+}
+
+// GetPlatform returns value of Platform field.
+func (a *Authorization) GetPlatform() (value string) {
+	return a.Platform
+}
+
+// GetSystemVersion returns value of SystemVersion field.
+func (a *Authorization) GetSystemVersion() (value string) {
+	return a.SystemVersion
+}
+
+// GetAPIID returns value of APIID field.
+func (a *Authorization) GetAPIID() (value int) {
+	return a.APIID
+}
+
+// GetAppName returns value of AppName field.
+func (a *Authorization) GetAppName() (value string) {
+	return a.AppName
+}
+
+// GetAppVersion returns value of AppVersion field.
+func (a *Authorization) GetAppVersion() (value string) {
+	return a.AppVersion
+}
+
+// GetDateCreated returns value of DateCreated field.
+func (a *Authorization) GetDateCreated() (value int) {
+	return a.DateCreated
+}
+
+// GetDateActive returns value of DateActive field.
+func (a *Authorization) GetDateActive() (value int) {
+	return a.DateActive
+}
+
+// GetIP returns value of IP field.
+func (a *Authorization) GetIP() (value string) {
+	return a.IP
+}
+
+// GetCountry returns value of Country field.
+func (a *Authorization) GetCountry() (value string) {
+	return a.Country
+}
+
+// GetRegion returns value of Region field.
+func (a *Authorization) GetRegion() (value string) {
+	return a.Region
+}

@@ -42,6 +42,19 @@ type BadMsgNotification struct {
 // BadMsgNotificationTypeID is TL type id of BadMsgNotification.
 const BadMsgNotificationTypeID = 0xa7eff811
 
+// construct implements constructor of BadMsgNotificationClass.
+func (b BadMsgNotification) construct() BadMsgNotificationClass { return &b }
+
+// Ensuring interfaces in compile-time for BadMsgNotification.
+var (
+	_ bin.Encoder     = &BadMsgNotification{}
+	_ bin.Decoder     = &BadMsgNotification{}
+	_ bin.BareEncoder = &BadMsgNotification{}
+	_ bin.BareDecoder = &BadMsgNotification{}
+
+	_ BadMsgNotificationClass = &BadMsgNotification{}
+)
+
 func (b *BadMsgNotification) Zero() bool {
 	if b == nil {
 		return true
@@ -66,17 +79,6 @@ func (b *BadMsgNotification) String() string {
 	}
 	type Alias BadMsgNotification
 	return fmt.Sprintf("BadMsgNotification%+v", Alias(*b))
-}
-
-// FillFrom fills BadMsgNotification from given interface.
-func (b *BadMsgNotification) FillFrom(from interface {
-	GetBadMsgID() (value int64)
-	GetBadMsgSeqno() (value int)
-	GetErrorCode() (value int)
-}) {
-	b.BadMsgID = from.GetBadMsgID()
-	b.BadMsgSeqno = from.GetBadMsgSeqno()
-	b.ErrorCode = from.GetErrorCode()
 }
 
 // TypeID returns type id in TL schema.
@@ -138,21 +140,6 @@ func (b *BadMsgNotification) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetBadMsgID returns value of BadMsgID field.
-func (b *BadMsgNotification) GetBadMsgID() (value int64) {
-	return b.BadMsgID
-}
-
-// GetBadMsgSeqno returns value of BadMsgSeqno field.
-func (b *BadMsgNotification) GetBadMsgSeqno() (value int) {
-	return b.BadMsgSeqno
-}
-
-// GetErrorCode returns value of ErrorCode field.
-func (b *BadMsgNotification) GetErrorCode() (value int) {
-	return b.ErrorCode
-}
-
 // Decode implements bin.Decoder.
 func (b *BadMsgNotification) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -193,18 +180,20 @@ func (b *BadMsgNotification) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BadMsgNotificationClass.
-func (b BadMsgNotification) construct() BadMsgNotificationClass { return &b }
+// GetBadMsgID returns value of BadMsgID field.
+func (b *BadMsgNotification) GetBadMsgID() (value int64) {
+	return b.BadMsgID
+}
 
-// Ensuring interfaces in compile-time for BadMsgNotification.
-var (
-	_ bin.Encoder     = &BadMsgNotification{}
-	_ bin.Decoder     = &BadMsgNotification{}
-	_ bin.BareEncoder = &BadMsgNotification{}
-	_ bin.BareDecoder = &BadMsgNotification{}
+// GetBadMsgSeqno returns value of BadMsgSeqno field.
+func (b *BadMsgNotification) GetBadMsgSeqno() (value int) {
+	return b.BadMsgSeqno
+}
 
-	_ BadMsgNotificationClass = &BadMsgNotification{}
-)
+// GetErrorCode returns value of ErrorCode field.
+func (b *BadMsgNotification) GetErrorCode() (value int) {
+	return b.ErrorCode
+}
 
 // BadServerSalt represents TL type `bad_server_salt#edab447b`.
 type BadServerSalt struct {
@@ -220,6 +209,19 @@ type BadServerSalt struct {
 
 // BadServerSaltTypeID is TL type id of BadServerSalt.
 const BadServerSaltTypeID = 0xedab447b
+
+// construct implements constructor of BadMsgNotificationClass.
+func (b BadServerSalt) construct() BadMsgNotificationClass { return &b }
+
+// Ensuring interfaces in compile-time for BadServerSalt.
+var (
+	_ bin.Encoder     = &BadServerSalt{}
+	_ bin.Decoder     = &BadServerSalt{}
+	_ bin.BareEncoder = &BadServerSalt{}
+	_ bin.BareDecoder = &BadServerSalt{}
+
+	_ BadMsgNotificationClass = &BadServerSalt{}
+)
 
 func (b *BadServerSalt) Zero() bool {
 	if b == nil {
@@ -248,19 +250,6 @@ func (b *BadServerSalt) String() string {
 	}
 	type Alias BadServerSalt
 	return fmt.Sprintf("BadServerSalt%+v", Alias(*b))
-}
-
-// FillFrom fills BadServerSalt from given interface.
-func (b *BadServerSalt) FillFrom(from interface {
-	GetBadMsgID() (value int64)
-	GetBadMsgSeqno() (value int)
-	GetErrorCode() (value int)
-	GetNewServerSalt() (value int64)
-}) {
-	b.BadMsgID = from.GetBadMsgID()
-	b.BadMsgSeqno = from.GetBadMsgSeqno()
-	b.ErrorCode = from.GetErrorCode()
-	b.NewServerSalt = from.GetNewServerSalt()
 }
 
 // TypeID returns type id in TL schema.
@@ -327,26 +316,6 @@ func (b *BadServerSalt) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetBadMsgID returns value of BadMsgID field.
-func (b *BadServerSalt) GetBadMsgID() (value int64) {
-	return b.BadMsgID
-}
-
-// GetBadMsgSeqno returns value of BadMsgSeqno field.
-func (b *BadServerSalt) GetBadMsgSeqno() (value int) {
-	return b.BadMsgSeqno
-}
-
-// GetErrorCode returns value of ErrorCode field.
-func (b *BadServerSalt) GetErrorCode() (value int) {
-	return b.ErrorCode
-}
-
-// GetNewServerSalt returns value of NewServerSalt field.
-func (b *BadServerSalt) GetNewServerSalt() (value int64) {
-	return b.NewServerSalt
-}
-
 // Decode implements bin.Decoder.
 func (b *BadServerSalt) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -394,18 +363,25 @@ func (b *BadServerSalt) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BadMsgNotificationClass.
-func (b BadServerSalt) construct() BadMsgNotificationClass { return &b }
+// GetBadMsgID returns value of BadMsgID field.
+func (b *BadServerSalt) GetBadMsgID() (value int64) {
+	return b.BadMsgID
+}
 
-// Ensuring interfaces in compile-time for BadServerSalt.
-var (
-	_ bin.Encoder     = &BadServerSalt{}
-	_ bin.Decoder     = &BadServerSalt{}
-	_ bin.BareEncoder = &BadServerSalt{}
-	_ bin.BareDecoder = &BadServerSalt{}
+// GetBadMsgSeqno returns value of BadMsgSeqno field.
+func (b *BadServerSalt) GetBadMsgSeqno() (value int) {
+	return b.BadMsgSeqno
+}
 
-	_ BadMsgNotificationClass = &BadServerSalt{}
-)
+// GetErrorCode returns value of ErrorCode field.
+func (b *BadServerSalt) GetErrorCode() (value int) {
+	return b.ErrorCode
+}
+
+// GetNewServerSalt returns value of NewServerSalt field.
+func (b *BadServerSalt) GetNewServerSalt() (value int64) {
+	return b.NewServerSalt
+}
 
 // BadMsgNotificationClass represents BadMsgNotification generic type.
 //
@@ -439,10 +415,8 @@ type BadMsgNotificationClass interface {
 
 	// BadMsgID field of BadMsgNotification.
 	GetBadMsgID() (value int64)
-
 	// BadMsgSeqno field of BadMsgNotification.
 	GetBadMsgSeqno() (value int)
-
 	// ErrorCode field of BadMsgNotification.
 	GetErrorCode() (value int)
 }
@@ -497,276 +471,4 @@ func (b *BadMsgNotificationBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode BadMsgNotificationClass as nil")
 	}
 	return b.BadMsgNotification.Encode(buf)
-}
-
-// BadMsgNotificationClassArray is adapter for slice of BadMsgNotificationClass.
-type BadMsgNotificationClassArray []BadMsgNotificationClass
-
-// Sort sorts slice of BadMsgNotificationClass.
-func (s BadMsgNotificationClassArray) Sort(less func(a, b BadMsgNotificationClass) bool) BadMsgNotificationClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BadMsgNotificationClass.
-func (s BadMsgNotificationClassArray) SortStable(less func(a, b BadMsgNotificationClass) bool) BadMsgNotificationClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BadMsgNotificationClass.
-func (s BadMsgNotificationClassArray) Retain(keep func(x BadMsgNotificationClass) bool) BadMsgNotificationClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BadMsgNotificationClassArray) First() (v BadMsgNotificationClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BadMsgNotificationClassArray) Last() (v BadMsgNotificationClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BadMsgNotificationClassArray) PopFirst() (v BadMsgNotificationClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BadMsgNotificationClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BadMsgNotificationClassArray) Pop() (v BadMsgNotificationClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsBadMsgNotification returns copy with only BadMsgNotification constructors.
-func (s BadMsgNotificationClassArray) AsBadMsgNotification() (to BadMsgNotificationArray) {
-	for _, elem := range s {
-		value, ok := elem.(*BadMsgNotification)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsBadServerSalt returns copy with only BadServerSalt constructors.
-func (s BadMsgNotificationClassArray) AsBadServerSalt() (to BadServerSaltArray) {
-	for _, elem := range s {
-		value, ok := elem.(*BadServerSalt)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// BadMsgNotificationArray is adapter for slice of BadMsgNotification.
-type BadMsgNotificationArray []BadMsgNotification
-
-// Sort sorts slice of BadMsgNotification.
-func (s BadMsgNotificationArray) Sort(less func(a, b BadMsgNotification) bool) BadMsgNotificationArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BadMsgNotification.
-func (s BadMsgNotificationArray) SortStable(less func(a, b BadMsgNotification) bool) BadMsgNotificationArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BadMsgNotification.
-func (s BadMsgNotificationArray) Retain(keep func(x BadMsgNotification) bool) BadMsgNotificationArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BadMsgNotificationArray) First() (v BadMsgNotification, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BadMsgNotificationArray) Last() (v BadMsgNotification, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BadMsgNotificationArray) PopFirst() (v BadMsgNotification, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BadMsgNotification
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BadMsgNotificationArray) Pop() (v BadMsgNotification, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// BadServerSaltArray is adapter for slice of BadServerSalt.
-type BadServerSaltArray []BadServerSalt
-
-// Sort sorts slice of BadServerSalt.
-func (s BadServerSaltArray) Sort(less func(a, b BadServerSalt) bool) BadServerSaltArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BadServerSalt.
-func (s BadServerSaltArray) SortStable(less func(a, b BadServerSalt) bool) BadServerSaltArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BadServerSalt.
-func (s BadServerSaltArray) Retain(keep func(x BadServerSalt) bool) BadServerSaltArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BadServerSaltArray) First() (v BadServerSalt, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BadServerSaltArray) Last() (v BadServerSalt, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BadServerSaltArray) PopFirst() (v BadServerSalt, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BadServerSalt
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BadServerSaltArray) Pop() (v BadServerSalt, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

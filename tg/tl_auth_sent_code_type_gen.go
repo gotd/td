@@ -41,6 +41,19 @@ type AuthSentCodeTypeApp struct {
 // AuthSentCodeTypeAppTypeID is TL type id of AuthSentCodeTypeApp.
 const AuthSentCodeTypeAppTypeID = 0x3dbb5986
 
+// construct implements constructor of AuthSentCodeTypeClass.
+func (s AuthSentCodeTypeApp) construct() AuthSentCodeTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for AuthSentCodeTypeApp.
+var (
+	_ bin.Encoder     = &AuthSentCodeTypeApp{}
+	_ bin.Decoder     = &AuthSentCodeTypeApp{}
+	_ bin.BareEncoder = &AuthSentCodeTypeApp{}
+	_ bin.BareDecoder = &AuthSentCodeTypeApp{}
+
+	_ AuthSentCodeTypeClass = &AuthSentCodeTypeApp{}
+)
+
 func (s *AuthSentCodeTypeApp) Zero() bool {
 	if s == nil {
 		return true
@@ -117,11 +130,6 @@ func (s *AuthSentCodeTypeApp) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLength returns value of Length field.
-func (s *AuthSentCodeTypeApp) GetLength() (value int) {
-	return s.Length
-}
-
 // Decode implements bin.Decoder.
 func (s *AuthSentCodeTypeApp) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -148,18 +156,10 @@ func (s *AuthSentCodeTypeApp) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthSentCodeTypeClass.
-func (s AuthSentCodeTypeApp) construct() AuthSentCodeTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for AuthSentCodeTypeApp.
-var (
-	_ bin.Encoder     = &AuthSentCodeTypeApp{}
-	_ bin.Decoder     = &AuthSentCodeTypeApp{}
-	_ bin.BareEncoder = &AuthSentCodeTypeApp{}
-	_ bin.BareDecoder = &AuthSentCodeTypeApp{}
-
-	_ AuthSentCodeTypeClass = &AuthSentCodeTypeApp{}
-)
+// GetLength returns value of Length field.
+func (s *AuthSentCodeTypeApp) GetLength() (value int) {
+	return s.Length
+}
 
 // AuthSentCodeTypeSMS represents TL type `auth.sentCodeTypeSms#c000bba2`.
 // The code was sent via SMS
@@ -172,6 +172,19 @@ type AuthSentCodeTypeSMS struct {
 
 // AuthSentCodeTypeSMSTypeID is TL type id of AuthSentCodeTypeSMS.
 const AuthSentCodeTypeSMSTypeID = 0xc000bba2
+
+// construct implements constructor of AuthSentCodeTypeClass.
+func (s AuthSentCodeTypeSMS) construct() AuthSentCodeTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for AuthSentCodeTypeSMS.
+var (
+	_ bin.Encoder     = &AuthSentCodeTypeSMS{}
+	_ bin.Decoder     = &AuthSentCodeTypeSMS{}
+	_ bin.BareEncoder = &AuthSentCodeTypeSMS{}
+	_ bin.BareDecoder = &AuthSentCodeTypeSMS{}
+
+	_ AuthSentCodeTypeClass = &AuthSentCodeTypeSMS{}
+)
 
 func (s *AuthSentCodeTypeSMS) Zero() bool {
 	if s == nil {
@@ -249,11 +262,6 @@ func (s *AuthSentCodeTypeSMS) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLength returns value of Length field.
-func (s *AuthSentCodeTypeSMS) GetLength() (value int) {
-	return s.Length
-}
-
 // Decode implements bin.Decoder.
 func (s *AuthSentCodeTypeSMS) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -280,18 +288,10 @@ func (s *AuthSentCodeTypeSMS) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthSentCodeTypeClass.
-func (s AuthSentCodeTypeSMS) construct() AuthSentCodeTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for AuthSentCodeTypeSMS.
-var (
-	_ bin.Encoder     = &AuthSentCodeTypeSMS{}
-	_ bin.Decoder     = &AuthSentCodeTypeSMS{}
-	_ bin.BareEncoder = &AuthSentCodeTypeSMS{}
-	_ bin.BareDecoder = &AuthSentCodeTypeSMS{}
-
-	_ AuthSentCodeTypeClass = &AuthSentCodeTypeSMS{}
-)
+// GetLength returns value of Length field.
+func (s *AuthSentCodeTypeSMS) GetLength() (value int) {
+	return s.Length
+}
 
 // AuthSentCodeTypeCall represents TL type `auth.sentCodeTypeCall#5353e5a7`.
 // The code will be sent via a phone call: a synthesized voice will tell the user which
@@ -305,6 +305,19 @@ type AuthSentCodeTypeCall struct {
 
 // AuthSentCodeTypeCallTypeID is TL type id of AuthSentCodeTypeCall.
 const AuthSentCodeTypeCallTypeID = 0x5353e5a7
+
+// construct implements constructor of AuthSentCodeTypeClass.
+func (s AuthSentCodeTypeCall) construct() AuthSentCodeTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for AuthSentCodeTypeCall.
+var (
+	_ bin.Encoder     = &AuthSentCodeTypeCall{}
+	_ bin.Decoder     = &AuthSentCodeTypeCall{}
+	_ bin.BareEncoder = &AuthSentCodeTypeCall{}
+	_ bin.BareDecoder = &AuthSentCodeTypeCall{}
+
+	_ AuthSentCodeTypeClass = &AuthSentCodeTypeCall{}
+)
 
 func (s *AuthSentCodeTypeCall) Zero() bool {
 	if s == nil {
@@ -382,11 +395,6 @@ func (s *AuthSentCodeTypeCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLength returns value of Length field.
-func (s *AuthSentCodeTypeCall) GetLength() (value int) {
-	return s.Length
-}
-
 // Decode implements bin.Decoder.
 func (s *AuthSentCodeTypeCall) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -413,18 +421,10 @@ func (s *AuthSentCodeTypeCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthSentCodeTypeClass.
-func (s AuthSentCodeTypeCall) construct() AuthSentCodeTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for AuthSentCodeTypeCall.
-var (
-	_ bin.Encoder     = &AuthSentCodeTypeCall{}
-	_ bin.Decoder     = &AuthSentCodeTypeCall{}
-	_ bin.BareEncoder = &AuthSentCodeTypeCall{}
-	_ bin.BareDecoder = &AuthSentCodeTypeCall{}
-
-	_ AuthSentCodeTypeClass = &AuthSentCodeTypeCall{}
-)
+// GetLength returns value of Length field.
+func (s *AuthSentCodeTypeCall) GetLength() (value int) {
+	return s.Length
+}
 
 // AuthSentCodeTypeFlashCall represents TL type `auth.sentCodeTypeFlashCall#ab03c6d9`.
 // The code will be sent via a flash phone call, that will be closed immediately. The
@@ -442,6 +442,19 @@ type AuthSentCodeTypeFlashCall struct {
 
 // AuthSentCodeTypeFlashCallTypeID is TL type id of AuthSentCodeTypeFlashCall.
 const AuthSentCodeTypeFlashCallTypeID = 0xab03c6d9
+
+// construct implements constructor of AuthSentCodeTypeClass.
+func (s AuthSentCodeTypeFlashCall) construct() AuthSentCodeTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for AuthSentCodeTypeFlashCall.
+var (
+	_ bin.Encoder     = &AuthSentCodeTypeFlashCall{}
+	_ bin.Decoder     = &AuthSentCodeTypeFlashCall{}
+	_ bin.BareEncoder = &AuthSentCodeTypeFlashCall{}
+	_ bin.BareDecoder = &AuthSentCodeTypeFlashCall{}
+
+	_ AuthSentCodeTypeClass = &AuthSentCodeTypeFlashCall{}
+)
 
 func (s *AuthSentCodeTypeFlashCall) Zero() bool {
 	if s == nil {
@@ -519,11 +532,6 @@ func (s *AuthSentCodeTypeFlashCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPattern returns value of Pattern field.
-func (s *AuthSentCodeTypeFlashCall) GetPattern() (value string) {
-	return s.Pattern
-}
-
 // Decode implements bin.Decoder.
 func (s *AuthSentCodeTypeFlashCall) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -550,18 +558,10 @@ func (s *AuthSentCodeTypeFlashCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthSentCodeTypeClass.
-func (s AuthSentCodeTypeFlashCall) construct() AuthSentCodeTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for AuthSentCodeTypeFlashCall.
-var (
-	_ bin.Encoder     = &AuthSentCodeTypeFlashCall{}
-	_ bin.Decoder     = &AuthSentCodeTypeFlashCall{}
-	_ bin.BareEncoder = &AuthSentCodeTypeFlashCall{}
-	_ bin.BareDecoder = &AuthSentCodeTypeFlashCall{}
-
-	_ AuthSentCodeTypeClass = &AuthSentCodeTypeFlashCall{}
-)
+// GetPattern returns value of Pattern field.
+func (s *AuthSentCodeTypeFlashCall) GetPattern() (value string) {
+	return s.Pattern
+}
 
 // AuthSentCodeTypeClass represents auth.SentCodeType generic type.
 //
@@ -662,466 +662,4 @@ func (b *AuthSentCodeTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode AuthSentCodeTypeClass as nil")
 	}
 	return b.SentCodeType.Encode(buf)
-}
-
-// AuthSentCodeTypeClassArray is adapter for slice of AuthSentCodeTypeClass.
-type AuthSentCodeTypeClassArray []AuthSentCodeTypeClass
-
-// Sort sorts slice of AuthSentCodeTypeClass.
-func (s AuthSentCodeTypeClassArray) Sort(less func(a, b AuthSentCodeTypeClass) bool) AuthSentCodeTypeClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AuthSentCodeTypeClass.
-func (s AuthSentCodeTypeClassArray) SortStable(less func(a, b AuthSentCodeTypeClass) bool) AuthSentCodeTypeClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AuthSentCodeTypeClass.
-func (s AuthSentCodeTypeClassArray) Retain(keep func(x AuthSentCodeTypeClass) bool) AuthSentCodeTypeClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AuthSentCodeTypeClassArray) First() (v AuthSentCodeTypeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AuthSentCodeTypeClassArray) Last() (v AuthSentCodeTypeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthSentCodeTypeClassArray) PopFirst() (v AuthSentCodeTypeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AuthSentCodeTypeClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthSentCodeTypeClassArray) Pop() (v AuthSentCodeTypeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsAuthSentCodeTypeApp returns copy with only AuthSentCodeTypeApp constructors.
-func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeApp() (to AuthSentCodeTypeAppArray) {
-	for _, elem := range s {
-		value, ok := elem.(*AuthSentCodeTypeApp)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsAuthSentCodeTypeSMS returns copy with only AuthSentCodeTypeSMS constructors.
-func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeSMS() (to AuthSentCodeTypeSMSArray) {
-	for _, elem := range s {
-		value, ok := elem.(*AuthSentCodeTypeSMS)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsAuthSentCodeTypeCall returns copy with only AuthSentCodeTypeCall constructors.
-func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeCall() (to AuthSentCodeTypeCallArray) {
-	for _, elem := range s {
-		value, ok := elem.(*AuthSentCodeTypeCall)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsAuthSentCodeTypeFlashCall returns copy with only AuthSentCodeTypeFlashCall constructors.
-func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeFlashCall() (to AuthSentCodeTypeFlashCallArray) {
-	for _, elem := range s {
-		value, ok := elem.(*AuthSentCodeTypeFlashCall)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AuthSentCodeTypeAppArray is adapter for slice of AuthSentCodeTypeApp.
-type AuthSentCodeTypeAppArray []AuthSentCodeTypeApp
-
-// Sort sorts slice of AuthSentCodeTypeApp.
-func (s AuthSentCodeTypeAppArray) Sort(less func(a, b AuthSentCodeTypeApp) bool) AuthSentCodeTypeAppArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AuthSentCodeTypeApp.
-func (s AuthSentCodeTypeAppArray) SortStable(less func(a, b AuthSentCodeTypeApp) bool) AuthSentCodeTypeAppArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AuthSentCodeTypeApp.
-func (s AuthSentCodeTypeAppArray) Retain(keep func(x AuthSentCodeTypeApp) bool) AuthSentCodeTypeAppArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AuthSentCodeTypeAppArray) First() (v AuthSentCodeTypeApp, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AuthSentCodeTypeAppArray) Last() (v AuthSentCodeTypeApp, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthSentCodeTypeAppArray) PopFirst() (v AuthSentCodeTypeApp, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AuthSentCodeTypeApp
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthSentCodeTypeAppArray) Pop() (v AuthSentCodeTypeApp, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AuthSentCodeTypeSMSArray is adapter for slice of AuthSentCodeTypeSMS.
-type AuthSentCodeTypeSMSArray []AuthSentCodeTypeSMS
-
-// Sort sorts slice of AuthSentCodeTypeSMS.
-func (s AuthSentCodeTypeSMSArray) Sort(less func(a, b AuthSentCodeTypeSMS) bool) AuthSentCodeTypeSMSArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AuthSentCodeTypeSMS.
-func (s AuthSentCodeTypeSMSArray) SortStable(less func(a, b AuthSentCodeTypeSMS) bool) AuthSentCodeTypeSMSArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AuthSentCodeTypeSMS.
-func (s AuthSentCodeTypeSMSArray) Retain(keep func(x AuthSentCodeTypeSMS) bool) AuthSentCodeTypeSMSArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AuthSentCodeTypeSMSArray) First() (v AuthSentCodeTypeSMS, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AuthSentCodeTypeSMSArray) Last() (v AuthSentCodeTypeSMS, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthSentCodeTypeSMSArray) PopFirst() (v AuthSentCodeTypeSMS, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AuthSentCodeTypeSMS
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthSentCodeTypeSMSArray) Pop() (v AuthSentCodeTypeSMS, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AuthSentCodeTypeCallArray is adapter for slice of AuthSentCodeTypeCall.
-type AuthSentCodeTypeCallArray []AuthSentCodeTypeCall
-
-// Sort sorts slice of AuthSentCodeTypeCall.
-func (s AuthSentCodeTypeCallArray) Sort(less func(a, b AuthSentCodeTypeCall) bool) AuthSentCodeTypeCallArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AuthSentCodeTypeCall.
-func (s AuthSentCodeTypeCallArray) SortStable(less func(a, b AuthSentCodeTypeCall) bool) AuthSentCodeTypeCallArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AuthSentCodeTypeCall.
-func (s AuthSentCodeTypeCallArray) Retain(keep func(x AuthSentCodeTypeCall) bool) AuthSentCodeTypeCallArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AuthSentCodeTypeCallArray) First() (v AuthSentCodeTypeCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AuthSentCodeTypeCallArray) Last() (v AuthSentCodeTypeCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthSentCodeTypeCallArray) PopFirst() (v AuthSentCodeTypeCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AuthSentCodeTypeCall
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthSentCodeTypeCallArray) Pop() (v AuthSentCodeTypeCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AuthSentCodeTypeFlashCallArray is adapter for slice of AuthSentCodeTypeFlashCall.
-type AuthSentCodeTypeFlashCallArray []AuthSentCodeTypeFlashCall
-
-// Sort sorts slice of AuthSentCodeTypeFlashCall.
-func (s AuthSentCodeTypeFlashCallArray) Sort(less func(a, b AuthSentCodeTypeFlashCall) bool) AuthSentCodeTypeFlashCallArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AuthSentCodeTypeFlashCall.
-func (s AuthSentCodeTypeFlashCallArray) SortStable(less func(a, b AuthSentCodeTypeFlashCall) bool) AuthSentCodeTypeFlashCallArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AuthSentCodeTypeFlashCall.
-func (s AuthSentCodeTypeFlashCallArray) Retain(keep func(x AuthSentCodeTypeFlashCall) bool) AuthSentCodeTypeFlashCallArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AuthSentCodeTypeFlashCallArray) First() (v AuthSentCodeTypeFlashCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AuthSentCodeTypeFlashCallArray) Last() (v AuthSentCodeTypeFlashCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthSentCodeTypeFlashCallArray) PopFirst() (v AuthSentCodeTypeFlashCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AuthSentCodeTypeFlashCall
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthSentCodeTypeFlashCallArray) Pop() (v AuthSentCodeTypeFlashCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

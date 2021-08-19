@@ -48,6 +48,14 @@ type StickerPack struct {
 // StickerPackTypeID is TL type id of StickerPack.
 const StickerPackTypeID = 0x12b299d4
 
+// Ensuring interfaces in compile-time for StickerPack.
+var (
+	_ bin.Encoder     = &StickerPack{}
+	_ bin.Decoder     = &StickerPack{}
+	_ bin.BareEncoder = &StickerPack{}
+	_ bin.BareDecoder = &StickerPack{}
+)
+
 func (s *StickerPack) Zero() bool {
 	if s == nil {
 		return true
@@ -137,16 +145,6 @@ func (s *StickerPack) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetEmoticon returns value of Emoticon field.
-func (s *StickerPack) GetEmoticon() (value string) {
-	return s.Emoticon
-}
-
-// GetDocuments returns value of Documents field.
-func (s *StickerPack) GetDocuments() (value []int64) {
-	return s.Documents
-}
-
 // Decode implements bin.Decoder.
 func (s *StickerPack) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -190,10 +188,12 @@ func (s *StickerPack) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StickerPack.
-var (
-	_ bin.Encoder     = &StickerPack{}
-	_ bin.Decoder     = &StickerPack{}
-	_ bin.BareEncoder = &StickerPack{}
-	_ bin.BareDecoder = &StickerPack{}
-)
+// GetEmoticon returns value of Emoticon field.
+func (s *StickerPack) GetEmoticon() (value string) {
+	return s.Emoticon
+}
+
+// GetDocuments returns value of Documents field.
+func (s *StickerPack) GetDocuments() (value []int64) {
+	return s.Documents
+}

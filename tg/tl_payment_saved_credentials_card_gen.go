@@ -43,6 +43,14 @@ type PaymentSavedCredentialsCard struct {
 // PaymentSavedCredentialsCardTypeID is TL type id of PaymentSavedCredentialsCard.
 const PaymentSavedCredentialsCardTypeID = 0xcdc27a1f
 
+// Ensuring interfaces in compile-time for PaymentSavedCredentialsCard.
+var (
+	_ bin.Encoder     = &PaymentSavedCredentialsCard{}
+	_ bin.Decoder     = &PaymentSavedCredentialsCard{}
+	_ bin.BareEncoder = &PaymentSavedCredentialsCard{}
+	_ bin.BareDecoder = &PaymentSavedCredentialsCard{}
+)
+
 func (p *PaymentSavedCredentialsCard) Zero() bool {
 	if p == nil {
 		return true
@@ -129,16 +137,6 @@ func (p *PaymentSavedCredentialsCard) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (p *PaymentSavedCredentialsCard) GetID() (value string) {
-	return p.ID
-}
-
-// GetTitle returns value of Title field.
-func (p *PaymentSavedCredentialsCard) GetTitle() (value string) {
-	return p.Title
-}
-
 // Decode implements bin.Decoder.
 func (p *PaymentSavedCredentialsCard) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -172,10 +170,12 @@ func (p *PaymentSavedCredentialsCard) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PaymentSavedCredentialsCard.
-var (
-	_ bin.Encoder     = &PaymentSavedCredentialsCard{}
-	_ bin.Decoder     = &PaymentSavedCredentialsCard{}
-	_ bin.BareEncoder = &PaymentSavedCredentialsCard{}
-	_ bin.BareDecoder = &PaymentSavedCredentialsCard{}
-)
+// GetID returns value of ID field.
+func (p *PaymentSavedCredentialsCard) GetID() (value string) {
+	return p.ID
+}
+
+// GetTitle returns value of Title field.
+func (p *PaymentSavedCredentialsCard) GetTitle() (value string) {
+	return p.Title
+}

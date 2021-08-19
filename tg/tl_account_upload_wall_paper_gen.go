@@ -45,6 +45,14 @@ type AccountUploadWallPaperRequest struct {
 // AccountUploadWallPaperRequestTypeID is TL type id of AccountUploadWallPaperRequest.
 const AccountUploadWallPaperRequestTypeID = 0xdd853661
 
+// Ensuring interfaces in compile-time for AccountUploadWallPaperRequest.
+var (
+	_ bin.Encoder     = &AccountUploadWallPaperRequest{}
+	_ bin.Decoder     = &AccountUploadWallPaperRequest{}
+	_ bin.BareEncoder = &AccountUploadWallPaperRequest{}
+	_ bin.BareDecoder = &AccountUploadWallPaperRequest{}
+)
+
 func (u *AccountUploadWallPaperRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -148,21 +156,6 @@ func (u *AccountUploadWallPaperRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFile returns value of File field.
-func (u *AccountUploadWallPaperRequest) GetFile() (value InputFileClass) {
-	return u.File
-}
-
-// GetMimeType returns value of MimeType field.
-func (u *AccountUploadWallPaperRequest) GetMimeType() (value string) {
-	return u.MimeType
-}
-
-// GetSettings returns value of Settings field.
-func (u *AccountUploadWallPaperRequest) GetSettings() (value WallPaperSettings) {
-	return u.Settings
-}
-
 // Decode implements bin.Decoder.
 func (u *AccountUploadWallPaperRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -201,13 +194,20 @@ func (u *AccountUploadWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountUploadWallPaperRequest.
-var (
-	_ bin.Encoder     = &AccountUploadWallPaperRequest{}
-	_ bin.Decoder     = &AccountUploadWallPaperRequest{}
-	_ bin.BareEncoder = &AccountUploadWallPaperRequest{}
-	_ bin.BareDecoder = &AccountUploadWallPaperRequest{}
-)
+// GetFile returns value of File field.
+func (u *AccountUploadWallPaperRequest) GetFile() (value InputFileClass) {
+	return u.File
+}
+
+// GetMimeType returns value of MimeType field.
+func (u *AccountUploadWallPaperRequest) GetMimeType() (value string) {
+	return u.MimeType
+}
+
+// GetSettings returns value of Settings field.
+func (u *AccountUploadWallPaperRequest) GetSettings() (value WallPaperSettings) {
+	return u.Settings
+}
 
 // AccountUploadWallPaper invokes method account.uploadWallPaper#dd853661 returning error if any.
 // Create and upload a new wallpaper

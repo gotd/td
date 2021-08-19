@@ -42,6 +42,14 @@ type MessagesDeletePhoneCallHistoryRequest struct {
 // MessagesDeletePhoneCallHistoryRequestTypeID is TL type id of MessagesDeletePhoneCallHistoryRequest.
 const MessagesDeletePhoneCallHistoryRequestTypeID = 0xf9cbe409
 
+// Ensuring interfaces in compile-time for MessagesDeletePhoneCallHistoryRequest.
+var (
+	_ bin.Encoder     = &MessagesDeletePhoneCallHistoryRequest{}
+	_ bin.Decoder     = &MessagesDeletePhoneCallHistoryRequest{}
+	_ bin.BareEncoder = &MessagesDeletePhoneCallHistoryRequest{}
+	_ bin.BareDecoder = &MessagesDeletePhoneCallHistoryRequest{}
+)
+
 func (d *MessagesDeletePhoneCallHistoryRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -127,22 +135,6 @@ func (d *MessagesDeletePhoneCallHistoryRequest) EncodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// SetRevoke sets value of Revoke conditional field.
-func (d *MessagesDeletePhoneCallHistoryRequest) SetRevoke(value bool) {
-	if value {
-		d.Flags.Set(0)
-		d.Revoke = true
-	} else {
-		d.Flags.Unset(0)
-		d.Revoke = false
-	}
-}
-
-// GetRevoke returns value of Revoke conditional field.
-func (d *MessagesDeletePhoneCallHistoryRequest) GetRevoke() (value bool) {
-	return d.Flags.Has(0)
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDeletePhoneCallHistoryRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -168,13 +160,21 @@ func (d *MessagesDeletePhoneCallHistoryRequest) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesDeletePhoneCallHistoryRequest.
-var (
-	_ bin.Encoder     = &MessagesDeletePhoneCallHistoryRequest{}
-	_ bin.Decoder     = &MessagesDeletePhoneCallHistoryRequest{}
-	_ bin.BareEncoder = &MessagesDeletePhoneCallHistoryRequest{}
-	_ bin.BareDecoder = &MessagesDeletePhoneCallHistoryRequest{}
-)
+// SetRevoke sets value of Revoke conditional field.
+func (d *MessagesDeletePhoneCallHistoryRequest) SetRevoke(value bool) {
+	if value {
+		d.Flags.Set(0)
+		d.Revoke = true
+	} else {
+		d.Flags.Unset(0)
+		d.Revoke = false
+	}
+}
+
+// GetRevoke returns value of Revoke conditional field.
+func (d *MessagesDeletePhoneCallHistoryRequest) GetRevoke() (value bool) {
+	return d.Flags.Has(0)
+}
 
 // MessagesDeletePhoneCallHistory invokes method messages.deletePhoneCallHistory#f9cbe409 returning error if any.
 //

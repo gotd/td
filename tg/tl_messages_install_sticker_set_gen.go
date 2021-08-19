@@ -43,6 +43,14 @@ type MessagesInstallStickerSetRequest struct {
 // MessagesInstallStickerSetRequestTypeID is TL type id of MessagesInstallStickerSetRequest.
 const MessagesInstallStickerSetRequestTypeID = 0xc78fe460
 
+// Ensuring interfaces in compile-time for MessagesInstallStickerSetRequest.
+var (
+	_ bin.Encoder     = &MessagesInstallStickerSetRequest{}
+	_ bin.Decoder     = &MessagesInstallStickerSetRequest{}
+	_ bin.BareEncoder = &MessagesInstallStickerSetRequest{}
+	_ bin.BareDecoder = &MessagesInstallStickerSetRequest{}
+)
+
 func (i *MessagesInstallStickerSetRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -134,16 +142,6 @@ func (i *MessagesInstallStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetStickerset returns value of Stickerset field.
-func (i *MessagesInstallStickerSetRequest) GetStickerset() (value InputStickerSetClass) {
-	return i.Stickerset
-}
-
-// GetArchived returns value of Archived field.
-func (i *MessagesInstallStickerSetRequest) GetArchived() (value bool) {
-	return i.Archived
-}
-
 // Decode implements bin.Decoder.
 func (i *MessagesInstallStickerSetRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -177,13 +175,15 @@ func (i *MessagesInstallStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesInstallStickerSetRequest.
-var (
-	_ bin.Encoder     = &MessagesInstallStickerSetRequest{}
-	_ bin.Decoder     = &MessagesInstallStickerSetRequest{}
-	_ bin.BareEncoder = &MessagesInstallStickerSetRequest{}
-	_ bin.BareDecoder = &MessagesInstallStickerSetRequest{}
-)
+// GetStickerset returns value of Stickerset field.
+func (i *MessagesInstallStickerSetRequest) GetStickerset() (value InputStickerSetClass) {
+	return i.Stickerset
+}
+
+// GetArchived returns value of Archived field.
+func (i *MessagesInstallStickerSetRequest) GetArchived() (value bool) {
+	return i.Archived
+}
 
 // MessagesInstallStickerSet invokes method messages.installStickerSet#c78fe460 returning error if any.
 // Install a stickerset

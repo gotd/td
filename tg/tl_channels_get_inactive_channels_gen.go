@@ -39,6 +39,14 @@ type ChannelsGetInactiveChannelsRequest struct {
 // ChannelsGetInactiveChannelsRequestTypeID is TL type id of ChannelsGetInactiveChannelsRequest.
 const ChannelsGetInactiveChannelsRequestTypeID = 0x11e831ee
 
+// Ensuring interfaces in compile-time for ChannelsGetInactiveChannelsRequest.
+var (
+	_ bin.Encoder     = &ChannelsGetInactiveChannelsRequest{}
+	_ bin.Decoder     = &ChannelsGetInactiveChannelsRequest{}
+	_ bin.BareEncoder = &ChannelsGetInactiveChannelsRequest{}
+	_ bin.BareDecoder = &ChannelsGetInactiveChannelsRequest{}
+)
+
 func (g *ChannelsGetInactiveChannelsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *ChannelsGetInactiveChannelsRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for ChannelsGetInactiveChannelsRequest.
-var (
-	_ bin.Encoder     = &ChannelsGetInactiveChannelsRequest{}
-	_ bin.Decoder     = &ChannelsGetInactiveChannelsRequest{}
-	_ bin.BareEncoder = &ChannelsGetInactiveChannelsRequest{}
-	_ bin.BareDecoder = &ChannelsGetInactiveChannelsRequest{}
-)
 
 // ChannelsGetInactiveChannels invokes method channels.getInactiveChannels#11e831ee returning error if any.
 // Get inactive channels and supergroups

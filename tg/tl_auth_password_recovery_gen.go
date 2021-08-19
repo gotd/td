@@ -49,6 +49,14 @@ type AuthPasswordRecovery struct {
 // AuthPasswordRecoveryTypeID is TL type id of AuthPasswordRecovery.
 const AuthPasswordRecoveryTypeID = 0x137948a5
 
+// Ensuring interfaces in compile-time for AuthPasswordRecovery.
+var (
+	_ bin.Encoder     = &AuthPasswordRecovery{}
+	_ bin.Decoder     = &AuthPasswordRecovery{}
+	_ bin.BareEncoder = &AuthPasswordRecovery{}
+	_ bin.BareDecoder = &AuthPasswordRecovery{}
+)
+
 func (p *AuthPasswordRecovery) Zero() bool {
 	if p == nil {
 		return true
@@ -125,11 +133,6 @@ func (p *AuthPasswordRecovery) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetEmailPattern returns value of EmailPattern field.
-func (p *AuthPasswordRecovery) GetEmailPattern() (value string) {
-	return p.EmailPattern
-}
-
 // Decode implements bin.Decoder.
 func (p *AuthPasswordRecovery) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -156,10 +159,7 @@ func (p *AuthPasswordRecovery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthPasswordRecovery.
-var (
-	_ bin.Encoder     = &AuthPasswordRecovery{}
-	_ bin.Decoder     = &AuthPasswordRecovery{}
-	_ bin.BareEncoder = &AuthPasswordRecovery{}
-	_ bin.BareDecoder = &AuthPasswordRecovery{}
-)
+// GetEmailPattern returns value of EmailPattern field.
+func (p *AuthPasswordRecovery) GetEmailPattern() (value string) {
+	return p.EmailPattern
+}

@@ -50,6 +50,14 @@ type AccountGetNotifyExceptionsRequest struct {
 // AccountGetNotifyExceptionsRequestTypeID is TL type id of AccountGetNotifyExceptionsRequest.
 const AccountGetNotifyExceptionsRequestTypeID = 0x53577479
 
+// Ensuring interfaces in compile-time for AccountGetNotifyExceptionsRequest.
+var (
+	_ bin.Encoder     = &AccountGetNotifyExceptionsRequest{}
+	_ bin.Decoder     = &AccountGetNotifyExceptionsRequest{}
+	_ bin.BareEncoder = &AccountGetNotifyExceptionsRequest{}
+	_ bin.BareDecoder = &AccountGetNotifyExceptionsRequest{}
+)
+
 func (g *AccountGetNotifyExceptionsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -159,37 +167,6 @@ func (g *AccountGetNotifyExceptionsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetCompareSound sets value of CompareSound conditional field.
-func (g *AccountGetNotifyExceptionsRequest) SetCompareSound(value bool) {
-	if value {
-		g.Flags.Set(1)
-		g.CompareSound = true
-	} else {
-		g.Flags.Unset(1)
-		g.CompareSound = false
-	}
-}
-
-// GetCompareSound returns value of CompareSound conditional field.
-func (g *AccountGetNotifyExceptionsRequest) GetCompareSound() (value bool) {
-	return g.Flags.Has(1)
-}
-
-// SetPeer sets value of Peer conditional field.
-func (g *AccountGetNotifyExceptionsRequest) SetPeer(value InputNotifyPeerClass) {
-	g.Flags.Set(0)
-	g.Peer = value
-}
-
-// GetPeer returns value of Peer conditional field and
-// boolean which is true if field was set.
-func (g *AccountGetNotifyExceptionsRequest) GetPeer() (value InputNotifyPeerClass, ok bool) {
-	if !g.Flags.Has(0) {
-		return value, false
-	}
-	return g.Peer, true
-}
-
 // Decode implements bin.Decoder.
 func (g *AccountGetNotifyExceptionsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -222,13 +199,36 @@ func (g *AccountGetNotifyExceptionsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountGetNotifyExceptionsRequest.
-var (
-	_ bin.Encoder     = &AccountGetNotifyExceptionsRequest{}
-	_ bin.Decoder     = &AccountGetNotifyExceptionsRequest{}
-	_ bin.BareEncoder = &AccountGetNotifyExceptionsRequest{}
-	_ bin.BareDecoder = &AccountGetNotifyExceptionsRequest{}
-)
+// SetCompareSound sets value of CompareSound conditional field.
+func (g *AccountGetNotifyExceptionsRequest) SetCompareSound(value bool) {
+	if value {
+		g.Flags.Set(1)
+		g.CompareSound = true
+	} else {
+		g.Flags.Unset(1)
+		g.CompareSound = false
+	}
+}
+
+// GetCompareSound returns value of CompareSound conditional field.
+func (g *AccountGetNotifyExceptionsRequest) GetCompareSound() (value bool) {
+	return g.Flags.Has(1)
+}
+
+// SetPeer sets value of Peer conditional field.
+func (g *AccountGetNotifyExceptionsRequest) SetPeer(value InputNotifyPeerClass) {
+	g.Flags.Set(0)
+	g.Peer = value
+}
+
+// GetPeer returns value of Peer conditional field and
+// boolean which is true if field was set.
+func (g *AccountGetNotifyExceptionsRequest) GetPeer() (value InputNotifyPeerClass, ok bool) {
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.Peer, true
+}
 
 // AccountGetNotifyExceptions invokes method account.getNotifyExceptions#53577479 returning error if any.
 // Returns list of chats with non-default notification settings

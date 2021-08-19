@@ -42,6 +42,14 @@ type ChatInviteImporter struct {
 // ChatInviteImporterTypeID is TL type id of ChatInviteImporter.
 const ChatInviteImporterTypeID = 0x1e3e6680
 
+// Ensuring interfaces in compile-time for ChatInviteImporter.
+var (
+	_ bin.Encoder     = &ChatInviteImporter{}
+	_ bin.Decoder     = &ChatInviteImporter{}
+	_ bin.BareEncoder = &ChatInviteImporter{}
+	_ bin.BareDecoder = &ChatInviteImporter{}
+)
+
 func (c *ChatInviteImporter) Zero() bool {
 	if c == nil {
 		return true
@@ -128,16 +136,6 @@ func (c *ChatInviteImporter) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (c *ChatInviteImporter) GetUserID() (value int) {
-	return c.UserID
-}
-
-// GetDate returns value of Date field.
-func (c *ChatInviteImporter) GetDate() (value int) {
-	return c.Date
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatInviteImporter) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -171,10 +169,12 @@ func (c *ChatInviteImporter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChatInviteImporter.
-var (
-	_ bin.Encoder     = &ChatInviteImporter{}
-	_ bin.Decoder     = &ChatInviteImporter{}
-	_ bin.BareEncoder = &ChatInviteImporter{}
-	_ bin.BareDecoder = &ChatInviteImporter{}
-)
+// GetUserID returns value of UserID field.
+func (c *ChatInviteImporter) GetUserID() (value int) {
+	return c.UserID
+}
+
+// GetDate returns value of Date field.
+func (c *ChatInviteImporter) GetDate() (value int) {
+	return c.Date
+}

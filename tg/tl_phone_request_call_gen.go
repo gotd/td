@@ -57,6 +57,14 @@ type PhoneRequestCallRequest struct {
 // PhoneRequestCallRequestTypeID is TL type id of PhoneRequestCallRequest.
 const PhoneRequestCallRequestTypeID = 0x42ff96ed
 
+// Ensuring interfaces in compile-time for PhoneRequestCallRequest.
+var (
+	_ bin.Encoder     = &PhoneRequestCallRequest{}
+	_ bin.Decoder     = &PhoneRequestCallRequest{}
+	_ bin.BareEncoder = &PhoneRequestCallRequest{}
+	_ bin.BareDecoder = &PhoneRequestCallRequest{}
+)
+
 func (r *PhoneRequestCallRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -189,42 +197,6 @@ func (r *PhoneRequestCallRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetVideo sets value of Video conditional field.
-func (r *PhoneRequestCallRequest) SetVideo(value bool) {
-	if value {
-		r.Flags.Set(0)
-		r.Video = true
-	} else {
-		r.Flags.Unset(0)
-		r.Video = false
-	}
-}
-
-// GetVideo returns value of Video conditional field.
-func (r *PhoneRequestCallRequest) GetVideo() (value bool) {
-	return r.Flags.Has(0)
-}
-
-// GetUserID returns value of UserID field.
-func (r *PhoneRequestCallRequest) GetUserID() (value InputUserClass) {
-	return r.UserID
-}
-
-// GetRandomID returns value of RandomID field.
-func (r *PhoneRequestCallRequest) GetRandomID() (value int) {
-	return r.RandomID
-}
-
-// GetGAHash returns value of GAHash field.
-func (r *PhoneRequestCallRequest) GetGAHash() (value []byte) {
-	return r.GAHash
-}
-
-// GetProtocol returns value of Protocol field.
-func (r *PhoneRequestCallRequest) GetProtocol() (value PhoneCallProtocol) {
-	return r.Protocol
-}
-
 // Decode implements bin.Decoder.
 func (r *PhoneRequestCallRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -276,13 +248,41 @@ func (r *PhoneRequestCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneRequestCallRequest.
-var (
-	_ bin.Encoder     = &PhoneRequestCallRequest{}
-	_ bin.Decoder     = &PhoneRequestCallRequest{}
-	_ bin.BareEncoder = &PhoneRequestCallRequest{}
-	_ bin.BareDecoder = &PhoneRequestCallRequest{}
-)
+// SetVideo sets value of Video conditional field.
+func (r *PhoneRequestCallRequest) SetVideo(value bool) {
+	if value {
+		r.Flags.Set(0)
+		r.Video = true
+	} else {
+		r.Flags.Unset(0)
+		r.Video = false
+	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (r *PhoneRequestCallRequest) GetVideo() (value bool) {
+	return r.Flags.Has(0)
+}
+
+// GetUserID returns value of UserID field.
+func (r *PhoneRequestCallRequest) GetUserID() (value InputUserClass) {
+	return r.UserID
+}
+
+// GetRandomID returns value of RandomID field.
+func (r *PhoneRequestCallRequest) GetRandomID() (value int) {
+	return r.RandomID
+}
+
+// GetGAHash returns value of GAHash field.
+func (r *PhoneRequestCallRequest) GetGAHash() (value []byte) {
+	return r.GAHash
+}
+
+// GetProtocol returns value of Protocol field.
+func (r *PhoneRequestCallRequest) GetProtocol() (value PhoneCallProtocol) {
+	return r.Protocol
+}
 
 // PhoneRequestCall invokes method phone.requestCall#42ff96ed returning error if any.
 // Start a telegram phone call

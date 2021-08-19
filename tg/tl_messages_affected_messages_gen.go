@@ -49,6 +49,14 @@ type MessagesAffectedMessages struct {
 // MessagesAffectedMessagesTypeID is TL type id of MessagesAffectedMessages.
 const MessagesAffectedMessagesTypeID = 0x84d19185
 
+// Ensuring interfaces in compile-time for MessagesAffectedMessages.
+var (
+	_ bin.Encoder     = &MessagesAffectedMessages{}
+	_ bin.Decoder     = &MessagesAffectedMessages{}
+	_ bin.BareEncoder = &MessagesAffectedMessages{}
+	_ bin.BareDecoder = &MessagesAffectedMessages{}
+)
+
 func (a *MessagesAffectedMessages) Zero() bool {
 	if a == nil {
 		return true
@@ -135,16 +143,6 @@ func (a *MessagesAffectedMessages) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPts returns value of Pts field.
-func (a *MessagesAffectedMessages) GetPts() (value int) {
-	return a.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (a *MessagesAffectedMessages) GetPtsCount() (value int) {
-	return a.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (a *MessagesAffectedMessages) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -178,10 +176,12 @@ func (a *MessagesAffectedMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesAffectedMessages.
-var (
-	_ bin.Encoder     = &MessagesAffectedMessages{}
-	_ bin.Decoder     = &MessagesAffectedMessages{}
-	_ bin.BareEncoder = &MessagesAffectedMessages{}
-	_ bin.BareDecoder = &MessagesAffectedMessages{}
-)
+// GetPts returns value of Pts field.
+func (a *MessagesAffectedMessages) GetPts() (value int) {
+	return a.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (a *MessagesAffectedMessages) GetPtsCount() (value int) {
+	return a.PtsCount
+}

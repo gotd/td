@@ -41,6 +41,19 @@ type PhotoEmpty struct {
 // PhotoEmptyTypeID is TL type id of PhotoEmpty.
 const PhotoEmptyTypeID = 0x2331b22d
 
+// construct implements constructor of PhotoClass.
+func (p PhotoEmpty) construct() PhotoClass { return &p }
+
+// Ensuring interfaces in compile-time for PhotoEmpty.
+var (
+	_ bin.Encoder     = &PhotoEmpty{}
+	_ bin.Decoder     = &PhotoEmpty{}
+	_ bin.BareEncoder = &PhotoEmpty{}
+	_ bin.BareDecoder = &PhotoEmpty{}
+
+	_ PhotoClass = &PhotoEmpty{}
+)
+
 func (p *PhotoEmpty) Zero() bool {
 	if p == nil {
 		return true
@@ -117,11 +130,6 @@ func (p *PhotoEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (p *PhotoEmpty) GetID() (value int64) {
-	return p.ID
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotoEmpty) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -148,18 +156,10 @@ func (p *PhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotoClass.
-func (p PhotoEmpty) construct() PhotoClass { return &p }
-
-// Ensuring interfaces in compile-time for PhotoEmpty.
-var (
-	_ bin.Encoder     = &PhotoEmpty{}
-	_ bin.Decoder     = &PhotoEmpty{}
-	_ bin.BareEncoder = &PhotoEmpty{}
-	_ bin.BareDecoder = &PhotoEmpty{}
-
-	_ PhotoClass = &PhotoEmpty{}
-)
+// GetID returns value of ID field.
+func (p *PhotoEmpty) GetID() (value int64) {
+	return p.ID
+}
 
 // Photo represents TL type `photo#fb197a65`.
 // Photo
@@ -199,6 +199,19 @@ type Photo struct {
 
 // PhotoTypeID is TL type id of Photo.
 const PhotoTypeID = 0xfb197a65
+
+// construct implements constructor of PhotoClass.
+func (p Photo) construct() PhotoClass { return &p }
+
+// Ensuring interfaces in compile-time for Photo.
+var (
+	_ bin.Encoder     = &Photo{}
+	_ bin.Decoder     = &Photo{}
+	_ bin.BareEncoder = &Photo{}
+	_ bin.BareDecoder = &Photo{}
+
+	_ PhotoClass = &Photo{}
+)
 
 func (p *Photo) Zero() bool {
 	if p == nil {
@@ -377,72 +390,6 @@ func (p *Photo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetHasStickers sets value of HasStickers conditional field.
-func (p *Photo) SetHasStickers(value bool) {
-	if value {
-		p.Flags.Set(0)
-		p.HasStickers = true
-	} else {
-		p.Flags.Unset(0)
-		p.HasStickers = false
-	}
-}
-
-// GetHasStickers returns value of HasStickers conditional field.
-func (p *Photo) GetHasStickers() (value bool) {
-	return p.Flags.Has(0)
-}
-
-// GetID returns value of ID field.
-func (p *Photo) GetID() (value int64) {
-	return p.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (p *Photo) GetAccessHash() (value int64) {
-	return p.AccessHash
-}
-
-// GetFileReference returns value of FileReference field.
-func (p *Photo) GetFileReference() (value []byte) {
-	return p.FileReference
-}
-
-// GetDate returns value of Date field.
-func (p *Photo) GetDate() (value int) {
-	return p.Date
-}
-
-// GetSizes returns value of Sizes field.
-func (p *Photo) GetSizes() (value []PhotoSizeClass) {
-	return p.Sizes
-}
-
-// MapSizes returns field Sizes wrapped in PhotoSizeClassArray helper.
-func (p *Photo) MapSizes() (value PhotoSizeClassArray) {
-	return PhotoSizeClassArray(p.Sizes)
-}
-
-// SetVideoSizes sets value of VideoSizes conditional field.
-func (p *Photo) SetVideoSizes(value []VideoSize) {
-	p.Flags.Set(1)
-	p.VideoSizes = value
-}
-
-// GetVideoSizes returns value of VideoSizes conditional field and
-// boolean which is true if field was set.
-func (p *Photo) GetVideoSizes() (value []VideoSize, ok bool) {
-	if !p.Flags.Has(1) {
-		return value, false
-	}
-	return p.VideoSizes, true
-}
-
-// GetDCID returns value of DCID field.
-func (p *Photo) GetDCID() (value int) {
-	return p.DCID
-}
-
 // Decode implements bin.Decoder.
 func (p *Photo) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -537,18 +484,71 @@ func (p *Photo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhotoClass.
-func (p Photo) construct() PhotoClass { return &p }
+// SetHasStickers sets value of HasStickers conditional field.
+func (p *Photo) SetHasStickers(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.HasStickers = true
+	} else {
+		p.Flags.Unset(0)
+		p.HasStickers = false
+	}
+}
 
-// Ensuring interfaces in compile-time for Photo.
-var (
-	_ bin.Encoder     = &Photo{}
-	_ bin.Decoder     = &Photo{}
-	_ bin.BareEncoder = &Photo{}
-	_ bin.BareDecoder = &Photo{}
+// GetHasStickers returns value of HasStickers conditional field.
+func (p *Photo) GetHasStickers() (value bool) {
+	return p.Flags.Has(0)
+}
 
-	_ PhotoClass = &Photo{}
-)
+// GetID returns value of ID field.
+func (p *Photo) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *Photo) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetFileReference returns value of FileReference field.
+func (p *Photo) GetFileReference() (value []byte) {
+	return p.FileReference
+}
+
+// GetDate returns value of Date field.
+func (p *Photo) GetDate() (value int) {
+	return p.Date
+}
+
+// GetSizes returns value of Sizes field.
+func (p *Photo) GetSizes() (value []PhotoSizeClass) {
+	return p.Sizes
+}
+
+// SetVideoSizes sets value of VideoSizes conditional field.
+func (p *Photo) SetVideoSizes(value []VideoSize) {
+	p.Flags.Set(1)
+	p.VideoSizes = value
+}
+
+// GetVideoSizes returns value of VideoSizes conditional field and
+// boolean which is true if field was set.
+func (p *Photo) GetVideoSizes() (value []VideoSize, ok bool) {
+	if !p.Flags.Has(1) {
+		return value, false
+	}
+	return p.VideoSizes, true
+}
+
+// GetDCID returns value of DCID field.
+func (p *Photo) GetDCID() (value int) {
+	return p.DCID
+}
+
+// MapSizes returns field Sizes wrapped in PhotoSizeClassArray helper.
+func (p *Photo) MapSizes() (value PhotoSizeClassArray) {
+	return PhotoSizeClassArray(p.Sizes)
+}
 
 // PhotoClass represents Photo generic type.
 //
@@ -659,345 +659,4 @@ func (b *PhotoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PhotoClass as nil")
 	}
 	return b.Photo.Encode(buf)
-}
-
-// PhotoClassArray is adapter for slice of PhotoClass.
-type PhotoClassArray []PhotoClass
-
-// Sort sorts slice of PhotoClass.
-func (s PhotoClassArray) Sort(less func(a, b PhotoClass) bool) PhotoClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhotoClass.
-func (s PhotoClassArray) SortStable(less func(a, b PhotoClass) bool) PhotoClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhotoClass.
-func (s PhotoClassArray) Retain(keep func(x PhotoClass) bool) PhotoClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhotoClassArray) First() (v PhotoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhotoClassArray) Last() (v PhotoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhotoClassArray) PopFirst() (v PhotoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhotoClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhotoClassArray) Pop() (v PhotoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsPhotoEmpty returns copy with only PhotoEmpty constructors.
-func (s PhotoClassArray) AsPhotoEmpty() (to PhotoEmptyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PhotoEmpty)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPhoto returns copy with only Photo constructors.
-func (s PhotoClassArray) AsPhoto() (to PhotoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*Photo)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s PhotoClassArray) AppendOnlyNotEmpty(to []*Photo) []*Photo {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s PhotoClassArray) AsNotEmpty() (to []*Photo) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s PhotoClassArray) FirstAsNotEmpty() (v *Photo, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s PhotoClassArray) LastAsNotEmpty() (v *Photo, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *PhotoClassArray) PopFirstAsNotEmpty() (v *Photo, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *PhotoClassArray) PopAsNotEmpty() (v *Photo, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PhotoEmptyArray is adapter for slice of PhotoEmpty.
-type PhotoEmptyArray []PhotoEmpty
-
-// Sort sorts slice of PhotoEmpty.
-func (s PhotoEmptyArray) Sort(less func(a, b PhotoEmpty) bool) PhotoEmptyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhotoEmpty.
-func (s PhotoEmptyArray) SortStable(less func(a, b PhotoEmpty) bool) PhotoEmptyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhotoEmpty.
-func (s PhotoEmptyArray) Retain(keep func(x PhotoEmpty) bool) PhotoEmptyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhotoEmptyArray) First() (v PhotoEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhotoEmptyArray) Last() (v PhotoEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhotoEmptyArray) PopFirst() (v PhotoEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhotoEmpty
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhotoEmptyArray) Pop() (v PhotoEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PhotoArray is adapter for slice of Photo.
-type PhotoArray []Photo
-
-// Sort sorts slice of Photo.
-func (s PhotoArray) Sort(less func(a, b Photo) bool) PhotoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of Photo.
-func (s PhotoArray) SortStable(less func(a, b Photo) bool) PhotoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of Photo.
-func (s PhotoArray) Retain(keep func(x Photo) bool) PhotoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhotoArray) First() (v Photo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhotoArray) Last() (v Photo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhotoArray) PopFirst() (v Photo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero Photo
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhotoArray) Pop() (v Photo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of Photo by Date.
-func (s PhotoArray) SortByDate() PhotoArray {
-	return s.Sort(func(a, b Photo) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of Photo by Date.
-func (s PhotoArray) SortStableByDate() PhotoArray {
-	return s.SortStable(func(a, b Photo) bool {
-		return a.GetDate() < b.GetDate()
-	})
 }

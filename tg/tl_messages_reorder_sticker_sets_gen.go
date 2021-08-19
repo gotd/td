@@ -48,6 +48,14 @@ type MessagesReorderStickerSetsRequest struct {
 // MessagesReorderStickerSetsRequestTypeID is TL type id of MessagesReorderStickerSetsRequest.
 const MessagesReorderStickerSetsRequestTypeID = 0x78337739
 
+// Ensuring interfaces in compile-time for MessagesReorderStickerSetsRequest.
+var (
+	_ bin.Encoder     = &MessagesReorderStickerSetsRequest{}
+	_ bin.Decoder     = &MessagesReorderStickerSetsRequest{}
+	_ bin.BareEncoder = &MessagesReorderStickerSetsRequest{}
+	_ bin.BareDecoder = &MessagesReorderStickerSetsRequest{}
+)
+
 func (r *MessagesReorderStickerSetsRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -146,27 +154,6 @@ func (r *MessagesReorderStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetMasks sets value of Masks conditional field.
-func (r *MessagesReorderStickerSetsRequest) SetMasks(value bool) {
-	if value {
-		r.Flags.Set(0)
-		r.Masks = true
-	} else {
-		r.Flags.Unset(0)
-		r.Masks = false
-	}
-}
-
-// GetMasks returns value of Masks conditional field.
-func (r *MessagesReorderStickerSetsRequest) GetMasks() (value bool) {
-	return r.Flags.Has(0)
-}
-
-// GetOrder returns value of Order field.
-func (r *MessagesReorderStickerSetsRequest) GetOrder() (value []int64) {
-	return r.Order
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesReorderStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -209,13 +196,26 @@ func (r *MessagesReorderStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesReorderStickerSetsRequest.
-var (
-	_ bin.Encoder     = &MessagesReorderStickerSetsRequest{}
-	_ bin.Decoder     = &MessagesReorderStickerSetsRequest{}
-	_ bin.BareEncoder = &MessagesReorderStickerSetsRequest{}
-	_ bin.BareDecoder = &MessagesReorderStickerSetsRequest{}
-)
+// SetMasks sets value of Masks conditional field.
+func (r *MessagesReorderStickerSetsRequest) SetMasks(value bool) {
+	if value {
+		r.Flags.Set(0)
+		r.Masks = true
+	} else {
+		r.Flags.Unset(0)
+		r.Masks = false
+	}
+}
+
+// GetMasks returns value of Masks conditional field.
+func (r *MessagesReorderStickerSetsRequest) GetMasks() (value bool) {
+	return r.Flags.Has(0)
+}
+
+// GetOrder returns value of Order field.
+func (r *MessagesReorderStickerSetsRequest) GetOrder() (value []int64) {
+	return r.Order
+}
 
 // MessagesReorderStickerSets invokes method messages.reorderStickerSets#78337739 returning error if any.
 // Reorder installed stickersets

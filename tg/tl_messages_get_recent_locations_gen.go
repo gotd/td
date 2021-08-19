@@ -51,6 +51,14 @@ type MessagesGetRecentLocationsRequest struct {
 // MessagesGetRecentLocationsRequestTypeID is TL type id of MessagesGetRecentLocationsRequest.
 const MessagesGetRecentLocationsRequestTypeID = 0xbbc45b09
 
+// Ensuring interfaces in compile-time for MessagesGetRecentLocationsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetRecentLocationsRequest{}
+	_ bin.Decoder     = &MessagesGetRecentLocationsRequest{}
+	_ bin.BareEncoder = &MessagesGetRecentLocationsRequest{}
+	_ bin.BareDecoder = &MessagesGetRecentLocationsRequest{}
+)
+
 func (g *MessagesGetRecentLocationsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -152,21 +160,6 @@ func (g *MessagesGetRecentLocationsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetRecentLocationsRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetLimit returns value of Limit field.
-func (g *MessagesGetRecentLocationsRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
-// GetHash returns value of Hash field.
-func (g *MessagesGetRecentLocationsRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetRecentLocationsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -207,13 +200,20 @@ func (g *MessagesGetRecentLocationsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetRecentLocationsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetRecentLocationsRequest{}
-	_ bin.Decoder     = &MessagesGetRecentLocationsRequest{}
-	_ bin.BareEncoder = &MessagesGetRecentLocationsRequest{}
-	_ bin.BareDecoder = &MessagesGetRecentLocationsRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetRecentLocationsRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetRecentLocationsRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetRecentLocationsRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // MessagesGetRecentLocations invokes method messages.getRecentLocations#bbc45b09 returning error if any.
 // Get live location history of a certain user

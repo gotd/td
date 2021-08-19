@@ -51,6 +51,14 @@ type MessagesGetOldFeaturedStickersRequest struct {
 // MessagesGetOldFeaturedStickersRequestTypeID is TL type id of MessagesGetOldFeaturedStickersRequest.
 const MessagesGetOldFeaturedStickersRequestTypeID = 0x5fe7025b
 
+// Ensuring interfaces in compile-time for MessagesGetOldFeaturedStickersRequest.
+var (
+	_ bin.Encoder     = &MessagesGetOldFeaturedStickersRequest{}
+	_ bin.Decoder     = &MessagesGetOldFeaturedStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetOldFeaturedStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetOldFeaturedStickersRequest{}
+)
+
 func (g *MessagesGetOldFeaturedStickersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -147,21 +155,6 @@ func (g *MessagesGetOldFeaturedStickersRequest) EncodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (g *MessagesGetOldFeaturedStickersRequest) GetOffset() (value int) {
-	return g.Offset
-}
-
-// GetLimit returns value of Limit field.
-func (g *MessagesGetOldFeaturedStickersRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
-// GetHash returns value of Hash field.
-func (g *MessagesGetOldFeaturedStickersRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetOldFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -202,13 +195,20 @@ func (g *MessagesGetOldFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetOldFeaturedStickersRequest.
-var (
-	_ bin.Encoder     = &MessagesGetOldFeaturedStickersRequest{}
-	_ bin.Decoder     = &MessagesGetOldFeaturedStickersRequest{}
-	_ bin.BareEncoder = &MessagesGetOldFeaturedStickersRequest{}
-	_ bin.BareDecoder = &MessagesGetOldFeaturedStickersRequest{}
-)
+// GetOffset returns value of Offset field.
+func (g *MessagesGetOldFeaturedStickersRequest) GetOffset() (value int) {
+	return g.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetOldFeaturedStickersRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetOldFeaturedStickersRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // MessagesGetOldFeaturedStickers invokes method messages.getOldFeaturedStickers#5fe7025b returning error if any.
 // Method for fetching previously featured stickers

@@ -45,6 +45,14 @@ type UploadSaveFilePartRequest struct {
 // UploadSaveFilePartRequestTypeID is TL type id of UploadSaveFilePartRequest.
 const UploadSaveFilePartRequestTypeID = 0xb304a621
 
+// Ensuring interfaces in compile-time for UploadSaveFilePartRequest.
+var (
+	_ bin.Encoder     = &UploadSaveFilePartRequest{}
+	_ bin.Decoder     = &UploadSaveFilePartRequest{}
+	_ bin.BareEncoder = &UploadSaveFilePartRequest{}
+	_ bin.BareDecoder = &UploadSaveFilePartRequest{}
+)
+
 func (s *UploadSaveFilePartRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -141,21 +149,6 @@ func (s *UploadSaveFilePartRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFileID returns value of FileID field.
-func (s *UploadSaveFilePartRequest) GetFileID() (value int64) {
-	return s.FileID
-}
-
-// GetFilePart returns value of FilePart field.
-func (s *UploadSaveFilePartRequest) GetFilePart() (value int) {
-	return s.FilePart
-}
-
-// GetBytes returns value of Bytes field.
-func (s *UploadSaveFilePartRequest) GetBytes() (value []byte) {
-	return s.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (s *UploadSaveFilePartRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -196,13 +189,20 @@ func (s *UploadSaveFilePartRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UploadSaveFilePartRequest.
-var (
-	_ bin.Encoder     = &UploadSaveFilePartRequest{}
-	_ bin.Decoder     = &UploadSaveFilePartRequest{}
-	_ bin.BareEncoder = &UploadSaveFilePartRequest{}
-	_ bin.BareDecoder = &UploadSaveFilePartRequest{}
-)
+// GetFileID returns value of FileID field.
+func (s *UploadSaveFilePartRequest) GetFileID() (value int64) {
+	return s.FileID
+}
+
+// GetFilePart returns value of FilePart field.
+func (s *UploadSaveFilePartRequest) GetFilePart() (value int) {
+	return s.FilePart
+}
+
+// GetBytes returns value of Bytes field.
+func (s *UploadSaveFilePartRequest) GetBytes() (value []byte) {
+	return s.Bytes
+}
 
 // UploadSaveFilePart invokes method upload.saveFilePart#b304a621 returning error if any.
 // Saves a part of file for futher sending to one of the methods.

@@ -72,6 +72,14 @@ type AccountRegisterDeviceRequest struct {
 // AccountRegisterDeviceRequestTypeID is TL type id of AccountRegisterDeviceRequest.
 const AccountRegisterDeviceRequestTypeID = 0x68976c6f
 
+// Ensuring interfaces in compile-time for AccountRegisterDeviceRequest.
+var (
+	_ bin.Encoder     = &AccountRegisterDeviceRequest{}
+	_ bin.Decoder     = &AccountRegisterDeviceRequest{}
+	_ bin.BareEncoder = &AccountRegisterDeviceRequest{}
+	_ bin.BareDecoder = &AccountRegisterDeviceRequest{}
+)
+
 func (r *AccountRegisterDeviceRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -210,47 +218,6 @@ func (r *AccountRegisterDeviceRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetNoMuted sets value of NoMuted conditional field.
-func (r *AccountRegisterDeviceRequest) SetNoMuted(value bool) {
-	if value {
-		r.Flags.Set(0)
-		r.NoMuted = true
-	} else {
-		r.Flags.Unset(0)
-		r.NoMuted = false
-	}
-}
-
-// GetNoMuted returns value of NoMuted conditional field.
-func (r *AccountRegisterDeviceRequest) GetNoMuted() (value bool) {
-	return r.Flags.Has(0)
-}
-
-// GetTokenType returns value of TokenType field.
-func (r *AccountRegisterDeviceRequest) GetTokenType() (value int) {
-	return r.TokenType
-}
-
-// GetToken returns value of Token field.
-func (r *AccountRegisterDeviceRequest) GetToken() (value string) {
-	return r.Token
-}
-
-// GetAppSandbox returns value of AppSandbox field.
-func (r *AccountRegisterDeviceRequest) GetAppSandbox() (value bool) {
-	return r.AppSandbox
-}
-
-// GetSecret returns value of Secret field.
-func (r *AccountRegisterDeviceRequest) GetSecret() (value []byte) {
-	return r.Secret
-}
-
-// GetOtherUIDs returns value of OtherUIDs field.
-func (r *AccountRegisterDeviceRequest) GetOtherUIDs() (value []int) {
-	return r.OtherUIDs
-}
-
 // Decode implements bin.Decoder.
 func (r *AccountRegisterDeviceRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -321,13 +288,46 @@ func (r *AccountRegisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountRegisterDeviceRequest.
-var (
-	_ bin.Encoder     = &AccountRegisterDeviceRequest{}
-	_ bin.Decoder     = &AccountRegisterDeviceRequest{}
-	_ bin.BareEncoder = &AccountRegisterDeviceRequest{}
-	_ bin.BareDecoder = &AccountRegisterDeviceRequest{}
-)
+// SetNoMuted sets value of NoMuted conditional field.
+func (r *AccountRegisterDeviceRequest) SetNoMuted(value bool) {
+	if value {
+		r.Flags.Set(0)
+		r.NoMuted = true
+	} else {
+		r.Flags.Unset(0)
+		r.NoMuted = false
+	}
+}
+
+// GetNoMuted returns value of NoMuted conditional field.
+func (r *AccountRegisterDeviceRequest) GetNoMuted() (value bool) {
+	return r.Flags.Has(0)
+}
+
+// GetTokenType returns value of TokenType field.
+func (r *AccountRegisterDeviceRequest) GetTokenType() (value int) {
+	return r.TokenType
+}
+
+// GetToken returns value of Token field.
+func (r *AccountRegisterDeviceRequest) GetToken() (value string) {
+	return r.Token
+}
+
+// GetAppSandbox returns value of AppSandbox field.
+func (r *AccountRegisterDeviceRequest) GetAppSandbox() (value bool) {
+	return r.AppSandbox
+}
+
+// GetSecret returns value of Secret field.
+func (r *AccountRegisterDeviceRequest) GetSecret() (value []byte) {
+	return r.Secret
+}
+
+// GetOtherUIDs returns value of OtherUIDs field.
+func (r *AccountRegisterDeviceRequest) GetOtherUIDs() (value []int) {
+	return r.OtherUIDs
+}
 
 // AccountRegisterDevice invokes method account.registerDevice#68976c6f returning error if any.
 // Register device to receive PUSH notifications¹

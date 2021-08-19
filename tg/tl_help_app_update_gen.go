@@ -69,6 +69,19 @@ type HelpAppUpdate struct {
 // HelpAppUpdateTypeID is TL type id of HelpAppUpdate.
 const HelpAppUpdateTypeID = 0xccbbce30
 
+// construct implements constructor of HelpAppUpdateClass.
+func (a HelpAppUpdate) construct() HelpAppUpdateClass { return &a }
+
+// Ensuring interfaces in compile-time for HelpAppUpdate.
+var (
+	_ bin.Encoder     = &HelpAppUpdate{}
+	_ bin.Decoder     = &HelpAppUpdate{}
+	_ bin.BareEncoder = &HelpAppUpdate{}
+	_ bin.BareDecoder = &HelpAppUpdate{}
+
+	_ HelpAppUpdateClass = &HelpAppUpdate{}
+)
+
 func (a *HelpAppUpdate) Zero() bool {
 	if a == nil {
 		return true
@@ -269,92 +282,6 @@ func (a *HelpAppUpdate) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetCanNotSkip sets value of CanNotSkip conditional field.
-func (a *HelpAppUpdate) SetCanNotSkip(value bool) {
-	if value {
-		a.Flags.Set(0)
-		a.CanNotSkip = true
-	} else {
-		a.Flags.Unset(0)
-		a.CanNotSkip = false
-	}
-}
-
-// GetCanNotSkip returns value of CanNotSkip conditional field.
-func (a *HelpAppUpdate) GetCanNotSkip() (value bool) {
-	return a.Flags.Has(0)
-}
-
-// GetID returns value of ID field.
-func (a *HelpAppUpdate) GetID() (value int) {
-	return a.ID
-}
-
-// GetVersion returns value of Version field.
-func (a *HelpAppUpdate) GetVersion() (value string) {
-	return a.Version
-}
-
-// GetText returns value of Text field.
-func (a *HelpAppUpdate) GetText() (value string) {
-	return a.Text
-}
-
-// GetEntities returns value of Entities field.
-func (a *HelpAppUpdate) GetEntities() (value []MessageEntityClass) {
-	return a.Entities
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (a *HelpAppUpdate) MapEntities() (value MessageEntityClassArray) {
-	return MessageEntityClassArray(a.Entities)
-}
-
-// SetDocument sets value of Document conditional field.
-func (a *HelpAppUpdate) SetDocument(value DocumentClass) {
-	a.Flags.Set(1)
-	a.Document = value
-}
-
-// GetDocument returns value of Document conditional field and
-// boolean which is true if field was set.
-func (a *HelpAppUpdate) GetDocument() (value DocumentClass, ok bool) {
-	if !a.Flags.Has(1) {
-		return value, false
-	}
-	return a.Document, true
-}
-
-// SetURL sets value of URL conditional field.
-func (a *HelpAppUpdate) SetURL(value string) {
-	a.Flags.Set(2)
-	a.URL = value
-}
-
-// GetURL returns value of URL conditional field and
-// boolean which is true if field was set.
-func (a *HelpAppUpdate) GetURL() (value string, ok bool) {
-	if !a.Flags.Has(2) {
-		return value, false
-	}
-	return a.URL, true
-}
-
-// SetSticker sets value of Sticker conditional field.
-func (a *HelpAppUpdate) SetSticker(value DocumentClass) {
-	a.Flags.Set(3)
-	a.Sticker = value
-}
-
-// GetSticker returns value of Sticker conditional field and
-// boolean which is true if field was set.
-func (a *HelpAppUpdate) GetSticker() (value DocumentClass, ok bool) {
-	if !a.Flags.Has(3) {
-		return value, false
-	}
-	return a.Sticker, true
-}
-
 // Decode implements bin.Decoder.
 func (a *HelpAppUpdate) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -439,18 +366,91 @@ func (a *HelpAppUpdate) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpAppUpdateClass.
-func (a HelpAppUpdate) construct() HelpAppUpdateClass { return &a }
+// SetCanNotSkip sets value of CanNotSkip conditional field.
+func (a *HelpAppUpdate) SetCanNotSkip(value bool) {
+	if value {
+		a.Flags.Set(0)
+		a.CanNotSkip = true
+	} else {
+		a.Flags.Unset(0)
+		a.CanNotSkip = false
+	}
+}
 
-// Ensuring interfaces in compile-time for HelpAppUpdate.
-var (
-	_ bin.Encoder     = &HelpAppUpdate{}
-	_ bin.Decoder     = &HelpAppUpdate{}
-	_ bin.BareEncoder = &HelpAppUpdate{}
-	_ bin.BareDecoder = &HelpAppUpdate{}
+// GetCanNotSkip returns value of CanNotSkip conditional field.
+func (a *HelpAppUpdate) GetCanNotSkip() (value bool) {
+	return a.Flags.Has(0)
+}
 
-	_ HelpAppUpdateClass = &HelpAppUpdate{}
-)
+// GetID returns value of ID field.
+func (a *HelpAppUpdate) GetID() (value int) {
+	return a.ID
+}
+
+// GetVersion returns value of Version field.
+func (a *HelpAppUpdate) GetVersion() (value string) {
+	return a.Version
+}
+
+// GetText returns value of Text field.
+func (a *HelpAppUpdate) GetText() (value string) {
+	return a.Text
+}
+
+// GetEntities returns value of Entities field.
+func (a *HelpAppUpdate) GetEntities() (value []MessageEntityClass) {
+	return a.Entities
+}
+
+// SetDocument sets value of Document conditional field.
+func (a *HelpAppUpdate) SetDocument(value DocumentClass) {
+	a.Flags.Set(1)
+	a.Document = value
+}
+
+// GetDocument returns value of Document conditional field and
+// boolean which is true if field was set.
+func (a *HelpAppUpdate) GetDocument() (value DocumentClass, ok bool) {
+	if !a.Flags.Has(1) {
+		return value, false
+	}
+	return a.Document, true
+}
+
+// SetURL sets value of URL conditional field.
+func (a *HelpAppUpdate) SetURL(value string) {
+	a.Flags.Set(2)
+	a.URL = value
+}
+
+// GetURL returns value of URL conditional field and
+// boolean which is true if field was set.
+func (a *HelpAppUpdate) GetURL() (value string, ok bool) {
+	if !a.Flags.Has(2) {
+		return value, false
+	}
+	return a.URL, true
+}
+
+// SetSticker sets value of Sticker conditional field.
+func (a *HelpAppUpdate) SetSticker(value DocumentClass) {
+	a.Flags.Set(3)
+	a.Sticker = value
+}
+
+// GetSticker returns value of Sticker conditional field and
+// boolean which is true if field was set.
+func (a *HelpAppUpdate) GetSticker() (value DocumentClass, ok bool) {
+	if !a.Flags.Has(3) {
+		return value, false
+	}
+	return a.Sticker, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (a *HelpAppUpdate) MapEntities() (value MessageEntityClassArray) {
+	return MessageEntityClassArray(a.Entities)
+}
 
 // HelpNoAppUpdate represents TL type `help.noAppUpdate#c45a6536`.
 // No updates are available for the application.
@@ -461,6 +461,19 @@ type HelpNoAppUpdate struct {
 
 // HelpNoAppUpdateTypeID is TL type id of HelpNoAppUpdate.
 const HelpNoAppUpdateTypeID = 0xc45a6536
+
+// construct implements constructor of HelpAppUpdateClass.
+func (n HelpNoAppUpdate) construct() HelpAppUpdateClass { return &n }
+
+// Ensuring interfaces in compile-time for HelpNoAppUpdate.
+var (
+	_ bin.Encoder     = &HelpNoAppUpdate{}
+	_ bin.Decoder     = &HelpNoAppUpdate{}
+	_ bin.BareEncoder = &HelpNoAppUpdate{}
+	_ bin.BareDecoder = &HelpNoAppUpdate{}
+
+	_ HelpAppUpdateClass = &HelpNoAppUpdate{}
+)
 
 func (n *HelpNoAppUpdate) Zero() bool {
 	if n == nil {
@@ -540,19 +553,6 @@ func (n *HelpNoAppUpdate) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of HelpAppUpdateClass.
-func (n HelpNoAppUpdate) construct() HelpAppUpdateClass { return &n }
-
-// Ensuring interfaces in compile-time for HelpNoAppUpdate.
-var (
-	_ bin.Encoder     = &HelpNoAppUpdate{}
-	_ bin.Decoder     = &HelpNoAppUpdate{}
-	_ bin.BareEncoder = &HelpNoAppUpdate{}
-	_ bin.BareDecoder = &HelpNoAppUpdate{}
-
-	_ HelpAppUpdateClass = &HelpNoAppUpdate{}
-)
 
 // HelpAppUpdateClass represents help.AppUpdate generic type.
 //
@@ -637,209 +637,4 @@ func (b *HelpAppUpdateBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode HelpAppUpdateClass as nil")
 	}
 	return b.AppUpdate.Encode(buf)
-}
-
-// HelpAppUpdateClassArray is adapter for slice of HelpAppUpdateClass.
-type HelpAppUpdateClassArray []HelpAppUpdateClass
-
-// Sort sorts slice of HelpAppUpdateClass.
-func (s HelpAppUpdateClassArray) Sort(less func(a, b HelpAppUpdateClass) bool) HelpAppUpdateClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of HelpAppUpdateClass.
-func (s HelpAppUpdateClassArray) SortStable(less func(a, b HelpAppUpdateClass) bool) HelpAppUpdateClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of HelpAppUpdateClass.
-func (s HelpAppUpdateClassArray) Retain(keep func(x HelpAppUpdateClass) bool) HelpAppUpdateClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s HelpAppUpdateClassArray) First() (v HelpAppUpdateClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s HelpAppUpdateClassArray) Last() (v HelpAppUpdateClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpAppUpdateClassArray) PopFirst() (v HelpAppUpdateClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero HelpAppUpdateClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpAppUpdateClassArray) Pop() (v HelpAppUpdateClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsHelpAppUpdate returns copy with only HelpAppUpdate constructors.
-func (s HelpAppUpdateClassArray) AsHelpAppUpdate() (to HelpAppUpdateArray) {
-	for _, elem := range s {
-		value, ok := elem.(*HelpAppUpdate)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// HelpAppUpdateArray is adapter for slice of HelpAppUpdate.
-type HelpAppUpdateArray []HelpAppUpdate
-
-// Sort sorts slice of HelpAppUpdate.
-func (s HelpAppUpdateArray) Sort(less func(a, b HelpAppUpdate) bool) HelpAppUpdateArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of HelpAppUpdate.
-func (s HelpAppUpdateArray) SortStable(less func(a, b HelpAppUpdate) bool) HelpAppUpdateArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of HelpAppUpdate.
-func (s HelpAppUpdateArray) Retain(keep func(x HelpAppUpdate) bool) HelpAppUpdateArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s HelpAppUpdateArray) First() (v HelpAppUpdate, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s HelpAppUpdateArray) Last() (v HelpAppUpdate, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpAppUpdateArray) PopFirst() (v HelpAppUpdate, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero HelpAppUpdate
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpAppUpdateArray) Pop() (v HelpAppUpdate, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of HelpAppUpdate by ID.
-func (s HelpAppUpdateArray) SortByID() HelpAppUpdateArray {
-	return s.Sort(func(a, b HelpAppUpdate) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of HelpAppUpdate by ID.
-func (s HelpAppUpdateArray) SortStableByID() HelpAppUpdateArray {
-	return s.SortStable(func(a, b HelpAppUpdate) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s HelpAppUpdateArray) FillMap(to map[int]HelpAppUpdate) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s HelpAppUpdateArray) ToMap() map[int]HelpAppUpdate {
-	r := make(map[int]HelpAppUpdate, len(s))
-	s.FillMap(r)
-	return r
 }

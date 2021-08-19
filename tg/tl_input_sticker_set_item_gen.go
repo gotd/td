@@ -52,6 +52,14 @@ type InputStickerSetItem struct {
 // InputStickerSetItemTypeID is TL type id of InputStickerSetItem.
 const InputStickerSetItemTypeID = 0xffa0a496
 
+// Ensuring interfaces in compile-time for InputStickerSetItem.
+var (
+	_ bin.Encoder     = &InputStickerSetItem{}
+	_ bin.Decoder     = &InputStickerSetItem{}
+	_ bin.BareEncoder = &InputStickerSetItem{}
+	_ bin.BareDecoder = &InputStickerSetItem{}
+)
+
 func (i *InputStickerSetItem) Zero() bool {
 	if i == nil {
 		return true
@@ -170,36 +178,6 @@ func (i *InputStickerSetItem) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDocument returns value of Document field.
-func (i *InputStickerSetItem) GetDocument() (value InputDocumentClass) {
-	return i.Document
-}
-
-// GetDocumentAsNotEmpty returns mapped value of Document field.
-func (i *InputStickerSetItem) GetDocumentAsNotEmpty() (*InputDocument, bool) {
-	return i.Document.AsNotEmpty()
-}
-
-// GetEmoji returns value of Emoji field.
-func (i *InputStickerSetItem) GetEmoji() (value string) {
-	return i.Emoji
-}
-
-// SetMaskCoords sets value of MaskCoords conditional field.
-func (i *InputStickerSetItem) SetMaskCoords(value MaskCoords) {
-	i.Flags.Set(0)
-	i.MaskCoords = value
-}
-
-// GetMaskCoords returns value of MaskCoords conditional field and
-// boolean which is true if field was set.
-func (i *InputStickerSetItem) GetMaskCoords() (value MaskCoords, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.MaskCoords, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputStickerSetItem) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -243,10 +221,32 @@ func (i *InputStickerSetItem) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InputStickerSetItem.
-var (
-	_ bin.Encoder     = &InputStickerSetItem{}
-	_ bin.Decoder     = &InputStickerSetItem{}
-	_ bin.BareEncoder = &InputStickerSetItem{}
-	_ bin.BareDecoder = &InputStickerSetItem{}
-)
+// GetDocument returns value of Document field.
+func (i *InputStickerSetItem) GetDocument() (value InputDocumentClass) {
+	return i.Document
+}
+
+// GetEmoji returns value of Emoji field.
+func (i *InputStickerSetItem) GetEmoji() (value string) {
+	return i.Emoji
+}
+
+// SetMaskCoords sets value of MaskCoords conditional field.
+func (i *InputStickerSetItem) SetMaskCoords(value MaskCoords) {
+	i.Flags.Set(0)
+	i.MaskCoords = value
+}
+
+// GetMaskCoords returns value of MaskCoords conditional field and
+// boolean which is true if field was set.
+func (i *InputStickerSetItem) GetMaskCoords() (value MaskCoords, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.MaskCoords, true
+}
+
+// GetDocumentAsNotEmpty returns mapped value of Document field.
+func (i *InputStickerSetItem) GetDocumentAsNotEmpty() (*InputDocument, bool) {
+	return i.Document.AsNotEmpty()
+}

@@ -54,6 +54,14 @@ type PhoneJoinGroupCallRequest struct {
 // PhoneJoinGroupCallRequestTypeID is TL type id of PhoneJoinGroupCallRequest.
 const PhoneJoinGroupCallRequestTypeID = 0xb132ff7b
 
+// Ensuring interfaces in compile-time for PhoneJoinGroupCallRequest.
+var (
+	_ bin.Encoder     = &PhoneJoinGroupCallRequest{}
+	_ bin.Decoder     = &PhoneJoinGroupCallRequest{}
+	_ bin.BareEncoder = &PhoneJoinGroupCallRequest{}
+	_ bin.BareDecoder = &PhoneJoinGroupCallRequest{}
+)
+
 func (j *PhoneJoinGroupCallRequest) Zero() bool {
 	if j == nil {
 		return true
@@ -210,6 +218,56 @@ func (j *PhoneJoinGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (j *PhoneJoinGroupCallRequest) Decode(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't decode phone.joinGroupCall#b132ff7b to nil")
+	}
+	if err := b.ConsumeID(PhoneJoinGroupCallRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: %w", err)
+	}
+	return j.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (j *PhoneJoinGroupCallRequest) DecodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't decode phone.joinGroupCall#b132ff7b to nil")
+	}
+	{
+		if err := j.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field flags: %w", err)
+		}
+	}
+	j.Muted = j.Flags.Has(0)
+	j.VideoStopped = j.Flags.Has(2)
+	{
+		if err := j.Call.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field call: %w", err)
+		}
+	}
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field join_as: %w", err)
+		}
+		j.JoinAs = value
+	}
+	if j.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field invite_hash: %w", err)
+		}
+		j.InviteHash = value
+	}
+	{
+		if err := j.Params.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field params: %w", err)
+		}
+	}
+	return nil
+}
+
 // SetMuted sets value of Muted conditional field.
 func (j *PhoneJoinGroupCallRequest) SetMuted(value bool) {
 	if value {
@@ -271,64 +329,6 @@ func (j *PhoneJoinGroupCallRequest) GetInviteHash() (value string, ok bool) {
 func (j *PhoneJoinGroupCallRequest) GetParams() (value DataJSON) {
 	return j.Params
 }
-
-// Decode implements bin.Decoder.
-func (j *PhoneJoinGroupCallRequest) Decode(b *bin.Buffer) error {
-	if j == nil {
-		return fmt.Errorf("can't decode phone.joinGroupCall#b132ff7b to nil")
-	}
-	if err := b.ConsumeID(PhoneJoinGroupCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: %w", err)
-	}
-	return j.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (j *PhoneJoinGroupCallRequest) DecodeBare(b *bin.Buffer) error {
-	if j == nil {
-		return fmt.Errorf("can't decode phone.joinGroupCall#b132ff7b to nil")
-	}
-	{
-		if err := j.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field flags: %w", err)
-		}
-	}
-	j.Muted = j.Flags.Has(0)
-	j.VideoStopped = j.Flags.Has(2)
-	{
-		if err := j.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field call: %w", err)
-		}
-	}
-	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field join_as: %w", err)
-		}
-		j.JoinAs = value
-	}
-	if j.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field invite_hash: %w", err)
-		}
-		j.InviteHash = value
-	}
-	{
-		if err := j.Params.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field params: %w", err)
-		}
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for PhoneJoinGroupCallRequest.
-var (
-	_ bin.Encoder     = &PhoneJoinGroupCallRequest{}
-	_ bin.Decoder     = &PhoneJoinGroupCallRequest{}
-	_ bin.BareEncoder = &PhoneJoinGroupCallRequest{}
-	_ bin.BareDecoder = &PhoneJoinGroupCallRequest{}
-)
 
 // PhoneJoinGroupCall invokes method phone.joinGroupCall#b132ff7b returning error if any.
 //

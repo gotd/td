@@ -45,6 +45,19 @@ type SecurePlainPhone struct {
 // SecurePlainPhoneTypeID is TL type id of SecurePlainPhone.
 const SecurePlainPhoneTypeID = 0x7d6099dd
 
+// construct implements constructor of SecurePlainDataClass.
+func (s SecurePlainPhone) construct() SecurePlainDataClass { return &s }
+
+// Ensuring interfaces in compile-time for SecurePlainPhone.
+var (
+	_ bin.Encoder     = &SecurePlainPhone{}
+	_ bin.Decoder     = &SecurePlainPhone{}
+	_ bin.BareEncoder = &SecurePlainPhone{}
+	_ bin.BareDecoder = &SecurePlainPhone{}
+
+	_ SecurePlainDataClass = &SecurePlainPhone{}
+)
+
 func (s *SecurePlainPhone) Zero() bool {
 	if s == nil {
 		return true
@@ -121,11 +134,6 @@ func (s *SecurePlainPhone) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhone returns value of Phone field.
-func (s *SecurePlainPhone) GetPhone() (value string) {
-	return s.Phone
-}
-
 // Decode implements bin.Decoder.
 func (s *SecurePlainPhone) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -152,18 +160,10 @@ func (s *SecurePlainPhone) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecurePlainDataClass.
-func (s SecurePlainPhone) construct() SecurePlainDataClass { return &s }
-
-// Ensuring interfaces in compile-time for SecurePlainPhone.
-var (
-	_ bin.Encoder     = &SecurePlainPhone{}
-	_ bin.Decoder     = &SecurePlainPhone{}
-	_ bin.BareEncoder = &SecurePlainPhone{}
-	_ bin.BareDecoder = &SecurePlainPhone{}
-
-	_ SecurePlainDataClass = &SecurePlainPhone{}
-)
+// GetPhone returns value of Phone field.
+func (s *SecurePlainPhone) GetPhone() (value string) {
+	return s.Phone
+}
 
 // SecurePlainEmail represents TL type `securePlainEmail#21ec5a5f`.
 // Email address to use in telegram passport¹: it must be verified, first »².
@@ -180,6 +180,19 @@ type SecurePlainEmail struct {
 
 // SecurePlainEmailTypeID is TL type id of SecurePlainEmail.
 const SecurePlainEmailTypeID = 0x21ec5a5f
+
+// construct implements constructor of SecurePlainDataClass.
+func (s SecurePlainEmail) construct() SecurePlainDataClass { return &s }
+
+// Ensuring interfaces in compile-time for SecurePlainEmail.
+var (
+	_ bin.Encoder     = &SecurePlainEmail{}
+	_ bin.Decoder     = &SecurePlainEmail{}
+	_ bin.BareEncoder = &SecurePlainEmail{}
+	_ bin.BareDecoder = &SecurePlainEmail{}
+
+	_ SecurePlainDataClass = &SecurePlainEmail{}
+)
 
 func (s *SecurePlainEmail) Zero() bool {
 	if s == nil {
@@ -257,11 +270,6 @@ func (s *SecurePlainEmail) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetEmail returns value of Email field.
-func (s *SecurePlainEmail) GetEmail() (value string) {
-	return s.Email
-}
-
 // Decode implements bin.Decoder.
 func (s *SecurePlainEmail) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -288,18 +296,10 @@ func (s *SecurePlainEmail) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecurePlainDataClass.
-func (s SecurePlainEmail) construct() SecurePlainDataClass { return &s }
-
-// Ensuring interfaces in compile-time for SecurePlainEmail.
-var (
-	_ bin.Encoder     = &SecurePlainEmail{}
-	_ bin.Decoder     = &SecurePlainEmail{}
-	_ bin.BareEncoder = &SecurePlainEmail{}
-	_ bin.BareDecoder = &SecurePlainEmail{}
-
-	_ SecurePlainDataClass = &SecurePlainEmail{}
-)
+// GetEmail returns value of Email field.
+func (s *SecurePlainEmail) GetEmail() (value string) {
+	return s.Email
+}
 
 // SecurePlainDataClass represents SecurePlainData generic type.
 //
@@ -384,276 +384,4 @@ func (b *SecurePlainDataBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SecurePlainDataClass as nil")
 	}
 	return b.SecurePlainData.Encode(buf)
-}
-
-// SecurePlainDataClassArray is adapter for slice of SecurePlainDataClass.
-type SecurePlainDataClassArray []SecurePlainDataClass
-
-// Sort sorts slice of SecurePlainDataClass.
-func (s SecurePlainDataClassArray) Sort(less func(a, b SecurePlainDataClass) bool) SecurePlainDataClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecurePlainDataClass.
-func (s SecurePlainDataClassArray) SortStable(less func(a, b SecurePlainDataClass) bool) SecurePlainDataClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecurePlainDataClass.
-func (s SecurePlainDataClassArray) Retain(keep func(x SecurePlainDataClass) bool) SecurePlainDataClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecurePlainDataClassArray) First() (v SecurePlainDataClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecurePlainDataClassArray) Last() (v SecurePlainDataClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecurePlainDataClassArray) PopFirst() (v SecurePlainDataClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecurePlainDataClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecurePlainDataClassArray) Pop() (v SecurePlainDataClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsSecurePlainPhone returns copy with only SecurePlainPhone constructors.
-func (s SecurePlainDataClassArray) AsSecurePlainPhone() (to SecurePlainPhoneArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SecurePlainPhone)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSecurePlainEmail returns copy with only SecurePlainEmail constructors.
-func (s SecurePlainDataClassArray) AsSecurePlainEmail() (to SecurePlainEmailArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SecurePlainEmail)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// SecurePlainPhoneArray is adapter for slice of SecurePlainPhone.
-type SecurePlainPhoneArray []SecurePlainPhone
-
-// Sort sorts slice of SecurePlainPhone.
-func (s SecurePlainPhoneArray) Sort(less func(a, b SecurePlainPhone) bool) SecurePlainPhoneArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecurePlainPhone.
-func (s SecurePlainPhoneArray) SortStable(less func(a, b SecurePlainPhone) bool) SecurePlainPhoneArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecurePlainPhone.
-func (s SecurePlainPhoneArray) Retain(keep func(x SecurePlainPhone) bool) SecurePlainPhoneArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecurePlainPhoneArray) First() (v SecurePlainPhone, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecurePlainPhoneArray) Last() (v SecurePlainPhone, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecurePlainPhoneArray) PopFirst() (v SecurePlainPhone, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecurePlainPhone
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecurePlainPhoneArray) Pop() (v SecurePlainPhone, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SecurePlainEmailArray is adapter for slice of SecurePlainEmail.
-type SecurePlainEmailArray []SecurePlainEmail
-
-// Sort sorts slice of SecurePlainEmail.
-func (s SecurePlainEmailArray) Sort(less func(a, b SecurePlainEmail) bool) SecurePlainEmailArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecurePlainEmail.
-func (s SecurePlainEmailArray) SortStable(less func(a, b SecurePlainEmail) bool) SecurePlainEmailArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecurePlainEmail.
-func (s SecurePlainEmailArray) Retain(keep func(x SecurePlainEmail) bool) SecurePlainEmailArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecurePlainEmailArray) First() (v SecurePlainEmail, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecurePlainEmailArray) Last() (v SecurePlainEmail, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecurePlainEmailArray) PopFirst() (v SecurePlainEmail, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecurePlainEmail
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecurePlainEmailArray) Pop() (v SecurePlainEmail, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

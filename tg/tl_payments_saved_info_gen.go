@@ -50,6 +50,14 @@ type PaymentsSavedInfo struct {
 // PaymentsSavedInfoTypeID is TL type id of PaymentsSavedInfo.
 const PaymentsSavedInfoTypeID = 0xfb8fe43c
 
+// Ensuring interfaces in compile-time for PaymentsSavedInfo.
+var (
+	_ bin.Encoder     = &PaymentsSavedInfo{}
+	_ bin.Decoder     = &PaymentsSavedInfo{}
+	_ bin.BareEncoder = &PaymentsSavedInfo{}
+	_ bin.BareDecoder = &PaymentsSavedInfo{}
+)
+
 func (s *PaymentsSavedInfo) Zero() bool {
 	if s == nil {
 		return true
@@ -156,37 +164,6 @@ func (s *PaymentsSavedInfo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetHasSavedCredentials sets value of HasSavedCredentials conditional field.
-func (s *PaymentsSavedInfo) SetHasSavedCredentials(value bool) {
-	if value {
-		s.Flags.Set(1)
-		s.HasSavedCredentials = true
-	} else {
-		s.Flags.Unset(1)
-		s.HasSavedCredentials = false
-	}
-}
-
-// GetHasSavedCredentials returns value of HasSavedCredentials conditional field.
-func (s *PaymentsSavedInfo) GetHasSavedCredentials() (value bool) {
-	return s.Flags.Has(1)
-}
-
-// SetSavedInfo sets value of SavedInfo conditional field.
-func (s *PaymentsSavedInfo) SetSavedInfo(value PaymentRequestedInfo) {
-	s.Flags.Set(0)
-	s.SavedInfo = value
-}
-
-// GetSavedInfo returns value of SavedInfo conditional field and
-// boolean which is true if field was set.
-func (s *PaymentsSavedInfo) GetSavedInfo() (value PaymentRequestedInfo, ok bool) {
-	if !s.Flags.Has(0) {
-		return value, false
-	}
-	return s.SavedInfo, true
-}
-
 // Decode implements bin.Decoder.
 func (s *PaymentsSavedInfo) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -217,10 +194,33 @@ func (s *PaymentsSavedInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PaymentsSavedInfo.
-var (
-	_ bin.Encoder     = &PaymentsSavedInfo{}
-	_ bin.Decoder     = &PaymentsSavedInfo{}
-	_ bin.BareEncoder = &PaymentsSavedInfo{}
-	_ bin.BareDecoder = &PaymentsSavedInfo{}
-)
+// SetHasSavedCredentials sets value of HasSavedCredentials conditional field.
+func (s *PaymentsSavedInfo) SetHasSavedCredentials(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.HasSavedCredentials = true
+	} else {
+		s.Flags.Unset(1)
+		s.HasSavedCredentials = false
+	}
+}
+
+// GetHasSavedCredentials returns value of HasSavedCredentials conditional field.
+func (s *PaymentsSavedInfo) GetHasSavedCredentials() (value bool) {
+	return s.Flags.Has(1)
+}
+
+// SetSavedInfo sets value of SavedInfo conditional field.
+func (s *PaymentsSavedInfo) SetSavedInfo(value PaymentRequestedInfo) {
+	s.Flags.Set(0)
+	s.SavedInfo = value
+}
+
+// GetSavedInfo returns value of SavedInfo conditional field and
+// boolean which is true if field was set.
+func (s *PaymentsSavedInfo) GetSavedInfo() (value PaymentRequestedInfo, ok bool) {
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.SavedInfo, true
+}

@@ -47,6 +47,14 @@ type AuthImportLoginTokenRequest struct {
 // AuthImportLoginTokenRequestTypeID is TL type id of AuthImportLoginTokenRequest.
 const AuthImportLoginTokenRequestTypeID = 0x95ac5ce4
 
+// Ensuring interfaces in compile-time for AuthImportLoginTokenRequest.
+var (
+	_ bin.Encoder     = &AuthImportLoginTokenRequest{}
+	_ bin.Decoder     = &AuthImportLoginTokenRequest{}
+	_ bin.BareEncoder = &AuthImportLoginTokenRequest{}
+	_ bin.BareDecoder = &AuthImportLoginTokenRequest{}
+)
+
 func (i *AuthImportLoginTokenRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -123,11 +131,6 @@ func (i *AuthImportLoginTokenRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetToken returns value of Token field.
-func (i *AuthImportLoginTokenRequest) GetToken() (value []byte) {
-	return i.Token
-}
-
 // Decode implements bin.Decoder.
 func (i *AuthImportLoginTokenRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -154,13 +157,10 @@ func (i *AuthImportLoginTokenRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthImportLoginTokenRequest.
-var (
-	_ bin.Encoder     = &AuthImportLoginTokenRequest{}
-	_ bin.Decoder     = &AuthImportLoginTokenRequest{}
-	_ bin.BareEncoder = &AuthImportLoginTokenRequest{}
-	_ bin.BareDecoder = &AuthImportLoginTokenRequest{}
-)
+// GetToken returns value of Token field.
+func (i *AuthImportLoginTokenRequest) GetToken() (value []byte) {
+	return i.Token
+}
 
 // AuthImportLoginToken invokes method auth.importLoginToken#95ac5ce4 returning error if any.
 // Login using a redirected login token, generated in case of DC mismatch during QR code

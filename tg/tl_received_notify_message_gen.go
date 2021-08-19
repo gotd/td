@@ -43,6 +43,14 @@ type ReceivedNotifyMessage struct {
 // ReceivedNotifyMessageTypeID is TL type id of ReceivedNotifyMessage.
 const ReceivedNotifyMessageTypeID = 0xa384b779
 
+// Ensuring interfaces in compile-time for ReceivedNotifyMessage.
+var (
+	_ bin.Encoder     = &ReceivedNotifyMessage{}
+	_ bin.Decoder     = &ReceivedNotifyMessage{}
+	_ bin.BareEncoder = &ReceivedNotifyMessage{}
+	_ bin.BareDecoder = &ReceivedNotifyMessage{}
+)
+
 func (r *ReceivedNotifyMessage) Zero() bool {
 	if r == nil {
 		return true
@@ -129,16 +137,6 @@ func (r *ReceivedNotifyMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (r *ReceivedNotifyMessage) GetID() (value int) {
-	return r.ID
-}
-
-// GetFlags returns value of Flags field.
-func (r *ReceivedNotifyMessage) GetFlags() (value int) {
-	return r.Flags
-}
-
 // Decode implements bin.Decoder.
 func (r *ReceivedNotifyMessage) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -172,10 +170,12 @@ func (r *ReceivedNotifyMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ReceivedNotifyMessage.
-var (
-	_ bin.Encoder     = &ReceivedNotifyMessage{}
-	_ bin.Decoder     = &ReceivedNotifyMessage{}
-	_ bin.BareEncoder = &ReceivedNotifyMessage{}
-	_ bin.BareDecoder = &ReceivedNotifyMessage{}
-)
+// GetID returns value of ID field.
+func (r *ReceivedNotifyMessage) GetID() (value int) {
+	return r.ID
+}
+
+// GetFlags returns value of Flags field.
+func (r *ReceivedNotifyMessage) GetFlags() (value int) {
+	return r.Flags
+}

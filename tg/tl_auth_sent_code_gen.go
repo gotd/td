@@ -63,6 +63,14 @@ type AuthSentCode struct {
 // AuthSentCodeTypeID is TL type id of AuthSentCode.
 const AuthSentCodeTypeID = 0x5e002502
 
+// Ensuring interfaces in compile-time for AuthSentCode.
+var (
+	_ bin.Encoder     = &AuthSentCode{}
+	_ bin.Decoder     = &AuthSentCode{}
+	_ bin.BareEncoder = &AuthSentCode{}
+	_ bin.BareDecoder = &AuthSentCode{}
+)
+
 func (s *AuthSentCode) Zero() bool {
 	if s == nil {
 		return true
@@ -203,46 +211,6 @@ func (s *AuthSentCode) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *AuthSentCode) GetType() (value AuthSentCodeTypeClass) {
-	return s.Type
-}
-
-// GetPhoneCodeHash returns value of PhoneCodeHash field.
-func (s *AuthSentCode) GetPhoneCodeHash() (value string) {
-	return s.PhoneCodeHash
-}
-
-// SetNextType sets value of NextType conditional field.
-func (s *AuthSentCode) SetNextType(value AuthCodeTypeClass) {
-	s.Flags.Set(1)
-	s.NextType = value
-}
-
-// GetNextType returns value of NextType conditional field and
-// boolean which is true if field was set.
-func (s *AuthSentCode) GetNextType() (value AuthCodeTypeClass, ok bool) {
-	if !s.Flags.Has(1) {
-		return value, false
-	}
-	return s.NextType, true
-}
-
-// SetTimeout sets value of Timeout conditional field.
-func (s *AuthSentCode) SetTimeout(value int) {
-	s.Flags.Set(2)
-	s.Timeout = value
-}
-
-// GetTimeout returns value of Timeout conditional field and
-// boolean which is true if field was set.
-func (s *AuthSentCode) GetTimeout() (value int, ok bool) {
-	if !s.Flags.Has(2) {
-		return value, false
-	}
-	return s.Timeout, true
-}
-
 // Decode implements bin.Decoder.
 func (s *AuthSentCode) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -295,10 +263,42 @@ func (s *AuthSentCode) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthSentCode.
-var (
-	_ bin.Encoder     = &AuthSentCode{}
-	_ bin.Decoder     = &AuthSentCode{}
-	_ bin.BareEncoder = &AuthSentCode{}
-	_ bin.BareDecoder = &AuthSentCode{}
-)
+// GetType returns value of Type field.
+func (s *AuthSentCode) GetType() (value AuthSentCodeTypeClass) {
+	return s.Type
+}
+
+// GetPhoneCodeHash returns value of PhoneCodeHash field.
+func (s *AuthSentCode) GetPhoneCodeHash() (value string) {
+	return s.PhoneCodeHash
+}
+
+// SetNextType sets value of NextType conditional field.
+func (s *AuthSentCode) SetNextType(value AuthCodeTypeClass) {
+	s.Flags.Set(1)
+	s.NextType = value
+}
+
+// GetNextType returns value of NextType conditional field and
+// boolean which is true if field was set.
+func (s *AuthSentCode) GetNextType() (value AuthCodeTypeClass, ok bool) {
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.NextType, true
+}
+
+// SetTimeout sets value of Timeout conditional field.
+func (s *AuthSentCode) SetTimeout(value int) {
+	s.Flags.Set(2)
+	s.Timeout = value
+}
+
+// GetTimeout returns value of Timeout conditional field and
+// boolean which is true if field was set.
+func (s *AuthSentCode) GetTimeout() (value int, ok bool) {
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.Timeout, true
+}

@@ -38,6 +38,14 @@ type ReqPqMultiRequest struct {
 // ReqPqMultiRequestTypeID is TL type id of ReqPqMultiRequest.
 const ReqPqMultiRequestTypeID = 0xbe7e8ef1
 
+// Ensuring interfaces in compile-time for ReqPqMultiRequest.
+var (
+	_ bin.Encoder     = &ReqPqMultiRequest{}
+	_ bin.Decoder     = &ReqPqMultiRequest{}
+	_ bin.BareEncoder = &ReqPqMultiRequest{}
+	_ bin.BareDecoder = &ReqPqMultiRequest{}
+)
+
 func (r *ReqPqMultiRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -56,13 +64,6 @@ func (r *ReqPqMultiRequest) String() string {
 	}
 	type Alias ReqPqMultiRequest
 	return fmt.Sprintf("ReqPqMultiRequest%+v", Alias(*r))
-}
-
-// FillFrom fills ReqPqMultiRequest from given interface.
-func (r *ReqPqMultiRequest) FillFrom(from interface {
-	GetNonce() (value bin.Int128)
-}) {
-	r.Nonce = from.GetNonce()
 }
 
 // TypeID returns type id in TL schema.
@@ -114,11 +115,6 @@ func (r *ReqPqMultiRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNonce returns value of Nonce field.
-func (r *ReqPqMultiRequest) GetNonce() (value bin.Int128) {
-	return r.Nonce
-}
-
 // Decode implements bin.Decoder.
 func (r *ReqPqMultiRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -145,10 +141,7 @@ func (r *ReqPqMultiRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ReqPqMultiRequest.
-var (
-	_ bin.Encoder     = &ReqPqMultiRequest{}
-	_ bin.Decoder     = &ReqPqMultiRequest{}
-	_ bin.BareEncoder = &ReqPqMultiRequest{}
-	_ bin.BareDecoder = &ReqPqMultiRequest{}
-)
+// GetNonce returns value of Nonce field.
+func (r *ReqPqMultiRequest) GetNonce() (value bin.Int128) {
+	return r.Nonce
+}

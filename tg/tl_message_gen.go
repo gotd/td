@@ -47,6 +47,19 @@ type MessageEmpty struct {
 // MessageEmptyTypeID is TL type id of MessageEmpty.
 const MessageEmptyTypeID = 0x90a6ca84
 
+// construct implements constructor of MessageClass.
+func (m MessageEmpty) construct() MessageClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEmpty.
+var (
+	_ bin.Encoder     = &MessageEmpty{}
+	_ bin.Decoder     = &MessageEmpty{}
+	_ bin.BareEncoder = &MessageEmpty{}
+	_ bin.BareDecoder = &MessageEmpty{}
+
+	_ MessageClass = &MessageEmpty{}
+)
+
 func (m *MessageEmpty) Zero() bool {
 	if m == nil {
 		return true
@@ -153,26 +166,6 @@ func (m *MessageEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (m *MessageEmpty) GetID() (value int) {
-	return m.ID
-}
-
-// SetPeerID sets value of PeerID conditional field.
-func (m *MessageEmpty) SetPeerID(value PeerClass) {
-	m.Flags.Set(0)
-	m.PeerID = value
-}
-
-// GetPeerID returns value of PeerID conditional field and
-// boolean which is true if field was set.
-func (m *MessageEmpty) GetPeerID() (value PeerClass, ok bool) {
-	if !m.Flags.Has(0) {
-		return value, false
-	}
-	return m.PeerID, true
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEmpty) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -211,18 +204,25 @@ func (m *MessageEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageClass.
-func (m MessageEmpty) construct() MessageClass { return &m }
+// GetID returns value of ID field.
+func (m *MessageEmpty) GetID() (value int) {
+	return m.ID
+}
 
-// Ensuring interfaces in compile-time for MessageEmpty.
-var (
-	_ bin.Encoder     = &MessageEmpty{}
-	_ bin.Decoder     = &MessageEmpty{}
-	_ bin.BareEncoder = &MessageEmpty{}
-	_ bin.BareDecoder = &MessageEmpty{}
+// SetPeerID sets value of PeerID conditional field.
+func (m *MessageEmpty) SetPeerID(value PeerClass) {
+	m.Flags.Set(0)
+	m.PeerID = value
+}
 
-	_ MessageClass = &MessageEmpty{}
-)
+// GetPeerID returns value of PeerID conditional field and
+// boolean which is true if field was set.
+func (m *MessageEmpty) GetPeerID() (value PeerClass, ok bool) {
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.PeerID, true
+}
 
 // Message represents TL type `message#bce383d2`.
 // A message
@@ -345,6 +345,19 @@ type Message struct {
 
 // MessageTypeID is TL type id of Message.
 const MessageTypeID = 0xbce383d2
+
+// construct implements constructor of MessageClass.
+func (m Message) construct() MessageClass { return &m }
+
+// Ensuring interfaces in compile-time for Message.
+var (
+	_ bin.Encoder     = &Message{}
+	_ bin.Decoder     = &Message{}
+	_ bin.BareEncoder = &Message{}
+	_ bin.BareDecoder = &Message{}
+
+	_ MessageClass = &Message{}
+)
 
 func (m *Message) Zero() bool {
 	if m == nil {
@@ -899,6 +912,186 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (m *Message) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode message#bce383d2 to nil")
+	}
+	if err := b.ConsumeID(MessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode message#bce383d2: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *Message) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode message#bce383d2 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field flags: %w", err)
+		}
+	}
+	m.Out = m.Flags.Has(1)
+	m.Mentioned = m.Flags.Has(4)
+	m.MediaUnread = m.Flags.Has(5)
+	m.Silent = m.Flags.Has(13)
+	m.Post = m.Flags.Has(14)
+	m.FromScheduled = m.Flags.Has(18)
+	m.Legacy = m.Flags.Has(19)
+	m.EditHide = m.Flags.Has(21)
+	m.Pinned = m.Flags.Has(24)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field id: %w", err)
+		}
+		m.ID = value
+	}
+	if m.Flags.Has(8) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field from_id: %w", err)
+		}
+		m.FromID = value
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field peer_id: %w", err)
+		}
+		m.PeerID = value
+	}
+	if m.Flags.Has(2) {
+		if err := m.FwdFrom.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field fwd_from: %w", err)
+		}
+	}
+	if m.Flags.Has(11) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field via_bot_id: %w", err)
+		}
+		m.ViaBotID = value
+	}
+	if m.Flags.Has(3) {
+		if err := m.ReplyTo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field reply_to: %w", err)
+		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field date: %w", err)
+		}
+		m.Date = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field message: %w", err)
+		}
+		m.Message = value
+	}
+	if m.Flags.Has(9) {
+		value, err := DecodeMessageMedia(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field media: %w", err)
+		}
+		m.Media = value
+	}
+	if m.Flags.Has(6) {
+		value, err := DecodeReplyMarkup(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field reply_markup: %w", err)
+		}
+		m.ReplyMarkup = value
+	}
+	if m.Flags.Has(7) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field entities: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMessageEntity(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode message#bce383d2: field entities: %w", err)
+			}
+			m.Entities = append(m.Entities, value)
+		}
+	}
+	if m.Flags.Has(10) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field views: %w", err)
+		}
+		m.Views = value
+	}
+	if m.Flags.Has(10) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field forwards: %w", err)
+		}
+		m.Forwards = value
+	}
+	if m.Flags.Has(23) {
+		if err := m.Replies.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field replies: %w", err)
+		}
+	}
+	if m.Flags.Has(15) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field edit_date: %w", err)
+		}
+		m.EditDate = value
+	}
+	if m.Flags.Has(16) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field post_author: %w", err)
+		}
+		m.PostAuthor = value
+	}
+	if m.Flags.Has(17) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field grouped_id: %w", err)
+		}
+		m.GroupedID = value
+	}
+	if m.Flags.Has(22) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field restriction_reason: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.RestrictionReason = make([]RestrictionReason, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value RestrictionReason
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode message#bce383d2: field restriction_reason: %w", err)
+			}
+			m.RestrictionReason = append(m.RestrictionReason, value)
+		}
+	}
+	if m.Flags.Has(25) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field ttl_period: %w", err)
+		}
+		m.TTLPeriod = value
+	}
+	return nil
+}
+
 // SetOut sets value of Out conditional field.
 func (m *Message) SetOut(value bool) {
 	if value {
@@ -1168,14 +1361,6 @@ func (m *Message) GetEntities() (value []MessageEntityClass, ok bool) {
 	return m.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (m *Message) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !m.Flags.Has(7) {
-		return value, false
-	}
-	return MessageEntityClassArray(m.Entities), true
-}
-
 // SetViews sets value of Views conditional field.
 func (m *Message) SetViews(value int) {
 	m.Flags.Set(10)
@@ -1296,198 +1481,13 @@ func (m *Message) GetTTLPeriod() (value int, ok bool) {
 	return m.TTLPeriod, true
 }
 
-// Decode implements bin.Decoder.
-func (m *Message) Decode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode message#bce383d2 to nil")
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (m *Message) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !m.Flags.Has(7) {
+		return value, false
 	}
-	if err := b.ConsumeID(MessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode message#bce383d2: %w", err)
-	}
-	return m.DecodeBare(b)
+	return MessageEntityClassArray(m.Entities), true
 }
-
-// DecodeBare implements bin.BareDecoder.
-func (m *Message) DecodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode message#bce383d2 to nil")
-	}
-	{
-		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field flags: %w", err)
-		}
-	}
-	m.Out = m.Flags.Has(1)
-	m.Mentioned = m.Flags.Has(4)
-	m.MediaUnread = m.Flags.Has(5)
-	m.Silent = m.Flags.Has(13)
-	m.Post = m.Flags.Has(14)
-	m.FromScheduled = m.Flags.Has(18)
-	m.Legacy = m.Flags.Has(19)
-	m.EditHide = m.Flags.Has(21)
-	m.Pinned = m.Flags.Has(24)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field id: %w", err)
-		}
-		m.ID = value
-	}
-	if m.Flags.Has(8) {
-		value, err := DecodePeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field from_id: %w", err)
-		}
-		m.FromID = value
-	}
-	{
-		value, err := DecodePeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field peer_id: %w", err)
-		}
-		m.PeerID = value
-	}
-	if m.Flags.Has(2) {
-		if err := m.FwdFrom.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field fwd_from: %w", err)
-		}
-	}
-	if m.Flags.Has(11) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field via_bot_id: %w", err)
-		}
-		m.ViaBotID = value
-	}
-	if m.Flags.Has(3) {
-		if err := m.ReplyTo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field reply_to: %w", err)
-		}
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field date: %w", err)
-		}
-		m.Date = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field message: %w", err)
-		}
-		m.Message = value
-	}
-	if m.Flags.Has(9) {
-		value, err := DecodeMessageMedia(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field media: %w", err)
-		}
-		m.Media = value
-	}
-	if m.Flags.Has(6) {
-		value, err := DecodeReplyMarkup(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field reply_markup: %w", err)
-		}
-		m.ReplyMarkup = value
-	}
-	if m.Flags.Has(7) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field entities: %w", err)
-		}
-
-		if headerLen > 0 {
-			m.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeMessageEntity(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode message#bce383d2: field entities: %w", err)
-			}
-			m.Entities = append(m.Entities, value)
-		}
-	}
-	if m.Flags.Has(10) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field views: %w", err)
-		}
-		m.Views = value
-	}
-	if m.Flags.Has(10) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field forwards: %w", err)
-		}
-		m.Forwards = value
-	}
-	if m.Flags.Has(23) {
-		if err := m.Replies.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field replies: %w", err)
-		}
-	}
-	if m.Flags.Has(15) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field edit_date: %w", err)
-		}
-		m.EditDate = value
-	}
-	if m.Flags.Has(16) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field post_author: %w", err)
-		}
-		m.PostAuthor = value
-	}
-	if m.Flags.Has(17) {
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field grouped_id: %w", err)
-		}
-		m.GroupedID = value
-	}
-	if m.Flags.Has(22) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field restriction_reason: %w", err)
-		}
-
-		if headerLen > 0 {
-			m.RestrictionReason = make([]RestrictionReason, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value RestrictionReason
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode message#bce383d2: field restriction_reason: %w", err)
-			}
-			m.RestrictionReason = append(m.RestrictionReason, value)
-		}
-	}
-	if m.Flags.Has(25) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode message#bce383d2: field ttl_period: %w", err)
-		}
-		m.TTLPeriod = value
-	}
-	return nil
-}
-
-// construct implements constructor of MessageClass.
-func (m Message) construct() MessageClass { return &m }
-
-// Ensuring interfaces in compile-time for Message.
-var (
-	_ bin.Encoder     = &Message{}
-	_ bin.Decoder     = &Message{}
-	_ bin.BareEncoder = &Message{}
-	_ bin.BareDecoder = &Message{}
-
-	_ MessageClass = &Message{}
-)
 
 // MessageService represents TL type `messageService#2b085862`.
 // Indicates a service message
@@ -1535,6 +1535,19 @@ type MessageService struct {
 
 // MessageServiceTypeID is TL type id of MessageService.
 const MessageServiceTypeID = 0x2b085862
+
+// construct implements constructor of MessageClass.
+func (m MessageService) construct() MessageClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageService.
+var (
+	_ bin.Encoder     = &MessageService{}
+	_ bin.Decoder     = &MessageService{}
+	_ bin.BareEncoder = &MessageService{}
+	_ bin.BareDecoder = &MessageService{}
+
+	_ MessageClass = &MessageService{}
+)
 
 func (m *MessageService) Zero() bool {
 	if m == nil {
@@ -1800,6 +1813,83 @@ func (m *MessageService) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (m *MessageService) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageService#2b085862 to nil")
+	}
+	if err := b.ConsumeID(MessageServiceTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageService#2b085862: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageService) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageService#2b085862 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageService#2b085862: field flags: %w", err)
+		}
+	}
+	m.Out = m.Flags.Has(1)
+	m.Mentioned = m.Flags.Has(4)
+	m.MediaUnread = m.Flags.Has(5)
+	m.Silent = m.Flags.Has(13)
+	m.Post = m.Flags.Has(14)
+	m.Legacy = m.Flags.Has(19)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageService#2b085862: field id: %w", err)
+		}
+		m.ID = value
+	}
+	if m.Flags.Has(8) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageService#2b085862: field from_id: %w", err)
+		}
+		m.FromID = value
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageService#2b085862: field peer_id: %w", err)
+		}
+		m.PeerID = value
+	}
+	if m.Flags.Has(3) {
+		if err := m.ReplyTo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageService#2b085862: field reply_to: %w", err)
+		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageService#2b085862: field date: %w", err)
+		}
+		m.Date = value
+	}
+	{
+		value, err := DecodeMessageAction(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageService#2b085862: field action: %w", err)
+		}
+		m.Action = value
+	}
+	if m.Flags.Has(25) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageService#2b085862: field ttl_period: %w", err)
+		}
+		m.TTLPeriod = value
+	}
+	return nil
+}
+
 // SetOut sets value of Out conditional field.
 func (m *MessageService) SetOut(value bool) {
 	if value {
@@ -1960,96 +2050,6 @@ func (m *MessageService) GetTTLPeriod() (value int, ok bool) {
 	}
 	return m.TTLPeriod, true
 }
-
-// Decode implements bin.Decoder.
-func (m *MessageService) Decode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageService#2b085862 to nil")
-	}
-	if err := b.ConsumeID(MessageServiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageService#2b085862: %w", err)
-	}
-	return m.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (m *MessageService) DecodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageService#2b085862 to nil")
-	}
-	{
-		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field flags: %w", err)
-		}
-	}
-	m.Out = m.Flags.Has(1)
-	m.Mentioned = m.Flags.Has(4)
-	m.MediaUnread = m.Flags.Has(5)
-	m.Silent = m.Flags.Has(13)
-	m.Post = m.Flags.Has(14)
-	m.Legacy = m.Flags.Has(19)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field id: %w", err)
-		}
-		m.ID = value
-	}
-	if m.Flags.Has(8) {
-		value, err := DecodePeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field from_id: %w", err)
-		}
-		m.FromID = value
-	}
-	{
-		value, err := DecodePeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field peer_id: %w", err)
-		}
-		m.PeerID = value
-	}
-	if m.Flags.Has(3) {
-		if err := m.ReplyTo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field reply_to: %w", err)
-		}
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field date: %w", err)
-		}
-		m.Date = value
-	}
-	{
-		value, err := DecodeMessageAction(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field action: %w", err)
-		}
-		m.Action = value
-	}
-	if m.Flags.Has(25) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageService#2b085862: field ttl_period: %w", err)
-		}
-		m.TTLPeriod = value
-	}
-	return nil
-}
-
-// construct implements constructor of MessageClass.
-func (m MessageService) construct() MessageClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageService.
-var (
-	_ bin.Encoder     = &MessageService{}
-	_ bin.Decoder     = &MessageService{}
-	_ bin.BareEncoder = &MessageService{}
-	_ bin.BareDecoder = &MessageService{}
-
-	_ MessageClass = &MessageService{}
-)
 
 // MessageClass represents Message generic type.
 //
@@ -2241,624 +2241,4 @@ func (b *MessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessageClass as nil")
 	}
 	return b.Message.Encode(buf)
-}
-
-// MessageClassArray is adapter for slice of MessageClass.
-type MessageClassArray []MessageClass
-
-// Sort sorts slice of MessageClass.
-func (s MessageClassArray) Sort(less func(a, b MessageClass) bool) MessageClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageClass.
-func (s MessageClassArray) SortStable(less func(a, b MessageClass) bool) MessageClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageClass.
-func (s MessageClassArray) Retain(keep func(x MessageClass) bool) MessageClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageClassArray) First() (v MessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageClassArray) Last() (v MessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageClassArray) PopFirst() (v MessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageClassArray) Pop() (v MessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of MessageClass by ID.
-func (s MessageClassArray) SortByID() MessageClassArray {
-	return s.Sort(func(a, b MessageClass) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of MessageClass by ID.
-func (s MessageClassArray) SortStableByID() MessageClassArray {
-	return s.SortStable(func(a, b MessageClass) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMessageEmptyMap fills only MessageEmpty constructors to given map.
-func (s MessageClassArray) FillMessageEmptyMap(to map[int]*MessageEmpty) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEmpty)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// MessageEmptyToMap collects only MessageEmpty constructors to map.
-func (s MessageClassArray) MessageEmptyToMap() map[int]*MessageEmpty {
-	r := make(map[int]*MessageEmpty, len(s))
-	s.FillMessageEmptyMap(r)
-	return r
-}
-
-// AsMessageEmpty returns copy with only MessageEmpty constructors.
-func (s MessageClassArray) AsMessageEmpty() (to MessageEmptyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEmpty)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillMessageMap fills only Message constructors to given map.
-func (s MessageClassArray) FillMessageMap(to map[int]*Message) {
-	for _, elem := range s {
-		value, ok := elem.(*Message)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// MessageToMap collects only Message constructors to map.
-func (s MessageClassArray) MessageToMap() map[int]*Message {
-	r := make(map[int]*Message, len(s))
-	s.FillMessageMap(r)
-	return r
-}
-
-// AsMessage returns copy with only Message constructors.
-func (s MessageClassArray) AsMessage() (to MessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*Message)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillMessageServiceMap fills only MessageService constructors to given map.
-func (s MessageClassArray) FillMessageServiceMap(to map[int]*MessageService) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageService)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// MessageServiceToMap collects only MessageService constructors to map.
-func (s MessageClassArray) MessageServiceToMap() map[int]*MessageService {
-	r := make(map[int]*MessageService, len(s))
-	s.FillMessageServiceMap(r)
-	return r
-}
-
-// AsMessageService returns copy with only MessageService constructors.
-func (s MessageClassArray) AsMessageService() (to MessageServiceArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageService)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillNotEmptyMap fills only NotEmpty constructors to given map.
-func (s MessageClassArray) FillNotEmptyMap(to map[int]NotEmptyMessage) {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// NotEmptyToMap collects only NotEmpty constructors to map.
-func (s MessageClassArray) NotEmptyToMap() map[int]NotEmptyMessage {
-	r := make(map[int]NotEmptyMessage, len(s))
-	s.FillNotEmptyMap(r)
-	return r
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s MessageClassArray) AppendOnlyNotEmpty(to []NotEmptyMessage) []NotEmptyMessage {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s MessageClassArray) AsNotEmpty() (to []NotEmptyMessage) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s MessageClassArray) FirstAsNotEmpty() (v NotEmptyMessage, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s MessageClassArray) LastAsNotEmpty() (v NotEmptyMessage, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *MessageClassArray) PopFirstAsNotEmpty() (v NotEmptyMessage, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *MessageClassArray) PopAsNotEmpty() (v NotEmptyMessage, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// MessageEmptyArray is adapter for slice of MessageEmpty.
-type MessageEmptyArray []MessageEmpty
-
-// Sort sorts slice of MessageEmpty.
-func (s MessageEmptyArray) Sort(less func(a, b MessageEmpty) bool) MessageEmptyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEmpty.
-func (s MessageEmptyArray) SortStable(less func(a, b MessageEmpty) bool) MessageEmptyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEmpty.
-func (s MessageEmptyArray) Retain(keep func(x MessageEmpty) bool) MessageEmptyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEmptyArray) First() (v MessageEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEmptyArray) Last() (v MessageEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEmptyArray) PopFirst() (v MessageEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEmpty
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEmptyArray) Pop() (v MessageEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of MessageEmpty by ID.
-func (s MessageEmptyArray) SortByID() MessageEmptyArray {
-	return s.Sort(func(a, b MessageEmpty) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of MessageEmpty by ID.
-func (s MessageEmptyArray) SortStableByID() MessageEmptyArray {
-	return s.SortStable(func(a, b MessageEmpty) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s MessageEmptyArray) FillMap(to map[int]MessageEmpty) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s MessageEmptyArray) ToMap() map[int]MessageEmpty {
-	r := make(map[int]MessageEmpty, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// MessageArray is adapter for slice of Message.
-type MessageArray []Message
-
-// Sort sorts slice of Message.
-func (s MessageArray) Sort(less func(a, b Message) bool) MessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of Message.
-func (s MessageArray) SortStable(less func(a, b Message) bool) MessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of Message.
-func (s MessageArray) Retain(keep func(x Message) bool) MessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageArray) First() (v Message, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageArray) Last() (v Message, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageArray) PopFirst() (v Message, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero Message
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageArray) Pop() (v Message, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of Message by ID.
-func (s MessageArray) SortByID() MessageArray {
-	return s.Sort(func(a, b Message) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of Message by ID.
-func (s MessageArray) SortStableByID() MessageArray {
-	return s.SortStable(func(a, b Message) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortByDate sorts slice of Message by Date.
-func (s MessageArray) SortByDate() MessageArray {
-	return s.Sort(func(a, b Message) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of Message by Date.
-func (s MessageArray) SortStableByDate() MessageArray {
-	return s.SortStable(func(a, b Message) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s MessageArray) FillMap(to map[int]Message) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s MessageArray) ToMap() map[int]Message {
-	r := make(map[int]Message, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// MessageServiceArray is adapter for slice of MessageService.
-type MessageServiceArray []MessageService
-
-// Sort sorts slice of MessageService.
-func (s MessageServiceArray) Sort(less func(a, b MessageService) bool) MessageServiceArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageService.
-func (s MessageServiceArray) SortStable(less func(a, b MessageService) bool) MessageServiceArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageService.
-func (s MessageServiceArray) Retain(keep func(x MessageService) bool) MessageServiceArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageServiceArray) First() (v MessageService, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageServiceArray) Last() (v MessageService, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageServiceArray) PopFirst() (v MessageService, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageService
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageServiceArray) Pop() (v MessageService, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of MessageService by ID.
-func (s MessageServiceArray) SortByID() MessageServiceArray {
-	return s.Sort(func(a, b MessageService) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of MessageService by ID.
-func (s MessageServiceArray) SortStableByID() MessageServiceArray {
-	return s.SortStable(func(a, b MessageService) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortByDate sorts slice of MessageService by Date.
-func (s MessageServiceArray) SortByDate() MessageServiceArray {
-	return s.Sort(func(a, b MessageService) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of MessageService by Date.
-func (s MessageServiceArray) SortStableByDate() MessageServiceArray {
-	return s.SortStable(func(a, b MessageService) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s MessageServiceArray) FillMap(to map[int]MessageService) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s MessageServiceArray) ToMap() map[int]MessageService {
-	r := make(map[int]MessageService, len(s))
-	s.FillMap(r)
-	return r
 }

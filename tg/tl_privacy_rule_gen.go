@@ -39,6 +39,19 @@ type PrivacyValueAllowContacts struct {
 // PrivacyValueAllowContactsTypeID is TL type id of PrivacyValueAllowContacts.
 const PrivacyValueAllowContactsTypeID = 0xfffe1bac
 
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueAllowContacts) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueAllowContacts.
+var (
+	_ bin.Encoder     = &PrivacyValueAllowContacts{}
+	_ bin.Decoder     = &PrivacyValueAllowContacts{}
+	_ bin.BareEncoder = &PrivacyValueAllowContacts{}
+	_ bin.BareDecoder = &PrivacyValueAllowContacts{}
+
+	_ PrivacyRuleClass = &PrivacyValueAllowContacts{}
+)
+
 func (p *PrivacyValueAllowContacts) Zero() bool {
 	if p == nil {
 		return true
@@ -118,19 +131,6 @@ func (p *PrivacyValueAllowContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueAllowContacts) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueAllowContacts.
-var (
-	_ bin.Encoder     = &PrivacyValueAllowContacts{}
-	_ bin.Decoder     = &PrivacyValueAllowContacts{}
-	_ bin.BareEncoder = &PrivacyValueAllowContacts{}
-	_ bin.BareDecoder = &PrivacyValueAllowContacts{}
-
-	_ PrivacyRuleClass = &PrivacyValueAllowContacts{}
-)
-
 // PrivacyValueAllowAll represents TL type `privacyValueAllowAll#65427b82`.
 // Allow all users
 //
@@ -140,6 +140,19 @@ type PrivacyValueAllowAll struct {
 
 // PrivacyValueAllowAllTypeID is TL type id of PrivacyValueAllowAll.
 const PrivacyValueAllowAllTypeID = 0x65427b82
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueAllowAll) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueAllowAll.
+var (
+	_ bin.Encoder     = &PrivacyValueAllowAll{}
+	_ bin.Decoder     = &PrivacyValueAllowAll{}
+	_ bin.BareEncoder = &PrivacyValueAllowAll{}
+	_ bin.BareDecoder = &PrivacyValueAllowAll{}
+
+	_ PrivacyRuleClass = &PrivacyValueAllowAll{}
+)
 
 func (p *PrivacyValueAllowAll) Zero() bool {
 	if p == nil {
@@ -220,19 +233,6 @@ func (p *PrivacyValueAllowAll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueAllowAll) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueAllowAll.
-var (
-	_ bin.Encoder     = &PrivacyValueAllowAll{}
-	_ bin.Decoder     = &PrivacyValueAllowAll{}
-	_ bin.BareEncoder = &PrivacyValueAllowAll{}
-	_ bin.BareDecoder = &PrivacyValueAllowAll{}
-
-	_ PrivacyRuleClass = &PrivacyValueAllowAll{}
-)
-
 // PrivacyValueAllowUsers represents TL type `privacyValueAllowUsers#4d5bbe0c`.
 // Allow only certain users
 //
@@ -244,6 +244,19 @@ type PrivacyValueAllowUsers struct {
 
 // PrivacyValueAllowUsersTypeID is TL type id of PrivacyValueAllowUsers.
 const PrivacyValueAllowUsersTypeID = 0x4d5bbe0c
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueAllowUsers) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueAllowUsers.
+var (
+	_ bin.Encoder     = &PrivacyValueAllowUsers{}
+	_ bin.Decoder     = &PrivacyValueAllowUsers{}
+	_ bin.BareEncoder = &PrivacyValueAllowUsers{}
+	_ bin.BareDecoder = &PrivacyValueAllowUsers{}
+
+	_ PrivacyRuleClass = &PrivacyValueAllowUsers{}
+)
 
 func (p *PrivacyValueAllowUsers) Zero() bool {
 	if p == nil {
@@ -324,11 +337,6 @@ func (p *PrivacyValueAllowUsers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUsers returns value of Users field.
-func (p *PrivacyValueAllowUsers) GetUsers() (value []int) {
-	return p.Users
-}
-
 // Decode implements bin.Decoder.
 func (p *PrivacyValueAllowUsers) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -365,18 +373,10 @@ func (p *PrivacyValueAllowUsers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueAllowUsers) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueAllowUsers.
-var (
-	_ bin.Encoder     = &PrivacyValueAllowUsers{}
-	_ bin.Decoder     = &PrivacyValueAllowUsers{}
-	_ bin.BareEncoder = &PrivacyValueAllowUsers{}
-	_ bin.BareDecoder = &PrivacyValueAllowUsers{}
-
-	_ PrivacyRuleClass = &PrivacyValueAllowUsers{}
-)
+// GetUsers returns value of Users field.
+func (p *PrivacyValueAllowUsers) GetUsers() (value []int) {
+	return p.Users
+}
 
 // PrivacyValueDisallowContacts represents TL type `privacyValueDisallowContacts#f888fa1a`.
 // Disallow only contacts
@@ -387,6 +387,19 @@ type PrivacyValueDisallowContacts struct {
 
 // PrivacyValueDisallowContactsTypeID is TL type id of PrivacyValueDisallowContacts.
 const PrivacyValueDisallowContactsTypeID = 0xf888fa1a
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueDisallowContacts) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueDisallowContacts.
+var (
+	_ bin.Encoder     = &PrivacyValueDisallowContacts{}
+	_ bin.Decoder     = &PrivacyValueDisallowContacts{}
+	_ bin.BareEncoder = &PrivacyValueDisallowContacts{}
+	_ bin.BareDecoder = &PrivacyValueDisallowContacts{}
+
+	_ PrivacyRuleClass = &PrivacyValueDisallowContacts{}
+)
 
 func (p *PrivacyValueDisallowContacts) Zero() bool {
 	if p == nil {
@@ -467,19 +480,6 @@ func (p *PrivacyValueDisallowContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueDisallowContacts) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueDisallowContacts.
-var (
-	_ bin.Encoder     = &PrivacyValueDisallowContacts{}
-	_ bin.Decoder     = &PrivacyValueDisallowContacts{}
-	_ bin.BareEncoder = &PrivacyValueDisallowContacts{}
-	_ bin.BareDecoder = &PrivacyValueDisallowContacts{}
-
-	_ PrivacyRuleClass = &PrivacyValueDisallowContacts{}
-)
-
 // PrivacyValueDisallowAll represents TL type `privacyValueDisallowAll#8b73e763`.
 // Disallow all users
 //
@@ -489,6 +489,19 @@ type PrivacyValueDisallowAll struct {
 
 // PrivacyValueDisallowAllTypeID is TL type id of PrivacyValueDisallowAll.
 const PrivacyValueDisallowAllTypeID = 0x8b73e763
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueDisallowAll) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueDisallowAll.
+var (
+	_ bin.Encoder     = &PrivacyValueDisallowAll{}
+	_ bin.Decoder     = &PrivacyValueDisallowAll{}
+	_ bin.BareEncoder = &PrivacyValueDisallowAll{}
+	_ bin.BareDecoder = &PrivacyValueDisallowAll{}
+
+	_ PrivacyRuleClass = &PrivacyValueDisallowAll{}
+)
 
 func (p *PrivacyValueDisallowAll) Zero() bool {
 	if p == nil {
@@ -569,19 +582,6 @@ func (p *PrivacyValueDisallowAll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueDisallowAll) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueDisallowAll.
-var (
-	_ bin.Encoder     = &PrivacyValueDisallowAll{}
-	_ bin.Decoder     = &PrivacyValueDisallowAll{}
-	_ bin.BareEncoder = &PrivacyValueDisallowAll{}
-	_ bin.BareDecoder = &PrivacyValueDisallowAll{}
-
-	_ PrivacyRuleClass = &PrivacyValueDisallowAll{}
-)
-
 // PrivacyValueDisallowUsers represents TL type `privacyValueDisallowUsers#c7f49b7`.
 // Disallow only certain users
 //
@@ -593,6 +593,19 @@ type PrivacyValueDisallowUsers struct {
 
 // PrivacyValueDisallowUsersTypeID is TL type id of PrivacyValueDisallowUsers.
 const PrivacyValueDisallowUsersTypeID = 0xc7f49b7
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueDisallowUsers) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueDisallowUsers.
+var (
+	_ bin.Encoder     = &PrivacyValueDisallowUsers{}
+	_ bin.Decoder     = &PrivacyValueDisallowUsers{}
+	_ bin.BareEncoder = &PrivacyValueDisallowUsers{}
+	_ bin.BareDecoder = &PrivacyValueDisallowUsers{}
+
+	_ PrivacyRuleClass = &PrivacyValueDisallowUsers{}
+)
 
 func (p *PrivacyValueDisallowUsers) Zero() bool {
 	if p == nil {
@@ -673,11 +686,6 @@ func (p *PrivacyValueDisallowUsers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUsers returns value of Users field.
-func (p *PrivacyValueDisallowUsers) GetUsers() (value []int) {
-	return p.Users
-}
-
 // Decode implements bin.Decoder.
 func (p *PrivacyValueDisallowUsers) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -714,18 +722,10 @@ func (p *PrivacyValueDisallowUsers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueDisallowUsers) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueDisallowUsers.
-var (
-	_ bin.Encoder     = &PrivacyValueDisallowUsers{}
-	_ bin.Decoder     = &PrivacyValueDisallowUsers{}
-	_ bin.BareEncoder = &PrivacyValueDisallowUsers{}
-	_ bin.BareDecoder = &PrivacyValueDisallowUsers{}
-
-	_ PrivacyRuleClass = &PrivacyValueDisallowUsers{}
-)
+// GetUsers returns value of Users field.
+func (p *PrivacyValueDisallowUsers) GetUsers() (value []int) {
+	return p.Users
+}
 
 // PrivacyValueAllowChatParticipants represents TL type `privacyValueAllowChatParticipants#18be796b`.
 // Allow all participants of certain chats
@@ -738,6 +738,19 @@ type PrivacyValueAllowChatParticipants struct {
 
 // PrivacyValueAllowChatParticipantsTypeID is TL type id of PrivacyValueAllowChatParticipants.
 const PrivacyValueAllowChatParticipantsTypeID = 0x18be796b
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueAllowChatParticipants) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueAllowChatParticipants.
+var (
+	_ bin.Encoder     = &PrivacyValueAllowChatParticipants{}
+	_ bin.Decoder     = &PrivacyValueAllowChatParticipants{}
+	_ bin.BareEncoder = &PrivacyValueAllowChatParticipants{}
+	_ bin.BareDecoder = &PrivacyValueAllowChatParticipants{}
+
+	_ PrivacyRuleClass = &PrivacyValueAllowChatParticipants{}
+)
 
 func (p *PrivacyValueAllowChatParticipants) Zero() bool {
 	if p == nil {
@@ -818,11 +831,6 @@ func (p *PrivacyValueAllowChatParticipants) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChats returns value of Chats field.
-func (p *PrivacyValueAllowChatParticipants) GetChats() (value []int) {
-	return p.Chats
-}
-
 // Decode implements bin.Decoder.
 func (p *PrivacyValueAllowChatParticipants) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -859,18 +867,10 @@ func (p *PrivacyValueAllowChatParticipants) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueAllowChatParticipants) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueAllowChatParticipants.
-var (
-	_ bin.Encoder     = &PrivacyValueAllowChatParticipants{}
-	_ bin.Decoder     = &PrivacyValueAllowChatParticipants{}
-	_ bin.BareEncoder = &PrivacyValueAllowChatParticipants{}
-	_ bin.BareDecoder = &PrivacyValueAllowChatParticipants{}
-
-	_ PrivacyRuleClass = &PrivacyValueAllowChatParticipants{}
-)
+// GetChats returns value of Chats field.
+func (p *PrivacyValueAllowChatParticipants) GetChats() (value []int) {
+	return p.Chats
+}
 
 // PrivacyValueDisallowChatParticipants represents TL type `privacyValueDisallowChatParticipants#acae0690`.
 // Disallow only participants of certain chats
@@ -883,6 +883,19 @@ type PrivacyValueDisallowChatParticipants struct {
 
 // PrivacyValueDisallowChatParticipantsTypeID is TL type id of PrivacyValueDisallowChatParticipants.
 const PrivacyValueDisallowChatParticipantsTypeID = 0xacae0690
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueDisallowChatParticipants) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueDisallowChatParticipants.
+var (
+	_ bin.Encoder     = &PrivacyValueDisallowChatParticipants{}
+	_ bin.Decoder     = &PrivacyValueDisallowChatParticipants{}
+	_ bin.BareEncoder = &PrivacyValueDisallowChatParticipants{}
+	_ bin.BareDecoder = &PrivacyValueDisallowChatParticipants{}
+
+	_ PrivacyRuleClass = &PrivacyValueDisallowChatParticipants{}
+)
 
 func (p *PrivacyValueDisallowChatParticipants) Zero() bool {
 	if p == nil {
@@ -963,11 +976,6 @@ func (p *PrivacyValueDisallowChatParticipants) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChats returns value of Chats field.
-func (p *PrivacyValueDisallowChatParticipants) GetChats() (value []int) {
-	return p.Chats
-}
-
 // Decode implements bin.Decoder.
 func (p *PrivacyValueDisallowChatParticipants) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -1004,18 +1012,10 @@ func (p *PrivacyValueDisallowChatParticipants) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyRuleClass.
-func (p PrivacyValueDisallowChatParticipants) construct() PrivacyRuleClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyValueDisallowChatParticipants.
-var (
-	_ bin.Encoder     = &PrivacyValueDisallowChatParticipants{}
-	_ bin.Decoder     = &PrivacyValueDisallowChatParticipants{}
-	_ bin.BareEncoder = &PrivacyValueDisallowChatParticipants{}
-	_ bin.BareDecoder = &PrivacyValueDisallowChatParticipants{}
-
-	_ PrivacyRuleClass = &PrivacyValueDisallowChatParticipants{}
-)
+// GetChats returns value of Chats field.
+func (p *PrivacyValueDisallowChatParticipants) GetChats() (value []int) {
+	return p.Chats
+}
 
 // PrivacyRuleClass represents PrivacyRule generic type.
 //
@@ -1164,466 +1164,4 @@ func (b *PrivacyRuleBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PrivacyRuleClass as nil")
 	}
 	return b.PrivacyRule.Encode(buf)
-}
-
-// PrivacyRuleClassArray is adapter for slice of PrivacyRuleClass.
-type PrivacyRuleClassArray []PrivacyRuleClass
-
-// Sort sorts slice of PrivacyRuleClass.
-func (s PrivacyRuleClassArray) Sort(less func(a, b PrivacyRuleClass) bool) PrivacyRuleClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PrivacyRuleClass.
-func (s PrivacyRuleClassArray) SortStable(less func(a, b PrivacyRuleClass) bool) PrivacyRuleClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PrivacyRuleClass.
-func (s PrivacyRuleClassArray) Retain(keep func(x PrivacyRuleClass) bool) PrivacyRuleClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PrivacyRuleClassArray) First() (v PrivacyRuleClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PrivacyRuleClassArray) Last() (v PrivacyRuleClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PrivacyRuleClassArray) PopFirst() (v PrivacyRuleClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PrivacyRuleClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PrivacyRuleClassArray) Pop() (v PrivacyRuleClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsPrivacyValueAllowUsers returns copy with only PrivacyValueAllowUsers constructors.
-func (s PrivacyRuleClassArray) AsPrivacyValueAllowUsers() (to PrivacyValueAllowUsersArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PrivacyValueAllowUsers)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPrivacyValueDisallowUsers returns copy with only PrivacyValueDisallowUsers constructors.
-func (s PrivacyRuleClassArray) AsPrivacyValueDisallowUsers() (to PrivacyValueDisallowUsersArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PrivacyValueDisallowUsers)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPrivacyValueAllowChatParticipants returns copy with only PrivacyValueAllowChatParticipants constructors.
-func (s PrivacyRuleClassArray) AsPrivacyValueAllowChatParticipants() (to PrivacyValueAllowChatParticipantsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PrivacyValueAllowChatParticipants)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPrivacyValueDisallowChatParticipants returns copy with only PrivacyValueDisallowChatParticipants constructors.
-func (s PrivacyRuleClassArray) AsPrivacyValueDisallowChatParticipants() (to PrivacyValueDisallowChatParticipantsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PrivacyValueDisallowChatParticipants)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// PrivacyValueAllowUsersArray is adapter for slice of PrivacyValueAllowUsers.
-type PrivacyValueAllowUsersArray []PrivacyValueAllowUsers
-
-// Sort sorts slice of PrivacyValueAllowUsers.
-func (s PrivacyValueAllowUsersArray) Sort(less func(a, b PrivacyValueAllowUsers) bool) PrivacyValueAllowUsersArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PrivacyValueAllowUsers.
-func (s PrivacyValueAllowUsersArray) SortStable(less func(a, b PrivacyValueAllowUsers) bool) PrivacyValueAllowUsersArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PrivacyValueAllowUsers.
-func (s PrivacyValueAllowUsersArray) Retain(keep func(x PrivacyValueAllowUsers) bool) PrivacyValueAllowUsersArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PrivacyValueAllowUsersArray) First() (v PrivacyValueAllowUsers, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PrivacyValueAllowUsersArray) Last() (v PrivacyValueAllowUsers, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PrivacyValueAllowUsersArray) PopFirst() (v PrivacyValueAllowUsers, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PrivacyValueAllowUsers
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PrivacyValueAllowUsersArray) Pop() (v PrivacyValueAllowUsers, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PrivacyValueDisallowUsersArray is adapter for slice of PrivacyValueDisallowUsers.
-type PrivacyValueDisallowUsersArray []PrivacyValueDisallowUsers
-
-// Sort sorts slice of PrivacyValueDisallowUsers.
-func (s PrivacyValueDisallowUsersArray) Sort(less func(a, b PrivacyValueDisallowUsers) bool) PrivacyValueDisallowUsersArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PrivacyValueDisallowUsers.
-func (s PrivacyValueDisallowUsersArray) SortStable(less func(a, b PrivacyValueDisallowUsers) bool) PrivacyValueDisallowUsersArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PrivacyValueDisallowUsers.
-func (s PrivacyValueDisallowUsersArray) Retain(keep func(x PrivacyValueDisallowUsers) bool) PrivacyValueDisallowUsersArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PrivacyValueDisallowUsersArray) First() (v PrivacyValueDisallowUsers, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PrivacyValueDisallowUsersArray) Last() (v PrivacyValueDisallowUsers, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PrivacyValueDisallowUsersArray) PopFirst() (v PrivacyValueDisallowUsers, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PrivacyValueDisallowUsers
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PrivacyValueDisallowUsersArray) Pop() (v PrivacyValueDisallowUsers, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PrivacyValueAllowChatParticipantsArray is adapter for slice of PrivacyValueAllowChatParticipants.
-type PrivacyValueAllowChatParticipantsArray []PrivacyValueAllowChatParticipants
-
-// Sort sorts slice of PrivacyValueAllowChatParticipants.
-func (s PrivacyValueAllowChatParticipantsArray) Sort(less func(a, b PrivacyValueAllowChatParticipants) bool) PrivacyValueAllowChatParticipantsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PrivacyValueAllowChatParticipants.
-func (s PrivacyValueAllowChatParticipantsArray) SortStable(less func(a, b PrivacyValueAllowChatParticipants) bool) PrivacyValueAllowChatParticipantsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PrivacyValueAllowChatParticipants.
-func (s PrivacyValueAllowChatParticipantsArray) Retain(keep func(x PrivacyValueAllowChatParticipants) bool) PrivacyValueAllowChatParticipantsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PrivacyValueAllowChatParticipantsArray) First() (v PrivacyValueAllowChatParticipants, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PrivacyValueAllowChatParticipantsArray) Last() (v PrivacyValueAllowChatParticipants, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PrivacyValueAllowChatParticipantsArray) PopFirst() (v PrivacyValueAllowChatParticipants, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PrivacyValueAllowChatParticipants
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PrivacyValueAllowChatParticipantsArray) Pop() (v PrivacyValueAllowChatParticipants, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PrivacyValueDisallowChatParticipantsArray is adapter for slice of PrivacyValueDisallowChatParticipants.
-type PrivacyValueDisallowChatParticipantsArray []PrivacyValueDisallowChatParticipants
-
-// Sort sorts slice of PrivacyValueDisallowChatParticipants.
-func (s PrivacyValueDisallowChatParticipantsArray) Sort(less func(a, b PrivacyValueDisallowChatParticipants) bool) PrivacyValueDisallowChatParticipantsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PrivacyValueDisallowChatParticipants.
-func (s PrivacyValueDisallowChatParticipantsArray) SortStable(less func(a, b PrivacyValueDisallowChatParticipants) bool) PrivacyValueDisallowChatParticipantsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PrivacyValueDisallowChatParticipants.
-func (s PrivacyValueDisallowChatParticipantsArray) Retain(keep func(x PrivacyValueDisallowChatParticipants) bool) PrivacyValueDisallowChatParticipantsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PrivacyValueDisallowChatParticipantsArray) First() (v PrivacyValueDisallowChatParticipants, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PrivacyValueDisallowChatParticipantsArray) Last() (v PrivacyValueDisallowChatParticipants, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PrivacyValueDisallowChatParticipantsArray) PopFirst() (v PrivacyValueDisallowChatParticipants, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PrivacyValueDisallowChatParticipants
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PrivacyValueDisallowChatParticipantsArray) Pop() (v PrivacyValueDisallowChatParticipants, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

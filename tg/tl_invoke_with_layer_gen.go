@@ -46,6 +46,14 @@ type InvokeWithLayerRequest struct {
 // InvokeWithLayerRequestTypeID is TL type id of InvokeWithLayerRequest.
 const InvokeWithLayerRequestTypeID = 0xda9b0d0d
 
+// Ensuring interfaces in compile-time for InvokeWithLayerRequest.
+var (
+	_ bin.Encoder     = &InvokeWithLayerRequest{}
+	_ bin.Decoder     = &InvokeWithLayerRequest{}
+	_ bin.BareEncoder = &InvokeWithLayerRequest{}
+	_ bin.BareDecoder = &InvokeWithLayerRequest{}
+)
+
 func (i *InvokeWithLayerRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -134,16 +142,6 @@ func (i *InvokeWithLayerRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLayer returns value of Layer field.
-func (i *InvokeWithLayerRequest) GetLayer() (value int) {
-	return i.Layer
-}
-
-// GetQuery returns value of Query field.
-func (i *InvokeWithLayerRequest) GetQuery() (value bin.Object) {
-	return i.Query
-}
-
 // Decode implements bin.Decoder.
 func (i *InvokeWithLayerRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -175,10 +173,12 @@ func (i *InvokeWithLayerRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InvokeWithLayerRequest.
-var (
-	_ bin.Encoder     = &InvokeWithLayerRequest{}
-	_ bin.Decoder     = &InvokeWithLayerRequest{}
-	_ bin.BareEncoder = &InvokeWithLayerRequest{}
-	_ bin.BareDecoder = &InvokeWithLayerRequest{}
-)
+// GetLayer returns value of Layer field.
+func (i *InvokeWithLayerRequest) GetLayer() (value int) {
+	return i.Layer
+}
+
+// GetQuery returns value of Query field.
+func (i *InvokeWithLayerRequest) GetQuery() (value bin.Object) {
+	return i.Query
+}

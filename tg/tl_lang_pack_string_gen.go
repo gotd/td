@@ -43,6 +43,19 @@ type LangPackString struct {
 // LangPackStringTypeID is TL type id of LangPackString.
 const LangPackStringTypeID = 0xcad181f6
 
+// construct implements constructor of LangPackStringClass.
+func (l LangPackString) construct() LangPackStringClass { return &l }
+
+// Ensuring interfaces in compile-time for LangPackString.
+var (
+	_ bin.Encoder     = &LangPackString{}
+	_ bin.Decoder     = &LangPackString{}
+	_ bin.BareEncoder = &LangPackString{}
+	_ bin.BareDecoder = &LangPackString{}
+
+	_ LangPackStringClass = &LangPackString{}
+)
+
 func (l *LangPackString) Zero() bool {
 	if l == nil {
 		return true
@@ -129,16 +142,6 @@ func (l *LangPackString) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetKey returns value of Key field.
-func (l *LangPackString) GetKey() (value string) {
-	return l.Key
-}
-
-// GetValue returns value of Value field.
-func (l *LangPackString) GetValue() (value string) {
-	return l.Value
-}
-
 // Decode implements bin.Decoder.
 func (l *LangPackString) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -172,18 +175,15 @@ func (l *LangPackString) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of LangPackStringClass.
-func (l LangPackString) construct() LangPackStringClass { return &l }
+// GetKey returns value of Key field.
+func (l *LangPackString) GetKey() (value string) {
+	return l.Key
+}
 
-// Ensuring interfaces in compile-time for LangPackString.
-var (
-	_ bin.Encoder     = &LangPackString{}
-	_ bin.Decoder     = &LangPackString{}
-	_ bin.BareEncoder = &LangPackString{}
-	_ bin.BareDecoder = &LangPackString{}
-
-	_ LangPackStringClass = &LangPackString{}
-)
+// GetValue returns value of Value field.
+func (l *LangPackString) GetValue() (value string) {
+	return l.Value
+}
 
 // LangPackStringPluralized represents TL type `langPackStringPluralized#6c47ac9f`.
 // A language pack string which has different forms based on the number of some object it
@@ -228,6 +228,19 @@ type LangPackStringPluralized struct {
 
 // LangPackStringPluralizedTypeID is TL type id of LangPackStringPluralized.
 const LangPackStringPluralizedTypeID = 0x6c47ac9f
+
+// construct implements constructor of LangPackStringClass.
+func (l LangPackStringPluralized) construct() LangPackStringClass { return &l }
+
+// Ensuring interfaces in compile-time for LangPackStringPluralized.
+var (
+	_ bin.Encoder     = &LangPackStringPluralized{}
+	_ bin.Decoder     = &LangPackStringPluralized{}
+	_ bin.BareEncoder = &LangPackStringPluralized{}
+	_ bin.BareDecoder = &LangPackStringPluralized{}
+
+	_ LangPackStringClass = &LangPackStringPluralized{}
+)
 
 func (l *LangPackStringPluralized) Zero() bool {
 	if l == nil {
@@ -416,6 +429,79 @@ func (l *LangPackStringPluralized) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (l *LangPackStringPluralized) Decode(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode langPackStringPluralized#6c47ac9f to nil")
+	}
+	if err := b.ConsumeID(LangPackStringPluralizedTypeID); err != nil {
+		return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: %w", err)
+	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *LangPackStringPluralized) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode langPackStringPluralized#6c47ac9f to nil")
+	}
+	{
+		if err := l.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field key: %w", err)
+		}
+		l.Key = value
+	}
+	if l.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field zero_value: %w", err)
+		}
+		l.ZeroValue = value
+	}
+	if l.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field one_value: %w", err)
+		}
+		l.OneValue = value
+	}
+	if l.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field two_value: %w", err)
+		}
+		l.TwoValue = value
+	}
+	if l.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field few_value: %w", err)
+		}
+		l.FewValue = value
+	}
+	if l.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field many_value: %w", err)
+		}
+		l.ManyValue = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field other_value: %w", err)
+		}
+		l.OtherValue = value
+	}
+	return nil
+}
+
 // GetKey returns value of Key field.
 func (l *LangPackStringPluralized) GetKey() (value string) {
 	return l.Key
@@ -501,92 +587,6 @@ func (l *LangPackStringPluralized) GetOtherValue() (value string) {
 	return l.OtherValue
 }
 
-// Decode implements bin.Decoder.
-func (l *LangPackStringPluralized) Decode(b *bin.Buffer) error {
-	if l == nil {
-		return fmt.Errorf("can't decode langPackStringPluralized#6c47ac9f to nil")
-	}
-	if err := b.ConsumeID(LangPackStringPluralizedTypeID); err != nil {
-		return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: %w", err)
-	}
-	return l.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (l *LangPackStringPluralized) DecodeBare(b *bin.Buffer) error {
-	if l == nil {
-		return fmt.Errorf("can't decode langPackStringPluralized#6c47ac9f to nil")
-	}
-	{
-		if err := l.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field flags: %w", err)
-		}
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field key: %w", err)
-		}
-		l.Key = value
-	}
-	if l.Flags.Has(0) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field zero_value: %w", err)
-		}
-		l.ZeroValue = value
-	}
-	if l.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field one_value: %w", err)
-		}
-		l.OneValue = value
-	}
-	if l.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field two_value: %w", err)
-		}
-		l.TwoValue = value
-	}
-	if l.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field few_value: %w", err)
-		}
-		l.FewValue = value
-	}
-	if l.Flags.Has(4) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field many_value: %w", err)
-		}
-		l.ManyValue = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field other_value: %w", err)
-		}
-		l.OtherValue = value
-	}
-	return nil
-}
-
-// construct implements constructor of LangPackStringClass.
-func (l LangPackStringPluralized) construct() LangPackStringClass { return &l }
-
-// Ensuring interfaces in compile-time for LangPackStringPluralized.
-var (
-	_ bin.Encoder     = &LangPackStringPluralized{}
-	_ bin.Decoder     = &LangPackStringPluralized{}
-	_ bin.BareEncoder = &LangPackStringPluralized{}
-	_ bin.BareDecoder = &LangPackStringPluralized{}
-
-	_ LangPackStringClass = &LangPackStringPluralized{}
-)
-
 // LangPackStringDeleted represents TL type `langPackStringDeleted#2979eeb2`.
 // Deleted localization string
 //
@@ -598,6 +598,19 @@ type LangPackStringDeleted struct {
 
 // LangPackStringDeletedTypeID is TL type id of LangPackStringDeleted.
 const LangPackStringDeletedTypeID = 0x2979eeb2
+
+// construct implements constructor of LangPackStringClass.
+func (l LangPackStringDeleted) construct() LangPackStringClass { return &l }
+
+// Ensuring interfaces in compile-time for LangPackStringDeleted.
+var (
+	_ bin.Encoder     = &LangPackStringDeleted{}
+	_ bin.Decoder     = &LangPackStringDeleted{}
+	_ bin.BareEncoder = &LangPackStringDeleted{}
+	_ bin.BareDecoder = &LangPackStringDeleted{}
+
+	_ LangPackStringClass = &LangPackStringDeleted{}
+)
 
 func (l *LangPackStringDeleted) Zero() bool {
 	if l == nil {
@@ -675,11 +688,6 @@ func (l *LangPackStringDeleted) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetKey returns value of Key field.
-func (l *LangPackStringDeleted) GetKey() (value string) {
-	return l.Key
-}
-
 // Decode implements bin.Decoder.
 func (l *LangPackStringDeleted) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -706,18 +714,10 @@ func (l *LangPackStringDeleted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of LangPackStringClass.
-func (l LangPackStringDeleted) construct() LangPackStringClass { return &l }
-
-// Ensuring interfaces in compile-time for LangPackStringDeleted.
-var (
-	_ bin.Encoder     = &LangPackStringDeleted{}
-	_ bin.Decoder     = &LangPackStringDeleted{}
-	_ bin.BareEncoder = &LangPackStringDeleted{}
-	_ bin.BareDecoder = &LangPackStringDeleted{}
-
-	_ LangPackStringClass = &LangPackStringDeleted{}
-)
+// GetKey returns value of Key field.
+func (l *LangPackStringDeleted) GetKey() (value string) {
+	return l.Key
+}
 
 // LangPackStringClass represents LangPackString generic type.
 //
@@ -813,371 +813,4 @@ func (b *LangPackStringBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode LangPackStringClass as nil")
 	}
 	return b.LangPackString.Encode(buf)
-}
-
-// LangPackStringClassArray is adapter for slice of LangPackStringClass.
-type LangPackStringClassArray []LangPackStringClass
-
-// Sort sorts slice of LangPackStringClass.
-func (s LangPackStringClassArray) Sort(less func(a, b LangPackStringClass) bool) LangPackStringClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of LangPackStringClass.
-func (s LangPackStringClassArray) SortStable(less func(a, b LangPackStringClass) bool) LangPackStringClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of LangPackStringClass.
-func (s LangPackStringClassArray) Retain(keep func(x LangPackStringClass) bool) LangPackStringClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s LangPackStringClassArray) First() (v LangPackStringClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s LangPackStringClassArray) Last() (v LangPackStringClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *LangPackStringClassArray) PopFirst() (v LangPackStringClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero LangPackStringClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *LangPackStringClassArray) Pop() (v LangPackStringClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsLangPackString returns copy with only LangPackString constructors.
-func (s LangPackStringClassArray) AsLangPackString() (to LangPackStringArray) {
-	for _, elem := range s {
-		value, ok := elem.(*LangPackString)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsLangPackStringPluralized returns copy with only LangPackStringPluralized constructors.
-func (s LangPackStringClassArray) AsLangPackStringPluralized() (to LangPackStringPluralizedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*LangPackStringPluralized)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsLangPackStringDeleted returns copy with only LangPackStringDeleted constructors.
-func (s LangPackStringClassArray) AsLangPackStringDeleted() (to LangPackStringDeletedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*LangPackStringDeleted)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// LangPackStringArray is adapter for slice of LangPackString.
-type LangPackStringArray []LangPackString
-
-// Sort sorts slice of LangPackString.
-func (s LangPackStringArray) Sort(less func(a, b LangPackString) bool) LangPackStringArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of LangPackString.
-func (s LangPackStringArray) SortStable(less func(a, b LangPackString) bool) LangPackStringArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of LangPackString.
-func (s LangPackStringArray) Retain(keep func(x LangPackString) bool) LangPackStringArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s LangPackStringArray) First() (v LangPackString, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s LangPackStringArray) Last() (v LangPackString, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *LangPackStringArray) PopFirst() (v LangPackString, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero LangPackString
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *LangPackStringArray) Pop() (v LangPackString, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// LangPackStringPluralizedArray is adapter for slice of LangPackStringPluralized.
-type LangPackStringPluralizedArray []LangPackStringPluralized
-
-// Sort sorts slice of LangPackStringPluralized.
-func (s LangPackStringPluralizedArray) Sort(less func(a, b LangPackStringPluralized) bool) LangPackStringPluralizedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of LangPackStringPluralized.
-func (s LangPackStringPluralizedArray) SortStable(less func(a, b LangPackStringPluralized) bool) LangPackStringPluralizedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of LangPackStringPluralized.
-func (s LangPackStringPluralizedArray) Retain(keep func(x LangPackStringPluralized) bool) LangPackStringPluralizedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s LangPackStringPluralizedArray) First() (v LangPackStringPluralized, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s LangPackStringPluralizedArray) Last() (v LangPackStringPluralized, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *LangPackStringPluralizedArray) PopFirst() (v LangPackStringPluralized, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero LangPackStringPluralized
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *LangPackStringPluralizedArray) Pop() (v LangPackStringPluralized, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// LangPackStringDeletedArray is adapter for slice of LangPackStringDeleted.
-type LangPackStringDeletedArray []LangPackStringDeleted
-
-// Sort sorts slice of LangPackStringDeleted.
-func (s LangPackStringDeletedArray) Sort(less func(a, b LangPackStringDeleted) bool) LangPackStringDeletedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of LangPackStringDeleted.
-func (s LangPackStringDeletedArray) SortStable(less func(a, b LangPackStringDeleted) bool) LangPackStringDeletedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of LangPackStringDeleted.
-func (s LangPackStringDeletedArray) Retain(keep func(x LangPackStringDeleted) bool) LangPackStringDeletedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s LangPackStringDeletedArray) First() (v LangPackStringDeleted, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s LangPackStringDeletedArray) Last() (v LangPackStringDeleted, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *LangPackStringDeletedArray) PopFirst() (v LangPackStringDeleted, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero LangPackStringDeleted
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *LangPackStringDeletedArray) Pop() (v LangPackStringDeleted, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

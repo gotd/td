@@ -60,6 +60,14 @@ type PeerNotifySettings struct {
 // PeerNotifySettingsTypeID is TL type id of PeerNotifySettings.
 const PeerNotifySettingsTypeID = 0xaf509d20
 
+// Ensuring interfaces in compile-time for PeerNotifySettings.
+var (
+	_ bin.Encoder     = &PeerNotifySettings{}
+	_ bin.Decoder     = &PeerNotifySettings{}
+	_ bin.BareEncoder = &PeerNotifySettings{}
+	_ bin.BareDecoder = &PeerNotifySettings{}
+)
+
 func (p *PeerNotifySettings) Zero() bool {
 	if p == nil {
 		return true
@@ -208,6 +216,58 @@ func (p *PeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *PeerNotifySettings) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerNotifySettings#af509d20 to nil")
+	}
+	if err := b.ConsumeID(PeerNotifySettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode peerNotifySettings#af509d20: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PeerNotifySettings) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerNotifySettings#af509d20 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field flags: %w", err)
+		}
+	}
+	if p.Flags.Has(0) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field show_previews: %w", err)
+		}
+		p.ShowPreviews = value
+	}
+	if p.Flags.Has(1) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field silent: %w", err)
+		}
+		p.Silent = value
+	}
+	if p.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field mute_until: %w", err)
+		}
+		p.MuteUntil = value
+	}
+	if p.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field sound: %w", err)
+		}
+		p.Sound = value
+	}
+	return nil
+}
+
 // SetShowPreviews sets value of ShowPreviews conditional field.
 func (p *PeerNotifySettings) SetShowPreviews(value bool) {
 	p.Flags.Set(0)
@@ -267,63 +327,3 @@ func (p *PeerNotifySettings) GetSound() (value string, ok bool) {
 	}
 	return p.Sound, true
 }
-
-// Decode implements bin.Decoder.
-func (p *PeerNotifySettings) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode peerNotifySettings#af509d20 to nil")
-	}
-	if err := b.ConsumeID(PeerNotifySettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode peerNotifySettings#af509d20: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *PeerNotifySettings) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode peerNotifySettings#af509d20 to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field flags: %w", err)
-		}
-	}
-	if p.Flags.Has(0) {
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field show_previews: %w", err)
-		}
-		p.ShowPreviews = value
-	}
-	if p.Flags.Has(1) {
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field silent: %w", err)
-		}
-		p.Silent = value
-	}
-	if p.Flags.Has(2) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field mute_until: %w", err)
-		}
-		p.MuteUntil = value
-	}
-	if p.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field sound: %w", err)
-		}
-		p.Sound = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for PeerNotifySettings.
-var (
-	_ bin.Encoder     = &PeerNotifySettings{}
-	_ bin.Decoder     = &PeerNotifySettings{}
-	_ bin.BareEncoder = &PeerNotifySettings{}
-	_ bin.BareDecoder = &PeerNotifySettings{}
-)

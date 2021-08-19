@@ -48,6 +48,14 @@ type PaymentsValidatedRequestedInfo struct {
 // PaymentsValidatedRequestedInfoTypeID is TL type id of PaymentsValidatedRequestedInfo.
 const PaymentsValidatedRequestedInfoTypeID = 0xd1451883
 
+// Ensuring interfaces in compile-time for PaymentsValidatedRequestedInfo.
+var (
+	_ bin.Encoder     = &PaymentsValidatedRequestedInfo{}
+	_ bin.Decoder     = &PaymentsValidatedRequestedInfo{}
+	_ bin.BareEncoder = &PaymentsValidatedRequestedInfo{}
+	_ bin.BareDecoder = &PaymentsValidatedRequestedInfo{}
+)
+
 func (v *PaymentsValidatedRequestedInfo) Zero() bool {
 	if v == nil {
 		return true
@@ -163,36 +171,6 @@ func (v *PaymentsValidatedRequestedInfo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetID sets value of ID conditional field.
-func (v *PaymentsValidatedRequestedInfo) SetID(value string) {
-	v.Flags.Set(0)
-	v.ID = value
-}
-
-// GetID returns value of ID conditional field and
-// boolean which is true if field was set.
-func (v *PaymentsValidatedRequestedInfo) GetID() (value string, ok bool) {
-	if !v.Flags.Has(0) {
-		return value, false
-	}
-	return v.ID, true
-}
-
-// SetShippingOptions sets value of ShippingOptions conditional field.
-func (v *PaymentsValidatedRequestedInfo) SetShippingOptions(value []ShippingOption) {
-	v.Flags.Set(1)
-	v.ShippingOptions = value
-}
-
-// GetShippingOptions returns value of ShippingOptions conditional field and
-// boolean which is true if field was set.
-func (v *PaymentsValidatedRequestedInfo) GetShippingOptions() (value []ShippingOption, ok bool) {
-	if !v.Flags.Has(1) {
-		return value, false
-	}
-	return v.ShippingOptions, true
-}
-
 // Decode implements bin.Decoder.
 func (v *PaymentsValidatedRequestedInfo) Decode(b *bin.Buffer) error {
 	if v == nil {
@@ -241,10 +219,32 @@ func (v *PaymentsValidatedRequestedInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PaymentsValidatedRequestedInfo.
-var (
-	_ bin.Encoder     = &PaymentsValidatedRequestedInfo{}
-	_ bin.Decoder     = &PaymentsValidatedRequestedInfo{}
-	_ bin.BareEncoder = &PaymentsValidatedRequestedInfo{}
-	_ bin.BareDecoder = &PaymentsValidatedRequestedInfo{}
-)
+// SetID sets value of ID conditional field.
+func (v *PaymentsValidatedRequestedInfo) SetID(value string) {
+	v.Flags.Set(0)
+	v.ID = value
+}
+
+// GetID returns value of ID conditional field and
+// boolean which is true if field was set.
+func (v *PaymentsValidatedRequestedInfo) GetID() (value string, ok bool) {
+	if !v.Flags.Has(0) {
+		return value, false
+	}
+	return v.ID, true
+}
+
+// SetShippingOptions sets value of ShippingOptions conditional field.
+func (v *PaymentsValidatedRequestedInfo) SetShippingOptions(value []ShippingOption) {
+	v.Flags.Set(1)
+	v.ShippingOptions = value
+}
+
+// GetShippingOptions returns value of ShippingOptions conditional field and
+// boolean which is true if field was set.
+func (v *PaymentsValidatedRequestedInfo) GetShippingOptions() (value []ShippingOption, ok bool) {
+	if !v.Flags.Has(1) {
+		return value, false
+	}
+	return v.ShippingOptions, true
+}

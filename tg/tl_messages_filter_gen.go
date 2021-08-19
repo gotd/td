@@ -39,6 +39,19 @@ type InputMessagesFilterEmpty struct {
 // InputMessagesFilterEmptyTypeID is TL type id of InputMessagesFilterEmpty.
 const InputMessagesFilterEmptyTypeID = 0x57e2f66c
 
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterEmpty) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterEmpty.
+var (
+	_ bin.Encoder     = &InputMessagesFilterEmpty{}
+	_ bin.Decoder     = &InputMessagesFilterEmpty{}
+	_ bin.BareEncoder = &InputMessagesFilterEmpty{}
+	_ bin.BareDecoder = &InputMessagesFilterEmpty{}
+
+	_ MessagesFilterClass = &InputMessagesFilterEmpty{}
+)
+
 func (i *InputMessagesFilterEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputMessagesFilterEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterEmpty) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterEmpty.
-var (
-	_ bin.Encoder     = &InputMessagesFilterEmpty{}
-	_ bin.Decoder     = &InputMessagesFilterEmpty{}
-	_ bin.BareEncoder = &InputMessagesFilterEmpty{}
-	_ bin.BareDecoder = &InputMessagesFilterEmpty{}
-
-	_ MessagesFilterClass = &InputMessagesFilterEmpty{}
-)
-
 // InputMessagesFilterPhotos represents TL type `inputMessagesFilterPhotos#9609a51c`.
 // Filter for messages containing photos.
 //
@@ -140,6 +140,19 @@ type InputMessagesFilterPhotos struct {
 
 // InputMessagesFilterPhotosTypeID is TL type id of InputMessagesFilterPhotos.
 const InputMessagesFilterPhotosTypeID = 0x9609a51c
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterPhotos) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterPhotos.
+var (
+	_ bin.Encoder     = &InputMessagesFilterPhotos{}
+	_ bin.Decoder     = &InputMessagesFilterPhotos{}
+	_ bin.BareEncoder = &InputMessagesFilterPhotos{}
+	_ bin.BareDecoder = &InputMessagesFilterPhotos{}
+
+	_ MessagesFilterClass = &InputMessagesFilterPhotos{}
+)
 
 func (i *InputMessagesFilterPhotos) Zero() bool {
 	if i == nil {
@@ -220,19 +233,6 @@ func (i *InputMessagesFilterPhotos) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterPhotos) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterPhotos.
-var (
-	_ bin.Encoder     = &InputMessagesFilterPhotos{}
-	_ bin.Decoder     = &InputMessagesFilterPhotos{}
-	_ bin.BareEncoder = &InputMessagesFilterPhotos{}
-	_ bin.BareDecoder = &InputMessagesFilterPhotos{}
-
-	_ MessagesFilterClass = &InputMessagesFilterPhotos{}
-)
-
 // InputMessagesFilterVideo represents TL type `inputMessagesFilterVideo#9fc00e65`.
 // Filter for messages containing videos.
 //
@@ -242,6 +242,19 @@ type InputMessagesFilterVideo struct {
 
 // InputMessagesFilterVideoTypeID is TL type id of InputMessagesFilterVideo.
 const InputMessagesFilterVideoTypeID = 0x9fc00e65
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterVideo) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterVideo.
+var (
+	_ bin.Encoder     = &InputMessagesFilterVideo{}
+	_ bin.Decoder     = &InputMessagesFilterVideo{}
+	_ bin.BareEncoder = &InputMessagesFilterVideo{}
+	_ bin.BareDecoder = &InputMessagesFilterVideo{}
+
+	_ MessagesFilterClass = &InputMessagesFilterVideo{}
+)
 
 func (i *InputMessagesFilterVideo) Zero() bool {
 	if i == nil {
@@ -322,19 +335,6 @@ func (i *InputMessagesFilterVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterVideo) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterVideo.
-var (
-	_ bin.Encoder     = &InputMessagesFilterVideo{}
-	_ bin.Decoder     = &InputMessagesFilterVideo{}
-	_ bin.BareEncoder = &InputMessagesFilterVideo{}
-	_ bin.BareDecoder = &InputMessagesFilterVideo{}
-
-	_ MessagesFilterClass = &InputMessagesFilterVideo{}
-)
-
 // InputMessagesFilterPhotoVideo represents TL type `inputMessagesFilterPhotoVideo#56e9f0e4`.
 // Filter for messages containing photos or videos.
 //
@@ -344,6 +344,19 @@ type InputMessagesFilterPhotoVideo struct {
 
 // InputMessagesFilterPhotoVideoTypeID is TL type id of InputMessagesFilterPhotoVideo.
 const InputMessagesFilterPhotoVideoTypeID = 0x56e9f0e4
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterPhotoVideo) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterPhotoVideo.
+var (
+	_ bin.Encoder     = &InputMessagesFilterPhotoVideo{}
+	_ bin.Decoder     = &InputMessagesFilterPhotoVideo{}
+	_ bin.BareEncoder = &InputMessagesFilterPhotoVideo{}
+	_ bin.BareDecoder = &InputMessagesFilterPhotoVideo{}
+
+	_ MessagesFilterClass = &InputMessagesFilterPhotoVideo{}
+)
 
 func (i *InputMessagesFilterPhotoVideo) Zero() bool {
 	if i == nil {
@@ -424,19 +437,6 @@ func (i *InputMessagesFilterPhotoVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterPhotoVideo) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterPhotoVideo.
-var (
-	_ bin.Encoder     = &InputMessagesFilterPhotoVideo{}
-	_ bin.Decoder     = &InputMessagesFilterPhotoVideo{}
-	_ bin.BareEncoder = &InputMessagesFilterPhotoVideo{}
-	_ bin.BareDecoder = &InputMessagesFilterPhotoVideo{}
-
-	_ MessagesFilterClass = &InputMessagesFilterPhotoVideo{}
-)
-
 // InputMessagesFilterDocument represents TL type `inputMessagesFilterDocument#9eddf188`.
 // Filter for messages containing documents.
 //
@@ -446,6 +446,19 @@ type InputMessagesFilterDocument struct {
 
 // InputMessagesFilterDocumentTypeID is TL type id of InputMessagesFilterDocument.
 const InputMessagesFilterDocumentTypeID = 0x9eddf188
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterDocument) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterDocument.
+var (
+	_ bin.Encoder     = &InputMessagesFilterDocument{}
+	_ bin.Decoder     = &InputMessagesFilterDocument{}
+	_ bin.BareEncoder = &InputMessagesFilterDocument{}
+	_ bin.BareDecoder = &InputMessagesFilterDocument{}
+
+	_ MessagesFilterClass = &InputMessagesFilterDocument{}
+)
 
 func (i *InputMessagesFilterDocument) Zero() bool {
 	if i == nil {
@@ -526,19 +539,6 @@ func (i *InputMessagesFilterDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterDocument) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterDocument.
-var (
-	_ bin.Encoder     = &InputMessagesFilterDocument{}
-	_ bin.Decoder     = &InputMessagesFilterDocument{}
-	_ bin.BareEncoder = &InputMessagesFilterDocument{}
-	_ bin.BareDecoder = &InputMessagesFilterDocument{}
-
-	_ MessagesFilterClass = &InputMessagesFilterDocument{}
-)
-
 // InputMessagesFilterURL represents TL type `inputMessagesFilterUrl#7ef0dd87`.
 // Return only messages containing URLs
 //
@@ -548,6 +548,19 @@ type InputMessagesFilterURL struct {
 
 // InputMessagesFilterURLTypeID is TL type id of InputMessagesFilterURL.
 const InputMessagesFilterURLTypeID = 0x7ef0dd87
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterURL) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterURL.
+var (
+	_ bin.Encoder     = &InputMessagesFilterURL{}
+	_ bin.Decoder     = &InputMessagesFilterURL{}
+	_ bin.BareEncoder = &InputMessagesFilterURL{}
+	_ bin.BareDecoder = &InputMessagesFilterURL{}
+
+	_ MessagesFilterClass = &InputMessagesFilterURL{}
+)
 
 func (i *InputMessagesFilterURL) Zero() bool {
 	if i == nil {
@@ -628,19 +641,6 @@ func (i *InputMessagesFilterURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterURL) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterURL.
-var (
-	_ bin.Encoder     = &InputMessagesFilterURL{}
-	_ bin.Decoder     = &InputMessagesFilterURL{}
-	_ bin.BareEncoder = &InputMessagesFilterURL{}
-	_ bin.BareDecoder = &InputMessagesFilterURL{}
-
-	_ MessagesFilterClass = &InputMessagesFilterURL{}
-)
-
 // InputMessagesFilterGif represents TL type `inputMessagesFilterGif#ffc86587`.
 // Return only messages containing gifs
 //
@@ -650,6 +650,19 @@ type InputMessagesFilterGif struct {
 
 // InputMessagesFilterGifTypeID is TL type id of InputMessagesFilterGif.
 const InputMessagesFilterGifTypeID = 0xffc86587
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterGif) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterGif.
+var (
+	_ bin.Encoder     = &InputMessagesFilterGif{}
+	_ bin.Decoder     = &InputMessagesFilterGif{}
+	_ bin.BareEncoder = &InputMessagesFilterGif{}
+	_ bin.BareDecoder = &InputMessagesFilterGif{}
+
+	_ MessagesFilterClass = &InputMessagesFilterGif{}
+)
 
 func (i *InputMessagesFilterGif) Zero() bool {
 	if i == nil {
@@ -730,19 +743,6 @@ func (i *InputMessagesFilterGif) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterGif) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterGif.
-var (
-	_ bin.Encoder     = &InputMessagesFilterGif{}
-	_ bin.Decoder     = &InputMessagesFilterGif{}
-	_ bin.BareEncoder = &InputMessagesFilterGif{}
-	_ bin.BareDecoder = &InputMessagesFilterGif{}
-
-	_ MessagesFilterClass = &InputMessagesFilterGif{}
-)
-
 // InputMessagesFilterVoice represents TL type `inputMessagesFilterVoice#50f5c392`.
 // Return only messages containing voice notes
 //
@@ -752,6 +752,19 @@ type InputMessagesFilterVoice struct {
 
 // InputMessagesFilterVoiceTypeID is TL type id of InputMessagesFilterVoice.
 const InputMessagesFilterVoiceTypeID = 0x50f5c392
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterVoice) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterVoice.
+var (
+	_ bin.Encoder     = &InputMessagesFilterVoice{}
+	_ bin.Decoder     = &InputMessagesFilterVoice{}
+	_ bin.BareEncoder = &InputMessagesFilterVoice{}
+	_ bin.BareDecoder = &InputMessagesFilterVoice{}
+
+	_ MessagesFilterClass = &InputMessagesFilterVoice{}
+)
 
 func (i *InputMessagesFilterVoice) Zero() bool {
 	if i == nil {
@@ -832,19 +845,6 @@ func (i *InputMessagesFilterVoice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterVoice) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterVoice.
-var (
-	_ bin.Encoder     = &InputMessagesFilterVoice{}
-	_ bin.Decoder     = &InputMessagesFilterVoice{}
-	_ bin.BareEncoder = &InputMessagesFilterVoice{}
-	_ bin.BareDecoder = &InputMessagesFilterVoice{}
-
-	_ MessagesFilterClass = &InputMessagesFilterVoice{}
-)
-
 // InputMessagesFilterMusic represents TL type `inputMessagesFilterMusic#3751b49e`.
 // Return only messages containing audio files
 //
@@ -854,6 +854,19 @@ type InputMessagesFilterMusic struct {
 
 // InputMessagesFilterMusicTypeID is TL type id of InputMessagesFilterMusic.
 const InputMessagesFilterMusicTypeID = 0x3751b49e
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterMusic) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterMusic.
+var (
+	_ bin.Encoder     = &InputMessagesFilterMusic{}
+	_ bin.Decoder     = &InputMessagesFilterMusic{}
+	_ bin.BareEncoder = &InputMessagesFilterMusic{}
+	_ bin.BareDecoder = &InputMessagesFilterMusic{}
+
+	_ MessagesFilterClass = &InputMessagesFilterMusic{}
+)
 
 func (i *InputMessagesFilterMusic) Zero() bool {
 	if i == nil {
@@ -934,19 +947,6 @@ func (i *InputMessagesFilterMusic) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterMusic) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterMusic.
-var (
-	_ bin.Encoder     = &InputMessagesFilterMusic{}
-	_ bin.Decoder     = &InputMessagesFilterMusic{}
-	_ bin.BareEncoder = &InputMessagesFilterMusic{}
-	_ bin.BareDecoder = &InputMessagesFilterMusic{}
-
-	_ MessagesFilterClass = &InputMessagesFilterMusic{}
-)
-
 // InputMessagesFilterChatPhotos represents TL type `inputMessagesFilterChatPhotos#3a20ecb8`.
 // Return only chat photo changes
 //
@@ -956,6 +956,19 @@ type InputMessagesFilterChatPhotos struct {
 
 // InputMessagesFilterChatPhotosTypeID is TL type id of InputMessagesFilterChatPhotos.
 const InputMessagesFilterChatPhotosTypeID = 0x3a20ecb8
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterChatPhotos) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterChatPhotos.
+var (
+	_ bin.Encoder     = &InputMessagesFilterChatPhotos{}
+	_ bin.Decoder     = &InputMessagesFilterChatPhotos{}
+	_ bin.BareEncoder = &InputMessagesFilterChatPhotos{}
+	_ bin.BareDecoder = &InputMessagesFilterChatPhotos{}
+
+	_ MessagesFilterClass = &InputMessagesFilterChatPhotos{}
+)
 
 func (i *InputMessagesFilterChatPhotos) Zero() bool {
 	if i == nil {
@@ -1036,19 +1049,6 @@ func (i *InputMessagesFilterChatPhotos) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterChatPhotos) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterChatPhotos.
-var (
-	_ bin.Encoder     = &InputMessagesFilterChatPhotos{}
-	_ bin.Decoder     = &InputMessagesFilterChatPhotos{}
-	_ bin.BareEncoder = &InputMessagesFilterChatPhotos{}
-	_ bin.BareDecoder = &InputMessagesFilterChatPhotos{}
-
-	_ MessagesFilterClass = &InputMessagesFilterChatPhotos{}
-)
-
 // InputMessagesFilterPhoneCalls represents TL type `inputMessagesFilterPhoneCalls#80c99768`.
 // Return only phone calls
 //
@@ -1065,6 +1065,19 @@ type InputMessagesFilterPhoneCalls struct {
 
 // InputMessagesFilterPhoneCallsTypeID is TL type id of InputMessagesFilterPhoneCalls.
 const InputMessagesFilterPhoneCallsTypeID = 0x80c99768
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterPhoneCalls) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterPhoneCalls.
+var (
+	_ bin.Encoder     = &InputMessagesFilterPhoneCalls{}
+	_ bin.Decoder     = &InputMessagesFilterPhoneCalls{}
+	_ bin.BareEncoder = &InputMessagesFilterPhoneCalls{}
+	_ bin.BareDecoder = &InputMessagesFilterPhoneCalls{}
+
+	_ MessagesFilterClass = &InputMessagesFilterPhoneCalls{}
+)
 
 func (i *InputMessagesFilterPhoneCalls) Zero() bool {
 	if i == nil {
@@ -1151,22 +1164,6 @@ func (i *InputMessagesFilterPhoneCalls) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetMissed sets value of Missed conditional field.
-func (i *InputMessagesFilterPhoneCalls) SetMissed(value bool) {
-	if value {
-		i.Flags.Set(0)
-		i.Missed = true
-	} else {
-		i.Flags.Unset(0)
-		i.Missed = false
-	}
-}
-
-// GetMissed returns value of Missed conditional field.
-func (i *InputMessagesFilterPhoneCalls) GetMissed() (value bool) {
-	return i.Flags.Has(0)
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMessagesFilterPhoneCalls) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1192,18 +1189,21 @@ func (i *InputMessagesFilterPhoneCalls) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterPhoneCalls) construct() MessagesFilterClass { return &i }
+// SetMissed sets value of Missed conditional field.
+func (i *InputMessagesFilterPhoneCalls) SetMissed(value bool) {
+	if value {
+		i.Flags.Set(0)
+		i.Missed = true
+	} else {
+		i.Flags.Unset(0)
+		i.Missed = false
+	}
+}
 
-// Ensuring interfaces in compile-time for InputMessagesFilterPhoneCalls.
-var (
-	_ bin.Encoder     = &InputMessagesFilterPhoneCalls{}
-	_ bin.Decoder     = &InputMessagesFilterPhoneCalls{}
-	_ bin.BareEncoder = &InputMessagesFilterPhoneCalls{}
-	_ bin.BareDecoder = &InputMessagesFilterPhoneCalls{}
-
-	_ MessagesFilterClass = &InputMessagesFilterPhoneCalls{}
-)
+// GetMissed returns value of Missed conditional field.
+func (i *InputMessagesFilterPhoneCalls) GetMissed() (value bool) {
+	return i.Flags.Has(0)
+}
 
 // InputMessagesFilterRoundVoice represents TL type `inputMessagesFilterRoundVoice#7a7c17a4`.
 // Return only round videos and voice notes
@@ -1214,6 +1214,19 @@ type InputMessagesFilterRoundVoice struct {
 
 // InputMessagesFilterRoundVoiceTypeID is TL type id of InputMessagesFilterRoundVoice.
 const InputMessagesFilterRoundVoiceTypeID = 0x7a7c17a4
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterRoundVoice) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterRoundVoice.
+var (
+	_ bin.Encoder     = &InputMessagesFilterRoundVoice{}
+	_ bin.Decoder     = &InputMessagesFilterRoundVoice{}
+	_ bin.BareEncoder = &InputMessagesFilterRoundVoice{}
+	_ bin.BareDecoder = &InputMessagesFilterRoundVoice{}
+
+	_ MessagesFilterClass = &InputMessagesFilterRoundVoice{}
+)
 
 func (i *InputMessagesFilterRoundVoice) Zero() bool {
 	if i == nil {
@@ -1294,19 +1307,6 @@ func (i *InputMessagesFilterRoundVoice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterRoundVoice) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterRoundVoice.
-var (
-	_ bin.Encoder     = &InputMessagesFilterRoundVoice{}
-	_ bin.Decoder     = &InputMessagesFilterRoundVoice{}
-	_ bin.BareEncoder = &InputMessagesFilterRoundVoice{}
-	_ bin.BareDecoder = &InputMessagesFilterRoundVoice{}
-
-	_ MessagesFilterClass = &InputMessagesFilterRoundVoice{}
-)
-
 // InputMessagesFilterRoundVideo represents TL type `inputMessagesFilterRoundVideo#b549da53`.
 // Return only round videos
 //
@@ -1316,6 +1316,19 @@ type InputMessagesFilterRoundVideo struct {
 
 // InputMessagesFilterRoundVideoTypeID is TL type id of InputMessagesFilterRoundVideo.
 const InputMessagesFilterRoundVideoTypeID = 0xb549da53
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterRoundVideo) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterRoundVideo.
+var (
+	_ bin.Encoder     = &InputMessagesFilterRoundVideo{}
+	_ bin.Decoder     = &InputMessagesFilterRoundVideo{}
+	_ bin.BareEncoder = &InputMessagesFilterRoundVideo{}
+	_ bin.BareDecoder = &InputMessagesFilterRoundVideo{}
+
+	_ MessagesFilterClass = &InputMessagesFilterRoundVideo{}
+)
 
 func (i *InputMessagesFilterRoundVideo) Zero() bool {
 	if i == nil {
@@ -1396,19 +1409,6 @@ func (i *InputMessagesFilterRoundVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterRoundVideo) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterRoundVideo.
-var (
-	_ bin.Encoder     = &InputMessagesFilterRoundVideo{}
-	_ bin.Decoder     = &InputMessagesFilterRoundVideo{}
-	_ bin.BareEncoder = &InputMessagesFilterRoundVideo{}
-	_ bin.BareDecoder = &InputMessagesFilterRoundVideo{}
-
-	_ MessagesFilterClass = &InputMessagesFilterRoundVideo{}
-)
-
 // InputMessagesFilterMyMentions represents TL type `inputMessagesFilterMyMentions#c1f8e69a`.
 // Return only messages where the current user was mentioned¹.
 //
@@ -1421,6 +1421,19 @@ type InputMessagesFilterMyMentions struct {
 
 // InputMessagesFilterMyMentionsTypeID is TL type id of InputMessagesFilterMyMentions.
 const InputMessagesFilterMyMentionsTypeID = 0xc1f8e69a
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterMyMentions) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterMyMentions.
+var (
+	_ bin.Encoder     = &InputMessagesFilterMyMentions{}
+	_ bin.Decoder     = &InputMessagesFilterMyMentions{}
+	_ bin.BareEncoder = &InputMessagesFilterMyMentions{}
+	_ bin.BareDecoder = &InputMessagesFilterMyMentions{}
+
+	_ MessagesFilterClass = &InputMessagesFilterMyMentions{}
+)
 
 func (i *InputMessagesFilterMyMentions) Zero() bool {
 	if i == nil {
@@ -1501,19 +1514,6 @@ func (i *InputMessagesFilterMyMentions) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterMyMentions) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterMyMentions.
-var (
-	_ bin.Encoder     = &InputMessagesFilterMyMentions{}
-	_ bin.Decoder     = &InputMessagesFilterMyMentions{}
-	_ bin.BareEncoder = &InputMessagesFilterMyMentions{}
-	_ bin.BareDecoder = &InputMessagesFilterMyMentions{}
-
-	_ MessagesFilterClass = &InputMessagesFilterMyMentions{}
-)
-
 // InputMessagesFilterGeo represents TL type `inputMessagesFilterGeo#e7026d0d`.
 // Return only messages containing geolocations
 //
@@ -1523,6 +1523,19 @@ type InputMessagesFilterGeo struct {
 
 // InputMessagesFilterGeoTypeID is TL type id of InputMessagesFilterGeo.
 const InputMessagesFilterGeoTypeID = 0xe7026d0d
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterGeo) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterGeo.
+var (
+	_ bin.Encoder     = &InputMessagesFilterGeo{}
+	_ bin.Decoder     = &InputMessagesFilterGeo{}
+	_ bin.BareEncoder = &InputMessagesFilterGeo{}
+	_ bin.BareDecoder = &InputMessagesFilterGeo{}
+
+	_ MessagesFilterClass = &InputMessagesFilterGeo{}
+)
 
 func (i *InputMessagesFilterGeo) Zero() bool {
 	if i == nil {
@@ -1603,19 +1616,6 @@ func (i *InputMessagesFilterGeo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterGeo) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterGeo.
-var (
-	_ bin.Encoder     = &InputMessagesFilterGeo{}
-	_ bin.Decoder     = &InputMessagesFilterGeo{}
-	_ bin.BareEncoder = &InputMessagesFilterGeo{}
-	_ bin.BareDecoder = &InputMessagesFilterGeo{}
-
-	_ MessagesFilterClass = &InputMessagesFilterGeo{}
-)
-
 // InputMessagesFilterContacts represents TL type `inputMessagesFilterContacts#e062db83`.
 // Return only messages containing contacts
 //
@@ -1625,6 +1625,19 @@ type InputMessagesFilterContacts struct {
 
 // InputMessagesFilterContactsTypeID is TL type id of InputMessagesFilterContacts.
 const InputMessagesFilterContactsTypeID = 0xe062db83
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterContacts) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterContacts.
+var (
+	_ bin.Encoder     = &InputMessagesFilterContacts{}
+	_ bin.Decoder     = &InputMessagesFilterContacts{}
+	_ bin.BareEncoder = &InputMessagesFilterContacts{}
+	_ bin.BareDecoder = &InputMessagesFilterContacts{}
+
+	_ MessagesFilterClass = &InputMessagesFilterContacts{}
+)
 
 func (i *InputMessagesFilterContacts) Zero() bool {
 	if i == nil {
@@ -1705,19 +1718,6 @@ func (i *InputMessagesFilterContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterContacts) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterContacts.
-var (
-	_ bin.Encoder     = &InputMessagesFilterContacts{}
-	_ bin.Decoder     = &InputMessagesFilterContacts{}
-	_ bin.BareEncoder = &InputMessagesFilterContacts{}
-	_ bin.BareDecoder = &InputMessagesFilterContacts{}
-
-	_ MessagesFilterClass = &InputMessagesFilterContacts{}
-)
-
 // InputMessagesFilterPinned represents TL type `inputMessagesFilterPinned#1bb00451`.
 // Fetch only pinned messages
 //
@@ -1727,6 +1727,19 @@ type InputMessagesFilterPinned struct {
 
 // InputMessagesFilterPinnedTypeID is TL type id of InputMessagesFilterPinned.
 const InputMessagesFilterPinnedTypeID = 0x1bb00451
+
+// construct implements constructor of MessagesFilterClass.
+func (i InputMessagesFilterPinned) construct() MessagesFilterClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessagesFilterPinned.
+var (
+	_ bin.Encoder     = &InputMessagesFilterPinned{}
+	_ bin.Decoder     = &InputMessagesFilterPinned{}
+	_ bin.BareEncoder = &InputMessagesFilterPinned{}
+	_ bin.BareDecoder = &InputMessagesFilterPinned{}
+
+	_ MessagesFilterClass = &InputMessagesFilterPinned{}
+)
 
 func (i *InputMessagesFilterPinned) Zero() bool {
 	if i == nil {
@@ -1806,19 +1819,6 @@ func (i *InputMessagesFilterPinned) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterPinned) construct() MessagesFilterClass { return &i }
-
-// Ensuring interfaces in compile-time for InputMessagesFilterPinned.
-var (
-	_ bin.Encoder     = &InputMessagesFilterPinned{}
-	_ bin.Decoder     = &InputMessagesFilterPinned{}
-	_ bin.BareEncoder = &InputMessagesFilterPinned{}
-	_ bin.BareDecoder = &InputMessagesFilterPinned{}
-
-	_ MessagesFilterClass = &InputMessagesFilterPinned{}
-)
 
 // MessagesFilterClass represents MessagesFilter generic type.
 //
@@ -2023,181 +2023,4 @@ func (b *MessagesFilterBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesFilterClass as nil")
 	}
 	return b.MessagesFilter.Encode(buf)
-}
-
-// MessagesFilterClassArray is adapter for slice of MessagesFilterClass.
-type MessagesFilterClassArray []MessagesFilterClass
-
-// Sort sorts slice of MessagesFilterClass.
-func (s MessagesFilterClassArray) Sort(less func(a, b MessagesFilterClass) bool) MessagesFilterClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesFilterClass.
-func (s MessagesFilterClassArray) SortStable(less func(a, b MessagesFilterClass) bool) MessagesFilterClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesFilterClass.
-func (s MessagesFilterClassArray) Retain(keep func(x MessagesFilterClass) bool) MessagesFilterClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesFilterClassArray) First() (v MessagesFilterClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesFilterClassArray) Last() (v MessagesFilterClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesFilterClassArray) PopFirst() (v MessagesFilterClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesFilterClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesFilterClassArray) Pop() (v MessagesFilterClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsInputMessagesFilterPhoneCalls returns copy with only InputMessagesFilterPhoneCalls constructors.
-func (s MessagesFilterClassArray) AsInputMessagesFilterPhoneCalls() (to InputMessagesFilterPhoneCallsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputMessagesFilterPhoneCalls)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// InputMessagesFilterPhoneCallsArray is adapter for slice of InputMessagesFilterPhoneCalls.
-type InputMessagesFilterPhoneCallsArray []InputMessagesFilterPhoneCalls
-
-// Sort sorts slice of InputMessagesFilterPhoneCalls.
-func (s InputMessagesFilterPhoneCallsArray) Sort(less func(a, b InputMessagesFilterPhoneCalls) bool) InputMessagesFilterPhoneCallsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputMessagesFilterPhoneCalls.
-func (s InputMessagesFilterPhoneCallsArray) SortStable(less func(a, b InputMessagesFilterPhoneCalls) bool) InputMessagesFilterPhoneCallsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputMessagesFilterPhoneCalls.
-func (s InputMessagesFilterPhoneCallsArray) Retain(keep func(x InputMessagesFilterPhoneCalls) bool) InputMessagesFilterPhoneCallsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputMessagesFilterPhoneCallsArray) First() (v InputMessagesFilterPhoneCalls, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputMessagesFilterPhoneCallsArray) Last() (v InputMessagesFilterPhoneCalls, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputMessagesFilterPhoneCallsArray) PopFirst() (v InputMessagesFilterPhoneCalls, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputMessagesFilterPhoneCalls
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputMessagesFilterPhoneCallsArray) Pop() (v InputMessagesFilterPhoneCalls, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

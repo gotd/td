@@ -44,6 +44,14 @@ type PhoneJoinAsPeers struct {
 // PhoneJoinAsPeersTypeID is TL type id of PhoneJoinAsPeers.
 const PhoneJoinAsPeersTypeID = 0xafe5623f
 
+// Ensuring interfaces in compile-time for PhoneJoinAsPeers.
+var (
+	_ bin.Encoder     = &PhoneJoinAsPeers{}
+	_ bin.Decoder     = &PhoneJoinAsPeers{}
+	_ bin.BareEncoder = &PhoneJoinAsPeers{}
+	_ bin.BareDecoder = &PhoneJoinAsPeers{}
+)
+
 func (j *PhoneJoinAsPeers) Zero() bool {
 	if j == nil {
 		return true
@@ -164,36 +172,6 @@ func (j *PhoneJoinAsPeers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeers returns value of Peers field.
-func (j *PhoneJoinAsPeers) GetPeers() (value []PeerClass) {
-	return j.Peers
-}
-
-// MapPeers returns field Peers wrapped in PeerClassArray helper.
-func (j *PhoneJoinAsPeers) MapPeers() (value PeerClassArray) {
-	return PeerClassArray(j.Peers)
-}
-
-// GetChats returns value of Chats field.
-func (j *PhoneJoinAsPeers) GetChats() (value []ChatClass) {
-	return j.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (j *PhoneJoinAsPeers) MapChats() (value ChatClassArray) {
-	return ChatClassArray(j.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (j *PhoneJoinAsPeers) GetUsers() (value []UserClass) {
-	return j.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (j *PhoneJoinAsPeers) MapUsers() (value UserClassArray) {
-	return UserClassArray(j.Users)
-}
-
 // Decode implements bin.Decoder.
 func (j *PhoneJoinAsPeers) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -264,10 +242,32 @@ func (j *PhoneJoinAsPeers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneJoinAsPeers.
-var (
-	_ bin.Encoder     = &PhoneJoinAsPeers{}
-	_ bin.Decoder     = &PhoneJoinAsPeers{}
-	_ bin.BareEncoder = &PhoneJoinAsPeers{}
-	_ bin.BareDecoder = &PhoneJoinAsPeers{}
-)
+// GetPeers returns value of Peers field.
+func (j *PhoneJoinAsPeers) GetPeers() (value []PeerClass) {
+	return j.Peers
+}
+
+// GetChats returns value of Chats field.
+func (j *PhoneJoinAsPeers) GetChats() (value []ChatClass) {
+	return j.Chats
+}
+
+// GetUsers returns value of Users field.
+func (j *PhoneJoinAsPeers) GetUsers() (value []UserClass) {
+	return j.Users
+}
+
+// MapPeers returns field Peers wrapped in PeerClassArray helper.
+func (j *PhoneJoinAsPeers) MapPeers() (value PeerClassArray) {
+	return PeerClassArray(j.Peers)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (j *PhoneJoinAsPeers) MapChats() (value ChatClassArray) {
+	return ChatClassArray(j.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (j *PhoneJoinAsPeers) MapUsers() (value UserClassArray) {
+	return UserClassArray(j.Users)
+}

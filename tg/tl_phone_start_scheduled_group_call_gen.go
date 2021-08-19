@@ -40,6 +40,14 @@ type PhoneStartScheduledGroupCallRequest struct {
 // PhoneStartScheduledGroupCallRequestTypeID is TL type id of PhoneStartScheduledGroupCallRequest.
 const PhoneStartScheduledGroupCallRequestTypeID = 0x5680e342
 
+// Ensuring interfaces in compile-time for PhoneStartScheduledGroupCallRequest.
+var (
+	_ bin.Encoder     = &PhoneStartScheduledGroupCallRequest{}
+	_ bin.Decoder     = &PhoneStartScheduledGroupCallRequest{}
+	_ bin.BareEncoder = &PhoneStartScheduledGroupCallRequest{}
+	_ bin.BareDecoder = &PhoneStartScheduledGroupCallRequest{}
+)
+
 func (s *PhoneStartScheduledGroupCallRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -118,11 +126,6 @@ func (s *PhoneStartScheduledGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (s *PhoneStartScheduledGroupCallRequest) GetCall() (value InputGroupCall) {
-	return s.Call
-}
-
 // Decode implements bin.Decoder.
 func (s *PhoneStartScheduledGroupCallRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -147,13 +150,10 @@ func (s *PhoneStartScheduledGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneStartScheduledGroupCallRequest.
-var (
-	_ bin.Encoder     = &PhoneStartScheduledGroupCallRequest{}
-	_ bin.Decoder     = &PhoneStartScheduledGroupCallRequest{}
-	_ bin.BareEncoder = &PhoneStartScheduledGroupCallRequest{}
-	_ bin.BareDecoder = &PhoneStartScheduledGroupCallRequest{}
-)
+// GetCall returns value of Call field.
+func (s *PhoneStartScheduledGroupCallRequest) GetCall() (value InputGroupCall) {
+	return s.Call
+}
 
 // PhoneStartScheduledGroupCall invokes method phone.startScheduledGroupCall#5680e342 returning error if any.
 //

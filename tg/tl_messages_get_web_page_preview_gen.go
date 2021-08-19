@@ -53,6 +53,14 @@ type MessagesGetWebPagePreviewRequest struct {
 // MessagesGetWebPagePreviewRequestTypeID is TL type id of MessagesGetWebPagePreviewRequest.
 const MessagesGetWebPagePreviewRequestTypeID = 0x8b68b0cc
 
+// Ensuring interfaces in compile-time for MessagesGetWebPagePreviewRequest.
+var (
+	_ bin.Encoder     = &MessagesGetWebPagePreviewRequest{}
+	_ bin.Decoder     = &MessagesGetWebPagePreviewRequest{}
+	_ bin.BareEncoder = &MessagesGetWebPagePreviewRequest{}
+	_ bin.BareDecoder = &MessagesGetWebPagePreviewRequest{}
+)
+
 func (g *MessagesGetWebPagePreviewRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -162,34 +170,6 @@ func (g *MessagesGetWebPagePreviewRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (g *MessagesGetWebPagePreviewRequest) GetMessage() (value string) {
-	return g.Message
-}
-
-// SetEntities sets value of Entities conditional field.
-func (g *MessagesGetWebPagePreviewRequest) SetEntities(value []MessageEntityClass) {
-	g.Flags.Set(3)
-	g.Entities = value
-}
-
-// GetEntities returns value of Entities conditional field and
-// boolean which is true if field was set.
-func (g *MessagesGetWebPagePreviewRequest) GetEntities() (value []MessageEntityClass, ok bool) {
-	if !g.Flags.Has(3) {
-		return value, false
-	}
-	return g.Entities, true
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (g *MessagesGetWebPagePreviewRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !g.Flags.Has(3) {
-		return value, false
-	}
-	return MessageEntityClassArray(g.Entities), true
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetWebPagePreviewRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -238,13 +218,33 @@ func (g *MessagesGetWebPagePreviewRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetWebPagePreviewRequest.
-var (
-	_ bin.Encoder     = &MessagesGetWebPagePreviewRequest{}
-	_ bin.Decoder     = &MessagesGetWebPagePreviewRequest{}
-	_ bin.BareEncoder = &MessagesGetWebPagePreviewRequest{}
-	_ bin.BareDecoder = &MessagesGetWebPagePreviewRequest{}
-)
+// GetMessage returns value of Message field.
+func (g *MessagesGetWebPagePreviewRequest) GetMessage() (value string) {
+	return g.Message
+}
+
+// SetEntities sets value of Entities conditional field.
+func (g *MessagesGetWebPagePreviewRequest) SetEntities(value []MessageEntityClass) {
+	g.Flags.Set(3)
+	g.Entities = value
+}
+
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetWebPagePreviewRequest) GetEntities() (value []MessageEntityClass, ok bool) {
+	if !g.Flags.Has(3) {
+		return value, false
+	}
+	return g.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (g *MessagesGetWebPagePreviewRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !g.Flags.Has(3) {
+		return value, false
+	}
+	return MessageEntityClassArray(g.Entities), true
+}
 
 // MessagesGetWebPagePreview invokes method messages.getWebPagePreview#8b68b0cc returning error if any.
 // Get preview of webpage

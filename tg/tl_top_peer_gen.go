@@ -46,6 +46,14 @@ type TopPeer struct {
 // TopPeerTypeID is TL type id of TopPeer.
 const TopPeerTypeID = 0xedcdc05b
 
+// Ensuring interfaces in compile-time for TopPeer.
+var (
+	_ bin.Encoder     = &TopPeer{}
+	_ bin.Decoder     = &TopPeer{}
+	_ bin.BareEncoder = &TopPeer{}
+	_ bin.BareDecoder = &TopPeer{}
+)
+
 func (t *TopPeer) Zero() bool {
 	if t == nil {
 		return true
@@ -137,16 +145,6 @@ func (t *TopPeer) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (t *TopPeer) GetPeer() (value PeerClass) {
-	return t.Peer
-}
-
-// GetRating returns value of Rating field.
-func (t *TopPeer) GetRating() (value float64) {
-	return t.Rating
-}
-
 // Decode implements bin.Decoder.
 func (t *TopPeer) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -180,10 +178,12 @@ func (t *TopPeer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for TopPeer.
-var (
-	_ bin.Encoder     = &TopPeer{}
-	_ bin.Decoder     = &TopPeer{}
-	_ bin.BareEncoder = &TopPeer{}
-	_ bin.BareDecoder = &TopPeer{}
-)
+// GetPeer returns value of Peer field.
+func (t *TopPeer) GetPeer() (value PeerClass) {
+	return t.Peer
+}
+
+// GetRating returns value of Rating field.
+func (t *TopPeer) GetRating() (value float64) {
+	return t.Rating
+}

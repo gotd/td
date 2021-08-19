@@ -44,6 +44,14 @@ type MessagesGetSavedGifsRequest struct {
 // MessagesGetSavedGifsRequestTypeID is TL type id of MessagesGetSavedGifsRequest.
 const MessagesGetSavedGifsRequestTypeID = 0x83bf3d52
 
+// Ensuring interfaces in compile-time for MessagesGetSavedGifsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetSavedGifsRequest{}
+	_ bin.Decoder     = &MessagesGetSavedGifsRequest{}
+	_ bin.BareEncoder = &MessagesGetSavedGifsRequest{}
+	_ bin.BareDecoder = &MessagesGetSavedGifsRequest{}
+)
+
 func (g *MessagesGetSavedGifsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,11 +128,6 @@ func (g *MessagesGetSavedGifsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (g *MessagesGetSavedGifsRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetSavedGifsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -151,13 +154,10 @@ func (g *MessagesGetSavedGifsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetSavedGifsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetSavedGifsRequest{}
-	_ bin.Decoder     = &MessagesGetSavedGifsRequest{}
-	_ bin.BareEncoder = &MessagesGetSavedGifsRequest{}
-	_ bin.BareDecoder = &MessagesGetSavedGifsRequest{}
-)
+// GetHash returns value of Hash field.
+func (g *MessagesGetSavedGifsRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // MessagesGetSavedGifs invokes method messages.getSavedGifs#83bf3d52 returning error if any.
 // Get saved GIFs

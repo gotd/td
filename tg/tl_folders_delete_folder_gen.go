@@ -47,6 +47,14 @@ type FoldersDeleteFolderRequest struct {
 // FoldersDeleteFolderRequestTypeID is TL type id of FoldersDeleteFolderRequest.
 const FoldersDeleteFolderRequestTypeID = 0x1c295881
 
+// Ensuring interfaces in compile-time for FoldersDeleteFolderRequest.
+var (
+	_ bin.Encoder     = &FoldersDeleteFolderRequest{}
+	_ bin.Decoder     = &FoldersDeleteFolderRequest{}
+	_ bin.BareEncoder = &FoldersDeleteFolderRequest{}
+	_ bin.BareDecoder = &FoldersDeleteFolderRequest{}
+)
+
 func (d *FoldersDeleteFolderRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -123,11 +131,6 @@ func (d *FoldersDeleteFolderRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFolderID returns value of FolderID field.
-func (d *FoldersDeleteFolderRequest) GetFolderID() (value int) {
-	return d.FolderID
-}
-
 // Decode implements bin.Decoder.
 func (d *FoldersDeleteFolderRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -154,13 +157,10 @@ func (d *FoldersDeleteFolderRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for FoldersDeleteFolderRequest.
-var (
-	_ bin.Encoder     = &FoldersDeleteFolderRequest{}
-	_ bin.Decoder     = &FoldersDeleteFolderRequest{}
-	_ bin.BareEncoder = &FoldersDeleteFolderRequest{}
-	_ bin.BareDecoder = &FoldersDeleteFolderRequest{}
-)
+// GetFolderID returns value of FolderID field.
+func (d *FoldersDeleteFolderRequest) GetFolderID() (value int) {
+	return d.FolderID
+}
 
 // FoldersDeleteFolder invokes method folders.deleteFolder#1c295881 returning error if any.
 // Delete a peer folder¹

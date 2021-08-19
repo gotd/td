@@ -66,6 +66,14 @@ type MessagesGetUnreadMentionsRequest struct {
 // MessagesGetUnreadMentionsRequestTypeID is TL type id of MessagesGetUnreadMentionsRequest.
 const MessagesGetUnreadMentionsRequestTypeID = 0x46578472
 
+// Ensuring interfaces in compile-time for MessagesGetUnreadMentionsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetUnreadMentionsRequest{}
+	_ bin.Decoder     = &MessagesGetUnreadMentionsRequest{}
+	_ bin.BareEncoder = &MessagesGetUnreadMentionsRequest{}
+	_ bin.BareDecoder = &MessagesGetUnreadMentionsRequest{}
+)
+
 func (g *MessagesGetUnreadMentionsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -197,36 +205,6 @@ func (g *MessagesGetUnreadMentionsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetUnreadMentionsRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetOffsetID returns value of OffsetID field.
-func (g *MessagesGetUnreadMentionsRequest) GetOffsetID() (value int) {
-	return g.OffsetID
-}
-
-// GetAddOffset returns value of AddOffset field.
-func (g *MessagesGetUnreadMentionsRequest) GetAddOffset() (value int) {
-	return g.AddOffset
-}
-
-// GetLimit returns value of Limit field.
-func (g *MessagesGetUnreadMentionsRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
-// GetMaxID returns value of MaxID field.
-func (g *MessagesGetUnreadMentionsRequest) GetMaxID() (value int) {
-	return g.MaxID
-}
-
-// GetMinID returns value of MinID field.
-func (g *MessagesGetUnreadMentionsRequest) GetMinID() (value int) {
-	return g.MinID
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetUnreadMentionsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -288,13 +266,35 @@ func (g *MessagesGetUnreadMentionsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetUnreadMentionsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetUnreadMentionsRequest{}
-	_ bin.Decoder     = &MessagesGetUnreadMentionsRequest{}
-	_ bin.BareEncoder = &MessagesGetUnreadMentionsRequest{}
-	_ bin.BareDecoder = &MessagesGetUnreadMentionsRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetUnreadMentionsRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (g *MessagesGetUnreadMentionsRequest) GetOffsetID() (value int) {
+	return g.OffsetID
+}
+
+// GetAddOffset returns value of AddOffset field.
+func (g *MessagesGetUnreadMentionsRequest) GetAddOffset() (value int) {
+	return g.AddOffset
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetUnreadMentionsRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetMaxID returns value of MaxID field.
+func (g *MessagesGetUnreadMentionsRequest) GetMaxID() (value int) {
+	return g.MaxID
+}
+
+// GetMinID returns value of MinID field.
+func (g *MessagesGetUnreadMentionsRequest) GetMinID() (value int) {
+	return g.MinID
+}
 
 // MessagesGetUnreadMentions invokes method messages.getUnreadMentions#46578472 returning error if any.
 // Get unread messages where we were mentioned

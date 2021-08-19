@@ -52,6 +52,14 @@ type MaskCoords struct {
 // MaskCoordsTypeID is TL type id of MaskCoords.
 const MaskCoordsTypeID = 0xaed6dbb2
 
+// Ensuring interfaces in compile-time for MaskCoords.
+var (
+	_ bin.Encoder     = &MaskCoords{}
+	_ bin.Decoder     = &MaskCoords{}
+	_ bin.BareEncoder = &MaskCoords{}
+	_ bin.BareDecoder = &MaskCoords{}
+)
+
 func (m *MaskCoords) Zero() bool {
 	if m == nil {
 		return true
@@ -158,26 +166,6 @@ func (m *MaskCoords) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetN returns value of N field.
-func (m *MaskCoords) GetN() (value int) {
-	return m.N
-}
-
-// GetX returns value of X field.
-func (m *MaskCoords) GetX() (value float64) {
-	return m.X
-}
-
-// GetY returns value of Y field.
-func (m *MaskCoords) GetY() (value float64) {
-	return m.Y
-}
-
-// GetZoom returns value of Zoom field.
-func (m *MaskCoords) GetZoom() (value float64) {
-	return m.Zoom
-}
-
 // Decode implements bin.Decoder.
 func (m *MaskCoords) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -225,10 +213,22 @@ func (m *MaskCoords) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MaskCoords.
-var (
-	_ bin.Encoder     = &MaskCoords{}
-	_ bin.Decoder     = &MaskCoords{}
-	_ bin.BareEncoder = &MaskCoords{}
-	_ bin.BareDecoder = &MaskCoords{}
-)
+// GetN returns value of N field.
+func (m *MaskCoords) GetN() (value int) {
+	return m.N
+}
+
+// GetX returns value of X field.
+func (m *MaskCoords) GetX() (value float64) {
+	return m.X
+}
+
+// GetY returns value of Y field.
+func (m *MaskCoords) GetY() (value float64) {
+	return m.Y
+}
+
+// GetZoom returns value of Zoom field.
+func (m *MaskCoords) GetZoom() (value float64) {
+	return m.Zoom
+}

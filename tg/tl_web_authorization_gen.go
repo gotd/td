@@ -60,6 +60,14 @@ type WebAuthorization struct {
 // WebAuthorizationTypeID is TL type id of WebAuthorization.
 const WebAuthorizationTypeID = 0xcac943f2
 
+// Ensuring interfaces in compile-time for WebAuthorization.
+var (
+	_ bin.Encoder     = &WebAuthorization{}
+	_ bin.Decoder     = &WebAuthorization{}
+	_ bin.BareEncoder = &WebAuthorization{}
+	_ bin.BareDecoder = &WebAuthorization{}
+)
+
 func (w *WebAuthorization) Zero() bool {
 	if w == nil {
 		return true
@@ -216,51 +224,6 @@ func (w *WebAuthorization) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (w *WebAuthorization) GetHash() (value int64) {
-	return w.Hash
-}
-
-// GetBotID returns value of BotID field.
-func (w *WebAuthorization) GetBotID() (value int) {
-	return w.BotID
-}
-
-// GetDomain returns value of Domain field.
-func (w *WebAuthorization) GetDomain() (value string) {
-	return w.Domain
-}
-
-// GetBrowser returns value of Browser field.
-func (w *WebAuthorization) GetBrowser() (value string) {
-	return w.Browser
-}
-
-// GetPlatform returns value of Platform field.
-func (w *WebAuthorization) GetPlatform() (value string) {
-	return w.Platform
-}
-
-// GetDateCreated returns value of DateCreated field.
-func (w *WebAuthorization) GetDateCreated() (value int) {
-	return w.DateCreated
-}
-
-// GetDateActive returns value of DateActive field.
-func (w *WebAuthorization) GetDateActive() (value int) {
-	return w.DateActive
-}
-
-// GetIP returns value of IP field.
-func (w *WebAuthorization) GetIP() (value string) {
-	return w.IP
-}
-
-// GetRegion returns value of Region field.
-func (w *WebAuthorization) GetRegion() (value string) {
-	return w.Region
-}
-
 // Decode implements bin.Decoder.
 func (w *WebAuthorization) Decode(b *bin.Buffer) error {
 	if w == nil {
@@ -343,10 +306,47 @@ func (w *WebAuthorization) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for WebAuthorization.
-var (
-	_ bin.Encoder     = &WebAuthorization{}
-	_ bin.Decoder     = &WebAuthorization{}
-	_ bin.BareEncoder = &WebAuthorization{}
-	_ bin.BareDecoder = &WebAuthorization{}
-)
+// GetHash returns value of Hash field.
+func (w *WebAuthorization) GetHash() (value int64) {
+	return w.Hash
+}
+
+// GetBotID returns value of BotID field.
+func (w *WebAuthorization) GetBotID() (value int) {
+	return w.BotID
+}
+
+// GetDomain returns value of Domain field.
+func (w *WebAuthorization) GetDomain() (value string) {
+	return w.Domain
+}
+
+// GetBrowser returns value of Browser field.
+func (w *WebAuthorization) GetBrowser() (value string) {
+	return w.Browser
+}
+
+// GetPlatform returns value of Platform field.
+func (w *WebAuthorization) GetPlatform() (value string) {
+	return w.Platform
+}
+
+// GetDateCreated returns value of DateCreated field.
+func (w *WebAuthorization) GetDateCreated() (value int) {
+	return w.DateCreated
+}
+
+// GetDateActive returns value of DateActive field.
+func (w *WebAuthorization) GetDateActive() (value int) {
+	return w.DateActive
+}
+
+// GetIP returns value of IP field.
+func (w *WebAuthorization) GetIP() (value string) {
+	return w.IP
+}
+
+// GetRegion returns value of Region field.
+func (w *WebAuthorization) GetRegion() (value string) {
+	return w.Region
+}

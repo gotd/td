@@ -40,6 +40,14 @@ type Theme struct {
 // ThemeTypeID is TL type id of Theme.
 const ThemeTypeID = 0x28f1114
 
+// Ensuring interfaces in compile-time for Theme.
+var (
+	_ bin.Encoder     = &Theme{}
+	_ bin.Decoder     = &Theme{}
+	_ bin.BareEncoder = &Theme{}
+	_ bin.BareDecoder = &Theme{}
+)
+
 func (t *Theme) Zero() bool {
 	if t == nil {
 		return true
@@ -58,13 +66,6 @@ func (t *Theme) String() string {
 	}
 	type Alias Theme
 	return fmt.Sprintf("Theme%+v", Alias(*t))
-}
-
-// FillFrom fills Theme from given interface.
-func (t *Theme) FillFrom(from interface {
-	GetName() (value string)
-}) {
-	t.Name = from.GetName()
 }
 
 // TypeID returns type id in TL schema.
@@ -116,11 +117,6 @@ func (t *Theme) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetName returns value of Name field.
-func (t *Theme) GetName() (value string) {
-	return t.Name
-}
-
 // Decode implements bin.Decoder.
 func (t *Theme) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -147,10 +143,7 @@ func (t *Theme) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for Theme.
-var (
-	_ bin.Encoder     = &Theme{}
-	_ bin.Decoder     = &Theme{}
-	_ bin.BareEncoder = &Theme{}
-	_ bin.BareDecoder = &Theme{}
-)
+// GetName returns value of Name field.
+func (t *Theme) GetName() (value string) {
+	return t.Name
+}

@@ -39,6 +39,19 @@ type MessageActionEmpty struct {
 // MessageActionEmptyTypeID is TL type id of MessageActionEmpty.
 const MessageActionEmptyTypeID = 0xb6aef7b0
 
+// construct implements constructor of MessageActionClass.
+func (m MessageActionEmpty) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionEmpty.
+var (
+	_ bin.Encoder     = &MessageActionEmpty{}
+	_ bin.Decoder     = &MessageActionEmpty{}
+	_ bin.BareEncoder = &MessageActionEmpty{}
+	_ bin.BareDecoder = &MessageActionEmpty{}
+
+	_ MessageActionClass = &MessageActionEmpty{}
+)
+
 func (m *MessageActionEmpty) Zero() bool {
 	if m == nil {
 		return true
@@ -118,19 +131,6 @@ func (m *MessageActionEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionEmpty) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionEmpty.
-var (
-	_ bin.Encoder     = &MessageActionEmpty{}
-	_ bin.Decoder     = &MessageActionEmpty{}
-	_ bin.BareEncoder = &MessageActionEmpty{}
-	_ bin.BareDecoder = &MessageActionEmpty{}
-
-	_ MessageActionClass = &MessageActionEmpty{}
-)
-
 // MessageActionChatCreate represents TL type `messageActionChatCreate#a6638b9a`.
 // Group created
 //
@@ -144,6 +144,19 @@ type MessageActionChatCreate struct {
 
 // MessageActionChatCreateTypeID is TL type id of MessageActionChatCreate.
 const MessageActionChatCreateTypeID = 0xa6638b9a
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionChatCreate) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionChatCreate.
+var (
+	_ bin.Encoder     = &MessageActionChatCreate{}
+	_ bin.Decoder     = &MessageActionChatCreate{}
+	_ bin.BareEncoder = &MessageActionChatCreate{}
+	_ bin.BareDecoder = &MessageActionChatCreate{}
+
+	_ MessageActionClass = &MessageActionChatCreate{}
+)
 
 func (m *MessageActionChatCreate) Zero() bool {
 	if m == nil {
@@ -234,16 +247,6 @@ func (m *MessageActionChatCreate) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTitle returns value of Title field.
-func (m *MessageActionChatCreate) GetTitle() (value string) {
-	return m.Title
-}
-
-// GetUsers returns value of Users field.
-func (m *MessageActionChatCreate) GetUsers() (value []int) {
-	return m.Users
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionChatCreate) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -287,18 +290,15 @@ func (m *MessageActionChatCreate) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionChatCreate) construct() MessageActionClass { return &m }
+// GetTitle returns value of Title field.
+func (m *MessageActionChatCreate) GetTitle() (value string) {
+	return m.Title
+}
 
-// Ensuring interfaces in compile-time for MessageActionChatCreate.
-var (
-	_ bin.Encoder     = &MessageActionChatCreate{}
-	_ bin.Decoder     = &MessageActionChatCreate{}
-	_ bin.BareEncoder = &MessageActionChatCreate{}
-	_ bin.BareDecoder = &MessageActionChatCreate{}
-
-	_ MessageActionClass = &MessageActionChatCreate{}
-)
+// GetUsers returns value of Users field.
+func (m *MessageActionChatCreate) GetUsers() (value []int) {
+	return m.Users
+}
 
 // MessageActionChatEditTitle represents TL type `messageActionChatEditTitle#b5a1ce5a`.
 // Group name changed.
@@ -311,6 +311,19 @@ type MessageActionChatEditTitle struct {
 
 // MessageActionChatEditTitleTypeID is TL type id of MessageActionChatEditTitle.
 const MessageActionChatEditTitleTypeID = 0xb5a1ce5a
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionChatEditTitle) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionChatEditTitle.
+var (
+	_ bin.Encoder     = &MessageActionChatEditTitle{}
+	_ bin.Decoder     = &MessageActionChatEditTitle{}
+	_ bin.BareEncoder = &MessageActionChatEditTitle{}
+	_ bin.BareDecoder = &MessageActionChatEditTitle{}
+
+	_ MessageActionClass = &MessageActionChatEditTitle{}
+)
 
 func (m *MessageActionChatEditTitle) Zero() bool {
 	if m == nil {
@@ -388,11 +401,6 @@ func (m *MessageActionChatEditTitle) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTitle returns value of Title field.
-func (m *MessageActionChatEditTitle) GetTitle() (value string) {
-	return m.Title
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionChatEditTitle) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -419,18 +427,10 @@ func (m *MessageActionChatEditTitle) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionChatEditTitle) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionChatEditTitle.
-var (
-	_ bin.Encoder     = &MessageActionChatEditTitle{}
-	_ bin.Decoder     = &MessageActionChatEditTitle{}
-	_ bin.BareEncoder = &MessageActionChatEditTitle{}
-	_ bin.BareDecoder = &MessageActionChatEditTitle{}
-
-	_ MessageActionClass = &MessageActionChatEditTitle{}
-)
+// GetTitle returns value of Title field.
+func (m *MessageActionChatEditTitle) GetTitle() (value string) {
+	return m.Title
+}
 
 // MessageActionChatEditPhoto represents TL type `messageActionChatEditPhoto#7fcb13a8`.
 // Group profile changed
@@ -443,6 +443,19 @@ type MessageActionChatEditPhoto struct {
 
 // MessageActionChatEditPhotoTypeID is TL type id of MessageActionChatEditPhoto.
 const MessageActionChatEditPhotoTypeID = 0x7fcb13a8
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionChatEditPhoto) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionChatEditPhoto.
+var (
+	_ bin.Encoder     = &MessageActionChatEditPhoto{}
+	_ bin.Decoder     = &MessageActionChatEditPhoto{}
+	_ bin.BareEncoder = &MessageActionChatEditPhoto{}
+	_ bin.BareDecoder = &MessageActionChatEditPhoto{}
+
+	_ MessageActionClass = &MessageActionChatEditPhoto{}
+)
 
 func (m *MessageActionChatEditPhoto) Zero() bool {
 	if m == nil {
@@ -525,11 +538,6 @@ func (m *MessageActionChatEditPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoto returns value of Photo field.
-func (m *MessageActionChatEditPhoto) GetPhoto() (value PhotoClass) {
-	return m.Photo
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionChatEditPhoto) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -556,18 +564,10 @@ func (m *MessageActionChatEditPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionChatEditPhoto) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionChatEditPhoto.
-var (
-	_ bin.Encoder     = &MessageActionChatEditPhoto{}
-	_ bin.Decoder     = &MessageActionChatEditPhoto{}
-	_ bin.BareEncoder = &MessageActionChatEditPhoto{}
-	_ bin.BareDecoder = &MessageActionChatEditPhoto{}
-
-	_ MessageActionClass = &MessageActionChatEditPhoto{}
-)
+// GetPhoto returns value of Photo field.
+func (m *MessageActionChatEditPhoto) GetPhoto() (value PhotoClass) {
+	return m.Photo
+}
 
 // MessageActionChatDeletePhoto represents TL type `messageActionChatDeletePhoto#95e3fbef`.
 // Group profile photo removed.
@@ -578,6 +578,19 @@ type MessageActionChatDeletePhoto struct {
 
 // MessageActionChatDeletePhotoTypeID is TL type id of MessageActionChatDeletePhoto.
 const MessageActionChatDeletePhotoTypeID = 0x95e3fbef
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionChatDeletePhoto) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionChatDeletePhoto.
+var (
+	_ bin.Encoder     = &MessageActionChatDeletePhoto{}
+	_ bin.Decoder     = &MessageActionChatDeletePhoto{}
+	_ bin.BareEncoder = &MessageActionChatDeletePhoto{}
+	_ bin.BareDecoder = &MessageActionChatDeletePhoto{}
+
+	_ MessageActionClass = &MessageActionChatDeletePhoto{}
+)
 
 func (m *MessageActionChatDeletePhoto) Zero() bool {
 	if m == nil {
@@ -658,19 +671,6 @@ func (m *MessageActionChatDeletePhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionChatDeletePhoto) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionChatDeletePhoto.
-var (
-	_ bin.Encoder     = &MessageActionChatDeletePhoto{}
-	_ bin.Decoder     = &MessageActionChatDeletePhoto{}
-	_ bin.BareEncoder = &MessageActionChatDeletePhoto{}
-	_ bin.BareDecoder = &MessageActionChatDeletePhoto{}
-
-	_ MessageActionClass = &MessageActionChatDeletePhoto{}
-)
-
 // MessageActionChatAddUser represents TL type `messageActionChatAddUser#488a7337`.
 // New member in the group
 //
@@ -682,6 +682,19 @@ type MessageActionChatAddUser struct {
 
 // MessageActionChatAddUserTypeID is TL type id of MessageActionChatAddUser.
 const MessageActionChatAddUserTypeID = 0x488a7337
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionChatAddUser) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionChatAddUser.
+var (
+	_ bin.Encoder     = &MessageActionChatAddUser{}
+	_ bin.Decoder     = &MessageActionChatAddUser{}
+	_ bin.BareEncoder = &MessageActionChatAddUser{}
+	_ bin.BareDecoder = &MessageActionChatAddUser{}
+
+	_ MessageActionClass = &MessageActionChatAddUser{}
+)
 
 func (m *MessageActionChatAddUser) Zero() bool {
 	if m == nil {
@@ -762,11 +775,6 @@ func (m *MessageActionChatAddUser) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUsers returns value of Users field.
-func (m *MessageActionChatAddUser) GetUsers() (value []int) {
-	return m.Users
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionChatAddUser) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -803,18 +811,10 @@ func (m *MessageActionChatAddUser) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionChatAddUser) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionChatAddUser.
-var (
-	_ bin.Encoder     = &MessageActionChatAddUser{}
-	_ bin.Decoder     = &MessageActionChatAddUser{}
-	_ bin.BareEncoder = &MessageActionChatAddUser{}
-	_ bin.BareDecoder = &MessageActionChatAddUser{}
-
-	_ MessageActionClass = &MessageActionChatAddUser{}
-)
+// GetUsers returns value of Users field.
+func (m *MessageActionChatAddUser) GetUsers() (value []int) {
+	return m.Users
+}
 
 // MessageActionChatDeleteUser represents TL type `messageActionChatDeleteUser#b2ae9b0c`.
 // User left the group.
@@ -827,6 +827,19 @@ type MessageActionChatDeleteUser struct {
 
 // MessageActionChatDeleteUserTypeID is TL type id of MessageActionChatDeleteUser.
 const MessageActionChatDeleteUserTypeID = 0xb2ae9b0c
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionChatDeleteUser) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionChatDeleteUser.
+var (
+	_ bin.Encoder     = &MessageActionChatDeleteUser{}
+	_ bin.Decoder     = &MessageActionChatDeleteUser{}
+	_ bin.BareEncoder = &MessageActionChatDeleteUser{}
+	_ bin.BareDecoder = &MessageActionChatDeleteUser{}
+
+	_ MessageActionClass = &MessageActionChatDeleteUser{}
+)
 
 func (m *MessageActionChatDeleteUser) Zero() bool {
 	if m == nil {
@@ -904,11 +917,6 @@ func (m *MessageActionChatDeleteUser) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (m *MessageActionChatDeleteUser) GetUserID() (value int) {
-	return m.UserID
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionChatDeleteUser) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -935,18 +943,10 @@ func (m *MessageActionChatDeleteUser) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionChatDeleteUser) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionChatDeleteUser.
-var (
-	_ bin.Encoder     = &MessageActionChatDeleteUser{}
-	_ bin.Decoder     = &MessageActionChatDeleteUser{}
-	_ bin.BareEncoder = &MessageActionChatDeleteUser{}
-	_ bin.BareDecoder = &MessageActionChatDeleteUser{}
-
-	_ MessageActionClass = &MessageActionChatDeleteUser{}
-)
+// GetUserID returns value of UserID field.
+func (m *MessageActionChatDeleteUser) GetUserID() (value int) {
+	return m.UserID
+}
 
 // MessageActionChatJoinedByLink represents TL type `messageActionChatJoinedByLink#f89cf5e8`.
 // A user joined the chat via an invite link
@@ -959,6 +959,19 @@ type MessageActionChatJoinedByLink struct {
 
 // MessageActionChatJoinedByLinkTypeID is TL type id of MessageActionChatJoinedByLink.
 const MessageActionChatJoinedByLinkTypeID = 0xf89cf5e8
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionChatJoinedByLink) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionChatJoinedByLink.
+var (
+	_ bin.Encoder     = &MessageActionChatJoinedByLink{}
+	_ bin.Decoder     = &MessageActionChatJoinedByLink{}
+	_ bin.BareEncoder = &MessageActionChatJoinedByLink{}
+	_ bin.BareDecoder = &MessageActionChatJoinedByLink{}
+
+	_ MessageActionClass = &MessageActionChatJoinedByLink{}
+)
 
 func (m *MessageActionChatJoinedByLink) Zero() bool {
 	if m == nil {
@@ -1036,11 +1049,6 @@ func (m *MessageActionChatJoinedByLink) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetInviterID returns value of InviterID field.
-func (m *MessageActionChatJoinedByLink) GetInviterID() (value int) {
-	return m.InviterID
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionChatJoinedByLink) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1067,18 +1075,10 @@ func (m *MessageActionChatJoinedByLink) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionChatJoinedByLink) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionChatJoinedByLink.
-var (
-	_ bin.Encoder     = &MessageActionChatJoinedByLink{}
-	_ bin.Decoder     = &MessageActionChatJoinedByLink{}
-	_ bin.BareEncoder = &MessageActionChatJoinedByLink{}
-	_ bin.BareDecoder = &MessageActionChatJoinedByLink{}
-
-	_ MessageActionClass = &MessageActionChatJoinedByLink{}
-)
+// GetInviterID returns value of InviterID field.
+func (m *MessageActionChatJoinedByLink) GetInviterID() (value int) {
+	return m.InviterID
+}
 
 // MessageActionChannelCreate represents TL type `messageActionChannelCreate#95d2ac92`.
 // The channel was created
@@ -1091,6 +1091,19 @@ type MessageActionChannelCreate struct {
 
 // MessageActionChannelCreateTypeID is TL type id of MessageActionChannelCreate.
 const MessageActionChannelCreateTypeID = 0x95d2ac92
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionChannelCreate) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionChannelCreate.
+var (
+	_ bin.Encoder     = &MessageActionChannelCreate{}
+	_ bin.Decoder     = &MessageActionChannelCreate{}
+	_ bin.BareEncoder = &MessageActionChannelCreate{}
+	_ bin.BareDecoder = &MessageActionChannelCreate{}
+
+	_ MessageActionClass = &MessageActionChannelCreate{}
+)
 
 func (m *MessageActionChannelCreate) Zero() bool {
 	if m == nil {
@@ -1168,11 +1181,6 @@ func (m *MessageActionChannelCreate) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTitle returns value of Title field.
-func (m *MessageActionChannelCreate) GetTitle() (value string) {
-	return m.Title
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionChannelCreate) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1199,18 +1207,10 @@ func (m *MessageActionChannelCreate) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionChannelCreate) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionChannelCreate.
-var (
-	_ bin.Encoder     = &MessageActionChannelCreate{}
-	_ bin.Decoder     = &MessageActionChannelCreate{}
-	_ bin.BareEncoder = &MessageActionChannelCreate{}
-	_ bin.BareDecoder = &MessageActionChannelCreate{}
-
-	_ MessageActionClass = &MessageActionChannelCreate{}
-)
+// GetTitle returns value of Title field.
+func (m *MessageActionChannelCreate) GetTitle() (value string) {
+	return m.Title
+}
 
 // MessageActionChatMigrateTo represents TL type `messageActionChatMigrateTo#51bdb021`.
 // Indicates the chat was migrated¹ to the specified supergroup
@@ -1226,6 +1226,19 @@ type MessageActionChatMigrateTo struct {
 
 // MessageActionChatMigrateToTypeID is TL type id of MessageActionChatMigrateTo.
 const MessageActionChatMigrateToTypeID = 0x51bdb021
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionChatMigrateTo) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionChatMigrateTo.
+var (
+	_ bin.Encoder     = &MessageActionChatMigrateTo{}
+	_ bin.Decoder     = &MessageActionChatMigrateTo{}
+	_ bin.BareEncoder = &MessageActionChatMigrateTo{}
+	_ bin.BareDecoder = &MessageActionChatMigrateTo{}
+
+	_ MessageActionClass = &MessageActionChatMigrateTo{}
+)
 
 func (m *MessageActionChatMigrateTo) Zero() bool {
 	if m == nil {
@@ -1303,11 +1316,6 @@ func (m *MessageActionChatMigrateTo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (m *MessageActionChatMigrateTo) GetChannelID() (value int) {
-	return m.ChannelID
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionChatMigrateTo) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1334,18 +1342,10 @@ func (m *MessageActionChatMigrateTo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionChatMigrateTo) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionChatMigrateTo.
-var (
-	_ bin.Encoder     = &MessageActionChatMigrateTo{}
-	_ bin.Decoder     = &MessageActionChatMigrateTo{}
-	_ bin.BareEncoder = &MessageActionChatMigrateTo{}
-	_ bin.BareDecoder = &MessageActionChatMigrateTo{}
-
-	_ MessageActionClass = &MessageActionChatMigrateTo{}
-)
+// GetChannelID returns value of ChannelID field.
+func (m *MessageActionChatMigrateTo) GetChannelID() (value int) {
+	return m.ChannelID
+}
 
 // MessageActionChannelMigrateFrom represents TL type `messageActionChannelMigrateFrom#b055eaee`.
 // Indicates the channel was migrated¹ from the specified chat
@@ -1363,6 +1363,19 @@ type MessageActionChannelMigrateFrom struct {
 
 // MessageActionChannelMigrateFromTypeID is TL type id of MessageActionChannelMigrateFrom.
 const MessageActionChannelMigrateFromTypeID = 0xb055eaee
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionChannelMigrateFrom) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionChannelMigrateFrom.
+var (
+	_ bin.Encoder     = &MessageActionChannelMigrateFrom{}
+	_ bin.Decoder     = &MessageActionChannelMigrateFrom{}
+	_ bin.BareEncoder = &MessageActionChannelMigrateFrom{}
+	_ bin.BareDecoder = &MessageActionChannelMigrateFrom{}
+
+	_ MessageActionClass = &MessageActionChannelMigrateFrom{}
+)
 
 func (m *MessageActionChannelMigrateFrom) Zero() bool {
 	if m == nil {
@@ -1450,16 +1463,6 @@ func (m *MessageActionChannelMigrateFrom) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTitle returns value of Title field.
-func (m *MessageActionChannelMigrateFrom) GetTitle() (value string) {
-	return m.Title
-}
-
-// GetChatID returns value of ChatID field.
-func (m *MessageActionChannelMigrateFrom) GetChatID() (value int) {
-	return m.ChatID
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionChannelMigrateFrom) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1493,18 +1496,15 @@ func (m *MessageActionChannelMigrateFrom) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionChannelMigrateFrom) construct() MessageActionClass { return &m }
+// GetTitle returns value of Title field.
+func (m *MessageActionChannelMigrateFrom) GetTitle() (value string) {
+	return m.Title
+}
 
-// Ensuring interfaces in compile-time for MessageActionChannelMigrateFrom.
-var (
-	_ bin.Encoder     = &MessageActionChannelMigrateFrom{}
-	_ bin.Decoder     = &MessageActionChannelMigrateFrom{}
-	_ bin.BareEncoder = &MessageActionChannelMigrateFrom{}
-	_ bin.BareDecoder = &MessageActionChannelMigrateFrom{}
-
-	_ MessageActionClass = &MessageActionChannelMigrateFrom{}
-)
+// GetChatID returns value of ChatID field.
+func (m *MessageActionChannelMigrateFrom) GetChatID() (value int) {
+	return m.ChatID
+}
 
 // MessageActionPinMessage represents TL type `messageActionPinMessage#94bd38ed`.
 // A message was pinned
@@ -1515,6 +1515,19 @@ type MessageActionPinMessage struct {
 
 // MessageActionPinMessageTypeID is TL type id of MessageActionPinMessage.
 const MessageActionPinMessageTypeID = 0x94bd38ed
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionPinMessage) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionPinMessage.
+var (
+	_ bin.Encoder     = &MessageActionPinMessage{}
+	_ bin.Decoder     = &MessageActionPinMessage{}
+	_ bin.BareEncoder = &MessageActionPinMessage{}
+	_ bin.BareDecoder = &MessageActionPinMessage{}
+
+	_ MessageActionClass = &MessageActionPinMessage{}
+)
 
 func (m *MessageActionPinMessage) Zero() bool {
 	if m == nil {
@@ -1595,19 +1608,6 @@ func (m *MessageActionPinMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionPinMessage) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionPinMessage.
-var (
-	_ bin.Encoder     = &MessageActionPinMessage{}
-	_ bin.Decoder     = &MessageActionPinMessage{}
-	_ bin.BareEncoder = &MessageActionPinMessage{}
-	_ bin.BareDecoder = &MessageActionPinMessage{}
-
-	_ MessageActionClass = &MessageActionPinMessage{}
-)
-
 // MessageActionHistoryClear represents TL type `messageActionHistoryClear#9fbab604`.
 // Chat history was cleared
 //
@@ -1617,6 +1617,19 @@ type MessageActionHistoryClear struct {
 
 // MessageActionHistoryClearTypeID is TL type id of MessageActionHistoryClear.
 const MessageActionHistoryClearTypeID = 0x9fbab604
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionHistoryClear) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionHistoryClear.
+var (
+	_ bin.Encoder     = &MessageActionHistoryClear{}
+	_ bin.Decoder     = &MessageActionHistoryClear{}
+	_ bin.BareEncoder = &MessageActionHistoryClear{}
+	_ bin.BareDecoder = &MessageActionHistoryClear{}
+
+	_ MessageActionClass = &MessageActionHistoryClear{}
+)
 
 func (m *MessageActionHistoryClear) Zero() bool {
 	if m == nil {
@@ -1697,19 +1710,6 @@ func (m *MessageActionHistoryClear) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionHistoryClear) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionHistoryClear.
-var (
-	_ bin.Encoder     = &MessageActionHistoryClear{}
-	_ bin.Decoder     = &MessageActionHistoryClear{}
-	_ bin.BareEncoder = &MessageActionHistoryClear{}
-	_ bin.BareDecoder = &MessageActionHistoryClear{}
-
-	_ MessageActionClass = &MessageActionHistoryClear{}
-)
-
 // MessageActionGameScore represents TL type `messageActionGameScore#92a72876`.
 // Someone scored in a game
 //
@@ -1723,6 +1723,19 @@ type MessageActionGameScore struct {
 
 // MessageActionGameScoreTypeID is TL type id of MessageActionGameScore.
 const MessageActionGameScoreTypeID = 0x92a72876
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionGameScore) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionGameScore.
+var (
+	_ bin.Encoder     = &MessageActionGameScore{}
+	_ bin.Decoder     = &MessageActionGameScore{}
+	_ bin.BareEncoder = &MessageActionGameScore{}
+	_ bin.BareDecoder = &MessageActionGameScore{}
+
+	_ MessageActionClass = &MessageActionGameScore{}
+)
 
 func (m *MessageActionGameScore) Zero() bool {
 	if m == nil {
@@ -1810,16 +1823,6 @@ func (m *MessageActionGameScore) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetGameID returns value of GameID field.
-func (m *MessageActionGameScore) GetGameID() (value int64) {
-	return m.GameID
-}
-
-// GetScore returns value of Score field.
-func (m *MessageActionGameScore) GetScore() (value int) {
-	return m.Score
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionGameScore) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1853,18 +1856,15 @@ func (m *MessageActionGameScore) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionGameScore) construct() MessageActionClass { return &m }
+// GetGameID returns value of GameID field.
+func (m *MessageActionGameScore) GetGameID() (value int64) {
+	return m.GameID
+}
 
-// Ensuring interfaces in compile-time for MessageActionGameScore.
-var (
-	_ bin.Encoder     = &MessageActionGameScore{}
-	_ bin.Decoder     = &MessageActionGameScore{}
-	_ bin.BareEncoder = &MessageActionGameScore{}
-	_ bin.BareDecoder = &MessageActionGameScore{}
-
-	_ MessageActionClass = &MessageActionGameScore{}
-)
+// GetScore returns value of Score field.
+func (m *MessageActionGameScore) GetScore() (value int) {
+	return m.Score
+}
 
 // MessageActionPaymentSentMe represents TL type `messageActionPaymentSentMe#8f31b327`.
 // A user just sent a payment to me (a bot)
@@ -1905,6 +1905,19 @@ type MessageActionPaymentSentMe struct {
 
 // MessageActionPaymentSentMeTypeID is TL type id of MessageActionPaymentSentMe.
 const MessageActionPaymentSentMeTypeID = 0x8f31b327
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionPaymentSentMe) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionPaymentSentMe.
+var (
+	_ bin.Encoder     = &MessageActionPaymentSentMe{}
+	_ bin.Decoder     = &MessageActionPaymentSentMe{}
+	_ bin.BareEncoder = &MessageActionPaymentSentMe{}
+	_ bin.BareDecoder = &MessageActionPaymentSentMe{}
+
+	_ MessageActionClass = &MessageActionPaymentSentMe{}
+)
 
 func (m *MessageActionPaymentSentMe) Zero() bool {
 	if m == nil {
@@ -2060,56 +2073,6 @@ func (m *MessageActionPaymentSentMe) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCurrency returns value of Currency field.
-func (m *MessageActionPaymentSentMe) GetCurrency() (value string) {
-	return m.Currency
-}
-
-// GetTotalAmount returns value of TotalAmount field.
-func (m *MessageActionPaymentSentMe) GetTotalAmount() (value int64) {
-	return m.TotalAmount
-}
-
-// GetPayload returns value of Payload field.
-func (m *MessageActionPaymentSentMe) GetPayload() (value []byte) {
-	return m.Payload
-}
-
-// SetInfo sets value of Info conditional field.
-func (m *MessageActionPaymentSentMe) SetInfo(value PaymentRequestedInfo) {
-	m.Flags.Set(0)
-	m.Info = value
-}
-
-// GetInfo returns value of Info conditional field and
-// boolean which is true if field was set.
-func (m *MessageActionPaymentSentMe) GetInfo() (value PaymentRequestedInfo, ok bool) {
-	if !m.Flags.Has(0) {
-		return value, false
-	}
-	return m.Info, true
-}
-
-// SetShippingOptionID sets value of ShippingOptionID conditional field.
-func (m *MessageActionPaymentSentMe) SetShippingOptionID(value string) {
-	m.Flags.Set(1)
-	m.ShippingOptionID = value
-}
-
-// GetShippingOptionID returns value of ShippingOptionID conditional field and
-// boolean which is true if field was set.
-func (m *MessageActionPaymentSentMe) GetShippingOptionID() (value string, ok bool) {
-	if !m.Flags.Has(1) {
-		return value, false
-	}
-	return m.ShippingOptionID, true
-}
-
-// GetCharge returns value of Charge field.
-func (m *MessageActionPaymentSentMe) GetCharge() (value PaymentCharge) {
-	return m.Charge
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionPaymentSentMe) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2172,18 +2135,55 @@ func (m *MessageActionPaymentSentMe) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionPaymentSentMe) construct() MessageActionClass { return &m }
+// GetCurrency returns value of Currency field.
+func (m *MessageActionPaymentSentMe) GetCurrency() (value string) {
+	return m.Currency
+}
 
-// Ensuring interfaces in compile-time for MessageActionPaymentSentMe.
-var (
-	_ bin.Encoder     = &MessageActionPaymentSentMe{}
-	_ bin.Decoder     = &MessageActionPaymentSentMe{}
-	_ bin.BareEncoder = &MessageActionPaymentSentMe{}
-	_ bin.BareDecoder = &MessageActionPaymentSentMe{}
+// GetTotalAmount returns value of TotalAmount field.
+func (m *MessageActionPaymentSentMe) GetTotalAmount() (value int64) {
+	return m.TotalAmount
+}
 
-	_ MessageActionClass = &MessageActionPaymentSentMe{}
-)
+// GetPayload returns value of Payload field.
+func (m *MessageActionPaymentSentMe) GetPayload() (value []byte) {
+	return m.Payload
+}
+
+// SetInfo sets value of Info conditional field.
+func (m *MessageActionPaymentSentMe) SetInfo(value PaymentRequestedInfo) {
+	m.Flags.Set(0)
+	m.Info = value
+}
+
+// GetInfo returns value of Info conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionPaymentSentMe) GetInfo() (value PaymentRequestedInfo, ok bool) {
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.Info, true
+}
+
+// SetShippingOptionID sets value of ShippingOptionID conditional field.
+func (m *MessageActionPaymentSentMe) SetShippingOptionID(value string) {
+	m.Flags.Set(1)
+	m.ShippingOptionID = value
+}
+
+// GetShippingOptionID returns value of ShippingOptionID conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionPaymentSentMe) GetShippingOptionID() (value string, ok bool) {
+	if !m.Flags.Has(1) {
+		return value, false
+	}
+	return m.ShippingOptionID, true
+}
+
+// GetCharge returns value of Charge field.
+func (m *MessageActionPaymentSentMe) GetCharge() (value PaymentCharge) {
+	return m.Charge
+}
 
 // MessageActionPaymentSent represents TL type `messageActionPaymentSent#40699cd0`.
 // A payment was sent
@@ -2207,6 +2207,19 @@ type MessageActionPaymentSent struct {
 
 // MessageActionPaymentSentTypeID is TL type id of MessageActionPaymentSent.
 const MessageActionPaymentSentTypeID = 0x40699cd0
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionPaymentSent) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionPaymentSent.
+var (
+	_ bin.Encoder     = &MessageActionPaymentSent{}
+	_ bin.Decoder     = &MessageActionPaymentSent{}
+	_ bin.BareEncoder = &MessageActionPaymentSent{}
+	_ bin.BareDecoder = &MessageActionPaymentSent{}
+
+	_ MessageActionClass = &MessageActionPaymentSent{}
+)
 
 func (m *MessageActionPaymentSent) Zero() bool {
 	if m == nil {
@@ -2294,16 +2307,6 @@ func (m *MessageActionPaymentSent) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCurrency returns value of Currency field.
-func (m *MessageActionPaymentSent) GetCurrency() (value string) {
-	return m.Currency
-}
-
-// GetTotalAmount returns value of TotalAmount field.
-func (m *MessageActionPaymentSent) GetTotalAmount() (value int64) {
-	return m.TotalAmount
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionPaymentSent) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2337,18 +2340,15 @@ func (m *MessageActionPaymentSent) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionPaymentSent) construct() MessageActionClass { return &m }
+// GetCurrency returns value of Currency field.
+func (m *MessageActionPaymentSent) GetCurrency() (value string) {
+	return m.Currency
+}
 
-// Ensuring interfaces in compile-time for MessageActionPaymentSent.
-var (
-	_ bin.Encoder     = &MessageActionPaymentSent{}
-	_ bin.Decoder     = &MessageActionPaymentSent{}
-	_ bin.BareEncoder = &MessageActionPaymentSent{}
-	_ bin.BareDecoder = &MessageActionPaymentSent{}
-
-	_ MessageActionClass = &MessageActionPaymentSent{}
-)
+// GetTotalAmount returns value of TotalAmount field.
+func (m *MessageActionPaymentSent) GetTotalAmount() (value int64) {
+	return m.TotalAmount
+}
 
 // MessageActionPhoneCall represents TL type `messageActionPhoneCall#80e11a7f`.
 // A phone call
@@ -2376,6 +2376,19 @@ type MessageActionPhoneCall struct {
 
 // MessageActionPhoneCallTypeID is TL type id of MessageActionPhoneCall.
 const MessageActionPhoneCallTypeID = 0x80e11a7f
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionPhoneCall) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionPhoneCall.
+var (
+	_ bin.Encoder     = &MessageActionPhoneCall{}
+	_ bin.Decoder     = &MessageActionPhoneCall{}
+	_ bin.BareEncoder = &MessageActionPhoneCall{}
+	_ bin.BareDecoder = &MessageActionPhoneCall{}
+
+	_ MessageActionClass = &MessageActionPhoneCall{}
+)
 
 func (m *MessageActionPhoneCall) Zero() bool {
 	if m == nil {
@@ -2515,6 +2528,52 @@ func (m *MessageActionPhoneCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (m *MessageActionPhoneCall) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionPhoneCall#80e11a7f to nil")
+	}
+	if err := b.ConsumeID(MessageActionPhoneCallTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionPhoneCall#80e11a7f: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionPhoneCall) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionPhoneCall#80e11a7f to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionPhoneCall#80e11a7f: field flags: %w", err)
+		}
+	}
+	m.Video = m.Flags.Has(2)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPhoneCall#80e11a7f: field call_id: %w", err)
+		}
+		m.CallID = value
+	}
+	if m.Flags.Has(0) {
+		value, err := DecodePhoneCallDiscardReason(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPhoneCall#80e11a7f: field reason: %w", err)
+		}
+		m.Reason = value
+	}
+	if m.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPhoneCall#80e11a7f: field duration: %w", err)
+		}
+		m.Duration = value
+	}
+	return nil
+}
+
 // SetVideo sets value of Video conditional field.
 func (m *MessageActionPhoneCall) SetVideo(value bool) {
 	if value {
@@ -2566,65 +2625,6 @@ func (m *MessageActionPhoneCall) GetDuration() (value int, ok bool) {
 	return m.Duration, true
 }
 
-// Decode implements bin.Decoder.
-func (m *MessageActionPhoneCall) Decode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageActionPhoneCall#80e11a7f to nil")
-	}
-	if err := b.ConsumeID(MessageActionPhoneCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionPhoneCall#80e11a7f: %w", err)
-	}
-	return m.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (m *MessageActionPhoneCall) DecodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageActionPhoneCall#80e11a7f to nil")
-	}
-	{
-		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageActionPhoneCall#80e11a7f: field flags: %w", err)
-		}
-	}
-	m.Video = m.Flags.Has(2)
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageActionPhoneCall#80e11a7f: field call_id: %w", err)
-		}
-		m.CallID = value
-	}
-	if m.Flags.Has(0) {
-		value, err := DecodePhoneCallDiscardReason(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messageActionPhoneCall#80e11a7f: field reason: %w", err)
-		}
-		m.Reason = value
-	}
-	if m.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageActionPhoneCall#80e11a7f: field duration: %w", err)
-		}
-		m.Duration = value
-	}
-	return nil
-}
-
-// construct implements constructor of MessageActionClass.
-func (m MessageActionPhoneCall) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionPhoneCall.
-var (
-	_ bin.Encoder     = &MessageActionPhoneCall{}
-	_ bin.Decoder     = &MessageActionPhoneCall{}
-	_ bin.BareEncoder = &MessageActionPhoneCall{}
-	_ bin.BareDecoder = &MessageActionPhoneCall{}
-
-	_ MessageActionClass = &MessageActionPhoneCall{}
-)
-
 // MessageActionScreenshotTaken represents TL type `messageActionScreenshotTaken#4792929b`.
 // A screenshot of the chat was taken
 //
@@ -2634,6 +2634,19 @@ type MessageActionScreenshotTaken struct {
 
 // MessageActionScreenshotTakenTypeID is TL type id of MessageActionScreenshotTaken.
 const MessageActionScreenshotTakenTypeID = 0x4792929b
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionScreenshotTaken) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionScreenshotTaken.
+var (
+	_ bin.Encoder     = &MessageActionScreenshotTaken{}
+	_ bin.Decoder     = &MessageActionScreenshotTaken{}
+	_ bin.BareEncoder = &MessageActionScreenshotTaken{}
+	_ bin.BareDecoder = &MessageActionScreenshotTaken{}
+
+	_ MessageActionClass = &MessageActionScreenshotTaken{}
+)
 
 func (m *MessageActionScreenshotTaken) Zero() bool {
 	if m == nil {
@@ -2714,19 +2727,6 @@ func (m *MessageActionScreenshotTaken) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionScreenshotTaken) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionScreenshotTaken.
-var (
-	_ bin.Encoder     = &MessageActionScreenshotTaken{}
-	_ bin.Decoder     = &MessageActionScreenshotTaken{}
-	_ bin.BareEncoder = &MessageActionScreenshotTaken{}
-	_ bin.BareDecoder = &MessageActionScreenshotTaken{}
-
-	_ MessageActionClass = &MessageActionScreenshotTaken{}
-)
-
 // MessageActionCustomAction represents TL type `messageActionCustomAction#fae69f56`.
 // Custom action (most likely not supported by the current layer, an upgrade might be
 // needed)
@@ -2739,6 +2739,19 @@ type MessageActionCustomAction struct {
 
 // MessageActionCustomActionTypeID is TL type id of MessageActionCustomAction.
 const MessageActionCustomActionTypeID = 0xfae69f56
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionCustomAction) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionCustomAction.
+var (
+	_ bin.Encoder     = &MessageActionCustomAction{}
+	_ bin.Decoder     = &MessageActionCustomAction{}
+	_ bin.BareEncoder = &MessageActionCustomAction{}
+	_ bin.BareDecoder = &MessageActionCustomAction{}
+
+	_ MessageActionClass = &MessageActionCustomAction{}
+)
 
 func (m *MessageActionCustomAction) Zero() bool {
 	if m == nil {
@@ -2816,11 +2829,6 @@ func (m *MessageActionCustomAction) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (m *MessageActionCustomAction) GetMessage() (value string) {
-	return m.Message
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionCustomAction) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2847,18 +2855,10 @@ func (m *MessageActionCustomAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionCustomAction) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionCustomAction.
-var (
-	_ bin.Encoder     = &MessageActionCustomAction{}
-	_ bin.Decoder     = &MessageActionCustomAction{}
-	_ bin.BareEncoder = &MessageActionCustomAction{}
-	_ bin.BareDecoder = &MessageActionCustomAction{}
-
-	_ MessageActionClass = &MessageActionCustomAction{}
-)
+// GetMessage returns value of Message field.
+func (m *MessageActionCustomAction) GetMessage() (value string) {
+	return m.Message
+}
 
 // MessageActionBotAllowed represents TL type `messageActionBotAllowed#abe9affe`.
 // The domain name of the website on which the user has logged in. More about Telegram
@@ -2875,6 +2875,19 @@ type MessageActionBotAllowed struct {
 
 // MessageActionBotAllowedTypeID is TL type id of MessageActionBotAllowed.
 const MessageActionBotAllowedTypeID = 0xabe9affe
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionBotAllowed) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionBotAllowed.
+var (
+	_ bin.Encoder     = &MessageActionBotAllowed{}
+	_ bin.Decoder     = &MessageActionBotAllowed{}
+	_ bin.BareEncoder = &MessageActionBotAllowed{}
+	_ bin.BareDecoder = &MessageActionBotAllowed{}
+
+	_ MessageActionClass = &MessageActionBotAllowed{}
+)
 
 func (m *MessageActionBotAllowed) Zero() bool {
 	if m == nil {
@@ -2952,11 +2965,6 @@ func (m *MessageActionBotAllowed) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDomain returns value of Domain field.
-func (m *MessageActionBotAllowed) GetDomain() (value string) {
-	return m.Domain
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionBotAllowed) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2983,18 +2991,10 @@ func (m *MessageActionBotAllowed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionBotAllowed) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionBotAllowed.
-var (
-	_ bin.Encoder     = &MessageActionBotAllowed{}
-	_ bin.Decoder     = &MessageActionBotAllowed{}
-	_ bin.BareEncoder = &MessageActionBotAllowed{}
-	_ bin.BareDecoder = &MessageActionBotAllowed{}
-
-	_ MessageActionClass = &MessageActionBotAllowed{}
-)
+// GetDomain returns value of Domain field.
+func (m *MessageActionBotAllowed) GetDomain() (value string) {
+	return m.Domain
+}
 
 // MessageActionSecureValuesSentMe represents TL type `messageActionSecureValuesSentMe#1b287353`.
 // Secure telegram passport¹ values were received
@@ -3013,6 +3013,19 @@ type MessageActionSecureValuesSentMe struct {
 
 // MessageActionSecureValuesSentMeTypeID is TL type id of MessageActionSecureValuesSentMe.
 const MessageActionSecureValuesSentMeTypeID = 0x1b287353
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionSecureValuesSentMe) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionSecureValuesSentMe.
+var (
+	_ bin.Encoder     = &MessageActionSecureValuesSentMe{}
+	_ bin.Decoder     = &MessageActionSecureValuesSentMe{}
+	_ bin.BareEncoder = &MessageActionSecureValuesSentMe{}
+	_ bin.BareDecoder = &MessageActionSecureValuesSentMe{}
+
+	_ MessageActionClass = &MessageActionSecureValuesSentMe{}
+)
 
 func (m *MessageActionSecureValuesSentMe) Zero() bool {
 	if m == nil {
@@ -3107,16 +3120,6 @@ func (m *MessageActionSecureValuesSentMe) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValues returns value of Values field.
-func (m *MessageActionSecureValuesSentMe) GetValues() (value []SecureValue) {
-	return m.Values
-}
-
-// GetCredentials returns value of Credentials field.
-func (m *MessageActionSecureValuesSentMe) GetCredentials() (value SecureCredentialsEncrypted) {
-	return m.Credentials
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionSecureValuesSentMe) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -3158,18 +3161,15 @@ func (m *MessageActionSecureValuesSentMe) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionSecureValuesSentMe) construct() MessageActionClass { return &m }
+// GetValues returns value of Values field.
+func (m *MessageActionSecureValuesSentMe) GetValues() (value []SecureValue) {
+	return m.Values
+}
 
-// Ensuring interfaces in compile-time for MessageActionSecureValuesSentMe.
-var (
-	_ bin.Encoder     = &MessageActionSecureValuesSentMe{}
-	_ bin.Decoder     = &MessageActionSecureValuesSentMe{}
-	_ bin.BareEncoder = &MessageActionSecureValuesSentMe{}
-	_ bin.BareDecoder = &MessageActionSecureValuesSentMe{}
-
-	_ MessageActionClass = &MessageActionSecureValuesSentMe{}
-)
+// GetCredentials returns value of Credentials field.
+func (m *MessageActionSecureValuesSentMe) GetCredentials() (value SecureCredentialsEncrypted) {
+	return m.Credentials
+}
 
 // MessageActionSecureValuesSent represents TL type `messageActionSecureValuesSent#d95c6154`.
 // Request for secure telegram passport¹ values was sent
@@ -3185,6 +3185,19 @@ type MessageActionSecureValuesSent struct {
 
 // MessageActionSecureValuesSentTypeID is TL type id of MessageActionSecureValuesSent.
 const MessageActionSecureValuesSentTypeID = 0xd95c6154
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionSecureValuesSent) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionSecureValuesSent.
+var (
+	_ bin.Encoder     = &MessageActionSecureValuesSent{}
+	_ bin.Decoder     = &MessageActionSecureValuesSent{}
+	_ bin.BareEncoder = &MessageActionSecureValuesSent{}
+	_ bin.BareDecoder = &MessageActionSecureValuesSent{}
+
+	_ MessageActionClass = &MessageActionSecureValuesSent{}
+)
 
 func (m *MessageActionSecureValuesSent) Zero() bool {
 	if m == nil {
@@ -3270,16 +3283,6 @@ func (m *MessageActionSecureValuesSent) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTypes returns value of Types field.
-func (m *MessageActionSecureValuesSent) GetTypes() (value []SecureValueTypeClass) {
-	return m.Types
-}
-
-// MapTypes returns field Types wrapped in SecureValueTypeClassArray helper.
-func (m *MessageActionSecureValuesSent) MapTypes() (value SecureValueTypeClassArray) {
-	return SecureValueTypeClassArray(m.Types)
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionSecureValuesSent) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -3316,18 +3319,15 @@ func (m *MessageActionSecureValuesSent) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionSecureValuesSent) construct() MessageActionClass { return &m }
+// GetTypes returns value of Types field.
+func (m *MessageActionSecureValuesSent) GetTypes() (value []SecureValueTypeClass) {
+	return m.Types
+}
 
-// Ensuring interfaces in compile-time for MessageActionSecureValuesSent.
-var (
-	_ bin.Encoder     = &MessageActionSecureValuesSent{}
-	_ bin.Decoder     = &MessageActionSecureValuesSent{}
-	_ bin.BareEncoder = &MessageActionSecureValuesSent{}
-	_ bin.BareDecoder = &MessageActionSecureValuesSent{}
-
-	_ MessageActionClass = &MessageActionSecureValuesSent{}
-)
+// MapTypes returns field Types wrapped in SecureValueTypeClassArray helper.
+func (m *MessageActionSecureValuesSent) MapTypes() (value SecureValueTypeClassArray) {
+	return SecureValueTypeClassArray(m.Types)
+}
 
 // MessageActionContactSignUp represents TL type `messageActionContactSignUp#f3f25f76`.
 // A contact just signed up to telegram
@@ -3338,6 +3338,19 @@ type MessageActionContactSignUp struct {
 
 // MessageActionContactSignUpTypeID is TL type id of MessageActionContactSignUp.
 const MessageActionContactSignUpTypeID = 0xf3f25f76
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionContactSignUp) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionContactSignUp.
+var (
+	_ bin.Encoder     = &MessageActionContactSignUp{}
+	_ bin.Decoder     = &MessageActionContactSignUp{}
+	_ bin.BareEncoder = &MessageActionContactSignUp{}
+	_ bin.BareDecoder = &MessageActionContactSignUp{}
+
+	_ MessageActionClass = &MessageActionContactSignUp{}
+)
 
 func (m *MessageActionContactSignUp) Zero() bool {
 	if m == nil {
@@ -3418,19 +3431,6 @@ func (m *MessageActionContactSignUp) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionContactSignUp) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionContactSignUp.
-var (
-	_ bin.Encoder     = &MessageActionContactSignUp{}
-	_ bin.Decoder     = &MessageActionContactSignUp{}
-	_ bin.BareEncoder = &MessageActionContactSignUp{}
-	_ bin.BareDecoder = &MessageActionContactSignUp{}
-
-	_ MessageActionClass = &MessageActionContactSignUp{}
-)
-
 // MessageActionGeoProximityReached represents TL type `messageActionGeoProximityReached#98e0d697`.
 // A user of the chat is now in proximity of another user
 //
@@ -3449,6 +3449,19 @@ type MessageActionGeoProximityReached struct {
 
 // MessageActionGeoProximityReachedTypeID is TL type id of MessageActionGeoProximityReached.
 const MessageActionGeoProximityReachedTypeID = 0x98e0d697
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionGeoProximityReached) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionGeoProximityReached.
+var (
+	_ bin.Encoder     = &MessageActionGeoProximityReached{}
+	_ bin.Decoder     = &MessageActionGeoProximityReached{}
+	_ bin.BareEncoder = &MessageActionGeoProximityReached{}
+	_ bin.BareDecoder = &MessageActionGeoProximityReached{}
+
+	_ MessageActionClass = &MessageActionGeoProximityReached{}
+)
 
 func (m *MessageActionGeoProximityReached) Zero() bool {
 	if m == nil {
@@ -3556,21 +3569,6 @@ func (m *MessageActionGeoProximityReached) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFromID returns value of FromID field.
-func (m *MessageActionGeoProximityReached) GetFromID() (value PeerClass) {
-	return m.FromID
-}
-
-// GetToID returns value of ToID field.
-func (m *MessageActionGeoProximityReached) GetToID() (value PeerClass) {
-	return m.ToID
-}
-
-// GetDistance returns value of Distance field.
-func (m *MessageActionGeoProximityReached) GetDistance() (value int) {
-	return m.Distance
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionGeoProximityReached) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -3611,18 +3609,20 @@ func (m *MessageActionGeoProximityReached) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionGeoProximityReached) construct() MessageActionClass { return &m }
+// GetFromID returns value of FromID field.
+func (m *MessageActionGeoProximityReached) GetFromID() (value PeerClass) {
+	return m.FromID
+}
 
-// Ensuring interfaces in compile-time for MessageActionGeoProximityReached.
-var (
-	_ bin.Encoder     = &MessageActionGeoProximityReached{}
-	_ bin.Decoder     = &MessageActionGeoProximityReached{}
-	_ bin.BareEncoder = &MessageActionGeoProximityReached{}
-	_ bin.BareDecoder = &MessageActionGeoProximityReached{}
+// GetToID returns value of ToID field.
+func (m *MessageActionGeoProximityReached) GetToID() (value PeerClass) {
+	return m.ToID
+}
 
-	_ MessageActionClass = &MessageActionGeoProximityReached{}
-)
+// GetDistance returns value of Distance field.
+func (m *MessageActionGeoProximityReached) GetDistance() (value int) {
+	return m.Distance
+}
 
 // MessageActionGroupCall represents TL type `messageActionGroupCall#7a0d7f42`.
 //
@@ -3640,6 +3640,19 @@ type MessageActionGroupCall struct {
 
 // MessageActionGroupCallTypeID is TL type id of MessageActionGroupCall.
 const MessageActionGroupCallTypeID = 0x7a0d7f42
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionGroupCall) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionGroupCall.
+var (
+	_ bin.Encoder     = &MessageActionGroupCall{}
+	_ bin.Decoder     = &MessageActionGroupCall{}
+	_ bin.BareEncoder = &MessageActionGroupCall{}
+	_ bin.BareDecoder = &MessageActionGroupCall{}
+
+	_ MessageActionClass = &MessageActionGroupCall{}
+)
 
 func (m *MessageActionGroupCall) Zero() bool {
 	if m == nil {
@@ -3744,26 +3757,6 @@ func (m *MessageActionGroupCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (m *MessageActionGroupCall) GetCall() (value InputGroupCall) {
-	return m.Call
-}
-
-// SetDuration sets value of Duration conditional field.
-func (m *MessageActionGroupCall) SetDuration(value int) {
-	m.Flags.Set(0)
-	m.Duration = value
-}
-
-// GetDuration returns value of Duration conditional field and
-// boolean which is true if field was set.
-func (m *MessageActionGroupCall) GetDuration() (value int, ok bool) {
-	if !m.Flags.Has(0) {
-		return value, false
-	}
-	return m.Duration, true
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionGroupCall) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -3800,18 +3793,25 @@ func (m *MessageActionGroupCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionGroupCall) construct() MessageActionClass { return &m }
+// GetCall returns value of Call field.
+func (m *MessageActionGroupCall) GetCall() (value InputGroupCall) {
+	return m.Call
+}
 
-// Ensuring interfaces in compile-time for MessageActionGroupCall.
-var (
-	_ bin.Encoder     = &MessageActionGroupCall{}
-	_ bin.Decoder     = &MessageActionGroupCall{}
-	_ bin.BareEncoder = &MessageActionGroupCall{}
-	_ bin.BareDecoder = &MessageActionGroupCall{}
+// SetDuration sets value of Duration conditional field.
+func (m *MessageActionGroupCall) SetDuration(value int) {
+	m.Flags.Set(0)
+	m.Duration = value
+}
 
-	_ MessageActionClass = &MessageActionGroupCall{}
-)
+// GetDuration returns value of Duration conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionGroupCall) GetDuration() (value int, ok bool) {
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.Duration, true
+}
 
 // MessageActionInviteToGroupCall represents TL type `messageActionInviteToGroupCall#76b9f11a`.
 //
@@ -3825,6 +3825,19 @@ type MessageActionInviteToGroupCall struct {
 
 // MessageActionInviteToGroupCallTypeID is TL type id of MessageActionInviteToGroupCall.
 const MessageActionInviteToGroupCallTypeID = 0x76b9f11a
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionInviteToGroupCall) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionInviteToGroupCall.
+var (
+	_ bin.Encoder     = &MessageActionInviteToGroupCall{}
+	_ bin.Decoder     = &MessageActionInviteToGroupCall{}
+	_ bin.BareEncoder = &MessageActionInviteToGroupCall{}
+	_ bin.BareDecoder = &MessageActionInviteToGroupCall{}
+
+	_ MessageActionClass = &MessageActionInviteToGroupCall{}
+)
 
 func (m *MessageActionInviteToGroupCall) Zero() bool {
 	if m == nil {
@@ -3917,16 +3930,6 @@ func (m *MessageActionInviteToGroupCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (m *MessageActionInviteToGroupCall) GetCall() (value InputGroupCall) {
-	return m.Call
-}
-
-// GetUsers returns value of Users field.
-func (m *MessageActionInviteToGroupCall) GetUsers() (value []int) {
-	return m.Users
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionInviteToGroupCall) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -3968,18 +3971,15 @@ func (m *MessageActionInviteToGroupCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionInviteToGroupCall) construct() MessageActionClass { return &m }
+// GetCall returns value of Call field.
+func (m *MessageActionInviteToGroupCall) GetCall() (value InputGroupCall) {
+	return m.Call
+}
 
-// Ensuring interfaces in compile-time for MessageActionInviteToGroupCall.
-var (
-	_ bin.Encoder     = &MessageActionInviteToGroupCall{}
-	_ bin.Decoder     = &MessageActionInviteToGroupCall{}
-	_ bin.BareEncoder = &MessageActionInviteToGroupCall{}
-	_ bin.BareDecoder = &MessageActionInviteToGroupCall{}
-
-	_ MessageActionClass = &MessageActionInviteToGroupCall{}
-)
+// GetUsers returns value of Users field.
+func (m *MessageActionInviteToGroupCall) GetUsers() (value []int) {
+	return m.Users
+}
 
 // MessageActionSetMessagesTTL represents TL type `messageActionSetMessagesTTL#aa1afbfd`.
 //
@@ -3991,6 +3991,19 @@ type MessageActionSetMessagesTTL struct {
 
 // MessageActionSetMessagesTTLTypeID is TL type id of MessageActionSetMessagesTTL.
 const MessageActionSetMessagesTTLTypeID = 0xaa1afbfd
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionSetMessagesTTL) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionSetMessagesTTL.
+var (
+	_ bin.Encoder     = &MessageActionSetMessagesTTL{}
+	_ bin.Decoder     = &MessageActionSetMessagesTTL{}
+	_ bin.BareEncoder = &MessageActionSetMessagesTTL{}
+	_ bin.BareDecoder = &MessageActionSetMessagesTTL{}
+
+	_ MessageActionClass = &MessageActionSetMessagesTTL{}
+)
 
 func (m *MessageActionSetMessagesTTL) Zero() bool {
 	if m == nil {
@@ -4068,11 +4081,6 @@ func (m *MessageActionSetMessagesTTL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeriod returns value of Period field.
-func (m *MessageActionSetMessagesTTL) GetPeriod() (value int) {
-	return m.Period
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionSetMessagesTTL) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -4099,18 +4107,10 @@ func (m *MessageActionSetMessagesTTL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionSetMessagesTTL) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionSetMessagesTTL.
-var (
-	_ bin.Encoder     = &MessageActionSetMessagesTTL{}
-	_ bin.Decoder     = &MessageActionSetMessagesTTL{}
-	_ bin.BareEncoder = &MessageActionSetMessagesTTL{}
-	_ bin.BareDecoder = &MessageActionSetMessagesTTL{}
-
-	_ MessageActionClass = &MessageActionSetMessagesTTL{}
-)
+// GetPeriod returns value of Period field.
+func (m *MessageActionSetMessagesTTL) GetPeriod() (value int) {
+	return m.Period
+}
 
 // MessageActionGroupCallScheduled represents TL type `messageActionGroupCallScheduled#b3a07661`.
 //
@@ -4124,6 +4124,19 @@ type MessageActionGroupCallScheduled struct {
 
 // MessageActionGroupCallScheduledTypeID is TL type id of MessageActionGroupCallScheduled.
 const MessageActionGroupCallScheduledTypeID = 0xb3a07661
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionGroupCallScheduled) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionGroupCallScheduled.
+var (
+	_ bin.Encoder     = &MessageActionGroupCallScheduled{}
+	_ bin.Decoder     = &MessageActionGroupCallScheduled{}
+	_ bin.BareEncoder = &MessageActionGroupCallScheduled{}
+	_ bin.BareDecoder = &MessageActionGroupCallScheduled{}
+
+	_ MessageActionClass = &MessageActionGroupCallScheduled{}
+)
 
 func (m *MessageActionGroupCallScheduled) Zero() bool {
 	if m == nil {
@@ -4213,16 +4226,6 @@ func (m *MessageActionGroupCallScheduled) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (m *MessageActionGroupCallScheduled) GetCall() (value InputGroupCall) {
-	return m.Call
-}
-
-// GetScheduleDate returns value of ScheduleDate field.
-func (m *MessageActionGroupCallScheduled) GetScheduleDate() (value int) {
-	return m.ScheduleDate
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageActionGroupCallScheduled) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -4254,18 +4257,15 @@ func (m *MessageActionGroupCallScheduled) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageActionClass.
-func (m MessageActionGroupCallScheduled) construct() MessageActionClass { return &m }
+// GetCall returns value of Call field.
+func (m *MessageActionGroupCallScheduled) GetCall() (value InputGroupCall) {
+	return m.Call
+}
 
-// Ensuring interfaces in compile-time for MessageActionGroupCallScheduled.
-var (
-	_ bin.Encoder     = &MessageActionGroupCallScheduled{}
-	_ bin.Decoder     = &MessageActionGroupCallScheduled{}
-	_ bin.BareEncoder = &MessageActionGroupCallScheduled{}
-	_ bin.BareDecoder = &MessageActionGroupCallScheduled{}
-
-	_ MessageActionClass = &MessageActionGroupCallScheduled{}
-)
+// GetScheduleDate returns value of ScheduleDate field.
+func (m *MessageActionGroupCallScheduled) GetScheduleDate() (value int) {
+	return m.ScheduleDate
+}
 
 // MessageActionClass represents MessageAction generic type.
 //
@@ -4558,2176 +4558,4 @@ func (b *MessageActionBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessageActionClass as nil")
 	}
 	return b.MessageAction.Encode(buf)
-}
-
-// MessageActionClassArray is adapter for slice of MessageActionClass.
-type MessageActionClassArray []MessageActionClass
-
-// Sort sorts slice of MessageActionClass.
-func (s MessageActionClassArray) Sort(less func(a, b MessageActionClass) bool) MessageActionClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionClass.
-func (s MessageActionClassArray) SortStable(less func(a, b MessageActionClass) bool) MessageActionClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionClass.
-func (s MessageActionClassArray) Retain(keep func(x MessageActionClass) bool) MessageActionClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionClassArray) First() (v MessageActionClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionClassArray) Last() (v MessageActionClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionClassArray) PopFirst() (v MessageActionClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionClassArray) Pop() (v MessageActionClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsMessageActionChatCreate returns copy with only MessageActionChatCreate constructors.
-func (s MessageActionClassArray) AsMessageActionChatCreate() (to MessageActionChatCreateArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionChatCreate)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionChatEditTitle returns copy with only MessageActionChatEditTitle constructors.
-func (s MessageActionClassArray) AsMessageActionChatEditTitle() (to MessageActionChatEditTitleArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionChatEditTitle)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionChatEditPhoto returns copy with only MessageActionChatEditPhoto constructors.
-func (s MessageActionClassArray) AsMessageActionChatEditPhoto() (to MessageActionChatEditPhotoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionChatEditPhoto)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionChatAddUser returns copy with only MessageActionChatAddUser constructors.
-func (s MessageActionClassArray) AsMessageActionChatAddUser() (to MessageActionChatAddUserArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionChatAddUser)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionChatDeleteUser returns copy with only MessageActionChatDeleteUser constructors.
-func (s MessageActionClassArray) AsMessageActionChatDeleteUser() (to MessageActionChatDeleteUserArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionChatDeleteUser)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionChatJoinedByLink returns copy with only MessageActionChatJoinedByLink constructors.
-func (s MessageActionClassArray) AsMessageActionChatJoinedByLink() (to MessageActionChatJoinedByLinkArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionChatJoinedByLink)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionChannelCreate returns copy with only MessageActionChannelCreate constructors.
-func (s MessageActionClassArray) AsMessageActionChannelCreate() (to MessageActionChannelCreateArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionChannelCreate)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionChatMigrateTo returns copy with only MessageActionChatMigrateTo constructors.
-func (s MessageActionClassArray) AsMessageActionChatMigrateTo() (to MessageActionChatMigrateToArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionChatMigrateTo)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionChannelMigrateFrom returns copy with only MessageActionChannelMigrateFrom constructors.
-func (s MessageActionClassArray) AsMessageActionChannelMigrateFrom() (to MessageActionChannelMigrateFromArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionChannelMigrateFrom)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionGameScore returns copy with only MessageActionGameScore constructors.
-func (s MessageActionClassArray) AsMessageActionGameScore() (to MessageActionGameScoreArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionGameScore)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionPaymentSentMe returns copy with only MessageActionPaymentSentMe constructors.
-func (s MessageActionClassArray) AsMessageActionPaymentSentMe() (to MessageActionPaymentSentMeArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionPaymentSentMe)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionPaymentSent returns copy with only MessageActionPaymentSent constructors.
-func (s MessageActionClassArray) AsMessageActionPaymentSent() (to MessageActionPaymentSentArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionPaymentSent)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionPhoneCall returns copy with only MessageActionPhoneCall constructors.
-func (s MessageActionClassArray) AsMessageActionPhoneCall() (to MessageActionPhoneCallArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionPhoneCall)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionCustomAction returns copy with only MessageActionCustomAction constructors.
-func (s MessageActionClassArray) AsMessageActionCustomAction() (to MessageActionCustomActionArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionCustomAction)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionBotAllowed returns copy with only MessageActionBotAllowed constructors.
-func (s MessageActionClassArray) AsMessageActionBotAllowed() (to MessageActionBotAllowedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionBotAllowed)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionSecureValuesSentMe returns copy with only MessageActionSecureValuesSentMe constructors.
-func (s MessageActionClassArray) AsMessageActionSecureValuesSentMe() (to MessageActionSecureValuesSentMeArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionSecureValuesSentMe)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionSecureValuesSent returns copy with only MessageActionSecureValuesSent constructors.
-func (s MessageActionClassArray) AsMessageActionSecureValuesSent() (to MessageActionSecureValuesSentArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionSecureValuesSent)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionGeoProximityReached returns copy with only MessageActionGeoProximityReached constructors.
-func (s MessageActionClassArray) AsMessageActionGeoProximityReached() (to MessageActionGeoProximityReachedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionGeoProximityReached)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionGroupCall returns copy with only MessageActionGroupCall constructors.
-func (s MessageActionClassArray) AsMessageActionGroupCall() (to MessageActionGroupCallArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionGroupCall)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionInviteToGroupCall returns copy with only MessageActionInviteToGroupCall constructors.
-func (s MessageActionClassArray) AsMessageActionInviteToGroupCall() (to MessageActionInviteToGroupCallArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionInviteToGroupCall)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionSetMessagesTTL returns copy with only MessageActionSetMessagesTTL constructors.
-func (s MessageActionClassArray) AsMessageActionSetMessagesTTL() (to MessageActionSetMessagesTTLArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionSetMessagesTTL)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageActionGroupCallScheduled returns copy with only MessageActionGroupCallScheduled constructors.
-func (s MessageActionClassArray) AsMessageActionGroupCallScheduled() (to MessageActionGroupCallScheduledArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageActionGroupCallScheduled)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
-type MessageActionChatCreateArray []MessageActionChatCreate
-
-// Sort sorts slice of MessageActionChatCreate.
-func (s MessageActionChatCreateArray) Sort(less func(a, b MessageActionChatCreate) bool) MessageActionChatCreateArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionChatCreate.
-func (s MessageActionChatCreateArray) SortStable(less func(a, b MessageActionChatCreate) bool) MessageActionChatCreateArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionChatCreate.
-func (s MessageActionChatCreateArray) Retain(keep func(x MessageActionChatCreate) bool) MessageActionChatCreateArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionChatCreateArray) First() (v MessageActionChatCreate, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionChatCreateArray) Last() (v MessageActionChatCreate, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionChatCreateArray) PopFirst() (v MessageActionChatCreate, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionChatCreate
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionChatCreateArray) Pop() (v MessageActionChatCreate, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionChatEditTitleArray is adapter for slice of MessageActionChatEditTitle.
-type MessageActionChatEditTitleArray []MessageActionChatEditTitle
-
-// Sort sorts slice of MessageActionChatEditTitle.
-func (s MessageActionChatEditTitleArray) Sort(less func(a, b MessageActionChatEditTitle) bool) MessageActionChatEditTitleArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionChatEditTitle.
-func (s MessageActionChatEditTitleArray) SortStable(less func(a, b MessageActionChatEditTitle) bool) MessageActionChatEditTitleArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionChatEditTitle.
-func (s MessageActionChatEditTitleArray) Retain(keep func(x MessageActionChatEditTitle) bool) MessageActionChatEditTitleArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionChatEditTitleArray) First() (v MessageActionChatEditTitle, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionChatEditTitleArray) Last() (v MessageActionChatEditTitle, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionChatEditTitleArray) PopFirst() (v MessageActionChatEditTitle, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionChatEditTitle
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionChatEditTitleArray) Pop() (v MessageActionChatEditTitle, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionChatEditPhotoArray is adapter for slice of MessageActionChatEditPhoto.
-type MessageActionChatEditPhotoArray []MessageActionChatEditPhoto
-
-// Sort sorts slice of MessageActionChatEditPhoto.
-func (s MessageActionChatEditPhotoArray) Sort(less func(a, b MessageActionChatEditPhoto) bool) MessageActionChatEditPhotoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionChatEditPhoto.
-func (s MessageActionChatEditPhotoArray) SortStable(less func(a, b MessageActionChatEditPhoto) bool) MessageActionChatEditPhotoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionChatEditPhoto.
-func (s MessageActionChatEditPhotoArray) Retain(keep func(x MessageActionChatEditPhoto) bool) MessageActionChatEditPhotoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionChatEditPhotoArray) First() (v MessageActionChatEditPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionChatEditPhotoArray) Last() (v MessageActionChatEditPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionChatEditPhotoArray) PopFirst() (v MessageActionChatEditPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionChatEditPhoto
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionChatEditPhotoArray) Pop() (v MessageActionChatEditPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionChatAddUserArray is adapter for slice of MessageActionChatAddUser.
-type MessageActionChatAddUserArray []MessageActionChatAddUser
-
-// Sort sorts slice of MessageActionChatAddUser.
-func (s MessageActionChatAddUserArray) Sort(less func(a, b MessageActionChatAddUser) bool) MessageActionChatAddUserArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionChatAddUser.
-func (s MessageActionChatAddUserArray) SortStable(less func(a, b MessageActionChatAddUser) bool) MessageActionChatAddUserArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionChatAddUser.
-func (s MessageActionChatAddUserArray) Retain(keep func(x MessageActionChatAddUser) bool) MessageActionChatAddUserArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionChatAddUserArray) First() (v MessageActionChatAddUser, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionChatAddUserArray) Last() (v MessageActionChatAddUser, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionChatAddUserArray) PopFirst() (v MessageActionChatAddUser, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionChatAddUser
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionChatAddUserArray) Pop() (v MessageActionChatAddUser, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionChatDeleteUserArray is adapter for slice of MessageActionChatDeleteUser.
-type MessageActionChatDeleteUserArray []MessageActionChatDeleteUser
-
-// Sort sorts slice of MessageActionChatDeleteUser.
-func (s MessageActionChatDeleteUserArray) Sort(less func(a, b MessageActionChatDeleteUser) bool) MessageActionChatDeleteUserArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionChatDeleteUser.
-func (s MessageActionChatDeleteUserArray) SortStable(less func(a, b MessageActionChatDeleteUser) bool) MessageActionChatDeleteUserArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionChatDeleteUser.
-func (s MessageActionChatDeleteUserArray) Retain(keep func(x MessageActionChatDeleteUser) bool) MessageActionChatDeleteUserArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionChatDeleteUserArray) First() (v MessageActionChatDeleteUser, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionChatDeleteUserArray) Last() (v MessageActionChatDeleteUser, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionChatDeleteUserArray) PopFirst() (v MessageActionChatDeleteUser, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionChatDeleteUser
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionChatDeleteUserArray) Pop() (v MessageActionChatDeleteUser, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionChatJoinedByLinkArray is adapter for slice of MessageActionChatJoinedByLink.
-type MessageActionChatJoinedByLinkArray []MessageActionChatJoinedByLink
-
-// Sort sorts slice of MessageActionChatJoinedByLink.
-func (s MessageActionChatJoinedByLinkArray) Sort(less func(a, b MessageActionChatJoinedByLink) bool) MessageActionChatJoinedByLinkArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionChatJoinedByLink.
-func (s MessageActionChatJoinedByLinkArray) SortStable(less func(a, b MessageActionChatJoinedByLink) bool) MessageActionChatJoinedByLinkArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionChatJoinedByLink.
-func (s MessageActionChatJoinedByLinkArray) Retain(keep func(x MessageActionChatJoinedByLink) bool) MessageActionChatJoinedByLinkArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionChatJoinedByLinkArray) First() (v MessageActionChatJoinedByLink, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionChatJoinedByLinkArray) Last() (v MessageActionChatJoinedByLink, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionChatJoinedByLinkArray) PopFirst() (v MessageActionChatJoinedByLink, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionChatJoinedByLink
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionChatJoinedByLinkArray) Pop() (v MessageActionChatJoinedByLink, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionChannelCreateArray is adapter for slice of MessageActionChannelCreate.
-type MessageActionChannelCreateArray []MessageActionChannelCreate
-
-// Sort sorts slice of MessageActionChannelCreate.
-func (s MessageActionChannelCreateArray) Sort(less func(a, b MessageActionChannelCreate) bool) MessageActionChannelCreateArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionChannelCreate.
-func (s MessageActionChannelCreateArray) SortStable(less func(a, b MessageActionChannelCreate) bool) MessageActionChannelCreateArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionChannelCreate.
-func (s MessageActionChannelCreateArray) Retain(keep func(x MessageActionChannelCreate) bool) MessageActionChannelCreateArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionChannelCreateArray) First() (v MessageActionChannelCreate, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionChannelCreateArray) Last() (v MessageActionChannelCreate, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionChannelCreateArray) PopFirst() (v MessageActionChannelCreate, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionChannelCreate
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionChannelCreateArray) Pop() (v MessageActionChannelCreate, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionChatMigrateToArray is adapter for slice of MessageActionChatMigrateTo.
-type MessageActionChatMigrateToArray []MessageActionChatMigrateTo
-
-// Sort sorts slice of MessageActionChatMigrateTo.
-func (s MessageActionChatMigrateToArray) Sort(less func(a, b MessageActionChatMigrateTo) bool) MessageActionChatMigrateToArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionChatMigrateTo.
-func (s MessageActionChatMigrateToArray) SortStable(less func(a, b MessageActionChatMigrateTo) bool) MessageActionChatMigrateToArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionChatMigrateTo.
-func (s MessageActionChatMigrateToArray) Retain(keep func(x MessageActionChatMigrateTo) bool) MessageActionChatMigrateToArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionChatMigrateToArray) First() (v MessageActionChatMigrateTo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionChatMigrateToArray) Last() (v MessageActionChatMigrateTo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionChatMigrateToArray) PopFirst() (v MessageActionChatMigrateTo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionChatMigrateTo
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionChatMigrateToArray) Pop() (v MessageActionChatMigrateTo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionChannelMigrateFromArray is adapter for slice of MessageActionChannelMigrateFrom.
-type MessageActionChannelMigrateFromArray []MessageActionChannelMigrateFrom
-
-// Sort sorts slice of MessageActionChannelMigrateFrom.
-func (s MessageActionChannelMigrateFromArray) Sort(less func(a, b MessageActionChannelMigrateFrom) bool) MessageActionChannelMigrateFromArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionChannelMigrateFrom.
-func (s MessageActionChannelMigrateFromArray) SortStable(less func(a, b MessageActionChannelMigrateFrom) bool) MessageActionChannelMigrateFromArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionChannelMigrateFrom.
-func (s MessageActionChannelMigrateFromArray) Retain(keep func(x MessageActionChannelMigrateFrom) bool) MessageActionChannelMigrateFromArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionChannelMigrateFromArray) First() (v MessageActionChannelMigrateFrom, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionChannelMigrateFromArray) Last() (v MessageActionChannelMigrateFrom, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionChannelMigrateFromArray) PopFirst() (v MessageActionChannelMigrateFrom, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionChannelMigrateFrom
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionChannelMigrateFromArray) Pop() (v MessageActionChannelMigrateFrom, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionGameScoreArray is adapter for slice of MessageActionGameScore.
-type MessageActionGameScoreArray []MessageActionGameScore
-
-// Sort sorts slice of MessageActionGameScore.
-func (s MessageActionGameScoreArray) Sort(less func(a, b MessageActionGameScore) bool) MessageActionGameScoreArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionGameScore.
-func (s MessageActionGameScoreArray) SortStable(less func(a, b MessageActionGameScore) bool) MessageActionGameScoreArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionGameScore.
-func (s MessageActionGameScoreArray) Retain(keep func(x MessageActionGameScore) bool) MessageActionGameScoreArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionGameScoreArray) First() (v MessageActionGameScore, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionGameScoreArray) Last() (v MessageActionGameScore, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionGameScoreArray) PopFirst() (v MessageActionGameScore, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionGameScore
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionGameScoreArray) Pop() (v MessageActionGameScore, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionPaymentSentMeArray is adapter for slice of MessageActionPaymentSentMe.
-type MessageActionPaymentSentMeArray []MessageActionPaymentSentMe
-
-// Sort sorts slice of MessageActionPaymentSentMe.
-func (s MessageActionPaymentSentMeArray) Sort(less func(a, b MessageActionPaymentSentMe) bool) MessageActionPaymentSentMeArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionPaymentSentMe.
-func (s MessageActionPaymentSentMeArray) SortStable(less func(a, b MessageActionPaymentSentMe) bool) MessageActionPaymentSentMeArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionPaymentSentMe.
-func (s MessageActionPaymentSentMeArray) Retain(keep func(x MessageActionPaymentSentMe) bool) MessageActionPaymentSentMeArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionPaymentSentMeArray) First() (v MessageActionPaymentSentMe, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionPaymentSentMeArray) Last() (v MessageActionPaymentSentMe, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionPaymentSentMeArray) PopFirst() (v MessageActionPaymentSentMe, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionPaymentSentMe
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionPaymentSentMeArray) Pop() (v MessageActionPaymentSentMe, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionPaymentSentArray is adapter for slice of MessageActionPaymentSent.
-type MessageActionPaymentSentArray []MessageActionPaymentSent
-
-// Sort sorts slice of MessageActionPaymentSent.
-func (s MessageActionPaymentSentArray) Sort(less func(a, b MessageActionPaymentSent) bool) MessageActionPaymentSentArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionPaymentSent.
-func (s MessageActionPaymentSentArray) SortStable(less func(a, b MessageActionPaymentSent) bool) MessageActionPaymentSentArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionPaymentSent.
-func (s MessageActionPaymentSentArray) Retain(keep func(x MessageActionPaymentSent) bool) MessageActionPaymentSentArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionPaymentSentArray) First() (v MessageActionPaymentSent, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionPaymentSentArray) Last() (v MessageActionPaymentSent, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionPaymentSentArray) PopFirst() (v MessageActionPaymentSent, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionPaymentSent
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionPaymentSentArray) Pop() (v MessageActionPaymentSent, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionPhoneCallArray is adapter for slice of MessageActionPhoneCall.
-type MessageActionPhoneCallArray []MessageActionPhoneCall
-
-// Sort sorts slice of MessageActionPhoneCall.
-func (s MessageActionPhoneCallArray) Sort(less func(a, b MessageActionPhoneCall) bool) MessageActionPhoneCallArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionPhoneCall.
-func (s MessageActionPhoneCallArray) SortStable(less func(a, b MessageActionPhoneCall) bool) MessageActionPhoneCallArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionPhoneCall.
-func (s MessageActionPhoneCallArray) Retain(keep func(x MessageActionPhoneCall) bool) MessageActionPhoneCallArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionPhoneCallArray) First() (v MessageActionPhoneCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionPhoneCallArray) Last() (v MessageActionPhoneCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionPhoneCallArray) PopFirst() (v MessageActionPhoneCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionPhoneCall
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionPhoneCallArray) Pop() (v MessageActionPhoneCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionCustomActionArray is adapter for slice of MessageActionCustomAction.
-type MessageActionCustomActionArray []MessageActionCustomAction
-
-// Sort sorts slice of MessageActionCustomAction.
-func (s MessageActionCustomActionArray) Sort(less func(a, b MessageActionCustomAction) bool) MessageActionCustomActionArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionCustomAction.
-func (s MessageActionCustomActionArray) SortStable(less func(a, b MessageActionCustomAction) bool) MessageActionCustomActionArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionCustomAction.
-func (s MessageActionCustomActionArray) Retain(keep func(x MessageActionCustomAction) bool) MessageActionCustomActionArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionCustomActionArray) First() (v MessageActionCustomAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionCustomActionArray) Last() (v MessageActionCustomAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionCustomActionArray) PopFirst() (v MessageActionCustomAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionCustomAction
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionCustomActionArray) Pop() (v MessageActionCustomAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionBotAllowedArray is adapter for slice of MessageActionBotAllowed.
-type MessageActionBotAllowedArray []MessageActionBotAllowed
-
-// Sort sorts slice of MessageActionBotAllowed.
-func (s MessageActionBotAllowedArray) Sort(less func(a, b MessageActionBotAllowed) bool) MessageActionBotAllowedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionBotAllowed.
-func (s MessageActionBotAllowedArray) SortStable(less func(a, b MessageActionBotAllowed) bool) MessageActionBotAllowedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionBotAllowed.
-func (s MessageActionBotAllowedArray) Retain(keep func(x MessageActionBotAllowed) bool) MessageActionBotAllowedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionBotAllowedArray) First() (v MessageActionBotAllowed, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionBotAllowedArray) Last() (v MessageActionBotAllowed, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionBotAllowedArray) PopFirst() (v MessageActionBotAllowed, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionBotAllowed
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionBotAllowedArray) Pop() (v MessageActionBotAllowed, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionSecureValuesSentMeArray is adapter for slice of MessageActionSecureValuesSentMe.
-type MessageActionSecureValuesSentMeArray []MessageActionSecureValuesSentMe
-
-// Sort sorts slice of MessageActionSecureValuesSentMe.
-func (s MessageActionSecureValuesSentMeArray) Sort(less func(a, b MessageActionSecureValuesSentMe) bool) MessageActionSecureValuesSentMeArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionSecureValuesSentMe.
-func (s MessageActionSecureValuesSentMeArray) SortStable(less func(a, b MessageActionSecureValuesSentMe) bool) MessageActionSecureValuesSentMeArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionSecureValuesSentMe.
-func (s MessageActionSecureValuesSentMeArray) Retain(keep func(x MessageActionSecureValuesSentMe) bool) MessageActionSecureValuesSentMeArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionSecureValuesSentMeArray) First() (v MessageActionSecureValuesSentMe, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionSecureValuesSentMeArray) Last() (v MessageActionSecureValuesSentMe, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionSecureValuesSentMeArray) PopFirst() (v MessageActionSecureValuesSentMe, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionSecureValuesSentMe
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionSecureValuesSentMeArray) Pop() (v MessageActionSecureValuesSentMe, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionSecureValuesSentArray is adapter for slice of MessageActionSecureValuesSent.
-type MessageActionSecureValuesSentArray []MessageActionSecureValuesSent
-
-// Sort sorts slice of MessageActionSecureValuesSent.
-func (s MessageActionSecureValuesSentArray) Sort(less func(a, b MessageActionSecureValuesSent) bool) MessageActionSecureValuesSentArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionSecureValuesSent.
-func (s MessageActionSecureValuesSentArray) SortStable(less func(a, b MessageActionSecureValuesSent) bool) MessageActionSecureValuesSentArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionSecureValuesSent.
-func (s MessageActionSecureValuesSentArray) Retain(keep func(x MessageActionSecureValuesSent) bool) MessageActionSecureValuesSentArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionSecureValuesSentArray) First() (v MessageActionSecureValuesSent, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionSecureValuesSentArray) Last() (v MessageActionSecureValuesSent, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionSecureValuesSentArray) PopFirst() (v MessageActionSecureValuesSent, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionSecureValuesSent
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionSecureValuesSentArray) Pop() (v MessageActionSecureValuesSent, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionGeoProximityReachedArray is adapter for slice of MessageActionGeoProximityReached.
-type MessageActionGeoProximityReachedArray []MessageActionGeoProximityReached
-
-// Sort sorts slice of MessageActionGeoProximityReached.
-func (s MessageActionGeoProximityReachedArray) Sort(less func(a, b MessageActionGeoProximityReached) bool) MessageActionGeoProximityReachedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionGeoProximityReached.
-func (s MessageActionGeoProximityReachedArray) SortStable(less func(a, b MessageActionGeoProximityReached) bool) MessageActionGeoProximityReachedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionGeoProximityReached.
-func (s MessageActionGeoProximityReachedArray) Retain(keep func(x MessageActionGeoProximityReached) bool) MessageActionGeoProximityReachedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionGeoProximityReachedArray) First() (v MessageActionGeoProximityReached, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionGeoProximityReachedArray) Last() (v MessageActionGeoProximityReached, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionGeoProximityReachedArray) PopFirst() (v MessageActionGeoProximityReached, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionGeoProximityReached
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionGeoProximityReachedArray) Pop() (v MessageActionGeoProximityReached, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionGroupCallArray is adapter for slice of MessageActionGroupCall.
-type MessageActionGroupCallArray []MessageActionGroupCall
-
-// Sort sorts slice of MessageActionGroupCall.
-func (s MessageActionGroupCallArray) Sort(less func(a, b MessageActionGroupCall) bool) MessageActionGroupCallArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionGroupCall.
-func (s MessageActionGroupCallArray) SortStable(less func(a, b MessageActionGroupCall) bool) MessageActionGroupCallArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionGroupCall.
-func (s MessageActionGroupCallArray) Retain(keep func(x MessageActionGroupCall) bool) MessageActionGroupCallArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionGroupCallArray) First() (v MessageActionGroupCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionGroupCallArray) Last() (v MessageActionGroupCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionGroupCallArray) PopFirst() (v MessageActionGroupCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionGroupCall
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionGroupCallArray) Pop() (v MessageActionGroupCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionInviteToGroupCallArray is adapter for slice of MessageActionInviteToGroupCall.
-type MessageActionInviteToGroupCallArray []MessageActionInviteToGroupCall
-
-// Sort sorts slice of MessageActionInviteToGroupCall.
-func (s MessageActionInviteToGroupCallArray) Sort(less func(a, b MessageActionInviteToGroupCall) bool) MessageActionInviteToGroupCallArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionInviteToGroupCall.
-func (s MessageActionInviteToGroupCallArray) SortStable(less func(a, b MessageActionInviteToGroupCall) bool) MessageActionInviteToGroupCallArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionInviteToGroupCall.
-func (s MessageActionInviteToGroupCallArray) Retain(keep func(x MessageActionInviteToGroupCall) bool) MessageActionInviteToGroupCallArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionInviteToGroupCallArray) First() (v MessageActionInviteToGroupCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionInviteToGroupCallArray) Last() (v MessageActionInviteToGroupCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionInviteToGroupCallArray) PopFirst() (v MessageActionInviteToGroupCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionInviteToGroupCall
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionInviteToGroupCallArray) Pop() (v MessageActionInviteToGroupCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionSetMessagesTTLArray is adapter for slice of MessageActionSetMessagesTTL.
-type MessageActionSetMessagesTTLArray []MessageActionSetMessagesTTL
-
-// Sort sorts slice of MessageActionSetMessagesTTL.
-func (s MessageActionSetMessagesTTLArray) Sort(less func(a, b MessageActionSetMessagesTTL) bool) MessageActionSetMessagesTTLArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionSetMessagesTTL.
-func (s MessageActionSetMessagesTTLArray) SortStable(less func(a, b MessageActionSetMessagesTTL) bool) MessageActionSetMessagesTTLArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionSetMessagesTTL.
-func (s MessageActionSetMessagesTTLArray) Retain(keep func(x MessageActionSetMessagesTTL) bool) MessageActionSetMessagesTTLArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionSetMessagesTTLArray) First() (v MessageActionSetMessagesTTL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionSetMessagesTTLArray) Last() (v MessageActionSetMessagesTTL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionSetMessagesTTLArray) PopFirst() (v MessageActionSetMessagesTTL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionSetMessagesTTL
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionSetMessagesTTLArray) Pop() (v MessageActionSetMessagesTTL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageActionGroupCallScheduledArray is adapter for slice of MessageActionGroupCallScheduled.
-type MessageActionGroupCallScheduledArray []MessageActionGroupCallScheduled
-
-// Sort sorts slice of MessageActionGroupCallScheduled.
-func (s MessageActionGroupCallScheduledArray) Sort(less func(a, b MessageActionGroupCallScheduled) bool) MessageActionGroupCallScheduledArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageActionGroupCallScheduled.
-func (s MessageActionGroupCallScheduledArray) SortStable(less func(a, b MessageActionGroupCallScheduled) bool) MessageActionGroupCallScheduledArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageActionGroupCallScheduled.
-func (s MessageActionGroupCallScheduledArray) Retain(keep func(x MessageActionGroupCallScheduled) bool) MessageActionGroupCallScheduledArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageActionGroupCallScheduledArray) First() (v MessageActionGroupCallScheduled, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageActionGroupCallScheduledArray) Last() (v MessageActionGroupCallScheduled, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageActionGroupCallScheduledArray) PopFirst() (v MessageActionGroupCallScheduled, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageActionGroupCallScheduled
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageActionGroupCallScheduledArray) Pop() (v MessageActionGroupCallScheduled, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

@@ -43,6 +43,14 @@ type InputPhoneCall struct {
 // InputPhoneCallTypeID is TL type id of InputPhoneCall.
 const InputPhoneCallTypeID = 0x1e36fded
 
+// Ensuring interfaces in compile-time for InputPhoneCall.
+var (
+	_ bin.Encoder     = &InputPhoneCall{}
+	_ bin.Decoder     = &InputPhoneCall{}
+	_ bin.BareEncoder = &InputPhoneCall{}
+	_ bin.BareDecoder = &InputPhoneCall{}
+)
+
 func (i *InputPhoneCall) Zero() bool {
 	if i == nil {
 		return true
@@ -129,16 +137,6 @@ func (i *InputPhoneCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputPhoneCall) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputPhoneCall) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPhoneCall) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -172,10 +170,12 @@ func (i *InputPhoneCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InputPhoneCall.
-var (
-	_ bin.Encoder     = &InputPhoneCall{}
-	_ bin.Decoder     = &InputPhoneCall{}
-	_ bin.BareEncoder = &InputPhoneCall{}
-	_ bin.BareDecoder = &InputPhoneCall{}
-)
+// GetID returns value of ID field.
+func (i *InputPhoneCall) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPhoneCall) GetAccessHash() (value int64) {
+	return i.AccessHash
+}

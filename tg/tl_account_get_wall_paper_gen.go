@@ -41,6 +41,14 @@ type AccountGetWallPaperRequest struct {
 // AccountGetWallPaperRequestTypeID is TL type id of AccountGetWallPaperRequest.
 const AccountGetWallPaperRequestTypeID = 0xfc8ddbea
 
+// Ensuring interfaces in compile-time for AccountGetWallPaperRequest.
+var (
+	_ bin.Encoder     = &AccountGetWallPaperRequest{}
+	_ bin.Decoder     = &AccountGetWallPaperRequest{}
+	_ bin.BareEncoder = &AccountGetWallPaperRequest{}
+	_ bin.BareDecoder = &AccountGetWallPaperRequest{}
+)
+
 func (g *AccountGetWallPaperRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -122,11 +130,6 @@ func (g *AccountGetWallPaperRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetWallpaper returns value of Wallpaper field.
-func (g *AccountGetWallPaperRequest) GetWallpaper() (value InputWallPaperClass) {
-	return g.Wallpaper
-}
-
 // Decode implements bin.Decoder.
 func (g *AccountGetWallPaperRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -153,13 +156,10 @@ func (g *AccountGetWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountGetWallPaperRequest.
-var (
-	_ bin.Encoder     = &AccountGetWallPaperRequest{}
-	_ bin.Decoder     = &AccountGetWallPaperRequest{}
-	_ bin.BareEncoder = &AccountGetWallPaperRequest{}
-	_ bin.BareDecoder = &AccountGetWallPaperRequest{}
-)
+// GetWallpaper returns value of Wallpaper field.
+func (g *AccountGetWallPaperRequest) GetWallpaper() (value InputWallPaperClass) {
+	return g.Wallpaper
+}
 
 // AccountGetWallPaper invokes method account.getWallPaper#fc8ddbea returning error if any.
 // Get info about a certain wallpaper

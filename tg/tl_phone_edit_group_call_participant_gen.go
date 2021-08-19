@@ -68,6 +68,14 @@ type PhoneEditGroupCallParticipantRequest struct {
 // PhoneEditGroupCallParticipantRequestTypeID is TL type id of PhoneEditGroupCallParticipantRequest.
 const PhoneEditGroupCallParticipantRequestTypeID = 0xa5273abf
 
+// Ensuring interfaces in compile-time for PhoneEditGroupCallParticipantRequest.
+var (
+	_ bin.Encoder     = &PhoneEditGroupCallParticipantRequest{}
+	_ bin.Decoder     = &PhoneEditGroupCallParticipantRequest{}
+	_ bin.BareEncoder = &PhoneEditGroupCallParticipantRequest{}
+	_ bin.BareDecoder = &PhoneEditGroupCallParticipantRequest{}
+)
+
 func (e *PhoneEditGroupCallParticipantRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -281,6 +289,84 @@ func (e *PhoneEditGroupCallParticipantRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (e *PhoneEditGroupCallParticipantRequest) Decode(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode phone.editGroupCallParticipant#a5273abf to nil")
+	}
+	if err := b.ConsumeID(PhoneEditGroupCallParticipantRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: %w", err)
+	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *PhoneEditGroupCallParticipantRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode phone.editGroupCallParticipant#a5273abf to nil")
+	}
+	{
+		if err := e.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field flags: %w", err)
+		}
+	}
+	{
+		if err := e.Call.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field call: %w", err)
+		}
+	}
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field participant: %w", err)
+		}
+		e.Participant = value
+	}
+	if e.Flags.Has(0) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field muted: %w", err)
+		}
+		e.Muted = value
+	}
+	if e.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field volume: %w", err)
+		}
+		e.Volume = value
+	}
+	if e.Flags.Has(2) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field raise_hand: %w", err)
+		}
+		e.RaiseHand = value
+	}
+	if e.Flags.Has(3) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field video_stopped: %w", err)
+		}
+		e.VideoStopped = value
+	}
+	if e.Flags.Has(4) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field video_paused: %w", err)
+		}
+		e.VideoPaused = value
+	}
+	if e.Flags.Has(5) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field presentation_paused: %w", err)
+		}
+		e.PresentationPaused = value
+	}
+	return nil
+}
+
 // GetCall returns value of Call field.
 func (e *PhoneEditGroupCallParticipantRequest) GetCall() (value InputGroupCall) {
 	return e.Call
@@ -380,92 +466,6 @@ func (e *PhoneEditGroupCallParticipantRequest) GetPresentationPaused() (value bo
 	}
 	return e.PresentationPaused, true
 }
-
-// Decode implements bin.Decoder.
-func (e *PhoneEditGroupCallParticipantRequest) Decode(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't decode phone.editGroupCallParticipant#a5273abf to nil")
-	}
-	if err := b.ConsumeID(PhoneEditGroupCallParticipantRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: %w", err)
-	}
-	return e.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (e *PhoneEditGroupCallParticipantRequest) DecodeBare(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't decode phone.editGroupCallParticipant#a5273abf to nil")
-	}
-	{
-		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field flags: %w", err)
-		}
-	}
-	{
-		if err := e.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field call: %w", err)
-		}
-	}
-	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field participant: %w", err)
-		}
-		e.Participant = value
-	}
-	if e.Flags.Has(0) {
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field muted: %w", err)
-		}
-		e.Muted = value
-	}
-	if e.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field volume: %w", err)
-		}
-		e.Volume = value
-	}
-	if e.Flags.Has(2) {
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field raise_hand: %w", err)
-		}
-		e.RaiseHand = value
-	}
-	if e.Flags.Has(3) {
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field video_stopped: %w", err)
-		}
-		e.VideoStopped = value
-	}
-	if e.Flags.Has(4) {
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field video_paused: %w", err)
-		}
-		e.VideoPaused = value
-	}
-	if e.Flags.Has(5) {
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#a5273abf: field presentation_paused: %w", err)
-		}
-		e.PresentationPaused = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for PhoneEditGroupCallParticipantRequest.
-var (
-	_ bin.Encoder     = &PhoneEditGroupCallParticipantRequest{}
-	_ bin.Decoder     = &PhoneEditGroupCallParticipantRequest{}
-	_ bin.BareEncoder = &PhoneEditGroupCallParticipantRequest{}
-	_ bin.BareDecoder = &PhoneEditGroupCallParticipantRequest{}
-)
 
 // PhoneEditGroupCallParticipant invokes method phone.editGroupCallParticipant#a5273abf returning error if any.
 //

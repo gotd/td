@@ -41,6 +41,14 @@ type MessagesCheckChatInviteRequest struct {
 // MessagesCheckChatInviteRequestTypeID is TL type id of MessagesCheckChatInviteRequest.
 const MessagesCheckChatInviteRequestTypeID = 0x3eadb1bb
 
+// Ensuring interfaces in compile-time for MessagesCheckChatInviteRequest.
+var (
+	_ bin.Encoder     = &MessagesCheckChatInviteRequest{}
+	_ bin.Decoder     = &MessagesCheckChatInviteRequest{}
+	_ bin.BareEncoder = &MessagesCheckChatInviteRequest{}
+	_ bin.BareDecoder = &MessagesCheckChatInviteRequest{}
+)
+
 func (c *MessagesCheckChatInviteRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -117,11 +125,6 @@ func (c *MessagesCheckChatInviteRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (c *MessagesCheckChatInviteRequest) GetHash() (value string) {
-	return c.Hash
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesCheckChatInviteRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -148,13 +151,10 @@ func (c *MessagesCheckChatInviteRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesCheckChatInviteRequest.
-var (
-	_ bin.Encoder     = &MessagesCheckChatInviteRequest{}
-	_ bin.Decoder     = &MessagesCheckChatInviteRequest{}
-	_ bin.BareEncoder = &MessagesCheckChatInviteRequest{}
-	_ bin.BareDecoder = &MessagesCheckChatInviteRequest{}
-)
+// GetHash returns value of Hash field.
+func (c *MessagesCheckChatInviteRequest) GetHash() (value string) {
+	return c.Hash
+}
 
 // MessagesCheckChatInvite invokes method messages.checkChatInvite#3eadb1bb returning error if any.
 // Check the validity of a chat invite link and get basic info about it

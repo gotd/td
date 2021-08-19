@@ -47,6 +47,14 @@ type EmojiKeywordsDifference struct {
 // EmojiKeywordsDifferenceTypeID is TL type id of EmojiKeywordsDifference.
 const EmojiKeywordsDifferenceTypeID = 0x5cc761bd
 
+// Ensuring interfaces in compile-time for EmojiKeywordsDifference.
+var (
+	_ bin.Encoder     = &EmojiKeywordsDifference{}
+	_ bin.Decoder     = &EmojiKeywordsDifference{}
+	_ bin.BareEncoder = &EmojiKeywordsDifference{}
+	_ bin.BareDecoder = &EmojiKeywordsDifference{}
+)
+
 func (e *EmojiKeywordsDifference) Zero() bool {
 	if e == nil {
 		return true
@@ -161,31 +169,6 @@ func (e *EmojiKeywordsDifference) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLangCode returns value of LangCode field.
-func (e *EmojiKeywordsDifference) GetLangCode() (value string) {
-	return e.LangCode
-}
-
-// GetFromVersion returns value of FromVersion field.
-func (e *EmojiKeywordsDifference) GetFromVersion() (value int) {
-	return e.FromVersion
-}
-
-// GetVersion returns value of Version field.
-func (e *EmojiKeywordsDifference) GetVersion() (value int) {
-	return e.Version
-}
-
-// GetKeywords returns value of Keywords field.
-func (e *EmojiKeywordsDifference) GetKeywords() (value []EmojiKeywordClass) {
-	return e.Keywords
-}
-
-// MapKeywords returns field Keywords wrapped in EmojiKeywordClassArray helper.
-func (e *EmojiKeywordsDifference) MapKeywords() (value EmojiKeywordClassArray) {
-	return EmojiKeywordClassArray(e.Keywords)
-}
-
 // Decode implements bin.Decoder.
 func (e *EmojiKeywordsDifference) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -243,10 +226,27 @@ func (e *EmojiKeywordsDifference) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for EmojiKeywordsDifference.
-var (
-	_ bin.Encoder     = &EmojiKeywordsDifference{}
-	_ bin.Decoder     = &EmojiKeywordsDifference{}
-	_ bin.BareEncoder = &EmojiKeywordsDifference{}
-	_ bin.BareDecoder = &EmojiKeywordsDifference{}
-)
+// GetLangCode returns value of LangCode field.
+func (e *EmojiKeywordsDifference) GetLangCode() (value string) {
+	return e.LangCode
+}
+
+// GetFromVersion returns value of FromVersion field.
+func (e *EmojiKeywordsDifference) GetFromVersion() (value int) {
+	return e.FromVersion
+}
+
+// GetVersion returns value of Version field.
+func (e *EmojiKeywordsDifference) GetVersion() (value int) {
+	return e.Version
+}
+
+// GetKeywords returns value of Keywords field.
+func (e *EmojiKeywordsDifference) GetKeywords() (value []EmojiKeywordClass) {
+	return e.Keywords
+}
+
+// MapKeywords returns field Keywords wrapped in EmojiKeywordClassArray helper.
+func (e *EmojiKeywordsDifference) MapKeywords() (value EmojiKeywordClassArray) {
+	return EmojiKeywordClassArray(e.Keywords)
+}

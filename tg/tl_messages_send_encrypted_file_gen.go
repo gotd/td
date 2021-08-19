@@ -58,6 +58,14 @@ type MessagesSendEncryptedFileRequest struct {
 // MessagesSendEncryptedFileRequestTypeID is TL type id of MessagesSendEncryptedFileRequest.
 const MessagesSendEncryptedFileRequestTypeID = 0x5559481d
 
+// Ensuring interfaces in compile-time for MessagesSendEncryptedFileRequest.
+var (
+	_ bin.Encoder     = &MessagesSendEncryptedFileRequest{}
+	_ bin.Decoder     = &MessagesSendEncryptedFileRequest{}
+	_ bin.BareEncoder = &MessagesSendEncryptedFileRequest{}
+	_ bin.BareDecoder = &MessagesSendEncryptedFileRequest{}
+)
+
 func (s *MessagesSendEncryptedFileRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -190,47 +198,6 @@ func (s *MessagesSendEncryptedFileRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetSilent sets value of Silent conditional field.
-func (s *MessagesSendEncryptedFileRequest) SetSilent(value bool) {
-	if value {
-		s.Flags.Set(0)
-		s.Silent = true
-	} else {
-		s.Flags.Unset(0)
-		s.Silent = false
-	}
-}
-
-// GetSilent returns value of Silent conditional field.
-func (s *MessagesSendEncryptedFileRequest) GetSilent() (value bool) {
-	return s.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (s *MessagesSendEncryptedFileRequest) GetPeer() (value InputEncryptedChat) {
-	return s.Peer
-}
-
-// GetRandomID returns value of RandomID field.
-func (s *MessagesSendEncryptedFileRequest) GetRandomID() (value int64) {
-	return s.RandomID
-}
-
-// GetData returns value of Data field.
-func (s *MessagesSendEncryptedFileRequest) GetData() (value []byte) {
-	return s.Data
-}
-
-// GetFile returns value of File field.
-func (s *MessagesSendEncryptedFileRequest) GetFile() (value InputEncryptedFileClass) {
-	return s.File
-}
-
-// GetFileAsNotEmpty returns mapped value of File field.
-func (s *MessagesSendEncryptedFileRequest) GetFileAsNotEmpty() (NotEmptyInputEncryptedFile, bool) {
-	return s.File.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSendEncryptedFileRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -282,13 +249,46 @@ func (s *MessagesSendEncryptedFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSendEncryptedFileRequest.
-var (
-	_ bin.Encoder     = &MessagesSendEncryptedFileRequest{}
-	_ bin.Decoder     = &MessagesSendEncryptedFileRequest{}
-	_ bin.BareEncoder = &MessagesSendEncryptedFileRequest{}
-	_ bin.BareDecoder = &MessagesSendEncryptedFileRequest{}
-)
+// SetSilent sets value of Silent conditional field.
+func (s *MessagesSendEncryptedFileRequest) SetSilent(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.Silent = true
+	} else {
+		s.Flags.Unset(0)
+		s.Silent = false
+	}
+}
+
+// GetSilent returns value of Silent conditional field.
+func (s *MessagesSendEncryptedFileRequest) GetSilent() (value bool) {
+	return s.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (s *MessagesSendEncryptedFileRequest) GetPeer() (value InputEncryptedChat) {
+	return s.Peer
+}
+
+// GetRandomID returns value of RandomID field.
+func (s *MessagesSendEncryptedFileRequest) GetRandomID() (value int64) {
+	return s.RandomID
+}
+
+// GetData returns value of Data field.
+func (s *MessagesSendEncryptedFileRequest) GetData() (value []byte) {
+	return s.Data
+}
+
+// GetFile returns value of File field.
+func (s *MessagesSendEncryptedFileRequest) GetFile() (value InputEncryptedFileClass) {
+	return s.File
+}
+
+// GetFileAsNotEmpty returns mapped value of File field.
+func (s *MessagesSendEncryptedFileRequest) GetFileAsNotEmpty() (NotEmptyInputEncryptedFile, bool) {
+	return s.File.AsNotEmpty()
+}
 
 // MessagesSendEncryptedFile invokes method messages.sendEncryptedFile#5559481d returning error if any.
 // Sends a message with a file attachment to a secret chat

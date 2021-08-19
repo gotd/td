@@ -52,6 +52,14 @@ type MessagesToggleStickerSetsRequest struct {
 // MessagesToggleStickerSetsRequestTypeID is TL type id of MessagesToggleStickerSetsRequest.
 const MessagesToggleStickerSetsRequestTypeID = 0xb5052fea
 
+// Ensuring interfaces in compile-time for MessagesToggleStickerSetsRequest.
+var (
+	_ bin.Encoder     = &MessagesToggleStickerSetsRequest{}
+	_ bin.Decoder     = &MessagesToggleStickerSetsRequest{}
+	_ bin.BareEncoder = &MessagesToggleStickerSetsRequest{}
+	_ bin.BareDecoder = &MessagesToggleStickerSetsRequest{}
+)
+
 func (t *MessagesToggleStickerSetsRequest) Zero() bool {
 	if t == nil {
 		return true
@@ -181,6 +189,50 @@ func (t *MessagesToggleStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (t *MessagesToggleStickerSetsRequest) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode messages.toggleStickerSets#b5052fea to nil")
+	}
+	if err := b.ConsumeID(MessagesToggleStickerSetsRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *MessagesToggleStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode messages.toggleStickerSets#b5052fea to nil")
+	}
+	{
+		if err := t.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: field flags: %w", err)
+		}
+	}
+	t.Uninstall = t.Flags.Has(0)
+	t.Archive = t.Flags.Has(1)
+	t.Unarchive = t.Flags.Has(2)
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: field stickersets: %w", err)
+		}
+
+		if headerLen > 0 {
+			t.Stickersets = make([]InputStickerSetClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeInputStickerSet(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: field stickersets: %w", err)
+			}
+			t.Stickersets = append(t.Stickersets, value)
+		}
+	}
+	return nil
+}
+
 // SetUninstall sets value of Uninstall conditional field.
 func (t *MessagesToggleStickerSetsRequest) SetUninstall(value bool) {
 	if value {
@@ -238,58 +290,6 @@ func (t *MessagesToggleStickerSetsRequest) GetStickersets() (value []InputSticke
 func (t *MessagesToggleStickerSetsRequest) MapStickersets() (value InputStickerSetClassArray) {
 	return InputStickerSetClassArray(t.Stickersets)
 }
-
-// Decode implements bin.Decoder.
-func (t *MessagesToggleStickerSetsRequest) Decode(b *bin.Buffer) error {
-	if t == nil {
-		return fmt.Errorf("can't decode messages.toggleStickerSets#b5052fea to nil")
-	}
-	if err := b.ConsumeID(MessagesToggleStickerSetsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: %w", err)
-	}
-	return t.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (t *MessagesToggleStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
-	if t == nil {
-		return fmt.Errorf("can't decode messages.toggleStickerSets#b5052fea to nil")
-	}
-	{
-		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: field flags: %w", err)
-		}
-	}
-	t.Uninstall = t.Flags.Has(0)
-	t.Archive = t.Flags.Has(1)
-	t.Unarchive = t.Flags.Has(2)
-	{
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: field stickersets: %w", err)
-		}
-
-		if headerLen > 0 {
-			t.Stickersets = make([]InputStickerSetClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeInputStickerSet(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: field stickersets: %w", err)
-			}
-			t.Stickersets = append(t.Stickersets, value)
-		}
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesToggleStickerSetsRequest.
-var (
-	_ bin.Encoder     = &MessagesToggleStickerSetsRequest{}
-	_ bin.Decoder     = &MessagesToggleStickerSetsRequest{}
-	_ bin.BareEncoder = &MessagesToggleStickerSetsRequest{}
-	_ bin.BareDecoder = &MessagesToggleStickerSetsRequest{}
-)
 
 // MessagesToggleStickerSets invokes method messages.toggleStickerSets#b5052fea returning error if any.
 // Apply changes to multiple stickersets

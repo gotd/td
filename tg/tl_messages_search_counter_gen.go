@@ -54,6 +54,14 @@ type MessagesSearchCounter struct {
 // MessagesSearchCounterTypeID is TL type id of MessagesSearchCounter.
 const MessagesSearchCounterTypeID = 0xe844ebff
 
+// Ensuring interfaces in compile-time for MessagesSearchCounter.
+var (
+	_ bin.Encoder     = &MessagesSearchCounter{}
+	_ bin.Decoder     = &MessagesSearchCounter{}
+	_ bin.BareEncoder = &MessagesSearchCounter{}
+	_ bin.BareDecoder = &MessagesSearchCounter{}
+)
+
 func (s *MessagesSearchCounter) Zero() bool {
 	if s == nil {
 		return true
@@ -164,32 +172,6 @@ func (s *MessagesSearchCounter) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetInexact sets value of Inexact conditional field.
-func (s *MessagesSearchCounter) SetInexact(value bool) {
-	if value {
-		s.Flags.Set(1)
-		s.Inexact = true
-	} else {
-		s.Flags.Unset(1)
-		s.Inexact = false
-	}
-}
-
-// GetInexact returns value of Inexact conditional field.
-func (s *MessagesSearchCounter) GetInexact() (value bool) {
-	return s.Flags.Has(1)
-}
-
-// GetFilter returns value of Filter field.
-func (s *MessagesSearchCounter) GetFilter() (value MessagesFilterClass) {
-	return s.Filter
-}
-
-// GetCount returns value of Count field.
-func (s *MessagesSearchCounter) GetCount() (value int) {
-	return s.Count
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSearchCounter) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -229,10 +211,28 @@ func (s *MessagesSearchCounter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSearchCounter.
-var (
-	_ bin.Encoder     = &MessagesSearchCounter{}
-	_ bin.Decoder     = &MessagesSearchCounter{}
-	_ bin.BareEncoder = &MessagesSearchCounter{}
-	_ bin.BareDecoder = &MessagesSearchCounter{}
-)
+// SetInexact sets value of Inexact conditional field.
+func (s *MessagesSearchCounter) SetInexact(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.Inexact = true
+	} else {
+		s.Flags.Unset(1)
+		s.Inexact = false
+	}
+}
+
+// GetInexact returns value of Inexact conditional field.
+func (s *MessagesSearchCounter) GetInexact() (value bool) {
+	return s.Flags.Has(1)
+}
+
+// GetFilter returns value of Filter field.
+func (s *MessagesSearchCounter) GetFilter() (value MessagesFilterClass) {
+	return s.Filter
+}
+
+// GetCount returns value of Count field.
+func (s *MessagesSearchCounter) GetCount() (value int) {
+	return s.Count
+}

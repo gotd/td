@@ -60,6 +60,19 @@ type BotInlineMessageMediaAuto struct {
 // BotInlineMessageMediaAutoTypeID is TL type id of BotInlineMessageMediaAuto.
 const BotInlineMessageMediaAutoTypeID = 0x764cf810
 
+// construct implements constructor of BotInlineMessageClass.
+func (b BotInlineMessageMediaAuto) construct() BotInlineMessageClass { return &b }
+
+// Ensuring interfaces in compile-time for BotInlineMessageMediaAuto.
+var (
+	_ bin.Encoder     = &BotInlineMessageMediaAuto{}
+	_ bin.Decoder     = &BotInlineMessageMediaAuto{}
+	_ bin.BareEncoder = &BotInlineMessageMediaAuto{}
+	_ bin.BareDecoder = &BotInlineMessageMediaAuto{}
+
+	_ BotInlineMessageClass = &BotInlineMessageMediaAuto{}
+)
+
 func (b *BotInlineMessageMediaAuto) Zero() bool {
 	if b == nil {
 		return true
@@ -193,49 +206,6 @@ func (b *BotInlineMessageMediaAuto) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (b *BotInlineMessageMediaAuto) GetMessage() (value string) {
-	return b.Message
-}
-
-// SetEntities sets value of Entities conditional field.
-func (b *BotInlineMessageMediaAuto) SetEntities(value []MessageEntityClass) {
-	b.Flags.Set(1)
-	b.Entities = value
-}
-
-// GetEntities returns value of Entities conditional field and
-// boolean which is true if field was set.
-func (b *BotInlineMessageMediaAuto) GetEntities() (value []MessageEntityClass, ok bool) {
-	if !b.Flags.Has(1) {
-		return value, false
-	}
-	return b.Entities, true
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (b *BotInlineMessageMediaAuto) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !b.Flags.Has(1) {
-		return value, false
-	}
-	return MessageEntityClassArray(b.Entities), true
-}
-
-// SetReplyMarkup sets value of ReplyMarkup conditional field.
-func (b *BotInlineMessageMediaAuto) SetReplyMarkup(value ReplyMarkupClass) {
-	b.Flags.Set(2)
-	b.ReplyMarkup = value
-}
-
-// GetReplyMarkup returns value of ReplyMarkup conditional field and
-// boolean which is true if field was set.
-func (b *BotInlineMessageMediaAuto) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
-	if !b.Flags.Has(2) {
-		return value, false
-	}
-	return b.ReplyMarkup, true
-}
-
 // Decode implements bin.Decoder.
 func (b *BotInlineMessageMediaAuto) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -291,18 +261,48 @@ func (b *BotInlineMessageMediaAuto) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BotInlineMessageClass.
-func (b BotInlineMessageMediaAuto) construct() BotInlineMessageClass { return &b }
+// GetMessage returns value of Message field.
+func (b *BotInlineMessageMediaAuto) GetMessage() (value string) {
+	return b.Message
+}
 
-// Ensuring interfaces in compile-time for BotInlineMessageMediaAuto.
-var (
-	_ bin.Encoder     = &BotInlineMessageMediaAuto{}
-	_ bin.Decoder     = &BotInlineMessageMediaAuto{}
-	_ bin.BareEncoder = &BotInlineMessageMediaAuto{}
-	_ bin.BareDecoder = &BotInlineMessageMediaAuto{}
+// SetEntities sets value of Entities conditional field.
+func (b *BotInlineMessageMediaAuto) SetEntities(value []MessageEntityClass) {
+	b.Flags.Set(1)
+	b.Entities = value
+}
 
-	_ BotInlineMessageClass = &BotInlineMessageMediaAuto{}
-)
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageMediaAuto) GetEntities() (value []MessageEntityClass, ok bool) {
+	if !b.Flags.Has(1) {
+		return value, false
+	}
+	return b.Entities, true
+}
+
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (b *BotInlineMessageMediaAuto) SetReplyMarkup(value ReplyMarkupClass) {
+	b.Flags.Set(2)
+	b.ReplyMarkup = value
+}
+
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageMediaAuto) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if !b.Flags.Has(2) {
+		return value, false
+	}
+	return b.ReplyMarkup, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (b *BotInlineMessageMediaAuto) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !b.Flags.Has(1) {
+		return value, false
+	}
+	return MessageEntityClassArray(b.Entities), true
+}
 
 // BotInlineMessageText represents TL type `botInlineMessageText#8c7f65e2`.
 // Send a simple text message
@@ -333,6 +333,19 @@ type BotInlineMessageText struct {
 
 // BotInlineMessageTextTypeID is TL type id of BotInlineMessageText.
 const BotInlineMessageTextTypeID = 0x8c7f65e2
+
+// construct implements constructor of BotInlineMessageClass.
+func (b BotInlineMessageText) construct() BotInlineMessageClass { return &b }
+
+// Ensuring interfaces in compile-time for BotInlineMessageText.
+var (
+	_ bin.Encoder     = &BotInlineMessageText{}
+	_ bin.Decoder     = &BotInlineMessageText{}
+	_ bin.BareEncoder = &BotInlineMessageText{}
+	_ bin.BareDecoder = &BotInlineMessageText{}
+
+	_ BotInlineMessageClass = &BotInlineMessageText{}
+)
 
 func (b *BotInlineMessageText) Zero() bool {
 	if b == nil {
@@ -480,65 +493,6 @@ func (b *BotInlineMessageText) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// SetNoWebpage sets value of NoWebpage conditional field.
-func (b *BotInlineMessageText) SetNoWebpage(value bool) {
-	if value {
-		b.Flags.Set(0)
-		b.NoWebpage = true
-	} else {
-		b.Flags.Unset(0)
-		b.NoWebpage = false
-	}
-}
-
-// GetNoWebpage returns value of NoWebpage conditional field.
-func (b *BotInlineMessageText) GetNoWebpage() (value bool) {
-	return b.Flags.Has(0)
-}
-
-// GetMessage returns value of Message field.
-func (b *BotInlineMessageText) GetMessage() (value string) {
-	return b.Message
-}
-
-// SetEntities sets value of Entities conditional field.
-func (b *BotInlineMessageText) SetEntities(value []MessageEntityClass) {
-	b.Flags.Set(1)
-	b.Entities = value
-}
-
-// GetEntities returns value of Entities conditional field and
-// boolean which is true if field was set.
-func (b *BotInlineMessageText) GetEntities() (value []MessageEntityClass, ok bool) {
-	if !b.Flags.Has(1) {
-		return value, false
-	}
-	return b.Entities, true
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (b *BotInlineMessageText) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !b.Flags.Has(1) {
-		return value, false
-	}
-	return MessageEntityClassArray(b.Entities), true
-}
-
-// SetReplyMarkup sets value of ReplyMarkup conditional field.
-func (b *BotInlineMessageText) SetReplyMarkup(value ReplyMarkupClass) {
-	b.Flags.Set(2)
-	b.ReplyMarkup = value
-}
-
-// GetReplyMarkup returns value of ReplyMarkup conditional field and
-// boolean which is true if field was set.
-func (b *BotInlineMessageText) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
-	if !b.Flags.Has(2) {
-		return value, false
-	}
-	return b.ReplyMarkup, true
-}
-
 // Decode implements bin.Decoder.
 func (b *BotInlineMessageText) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -595,18 +549,64 @@ func (b *BotInlineMessageText) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BotInlineMessageClass.
-func (b BotInlineMessageText) construct() BotInlineMessageClass { return &b }
+// SetNoWebpage sets value of NoWebpage conditional field.
+func (b *BotInlineMessageText) SetNoWebpage(value bool) {
+	if value {
+		b.Flags.Set(0)
+		b.NoWebpage = true
+	} else {
+		b.Flags.Unset(0)
+		b.NoWebpage = false
+	}
+}
 
-// Ensuring interfaces in compile-time for BotInlineMessageText.
-var (
-	_ bin.Encoder     = &BotInlineMessageText{}
-	_ bin.Decoder     = &BotInlineMessageText{}
-	_ bin.BareEncoder = &BotInlineMessageText{}
-	_ bin.BareDecoder = &BotInlineMessageText{}
+// GetNoWebpage returns value of NoWebpage conditional field.
+func (b *BotInlineMessageText) GetNoWebpage() (value bool) {
+	return b.Flags.Has(0)
+}
 
-	_ BotInlineMessageClass = &BotInlineMessageText{}
-)
+// GetMessage returns value of Message field.
+func (b *BotInlineMessageText) GetMessage() (value string) {
+	return b.Message
+}
+
+// SetEntities sets value of Entities conditional field.
+func (b *BotInlineMessageText) SetEntities(value []MessageEntityClass) {
+	b.Flags.Set(1)
+	b.Entities = value
+}
+
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageText) GetEntities() (value []MessageEntityClass, ok bool) {
+	if !b.Flags.Has(1) {
+		return value, false
+	}
+	return b.Entities, true
+}
+
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (b *BotInlineMessageText) SetReplyMarkup(value ReplyMarkupClass) {
+	b.Flags.Set(2)
+	b.ReplyMarkup = value
+}
+
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageText) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if !b.Flags.Has(2) {
+		return value, false
+	}
+	return b.ReplyMarkup, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (b *BotInlineMessageText) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !b.Flags.Has(1) {
+		return value, false
+	}
+	return MessageEntityClassArray(b.Entities), true
+}
 
 // BotInlineMessageMediaGeo represents TL type `botInlineMessageMediaGeo#51846fd`.
 // Send a geolocation
@@ -647,6 +647,19 @@ type BotInlineMessageMediaGeo struct {
 
 // BotInlineMessageMediaGeoTypeID is TL type id of BotInlineMessageMediaGeo.
 const BotInlineMessageMediaGeoTypeID = 0x51846fd
+
+// construct implements constructor of BotInlineMessageClass.
+func (b BotInlineMessageMediaGeo) construct() BotInlineMessageClass { return &b }
+
+// Ensuring interfaces in compile-time for BotInlineMessageMediaGeo.
+var (
+	_ bin.Encoder     = &BotInlineMessageMediaGeo{}
+	_ bin.Decoder     = &BotInlineMessageMediaGeo{}
+	_ bin.BareEncoder = &BotInlineMessageMediaGeo{}
+	_ bin.BareDecoder = &BotInlineMessageMediaGeo{}
+
+	_ BotInlineMessageClass = &BotInlineMessageMediaGeo{}
+)
 
 func (b *BotInlineMessageMediaGeo) Zero() bool {
 	if b == nil {
@@ -816,6 +829,65 @@ func (b *BotInlineMessageMediaGeo) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (b *BotInlineMessageMediaGeo) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMessageMediaGeo#51846fd to nil")
+	}
+	if err := buf.ConsumeID(BotInlineMessageMediaGeoTypeID); err != nil {
+		return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: %w", err)
+	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotInlineMessageMediaGeo) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMessageMediaGeo#51846fd to nil")
+	}
+	{
+		if err := b.Flags.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field flags: %w", err)
+		}
+	}
+	{
+		value, err := DecodeGeoPoint(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field geo: %w", err)
+		}
+		b.Geo = value
+	}
+	if b.Flags.Has(0) {
+		value, err := buf.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field heading: %w", err)
+		}
+		b.Heading = value
+	}
+	if b.Flags.Has(1) {
+		value, err := buf.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field period: %w", err)
+		}
+		b.Period = value
+	}
+	if b.Flags.Has(3) {
+		value, err := buf.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field proximity_notification_radius: %w", err)
+		}
+		b.ProximityNotificationRadius = value
+	}
+	if b.Flags.Has(2) {
+		value, err := DecodeReplyMarkup(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field reply_markup: %w", err)
+		}
+		b.ReplyMarkup = value
+	}
+	return nil
+}
+
 // GetGeo returns value of Geo field.
 func (b *BotInlineMessageMediaGeo) GetGeo() (value GeoPointClass) {
 	return b.Geo
@@ -881,78 +953,6 @@ func (b *BotInlineMessageMediaGeo) GetReplyMarkup() (value ReplyMarkupClass, ok 
 	return b.ReplyMarkup, true
 }
 
-// Decode implements bin.Decoder.
-func (b *BotInlineMessageMediaGeo) Decode(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't decode botInlineMessageMediaGeo#51846fd to nil")
-	}
-	if err := buf.ConsumeID(BotInlineMessageMediaGeoTypeID); err != nil {
-		return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: %w", err)
-	}
-	return b.DecodeBare(buf)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (b *BotInlineMessageMediaGeo) DecodeBare(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't decode botInlineMessageMediaGeo#51846fd to nil")
-	}
-	{
-		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field flags: %w", err)
-		}
-	}
-	{
-		value, err := DecodeGeoPoint(buf)
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field geo: %w", err)
-		}
-		b.Geo = value
-	}
-	if b.Flags.Has(0) {
-		value, err := buf.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field heading: %w", err)
-		}
-		b.Heading = value
-	}
-	if b.Flags.Has(1) {
-		value, err := buf.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field period: %w", err)
-		}
-		b.Period = value
-	}
-	if b.Flags.Has(3) {
-		value, err := buf.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field proximity_notification_radius: %w", err)
-		}
-		b.ProximityNotificationRadius = value
-	}
-	if b.Flags.Has(2) {
-		value, err := DecodeReplyMarkup(buf)
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field reply_markup: %w", err)
-		}
-		b.ReplyMarkup = value
-	}
-	return nil
-}
-
-// construct implements constructor of BotInlineMessageClass.
-func (b BotInlineMessageMediaGeo) construct() BotInlineMessageClass { return &b }
-
-// Ensuring interfaces in compile-time for BotInlineMessageMediaGeo.
-var (
-	_ bin.Encoder     = &BotInlineMessageMediaGeo{}
-	_ bin.Decoder     = &BotInlineMessageMediaGeo{}
-	_ bin.BareEncoder = &BotInlineMessageMediaGeo{}
-	_ bin.BareDecoder = &BotInlineMessageMediaGeo{}
-
-	_ BotInlineMessageClass = &BotInlineMessageMediaGeo{}
-)
-
 // BotInlineMessageMediaVenue represents TL type `botInlineMessageMediaVenue#8a86659c`.
 // Send a venue
 //
@@ -983,6 +983,19 @@ type BotInlineMessageMediaVenue struct {
 
 // BotInlineMessageMediaVenueTypeID is TL type id of BotInlineMessageMediaVenue.
 const BotInlineMessageMediaVenueTypeID = 0x8a86659c
+
+// construct implements constructor of BotInlineMessageClass.
+func (b BotInlineMessageMediaVenue) construct() BotInlineMessageClass { return &b }
+
+// Ensuring interfaces in compile-time for BotInlineMessageMediaVenue.
+var (
+	_ bin.Encoder     = &BotInlineMessageMediaVenue{}
+	_ bin.Decoder     = &BotInlineMessageMediaVenue{}
+	_ bin.BareEncoder = &BotInlineMessageMediaVenue{}
+	_ bin.BareDecoder = &BotInlineMessageMediaVenue{}
+
+	_ BotInlineMessageClass = &BotInlineMessageMediaVenue{}
+)
 
 func (b *BotInlineMessageMediaVenue) Zero() bool {
 	if b == nil {
@@ -1145,51 +1158,6 @@ func (b *BotInlineMessageMediaVenue) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetGeo returns value of Geo field.
-func (b *BotInlineMessageMediaVenue) GetGeo() (value GeoPointClass) {
-	return b.Geo
-}
-
-// GetTitle returns value of Title field.
-func (b *BotInlineMessageMediaVenue) GetTitle() (value string) {
-	return b.Title
-}
-
-// GetAddress returns value of Address field.
-func (b *BotInlineMessageMediaVenue) GetAddress() (value string) {
-	return b.Address
-}
-
-// GetProvider returns value of Provider field.
-func (b *BotInlineMessageMediaVenue) GetProvider() (value string) {
-	return b.Provider
-}
-
-// GetVenueID returns value of VenueID field.
-func (b *BotInlineMessageMediaVenue) GetVenueID() (value string) {
-	return b.VenueID
-}
-
-// GetVenueType returns value of VenueType field.
-func (b *BotInlineMessageMediaVenue) GetVenueType() (value string) {
-	return b.VenueType
-}
-
-// SetReplyMarkup sets value of ReplyMarkup conditional field.
-func (b *BotInlineMessageMediaVenue) SetReplyMarkup(value ReplyMarkupClass) {
-	b.Flags.Set(2)
-	b.ReplyMarkup = value
-}
-
-// GetReplyMarkup returns value of ReplyMarkup conditional field and
-// boolean which is true if field was set.
-func (b *BotInlineMessageMediaVenue) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
-	if !b.Flags.Has(2) {
-		return value, false
-	}
-	return b.ReplyMarkup, true
-}
-
 // Decode implements bin.Decoder.
 func (b *BotInlineMessageMediaVenue) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -1263,18 +1231,50 @@ func (b *BotInlineMessageMediaVenue) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BotInlineMessageClass.
-func (b BotInlineMessageMediaVenue) construct() BotInlineMessageClass { return &b }
+// GetGeo returns value of Geo field.
+func (b *BotInlineMessageMediaVenue) GetGeo() (value GeoPointClass) {
+	return b.Geo
+}
 
-// Ensuring interfaces in compile-time for BotInlineMessageMediaVenue.
-var (
-	_ bin.Encoder     = &BotInlineMessageMediaVenue{}
-	_ bin.Decoder     = &BotInlineMessageMediaVenue{}
-	_ bin.BareEncoder = &BotInlineMessageMediaVenue{}
-	_ bin.BareDecoder = &BotInlineMessageMediaVenue{}
+// GetTitle returns value of Title field.
+func (b *BotInlineMessageMediaVenue) GetTitle() (value string) {
+	return b.Title
+}
 
-	_ BotInlineMessageClass = &BotInlineMessageMediaVenue{}
-)
+// GetAddress returns value of Address field.
+func (b *BotInlineMessageMediaVenue) GetAddress() (value string) {
+	return b.Address
+}
+
+// GetProvider returns value of Provider field.
+func (b *BotInlineMessageMediaVenue) GetProvider() (value string) {
+	return b.Provider
+}
+
+// GetVenueID returns value of VenueID field.
+func (b *BotInlineMessageMediaVenue) GetVenueID() (value string) {
+	return b.VenueID
+}
+
+// GetVenueType returns value of VenueType field.
+func (b *BotInlineMessageMediaVenue) GetVenueType() (value string) {
+	return b.VenueType
+}
+
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (b *BotInlineMessageMediaVenue) SetReplyMarkup(value ReplyMarkupClass) {
+	b.Flags.Set(2)
+	b.ReplyMarkup = value
+}
+
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageMediaVenue) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if !b.Flags.Has(2) {
+		return value, false
+	}
+	return b.ReplyMarkup, true
+}
 
 // BotInlineMessageMediaContact represents TL type `botInlineMessageMediaContact#18d1cdc2`.
 // Send a contact
@@ -1302,6 +1302,19 @@ type BotInlineMessageMediaContact struct {
 
 // BotInlineMessageMediaContactTypeID is TL type id of BotInlineMessageMediaContact.
 const BotInlineMessageMediaContactTypeID = 0x18d1cdc2
+
+// construct implements constructor of BotInlineMessageClass.
+func (b BotInlineMessageMediaContact) construct() BotInlineMessageClass { return &b }
+
+// Ensuring interfaces in compile-time for BotInlineMessageMediaContact.
+var (
+	_ bin.Encoder     = &BotInlineMessageMediaContact{}
+	_ bin.Decoder     = &BotInlineMessageMediaContact{}
+	_ bin.BareEncoder = &BotInlineMessageMediaContact{}
+	_ bin.BareDecoder = &BotInlineMessageMediaContact{}
+
+	_ BotInlineMessageClass = &BotInlineMessageMediaContact{}
+)
 
 func (b *BotInlineMessageMediaContact) Zero() bool {
 	if b == nil {
@@ -1439,41 +1452,6 @@ func (b *BotInlineMessageMediaContact) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (b *BotInlineMessageMediaContact) GetPhoneNumber() (value string) {
-	return b.PhoneNumber
-}
-
-// GetFirstName returns value of FirstName field.
-func (b *BotInlineMessageMediaContact) GetFirstName() (value string) {
-	return b.FirstName
-}
-
-// GetLastName returns value of LastName field.
-func (b *BotInlineMessageMediaContact) GetLastName() (value string) {
-	return b.LastName
-}
-
-// GetVcard returns value of Vcard field.
-func (b *BotInlineMessageMediaContact) GetVcard() (value string) {
-	return b.Vcard
-}
-
-// SetReplyMarkup sets value of ReplyMarkup conditional field.
-func (b *BotInlineMessageMediaContact) SetReplyMarkup(value ReplyMarkupClass) {
-	b.Flags.Set(2)
-	b.ReplyMarkup = value
-}
-
-// GetReplyMarkup returns value of ReplyMarkup conditional field and
-// boolean which is true if field was set.
-func (b *BotInlineMessageMediaContact) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
-	if !b.Flags.Has(2) {
-		return value, false
-	}
-	return b.ReplyMarkup, true
-}
-
 // Decode implements bin.Decoder.
 func (b *BotInlineMessageMediaContact) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -1533,18 +1511,40 @@ func (b *BotInlineMessageMediaContact) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BotInlineMessageClass.
-func (b BotInlineMessageMediaContact) construct() BotInlineMessageClass { return &b }
+// GetPhoneNumber returns value of PhoneNumber field.
+func (b *BotInlineMessageMediaContact) GetPhoneNumber() (value string) {
+	return b.PhoneNumber
+}
 
-// Ensuring interfaces in compile-time for BotInlineMessageMediaContact.
-var (
-	_ bin.Encoder     = &BotInlineMessageMediaContact{}
-	_ bin.Decoder     = &BotInlineMessageMediaContact{}
-	_ bin.BareEncoder = &BotInlineMessageMediaContact{}
-	_ bin.BareDecoder = &BotInlineMessageMediaContact{}
+// GetFirstName returns value of FirstName field.
+func (b *BotInlineMessageMediaContact) GetFirstName() (value string) {
+	return b.FirstName
+}
 
-	_ BotInlineMessageClass = &BotInlineMessageMediaContact{}
-)
+// GetLastName returns value of LastName field.
+func (b *BotInlineMessageMediaContact) GetLastName() (value string) {
+	return b.LastName
+}
+
+// GetVcard returns value of Vcard field.
+func (b *BotInlineMessageMediaContact) GetVcard() (value string) {
+	return b.Vcard
+}
+
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (b *BotInlineMessageMediaContact) SetReplyMarkup(value ReplyMarkupClass) {
+	b.Flags.Set(2)
+	b.ReplyMarkup = value
+}
+
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageMediaContact) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if !b.Flags.Has(2) {
+		return value, false
+	}
+	return b.ReplyMarkup, true
+}
 
 // BotInlineMessageMediaInvoice represents TL type `botInlineMessageMediaInvoice#354a9b09`.
 //
@@ -1576,6 +1576,19 @@ type BotInlineMessageMediaInvoice struct {
 
 // BotInlineMessageMediaInvoiceTypeID is TL type id of BotInlineMessageMediaInvoice.
 const BotInlineMessageMediaInvoiceTypeID = 0x354a9b09
+
+// construct implements constructor of BotInlineMessageClass.
+func (b BotInlineMessageMediaInvoice) construct() BotInlineMessageClass { return &b }
+
+// Ensuring interfaces in compile-time for BotInlineMessageMediaInvoice.
+var (
+	_ bin.Encoder     = &BotInlineMessageMediaInvoice{}
+	_ bin.Decoder     = &BotInlineMessageMediaInvoice{}
+	_ bin.BareEncoder = &BotInlineMessageMediaInvoice{}
+	_ bin.BareDecoder = &BotInlineMessageMediaInvoice{}
+
+	_ BotInlineMessageClass = &BotInlineMessageMediaInvoice{}
+)
 
 func (b *BotInlineMessageMediaInvoice) Zero() bool {
 	if b == nil {
@@ -1763,6 +1776,74 @@ func (b *BotInlineMessageMediaInvoice) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (b *BotInlineMessageMediaInvoice) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMessageMediaInvoice#354a9b09 to nil")
+	}
+	if err := buf.ConsumeID(BotInlineMessageMediaInvoiceTypeID); err != nil {
+		return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: %w", err)
+	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotInlineMessageMediaInvoice) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMessageMediaInvoice#354a9b09 to nil")
+	}
+	{
+		if err := b.Flags.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field flags: %w", err)
+		}
+	}
+	b.ShippingAddressRequested = b.Flags.Has(1)
+	b.Test = b.Flags.Has(3)
+	{
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field title: %w", err)
+		}
+		b.Title = value
+	}
+	{
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field description: %w", err)
+		}
+		b.Description = value
+	}
+	if b.Flags.Has(0) {
+		value, err := DecodeWebDocument(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field photo: %w", err)
+		}
+		b.Photo = value
+	}
+	{
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field currency: %w", err)
+		}
+		b.Currency = value
+	}
+	{
+		value, err := buf.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field total_amount: %w", err)
+		}
+		b.TotalAmount = value
+	}
+	if b.Flags.Has(2) {
+		value, err := DecodeReplyMarkup(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field reply_markup: %w", err)
+		}
+		b.ReplyMarkup = value
+	}
+	return nil
+}
+
 // SetShippingAddressRequested sets value of ShippingAddressRequested conditional field.
 func (b *BotInlineMessageMediaInvoice) SetShippingAddressRequested(value bool) {
 	if value {
@@ -1844,87 +1925,6 @@ func (b *BotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupClass,
 	}
 	return b.ReplyMarkup, true
 }
-
-// Decode implements bin.Decoder.
-func (b *BotInlineMessageMediaInvoice) Decode(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't decode botInlineMessageMediaInvoice#354a9b09 to nil")
-	}
-	if err := buf.ConsumeID(BotInlineMessageMediaInvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: %w", err)
-	}
-	return b.DecodeBare(buf)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (b *BotInlineMessageMediaInvoice) DecodeBare(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't decode botInlineMessageMediaInvoice#354a9b09 to nil")
-	}
-	{
-		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field flags: %w", err)
-		}
-	}
-	b.ShippingAddressRequested = b.Flags.Has(1)
-	b.Test = b.Flags.Has(3)
-	{
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field title: %w", err)
-		}
-		b.Title = value
-	}
-	{
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field description: %w", err)
-		}
-		b.Description = value
-	}
-	if b.Flags.Has(0) {
-		value, err := DecodeWebDocument(buf)
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field photo: %w", err)
-		}
-		b.Photo = value
-	}
-	{
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field currency: %w", err)
-		}
-		b.Currency = value
-	}
-	{
-		value, err := buf.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field total_amount: %w", err)
-		}
-		b.TotalAmount = value
-	}
-	if b.Flags.Has(2) {
-		value, err := DecodeReplyMarkup(buf)
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMessageMediaInvoice#354a9b09: field reply_markup: %w", err)
-		}
-		b.ReplyMarkup = value
-	}
-	return nil
-}
-
-// construct implements constructor of BotInlineMessageClass.
-func (b BotInlineMessageMediaInvoice) construct() BotInlineMessageClass { return &b }
-
-// Ensuring interfaces in compile-time for BotInlineMessageMediaInvoice.
-var (
-	_ bin.Encoder     = &BotInlineMessageMediaInvoice{}
-	_ bin.Decoder     = &BotInlineMessageMediaInvoice{}
-	_ bin.BareEncoder = &BotInlineMessageMediaInvoice{}
-	_ bin.BareDecoder = &BotInlineMessageMediaInvoice{}
-
-	_ BotInlineMessageClass = &BotInlineMessageMediaInvoice{}
-)
 
 // BotInlineMessageClass represents BotInlineMessage generic type.
 //
@@ -2044,656 +2044,4 @@ func (b *BotInlineMessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode BotInlineMessageClass as nil")
 	}
 	return b.BotInlineMessage.Encode(buf)
-}
-
-// BotInlineMessageClassArray is adapter for slice of BotInlineMessageClass.
-type BotInlineMessageClassArray []BotInlineMessageClass
-
-// Sort sorts slice of BotInlineMessageClass.
-func (s BotInlineMessageClassArray) Sort(less func(a, b BotInlineMessageClass) bool) BotInlineMessageClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BotInlineMessageClass.
-func (s BotInlineMessageClassArray) SortStable(less func(a, b BotInlineMessageClass) bool) BotInlineMessageClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BotInlineMessageClass.
-func (s BotInlineMessageClassArray) Retain(keep func(x BotInlineMessageClass) bool) BotInlineMessageClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BotInlineMessageClassArray) First() (v BotInlineMessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BotInlineMessageClassArray) Last() (v BotInlineMessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BotInlineMessageClassArray) PopFirst() (v BotInlineMessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BotInlineMessageClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BotInlineMessageClassArray) Pop() (v BotInlineMessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsBotInlineMessageMediaAuto returns copy with only BotInlineMessageMediaAuto constructors.
-func (s BotInlineMessageClassArray) AsBotInlineMessageMediaAuto() (to BotInlineMessageMediaAutoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*BotInlineMessageMediaAuto)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsBotInlineMessageText returns copy with only BotInlineMessageText constructors.
-func (s BotInlineMessageClassArray) AsBotInlineMessageText() (to BotInlineMessageTextArray) {
-	for _, elem := range s {
-		value, ok := elem.(*BotInlineMessageText)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsBotInlineMessageMediaGeo returns copy with only BotInlineMessageMediaGeo constructors.
-func (s BotInlineMessageClassArray) AsBotInlineMessageMediaGeo() (to BotInlineMessageMediaGeoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*BotInlineMessageMediaGeo)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsBotInlineMessageMediaVenue returns copy with only BotInlineMessageMediaVenue constructors.
-func (s BotInlineMessageClassArray) AsBotInlineMessageMediaVenue() (to BotInlineMessageMediaVenueArray) {
-	for _, elem := range s {
-		value, ok := elem.(*BotInlineMessageMediaVenue)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsBotInlineMessageMediaContact returns copy with only BotInlineMessageMediaContact constructors.
-func (s BotInlineMessageClassArray) AsBotInlineMessageMediaContact() (to BotInlineMessageMediaContactArray) {
-	for _, elem := range s {
-		value, ok := elem.(*BotInlineMessageMediaContact)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsBotInlineMessageMediaInvoice returns copy with only BotInlineMessageMediaInvoice constructors.
-func (s BotInlineMessageClassArray) AsBotInlineMessageMediaInvoice() (to BotInlineMessageMediaInvoiceArray) {
-	for _, elem := range s {
-		value, ok := elem.(*BotInlineMessageMediaInvoice)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// BotInlineMessageMediaAutoArray is adapter for slice of BotInlineMessageMediaAuto.
-type BotInlineMessageMediaAutoArray []BotInlineMessageMediaAuto
-
-// Sort sorts slice of BotInlineMessageMediaAuto.
-func (s BotInlineMessageMediaAutoArray) Sort(less func(a, b BotInlineMessageMediaAuto) bool) BotInlineMessageMediaAutoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BotInlineMessageMediaAuto.
-func (s BotInlineMessageMediaAutoArray) SortStable(less func(a, b BotInlineMessageMediaAuto) bool) BotInlineMessageMediaAutoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BotInlineMessageMediaAuto.
-func (s BotInlineMessageMediaAutoArray) Retain(keep func(x BotInlineMessageMediaAuto) bool) BotInlineMessageMediaAutoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BotInlineMessageMediaAutoArray) First() (v BotInlineMessageMediaAuto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BotInlineMessageMediaAutoArray) Last() (v BotInlineMessageMediaAuto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BotInlineMessageMediaAutoArray) PopFirst() (v BotInlineMessageMediaAuto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BotInlineMessageMediaAuto
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BotInlineMessageMediaAutoArray) Pop() (v BotInlineMessageMediaAuto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// BotInlineMessageTextArray is adapter for slice of BotInlineMessageText.
-type BotInlineMessageTextArray []BotInlineMessageText
-
-// Sort sorts slice of BotInlineMessageText.
-func (s BotInlineMessageTextArray) Sort(less func(a, b BotInlineMessageText) bool) BotInlineMessageTextArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BotInlineMessageText.
-func (s BotInlineMessageTextArray) SortStable(less func(a, b BotInlineMessageText) bool) BotInlineMessageTextArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BotInlineMessageText.
-func (s BotInlineMessageTextArray) Retain(keep func(x BotInlineMessageText) bool) BotInlineMessageTextArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BotInlineMessageTextArray) First() (v BotInlineMessageText, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BotInlineMessageTextArray) Last() (v BotInlineMessageText, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BotInlineMessageTextArray) PopFirst() (v BotInlineMessageText, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BotInlineMessageText
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BotInlineMessageTextArray) Pop() (v BotInlineMessageText, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// BotInlineMessageMediaGeoArray is adapter for slice of BotInlineMessageMediaGeo.
-type BotInlineMessageMediaGeoArray []BotInlineMessageMediaGeo
-
-// Sort sorts slice of BotInlineMessageMediaGeo.
-func (s BotInlineMessageMediaGeoArray) Sort(less func(a, b BotInlineMessageMediaGeo) bool) BotInlineMessageMediaGeoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BotInlineMessageMediaGeo.
-func (s BotInlineMessageMediaGeoArray) SortStable(less func(a, b BotInlineMessageMediaGeo) bool) BotInlineMessageMediaGeoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BotInlineMessageMediaGeo.
-func (s BotInlineMessageMediaGeoArray) Retain(keep func(x BotInlineMessageMediaGeo) bool) BotInlineMessageMediaGeoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BotInlineMessageMediaGeoArray) First() (v BotInlineMessageMediaGeo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BotInlineMessageMediaGeoArray) Last() (v BotInlineMessageMediaGeo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BotInlineMessageMediaGeoArray) PopFirst() (v BotInlineMessageMediaGeo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BotInlineMessageMediaGeo
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BotInlineMessageMediaGeoArray) Pop() (v BotInlineMessageMediaGeo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// BotInlineMessageMediaVenueArray is adapter for slice of BotInlineMessageMediaVenue.
-type BotInlineMessageMediaVenueArray []BotInlineMessageMediaVenue
-
-// Sort sorts slice of BotInlineMessageMediaVenue.
-func (s BotInlineMessageMediaVenueArray) Sort(less func(a, b BotInlineMessageMediaVenue) bool) BotInlineMessageMediaVenueArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BotInlineMessageMediaVenue.
-func (s BotInlineMessageMediaVenueArray) SortStable(less func(a, b BotInlineMessageMediaVenue) bool) BotInlineMessageMediaVenueArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BotInlineMessageMediaVenue.
-func (s BotInlineMessageMediaVenueArray) Retain(keep func(x BotInlineMessageMediaVenue) bool) BotInlineMessageMediaVenueArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BotInlineMessageMediaVenueArray) First() (v BotInlineMessageMediaVenue, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BotInlineMessageMediaVenueArray) Last() (v BotInlineMessageMediaVenue, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BotInlineMessageMediaVenueArray) PopFirst() (v BotInlineMessageMediaVenue, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BotInlineMessageMediaVenue
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BotInlineMessageMediaVenueArray) Pop() (v BotInlineMessageMediaVenue, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// BotInlineMessageMediaContactArray is adapter for slice of BotInlineMessageMediaContact.
-type BotInlineMessageMediaContactArray []BotInlineMessageMediaContact
-
-// Sort sorts slice of BotInlineMessageMediaContact.
-func (s BotInlineMessageMediaContactArray) Sort(less func(a, b BotInlineMessageMediaContact) bool) BotInlineMessageMediaContactArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BotInlineMessageMediaContact.
-func (s BotInlineMessageMediaContactArray) SortStable(less func(a, b BotInlineMessageMediaContact) bool) BotInlineMessageMediaContactArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BotInlineMessageMediaContact.
-func (s BotInlineMessageMediaContactArray) Retain(keep func(x BotInlineMessageMediaContact) bool) BotInlineMessageMediaContactArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BotInlineMessageMediaContactArray) First() (v BotInlineMessageMediaContact, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BotInlineMessageMediaContactArray) Last() (v BotInlineMessageMediaContact, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BotInlineMessageMediaContactArray) PopFirst() (v BotInlineMessageMediaContact, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BotInlineMessageMediaContact
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BotInlineMessageMediaContactArray) Pop() (v BotInlineMessageMediaContact, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// BotInlineMessageMediaInvoiceArray is adapter for slice of BotInlineMessageMediaInvoice.
-type BotInlineMessageMediaInvoiceArray []BotInlineMessageMediaInvoice
-
-// Sort sorts slice of BotInlineMessageMediaInvoice.
-func (s BotInlineMessageMediaInvoiceArray) Sort(less func(a, b BotInlineMessageMediaInvoice) bool) BotInlineMessageMediaInvoiceArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BotInlineMessageMediaInvoice.
-func (s BotInlineMessageMediaInvoiceArray) SortStable(less func(a, b BotInlineMessageMediaInvoice) bool) BotInlineMessageMediaInvoiceArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BotInlineMessageMediaInvoice.
-func (s BotInlineMessageMediaInvoiceArray) Retain(keep func(x BotInlineMessageMediaInvoice) bool) BotInlineMessageMediaInvoiceArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BotInlineMessageMediaInvoiceArray) First() (v BotInlineMessageMediaInvoice, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BotInlineMessageMediaInvoiceArray) Last() (v BotInlineMessageMediaInvoice, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BotInlineMessageMediaInvoiceArray) PopFirst() (v BotInlineMessageMediaInvoice, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BotInlineMessageMediaInvoice
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BotInlineMessageMediaInvoiceArray) Pop() (v BotInlineMessageMediaInvoice, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

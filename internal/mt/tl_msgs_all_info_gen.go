@@ -40,6 +40,14 @@ type MsgsAllInfo struct {
 // MsgsAllInfoTypeID is TL type id of MsgsAllInfo.
 const MsgsAllInfoTypeID = 0x8cc0d131
 
+// Ensuring interfaces in compile-time for MsgsAllInfo.
+var (
+	_ bin.Encoder     = &MsgsAllInfo{}
+	_ bin.Decoder     = &MsgsAllInfo{}
+	_ bin.BareEncoder = &MsgsAllInfo{}
+	_ bin.BareDecoder = &MsgsAllInfo{}
+)
+
 func (m *MsgsAllInfo) Zero() bool {
 	if m == nil {
 		return true
@@ -61,15 +69,6 @@ func (m *MsgsAllInfo) String() string {
 	}
 	type Alias MsgsAllInfo
 	return fmt.Sprintf("MsgsAllInfo%+v", Alias(*m))
-}
-
-// FillFrom fills MsgsAllInfo from given interface.
-func (m *MsgsAllInfo) FillFrom(from interface {
-	GetMsgIDs() (value []int64)
-	GetInfo() (value []byte)
-}) {
-	m.MsgIDs = from.GetMsgIDs()
-	m.Info = from.GetInfo()
 }
 
 // TypeID returns type id in TL schema.
@@ -129,16 +128,6 @@ func (m *MsgsAllInfo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMsgIDs returns value of MsgIDs field.
-func (m *MsgsAllInfo) GetMsgIDs() (value []int64) {
-	return m.MsgIDs
-}
-
-// GetInfo returns value of Info field.
-func (m *MsgsAllInfo) GetInfo() (value []byte) {
-	return m.Info
-}
-
 // Decode implements bin.Decoder.
 func (m *MsgsAllInfo) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -182,10 +171,12 @@ func (m *MsgsAllInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MsgsAllInfo.
-var (
-	_ bin.Encoder     = &MsgsAllInfo{}
-	_ bin.Decoder     = &MsgsAllInfo{}
-	_ bin.BareEncoder = &MsgsAllInfo{}
-	_ bin.BareDecoder = &MsgsAllInfo{}
-)
+// GetMsgIDs returns value of MsgIDs field.
+func (m *MsgsAllInfo) GetMsgIDs() (value []int64) {
+	return m.MsgIDs
+}
+
+// GetInfo returns value of Info field.
+func (m *MsgsAllInfo) GetInfo() (value []byte) {
+	return m.Info
+}

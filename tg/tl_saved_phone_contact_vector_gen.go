@@ -38,6 +38,14 @@ type SavedPhoneContactVector struct {
 // SavedPhoneContactVectorTypeID is TL type id of SavedPhoneContactVector.
 const SavedPhoneContactVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for SavedPhoneContactVector.
+var (
+	_ bin.Encoder     = &SavedPhoneContactVector{}
+	_ bin.Decoder     = &SavedPhoneContactVector{}
+	_ bin.BareEncoder = &SavedPhoneContactVector{}
+	_ bin.BareDecoder = &SavedPhoneContactVector{}
+)
+
 func (vec *SavedPhoneContactVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -119,11 +127,6 @@ func (vec *SavedPhoneContactVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *SavedPhoneContactVector) GetElems() (value []SavedPhoneContact) {
-	return vec.Elems
-}
-
 // Decode implements bin.Decoder.
 func (vec *SavedPhoneContactVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -158,10 +161,7 @@ func (vec *SavedPhoneContactVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for SavedPhoneContactVector.
-var (
-	_ bin.Encoder     = &SavedPhoneContactVector{}
-	_ bin.Decoder     = &SavedPhoneContactVector{}
-	_ bin.BareEncoder = &SavedPhoneContactVector{}
-	_ bin.BareDecoder = &SavedPhoneContactVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *SavedPhoneContactVector) GetElems() (value []SavedPhoneContact) {
+	return vec.Elems
+}

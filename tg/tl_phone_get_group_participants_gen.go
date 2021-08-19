@@ -48,6 +48,14 @@ type PhoneGetGroupParticipantsRequest struct {
 // PhoneGetGroupParticipantsRequestTypeID is TL type id of PhoneGetGroupParticipantsRequest.
 const PhoneGetGroupParticipantsRequestTypeID = 0xc558d8ab
 
+// Ensuring interfaces in compile-time for PhoneGetGroupParticipantsRequest.
+var (
+	_ bin.Encoder     = &PhoneGetGroupParticipantsRequest{}
+	_ bin.Decoder     = &PhoneGetGroupParticipantsRequest{}
+	_ bin.BareEncoder = &PhoneGetGroupParticipantsRequest{}
+	_ bin.BareDecoder = &PhoneGetGroupParticipantsRequest{}
+)
+
 func (g *PhoneGetGroupParticipantsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -177,36 +185,6 @@ func (g *PhoneGetGroupParticipantsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (g *PhoneGetGroupParticipantsRequest) GetCall() (value InputGroupCall) {
-	return g.Call
-}
-
-// GetIDs returns value of IDs field.
-func (g *PhoneGetGroupParticipantsRequest) GetIDs() (value []InputPeerClass) {
-	return g.IDs
-}
-
-// MapIDs returns field IDs wrapped in InputPeerClassArray helper.
-func (g *PhoneGetGroupParticipantsRequest) MapIDs() (value InputPeerClassArray) {
-	return InputPeerClassArray(g.IDs)
-}
-
-// GetSources returns value of Sources field.
-func (g *PhoneGetGroupParticipantsRequest) GetSources() (value []int) {
-	return g.Sources
-}
-
-// GetOffset returns value of Offset field.
-func (g *PhoneGetGroupParticipantsRequest) GetOffset() (value string) {
-	return g.Offset
-}
-
-// GetLimit returns value of Limit field.
-func (g *PhoneGetGroupParticipantsRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *PhoneGetGroupParticipantsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -279,13 +257,35 @@ func (g *PhoneGetGroupParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneGetGroupParticipantsRequest.
-var (
-	_ bin.Encoder     = &PhoneGetGroupParticipantsRequest{}
-	_ bin.Decoder     = &PhoneGetGroupParticipantsRequest{}
-	_ bin.BareEncoder = &PhoneGetGroupParticipantsRequest{}
-	_ bin.BareDecoder = &PhoneGetGroupParticipantsRequest{}
-)
+// GetCall returns value of Call field.
+func (g *PhoneGetGroupParticipantsRequest) GetCall() (value InputGroupCall) {
+	return g.Call
+}
+
+// GetIDs returns value of IDs field.
+func (g *PhoneGetGroupParticipantsRequest) GetIDs() (value []InputPeerClass) {
+	return g.IDs
+}
+
+// GetSources returns value of Sources field.
+func (g *PhoneGetGroupParticipantsRequest) GetSources() (value []int) {
+	return g.Sources
+}
+
+// GetOffset returns value of Offset field.
+func (g *PhoneGetGroupParticipantsRequest) GetOffset() (value string) {
+	return g.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (g *PhoneGetGroupParticipantsRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// MapIDs returns field IDs wrapped in InputPeerClassArray helper.
+func (g *PhoneGetGroupParticipantsRequest) MapIDs() (value InputPeerClassArray) {
+	return InputPeerClassArray(g.IDs)
+}
 
 // PhoneGetGroupParticipants invokes method phone.getGroupParticipants#c558d8ab returning error if any.
 //

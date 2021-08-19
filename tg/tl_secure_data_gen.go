@@ -49,6 +49,14 @@ type SecureData struct {
 // SecureDataTypeID is TL type id of SecureData.
 const SecureDataTypeID = 0x8aeabec3
 
+// Ensuring interfaces in compile-time for SecureData.
+var (
+	_ bin.Encoder     = &SecureData{}
+	_ bin.Decoder     = &SecureData{}
+	_ bin.BareEncoder = &SecureData{}
+	_ bin.BareDecoder = &SecureData{}
+)
+
 func (s *SecureData) Zero() bool {
 	if s == nil {
 		return true
@@ -145,21 +153,6 @@ func (s *SecureData) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetData returns value of Data field.
-func (s *SecureData) GetData() (value []byte) {
-	return s.Data
-}
-
-// GetDataHash returns value of DataHash field.
-func (s *SecureData) GetDataHash() (value []byte) {
-	return s.DataHash
-}
-
-// GetSecret returns value of Secret field.
-func (s *SecureData) GetSecret() (value []byte) {
-	return s.Secret
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureData) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -200,10 +193,17 @@ func (s *SecureData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for SecureData.
-var (
-	_ bin.Encoder     = &SecureData{}
-	_ bin.Decoder     = &SecureData{}
-	_ bin.BareEncoder = &SecureData{}
-	_ bin.BareDecoder = &SecureData{}
-)
+// GetData returns value of Data field.
+func (s *SecureData) GetData() (value []byte) {
+	return s.Data
+}
+
+// GetDataHash returns value of DataHash field.
+func (s *SecureData) GetDataHash() (value []byte) {
+	return s.DataHash
+}
+
+// GetSecret returns value of Secret field.
+func (s *SecureData) GetSecret() (value []byte) {
+	return s.Secret
+}

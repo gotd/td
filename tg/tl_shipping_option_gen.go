@@ -45,6 +45,14 @@ type ShippingOption struct {
 // ShippingOptionTypeID is TL type id of ShippingOption.
 const ShippingOptionTypeID = 0xb6213cdf
 
+// Ensuring interfaces in compile-time for ShippingOption.
+var (
+	_ bin.Encoder     = &ShippingOption{}
+	_ bin.Decoder     = &ShippingOption{}
+	_ bin.BareEncoder = &ShippingOption{}
+	_ bin.BareDecoder = &ShippingOption{}
+)
+
 func (s *ShippingOption) Zero() bool {
 	if s == nil {
 		return true
@@ -146,21 +154,6 @@ func (s *ShippingOption) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (s *ShippingOption) GetID() (value string) {
-	return s.ID
-}
-
-// GetTitle returns value of Title field.
-func (s *ShippingOption) GetTitle() (value string) {
-	return s.Title
-}
-
-// GetPrices returns value of Prices field.
-func (s *ShippingOption) GetPrices() (value []LabeledPrice) {
-	return s.Prices
-}
-
 // Decode implements bin.Decoder.
 func (s *ShippingOption) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -211,10 +204,17 @@ func (s *ShippingOption) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ShippingOption.
-var (
-	_ bin.Encoder     = &ShippingOption{}
-	_ bin.Decoder     = &ShippingOption{}
-	_ bin.BareEncoder = &ShippingOption{}
-	_ bin.BareDecoder = &ShippingOption{}
-)
+// GetID returns value of ID field.
+func (s *ShippingOption) GetID() (value string) {
+	return s.ID
+}
+
+// GetTitle returns value of Title field.
+func (s *ShippingOption) GetTitle() (value string) {
+	return s.Title
+}
+
+// GetPrices returns value of Prices field.
+func (s *ShippingOption) GetPrices() (value []LabeledPrice) {
+	return s.Prices
+}

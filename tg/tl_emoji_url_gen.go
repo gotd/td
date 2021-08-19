@@ -43,6 +43,14 @@ type EmojiURL struct {
 // EmojiURLTypeID is TL type id of EmojiURL.
 const EmojiURLTypeID = 0xa575739d
 
+// Ensuring interfaces in compile-time for EmojiURL.
+var (
+	_ bin.Encoder     = &EmojiURL{}
+	_ bin.Decoder     = &EmojiURL{}
+	_ bin.BareEncoder = &EmojiURL{}
+	_ bin.BareDecoder = &EmojiURL{}
+)
+
 func (e *EmojiURL) Zero() bool {
 	if e == nil {
 		return true
@@ -119,11 +127,6 @@ func (e *EmojiURL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (e *EmojiURL) GetURL() (value string) {
-	return e.URL
-}
-
 // Decode implements bin.Decoder.
 func (e *EmojiURL) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -150,10 +153,7 @@ func (e *EmojiURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for EmojiURL.
-var (
-	_ bin.Encoder     = &EmojiURL{}
-	_ bin.Decoder     = &EmojiURL{}
-	_ bin.BareEncoder = &EmojiURL{}
-	_ bin.BareDecoder = &EmojiURL{}
-)
+// GetURL returns value of URL field.
+func (e *EmojiURL) GetURL() (value string) {
+	return e.URL
+}

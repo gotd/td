@@ -39,6 +39,19 @@ type SecureValueTypePersonalDetails struct {
 // SecureValueTypePersonalDetailsTypeID is TL type id of SecureValueTypePersonalDetails.
 const SecureValueTypePersonalDetailsTypeID = 0x9d2a81e3
 
+// construct implements constructor of SecureValueTypeClass.
+func (s SecureValueTypePersonalDetails) construct() SecureValueTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueTypePersonalDetails.
+var (
+	_ bin.Encoder     = &SecureValueTypePersonalDetails{}
+	_ bin.Decoder     = &SecureValueTypePersonalDetails{}
+	_ bin.BareEncoder = &SecureValueTypePersonalDetails{}
+	_ bin.BareDecoder = &SecureValueTypePersonalDetails{}
+
+	_ SecureValueTypeClass = &SecureValueTypePersonalDetails{}
+)
+
 func (s *SecureValueTypePersonalDetails) Zero() bool {
 	if s == nil {
 		return true
@@ -118,19 +131,6 @@ func (s *SecureValueTypePersonalDetails) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueTypeClass.
-func (s SecureValueTypePersonalDetails) construct() SecureValueTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureValueTypePersonalDetails.
-var (
-	_ bin.Encoder     = &SecureValueTypePersonalDetails{}
-	_ bin.Decoder     = &SecureValueTypePersonalDetails{}
-	_ bin.BareEncoder = &SecureValueTypePersonalDetails{}
-	_ bin.BareDecoder = &SecureValueTypePersonalDetails{}
-
-	_ SecureValueTypeClass = &SecureValueTypePersonalDetails{}
-)
-
 // SecureValueTypePassport represents TL type `secureValueTypePassport#3dac6a00`.
 // Passport
 //
@@ -140,6 +140,19 @@ type SecureValueTypePassport struct {
 
 // SecureValueTypePassportTypeID is TL type id of SecureValueTypePassport.
 const SecureValueTypePassportTypeID = 0x3dac6a00
+
+// construct implements constructor of SecureValueTypeClass.
+func (s SecureValueTypePassport) construct() SecureValueTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueTypePassport.
+var (
+	_ bin.Encoder     = &SecureValueTypePassport{}
+	_ bin.Decoder     = &SecureValueTypePassport{}
+	_ bin.BareEncoder = &SecureValueTypePassport{}
+	_ bin.BareDecoder = &SecureValueTypePassport{}
+
+	_ SecureValueTypeClass = &SecureValueTypePassport{}
+)
 
 func (s *SecureValueTypePassport) Zero() bool {
 	if s == nil {
@@ -220,19 +233,6 @@ func (s *SecureValueTypePassport) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueTypeClass.
-func (s SecureValueTypePassport) construct() SecureValueTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureValueTypePassport.
-var (
-	_ bin.Encoder     = &SecureValueTypePassport{}
-	_ bin.Decoder     = &SecureValueTypePassport{}
-	_ bin.BareEncoder = &SecureValueTypePassport{}
-	_ bin.BareDecoder = &SecureValueTypePassport{}
-
-	_ SecureValueTypeClass = &SecureValueTypePassport{}
-)
-
 // SecureValueTypeDriverLicense represents TL type `secureValueTypeDriverLicense#6e425c4`.
 // Driver's license
 //
@@ -242,6 +242,19 @@ type SecureValueTypeDriverLicense struct {
 
 // SecureValueTypeDriverLicenseTypeID is TL type id of SecureValueTypeDriverLicense.
 const SecureValueTypeDriverLicenseTypeID = 0x6e425c4
+
+// construct implements constructor of SecureValueTypeClass.
+func (s SecureValueTypeDriverLicense) construct() SecureValueTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueTypeDriverLicense.
+var (
+	_ bin.Encoder     = &SecureValueTypeDriverLicense{}
+	_ bin.Decoder     = &SecureValueTypeDriverLicense{}
+	_ bin.BareEncoder = &SecureValueTypeDriverLicense{}
+	_ bin.BareDecoder = &SecureValueTypeDriverLicense{}
+
+	_ SecureValueTypeClass = &SecureValueTypeDriverLicense{}
+)
 
 func (s *SecureValueTypeDriverLicense) Zero() bool {
 	if s == nil {
@@ -322,19 +335,6 @@ func (s *SecureValueTypeDriverLicense) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueTypeClass.
-func (s SecureValueTypeDriverLicense) construct() SecureValueTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureValueTypeDriverLicense.
-var (
-	_ bin.Encoder     = &SecureValueTypeDriverLicense{}
-	_ bin.Decoder     = &SecureValueTypeDriverLicense{}
-	_ bin.BareEncoder = &SecureValueTypeDriverLicense{}
-	_ bin.BareDecoder = &SecureValueTypeDriverLicense{}
-
-	_ SecureValueTypeClass = &SecureValueTypeDriverLicense{}
-)
-
 // SecureValueTypeIdentityCard represents TL type `secureValueTypeIdentityCard#a0d0744b`.
 // Identity card
 //
@@ -344,6 +344,19 @@ type SecureValueTypeIdentityCard struct {
 
 // SecureValueTypeIdentityCardTypeID is TL type id of SecureValueTypeIdentityCard.
 const SecureValueTypeIdentityCardTypeID = 0xa0d0744b
+
+// construct implements constructor of SecureValueTypeClass.
+func (s SecureValueTypeIdentityCard) construct() SecureValueTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueTypeIdentityCard.
+var (
+	_ bin.Encoder     = &SecureValueTypeIdentityCard{}
+	_ bin.Decoder     = &SecureValueTypeIdentityCard{}
+	_ bin.BareEncoder = &SecureValueTypeIdentityCard{}
+	_ bin.BareDecoder = &SecureValueTypeIdentityCard{}
+
+	_ SecureValueTypeClass = &SecureValueTypeIdentityCard{}
+)
 
 func (s *SecureValueTypeIdentityCard) Zero() bool {
 	if s == nil {
@@ -424,19 +437,6 @@ func (s *SecureValueTypeIdentityCard) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueTypeClass.
-func (s SecureValueTypeIdentityCard) construct() SecureValueTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureValueTypeIdentityCard.
-var (
-	_ bin.Encoder     = &SecureValueTypeIdentityCard{}
-	_ bin.Decoder     = &SecureValueTypeIdentityCard{}
-	_ bin.BareEncoder = &SecureValueTypeIdentityCard{}
-	_ bin.BareDecoder = &SecureValueTypeIdentityCard{}
-
-	_ SecureValueTypeClass = &SecureValueTypeIdentityCard{}
-)
-
 // SecureValueTypeInternalPassport represents TL type `secureValueTypeInternalPassport#99a48f23`.
 // Internal passport¹
 //
@@ -449,6 +449,19 @@ type SecureValueTypeInternalPassport struct {
 
 // SecureValueTypeInternalPassportTypeID is TL type id of SecureValueTypeInternalPassport.
 const SecureValueTypeInternalPassportTypeID = 0x99a48f23
+
+// construct implements constructor of SecureValueTypeClass.
+func (s SecureValueTypeInternalPassport) construct() SecureValueTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueTypeInternalPassport.
+var (
+	_ bin.Encoder     = &SecureValueTypeInternalPassport{}
+	_ bin.Decoder     = &SecureValueTypeInternalPassport{}
+	_ bin.BareEncoder = &SecureValueTypeInternalPassport{}
+	_ bin.BareDecoder = &SecureValueTypeInternalPassport{}
+
+	_ SecureValueTypeClass = &SecureValueTypeInternalPassport{}
+)
 
 func (s *SecureValueTypeInternalPassport) Zero() bool {
 	if s == nil {
@@ -529,19 +542,6 @@ func (s *SecureValueTypeInternalPassport) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueTypeClass.
-func (s SecureValueTypeInternalPassport) construct() SecureValueTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureValueTypeInternalPassport.
-var (
-	_ bin.Encoder     = &SecureValueTypeInternalPassport{}
-	_ bin.Decoder     = &SecureValueTypeInternalPassport{}
-	_ bin.BareEncoder = &SecureValueTypeInternalPassport{}
-	_ bin.BareDecoder = &SecureValueTypeInternalPassport{}
-
-	_ SecureValueTypeClass = &SecureValueTypeInternalPassport{}
-)
-
 // SecureValueTypeAddress represents TL type `secureValueTypeAddress#cbe31e26`.
 // Address
 //
@@ -551,6 +551,19 @@ type SecureValueTypeAddress struct {
 
 // SecureValueTypeAddressTypeID is TL type id of SecureValueTypeAddress.
 const SecureValueTypeAddressTypeID = 0xcbe31e26
+
+// construct implements constructor of SecureValueTypeClass.
+func (s SecureValueTypeAddress) construct() SecureValueTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueTypeAddress.
+var (
+	_ bin.Encoder     = &SecureValueTypeAddress{}
+	_ bin.Decoder     = &SecureValueTypeAddress{}
+	_ bin.BareEncoder = &SecureValueTypeAddress{}
+	_ bin.BareDecoder = &SecureValueTypeAddress{}
+
+	_ SecureValueTypeClass = &SecureValueTypeAddress{}
+)
 
 func (s *SecureValueTypeAddress) Zero() bool {
 	if s == nil {
@@ -631,19 +644,6 @@ func (s *SecureValueTypeAddress) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueTypeClass.
-func (s SecureValueTypeAddress) construct() SecureValueTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureValueTypeAddress.
-var (
-	_ bin.Encoder     = &SecureValueTypeAddress{}
-	_ bin.Decoder     = &SecureValueTypeAddress{}
-	_ bin.BareEncoder = &SecureValueTypeAddress{}
-	_ bin.BareDecoder = &SecureValueTypeAddress{}
-
-	_ SecureValueTypeClass = &SecureValueTypeAddress{}
-)
-
 // SecureValueTypeUtilityBill represents TL type `secureValueTypeUtilityBill#fc36954e`.
 // Utility bill
 //
@@ -653,6 +653,19 @@ type SecureValueTypeUtilityBill struct {
 
 // SecureValueTypeUtilityBillTypeID is TL type id of SecureValueTypeUtilityBill.
 const SecureValueTypeUtilityBillTypeID = 0xfc36954e
+
+// construct implements constructor of SecureValueTypeClass.
+func (s SecureValueTypeUtilityBill) construct() SecureValueTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueTypeUtilityBill.
+var (
+	_ bin.Encoder     = &SecureValueTypeUtilityBill{}
+	_ bin.Decoder     = &SecureValueTypeUtilityBill{}
+	_ bin.BareEncoder = &SecureValueTypeUtilityBill{}
+	_ bin.BareDecoder = &SecureValueTypeUtilityBill{}
+
+	_ SecureValueTypeClass = &SecureValueTypeUtilityBill{}
+)
 
 func (s *SecureValueTypeUtilityBill) Zero() bool {
 	if s == nil {
@@ -733,19 +746,6 @@ func (s *SecureValueTypeUtilityBill) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueTypeClass.
-func (s SecureValueTypeUtilityBill) construct() SecureValueTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureValueTypeUtilityBill.
-var (
-	_ bin.Encoder     = &SecureValueTypeUtilityBill{}
-	_ bin.Decoder     = &SecureValueTypeUtilityBill{}
-	_ bin.BareEncoder = &SecureValueTypeUtilityBill{}
-	_ bin.BareDecoder = &SecureValueTypeUtilityBill{}
-
-	_ SecureValueTypeClass = &SecureValueTypeUtilityBill{}
-)
-
 // SecureValueTypeBankStatement represents TL type `secureValueTypeBankStatement#89137c0d`.
 // Bank statement
 //
@@ -755,6 +755,19 @@ type SecureValueTypeBankStatement struct {
 
 // SecureValueTypeBankStatementTypeID is TL type id of SecureValueTypeBankStatement.
 const SecureValueTypeBankStatementTypeID = 0x89137c0d
+
+// construct implements constructor of SecureValueTypeClass.
+func (s SecureValueTypeBankStatement) construct() SecureValueTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueTypeBankStatement.
+var (
+	_ bin.Encoder     = &SecureValueTypeBankStatement{}
+	_ bin.Decoder     = &SecureValueTypeBankStatement{}
+	_ bin.BareEncoder = &SecureValueTypeBankStatement{}
+	_ bin.BareDecoder = &SecureValueTypeBankStatement{}
+
+	_ SecureValueTypeClass = &SecureValueTypeBankStatement{}
+)
 
 func (s *SecureValueTypeBankStatement) Zero() bool {
 	if s == nil {
@@ -835,19 +848,6 @@ func (s *SecureValueTypeBankStatement) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueTypeClass.
-func (s SecureValueTypeBankStatement) construct() SecureValueTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureValueTypeBankStatement.
-var (
-	_ bin.Encoder     = &SecureValueTypeBankStatement{}
-	_ bin.Decoder     = &SecureValueTypeBankStatement{}
-	_ bin.BareEncoder = &SecureValueTypeBankStatement{}
-	_ bin.BareDecoder = &SecureValueTypeBankStatement{}
-
-	_ SecureValueTypeClass = &SecureValueTypeBankStatement{}
-)
-
 // SecureValueTypeRentalAgreement represents TL type `secureValueTypeRentalAgreement#8b883488`.
 // Rental agreement
 //
@@ -857,6 +857,19 @@ type SecureValueTypeRentalAgreement struct {
 
 // SecureValueTypeRentalAgreementTypeID is TL type id of SecureValueTypeRentalAgreement.
 const SecureValueTypeRentalAgreementTypeID = 0x8b883488
+
+// construct implements constructor of SecureValueTypeClass.
+func (s SecureValueTypeRentalAgreement) construct() SecureValueTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueTypeRentalAgreement.
+var (
+	_ bin.Encoder     = &SecureValueTypeRentalAgreement{}
+	_ bin.Decoder     = &SecureValueTypeRentalAgreement{}
+	_ bin.BareEncoder = &SecureValueTypeRentalAgreement{}
+	_ bin.BareDecoder = &SecureValueTypeRentalAgreement{}
+
+	_ SecureValueTypeClass = &SecureValueTypeRentalAgreement{}
+)
 
 func (s *SecureValueTypeRentalAgreement) Zero() bool {
 	if s == nil {
@@ -937,19 +950,6 @@ func (s *SecureValueTypeRentalAgreement) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueTypeClass.
-func (s SecureValueTypeRentalAgreement) construct() SecureValueTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureValueTypeRentalAgreement.
-var (
-	_ bin.Encoder     = &SecureValueTypeRentalAgreement{}
-	_ bin.Decoder     = &SecureValueTypeRentalAgreement{}
-	_ bin.BareEncoder = &SecureValueTypeRentalAgreement{}
-	_ bin.BareDecoder = &SecureValueTypeRentalAgreement{}
-
-	_ SecureValueTypeClass = &SecureValueTypeRentalAgreement{}
-)
-
 // SecureValueTypePassportRegistration represents TL type `secureValueTypePassportRegistration#99e3806a`.
 // Internal registration passport¹
 //
@@ -962,6 +962,19 @@ type SecureValueTypePassportRegistration struct {
 
 // SecureValueTypePassportRegistrationTypeID is TL type id of SecureValueTypePassportRegistration.
 const SecureValueTypePassportRegistrationTypeID = 0x99e3806a
+
+// construct implements constructor of SecureValueTypeClass.
+func (s SecureValueTypePassportRegistration) construct() SecureValueTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueTypePassportRegistration.
+var (
+	_ bin.Encoder     = &SecureValueTypePassportRegistration{}
+	_ bin.Decoder     = &SecureValueTypePassportRegistration{}
+	_ bin.BareEncoder = &SecureValueTypePassportRegistration{}
+	_ bin.BareDecoder = &SecureValueTypePassportRegistration{}
+
+	_ SecureValueTypeClass = &SecureValueTypePassportRegistration{}
+)
 
 func (s *SecureValueTypePassportRegistration) Zero() bool {
 	if s == nil {
@@ -1042,19 +1055,6 @@ func (s *SecureValueTypePassportRegistration) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueTypeClass.
-func (s SecureValueTypePassportRegistration) construct() SecureValueTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureValueTypePassportRegistration.
-var (
-	_ bin.Encoder     = &SecureValueTypePassportRegistration{}
-	_ bin.Decoder     = &SecureValueTypePassportRegistration{}
-	_ bin.BareEncoder = &SecureValueTypePassportRegistration{}
-	_ bin.BareDecoder = &SecureValueTypePassportRegistration{}
-
-	_ SecureValueTypeClass = &SecureValueTypePassportRegistration{}
-)
-
 // SecureValueTypeTemporaryRegistration represents TL type `secureValueTypeTemporaryRegistration#ea02ec33`.
 // Temporary registration
 //
@@ -1064,6 +1064,19 @@ type SecureValueTypeTemporaryRegistration struct {
 
 // SecureValueTypeTemporaryRegistrationTypeID is TL type id of SecureValueTypeTemporaryRegistration.
 const SecureValueTypeTemporaryRegistrationTypeID = 0xea02ec33
+
+// construct implements constructor of SecureValueTypeClass.
+func (s SecureValueTypeTemporaryRegistration) construct() SecureValueTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueTypeTemporaryRegistration.
+var (
+	_ bin.Encoder     = &SecureValueTypeTemporaryRegistration{}
+	_ bin.Decoder     = &SecureValueTypeTemporaryRegistration{}
+	_ bin.BareEncoder = &SecureValueTypeTemporaryRegistration{}
+	_ bin.BareDecoder = &SecureValueTypeTemporaryRegistration{}
+
+	_ SecureValueTypeClass = &SecureValueTypeTemporaryRegistration{}
+)
 
 func (s *SecureValueTypeTemporaryRegistration) Zero() bool {
 	if s == nil {
@@ -1144,19 +1157,6 @@ func (s *SecureValueTypeTemporaryRegistration) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueTypeClass.
-func (s SecureValueTypeTemporaryRegistration) construct() SecureValueTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureValueTypeTemporaryRegistration.
-var (
-	_ bin.Encoder     = &SecureValueTypeTemporaryRegistration{}
-	_ bin.Decoder     = &SecureValueTypeTemporaryRegistration{}
-	_ bin.BareEncoder = &SecureValueTypeTemporaryRegistration{}
-	_ bin.BareDecoder = &SecureValueTypeTemporaryRegistration{}
-
-	_ SecureValueTypeClass = &SecureValueTypeTemporaryRegistration{}
-)
-
 // SecureValueTypePhone represents TL type `secureValueTypePhone#b320aadb`.
 // Phone
 //
@@ -1166,6 +1166,19 @@ type SecureValueTypePhone struct {
 
 // SecureValueTypePhoneTypeID is TL type id of SecureValueTypePhone.
 const SecureValueTypePhoneTypeID = 0xb320aadb
+
+// construct implements constructor of SecureValueTypeClass.
+func (s SecureValueTypePhone) construct() SecureValueTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueTypePhone.
+var (
+	_ bin.Encoder     = &SecureValueTypePhone{}
+	_ bin.Decoder     = &SecureValueTypePhone{}
+	_ bin.BareEncoder = &SecureValueTypePhone{}
+	_ bin.BareDecoder = &SecureValueTypePhone{}
+
+	_ SecureValueTypeClass = &SecureValueTypePhone{}
+)
 
 func (s *SecureValueTypePhone) Zero() bool {
 	if s == nil {
@@ -1246,19 +1259,6 @@ func (s *SecureValueTypePhone) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueTypeClass.
-func (s SecureValueTypePhone) construct() SecureValueTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureValueTypePhone.
-var (
-	_ bin.Encoder     = &SecureValueTypePhone{}
-	_ bin.Decoder     = &SecureValueTypePhone{}
-	_ bin.BareEncoder = &SecureValueTypePhone{}
-	_ bin.BareDecoder = &SecureValueTypePhone{}
-
-	_ SecureValueTypeClass = &SecureValueTypePhone{}
-)
-
 // SecureValueTypeEmail represents TL type `secureValueTypeEmail#8e3ca7ee`.
 // Email
 //
@@ -1268,6 +1268,19 @@ type SecureValueTypeEmail struct {
 
 // SecureValueTypeEmailTypeID is TL type id of SecureValueTypeEmail.
 const SecureValueTypeEmailTypeID = 0x8e3ca7ee
+
+// construct implements constructor of SecureValueTypeClass.
+func (s SecureValueTypeEmail) construct() SecureValueTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueTypeEmail.
+var (
+	_ bin.Encoder     = &SecureValueTypeEmail{}
+	_ bin.Decoder     = &SecureValueTypeEmail{}
+	_ bin.BareEncoder = &SecureValueTypeEmail{}
+	_ bin.BareDecoder = &SecureValueTypeEmail{}
+
+	_ SecureValueTypeClass = &SecureValueTypeEmail{}
+)
 
 func (s *SecureValueTypeEmail) Zero() bool {
 	if s == nil {
@@ -1347,19 +1360,6 @@ func (s *SecureValueTypeEmail) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of SecureValueTypeClass.
-func (s SecureValueTypeEmail) construct() SecureValueTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureValueTypeEmail.
-var (
-	_ bin.Encoder     = &SecureValueTypeEmail{}
-	_ bin.Decoder     = &SecureValueTypeEmail{}
-	_ bin.BareEncoder = &SecureValueTypeEmail{}
-	_ bin.BareDecoder = &SecureValueTypeEmail{}
-
-	_ SecureValueTypeClass = &SecureValueTypeEmail{}
-)
 
 // SecureValueTypeClass represents SecureValueType generic type.
 //
@@ -1532,86 +1532,4 @@ func (b *SecureValueTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SecureValueTypeClass as nil")
 	}
 	return b.SecureValueType.Encode(buf)
-}
-
-// SecureValueTypeClassArray is adapter for slice of SecureValueTypeClass.
-type SecureValueTypeClassArray []SecureValueTypeClass
-
-// Sort sorts slice of SecureValueTypeClass.
-func (s SecureValueTypeClassArray) Sort(less func(a, b SecureValueTypeClass) bool) SecureValueTypeClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecureValueTypeClass.
-func (s SecureValueTypeClassArray) SortStable(less func(a, b SecureValueTypeClass) bool) SecureValueTypeClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecureValueTypeClass.
-func (s SecureValueTypeClassArray) Retain(keep func(x SecureValueTypeClass) bool) SecureValueTypeClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecureValueTypeClassArray) First() (v SecureValueTypeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecureValueTypeClassArray) Last() (v SecureValueTypeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureValueTypeClassArray) PopFirst() (v SecureValueTypeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecureValueTypeClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureValueTypeClassArray) Pop() (v SecureValueTypeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

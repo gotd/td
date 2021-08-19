@@ -38,6 +38,14 @@ type BotCommandVector struct {
 // BotCommandVectorTypeID is TL type id of BotCommandVector.
 const BotCommandVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for BotCommandVector.
+var (
+	_ bin.Encoder     = &BotCommandVector{}
+	_ bin.Decoder     = &BotCommandVector{}
+	_ bin.BareEncoder = &BotCommandVector{}
+	_ bin.BareDecoder = &BotCommandVector{}
+)
+
 func (vec *BotCommandVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -119,11 +127,6 @@ func (vec *BotCommandVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *BotCommandVector) GetElems() (value []BotCommand) {
-	return vec.Elems
-}
-
 // Decode implements bin.Decoder.
 func (vec *BotCommandVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -158,10 +161,7 @@ func (vec *BotCommandVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for BotCommandVector.
-var (
-	_ bin.Encoder     = &BotCommandVector{}
-	_ bin.Decoder     = &BotCommandVector{}
-	_ bin.BareEncoder = &BotCommandVector{}
-	_ bin.BareDecoder = &BotCommandVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *BotCommandVector) GetElems() (value []BotCommand) {
+	return vec.Elems
+}

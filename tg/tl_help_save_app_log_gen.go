@@ -41,6 +41,14 @@ type HelpSaveAppLogRequest struct {
 // HelpSaveAppLogRequestTypeID is TL type id of HelpSaveAppLogRequest.
 const HelpSaveAppLogRequestTypeID = 0x6f02f748
 
+// Ensuring interfaces in compile-time for HelpSaveAppLogRequest.
+var (
+	_ bin.Encoder     = &HelpSaveAppLogRequest{}
+	_ bin.Decoder     = &HelpSaveAppLogRequest{}
+	_ bin.BareEncoder = &HelpSaveAppLogRequest{}
+	_ bin.BareDecoder = &HelpSaveAppLogRequest{}
+)
+
 func (s *HelpSaveAppLogRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -122,11 +130,6 @@ func (s *HelpSaveAppLogRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetEvents returns value of Events field.
-func (s *HelpSaveAppLogRequest) GetEvents() (value []InputAppEvent) {
-	return s.Events
-}
-
 // Decode implements bin.Decoder.
 func (s *HelpSaveAppLogRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -163,13 +166,10 @@ func (s *HelpSaveAppLogRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpSaveAppLogRequest.
-var (
-	_ bin.Encoder     = &HelpSaveAppLogRequest{}
-	_ bin.Decoder     = &HelpSaveAppLogRequest{}
-	_ bin.BareEncoder = &HelpSaveAppLogRequest{}
-	_ bin.BareDecoder = &HelpSaveAppLogRequest{}
-)
+// GetEvents returns value of Events field.
+func (s *HelpSaveAppLogRequest) GetEvents() (value []InputAppEvent) {
+	return s.Events
+}
 
 // HelpSaveAppLog invokes method help.saveAppLog#6f02f748 returning error if any.
 // Saves logs of application on the server.

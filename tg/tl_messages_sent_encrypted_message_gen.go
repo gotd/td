@@ -41,6 +41,19 @@ type MessagesSentEncryptedMessage struct {
 // MessagesSentEncryptedMessageTypeID is TL type id of MessagesSentEncryptedMessage.
 const MessagesSentEncryptedMessageTypeID = 0x560f8935
 
+// construct implements constructor of MessagesSentEncryptedMessageClass.
+func (s MessagesSentEncryptedMessage) construct() MessagesSentEncryptedMessageClass { return &s }
+
+// Ensuring interfaces in compile-time for MessagesSentEncryptedMessage.
+var (
+	_ bin.Encoder     = &MessagesSentEncryptedMessage{}
+	_ bin.Decoder     = &MessagesSentEncryptedMessage{}
+	_ bin.BareEncoder = &MessagesSentEncryptedMessage{}
+	_ bin.BareDecoder = &MessagesSentEncryptedMessage{}
+
+	_ MessagesSentEncryptedMessageClass = &MessagesSentEncryptedMessage{}
+)
+
 func (s *MessagesSentEncryptedMessage) Zero() bool {
 	if s == nil {
 		return true
@@ -117,11 +130,6 @@ func (s *MessagesSentEncryptedMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDate returns value of Date field.
-func (s *MessagesSentEncryptedMessage) GetDate() (value int) {
-	return s.Date
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSentEncryptedMessage) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -148,18 +156,10 @@ func (s *MessagesSentEncryptedMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesSentEncryptedMessageClass.
-func (s MessagesSentEncryptedMessage) construct() MessagesSentEncryptedMessageClass { return &s }
-
-// Ensuring interfaces in compile-time for MessagesSentEncryptedMessage.
-var (
-	_ bin.Encoder     = &MessagesSentEncryptedMessage{}
-	_ bin.Decoder     = &MessagesSentEncryptedMessage{}
-	_ bin.BareEncoder = &MessagesSentEncryptedMessage{}
-	_ bin.BareDecoder = &MessagesSentEncryptedMessage{}
-
-	_ MessagesSentEncryptedMessageClass = &MessagesSentEncryptedMessage{}
-)
+// GetDate returns value of Date field.
+func (s *MessagesSentEncryptedMessage) GetDate() (value int) {
+	return s.Date
+}
 
 // MessagesSentEncryptedFile represents TL type `messages.sentEncryptedFile#9493ff32`.
 // Message with a file enclosure sent to a protected chat
@@ -174,6 +174,19 @@ type MessagesSentEncryptedFile struct {
 
 // MessagesSentEncryptedFileTypeID is TL type id of MessagesSentEncryptedFile.
 const MessagesSentEncryptedFileTypeID = 0x9493ff32
+
+// construct implements constructor of MessagesSentEncryptedMessageClass.
+func (s MessagesSentEncryptedFile) construct() MessagesSentEncryptedMessageClass { return &s }
+
+// Ensuring interfaces in compile-time for MessagesSentEncryptedFile.
+var (
+	_ bin.Encoder     = &MessagesSentEncryptedFile{}
+	_ bin.Decoder     = &MessagesSentEncryptedFile{}
+	_ bin.BareEncoder = &MessagesSentEncryptedFile{}
+	_ bin.BareDecoder = &MessagesSentEncryptedFile{}
+
+	_ MessagesSentEncryptedMessageClass = &MessagesSentEncryptedFile{}
+)
 
 func (s *MessagesSentEncryptedFile) Zero() bool {
 	if s == nil {
@@ -266,16 +279,6 @@ func (s *MessagesSentEncryptedFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDate returns value of Date field.
-func (s *MessagesSentEncryptedFile) GetDate() (value int) {
-	return s.Date
-}
-
-// GetFile returns value of File field.
-func (s *MessagesSentEncryptedFile) GetFile() (value EncryptedFileClass) {
-	return s.File
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSentEncryptedFile) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -309,18 +312,15 @@ func (s *MessagesSentEncryptedFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesSentEncryptedMessageClass.
-func (s MessagesSentEncryptedFile) construct() MessagesSentEncryptedMessageClass { return &s }
+// GetDate returns value of Date field.
+func (s *MessagesSentEncryptedFile) GetDate() (value int) {
+	return s.Date
+}
 
-// Ensuring interfaces in compile-time for MessagesSentEncryptedFile.
-var (
-	_ bin.Encoder     = &MessagesSentEncryptedFile{}
-	_ bin.Decoder     = &MessagesSentEncryptedFile{}
-	_ bin.BareEncoder = &MessagesSentEncryptedFile{}
-	_ bin.BareDecoder = &MessagesSentEncryptedFile{}
-
-	_ MessagesSentEncryptedMessageClass = &MessagesSentEncryptedFile{}
-)
+// GetFile returns value of File field.
+func (s *MessagesSentEncryptedFile) GetFile() (value EncryptedFileClass) {
+	return s.File
+}
 
 // MessagesSentEncryptedMessageClass represents messages.SentEncryptedMessage generic type.
 //
@@ -408,318 +408,4 @@ func (b *MessagesSentEncryptedMessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesSentEncryptedMessageClass as nil")
 	}
 	return b.SentEncryptedMessage.Encode(buf)
-}
-
-// MessagesSentEncryptedMessageClassArray is adapter for slice of MessagesSentEncryptedMessageClass.
-type MessagesSentEncryptedMessageClassArray []MessagesSentEncryptedMessageClass
-
-// Sort sorts slice of MessagesSentEncryptedMessageClass.
-func (s MessagesSentEncryptedMessageClassArray) Sort(less func(a, b MessagesSentEncryptedMessageClass) bool) MessagesSentEncryptedMessageClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesSentEncryptedMessageClass.
-func (s MessagesSentEncryptedMessageClassArray) SortStable(less func(a, b MessagesSentEncryptedMessageClass) bool) MessagesSentEncryptedMessageClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesSentEncryptedMessageClass.
-func (s MessagesSentEncryptedMessageClassArray) Retain(keep func(x MessagesSentEncryptedMessageClass) bool) MessagesSentEncryptedMessageClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesSentEncryptedMessageClassArray) First() (v MessagesSentEncryptedMessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesSentEncryptedMessageClassArray) Last() (v MessagesSentEncryptedMessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesSentEncryptedMessageClassArray) PopFirst() (v MessagesSentEncryptedMessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesSentEncryptedMessageClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesSentEncryptedMessageClassArray) Pop() (v MessagesSentEncryptedMessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of MessagesSentEncryptedMessageClass by Date.
-func (s MessagesSentEncryptedMessageClassArray) SortByDate() MessagesSentEncryptedMessageClassArray {
-	return s.Sort(func(a, b MessagesSentEncryptedMessageClass) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of MessagesSentEncryptedMessageClass by Date.
-func (s MessagesSentEncryptedMessageClassArray) SortStableByDate() MessagesSentEncryptedMessageClassArray {
-	return s.SortStable(func(a, b MessagesSentEncryptedMessageClass) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// AsMessagesSentEncryptedMessage returns copy with only MessagesSentEncryptedMessage constructors.
-func (s MessagesSentEncryptedMessageClassArray) AsMessagesSentEncryptedMessage() (to MessagesSentEncryptedMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessagesSentEncryptedMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessagesSentEncryptedFile returns copy with only MessagesSentEncryptedFile constructors.
-func (s MessagesSentEncryptedMessageClassArray) AsMessagesSentEncryptedFile() (to MessagesSentEncryptedFileArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessagesSentEncryptedFile)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// MessagesSentEncryptedMessageArray is adapter for slice of MessagesSentEncryptedMessage.
-type MessagesSentEncryptedMessageArray []MessagesSentEncryptedMessage
-
-// Sort sorts slice of MessagesSentEncryptedMessage.
-func (s MessagesSentEncryptedMessageArray) Sort(less func(a, b MessagesSentEncryptedMessage) bool) MessagesSentEncryptedMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesSentEncryptedMessage.
-func (s MessagesSentEncryptedMessageArray) SortStable(less func(a, b MessagesSentEncryptedMessage) bool) MessagesSentEncryptedMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesSentEncryptedMessage.
-func (s MessagesSentEncryptedMessageArray) Retain(keep func(x MessagesSentEncryptedMessage) bool) MessagesSentEncryptedMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesSentEncryptedMessageArray) First() (v MessagesSentEncryptedMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesSentEncryptedMessageArray) Last() (v MessagesSentEncryptedMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesSentEncryptedMessageArray) PopFirst() (v MessagesSentEncryptedMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesSentEncryptedMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesSentEncryptedMessageArray) Pop() (v MessagesSentEncryptedMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of MessagesSentEncryptedMessage by Date.
-func (s MessagesSentEncryptedMessageArray) SortByDate() MessagesSentEncryptedMessageArray {
-	return s.Sort(func(a, b MessagesSentEncryptedMessage) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of MessagesSentEncryptedMessage by Date.
-func (s MessagesSentEncryptedMessageArray) SortStableByDate() MessagesSentEncryptedMessageArray {
-	return s.SortStable(func(a, b MessagesSentEncryptedMessage) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// MessagesSentEncryptedFileArray is adapter for slice of MessagesSentEncryptedFile.
-type MessagesSentEncryptedFileArray []MessagesSentEncryptedFile
-
-// Sort sorts slice of MessagesSentEncryptedFile.
-func (s MessagesSentEncryptedFileArray) Sort(less func(a, b MessagesSentEncryptedFile) bool) MessagesSentEncryptedFileArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesSentEncryptedFile.
-func (s MessagesSentEncryptedFileArray) SortStable(less func(a, b MessagesSentEncryptedFile) bool) MessagesSentEncryptedFileArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesSentEncryptedFile.
-func (s MessagesSentEncryptedFileArray) Retain(keep func(x MessagesSentEncryptedFile) bool) MessagesSentEncryptedFileArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesSentEncryptedFileArray) First() (v MessagesSentEncryptedFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesSentEncryptedFileArray) Last() (v MessagesSentEncryptedFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesSentEncryptedFileArray) PopFirst() (v MessagesSentEncryptedFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesSentEncryptedFile
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesSentEncryptedFileArray) Pop() (v MessagesSentEncryptedFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of MessagesSentEncryptedFile by Date.
-func (s MessagesSentEncryptedFileArray) SortByDate() MessagesSentEncryptedFileArray {
-	return s.Sort(func(a, b MessagesSentEncryptedFile) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of MessagesSentEncryptedFile by Date.
-func (s MessagesSentEncryptedFileArray) SortStableByDate() MessagesSentEncryptedFileArray {
-	return s.SortStable(func(a, b MessagesSentEncryptedFile) bool {
-		return a.GetDate() < b.GetDate()
-	})
 }

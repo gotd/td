@@ -44,6 +44,19 @@ type GroupCallDiscarded struct {
 // GroupCallDiscardedTypeID is TL type id of GroupCallDiscarded.
 const GroupCallDiscardedTypeID = 0x7780bcb4
 
+// construct implements constructor of GroupCallClass.
+func (g GroupCallDiscarded) construct() GroupCallClass { return &g }
+
+// Ensuring interfaces in compile-time for GroupCallDiscarded.
+var (
+	_ bin.Encoder     = &GroupCallDiscarded{}
+	_ bin.Decoder     = &GroupCallDiscarded{}
+	_ bin.BareEncoder = &GroupCallDiscarded{}
+	_ bin.BareDecoder = &GroupCallDiscarded{}
+
+	_ GroupCallClass = &GroupCallDiscarded{}
+)
+
 func (g *GroupCallDiscarded) Zero() bool {
 	if g == nil {
 		return true
@@ -140,21 +153,6 @@ func (g *GroupCallDiscarded) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (g *GroupCallDiscarded) GetID() (value int64) {
-	return g.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (g *GroupCallDiscarded) GetAccessHash() (value int64) {
-	return g.AccessHash
-}
-
-// GetDuration returns value of Duration field.
-func (g *GroupCallDiscarded) GetDuration() (value int) {
-	return g.Duration
-}
-
 // Decode implements bin.Decoder.
 func (g *GroupCallDiscarded) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -195,18 +193,20 @@ func (g *GroupCallDiscarded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of GroupCallClass.
-func (g GroupCallDiscarded) construct() GroupCallClass { return &g }
+// GetID returns value of ID field.
+func (g *GroupCallDiscarded) GetID() (value int64) {
+	return g.ID
+}
 
-// Ensuring interfaces in compile-time for GroupCallDiscarded.
-var (
-	_ bin.Encoder     = &GroupCallDiscarded{}
-	_ bin.Decoder     = &GroupCallDiscarded{}
-	_ bin.BareEncoder = &GroupCallDiscarded{}
-	_ bin.BareDecoder = &GroupCallDiscarded{}
+// GetAccessHash returns value of AccessHash field.
+func (g *GroupCallDiscarded) GetAccessHash() (value int64) {
+	return g.AccessHash
+}
 
-	_ GroupCallClass = &GroupCallDiscarded{}
-)
+// GetDuration returns value of Duration field.
+func (g *GroupCallDiscarded) GetDuration() (value int) {
+	return g.Duration
+}
 
 // GroupCall represents TL type `groupCall#d597650c`.
 //
@@ -258,6 +258,19 @@ type GroupCall struct {
 
 // GroupCallTypeID is TL type id of GroupCall.
 const GroupCallTypeID = 0xd597650c
+
+// construct implements constructor of GroupCallClass.
+func (g GroupCall) construct() GroupCallClass { return &g }
+
+// Ensuring interfaces in compile-time for GroupCall.
+var (
+	_ bin.Encoder     = &GroupCall{}
+	_ bin.Decoder     = &GroupCall{}
+	_ bin.BareEncoder = &GroupCall{}
+	_ bin.BareDecoder = &GroupCall{}
+
+	_ GroupCallClass = &GroupCall{}
+)
 
 func (g *GroupCall) Zero() bool {
 	if g == nil {
@@ -541,6 +554,105 @@ func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (g *GroupCall) Decode(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode groupCall#d597650c to nil")
+	}
+	if err := b.ConsumeID(GroupCallTypeID); err != nil {
+		return fmt.Errorf("unable to decode groupCall#d597650c: %w", err)
+	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode groupCall#d597650c to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field flags: %w", err)
+		}
+	}
+	g.JoinMuted = g.Flags.Has(1)
+	g.CanChangeJoinMuted = g.Flags.Has(2)
+	g.JoinDateAsc = g.Flags.Has(6)
+	g.ScheduleStartSubscribed = g.Flags.Has(8)
+	g.CanStartVideo = g.Flags.Has(9)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field id: %w", err)
+		}
+		g.ID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field access_hash: %w", err)
+		}
+		g.AccessHash = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field participants_count: %w", err)
+		}
+		g.ParticipantsCount = value
+	}
+	if g.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field title: %w", err)
+		}
+		g.Title = value
+	}
+	if g.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field stream_dc_id: %w", err)
+		}
+		g.StreamDCID = value
+	}
+	if g.Flags.Has(5) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field record_start_date: %w", err)
+		}
+		g.RecordStartDate = value
+	}
+	if g.Flags.Has(7) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field schedule_date: %w", err)
+		}
+		g.ScheduleDate = value
+	}
+	if g.Flags.Has(10) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field unmuted_video_count: %w", err)
+		}
+		g.UnmutedVideoCount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field unmuted_video_limit: %w", err)
+		}
+		g.UnmutedVideoLimit = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#d597650c: field version: %w", err)
+		}
+		g.Version = value
+	}
+	return nil
+}
+
 // SetJoinMuted sets value of JoinMuted conditional field.
 func (g *GroupCall) SetJoinMuted(value bool) {
 	if value {
@@ -721,118 +833,6 @@ func (g *GroupCall) GetVersion() (value int) {
 	return g.Version
 }
 
-// Decode implements bin.Decoder.
-func (g *GroupCall) Decode(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't decode groupCall#d597650c to nil")
-	}
-	if err := b.ConsumeID(GroupCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode groupCall#d597650c: %w", err)
-	}
-	return g.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't decode groupCall#d597650c to nil")
-	}
-	{
-		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field flags: %w", err)
-		}
-	}
-	g.JoinMuted = g.Flags.Has(1)
-	g.CanChangeJoinMuted = g.Flags.Has(2)
-	g.JoinDateAsc = g.Flags.Has(6)
-	g.ScheduleStartSubscribed = g.Flags.Has(8)
-	g.CanStartVideo = g.Flags.Has(9)
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field id: %w", err)
-		}
-		g.ID = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field access_hash: %w", err)
-		}
-		g.AccessHash = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field participants_count: %w", err)
-		}
-		g.ParticipantsCount = value
-	}
-	if g.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field title: %w", err)
-		}
-		g.Title = value
-	}
-	if g.Flags.Has(4) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field stream_dc_id: %w", err)
-		}
-		g.StreamDCID = value
-	}
-	if g.Flags.Has(5) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field record_start_date: %w", err)
-		}
-		g.RecordStartDate = value
-	}
-	if g.Flags.Has(7) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field schedule_date: %w", err)
-		}
-		g.ScheduleDate = value
-	}
-	if g.Flags.Has(10) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field unmuted_video_count: %w", err)
-		}
-		g.UnmutedVideoCount = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field unmuted_video_limit: %w", err)
-		}
-		g.UnmutedVideoLimit = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#d597650c: field version: %w", err)
-		}
-		g.Version = value
-	}
-	return nil
-}
-
-// construct implements constructor of GroupCallClass.
-func (g GroupCall) construct() GroupCallClass { return &g }
-
-// Ensuring interfaces in compile-time for GroupCall.
-var (
-	_ bin.Encoder     = &GroupCall{}
-	_ bin.Decoder     = &GroupCall{}
-	_ bin.BareEncoder = &GroupCall{}
-	_ bin.BareDecoder = &GroupCall{}
-
-	_ GroupCallClass = &GroupCall{}
-)
-
 // GroupCallClass represents GroupCall generic type.
 //
 // See https://core.telegram.org/type/GroupCall for reference.
@@ -931,276 +931,4 @@ func (b *GroupCallBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode GroupCallClass as nil")
 	}
 	return b.GroupCall.Encode(buf)
-}
-
-// GroupCallClassArray is adapter for slice of GroupCallClass.
-type GroupCallClassArray []GroupCallClass
-
-// Sort sorts slice of GroupCallClass.
-func (s GroupCallClassArray) Sort(less func(a, b GroupCallClass) bool) GroupCallClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of GroupCallClass.
-func (s GroupCallClassArray) SortStable(less func(a, b GroupCallClass) bool) GroupCallClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of GroupCallClass.
-func (s GroupCallClassArray) Retain(keep func(x GroupCallClass) bool) GroupCallClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s GroupCallClassArray) First() (v GroupCallClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s GroupCallClassArray) Last() (v GroupCallClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *GroupCallClassArray) PopFirst() (v GroupCallClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero GroupCallClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *GroupCallClassArray) Pop() (v GroupCallClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsGroupCallDiscarded returns copy with only GroupCallDiscarded constructors.
-func (s GroupCallClassArray) AsGroupCallDiscarded() (to GroupCallDiscardedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*GroupCallDiscarded)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsGroupCall returns copy with only GroupCall constructors.
-func (s GroupCallClassArray) AsGroupCall() (to GroupCallArray) {
-	for _, elem := range s {
-		value, ok := elem.(*GroupCall)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// GroupCallDiscardedArray is adapter for slice of GroupCallDiscarded.
-type GroupCallDiscardedArray []GroupCallDiscarded
-
-// Sort sorts slice of GroupCallDiscarded.
-func (s GroupCallDiscardedArray) Sort(less func(a, b GroupCallDiscarded) bool) GroupCallDiscardedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of GroupCallDiscarded.
-func (s GroupCallDiscardedArray) SortStable(less func(a, b GroupCallDiscarded) bool) GroupCallDiscardedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of GroupCallDiscarded.
-func (s GroupCallDiscardedArray) Retain(keep func(x GroupCallDiscarded) bool) GroupCallDiscardedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s GroupCallDiscardedArray) First() (v GroupCallDiscarded, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s GroupCallDiscardedArray) Last() (v GroupCallDiscarded, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *GroupCallDiscardedArray) PopFirst() (v GroupCallDiscarded, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero GroupCallDiscarded
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *GroupCallDiscardedArray) Pop() (v GroupCallDiscarded, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// GroupCallArray is adapter for slice of GroupCall.
-type GroupCallArray []GroupCall
-
-// Sort sorts slice of GroupCall.
-func (s GroupCallArray) Sort(less func(a, b GroupCall) bool) GroupCallArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of GroupCall.
-func (s GroupCallArray) SortStable(less func(a, b GroupCall) bool) GroupCallArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of GroupCall.
-func (s GroupCallArray) Retain(keep func(x GroupCall) bool) GroupCallArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s GroupCallArray) First() (v GroupCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s GroupCallArray) Last() (v GroupCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *GroupCallArray) PopFirst() (v GroupCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero GroupCall
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *GroupCallArray) Pop() (v GroupCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

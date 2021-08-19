@@ -61,6 +61,14 @@ type MessagesSetBotShippingResultsRequest struct {
 // MessagesSetBotShippingResultsRequestTypeID is TL type id of MessagesSetBotShippingResultsRequest.
 const MessagesSetBotShippingResultsRequestTypeID = 0xe5f672fa
 
+// Ensuring interfaces in compile-time for MessagesSetBotShippingResultsRequest.
+var (
+	_ bin.Encoder     = &MessagesSetBotShippingResultsRequest{}
+	_ bin.Decoder     = &MessagesSetBotShippingResultsRequest{}
+	_ bin.BareEncoder = &MessagesSetBotShippingResultsRequest{}
+	_ bin.BareDecoder = &MessagesSetBotShippingResultsRequest{}
+)
+
 func (s *MessagesSetBotShippingResultsRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -186,41 +194,6 @@ func (s *MessagesSetBotShippingResultsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQueryID returns value of QueryID field.
-func (s *MessagesSetBotShippingResultsRequest) GetQueryID() (value int64) {
-	return s.QueryID
-}
-
-// SetError sets value of Error conditional field.
-func (s *MessagesSetBotShippingResultsRequest) SetError(value string) {
-	s.Flags.Set(0)
-	s.Error = value
-}
-
-// GetError returns value of Error conditional field and
-// boolean which is true if field was set.
-func (s *MessagesSetBotShippingResultsRequest) GetError() (value string, ok bool) {
-	if !s.Flags.Has(0) {
-		return value, false
-	}
-	return s.Error, true
-}
-
-// SetShippingOptions sets value of ShippingOptions conditional field.
-func (s *MessagesSetBotShippingResultsRequest) SetShippingOptions(value []ShippingOption) {
-	s.Flags.Set(1)
-	s.ShippingOptions = value
-}
-
-// GetShippingOptions returns value of ShippingOptions conditional field and
-// boolean which is true if field was set.
-func (s *MessagesSetBotShippingResultsRequest) GetShippingOptions() (value []ShippingOption, ok bool) {
-	if !s.Flags.Has(1) {
-		return value, false
-	}
-	return s.ShippingOptions, true
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSetBotShippingResultsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -276,13 +249,40 @@ func (s *MessagesSetBotShippingResultsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSetBotShippingResultsRequest.
-var (
-	_ bin.Encoder     = &MessagesSetBotShippingResultsRequest{}
-	_ bin.Decoder     = &MessagesSetBotShippingResultsRequest{}
-	_ bin.BareEncoder = &MessagesSetBotShippingResultsRequest{}
-	_ bin.BareDecoder = &MessagesSetBotShippingResultsRequest{}
-)
+// GetQueryID returns value of QueryID field.
+func (s *MessagesSetBotShippingResultsRequest) GetQueryID() (value int64) {
+	return s.QueryID
+}
+
+// SetError sets value of Error conditional field.
+func (s *MessagesSetBotShippingResultsRequest) SetError(value string) {
+	s.Flags.Set(0)
+	s.Error = value
+}
+
+// GetError returns value of Error conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSetBotShippingResultsRequest) GetError() (value string, ok bool) {
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.Error, true
+}
+
+// SetShippingOptions sets value of ShippingOptions conditional field.
+func (s *MessagesSetBotShippingResultsRequest) SetShippingOptions(value []ShippingOption) {
+	s.Flags.Set(1)
+	s.ShippingOptions = value
+}
+
+// GetShippingOptions returns value of ShippingOptions conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSetBotShippingResultsRequest) GetShippingOptions() (value []ShippingOption, ok bool) {
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.ShippingOptions, true
+}
 
 // MessagesSetBotShippingResults invokes method messages.setBotShippingResults#e5f672fa returning error if any.
 // If you sent an invoice requesting a shipping address and the parameter is_flexible was

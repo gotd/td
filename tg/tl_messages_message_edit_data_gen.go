@@ -46,6 +46,14 @@ type MessagesMessageEditData struct {
 // MessagesMessageEditDataTypeID is TL type id of MessagesMessageEditData.
 const MessagesMessageEditDataTypeID = 0x26b5dde6
 
+// Ensuring interfaces in compile-time for MessagesMessageEditData.
+var (
+	_ bin.Encoder     = &MessagesMessageEditData{}
+	_ bin.Decoder     = &MessagesMessageEditData{}
+	_ bin.BareEncoder = &MessagesMessageEditData{}
+	_ bin.BareDecoder = &MessagesMessageEditData{}
+)
+
 func (m *MessagesMessageEditData) Zero() bool {
 	if m == nil {
 		return true
@@ -131,22 +139,6 @@ func (m *MessagesMessageEditData) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetCaption sets value of Caption conditional field.
-func (m *MessagesMessageEditData) SetCaption(value bool) {
-	if value {
-		m.Flags.Set(0)
-		m.Caption = true
-	} else {
-		m.Flags.Unset(0)
-		m.Caption = false
-	}
-}
-
-// GetCaption returns value of Caption conditional field.
-func (m *MessagesMessageEditData) GetCaption() (value bool) {
-	return m.Flags.Has(0)
-}
-
 // Decode implements bin.Decoder.
 func (m *MessagesMessageEditData) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -172,10 +164,18 @@ func (m *MessagesMessageEditData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesMessageEditData.
-var (
-	_ bin.Encoder     = &MessagesMessageEditData{}
-	_ bin.Decoder     = &MessagesMessageEditData{}
-	_ bin.BareEncoder = &MessagesMessageEditData{}
-	_ bin.BareDecoder = &MessagesMessageEditData{}
-)
+// SetCaption sets value of Caption conditional field.
+func (m *MessagesMessageEditData) SetCaption(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.Caption = true
+	} else {
+		m.Flags.Unset(0)
+		m.Caption = false
+	}
+}
+
+// GetCaption returns value of Caption conditional field.
+func (m *MessagesMessageEditData) GetCaption() (value bool) {
+	return m.Flags.Has(0)
+}

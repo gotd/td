@@ -42,6 +42,14 @@ type PhoneGetGroupCallRequest struct {
 // PhoneGetGroupCallRequestTypeID is TL type id of PhoneGetGroupCallRequest.
 const PhoneGetGroupCallRequestTypeID = 0x41845db
 
+// Ensuring interfaces in compile-time for PhoneGetGroupCallRequest.
+var (
+	_ bin.Encoder     = &PhoneGetGroupCallRequest{}
+	_ bin.Decoder     = &PhoneGetGroupCallRequest{}
+	_ bin.BareEncoder = &PhoneGetGroupCallRequest{}
+	_ bin.BareDecoder = &PhoneGetGroupCallRequest{}
+)
+
 func (g *PhoneGetGroupCallRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -130,16 +138,6 @@ func (g *PhoneGetGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (g *PhoneGetGroupCallRequest) GetCall() (value InputGroupCall) {
-	return g.Call
-}
-
-// GetLimit returns value of Limit field.
-func (g *PhoneGetGroupCallRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *PhoneGetGroupCallRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -171,13 +169,15 @@ func (g *PhoneGetGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneGetGroupCallRequest.
-var (
-	_ bin.Encoder     = &PhoneGetGroupCallRequest{}
-	_ bin.Decoder     = &PhoneGetGroupCallRequest{}
-	_ bin.BareEncoder = &PhoneGetGroupCallRequest{}
-	_ bin.BareDecoder = &PhoneGetGroupCallRequest{}
-)
+// GetCall returns value of Call field.
+func (g *PhoneGetGroupCallRequest) GetCall() (value InputGroupCall) {
+	return g.Call
+}
+
+// GetLimit returns value of Limit field.
+func (g *PhoneGetGroupCallRequest) GetLimit() (value int) {
+	return g.Limit
+}
 
 // PhoneGetGroupCall invokes method phone.getGroupCall#41845db returning error if any.
 //

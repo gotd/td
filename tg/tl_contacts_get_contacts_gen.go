@@ -47,6 +47,14 @@ type ContactsGetContactsRequest struct {
 // ContactsGetContactsRequestTypeID is TL type id of ContactsGetContactsRequest.
 const ContactsGetContactsRequestTypeID = 0xc023849f
 
+// Ensuring interfaces in compile-time for ContactsGetContactsRequest.
+var (
+	_ bin.Encoder     = &ContactsGetContactsRequest{}
+	_ bin.Decoder     = &ContactsGetContactsRequest{}
+	_ bin.BareEncoder = &ContactsGetContactsRequest{}
+	_ bin.BareDecoder = &ContactsGetContactsRequest{}
+)
+
 func (g *ContactsGetContactsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -123,11 +131,6 @@ func (g *ContactsGetContactsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (g *ContactsGetContactsRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *ContactsGetContactsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -154,13 +157,10 @@ func (g *ContactsGetContactsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsGetContactsRequest.
-var (
-	_ bin.Encoder     = &ContactsGetContactsRequest{}
-	_ bin.Decoder     = &ContactsGetContactsRequest{}
-	_ bin.BareEncoder = &ContactsGetContactsRequest{}
-	_ bin.BareDecoder = &ContactsGetContactsRequest{}
-)
+// GetHash returns value of Hash field.
+func (g *ContactsGetContactsRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // ContactsGetContacts invokes method contacts.getContacts#c023849f returning error if any.
 // Returns the current user's contact list.

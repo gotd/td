@@ -41,6 +41,19 @@ type UserEmpty struct {
 // UserEmptyTypeID is TL type id of UserEmpty.
 const UserEmptyTypeID = 0x200250ba
 
+// construct implements constructor of UserClass.
+func (u UserEmpty) construct() UserClass { return &u }
+
+// Ensuring interfaces in compile-time for UserEmpty.
+var (
+	_ bin.Encoder     = &UserEmpty{}
+	_ bin.Decoder     = &UserEmpty{}
+	_ bin.BareEncoder = &UserEmpty{}
+	_ bin.BareDecoder = &UserEmpty{}
+
+	_ UserClass = &UserEmpty{}
+)
+
 func (u *UserEmpty) Zero() bool {
 	if u == nil {
 		return true
@@ -117,11 +130,6 @@ func (u *UserEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (u *UserEmpty) GetID() (value int) {
-	return u.ID
-}
-
 // Decode implements bin.Decoder.
 func (u *UserEmpty) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -148,18 +156,10 @@ func (u *UserEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UserClass.
-func (u UserEmpty) construct() UserClass { return &u }
-
-// Ensuring interfaces in compile-time for UserEmpty.
-var (
-	_ bin.Encoder     = &UserEmpty{}
-	_ bin.Decoder     = &UserEmpty{}
-	_ bin.BareEncoder = &UserEmpty{}
-	_ bin.BareDecoder = &UserEmpty{}
-
-	_ UserClass = &UserEmpty{}
-)
+// GetID returns value of ID field.
+func (u *UserEmpty) GetID() (value int) {
+	return u.ID
+}
 
 // User represents TL type `user#938458c1`.
 // Indicates info about a certain user
@@ -257,6 +257,19 @@ type User struct {
 
 // UserTypeID is TL type id of User.
 const UserTypeID = 0x938458c1
+
+// construct implements constructor of UserClass.
+func (u User) construct() UserClass { return &u }
+
+// Ensuring interfaces in compile-time for User.
+var (
+	_ bin.Encoder     = &User{}
+	_ bin.Decoder     = &User{}
+	_ bin.BareEncoder = &User{}
+	_ bin.BareDecoder = &User{}
+
+	_ UserClass = &User{}
+)
 
 func (u *User) Zero() bool {
 	if u == nil {
@@ -759,6 +772,139 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (u *User) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode user#938458c1 to nil")
+	}
+	if err := b.ConsumeID(UserTypeID); err != nil {
+		return fmt.Errorf("unable to decode user#938458c1: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *User) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode user#938458c1 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field flags: %w", err)
+		}
+	}
+	u.Self = u.Flags.Has(10)
+	u.Contact = u.Flags.Has(11)
+	u.MutualContact = u.Flags.Has(12)
+	u.Deleted = u.Flags.Has(13)
+	u.Bot = u.Flags.Has(14)
+	u.BotChatHistory = u.Flags.Has(15)
+	u.BotNochats = u.Flags.Has(16)
+	u.Verified = u.Flags.Has(17)
+	u.Restricted = u.Flags.Has(18)
+	u.Min = u.Flags.Has(20)
+	u.BotInlineGeo = u.Flags.Has(21)
+	u.Support = u.Flags.Has(23)
+	u.Scam = u.Flags.Has(24)
+	u.ApplyMinPhoto = u.Flags.Has(25)
+	u.Fake = u.Flags.Has(26)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field id: %w", err)
+		}
+		u.ID = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field access_hash: %w", err)
+		}
+		u.AccessHash = value
+	}
+	if u.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field first_name: %w", err)
+		}
+		u.FirstName = value
+	}
+	if u.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field last_name: %w", err)
+		}
+		u.LastName = value
+	}
+	if u.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field username: %w", err)
+		}
+		u.Username = value
+	}
+	if u.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field phone: %w", err)
+		}
+		u.Phone = value
+	}
+	if u.Flags.Has(5) {
+		value, err := DecodeUserProfilePhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field photo: %w", err)
+		}
+		u.Photo = value
+	}
+	if u.Flags.Has(6) {
+		value, err := DecodeUserStatus(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field status: %w", err)
+		}
+		u.Status = value
+	}
+	if u.Flags.Has(14) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field bot_info_version: %w", err)
+		}
+		u.BotInfoVersion = value
+	}
+	if u.Flags.Has(18) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field restriction_reason: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.RestrictionReason = make([]RestrictionReason, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value RestrictionReason
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode user#938458c1: field restriction_reason: %w", err)
+			}
+			u.RestrictionReason = append(u.RestrictionReason, value)
+		}
+	}
+	if u.Flags.Has(19) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field bot_inline_placeholder: %w", err)
+		}
+		u.BotInlinePlaceholder = value
+	}
+	if u.Flags.Has(22) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode user#938458c1: field lang_code: %w", err)
+		}
+		u.LangCode = value
+	}
+	return nil
+}
+
 // SetSelf sets value of Self conditional field.
 func (u *User) SetSelf(value bool) {
 	if value {
@@ -1169,152 +1315,6 @@ func (u *User) GetLangCode() (value string, ok bool) {
 	return u.LangCode, true
 }
 
-// Decode implements bin.Decoder.
-func (u *User) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode user#938458c1 to nil")
-	}
-	if err := b.ConsumeID(UserTypeID); err != nil {
-		return fmt.Errorf("unable to decode user#938458c1: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *User) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode user#938458c1 to nil")
-	}
-	{
-		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field flags: %w", err)
-		}
-	}
-	u.Self = u.Flags.Has(10)
-	u.Contact = u.Flags.Has(11)
-	u.MutualContact = u.Flags.Has(12)
-	u.Deleted = u.Flags.Has(13)
-	u.Bot = u.Flags.Has(14)
-	u.BotChatHistory = u.Flags.Has(15)
-	u.BotNochats = u.Flags.Has(16)
-	u.Verified = u.Flags.Has(17)
-	u.Restricted = u.Flags.Has(18)
-	u.Min = u.Flags.Has(20)
-	u.BotInlineGeo = u.Flags.Has(21)
-	u.Support = u.Flags.Has(23)
-	u.Scam = u.Flags.Has(24)
-	u.ApplyMinPhoto = u.Flags.Has(25)
-	u.Fake = u.Flags.Has(26)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field id: %w", err)
-		}
-		u.ID = value
-	}
-	if u.Flags.Has(0) {
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field access_hash: %w", err)
-		}
-		u.AccessHash = value
-	}
-	if u.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field first_name: %w", err)
-		}
-		u.FirstName = value
-	}
-	if u.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field last_name: %w", err)
-		}
-		u.LastName = value
-	}
-	if u.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field username: %w", err)
-		}
-		u.Username = value
-	}
-	if u.Flags.Has(4) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field phone: %w", err)
-		}
-		u.Phone = value
-	}
-	if u.Flags.Has(5) {
-		value, err := DecodeUserProfilePhoto(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field photo: %w", err)
-		}
-		u.Photo = value
-	}
-	if u.Flags.Has(6) {
-		value, err := DecodeUserStatus(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field status: %w", err)
-		}
-		u.Status = value
-	}
-	if u.Flags.Has(14) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field bot_info_version: %w", err)
-		}
-		u.BotInfoVersion = value
-	}
-	if u.Flags.Has(18) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field restriction_reason: %w", err)
-		}
-
-		if headerLen > 0 {
-			u.RestrictionReason = make([]RestrictionReason, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value RestrictionReason
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode user#938458c1: field restriction_reason: %w", err)
-			}
-			u.RestrictionReason = append(u.RestrictionReason, value)
-		}
-	}
-	if u.Flags.Has(19) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field bot_inline_placeholder: %w", err)
-		}
-		u.BotInlinePlaceholder = value
-	}
-	if u.Flags.Has(22) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#938458c1: field lang_code: %w", err)
-		}
-		u.LangCode = value
-	}
-	return nil
-}
-
-// construct implements constructor of UserClass.
-func (u User) construct() UserClass { return &u }
-
-// Ensuring interfaces in compile-time for User.
-var (
-	_ bin.Encoder     = &User{}
-	_ bin.Decoder     = &User{}
-	_ bin.BareEncoder = &User{}
-	_ bin.BareDecoder = &User{}
-
-	_ UserClass = &User{}
-)
-
 // UserClass represents User generic type.
 //
 // See https://core.telegram.org/type/User for reference.
@@ -1436,455 +1436,4 @@ func (b *UserBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UserClass as nil")
 	}
 	return b.User.Encode(buf)
-}
-
-// UserClassArray is adapter for slice of UserClass.
-type UserClassArray []UserClass
-
-// Sort sorts slice of UserClass.
-func (s UserClassArray) Sort(less func(a, b UserClass) bool) UserClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UserClass.
-func (s UserClassArray) SortStable(less func(a, b UserClass) bool) UserClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UserClass.
-func (s UserClassArray) Retain(keep func(x UserClass) bool) UserClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UserClassArray) First() (v UserClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UserClassArray) Last() (v UserClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UserClassArray) PopFirst() (v UserClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UserClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UserClassArray) Pop() (v UserClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of UserClass by ID.
-func (s UserClassArray) SortByID() UserClassArray {
-	return s.Sort(func(a, b UserClass) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of UserClass by ID.
-func (s UserClassArray) SortStableByID() UserClassArray {
-	return s.SortStable(func(a, b UserClass) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillUserEmptyMap fills only UserEmpty constructors to given map.
-func (s UserClassArray) FillUserEmptyMap(to map[int]*UserEmpty) {
-	for _, elem := range s {
-		value, ok := elem.(*UserEmpty)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// UserEmptyToMap collects only UserEmpty constructors to map.
-func (s UserClassArray) UserEmptyToMap() map[int]*UserEmpty {
-	r := make(map[int]*UserEmpty, len(s))
-	s.FillUserEmptyMap(r)
-	return r
-}
-
-// AsUserEmpty returns copy with only UserEmpty constructors.
-func (s UserClassArray) AsUserEmpty() (to UserEmptyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UserEmpty)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillUserMap fills only User constructors to given map.
-func (s UserClassArray) FillUserMap(to map[int]*User) {
-	for _, elem := range s {
-		value, ok := elem.(*User)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// UserToMap collects only User constructors to map.
-func (s UserClassArray) UserToMap() map[int]*User {
-	r := make(map[int]*User, len(s))
-	s.FillUserMap(r)
-	return r
-}
-
-// AsUser returns copy with only User constructors.
-func (s UserClassArray) AsUser() (to UserArray) {
-	for _, elem := range s {
-		value, ok := elem.(*User)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillNotEmptyMap fills only NotEmpty constructors to given map.
-func (s UserClassArray) FillNotEmptyMap(to map[int]*User) {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// NotEmptyToMap collects only NotEmpty constructors to map.
-func (s UserClassArray) NotEmptyToMap() map[int]*User {
-	r := make(map[int]*User, len(s))
-	s.FillNotEmptyMap(r)
-	return r
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s UserClassArray) AppendOnlyNotEmpty(to []*User) []*User {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s UserClassArray) AsNotEmpty() (to []*User) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s UserClassArray) FirstAsNotEmpty() (v *User, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s UserClassArray) LastAsNotEmpty() (v *User, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *UserClassArray) PopFirstAsNotEmpty() (v *User, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *UserClassArray) PopAsNotEmpty() (v *User, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// UserEmptyArray is adapter for slice of UserEmpty.
-type UserEmptyArray []UserEmpty
-
-// Sort sorts slice of UserEmpty.
-func (s UserEmptyArray) Sort(less func(a, b UserEmpty) bool) UserEmptyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UserEmpty.
-func (s UserEmptyArray) SortStable(less func(a, b UserEmpty) bool) UserEmptyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UserEmpty.
-func (s UserEmptyArray) Retain(keep func(x UserEmpty) bool) UserEmptyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UserEmptyArray) First() (v UserEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UserEmptyArray) Last() (v UserEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UserEmptyArray) PopFirst() (v UserEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UserEmpty
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UserEmptyArray) Pop() (v UserEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of UserEmpty by ID.
-func (s UserEmptyArray) SortByID() UserEmptyArray {
-	return s.Sort(func(a, b UserEmpty) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of UserEmpty by ID.
-func (s UserEmptyArray) SortStableByID() UserEmptyArray {
-	return s.SortStable(func(a, b UserEmpty) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s UserEmptyArray) FillMap(to map[int]UserEmpty) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s UserEmptyArray) ToMap() map[int]UserEmpty {
-	r := make(map[int]UserEmpty, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// UserArray is adapter for slice of User.
-type UserArray []User
-
-// Sort sorts slice of User.
-func (s UserArray) Sort(less func(a, b User) bool) UserArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of User.
-func (s UserArray) SortStable(less func(a, b User) bool) UserArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of User.
-func (s UserArray) Retain(keep func(x User) bool) UserArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UserArray) First() (v User, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UserArray) Last() (v User, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UserArray) PopFirst() (v User, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero User
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UserArray) Pop() (v User, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of User by ID.
-func (s UserArray) SortByID() UserArray {
-	return s.Sort(func(a, b User) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of User by ID.
-func (s UserArray) SortStableByID() UserArray {
-	return s.SortStable(func(a, b User) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s UserArray) FillMap(to map[int]User) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s UserArray) ToMap() map[int]User {
-	r := make(map[int]User, len(s))
-	s.FillMap(r)
-	return r
 }

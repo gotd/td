@@ -39,6 +39,14 @@ type HelpGetNearestDCRequest struct {
 // HelpGetNearestDCRequestTypeID is TL type id of HelpGetNearestDCRequest.
 const HelpGetNearestDCRequestTypeID = 0x1fb33026
 
+// Ensuring interfaces in compile-time for HelpGetNearestDCRequest.
+var (
+	_ bin.Encoder     = &HelpGetNearestDCRequest{}
+	_ bin.Decoder     = &HelpGetNearestDCRequest{}
+	_ bin.BareEncoder = &HelpGetNearestDCRequest{}
+	_ bin.BareDecoder = &HelpGetNearestDCRequest{}
+)
+
 func (g *HelpGetNearestDCRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *HelpGetNearestDCRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for HelpGetNearestDCRequest.
-var (
-	_ bin.Encoder     = &HelpGetNearestDCRequest{}
-	_ bin.Decoder     = &HelpGetNearestDCRequest{}
-	_ bin.BareEncoder = &HelpGetNearestDCRequest{}
-	_ bin.BareDecoder = &HelpGetNearestDCRequest{}
-)
 
 // HelpGetNearestDC invokes method help.getNearestDc#1fb33026 returning error if any.
 // Returns info on data centre nearest to the user.

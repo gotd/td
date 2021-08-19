@@ -51,6 +51,14 @@ type RestrictionReason struct {
 // RestrictionReasonTypeID is TL type id of RestrictionReason.
 const RestrictionReasonTypeID = 0xd072acb4
 
+// Ensuring interfaces in compile-time for RestrictionReason.
+var (
+	_ bin.Encoder     = &RestrictionReason{}
+	_ bin.Decoder     = &RestrictionReason{}
+	_ bin.BareEncoder = &RestrictionReason{}
+	_ bin.BareDecoder = &RestrictionReason{}
+)
+
 func (r *RestrictionReason) Zero() bool {
 	if r == nil {
 		return true
@@ -147,21 +155,6 @@ func (r *RestrictionReason) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPlatform returns value of Platform field.
-func (r *RestrictionReason) GetPlatform() (value string) {
-	return r.Platform
-}
-
-// GetReason returns value of Reason field.
-func (r *RestrictionReason) GetReason() (value string) {
-	return r.Reason
-}
-
-// GetText returns value of Text field.
-func (r *RestrictionReason) GetText() (value string) {
-	return r.Text
-}
-
 // Decode implements bin.Decoder.
 func (r *RestrictionReason) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -202,10 +195,17 @@ func (r *RestrictionReason) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for RestrictionReason.
-var (
-	_ bin.Encoder     = &RestrictionReason{}
-	_ bin.Decoder     = &RestrictionReason{}
-	_ bin.BareEncoder = &RestrictionReason{}
-	_ bin.BareDecoder = &RestrictionReason{}
-)
+// GetPlatform returns value of Platform field.
+func (r *RestrictionReason) GetPlatform() (value string) {
+	return r.Platform
+}
+
+// GetReason returns value of Reason field.
+func (r *RestrictionReason) GetReason() (value string) {
+	return r.Reason
+}
+
+// GetText returns value of Text field.
+func (r *RestrictionReason) GetText() (value string) {
+	return r.Text
+}

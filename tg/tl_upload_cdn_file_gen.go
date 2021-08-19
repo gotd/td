@@ -48,6 +48,19 @@ type UploadCDNFileReuploadNeeded struct {
 // UploadCDNFileReuploadNeededTypeID is TL type id of UploadCDNFileReuploadNeeded.
 const UploadCDNFileReuploadNeededTypeID = 0xeea8e46e
 
+// construct implements constructor of UploadCDNFileClass.
+func (c UploadCDNFileReuploadNeeded) construct() UploadCDNFileClass { return &c }
+
+// Ensuring interfaces in compile-time for UploadCDNFileReuploadNeeded.
+var (
+	_ bin.Encoder     = &UploadCDNFileReuploadNeeded{}
+	_ bin.Decoder     = &UploadCDNFileReuploadNeeded{}
+	_ bin.BareEncoder = &UploadCDNFileReuploadNeeded{}
+	_ bin.BareDecoder = &UploadCDNFileReuploadNeeded{}
+
+	_ UploadCDNFileClass = &UploadCDNFileReuploadNeeded{}
+)
+
 func (c *UploadCDNFileReuploadNeeded) Zero() bool {
 	if c == nil {
 		return true
@@ -124,11 +137,6 @@ func (c *UploadCDNFileReuploadNeeded) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRequestToken returns value of RequestToken field.
-func (c *UploadCDNFileReuploadNeeded) GetRequestToken() (value []byte) {
-	return c.RequestToken
-}
-
 // Decode implements bin.Decoder.
 func (c *UploadCDNFileReuploadNeeded) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -155,18 +163,10 @@ func (c *UploadCDNFileReuploadNeeded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UploadCDNFileClass.
-func (c UploadCDNFileReuploadNeeded) construct() UploadCDNFileClass { return &c }
-
-// Ensuring interfaces in compile-time for UploadCDNFileReuploadNeeded.
-var (
-	_ bin.Encoder     = &UploadCDNFileReuploadNeeded{}
-	_ bin.Decoder     = &UploadCDNFileReuploadNeeded{}
-	_ bin.BareEncoder = &UploadCDNFileReuploadNeeded{}
-	_ bin.BareDecoder = &UploadCDNFileReuploadNeeded{}
-
-	_ UploadCDNFileClass = &UploadCDNFileReuploadNeeded{}
-)
+// GetRequestToken returns value of RequestToken field.
+func (c *UploadCDNFileReuploadNeeded) GetRequestToken() (value []byte) {
+	return c.RequestToken
+}
 
 // UploadCDNFile represents TL type `upload.cdnFile#a99fca4f`.
 // Represent a chunk of a CDN¹ file.
@@ -182,6 +182,19 @@ type UploadCDNFile struct {
 
 // UploadCDNFileTypeID is TL type id of UploadCDNFile.
 const UploadCDNFileTypeID = 0xa99fca4f
+
+// construct implements constructor of UploadCDNFileClass.
+func (c UploadCDNFile) construct() UploadCDNFileClass { return &c }
+
+// Ensuring interfaces in compile-time for UploadCDNFile.
+var (
+	_ bin.Encoder     = &UploadCDNFile{}
+	_ bin.Decoder     = &UploadCDNFile{}
+	_ bin.BareEncoder = &UploadCDNFile{}
+	_ bin.BareDecoder = &UploadCDNFile{}
+
+	_ UploadCDNFileClass = &UploadCDNFile{}
+)
 
 func (c *UploadCDNFile) Zero() bool {
 	if c == nil {
@@ -259,11 +272,6 @@ func (c *UploadCDNFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetBytes returns value of Bytes field.
-func (c *UploadCDNFile) GetBytes() (value []byte) {
-	return c.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (c *UploadCDNFile) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -290,18 +298,10 @@ func (c *UploadCDNFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UploadCDNFileClass.
-func (c UploadCDNFile) construct() UploadCDNFileClass { return &c }
-
-// Ensuring interfaces in compile-time for UploadCDNFile.
-var (
-	_ bin.Encoder     = &UploadCDNFile{}
-	_ bin.Decoder     = &UploadCDNFile{}
-	_ bin.BareEncoder = &UploadCDNFile{}
-	_ bin.BareDecoder = &UploadCDNFile{}
-
-	_ UploadCDNFileClass = &UploadCDNFile{}
-)
+// GetBytes returns value of Bytes field.
+func (c *UploadCDNFile) GetBytes() (value []byte) {
+	return c.Bytes
+}
 
 // UploadCDNFileClass represents upload.CdnFile generic type.
 //
@@ -386,276 +386,4 @@ func (b *UploadCDNFileBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UploadCDNFileClass as nil")
 	}
 	return b.CdnFile.Encode(buf)
-}
-
-// UploadCDNFileClassArray is adapter for slice of UploadCDNFileClass.
-type UploadCDNFileClassArray []UploadCDNFileClass
-
-// Sort sorts slice of UploadCDNFileClass.
-func (s UploadCDNFileClassArray) Sort(less func(a, b UploadCDNFileClass) bool) UploadCDNFileClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UploadCDNFileClass.
-func (s UploadCDNFileClassArray) SortStable(less func(a, b UploadCDNFileClass) bool) UploadCDNFileClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UploadCDNFileClass.
-func (s UploadCDNFileClassArray) Retain(keep func(x UploadCDNFileClass) bool) UploadCDNFileClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UploadCDNFileClassArray) First() (v UploadCDNFileClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UploadCDNFileClassArray) Last() (v UploadCDNFileClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UploadCDNFileClassArray) PopFirst() (v UploadCDNFileClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UploadCDNFileClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UploadCDNFileClassArray) Pop() (v UploadCDNFileClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsUploadCDNFileReuploadNeeded returns copy with only UploadCDNFileReuploadNeeded constructors.
-func (s UploadCDNFileClassArray) AsUploadCDNFileReuploadNeeded() (to UploadCDNFileReuploadNeededArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UploadCDNFileReuploadNeeded)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUploadCDNFile returns copy with only UploadCDNFile constructors.
-func (s UploadCDNFileClassArray) AsUploadCDNFile() (to UploadCDNFileArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UploadCDNFile)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// UploadCDNFileReuploadNeededArray is adapter for slice of UploadCDNFileReuploadNeeded.
-type UploadCDNFileReuploadNeededArray []UploadCDNFileReuploadNeeded
-
-// Sort sorts slice of UploadCDNFileReuploadNeeded.
-func (s UploadCDNFileReuploadNeededArray) Sort(less func(a, b UploadCDNFileReuploadNeeded) bool) UploadCDNFileReuploadNeededArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UploadCDNFileReuploadNeeded.
-func (s UploadCDNFileReuploadNeededArray) SortStable(less func(a, b UploadCDNFileReuploadNeeded) bool) UploadCDNFileReuploadNeededArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UploadCDNFileReuploadNeeded.
-func (s UploadCDNFileReuploadNeededArray) Retain(keep func(x UploadCDNFileReuploadNeeded) bool) UploadCDNFileReuploadNeededArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UploadCDNFileReuploadNeededArray) First() (v UploadCDNFileReuploadNeeded, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UploadCDNFileReuploadNeededArray) Last() (v UploadCDNFileReuploadNeeded, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UploadCDNFileReuploadNeededArray) PopFirst() (v UploadCDNFileReuploadNeeded, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UploadCDNFileReuploadNeeded
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UploadCDNFileReuploadNeededArray) Pop() (v UploadCDNFileReuploadNeeded, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UploadCDNFileArray is adapter for slice of UploadCDNFile.
-type UploadCDNFileArray []UploadCDNFile
-
-// Sort sorts slice of UploadCDNFile.
-func (s UploadCDNFileArray) Sort(less func(a, b UploadCDNFile) bool) UploadCDNFileArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UploadCDNFile.
-func (s UploadCDNFileArray) SortStable(less func(a, b UploadCDNFile) bool) UploadCDNFileArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UploadCDNFile.
-func (s UploadCDNFileArray) Retain(keep func(x UploadCDNFile) bool) UploadCDNFileArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UploadCDNFileArray) First() (v UploadCDNFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UploadCDNFileArray) Last() (v UploadCDNFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UploadCDNFileArray) PopFirst() (v UploadCDNFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UploadCDNFile
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UploadCDNFileArray) Pop() (v UploadCDNFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

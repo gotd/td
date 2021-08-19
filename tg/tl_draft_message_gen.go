@@ -48,6 +48,19 @@ type DraftMessageEmpty struct {
 // DraftMessageEmptyTypeID is TL type id of DraftMessageEmpty.
 const DraftMessageEmptyTypeID = 0x1b0c841a
 
+// construct implements constructor of DraftMessageClass.
+func (d DraftMessageEmpty) construct() DraftMessageClass { return &d }
+
+// Ensuring interfaces in compile-time for DraftMessageEmpty.
+var (
+	_ bin.Encoder     = &DraftMessageEmpty{}
+	_ bin.Decoder     = &DraftMessageEmpty{}
+	_ bin.BareEncoder = &DraftMessageEmpty{}
+	_ bin.BareDecoder = &DraftMessageEmpty{}
+
+	_ DraftMessageClass = &DraftMessageEmpty{}
+)
+
 func (d *DraftMessageEmpty) Zero() bool {
 	if d == nil {
 		return true
@@ -139,21 +152,6 @@ func (d *DraftMessageEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetDate sets value of Date conditional field.
-func (d *DraftMessageEmpty) SetDate(value int) {
-	d.Flags.Set(0)
-	d.Date = value
-}
-
-// GetDate returns value of Date conditional field and
-// boolean which is true if field was set.
-func (d *DraftMessageEmpty) GetDate() (value int, ok bool) {
-	if !d.Flags.Has(0) {
-		return value, false
-	}
-	return d.Date, true
-}
-
 // Decode implements bin.Decoder.
 func (d *DraftMessageEmpty) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -185,18 +183,20 @@ func (d *DraftMessageEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DraftMessageClass.
-func (d DraftMessageEmpty) construct() DraftMessageClass { return &d }
+// SetDate sets value of Date conditional field.
+func (d *DraftMessageEmpty) SetDate(value int) {
+	d.Flags.Set(0)
+	d.Date = value
+}
 
-// Ensuring interfaces in compile-time for DraftMessageEmpty.
-var (
-	_ bin.Encoder     = &DraftMessageEmpty{}
-	_ bin.Decoder     = &DraftMessageEmpty{}
-	_ bin.BareEncoder = &DraftMessageEmpty{}
-	_ bin.BareDecoder = &DraftMessageEmpty{}
-
-	_ DraftMessageClass = &DraftMessageEmpty{}
-)
+// GetDate returns value of Date conditional field and
+// boolean which is true if field was set.
+func (d *DraftMessageEmpty) GetDate() (value int, ok bool) {
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return d.Date, true
+}
 
 // DraftMessage represents TL type `draftMessage#fd8e711f`.
 // Represents a message draft¹.
@@ -232,6 +232,19 @@ type DraftMessage struct {
 
 // DraftMessageTypeID is TL type id of DraftMessage.
 const DraftMessageTypeID = 0xfd8e711f
+
+// construct implements constructor of DraftMessageClass.
+func (d DraftMessage) construct() DraftMessageClass { return &d }
+
+// Ensuring interfaces in compile-time for DraftMessage.
+var (
+	_ bin.Encoder     = &DraftMessage{}
+	_ bin.Decoder     = &DraftMessage{}
+	_ bin.BareEncoder = &DraftMessage{}
+	_ bin.BareDecoder = &DraftMessage{}
+
+	_ DraftMessageClass = &DraftMessage{}
+)
 
 func (d *DraftMessage) Zero() bool {
 	if d == nil {
@@ -384,70 +397,6 @@ func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetNoWebpage sets value of NoWebpage conditional field.
-func (d *DraftMessage) SetNoWebpage(value bool) {
-	if value {
-		d.Flags.Set(1)
-		d.NoWebpage = true
-	} else {
-		d.Flags.Unset(1)
-		d.NoWebpage = false
-	}
-}
-
-// GetNoWebpage returns value of NoWebpage conditional field.
-func (d *DraftMessage) GetNoWebpage() (value bool) {
-	return d.Flags.Has(1)
-}
-
-// SetReplyToMsgID sets value of ReplyToMsgID conditional field.
-func (d *DraftMessage) SetReplyToMsgID(value int) {
-	d.Flags.Set(0)
-	d.ReplyToMsgID = value
-}
-
-// GetReplyToMsgID returns value of ReplyToMsgID conditional field and
-// boolean which is true if field was set.
-func (d *DraftMessage) GetReplyToMsgID() (value int, ok bool) {
-	if !d.Flags.Has(0) {
-		return value, false
-	}
-	return d.ReplyToMsgID, true
-}
-
-// GetMessage returns value of Message field.
-func (d *DraftMessage) GetMessage() (value string) {
-	return d.Message
-}
-
-// SetEntities sets value of Entities conditional field.
-func (d *DraftMessage) SetEntities(value []MessageEntityClass) {
-	d.Flags.Set(3)
-	d.Entities = value
-}
-
-// GetEntities returns value of Entities conditional field and
-// boolean which is true if field was set.
-func (d *DraftMessage) GetEntities() (value []MessageEntityClass, ok bool) {
-	if !d.Flags.Has(3) {
-		return value, false
-	}
-	return d.Entities, true
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (d *DraftMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !d.Flags.Has(3) {
-		return value, false
-	}
-	return MessageEntityClassArray(d.Entities), true
-}
-
-// GetDate returns value of Date field.
-func (d *DraftMessage) GetDate() (value int) {
-	return d.Date
-}
-
 // Decode implements bin.Decoder.
 func (d *DraftMessage) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -511,18 +460,69 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DraftMessageClass.
-func (d DraftMessage) construct() DraftMessageClass { return &d }
+// SetNoWebpage sets value of NoWebpage conditional field.
+func (d *DraftMessage) SetNoWebpage(value bool) {
+	if value {
+		d.Flags.Set(1)
+		d.NoWebpage = true
+	} else {
+		d.Flags.Unset(1)
+		d.NoWebpage = false
+	}
+}
 
-// Ensuring interfaces in compile-time for DraftMessage.
-var (
-	_ bin.Encoder     = &DraftMessage{}
-	_ bin.Decoder     = &DraftMessage{}
-	_ bin.BareEncoder = &DraftMessage{}
-	_ bin.BareDecoder = &DraftMessage{}
+// GetNoWebpage returns value of NoWebpage conditional field.
+func (d *DraftMessage) GetNoWebpage() (value bool) {
+	return d.Flags.Has(1)
+}
 
-	_ DraftMessageClass = &DraftMessage{}
-)
+// SetReplyToMsgID sets value of ReplyToMsgID conditional field.
+func (d *DraftMessage) SetReplyToMsgID(value int) {
+	d.Flags.Set(0)
+	d.ReplyToMsgID = value
+}
+
+// GetReplyToMsgID returns value of ReplyToMsgID conditional field and
+// boolean which is true if field was set.
+func (d *DraftMessage) GetReplyToMsgID() (value int, ok bool) {
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return d.ReplyToMsgID, true
+}
+
+// GetMessage returns value of Message field.
+func (d *DraftMessage) GetMessage() (value string) {
+	return d.Message
+}
+
+// SetEntities sets value of Entities conditional field.
+func (d *DraftMessage) SetEntities(value []MessageEntityClass) {
+	d.Flags.Set(3)
+	d.Entities = value
+}
+
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (d *DraftMessage) GetEntities() (value []MessageEntityClass, ok bool) {
+	if !d.Flags.Has(3) {
+		return value, false
+	}
+	return d.Entities, true
+}
+
+// GetDate returns value of Date field.
+func (d *DraftMessage) GetDate() (value int) {
+	return d.Date
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (d *DraftMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !d.Flags.Has(3) {
+		return value, false
+	}
+	return MessageEntityClassArray(d.Entities), true
+}
 
 // DraftMessageClass represents DraftMessage generic type.
 //
@@ -620,345 +620,4 @@ func (b *DraftMessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DraftMessageClass as nil")
 	}
 	return b.DraftMessage.Encode(buf)
-}
-
-// DraftMessageClassArray is adapter for slice of DraftMessageClass.
-type DraftMessageClassArray []DraftMessageClass
-
-// Sort sorts slice of DraftMessageClass.
-func (s DraftMessageClassArray) Sort(less func(a, b DraftMessageClass) bool) DraftMessageClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DraftMessageClass.
-func (s DraftMessageClassArray) SortStable(less func(a, b DraftMessageClass) bool) DraftMessageClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DraftMessageClass.
-func (s DraftMessageClassArray) Retain(keep func(x DraftMessageClass) bool) DraftMessageClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DraftMessageClassArray) First() (v DraftMessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DraftMessageClassArray) Last() (v DraftMessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DraftMessageClassArray) PopFirst() (v DraftMessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DraftMessageClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DraftMessageClassArray) Pop() (v DraftMessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsDraftMessageEmpty returns copy with only DraftMessageEmpty constructors.
-func (s DraftMessageClassArray) AsDraftMessageEmpty() (to DraftMessageEmptyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DraftMessageEmpty)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDraftMessage returns copy with only DraftMessage constructors.
-func (s DraftMessageClassArray) AsDraftMessage() (to DraftMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DraftMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s DraftMessageClassArray) AppendOnlyNotEmpty(to []*DraftMessage) []*DraftMessage {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s DraftMessageClassArray) AsNotEmpty() (to []*DraftMessage) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s DraftMessageClassArray) FirstAsNotEmpty() (v *DraftMessage, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s DraftMessageClassArray) LastAsNotEmpty() (v *DraftMessage, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *DraftMessageClassArray) PopFirstAsNotEmpty() (v *DraftMessage, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *DraftMessageClassArray) PopAsNotEmpty() (v *DraftMessage, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// DraftMessageEmptyArray is adapter for slice of DraftMessageEmpty.
-type DraftMessageEmptyArray []DraftMessageEmpty
-
-// Sort sorts slice of DraftMessageEmpty.
-func (s DraftMessageEmptyArray) Sort(less func(a, b DraftMessageEmpty) bool) DraftMessageEmptyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DraftMessageEmpty.
-func (s DraftMessageEmptyArray) SortStable(less func(a, b DraftMessageEmpty) bool) DraftMessageEmptyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DraftMessageEmpty.
-func (s DraftMessageEmptyArray) Retain(keep func(x DraftMessageEmpty) bool) DraftMessageEmptyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DraftMessageEmptyArray) First() (v DraftMessageEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DraftMessageEmptyArray) Last() (v DraftMessageEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DraftMessageEmptyArray) PopFirst() (v DraftMessageEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DraftMessageEmpty
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DraftMessageEmptyArray) Pop() (v DraftMessageEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DraftMessageArray is adapter for slice of DraftMessage.
-type DraftMessageArray []DraftMessage
-
-// Sort sorts slice of DraftMessage.
-func (s DraftMessageArray) Sort(less func(a, b DraftMessage) bool) DraftMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DraftMessage.
-func (s DraftMessageArray) SortStable(less func(a, b DraftMessage) bool) DraftMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DraftMessage.
-func (s DraftMessageArray) Retain(keep func(x DraftMessage) bool) DraftMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DraftMessageArray) First() (v DraftMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DraftMessageArray) Last() (v DraftMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DraftMessageArray) PopFirst() (v DraftMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DraftMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DraftMessageArray) Pop() (v DraftMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of DraftMessage by Date.
-func (s DraftMessageArray) SortByDate() DraftMessageArray {
-	return s.Sort(func(a, b DraftMessage) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of DraftMessage by Date.
-func (s DraftMessageArray) SortStableByDate() DraftMessageArray {
-	return s.SortStable(func(a, b DraftMessage) bool {
-		return a.GetDate() < b.GetDate()
-	})
 }

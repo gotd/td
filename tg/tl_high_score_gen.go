@@ -45,6 +45,14 @@ type HighScore struct {
 // HighScoreTypeID is TL type id of HighScore.
 const HighScoreTypeID = 0x58fffcd0
 
+// Ensuring interfaces in compile-time for HighScore.
+var (
+	_ bin.Encoder     = &HighScore{}
+	_ bin.Decoder     = &HighScore{}
+	_ bin.BareEncoder = &HighScore{}
+	_ bin.BareDecoder = &HighScore{}
+)
+
 func (h *HighScore) Zero() bool {
 	if h == nil {
 		return true
@@ -141,21 +149,6 @@ func (h *HighScore) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPos returns value of Pos field.
-func (h *HighScore) GetPos() (value int) {
-	return h.Pos
-}
-
-// GetUserID returns value of UserID field.
-func (h *HighScore) GetUserID() (value int) {
-	return h.UserID
-}
-
-// GetScore returns value of Score field.
-func (h *HighScore) GetScore() (value int) {
-	return h.Score
-}
-
 // Decode implements bin.Decoder.
 func (h *HighScore) Decode(b *bin.Buffer) error {
 	if h == nil {
@@ -196,10 +189,17 @@ func (h *HighScore) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HighScore.
-var (
-	_ bin.Encoder     = &HighScore{}
-	_ bin.Decoder     = &HighScore{}
-	_ bin.BareEncoder = &HighScore{}
-	_ bin.BareDecoder = &HighScore{}
-)
+// GetPos returns value of Pos field.
+func (h *HighScore) GetPos() (value int) {
+	return h.Pos
+}
+
+// GetUserID returns value of UserID field.
+func (h *HighScore) GetUserID() (value int) {
+	return h.UserID
+}
+
+// GetScore returns value of Score field.
+func (h *HighScore) GetScore() (value int) {
+	return h.Score
+}

@@ -49,6 +49,14 @@ type ChannelsReadHistoryRequest struct {
 // ChannelsReadHistoryRequestTypeID is TL type id of ChannelsReadHistoryRequest.
 const ChannelsReadHistoryRequestTypeID = 0xcc104937
 
+// Ensuring interfaces in compile-time for ChannelsReadHistoryRequest.
+var (
+	_ bin.Encoder     = &ChannelsReadHistoryRequest{}
+	_ bin.Decoder     = &ChannelsReadHistoryRequest{}
+	_ bin.BareEncoder = &ChannelsReadHistoryRequest{}
+	_ bin.BareDecoder = &ChannelsReadHistoryRequest{}
+)
+
 func (r *ChannelsReadHistoryRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -140,21 +148,6 @@ func (r *ChannelsReadHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (r *ChannelsReadHistoryRequest) GetChannel() (value InputChannelClass) {
-	return r.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (r *ChannelsReadHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return r.Channel.AsNotEmpty()
-}
-
-// GetMaxID returns value of MaxID field.
-func (r *ChannelsReadHistoryRequest) GetMaxID() (value int) {
-	return r.MaxID
-}
-
 // Decode implements bin.Decoder.
 func (r *ChannelsReadHistoryRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -188,13 +181,20 @@ func (r *ChannelsReadHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsReadHistoryRequest.
-var (
-	_ bin.Encoder     = &ChannelsReadHistoryRequest{}
-	_ bin.Decoder     = &ChannelsReadHistoryRequest{}
-	_ bin.BareEncoder = &ChannelsReadHistoryRequest{}
-	_ bin.BareDecoder = &ChannelsReadHistoryRequest{}
-)
+// GetChannel returns value of Channel field.
+func (r *ChannelsReadHistoryRequest) GetChannel() (value InputChannelClass) {
+	return r.Channel
+}
+
+// GetMaxID returns value of MaxID field.
+func (r *ChannelsReadHistoryRequest) GetMaxID() (value int) {
+	return r.MaxID
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (r *ChannelsReadHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return r.Channel.AsNotEmpty()
+}
 
 // ChannelsReadHistory invokes method channels.readHistory#cc104937 returning error if any.
 // Mark channel/supergroup¹ history as read

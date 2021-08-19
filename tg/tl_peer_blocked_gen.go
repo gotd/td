@@ -43,6 +43,14 @@ type PeerBlocked struct {
 // PeerBlockedTypeID is TL type id of PeerBlocked.
 const PeerBlockedTypeID = 0xe8fd8014
 
+// Ensuring interfaces in compile-time for PeerBlocked.
+var (
+	_ bin.Encoder     = &PeerBlocked{}
+	_ bin.Decoder     = &PeerBlocked{}
+	_ bin.BareEncoder = &PeerBlocked{}
+	_ bin.BareDecoder = &PeerBlocked{}
+)
+
 func (p *PeerBlocked) Zero() bool {
 	if p == nil {
 		return true
@@ -134,16 +142,6 @@ func (p *PeerBlocked) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeerID returns value of PeerID field.
-func (p *PeerBlocked) GetPeerID() (value PeerClass) {
-	return p.PeerID
-}
-
-// GetDate returns value of Date field.
-func (p *PeerBlocked) GetDate() (value int) {
-	return p.Date
-}
-
 // Decode implements bin.Decoder.
 func (p *PeerBlocked) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -177,10 +175,12 @@ func (p *PeerBlocked) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PeerBlocked.
-var (
-	_ bin.Encoder     = &PeerBlocked{}
-	_ bin.Decoder     = &PeerBlocked{}
-	_ bin.BareEncoder = &PeerBlocked{}
-	_ bin.BareDecoder = &PeerBlocked{}
-)
+// GetPeerID returns value of PeerID field.
+func (p *PeerBlocked) GetPeerID() (value PeerClass) {
+	return p.PeerID
+}
+
+// GetDate returns value of Date field.
+func (p *PeerBlocked) GetDate() (value int) {
+	return p.Date
+}

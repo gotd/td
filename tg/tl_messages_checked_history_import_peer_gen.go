@@ -40,6 +40,14 @@ type MessagesCheckedHistoryImportPeer struct {
 // MessagesCheckedHistoryImportPeerTypeID is TL type id of MessagesCheckedHistoryImportPeer.
 const MessagesCheckedHistoryImportPeerTypeID = 0xa24de717
 
+// Ensuring interfaces in compile-time for MessagesCheckedHistoryImportPeer.
+var (
+	_ bin.Encoder     = &MessagesCheckedHistoryImportPeer{}
+	_ bin.Decoder     = &MessagesCheckedHistoryImportPeer{}
+	_ bin.BareEncoder = &MessagesCheckedHistoryImportPeer{}
+	_ bin.BareDecoder = &MessagesCheckedHistoryImportPeer{}
+)
+
 func (c *MessagesCheckedHistoryImportPeer) Zero() bool {
 	if c == nil {
 		return true
@@ -116,11 +124,6 @@ func (c *MessagesCheckedHistoryImportPeer) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetConfirmText returns value of ConfirmText field.
-func (c *MessagesCheckedHistoryImportPeer) GetConfirmText() (value string) {
-	return c.ConfirmText
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesCheckedHistoryImportPeer) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -147,10 +150,7 @@ func (c *MessagesCheckedHistoryImportPeer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesCheckedHistoryImportPeer.
-var (
-	_ bin.Encoder     = &MessagesCheckedHistoryImportPeer{}
-	_ bin.Decoder     = &MessagesCheckedHistoryImportPeer{}
-	_ bin.BareEncoder = &MessagesCheckedHistoryImportPeer{}
-	_ bin.BareDecoder = &MessagesCheckedHistoryImportPeer{}
-)
+// GetConfirmText returns value of ConfirmText field.
+func (c *MessagesCheckedHistoryImportPeer) GetConfirmText() (value string) {
+	return c.ConfirmText
+}

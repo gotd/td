@@ -46,6 +46,14 @@ type MessagesEditChatDefaultBannedRightsRequest struct {
 // MessagesEditChatDefaultBannedRightsRequestTypeID is TL type id of MessagesEditChatDefaultBannedRightsRequest.
 const MessagesEditChatDefaultBannedRightsRequestTypeID = 0xa5866b41
 
+// Ensuring interfaces in compile-time for MessagesEditChatDefaultBannedRightsRequest.
+var (
+	_ bin.Encoder     = &MessagesEditChatDefaultBannedRightsRequest{}
+	_ bin.Decoder     = &MessagesEditChatDefaultBannedRightsRequest{}
+	_ bin.BareEncoder = &MessagesEditChatDefaultBannedRightsRequest{}
+	_ bin.BareDecoder = &MessagesEditChatDefaultBannedRightsRequest{}
+)
+
 func (e *MessagesEditChatDefaultBannedRightsRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -139,16 +147,6 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) EncodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (e *MessagesEditChatDefaultBannedRightsRequest) GetPeer() (value InputPeerClass) {
-	return e.Peer
-}
-
-// GetBannedRights returns value of BannedRights field.
-func (e *MessagesEditChatDefaultBannedRightsRequest) GetBannedRights() (value ChatBannedRights) {
-	return e.BannedRights
-}
-
 // Decode implements bin.Decoder.
 func (e *MessagesEditChatDefaultBannedRightsRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -180,13 +178,15 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) DecodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesEditChatDefaultBannedRightsRequest.
-var (
-	_ bin.Encoder     = &MessagesEditChatDefaultBannedRightsRequest{}
-	_ bin.Decoder     = &MessagesEditChatDefaultBannedRightsRequest{}
-	_ bin.BareEncoder = &MessagesEditChatDefaultBannedRightsRequest{}
-	_ bin.BareDecoder = &MessagesEditChatDefaultBannedRightsRequest{}
-)
+// GetPeer returns value of Peer field.
+func (e *MessagesEditChatDefaultBannedRightsRequest) GetPeer() (value InputPeerClass) {
+	return e.Peer
+}
+
+// GetBannedRights returns value of BannedRights field.
+func (e *MessagesEditChatDefaultBannedRightsRequest) GetBannedRights() (value ChatBannedRights) {
+	return e.BannedRights
+}
 
 // MessagesEditChatDefaultBannedRights invokes method messages.editChatDefaultBannedRights#a5866b41 returning error if any.
 // Edit the default banned rights of a channel/supergroup/group¹.

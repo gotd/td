@@ -43,6 +43,14 @@ type ChannelsTogglePreHistoryHiddenRequest struct {
 // ChannelsTogglePreHistoryHiddenRequestTypeID is TL type id of ChannelsTogglePreHistoryHiddenRequest.
 const ChannelsTogglePreHistoryHiddenRequestTypeID = 0xeabbb94c
 
+// Ensuring interfaces in compile-time for ChannelsTogglePreHistoryHiddenRequest.
+var (
+	_ bin.Encoder     = &ChannelsTogglePreHistoryHiddenRequest{}
+	_ bin.Decoder     = &ChannelsTogglePreHistoryHiddenRequest{}
+	_ bin.BareEncoder = &ChannelsTogglePreHistoryHiddenRequest{}
+	_ bin.BareDecoder = &ChannelsTogglePreHistoryHiddenRequest{}
+)
+
 func (t *ChannelsTogglePreHistoryHiddenRequest) Zero() bool {
 	if t == nil {
 		return true
@@ -134,21 +142,6 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) EncodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (t *ChannelsTogglePreHistoryHiddenRequest) GetChannel() (value InputChannelClass) {
-	return t.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (t *ChannelsTogglePreHistoryHiddenRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return t.Channel.AsNotEmpty()
-}
-
-// GetEnabled returns value of Enabled field.
-func (t *ChannelsTogglePreHistoryHiddenRequest) GetEnabled() (value bool) {
-	return t.Enabled
-}
-
 // Decode implements bin.Decoder.
 func (t *ChannelsTogglePreHistoryHiddenRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -182,13 +175,20 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsTogglePreHistoryHiddenRequest.
-var (
-	_ bin.Encoder     = &ChannelsTogglePreHistoryHiddenRequest{}
-	_ bin.Decoder     = &ChannelsTogglePreHistoryHiddenRequest{}
-	_ bin.BareEncoder = &ChannelsTogglePreHistoryHiddenRequest{}
-	_ bin.BareDecoder = &ChannelsTogglePreHistoryHiddenRequest{}
-)
+// GetChannel returns value of Channel field.
+func (t *ChannelsTogglePreHistoryHiddenRequest) GetChannel() (value InputChannelClass) {
+	return t.Channel
+}
+
+// GetEnabled returns value of Enabled field.
+func (t *ChannelsTogglePreHistoryHiddenRequest) GetEnabled() (value bool) {
+	return t.Enabled
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (t *ChannelsTogglePreHistoryHiddenRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return t.Channel.AsNotEmpty()
+}
 
 // ChannelsTogglePreHistoryHidden invokes method channels.togglePreHistoryHidden#eabbb94c returning error if any.
 // Hide/unhide message history for new channel/supergroup users

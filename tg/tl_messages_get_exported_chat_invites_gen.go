@@ -56,6 +56,14 @@ type MessagesGetExportedChatInvitesRequest struct {
 // MessagesGetExportedChatInvitesRequestTypeID is TL type id of MessagesGetExportedChatInvitesRequest.
 const MessagesGetExportedChatInvitesRequestTypeID = 0xa2b5a3f6
 
+// Ensuring interfaces in compile-time for MessagesGetExportedChatInvitesRequest.
+var (
+	_ bin.Encoder     = &MessagesGetExportedChatInvitesRequest{}
+	_ bin.Decoder     = &MessagesGetExportedChatInvitesRequest{}
+	_ bin.BareEncoder = &MessagesGetExportedChatInvitesRequest{}
+	_ bin.BareDecoder = &MessagesGetExportedChatInvitesRequest{}
+)
+
 func (g *MessagesGetExportedChatInvitesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -219,67 +227,6 @@ func (g *MessagesGetExportedChatInvitesRequest) EncodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// SetRevoked sets value of Revoked conditional field.
-func (g *MessagesGetExportedChatInvitesRequest) SetRevoked(value bool) {
-	if value {
-		g.Flags.Set(3)
-		g.Revoked = true
-	} else {
-		g.Flags.Unset(3)
-		g.Revoked = false
-	}
-}
-
-// GetRevoked returns value of Revoked conditional field.
-func (g *MessagesGetExportedChatInvitesRequest) GetRevoked() (value bool) {
-	return g.Flags.Has(3)
-}
-
-// GetPeer returns value of Peer field.
-func (g *MessagesGetExportedChatInvitesRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetAdminID returns value of AdminID field.
-func (g *MessagesGetExportedChatInvitesRequest) GetAdminID() (value InputUserClass) {
-	return g.AdminID
-}
-
-// SetOffsetDate sets value of OffsetDate conditional field.
-func (g *MessagesGetExportedChatInvitesRequest) SetOffsetDate(value int) {
-	g.Flags.Set(2)
-	g.OffsetDate = value
-}
-
-// GetOffsetDate returns value of OffsetDate conditional field and
-// boolean which is true if field was set.
-func (g *MessagesGetExportedChatInvitesRequest) GetOffsetDate() (value int, ok bool) {
-	if !g.Flags.Has(2) {
-		return value, false
-	}
-	return g.OffsetDate, true
-}
-
-// SetOffsetLink sets value of OffsetLink conditional field.
-func (g *MessagesGetExportedChatInvitesRequest) SetOffsetLink(value string) {
-	g.Flags.Set(2)
-	g.OffsetLink = value
-}
-
-// GetOffsetLink returns value of OffsetLink conditional field and
-// boolean which is true if field was set.
-func (g *MessagesGetExportedChatInvitesRequest) GetOffsetLink() (value string, ok bool) {
-	if !g.Flags.Has(2) {
-		return value, false
-	}
-	return g.OffsetLink, true
-}
-
-// GetLimit returns value of Limit field.
-func (g *MessagesGetExportedChatInvitesRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetExportedChatInvitesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -340,13 +287,66 @@ func (g *MessagesGetExportedChatInvitesRequest) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetExportedChatInvitesRequest.
-var (
-	_ bin.Encoder     = &MessagesGetExportedChatInvitesRequest{}
-	_ bin.Decoder     = &MessagesGetExportedChatInvitesRequest{}
-	_ bin.BareEncoder = &MessagesGetExportedChatInvitesRequest{}
-	_ bin.BareDecoder = &MessagesGetExportedChatInvitesRequest{}
-)
+// SetRevoked sets value of Revoked conditional field.
+func (g *MessagesGetExportedChatInvitesRequest) SetRevoked(value bool) {
+	if value {
+		g.Flags.Set(3)
+		g.Revoked = true
+	} else {
+		g.Flags.Unset(3)
+		g.Revoked = false
+	}
+}
+
+// GetRevoked returns value of Revoked conditional field.
+func (g *MessagesGetExportedChatInvitesRequest) GetRevoked() (value bool) {
+	return g.Flags.Has(3)
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetExportedChatInvitesRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetAdminID returns value of AdminID field.
+func (g *MessagesGetExportedChatInvitesRequest) GetAdminID() (value InputUserClass) {
+	return g.AdminID
+}
+
+// SetOffsetDate sets value of OffsetDate conditional field.
+func (g *MessagesGetExportedChatInvitesRequest) SetOffsetDate(value int) {
+	g.Flags.Set(2)
+	g.OffsetDate = value
+}
+
+// GetOffsetDate returns value of OffsetDate conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetExportedChatInvitesRequest) GetOffsetDate() (value int, ok bool) {
+	if !g.Flags.Has(2) {
+		return value, false
+	}
+	return g.OffsetDate, true
+}
+
+// SetOffsetLink sets value of OffsetLink conditional field.
+func (g *MessagesGetExportedChatInvitesRequest) SetOffsetLink(value string) {
+	g.Flags.Set(2)
+	g.OffsetLink = value
+}
+
+// GetOffsetLink returns value of OffsetLink conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetExportedChatInvitesRequest) GetOffsetLink() (value string, ok bool) {
+	if !g.Flags.Has(2) {
+		return value, false
+	}
+	return g.OffsetLink, true
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetExportedChatInvitesRequest) GetLimit() (value int) {
+	return g.Limit
+}
 
 // MessagesGetExportedChatInvites invokes method messages.getExportedChatInvites#a2b5a3f6 returning error if any.
 //

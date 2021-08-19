@@ -54,6 +54,14 @@ type AccountVerifyPhoneRequest struct {
 // AccountVerifyPhoneRequestTypeID is TL type id of AccountVerifyPhoneRequest.
 const AccountVerifyPhoneRequestTypeID = 0x4dd3a7f6
 
+// Ensuring interfaces in compile-time for AccountVerifyPhoneRequest.
+var (
+	_ bin.Encoder     = &AccountVerifyPhoneRequest{}
+	_ bin.Decoder     = &AccountVerifyPhoneRequest{}
+	_ bin.BareEncoder = &AccountVerifyPhoneRequest{}
+	_ bin.BareDecoder = &AccountVerifyPhoneRequest{}
+)
+
 func (v *AccountVerifyPhoneRequest) Zero() bool {
 	if v == nil {
 		return true
@@ -150,21 +158,6 @@ func (v *AccountVerifyPhoneRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (v *AccountVerifyPhoneRequest) GetPhoneNumber() (value string) {
-	return v.PhoneNumber
-}
-
-// GetPhoneCodeHash returns value of PhoneCodeHash field.
-func (v *AccountVerifyPhoneRequest) GetPhoneCodeHash() (value string) {
-	return v.PhoneCodeHash
-}
-
-// GetPhoneCode returns value of PhoneCode field.
-func (v *AccountVerifyPhoneRequest) GetPhoneCode() (value string) {
-	return v.PhoneCode
-}
-
 // Decode implements bin.Decoder.
 func (v *AccountVerifyPhoneRequest) Decode(b *bin.Buffer) error {
 	if v == nil {
@@ -205,13 +198,20 @@ func (v *AccountVerifyPhoneRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountVerifyPhoneRequest.
-var (
-	_ bin.Encoder     = &AccountVerifyPhoneRequest{}
-	_ bin.Decoder     = &AccountVerifyPhoneRequest{}
-	_ bin.BareEncoder = &AccountVerifyPhoneRequest{}
-	_ bin.BareDecoder = &AccountVerifyPhoneRequest{}
-)
+// GetPhoneNumber returns value of PhoneNumber field.
+func (v *AccountVerifyPhoneRequest) GetPhoneNumber() (value string) {
+	return v.PhoneNumber
+}
+
+// GetPhoneCodeHash returns value of PhoneCodeHash field.
+func (v *AccountVerifyPhoneRequest) GetPhoneCodeHash() (value string) {
+	return v.PhoneCodeHash
+}
+
+// GetPhoneCode returns value of PhoneCode field.
+func (v *AccountVerifyPhoneRequest) GetPhoneCode() (value string) {
+	return v.PhoneCode
+}
 
 // AccountVerifyPhone invokes method account.verifyPhone#4dd3a7f6 returning error if any.
 // Verify a phone number for telegram passport¹.

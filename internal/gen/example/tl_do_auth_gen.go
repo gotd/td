@@ -38,6 +38,14 @@ type DoAuthRequest struct {
 // DoAuthRequestTypeID is TL type id of DoAuthRequest.
 const DoAuthRequestTypeID = 0xfd2f6687
 
+// Ensuring interfaces in compile-time for DoAuthRequest.
+var (
+	_ bin.Encoder     = &DoAuthRequest{}
+	_ bin.Decoder     = &DoAuthRequest{}
+	_ bin.BareEncoder = &DoAuthRequest{}
+	_ bin.BareDecoder = &DoAuthRequest{}
+)
+
 func (d *DoAuthRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -116,14 +124,6 @@ func (d *DoAuthRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for DoAuthRequest.
-var (
-	_ bin.Encoder     = &DoAuthRequest{}
-	_ bin.Decoder     = &DoAuthRequest{}
-	_ bin.BareEncoder = &DoAuthRequest{}
-	_ bin.BareDecoder = &DoAuthRequest{}
-)
 
 // DoAuth invokes method doAuth#fd2f6687 returning error if any.
 //

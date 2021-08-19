@@ -39,6 +39,19 @@ type StorageFileUnknown struct {
 // StorageFileUnknownTypeID is TL type id of StorageFileUnknown.
 const StorageFileUnknownTypeID = 0xaa963b05
 
+// construct implements constructor of StorageFileTypeClass.
+func (f StorageFileUnknown) construct() StorageFileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for StorageFileUnknown.
+var (
+	_ bin.Encoder     = &StorageFileUnknown{}
+	_ bin.Decoder     = &StorageFileUnknown{}
+	_ bin.BareEncoder = &StorageFileUnknown{}
+	_ bin.BareDecoder = &StorageFileUnknown{}
+
+	_ StorageFileTypeClass = &StorageFileUnknown{}
+)
+
 func (f *StorageFileUnknown) Zero() bool {
 	if f == nil {
 		return true
@@ -118,19 +131,6 @@ func (f *StorageFileUnknown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StorageFileTypeClass.
-func (f StorageFileUnknown) construct() StorageFileTypeClass { return &f }
-
-// Ensuring interfaces in compile-time for StorageFileUnknown.
-var (
-	_ bin.Encoder     = &StorageFileUnknown{}
-	_ bin.Decoder     = &StorageFileUnknown{}
-	_ bin.BareEncoder = &StorageFileUnknown{}
-	_ bin.BareDecoder = &StorageFileUnknown{}
-
-	_ StorageFileTypeClass = &StorageFileUnknown{}
-)
-
 // StorageFilePartial represents TL type `storage.filePartial#40bc6f52`.
 // Part of a bigger file.
 //
@@ -140,6 +140,19 @@ type StorageFilePartial struct {
 
 // StorageFilePartialTypeID is TL type id of StorageFilePartial.
 const StorageFilePartialTypeID = 0x40bc6f52
+
+// construct implements constructor of StorageFileTypeClass.
+func (f StorageFilePartial) construct() StorageFileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for StorageFilePartial.
+var (
+	_ bin.Encoder     = &StorageFilePartial{}
+	_ bin.Decoder     = &StorageFilePartial{}
+	_ bin.BareEncoder = &StorageFilePartial{}
+	_ bin.BareDecoder = &StorageFilePartial{}
+
+	_ StorageFileTypeClass = &StorageFilePartial{}
+)
 
 func (f *StorageFilePartial) Zero() bool {
 	if f == nil {
@@ -220,19 +233,6 @@ func (f *StorageFilePartial) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StorageFileTypeClass.
-func (f StorageFilePartial) construct() StorageFileTypeClass { return &f }
-
-// Ensuring interfaces in compile-time for StorageFilePartial.
-var (
-	_ bin.Encoder     = &StorageFilePartial{}
-	_ bin.Decoder     = &StorageFilePartial{}
-	_ bin.BareEncoder = &StorageFilePartial{}
-	_ bin.BareDecoder = &StorageFilePartial{}
-
-	_ StorageFileTypeClass = &StorageFilePartial{}
-)
-
 // StorageFileJpeg represents TL type `storage.fileJpeg#7efe0e`.
 // JPEG image. MIME type: image/jpeg.
 //
@@ -242,6 +242,19 @@ type StorageFileJpeg struct {
 
 // StorageFileJpegTypeID is TL type id of StorageFileJpeg.
 const StorageFileJpegTypeID = 0x7efe0e
+
+// construct implements constructor of StorageFileTypeClass.
+func (f StorageFileJpeg) construct() StorageFileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for StorageFileJpeg.
+var (
+	_ bin.Encoder     = &StorageFileJpeg{}
+	_ bin.Decoder     = &StorageFileJpeg{}
+	_ bin.BareEncoder = &StorageFileJpeg{}
+	_ bin.BareDecoder = &StorageFileJpeg{}
+
+	_ StorageFileTypeClass = &StorageFileJpeg{}
+)
 
 func (f *StorageFileJpeg) Zero() bool {
 	if f == nil {
@@ -322,19 +335,6 @@ func (f *StorageFileJpeg) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StorageFileTypeClass.
-func (f StorageFileJpeg) construct() StorageFileTypeClass { return &f }
-
-// Ensuring interfaces in compile-time for StorageFileJpeg.
-var (
-	_ bin.Encoder     = &StorageFileJpeg{}
-	_ bin.Decoder     = &StorageFileJpeg{}
-	_ bin.BareEncoder = &StorageFileJpeg{}
-	_ bin.BareDecoder = &StorageFileJpeg{}
-
-	_ StorageFileTypeClass = &StorageFileJpeg{}
-)
-
 // StorageFileGif represents TL type `storage.fileGif#cae1aadf`.
 // GIF image. MIME type: image/gif.
 //
@@ -344,6 +344,19 @@ type StorageFileGif struct {
 
 // StorageFileGifTypeID is TL type id of StorageFileGif.
 const StorageFileGifTypeID = 0xcae1aadf
+
+// construct implements constructor of StorageFileTypeClass.
+func (f StorageFileGif) construct() StorageFileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for StorageFileGif.
+var (
+	_ bin.Encoder     = &StorageFileGif{}
+	_ bin.Decoder     = &StorageFileGif{}
+	_ bin.BareEncoder = &StorageFileGif{}
+	_ bin.BareDecoder = &StorageFileGif{}
+
+	_ StorageFileTypeClass = &StorageFileGif{}
+)
 
 func (f *StorageFileGif) Zero() bool {
 	if f == nil {
@@ -424,19 +437,6 @@ func (f *StorageFileGif) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StorageFileTypeClass.
-func (f StorageFileGif) construct() StorageFileTypeClass { return &f }
-
-// Ensuring interfaces in compile-time for StorageFileGif.
-var (
-	_ bin.Encoder     = &StorageFileGif{}
-	_ bin.Decoder     = &StorageFileGif{}
-	_ bin.BareEncoder = &StorageFileGif{}
-	_ bin.BareDecoder = &StorageFileGif{}
-
-	_ StorageFileTypeClass = &StorageFileGif{}
-)
-
 // StorageFilePng represents TL type `storage.filePng#a4f63c0`.
 // PNG image. MIME type: image/png.
 //
@@ -446,6 +446,19 @@ type StorageFilePng struct {
 
 // StorageFilePngTypeID is TL type id of StorageFilePng.
 const StorageFilePngTypeID = 0xa4f63c0
+
+// construct implements constructor of StorageFileTypeClass.
+func (f StorageFilePng) construct() StorageFileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for StorageFilePng.
+var (
+	_ bin.Encoder     = &StorageFilePng{}
+	_ bin.Decoder     = &StorageFilePng{}
+	_ bin.BareEncoder = &StorageFilePng{}
+	_ bin.BareDecoder = &StorageFilePng{}
+
+	_ StorageFileTypeClass = &StorageFilePng{}
+)
 
 func (f *StorageFilePng) Zero() bool {
 	if f == nil {
@@ -526,19 +539,6 @@ func (f *StorageFilePng) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StorageFileTypeClass.
-func (f StorageFilePng) construct() StorageFileTypeClass { return &f }
-
-// Ensuring interfaces in compile-time for StorageFilePng.
-var (
-	_ bin.Encoder     = &StorageFilePng{}
-	_ bin.Decoder     = &StorageFilePng{}
-	_ bin.BareEncoder = &StorageFilePng{}
-	_ bin.BareDecoder = &StorageFilePng{}
-
-	_ StorageFileTypeClass = &StorageFilePng{}
-)
-
 // StorageFilePdf represents TL type `storage.filePdf#ae1e508d`.
 // PDF document image. MIME type: application/pdf.
 //
@@ -548,6 +548,19 @@ type StorageFilePdf struct {
 
 // StorageFilePdfTypeID is TL type id of StorageFilePdf.
 const StorageFilePdfTypeID = 0xae1e508d
+
+// construct implements constructor of StorageFileTypeClass.
+func (f StorageFilePdf) construct() StorageFileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for StorageFilePdf.
+var (
+	_ bin.Encoder     = &StorageFilePdf{}
+	_ bin.Decoder     = &StorageFilePdf{}
+	_ bin.BareEncoder = &StorageFilePdf{}
+	_ bin.BareDecoder = &StorageFilePdf{}
+
+	_ StorageFileTypeClass = &StorageFilePdf{}
+)
 
 func (f *StorageFilePdf) Zero() bool {
 	if f == nil {
@@ -628,19 +641,6 @@ func (f *StorageFilePdf) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StorageFileTypeClass.
-func (f StorageFilePdf) construct() StorageFileTypeClass { return &f }
-
-// Ensuring interfaces in compile-time for StorageFilePdf.
-var (
-	_ bin.Encoder     = &StorageFilePdf{}
-	_ bin.Decoder     = &StorageFilePdf{}
-	_ bin.BareEncoder = &StorageFilePdf{}
-	_ bin.BareDecoder = &StorageFilePdf{}
-
-	_ StorageFileTypeClass = &StorageFilePdf{}
-)
-
 // StorageFileMp3 represents TL type `storage.fileMp3#528a0677`.
 // Mp3 audio. MIME type: audio/mpeg.
 //
@@ -650,6 +650,19 @@ type StorageFileMp3 struct {
 
 // StorageFileMp3TypeID is TL type id of StorageFileMp3.
 const StorageFileMp3TypeID = 0x528a0677
+
+// construct implements constructor of StorageFileTypeClass.
+func (f StorageFileMp3) construct() StorageFileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for StorageFileMp3.
+var (
+	_ bin.Encoder     = &StorageFileMp3{}
+	_ bin.Decoder     = &StorageFileMp3{}
+	_ bin.BareEncoder = &StorageFileMp3{}
+	_ bin.BareDecoder = &StorageFileMp3{}
+
+	_ StorageFileTypeClass = &StorageFileMp3{}
+)
 
 func (f *StorageFileMp3) Zero() bool {
 	if f == nil {
@@ -730,19 +743,6 @@ func (f *StorageFileMp3) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StorageFileTypeClass.
-func (f StorageFileMp3) construct() StorageFileTypeClass { return &f }
-
-// Ensuring interfaces in compile-time for StorageFileMp3.
-var (
-	_ bin.Encoder     = &StorageFileMp3{}
-	_ bin.Decoder     = &StorageFileMp3{}
-	_ bin.BareEncoder = &StorageFileMp3{}
-	_ bin.BareDecoder = &StorageFileMp3{}
-
-	_ StorageFileTypeClass = &StorageFileMp3{}
-)
-
 // StorageFileMov represents TL type `storage.fileMov#4b09ebbc`.
 // Quicktime video. MIME type: video/quicktime.
 //
@@ -752,6 +752,19 @@ type StorageFileMov struct {
 
 // StorageFileMovTypeID is TL type id of StorageFileMov.
 const StorageFileMovTypeID = 0x4b09ebbc
+
+// construct implements constructor of StorageFileTypeClass.
+func (f StorageFileMov) construct() StorageFileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for StorageFileMov.
+var (
+	_ bin.Encoder     = &StorageFileMov{}
+	_ bin.Decoder     = &StorageFileMov{}
+	_ bin.BareEncoder = &StorageFileMov{}
+	_ bin.BareDecoder = &StorageFileMov{}
+
+	_ StorageFileTypeClass = &StorageFileMov{}
+)
 
 func (f *StorageFileMov) Zero() bool {
 	if f == nil {
@@ -832,19 +845,6 @@ func (f *StorageFileMov) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StorageFileTypeClass.
-func (f StorageFileMov) construct() StorageFileTypeClass { return &f }
-
-// Ensuring interfaces in compile-time for StorageFileMov.
-var (
-	_ bin.Encoder     = &StorageFileMov{}
-	_ bin.Decoder     = &StorageFileMov{}
-	_ bin.BareEncoder = &StorageFileMov{}
-	_ bin.BareDecoder = &StorageFileMov{}
-
-	_ StorageFileTypeClass = &StorageFileMov{}
-)
-
 // StorageFileMp4 represents TL type `storage.fileMp4#b3cea0e4`.
 // MPEG-4 video. MIME type: video/mp4.
 //
@@ -854,6 +854,19 @@ type StorageFileMp4 struct {
 
 // StorageFileMp4TypeID is TL type id of StorageFileMp4.
 const StorageFileMp4TypeID = 0xb3cea0e4
+
+// construct implements constructor of StorageFileTypeClass.
+func (f StorageFileMp4) construct() StorageFileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for StorageFileMp4.
+var (
+	_ bin.Encoder     = &StorageFileMp4{}
+	_ bin.Decoder     = &StorageFileMp4{}
+	_ bin.BareEncoder = &StorageFileMp4{}
+	_ bin.BareDecoder = &StorageFileMp4{}
+
+	_ StorageFileTypeClass = &StorageFileMp4{}
+)
 
 func (f *StorageFileMp4) Zero() bool {
 	if f == nil {
@@ -934,19 +947,6 @@ func (f *StorageFileMp4) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StorageFileTypeClass.
-func (f StorageFileMp4) construct() StorageFileTypeClass { return &f }
-
-// Ensuring interfaces in compile-time for StorageFileMp4.
-var (
-	_ bin.Encoder     = &StorageFileMp4{}
-	_ bin.Decoder     = &StorageFileMp4{}
-	_ bin.BareEncoder = &StorageFileMp4{}
-	_ bin.BareDecoder = &StorageFileMp4{}
-
-	_ StorageFileTypeClass = &StorageFileMp4{}
-)
-
 // StorageFileWebp represents TL type `storage.fileWebp#1081464c`.
 // WEBP image. MIME type: image/webp.
 //
@@ -956,6 +956,19 @@ type StorageFileWebp struct {
 
 // StorageFileWebpTypeID is TL type id of StorageFileWebp.
 const StorageFileWebpTypeID = 0x1081464c
+
+// construct implements constructor of StorageFileTypeClass.
+func (f StorageFileWebp) construct() StorageFileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for StorageFileWebp.
+var (
+	_ bin.Encoder     = &StorageFileWebp{}
+	_ bin.Decoder     = &StorageFileWebp{}
+	_ bin.BareEncoder = &StorageFileWebp{}
+	_ bin.BareDecoder = &StorageFileWebp{}
+
+	_ StorageFileTypeClass = &StorageFileWebp{}
+)
 
 func (f *StorageFileWebp) Zero() bool {
 	if f == nil {
@@ -1035,19 +1048,6 @@ func (f *StorageFileWebp) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of StorageFileTypeClass.
-func (f StorageFileWebp) construct() StorageFileTypeClass { return &f }
-
-// Ensuring interfaces in compile-time for StorageFileWebp.
-var (
-	_ bin.Encoder     = &StorageFileWebp{}
-	_ bin.Decoder     = &StorageFileWebp{}
-	_ bin.BareEncoder = &StorageFileWebp{}
-	_ bin.BareDecoder = &StorageFileWebp{}
-
-	_ StorageFileTypeClass = &StorageFileWebp{}
-)
 
 // StorageFileTypeClass represents storage.FileType generic type.
 //
@@ -1196,86 +1196,4 @@ func (b *StorageFileTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode StorageFileTypeClass as nil")
 	}
 	return b.FileType.Encode(buf)
-}
-
-// StorageFileTypeClassArray is adapter for slice of StorageFileTypeClass.
-type StorageFileTypeClassArray []StorageFileTypeClass
-
-// Sort sorts slice of StorageFileTypeClass.
-func (s StorageFileTypeClassArray) Sort(less func(a, b StorageFileTypeClass) bool) StorageFileTypeClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of StorageFileTypeClass.
-func (s StorageFileTypeClassArray) SortStable(less func(a, b StorageFileTypeClass) bool) StorageFileTypeClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of StorageFileTypeClass.
-func (s StorageFileTypeClassArray) Retain(keep func(x StorageFileTypeClass) bool) StorageFileTypeClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s StorageFileTypeClassArray) First() (v StorageFileTypeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s StorageFileTypeClassArray) Last() (v StorageFileTypeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *StorageFileTypeClassArray) PopFirst() (v StorageFileTypeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero StorageFileTypeClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *StorageFileTypeClassArray) Pop() (v StorageFileTypeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

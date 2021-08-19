@@ -44,6 +44,14 @@ type InlineBotSwitchPM struct {
 // InlineBotSwitchPMTypeID is TL type id of InlineBotSwitchPM.
 const InlineBotSwitchPMTypeID = 0x3c20629f
 
+// Ensuring interfaces in compile-time for InlineBotSwitchPM.
+var (
+	_ bin.Encoder     = &InlineBotSwitchPM{}
+	_ bin.Decoder     = &InlineBotSwitchPM{}
+	_ bin.BareEncoder = &InlineBotSwitchPM{}
+	_ bin.BareDecoder = &InlineBotSwitchPM{}
+)
+
 func (i *InlineBotSwitchPM) Zero() bool {
 	if i == nil {
 		return true
@@ -130,16 +138,6 @@ func (i *InlineBotSwitchPM) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (i *InlineBotSwitchPM) GetText() (value string) {
-	return i.Text
-}
-
-// GetStartParam returns value of StartParam field.
-func (i *InlineBotSwitchPM) GetStartParam() (value string) {
-	return i.StartParam
-}
-
 // Decode implements bin.Decoder.
 func (i *InlineBotSwitchPM) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -173,10 +171,12 @@ func (i *InlineBotSwitchPM) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InlineBotSwitchPM.
-var (
-	_ bin.Encoder     = &InlineBotSwitchPM{}
-	_ bin.Decoder     = &InlineBotSwitchPM{}
-	_ bin.BareEncoder = &InlineBotSwitchPM{}
-	_ bin.BareDecoder = &InlineBotSwitchPM{}
-)
+// GetText returns value of Text field.
+func (i *InlineBotSwitchPM) GetText() (value string) {
+	return i.Text
+}
+
+// GetStartParam returns value of StartParam field.
+func (i *InlineBotSwitchPM) GetStartParam() (value string) {
+	return i.StartParam
+}

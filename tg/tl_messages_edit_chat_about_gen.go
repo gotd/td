@@ -49,6 +49,14 @@ type MessagesEditChatAboutRequest struct {
 // MessagesEditChatAboutRequestTypeID is TL type id of MessagesEditChatAboutRequest.
 const MessagesEditChatAboutRequestTypeID = 0xdef60797
 
+// Ensuring interfaces in compile-time for MessagesEditChatAboutRequest.
+var (
+	_ bin.Encoder     = &MessagesEditChatAboutRequest{}
+	_ bin.Decoder     = &MessagesEditChatAboutRequest{}
+	_ bin.BareEncoder = &MessagesEditChatAboutRequest{}
+	_ bin.BareDecoder = &MessagesEditChatAboutRequest{}
+)
+
 func (e *MessagesEditChatAboutRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -140,16 +148,6 @@ func (e *MessagesEditChatAboutRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (e *MessagesEditChatAboutRequest) GetPeer() (value InputPeerClass) {
-	return e.Peer
-}
-
-// GetAbout returns value of About field.
-func (e *MessagesEditChatAboutRequest) GetAbout() (value string) {
-	return e.About
-}
-
 // Decode implements bin.Decoder.
 func (e *MessagesEditChatAboutRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -183,13 +181,15 @@ func (e *MessagesEditChatAboutRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesEditChatAboutRequest.
-var (
-	_ bin.Encoder     = &MessagesEditChatAboutRequest{}
-	_ bin.Decoder     = &MessagesEditChatAboutRequest{}
-	_ bin.BareEncoder = &MessagesEditChatAboutRequest{}
-	_ bin.BareDecoder = &MessagesEditChatAboutRequest{}
-)
+// GetPeer returns value of Peer field.
+func (e *MessagesEditChatAboutRequest) GetPeer() (value InputPeerClass) {
+	return e.Peer
+}
+
+// GetAbout returns value of About field.
+func (e *MessagesEditChatAboutRequest) GetAbout() (value string) {
+	return e.About
+}
 
 // MessagesEditChatAbout invokes method messages.editChatAbout#def60797 returning error if any.
 // Edit the description of a group/supergroup/channel¹.

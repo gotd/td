@@ -11,14 +11,14 @@ import (
 
 // config is input data for templates.
 type config struct {
-	Layer          int
-	GenerateClient bool
-	Package        string
-	Structs        []structDef
-	Interfaces     []interfaceDef
-	Mappings       map[string][]constructorMapping
-	Registry       []bindingDef
-	Errors         []errCheckDef
+	Layer      int
+	Flags      GenerateFlags
+	Package    string
+	Structs    []structDef
+	Interfaces []interfaceDef
+	Mappings   map[string][]constructorMapping
+	Registry   []bindingDef
+	Errors     []errCheckDef
 }
 
 // FileSystem represents a directory of generated package.
@@ -57,7 +57,7 @@ type writer struct {
 	wrote map[string]bool
 
 	wroteConstructors map[string]struct{}
-	generateClient    bool
+	generateFlags     GenerateFlags
 }
 
 // Generate executes template to file using config.
@@ -82,21 +82,36 @@ func (w *writer) Generate(templateName, fileName string, cfg config) error {
 	return nil
 }
 
+func (w *writer) write(fileName string, cfg config) error {
+	if err := w.Generate("main", fileName, cfg); err != nil {
+		return err
+	}
+
+	if w.generateFlags.Slices {
+		name := strings.TrimSuffix(fileName, "_gen.go") + "_slices_gen.go"
+		if err := w.Generate("slices", name, cfg); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 // WriteInterfaces writes interface definitions to corresponding files.
 func (w *writer) WriteInterfaces(interfaces []interfaceDef) error {
 	for _, class := range interfaces {
 		cfg := config{
-			Package:        w.pkg,
-			Structs:        class.Constructors,
-			Interfaces:     []interfaceDef{class},
-			GenerateClient: w.generateClient,
+			Package:    w.pkg,
+			Structs:    class.Constructors,
+			Interfaces: []interfaceDef{class},
+			Flags:      w.generateFlags,
 		}
 		for _, s := range cfg.Structs {
 			w.wroteConstructors[s.Name] = struct{}{}
 		}
 
 		name := outFileName(class.BaseName, class.Namespace)
-		if err := w.Generate("main", name, cfg); err != nil {
+		if err := w.write(name, cfg); err != nil {
 			return err
 		}
 	}
@@ -110,17 +125,17 @@ func (w *writer) WriteStructs(structs []structDef, mappings map[string][]constru
 			continue
 		}
 		cfg := config{
-			Package:        w.pkg,
-			Structs:        []structDef{s},
-			Mappings:       mappings,
-			GenerateClient: w.generateClient,
+			Package:  w.pkg,
+			Structs:  []structDef{s},
+			Mappings: mappings,
+			Flags:    w.generateFlags,
 		}
 		name := outFileName(s.BaseName, s.Namespace)
 		if w.wrote[name] {
 			// Name collision.
 			name = outFileName(s.BaseName+"_const", s.Namespace)
 		}
-		if err := w.Generate("main", name, cfg); err != nil {
+		if err := w.write(name, cfg); err != nil {
 			return err
 		}
 	}
@@ -138,7 +153,7 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 		wrote: map[string]bool{},
 
 		wroteConstructors: map[string]struct{}{},
-		generateClient:    g.generateClient,
+		generateFlags:     g.generateFlags,
 	}
 
 	if err := w.WriteInterfaces(g.interfaces); err != nil {
@@ -147,7 +162,7 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 	if err := w.WriteStructs(g.structs, g.mappings); err != nil {
 		return xerrors.Errorf("structs: %w", err)
 	}
-	if g.generateServer {
+	if g.generateFlags.Server {
 		if err := w.Generate("server", "tl_server_gen.go", config{
 			Structs: g.structs,
 		}); err != nil {
@@ -155,7 +170,7 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 		}
 	}
 
-	if g.hasUpdateClass() {
+	if g.generateFlags.Handlers && g.hasUpdateClass() {
 		if err := w.Generate("handlers", "tl_handlers_gen.go", config{
 			Structs: g.structs,
 		}); err != nil {
@@ -164,18 +179,18 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 	}
 
 	cfg := config{
-		Registry:       g.registry,
-		Layer:          g.schema.Layer,
-		GenerateClient: g.generateClient,
-		Errors:         g.errorChecks,
+		Registry: g.registry,
+		Layer:    g.schema.Layer,
+		Errors:   g.errorChecks,
+		Flags:    g.generateFlags,
 	}
 
-	if g.generateRegistry {
+	if g.generateFlags.Registry {
 		if err := w.Generate("registry", "tl_registry_gen.go", cfg); err != nil {
 			return err
 		}
 	}
-	if g.generateClient {
+	if g.generateFlags.Client {
 		if err := w.Generate("client", "tl_client_gen.go", cfg); err != nil {
 			return err
 		}

@@ -41,6 +41,14 @@ type MessagesGetOnlinesRequest struct {
 // MessagesGetOnlinesRequestTypeID is TL type id of MessagesGetOnlinesRequest.
 const MessagesGetOnlinesRequestTypeID = 0x6e2be050
 
+// Ensuring interfaces in compile-time for MessagesGetOnlinesRequest.
+var (
+	_ bin.Encoder     = &MessagesGetOnlinesRequest{}
+	_ bin.Decoder     = &MessagesGetOnlinesRequest{}
+	_ bin.BareEncoder = &MessagesGetOnlinesRequest{}
+	_ bin.BareDecoder = &MessagesGetOnlinesRequest{}
+)
+
 func (g *MessagesGetOnlinesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -122,11 +130,6 @@ func (g *MessagesGetOnlinesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetOnlinesRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetOnlinesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -153,13 +156,10 @@ func (g *MessagesGetOnlinesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetOnlinesRequest.
-var (
-	_ bin.Encoder     = &MessagesGetOnlinesRequest{}
-	_ bin.Decoder     = &MessagesGetOnlinesRequest{}
-	_ bin.BareEncoder = &MessagesGetOnlinesRequest{}
-	_ bin.BareDecoder = &MessagesGetOnlinesRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetOnlinesRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
 
 // MessagesGetOnlines invokes method messages.getOnlines#6e2be050 returning error if any.
 // Get count of online users in a chat

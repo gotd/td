@@ -49,6 +49,14 @@ type InputEncryptedChat struct {
 // InputEncryptedChatTypeID is TL type id of InputEncryptedChat.
 const InputEncryptedChatTypeID = 0xf141b5e1
 
+// Ensuring interfaces in compile-time for InputEncryptedChat.
+var (
+	_ bin.Encoder     = &InputEncryptedChat{}
+	_ bin.Decoder     = &InputEncryptedChat{}
+	_ bin.BareEncoder = &InputEncryptedChat{}
+	_ bin.BareDecoder = &InputEncryptedChat{}
+)
+
 func (i *InputEncryptedChat) Zero() bool {
 	if i == nil {
 		return true
@@ -135,16 +143,6 @@ func (i *InputEncryptedChat) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (i *InputEncryptedChat) GetChatID() (value int) {
-	return i.ChatID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputEncryptedChat) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputEncryptedChat) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -178,10 +176,12 @@ func (i *InputEncryptedChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InputEncryptedChat.
-var (
-	_ bin.Encoder     = &InputEncryptedChat{}
-	_ bin.Decoder     = &InputEncryptedChat{}
-	_ bin.BareEncoder = &InputEncryptedChat{}
-	_ bin.BareDecoder = &InputEncryptedChat{}
-)
+// GetChatID returns value of ChatID field.
+func (i *InputEncryptedChat) GetChatID() (value int) {
+	return i.ChatID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputEncryptedChat) GetAccessHash() (value int64) {
+	return i.AccessHash
+}

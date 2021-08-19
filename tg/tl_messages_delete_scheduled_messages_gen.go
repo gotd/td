@@ -43,6 +43,14 @@ type MessagesDeleteScheduledMessagesRequest struct {
 // MessagesDeleteScheduledMessagesRequestTypeID is TL type id of MessagesDeleteScheduledMessagesRequest.
 const MessagesDeleteScheduledMessagesRequestTypeID = 0x59ae2b16
 
+// Ensuring interfaces in compile-time for MessagesDeleteScheduledMessagesRequest.
+var (
+	_ bin.Encoder     = &MessagesDeleteScheduledMessagesRequest{}
+	_ bin.Decoder     = &MessagesDeleteScheduledMessagesRequest{}
+	_ bin.BareEncoder = &MessagesDeleteScheduledMessagesRequest{}
+	_ bin.BareDecoder = &MessagesDeleteScheduledMessagesRequest{}
+)
+
 func (d *MessagesDeleteScheduledMessagesRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -137,16 +145,6 @@ func (d *MessagesDeleteScheduledMessagesRequest) EncodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (d *MessagesDeleteScheduledMessagesRequest) GetPeer() (value InputPeerClass) {
-	return d.Peer
-}
-
-// GetID returns value of ID field.
-func (d *MessagesDeleteScheduledMessagesRequest) GetID() (value []int) {
-	return d.ID
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteScheduledMessagesRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -190,13 +188,15 @@ func (d *MessagesDeleteScheduledMessagesRequest) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesDeleteScheduledMessagesRequest.
-var (
-	_ bin.Encoder     = &MessagesDeleteScheduledMessagesRequest{}
-	_ bin.Decoder     = &MessagesDeleteScheduledMessagesRequest{}
-	_ bin.BareEncoder = &MessagesDeleteScheduledMessagesRequest{}
-	_ bin.BareDecoder = &MessagesDeleteScheduledMessagesRequest{}
-)
+// GetPeer returns value of Peer field.
+func (d *MessagesDeleteScheduledMessagesRequest) GetPeer() (value InputPeerClass) {
+	return d.Peer
+}
+
+// GetID returns value of ID field.
+func (d *MessagesDeleteScheduledMessagesRequest) GetID() (value []int) {
+	return d.ID
+}
 
 // MessagesDeleteScheduledMessages invokes method messages.deleteScheduledMessages#59ae2b16 returning error if any.
 // Delete scheduled messages

@@ -60,6 +60,14 @@ type MessagesGetHistoryRequest struct {
 // MessagesGetHistoryRequestTypeID is TL type id of MessagesGetHistoryRequest.
 const MessagesGetHistoryRequestTypeID = 0xdcbb8260
 
+// Ensuring interfaces in compile-time for MessagesGetHistoryRequest.
+var (
+	_ bin.Encoder     = &MessagesGetHistoryRequest{}
+	_ bin.Decoder     = &MessagesGetHistoryRequest{}
+	_ bin.BareEncoder = &MessagesGetHistoryRequest{}
+	_ bin.BareDecoder = &MessagesGetHistoryRequest{}
+)
+
 func (g *MessagesGetHistoryRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -211,46 +219,6 @@ func (g *MessagesGetHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetHistoryRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetOffsetID returns value of OffsetID field.
-func (g *MessagesGetHistoryRequest) GetOffsetID() (value int) {
-	return g.OffsetID
-}
-
-// GetOffsetDate returns value of OffsetDate field.
-func (g *MessagesGetHistoryRequest) GetOffsetDate() (value int) {
-	return g.OffsetDate
-}
-
-// GetAddOffset returns value of AddOffset field.
-func (g *MessagesGetHistoryRequest) GetAddOffset() (value int) {
-	return g.AddOffset
-}
-
-// GetLimit returns value of Limit field.
-func (g *MessagesGetHistoryRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
-// GetMaxID returns value of MaxID field.
-func (g *MessagesGetHistoryRequest) GetMaxID() (value int) {
-	return g.MaxID
-}
-
-// GetMinID returns value of MinID field.
-func (g *MessagesGetHistoryRequest) GetMinID() (value int) {
-	return g.MinID
-}
-
-// GetHash returns value of Hash field.
-func (g *MessagesGetHistoryRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetHistoryRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -326,13 +294,45 @@ func (g *MessagesGetHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetHistoryRequest.
-var (
-	_ bin.Encoder     = &MessagesGetHistoryRequest{}
-	_ bin.Decoder     = &MessagesGetHistoryRequest{}
-	_ bin.BareEncoder = &MessagesGetHistoryRequest{}
-	_ bin.BareDecoder = &MessagesGetHistoryRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetHistoryRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (g *MessagesGetHistoryRequest) GetOffsetID() (value int) {
+	return g.OffsetID
+}
+
+// GetOffsetDate returns value of OffsetDate field.
+func (g *MessagesGetHistoryRequest) GetOffsetDate() (value int) {
+	return g.OffsetDate
+}
+
+// GetAddOffset returns value of AddOffset field.
+func (g *MessagesGetHistoryRequest) GetAddOffset() (value int) {
+	return g.AddOffset
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetHistoryRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetMaxID returns value of MaxID field.
+func (g *MessagesGetHistoryRequest) GetMaxID() (value int) {
+	return g.MaxID
+}
+
+// GetMinID returns value of MinID field.
+func (g *MessagesGetHistoryRequest) GetMinID() (value int) {
+	return g.MinID
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetHistoryRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // MessagesGetHistory invokes method messages.getHistory#dcbb8260 returning error if any.
 // Gets back the conversation history with one interlocutor / within a chat

@@ -40,6 +40,14 @@ type PhoneExportedGroupCallInvite struct {
 // PhoneExportedGroupCallInviteTypeID is TL type id of PhoneExportedGroupCallInvite.
 const PhoneExportedGroupCallInviteTypeID = 0x204bd158
 
+// Ensuring interfaces in compile-time for PhoneExportedGroupCallInvite.
+var (
+	_ bin.Encoder     = &PhoneExportedGroupCallInvite{}
+	_ bin.Decoder     = &PhoneExportedGroupCallInvite{}
+	_ bin.BareEncoder = &PhoneExportedGroupCallInvite{}
+	_ bin.BareDecoder = &PhoneExportedGroupCallInvite{}
+)
+
 func (e *PhoneExportedGroupCallInvite) Zero() bool {
 	if e == nil {
 		return true
@@ -116,11 +124,6 @@ func (e *PhoneExportedGroupCallInvite) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLink returns value of Link field.
-func (e *PhoneExportedGroupCallInvite) GetLink() (value string) {
-	return e.Link
-}
-
 // Decode implements bin.Decoder.
 func (e *PhoneExportedGroupCallInvite) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -147,10 +150,7 @@ func (e *PhoneExportedGroupCallInvite) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneExportedGroupCallInvite.
-var (
-	_ bin.Encoder     = &PhoneExportedGroupCallInvite{}
-	_ bin.Decoder     = &PhoneExportedGroupCallInvite{}
-	_ bin.BareEncoder = &PhoneExportedGroupCallInvite{}
-	_ bin.BareDecoder = &PhoneExportedGroupCallInvite{}
-)
+// GetLink returns value of Link field.
+func (e *PhoneExportedGroupCallInvite) GetLink() (value string) {
+	return e.Link
+}

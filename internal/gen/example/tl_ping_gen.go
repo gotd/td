@@ -40,6 +40,14 @@ type PingRequest struct {
 // PingRequestTypeID is TL type id of PingRequest.
 const PingRequestTypeID = 0xce73048f
 
+// Ensuring interfaces in compile-time for PingRequest.
+var (
+	_ bin.Encoder     = &PingRequest{}
+	_ bin.Decoder     = &PingRequest{}
+	_ bin.BareEncoder = &PingRequest{}
+	_ bin.BareDecoder = &PingRequest{}
+)
+
 func (p *PingRequest) Zero() bool {
 	if p == nil {
 		return true
@@ -58,13 +66,6 @@ func (p *PingRequest) String() string {
 	}
 	type Alias PingRequest
 	return fmt.Sprintf("PingRequest%+v", Alias(*p))
-}
-
-// FillFrom fills PingRequest from given interface.
-func (p *PingRequest) FillFrom(from interface {
-	GetID() (value int32)
-}) {
-	p.ID = from.GetID()
 }
 
 // TypeID returns type id in TL schema.
@@ -116,11 +117,6 @@ func (p *PingRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (p *PingRequest) GetID() (value int32) {
-	return p.ID
-}
-
 // Decode implements bin.Decoder.
 func (p *PingRequest) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -147,13 +143,10 @@ func (p *PingRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PingRequest.
-var (
-	_ bin.Encoder     = &PingRequest{}
-	_ bin.Decoder     = &PingRequest{}
-	_ bin.BareEncoder = &PingRequest{}
-	_ bin.BareDecoder = &PingRequest{}
-)
+// GetID returns value of ID field.
+func (p *PingRequest) GetID() (value int32) {
+	return p.ID
+}
 
 // Ping invokes method ping#ce73048f returning error if any.
 //

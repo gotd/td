@@ -41,6 +41,19 @@ type ChatEmpty struct {
 // ChatEmptyTypeID is TL type id of ChatEmpty.
 const ChatEmptyTypeID = 0x9ba2d800
 
+// construct implements constructor of ChatClass.
+func (c ChatEmpty) construct() ChatClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEmpty.
+var (
+	_ bin.Encoder     = &ChatEmpty{}
+	_ bin.Decoder     = &ChatEmpty{}
+	_ bin.BareEncoder = &ChatEmpty{}
+	_ bin.BareDecoder = &ChatEmpty{}
+
+	_ ChatClass = &ChatEmpty{}
+)
+
 func (c *ChatEmpty) Zero() bool {
 	if c == nil {
 		return true
@@ -117,11 +130,6 @@ func (c *ChatEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (c *ChatEmpty) GetID() (value int) {
-	return c.ID
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatEmpty) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -148,18 +156,10 @@ func (c *ChatEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatClass.
-func (c ChatEmpty) construct() ChatClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatEmpty.
-var (
-	_ bin.Encoder     = &ChatEmpty{}
-	_ bin.Decoder     = &ChatEmpty{}
-	_ bin.BareEncoder = &ChatEmpty{}
-	_ bin.BareDecoder = &ChatEmpty{}
-
-	_ ChatClass = &ChatEmpty{}
-)
+// GetID returns value of ID field.
+func (c *ChatEmpty) GetID() (value int) {
+	return c.ID
+}
 
 // Chat represents TL type `chat#3bda1bde`.
 // Info about a group
@@ -223,6 +223,19 @@ type Chat struct {
 
 // ChatTypeID is TL type id of Chat.
 const ChatTypeID = 0x3bda1bde
+
+// construct implements constructor of ChatClass.
+func (c Chat) construct() ChatClass { return &c }
+
+// Ensuring interfaces in compile-time for Chat.
+var (
+	_ bin.Encoder     = &Chat{}
+	_ bin.Decoder     = &Chat{}
+	_ bin.BareEncoder = &Chat{}
+	_ bin.BareDecoder = &Chat{}
+
+	_ ChatClass = &Chat{}
+)
 
 func (c *Chat) Zero() bool {
 	if c == nil {
@@ -505,6 +518,95 @@ func (c *Chat) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *Chat) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chat#3bda1bde to nil")
+	}
+	if err := b.ConsumeID(ChatTypeID); err != nil {
+		return fmt.Errorf("unable to decode chat#3bda1bde: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *Chat) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chat#3bda1bde to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chat#3bda1bde: field flags: %w", err)
+		}
+	}
+	c.Creator = c.Flags.Has(0)
+	c.Kicked = c.Flags.Has(1)
+	c.Left = c.Flags.Has(2)
+	c.Deactivated = c.Flags.Has(5)
+	c.CallActive = c.Flags.Has(23)
+	c.CallNotEmpty = c.Flags.Has(24)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chat#3bda1bde: field id: %w", err)
+		}
+		c.ID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chat#3bda1bde: field title: %w", err)
+		}
+		c.Title = value
+	}
+	{
+		value, err := DecodeChatPhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode chat#3bda1bde: field photo: %w", err)
+		}
+		c.Photo = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chat#3bda1bde: field participants_count: %w", err)
+		}
+		c.ParticipantsCount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chat#3bda1bde: field date: %w", err)
+		}
+		c.Date = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chat#3bda1bde: field version: %w", err)
+		}
+		c.Version = value
+	}
+	if c.Flags.Has(6) {
+		value, err := DecodeInputChannel(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode chat#3bda1bde: field migrated_to: %w", err)
+		}
+		c.MigratedTo = value
+	}
+	if c.Flags.Has(14) {
+		if err := c.AdminRights.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chat#3bda1bde: field admin_rights: %w", err)
+		}
+	}
+	if c.Flags.Has(18) {
+		if err := c.DefaultBannedRights.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chat#3bda1bde: field default_banned_rights: %w", err)
+		}
+	}
+	return nil
+}
+
 // SetCreator sets value of Creator conditional field.
 func (c *Chat) SetCreator(value bool) {
 	if value {
@@ -676,108 +778,6 @@ func (c *Chat) GetDefaultBannedRights() (value ChatBannedRights, ok bool) {
 	return c.DefaultBannedRights, true
 }
 
-// Decode implements bin.Decoder.
-func (c *Chat) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chat#3bda1bde to nil")
-	}
-	if err := b.ConsumeID(ChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode chat#3bda1bde: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *Chat) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chat#3bda1bde to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field flags: %w", err)
-		}
-	}
-	c.Creator = c.Flags.Has(0)
-	c.Kicked = c.Flags.Has(1)
-	c.Left = c.Flags.Has(2)
-	c.Deactivated = c.Flags.Has(5)
-	c.CallActive = c.Flags.Has(23)
-	c.CallNotEmpty = c.Flags.Has(24)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field id: %w", err)
-		}
-		c.ID = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field title: %w", err)
-		}
-		c.Title = value
-	}
-	{
-		value, err := DecodeChatPhoto(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field photo: %w", err)
-		}
-		c.Photo = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field participants_count: %w", err)
-		}
-		c.ParticipantsCount = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field date: %w", err)
-		}
-		c.Date = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field version: %w", err)
-		}
-		c.Version = value
-	}
-	if c.Flags.Has(6) {
-		value, err := DecodeInputChannel(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field migrated_to: %w", err)
-		}
-		c.MigratedTo = value
-	}
-	if c.Flags.Has(14) {
-		if err := c.AdminRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field admin_rights: %w", err)
-		}
-	}
-	if c.Flags.Has(18) {
-		if err := c.DefaultBannedRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field default_banned_rights: %w", err)
-		}
-	}
-	return nil
-}
-
-// construct implements constructor of ChatClass.
-func (c Chat) construct() ChatClass { return &c }
-
-// Ensuring interfaces in compile-time for Chat.
-var (
-	_ bin.Encoder     = &Chat{}
-	_ bin.Decoder     = &Chat{}
-	_ bin.BareEncoder = &Chat{}
-	_ bin.BareDecoder = &Chat{}
-
-	_ ChatClass = &Chat{}
-)
-
 // ChatForbidden represents TL type `chatForbidden#7328bdb`.
 // A group to which the user has no access. E.g., because the user was kicked from the
 // group.
@@ -792,6 +792,19 @@ type ChatForbidden struct {
 
 // ChatForbiddenTypeID is TL type id of ChatForbidden.
 const ChatForbiddenTypeID = 0x7328bdb
+
+// construct implements constructor of ChatClass.
+func (c ChatForbidden) construct() ChatClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatForbidden.
+var (
+	_ bin.Encoder     = &ChatForbidden{}
+	_ bin.Decoder     = &ChatForbidden{}
+	_ bin.BareEncoder = &ChatForbidden{}
+	_ bin.BareDecoder = &ChatForbidden{}
+
+	_ ChatClass = &ChatForbidden{}
+)
 
 func (c *ChatForbidden) Zero() bool {
 	if c == nil {
@@ -879,16 +892,6 @@ func (c *ChatForbidden) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (c *ChatForbidden) GetID() (value int) {
-	return c.ID
-}
-
-// GetTitle returns value of Title field.
-func (c *ChatForbidden) GetTitle() (value string) {
-	return c.Title
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatForbidden) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -922,18 +925,15 @@ func (c *ChatForbidden) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatClass.
-func (c ChatForbidden) construct() ChatClass { return &c }
+// GetID returns value of ID field.
+func (c *ChatForbidden) GetID() (value int) {
+	return c.ID
+}
 
-// Ensuring interfaces in compile-time for ChatForbidden.
-var (
-	_ bin.Encoder     = &ChatForbidden{}
-	_ bin.Decoder     = &ChatForbidden{}
-	_ bin.BareEncoder = &ChatForbidden{}
-	_ bin.BareDecoder = &ChatForbidden{}
-
-	_ ChatClass = &ChatForbidden{}
-)
+// GetTitle returns value of Title field.
+func (c *ChatForbidden) GetTitle() (value string) {
+	return c.Title
+}
 
 // Channel represents TL type `channel#d31a961e`.
 // Channel/supergroup info
@@ -1032,6 +1032,19 @@ type Channel struct {
 
 // ChannelTypeID is TL type id of Channel.
 const ChannelTypeID = 0xd31a961e
+
+// construct implements constructor of ChatClass.
+func (c Channel) construct() ChatClass { return &c }
+
+// Ensuring interfaces in compile-time for Channel.
+var (
+	_ bin.Encoder     = &Channel{}
+	_ bin.Decoder     = &Channel{}
+	_ bin.BareEncoder = &Channel{}
+	_ bin.BareDecoder = &Channel{}
+
+	_ ChatClass = &Channel{}
+)
 
 func (c *Channel) Zero() bool {
 	if c == nil {
@@ -1512,6 +1525,134 @@ func (c *Channel) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *Channel) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channel#d31a961e to nil")
+	}
+	if err := b.ConsumeID(ChannelTypeID); err != nil {
+		return fmt.Errorf("unable to decode channel#d31a961e: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *Channel) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channel#d31a961e to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channel#d31a961e: field flags: %w", err)
+		}
+	}
+	c.Creator = c.Flags.Has(0)
+	c.Left = c.Flags.Has(2)
+	c.Broadcast = c.Flags.Has(5)
+	c.Verified = c.Flags.Has(7)
+	c.Megagroup = c.Flags.Has(8)
+	c.Restricted = c.Flags.Has(9)
+	c.Signatures = c.Flags.Has(11)
+	c.Min = c.Flags.Has(12)
+	c.Scam = c.Flags.Has(19)
+	c.HasLink = c.Flags.Has(20)
+	c.HasGeo = c.Flags.Has(21)
+	c.SlowmodeEnabled = c.Flags.Has(22)
+	c.CallActive = c.Flags.Has(23)
+	c.CallNotEmpty = c.Flags.Has(24)
+	c.Fake = c.Flags.Has(25)
+	c.Gigagroup = c.Flags.Has(26)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channel#d31a961e: field id: %w", err)
+		}
+		c.ID = value
+	}
+	if c.Flags.Has(13) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode channel#d31a961e: field access_hash: %w", err)
+		}
+		c.AccessHash = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode channel#d31a961e: field title: %w", err)
+		}
+		c.Title = value
+	}
+	if c.Flags.Has(6) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode channel#d31a961e: field username: %w", err)
+		}
+		c.Username = value
+	}
+	{
+		value, err := DecodeChatPhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channel#d31a961e: field photo: %w", err)
+		}
+		c.Photo = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channel#d31a961e: field date: %w", err)
+		}
+		c.Date = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channel#d31a961e: field version: %w", err)
+		}
+		c.Version = value
+	}
+	if c.Flags.Has(9) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode channel#d31a961e: field restriction_reason: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.RestrictionReason = make([]RestrictionReason, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value RestrictionReason
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode channel#d31a961e: field restriction_reason: %w", err)
+			}
+			c.RestrictionReason = append(c.RestrictionReason, value)
+		}
+	}
+	if c.Flags.Has(14) {
+		if err := c.AdminRights.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channel#d31a961e: field admin_rights: %w", err)
+		}
+	}
+	if c.Flags.Has(15) {
+		if err := c.BannedRights.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channel#d31a961e: field banned_rights: %w", err)
+		}
+	}
+	if c.Flags.Has(18) {
+		if err := c.DefaultBannedRights.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channel#d31a961e: field default_banned_rights: %w", err)
+		}
+	}
+	if c.Flags.Has(17) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channel#d31a961e: field participants_count: %w", err)
+		}
+		c.ParticipantsCount = value
+	}
+	return nil
+}
+
 // SetCreator sets value of Creator conditional field.
 func (c *Channel) SetCreator(value bool) {
 	if value {
@@ -1898,147 +2039,6 @@ func (c *Channel) GetParticipantsCount() (value int, ok bool) {
 	return c.ParticipantsCount, true
 }
 
-// Decode implements bin.Decoder.
-func (c *Channel) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode channel#d31a961e to nil")
-	}
-	if err := b.ConsumeID(ChannelTypeID); err != nil {
-		return fmt.Errorf("unable to decode channel#d31a961e: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *Channel) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode channel#d31a961e to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field flags: %w", err)
-		}
-	}
-	c.Creator = c.Flags.Has(0)
-	c.Left = c.Flags.Has(2)
-	c.Broadcast = c.Flags.Has(5)
-	c.Verified = c.Flags.Has(7)
-	c.Megagroup = c.Flags.Has(8)
-	c.Restricted = c.Flags.Has(9)
-	c.Signatures = c.Flags.Has(11)
-	c.Min = c.Flags.Has(12)
-	c.Scam = c.Flags.Has(19)
-	c.HasLink = c.Flags.Has(20)
-	c.HasGeo = c.Flags.Has(21)
-	c.SlowmodeEnabled = c.Flags.Has(22)
-	c.CallActive = c.Flags.Has(23)
-	c.CallNotEmpty = c.Flags.Has(24)
-	c.Fake = c.Flags.Has(25)
-	c.Gigagroup = c.Flags.Has(26)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field id: %w", err)
-		}
-		c.ID = value
-	}
-	if c.Flags.Has(13) {
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field access_hash: %w", err)
-		}
-		c.AccessHash = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field title: %w", err)
-		}
-		c.Title = value
-	}
-	if c.Flags.Has(6) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field username: %w", err)
-		}
-		c.Username = value
-	}
-	{
-		value, err := DecodeChatPhoto(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field photo: %w", err)
-		}
-		c.Photo = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field date: %w", err)
-		}
-		c.Date = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field version: %w", err)
-		}
-		c.Version = value
-	}
-	if c.Flags.Has(9) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field restriction_reason: %w", err)
-		}
-
-		if headerLen > 0 {
-			c.RestrictionReason = make([]RestrictionReason, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value RestrictionReason
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode channel#d31a961e: field restriction_reason: %w", err)
-			}
-			c.RestrictionReason = append(c.RestrictionReason, value)
-		}
-	}
-	if c.Flags.Has(14) {
-		if err := c.AdminRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field admin_rights: %w", err)
-		}
-	}
-	if c.Flags.Has(15) {
-		if err := c.BannedRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field banned_rights: %w", err)
-		}
-	}
-	if c.Flags.Has(18) {
-		if err := c.DefaultBannedRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field default_banned_rights: %w", err)
-		}
-	}
-	if c.Flags.Has(17) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field participants_count: %w", err)
-		}
-		c.ParticipantsCount = value
-	}
-	return nil
-}
-
-// construct implements constructor of ChatClass.
-func (c Channel) construct() ChatClass { return &c }
-
-// Ensuring interfaces in compile-time for Channel.
-var (
-	_ bin.Encoder     = &Channel{}
-	_ bin.Decoder     = &Channel{}
-	_ bin.BareEncoder = &Channel{}
-	_ bin.BareDecoder = &Channel{}
-
-	_ ChatClass = &Channel{}
-)
-
 // ChannelForbidden represents TL type `channelForbidden#289da732`.
 // Indicates a channel/supergroup we can't access because we were banned, or for some
 // other reason.
@@ -2068,6 +2068,19 @@ type ChannelForbidden struct {
 
 // ChannelForbiddenTypeID is TL type id of ChannelForbidden.
 const ChannelForbiddenTypeID = 0x289da732
+
+// construct implements constructor of ChatClass.
+func (c ChannelForbidden) construct() ChatClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelForbidden.
+var (
+	_ bin.Encoder     = &ChannelForbidden{}
+	_ bin.Decoder     = &ChannelForbidden{}
+	_ bin.BareEncoder = &ChannelForbidden{}
+	_ bin.BareDecoder = &ChannelForbidden{}
+
+	_ ChatClass = &ChannelForbidden{}
+)
 
 func (c *ChannelForbidden) Zero() bool {
 	if c == nil {
@@ -2216,6 +2229,60 @@ func (c *ChannelForbidden) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *ChannelForbidden) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelForbidden#289da732 to nil")
+	}
+	if err := b.ConsumeID(ChannelForbiddenTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelForbidden#289da732: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelForbidden) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelForbidden#289da732 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelForbidden#289da732: field flags: %w", err)
+		}
+	}
+	c.Broadcast = c.Flags.Has(5)
+	c.Megagroup = c.Flags.Has(8)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelForbidden#289da732: field id: %w", err)
+		}
+		c.ID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelForbidden#289da732: field access_hash: %w", err)
+		}
+		c.AccessHash = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelForbidden#289da732: field title: %w", err)
+		}
+		c.Title = value
+	}
+	if c.Flags.Has(16) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelForbidden#289da732: field until_date: %w", err)
+		}
+		c.UntilDate = value
+	}
+	return nil
+}
+
 // SetBroadcast sets value of Broadcast conditional field.
 func (c *ChannelForbidden) SetBroadcast(value bool) {
 	if value {
@@ -2277,73 +2344,6 @@ func (c *ChannelForbidden) GetUntilDate() (value int, ok bool) {
 	}
 	return c.UntilDate, true
 }
-
-// Decode implements bin.Decoder.
-func (c *ChannelForbidden) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode channelForbidden#289da732 to nil")
-	}
-	if err := b.ConsumeID(ChannelForbiddenTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelForbidden#289da732: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChannelForbidden) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode channelForbidden#289da732 to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field flags: %w", err)
-		}
-	}
-	c.Broadcast = c.Flags.Has(5)
-	c.Megagroup = c.Flags.Has(8)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field id: %w", err)
-		}
-		c.ID = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field access_hash: %w", err)
-		}
-		c.AccessHash = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field title: %w", err)
-		}
-		c.Title = value
-	}
-	if c.Flags.Has(16) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field until_date: %w", err)
-		}
-		c.UntilDate = value
-	}
-	return nil
-}
-
-// construct implements constructor of ChatClass.
-func (c ChannelForbidden) construct() ChatClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelForbidden.
-var (
-	_ bin.Encoder     = &ChannelForbidden{}
-	_ bin.Decoder     = &ChannelForbidden{}
-	_ bin.BareEncoder = &ChannelForbidden{}
-	_ bin.BareDecoder = &ChannelForbidden{}
-
-	_ ChatClass = &ChannelForbidden{}
-)
 
 // ChatClass represents Chat generic type.
 //
@@ -2690,1052 +2690,4 @@ func (b *ChatBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChatClass as nil")
 	}
 	return b.Chat.Encode(buf)
-}
-
-// ChatClassArray is adapter for slice of ChatClass.
-type ChatClassArray []ChatClass
-
-// Sort sorts slice of ChatClass.
-func (s ChatClassArray) Sort(less func(a, b ChatClass) bool) ChatClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChatClass.
-func (s ChatClassArray) SortStable(less func(a, b ChatClass) bool) ChatClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChatClass.
-func (s ChatClassArray) Retain(keep func(x ChatClass) bool) ChatClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChatClassArray) First() (v ChatClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChatClassArray) Last() (v ChatClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChatClassArray) PopFirst() (v ChatClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChatClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChatClassArray) Pop() (v ChatClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of ChatClass by ID.
-func (s ChatClassArray) SortByID() ChatClassArray {
-	return s.Sort(func(a, b ChatClass) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of ChatClass by ID.
-func (s ChatClassArray) SortStableByID() ChatClassArray {
-	return s.SortStable(func(a, b ChatClass) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillChatEmptyMap fills only ChatEmpty constructors to given map.
-func (s ChatClassArray) FillChatEmptyMap(to map[int]*ChatEmpty) {
-	for _, elem := range s {
-		value, ok := elem.(*ChatEmpty)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// ChatEmptyToMap collects only ChatEmpty constructors to map.
-func (s ChatClassArray) ChatEmptyToMap() map[int]*ChatEmpty {
-	r := make(map[int]*ChatEmpty, len(s))
-	s.FillChatEmptyMap(r)
-	return r
-}
-
-// AsChatEmpty returns copy with only ChatEmpty constructors.
-func (s ChatClassArray) AsChatEmpty() (to ChatEmptyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChatEmpty)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillChatMap fills only Chat constructors to given map.
-func (s ChatClassArray) FillChatMap(to map[int]*Chat) {
-	for _, elem := range s {
-		value, ok := elem.(*Chat)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// ChatToMap collects only Chat constructors to map.
-func (s ChatClassArray) ChatToMap() map[int]*Chat {
-	r := make(map[int]*Chat, len(s))
-	s.FillChatMap(r)
-	return r
-}
-
-// AsChat returns copy with only Chat constructors.
-func (s ChatClassArray) AsChat() (to ChatArray) {
-	for _, elem := range s {
-		value, ok := elem.(*Chat)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillChatForbiddenMap fills only ChatForbidden constructors to given map.
-func (s ChatClassArray) FillChatForbiddenMap(to map[int]*ChatForbidden) {
-	for _, elem := range s {
-		value, ok := elem.(*ChatForbidden)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// ChatForbiddenToMap collects only ChatForbidden constructors to map.
-func (s ChatClassArray) ChatForbiddenToMap() map[int]*ChatForbidden {
-	r := make(map[int]*ChatForbidden, len(s))
-	s.FillChatForbiddenMap(r)
-	return r
-}
-
-// AsChatForbidden returns copy with only ChatForbidden constructors.
-func (s ChatClassArray) AsChatForbidden() (to ChatForbiddenArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChatForbidden)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillChannelMap fills only Channel constructors to given map.
-func (s ChatClassArray) FillChannelMap(to map[int]*Channel) {
-	for _, elem := range s {
-		value, ok := elem.(*Channel)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// ChannelToMap collects only Channel constructors to map.
-func (s ChatClassArray) ChannelToMap() map[int]*Channel {
-	r := make(map[int]*Channel, len(s))
-	s.FillChannelMap(r)
-	return r
-}
-
-// AsChannel returns copy with only Channel constructors.
-func (s ChatClassArray) AsChannel() (to ChannelArray) {
-	for _, elem := range s {
-		value, ok := elem.(*Channel)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillChannelForbiddenMap fills only ChannelForbidden constructors to given map.
-func (s ChatClassArray) FillChannelForbiddenMap(to map[int]*ChannelForbidden) {
-	for _, elem := range s {
-		value, ok := elem.(*ChannelForbidden)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// ChannelForbiddenToMap collects only ChannelForbidden constructors to map.
-func (s ChatClassArray) ChannelForbiddenToMap() map[int]*ChannelForbidden {
-	r := make(map[int]*ChannelForbidden, len(s))
-	s.FillChannelForbiddenMap(r)
-	return r
-}
-
-// AsChannelForbidden returns copy with only ChannelForbidden constructors.
-func (s ChatClassArray) AsChannelForbidden() (to ChannelForbiddenArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChannelForbidden)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillNotEmptyMap fills only NotEmpty constructors to given map.
-func (s ChatClassArray) FillNotEmptyMap(to map[int]NotEmptyChat) {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// NotEmptyToMap collects only NotEmpty constructors to map.
-func (s ChatClassArray) NotEmptyToMap() map[int]NotEmptyChat {
-	r := make(map[int]NotEmptyChat, len(s))
-	s.FillNotEmptyMap(r)
-	return r
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s ChatClassArray) AppendOnlyNotEmpty(to []NotEmptyChat) []NotEmptyChat {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s ChatClassArray) AsNotEmpty() (to []NotEmptyChat) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s ChatClassArray) FirstAsNotEmpty() (v NotEmptyChat, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s ChatClassArray) LastAsNotEmpty() (v NotEmptyChat, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *ChatClassArray) PopFirstAsNotEmpty() (v NotEmptyChat, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *ChatClassArray) PopAsNotEmpty() (v NotEmptyChat, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// FillNotForbiddenMap fills only NotForbidden constructors to given map.
-func (s ChatClassArray) FillNotForbiddenMap(to map[int]NotForbiddenChat) {
-	for _, elem := range s {
-		value, ok := elem.AsNotForbidden()
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// NotForbiddenToMap collects only NotForbidden constructors to map.
-func (s ChatClassArray) NotForbiddenToMap() map[int]NotForbiddenChat {
-	r := make(map[int]NotForbiddenChat, len(s))
-	s.FillNotForbiddenMap(r)
-	return r
-}
-
-// AppendOnlyNotForbidden appends only NotForbidden constructors to
-// given slice.
-func (s ChatClassArray) AppendOnlyNotForbidden(to []NotForbiddenChat) []NotForbiddenChat {
-	for _, elem := range s {
-		value, ok := elem.AsNotForbidden()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotForbidden returns copy with only NotForbidden constructors.
-func (s ChatClassArray) AsNotForbidden() (to []NotForbiddenChat) {
-	return s.AppendOnlyNotForbidden(to)
-}
-
-// FirstAsNotForbidden returns first element of slice (if exists).
-func (s ChatClassArray) FirstAsNotForbidden() (v NotForbiddenChat, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotForbidden()
-}
-
-// LastAsNotForbidden returns last element of slice (if exists).
-func (s ChatClassArray) LastAsNotForbidden() (v NotForbiddenChat, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotForbidden()
-}
-
-// PopFirstAsNotForbidden returns element of slice (if exists).
-func (s *ChatClassArray) PopFirstAsNotForbidden() (v NotForbiddenChat, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotForbidden()
-}
-
-// PopAsNotForbidden returns element of slice (if exists).
-func (s *ChatClassArray) PopAsNotForbidden() (v NotForbiddenChat, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotForbidden()
-}
-
-// FillFullMap fills only Full constructors to given map.
-func (s ChatClassArray) FillFullMap(to map[int]FullChat) {
-	for _, elem := range s {
-		value, ok := elem.AsFull()
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// FullToMap collects only Full constructors to map.
-func (s ChatClassArray) FullToMap() map[int]FullChat {
-	r := make(map[int]FullChat, len(s))
-	s.FillFullMap(r)
-	return r
-}
-
-// AppendOnlyFull appends only Full constructors to
-// given slice.
-func (s ChatClassArray) AppendOnlyFull(to []FullChat) []FullChat {
-	for _, elem := range s {
-		value, ok := elem.AsFull()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsFull returns copy with only Full constructors.
-func (s ChatClassArray) AsFull() (to []FullChat) {
-	return s.AppendOnlyFull(to)
-}
-
-// FirstAsFull returns first element of slice (if exists).
-func (s ChatClassArray) FirstAsFull() (v FullChat, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsFull()
-}
-
-// LastAsFull returns last element of slice (if exists).
-func (s ChatClassArray) LastAsFull() (v FullChat, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsFull()
-}
-
-// PopFirstAsFull returns element of slice (if exists).
-func (s *ChatClassArray) PopFirstAsFull() (v FullChat, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsFull()
-}
-
-// PopAsFull returns element of slice (if exists).
-func (s *ChatClassArray) PopAsFull() (v FullChat, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsFull()
-}
-
-// ChatEmptyArray is adapter for slice of ChatEmpty.
-type ChatEmptyArray []ChatEmpty
-
-// Sort sorts slice of ChatEmpty.
-func (s ChatEmptyArray) Sort(less func(a, b ChatEmpty) bool) ChatEmptyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChatEmpty.
-func (s ChatEmptyArray) SortStable(less func(a, b ChatEmpty) bool) ChatEmptyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChatEmpty.
-func (s ChatEmptyArray) Retain(keep func(x ChatEmpty) bool) ChatEmptyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChatEmptyArray) First() (v ChatEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChatEmptyArray) Last() (v ChatEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChatEmptyArray) PopFirst() (v ChatEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChatEmpty
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChatEmptyArray) Pop() (v ChatEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of ChatEmpty by ID.
-func (s ChatEmptyArray) SortByID() ChatEmptyArray {
-	return s.Sort(func(a, b ChatEmpty) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of ChatEmpty by ID.
-func (s ChatEmptyArray) SortStableByID() ChatEmptyArray {
-	return s.SortStable(func(a, b ChatEmpty) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s ChatEmptyArray) FillMap(to map[int]ChatEmpty) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s ChatEmptyArray) ToMap() map[int]ChatEmpty {
-	r := make(map[int]ChatEmpty, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// ChatArray is adapter for slice of Chat.
-type ChatArray []Chat
-
-// Sort sorts slice of Chat.
-func (s ChatArray) Sort(less func(a, b Chat) bool) ChatArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of Chat.
-func (s ChatArray) SortStable(less func(a, b Chat) bool) ChatArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of Chat.
-func (s ChatArray) Retain(keep func(x Chat) bool) ChatArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChatArray) First() (v Chat, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChatArray) Last() (v Chat, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChatArray) PopFirst() (v Chat, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero Chat
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChatArray) Pop() (v Chat, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of Chat by ID.
-func (s ChatArray) SortByID() ChatArray {
-	return s.Sort(func(a, b Chat) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of Chat by ID.
-func (s ChatArray) SortStableByID() ChatArray {
-	return s.SortStable(func(a, b Chat) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortByDate sorts slice of Chat by Date.
-func (s ChatArray) SortByDate() ChatArray {
-	return s.Sort(func(a, b Chat) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of Chat by Date.
-func (s ChatArray) SortStableByDate() ChatArray {
-	return s.SortStable(func(a, b Chat) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s ChatArray) FillMap(to map[int]Chat) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s ChatArray) ToMap() map[int]Chat {
-	r := make(map[int]Chat, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// ChatForbiddenArray is adapter for slice of ChatForbidden.
-type ChatForbiddenArray []ChatForbidden
-
-// Sort sorts slice of ChatForbidden.
-func (s ChatForbiddenArray) Sort(less func(a, b ChatForbidden) bool) ChatForbiddenArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChatForbidden.
-func (s ChatForbiddenArray) SortStable(less func(a, b ChatForbidden) bool) ChatForbiddenArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChatForbidden.
-func (s ChatForbiddenArray) Retain(keep func(x ChatForbidden) bool) ChatForbiddenArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChatForbiddenArray) First() (v ChatForbidden, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChatForbiddenArray) Last() (v ChatForbidden, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChatForbiddenArray) PopFirst() (v ChatForbidden, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChatForbidden
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChatForbiddenArray) Pop() (v ChatForbidden, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of ChatForbidden by ID.
-func (s ChatForbiddenArray) SortByID() ChatForbiddenArray {
-	return s.Sort(func(a, b ChatForbidden) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of ChatForbidden by ID.
-func (s ChatForbiddenArray) SortStableByID() ChatForbiddenArray {
-	return s.SortStable(func(a, b ChatForbidden) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s ChatForbiddenArray) FillMap(to map[int]ChatForbidden) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s ChatForbiddenArray) ToMap() map[int]ChatForbidden {
-	r := make(map[int]ChatForbidden, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// ChannelArray is adapter for slice of Channel.
-type ChannelArray []Channel
-
-// Sort sorts slice of Channel.
-func (s ChannelArray) Sort(less func(a, b Channel) bool) ChannelArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of Channel.
-func (s ChannelArray) SortStable(less func(a, b Channel) bool) ChannelArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of Channel.
-func (s ChannelArray) Retain(keep func(x Channel) bool) ChannelArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChannelArray) First() (v Channel, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChannelArray) Last() (v Channel, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelArray) PopFirst() (v Channel, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero Channel
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelArray) Pop() (v Channel, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of Channel by ID.
-func (s ChannelArray) SortByID() ChannelArray {
-	return s.Sort(func(a, b Channel) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of Channel by ID.
-func (s ChannelArray) SortStableByID() ChannelArray {
-	return s.SortStable(func(a, b Channel) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortByDate sorts slice of Channel by Date.
-func (s ChannelArray) SortByDate() ChannelArray {
-	return s.Sort(func(a, b Channel) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of Channel by Date.
-func (s ChannelArray) SortStableByDate() ChannelArray {
-	return s.SortStable(func(a, b Channel) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s ChannelArray) FillMap(to map[int]Channel) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s ChannelArray) ToMap() map[int]Channel {
-	r := make(map[int]Channel, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// ChannelForbiddenArray is adapter for slice of ChannelForbidden.
-type ChannelForbiddenArray []ChannelForbidden
-
-// Sort sorts slice of ChannelForbidden.
-func (s ChannelForbiddenArray) Sort(less func(a, b ChannelForbidden) bool) ChannelForbiddenArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChannelForbidden.
-func (s ChannelForbiddenArray) SortStable(less func(a, b ChannelForbidden) bool) ChannelForbiddenArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChannelForbidden.
-func (s ChannelForbiddenArray) Retain(keep func(x ChannelForbidden) bool) ChannelForbiddenArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChannelForbiddenArray) First() (v ChannelForbidden, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChannelForbiddenArray) Last() (v ChannelForbidden, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelForbiddenArray) PopFirst() (v ChannelForbidden, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChannelForbidden
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelForbiddenArray) Pop() (v ChannelForbidden, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of ChannelForbidden by ID.
-func (s ChannelForbiddenArray) SortByID() ChannelForbiddenArray {
-	return s.Sort(func(a, b ChannelForbidden) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of ChannelForbidden by ID.
-func (s ChannelForbiddenArray) SortStableByID() ChannelForbiddenArray {
-	return s.SortStable(func(a, b ChannelForbidden) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s ChannelForbiddenArray) FillMap(to map[int]ChannelForbidden) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s ChannelForbiddenArray) ToMap() map[int]ChannelForbidden {
-	r := make(map[int]ChannelForbidden, len(s))
-	s.FillMap(r)
-	return r
 }

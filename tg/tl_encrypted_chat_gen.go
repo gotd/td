@@ -41,6 +41,19 @@ type EncryptedChatEmpty struct {
 // EncryptedChatEmptyTypeID is TL type id of EncryptedChatEmpty.
 const EncryptedChatEmptyTypeID = 0xab7ec0a0
 
+// construct implements constructor of EncryptedChatClass.
+func (e EncryptedChatEmpty) construct() EncryptedChatClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedChatEmpty.
+var (
+	_ bin.Encoder     = &EncryptedChatEmpty{}
+	_ bin.Decoder     = &EncryptedChatEmpty{}
+	_ bin.BareEncoder = &EncryptedChatEmpty{}
+	_ bin.BareDecoder = &EncryptedChatEmpty{}
+
+	_ EncryptedChatClass = &EncryptedChatEmpty{}
+)
+
 func (e *EncryptedChatEmpty) Zero() bool {
 	if e == nil {
 		return true
@@ -117,11 +130,6 @@ func (e *EncryptedChatEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (e *EncryptedChatEmpty) GetID() (value int) {
-	return e.ID
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedChatEmpty) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -148,18 +156,10 @@ func (e *EncryptedChatEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedChatClass.
-func (e EncryptedChatEmpty) construct() EncryptedChatClass { return &e }
-
-// Ensuring interfaces in compile-time for EncryptedChatEmpty.
-var (
-	_ bin.Encoder     = &EncryptedChatEmpty{}
-	_ bin.Decoder     = &EncryptedChatEmpty{}
-	_ bin.BareEncoder = &EncryptedChatEmpty{}
-	_ bin.BareDecoder = &EncryptedChatEmpty{}
-
-	_ EncryptedChatClass = &EncryptedChatEmpty{}
-)
+// GetID returns value of ID field.
+func (e *EncryptedChatEmpty) GetID() (value int) {
+	return e.ID
+}
 
 // EncryptedChatWaiting represents TL type `encryptedChatWaiting#3bf703dc`.
 // Chat waiting for approval of second participant.
@@ -180,6 +180,19 @@ type EncryptedChatWaiting struct {
 
 // EncryptedChatWaitingTypeID is TL type id of EncryptedChatWaiting.
 const EncryptedChatWaitingTypeID = 0x3bf703dc
+
+// construct implements constructor of EncryptedChatClass.
+func (e EncryptedChatWaiting) construct() EncryptedChatClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedChatWaiting.
+var (
+	_ bin.Encoder     = &EncryptedChatWaiting{}
+	_ bin.Decoder     = &EncryptedChatWaiting{}
+	_ bin.BareEncoder = &EncryptedChatWaiting{}
+	_ bin.BareDecoder = &EncryptedChatWaiting{}
+
+	_ EncryptedChatClass = &EncryptedChatWaiting{}
+)
 
 func (e *EncryptedChatWaiting) Zero() bool {
 	if e == nil {
@@ -297,31 +310,6 @@ func (e *EncryptedChatWaiting) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (e *EncryptedChatWaiting) GetID() (value int) {
-	return e.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (e *EncryptedChatWaiting) GetAccessHash() (value int64) {
-	return e.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (e *EncryptedChatWaiting) GetDate() (value int) {
-	return e.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (e *EncryptedChatWaiting) GetAdminID() (value int) {
-	return e.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (e *EncryptedChatWaiting) GetParticipantID() (value int) {
-	return e.ParticipantID
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedChatWaiting) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -376,18 +364,30 @@ func (e *EncryptedChatWaiting) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedChatClass.
-func (e EncryptedChatWaiting) construct() EncryptedChatClass { return &e }
+// GetID returns value of ID field.
+func (e *EncryptedChatWaiting) GetID() (value int) {
+	return e.ID
+}
 
-// Ensuring interfaces in compile-time for EncryptedChatWaiting.
-var (
-	_ bin.Encoder     = &EncryptedChatWaiting{}
-	_ bin.Decoder     = &EncryptedChatWaiting{}
-	_ bin.BareEncoder = &EncryptedChatWaiting{}
-	_ bin.BareDecoder = &EncryptedChatWaiting{}
+// GetAccessHash returns value of AccessHash field.
+func (e *EncryptedChatWaiting) GetAccessHash() (value int64) {
+	return e.AccessHash
+}
 
-	_ EncryptedChatClass = &EncryptedChatWaiting{}
-)
+// GetDate returns value of Date field.
+func (e *EncryptedChatWaiting) GetDate() (value int) {
+	return e.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (e *EncryptedChatWaiting) GetAdminID() (value int) {
+	return e.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (e *EncryptedChatWaiting) GetParticipantID() (value int) {
+	return e.ParticipantID
+}
 
 // EncryptedChatRequested represents TL type `encryptedChatRequested#62718a82`.
 // Request to create an encrypted chat.
@@ -425,6 +425,19 @@ type EncryptedChatRequested struct {
 
 // EncryptedChatRequestedTypeID is TL type id of EncryptedChatRequested.
 const EncryptedChatRequestedTypeID = 0x62718a82
+
+// construct implements constructor of EncryptedChatClass.
+func (e EncryptedChatRequested) construct() EncryptedChatClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedChatRequested.
+var (
+	_ bin.Encoder     = &EncryptedChatRequested{}
+	_ bin.Decoder     = &EncryptedChatRequested{}
+	_ bin.BareEncoder = &EncryptedChatRequested{}
+	_ bin.BareDecoder = &EncryptedChatRequested{}
+
+	_ EncryptedChatClass = &EncryptedChatRequested{}
+)
 
 func (e *EncryptedChatRequested) Zero() bool {
 	if e == nil {
@@ -577,51 +590,6 @@ func (e *EncryptedChatRequested) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFolderID sets value of FolderID conditional field.
-func (e *EncryptedChatRequested) SetFolderID(value int) {
-	e.Flags.Set(0)
-	e.FolderID = value
-}
-
-// GetFolderID returns value of FolderID conditional field and
-// boolean which is true if field was set.
-func (e *EncryptedChatRequested) GetFolderID() (value int, ok bool) {
-	if !e.Flags.Has(0) {
-		return value, false
-	}
-	return e.FolderID, true
-}
-
-// GetID returns value of ID field.
-func (e *EncryptedChatRequested) GetID() (value int) {
-	return e.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (e *EncryptedChatRequested) GetAccessHash() (value int64) {
-	return e.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (e *EncryptedChatRequested) GetDate() (value int) {
-	return e.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (e *EncryptedChatRequested) GetAdminID() (value int) {
-	return e.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (e *EncryptedChatRequested) GetParticipantID() (value int) {
-	return e.ParticipantID
-}
-
-// GetGA returns value of GA field.
-func (e *EncryptedChatRequested) GetGA() (value []byte) {
-	return e.GA
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedChatRequested) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -695,18 +663,50 @@ func (e *EncryptedChatRequested) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedChatClass.
-func (e EncryptedChatRequested) construct() EncryptedChatClass { return &e }
+// SetFolderID sets value of FolderID conditional field.
+func (e *EncryptedChatRequested) SetFolderID(value int) {
+	e.Flags.Set(0)
+	e.FolderID = value
+}
 
-// Ensuring interfaces in compile-time for EncryptedChatRequested.
-var (
-	_ bin.Encoder     = &EncryptedChatRequested{}
-	_ bin.Decoder     = &EncryptedChatRequested{}
-	_ bin.BareEncoder = &EncryptedChatRequested{}
-	_ bin.BareDecoder = &EncryptedChatRequested{}
+// GetFolderID returns value of FolderID conditional field and
+// boolean which is true if field was set.
+func (e *EncryptedChatRequested) GetFolderID() (value int, ok bool) {
+	if !e.Flags.Has(0) {
+		return value, false
+	}
+	return e.FolderID, true
+}
 
-	_ EncryptedChatClass = &EncryptedChatRequested{}
-)
+// GetID returns value of ID field.
+func (e *EncryptedChatRequested) GetID() (value int) {
+	return e.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (e *EncryptedChatRequested) GetAccessHash() (value int64) {
+	return e.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (e *EncryptedChatRequested) GetDate() (value int) {
+	return e.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (e *EncryptedChatRequested) GetAdminID() (value int) {
+	return e.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (e *EncryptedChatRequested) GetParticipantID() (value int) {
+	return e.ParticipantID
+}
+
+// GetGA returns value of GA field.
+func (e *EncryptedChatRequested) GetGA() (value []byte) {
+	return e.GA
+}
 
 // EncryptedChat represents TL type `encryptedChat#fa56ce36`.
 // Encrypted chat
@@ -735,6 +735,19 @@ type EncryptedChat struct {
 
 // EncryptedChatTypeID is TL type id of EncryptedChat.
 const EncryptedChatTypeID = 0xfa56ce36
+
+// construct implements constructor of EncryptedChatClass.
+func (e EncryptedChat) construct() EncryptedChatClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedChat.
+var (
+	_ bin.Encoder     = &EncryptedChat{}
+	_ bin.Decoder     = &EncryptedChat{}
+	_ bin.BareEncoder = &EncryptedChat{}
+	_ bin.BareDecoder = &EncryptedChat{}
+
+	_ EncryptedChatClass = &EncryptedChat{}
+)
 
 func (e *EncryptedChat) Zero() bool {
 	if e == nil {
@@ -872,41 +885,6 @@ func (e *EncryptedChat) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (e *EncryptedChat) GetID() (value int) {
-	return e.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (e *EncryptedChat) GetAccessHash() (value int64) {
-	return e.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (e *EncryptedChat) GetDate() (value int) {
-	return e.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (e *EncryptedChat) GetAdminID() (value int) {
-	return e.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (e *EncryptedChat) GetParticipantID() (value int) {
-	return e.ParticipantID
-}
-
-// GetGAOrB returns value of GAOrB field.
-func (e *EncryptedChat) GetGAOrB() (value []byte) {
-	return e.GAOrB
-}
-
-// GetKeyFingerprint returns value of KeyFingerprint field.
-func (e *EncryptedChat) GetKeyFingerprint() (value int64) {
-	return e.KeyFingerprint
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedChat) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -975,18 +953,40 @@ func (e *EncryptedChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedChatClass.
-func (e EncryptedChat) construct() EncryptedChatClass { return &e }
+// GetID returns value of ID field.
+func (e *EncryptedChat) GetID() (value int) {
+	return e.ID
+}
 
-// Ensuring interfaces in compile-time for EncryptedChat.
-var (
-	_ bin.Encoder     = &EncryptedChat{}
-	_ bin.Decoder     = &EncryptedChat{}
-	_ bin.BareEncoder = &EncryptedChat{}
-	_ bin.BareDecoder = &EncryptedChat{}
+// GetAccessHash returns value of AccessHash field.
+func (e *EncryptedChat) GetAccessHash() (value int64) {
+	return e.AccessHash
+}
 
-	_ EncryptedChatClass = &EncryptedChat{}
-)
+// GetDate returns value of Date field.
+func (e *EncryptedChat) GetDate() (value int) {
+	return e.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (e *EncryptedChat) GetAdminID() (value int) {
+	return e.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (e *EncryptedChat) GetParticipantID() (value int) {
+	return e.ParticipantID
+}
+
+// GetGAOrB returns value of GAOrB field.
+func (e *EncryptedChat) GetGAOrB() (value []byte) {
+	return e.GAOrB
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (e *EncryptedChat) GetKeyFingerprint() (value int64) {
+	return e.KeyFingerprint
+}
 
 // EncryptedChatDiscarded represents TL type `encryptedChatDiscarded#1e1c7c45`.
 // Discarded or deleted chat.
@@ -1003,6 +1003,19 @@ type EncryptedChatDiscarded struct {
 
 // EncryptedChatDiscardedTypeID is TL type id of EncryptedChatDiscarded.
 const EncryptedChatDiscardedTypeID = 0x1e1c7c45
+
+// construct implements constructor of EncryptedChatClass.
+func (e EncryptedChatDiscarded) construct() EncryptedChatClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedChatDiscarded.
+var (
+	_ bin.Encoder     = &EncryptedChatDiscarded{}
+	_ bin.Decoder     = &EncryptedChatDiscarded{}
+	_ bin.BareEncoder = &EncryptedChatDiscarded{}
+	_ bin.BareDecoder = &EncryptedChatDiscarded{}
+
+	_ EncryptedChatClass = &EncryptedChatDiscarded{}
+)
 
 func (e *EncryptedChatDiscarded) Zero() bool {
 	if e == nil {
@@ -1099,27 +1112,6 @@ func (e *EncryptedChatDiscarded) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetHistoryDeleted sets value of HistoryDeleted conditional field.
-func (e *EncryptedChatDiscarded) SetHistoryDeleted(value bool) {
-	if value {
-		e.Flags.Set(0)
-		e.HistoryDeleted = true
-	} else {
-		e.Flags.Unset(0)
-		e.HistoryDeleted = false
-	}
-}
-
-// GetHistoryDeleted returns value of HistoryDeleted conditional field.
-func (e *EncryptedChatDiscarded) GetHistoryDeleted() (value bool) {
-	return e.Flags.Has(0)
-}
-
-// GetID returns value of ID field.
-func (e *EncryptedChatDiscarded) GetID() (value int) {
-	return e.ID
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedChatDiscarded) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -1152,18 +1144,26 @@ func (e *EncryptedChatDiscarded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedChatClass.
-func (e EncryptedChatDiscarded) construct() EncryptedChatClass { return &e }
+// SetHistoryDeleted sets value of HistoryDeleted conditional field.
+func (e *EncryptedChatDiscarded) SetHistoryDeleted(value bool) {
+	if value {
+		e.Flags.Set(0)
+		e.HistoryDeleted = true
+	} else {
+		e.Flags.Unset(0)
+		e.HistoryDeleted = false
+	}
+}
 
-// Ensuring interfaces in compile-time for EncryptedChatDiscarded.
-var (
-	_ bin.Encoder     = &EncryptedChatDiscarded{}
-	_ bin.Decoder     = &EncryptedChatDiscarded{}
-	_ bin.BareEncoder = &EncryptedChatDiscarded{}
-	_ bin.BareDecoder = &EncryptedChatDiscarded{}
+// GetHistoryDeleted returns value of HistoryDeleted conditional field.
+func (e *EncryptedChatDiscarded) GetHistoryDeleted() (value bool) {
+	return e.Flags.Has(0)
+}
 
-	_ EncryptedChatClass = &EncryptedChatDiscarded{}
-)
+// GetID returns value of ID field.
+func (e *EncryptedChatDiscarded) GetID() (value int) {
+	return e.ID
+}
 
 // EncryptedChatClass represents EncryptedChat generic type.
 //
@@ -1340,920 +1340,4 @@ func (b *EncryptedChatBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode EncryptedChatClass as nil")
 	}
 	return b.EncryptedChat.Encode(buf)
-}
-
-// EncryptedChatClassArray is adapter for slice of EncryptedChatClass.
-type EncryptedChatClassArray []EncryptedChatClass
-
-// Sort sorts slice of EncryptedChatClass.
-func (s EncryptedChatClassArray) Sort(less func(a, b EncryptedChatClass) bool) EncryptedChatClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of EncryptedChatClass.
-func (s EncryptedChatClassArray) SortStable(less func(a, b EncryptedChatClass) bool) EncryptedChatClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of EncryptedChatClass.
-func (s EncryptedChatClassArray) Retain(keep func(x EncryptedChatClass) bool) EncryptedChatClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s EncryptedChatClassArray) First() (v EncryptedChatClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s EncryptedChatClassArray) Last() (v EncryptedChatClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedChatClassArray) PopFirst() (v EncryptedChatClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero EncryptedChatClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedChatClassArray) Pop() (v EncryptedChatClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of EncryptedChatClass by ID.
-func (s EncryptedChatClassArray) SortByID() EncryptedChatClassArray {
-	return s.Sort(func(a, b EncryptedChatClass) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of EncryptedChatClass by ID.
-func (s EncryptedChatClassArray) SortStableByID() EncryptedChatClassArray {
-	return s.SortStable(func(a, b EncryptedChatClass) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillEncryptedChatEmptyMap fills only EncryptedChatEmpty constructors to given map.
-func (s EncryptedChatClassArray) FillEncryptedChatEmptyMap(to map[int]*EncryptedChatEmpty) {
-	for _, elem := range s {
-		value, ok := elem.(*EncryptedChatEmpty)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// EncryptedChatEmptyToMap collects only EncryptedChatEmpty constructors to map.
-func (s EncryptedChatClassArray) EncryptedChatEmptyToMap() map[int]*EncryptedChatEmpty {
-	r := make(map[int]*EncryptedChatEmpty, len(s))
-	s.FillEncryptedChatEmptyMap(r)
-	return r
-}
-
-// AsEncryptedChatEmpty returns copy with only EncryptedChatEmpty constructors.
-func (s EncryptedChatClassArray) AsEncryptedChatEmpty() (to EncryptedChatEmptyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*EncryptedChatEmpty)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillEncryptedChatWaitingMap fills only EncryptedChatWaiting constructors to given map.
-func (s EncryptedChatClassArray) FillEncryptedChatWaitingMap(to map[int]*EncryptedChatWaiting) {
-	for _, elem := range s {
-		value, ok := elem.(*EncryptedChatWaiting)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// EncryptedChatWaitingToMap collects only EncryptedChatWaiting constructors to map.
-func (s EncryptedChatClassArray) EncryptedChatWaitingToMap() map[int]*EncryptedChatWaiting {
-	r := make(map[int]*EncryptedChatWaiting, len(s))
-	s.FillEncryptedChatWaitingMap(r)
-	return r
-}
-
-// AsEncryptedChatWaiting returns copy with only EncryptedChatWaiting constructors.
-func (s EncryptedChatClassArray) AsEncryptedChatWaiting() (to EncryptedChatWaitingArray) {
-	for _, elem := range s {
-		value, ok := elem.(*EncryptedChatWaiting)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillEncryptedChatRequestedMap fills only EncryptedChatRequested constructors to given map.
-func (s EncryptedChatClassArray) FillEncryptedChatRequestedMap(to map[int]*EncryptedChatRequested) {
-	for _, elem := range s {
-		value, ok := elem.(*EncryptedChatRequested)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// EncryptedChatRequestedToMap collects only EncryptedChatRequested constructors to map.
-func (s EncryptedChatClassArray) EncryptedChatRequestedToMap() map[int]*EncryptedChatRequested {
-	r := make(map[int]*EncryptedChatRequested, len(s))
-	s.FillEncryptedChatRequestedMap(r)
-	return r
-}
-
-// AsEncryptedChatRequested returns copy with only EncryptedChatRequested constructors.
-func (s EncryptedChatClassArray) AsEncryptedChatRequested() (to EncryptedChatRequestedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*EncryptedChatRequested)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillEncryptedChatMap fills only EncryptedChat constructors to given map.
-func (s EncryptedChatClassArray) FillEncryptedChatMap(to map[int]*EncryptedChat) {
-	for _, elem := range s {
-		value, ok := elem.(*EncryptedChat)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// EncryptedChatToMap collects only EncryptedChat constructors to map.
-func (s EncryptedChatClassArray) EncryptedChatToMap() map[int]*EncryptedChat {
-	r := make(map[int]*EncryptedChat, len(s))
-	s.FillEncryptedChatMap(r)
-	return r
-}
-
-// AsEncryptedChat returns copy with only EncryptedChat constructors.
-func (s EncryptedChatClassArray) AsEncryptedChat() (to EncryptedChatArray) {
-	for _, elem := range s {
-		value, ok := elem.(*EncryptedChat)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillEncryptedChatDiscardedMap fills only EncryptedChatDiscarded constructors to given map.
-func (s EncryptedChatClassArray) FillEncryptedChatDiscardedMap(to map[int]*EncryptedChatDiscarded) {
-	for _, elem := range s {
-		value, ok := elem.(*EncryptedChatDiscarded)
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// EncryptedChatDiscardedToMap collects only EncryptedChatDiscarded constructors to map.
-func (s EncryptedChatClassArray) EncryptedChatDiscardedToMap() map[int]*EncryptedChatDiscarded {
-	r := make(map[int]*EncryptedChatDiscarded, len(s))
-	s.FillEncryptedChatDiscardedMap(r)
-	return r
-}
-
-// AsEncryptedChatDiscarded returns copy with only EncryptedChatDiscarded constructors.
-func (s EncryptedChatClassArray) AsEncryptedChatDiscarded() (to EncryptedChatDiscardedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*EncryptedChatDiscarded)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// FillNotEmptyMap fills only NotEmpty constructors to given map.
-func (s EncryptedChatClassArray) FillNotEmptyMap(to map[int]NotEmptyEncryptedChat) {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to[value.GetID()] = value
-	}
-}
-
-// NotEmptyToMap collects only NotEmpty constructors to map.
-func (s EncryptedChatClassArray) NotEmptyToMap() map[int]NotEmptyEncryptedChat {
-	r := make(map[int]NotEmptyEncryptedChat, len(s))
-	s.FillNotEmptyMap(r)
-	return r
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s EncryptedChatClassArray) AppendOnlyNotEmpty(to []NotEmptyEncryptedChat) []NotEmptyEncryptedChat {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s EncryptedChatClassArray) AsNotEmpty() (to []NotEmptyEncryptedChat) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s EncryptedChatClassArray) FirstAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s EncryptedChatClassArray) LastAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *EncryptedChatClassArray) PopFirstAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *EncryptedChatClassArray) PopAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// EncryptedChatEmptyArray is adapter for slice of EncryptedChatEmpty.
-type EncryptedChatEmptyArray []EncryptedChatEmpty
-
-// Sort sorts slice of EncryptedChatEmpty.
-func (s EncryptedChatEmptyArray) Sort(less func(a, b EncryptedChatEmpty) bool) EncryptedChatEmptyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of EncryptedChatEmpty.
-func (s EncryptedChatEmptyArray) SortStable(less func(a, b EncryptedChatEmpty) bool) EncryptedChatEmptyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of EncryptedChatEmpty.
-func (s EncryptedChatEmptyArray) Retain(keep func(x EncryptedChatEmpty) bool) EncryptedChatEmptyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s EncryptedChatEmptyArray) First() (v EncryptedChatEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s EncryptedChatEmptyArray) Last() (v EncryptedChatEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedChatEmptyArray) PopFirst() (v EncryptedChatEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero EncryptedChatEmpty
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedChatEmptyArray) Pop() (v EncryptedChatEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of EncryptedChatEmpty by ID.
-func (s EncryptedChatEmptyArray) SortByID() EncryptedChatEmptyArray {
-	return s.Sort(func(a, b EncryptedChatEmpty) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of EncryptedChatEmpty by ID.
-func (s EncryptedChatEmptyArray) SortStableByID() EncryptedChatEmptyArray {
-	return s.SortStable(func(a, b EncryptedChatEmpty) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s EncryptedChatEmptyArray) FillMap(to map[int]EncryptedChatEmpty) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s EncryptedChatEmptyArray) ToMap() map[int]EncryptedChatEmpty {
-	r := make(map[int]EncryptedChatEmpty, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// EncryptedChatWaitingArray is adapter for slice of EncryptedChatWaiting.
-type EncryptedChatWaitingArray []EncryptedChatWaiting
-
-// Sort sorts slice of EncryptedChatWaiting.
-func (s EncryptedChatWaitingArray) Sort(less func(a, b EncryptedChatWaiting) bool) EncryptedChatWaitingArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of EncryptedChatWaiting.
-func (s EncryptedChatWaitingArray) SortStable(less func(a, b EncryptedChatWaiting) bool) EncryptedChatWaitingArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of EncryptedChatWaiting.
-func (s EncryptedChatWaitingArray) Retain(keep func(x EncryptedChatWaiting) bool) EncryptedChatWaitingArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s EncryptedChatWaitingArray) First() (v EncryptedChatWaiting, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s EncryptedChatWaitingArray) Last() (v EncryptedChatWaiting, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedChatWaitingArray) PopFirst() (v EncryptedChatWaiting, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero EncryptedChatWaiting
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedChatWaitingArray) Pop() (v EncryptedChatWaiting, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of EncryptedChatWaiting by ID.
-func (s EncryptedChatWaitingArray) SortByID() EncryptedChatWaitingArray {
-	return s.Sort(func(a, b EncryptedChatWaiting) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of EncryptedChatWaiting by ID.
-func (s EncryptedChatWaitingArray) SortStableByID() EncryptedChatWaitingArray {
-	return s.SortStable(func(a, b EncryptedChatWaiting) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortByDate sorts slice of EncryptedChatWaiting by Date.
-func (s EncryptedChatWaitingArray) SortByDate() EncryptedChatWaitingArray {
-	return s.Sort(func(a, b EncryptedChatWaiting) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of EncryptedChatWaiting by Date.
-func (s EncryptedChatWaitingArray) SortStableByDate() EncryptedChatWaitingArray {
-	return s.SortStable(func(a, b EncryptedChatWaiting) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s EncryptedChatWaitingArray) FillMap(to map[int]EncryptedChatWaiting) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s EncryptedChatWaitingArray) ToMap() map[int]EncryptedChatWaiting {
-	r := make(map[int]EncryptedChatWaiting, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// EncryptedChatRequestedArray is adapter for slice of EncryptedChatRequested.
-type EncryptedChatRequestedArray []EncryptedChatRequested
-
-// Sort sorts slice of EncryptedChatRequested.
-func (s EncryptedChatRequestedArray) Sort(less func(a, b EncryptedChatRequested) bool) EncryptedChatRequestedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of EncryptedChatRequested.
-func (s EncryptedChatRequestedArray) SortStable(less func(a, b EncryptedChatRequested) bool) EncryptedChatRequestedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of EncryptedChatRequested.
-func (s EncryptedChatRequestedArray) Retain(keep func(x EncryptedChatRequested) bool) EncryptedChatRequestedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s EncryptedChatRequestedArray) First() (v EncryptedChatRequested, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s EncryptedChatRequestedArray) Last() (v EncryptedChatRequested, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedChatRequestedArray) PopFirst() (v EncryptedChatRequested, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero EncryptedChatRequested
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedChatRequestedArray) Pop() (v EncryptedChatRequested, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of EncryptedChatRequested by ID.
-func (s EncryptedChatRequestedArray) SortByID() EncryptedChatRequestedArray {
-	return s.Sort(func(a, b EncryptedChatRequested) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of EncryptedChatRequested by ID.
-func (s EncryptedChatRequestedArray) SortStableByID() EncryptedChatRequestedArray {
-	return s.SortStable(func(a, b EncryptedChatRequested) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortByDate sorts slice of EncryptedChatRequested by Date.
-func (s EncryptedChatRequestedArray) SortByDate() EncryptedChatRequestedArray {
-	return s.Sort(func(a, b EncryptedChatRequested) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of EncryptedChatRequested by Date.
-func (s EncryptedChatRequestedArray) SortStableByDate() EncryptedChatRequestedArray {
-	return s.SortStable(func(a, b EncryptedChatRequested) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s EncryptedChatRequestedArray) FillMap(to map[int]EncryptedChatRequested) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s EncryptedChatRequestedArray) ToMap() map[int]EncryptedChatRequested {
-	r := make(map[int]EncryptedChatRequested, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// EncryptedChatArray is adapter for slice of EncryptedChat.
-type EncryptedChatArray []EncryptedChat
-
-// Sort sorts slice of EncryptedChat.
-func (s EncryptedChatArray) Sort(less func(a, b EncryptedChat) bool) EncryptedChatArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of EncryptedChat.
-func (s EncryptedChatArray) SortStable(less func(a, b EncryptedChat) bool) EncryptedChatArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of EncryptedChat.
-func (s EncryptedChatArray) Retain(keep func(x EncryptedChat) bool) EncryptedChatArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s EncryptedChatArray) First() (v EncryptedChat, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s EncryptedChatArray) Last() (v EncryptedChat, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedChatArray) PopFirst() (v EncryptedChat, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero EncryptedChat
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedChatArray) Pop() (v EncryptedChat, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of EncryptedChat by ID.
-func (s EncryptedChatArray) SortByID() EncryptedChatArray {
-	return s.Sort(func(a, b EncryptedChat) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of EncryptedChat by ID.
-func (s EncryptedChatArray) SortStableByID() EncryptedChatArray {
-	return s.SortStable(func(a, b EncryptedChat) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortByDate sorts slice of EncryptedChat by Date.
-func (s EncryptedChatArray) SortByDate() EncryptedChatArray {
-	return s.Sort(func(a, b EncryptedChat) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of EncryptedChat by Date.
-func (s EncryptedChatArray) SortStableByDate() EncryptedChatArray {
-	return s.SortStable(func(a, b EncryptedChat) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s EncryptedChatArray) FillMap(to map[int]EncryptedChat) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s EncryptedChatArray) ToMap() map[int]EncryptedChat {
-	r := make(map[int]EncryptedChat, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// EncryptedChatDiscardedArray is adapter for slice of EncryptedChatDiscarded.
-type EncryptedChatDiscardedArray []EncryptedChatDiscarded
-
-// Sort sorts slice of EncryptedChatDiscarded.
-func (s EncryptedChatDiscardedArray) Sort(less func(a, b EncryptedChatDiscarded) bool) EncryptedChatDiscardedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of EncryptedChatDiscarded.
-func (s EncryptedChatDiscardedArray) SortStable(less func(a, b EncryptedChatDiscarded) bool) EncryptedChatDiscardedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of EncryptedChatDiscarded.
-func (s EncryptedChatDiscardedArray) Retain(keep func(x EncryptedChatDiscarded) bool) EncryptedChatDiscardedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s EncryptedChatDiscardedArray) First() (v EncryptedChatDiscarded, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s EncryptedChatDiscardedArray) Last() (v EncryptedChatDiscarded, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedChatDiscardedArray) PopFirst() (v EncryptedChatDiscarded, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero EncryptedChatDiscarded
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedChatDiscardedArray) Pop() (v EncryptedChatDiscarded, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of EncryptedChatDiscarded by ID.
-func (s EncryptedChatDiscardedArray) SortByID() EncryptedChatDiscardedArray {
-	return s.Sort(func(a, b EncryptedChatDiscarded) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of EncryptedChatDiscarded by ID.
-func (s EncryptedChatDiscardedArray) SortStableByID() EncryptedChatDiscardedArray {
-	return s.SortStable(func(a, b EncryptedChatDiscarded) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s EncryptedChatDiscardedArray) FillMap(to map[int]EncryptedChatDiscarded) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s EncryptedChatDiscardedArray) ToMap() map[int]EncryptedChatDiscarded {
-	r := make(map[int]EncryptedChatDiscarded, len(s))
-	s.FillMap(r)
-	return r
 }

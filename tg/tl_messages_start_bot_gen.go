@@ -53,6 +53,14 @@ type MessagesStartBotRequest struct {
 // MessagesStartBotRequestTypeID is TL type id of MessagesStartBotRequest.
 const MessagesStartBotRequestTypeID = 0xe6df7378
 
+// Ensuring interfaces in compile-time for MessagesStartBotRequest.
+var (
+	_ bin.Encoder     = &MessagesStartBotRequest{}
+	_ bin.Decoder     = &MessagesStartBotRequest{}
+	_ bin.BareEncoder = &MessagesStartBotRequest{}
+	_ bin.BareDecoder = &MessagesStartBotRequest{}
+)
+
 func (s *MessagesStartBotRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -169,26 +177,6 @@ func (s *MessagesStartBotRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetBot returns value of Bot field.
-func (s *MessagesStartBotRequest) GetBot() (value InputUserClass) {
-	return s.Bot
-}
-
-// GetPeer returns value of Peer field.
-func (s *MessagesStartBotRequest) GetPeer() (value InputPeerClass) {
-	return s.Peer
-}
-
-// GetRandomID returns value of RandomID field.
-func (s *MessagesStartBotRequest) GetRandomID() (value int64) {
-	return s.RandomID
-}
-
-// GetStartParam returns value of StartParam field.
-func (s *MessagesStartBotRequest) GetStartParam() (value string) {
-	return s.StartParam
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesStartBotRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -236,13 +224,25 @@ func (s *MessagesStartBotRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesStartBotRequest.
-var (
-	_ bin.Encoder     = &MessagesStartBotRequest{}
-	_ bin.Decoder     = &MessagesStartBotRequest{}
-	_ bin.BareEncoder = &MessagesStartBotRequest{}
-	_ bin.BareDecoder = &MessagesStartBotRequest{}
-)
+// GetBot returns value of Bot field.
+func (s *MessagesStartBotRequest) GetBot() (value InputUserClass) {
+	return s.Bot
+}
+
+// GetPeer returns value of Peer field.
+func (s *MessagesStartBotRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetRandomID returns value of RandomID field.
+func (s *MessagesStartBotRequest) GetRandomID() (value int64) {
+	return s.RandomID
+}
+
+// GetStartParam returns value of StartParam field.
+func (s *MessagesStartBotRequest) GetStartParam() (value string) {
+	return s.StartParam
+}
 
 // MessagesStartBot invokes method messages.startBot#e6df7378 returning error if any.
 // Start a conversation with a bot using a deep linking parameter¹

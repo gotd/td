@@ -38,6 +38,14 @@ type EmojiLanguageVector struct {
 // EmojiLanguageVectorTypeID is TL type id of EmojiLanguageVector.
 const EmojiLanguageVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for EmojiLanguageVector.
+var (
+	_ bin.Encoder     = &EmojiLanguageVector{}
+	_ bin.Decoder     = &EmojiLanguageVector{}
+	_ bin.BareEncoder = &EmojiLanguageVector{}
+	_ bin.BareDecoder = &EmojiLanguageVector{}
+)
+
 func (vec *EmojiLanguageVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -119,11 +127,6 @@ func (vec *EmojiLanguageVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *EmojiLanguageVector) GetElems() (value []EmojiLanguage) {
-	return vec.Elems
-}
-
 // Decode implements bin.Decoder.
 func (vec *EmojiLanguageVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -158,10 +161,7 @@ func (vec *EmojiLanguageVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for EmojiLanguageVector.
-var (
-	_ bin.Encoder     = &EmojiLanguageVector{}
-	_ bin.Decoder     = &EmojiLanguageVector{}
-	_ bin.BareEncoder = &EmojiLanguageVector{}
-	_ bin.BareDecoder = &EmojiLanguageVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *EmojiLanguageVector) GetElems() (value []EmojiLanguage) {
+	return vec.Elems
+}

@@ -38,6 +38,14 @@ type Bytes struct {
 // BytesTypeID is TL type id of Bytes.
 const BytesTypeID = 0xe937bb82
 
+// Ensuring interfaces in compile-time for Bytes.
+var (
+	_ bin.Encoder     = &Bytes{}
+	_ bin.Decoder     = &Bytes{}
+	_ bin.BareEncoder = &Bytes{}
+	_ bin.BareDecoder = &Bytes{}
+)
+
 func (b *Bytes) Zero() bool {
 	if b == nil {
 		return true
@@ -116,11 +124,3 @@ func (b *Bytes) DecodeBare(buf *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for Bytes.
-var (
-	_ bin.Encoder     = &Bytes{}
-	_ bin.Decoder     = &Bytes{}
-	_ bin.BareEncoder = &Bytes{}
-	_ bin.BareDecoder = &Bytes{}
-)

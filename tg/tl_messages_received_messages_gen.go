@@ -41,6 +41,14 @@ type MessagesReceivedMessagesRequest struct {
 // MessagesReceivedMessagesRequestTypeID is TL type id of MessagesReceivedMessagesRequest.
 const MessagesReceivedMessagesRequestTypeID = 0x5a954c0
 
+// Ensuring interfaces in compile-time for MessagesReceivedMessagesRequest.
+var (
+	_ bin.Encoder     = &MessagesReceivedMessagesRequest{}
+	_ bin.Decoder     = &MessagesReceivedMessagesRequest{}
+	_ bin.BareEncoder = &MessagesReceivedMessagesRequest{}
+	_ bin.BareDecoder = &MessagesReceivedMessagesRequest{}
+)
+
 func (r *MessagesReceivedMessagesRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -117,11 +125,6 @@ func (r *MessagesReceivedMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMaxID returns value of MaxID field.
-func (r *MessagesReceivedMessagesRequest) GetMaxID() (value int) {
-	return r.MaxID
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesReceivedMessagesRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -148,13 +151,10 @@ func (r *MessagesReceivedMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesReceivedMessagesRequest.
-var (
-	_ bin.Encoder     = &MessagesReceivedMessagesRequest{}
-	_ bin.Decoder     = &MessagesReceivedMessagesRequest{}
-	_ bin.BareEncoder = &MessagesReceivedMessagesRequest{}
-	_ bin.BareDecoder = &MessagesReceivedMessagesRequest{}
-)
+// GetMaxID returns value of MaxID field.
+func (r *MessagesReceivedMessagesRequest) GetMaxID() (value int) {
+	return r.MaxID
+}
 
 // MessagesReceivedMessages invokes method messages.receivedMessages#5a954c0 returning error if any.
 // Confirms receipt of messages by a client, cancels PUSH-notification sending.

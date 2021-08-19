@@ -54,6 +54,14 @@ type HelpCountryCode struct {
 // HelpCountryCodeTypeID is TL type id of HelpCountryCode.
 const HelpCountryCodeTypeID = 0x4203c5ef
 
+// Ensuring interfaces in compile-time for HelpCountryCode.
+var (
+	_ bin.Encoder     = &HelpCountryCode{}
+	_ bin.Decoder     = &HelpCountryCode{}
+	_ bin.BareEncoder = &HelpCountryCode{}
+	_ bin.BareDecoder = &HelpCountryCode{}
+)
+
 func (c *HelpCountryCode) Zero() bool {
 	if c == nil {
 		return true
@@ -180,41 +188,6 @@ func (c *HelpCountryCode) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCountryCode returns value of CountryCode field.
-func (c *HelpCountryCode) GetCountryCode() (value string) {
-	return c.CountryCode
-}
-
-// SetPrefixes sets value of Prefixes conditional field.
-func (c *HelpCountryCode) SetPrefixes(value []string) {
-	c.Flags.Set(0)
-	c.Prefixes = value
-}
-
-// GetPrefixes returns value of Prefixes conditional field and
-// boolean which is true if field was set.
-func (c *HelpCountryCode) GetPrefixes() (value []string, ok bool) {
-	if !c.Flags.Has(0) {
-		return value, false
-	}
-	return c.Prefixes, true
-}
-
-// SetPatterns sets value of Patterns conditional field.
-func (c *HelpCountryCode) SetPatterns(value []string) {
-	c.Flags.Set(1)
-	c.Patterns = value
-}
-
-// GetPatterns returns value of Patterns conditional field and
-// boolean which is true if field was set.
-func (c *HelpCountryCode) GetPatterns() (value []string, ok bool) {
-	if !c.Flags.Has(1) {
-		return value, false
-	}
-	return c.Patterns, true
-}
-
 // Decode implements bin.Decoder.
 func (c *HelpCountryCode) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -280,10 +253,37 @@ func (c *HelpCountryCode) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpCountryCode.
-var (
-	_ bin.Encoder     = &HelpCountryCode{}
-	_ bin.Decoder     = &HelpCountryCode{}
-	_ bin.BareEncoder = &HelpCountryCode{}
-	_ bin.BareDecoder = &HelpCountryCode{}
-)
+// GetCountryCode returns value of CountryCode field.
+func (c *HelpCountryCode) GetCountryCode() (value string) {
+	return c.CountryCode
+}
+
+// SetPrefixes sets value of Prefixes conditional field.
+func (c *HelpCountryCode) SetPrefixes(value []string) {
+	c.Flags.Set(0)
+	c.Prefixes = value
+}
+
+// GetPrefixes returns value of Prefixes conditional field and
+// boolean which is true if field was set.
+func (c *HelpCountryCode) GetPrefixes() (value []string, ok bool) {
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.Prefixes, true
+}
+
+// SetPatterns sets value of Patterns conditional field.
+func (c *HelpCountryCode) SetPatterns(value []string) {
+	c.Flags.Set(1)
+	c.Patterns = value
+}
+
+// GetPatterns returns value of Patterns conditional field and
+// boolean which is true if field was set.
+func (c *HelpCountryCode) GetPatterns() (value []string, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.Patterns, true
+}

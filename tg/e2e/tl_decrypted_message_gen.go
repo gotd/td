@@ -46,6 +46,19 @@ type DecryptedMessage8 struct {
 // DecryptedMessage8TypeID is TL type id of DecryptedMessage8.
 const DecryptedMessage8TypeID = 0x1f814f1f
 
+// construct implements constructor of DecryptedMessageClass.
+func (d DecryptedMessage8) construct() DecryptedMessageClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessage8.
+var (
+	_ bin.Encoder     = &DecryptedMessage8{}
+	_ bin.Decoder     = &DecryptedMessage8{}
+	_ bin.BareEncoder = &DecryptedMessage8{}
+	_ bin.BareDecoder = &DecryptedMessage8{}
+
+	_ DecryptedMessageClass = &DecryptedMessage8{}
+)
+
 func (d *DecryptedMessage8) Zero() bool {
 	if d == nil {
 		return true
@@ -73,19 +86,6 @@ func (d *DecryptedMessage8) String() string {
 	}
 	type Alias DecryptedMessage8
 	return fmt.Sprintf("DecryptedMessage8%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessage8 from given interface.
-func (d *DecryptedMessage8) FillFrom(from interface {
-	GetRandomID() (value int64)
-	GetRandomBytes() (value []byte)
-	GetMessage() (value string)
-	GetMedia() (value DecryptedMessageMediaClass)
-}) {
-	d.RandomID = from.GetRandomID()
-	d.RandomBytes = from.GetRandomBytes()
-	d.Message = from.GetMessage()
-	d.Media = from.GetMedia()
 }
 
 // TypeID returns type id in TL schema.
@@ -157,26 +157,6 @@ func (d *DecryptedMessage8) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandomID returns value of RandomID field.
-func (d *DecryptedMessage8) GetRandomID() (value int64) {
-	return d.RandomID
-}
-
-// GetRandomBytes returns value of RandomBytes field.
-func (d *DecryptedMessage8) GetRandomBytes() (value []byte) {
-	return d.RandomBytes
-}
-
-// GetMessage returns value of Message field.
-func (d *DecryptedMessage8) GetMessage() (value string) {
-	return d.Message
-}
-
-// GetMedia returns value of Media field.
-func (d *DecryptedMessage8) GetMedia() (value DecryptedMessageMediaClass) {
-	return d.Media
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessage8) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -224,18 +204,25 @@ func (d *DecryptedMessage8) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageClass.
-func (d DecryptedMessage8) construct() DecryptedMessageClass { return &d }
+// GetRandomID returns value of RandomID field.
+func (d *DecryptedMessage8) GetRandomID() (value int64) {
+	return d.RandomID
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessage8.
-var (
-	_ bin.Encoder     = &DecryptedMessage8{}
-	_ bin.Decoder     = &DecryptedMessage8{}
-	_ bin.BareEncoder = &DecryptedMessage8{}
-	_ bin.BareDecoder = &DecryptedMessage8{}
+// GetRandomBytes returns value of RandomBytes field.
+func (d *DecryptedMessage8) GetRandomBytes() (value []byte) {
+	return d.RandomBytes
+}
 
-	_ DecryptedMessageClass = &DecryptedMessage8{}
-)
+// GetMessage returns value of Message field.
+func (d *DecryptedMessage8) GetMessage() (value string) {
+	return d.Message
+}
+
+// GetMedia returns value of Media field.
+func (d *DecryptedMessage8) GetMedia() (value DecryptedMessageMediaClass) {
+	return d.Media
+}
 
 // DecryptedMessageService8 represents TL type `decryptedMessageService8#aa48327d`.
 //
@@ -251,6 +238,19 @@ type DecryptedMessageService8 struct {
 
 // DecryptedMessageService8TypeID is TL type id of DecryptedMessageService8.
 const DecryptedMessageService8TypeID = 0xaa48327d
+
+// construct implements constructor of DecryptedMessageClass.
+func (d DecryptedMessageService8) construct() DecryptedMessageClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageService8.
+var (
+	_ bin.Encoder     = &DecryptedMessageService8{}
+	_ bin.Decoder     = &DecryptedMessageService8{}
+	_ bin.BareEncoder = &DecryptedMessageService8{}
+	_ bin.BareDecoder = &DecryptedMessageService8{}
+
+	_ DecryptedMessageClass = &DecryptedMessageService8{}
+)
 
 func (d *DecryptedMessageService8) Zero() bool {
 	if d == nil {
@@ -276,17 +276,6 @@ func (d *DecryptedMessageService8) String() string {
 	}
 	type Alias DecryptedMessageService8
 	return fmt.Sprintf("DecryptedMessageService8%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageService8 from given interface.
-func (d *DecryptedMessageService8) FillFrom(from interface {
-	GetRandomID() (value int64)
-	GetRandomBytes() (value []byte)
-	GetAction() (value DecryptedMessageActionClass)
-}) {
-	d.RandomID = from.GetRandomID()
-	d.RandomBytes = from.GetRandomBytes()
-	d.Action = from.GetAction()
 }
 
 // TypeID returns type id in TL schema.
@@ -353,21 +342,6 @@ func (d *DecryptedMessageService8) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandomID returns value of RandomID field.
-func (d *DecryptedMessageService8) GetRandomID() (value int64) {
-	return d.RandomID
-}
-
-// GetRandomBytes returns value of RandomBytes field.
-func (d *DecryptedMessageService8) GetRandomBytes() (value []byte) {
-	return d.RandomBytes
-}
-
-// GetAction returns value of Action field.
-func (d *DecryptedMessageService8) GetAction() (value DecryptedMessageActionClass) {
-	return d.Action
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageService8) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -408,18 +382,20 @@ func (d *DecryptedMessageService8) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageClass.
-func (d DecryptedMessageService8) construct() DecryptedMessageClass { return &d }
+// GetRandomID returns value of RandomID field.
+func (d *DecryptedMessageService8) GetRandomID() (value int64) {
+	return d.RandomID
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageService8.
-var (
-	_ bin.Encoder     = &DecryptedMessageService8{}
-	_ bin.Decoder     = &DecryptedMessageService8{}
-	_ bin.BareEncoder = &DecryptedMessageService8{}
-	_ bin.BareDecoder = &DecryptedMessageService8{}
+// GetRandomBytes returns value of RandomBytes field.
+func (d *DecryptedMessageService8) GetRandomBytes() (value []byte) {
+	return d.RandomBytes
+}
 
-	_ DecryptedMessageClass = &DecryptedMessageService8{}
-)
+// GetAction returns value of Action field.
+func (d *DecryptedMessageService8) GetAction() (value DecryptedMessageActionClass) {
+	return d.Action
+}
 
 // DecryptedMessage23 represents TL type `decryptedMessage23#204d3878`.
 //
@@ -437,6 +413,19 @@ type DecryptedMessage23 struct {
 
 // DecryptedMessage23TypeID is TL type id of DecryptedMessage23.
 const DecryptedMessage23TypeID = 0x204d3878
+
+// construct implements constructor of DecryptedMessageClass.
+func (d DecryptedMessage23) construct() DecryptedMessageClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessage23.
+var (
+	_ bin.Encoder     = &DecryptedMessage23{}
+	_ bin.Decoder     = &DecryptedMessage23{}
+	_ bin.BareEncoder = &DecryptedMessage23{}
+	_ bin.BareDecoder = &DecryptedMessage23{}
+
+	_ DecryptedMessageClass = &DecryptedMessage23{}
+)
 
 func (d *DecryptedMessage23) Zero() bool {
 	if d == nil {
@@ -465,19 +454,6 @@ func (d *DecryptedMessage23) String() string {
 	}
 	type Alias DecryptedMessage23
 	return fmt.Sprintf("DecryptedMessage23%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessage23 from given interface.
-func (d *DecryptedMessage23) FillFrom(from interface {
-	GetRandomID() (value int64)
-	GetTTL() (value int)
-	GetMessage() (value string)
-	GetMedia() (value DecryptedMessageMediaClass)
-}) {
-	d.RandomID = from.GetRandomID()
-	d.TTL = from.GetTTL()
-	d.Message = from.GetMessage()
-	d.Media = from.GetMedia()
 }
 
 // TypeID returns type id in TL schema.
@@ -549,26 +525,6 @@ func (d *DecryptedMessage23) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandomID returns value of RandomID field.
-func (d *DecryptedMessage23) GetRandomID() (value int64) {
-	return d.RandomID
-}
-
-// GetTTL returns value of TTL field.
-func (d *DecryptedMessage23) GetTTL() (value int) {
-	return d.TTL
-}
-
-// GetMessage returns value of Message field.
-func (d *DecryptedMessage23) GetMessage() (value string) {
-	return d.Message
-}
-
-// GetMedia returns value of Media field.
-func (d *DecryptedMessage23) GetMedia() (value DecryptedMessageMediaClass) {
-	return d.Media
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessage23) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -616,18 +572,25 @@ func (d *DecryptedMessage23) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageClass.
-func (d DecryptedMessage23) construct() DecryptedMessageClass { return &d }
+// GetRandomID returns value of RandomID field.
+func (d *DecryptedMessage23) GetRandomID() (value int64) {
+	return d.RandomID
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessage23.
-var (
-	_ bin.Encoder     = &DecryptedMessage23{}
-	_ bin.Decoder     = &DecryptedMessage23{}
-	_ bin.BareEncoder = &DecryptedMessage23{}
-	_ bin.BareDecoder = &DecryptedMessage23{}
+// GetTTL returns value of TTL field.
+func (d *DecryptedMessage23) GetTTL() (value int) {
+	return d.TTL
+}
 
-	_ DecryptedMessageClass = &DecryptedMessage23{}
-)
+// GetMessage returns value of Message field.
+func (d *DecryptedMessage23) GetMessage() (value string) {
+	return d.Message
+}
+
+// GetMedia returns value of Media field.
+func (d *DecryptedMessage23) GetMedia() (value DecryptedMessageMediaClass) {
+	return d.Media
+}
 
 // DecryptedMessageService represents TL type `decryptedMessageService#73164160`.
 //
@@ -641,6 +604,19 @@ type DecryptedMessageService struct {
 
 // DecryptedMessageServiceTypeID is TL type id of DecryptedMessageService.
 const DecryptedMessageServiceTypeID = 0x73164160
+
+// construct implements constructor of DecryptedMessageClass.
+func (d DecryptedMessageService) construct() DecryptedMessageClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageService.
+var (
+	_ bin.Encoder     = &DecryptedMessageService{}
+	_ bin.Decoder     = &DecryptedMessageService{}
+	_ bin.BareEncoder = &DecryptedMessageService{}
+	_ bin.BareDecoder = &DecryptedMessageService{}
+
+	_ DecryptedMessageClass = &DecryptedMessageService{}
+)
 
 func (d *DecryptedMessageService) Zero() bool {
 	if d == nil {
@@ -663,15 +639,6 @@ func (d *DecryptedMessageService) String() string {
 	}
 	type Alias DecryptedMessageService
 	return fmt.Sprintf("DecryptedMessageService%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageService from given interface.
-func (d *DecryptedMessageService) FillFrom(from interface {
-	GetRandomID() (value int64)
-	GetAction() (value DecryptedMessageActionClass)
-}) {
-	d.RandomID = from.GetRandomID()
-	d.Action = from.GetAction()
 }
 
 // TypeID returns type id in TL schema.
@@ -733,16 +700,6 @@ func (d *DecryptedMessageService) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandomID returns value of RandomID field.
-func (d *DecryptedMessageService) GetRandomID() (value int64) {
-	return d.RandomID
-}
-
-// GetAction returns value of Action field.
-func (d *DecryptedMessageService) GetAction() (value DecryptedMessageActionClass) {
-	return d.Action
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageService) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -776,18 +733,15 @@ func (d *DecryptedMessageService) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageClass.
-func (d DecryptedMessageService) construct() DecryptedMessageClass { return &d }
+// GetRandomID returns value of RandomID field.
+func (d *DecryptedMessageService) GetRandomID() (value int64) {
+	return d.RandomID
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageService.
-var (
-	_ bin.Encoder     = &DecryptedMessageService{}
-	_ bin.Decoder     = &DecryptedMessageService{}
-	_ bin.BareEncoder = &DecryptedMessageService{}
-	_ bin.BareDecoder = &DecryptedMessageService{}
-
-	_ DecryptedMessageClass = &DecryptedMessageService{}
-)
+// GetAction returns value of Action field.
+func (d *DecryptedMessageService) GetAction() (value DecryptedMessageActionClass) {
+	return d.Action
+}
 
 // DecryptedMessage46 represents TL type `decryptedMessage46#36b091de`.
 //
@@ -821,6 +775,19 @@ type DecryptedMessage46 struct {
 
 // DecryptedMessage46TypeID is TL type id of DecryptedMessage46.
 const DecryptedMessage46TypeID = 0x36b091de
+
+// construct implements constructor of DecryptedMessageClass.
+func (d DecryptedMessage46) construct() DecryptedMessageClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessage46.
+var (
+	_ bin.Encoder     = &DecryptedMessage46{}
+	_ bin.Decoder     = &DecryptedMessage46{}
+	_ bin.BareEncoder = &DecryptedMessage46{}
+	_ bin.BareDecoder = &DecryptedMessage46{}
+
+	_ DecryptedMessageClass = &DecryptedMessage46{}
+)
 
 func (d *DecryptedMessage46) Zero() bool {
 	if d == nil {
@@ -861,37 +828,6 @@ func (d *DecryptedMessage46) String() string {
 	}
 	type Alias DecryptedMessage46
 	return fmt.Sprintf("DecryptedMessage46%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessage46 from given interface.
-func (d *DecryptedMessage46) FillFrom(from interface {
-	GetRandomID() (value int64)
-	GetTTL() (value int)
-	GetMessage() (value string)
-	GetMedia() (value DecryptedMessageMediaClass, ok bool)
-	GetEntities() (value []MessageEntityClass, ok bool)
-	GetViaBotName() (value string, ok bool)
-	GetReplyToRandomID() (value int64, ok bool)
-}) {
-	d.RandomID = from.GetRandomID()
-	d.TTL = from.GetTTL()
-	d.Message = from.GetMessage()
-	if val, ok := from.GetMedia(); ok {
-		d.Media = val
-	}
-
-	if val, ok := from.GetEntities(); ok {
-		d.Entities = val
-	}
-
-	if val, ok := from.GetViaBotName(); ok {
-		d.ViaBotName = val
-	}
-
-	if val, ok := from.GetReplyToRandomID(); ok {
-		d.ReplyToRandomID = val
-	}
-
 }
 
 // TypeID returns type id in TL schema.
@@ -1013,89 +949,6 @@ func (d *DecryptedMessage46) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandomID returns value of RandomID field.
-func (d *DecryptedMessage46) GetRandomID() (value int64) {
-	return d.RandomID
-}
-
-// GetTTL returns value of TTL field.
-func (d *DecryptedMessage46) GetTTL() (value int) {
-	return d.TTL
-}
-
-// GetMessage returns value of Message field.
-func (d *DecryptedMessage46) GetMessage() (value string) {
-	return d.Message
-}
-
-// SetMedia sets value of Media conditional field.
-func (d *DecryptedMessage46) SetMedia(value DecryptedMessageMediaClass) {
-	d.Flags.Set(9)
-	d.Media = value
-}
-
-// GetMedia returns value of Media conditional field and
-// boolean which is true if field was set.
-func (d *DecryptedMessage46) GetMedia() (value DecryptedMessageMediaClass, ok bool) {
-	if !d.Flags.Has(9) {
-		return value, false
-	}
-	return d.Media, true
-}
-
-// SetEntities sets value of Entities conditional field.
-func (d *DecryptedMessage46) SetEntities(value []MessageEntityClass) {
-	d.Flags.Set(7)
-	d.Entities = value
-}
-
-// GetEntities returns value of Entities conditional field and
-// boolean which is true if field was set.
-func (d *DecryptedMessage46) GetEntities() (value []MessageEntityClass, ok bool) {
-	if !d.Flags.Has(7) {
-		return value, false
-	}
-	return d.Entities, true
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (d *DecryptedMessage46) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !d.Flags.Has(7) {
-		return value, false
-	}
-	return MessageEntityClassArray(d.Entities), true
-}
-
-// SetViaBotName sets value of ViaBotName conditional field.
-func (d *DecryptedMessage46) SetViaBotName(value string) {
-	d.Flags.Set(11)
-	d.ViaBotName = value
-}
-
-// GetViaBotName returns value of ViaBotName conditional field and
-// boolean which is true if field was set.
-func (d *DecryptedMessage46) GetViaBotName() (value string, ok bool) {
-	if !d.Flags.Has(11) {
-		return value, false
-	}
-	return d.ViaBotName, true
-}
-
-// SetReplyToRandomID sets value of ReplyToRandomID conditional field.
-func (d *DecryptedMessage46) SetReplyToRandomID(value int64) {
-	d.Flags.Set(3)
-	d.ReplyToRandomID = value
-}
-
-// GetReplyToRandomID returns value of ReplyToRandomID conditional field and
-// boolean which is true if field was set.
-func (d *DecryptedMessage46) GetReplyToRandomID() (value int64, ok bool) {
-	if !d.Flags.Has(3) {
-		return value, false
-	}
-	return d.ReplyToRandomID, true
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessage46) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1179,18 +1032,80 @@ func (d *DecryptedMessage46) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageClass.
-func (d DecryptedMessage46) construct() DecryptedMessageClass { return &d }
+// GetRandomID returns value of RandomID field.
+func (d *DecryptedMessage46) GetRandomID() (value int64) {
+	return d.RandomID
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessage46.
-var (
-	_ bin.Encoder     = &DecryptedMessage46{}
-	_ bin.Decoder     = &DecryptedMessage46{}
-	_ bin.BareEncoder = &DecryptedMessage46{}
-	_ bin.BareDecoder = &DecryptedMessage46{}
+// GetTTL returns value of TTL field.
+func (d *DecryptedMessage46) GetTTL() (value int) {
+	return d.TTL
+}
 
-	_ DecryptedMessageClass = &DecryptedMessage46{}
-)
+// GetMessage returns value of Message field.
+func (d *DecryptedMessage46) GetMessage() (value string) {
+	return d.Message
+}
+
+// SetMedia sets value of Media conditional field.
+func (d *DecryptedMessage46) SetMedia(value DecryptedMessageMediaClass) {
+	d.Flags.Set(9)
+	d.Media = value
+}
+
+// GetMedia returns value of Media conditional field and
+// boolean which is true if field was set.
+func (d *DecryptedMessage46) GetMedia() (value DecryptedMessageMediaClass, ok bool) {
+	if !d.Flags.Has(9) {
+		return value, false
+	}
+	return d.Media, true
+}
+
+// SetEntities sets value of Entities conditional field.
+func (d *DecryptedMessage46) SetEntities(value []MessageEntityClass) {
+	d.Flags.Set(7)
+	d.Entities = value
+}
+
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (d *DecryptedMessage46) GetEntities() (value []MessageEntityClass, ok bool) {
+	if !d.Flags.Has(7) {
+		return value, false
+	}
+	return d.Entities, true
+}
+
+// SetViaBotName sets value of ViaBotName conditional field.
+func (d *DecryptedMessage46) SetViaBotName(value string) {
+	d.Flags.Set(11)
+	d.ViaBotName = value
+}
+
+// GetViaBotName returns value of ViaBotName conditional field and
+// boolean which is true if field was set.
+func (d *DecryptedMessage46) GetViaBotName() (value string, ok bool) {
+	if !d.Flags.Has(11) {
+		return value, false
+	}
+	return d.ViaBotName, true
+}
+
+// SetReplyToRandomID sets value of ReplyToRandomID conditional field.
+func (d *DecryptedMessage46) SetReplyToRandomID(value int64) {
+	d.Flags.Set(3)
+	d.ReplyToRandomID = value
+}
+
+// GetReplyToRandomID returns value of ReplyToRandomID conditional field and
+// boolean which is true if field was set.
+func (d *DecryptedMessage46) GetReplyToRandomID() (value int64, ok bool) {
+	if !d.Flags.Has(3) {
+		return value, false
+	}
+	return d.ReplyToRandomID, true
+}
 
 // DecryptedMessage represents TL type `decryptedMessage#91cc4674`.
 //
@@ -1230,6 +1145,19 @@ type DecryptedMessage struct {
 
 // DecryptedMessageTypeID is TL type id of DecryptedMessage.
 const DecryptedMessageTypeID = 0x91cc4674
+
+// construct implements constructor of DecryptedMessageClass.
+func (d DecryptedMessage) construct() DecryptedMessageClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessage.
+var (
+	_ bin.Encoder     = &DecryptedMessage{}
+	_ bin.Decoder     = &DecryptedMessage{}
+	_ bin.BareEncoder = &DecryptedMessage{}
+	_ bin.BareDecoder = &DecryptedMessage{}
+
+	_ DecryptedMessageClass = &DecryptedMessage{}
+)
 
 func (d *DecryptedMessage) Zero() bool {
 	if d == nil {
@@ -1276,44 +1204,6 @@ func (d *DecryptedMessage) String() string {
 	}
 	type Alias DecryptedMessage
 	return fmt.Sprintf("DecryptedMessage%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessage from given interface.
-func (d *DecryptedMessage) FillFrom(from interface {
-	GetSilent() (value bool)
-	GetRandomID() (value int64)
-	GetTTL() (value int)
-	GetMessage() (value string)
-	GetMedia() (value DecryptedMessageMediaClass, ok bool)
-	GetEntities() (value []MessageEntityClass, ok bool)
-	GetViaBotName() (value string, ok bool)
-	GetReplyToRandomID() (value int64, ok bool)
-	GetGroupedID() (value int64, ok bool)
-}) {
-	d.Silent = from.GetSilent()
-	d.RandomID = from.GetRandomID()
-	d.TTL = from.GetTTL()
-	d.Message = from.GetMessage()
-	if val, ok := from.GetMedia(); ok {
-		d.Media = val
-	}
-
-	if val, ok := from.GetEntities(); ok {
-		d.Entities = val
-	}
-
-	if val, ok := from.GetViaBotName(); ok {
-		d.ViaBotName = val
-	}
-
-	if val, ok := from.GetReplyToRandomID(); ok {
-		d.ReplyToRandomID = val
-	}
-
-	if val, ok := from.GetGroupedID(); ok {
-		d.GroupedID = val
-	}
-
 }
 
 // TypeID returns type id in TL schema.
@@ -1454,120 +1344,6 @@ func (d *DecryptedMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetSilent sets value of Silent conditional field.
-func (d *DecryptedMessage) SetSilent(value bool) {
-	if value {
-		d.Flags.Set(5)
-		d.Silent = true
-	} else {
-		d.Flags.Unset(5)
-		d.Silent = false
-	}
-}
-
-// GetSilent returns value of Silent conditional field.
-func (d *DecryptedMessage) GetSilent() (value bool) {
-	return d.Flags.Has(5)
-}
-
-// GetRandomID returns value of RandomID field.
-func (d *DecryptedMessage) GetRandomID() (value int64) {
-	return d.RandomID
-}
-
-// GetTTL returns value of TTL field.
-func (d *DecryptedMessage) GetTTL() (value int) {
-	return d.TTL
-}
-
-// GetMessage returns value of Message field.
-func (d *DecryptedMessage) GetMessage() (value string) {
-	return d.Message
-}
-
-// SetMedia sets value of Media conditional field.
-func (d *DecryptedMessage) SetMedia(value DecryptedMessageMediaClass) {
-	d.Flags.Set(9)
-	d.Media = value
-}
-
-// GetMedia returns value of Media conditional field and
-// boolean which is true if field was set.
-func (d *DecryptedMessage) GetMedia() (value DecryptedMessageMediaClass, ok bool) {
-	if !d.Flags.Has(9) {
-		return value, false
-	}
-	return d.Media, true
-}
-
-// SetEntities sets value of Entities conditional field.
-func (d *DecryptedMessage) SetEntities(value []MessageEntityClass) {
-	d.Flags.Set(7)
-	d.Entities = value
-}
-
-// GetEntities returns value of Entities conditional field and
-// boolean which is true if field was set.
-func (d *DecryptedMessage) GetEntities() (value []MessageEntityClass, ok bool) {
-	if !d.Flags.Has(7) {
-		return value, false
-	}
-	return d.Entities, true
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (d *DecryptedMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !d.Flags.Has(7) {
-		return value, false
-	}
-	return MessageEntityClassArray(d.Entities), true
-}
-
-// SetViaBotName sets value of ViaBotName conditional field.
-func (d *DecryptedMessage) SetViaBotName(value string) {
-	d.Flags.Set(11)
-	d.ViaBotName = value
-}
-
-// GetViaBotName returns value of ViaBotName conditional field and
-// boolean which is true if field was set.
-func (d *DecryptedMessage) GetViaBotName() (value string, ok bool) {
-	if !d.Flags.Has(11) {
-		return value, false
-	}
-	return d.ViaBotName, true
-}
-
-// SetReplyToRandomID sets value of ReplyToRandomID conditional field.
-func (d *DecryptedMessage) SetReplyToRandomID(value int64) {
-	d.Flags.Set(3)
-	d.ReplyToRandomID = value
-}
-
-// GetReplyToRandomID returns value of ReplyToRandomID conditional field and
-// boolean which is true if field was set.
-func (d *DecryptedMessage) GetReplyToRandomID() (value int64, ok bool) {
-	if !d.Flags.Has(3) {
-		return value, false
-	}
-	return d.ReplyToRandomID, true
-}
-
-// SetGroupedID sets value of GroupedID conditional field.
-func (d *DecryptedMessage) SetGroupedID(value int64) {
-	d.Flags.Set(17)
-	d.GroupedID = value
-}
-
-// GetGroupedID returns value of GroupedID conditional field and
-// boolean which is true if field was set.
-func (d *DecryptedMessage) GetGroupedID() (value int64, ok bool) {
-	if !d.Flags.Has(17) {
-		return value, false
-	}
-	return d.GroupedID, true
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessage) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1659,18 +1435,111 @@ func (d *DecryptedMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageClass.
-func (d DecryptedMessage) construct() DecryptedMessageClass { return &d }
+// SetSilent sets value of Silent conditional field.
+func (d *DecryptedMessage) SetSilent(value bool) {
+	if value {
+		d.Flags.Set(5)
+		d.Silent = true
+	} else {
+		d.Flags.Unset(5)
+		d.Silent = false
+	}
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessage.
-var (
-	_ bin.Encoder     = &DecryptedMessage{}
-	_ bin.Decoder     = &DecryptedMessage{}
-	_ bin.BareEncoder = &DecryptedMessage{}
-	_ bin.BareDecoder = &DecryptedMessage{}
+// GetSilent returns value of Silent conditional field.
+func (d *DecryptedMessage) GetSilent() (value bool) {
+	return d.Flags.Has(5)
+}
 
-	_ DecryptedMessageClass = &DecryptedMessage{}
-)
+// GetRandomID returns value of RandomID field.
+func (d *DecryptedMessage) GetRandomID() (value int64) {
+	return d.RandomID
+}
+
+// GetTTL returns value of TTL field.
+func (d *DecryptedMessage) GetTTL() (value int) {
+	return d.TTL
+}
+
+// GetMessage returns value of Message field.
+func (d *DecryptedMessage) GetMessage() (value string) {
+	return d.Message
+}
+
+// SetMedia sets value of Media conditional field.
+func (d *DecryptedMessage) SetMedia(value DecryptedMessageMediaClass) {
+	d.Flags.Set(9)
+	d.Media = value
+}
+
+// GetMedia returns value of Media conditional field and
+// boolean which is true if field was set.
+func (d *DecryptedMessage) GetMedia() (value DecryptedMessageMediaClass, ok bool) {
+	if !d.Flags.Has(9) {
+		return value, false
+	}
+	return d.Media, true
+}
+
+// SetEntities sets value of Entities conditional field.
+func (d *DecryptedMessage) SetEntities(value []MessageEntityClass) {
+	d.Flags.Set(7)
+	d.Entities = value
+}
+
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (d *DecryptedMessage) GetEntities() (value []MessageEntityClass, ok bool) {
+	if !d.Flags.Has(7) {
+		return value, false
+	}
+	return d.Entities, true
+}
+
+// SetViaBotName sets value of ViaBotName conditional field.
+func (d *DecryptedMessage) SetViaBotName(value string) {
+	d.Flags.Set(11)
+	d.ViaBotName = value
+}
+
+// GetViaBotName returns value of ViaBotName conditional field and
+// boolean which is true if field was set.
+func (d *DecryptedMessage) GetViaBotName() (value string, ok bool) {
+	if !d.Flags.Has(11) {
+		return value, false
+	}
+	return d.ViaBotName, true
+}
+
+// SetReplyToRandomID sets value of ReplyToRandomID conditional field.
+func (d *DecryptedMessage) SetReplyToRandomID(value int64) {
+	d.Flags.Set(3)
+	d.ReplyToRandomID = value
+}
+
+// GetReplyToRandomID returns value of ReplyToRandomID conditional field and
+// boolean which is true if field was set.
+func (d *DecryptedMessage) GetReplyToRandomID() (value int64, ok bool) {
+	if !d.Flags.Has(3) {
+		return value, false
+	}
+	return d.ReplyToRandomID, true
+}
+
+// SetGroupedID sets value of GroupedID conditional field.
+func (d *DecryptedMessage) SetGroupedID(value int64) {
+	d.Flags.Set(17)
+	d.GroupedID = value
+}
+
+// GetGroupedID returns value of GroupedID conditional field and
+// boolean which is true if field was set.
+func (d *DecryptedMessage) GetGroupedID() (value int64, ok bool) {
+	if !d.Flags.Has(17) {
+		return value, false
+	}
+	return d.GroupedID, true
+}
 
 // DecryptedMessageClass represents DecryptedMessage generic type.
 //
@@ -1790,656 +1659,4 @@ func (b *DecryptedMessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DecryptedMessageClass as nil")
 	}
 	return b.DecryptedMessage.Encode(buf)
-}
-
-// DecryptedMessageClassArray is adapter for slice of DecryptedMessageClass.
-type DecryptedMessageClassArray []DecryptedMessageClass
-
-// Sort sorts slice of DecryptedMessageClass.
-func (s DecryptedMessageClassArray) Sort(less func(a, b DecryptedMessageClass) bool) DecryptedMessageClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageClass.
-func (s DecryptedMessageClassArray) SortStable(less func(a, b DecryptedMessageClass) bool) DecryptedMessageClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageClass.
-func (s DecryptedMessageClassArray) Retain(keep func(x DecryptedMessageClass) bool) DecryptedMessageClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageClassArray) First() (v DecryptedMessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageClassArray) Last() (v DecryptedMessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageClassArray) PopFirst() (v DecryptedMessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageClassArray) Pop() (v DecryptedMessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsDecryptedMessage8 returns copy with only DecryptedMessage8 constructors.
-func (s DecryptedMessageClassArray) AsDecryptedMessage8() (to DecryptedMessage8Array) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessage8)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageService8 returns copy with only DecryptedMessageService8 constructors.
-func (s DecryptedMessageClassArray) AsDecryptedMessageService8() (to DecryptedMessageService8Array) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageService8)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessage23 returns copy with only DecryptedMessage23 constructors.
-func (s DecryptedMessageClassArray) AsDecryptedMessage23() (to DecryptedMessage23Array) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessage23)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageService returns copy with only DecryptedMessageService constructors.
-func (s DecryptedMessageClassArray) AsDecryptedMessageService() (to DecryptedMessageServiceArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageService)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessage46 returns copy with only DecryptedMessage46 constructors.
-func (s DecryptedMessageClassArray) AsDecryptedMessage46() (to DecryptedMessage46Array) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessage46)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessage returns copy with only DecryptedMessage constructors.
-func (s DecryptedMessageClassArray) AsDecryptedMessage() (to DecryptedMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// DecryptedMessage8Array is adapter for slice of DecryptedMessage8.
-type DecryptedMessage8Array []DecryptedMessage8
-
-// Sort sorts slice of DecryptedMessage8.
-func (s DecryptedMessage8Array) Sort(less func(a, b DecryptedMessage8) bool) DecryptedMessage8Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessage8.
-func (s DecryptedMessage8Array) SortStable(less func(a, b DecryptedMessage8) bool) DecryptedMessage8Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessage8.
-func (s DecryptedMessage8Array) Retain(keep func(x DecryptedMessage8) bool) DecryptedMessage8Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessage8Array) First() (v DecryptedMessage8, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessage8Array) Last() (v DecryptedMessage8, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessage8Array) PopFirst() (v DecryptedMessage8, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessage8
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessage8Array) Pop() (v DecryptedMessage8, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageService8Array is adapter for slice of DecryptedMessageService8.
-type DecryptedMessageService8Array []DecryptedMessageService8
-
-// Sort sorts slice of DecryptedMessageService8.
-func (s DecryptedMessageService8Array) Sort(less func(a, b DecryptedMessageService8) bool) DecryptedMessageService8Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageService8.
-func (s DecryptedMessageService8Array) SortStable(less func(a, b DecryptedMessageService8) bool) DecryptedMessageService8Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageService8.
-func (s DecryptedMessageService8Array) Retain(keep func(x DecryptedMessageService8) bool) DecryptedMessageService8Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageService8Array) First() (v DecryptedMessageService8, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageService8Array) Last() (v DecryptedMessageService8, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageService8Array) PopFirst() (v DecryptedMessageService8, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageService8
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageService8Array) Pop() (v DecryptedMessageService8, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessage23Array is adapter for slice of DecryptedMessage23.
-type DecryptedMessage23Array []DecryptedMessage23
-
-// Sort sorts slice of DecryptedMessage23.
-func (s DecryptedMessage23Array) Sort(less func(a, b DecryptedMessage23) bool) DecryptedMessage23Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessage23.
-func (s DecryptedMessage23Array) SortStable(less func(a, b DecryptedMessage23) bool) DecryptedMessage23Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessage23.
-func (s DecryptedMessage23Array) Retain(keep func(x DecryptedMessage23) bool) DecryptedMessage23Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessage23Array) First() (v DecryptedMessage23, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessage23Array) Last() (v DecryptedMessage23, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessage23Array) PopFirst() (v DecryptedMessage23, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessage23
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessage23Array) Pop() (v DecryptedMessage23, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageServiceArray is adapter for slice of DecryptedMessageService.
-type DecryptedMessageServiceArray []DecryptedMessageService
-
-// Sort sorts slice of DecryptedMessageService.
-func (s DecryptedMessageServiceArray) Sort(less func(a, b DecryptedMessageService) bool) DecryptedMessageServiceArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageService.
-func (s DecryptedMessageServiceArray) SortStable(less func(a, b DecryptedMessageService) bool) DecryptedMessageServiceArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageService.
-func (s DecryptedMessageServiceArray) Retain(keep func(x DecryptedMessageService) bool) DecryptedMessageServiceArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageServiceArray) First() (v DecryptedMessageService, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageServiceArray) Last() (v DecryptedMessageService, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageServiceArray) PopFirst() (v DecryptedMessageService, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageService
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageServiceArray) Pop() (v DecryptedMessageService, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessage46Array is adapter for slice of DecryptedMessage46.
-type DecryptedMessage46Array []DecryptedMessage46
-
-// Sort sorts slice of DecryptedMessage46.
-func (s DecryptedMessage46Array) Sort(less func(a, b DecryptedMessage46) bool) DecryptedMessage46Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessage46.
-func (s DecryptedMessage46Array) SortStable(less func(a, b DecryptedMessage46) bool) DecryptedMessage46Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessage46.
-func (s DecryptedMessage46Array) Retain(keep func(x DecryptedMessage46) bool) DecryptedMessage46Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessage46Array) First() (v DecryptedMessage46, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessage46Array) Last() (v DecryptedMessage46, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessage46Array) PopFirst() (v DecryptedMessage46, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessage46
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessage46Array) Pop() (v DecryptedMessage46, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageArray is adapter for slice of DecryptedMessage.
-type DecryptedMessageArray []DecryptedMessage
-
-// Sort sorts slice of DecryptedMessage.
-func (s DecryptedMessageArray) Sort(less func(a, b DecryptedMessage) bool) DecryptedMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessage.
-func (s DecryptedMessageArray) SortStable(less func(a, b DecryptedMessage) bool) DecryptedMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessage.
-func (s DecryptedMessageArray) Retain(keep func(x DecryptedMessage) bool) DecryptedMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageArray) First() (v DecryptedMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageArray) Last() (v DecryptedMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageArray) PopFirst() (v DecryptedMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageArray) Pop() (v DecryptedMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

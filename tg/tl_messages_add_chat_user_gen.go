@@ -45,6 +45,14 @@ type MessagesAddChatUserRequest struct {
 // MessagesAddChatUserRequestTypeID is TL type id of MessagesAddChatUserRequest.
 const MessagesAddChatUserRequestTypeID = 0xf9a0aa09
 
+// Ensuring interfaces in compile-time for MessagesAddChatUserRequest.
+var (
+	_ bin.Encoder     = &MessagesAddChatUserRequest{}
+	_ bin.Decoder     = &MessagesAddChatUserRequest{}
+	_ bin.BareEncoder = &MessagesAddChatUserRequest{}
+	_ bin.BareDecoder = &MessagesAddChatUserRequest{}
+)
+
 func (a *MessagesAddChatUserRequest) Zero() bool {
 	if a == nil {
 		return true
@@ -146,21 +154,6 @@ func (a *MessagesAddChatUserRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (a *MessagesAddChatUserRequest) GetChatID() (value int) {
-	return a.ChatID
-}
-
-// GetUserID returns value of UserID field.
-func (a *MessagesAddChatUserRequest) GetUserID() (value InputUserClass) {
-	return a.UserID
-}
-
-// GetFwdLimit returns value of FwdLimit field.
-func (a *MessagesAddChatUserRequest) GetFwdLimit() (value int) {
-	return a.FwdLimit
-}
-
 // Decode implements bin.Decoder.
 func (a *MessagesAddChatUserRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -201,13 +194,20 @@ func (a *MessagesAddChatUserRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesAddChatUserRequest.
-var (
-	_ bin.Encoder     = &MessagesAddChatUserRequest{}
-	_ bin.Decoder     = &MessagesAddChatUserRequest{}
-	_ bin.BareEncoder = &MessagesAddChatUserRequest{}
-	_ bin.BareDecoder = &MessagesAddChatUserRequest{}
-)
+// GetChatID returns value of ChatID field.
+func (a *MessagesAddChatUserRequest) GetChatID() (value int) {
+	return a.ChatID
+}
+
+// GetUserID returns value of UserID field.
+func (a *MessagesAddChatUserRequest) GetUserID() (value InputUserClass) {
+	return a.UserID
+}
+
+// GetFwdLimit returns value of FwdLimit field.
+func (a *MessagesAddChatUserRequest) GetFwdLimit() (value int) {
+	return a.FwdLimit
+}
 
 // MessagesAddChatUser invokes method messages.addChatUser#f9a0aa09 returning error if any.
 // Adds a user to a chat and sends a service message on it.

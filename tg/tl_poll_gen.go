@@ -73,6 +73,14 @@ type Poll struct {
 // PollTypeID is TL type id of Poll.
 const PollTypeID = 0x86e18161
 
+// Ensuring interfaces in compile-time for Poll.
+var (
+	_ bin.Encoder     = &Poll{}
+	_ bin.Decoder     = &Poll{}
+	_ bin.BareEncoder = &Poll{}
+	_ bin.BareDecoder = &Poll{}
+)
+
 func (p *Poll) Zero() bool {
 	if p == nil {
 		return true
@@ -270,6 +278,79 @@ func (p *Poll) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *Poll) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode poll#86e18161 to nil")
+	}
+	if err := b.ConsumeID(PollTypeID); err != nil {
+		return fmt.Errorf("unable to decode poll#86e18161: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *Poll) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode poll#86e18161 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode poll#86e18161: field id: %w", err)
+		}
+		p.ID = value
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode poll#86e18161: field flags: %w", err)
+		}
+	}
+	p.Closed = p.Flags.Has(0)
+	p.PublicVoters = p.Flags.Has(1)
+	p.MultipleChoice = p.Flags.Has(2)
+	p.Quiz = p.Flags.Has(3)
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode poll#86e18161: field question: %w", err)
+		}
+		p.Question = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode poll#86e18161: field answers: %w", err)
+		}
+
+		if headerLen > 0 {
+			p.Answers = make([]PollAnswer, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value PollAnswer
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode poll#86e18161: field answers: %w", err)
+			}
+			p.Answers = append(p.Answers, value)
+		}
+	}
+	if p.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode poll#86e18161: field close_period: %w", err)
+		}
+		p.ClosePeriod = value
+	}
+	if p.Flags.Has(5) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode poll#86e18161: field close_date: %w", err)
+		}
+		p.CloseDate = value
+	}
+	return nil
+}
+
 // GetID returns value of ID field.
 func (p *Poll) GetID() (value int64) {
 	return p.ID
@@ -378,84 +459,3 @@ func (p *Poll) GetCloseDate() (value int, ok bool) {
 	}
 	return p.CloseDate, true
 }
-
-// Decode implements bin.Decoder.
-func (p *Poll) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode poll#86e18161 to nil")
-	}
-	if err := b.ConsumeID(PollTypeID); err != nil {
-		return fmt.Errorf("unable to decode poll#86e18161: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *Poll) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode poll#86e18161 to nil")
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field id: %w", err)
-		}
-		p.ID = value
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field flags: %w", err)
-		}
-	}
-	p.Closed = p.Flags.Has(0)
-	p.PublicVoters = p.Flags.Has(1)
-	p.MultipleChoice = p.Flags.Has(2)
-	p.Quiz = p.Flags.Has(3)
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field question: %w", err)
-		}
-		p.Question = value
-	}
-	{
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field answers: %w", err)
-		}
-
-		if headerLen > 0 {
-			p.Answers = make([]PollAnswer, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value PollAnswer
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode poll#86e18161: field answers: %w", err)
-			}
-			p.Answers = append(p.Answers, value)
-		}
-	}
-	if p.Flags.Has(4) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field close_period: %w", err)
-		}
-		p.ClosePeriod = value
-	}
-	if p.Flags.Has(5) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode poll#86e18161: field close_date: %w", err)
-		}
-		p.CloseDate = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for Poll.
-var (
-	_ bin.Encoder     = &Poll{}
-	_ bin.Decoder     = &Poll{}
-	_ bin.BareEncoder = &Poll{}
-	_ bin.BareDecoder = &Poll{}
-)

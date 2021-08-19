@@ -43,6 +43,14 @@ type PaymentCharge struct {
 // PaymentChargeTypeID is TL type id of PaymentCharge.
 const PaymentChargeTypeID = 0xea02c27e
 
+// Ensuring interfaces in compile-time for PaymentCharge.
+var (
+	_ bin.Encoder     = &PaymentCharge{}
+	_ bin.Decoder     = &PaymentCharge{}
+	_ bin.BareEncoder = &PaymentCharge{}
+	_ bin.BareDecoder = &PaymentCharge{}
+)
+
 func (p *PaymentCharge) Zero() bool {
 	if p == nil {
 		return true
@@ -129,16 +137,6 @@ func (p *PaymentCharge) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (p *PaymentCharge) GetID() (value string) {
-	return p.ID
-}
-
-// GetProviderChargeID returns value of ProviderChargeID field.
-func (p *PaymentCharge) GetProviderChargeID() (value string) {
-	return p.ProviderChargeID
-}
-
 // Decode implements bin.Decoder.
 func (p *PaymentCharge) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -172,10 +170,12 @@ func (p *PaymentCharge) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PaymentCharge.
-var (
-	_ bin.Encoder     = &PaymentCharge{}
-	_ bin.Decoder     = &PaymentCharge{}
-	_ bin.BareEncoder = &PaymentCharge{}
-	_ bin.BareDecoder = &PaymentCharge{}
-)
+// GetID returns value of ID field.
+func (p *PaymentCharge) GetID() (value string) {
+	return p.ID
+}
+
+// GetProviderChargeID returns value of ProviderChargeID field.
+func (p *PaymentCharge) GetProviderChargeID() (value string) {
+	return p.ProviderChargeID
+}

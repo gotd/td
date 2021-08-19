@@ -56,6 +56,14 @@ type AuthImportBotAuthorizationRequest struct {
 // AuthImportBotAuthorizationRequestTypeID is TL type id of AuthImportBotAuthorizationRequest.
 const AuthImportBotAuthorizationRequestTypeID = 0x67a3ff2c
 
+// Ensuring interfaces in compile-time for AuthImportBotAuthorizationRequest.
+var (
+	_ bin.Encoder     = &AuthImportBotAuthorizationRequest{}
+	_ bin.Decoder     = &AuthImportBotAuthorizationRequest{}
+	_ bin.BareEncoder = &AuthImportBotAuthorizationRequest{}
+	_ bin.BareDecoder = &AuthImportBotAuthorizationRequest{}
+)
+
 func (i *AuthImportBotAuthorizationRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -162,26 +170,6 @@ func (i *AuthImportBotAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFlags returns value of Flags field.
-func (i *AuthImportBotAuthorizationRequest) GetFlags() (value int) {
-	return i.Flags
-}
-
-// GetAPIID returns value of APIID field.
-func (i *AuthImportBotAuthorizationRequest) GetAPIID() (value int) {
-	return i.APIID
-}
-
-// GetAPIHash returns value of APIHash field.
-func (i *AuthImportBotAuthorizationRequest) GetAPIHash() (value string) {
-	return i.APIHash
-}
-
-// GetBotAuthToken returns value of BotAuthToken field.
-func (i *AuthImportBotAuthorizationRequest) GetBotAuthToken() (value string) {
-	return i.BotAuthToken
-}
-
 // Decode implements bin.Decoder.
 func (i *AuthImportBotAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -229,13 +217,25 @@ func (i *AuthImportBotAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthImportBotAuthorizationRequest.
-var (
-	_ bin.Encoder     = &AuthImportBotAuthorizationRequest{}
-	_ bin.Decoder     = &AuthImportBotAuthorizationRequest{}
-	_ bin.BareEncoder = &AuthImportBotAuthorizationRequest{}
-	_ bin.BareDecoder = &AuthImportBotAuthorizationRequest{}
-)
+// GetFlags returns value of Flags field.
+func (i *AuthImportBotAuthorizationRequest) GetFlags() (value int) {
+	return i.Flags
+}
+
+// GetAPIID returns value of APIID field.
+func (i *AuthImportBotAuthorizationRequest) GetAPIID() (value int) {
+	return i.APIID
+}
+
+// GetAPIHash returns value of APIHash field.
+func (i *AuthImportBotAuthorizationRequest) GetAPIHash() (value string) {
+	return i.APIHash
+}
+
+// GetBotAuthToken returns value of BotAuthToken field.
+func (i *AuthImportBotAuthorizationRequest) GetBotAuthToken() (value string) {
+	return i.BotAuthToken
+}
 
 // AuthImportBotAuthorization invokes method auth.importBotAuthorization#67a3ff2c returning error if any.
 // Login as a bot

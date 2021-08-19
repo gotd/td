@@ -80,6 +80,14 @@ type MessagesSendMediaRequest struct {
 // MessagesSendMediaRequestTypeID is TL type id of MessagesSendMediaRequest.
 const MessagesSendMediaRequestTypeID = 0x3491eba9
 
+// Ensuring interfaces in compile-time for MessagesSendMediaRequest.
+var (
+	_ bin.Encoder     = &MessagesSendMediaRequest{}
+	_ bin.Decoder     = &MessagesSendMediaRequest{}
+	_ bin.BareEncoder = &MessagesSendMediaRequest{}
+	_ bin.BareDecoder = &MessagesSendMediaRequest{}
+)
+
 func (s *MessagesSendMediaRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -330,6 +338,99 @@ func (s *MessagesSendMediaRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (s *MessagesSendMediaRequest) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sendMedia#3491eba9 to nil")
+	}
+	if err := b.ConsumeID(MessagesSendMediaRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSendMediaRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sendMedia#3491eba9 to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field flags: %w", err)
+		}
+	}
+	s.Silent = s.Flags.Has(5)
+	s.Background = s.Flags.Has(6)
+	s.ClearDraft = s.Flags.Has(7)
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field peer: %w", err)
+		}
+		s.Peer = value
+	}
+	if s.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field reply_to_msg_id: %w", err)
+		}
+		s.ReplyToMsgID = value
+	}
+	{
+		value, err := DecodeInputMedia(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field media: %w", err)
+		}
+		s.Media = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field message: %w", err)
+		}
+		s.Message = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field random_id: %w", err)
+		}
+		s.RandomID = value
+	}
+	if s.Flags.Has(2) {
+		value, err := DecodeReplyMarkup(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field reply_markup: %w", err)
+		}
+		s.ReplyMarkup = value
+	}
+	if s.Flags.Has(3) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field entities: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMessageEntity(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field entities: %w", err)
+			}
+			s.Entities = append(s.Entities, value)
+		}
+	}
+	if s.Flags.Has(10) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field schedule_date: %w", err)
+		}
+		s.ScheduleDate = value
+	}
+	return nil
+}
+
 // SetSilent sets value of Silent conditional field.
 func (s *MessagesSendMediaRequest) SetSilent(value bool) {
 	if value {
@@ -443,14 +544,6 @@ func (s *MessagesSendMediaRequest) GetEntities() (value []MessageEntityClass, ok
 	return s.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !s.Flags.Has(3) {
-		return value, false
-	}
-	return MessageEntityClassArray(s.Entities), true
-}
-
 // SetScheduleDate sets value of ScheduleDate conditional field.
 func (s *MessagesSendMediaRequest) SetScheduleDate(value int) {
 	s.Flags.Set(10)
@@ -466,106 +559,13 @@ func (s *MessagesSendMediaRequest) GetScheduleDate() (value int, ok bool) {
 	return s.ScheduleDate, true
 }
 
-// Decode implements bin.Decoder.
-func (s *MessagesSendMediaRequest) Decode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMedia#3491eba9 to nil")
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !s.Flags.Has(3) {
+		return value, false
 	}
-	if err := b.ConsumeID(MessagesSendMediaRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: %w", err)
-	}
-	return s.DecodeBare(b)
+	return MessageEntityClassArray(s.Entities), true
 }
-
-// DecodeBare implements bin.BareDecoder.
-func (s *MessagesSendMediaRequest) DecodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMedia#3491eba9 to nil")
-	}
-	{
-		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field flags: %w", err)
-		}
-	}
-	s.Silent = s.Flags.Has(5)
-	s.Background = s.Flags.Has(6)
-	s.ClearDraft = s.Flags.Has(7)
-	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field peer: %w", err)
-		}
-		s.Peer = value
-	}
-	if s.Flags.Has(0) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field reply_to_msg_id: %w", err)
-		}
-		s.ReplyToMsgID = value
-	}
-	{
-		value, err := DecodeInputMedia(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field media: %w", err)
-		}
-		s.Media = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field message: %w", err)
-		}
-		s.Message = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field random_id: %w", err)
-		}
-		s.RandomID = value
-	}
-	if s.Flags.Has(2) {
-		value, err := DecodeReplyMarkup(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field reply_markup: %w", err)
-		}
-		s.ReplyMarkup = value
-	}
-	if s.Flags.Has(3) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field entities: %w", err)
-		}
-
-		if headerLen > 0 {
-			s.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeMessageEntity(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field entities: %w", err)
-			}
-			s.Entities = append(s.Entities, value)
-		}
-	}
-	if s.Flags.Has(10) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field schedule_date: %w", err)
-		}
-		s.ScheduleDate = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesSendMediaRequest.
-var (
-	_ bin.Encoder     = &MessagesSendMediaRequest{}
-	_ bin.Decoder     = &MessagesSendMediaRequest{}
-	_ bin.BareEncoder = &MessagesSendMediaRequest{}
-	_ bin.BareDecoder = &MessagesSendMediaRequest{}
-)
 
 // MessagesSendMedia invokes method messages.sendMedia#3491eba9 returning error if any.
 // Send a media

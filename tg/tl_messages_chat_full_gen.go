@@ -45,6 +45,14 @@ type MessagesChatFull struct {
 // MessagesChatFullTypeID is TL type id of MessagesChatFull.
 const MessagesChatFullTypeID = 0xe5d7d19c
 
+// Ensuring interfaces in compile-time for MessagesChatFull.
+var (
+	_ bin.Encoder     = &MessagesChatFull{}
+	_ bin.Decoder     = &MessagesChatFull{}
+	_ bin.BareEncoder = &MessagesChatFull{}
+	_ bin.BareDecoder = &MessagesChatFull{}
+)
+
 func (c *MessagesChatFull) Zero() bool {
 	if c == nil {
 		return true
@@ -162,31 +170,6 @@ func (c *MessagesChatFull) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFullChat returns value of FullChat field.
-func (c *MessagesChatFull) GetFullChat() (value ChatFullClass) {
-	return c.FullChat
-}
-
-// GetChats returns value of Chats field.
-func (c *MessagesChatFull) GetChats() (value []ChatClass) {
-	return c.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (c *MessagesChatFull) MapChats() (value ChatClassArray) {
-	return ChatClassArray(c.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (c *MessagesChatFull) GetUsers() (value []UserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (c *MessagesChatFull) MapUsers() (value UserClassArray) {
-	return UserClassArray(c.Users)
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesChatFull) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -247,10 +230,27 @@ func (c *MessagesChatFull) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesChatFull.
-var (
-	_ bin.Encoder     = &MessagesChatFull{}
-	_ bin.Decoder     = &MessagesChatFull{}
-	_ bin.BareEncoder = &MessagesChatFull{}
-	_ bin.BareDecoder = &MessagesChatFull{}
-)
+// GetFullChat returns value of FullChat field.
+func (c *MessagesChatFull) GetFullChat() (value ChatFullClass) {
+	return c.FullChat
+}
+
+// GetChats returns value of Chats field.
+func (c *MessagesChatFull) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// GetUsers returns value of Users field.
+func (c *MessagesChatFull) GetUsers() (value []UserClass) {
+	return c.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *MessagesChatFull) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *MessagesChatFull) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
+}

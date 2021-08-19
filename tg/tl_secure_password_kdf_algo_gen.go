@@ -39,6 +39,19 @@ type SecurePasswordKdfAlgoUnknown struct {
 // SecurePasswordKdfAlgoUnknownTypeID is TL type id of SecurePasswordKdfAlgoUnknown.
 const SecurePasswordKdfAlgoUnknownTypeID = 0x4a8537
 
+// construct implements constructor of SecurePasswordKdfAlgoClass.
+func (s SecurePasswordKdfAlgoUnknown) construct() SecurePasswordKdfAlgoClass { return &s }
+
+// Ensuring interfaces in compile-time for SecurePasswordKdfAlgoUnknown.
+var (
+	_ bin.Encoder     = &SecurePasswordKdfAlgoUnknown{}
+	_ bin.Decoder     = &SecurePasswordKdfAlgoUnknown{}
+	_ bin.BareEncoder = &SecurePasswordKdfAlgoUnknown{}
+	_ bin.BareDecoder = &SecurePasswordKdfAlgoUnknown{}
+
+	_ SecurePasswordKdfAlgoClass = &SecurePasswordKdfAlgoUnknown{}
+)
+
 func (s *SecurePasswordKdfAlgoUnknown) Zero() bool {
 	if s == nil {
 		return true
@@ -118,19 +131,6 @@ func (s *SecurePasswordKdfAlgoUnknown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecurePasswordKdfAlgoClass.
-func (s SecurePasswordKdfAlgoUnknown) construct() SecurePasswordKdfAlgoClass { return &s }
-
-// Ensuring interfaces in compile-time for SecurePasswordKdfAlgoUnknown.
-var (
-	_ bin.Encoder     = &SecurePasswordKdfAlgoUnknown{}
-	_ bin.Decoder     = &SecurePasswordKdfAlgoUnknown{}
-	_ bin.BareEncoder = &SecurePasswordKdfAlgoUnknown{}
-	_ bin.BareDecoder = &SecurePasswordKdfAlgoUnknown{}
-
-	_ SecurePasswordKdfAlgoClass = &SecurePasswordKdfAlgoUnknown{}
-)
-
 // SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 represents TL type `securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0`.
 // PBKDF2 with SHA512 and 100000 iterations KDF algo
 //
@@ -142,6 +142,21 @@ type SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 struct {
 
 // SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID is TL type id of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
 const SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID = 0xbbf2dda0
+
+// construct implements constructor of SecurePasswordKdfAlgoClass.
+func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) construct() SecurePasswordKdfAlgoClass {
+	return &s
+}
+
+// Ensuring interfaces in compile-time for SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
+var (
+	_ bin.Encoder     = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
+	_ bin.Decoder     = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
+	_ bin.BareEncoder = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
+	_ bin.BareDecoder = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
+
+	_ SecurePasswordKdfAlgoClass = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
+)
 
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) Zero() bool {
 	if s == nil {
@@ -219,11 +234,6 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) EncodeBare(b *bin.Buff
 	return nil
 }
 
-// GetSalt returns value of Salt field.
-func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) GetSalt() (value []byte) {
-	return s.Salt
-}
-
 // Decode implements bin.Decoder.
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -250,20 +260,10 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) DecodeBare(b *bin.Buff
 	return nil
 }
 
-// construct implements constructor of SecurePasswordKdfAlgoClass.
-func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) construct() SecurePasswordKdfAlgoClass {
-	return &s
+// GetSalt returns value of Salt field.
+func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) GetSalt() (value []byte) {
+	return s.Salt
 }
-
-// Ensuring interfaces in compile-time for SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
-var (
-	_ bin.Encoder     = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
-	_ bin.Decoder     = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
-	_ bin.BareEncoder = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
-	_ bin.BareDecoder = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
-
-	_ SecurePasswordKdfAlgoClass = &SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000{}
-)
 
 // SecurePasswordKdfAlgoSHA512 represents TL type `securePasswordKdfAlgoSHA512#86471d92`.
 // SHA512 KDF algo
@@ -276,6 +276,19 @@ type SecurePasswordKdfAlgoSHA512 struct {
 
 // SecurePasswordKdfAlgoSHA512TypeID is TL type id of SecurePasswordKdfAlgoSHA512.
 const SecurePasswordKdfAlgoSHA512TypeID = 0x86471d92
+
+// construct implements constructor of SecurePasswordKdfAlgoClass.
+func (s SecurePasswordKdfAlgoSHA512) construct() SecurePasswordKdfAlgoClass { return &s }
+
+// Ensuring interfaces in compile-time for SecurePasswordKdfAlgoSHA512.
+var (
+	_ bin.Encoder     = &SecurePasswordKdfAlgoSHA512{}
+	_ bin.Decoder     = &SecurePasswordKdfAlgoSHA512{}
+	_ bin.BareEncoder = &SecurePasswordKdfAlgoSHA512{}
+	_ bin.BareDecoder = &SecurePasswordKdfAlgoSHA512{}
+
+	_ SecurePasswordKdfAlgoClass = &SecurePasswordKdfAlgoSHA512{}
+)
 
 func (s *SecurePasswordKdfAlgoSHA512) Zero() bool {
 	if s == nil {
@@ -353,11 +366,6 @@ func (s *SecurePasswordKdfAlgoSHA512) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSalt returns value of Salt field.
-func (s *SecurePasswordKdfAlgoSHA512) GetSalt() (value []byte) {
-	return s.Salt
-}
-
 // Decode implements bin.Decoder.
 func (s *SecurePasswordKdfAlgoSHA512) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -384,18 +392,10 @@ func (s *SecurePasswordKdfAlgoSHA512) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecurePasswordKdfAlgoClass.
-func (s SecurePasswordKdfAlgoSHA512) construct() SecurePasswordKdfAlgoClass { return &s }
-
-// Ensuring interfaces in compile-time for SecurePasswordKdfAlgoSHA512.
-var (
-	_ bin.Encoder     = &SecurePasswordKdfAlgoSHA512{}
-	_ bin.Decoder     = &SecurePasswordKdfAlgoSHA512{}
-	_ bin.BareEncoder = &SecurePasswordKdfAlgoSHA512{}
-	_ bin.BareDecoder = &SecurePasswordKdfAlgoSHA512{}
-
-	_ SecurePasswordKdfAlgoClass = &SecurePasswordKdfAlgoSHA512{}
-)
+// GetSalt returns value of Salt field.
+func (s *SecurePasswordKdfAlgoSHA512) GetSalt() (value []byte) {
+	return s.Salt
+}
 
 // SecurePasswordKdfAlgoClass represents SecurePasswordKdfAlgo generic type.
 //
@@ -488,276 +488,4 @@ func (b *SecurePasswordKdfAlgoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SecurePasswordKdfAlgoClass as nil")
 	}
 	return b.SecurePasswordKdfAlgo.Encode(buf)
-}
-
-// SecurePasswordKdfAlgoClassArray is adapter for slice of SecurePasswordKdfAlgoClass.
-type SecurePasswordKdfAlgoClassArray []SecurePasswordKdfAlgoClass
-
-// Sort sorts slice of SecurePasswordKdfAlgoClass.
-func (s SecurePasswordKdfAlgoClassArray) Sort(less func(a, b SecurePasswordKdfAlgoClass) bool) SecurePasswordKdfAlgoClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecurePasswordKdfAlgoClass.
-func (s SecurePasswordKdfAlgoClassArray) SortStable(less func(a, b SecurePasswordKdfAlgoClass) bool) SecurePasswordKdfAlgoClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecurePasswordKdfAlgoClass.
-func (s SecurePasswordKdfAlgoClassArray) Retain(keep func(x SecurePasswordKdfAlgoClass) bool) SecurePasswordKdfAlgoClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecurePasswordKdfAlgoClassArray) First() (v SecurePasswordKdfAlgoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecurePasswordKdfAlgoClassArray) Last() (v SecurePasswordKdfAlgoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecurePasswordKdfAlgoClassArray) PopFirst() (v SecurePasswordKdfAlgoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecurePasswordKdfAlgoClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecurePasswordKdfAlgoClassArray) Pop() (v SecurePasswordKdfAlgoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsSecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 returns copy with only SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 constructors.
-func (s SecurePasswordKdfAlgoClassArray) AsSecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000() (to SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) {
-	for _, elem := range s {
-		value, ok := elem.(*SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSecurePasswordKdfAlgoSHA512 returns copy with only SecurePasswordKdfAlgoSHA512 constructors.
-func (s SecurePasswordKdfAlgoClassArray) AsSecurePasswordKdfAlgoSHA512() (to SecurePasswordKdfAlgoSHA512Array) {
-	for _, elem := range s {
-		value, ok := elem.(*SecurePasswordKdfAlgoSHA512)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array is adapter for slice of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
-type SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array []SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000
-
-// Sort sorts slice of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
-func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) Sort(less func(a, b SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) bool) SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
-func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) SortStable(less func(a, b SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) bool) SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
-func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) Retain(keep func(x SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) bool) SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) First() (v SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) Last() (v SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) PopFirst() (v SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) Pop() (v SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SecurePasswordKdfAlgoSHA512Array is adapter for slice of SecurePasswordKdfAlgoSHA512.
-type SecurePasswordKdfAlgoSHA512Array []SecurePasswordKdfAlgoSHA512
-
-// Sort sorts slice of SecurePasswordKdfAlgoSHA512.
-func (s SecurePasswordKdfAlgoSHA512Array) Sort(less func(a, b SecurePasswordKdfAlgoSHA512) bool) SecurePasswordKdfAlgoSHA512Array {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecurePasswordKdfAlgoSHA512.
-func (s SecurePasswordKdfAlgoSHA512Array) SortStable(less func(a, b SecurePasswordKdfAlgoSHA512) bool) SecurePasswordKdfAlgoSHA512Array {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecurePasswordKdfAlgoSHA512.
-func (s SecurePasswordKdfAlgoSHA512Array) Retain(keep func(x SecurePasswordKdfAlgoSHA512) bool) SecurePasswordKdfAlgoSHA512Array {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecurePasswordKdfAlgoSHA512Array) First() (v SecurePasswordKdfAlgoSHA512, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecurePasswordKdfAlgoSHA512Array) Last() (v SecurePasswordKdfAlgoSHA512, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecurePasswordKdfAlgoSHA512Array) PopFirst() (v SecurePasswordKdfAlgoSHA512, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecurePasswordKdfAlgoSHA512
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecurePasswordKdfAlgoSHA512Array) Pop() (v SecurePasswordKdfAlgoSHA512, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

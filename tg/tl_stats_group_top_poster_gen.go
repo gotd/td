@@ -48,6 +48,14 @@ type StatsGroupTopPoster struct {
 // StatsGroupTopPosterTypeID is TL type id of StatsGroupTopPoster.
 const StatsGroupTopPosterTypeID = 0x18f3d0f7
 
+// Ensuring interfaces in compile-time for StatsGroupTopPoster.
+var (
+	_ bin.Encoder     = &StatsGroupTopPoster{}
+	_ bin.Decoder     = &StatsGroupTopPoster{}
+	_ bin.BareEncoder = &StatsGroupTopPoster{}
+	_ bin.BareDecoder = &StatsGroupTopPoster{}
+)
+
 func (s *StatsGroupTopPoster) Zero() bool {
 	if s == nil {
 		return true
@@ -144,21 +152,6 @@ func (s *StatsGroupTopPoster) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (s *StatsGroupTopPoster) GetUserID() (value int) {
-	return s.UserID
-}
-
-// GetMessages returns value of Messages field.
-func (s *StatsGroupTopPoster) GetMessages() (value int) {
-	return s.Messages
-}
-
-// GetAvgChars returns value of AvgChars field.
-func (s *StatsGroupTopPoster) GetAvgChars() (value int) {
-	return s.AvgChars
-}
-
 // Decode implements bin.Decoder.
 func (s *StatsGroupTopPoster) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -199,10 +192,17 @@ func (s *StatsGroupTopPoster) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsGroupTopPoster.
-var (
-	_ bin.Encoder     = &StatsGroupTopPoster{}
-	_ bin.Decoder     = &StatsGroupTopPoster{}
-	_ bin.BareEncoder = &StatsGroupTopPoster{}
-	_ bin.BareDecoder = &StatsGroupTopPoster{}
-)
+// GetUserID returns value of UserID field.
+func (s *StatsGroupTopPoster) GetUserID() (value int) {
+	return s.UserID
+}
+
+// GetMessages returns value of Messages field.
+func (s *StatsGroupTopPoster) GetMessages() (value int) {
+	return s.Messages
+}
+
+// GetAvgChars returns value of AvgChars field.
+func (s *StatsGroupTopPoster) GetAvgChars() (value int) {
+	return s.AvgChars
+}

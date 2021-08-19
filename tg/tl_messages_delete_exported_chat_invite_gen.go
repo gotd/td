@@ -42,6 +42,14 @@ type MessagesDeleteExportedChatInviteRequest struct {
 // MessagesDeleteExportedChatInviteRequestTypeID is TL type id of MessagesDeleteExportedChatInviteRequest.
 const MessagesDeleteExportedChatInviteRequestTypeID = 0xd464a42b
 
+// Ensuring interfaces in compile-time for MessagesDeleteExportedChatInviteRequest.
+var (
+	_ bin.Encoder     = &MessagesDeleteExportedChatInviteRequest{}
+	_ bin.Decoder     = &MessagesDeleteExportedChatInviteRequest{}
+	_ bin.BareEncoder = &MessagesDeleteExportedChatInviteRequest{}
+	_ bin.BareDecoder = &MessagesDeleteExportedChatInviteRequest{}
+)
+
 func (d *MessagesDeleteExportedChatInviteRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -133,16 +141,6 @@ func (d *MessagesDeleteExportedChatInviteRequest) EncodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (d *MessagesDeleteExportedChatInviteRequest) GetPeer() (value InputPeerClass) {
-	return d.Peer
-}
-
-// GetLink returns value of Link field.
-func (d *MessagesDeleteExportedChatInviteRequest) GetLink() (value string) {
-	return d.Link
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteExportedChatInviteRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -176,13 +174,15 @@ func (d *MessagesDeleteExportedChatInviteRequest) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesDeleteExportedChatInviteRequest.
-var (
-	_ bin.Encoder     = &MessagesDeleteExportedChatInviteRequest{}
-	_ bin.Decoder     = &MessagesDeleteExportedChatInviteRequest{}
-	_ bin.BareEncoder = &MessagesDeleteExportedChatInviteRequest{}
-	_ bin.BareDecoder = &MessagesDeleteExportedChatInviteRequest{}
-)
+// GetPeer returns value of Peer field.
+func (d *MessagesDeleteExportedChatInviteRequest) GetPeer() (value InputPeerClass) {
+	return d.Peer
+}
+
+// GetLink returns value of Link field.
+func (d *MessagesDeleteExportedChatInviteRequest) GetLink() (value string) {
+	return d.Link
+}
 
 // MessagesDeleteExportedChatInvite invokes method messages.deleteExportedChatInvite#d464a42b returning error if any.
 //

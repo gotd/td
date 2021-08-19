@@ -56,6 +56,14 @@ type MessagesSendEncryptedRequest struct {
 // MessagesSendEncryptedRequestTypeID is TL type id of MessagesSendEncryptedRequest.
 const MessagesSendEncryptedRequestTypeID = 0x44fa7a15
 
+// Ensuring interfaces in compile-time for MessagesSendEncryptedRequest.
+var (
+	_ bin.Encoder     = &MessagesSendEncryptedRequest{}
+	_ bin.Decoder     = &MessagesSendEncryptedRequest{}
+	_ bin.BareEncoder = &MessagesSendEncryptedRequest{}
+	_ bin.BareDecoder = &MessagesSendEncryptedRequest{}
+)
+
 func (s *MessagesSendEncryptedRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -173,37 +181,6 @@ func (s *MessagesSendEncryptedRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetSilent sets value of Silent conditional field.
-func (s *MessagesSendEncryptedRequest) SetSilent(value bool) {
-	if value {
-		s.Flags.Set(0)
-		s.Silent = true
-	} else {
-		s.Flags.Unset(0)
-		s.Silent = false
-	}
-}
-
-// GetSilent returns value of Silent conditional field.
-func (s *MessagesSendEncryptedRequest) GetSilent() (value bool) {
-	return s.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (s *MessagesSendEncryptedRequest) GetPeer() (value InputEncryptedChat) {
-	return s.Peer
-}
-
-// GetRandomID returns value of RandomID field.
-func (s *MessagesSendEncryptedRequest) GetRandomID() (value int64) {
-	return s.RandomID
-}
-
-// GetData returns value of Data field.
-func (s *MessagesSendEncryptedRequest) GetData() (value []byte) {
-	return s.Data
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSendEncryptedRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -248,13 +225,36 @@ func (s *MessagesSendEncryptedRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSendEncryptedRequest.
-var (
-	_ bin.Encoder     = &MessagesSendEncryptedRequest{}
-	_ bin.Decoder     = &MessagesSendEncryptedRequest{}
-	_ bin.BareEncoder = &MessagesSendEncryptedRequest{}
-	_ bin.BareDecoder = &MessagesSendEncryptedRequest{}
-)
+// SetSilent sets value of Silent conditional field.
+func (s *MessagesSendEncryptedRequest) SetSilent(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.Silent = true
+	} else {
+		s.Flags.Unset(0)
+		s.Silent = false
+	}
+}
+
+// GetSilent returns value of Silent conditional field.
+func (s *MessagesSendEncryptedRequest) GetSilent() (value bool) {
+	return s.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (s *MessagesSendEncryptedRequest) GetPeer() (value InputEncryptedChat) {
+	return s.Peer
+}
+
+// GetRandomID returns value of RandomID field.
+func (s *MessagesSendEncryptedRequest) GetRandomID() (value int64) {
+	return s.RandomID
+}
+
+// GetData returns value of Data field.
+func (s *MessagesSendEncryptedRequest) GetData() (value []byte) {
+	return s.Data
+}
 
 // MessagesSendEncrypted invokes method messages.sendEncrypted#44fa7a15 returning error if any.
 // Sends a text message to a secret chat.

@@ -48,6 +48,14 @@ type ServerDHInnerData struct {
 // ServerDHInnerDataTypeID is TL type id of ServerDHInnerData.
 const ServerDHInnerDataTypeID = 0xb5890dba
 
+// Ensuring interfaces in compile-time for ServerDHInnerData.
+var (
+	_ bin.Encoder     = &ServerDHInnerData{}
+	_ bin.Decoder     = &ServerDHInnerData{}
+	_ bin.BareEncoder = &ServerDHInnerData{}
+	_ bin.BareDecoder = &ServerDHInnerData{}
+)
+
 func (s *ServerDHInnerData) Zero() bool {
 	if s == nil {
 		return true
@@ -81,23 +89,6 @@ func (s *ServerDHInnerData) String() string {
 	}
 	type Alias ServerDHInnerData
 	return fmt.Sprintf("ServerDHInnerData%+v", Alias(*s))
-}
-
-// FillFrom fills ServerDHInnerData from given interface.
-func (s *ServerDHInnerData) FillFrom(from interface {
-	GetNonce() (value bin.Int128)
-	GetServerNonce() (value bin.Int128)
-	GetG() (value int)
-	GetDhPrime() (value []byte)
-	GetGA() (value []byte)
-	GetServerTime() (value int)
-}) {
-	s.Nonce = from.GetNonce()
-	s.ServerNonce = from.GetServerNonce()
-	s.G = from.GetG()
-	s.DhPrime = from.GetDhPrime()
-	s.GA = from.GetGA()
-	s.ServerTime = from.GetServerTime()
 }
 
 // TypeID returns type id in TL schema.
@@ -174,36 +165,6 @@ func (s *ServerDHInnerData) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNonce returns value of Nonce field.
-func (s *ServerDHInnerData) GetNonce() (value bin.Int128) {
-	return s.Nonce
-}
-
-// GetServerNonce returns value of ServerNonce field.
-func (s *ServerDHInnerData) GetServerNonce() (value bin.Int128) {
-	return s.ServerNonce
-}
-
-// GetG returns value of G field.
-func (s *ServerDHInnerData) GetG() (value int) {
-	return s.G
-}
-
-// GetDhPrime returns value of DhPrime field.
-func (s *ServerDHInnerData) GetDhPrime() (value []byte) {
-	return s.DhPrime
-}
-
-// GetGA returns value of GA field.
-func (s *ServerDHInnerData) GetGA() (value []byte) {
-	return s.GA
-}
-
-// GetServerTime returns value of ServerTime field.
-func (s *ServerDHInnerData) GetServerTime() (value int) {
-	return s.ServerTime
-}
-
 // Decode implements bin.Decoder.
 func (s *ServerDHInnerData) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -265,10 +226,32 @@ func (s *ServerDHInnerData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ServerDHInnerData.
-var (
-	_ bin.Encoder     = &ServerDHInnerData{}
-	_ bin.Decoder     = &ServerDHInnerData{}
-	_ bin.BareEncoder = &ServerDHInnerData{}
-	_ bin.BareDecoder = &ServerDHInnerData{}
-)
+// GetNonce returns value of Nonce field.
+func (s *ServerDHInnerData) GetNonce() (value bin.Int128) {
+	return s.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (s *ServerDHInnerData) GetServerNonce() (value bin.Int128) {
+	return s.ServerNonce
+}
+
+// GetG returns value of G field.
+func (s *ServerDHInnerData) GetG() (value int) {
+	return s.G
+}
+
+// GetDhPrime returns value of DhPrime field.
+func (s *ServerDHInnerData) GetDhPrime() (value []byte) {
+	return s.DhPrime
+}
+
+// GetGA returns value of GA field.
+func (s *ServerDHInnerData) GetGA() (value []byte) {
+	return s.GA
+}
+
+// GetServerTime returns value of ServerTime field.
+func (s *ServerDHInnerData) GetServerTime() (value int) {
+	return s.ServerTime
+}

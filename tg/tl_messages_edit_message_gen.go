@@ -76,6 +76,14 @@ type MessagesEditMessageRequest struct {
 // MessagesEditMessageRequestTypeID is TL type id of MessagesEditMessageRequest.
 const MessagesEditMessageRequestTypeID = 0x48f71778
 
+// Ensuring interfaces in compile-time for MessagesEditMessageRequest.
+var (
+	_ bin.Encoder     = &MessagesEditMessageRequest{}
+	_ bin.Decoder     = &MessagesEditMessageRequest{}
+	_ bin.BareEncoder = &MessagesEditMessageRequest{}
+	_ bin.BareDecoder = &MessagesEditMessageRequest{}
+)
+
 func (e *MessagesEditMessageRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -299,6 +307,90 @@ func (e *MessagesEditMessageRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (e *MessagesEditMessageRequest) Decode(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.editMessage#48f71778 to nil")
+	}
+	if err := b.ConsumeID(MessagesEditMessageRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.editMessage#48f71778: %w", err)
+	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesEditMessageRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.editMessage#48f71778 to nil")
+	}
+	{
+		if err := e.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field flags: %w", err)
+		}
+	}
+	e.NoWebpage = e.Flags.Has(1)
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field peer: %w", err)
+		}
+		e.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field id: %w", err)
+		}
+		e.ID = value
+	}
+	if e.Flags.Has(11) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field message: %w", err)
+		}
+		e.Message = value
+	}
+	if e.Flags.Has(14) {
+		value, err := DecodeInputMedia(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field media: %w", err)
+		}
+		e.Media = value
+	}
+	if e.Flags.Has(2) {
+		value, err := DecodeReplyMarkup(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field reply_markup: %w", err)
+		}
+		e.ReplyMarkup = value
+	}
+	if e.Flags.Has(3) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field entities: %w", err)
+		}
+
+		if headerLen > 0 {
+			e.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMessageEntity(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.editMessage#48f71778: field entities: %w", err)
+			}
+			e.Entities = append(e.Entities, value)
+		}
+	}
+	if e.Flags.Has(15) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field schedule_date: %w", err)
+		}
+		e.ScheduleDate = value
+	}
+	return nil
+}
+
 // SetNoWebpage sets value of NoWebpage conditional field.
 func (e *MessagesEditMessageRequest) SetNoWebpage(value bool) {
 	if value {
@@ -385,14 +477,6 @@ func (e *MessagesEditMessageRequest) GetEntities() (value []MessageEntityClass, 
 	return e.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !e.Flags.Has(3) {
-		return value, false
-	}
-	return MessageEntityClassArray(e.Entities), true
-}
-
 // SetScheduleDate sets value of ScheduleDate conditional field.
 func (e *MessagesEditMessageRequest) SetScheduleDate(value int) {
 	e.Flags.Set(15)
@@ -408,97 +492,13 @@ func (e *MessagesEditMessageRequest) GetScheduleDate() (value int, ok bool) {
 	return e.ScheduleDate, true
 }
 
-// Decode implements bin.Decoder.
-func (e *MessagesEditMessageRequest) Decode(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't decode messages.editMessage#48f71778 to nil")
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !e.Flags.Has(3) {
+		return value, false
 	}
-	if err := b.ConsumeID(MessagesEditMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.editMessage#48f71778: %w", err)
-	}
-	return e.DecodeBare(b)
+	return MessageEntityClassArray(e.Entities), true
 }
-
-// DecodeBare implements bin.BareDecoder.
-func (e *MessagesEditMessageRequest) DecodeBare(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't decode messages.editMessage#48f71778 to nil")
-	}
-	{
-		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field flags: %w", err)
-		}
-	}
-	e.NoWebpage = e.Flags.Has(1)
-	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field peer: %w", err)
-		}
-		e.Peer = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field id: %w", err)
-		}
-		e.ID = value
-	}
-	if e.Flags.Has(11) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field message: %w", err)
-		}
-		e.Message = value
-	}
-	if e.Flags.Has(14) {
-		value, err := DecodeInputMedia(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field media: %w", err)
-		}
-		e.Media = value
-	}
-	if e.Flags.Has(2) {
-		value, err := DecodeReplyMarkup(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field reply_markup: %w", err)
-		}
-		e.ReplyMarkup = value
-	}
-	if e.Flags.Has(3) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field entities: %w", err)
-		}
-
-		if headerLen > 0 {
-			e.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeMessageEntity(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode messages.editMessage#48f71778: field entities: %w", err)
-			}
-			e.Entities = append(e.Entities, value)
-		}
-	}
-	if e.Flags.Has(15) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field schedule_date: %w", err)
-		}
-		e.ScheduleDate = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesEditMessageRequest.
-var (
-	_ bin.Encoder     = &MessagesEditMessageRequest{}
-	_ bin.Decoder     = &MessagesEditMessageRequest{}
-	_ bin.BareEncoder = &MessagesEditMessageRequest{}
-	_ bin.BareDecoder = &MessagesEditMessageRequest{}
-)
 
 // MessagesEditMessage invokes method messages.editMessage#48f71778 returning error if any.
 // Edit message

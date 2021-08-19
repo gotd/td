@@ -43,6 +43,14 @@ type ChannelsUpdateUsernameRequest struct {
 // ChannelsUpdateUsernameRequestTypeID is TL type id of ChannelsUpdateUsernameRequest.
 const ChannelsUpdateUsernameRequestTypeID = 0x3514b3de
 
+// Ensuring interfaces in compile-time for ChannelsUpdateUsernameRequest.
+var (
+	_ bin.Encoder     = &ChannelsUpdateUsernameRequest{}
+	_ bin.Decoder     = &ChannelsUpdateUsernameRequest{}
+	_ bin.BareEncoder = &ChannelsUpdateUsernameRequest{}
+	_ bin.BareDecoder = &ChannelsUpdateUsernameRequest{}
+)
+
 func (u *ChannelsUpdateUsernameRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -134,21 +142,6 @@ func (u *ChannelsUpdateUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (u *ChannelsUpdateUsernameRequest) GetChannel() (value InputChannelClass) {
-	return u.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (u *ChannelsUpdateUsernameRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return u.Channel.AsNotEmpty()
-}
-
-// GetUsername returns value of Username field.
-func (u *ChannelsUpdateUsernameRequest) GetUsername() (value string) {
-	return u.Username
-}
-
 // Decode implements bin.Decoder.
 func (u *ChannelsUpdateUsernameRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -182,13 +175,20 @@ func (u *ChannelsUpdateUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsUpdateUsernameRequest.
-var (
-	_ bin.Encoder     = &ChannelsUpdateUsernameRequest{}
-	_ bin.Decoder     = &ChannelsUpdateUsernameRequest{}
-	_ bin.BareEncoder = &ChannelsUpdateUsernameRequest{}
-	_ bin.BareDecoder = &ChannelsUpdateUsernameRequest{}
-)
+// GetChannel returns value of Channel field.
+func (u *ChannelsUpdateUsernameRequest) GetChannel() (value InputChannelClass) {
+	return u.Channel
+}
+
+// GetUsername returns value of Username field.
+func (u *ChannelsUpdateUsernameRequest) GetUsername() (value string) {
+	return u.Username
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (u *ChannelsUpdateUsernameRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return u.Channel.AsNotEmpty()
+}
 
 // ChannelsUpdateUsername invokes method channels.updateUsername#3514b3de returning error if any.
 // Change the username of a supergroup/channel

@@ -101,6 +101,14 @@ type InputSecureValue struct {
 // InputSecureValueTypeID is TL type id of InputSecureValue.
 const InputSecureValueTypeID = 0xdb21d0a7
 
+// Ensuring interfaces in compile-time for InputSecureValue.
+var (
+	_ bin.Encoder     = &InputSecureValue{}
+	_ bin.Decoder     = &InputSecureValue{}
+	_ bin.BareEncoder = &InputSecureValue{}
+	_ bin.BareDecoder = &InputSecureValue{}
+)
+
 func (i *InputSecureValue) Zero() bool {
 	if i == nil {
 		return true
@@ -359,132 +367,6 @@ func (i *InputSecureValue) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (i *InputSecureValue) GetType() (value SecureValueTypeClass) {
-	return i.Type
-}
-
-// SetData sets value of Data conditional field.
-func (i *InputSecureValue) SetData(value SecureData) {
-	i.Flags.Set(0)
-	i.Data = value
-}
-
-// GetData returns value of Data conditional field and
-// boolean which is true if field was set.
-func (i *InputSecureValue) GetData() (value SecureData, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.Data, true
-}
-
-// SetFrontSide sets value of FrontSide conditional field.
-func (i *InputSecureValue) SetFrontSide(value InputSecureFileClass) {
-	i.Flags.Set(1)
-	i.FrontSide = value
-}
-
-// GetFrontSide returns value of FrontSide conditional field and
-// boolean which is true if field was set.
-func (i *InputSecureValue) GetFrontSide() (value InputSecureFileClass, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.FrontSide, true
-}
-
-// SetReverseSide sets value of ReverseSide conditional field.
-func (i *InputSecureValue) SetReverseSide(value InputSecureFileClass) {
-	i.Flags.Set(2)
-	i.ReverseSide = value
-}
-
-// GetReverseSide returns value of ReverseSide conditional field and
-// boolean which is true if field was set.
-func (i *InputSecureValue) GetReverseSide() (value InputSecureFileClass, ok bool) {
-	if !i.Flags.Has(2) {
-		return value, false
-	}
-	return i.ReverseSide, true
-}
-
-// SetSelfie sets value of Selfie conditional field.
-func (i *InputSecureValue) SetSelfie(value InputSecureFileClass) {
-	i.Flags.Set(3)
-	i.Selfie = value
-}
-
-// GetSelfie returns value of Selfie conditional field and
-// boolean which is true if field was set.
-func (i *InputSecureValue) GetSelfie() (value InputSecureFileClass, ok bool) {
-	if !i.Flags.Has(3) {
-		return value, false
-	}
-	return i.Selfie, true
-}
-
-// SetTranslation sets value of Translation conditional field.
-func (i *InputSecureValue) SetTranslation(value []InputSecureFileClass) {
-	i.Flags.Set(6)
-	i.Translation = value
-}
-
-// GetTranslation returns value of Translation conditional field and
-// boolean which is true if field was set.
-func (i *InputSecureValue) GetTranslation() (value []InputSecureFileClass, ok bool) {
-	if !i.Flags.Has(6) {
-		return value, false
-	}
-	return i.Translation, true
-}
-
-// MapTranslation returns field Translation wrapped in InputSecureFileClassArray helper.
-func (i *InputSecureValue) MapTranslation() (value InputSecureFileClassArray, ok bool) {
-	if !i.Flags.Has(6) {
-		return value, false
-	}
-	return InputSecureFileClassArray(i.Translation), true
-}
-
-// SetFiles sets value of Files conditional field.
-func (i *InputSecureValue) SetFiles(value []InputSecureFileClass) {
-	i.Flags.Set(4)
-	i.Files = value
-}
-
-// GetFiles returns value of Files conditional field and
-// boolean which is true if field was set.
-func (i *InputSecureValue) GetFiles() (value []InputSecureFileClass, ok bool) {
-	if !i.Flags.Has(4) {
-		return value, false
-	}
-	return i.Files, true
-}
-
-// MapFiles returns field Files wrapped in InputSecureFileClassArray helper.
-func (i *InputSecureValue) MapFiles() (value InputSecureFileClassArray, ok bool) {
-	if !i.Flags.Has(4) {
-		return value, false
-	}
-	return InputSecureFileClassArray(i.Files), true
-}
-
-// SetPlainData sets value of PlainData conditional field.
-func (i *InputSecureValue) SetPlainData(value SecurePlainDataClass) {
-	i.Flags.Set(5)
-	i.PlainData = value
-}
-
-// GetPlainData returns value of PlainData conditional field and
-// boolean which is true if field was set.
-func (i *InputSecureValue) GetPlainData() (value SecurePlainDataClass, ok bool) {
-	if !i.Flags.Has(5) {
-		return value, false
-	}
-	return i.PlainData, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputSecureValue) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -583,10 +465,128 @@ func (i *InputSecureValue) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InputSecureValue.
-var (
-	_ bin.Encoder     = &InputSecureValue{}
-	_ bin.Decoder     = &InputSecureValue{}
-	_ bin.BareEncoder = &InputSecureValue{}
-	_ bin.BareDecoder = &InputSecureValue{}
-)
+// GetType returns value of Type field.
+func (i *InputSecureValue) GetType() (value SecureValueTypeClass) {
+	return i.Type
+}
+
+// SetData sets value of Data conditional field.
+func (i *InputSecureValue) SetData(value SecureData) {
+	i.Flags.Set(0)
+	i.Data = value
+}
+
+// GetData returns value of Data conditional field and
+// boolean which is true if field was set.
+func (i *InputSecureValue) GetData() (value SecureData, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.Data, true
+}
+
+// SetFrontSide sets value of FrontSide conditional field.
+func (i *InputSecureValue) SetFrontSide(value InputSecureFileClass) {
+	i.Flags.Set(1)
+	i.FrontSide = value
+}
+
+// GetFrontSide returns value of FrontSide conditional field and
+// boolean which is true if field was set.
+func (i *InputSecureValue) GetFrontSide() (value InputSecureFileClass, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.FrontSide, true
+}
+
+// SetReverseSide sets value of ReverseSide conditional field.
+func (i *InputSecureValue) SetReverseSide(value InputSecureFileClass) {
+	i.Flags.Set(2)
+	i.ReverseSide = value
+}
+
+// GetReverseSide returns value of ReverseSide conditional field and
+// boolean which is true if field was set.
+func (i *InputSecureValue) GetReverseSide() (value InputSecureFileClass, ok bool) {
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.ReverseSide, true
+}
+
+// SetSelfie sets value of Selfie conditional field.
+func (i *InputSecureValue) SetSelfie(value InputSecureFileClass) {
+	i.Flags.Set(3)
+	i.Selfie = value
+}
+
+// GetSelfie returns value of Selfie conditional field and
+// boolean which is true if field was set.
+func (i *InputSecureValue) GetSelfie() (value InputSecureFileClass, ok bool) {
+	if !i.Flags.Has(3) {
+		return value, false
+	}
+	return i.Selfie, true
+}
+
+// SetTranslation sets value of Translation conditional field.
+func (i *InputSecureValue) SetTranslation(value []InputSecureFileClass) {
+	i.Flags.Set(6)
+	i.Translation = value
+}
+
+// GetTranslation returns value of Translation conditional field and
+// boolean which is true if field was set.
+func (i *InputSecureValue) GetTranslation() (value []InputSecureFileClass, ok bool) {
+	if !i.Flags.Has(6) {
+		return value, false
+	}
+	return i.Translation, true
+}
+
+// SetFiles sets value of Files conditional field.
+func (i *InputSecureValue) SetFiles(value []InputSecureFileClass) {
+	i.Flags.Set(4)
+	i.Files = value
+}
+
+// GetFiles returns value of Files conditional field and
+// boolean which is true if field was set.
+func (i *InputSecureValue) GetFiles() (value []InputSecureFileClass, ok bool) {
+	if !i.Flags.Has(4) {
+		return value, false
+	}
+	return i.Files, true
+}
+
+// SetPlainData sets value of PlainData conditional field.
+func (i *InputSecureValue) SetPlainData(value SecurePlainDataClass) {
+	i.Flags.Set(5)
+	i.PlainData = value
+}
+
+// GetPlainData returns value of PlainData conditional field and
+// boolean which is true if field was set.
+func (i *InputSecureValue) GetPlainData() (value SecurePlainDataClass, ok bool) {
+	if !i.Flags.Has(5) {
+		return value, false
+	}
+	return i.PlainData, true
+}
+
+// MapTranslation returns field Translation wrapped in InputSecureFileClassArray helper.
+func (i *InputSecureValue) MapTranslation() (value InputSecureFileClassArray, ok bool) {
+	if !i.Flags.Has(6) {
+		return value, false
+	}
+	return InputSecureFileClassArray(i.Translation), true
+}
+
+// MapFiles returns field Files wrapped in InputSecureFileClassArray helper.
+func (i *InputSecureValue) MapFiles() (value InputSecureFileClassArray, ok bool) {
+	if !i.Flags.Has(4) {
+		return value, false
+	}
+	return InputSecureFileClassArray(i.Files), true
+}

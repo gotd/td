@@ -58,6 +58,14 @@ type ContactsBlockFromRepliesRequest struct {
 // ContactsBlockFromRepliesRequestTypeID is TL type id of ContactsBlockFromRepliesRequest.
 const ContactsBlockFromRepliesRequestTypeID = 0x29a8962c
 
+// Ensuring interfaces in compile-time for ContactsBlockFromRepliesRequest.
+var (
+	_ bin.Encoder     = &ContactsBlockFromRepliesRequest{}
+	_ bin.Decoder     = &ContactsBlockFromRepliesRequest{}
+	_ bin.BareEncoder = &ContactsBlockFromRepliesRequest{}
+	_ bin.BareDecoder = &ContactsBlockFromRepliesRequest{}
+)
+
 func (b *ContactsBlockFromRepliesRequest) Zero() bool {
 	if b == nil {
 		return true
@@ -179,6 +187,40 @@ func (b *ContactsBlockFromRepliesRequest) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (b *ContactsBlockFromRepliesRequest) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode contacts.blockFromReplies#29a8962c to nil")
+	}
+	if err := buf.ConsumeID(ContactsBlockFromRepliesRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode contacts.blockFromReplies#29a8962c: %w", err)
+	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *ContactsBlockFromRepliesRequest) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode contacts.blockFromReplies#29a8962c to nil")
+	}
+	{
+		if err := b.Flags.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode contacts.blockFromReplies#29a8962c: field flags: %w", err)
+		}
+	}
+	b.DeleteMessage = b.Flags.Has(0)
+	b.DeleteHistory = b.Flags.Has(1)
+	b.ReportSpam = b.Flags.Has(2)
+	{
+		value, err := buf.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode contacts.blockFromReplies#29a8962c: field msg_id: %w", err)
+		}
+		b.MsgID = value
+	}
+	return nil
+}
+
 // SetDeleteMessage sets value of DeleteMessage conditional field.
 func (b *ContactsBlockFromRepliesRequest) SetDeleteMessage(value bool) {
 	if value {
@@ -231,48 +273,6 @@ func (b *ContactsBlockFromRepliesRequest) GetReportSpam() (value bool) {
 func (b *ContactsBlockFromRepliesRequest) GetMsgID() (value int) {
 	return b.MsgID
 }
-
-// Decode implements bin.Decoder.
-func (b *ContactsBlockFromRepliesRequest) Decode(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't decode contacts.blockFromReplies#29a8962c to nil")
-	}
-	if err := buf.ConsumeID(ContactsBlockFromRepliesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.blockFromReplies#29a8962c: %w", err)
-	}
-	return b.DecodeBare(buf)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (b *ContactsBlockFromRepliesRequest) DecodeBare(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't decode contacts.blockFromReplies#29a8962c to nil")
-	}
-	{
-		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode contacts.blockFromReplies#29a8962c: field flags: %w", err)
-		}
-	}
-	b.DeleteMessage = b.Flags.Has(0)
-	b.DeleteHistory = b.Flags.Has(1)
-	b.ReportSpam = b.Flags.Has(2)
-	{
-		value, err := buf.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode contacts.blockFromReplies#29a8962c: field msg_id: %w", err)
-		}
-		b.MsgID = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for ContactsBlockFromRepliesRequest.
-var (
-	_ bin.Encoder     = &ContactsBlockFromRepliesRequest{}
-	_ bin.Decoder     = &ContactsBlockFromRepliesRequest{}
-	_ bin.BareEncoder = &ContactsBlockFromRepliesRequest{}
-	_ bin.BareDecoder = &ContactsBlockFromRepliesRequest{}
-)
 
 // ContactsBlockFromReplies invokes method contacts.blockFromReplies#29a8962c returning error if any.
 // Stop getting notifications about thread replies¹ of a certain user in @replies

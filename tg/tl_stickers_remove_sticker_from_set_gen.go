@@ -42,6 +42,14 @@ type StickersRemoveStickerFromSetRequest struct {
 // StickersRemoveStickerFromSetRequestTypeID is TL type id of StickersRemoveStickerFromSetRequest.
 const StickersRemoveStickerFromSetRequestTypeID = 0xf7760f51
 
+// Ensuring interfaces in compile-time for StickersRemoveStickerFromSetRequest.
+var (
+	_ bin.Encoder     = &StickersRemoveStickerFromSetRequest{}
+	_ bin.Decoder     = &StickersRemoveStickerFromSetRequest{}
+	_ bin.BareEncoder = &StickersRemoveStickerFromSetRequest{}
+	_ bin.BareDecoder = &StickersRemoveStickerFromSetRequest{}
+)
+
 func (r *StickersRemoveStickerFromSetRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -123,16 +131,6 @@ func (r *StickersRemoveStickerFromSetRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSticker returns value of Sticker field.
-func (r *StickersRemoveStickerFromSetRequest) GetSticker() (value InputDocumentClass) {
-	return r.Sticker
-}
-
-// GetStickerAsNotEmpty returns mapped value of Sticker field.
-func (r *StickersRemoveStickerFromSetRequest) GetStickerAsNotEmpty() (*InputDocument, bool) {
-	return r.Sticker.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (r *StickersRemoveStickerFromSetRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -159,13 +157,15 @@ func (r *StickersRemoveStickerFromSetRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StickersRemoveStickerFromSetRequest.
-var (
-	_ bin.Encoder     = &StickersRemoveStickerFromSetRequest{}
-	_ bin.Decoder     = &StickersRemoveStickerFromSetRequest{}
-	_ bin.BareEncoder = &StickersRemoveStickerFromSetRequest{}
-	_ bin.BareDecoder = &StickersRemoveStickerFromSetRequest{}
-)
+// GetSticker returns value of Sticker field.
+func (r *StickersRemoveStickerFromSetRequest) GetSticker() (value InputDocumentClass) {
+	return r.Sticker
+}
+
+// GetStickerAsNotEmpty returns mapped value of Sticker field.
+func (r *StickersRemoveStickerFromSetRequest) GetStickerAsNotEmpty() (*InputDocument, bool) {
+	return r.Sticker.AsNotEmpty()
+}
 
 // StickersRemoveStickerFromSet invokes method stickers.removeStickerFromSet#f7760f51 returning error if any.
 // Remove a sticker from the set where it belongs, bots only. The sticker set must have

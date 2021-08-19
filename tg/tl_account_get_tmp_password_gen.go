@@ -44,6 +44,14 @@ type AccountGetTmpPasswordRequest struct {
 // AccountGetTmpPasswordRequestTypeID is TL type id of AccountGetTmpPasswordRequest.
 const AccountGetTmpPasswordRequestTypeID = 0x449e0b51
 
+// Ensuring interfaces in compile-time for AccountGetTmpPasswordRequest.
+var (
+	_ bin.Encoder     = &AccountGetTmpPasswordRequest{}
+	_ bin.Decoder     = &AccountGetTmpPasswordRequest{}
+	_ bin.BareEncoder = &AccountGetTmpPasswordRequest{}
+	_ bin.BareDecoder = &AccountGetTmpPasswordRequest{}
+)
+
 func (g *AccountGetTmpPasswordRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -135,21 +143,6 @@ func (g *AccountGetTmpPasswordRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPassword returns value of Password field.
-func (g *AccountGetTmpPasswordRequest) GetPassword() (value InputCheckPasswordSRPClass) {
-	return g.Password
-}
-
-// GetPasswordAsNotEmpty returns mapped value of Password field.
-func (g *AccountGetTmpPasswordRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
-	return g.Password.AsNotEmpty()
-}
-
-// GetPeriod returns value of Period field.
-func (g *AccountGetTmpPasswordRequest) GetPeriod() (value int) {
-	return g.Period
-}
-
 // Decode implements bin.Decoder.
 func (g *AccountGetTmpPasswordRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -183,13 +176,20 @@ func (g *AccountGetTmpPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountGetTmpPasswordRequest.
-var (
-	_ bin.Encoder     = &AccountGetTmpPasswordRequest{}
-	_ bin.Decoder     = &AccountGetTmpPasswordRequest{}
-	_ bin.BareEncoder = &AccountGetTmpPasswordRequest{}
-	_ bin.BareDecoder = &AccountGetTmpPasswordRequest{}
-)
+// GetPassword returns value of Password field.
+func (g *AccountGetTmpPasswordRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+	return g.Password
+}
+
+// GetPeriod returns value of Period field.
+func (g *AccountGetTmpPasswordRequest) GetPeriod() (value int) {
+	return g.Period
+}
+
+// GetPasswordAsNotEmpty returns mapped value of Password field.
+func (g *AccountGetTmpPasswordRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
+	return g.Password.AsNotEmpty()
+}
 
 // AccountGetTmpPassword invokes method account.getTmpPassword#449e0b51 returning error if any.
 // Get temporary payment password

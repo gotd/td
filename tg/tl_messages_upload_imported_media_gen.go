@@ -46,6 +46,14 @@ type MessagesUploadImportedMediaRequest struct {
 // MessagesUploadImportedMediaRequestTypeID is TL type id of MessagesUploadImportedMediaRequest.
 const MessagesUploadImportedMediaRequestTypeID = 0x2a862092
 
+// Ensuring interfaces in compile-time for MessagesUploadImportedMediaRequest.
+var (
+	_ bin.Encoder     = &MessagesUploadImportedMediaRequest{}
+	_ bin.Decoder     = &MessagesUploadImportedMediaRequest{}
+	_ bin.BareEncoder = &MessagesUploadImportedMediaRequest{}
+	_ bin.BareDecoder = &MessagesUploadImportedMediaRequest{}
+)
+
 func (u *MessagesUploadImportedMediaRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -162,26 +170,6 @@ func (u *MessagesUploadImportedMediaRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *MessagesUploadImportedMediaRequest) GetPeer() (value InputPeerClass) {
-	return u.Peer
-}
-
-// GetImportID returns value of ImportID field.
-func (u *MessagesUploadImportedMediaRequest) GetImportID() (value int64) {
-	return u.ImportID
-}
-
-// GetFileName returns value of FileName field.
-func (u *MessagesUploadImportedMediaRequest) GetFileName() (value string) {
-	return u.FileName
-}
-
-// GetMedia returns value of Media field.
-func (u *MessagesUploadImportedMediaRequest) GetMedia() (value InputMediaClass) {
-	return u.Media
-}
-
 // Decode implements bin.Decoder.
 func (u *MessagesUploadImportedMediaRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -229,13 +217,25 @@ func (u *MessagesUploadImportedMediaRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesUploadImportedMediaRequest.
-var (
-	_ bin.Encoder     = &MessagesUploadImportedMediaRequest{}
-	_ bin.Decoder     = &MessagesUploadImportedMediaRequest{}
-	_ bin.BareEncoder = &MessagesUploadImportedMediaRequest{}
-	_ bin.BareDecoder = &MessagesUploadImportedMediaRequest{}
-)
+// GetPeer returns value of Peer field.
+func (u *MessagesUploadImportedMediaRequest) GetPeer() (value InputPeerClass) {
+	return u.Peer
+}
+
+// GetImportID returns value of ImportID field.
+func (u *MessagesUploadImportedMediaRequest) GetImportID() (value int64) {
+	return u.ImportID
+}
+
+// GetFileName returns value of FileName field.
+func (u *MessagesUploadImportedMediaRequest) GetFileName() (value string) {
+	return u.FileName
+}
+
+// GetMedia returns value of Media field.
+func (u *MessagesUploadImportedMediaRequest) GetMedia() (value InputMediaClass) {
+	return u.Media
+}
 
 // MessagesUploadImportedMedia invokes method messages.uploadImportedMedia#2a862092 returning error if any.
 //

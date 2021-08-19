@@ -42,6 +42,14 @@ type AccountResendPasswordEmailRequest struct {
 // AccountResendPasswordEmailRequestTypeID is TL type id of AccountResendPasswordEmailRequest.
 const AccountResendPasswordEmailRequestTypeID = 0x7a7f2a15
 
+// Ensuring interfaces in compile-time for AccountResendPasswordEmailRequest.
+var (
+	_ bin.Encoder     = &AccountResendPasswordEmailRequest{}
+	_ bin.Decoder     = &AccountResendPasswordEmailRequest{}
+	_ bin.BareEncoder = &AccountResendPasswordEmailRequest{}
+	_ bin.BareDecoder = &AccountResendPasswordEmailRequest{}
+)
+
 func (r *AccountResendPasswordEmailRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -120,14 +128,6 @@ func (r *AccountResendPasswordEmailRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountResendPasswordEmailRequest.
-var (
-	_ bin.Encoder     = &AccountResendPasswordEmailRequest{}
-	_ bin.Decoder     = &AccountResendPasswordEmailRequest{}
-	_ bin.BareEncoder = &AccountResendPasswordEmailRequest{}
-	_ bin.BareDecoder = &AccountResendPasswordEmailRequest{}
-)
 
 // AccountResendPasswordEmail invokes method account.resendPasswordEmail#7a7f2a15 returning error if any.
 // Resend the code to verify an email to use as 2FA recovery method¹.

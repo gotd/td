@@ -48,6 +48,14 @@ type DecryptedMessageLayer struct {
 // DecryptedMessageLayerTypeID is TL type id of DecryptedMessageLayer.
 const DecryptedMessageLayerTypeID = 0x1be31789
 
+// Ensuring interfaces in compile-time for DecryptedMessageLayer.
+var (
+	_ bin.Encoder     = &DecryptedMessageLayer{}
+	_ bin.Decoder     = &DecryptedMessageLayer{}
+	_ bin.BareEncoder = &DecryptedMessageLayer{}
+	_ bin.BareDecoder = &DecryptedMessageLayer{}
+)
+
 func (d *DecryptedMessageLayer) Zero() bool {
 	if d == nil {
 		return true
@@ -78,21 +86,6 @@ func (d *DecryptedMessageLayer) String() string {
 	}
 	type Alias DecryptedMessageLayer
 	return fmt.Sprintf("DecryptedMessageLayer%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageLayer from given interface.
-func (d *DecryptedMessageLayer) FillFrom(from interface {
-	GetRandomBytes() (value []byte)
-	GetLayer() (value int)
-	GetInSeqNo() (value int)
-	GetOutSeqNo() (value int)
-	GetMessage() (value DecryptedMessageClass)
-}) {
-	d.RandomBytes = from.GetRandomBytes()
-	d.Layer = from.GetLayer()
-	d.InSeqNo = from.GetInSeqNo()
-	d.OutSeqNo = from.GetOutSeqNo()
-	d.Message = from.GetMessage()
 }
 
 // TypeID returns type id in TL schema.
@@ -169,31 +162,6 @@ func (d *DecryptedMessageLayer) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandomBytes returns value of RandomBytes field.
-func (d *DecryptedMessageLayer) GetRandomBytes() (value []byte) {
-	return d.RandomBytes
-}
-
-// GetLayer returns value of Layer field.
-func (d *DecryptedMessageLayer) GetLayer() (value int) {
-	return d.Layer
-}
-
-// GetInSeqNo returns value of InSeqNo field.
-func (d *DecryptedMessageLayer) GetInSeqNo() (value int) {
-	return d.InSeqNo
-}
-
-// GetOutSeqNo returns value of OutSeqNo field.
-func (d *DecryptedMessageLayer) GetOutSeqNo() (value int) {
-	return d.OutSeqNo
-}
-
-// GetMessage returns value of Message field.
-func (d *DecryptedMessageLayer) GetMessage() (value DecryptedMessageClass) {
-	return d.Message
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageLayer) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -248,10 +216,27 @@ func (d *DecryptedMessageLayer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for DecryptedMessageLayer.
-var (
-	_ bin.Encoder     = &DecryptedMessageLayer{}
-	_ bin.Decoder     = &DecryptedMessageLayer{}
-	_ bin.BareEncoder = &DecryptedMessageLayer{}
-	_ bin.BareDecoder = &DecryptedMessageLayer{}
-)
+// GetRandomBytes returns value of RandomBytes field.
+func (d *DecryptedMessageLayer) GetRandomBytes() (value []byte) {
+	return d.RandomBytes
+}
+
+// GetLayer returns value of Layer field.
+func (d *DecryptedMessageLayer) GetLayer() (value int) {
+	return d.Layer
+}
+
+// GetInSeqNo returns value of InSeqNo field.
+func (d *DecryptedMessageLayer) GetInSeqNo() (value int) {
+	return d.InSeqNo
+}
+
+// GetOutSeqNo returns value of OutSeqNo field.
+func (d *DecryptedMessageLayer) GetOutSeqNo() (value int) {
+	return d.OutSeqNo
+}
+
+// GetMessage returns value of Message field.
+func (d *DecryptedMessageLayer) GetMessage() (value DecryptedMessageClass) {
+	return d.Message
+}

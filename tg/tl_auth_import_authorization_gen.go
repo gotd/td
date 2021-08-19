@@ -43,6 +43,14 @@ type AuthImportAuthorizationRequest struct {
 // AuthImportAuthorizationRequestTypeID is TL type id of AuthImportAuthorizationRequest.
 const AuthImportAuthorizationRequestTypeID = 0xe3ef9613
 
+// Ensuring interfaces in compile-time for AuthImportAuthorizationRequest.
+var (
+	_ bin.Encoder     = &AuthImportAuthorizationRequest{}
+	_ bin.Decoder     = &AuthImportAuthorizationRequest{}
+	_ bin.BareEncoder = &AuthImportAuthorizationRequest{}
+	_ bin.BareDecoder = &AuthImportAuthorizationRequest{}
+)
+
 func (i *AuthImportAuthorizationRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -129,16 +137,6 @@ func (i *AuthImportAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *AuthImportAuthorizationRequest) GetID() (value int) {
-	return i.ID
-}
-
-// GetBytes returns value of Bytes field.
-func (i *AuthImportAuthorizationRequest) GetBytes() (value []byte) {
-	return i.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (i *AuthImportAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -172,13 +170,15 @@ func (i *AuthImportAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthImportAuthorizationRequest.
-var (
-	_ bin.Encoder     = &AuthImportAuthorizationRequest{}
-	_ bin.Decoder     = &AuthImportAuthorizationRequest{}
-	_ bin.BareEncoder = &AuthImportAuthorizationRequest{}
-	_ bin.BareDecoder = &AuthImportAuthorizationRequest{}
-)
+// GetID returns value of ID field.
+func (i *AuthImportAuthorizationRequest) GetID() (value int) {
+	return i.ID
+}
+
+// GetBytes returns value of Bytes field.
+func (i *AuthImportAuthorizationRequest) GetBytes() (value []byte) {
+	return i.Bytes
+}
 
 // AuthImportAuthorization invokes method auth.importAuthorization#e3ef9613 returning error if any.
 // Logs in a user using a key transmitted from his native data-centre.

@@ -45,6 +45,19 @@ type UploadFile struct {
 // UploadFileTypeID is TL type id of UploadFile.
 const UploadFileTypeID = 0x96a18d5
 
+// construct implements constructor of UploadFileClass.
+func (f UploadFile) construct() UploadFileClass { return &f }
+
+// Ensuring interfaces in compile-time for UploadFile.
+var (
+	_ bin.Encoder     = &UploadFile{}
+	_ bin.Decoder     = &UploadFile{}
+	_ bin.BareEncoder = &UploadFile{}
+	_ bin.BareDecoder = &UploadFile{}
+
+	_ UploadFileClass = &UploadFile{}
+)
+
 func (f *UploadFile) Zero() bool {
 	if f == nil {
 		return true
@@ -146,21 +159,6 @@ func (f *UploadFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (f *UploadFile) GetType() (value StorageFileTypeClass) {
-	return f.Type
-}
-
-// GetMtime returns value of Mtime field.
-func (f *UploadFile) GetMtime() (value int) {
-	return f.Mtime
-}
-
-// GetBytes returns value of Bytes field.
-func (f *UploadFile) GetBytes() (value []byte) {
-	return f.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (f *UploadFile) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -201,18 +199,20 @@ func (f *UploadFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UploadFileClass.
-func (f UploadFile) construct() UploadFileClass { return &f }
+// GetType returns value of Type field.
+func (f *UploadFile) GetType() (value StorageFileTypeClass) {
+	return f.Type
+}
 
-// Ensuring interfaces in compile-time for UploadFile.
-var (
-	_ bin.Encoder     = &UploadFile{}
-	_ bin.Decoder     = &UploadFile{}
-	_ bin.BareEncoder = &UploadFile{}
-	_ bin.BareDecoder = &UploadFile{}
+// GetMtime returns value of Mtime field.
+func (f *UploadFile) GetMtime() (value int) {
+	return f.Mtime
+}
 
-	_ UploadFileClass = &UploadFile{}
-)
+// GetBytes returns value of Bytes field.
+func (f *UploadFile) GetBytes() (value []byte) {
+	return f.Bytes
+}
 
 // UploadFileCDNRedirect represents TL type `upload.fileCdnRedirect#f18cda44`.
 // The file must be downloaded from a CDN DC¹.
@@ -251,6 +251,19 @@ type UploadFileCDNRedirect struct {
 
 // UploadFileCDNRedirectTypeID is TL type id of UploadFileCDNRedirect.
 const UploadFileCDNRedirectTypeID = 0xf18cda44
+
+// construct implements constructor of UploadFileClass.
+func (f UploadFileCDNRedirect) construct() UploadFileClass { return &f }
+
+// Ensuring interfaces in compile-time for UploadFileCDNRedirect.
+var (
+	_ bin.Encoder     = &UploadFileCDNRedirect{}
+	_ bin.Decoder     = &UploadFileCDNRedirect{}
+	_ bin.BareEncoder = &UploadFileCDNRedirect{}
+	_ bin.BareDecoder = &UploadFileCDNRedirect{}
+
+	_ UploadFileClass = &UploadFileCDNRedirect{}
+)
 
 func (f *UploadFileCDNRedirect) Zero() bool {
 	if f == nil {
@@ -373,31 +386,6 @@ func (f *UploadFileCDNRedirect) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDCID returns value of DCID field.
-func (f *UploadFileCDNRedirect) GetDCID() (value int) {
-	return f.DCID
-}
-
-// GetFileToken returns value of FileToken field.
-func (f *UploadFileCDNRedirect) GetFileToken() (value []byte) {
-	return f.FileToken
-}
-
-// GetEncryptionKey returns value of EncryptionKey field.
-func (f *UploadFileCDNRedirect) GetEncryptionKey() (value []byte) {
-	return f.EncryptionKey
-}
-
-// GetEncryptionIv returns value of EncryptionIv field.
-func (f *UploadFileCDNRedirect) GetEncryptionIv() (value []byte) {
-	return f.EncryptionIv
-}
-
-// GetFileHashes returns value of FileHashes field.
-func (f *UploadFileCDNRedirect) GetFileHashes() (value []FileHash) {
-	return f.FileHashes
-}
-
 // Decode implements bin.Decoder.
 func (f *UploadFileCDNRedirect) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -462,18 +450,30 @@ func (f *UploadFileCDNRedirect) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UploadFileClass.
-func (f UploadFileCDNRedirect) construct() UploadFileClass { return &f }
+// GetDCID returns value of DCID field.
+func (f *UploadFileCDNRedirect) GetDCID() (value int) {
+	return f.DCID
+}
 
-// Ensuring interfaces in compile-time for UploadFileCDNRedirect.
-var (
-	_ bin.Encoder     = &UploadFileCDNRedirect{}
-	_ bin.Decoder     = &UploadFileCDNRedirect{}
-	_ bin.BareEncoder = &UploadFileCDNRedirect{}
-	_ bin.BareDecoder = &UploadFileCDNRedirect{}
+// GetFileToken returns value of FileToken field.
+func (f *UploadFileCDNRedirect) GetFileToken() (value []byte) {
+	return f.FileToken
+}
 
-	_ UploadFileClass = &UploadFileCDNRedirect{}
-)
+// GetEncryptionKey returns value of EncryptionKey field.
+func (f *UploadFileCDNRedirect) GetEncryptionKey() (value []byte) {
+	return f.EncryptionKey
+}
+
+// GetEncryptionIv returns value of EncryptionIv field.
+func (f *UploadFileCDNRedirect) GetEncryptionIv() (value []byte) {
+	return f.EncryptionIv
+}
+
+// GetFileHashes returns value of FileHashes field.
+func (f *UploadFileCDNRedirect) GetFileHashes() (value []FileHash) {
+	return f.FileHashes
+}
 
 // UploadFileClass represents upload.File generic type.
 //
@@ -558,276 +558,4 @@ func (b *UploadFileBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UploadFileClass as nil")
 	}
 	return b.File.Encode(buf)
-}
-
-// UploadFileClassArray is adapter for slice of UploadFileClass.
-type UploadFileClassArray []UploadFileClass
-
-// Sort sorts slice of UploadFileClass.
-func (s UploadFileClassArray) Sort(less func(a, b UploadFileClass) bool) UploadFileClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UploadFileClass.
-func (s UploadFileClassArray) SortStable(less func(a, b UploadFileClass) bool) UploadFileClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UploadFileClass.
-func (s UploadFileClassArray) Retain(keep func(x UploadFileClass) bool) UploadFileClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UploadFileClassArray) First() (v UploadFileClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UploadFileClassArray) Last() (v UploadFileClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UploadFileClassArray) PopFirst() (v UploadFileClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UploadFileClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UploadFileClassArray) Pop() (v UploadFileClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsUploadFile returns copy with only UploadFile constructors.
-func (s UploadFileClassArray) AsUploadFile() (to UploadFileArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UploadFile)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUploadFileCDNRedirect returns copy with only UploadFileCDNRedirect constructors.
-func (s UploadFileClassArray) AsUploadFileCDNRedirect() (to UploadFileCDNRedirectArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UploadFileCDNRedirect)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// UploadFileArray is adapter for slice of UploadFile.
-type UploadFileArray []UploadFile
-
-// Sort sorts slice of UploadFile.
-func (s UploadFileArray) Sort(less func(a, b UploadFile) bool) UploadFileArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UploadFile.
-func (s UploadFileArray) SortStable(less func(a, b UploadFile) bool) UploadFileArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UploadFile.
-func (s UploadFileArray) Retain(keep func(x UploadFile) bool) UploadFileArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UploadFileArray) First() (v UploadFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UploadFileArray) Last() (v UploadFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UploadFileArray) PopFirst() (v UploadFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UploadFile
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UploadFileArray) Pop() (v UploadFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UploadFileCDNRedirectArray is adapter for slice of UploadFileCDNRedirect.
-type UploadFileCDNRedirectArray []UploadFileCDNRedirect
-
-// Sort sorts slice of UploadFileCDNRedirect.
-func (s UploadFileCDNRedirectArray) Sort(less func(a, b UploadFileCDNRedirect) bool) UploadFileCDNRedirectArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UploadFileCDNRedirect.
-func (s UploadFileCDNRedirectArray) SortStable(less func(a, b UploadFileCDNRedirect) bool) UploadFileCDNRedirectArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UploadFileCDNRedirect.
-func (s UploadFileCDNRedirectArray) Retain(keep func(x UploadFileCDNRedirect) bool) UploadFileCDNRedirectArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UploadFileCDNRedirectArray) First() (v UploadFileCDNRedirect, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UploadFileCDNRedirectArray) Last() (v UploadFileCDNRedirect, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UploadFileCDNRedirectArray) PopFirst() (v UploadFileCDNRedirect, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UploadFileCDNRedirect
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UploadFileCDNRedirectArray) Pop() (v UploadFileCDNRedirect, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

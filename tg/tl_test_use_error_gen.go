@@ -38,6 +38,14 @@ type TestUseErrorRequest struct {
 // TestUseErrorRequestTypeID is TL type id of TestUseErrorRequest.
 const TestUseErrorRequestTypeID = 0xee75af01
 
+// Ensuring interfaces in compile-time for TestUseErrorRequest.
+var (
+	_ bin.Encoder     = &TestUseErrorRequest{}
+	_ bin.Decoder     = &TestUseErrorRequest{}
+	_ bin.BareEncoder = &TestUseErrorRequest{}
+	_ bin.BareDecoder = &TestUseErrorRequest{}
+)
+
 func (u *TestUseErrorRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -116,14 +124,6 @@ func (u *TestUseErrorRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for TestUseErrorRequest.
-var (
-	_ bin.Encoder     = &TestUseErrorRequest{}
-	_ bin.Decoder     = &TestUseErrorRequest{}
-	_ bin.BareEncoder = &TestUseErrorRequest{}
-	_ bin.BareDecoder = &TestUseErrorRequest{}
-)
 
 // TestUseError invokes method test.useError#ee75af01 returning error if any.
 //

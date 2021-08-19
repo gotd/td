@@ -65,6 +65,14 @@ type StickersCreateStickerSetRequest struct {
 // StickersCreateStickerSetRequestTypeID is TL type id of StickersCreateStickerSetRequest.
 const StickersCreateStickerSetRequestTypeID = 0x9021ab67
 
+// Ensuring interfaces in compile-time for StickersCreateStickerSetRequest.
+var (
+	_ bin.Encoder     = &StickersCreateStickerSetRequest{}
+	_ bin.Decoder     = &StickersCreateStickerSetRequest{}
+	_ bin.BareEncoder = &StickersCreateStickerSetRequest{}
+	_ bin.BareDecoder = &StickersCreateStickerSetRequest{}
+)
+
 func (c *StickersCreateStickerSetRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -256,97 +264,6 @@ func (c *StickersCreateStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetMasks sets value of Masks conditional field.
-func (c *StickersCreateStickerSetRequest) SetMasks(value bool) {
-	if value {
-		c.Flags.Set(0)
-		c.Masks = true
-	} else {
-		c.Flags.Unset(0)
-		c.Masks = false
-	}
-}
-
-// GetMasks returns value of Masks conditional field.
-func (c *StickersCreateStickerSetRequest) GetMasks() (value bool) {
-	return c.Flags.Has(0)
-}
-
-// SetAnimated sets value of Animated conditional field.
-func (c *StickersCreateStickerSetRequest) SetAnimated(value bool) {
-	if value {
-		c.Flags.Set(1)
-		c.Animated = true
-	} else {
-		c.Flags.Unset(1)
-		c.Animated = false
-	}
-}
-
-// GetAnimated returns value of Animated conditional field.
-func (c *StickersCreateStickerSetRequest) GetAnimated() (value bool) {
-	return c.Flags.Has(1)
-}
-
-// GetUserID returns value of UserID field.
-func (c *StickersCreateStickerSetRequest) GetUserID() (value InputUserClass) {
-	return c.UserID
-}
-
-// GetTitle returns value of Title field.
-func (c *StickersCreateStickerSetRequest) GetTitle() (value string) {
-	return c.Title
-}
-
-// GetShortName returns value of ShortName field.
-func (c *StickersCreateStickerSetRequest) GetShortName() (value string) {
-	return c.ShortName
-}
-
-// SetThumb sets value of Thumb conditional field.
-func (c *StickersCreateStickerSetRequest) SetThumb(value InputDocumentClass) {
-	c.Flags.Set(2)
-	c.Thumb = value
-}
-
-// GetThumb returns value of Thumb conditional field and
-// boolean which is true if field was set.
-func (c *StickersCreateStickerSetRequest) GetThumb() (value InputDocumentClass, ok bool) {
-	if !c.Flags.Has(2) {
-		return value, false
-	}
-	return c.Thumb, true
-}
-
-// GetThumbAsNotEmpty returns mapped value of Thumb conditional field and
-// boolean which is true if field was set.
-func (c *StickersCreateStickerSetRequest) GetThumbAsNotEmpty() (*InputDocument, bool) {
-	if value, ok := c.GetThumb(); ok {
-		return value.AsNotEmpty()
-	}
-	return nil, false
-}
-
-// GetStickers returns value of Stickers field.
-func (c *StickersCreateStickerSetRequest) GetStickers() (value []InputStickerSetItem) {
-	return c.Stickers
-}
-
-// SetSoftware sets value of Software conditional field.
-func (c *StickersCreateStickerSetRequest) SetSoftware(value string) {
-	c.Flags.Set(3)
-	c.Software = value
-}
-
-// GetSoftware returns value of Software conditional field and
-// boolean which is true if field was set.
-func (c *StickersCreateStickerSetRequest) GetSoftware() (value string, ok bool) {
-	if !c.Flags.Has(3) {
-		return value, false
-	}
-	return c.Software, true
-}
-
 // Decode implements bin.Decoder.
 func (c *StickersCreateStickerSetRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -425,13 +342,96 @@ func (c *StickersCreateStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StickersCreateStickerSetRequest.
-var (
-	_ bin.Encoder     = &StickersCreateStickerSetRequest{}
-	_ bin.Decoder     = &StickersCreateStickerSetRequest{}
-	_ bin.BareEncoder = &StickersCreateStickerSetRequest{}
-	_ bin.BareDecoder = &StickersCreateStickerSetRequest{}
-)
+// SetMasks sets value of Masks conditional field.
+func (c *StickersCreateStickerSetRequest) SetMasks(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.Masks = true
+	} else {
+		c.Flags.Unset(0)
+		c.Masks = false
+	}
+}
+
+// GetMasks returns value of Masks conditional field.
+func (c *StickersCreateStickerSetRequest) GetMasks() (value bool) {
+	return c.Flags.Has(0)
+}
+
+// SetAnimated sets value of Animated conditional field.
+func (c *StickersCreateStickerSetRequest) SetAnimated(value bool) {
+	if value {
+		c.Flags.Set(1)
+		c.Animated = true
+	} else {
+		c.Flags.Unset(1)
+		c.Animated = false
+	}
+}
+
+// GetAnimated returns value of Animated conditional field.
+func (c *StickersCreateStickerSetRequest) GetAnimated() (value bool) {
+	return c.Flags.Has(1)
+}
+
+// GetUserID returns value of UserID field.
+func (c *StickersCreateStickerSetRequest) GetUserID() (value InputUserClass) {
+	return c.UserID
+}
+
+// GetTitle returns value of Title field.
+func (c *StickersCreateStickerSetRequest) GetTitle() (value string) {
+	return c.Title
+}
+
+// GetShortName returns value of ShortName field.
+func (c *StickersCreateStickerSetRequest) GetShortName() (value string) {
+	return c.ShortName
+}
+
+// SetThumb sets value of Thumb conditional field.
+func (c *StickersCreateStickerSetRequest) SetThumb(value InputDocumentClass) {
+	c.Flags.Set(2)
+	c.Thumb = value
+}
+
+// GetThumb returns value of Thumb conditional field and
+// boolean which is true if field was set.
+func (c *StickersCreateStickerSetRequest) GetThumb() (value InputDocumentClass, ok bool) {
+	if !c.Flags.Has(2) {
+		return value, false
+	}
+	return c.Thumb, true
+}
+
+// GetStickers returns value of Stickers field.
+func (c *StickersCreateStickerSetRequest) GetStickers() (value []InputStickerSetItem) {
+	return c.Stickers
+}
+
+// SetSoftware sets value of Software conditional field.
+func (c *StickersCreateStickerSetRequest) SetSoftware(value string) {
+	c.Flags.Set(3)
+	c.Software = value
+}
+
+// GetSoftware returns value of Software conditional field and
+// boolean which is true if field was set.
+func (c *StickersCreateStickerSetRequest) GetSoftware() (value string, ok bool) {
+	if !c.Flags.Has(3) {
+		return value, false
+	}
+	return c.Software, true
+}
+
+// GetThumbAsNotEmpty returns mapped value of Thumb conditional field and
+// boolean which is true if field was set.
+func (c *StickersCreateStickerSetRequest) GetThumbAsNotEmpty() (*InputDocument, bool) {
+	if value, ok := c.GetThumb(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}
 
 // StickersCreateStickerSet invokes method stickers.createStickerSet#9021ab67 returning error if any.
 // Create a stickerset, bots only.

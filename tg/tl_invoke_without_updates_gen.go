@@ -46,6 +46,14 @@ type InvokeWithoutUpdatesRequest struct {
 // InvokeWithoutUpdatesRequestTypeID is TL type id of InvokeWithoutUpdatesRequest.
 const InvokeWithoutUpdatesRequestTypeID = 0xbf9459b7
 
+// Ensuring interfaces in compile-time for InvokeWithoutUpdatesRequest.
+var (
+	_ bin.Encoder     = &InvokeWithoutUpdatesRequest{}
+	_ bin.Decoder     = &InvokeWithoutUpdatesRequest{}
+	_ bin.BareEncoder = &InvokeWithoutUpdatesRequest{}
+	_ bin.BareDecoder = &InvokeWithoutUpdatesRequest{}
+)
+
 func (i *InvokeWithoutUpdatesRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -124,11 +132,6 @@ func (i *InvokeWithoutUpdatesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQuery returns value of Query field.
-func (i *InvokeWithoutUpdatesRequest) GetQuery() (value bin.Object) {
-	return i.Query
-}
-
 // Decode implements bin.Decoder.
 func (i *InvokeWithoutUpdatesRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -153,10 +156,7 @@ func (i *InvokeWithoutUpdatesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InvokeWithoutUpdatesRequest.
-var (
-	_ bin.Encoder     = &InvokeWithoutUpdatesRequest{}
-	_ bin.Decoder     = &InvokeWithoutUpdatesRequest{}
-	_ bin.BareEncoder = &InvokeWithoutUpdatesRequest{}
-	_ bin.BareDecoder = &InvokeWithoutUpdatesRequest{}
-)
+// GetQuery returns value of Query field.
+func (i *InvokeWithoutUpdatesRequest) GetQuery() (value bin.Object) {
+	return i.Query
+}

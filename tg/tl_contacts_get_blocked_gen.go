@@ -43,6 +43,14 @@ type ContactsGetBlockedRequest struct {
 // ContactsGetBlockedRequestTypeID is TL type id of ContactsGetBlockedRequest.
 const ContactsGetBlockedRequestTypeID = 0xf57c350f
 
+// Ensuring interfaces in compile-time for ContactsGetBlockedRequest.
+var (
+	_ bin.Encoder     = &ContactsGetBlockedRequest{}
+	_ bin.Decoder     = &ContactsGetBlockedRequest{}
+	_ bin.BareEncoder = &ContactsGetBlockedRequest{}
+	_ bin.BareDecoder = &ContactsGetBlockedRequest{}
+)
+
 func (g *ContactsGetBlockedRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -129,16 +137,6 @@ func (g *ContactsGetBlockedRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (g *ContactsGetBlockedRequest) GetOffset() (value int) {
-	return g.Offset
-}
-
-// GetLimit returns value of Limit field.
-func (g *ContactsGetBlockedRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *ContactsGetBlockedRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -172,13 +170,15 @@ func (g *ContactsGetBlockedRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsGetBlockedRequest.
-var (
-	_ bin.Encoder     = &ContactsGetBlockedRequest{}
-	_ bin.Decoder     = &ContactsGetBlockedRequest{}
-	_ bin.BareEncoder = &ContactsGetBlockedRequest{}
-	_ bin.BareDecoder = &ContactsGetBlockedRequest{}
-)
+// GetOffset returns value of Offset field.
+func (g *ContactsGetBlockedRequest) GetOffset() (value int) {
+	return g.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (g *ContactsGetBlockedRequest) GetLimit() (value int) {
+	return g.Limit
+}
 
 // ContactsGetBlocked invokes method contacts.getBlocked#f57c350f returning error if any.
 // Returns the list of blocked users.

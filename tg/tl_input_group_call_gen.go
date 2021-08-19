@@ -42,6 +42,14 @@ type InputGroupCall struct {
 // InputGroupCallTypeID is TL type id of InputGroupCall.
 const InputGroupCallTypeID = 0xd8aa840f
 
+// Ensuring interfaces in compile-time for InputGroupCall.
+var (
+	_ bin.Encoder     = &InputGroupCall{}
+	_ bin.Decoder     = &InputGroupCall{}
+	_ bin.BareEncoder = &InputGroupCall{}
+	_ bin.BareDecoder = &InputGroupCall{}
+)
+
 func (i *InputGroupCall) Zero() bool {
 	if i == nil {
 		return true
@@ -128,16 +136,6 @@ func (i *InputGroupCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputGroupCall) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputGroupCall) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputGroupCall) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -171,10 +169,12 @@ func (i *InputGroupCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InputGroupCall.
-var (
-	_ bin.Encoder     = &InputGroupCall{}
-	_ bin.Decoder     = &InputGroupCall{}
-	_ bin.BareEncoder = &InputGroupCall{}
-	_ bin.BareDecoder = &InputGroupCall{}
-)
+// GetID returns value of ID field.
+func (i *InputGroupCall) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputGroupCall) GetAccessHash() (value int64) {
+	return i.AccessHash
+}

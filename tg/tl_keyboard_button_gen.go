@@ -41,6 +41,19 @@ type KeyboardButton struct {
 // KeyboardButtonTypeID is TL type id of KeyboardButton.
 const KeyboardButtonTypeID = 0xa2fa4880
 
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButton) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButton.
+var (
+	_ bin.Encoder     = &KeyboardButton{}
+	_ bin.Decoder     = &KeyboardButton{}
+	_ bin.BareEncoder = &KeyboardButton{}
+	_ bin.BareDecoder = &KeyboardButton{}
+
+	_ KeyboardButtonClass = &KeyboardButton{}
+)
+
 func (k *KeyboardButton) Zero() bool {
 	if k == nil {
 		return true
@@ -117,11 +130,6 @@ func (k *KeyboardButton) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (k *KeyboardButton) GetText() (value string) {
-	return k.Text
-}
-
 // Decode implements bin.Decoder.
 func (k *KeyboardButton) Decode(b *bin.Buffer) error {
 	if k == nil {
@@ -148,18 +156,10 @@ func (k *KeyboardButton) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of KeyboardButtonClass.
-func (k KeyboardButton) construct() KeyboardButtonClass { return &k }
-
-// Ensuring interfaces in compile-time for KeyboardButton.
-var (
-	_ bin.Encoder     = &KeyboardButton{}
-	_ bin.Decoder     = &KeyboardButton{}
-	_ bin.BareEncoder = &KeyboardButton{}
-	_ bin.BareDecoder = &KeyboardButton{}
-
-	_ KeyboardButtonClass = &KeyboardButton{}
-)
+// GetText returns value of Text field.
+func (k *KeyboardButton) GetText() (value string) {
+	return k.Text
+}
 
 // KeyboardButtonURL represents TL type `keyboardButtonUrl#258aff05`.
 // URL button
@@ -174,6 +174,19 @@ type KeyboardButtonURL struct {
 
 // KeyboardButtonURLTypeID is TL type id of KeyboardButtonURL.
 const KeyboardButtonURLTypeID = 0x258aff05
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonURL) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonURL.
+var (
+	_ bin.Encoder     = &KeyboardButtonURL{}
+	_ bin.Decoder     = &KeyboardButtonURL{}
+	_ bin.BareEncoder = &KeyboardButtonURL{}
+	_ bin.BareDecoder = &KeyboardButtonURL{}
+
+	_ KeyboardButtonClass = &KeyboardButtonURL{}
+)
 
 func (k *KeyboardButtonURL) Zero() bool {
 	if k == nil {
@@ -261,16 +274,6 @@ func (k *KeyboardButtonURL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (k *KeyboardButtonURL) GetText() (value string) {
-	return k.Text
-}
-
-// GetURL returns value of URL field.
-func (k *KeyboardButtonURL) GetURL() (value string) {
-	return k.URL
-}
-
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonURL) Decode(b *bin.Buffer) error {
 	if k == nil {
@@ -304,18 +307,15 @@ func (k *KeyboardButtonURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of KeyboardButtonClass.
-func (k KeyboardButtonURL) construct() KeyboardButtonClass { return &k }
+// GetText returns value of Text field.
+func (k *KeyboardButtonURL) GetText() (value string) {
+	return k.Text
+}
 
-// Ensuring interfaces in compile-time for KeyboardButtonURL.
-var (
-	_ bin.Encoder     = &KeyboardButtonURL{}
-	_ bin.Decoder     = &KeyboardButtonURL{}
-	_ bin.BareEncoder = &KeyboardButtonURL{}
-	_ bin.BareDecoder = &KeyboardButtonURL{}
-
-	_ KeyboardButtonClass = &KeyboardButtonURL{}
-)
+// GetURL returns value of URL field.
+func (k *KeyboardButtonURL) GetURL() (value string) {
+	return k.URL
+}
 
 // KeyboardButtonCallback represents TL type `keyboardButtonCallback#35bbdb6b`.
 // Callback button
@@ -347,6 +347,19 @@ type KeyboardButtonCallback struct {
 
 // KeyboardButtonCallbackTypeID is TL type id of KeyboardButtonCallback.
 const KeyboardButtonCallbackTypeID = 0x35bbdb6b
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonCallback) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonCallback.
+var (
+	_ bin.Encoder     = &KeyboardButtonCallback{}
+	_ bin.Decoder     = &KeyboardButtonCallback{}
+	_ bin.BareEncoder = &KeyboardButtonCallback{}
+	_ bin.BareDecoder = &KeyboardButtonCallback{}
+
+	_ KeyboardButtonClass = &KeyboardButtonCallback{}
+)
 
 func (k *KeyboardButtonCallback) Zero() bool {
 	if k == nil {
@@ -453,32 +466,6 @@ func (k *KeyboardButtonCallback) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetRequiresPassword sets value of RequiresPassword conditional field.
-func (k *KeyboardButtonCallback) SetRequiresPassword(value bool) {
-	if value {
-		k.Flags.Set(0)
-		k.RequiresPassword = true
-	} else {
-		k.Flags.Unset(0)
-		k.RequiresPassword = false
-	}
-}
-
-// GetRequiresPassword returns value of RequiresPassword conditional field.
-func (k *KeyboardButtonCallback) GetRequiresPassword() (value bool) {
-	return k.Flags.Has(0)
-}
-
-// GetText returns value of Text field.
-func (k *KeyboardButtonCallback) GetText() (value string) {
-	return k.Text
-}
-
-// GetData returns value of Data field.
-func (k *KeyboardButtonCallback) GetData() (value []byte) {
-	return k.Data
-}
-
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonCallback) Decode(b *bin.Buffer) error {
 	if k == nil {
@@ -518,18 +505,31 @@ func (k *KeyboardButtonCallback) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of KeyboardButtonClass.
-func (k KeyboardButtonCallback) construct() KeyboardButtonClass { return &k }
+// SetRequiresPassword sets value of RequiresPassword conditional field.
+func (k *KeyboardButtonCallback) SetRequiresPassword(value bool) {
+	if value {
+		k.Flags.Set(0)
+		k.RequiresPassword = true
+	} else {
+		k.Flags.Unset(0)
+		k.RequiresPassword = false
+	}
+}
 
-// Ensuring interfaces in compile-time for KeyboardButtonCallback.
-var (
-	_ bin.Encoder     = &KeyboardButtonCallback{}
-	_ bin.Decoder     = &KeyboardButtonCallback{}
-	_ bin.BareEncoder = &KeyboardButtonCallback{}
-	_ bin.BareDecoder = &KeyboardButtonCallback{}
+// GetRequiresPassword returns value of RequiresPassword conditional field.
+func (k *KeyboardButtonCallback) GetRequiresPassword() (value bool) {
+	return k.Flags.Has(0)
+}
 
-	_ KeyboardButtonClass = &KeyboardButtonCallback{}
-)
+// GetText returns value of Text field.
+func (k *KeyboardButtonCallback) GetText() (value string) {
+	return k.Text
+}
+
+// GetData returns value of Data field.
+func (k *KeyboardButtonCallback) GetData() (value []byte) {
+	return k.Data
+}
 
 // KeyboardButtonRequestPhone represents TL type `keyboardButtonRequestPhone#b16a6c29`.
 // Button to request a user's phone number
@@ -542,6 +542,19 @@ type KeyboardButtonRequestPhone struct {
 
 // KeyboardButtonRequestPhoneTypeID is TL type id of KeyboardButtonRequestPhone.
 const KeyboardButtonRequestPhoneTypeID = 0xb16a6c29
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonRequestPhone) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonRequestPhone.
+var (
+	_ bin.Encoder     = &KeyboardButtonRequestPhone{}
+	_ bin.Decoder     = &KeyboardButtonRequestPhone{}
+	_ bin.BareEncoder = &KeyboardButtonRequestPhone{}
+	_ bin.BareDecoder = &KeyboardButtonRequestPhone{}
+
+	_ KeyboardButtonClass = &KeyboardButtonRequestPhone{}
+)
 
 func (k *KeyboardButtonRequestPhone) Zero() bool {
 	if k == nil {
@@ -619,11 +632,6 @@ func (k *KeyboardButtonRequestPhone) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (k *KeyboardButtonRequestPhone) GetText() (value string) {
-	return k.Text
-}
-
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonRequestPhone) Decode(b *bin.Buffer) error {
 	if k == nil {
@@ -650,18 +658,10 @@ func (k *KeyboardButtonRequestPhone) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of KeyboardButtonClass.
-func (k KeyboardButtonRequestPhone) construct() KeyboardButtonClass { return &k }
-
-// Ensuring interfaces in compile-time for KeyboardButtonRequestPhone.
-var (
-	_ bin.Encoder     = &KeyboardButtonRequestPhone{}
-	_ bin.Decoder     = &KeyboardButtonRequestPhone{}
-	_ bin.BareEncoder = &KeyboardButtonRequestPhone{}
-	_ bin.BareDecoder = &KeyboardButtonRequestPhone{}
-
-	_ KeyboardButtonClass = &KeyboardButtonRequestPhone{}
-)
+// GetText returns value of Text field.
+func (k *KeyboardButtonRequestPhone) GetText() (value string) {
+	return k.Text
+}
 
 // KeyboardButtonRequestGeoLocation represents TL type `keyboardButtonRequestGeoLocation#fc796b3f`.
 // Button to request a user's geolocation
@@ -674,6 +674,19 @@ type KeyboardButtonRequestGeoLocation struct {
 
 // KeyboardButtonRequestGeoLocationTypeID is TL type id of KeyboardButtonRequestGeoLocation.
 const KeyboardButtonRequestGeoLocationTypeID = 0xfc796b3f
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonRequestGeoLocation) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonRequestGeoLocation.
+var (
+	_ bin.Encoder     = &KeyboardButtonRequestGeoLocation{}
+	_ bin.Decoder     = &KeyboardButtonRequestGeoLocation{}
+	_ bin.BareEncoder = &KeyboardButtonRequestGeoLocation{}
+	_ bin.BareDecoder = &KeyboardButtonRequestGeoLocation{}
+
+	_ KeyboardButtonClass = &KeyboardButtonRequestGeoLocation{}
+)
 
 func (k *KeyboardButtonRequestGeoLocation) Zero() bool {
 	if k == nil {
@@ -751,11 +764,6 @@ func (k *KeyboardButtonRequestGeoLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (k *KeyboardButtonRequestGeoLocation) GetText() (value string) {
-	return k.Text
-}
-
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonRequestGeoLocation) Decode(b *bin.Buffer) error {
 	if k == nil {
@@ -782,18 +790,10 @@ func (k *KeyboardButtonRequestGeoLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of KeyboardButtonClass.
-func (k KeyboardButtonRequestGeoLocation) construct() KeyboardButtonClass { return &k }
-
-// Ensuring interfaces in compile-time for KeyboardButtonRequestGeoLocation.
-var (
-	_ bin.Encoder     = &KeyboardButtonRequestGeoLocation{}
-	_ bin.Decoder     = &KeyboardButtonRequestGeoLocation{}
-	_ bin.BareEncoder = &KeyboardButtonRequestGeoLocation{}
-	_ bin.BareDecoder = &KeyboardButtonRequestGeoLocation{}
-
-	_ KeyboardButtonClass = &KeyboardButtonRequestGeoLocation{}
-)
+// GetText returns value of Text field.
+func (k *KeyboardButtonRequestGeoLocation) GetText() (value string) {
+	return k.Text
+}
 
 // KeyboardButtonSwitchInline represents TL type `keyboardButtonSwitchInline#568a748`.
 // Button to force a user to switch to inline mode Pressing the button will prompt the
@@ -818,6 +818,19 @@ type KeyboardButtonSwitchInline struct {
 
 // KeyboardButtonSwitchInlineTypeID is TL type id of KeyboardButtonSwitchInline.
 const KeyboardButtonSwitchInlineTypeID = 0x568a748
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonSwitchInline) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonSwitchInline.
+var (
+	_ bin.Encoder     = &KeyboardButtonSwitchInline{}
+	_ bin.Decoder     = &KeyboardButtonSwitchInline{}
+	_ bin.BareEncoder = &KeyboardButtonSwitchInline{}
+	_ bin.BareDecoder = &KeyboardButtonSwitchInline{}
+
+	_ KeyboardButtonClass = &KeyboardButtonSwitchInline{}
+)
 
 func (k *KeyboardButtonSwitchInline) Zero() bool {
 	if k == nil {
@@ -924,32 +937,6 @@ func (k *KeyboardButtonSwitchInline) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetSamePeer sets value of SamePeer conditional field.
-func (k *KeyboardButtonSwitchInline) SetSamePeer(value bool) {
-	if value {
-		k.Flags.Set(0)
-		k.SamePeer = true
-	} else {
-		k.Flags.Unset(0)
-		k.SamePeer = false
-	}
-}
-
-// GetSamePeer returns value of SamePeer conditional field.
-func (k *KeyboardButtonSwitchInline) GetSamePeer() (value bool) {
-	return k.Flags.Has(0)
-}
-
-// GetText returns value of Text field.
-func (k *KeyboardButtonSwitchInline) GetText() (value string) {
-	return k.Text
-}
-
-// GetQuery returns value of Query field.
-func (k *KeyboardButtonSwitchInline) GetQuery() (value string) {
-	return k.Query
-}
-
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonSwitchInline) Decode(b *bin.Buffer) error {
 	if k == nil {
@@ -989,18 +976,31 @@ func (k *KeyboardButtonSwitchInline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of KeyboardButtonClass.
-func (k KeyboardButtonSwitchInline) construct() KeyboardButtonClass { return &k }
+// SetSamePeer sets value of SamePeer conditional field.
+func (k *KeyboardButtonSwitchInline) SetSamePeer(value bool) {
+	if value {
+		k.Flags.Set(0)
+		k.SamePeer = true
+	} else {
+		k.Flags.Unset(0)
+		k.SamePeer = false
+	}
+}
 
-// Ensuring interfaces in compile-time for KeyboardButtonSwitchInline.
-var (
-	_ bin.Encoder     = &KeyboardButtonSwitchInline{}
-	_ bin.Decoder     = &KeyboardButtonSwitchInline{}
-	_ bin.BareEncoder = &KeyboardButtonSwitchInline{}
-	_ bin.BareDecoder = &KeyboardButtonSwitchInline{}
+// GetSamePeer returns value of SamePeer conditional field.
+func (k *KeyboardButtonSwitchInline) GetSamePeer() (value bool) {
+	return k.Flags.Has(0)
+}
 
-	_ KeyboardButtonClass = &KeyboardButtonSwitchInline{}
-)
+// GetText returns value of Text field.
+func (k *KeyboardButtonSwitchInline) GetText() (value string) {
+	return k.Text
+}
+
+// GetQuery returns value of Query field.
+func (k *KeyboardButtonSwitchInline) GetQuery() (value string) {
+	return k.Query
+}
 
 // KeyboardButtonGame represents TL type `keyboardButtonGame#50f41ccf`.
 // Button to start a game
@@ -1013,6 +1013,19 @@ type KeyboardButtonGame struct {
 
 // KeyboardButtonGameTypeID is TL type id of KeyboardButtonGame.
 const KeyboardButtonGameTypeID = 0x50f41ccf
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonGame) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonGame.
+var (
+	_ bin.Encoder     = &KeyboardButtonGame{}
+	_ bin.Decoder     = &KeyboardButtonGame{}
+	_ bin.BareEncoder = &KeyboardButtonGame{}
+	_ bin.BareDecoder = &KeyboardButtonGame{}
+
+	_ KeyboardButtonClass = &KeyboardButtonGame{}
+)
 
 func (k *KeyboardButtonGame) Zero() bool {
 	if k == nil {
@@ -1090,11 +1103,6 @@ func (k *KeyboardButtonGame) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (k *KeyboardButtonGame) GetText() (value string) {
-	return k.Text
-}
-
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonGame) Decode(b *bin.Buffer) error {
 	if k == nil {
@@ -1121,18 +1129,10 @@ func (k *KeyboardButtonGame) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of KeyboardButtonClass.
-func (k KeyboardButtonGame) construct() KeyboardButtonClass { return &k }
-
-// Ensuring interfaces in compile-time for KeyboardButtonGame.
-var (
-	_ bin.Encoder     = &KeyboardButtonGame{}
-	_ bin.Decoder     = &KeyboardButtonGame{}
-	_ bin.BareEncoder = &KeyboardButtonGame{}
-	_ bin.BareDecoder = &KeyboardButtonGame{}
-
-	_ KeyboardButtonClass = &KeyboardButtonGame{}
-)
+// GetText returns value of Text field.
+func (k *KeyboardButtonGame) GetText() (value string) {
+	return k.Text
+}
 
 // KeyboardButtonBuy represents TL type `keyboardButtonBuy#afd93fbb`.
 // Button to buy a product
@@ -1145,6 +1145,19 @@ type KeyboardButtonBuy struct {
 
 // KeyboardButtonBuyTypeID is TL type id of KeyboardButtonBuy.
 const KeyboardButtonBuyTypeID = 0xafd93fbb
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonBuy) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonBuy.
+var (
+	_ bin.Encoder     = &KeyboardButtonBuy{}
+	_ bin.Decoder     = &KeyboardButtonBuy{}
+	_ bin.BareEncoder = &KeyboardButtonBuy{}
+	_ bin.BareDecoder = &KeyboardButtonBuy{}
+
+	_ KeyboardButtonClass = &KeyboardButtonBuy{}
+)
 
 func (k *KeyboardButtonBuy) Zero() bool {
 	if k == nil {
@@ -1222,11 +1235,6 @@ func (k *KeyboardButtonBuy) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (k *KeyboardButtonBuy) GetText() (value string) {
-	return k.Text
-}
-
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonBuy) Decode(b *bin.Buffer) error {
 	if k == nil {
@@ -1253,18 +1261,10 @@ func (k *KeyboardButtonBuy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of KeyboardButtonClass.
-func (k KeyboardButtonBuy) construct() KeyboardButtonClass { return &k }
-
-// Ensuring interfaces in compile-time for KeyboardButtonBuy.
-var (
-	_ bin.Encoder     = &KeyboardButtonBuy{}
-	_ bin.Decoder     = &KeyboardButtonBuy{}
-	_ bin.BareEncoder = &KeyboardButtonBuy{}
-	_ bin.BareDecoder = &KeyboardButtonBuy{}
-
-	_ KeyboardButtonClass = &KeyboardButtonBuy{}
-)
+// GetText returns value of Text field.
+func (k *KeyboardButtonBuy) GetText() (value string) {
+	return k.Text
+}
 
 // KeyboardButtonURLAuth represents TL type `keyboardButtonUrlAuth#10b78d29`.
 // Button to request a user to authorize via URL using Seamless Telegram Login¹. When
@@ -1320,6 +1320,19 @@ type KeyboardButtonURLAuth struct {
 
 // KeyboardButtonURLAuthTypeID is TL type id of KeyboardButtonURLAuth.
 const KeyboardButtonURLAuthTypeID = 0x10b78d29
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonURLAuth) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonURLAuth.
+var (
+	_ bin.Encoder     = &KeyboardButtonURLAuth{}
+	_ bin.Decoder     = &KeyboardButtonURLAuth{}
+	_ bin.BareEncoder = &KeyboardButtonURLAuth{}
+	_ bin.BareDecoder = &KeyboardButtonURLAuth{}
+
+	_ KeyboardButtonClass = &KeyboardButtonURLAuth{}
+)
 
 func (k *KeyboardButtonURLAuth) Zero() bool {
 	if k == nil {
@@ -1442,36 +1455,6 @@ func (k *KeyboardButtonURLAuth) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (k *KeyboardButtonURLAuth) GetText() (value string) {
-	return k.Text
-}
-
-// SetFwdText sets value of FwdText conditional field.
-func (k *KeyboardButtonURLAuth) SetFwdText(value string) {
-	k.Flags.Set(0)
-	k.FwdText = value
-}
-
-// GetFwdText returns value of FwdText conditional field and
-// boolean which is true if field was set.
-func (k *KeyboardButtonURLAuth) GetFwdText() (value string, ok bool) {
-	if !k.Flags.Has(0) {
-		return value, false
-	}
-	return k.FwdText, true
-}
-
-// GetURL returns value of URL field.
-func (k *KeyboardButtonURLAuth) GetURL() (value string) {
-	return k.URL
-}
-
-// GetButtonID returns value of ButtonID field.
-func (k *KeyboardButtonURLAuth) GetButtonID() (value int) {
-	return k.ButtonID
-}
-
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonURLAuth) Decode(b *bin.Buffer) error {
 	if k == nil {
@@ -1524,18 +1507,35 @@ func (k *KeyboardButtonURLAuth) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of KeyboardButtonClass.
-func (k KeyboardButtonURLAuth) construct() KeyboardButtonClass { return &k }
+// GetText returns value of Text field.
+func (k *KeyboardButtonURLAuth) GetText() (value string) {
+	return k.Text
+}
 
-// Ensuring interfaces in compile-time for KeyboardButtonURLAuth.
-var (
-	_ bin.Encoder     = &KeyboardButtonURLAuth{}
-	_ bin.Decoder     = &KeyboardButtonURLAuth{}
-	_ bin.BareEncoder = &KeyboardButtonURLAuth{}
-	_ bin.BareDecoder = &KeyboardButtonURLAuth{}
+// SetFwdText sets value of FwdText conditional field.
+func (k *KeyboardButtonURLAuth) SetFwdText(value string) {
+	k.Flags.Set(0)
+	k.FwdText = value
+}
 
-	_ KeyboardButtonClass = &KeyboardButtonURLAuth{}
-)
+// GetFwdText returns value of FwdText conditional field and
+// boolean which is true if field was set.
+func (k *KeyboardButtonURLAuth) GetFwdText() (value string, ok bool) {
+	if !k.Flags.Has(0) {
+		return value, false
+	}
+	return k.FwdText, true
+}
+
+// GetURL returns value of URL field.
+func (k *KeyboardButtonURLAuth) GetURL() (value string) {
+	return k.URL
+}
+
+// GetButtonID returns value of ButtonID field.
+func (k *KeyboardButtonURLAuth) GetButtonID() (value int) {
+	return k.ButtonID
+}
 
 // InputKeyboardButtonURLAuth represents TL type `inputKeyboardButtonUrlAuth#d02e7fd4`.
 // Button to request a user to authorize¹ via URL using Seamless Telegram Login².
@@ -1583,6 +1583,19 @@ type InputKeyboardButtonURLAuth struct {
 
 // InputKeyboardButtonURLAuthTypeID is TL type id of InputKeyboardButtonURLAuth.
 const InputKeyboardButtonURLAuthTypeID = 0xd02e7fd4
+
+// construct implements constructor of KeyboardButtonClass.
+func (i InputKeyboardButtonURLAuth) construct() KeyboardButtonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputKeyboardButtonURLAuth.
+var (
+	_ bin.Encoder     = &InputKeyboardButtonURLAuth{}
+	_ bin.Decoder     = &InputKeyboardButtonURLAuth{}
+	_ bin.BareEncoder = &InputKeyboardButtonURLAuth{}
+	_ bin.BareDecoder = &InputKeyboardButtonURLAuth{}
+
+	_ KeyboardButtonClass = &InputKeyboardButtonURLAuth{}
+)
 
 func (i *InputKeyboardButtonURLAuth) Zero() bool {
 	if i == nil {
@@ -1723,52 +1736,6 @@ func (i *InputKeyboardButtonURLAuth) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetRequestWriteAccess sets value of RequestWriteAccess conditional field.
-func (i *InputKeyboardButtonURLAuth) SetRequestWriteAccess(value bool) {
-	if value {
-		i.Flags.Set(0)
-		i.RequestWriteAccess = true
-	} else {
-		i.Flags.Unset(0)
-		i.RequestWriteAccess = false
-	}
-}
-
-// GetRequestWriteAccess returns value of RequestWriteAccess conditional field.
-func (i *InputKeyboardButtonURLAuth) GetRequestWriteAccess() (value bool) {
-	return i.Flags.Has(0)
-}
-
-// GetText returns value of Text field.
-func (i *InputKeyboardButtonURLAuth) GetText() (value string) {
-	return i.Text
-}
-
-// SetFwdText sets value of FwdText conditional field.
-func (i *InputKeyboardButtonURLAuth) SetFwdText(value string) {
-	i.Flags.Set(1)
-	i.FwdText = value
-}
-
-// GetFwdText returns value of FwdText conditional field and
-// boolean which is true if field was set.
-func (i *InputKeyboardButtonURLAuth) GetFwdText() (value string, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.FwdText, true
-}
-
-// GetURL returns value of URL field.
-func (i *InputKeyboardButtonURLAuth) GetURL() (value string) {
-	return i.URL
-}
-
-// GetBot returns value of Bot field.
-func (i *InputKeyboardButtonURLAuth) GetBot() (value InputUserClass) {
-	return i.Bot
-}
-
 // Decode implements bin.Decoder.
 func (i *InputKeyboardButtonURLAuth) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1822,18 +1789,51 @@ func (i *InputKeyboardButtonURLAuth) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of KeyboardButtonClass.
-func (i InputKeyboardButtonURLAuth) construct() KeyboardButtonClass { return &i }
+// SetRequestWriteAccess sets value of RequestWriteAccess conditional field.
+func (i *InputKeyboardButtonURLAuth) SetRequestWriteAccess(value bool) {
+	if value {
+		i.Flags.Set(0)
+		i.RequestWriteAccess = true
+	} else {
+		i.Flags.Unset(0)
+		i.RequestWriteAccess = false
+	}
+}
 
-// Ensuring interfaces in compile-time for InputKeyboardButtonURLAuth.
-var (
-	_ bin.Encoder     = &InputKeyboardButtonURLAuth{}
-	_ bin.Decoder     = &InputKeyboardButtonURLAuth{}
-	_ bin.BareEncoder = &InputKeyboardButtonURLAuth{}
-	_ bin.BareDecoder = &InputKeyboardButtonURLAuth{}
+// GetRequestWriteAccess returns value of RequestWriteAccess conditional field.
+func (i *InputKeyboardButtonURLAuth) GetRequestWriteAccess() (value bool) {
+	return i.Flags.Has(0)
+}
 
-	_ KeyboardButtonClass = &InputKeyboardButtonURLAuth{}
-)
+// GetText returns value of Text field.
+func (i *InputKeyboardButtonURLAuth) GetText() (value string) {
+	return i.Text
+}
+
+// SetFwdText sets value of FwdText conditional field.
+func (i *InputKeyboardButtonURLAuth) SetFwdText(value string) {
+	i.Flags.Set(1)
+	i.FwdText = value
+}
+
+// GetFwdText returns value of FwdText conditional field and
+// boolean which is true if field was set.
+func (i *InputKeyboardButtonURLAuth) GetFwdText() (value string, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.FwdText, true
+}
+
+// GetURL returns value of URL field.
+func (i *InputKeyboardButtonURLAuth) GetURL() (value string) {
+	return i.URL
+}
+
+// GetBot returns value of Bot field.
+func (i *InputKeyboardButtonURLAuth) GetBot() (value InputUserClass) {
+	return i.Bot
+}
 
 // KeyboardButtonRequestPoll represents TL type `keyboardButtonRequestPoll#bbc7515d`.
 // A button that allows the user to create and send a poll when pressed; available only
@@ -1856,6 +1856,19 @@ type KeyboardButtonRequestPoll struct {
 
 // KeyboardButtonRequestPollTypeID is TL type id of KeyboardButtonRequestPoll.
 const KeyboardButtonRequestPollTypeID = 0xbbc7515d
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonRequestPoll) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonRequestPoll.
+var (
+	_ bin.Encoder     = &KeyboardButtonRequestPoll{}
+	_ bin.Decoder     = &KeyboardButtonRequestPoll{}
+	_ bin.BareEncoder = &KeyboardButtonRequestPoll{}
+	_ bin.BareDecoder = &KeyboardButtonRequestPoll{}
+
+	_ KeyboardButtonClass = &KeyboardButtonRequestPoll{}
+)
 
 func (k *KeyboardButtonRequestPoll) Zero() bool {
 	if k == nil {
@@ -1958,26 +1971,6 @@ func (k *KeyboardButtonRequestPoll) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetQuiz sets value of Quiz conditional field.
-func (k *KeyboardButtonRequestPoll) SetQuiz(value bool) {
-	k.Flags.Set(0)
-	k.Quiz = value
-}
-
-// GetQuiz returns value of Quiz conditional field and
-// boolean which is true if field was set.
-func (k *KeyboardButtonRequestPoll) GetQuiz() (value bool, ok bool) {
-	if !k.Flags.Has(0) {
-		return value, false
-	}
-	return k.Quiz, true
-}
-
-// GetText returns value of Text field.
-func (k *KeyboardButtonRequestPoll) GetText() (value string) {
-	return k.Text
-}
-
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonRequestPoll) Decode(b *bin.Buffer) error {
 	if k == nil {
@@ -2016,18 +2009,25 @@ func (k *KeyboardButtonRequestPoll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of KeyboardButtonClass.
-func (k KeyboardButtonRequestPoll) construct() KeyboardButtonClass { return &k }
+// SetQuiz sets value of Quiz conditional field.
+func (k *KeyboardButtonRequestPoll) SetQuiz(value bool) {
+	k.Flags.Set(0)
+	k.Quiz = value
+}
 
-// Ensuring interfaces in compile-time for KeyboardButtonRequestPoll.
-var (
-	_ bin.Encoder     = &KeyboardButtonRequestPoll{}
-	_ bin.Decoder     = &KeyboardButtonRequestPoll{}
-	_ bin.BareEncoder = &KeyboardButtonRequestPoll{}
-	_ bin.BareDecoder = &KeyboardButtonRequestPoll{}
+// GetQuiz returns value of Quiz conditional field and
+// boolean which is true if field was set.
+func (k *KeyboardButtonRequestPoll) GetQuiz() (value bool, ok bool) {
+	if !k.Flags.Has(0) {
+		return value, false
+	}
+	return k.Quiz, true
+}
 
-	_ KeyboardButtonClass = &KeyboardButtonRequestPoll{}
-)
+// GetText returns value of Text field.
+func (k *KeyboardButtonRequestPoll) GetText() (value string) {
+	return k.Text
+}
 
 // KeyboardButtonClass represents KeyboardButton generic type.
 //
@@ -2187,1131 +2187,4 @@ func (b *KeyboardButtonBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode KeyboardButtonClass as nil")
 	}
 	return b.KeyboardButton.Encode(buf)
-}
-
-// KeyboardButtonClassArray is adapter for slice of KeyboardButtonClass.
-type KeyboardButtonClassArray []KeyboardButtonClass
-
-// Sort sorts slice of KeyboardButtonClass.
-func (s KeyboardButtonClassArray) Sort(less func(a, b KeyboardButtonClass) bool) KeyboardButtonClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of KeyboardButtonClass.
-func (s KeyboardButtonClassArray) SortStable(less func(a, b KeyboardButtonClass) bool) KeyboardButtonClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of KeyboardButtonClass.
-func (s KeyboardButtonClassArray) Retain(keep func(x KeyboardButtonClass) bool) KeyboardButtonClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s KeyboardButtonClassArray) First() (v KeyboardButtonClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s KeyboardButtonClassArray) Last() (v KeyboardButtonClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonClassArray) PopFirst() (v KeyboardButtonClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero KeyboardButtonClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonClassArray) Pop() (v KeyboardButtonClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsKeyboardButton returns copy with only KeyboardButton constructors.
-func (s KeyboardButtonClassArray) AsKeyboardButton() (to KeyboardButtonArray) {
-	for _, elem := range s {
-		value, ok := elem.(*KeyboardButton)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsKeyboardButtonURL returns copy with only KeyboardButtonURL constructors.
-func (s KeyboardButtonClassArray) AsKeyboardButtonURL() (to KeyboardButtonURLArray) {
-	for _, elem := range s {
-		value, ok := elem.(*KeyboardButtonURL)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsKeyboardButtonCallback returns copy with only KeyboardButtonCallback constructors.
-func (s KeyboardButtonClassArray) AsKeyboardButtonCallback() (to KeyboardButtonCallbackArray) {
-	for _, elem := range s {
-		value, ok := elem.(*KeyboardButtonCallback)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsKeyboardButtonRequestPhone returns copy with only KeyboardButtonRequestPhone constructors.
-func (s KeyboardButtonClassArray) AsKeyboardButtonRequestPhone() (to KeyboardButtonRequestPhoneArray) {
-	for _, elem := range s {
-		value, ok := elem.(*KeyboardButtonRequestPhone)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsKeyboardButtonRequestGeoLocation returns copy with only KeyboardButtonRequestGeoLocation constructors.
-func (s KeyboardButtonClassArray) AsKeyboardButtonRequestGeoLocation() (to KeyboardButtonRequestGeoLocationArray) {
-	for _, elem := range s {
-		value, ok := elem.(*KeyboardButtonRequestGeoLocation)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsKeyboardButtonSwitchInline returns copy with only KeyboardButtonSwitchInline constructors.
-func (s KeyboardButtonClassArray) AsKeyboardButtonSwitchInline() (to KeyboardButtonSwitchInlineArray) {
-	for _, elem := range s {
-		value, ok := elem.(*KeyboardButtonSwitchInline)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsKeyboardButtonGame returns copy with only KeyboardButtonGame constructors.
-func (s KeyboardButtonClassArray) AsKeyboardButtonGame() (to KeyboardButtonGameArray) {
-	for _, elem := range s {
-		value, ok := elem.(*KeyboardButtonGame)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsKeyboardButtonBuy returns copy with only KeyboardButtonBuy constructors.
-func (s KeyboardButtonClassArray) AsKeyboardButtonBuy() (to KeyboardButtonBuyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*KeyboardButtonBuy)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsKeyboardButtonURLAuth returns copy with only KeyboardButtonURLAuth constructors.
-func (s KeyboardButtonClassArray) AsKeyboardButtonURLAuth() (to KeyboardButtonURLAuthArray) {
-	for _, elem := range s {
-		value, ok := elem.(*KeyboardButtonURLAuth)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputKeyboardButtonURLAuth returns copy with only InputKeyboardButtonURLAuth constructors.
-func (s KeyboardButtonClassArray) AsInputKeyboardButtonURLAuth() (to InputKeyboardButtonURLAuthArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputKeyboardButtonURLAuth)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsKeyboardButtonRequestPoll returns copy with only KeyboardButtonRequestPoll constructors.
-func (s KeyboardButtonClassArray) AsKeyboardButtonRequestPoll() (to KeyboardButtonRequestPollArray) {
-	for _, elem := range s {
-		value, ok := elem.(*KeyboardButtonRequestPoll)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// KeyboardButtonArray is adapter for slice of KeyboardButton.
-type KeyboardButtonArray []KeyboardButton
-
-// Sort sorts slice of KeyboardButton.
-func (s KeyboardButtonArray) Sort(less func(a, b KeyboardButton) bool) KeyboardButtonArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of KeyboardButton.
-func (s KeyboardButtonArray) SortStable(less func(a, b KeyboardButton) bool) KeyboardButtonArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of KeyboardButton.
-func (s KeyboardButtonArray) Retain(keep func(x KeyboardButton) bool) KeyboardButtonArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s KeyboardButtonArray) First() (v KeyboardButton, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s KeyboardButtonArray) Last() (v KeyboardButton, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonArray) PopFirst() (v KeyboardButton, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero KeyboardButton
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonArray) Pop() (v KeyboardButton, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// KeyboardButtonURLArray is adapter for slice of KeyboardButtonURL.
-type KeyboardButtonURLArray []KeyboardButtonURL
-
-// Sort sorts slice of KeyboardButtonURL.
-func (s KeyboardButtonURLArray) Sort(less func(a, b KeyboardButtonURL) bool) KeyboardButtonURLArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of KeyboardButtonURL.
-func (s KeyboardButtonURLArray) SortStable(less func(a, b KeyboardButtonURL) bool) KeyboardButtonURLArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of KeyboardButtonURL.
-func (s KeyboardButtonURLArray) Retain(keep func(x KeyboardButtonURL) bool) KeyboardButtonURLArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s KeyboardButtonURLArray) First() (v KeyboardButtonURL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s KeyboardButtonURLArray) Last() (v KeyboardButtonURL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonURLArray) PopFirst() (v KeyboardButtonURL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero KeyboardButtonURL
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonURLArray) Pop() (v KeyboardButtonURL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// KeyboardButtonCallbackArray is adapter for slice of KeyboardButtonCallback.
-type KeyboardButtonCallbackArray []KeyboardButtonCallback
-
-// Sort sorts slice of KeyboardButtonCallback.
-func (s KeyboardButtonCallbackArray) Sort(less func(a, b KeyboardButtonCallback) bool) KeyboardButtonCallbackArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of KeyboardButtonCallback.
-func (s KeyboardButtonCallbackArray) SortStable(less func(a, b KeyboardButtonCallback) bool) KeyboardButtonCallbackArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of KeyboardButtonCallback.
-func (s KeyboardButtonCallbackArray) Retain(keep func(x KeyboardButtonCallback) bool) KeyboardButtonCallbackArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s KeyboardButtonCallbackArray) First() (v KeyboardButtonCallback, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s KeyboardButtonCallbackArray) Last() (v KeyboardButtonCallback, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonCallbackArray) PopFirst() (v KeyboardButtonCallback, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero KeyboardButtonCallback
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonCallbackArray) Pop() (v KeyboardButtonCallback, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// KeyboardButtonRequestPhoneArray is adapter for slice of KeyboardButtonRequestPhone.
-type KeyboardButtonRequestPhoneArray []KeyboardButtonRequestPhone
-
-// Sort sorts slice of KeyboardButtonRequestPhone.
-func (s KeyboardButtonRequestPhoneArray) Sort(less func(a, b KeyboardButtonRequestPhone) bool) KeyboardButtonRequestPhoneArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of KeyboardButtonRequestPhone.
-func (s KeyboardButtonRequestPhoneArray) SortStable(less func(a, b KeyboardButtonRequestPhone) bool) KeyboardButtonRequestPhoneArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of KeyboardButtonRequestPhone.
-func (s KeyboardButtonRequestPhoneArray) Retain(keep func(x KeyboardButtonRequestPhone) bool) KeyboardButtonRequestPhoneArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s KeyboardButtonRequestPhoneArray) First() (v KeyboardButtonRequestPhone, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s KeyboardButtonRequestPhoneArray) Last() (v KeyboardButtonRequestPhone, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonRequestPhoneArray) PopFirst() (v KeyboardButtonRequestPhone, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero KeyboardButtonRequestPhone
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonRequestPhoneArray) Pop() (v KeyboardButtonRequestPhone, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// KeyboardButtonRequestGeoLocationArray is adapter for slice of KeyboardButtonRequestGeoLocation.
-type KeyboardButtonRequestGeoLocationArray []KeyboardButtonRequestGeoLocation
-
-// Sort sorts slice of KeyboardButtonRequestGeoLocation.
-func (s KeyboardButtonRequestGeoLocationArray) Sort(less func(a, b KeyboardButtonRequestGeoLocation) bool) KeyboardButtonRequestGeoLocationArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of KeyboardButtonRequestGeoLocation.
-func (s KeyboardButtonRequestGeoLocationArray) SortStable(less func(a, b KeyboardButtonRequestGeoLocation) bool) KeyboardButtonRequestGeoLocationArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of KeyboardButtonRequestGeoLocation.
-func (s KeyboardButtonRequestGeoLocationArray) Retain(keep func(x KeyboardButtonRequestGeoLocation) bool) KeyboardButtonRequestGeoLocationArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s KeyboardButtonRequestGeoLocationArray) First() (v KeyboardButtonRequestGeoLocation, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s KeyboardButtonRequestGeoLocationArray) Last() (v KeyboardButtonRequestGeoLocation, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonRequestGeoLocationArray) PopFirst() (v KeyboardButtonRequestGeoLocation, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero KeyboardButtonRequestGeoLocation
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonRequestGeoLocationArray) Pop() (v KeyboardButtonRequestGeoLocation, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// KeyboardButtonSwitchInlineArray is adapter for slice of KeyboardButtonSwitchInline.
-type KeyboardButtonSwitchInlineArray []KeyboardButtonSwitchInline
-
-// Sort sorts slice of KeyboardButtonSwitchInline.
-func (s KeyboardButtonSwitchInlineArray) Sort(less func(a, b KeyboardButtonSwitchInline) bool) KeyboardButtonSwitchInlineArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of KeyboardButtonSwitchInline.
-func (s KeyboardButtonSwitchInlineArray) SortStable(less func(a, b KeyboardButtonSwitchInline) bool) KeyboardButtonSwitchInlineArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of KeyboardButtonSwitchInline.
-func (s KeyboardButtonSwitchInlineArray) Retain(keep func(x KeyboardButtonSwitchInline) bool) KeyboardButtonSwitchInlineArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s KeyboardButtonSwitchInlineArray) First() (v KeyboardButtonSwitchInline, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s KeyboardButtonSwitchInlineArray) Last() (v KeyboardButtonSwitchInline, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonSwitchInlineArray) PopFirst() (v KeyboardButtonSwitchInline, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero KeyboardButtonSwitchInline
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonSwitchInlineArray) Pop() (v KeyboardButtonSwitchInline, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// KeyboardButtonGameArray is adapter for slice of KeyboardButtonGame.
-type KeyboardButtonGameArray []KeyboardButtonGame
-
-// Sort sorts slice of KeyboardButtonGame.
-func (s KeyboardButtonGameArray) Sort(less func(a, b KeyboardButtonGame) bool) KeyboardButtonGameArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of KeyboardButtonGame.
-func (s KeyboardButtonGameArray) SortStable(less func(a, b KeyboardButtonGame) bool) KeyboardButtonGameArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of KeyboardButtonGame.
-func (s KeyboardButtonGameArray) Retain(keep func(x KeyboardButtonGame) bool) KeyboardButtonGameArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s KeyboardButtonGameArray) First() (v KeyboardButtonGame, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s KeyboardButtonGameArray) Last() (v KeyboardButtonGame, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonGameArray) PopFirst() (v KeyboardButtonGame, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero KeyboardButtonGame
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonGameArray) Pop() (v KeyboardButtonGame, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// KeyboardButtonBuyArray is adapter for slice of KeyboardButtonBuy.
-type KeyboardButtonBuyArray []KeyboardButtonBuy
-
-// Sort sorts slice of KeyboardButtonBuy.
-func (s KeyboardButtonBuyArray) Sort(less func(a, b KeyboardButtonBuy) bool) KeyboardButtonBuyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of KeyboardButtonBuy.
-func (s KeyboardButtonBuyArray) SortStable(less func(a, b KeyboardButtonBuy) bool) KeyboardButtonBuyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of KeyboardButtonBuy.
-func (s KeyboardButtonBuyArray) Retain(keep func(x KeyboardButtonBuy) bool) KeyboardButtonBuyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s KeyboardButtonBuyArray) First() (v KeyboardButtonBuy, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s KeyboardButtonBuyArray) Last() (v KeyboardButtonBuy, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonBuyArray) PopFirst() (v KeyboardButtonBuy, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero KeyboardButtonBuy
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonBuyArray) Pop() (v KeyboardButtonBuy, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// KeyboardButtonURLAuthArray is adapter for slice of KeyboardButtonURLAuth.
-type KeyboardButtonURLAuthArray []KeyboardButtonURLAuth
-
-// Sort sorts slice of KeyboardButtonURLAuth.
-func (s KeyboardButtonURLAuthArray) Sort(less func(a, b KeyboardButtonURLAuth) bool) KeyboardButtonURLAuthArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of KeyboardButtonURLAuth.
-func (s KeyboardButtonURLAuthArray) SortStable(less func(a, b KeyboardButtonURLAuth) bool) KeyboardButtonURLAuthArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of KeyboardButtonURLAuth.
-func (s KeyboardButtonURLAuthArray) Retain(keep func(x KeyboardButtonURLAuth) bool) KeyboardButtonURLAuthArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s KeyboardButtonURLAuthArray) First() (v KeyboardButtonURLAuth, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s KeyboardButtonURLAuthArray) Last() (v KeyboardButtonURLAuth, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonURLAuthArray) PopFirst() (v KeyboardButtonURLAuth, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero KeyboardButtonURLAuth
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonURLAuthArray) Pop() (v KeyboardButtonURLAuth, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputKeyboardButtonURLAuthArray is adapter for slice of InputKeyboardButtonURLAuth.
-type InputKeyboardButtonURLAuthArray []InputKeyboardButtonURLAuth
-
-// Sort sorts slice of InputKeyboardButtonURLAuth.
-func (s InputKeyboardButtonURLAuthArray) Sort(less func(a, b InputKeyboardButtonURLAuth) bool) InputKeyboardButtonURLAuthArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputKeyboardButtonURLAuth.
-func (s InputKeyboardButtonURLAuthArray) SortStable(less func(a, b InputKeyboardButtonURLAuth) bool) InputKeyboardButtonURLAuthArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputKeyboardButtonURLAuth.
-func (s InputKeyboardButtonURLAuthArray) Retain(keep func(x InputKeyboardButtonURLAuth) bool) InputKeyboardButtonURLAuthArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputKeyboardButtonURLAuthArray) First() (v InputKeyboardButtonURLAuth, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputKeyboardButtonURLAuthArray) Last() (v InputKeyboardButtonURLAuth, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputKeyboardButtonURLAuthArray) PopFirst() (v InputKeyboardButtonURLAuth, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputKeyboardButtonURLAuth
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputKeyboardButtonURLAuthArray) Pop() (v InputKeyboardButtonURLAuth, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// KeyboardButtonRequestPollArray is adapter for slice of KeyboardButtonRequestPoll.
-type KeyboardButtonRequestPollArray []KeyboardButtonRequestPoll
-
-// Sort sorts slice of KeyboardButtonRequestPoll.
-func (s KeyboardButtonRequestPollArray) Sort(less func(a, b KeyboardButtonRequestPoll) bool) KeyboardButtonRequestPollArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of KeyboardButtonRequestPoll.
-func (s KeyboardButtonRequestPollArray) SortStable(less func(a, b KeyboardButtonRequestPoll) bool) KeyboardButtonRequestPollArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of KeyboardButtonRequestPoll.
-func (s KeyboardButtonRequestPollArray) Retain(keep func(x KeyboardButtonRequestPoll) bool) KeyboardButtonRequestPollArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s KeyboardButtonRequestPollArray) First() (v KeyboardButtonRequestPoll, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s KeyboardButtonRequestPollArray) Last() (v KeyboardButtonRequestPoll, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonRequestPollArray) PopFirst() (v KeyboardButtonRequestPoll, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero KeyboardButtonRequestPoll
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonRequestPollArray) Pop() (v KeyboardButtonRequestPoll, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

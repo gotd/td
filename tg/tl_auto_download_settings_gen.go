@@ -60,6 +60,14 @@ type AutoDownloadSettings struct {
 // AutoDownloadSettingsTypeID is TL type id of AutoDownloadSettings.
 const AutoDownloadSettingsTypeID = 0xe04232f3
 
+// Ensuring interfaces in compile-time for AutoDownloadSettings.
+var (
+	_ bin.Encoder     = &AutoDownloadSettings{}
+	_ bin.Decoder     = &AutoDownloadSettings{}
+	_ bin.BareEncoder = &AutoDownloadSettings{}
+	_ bin.BareDecoder = &AutoDownloadSettings{}
+)
+
 func (a *AutoDownloadSettings) Zero() bool {
 	if a == nil {
 		return true
@@ -224,6 +232,62 @@ func (a *AutoDownloadSettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (a *AutoDownloadSettings) Decode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode autoDownloadSettings#e04232f3 to nil")
+	}
+	if err := b.ConsumeID(AutoDownloadSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: %w", err)
+	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode autoDownloadSettings#e04232f3 to nil")
+	}
+	{
+		if err := a.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field flags: %w", err)
+		}
+	}
+	a.Disabled = a.Flags.Has(0)
+	a.VideoPreloadLarge = a.Flags.Has(1)
+	a.AudioPreloadNext = a.Flags.Has(2)
+	a.PhonecallsLessData = a.Flags.Has(3)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field photo_size_max: %w", err)
+		}
+		a.PhotoSizeMax = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field video_size_max: %w", err)
+		}
+		a.VideoSizeMax = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field file_size_max: %w", err)
+		}
+		a.FileSizeMax = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field video_upload_maxbitrate: %w", err)
+		}
+		a.VideoUploadMaxbitrate = value
+	}
+	return nil
+}
+
 // SetDisabled sets value of Disabled conditional field.
 func (a *AutoDownloadSettings) SetDisabled(value bool) {
 	if value {
@@ -307,67 +371,3 @@ func (a *AutoDownloadSettings) GetFileSizeMax() (value int) {
 func (a *AutoDownloadSettings) GetVideoUploadMaxbitrate() (value int) {
 	return a.VideoUploadMaxbitrate
 }
-
-// Decode implements bin.Decoder.
-func (a *AutoDownloadSettings) Decode(b *bin.Buffer) error {
-	if a == nil {
-		return fmt.Errorf("can't decode autoDownloadSettings#e04232f3 to nil")
-	}
-	if err := b.ConsumeID(AutoDownloadSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: %w", err)
-	}
-	return a.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (a *AutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
-	if a == nil {
-		return fmt.Errorf("can't decode autoDownloadSettings#e04232f3 to nil")
-	}
-	{
-		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field flags: %w", err)
-		}
-	}
-	a.Disabled = a.Flags.Has(0)
-	a.VideoPreloadLarge = a.Flags.Has(1)
-	a.AudioPreloadNext = a.Flags.Has(2)
-	a.PhonecallsLessData = a.Flags.Has(3)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field photo_size_max: %w", err)
-		}
-		a.PhotoSizeMax = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field video_size_max: %w", err)
-		}
-		a.VideoSizeMax = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field file_size_max: %w", err)
-		}
-		a.FileSizeMax = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field video_upload_maxbitrate: %w", err)
-		}
-		a.VideoUploadMaxbitrate = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for AutoDownloadSettings.
-var (
-	_ bin.Encoder     = &AutoDownloadSettings{}
-	_ bin.Decoder     = &AutoDownloadSettings{}
-	_ bin.BareEncoder = &AutoDownloadSettings{}
-	_ bin.BareDecoder = &AutoDownloadSettings{}
-)

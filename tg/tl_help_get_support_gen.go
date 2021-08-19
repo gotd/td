@@ -39,6 +39,14 @@ type HelpGetSupportRequest struct {
 // HelpGetSupportRequestTypeID is TL type id of HelpGetSupportRequest.
 const HelpGetSupportRequestTypeID = 0x9cdf08cd
 
+// Ensuring interfaces in compile-time for HelpGetSupportRequest.
+var (
+	_ bin.Encoder     = &HelpGetSupportRequest{}
+	_ bin.Decoder     = &HelpGetSupportRequest{}
+	_ bin.BareEncoder = &HelpGetSupportRequest{}
+	_ bin.BareDecoder = &HelpGetSupportRequest{}
+)
+
 func (g *HelpGetSupportRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *HelpGetSupportRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for HelpGetSupportRequest.
-var (
-	_ bin.Encoder     = &HelpGetSupportRequest{}
-	_ bin.Decoder     = &HelpGetSupportRequest{}
-	_ bin.BareEncoder = &HelpGetSupportRequest{}
-	_ bin.BareDecoder = &HelpGetSupportRequest{}
-)
 
 // HelpGetSupport invokes method help.getSupport#9cdf08cd returning error if any.
 // Returns the support user for the 'ask a question' feature.

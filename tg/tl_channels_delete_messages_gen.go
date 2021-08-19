@@ -49,6 +49,14 @@ type ChannelsDeleteMessagesRequest struct {
 // ChannelsDeleteMessagesRequestTypeID is TL type id of ChannelsDeleteMessagesRequest.
 const ChannelsDeleteMessagesRequestTypeID = 0x84c1fd4e
 
+// Ensuring interfaces in compile-time for ChannelsDeleteMessagesRequest.
+var (
+	_ bin.Encoder     = &ChannelsDeleteMessagesRequest{}
+	_ bin.Decoder     = &ChannelsDeleteMessagesRequest{}
+	_ bin.BareEncoder = &ChannelsDeleteMessagesRequest{}
+	_ bin.BareDecoder = &ChannelsDeleteMessagesRequest{}
+)
+
 func (d *ChannelsDeleteMessagesRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -143,21 +151,6 @@ func (d *ChannelsDeleteMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (d *ChannelsDeleteMessagesRequest) GetChannel() (value InputChannelClass) {
-	return d.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (d *ChannelsDeleteMessagesRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return d.Channel.AsNotEmpty()
-}
-
-// GetID returns value of ID field.
-func (d *ChannelsDeleteMessagesRequest) GetID() (value []int) {
-	return d.ID
-}
-
 // Decode implements bin.Decoder.
 func (d *ChannelsDeleteMessagesRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -201,13 +194,20 @@ func (d *ChannelsDeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsDeleteMessagesRequest.
-var (
-	_ bin.Encoder     = &ChannelsDeleteMessagesRequest{}
-	_ bin.Decoder     = &ChannelsDeleteMessagesRequest{}
-	_ bin.BareEncoder = &ChannelsDeleteMessagesRequest{}
-	_ bin.BareDecoder = &ChannelsDeleteMessagesRequest{}
-)
+// GetChannel returns value of Channel field.
+func (d *ChannelsDeleteMessagesRequest) GetChannel() (value InputChannelClass) {
+	return d.Channel
+}
+
+// GetID returns value of ID field.
+func (d *ChannelsDeleteMessagesRequest) GetID() (value []int) {
+	return d.ID
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (d *ChannelsDeleteMessagesRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return d.Channel.AsNotEmpty()
+}
 
 // ChannelsDeleteMessages invokes method channels.deleteMessages#84c1fd4e returning error if any.
 // Delete messages in a channel/supergroup¹

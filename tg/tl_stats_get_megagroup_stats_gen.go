@@ -54,6 +54,14 @@ type StatsGetMegagroupStatsRequest struct {
 // StatsGetMegagroupStatsRequestTypeID is TL type id of StatsGetMegagroupStatsRequest.
 const StatsGetMegagroupStatsRequestTypeID = 0xdcdf8607
 
+// Ensuring interfaces in compile-time for StatsGetMegagroupStatsRequest.
+var (
+	_ bin.Encoder     = &StatsGetMegagroupStatsRequest{}
+	_ bin.Decoder     = &StatsGetMegagroupStatsRequest{}
+	_ bin.BareEncoder = &StatsGetMegagroupStatsRequest{}
+	_ bin.BareDecoder = &StatsGetMegagroupStatsRequest{}
+)
+
 func (g *StatsGetMegagroupStatsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -154,32 +162,6 @@ func (g *StatsGetMegagroupStatsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetDark sets value of Dark conditional field.
-func (g *StatsGetMegagroupStatsRequest) SetDark(value bool) {
-	if value {
-		g.Flags.Set(0)
-		g.Dark = true
-	} else {
-		g.Flags.Unset(0)
-		g.Dark = false
-	}
-}
-
-// GetDark returns value of Dark conditional field.
-func (g *StatsGetMegagroupStatsRequest) GetDark() (value bool) {
-	return g.Flags.Has(0)
-}
-
-// GetChannel returns value of Channel field.
-func (g *StatsGetMegagroupStatsRequest) GetChannel() (value InputChannelClass) {
-	return g.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (g *StatsGetMegagroupStatsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (g *StatsGetMegagroupStatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -212,13 +194,31 @@ func (g *StatsGetMegagroupStatsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsGetMegagroupStatsRequest.
-var (
-	_ bin.Encoder     = &StatsGetMegagroupStatsRequest{}
-	_ bin.Decoder     = &StatsGetMegagroupStatsRequest{}
-	_ bin.BareEncoder = &StatsGetMegagroupStatsRequest{}
-	_ bin.BareDecoder = &StatsGetMegagroupStatsRequest{}
-)
+// SetDark sets value of Dark conditional field.
+func (g *StatsGetMegagroupStatsRequest) SetDark(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.Dark = true
+	} else {
+		g.Flags.Unset(0)
+		g.Dark = false
+	}
+}
+
+// GetDark returns value of Dark conditional field.
+func (g *StatsGetMegagroupStatsRequest) GetDark() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// GetChannel returns value of Channel field.
+func (g *StatsGetMegagroupStatsRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *StatsGetMegagroupStatsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
+}
 
 // StatsGetMegagroupStats invokes method stats.getMegagroupStats#dcdf8607 returning error if any.
 // Get supergroup statistics¹

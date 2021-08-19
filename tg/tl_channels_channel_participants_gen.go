@@ -47,6 +47,19 @@ type ChannelsChannelParticipants struct {
 // ChannelsChannelParticipantsTypeID is TL type id of ChannelsChannelParticipants.
 const ChannelsChannelParticipantsTypeID = 0x9ab0feaf
 
+// construct implements constructor of ChannelsChannelParticipantsClass.
+func (c ChannelsChannelParticipants) construct() ChannelsChannelParticipantsClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelsChannelParticipants.
+var (
+	_ bin.Encoder     = &ChannelsChannelParticipants{}
+	_ bin.Decoder     = &ChannelsChannelParticipants{}
+	_ bin.BareEncoder = &ChannelsChannelParticipants{}
+	_ bin.BareDecoder = &ChannelsChannelParticipants{}
+
+	_ ChannelsChannelParticipantsClass = &ChannelsChannelParticipants{}
+)
+
 func (c *ChannelsChannelParticipants) Zero() bool {
 	if c == nil {
 		return true
@@ -177,41 +190,6 @@ func (c *ChannelsChannelParticipants) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (c *ChannelsChannelParticipants) GetCount() (value int) {
-	return c.Count
-}
-
-// GetParticipants returns value of Participants field.
-func (c *ChannelsChannelParticipants) GetParticipants() (value []ChannelParticipantClass) {
-	return c.Participants
-}
-
-// MapParticipants returns field Participants wrapped in ChannelParticipantClassArray helper.
-func (c *ChannelsChannelParticipants) MapParticipants() (value ChannelParticipantClassArray) {
-	return ChannelParticipantClassArray(c.Participants)
-}
-
-// GetChats returns value of Chats field.
-func (c *ChannelsChannelParticipants) GetChats() (value []ChatClass) {
-	return c.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (c *ChannelsChannelParticipants) MapChats() (value ChatClassArray) {
-	return ChatClassArray(c.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (c *ChannelsChannelParticipants) GetUsers() (value []UserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (c *ChannelsChannelParticipants) MapUsers() (value UserClassArray) {
-	return UserClassArray(c.Users)
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelsChannelParticipants) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -289,18 +267,40 @@ func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelsChannelParticipantsClass.
-func (c ChannelsChannelParticipants) construct() ChannelsChannelParticipantsClass { return &c }
+// GetCount returns value of Count field.
+func (c *ChannelsChannelParticipants) GetCount() (value int) {
+	return c.Count
+}
 
-// Ensuring interfaces in compile-time for ChannelsChannelParticipants.
-var (
-	_ bin.Encoder     = &ChannelsChannelParticipants{}
-	_ bin.Decoder     = &ChannelsChannelParticipants{}
-	_ bin.BareEncoder = &ChannelsChannelParticipants{}
-	_ bin.BareDecoder = &ChannelsChannelParticipants{}
+// GetParticipants returns value of Participants field.
+func (c *ChannelsChannelParticipants) GetParticipants() (value []ChannelParticipantClass) {
+	return c.Participants
+}
 
-	_ ChannelsChannelParticipantsClass = &ChannelsChannelParticipants{}
-)
+// GetChats returns value of Chats field.
+func (c *ChannelsChannelParticipants) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// GetUsers returns value of Users field.
+func (c *ChannelsChannelParticipants) GetUsers() (value []UserClass) {
+	return c.Users
+}
+
+// MapParticipants returns field Participants wrapped in ChannelParticipantClassArray helper.
+func (c *ChannelsChannelParticipants) MapParticipants() (value ChannelParticipantClassArray) {
+	return ChannelParticipantClassArray(c.Participants)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *ChannelsChannelParticipants) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *ChannelsChannelParticipants) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
+}
 
 // ChannelsChannelParticipantsNotModified represents TL type `channels.channelParticipantsNotModified#f0173fe9`.
 // No new participant info could be found
@@ -311,6 +311,21 @@ type ChannelsChannelParticipantsNotModified struct {
 
 // ChannelsChannelParticipantsNotModifiedTypeID is TL type id of ChannelsChannelParticipantsNotModified.
 const ChannelsChannelParticipantsNotModifiedTypeID = 0xf0173fe9
+
+// construct implements constructor of ChannelsChannelParticipantsClass.
+func (c ChannelsChannelParticipantsNotModified) construct() ChannelsChannelParticipantsClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelsChannelParticipantsNotModified.
+var (
+	_ bin.Encoder     = &ChannelsChannelParticipantsNotModified{}
+	_ bin.Decoder     = &ChannelsChannelParticipantsNotModified{}
+	_ bin.BareEncoder = &ChannelsChannelParticipantsNotModified{}
+	_ bin.BareDecoder = &ChannelsChannelParticipantsNotModified{}
+
+	_ ChannelsChannelParticipantsClass = &ChannelsChannelParticipantsNotModified{}
+)
 
 func (c *ChannelsChannelParticipantsNotModified) Zero() bool {
 	if c == nil {
@@ -390,21 +405,6 @@ func (c *ChannelsChannelParticipantsNotModified) DecodeBare(b *bin.Buffer) error
 	}
 	return nil
 }
-
-// construct implements constructor of ChannelsChannelParticipantsClass.
-func (c ChannelsChannelParticipantsNotModified) construct() ChannelsChannelParticipantsClass {
-	return &c
-}
-
-// Ensuring interfaces in compile-time for ChannelsChannelParticipantsNotModified.
-var (
-	_ bin.Encoder     = &ChannelsChannelParticipantsNotModified{}
-	_ bin.Decoder     = &ChannelsChannelParticipantsNotModified{}
-	_ bin.BareEncoder = &ChannelsChannelParticipantsNotModified{}
-	_ bin.BareDecoder = &ChannelsChannelParticipantsNotModified{}
-
-	_ ChannelsChannelParticipantsClass = &ChannelsChannelParticipantsNotModified{}
-)
 
 // ChannelsChannelParticipantsClass represents channels.ChannelParticipants generic type.
 //
@@ -502,236 +502,4 @@ func (b *ChannelsChannelParticipantsBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChannelsChannelParticipantsClass as nil")
 	}
 	return b.ChannelParticipants.Encode(buf)
-}
-
-// ChannelsChannelParticipantsClassArray is adapter for slice of ChannelsChannelParticipantsClass.
-type ChannelsChannelParticipantsClassArray []ChannelsChannelParticipantsClass
-
-// Sort sorts slice of ChannelsChannelParticipantsClass.
-func (s ChannelsChannelParticipantsClassArray) Sort(less func(a, b ChannelsChannelParticipantsClass) bool) ChannelsChannelParticipantsClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChannelsChannelParticipantsClass.
-func (s ChannelsChannelParticipantsClassArray) SortStable(less func(a, b ChannelsChannelParticipantsClass) bool) ChannelsChannelParticipantsClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChannelsChannelParticipantsClass.
-func (s ChannelsChannelParticipantsClassArray) Retain(keep func(x ChannelsChannelParticipantsClass) bool) ChannelsChannelParticipantsClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChannelsChannelParticipantsClassArray) First() (v ChannelsChannelParticipantsClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChannelsChannelParticipantsClassArray) Last() (v ChannelsChannelParticipantsClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelsChannelParticipantsClassArray) PopFirst() (v ChannelsChannelParticipantsClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChannelsChannelParticipantsClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelsChannelParticipantsClassArray) Pop() (v ChannelsChannelParticipantsClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsChannelsChannelParticipants returns copy with only ChannelsChannelParticipants constructors.
-func (s ChannelsChannelParticipantsClassArray) AsChannelsChannelParticipants() (to ChannelsChannelParticipantsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChannelsChannelParticipants)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyModified appends only Modified constructors to
-// given slice.
-func (s ChannelsChannelParticipantsClassArray) AppendOnlyModified(to []*ChannelsChannelParticipants) []*ChannelsChannelParticipants {
-	for _, elem := range s {
-		value, ok := elem.AsModified()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsModified returns copy with only Modified constructors.
-func (s ChannelsChannelParticipantsClassArray) AsModified() (to []*ChannelsChannelParticipants) {
-	return s.AppendOnlyModified(to)
-}
-
-// FirstAsModified returns first element of slice (if exists).
-func (s ChannelsChannelParticipantsClassArray) FirstAsModified() (v *ChannelsChannelParticipants, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// LastAsModified returns last element of slice (if exists).
-func (s ChannelsChannelParticipantsClassArray) LastAsModified() (v *ChannelsChannelParticipants, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// PopFirstAsModified returns element of slice (if exists).
-func (s *ChannelsChannelParticipantsClassArray) PopFirstAsModified() (v *ChannelsChannelParticipants, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// PopAsModified returns element of slice (if exists).
-func (s *ChannelsChannelParticipantsClassArray) PopAsModified() (v *ChannelsChannelParticipants, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// ChannelsChannelParticipantsArray is adapter for slice of ChannelsChannelParticipants.
-type ChannelsChannelParticipantsArray []ChannelsChannelParticipants
-
-// Sort sorts slice of ChannelsChannelParticipants.
-func (s ChannelsChannelParticipantsArray) Sort(less func(a, b ChannelsChannelParticipants) bool) ChannelsChannelParticipantsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChannelsChannelParticipants.
-func (s ChannelsChannelParticipantsArray) SortStable(less func(a, b ChannelsChannelParticipants) bool) ChannelsChannelParticipantsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChannelsChannelParticipants.
-func (s ChannelsChannelParticipantsArray) Retain(keep func(x ChannelsChannelParticipants) bool) ChannelsChannelParticipantsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChannelsChannelParticipantsArray) First() (v ChannelsChannelParticipants, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChannelsChannelParticipantsArray) Last() (v ChannelsChannelParticipants, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelsChannelParticipantsArray) PopFirst() (v ChannelsChannelParticipants, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChannelsChannelParticipants
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelsChannelParticipantsArray) Pop() (v ChannelsChannelParticipants, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

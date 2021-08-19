@@ -48,6 +48,14 @@ type MessagesGetMessagesViewsRequest struct {
 // MessagesGetMessagesViewsRequestTypeID is TL type id of MessagesGetMessagesViewsRequest.
 const MessagesGetMessagesViewsRequestTypeID = 0x5784d3e1
 
+// Ensuring interfaces in compile-time for MessagesGetMessagesViewsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetMessagesViewsRequest{}
+	_ bin.Decoder     = &MessagesGetMessagesViewsRequest{}
+	_ bin.BareEncoder = &MessagesGetMessagesViewsRequest{}
+	_ bin.BareDecoder = &MessagesGetMessagesViewsRequest{}
+)
+
 func (g *MessagesGetMessagesViewsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -152,21 +160,6 @@ func (g *MessagesGetMessagesViewsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetMessagesViewsRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetID returns value of ID field.
-func (g *MessagesGetMessagesViewsRequest) GetID() (value []int) {
-	return g.ID
-}
-
-// GetIncrement returns value of Increment field.
-func (g *MessagesGetMessagesViewsRequest) GetIncrement() (value bool) {
-	return g.Increment
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetMessagesViewsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -217,13 +210,20 @@ func (g *MessagesGetMessagesViewsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetMessagesViewsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetMessagesViewsRequest{}
-	_ bin.Decoder     = &MessagesGetMessagesViewsRequest{}
-	_ bin.BareEncoder = &MessagesGetMessagesViewsRequest{}
-	_ bin.BareDecoder = &MessagesGetMessagesViewsRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetMessagesViewsRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetID returns value of ID field.
+func (g *MessagesGetMessagesViewsRequest) GetID() (value []int) {
+	return g.ID
+}
+
+// GetIncrement returns value of Increment field.
+func (g *MessagesGetMessagesViewsRequest) GetIncrement() (value bool) {
+	return g.Increment
+}
 
 // MessagesGetMessagesViews invokes method messages.getMessagesViews#5784d3e1 returning error if any.
 // Get and increase the view counter of a message sent or forwarded from a channel¹

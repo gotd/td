@@ -38,6 +38,14 @@ type DialogFilterSuggestedVector struct {
 // DialogFilterSuggestedVectorTypeID is TL type id of DialogFilterSuggestedVector.
 const DialogFilterSuggestedVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for DialogFilterSuggestedVector.
+var (
+	_ bin.Encoder     = &DialogFilterSuggestedVector{}
+	_ bin.Decoder     = &DialogFilterSuggestedVector{}
+	_ bin.BareEncoder = &DialogFilterSuggestedVector{}
+	_ bin.BareDecoder = &DialogFilterSuggestedVector{}
+)
+
 func (vec *DialogFilterSuggestedVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -119,11 +127,6 @@ func (vec *DialogFilterSuggestedVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *DialogFilterSuggestedVector) GetElems() (value []DialogFilterSuggested) {
-	return vec.Elems
-}
-
 // Decode implements bin.Decoder.
 func (vec *DialogFilterSuggestedVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -158,10 +161,7 @@ func (vec *DialogFilterSuggestedVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for DialogFilterSuggestedVector.
-var (
-	_ bin.Encoder     = &DialogFilterSuggestedVector{}
-	_ bin.Decoder     = &DialogFilterSuggestedVector{}
-	_ bin.BareEncoder = &DialogFilterSuggestedVector{}
-	_ bin.BareDecoder = &DialogFilterSuggestedVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *DialogFilterSuggestedVector) GetElems() (value []DialogFilterSuggested) {
+	return vec.Elems
+}

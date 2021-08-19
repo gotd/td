@@ -41,6 +41,14 @@ type AccountGetNotifySettingsRequest struct {
 // AccountGetNotifySettingsRequestTypeID is TL type id of AccountGetNotifySettingsRequest.
 const AccountGetNotifySettingsRequestTypeID = 0x12b3ad31
 
+// Ensuring interfaces in compile-time for AccountGetNotifySettingsRequest.
+var (
+	_ bin.Encoder     = &AccountGetNotifySettingsRequest{}
+	_ bin.Decoder     = &AccountGetNotifySettingsRequest{}
+	_ bin.BareEncoder = &AccountGetNotifySettingsRequest{}
+	_ bin.BareDecoder = &AccountGetNotifySettingsRequest{}
+)
+
 func (g *AccountGetNotifySettingsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -122,11 +130,6 @@ func (g *AccountGetNotifySettingsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *AccountGetNotifySettingsRequest) GetPeer() (value InputNotifyPeerClass) {
-	return g.Peer
-}
-
 // Decode implements bin.Decoder.
 func (g *AccountGetNotifySettingsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -153,13 +156,10 @@ func (g *AccountGetNotifySettingsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountGetNotifySettingsRequest.
-var (
-	_ bin.Encoder     = &AccountGetNotifySettingsRequest{}
-	_ bin.Decoder     = &AccountGetNotifySettingsRequest{}
-	_ bin.BareEncoder = &AccountGetNotifySettingsRequest{}
-	_ bin.BareDecoder = &AccountGetNotifySettingsRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *AccountGetNotifySettingsRequest) GetPeer() (value InputNotifyPeerClass) {
+	return g.Peer
+}
 
 // AccountGetNotifySettings invokes method account.getNotifySettings#12b3ad31 returning error if any.
 // Gets current notification settings for a given user/group, from all users/all groups.

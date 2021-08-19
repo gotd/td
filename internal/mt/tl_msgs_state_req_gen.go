@@ -38,6 +38,14 @@ type MsgsStateReq struct {
 // MsgsStateReqTypeID is TL type id of MsgsStateReq.
 const MsgsStateReqTypeID = 0xda69fb52
 
+// Ensuring interfaces in compile-time for MsgsStateReq.
+var (
+	_ bin.Encoder     = &MsgsStateReq{}
+	_ bin.Decoder     = &MsgsStateReq{}
+	_ bin.BareEncoder = &MsgsStateReq{}
+	_ bin.BareDecoder = &MsgsStateReq{}
+)
+
 func (m *MsgsStateReq) Zero() bool {
 	if m == nil {
 		return true
@@ -56,13 +64,6 @@ func (m *MsgsStateReq) String() string {
 	}
 	type Alias MsgsStateReq
 	return fmt.Sprintf("MsgsStateReq%+v", Alias(*m))
-}
-
-// FillFrom fills MsgsStateReq from given interface.
-func (m *MsgsStateReq) FillFrom(from interface {
-	GetMsgIDs() (value []int64)
-}) {
-	m.MsgIDs = from.GetMsgIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -117,11 +118,6 @@ func (m *MsgsStateReq) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMsgIDs returns value of MsgIDs field.
-func (m *MsgsStateReq) GetMsgIDs() (value []int64) {
-	return m.MsgIDs
-}
-
 // Decode implements bin.Decoder.
 func (m *MsgsStateReq) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -158,10 +154,7 @@ func (m *MsgsStateReq) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MsgsStateReq.
-var (
-	_ bin.Encoder     = &MsgsStateReq{}
-	_ bin.Decoder     = &MsgsStateReq{}
-	_ bin.BareEncoder = &MsgsStateReq{}
-	_ bin.BareDecoder = &MsgsStateReq{}
-)
+// GetMsgIDs returns value of MsgIDs field.
+func (m *MsgsStateReq) GetMsgIDs() (value []int64) {
+	return m.MsgIDs
+}

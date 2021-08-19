@@ -80,6 +80,14 @@ type MessagesSendMessageRequest struct {
 // MessagesSendMessageRequestTypeID is TL type id of MessagesSendMessageRequest.
 const MessagesSendMessageRequestTypeID = 0x520c3870
 
+// Ensuring interfaces in compile-time for MessagesSendMessageRequest.
+var (
+	_ bin.Encoder     = &MessagesSendMessageRequest{}
+	_ bin.Decoder     = &MessagesSendMessageRequest{}
+	_ bin.BareEncoder = &MessagesSendMessageRequest{}
+	_ bin.BareDecoder = &MessagesSendMessageRequest{}
+)
+
 func (s *MessagesSendMessageRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -328,6 +336,93 @@ func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (s *MessagesSendMessageRequest) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sendMessage#520c3870 to nil")
+	}
+	if err := b.ConsumeID(MessagesSendMessageRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.sendMessage#520c3870: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sendMessage#520c3870 to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field flags: %w", err)
+		}
+	}
+	s.NoWebpage = s.Flags.Has(1)
+	s.Silent = s.Flags.Has(5)
+	s.Background = s.Flags.Has(6)
+	s.ClearDraft = s.Flags.Has(7)
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field peer: %w", err)
+		}
+		s.Peer = value
+	}
+	if s.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field reply_to_msg_id: %w", err)
+		}
+		s.ReplyToMsgID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field message: %w", err)
+		}
+		s.Message = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field random_id: %w", err)
+		}
+		s.RandomID = value
+	}
+	if s.Flags.Has(2) {
+		value, err := DecodeReplyMarkup(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field reply_markup: %w", err)
+		}
+		s.ReplyMarkup = value
+	}
+	if s.Flags.Has(3) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field entities: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMessageEntity(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field entities: %w", err)
+			}
+			s.Entities = append(s.Entities, value)
+		}
+	}
+	if s.Flags.Has(10) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field schedule_date: %w", err)
+		}
+		s.ScheduleDate = value
+	}
+	return nil
+}
+
 // SetNoWebpage sets value of NoWebpage conditional field.
 func (s *MessagesSendMessageRequest) SetNoWebpage(value bool) {
 	if value {
@@ -452,14 +547,6 @@ func (s *MessagesSendMessageRequest) GetEntities() (value []MessageEntityClass, 
 	return s.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !s.Flags.Has(3) {
-		return value, false
-	}
-	return MessageEntityClassArray(s.Entities), true
-}
-
 // SetScheduleDate sets value of ScheduleDate conditional field.
 func (s *MessagesSendMessageRequest) SetScheduleDate(value int) {
 	s.Flags.Set(10)
@@ -475,100 +562,13 @@ func (s *MessagesSendMessageRequest) GetScheduleDate() (value int, ok bool) {
 	return s.ScheduleDate, true
 }
 
-// Decode implements bin.Decoder.
-func (s *MessagesSendMessageRequest) Decode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMessage#520c3870 to nil")
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !s.Flags.Has(3) {
+		return value, false
 	}
-	if err := b.ConsumeID(MessagesSendMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendMessage#520c3870: %w", err)
-	}
-	return s.DecodeBare(b)
+	return MessageEntityClassArray(s.Entities), true
 }
-
-// DecodeBare implements bin.BareDecoder.
-func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMessage#520c3870 to nil")
-	}
-	{
-		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field flags: %w", err)
-		}
-	}
-	s.NoWebpage = s.Flags.Has(1)
-	s.Silent = s.Flags.Has(5)
-	s.Background = s.Flags.Has(6)
-	s.ClearDraft = s.Flags.Has(7)
-	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field peer: %w", err)
-		}
-		s.Peer = value
-	}
-	if s.Flags.Has(0) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field reply_to_msg_id: %w", err)
-		}
-		s.ReplyToMsgID = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field message: %w", err)
-		}
-		s.Message = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field random_id: %w", err)
-		}
-		s.RandomID = value
-	}
-	if s.Flags.Has(2) {
-		value, err := DecodeReplyMarkup(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field reply_markup: %w", err)
-		}
-		s.ReplyMarkup = value
-	}
-	if s.Flags.Has(3) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field entities: %w", err)
-		}
-
-		if headerLen > 0 {
-			s.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeMessageEntity(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field entities: %w", err)
-			}
-			s.Entities = append(s.Entities, value)
-		}
-	}
-	if s.Flags.Has(10) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field schedule_date: %w", err)
-		}
-		s.ScheduleDate = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesSendMessageRequest.
-var (
-	_ bin.Encoder     = &MessagesSendMessageRequest{}
-	_ bin.Decoder     = &MessagesSendMessageRequest{}
-	_ bin.BareEncoder = &MessagesSendMessageRequest{}
-	_ bin.BareDecoder = &MessagesSendMessageRequest{}
-)
 
 // MessagesSendMessage invokes method messages.sendMessage#520c3870 returning error if any.
 // Sends a message to a chat

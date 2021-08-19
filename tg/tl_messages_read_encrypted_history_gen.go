@@ -43,6 +43,14 @@ type MessagesReadEncryptedHistoryRequest struct {
 // MessagesReadEncryptedHistoryRequestTypeID is TL type id of MessagesReadEncryptedHistoryRequest.
 const MessagesReadEncryptedHistoryRequestTypeID = 0x7f4b690a
 
+// Ensuring interfaces in compile-time for MessagesReadEncryptedHistoryRequest.
+var (
+	_ bin.Encoder     = &MessagesReadEncryptedHistoryRequest{}
+	_ bin.Decoder     = &MessagesReadEncryptedHistoryRequest{}
+	_ bin.BareEncoder = &MessagesReadEncryptedHistoryRequest{}
+	_ bin.BareDecoder = &MessagesReadEncryptedHistoryRequest{}
+)
+
 func (r *MessagesReadEncryptedHistoryRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -131,16 +139,6 @@ func (r *MessagesReadEncryptedHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (r *MessagesReadEncryptedHistoryRequest) GetPeer() (value InputEncryptedChat) {
-	return r.Peer
-}
-
-// GetMaxDate returns value of MaxDate field.
-func (r *MessagesReadEncryptedHistoryRequest) GetMaxDate() (value int) {
-	return r.MaxDate
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesReadEncryptedHistoryRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -172,13 +170,15 @@ func (r *MessagesReadEncryptedHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesReadEncryptedHistoryRequest.
-var (
-	_ bin.Encoder     = &MessagesReadEncryptedHistoryRequest{}
-	_ bin.Decoder     = &MessagesReadEncryptedHistoryRequest{}
-	_ bin.BareEncoder = &MessagesReadEncryptedHistoryRequest{}
-	_ bin.BareDecoder = &MessagesReadEncryptedHistoryRequest{}
-)
+// GetPeer returns value of Peer field.
+func (r *MessagesReadEncryptedHistoryRequest) GetPeer() (value InputEncryptedChat) {
+	return r.Peer
+}
+
+// GetMaxDate returns value of MaxDate field.
+func (r *MessagesReadEncryptedHistoryRequest) GetMaxDate() (value int) {
+	return r.MaxDate
+}
 
 // MessagesReadEncryptedHistory invokes method messages.readEncryptedHistory#7f4b690a returning error if any.
 // Marks message history within a secret chat as read.

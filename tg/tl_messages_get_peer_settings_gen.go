@@ -41,6 +41,14 @@ type MessagesGetPeerSettingsRequest struct {
 // MessagesGetPeerSettingsRequestTypeID is TL type id of MessagesGetPeerSettingsRequest.
 const MessagesGetPeerSettingsRequestTypeID = 0x3672e09c
 
+// Ensuring interfaces in compile-time for MessagesGetPeerSettingsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetPeerSettingsRequest{}
+	_ bin.Decoder     = &MessagesGetPeerSettingsRequest{}
+	_ bin.BareEncoder = &MessagesGetPeerSettingsRequest{}
+	_ bin.BareDecoder = &MessagesGetPeerSettingsRequest{}
+)
+
 func (g *MessagesGetPeerSettingsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -122,11 +130,6 @@ func (g *MessagesGetPeerSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetPeerSettingsRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetPeerSettingsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -153,13 +156,10 @@ func (g *MessagesGetPeerSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetPeerSettingsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetPeerSettingsRequest{}
-	_ bin.Decoder     = &MessagesGetPeerSettingsRequest{}
-	_ bin.BareEncoder = &MessagesGetPeerSettingsRequest{}
-	_ bin.BareDecoder = &MessagesGetPeerSettingsRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetPeerSettingsRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
 
 // MessagesGetPeerSettings invokes method messages.getPeerSettings#3672e09c returning error if any.
 // Get peer settings

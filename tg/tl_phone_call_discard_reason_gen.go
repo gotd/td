@@ -39,6 +39,19 @@ type PhoneCallDiscardReasonMissed struct {
 // PhoneCallDiscardReasonMissedTypeID is TL type id of PhoneCallDiscardReasonMissed.
 const PhoneCallDiscardReasonMissedTypeID = 0x85e42301
 
+// construct implements constructor of PhoneCallDiscardReasonClass.
+func (p PhoneCallDiscardReasonMissed) construct() PhoneCallDiscardReasonClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallDiscardReasonMissed.
+var (
+	_ bin.Encoder     = &PhoneCallDiscardReasonMissed{}
+	_ bin.Decoder     = &PhoneCallDiscardReasonMissed{}
+	_ bin.BareEncoder = &PhoneCallDiscardReasonMissed{}
+	_ bin.BareDecoder = &PhoneCallDiscardReasonMissed{}
+
+	_ PhoneCallDiscardReasonClass = &PhoneCallDiscardReasonMissed{}
+)
+
 func (p *PhoneCallDiscardReasonMissed) Zero() bool {
 	if p == nil {
 		return true
@@ -118,19 +131,6 @@ func (p *PhoneCallDiscardReasonMissed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneCallDiscardReasonClass.
-func (p PhoneCallDiscardReasonMissed) construct() PhoneCallDiscardReasonClass { return &p }
-
-// Ensuring interfaces in compile-time for PhoneCallDiscardReasonMissed.
-var (
-	_ bin.Encoder     = &PhoneCallDiscardReasonMissed{}
-	_ bin.Decoder     = &PhoneCallDiscardReasonMissed{}
-	_ bin.BareEncoder = &PhoneCallDiscardReasonMissed{}
-	_ bin.BareDecoder = &PhoneCallDiscardReasonMissed{}
-
-	_ PhoneCallDiscardReasonClass = &PhoneCallDiscardReasonMissed{}
-)
-
 // PhoneCallDiscardReasonDisconnect represents TL type `phoneCallDiscardReasonDisconnect#e095c1a0`.
 // The phone call was disconnected
 //
@@ -140,6 +140,19 @@ type PhoneCallDiscardReasonDisconnect struct {
 
 // PhoneCallDiscardReasonDisconnectTypeID is TL type id of PhoneCallDiscardReasonDisconnect.
 const PhoneCallDiscardReasonDisconnectTypeID = 0xe095c1a0
+
+// construct implements constructor of PhoneCallDiscardReasonClass.
+func (p PhoneCallDiscardReasonDisconnect) construct() PhoneCallDiscardReasonClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallDiscardReasonDisconnect.
+var (
+	_ bin.Encoder     = &PhoneCallDiscardReasonDisconnect{}
+	_ bin.Decoder     = &PhoneCallDiscardReasonDisconnect{}
+	_ bin.BareEncoder = &PhoneCallDiscardReasonDisconnect{}
+	_ bin.BareDecoder = &PhoneCallDiscardReasonDisconnect{}
+
+	_ PhoneCallDiscardReasonClass = &PhoneCallDiscardReasonDisconnect{}
+)
 
 func (p *PhoneCallDiscardReasonDisconnect) Zero() bool {
 	if p == nil {
@@ -220,19 +233,6 @@ func (p *PhoneCallDiscardReasonDisconnect) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneCallDiscardReasonClass.
-func (p PhoneCallDiscardReasonDisconnect) construct() PhoneCallDiscardReasonClass { return &p }
-
-// Ensuring interfaces in compile-time for PhoneCallDiscardReasonDisconnect.
-var (
-	_ bin.Encoder     = &PhoneCallDiscardReasonDisconnect{}
-	_ bin.Decoder     = &PhoneCallDiscardReasonDisconnect{}
-	_ bin.BareEncoder = &PhoneCallDiscardReasonDisconnect{}
-	_ bin.BareDecoder = &PhoneCallDiscardReasonDisconnect{}
-
-	_ PhoneCallDiscardReasonClass = &PhoneCallDiscardReasonDisconnect{}
-)
-
 // PhoneCallDiscardReasonHangup represents TL type `phoneCallDiscardReasonHangup#57adc690`.
 // The phone call was ended normally
 //
@@ -242,6 +242,19 @@ type PhoneCallDiscardReasonHangup struct {
 
 // PhoneCallDiscardReasonHangupTypeID is TL type id of PhoneCallDiscardReasonHangup.
 const PhoneCallDiscardReasonHangupTypeID = 0x57adc690
+
+// construct implements constructor of PhoneCallDiscardReasonClass.
+func (p PhoneCallDiscardReasonHangup) construct() PhoneCallDiscardReasonClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallDiscardReasonHangup.
+var (
+	_ bin.Encoder     = &PhoneCallDiscardReasonHangup{}
+	_ bin.Decoder     = &PhoneCallDiscardReasonHangup{}
+	_ bin.BareEncoder = &PhoneCallDiscardReasonHangup{}
+	_ bin.BareDecoder = &PhoneCallDiscardReasonHangup{}
+
+	_ PhoneCallDiscardReasonClass = &PhoneCallDiscardReasonHangup{}
+)
 
 func (p *PhoneCallDiscardReasonHangup) Zero() bool {
 	if p == nil {
@@ -322,19 +335,6 @@ func (p *PhoneCallDiscardReasonHangup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneCallDiscardReasonClass.
-func (p PhoneCallDiscardReasonHangup) construct() PhoneCallDiscardReasonClass { return &p }
-
-// Ensuring interfaces in compile-time for PhoneCallDiscardReasonHangup.
-var (
-	_ bin.Encoder     = &PhoneCallDiscardReasonHangup{}
-	_ bin.Decoder     = &PhoneCallDiscardReasonHangup{}
-	_ bin.BareEncoder = &PhoneCallDiscardReasonHangup{}
-	_ bin.BareDecoder = &PhoneCallDiscardReasonHangup{}
-
-	_ PhoneCallDiscardReasonClass = &PhoneCallDiscardReasonHangup{}
-)
-
 // PhoneCallDiscardReasonBusy represents TL type `phoneCallDiscardReasonBusy#faf7e8c9`.
 // The phone call was discared because the user is busy in another call
 //
@@ -344,6 +344,19 @@ type PhoneCallDiscardReasonBusy struct {
 
 // PhoneCallDiscardReasonBusyTypeID is TL type id of PhoneCallDiscardReasonBusy.
 const PhoneCallDiscardReasonBusyTypeID = 0xfaf7e8c9
+
+// construct implements constructor of PhoneCallDiscardReasonClass.
+func (p PhoneCallDiscardReasonBusy) construct() PhoneCallDiscardReasonClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallDiscardReasonBusy.
+var (
+	_ bin.Encoder     = &PhoneCallDiscardReasonBusy{}
+	_ bin.Decoder     = &PhoneCallDiscardReasonBusy{}
+	_ bin.BareEncoder = &PhoneCallDiscardReasonBusy{}
+	_ bin.BareDecoder = &PhoneCallDiscardReasonBusy{}
+
+	_ PhoneCallDiscardReasonClass = &PhoneCallDiscardReasonBusy{}
+)
 
 func (p *PhoneCallDiscardReasonBusy) Zero() bool {
 	if p == nil {
@@ -423,19 +436,6 @@ func (p *PhoneCallDiscardReasonBusy) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of PhoneCallDiscardReasonClass.
-func (p PhoneCallDiscardReasonBusy) construct() PhoneCallDiscardReasonClass { return &p }
-
-// Ensuring interfaces in compile-time for PhoneCallDiscardReasonBusy.
-var (
-	_ bin.Encoder     = &PhoneCallDiscardReasonBusy{}
-	_ bin.Decoder     = &PhoneCallDiscardReasonBusy{}
-	_ bin.BareEncoder = &PhoneCallDiscardReasonBusy{}
-	_ bin.BareDecoder = &PhoneCallDiscardReasonBusy{}
-
-	_ PhoneCallDiscardReasonClass = &PhoneCallDiscardReasonBusy{}
-)
 
 // PhoneCallDiscardReasonClass represents PhoneCallDiscardReason generic type.
 //
@@ -536,86 +536,4 @@ func (b *PhoneCallDiscardReasonBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PhoneCallDiscardReasonClass as nil")
 	}
 	return b.PhoneCallDiscardReason.Encode(buf)
-}
-
-// PhoneCallDiscardReasonClassArray is adapter for slice of PhoneCallDiscardReasonClass.
-type PhoneCallDiscardReasonClassArray []PhoneCallDiscardReasonClass
-
-// Sort sorts slice of PhoneCallDiscardReasonClass.
-func (s PhoneCallDiscardReasonClassArray) Sort(less func(a, b PhoneCallDiscardReasonClass) bool) PhoneCallDiscardReasonClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhoneCallDiscardReasonClass.
-func (s PhoneCallDiscardReasonClassArray) SortStable(less func(a, b PhoneCallDiscardReasonClass) bool) PhoneCallDiscardReasonClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhoneCallDiscardReasonClass.
-func (s PhoneCallDiscardReasonClassArray) Retain(keep func(x PhoneCallDiscardReasonClass) bool) PhoneCallDiscardReasonClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhoneCallDiscardReasonClassArray) First() (v PhoneCallDiscardReasonClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhoneCallDiscardReasonClassArray) Last() (v PhoneCallDiscardReasonClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneCallDiscardReasonClassArray) PopFirst() (v PhoneCallDiscardReasonClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhoneCallDiscardReasonClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneCallDiscardReasonClassArray) Pop() (v PhoneCallDiscardReasonClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

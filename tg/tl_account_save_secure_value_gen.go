@@ -53,6 +53,14 @@ type AccountSaveSecureValueRequest struct {
 // AccountSaveSecureValueRequestTypeID is TL type id of AccountSaveSecureValueRequest.
 const AccountSaveSecureValueRequestTypeID = 0x899fe31d
 
+// Ensuring interfaces in compile-time for AccountSaveSecureValueRequest.
+var (
+	_ bin.Encoder     = &AccountSaveSecureValueRequest{}
+	_ bin.Decoder     = &AccountSaveSecureValueRequest{}
+	_ bin.BareEncoder = &AccountSaveSecureValueRequest{}
+	_ bin.BareDecoder = &AccountSaveSecureValueRequest{}
+)
+
 func (s *AccountSaveSecureValueRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -141,16 +149,6 @@ func (s *AccountSaveSecureValueRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (s *AccountSaveSecureValueRequest) GetValue() (value InputSecureValue) {
-	return s.Value
-}
-
-// GetSecureSecretID returns value of SecureSecretID field.
-func (s *AccountSaveSecureValueRequest) GetSecureSecretID() (value int64) {
-	return s.SecureSecretID
-}
-
 // Decode implements bin.Decoder.
 func (s *AccountSaveSecureValueRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -182,13 +180,15 @@ func (s *AccountSaveSecureValueRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountSaveSecureValueRequest.
-var (
-	_ bin.Encoder     = &AccountSaveSecureValueRequest{}
-	_ bin.Decoder     = &AccountSaveSecureValueRequest{}
-	_ bin.BareEncoder = &AccountSaveSecureValueRequest{}
-	_ bin.BareDecoder = &AccountSaveSecureValueRequest{}
-)
+// GetValue returns value of Value field.
+func (s *AccountSaveSecureValueRequest) GetValue() (value InputSecureValue) {
+	return s.Value
+}
+
+// GetSecureSecretID returns value of SecureSecretID field.
+func (s *AccountSaveSecureValueRequest) GetSecureSecretID() (value int64) {
+	return s.SecureSecretID
+}
 
 // AccountSaveSecureValue invokes method account.saveSecureValue#899fe31d returning error if any.
 // Securely save Telegram Passport¹ document, for more info see the passport docs »²

@@ -38,6 +38,14 @@ type Ok struct {
 // OkTypeID is TL type id of Ok.
 const OkTypeID = 0xd4edbe69
 
+// Ensuring interfaces in compile-time for Ok.
+var (
+	_ bin.Encoder     = &Ok{}
+	_ bin.Decoder     = &Ok{}
+	_ bin.BareEncoder = &Ok{}
+	_ bin.BareDecoder = &Ok{}
+)
+
 func (o *Ok) Zero() bool {
 	if o == nil {
 		return true
@@ -116,11 +124,3 @@ func (o *Ok) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for Ok.
-var (
-	_ bin.Encoder     = &Ok{}
-	_ bin.Decoder     = &Ok{}
-	_ bin.BareEncoder = &Ok{}
-	_ bin.BareDecoder = &Ok{}
-)

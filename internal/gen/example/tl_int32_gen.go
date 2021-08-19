@@ -38,6 +38,14 @@ type Int32 struct {
 // Int32TypeID is TL type id of Int32.
 const Int32TypeID = 0x5cb934fa
 
+// Ensuring interfaces in compile-time for Int32.
+var (
+	_ bin.Encoder     = &Int32{}
+	_ bin.Decoder     = &Int32{}
+	_ bin.BareEncoder = &Int32{}
+	_ bin.BareDecoder = &Int32{}
+)
+
 func (i *Int32) Zero() bool {
 	if i == nil {
 		return true
@@ -116,11 +124,3 @@ func (i *Int32) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for Int32.
-var (
-	_ bin.Encoder     = &Int32{}
-	_ bin.Decoder     = &Int32{}
-	_ bin.BareEncoder = &Int32{}
-	_ bin.BareDecoder = &Int32{}
-)

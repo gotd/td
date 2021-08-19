@@ -39,6 +39,19 @@ type ContactsContactsNotModified struct {
 // ContactsContactsNotModifiedTypeID is TL type id of ContactsContactsNotModified.
 const ContactsContactsNotModifiedTypeID = 0xb74ba9d2
 
+// construct implements constructor of ContactsContactsClass.
+func (c ContactsContactsNotModified) construct() ContactsContactsClass { return &c }
+
+// Ensuring interfaces in compile-time for ContactsContactsNotModified.
+var (
+	_ bin.Encoder     = &ContactsContactsNotModified{}
+	_ bin.Decoder     = &ContactsContactsNotModified{}
+	_ bin.BareEncoder = &ContactsContactsNotModified{}
+	_ bin.BareDecoder = &ContactsContactsNotModified{}
+
+	_ ContactsContactsClass = &ContactsContactsNotModified{}
+)
+
 func (c *ContactsContactsNotModified) Zero() bool {
 	if c == nil {
 		return true
@@ -118,19 +131,6 @@ func (c *ContactsContactsNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ContactsContactsClass.
-func (c ContactsContactsNotModified) construct() ContactsContactsClass { return &c }
-
-// Ensuring interfaces in compile-time for ContactsContactsNotModified.
-var (
-	_ bin.Encoder     = &ContactsContactsNotModified{}
-	_ bin.Decoder     = &ContactsContactsNotModified{}
-	_ bin.BareEncoder = &ContactsContactsNotModified{}
-	_ bin.BareDecoder = &ContactsContactsNotModified{}
-
-	_ ContactsContactsClass = &ContactsContactsNotModified{}
-)
-
 // ContactsContacts represents TL type `contacts.contacts#eae87e42`.
 // The current user's contact list and info on users.
 //
@@ -146,6 +146,19 @@ type ContactsContacts struct {
 
 // ContactsContactsTypeID is TL type id of ContactsContacts.
 const ContactsContactsTypeID = 0xeae87e42
+
+// construct implements constructor of ContactsContactsClass.
+func (c ContactsContacts) construct() ContactsContactsClass { return &c }
+
+// Ensuring interfaces in compile-time for ContactsContacts.
+var (
+	_ bin.Encoder     = &ContactsContacts{}
+	_ bin.Decoder     = &ContactsContacts{}
+	_ bin.BareEncoder = &ContactsContacts{}
+	_ bin.BareDecoder = &ContactsContacts{}
+
+	_ ContactsContactsClass = &ContactsContacts{}
+)
 
 func (c *ContactsContacts) Zero() bool {
 	if c == nil {
@@ -256,26 +269,6 @@ func (c *ContactsContacts) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetContacts returns value of Contacts field.
-func (c *ContactsContacts) GetContacts() (value []Contact) {
-	return c.Contacts
-}
-
-// GetSavedCount returns value of SavedCount field.
-func (c *ContactsContacts) GetSavedCount() (value int) {
-	return c.SavedCount
-}
-
-// GetUsers returns value of Users field.
-func (c *ContactsContacts) GetUsers() (value []UserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (c *ContactsContacts) MapUsers() (value UserClassArray) {
-	return UserClassArray(c.Users)
-}
-
 // Decode implements bin.Decoder.
 func (c *ContactsContacts) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -336,18 +329,25 @@ func (c *ContactsContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ContactsContactsClass.
-func (c ContactsContacts) construct() ContactsContactsClass { return &c }
+// GetContacts returns value of Contacts field.
+func (c *ContactsContacts) GetContacts() (value []Contact) {
+	return c.Contacts
+}
 
-// Ensuring interfaces in compile-time for ContactsContacts.
-var (
-	_ bin.Encoder     = &ContactsContacts{}
-	_ bin.Decoder     = &ContactsContacts{}
-	_ bin.BareEncoder = &ContactsContacts{}
-	_ bin.BareDecoder = &ContactsContacts{}
+// GetSavedCount returns value of SavedCount field.
+func (c *ContactsContacts) GetSavedCount() (value int) {
+	return c.SavedCount
+}
 
-	_ ContactsContactsClass = &ContactsContacts{}
-)
+// GetUsers returns value of Users field.
+func (c *ContactsContacts) GetUsers() (value []UserClass) {
+	return c.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *ContactsContacts) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
+}
 
 // ContactsContactsClass represents contacts.Contacts generic type.
 //
@@ -445,236 +445,4 @@ func (b *ContactsContactsBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ContactsContactsClass as nil")
 	}
 	return b.Contacts.Encode(buf)
-}
-
-// ContactsContactsClassArray is adapter for slice of ContactsContactsClass.
-type ContactsContactsClassArray []ContactsContactsClass
-
-// Sort sorts slice of ContactsContactsClass.
-func (s ContactsContactsClassArray) Sort(less func(a, b ContactsContactsClass) bool) ContactsContactsClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ContactsContactsClass.
-func (s ContactsContactsClassArray) SortStable(less func(a, b ContactsContactsClass) bool) ContactsContactsClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ContactsContactsClass.
-func (s ContactsContactsClassArray) Retain(keep func(x ContactsContactsClass) bool) ContactsContactsClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ContactsContactsClassArray) First() (v ContactsContactsClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ContactsContactsClassArray) Last() (v ContactsContactsClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ContactsContactsClassArray) PopFirst() (v ContactsContactsClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ContactsContactsClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ContactsContactsClassArray) Pop() (v ContactsContactsClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsContactsContacts returns copy with only ContactsContacts constructors.
-func (s ContactsContactsClassArray) AsContactsContacts() (to ContactsContactsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ContactsContacts)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyModified appends only Modified constructors to
-// given slice.
-func (s ContactsContactsClassArray) AppendOnlyModified(to []*ContactsContacts) []*ContactsContacts {
-	for _, elem := range s {
-		value, ok := elem.AsModified()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsModified returns copy with only Modified constructors.
-func (s ContactsContactsClassArray) AsModified() (to []*ContactsContacts) {
-	return s.AppendOnlyModified(to)
-}
-
-// FirstAsModified returns first element of slice (if exists).
-func (s ContactsContactsClassArray) FirstAsModified() (v *ContactsContacts, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// LastAsModified returns last element of slice (if exists).
-func (s ContactsContactsClassArray) LastAsModified() (v *ContactsContacts, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// PopFirstAsModified returns element of slice (if exists).
-func (s *ContactsContactsClassArray) PopFirstAsModified() (v *ContactsContacts, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// PopAsModified returns element of slice (if exists).
-func (s *ContactsContactsClassArray) PopAsModified() (v *ContactsContacts, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// ContactsContactsArray is adapter for slice of ContactsContacts.
-type ContactsContactsArray []ContactsContacts
-
-// Sort sorts slice of ContactsContacts.
-func (s ContactsContactsArray) Sort(less func(a, b ContactsContacts) bool) ContactsContactsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ContactsContacts.
-func (s ContactsContactsArray) SortStable(less func(a, b ContactsContacts) bool) ContactsContactsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ContactsContacts.
-func (s ContactsContactsArray) Retain(keep func(x ContactsContacts) bool) ContactsContactsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ContactsContactsArray) First() (v ContactsContacts, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ContactsContactsArray) Last() (v ContactsContacts, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ContactsContactsArray) PopFirst() (v ContactsContacts, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ContactsContacts
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ContactsContactsArray) Pop() (v ContactsContacts, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

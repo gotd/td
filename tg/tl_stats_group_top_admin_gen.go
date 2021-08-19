@@ -56,6 +56,14 @@ type StatsGroupTopAdmin struct {
 // StatsGroupTopAdminTypeID is TL type id of StatsGroupTopAdmin.
 const StatsGroupTopAdminTypeID = 0x6014f412
 
+// Ensuring interfaces in compile-time for StatsGroupTopAdmin.
+var (
+	_ bin.Encoder     = &StatsGroupTopAdmin{}
+	_ bin.Decoder     = &StatsGroupTopAdmin{}
+	_ bin.BareEncoder = &StatsGroupTopAdmin{}
+	_ bin.BareDecoder = &StatsGroupTopAdmin{}
+)
+
 func (s *StatsGroupTopAdmin) Zero() bool {
 	if s == nil {
 		return true
@@ -162,26 +170,6 @@ func (s *StatsGroupTopAdmin) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (s *StatsGroupTopAdmin) GetUserID() (value int) {
-	return s.UserID
-}
-
-// GetDeleted returns value of Deleted field.
-func (s *StatsGroupTopAdmin) GetDeleted() (value int) {
-	return s.Deleted
-}
-
-// GetKicked returns value of Kicked field.
-func (s *StatsGroupTopAdmin) GetKicked() (value int) {
-	return s.Kicked
-}
-
-// GetBanned returns value of Banned field.
-func (s *StatsGroupTopAdmin) GetBanned() (value int) {
-	return s.Banned
-}
-
 // Decode implements bin.Decoder.
 func (s *StatsGroupTopAdmin) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -229,10 +217,22 @@ func (s *StatsGroupTopAdmin) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsGroupTopAdmin.
-var (
-	_ bin.Encoder     = &StatsGroupTopAdmin{}
-	_ bin.Decoder     = &StatsGroupTopAdmin{}
-	_ bin.BareEncoder = &StatsGroupTopAdmin{}
-	_ bin.BareDecoder = &StatsGroupTopAdmin{}
-)
+// GetUserID returns value of UserID field.
+func (s *StatsGroupTopAdmin) GetUserID() (value int) {
+	return s.UserID
+}
+
+// GetDeleted returns value of Deleted field.
+func (s *StatsGroupTopAdmin) GetDeleted() (value int) {
+	return s.Deleted
+}
+
+// GetKicked returns value of Kicked field.
+func (s *StatsGroupTopAdmin) GetKicked() (value int) {
+	return s.Kicked
+}
+
+// GetBanned returns value of Banned field.
+func (s *StatsGroupTopAdmin) GetBanned() (value int) {
+	return s.Banned
+}

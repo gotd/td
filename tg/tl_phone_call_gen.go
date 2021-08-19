@@ -41,6 +41,19 @@ type PhoneCallEmpty struct {
 // PhoneCallEmptyTypeID is TL type id of PhoneCallEmpty.
 const PhoneCallEmptyTypeID = 0x5366c915
 
+// construct implements constructor of PhoneCallClass.
+func (p PhoneCallEmpty) construct() PhoneCallClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallEmpty.
+var (
+	_ bin.Encoder     = &PhoneCallEmpty{}
+	_ bin.Decoder     = &PhoneCallEmpty{}
+	_ bin.BareEncoder = &PhoneCallEmpty{}
+	_ bin.BareDecoder = &PhoneCallEmpty{}
+
+	_ PhoneCallClass = &PhoneCallEmpty{}
+)
+
 func (p *PhoneCallEmpty) Zero() bool {
 	if p == nil {
 		return true
@@ -117,11 +130,6 @@ func (p *PhoneCallEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (p *PhoneCallEmpty) GetID() (value int64) {
-	return p.ID
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneCallEmpty) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -148,18 +156,10 @@ func (p *PhoneCallEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneCallClass.
-func (p PhoneCallEmpty) construct() PhoneCallClass { return &p }
-
-// Ensuring interfaces in compile-time for PhoneCallEmpty.
-var (
-	_ bin.Encoder     = &PhoneCallEmpty{}
-	_ bin.Decoder     = &PhoneCallEmpty{}
-	_ bin.BareEncoder = &PhoneCallEmpty{}
-	_ bin.BareDecoder = &PhoneCallEmpty{}
-
-	_ PhoneCallClass = &PhoneCallEmpty{}
-)
+// GetID returns value of ID field.
+func (p *PhoneCallEmpty) GetID() (value int64) {
+	return p.ID
+}
 
 // PhoneCallWaiting represents TL type `phoneCallWaiting#1b8f4ad1`.
 // Incoming phone call
@@ -193,6 +193,19 @@ type PhoneCallWaiting struct {
 
 // PhoneCallWaitingTypeID is TL type id of PhoneCallWaiting.
 const PhoneCallWaitingTypeID = 0x1b8f4ad1
+
+// construct implements constructor of PhoneCallClass.
+func (p PhoneCallWaiting) construct() PhoneCallClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallWaiting.
+var (
+	_ bin.Encoder     = &PhoneCallWaiting{}
+	_ bin.Decoder     = &PhoneCallWaiting{}
+	_ bin.BareEncoder = &PhoneCallWaiting{}
+	_ bin.BareDecoder = &PhoneCallWaiting{}
+
+	_ PhoneCallClass = &PhoneCallWaiting{}
+)
 
 func (p *PhoneCallWaiting) Zero() bool {
 	if p == nil {
@@ -360,67 +373,6 @@ func (p *PhoneCallWaiting) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetVideo sets value of Video conditional field.
-func (p *PhoneCallWaiting) SetVideo(value bool) {
-	if value {
-		p.Flags.Set(6)
-		p.Video = true
-	} else {
-		p.Flags.Unset(6)
-		p.Video = false
-	}
-}
-
-// GetVideo returns value of Video conditional field.
-func (p *PhoneCallWaiting) GetVideo() (value bool) {
-	return p.Flags.Has(6)
-}
-
-// GetID returns value of ID field.
-func (p *PhoneCallWaiting) GetID() (value int64) {
-	return p.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (p *PhoneCallWaiting) GetAccessHash() (value int64) {
-	return p.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (p *PhoneCallWaiting) GetDate() (value int) {
-	return p.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (p *PhoneCallWaiting) GetAdminID() (value int) {
-	return p.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (p *PhoneCallWaiting) GetParticipantID() (value int) {
-	return p.ParticipantID
-}
-
-// GetProtocol returns value of Protocol field.
-func (p *PhoneCallWaiting) GetProtocol() (value PhoneCallProtocol) {
-	return p.Protocol
-}
-
-// SetReceiveDate sets value of ReceiveDate conditional field.
-func (p *PhoneCallWaiting) SetReceiveDate(value int) {
-	p.Flags.Set(0)
-	p.ReceiveDate = value
-}
-
-// GetReceiveDate returns value of ReceiveDate conditional field and
-// boolean which is true if field was set.
-func (p *PhoneCallWaiting) GetReceiveDate() (value int, ok bool) {
-	if !p.Flags.Has(0) {
-		return value, false
-	}
-	return p.ReceiveDate, true
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneCallWaiting) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -493,18 +445,66 @@ func (p *PhoneCallWaiting) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneCallClass.
-func (p PhoneCallWaiting) construct() PhoneCallClass { return &p }
+// SetVideo sets value of Video conditional field.
+func (p *PhoneCallWaiting) SetVideo(value bool) {
+	if value {
+		p.Flags.Set(6)
+		p.Video = true
+	} else {
+		p.Flags.Unset(6)
+		p.Video = false
+	}
+}
 
-// Ensuring interfaces in compile-time for PhoneCallWaiting.
-var (
-	_ bin.Encoder     = &PhoneCallWaiting{}
-	_ bin.Decoder     = &PhoneCallWaiting{}
-	_ bin.BareEncoder = &PhoneCallWaiting{}
-	_ bin.BareDecoder = &PhoneCallWaiting{}
+// GetVideo returns value of Video conditional field.
+func (p *PhoneCallWaiting) GetVideo() (value bool) {
+	return p.Flags.Has(6)
+}
 
-	_ PhoneCallClass = &PhoneCallWaiting{}
-)
+// GetID returns value of ID field.
+func (p *PhoneCallWaiting) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *PhoneCallWaiting) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (p *PhoneCallWaiting) GetDate() (value int) {
+	return p.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (p *PhoneCallWaiting) GetAdminID() (value int) {
+	return p.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (p *PhoneCallWaiting) GetParticipantID() (value int) {
+	return p.ParticipantID
+}
+
+// GetProtocol returns value of Protocol field.
+func (p *PhoneCallWaiting) GetProtocol() (value PhoneCallProtocol) {
+	return p.Protocol
+}
+
+// SetReceiveDate sets value of ReceiveDate conditional field.
+func (p *PhoneCallWaiting) SetReceiveDate(value int) {
+	p.Flags.Set(0)
+	p.ReceiveDate = value
+}
+
+// GetReceiveDate returns value of ReceiveDate conditional field and
+// boolean which is true if field was set.
+func (p *PhoneCallWaiting) GetReceiveDate() (value int, ok bool) {
+	if !p.Flags.Has(0) {
+		return value, false
+	}
+	return p.ReceiveDate, true
+}
 
 // PhoneCallRequested represents TL type `phoneCallRequested#87eabb53`.
 // Requested phone call
@@ -539,6 +539,19 @@ type PhoneCallRequested struct {
 
 // PhoneCallRequestedTypeID is TL type id of PhoneCallRequested.
 const PhoneCallRequestedTypeID = 0x87eabb53
+
+// construct implements constructor of PhoneCallClass.
+func (p PhoneCallRequested) construct() PhoneCallClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallRequested.
+var (
+	_ bin.Encoder     = &PhoneCallRequested{}
+	_ bin.Decoder     = &PhoneCallRequested{}
+	_ bin.BareEncoder = &PhoneCallRequested{}
+	_ bin.BareDecoder = &PhoneCallRequested{}
+
+	_ PhoneCallClass = &PhoneCallRequested{}
+)
 
 func (p *PhoneCallRequested) Zero() bool {
 	if p == nil {
@@ -697,57 +710,6 @@ func (p *PhoneCallRequested) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetVideo sets value of Video conditional field.
-func (p *PhoneCallRequested) SetVideo(value bool) {
-	if value {
-		p.Flags.Set(6)
-		p.Video = true
-	} else {
-		p.Flags.Unset(6)
-		p.Video = false
-	}
-}
-
-// GetVideo returns value of Video conditional field.
-func (p *PhoneCallRequested) GetVideo() (value bool) {
-	return p.Flags.Has(6)
-}
-
-// GetID returns value of ID field.
-func (p *PhoneCallRequested) GetID() (value int64) {
-	return p.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (p *PhoneCallRequested) GetAccessHash() (value int64) {
-	return p.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (p *PhoneCallRequested) GetDate() (value int) {
-	return p.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (p *PhoneCallRequested) GetAdminID() (value int) {
-	return p.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (p *PhoneCallRequested) GetParticipantID() (value int) {
-	return p.ParticipantID
-}
-
-// GetGAHash returns value of GAHash field.
-func (p *PhoneCallRequested) GetGAHash() (value []byte) {
-	return p.GAHash
-}
-
-// GetProtocol returns value of Protocol field.
-func (p *PhoneCallRequested) GetProtocol() (value PhoneCallProtocol) {
-	return p.Protocol
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneCallRequested) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -820,18 +782,56 @@ func (p *PhoneCallRequested) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneCallClass.
-func (p PhoneCallRequested) construct() PhoneCallClass { return &p }
+// SetVideo sets value of Video conditional field.
+func (p *PhoneCallRequested) SetVideo(value bool) {
+	if value {
+		p.Flags.Set(6)
+		p.Video = true
+	} else {
+		p.Flags.Unset(6)
+		p.Video = false
+	}
+}
 
-// Ensuring interfaces in compile-time for PhoneCallRequested.
-var (
-	_ bin.Encoder     = &PhoneCallRequested{}
-	_ bin.Decoder     = &PhoneCallRequested{}
-	_ bin.BareEncoder = &PhoneCallRequested{}
-	_ bin.BareDecoder = &PhoneCallRequested{}
+// GetVideo returns value of Video conditional field.
+func (p *PhoneCallRequested) GetVideo() (value bool) {
+	return p.Flags.Has(6)
+}
 
-	_ PhoneCallClass = &PhoneCallRequested{}
-)
+// GetID returns value of ID field.
+func (p *PhoneCallRequested) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *PhoneCallRequested) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (p *PhoneCallRequested) GetDate() (value int) {
+	return p.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (p *PhoneCallRequested) GetAdminID() (value int) {
+	return p.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (p *PhoneCallRequested) GetParticipantID() (value int) {
+	return p.ParticipantID
+}
+
+// GetGAHash returns value of GAHash field.
+func (p *PhoneCallRequested) GetGAHash() (value []byte) {
+	return p.GAHash
+}
+
+// GetProtocol returns value of Protocol field.
+func (p *PhoneCallRequested) GetProtocol() (value PhoneCallProtocol) {
+	return p.Protocol
+}
 
 // PhoneCallAccepted represents TL type `phoneCallAccepted#997c454a`.
 // An accepted phone call
@@ -866,6 +866,19 @@ type PhoneCallAccepted struct {
 
 // PhoneCallAcceptedTypeID is TL type id of PhoneCallAccepted.
 const PhoneCallAcceptedTypeID = 0x997c454a
+
+// construct implements constructor of PhoneCallClass.
+func (p PhoneCallAccepted) construct() PhoneCallClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallAccepted.
+var (
+	_ bin.Encoder     = &PhoneCallAccepted{}
+	_ bin.Decoder     = &PhoneCallAccepted{}
+	_ bin.BareEncoder = &PhoneCallAccepted{}
+	_ bin.BareDecoder = &PhoneCallAccepted{}
+
+	_ PhoneCallClass = &PhoneCallAccepted{}
+)
 
 func (p *PhoneCallAccepted) Zero() bool {
 	if p == nil {
@@ -1024,57 +1037,6 @@ func (p *PhoneCallAccepted) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetVideo sets value of Video conditional field.
-func (p *PhoneCallAccepted) SetVideo(value bool) {
-	if value {
-		p.Flags.Set(6)
-		p.Video = true
-	} else {
-		p.Flags.Unset(6)
-		p.Video = false
-	}
-}
-
-// GetVideo returns value of Video conditional field.
-func (p *PhoneCallAccepted) GetVideo() (value bool) {
-	return p.Flags.Has(6)
-}
-
-// GetID returns value of ID field.
-func (p *PhoneCallAccepted) GetID() (value int64) {
-	return p.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (p *PhoneCallAccepted) GetAccessHash() (value int64) {
-	return p.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (p *PhoneCallAccepted) GetDate() (value int) {
-	return p.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (p *PhoneCallAccepted) GetAdminID() (value int) {
-	return p.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (p *PhoneCallAccepted) GetParticipantID() (value int) {
-	return p.ParticipantID
-}
-
-// GetGB returns value of GB field.
-func (p *PhoneCallAccepted) GetGB() (value []byte) {
-	return p.GB
-}
-
-// GetProtocol returns value of Protocol field.
-func (p *PhoneCallAccepted) GetProtocol() (value PhoneCallProtocol) {
-	return p.Protocol
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneCallAccepted) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -1147,18 +1109,56 @@ func (p *PhoneCallAccepted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneCallClass.
-func (p PhoneCallAccepted) construct() PhoneCallClass { return &p }
+// SetVideo sets value of Video conditional field.
+func (p *PhoneCallAccepted) SetVideo(value bool) {
+	if value {
+		p.Flags.Set(6)
+		p.Video = true
+	} else {
+		p.Flags.Unset(6)
+		p.Video = false
+	}
+}
 
-// Ensuring interfaces in compile-time for PhoneCallAccepted.
-var (
-	_ bin.Encoder     = &PhoneCallAccepted{}
-	_ bin.Decoder     = &PhoneCallAccepted{}
-	_ bin.BareEncoder = &PhoneCallAccepted{}
-	_ bin.BareDecoder = &PhoneCallAccepted{}
+// GetVideo returns value of Video conditional field.
+func (p *PhoneCallAccepted) GetVideo() (value bool) {
+	return p.Flags.Has(6)
+}
 
-	_ PhoneCallClass = &PhoneCallAccepted{}
-)
+// GetID returns value of ID field.
+func (p *PhoneCallAccepted) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *PhoneCallAccepted) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (p *PhoneCallAccepted) GetDate() (value int) {
+	return p.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (p *PhoneCallAccepted) GetAdminID() (value int) {
+	return p.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (p *PhoneCallAccepted) GetParticipantID() (value int) {
+	return p.ParticipantID
+}
+
+// GetGB returns value of GB field.
+func (p *PhoneCallAccepted) GetGB() (value []byte) {
+	return p.GB
+}
+
+// GetProtocol returns value of Protocol field.
+func (p *PhoneCallAccepted) GetProtocol() (value PhoneCallProtocol) {
+	return p.Protocol
+}
 
 // PhoneCall represents TL type `phoneCall#8742ae7f`.
 // Phone call
@@ -1204,6 +1204,19 @@ type PhoneCall struct {
 
 // PhoneCallTypeID is TL type id of PhoneCall.
 const PhoneCallTypeID = 0x8742ae7f
+
+// construct implements constructor of PhoneCallClass.
+func (p PhoneCall) construct() PhoneCallClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCall.
+var (
+	_ bin.Encoder     = &PhoneCall{}
+	_ bin.Decoder     = &PhoneCall{}
+	_ bin.BareEncoder = &PhoneCall{}
+	_ bin.BareDecoder = &PhoneCall{}
+
+	_ PhoneCallClass = &PhoneCall{}
+)
 
 func (p *PhoneCall) Zero() bool {
 	if p == nil {
@@ -1413,93 +1426,6 @@ func (p *PhoneCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetP2PAllowed sets value of P2PAllowed conditional field.
-func (p *PhoneCall) SetP2PAllowed(value bool) {
-	if value {
-		p.Flags.Set(5)
-		p.P2PAllowed = true
-	} else {
-		p.Flags.Unset(5)
-		p.P2PAllowed = false
-	}
-}
-
-// GetP2PAllowed returns value of P2PAllowed conditional field.
-func (p *PhoneCall) GetP2PAllowed() (value bool) {
-	return p.Flags.Has(5)
-}
-
-// SetVideo sets value of Video conditional field.
-func (p *PhoneCall) SetVideo(value bool) {
-	if value {
-		p.Flags.Set(6)
-		p.Video = true
-	} else {
-		p.Flags.Unset(6)
-		p.Video = false
-	}
-}
-
-// GetVideo returns value of Video conditional field.
-func (p *PhoneCall) GetVideo() (value bool) {
-	return p.Flags.Has(6)
-}
-
-// GetID returns value of ID field.
-func (p *PhoneCall) GetID() (value int64) {
-	return p.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (p *PhoneCall) GetAccessHash() (value int64) {
-	return p.AccessHash
-}
-
-// GetDate returns value of Date field.
-func (p *PhoneCall) GetDate() (value int) {
-	return p.Date
-}
-
-// GetAdminID returns value of AdminID field.
-func (p *PhoneCall) GetAdminID() (value int) {
-	return p.AdminID
-}
-
-// GetParticipantID returns value of ParticipantID field.
-func (p *PhoneCall) GetParticipantID() (value int) {
-	return p.ParticipantID
-}
-
-// GetGAOrB returns value of GAOrB field.
-func (p *PhoneCall) GetGAOrB() (value []byte) {
-	return p.GAOrB
-}
-
-// GetKeyFingerprint returns value of KeyFingerprint field.
-func (p *PhoneCall) GetKeyFingerprint() (value int64) {
-	return p.KeyFingerprint
-}
-
-// GetProtocol returns value of Protocol field.
-func (p *PhoneCall) GetProtocol() (value PhoneCallProtocol) {
-	return p.Protocol
-}
-
-// GetConnections returns value of Connections field.
-func (p *PhoneCall) GetConnections() (value []PhoneConnectionClass) {
-	return p.Connections
-}
-
-// MapConnections returns field Connections wrapped in PhoneConnectionClassArray helper.
-func (p *PhoneCall) MapConnections() (value PhoneConnectionClassArray) {
-	return PhoneConnectionClassArray(p.Connections)
-}
-
-// GetStartDate returns value of StartDate field.
-func (p *PhoneCall) GetStartDate() (value int) {
-	return p.StartDate
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneCall) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -1604,18 +1530,92 @@ func (p *PhoneCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneCallClass.
-func (p PhoneCall) construct() PhoneCallClass { return &p }
+// SetP2PAllowed sets value of P2PAllowed conditional field.
+func (p *PhoneCall) SetP2PAllowed(value bool) {
+	if value {
+		p.Flags.Set(5)
+		p.P2PAllowed = true
+	} else {
+		p.Flags.Unset(5)
+		p.P2PAllowed = false
+	}
+}
 
-// Ensuring interfaces in compile-time for PhoneCall.
-var (
-	_ bin.Encoder     = &PhoneCall{}
-	_ bin.Decoder     = &PhoneCall{}
-	_ bin.BareEncoder = &PhoneCall{}
-	_ bin.BareDecoder = &PhoneCall{}
+// GetP2PAllowed returns value of P2PAllowed conditional field.
+func (p *PhoneCall) GetP2PAllowed() (value bool) {
+	return p.Flags.Has(5)
+}
 
-	_ PhoneCallClass = &PhoneCall{}
-)
+// SetVideo sets value of Video conditional field.
+func (p *PhoneCall) SetVideo(value bool) {
+	if value {
+		p.Flags.Set(6)
+		p.Video = true
+	} else {
+		p.Flags.Unset(6)
+		p.Video = false
+	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (p *PhoneCall) GetVideo() (value bool) {
+	return p.Flags.Has(6)
+}
+
+// GetID returns value of ID field.
+func (p *PhoneCall) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *PhoneCall) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (p *PhoneCall) GetDate() (value int) {
+	return p.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (p *PhoneCall) GetAdminID() (value int) {
+	return p.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (p *PhoneCall) GetParticipantID() (value int) {
+	return p.ParticipantID
+}
+
+// GetGAOrB returns value of GAOrB field.
+func (p *PhoneCall) GetGAOrB() (value []byte) {
+	return p.GAOrB
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (p *PhoneCall) GetKeyFingerprint() (value int64) {
+	return p.KeyFingerprint
+}
+
+// GetProtocol returns value of Protocol field.
+func (p *PhoneCall) GetProtocol() (value PhoneCallProtocol) {
+	return p.Protocol
+}
+
+// GetConnections returns value of Connections field.
+func (p *PhoneCall) GetConnections() (value []PhoneConnectionClass) {
+	return p.Connections
+}
+
+// GetStartDate returns value of StartDate field.
+func (p *PhoneCall) GetStartDate() (value int) {
+	return p.StartDate
+}
+
+// MapConnections returns field Connections wrapped in PhoneConnectionClassArray helper.
+func (p *PhoneCall) MapConnections() (value PhoneConnectionClassArray) {
+	return PhoneConnectionClassArray(p.Connections)
+}
 
 // PhoneCallDiscarded represents TL type `phoneCallDiscarded#50ca4de1`.
 // Indicates a discarded phone call
@@ -1653,6 +1653,19 @@ type PhoneCallDiscarded struct {
 
 // PhoneCallDiscardedTypeID is TL type id of PhoneCallDiscarded.
 const PhoneCallDiscardedTypeID = 0x50ca4de1
+
+// construct implements constructor of PhoneCallClass.
+func (p PhoneCallDiscarded) construct() PhoneCallClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneCallDiscarded.
+var (
+	_ bin.Encoder     = &PhoneCallDiscarded{}
+	_ bin.Decoder     = &PhoneCallDiscarded{}
+	_ bin.BareEncoder = &PhoneCallDiscarded{}
+	_ bin.BareDecoder = &PhoneCallDiscarded{}
+
+	_ PhoneCallClass = &PhoneCallDiscarded{}
+)
 
 func (p *PhoneCallDiscarded) Zero() bool {
 	if p == nil {
@@ -1818,6 +1831,54 @@ func (p *PhoneCallDiscarded) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *PhoneCallDiscarded) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneCallDiscarded#50ca4de1 to nil")
+	}
+	if err := b.ConsumeID(PhoneCallDiscardedTypeID); err != nil {
+		return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhoneCallDiscarded) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneCallDiscarded#50ca4de1 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field flags: %w", err)
+		}
+	}
+	p.NeedRating = p.Flags.Has(2)
+	p.NeedDebug = p.Flags.Has(3)
+	p.Video = p.Flags.Has(6)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field id: %w", err)
+		}
+		p.ID = value
+	}
+	if p.Flags.Has(0) {
+		value, err := DecodePhoneCallDiscardReason(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field reason: %w", err)
+		}
+		p.Reason = value
+	}
+	if p.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field duration: %w", err)
+		}
+		p.Duration = value
+	}
+	return nil
+}
+
 // SetNeedRating sets value of NeedRating conditional field.
 func (p *PhoneCallDiscarded) SetNeedRating(value bool) {
 	if value {
@@ -1900,67 +1961,6 @@ func (p *PhoneCallDiscarded) GetDuration() (value int, ok bool) {
 	}
 	return p.Duration, true
 }
-
-// Decode implements bin.Decoder.
-func (p *PhoneCallDiscarded) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscarded#50ca4de1 to nil")
-	}
-	if err := b.ConsumeID(PhoneCallDiscardedTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *PhoneCallDiscarded) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode phoneCallDiscarded#50ca4de1 to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field flags: %w", err)
-		}
-	}
-	p.NeedRating = p.Flags.Has(2)
-	p.NeedDebug = p.Flags.Has(3)
-	p.Video = p.Flags.Has(6)
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field id: %w", err)
-		}
-		p.ID = value
-	}
-	if p.Flags.Has(0) {
-		value, err := DecodePhoneCallDiscardReason(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field reason: %w", err)
-		}
-		p.Reason = value
-	}
-	if p.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field duration: %w", err)
-		}
-		p.Duration = value
-	}
-	return nil
-}
-
-// construct implements constructor of PhoneCallClass.
-func (p PhoneCallDiscarded) construct() PhoneCallClass { return &p }
-
-// Ensuring interfaces in compile-time for PhoneCallDiscarded.
-var (
-	_ bin.Encoder     = &PhoneCallDiscarded{}
-	_ bin.Decoder     = &PhoneCallDiscarded{}
-	_ bin.BareEncoder = &PhoneCallDiscarded{}
-	_ bin.BareDecoder = &PhoneCallDiscarded{}
-
-	_ PhoneCallClass = &PhoneCallDiscarded{}
-)
 
 // PhoneCallClass represents PhoneCall generic type.
 //
@@ -2154,767 +2154,4 @@ func (b *PhoneCallBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PhoneCallClass as nil")
 	}
 	return b.PhoneCall.Encode(buf)
-}
-
-// PhoneCallClassArray is adapter for slice of PhoneCallClass.
-type PhoneCallClassArray []PhoneCallClass
-
-// Sort sorts slice of PhoneCallClass.
-func (s PhoneCallClassArray) Sort(less func(a, b PhoneCallClass) bool) PhoneCallClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhoneCallClass.
-func (s PhoneCallClassArray) SortStable(less func(a, b PhoneCallClass) bool) PhoneCallClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhoneCallClass.
-func (s PhoneCallClassArray) Retain(keep func(x PhoneCallClass) bool) PhoneCallClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhoneCallClassArray) First() (v PhoneCallClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhoneCallClassArray) Last() (v PhoneCallClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneCallClassArray) PopFirst() (v PhoneCallClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhoneCallClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneCallClassArray) Pop() (v PhoneCallClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsPhoneCallEmpty returns copy with only PhoneCallEmpty constructors.
-func (s PhoneCallClassArray) AsPhoneCallEmpty() (to PhoneCallEmptyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PhoneCallEmpty)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPhoneCallWaiting returns copy with only PhoneCallWaiting constructors.
-func (s PhoneCallClassArray) AsPhoneCallWaiting() (to PhoneCallWaitingArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PhoneCallWaiting)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPhoneCallRequested returns copy with only PhoneCallRequested constructors.
-func (s PhoneCallClassArray) AsPhoneCallRequested() (to PhoneCallRequestedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PhoneCallRequested)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPhoneCallAccepted returns copy with only PhoneCallAccepted constructors.
-func (s PhoneCallClassArray) AsPhoneCallAccepted() (to PhoneCallAcceptedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PhoneCallAccepted)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPhoneCall returns copy with only PhoneCall constructors.
-func (s PhoneCallClassArray) AsPhoneCall() (to PhoneCallArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PhoneCall)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPhoneCallDiscarded returns copy with only PhoneCallDiscarded constructors.
-func (s PhoneCallClassArray) AsPhoneCallDiscarded() (to PhoneCallDiscardedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PhoneCallDiscarded)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s PhoneCallClassArray) AppendOnlyNotEmpty(to []NotEmptyPhoneCall) []NotEmptyPhoneCall {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s PhoneCallClassArray) AsNotEmpty() (to []NotEmptyPhoneCall) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s PhoneCallClassArray) FirstAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s PhoneCallClassArray) LastAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *PhoneCallClassArray) PopFirstAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *PhoneCallClassArray) PopAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PhoneCallEmptyArray is adapter for slice of PhoneCallEmpty.
-type PhoneCallEmptyArray []PhoneCallEmpty
-
-// Sort sorts slice of PhoneCallEmpty.
-func (s PhoneCallEmptyArray) Sort(less func(a, b PhoneCallEmpty) bool) PhoneCallEmptyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhoneCallEmpty.
-func (s PhoneCallEmptyArray) SortStable(less func(a, b PhoneCallEmpty) bool) PhoneCallEmptyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhoneCallEmpty.
-func (s PhoneCallEmptyArray) Retain(keep func(x PhoneCallEmpty) bool) PhoneCallEmptyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhoneCallEmptyArray) First() (v PhoneCallEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhoneCallEmptyArray) Last() (v PhoneCallEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneCallEmptyArray) PopFirst() (v PhoneCallEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhoneCallEmpty
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneCallEmptyArray) Pop() (v PhoneCallEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PhoneCallWaitingArray is adapter for slice of PhoneCallWaiting.
-type PhoneCallWaitingArray []PhoneCallWaiting
-
-// Sort sorts slice of PhoneCallWaiting.
-func (s PhoneCallWaitingArray) Sort(less func(a, b PhoneCallWaiting) bool) PhoneCallWaitingArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhoneCallWaiting.
-func (s PhoneCallWaitingArray) SortStable(less func(a, b PhoneCallWaiting) bool) PhoneCallWaitingArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhoneCallWaiting.
-func (s PhoneCallWaitingArray) Retain(keep func(x PhoneCallWaiting) bool) PhoneCallWaitingArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhoneCallWaitingArray) First() (v PhoneCallWaiting, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhoneCallWaitingArray) Last() (v PhoneCallWaiting, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneCallWaitingArray) PopFirst() (v PhoneCallWaiting, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhoneCallWaiting
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneCallWaitingArray) Pop() (v PhoneCallWaiting, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of PhoneCallWaiting by Date.
-func (s PhoneCallWaitingArray) SortByDate() PhoneCallWaitingArray {
-	return s.Sort(func(a, b PhoneCallWaiting) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of PhoneCallWaiting by Date.
-func (s PhoneCallWaitingArray) SortStableByDate() PhoneCallWaitingArray {
-	return s.SortStable(func(a, b PhoneCallWaiting) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// PhoneCallRequestedArray is adapter for slice of PhoneCallRequested.
-type PhoneCallRequestedArray []PhoneCallRequested
-
-// Sort sorts slice of PhoneCallRequested.
-func (s PhoneCallRequestedArray) Sort(less func(a, b PhoneCallRequested) bool) PhoneCallRequestedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhoneCallRequested.
-func (s PhoneCallRequestedArray) SortStable(less func(a, b PhoneCallRequested) bool) PhoneCallRequestedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhoneCallRequested.
-func (s PhoneCallRequestedArray) Retain(keep func(x PhoneCallRequested) bool) PhoneCallRequestedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhoneCallRequestedArray) First() (v PhoneCallRequested, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhoneCallRequestedArray) Last() (v PhoneCallRequested, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneCallRequestedArray) PopFirst() (v PhoneCallRequested, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhoneCallRequested
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneCallRequestedArray) Pop() (v PhoneCallRequested, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of PhoneCallRequested by Date.
-func (s PhoneCallRequestedArray) SortByDate() PhoneCallRequestedArray {
-	return s.Sort(func(a, b PhoneCallRequested) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of PhoneCallRequested by Date.
-func (s PhoneCallRequestedArray) SortStableByDate() PhoneCallRequestedArray {
-	return s.SortStable(func(a, b PhoneCallRequested) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// PhoneCallAcceptedArray is adapter for slice of PhoneCallAccepted.
-type PhoneCallAcceptedArray []PhoneCallAccepted
-
-// Sort sorts slice of PhoneCallAccepted.
-func (s PhoneCallAcceptedArray) Sort(less func(a, b PhoneCallAccepted) bool) PhoneCallAcceptedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhoneCallAccepted.
-func (s PhoneCallAcceptedArray) SortStable(less func(a, b PhoneCallAccepted) bool) PhoneCallAcceptedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhoneCallAccepted.
-func (s PhoneCallAcceptedArray) Retain(keep func(x PhoneCallAccepted) bool) PhoneCallAcceptedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhoneCallAcceptedArray) First() (v PhoneCallAccepted, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhoneCallAcceptedArray) Last() (v PhoneCallAccepted, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneCallAcceptedArray) PopFirst() (v PhoneCallAccepted, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhoneCallAccepted
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneCallAcceptedArray) Pop() (v PhoneCallAccepted, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of PhoneCallAccepted by Date.
-func (s PhoneCallAcceptedArray) SortByDate() PhoneCallAcceptedArray {
-	return s.Sort(func(a, b PhoneCallAccepted) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of PhoneCallAccepted by Date.
-func (s PhoneCallAcceptedArray) SortStableByDate() PhoneCallAcceptedArray {
-	return s.SortStable(func(a, b PhoneCallAccepted) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// PhoneCallArray is adapter for slice of PhoneCall.
-type PhoneCallArray []PhoneCall
-
-// Sort sorts slice of PhoneCall.
-func (s PhoneCallArray) Sort(less func(a, b PhoneCall) bool) PhoneCallArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhoneCall.
-func (s PhoneCallArray) SortStable(less func(a, b PhoneCall) bool) PhoneCallArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhoneCall.
-func (s PhoneCallArray) Retain(keep func(x PhoneCall) bool) PhoneCallArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhoneCallArray) First() (v PhoneCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhoneCallArray) Last() (v PhoneCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneCallArray) PopFirst() (v PhoneCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhoneCall
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneCallArray) Pop() (v PhoneCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of PhoneCall by Date.
-func (s PhoneCallArray) SortByDate() PhoneCallArray {
-	return s.Sort(func(a, b PhoneCall) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of PhoneCall by Date.
-func (s PhoneCallArray) SortStableByDate() PhoneCallArray {
-	return s.SortStable(func(a, b PhoneCall) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// PhoneCallDiscardedArray is adapter for slice of PhoneCallDiscarded.
-type PhoneCallDiscardedArray []PhoneCallDiscarded
-
-// Sort sorts slice of PhoneCallDiscarded.
-func (s PhoneCallDiscardedArray) Sort(less func(a, b PhoneCallDiscarded) bool) PhoneCallDiscardedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhoneCallDiscarded.
-func (s PhoneCallDiscardedArray) SortStable(less func(a, b PhoneCallDiscarded) bool) PhoneCallDiscardedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhoneCallDiscarded.
-func (s PhoneCallDiscardedArray) Retain(keep func(x PhoneCallDiscarded) bool) PhoneCallDiscardedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhoneCallDiscardedArray) First() (v PhoneCallDiscarded, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhoneCallDiscardedArray) Last() (v PhoneCallDiscarded, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneCallDiscardedArray) PopFirst() (v PhoneCallDiscarded, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhoneCallDiscarded
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneCallDiscardedArray) Pop() (v PhoneCallDiscarded, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

@@ -45,6 +45,14 @@ type AccountAutoDownloadSettings struct {
 // AccountAutoDownloadSettingsTypeID is TL type id of AccountAutoDownloadSettings.
 const AccountAutoDownloadSettingsTypeID = 0x63cacf26
 
+// Ensuring interfaces in compile-time for AccountAutoDownloadSettings.
+var (
+	_ bin.Encoder     = &AccountAutoDownloadSettings{}
+	_ bin.Decoder     = &AccountAutoDownloadSettings{}
+	_ bin.BareEncoder = &AccountAutoDownloadSettings{}
+	_ bin.BareDecoder = &AccountAutoDownloadSettings{}
+)
+
 func (a *AccountAutoDownloadSettings) Zero() bool {
 	if a == nil {
 		return true
@@ -147,21 +155,6 @@ func (a *AccountAutoDownloadSettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLow returns value of Low field.
-func (a *AccountAutoDownloadSettings) GetLow() (value AutoDownloadSettings) {
-	return a.Low
-}
-
-// GetMedium returns value of Medium field.
-func (a *AccountAutoDownloadSettings) GetMedium() (value AutoDownloadSettings) {
-	return a.Medium
-}
-
-// GetHigh returns value of High field.
-func (a *AccountAutoDownloadSettings) GetHigh() (value AutoDownloadSettings) {
-	return a.High
-}
-
 // Decode implements bin.Decoder.
 func (a *AccountAutoDownloadSettings) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -196,10 +189,17 @@ func (a *AccountAutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountAutoDownloadSettings.
-var (
-	_ bin.Encoder     = &AccountAutoDownloadSettings{}
-	_ bin.Decoder     = &AccountAutoDownloadSettings{}
-	_ bin.BareEncoder = &AccountAutoDownloadSettings{}
-	_ bin.BareDecoder = &AccountAutoDownloadSettings{}
-)
+// GetLow returns value of Low field.
+func (a *AccountAutoDownloadSettings) GetLow() (value AutoDownloadSettings) {
+	return a.Low
+}
+
+// GetMedium returns value of Medium field.
+func (a *AccountAutoDownloadSettings) GetMedium() (value AutoDownloadSettings) {
+	return a.Medium
+}
+
+// GetHigh returns value of High field.
+func (a *AccountAutoDownloadSettings) GetHigh() (value AutoDownloadSettings) {
+	return a.High
+}

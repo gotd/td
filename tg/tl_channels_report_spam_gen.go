@@ -46,6 +46,14 @@ type ChannelsReportSpamRequest struct {
 // ChannelsReportSpamRequestTypeID is TL type id of ChannelsReportSpamRequest.
 const ChannelsReportSpamRequestTypeID = 0xfe087810
 
+// Ensuring interfaces in compile-time for ChannelsReportSpamRequest.
+var (
+	_ bin.Encoder     = &ChannelsReportSpamRequest{}
+	_ bin.Decoder     = &ChannelsReportSpamRequest{}
+	_ bin.BareEncoder = &ChannelsReportSpamRequest{}
+	_ bin.BareDecoder = &ChannelsReportSpamRequest{}
+)
+
 func (r *ChannelsReportSpamRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -155,26 +163,6 @@ func (r *ChannelsReportSpamRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (r *ChannelsReportSpamRequest) GetChannel() (value InputChannelClass) {
-	return r.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (r *ChannelsReportSpamRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return r.Channel.AsNotEmpty()
-}
-
-// GetUserID returns value of UserID field.
-func (r *ChannelsReportSpamRequest) GetUserID() (value InputUserClass) {
-	return r.UserID
-}
-
-// GetID returns value of ID field.
-func (r *ChannelsReportSpamRequest) GetID() (value []int) {
-	return r.ID
-}
-
 // Decode implements bin.Decoder.
 func (r *ChannelsReportSpamRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -225,13 +213,25 @@ func (r *ChannelsReportSpamRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsReportSpamRequest.
-var (
-	_ bin.Encoder     = &ChannelsReportSpamRequest{}
-	_ bin.Decoder     = &ChannelsReportSpamRequest{}
-	_ bin.BareEncoder = &ChannelsReportSpamRequest{}
-	_ bin.BareDecoder = &ChannelsReportSpamRequest{}
-)
+// GetChannel returns value of Channel field.
+func (r *ChannelsReportSpamRequest) GetChannel() (value InputChannelClass) {
+	return r.Channel
+}
+
+// GetUserID returns value of UserID field.
+func (r *ChannelsReportSpamRequest) GetUserID() (value InputUserClass) {
+	return r.UserID
+}
+
+// GetID returns value of ID field.
+func (r *ChannelsReportSpamRequest) GetID() (value []int) {
+	return r.ID
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (r *ChannelsReportSpamRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return r.Channel.AsNotEmpty()
+}
 
 // ChannelsReportSpam invokes method channels.reportSpam#fe087810 returning error if any.
 // Reports some messages from a user in a supergroup as spam; requires administrator

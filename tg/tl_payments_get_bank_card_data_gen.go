@@ -41,6 +41,14 @@ type PaymentsGetBankCardDataRequest struct {
 // PaymentsGetBankCardDataRequestTypeID is TL type id of PaymentsGetBankCardDataRequest.
 const PaymentsGetBankCardDataRequestTypeID = 0x2e79d779
 
+// Ensuring interfaces in compile-time for PaymentsGetBankCardDataRequest.
+var (
+	_ bin.Encoder     = &PaymentsGetBankCardDataRequest{}
+	_ bin.Decoder     = &PaymentsGetBankCardDataRequest{}
+	_ bin.BareEncoder = &PaymentsGetBankCardDataRequest{}
+	_ bin.BareDecoder = &PaymentsGetBankCardDataRequest{}
+)
+
 func (g *PaymentsGetBankCardDataRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,11 +125,6 @@ func (g *PaymentsGetBankCardDataRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNumber returns value of Number field.
-func (g *PaymentsGetBankCardDataRequest) GetNumber() (value string) {
-	return g.Number
-}
-
 // Decode implements bin.Decoder.
 func (g *PaymentsGetBankCardDataRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -148,13 +151,10 @@ func (g *PaymentsGetBankCardDataRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PaymentsGetBankCardDataRequest.
-var (
-	_ bin.Encoder     = &PaymentsGetBankCardDataRequest{}
-	_ bin.Decoder     = &PaymentsGetBankCardDataRequest{}
-	_ bin.BareEncoder = &PaymentsGetBankCardDataRequest{}
-	_ bin.BareDecoder = &PaymentsGetBankCardDataRequest{}
-)
+// GetNumber returns value of Number field.
+func (g *PaymentsGetBankCardDataRequest) GetNumber() (value string) {
+	return g.Number
+}
 
 // PaymentsGetBankCardData invokes method payments.getBankCardData#2e79d779 returning error if any.
 // Get info about a credit card

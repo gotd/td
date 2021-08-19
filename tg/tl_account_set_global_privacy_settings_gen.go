@@ -41,6 +41,14 @@ type AccountSetGlobalPrivacySettingsRequest struct {
 // AccountSetGlobalPrivacySettingsRequestTypeID is TL type id of AccountSetGlobalPrivacySettingsRequest.
 const AccountSetGlobalPrivacySettingsRequestTypeID = 0x1edaaac2
 
+// Ensuring interfaces in compile-time for AccountSetGlobalPrivacySettingsRequest.
+var (
+	_ bin.Encoder     = &AccountSetGlobalPrivacySettingsRequest{}
+	_ bin.Decoder     = &AccountSetGlobalPrivacySettingsRequest{}
+	_ bin.BareEncoder = &AccountSetGlobalPrivacySettingsRequest{}
+	_ bin.BareDecoder = &AccountSetGlobalPrivacySettingsRequest{}
+)
+
 func (s *AccountSetGlobalPrivacySettingsRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -119,11 +127,6 @@ func (s *AccountSetGlobalPrivacySettingsRequest) EncodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// GetSettings returns value of Settings field.
-func (s *AccountSetGlobalPrivacySettingsRequest) GetSettings() (value GlobalPrivacySettings) {
-	return s.Settings
-}
-
 // Decode implements bin.Decoder.
 func (s *AccountSetGlobalPrivacySettingsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -148,13 +151,10 @@ func (s *AccountSetGlobalPrivacySettingsRequest) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountSetGlobalPrivacySettingsRequest.
-var (
-	_ bin.Encoder     = &AccountSetGlobalPrivacySettingsRequest{}
-	_ bin.Decoder     = &AccountSetGlobalPrivacySettingsRequest{}
-	_ bin.BareEncoder = &AccountSetGlobalPrivacySettingsRequest{}
-	_ bin.BareDecoder = &AccountSetGlobalPrivacySettingsRequest{}
-)
+// GetSettings returns value of Settings field.
+func (s *AccountSetGlobalPrivacySettingsRequest) GetSettings() (value GlobalPrivacySettings) {
+	return s.Settings
+}
 
 // AccountSetGlobalPrivacySettings invokes method account.setGlobalPrivacySettings#1edaaac2 returning error if any.
 // Set global privacy settings

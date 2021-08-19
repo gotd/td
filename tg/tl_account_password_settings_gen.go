@@ -62,6 +62,14 @@ type AccountPasswordSettings struct {
 // AccountPasswordSettingsTypeID is TL type id of AccountPasswordSettings.
 const AccountPasswordSettingsTypeID = 0x9a5c33e5
 
+// Ensuring interfaces in compile-time for AccountPasswordSettings.
+var (
+	_ bin.Encoder     = &AccountPasswordSettings{}
+	_ bin.Decoder     = &AccountPasswordSettings{}
+	_ bin.BareEncoder = &AccountPasswordSettings{}
+	_ bin.BareDecoder = &AccountPasswordSettings{}
+)
+
 func (p *AccountPasswordSettings) Zero() bool {
 	if p == nil {
 		return true
@@ -174,36 +182,6 @@ func (p *AccountPasswordSettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetEmail sets value of Email conditional field.
-func (p *AccountPasswordSettings) SetEmail(value string) {
-	p.Flags.Set(0)
-	p.Email = value
-}
-
-// GetEmail returns value of Email conditional field and
-// boolean which is true if field was set.
-func (p *AccountPasswordSettings) GetEmail() (value string, ok bool) {
-	if !p.Flags.Has(0) {
-		return value, false
-	}
-	return p.Email, true
-}
-
-// SetSecureSettings sets value of SecureSettings conditional field.
-func (p *AccountPasswordSettings) SetSecureSettings(value SecureSecretSettings) {
-	p.Flags.Set(1)
-	p.SecureSettings = value
-}
-
-// GetSecureSettings returns value of SecureSettings conditional field and
-// boolean which is true if field was set.
-func (p *AccountPasswordSettings) GetSecureSettings() (value SecureSecretSettings, ok bool) {
-	if !p.Flags.Has(1) {
-		return value, false
-	}
-	return p.SecureSettings, true
-}
-
 // Decode implements bin.Decoder.
 func (p *AccountPasswordSettings) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -240,10 +218,32 @@ func (p *AccountPasswordSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountPasswordSettings.
-var (
-	_ bin.Encoder     = &AccountPasswordSettings{}
-	_ bin.Decoder     = &AccountPasswordSettings{}
-	_ bin.BareEncoder = &AccountPasswordSettings{}
-	_ bin.BareDecoder = &AccountPasswordSettings{}
-)
+// SetEmail sets value of Email conditional field.
+func (p *AccountPasswordSettings) SetEmail(value string) {
+	p.Flags.Set(0)
+	p.Email = value
+}
+
+// GetEmail returns value of Email conditional field and
+// boolean which is true if field was set.
+func (p *AccountPasswordSettings) GetEmail() (value string, ok bool) {
+	if !p.Flags.Has(0) {
+		return value, false
+	}
+	return p.Email, true
+}
+
+// SetSecureSettings sets value of SecureSettings conditional field.
+func (p *AccountPasswordSettings) SetSecureSettings(value SecureSecretSettings) {
+	p.Flags.Set(1)
+	p.SecureSettings = value
+}
+
+// GetSecureSettings returns value of SecureSettings conditional field and
+// boolean which is true if field was set.
+func (p *AccountPasswordSettings) GetSecureSettings() (value SecureSecretSettings, ok bool) {
+	if !p.Flags.Has(1) {
+		return value, false
+	}
+	return p.SecureSettings, true
+}

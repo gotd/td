@@ -38,6 +38,14 @@ type LangPackStringClassVector struct {
 // LangPackStringClassVectorTypeID is TL type id of LangPackStringClassVector.
 const LangPackStringClassVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for LangPackStringClassVector.
+var (
+	_ bin.Encoder     = &LangPackStringClassVector{}
+	_ bin.Decoder     = &LangPackStringClassVector{}
+	_ bin.BareEncoder = &LangPackStringClassVector{}
+	_ bin.BareDecoder = &LangPackStringClassVector{}
+)
+
 func (vec *LangPackStringClassVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -122,16 +130,6 @@ func (vec *LangPackStringClassVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *LangPackStringClassVector) GetElems() (value []LangPackStringClass) {
-	return vec.Elems
-}
-
-// MapElems returns field Elems wrapped in LangPackStringClassArray helper.
-func (vec *LangPackStringClassVector) MapElems() (value LangPackStringClassArray) {
-	return LangPackStringClassArray(vec.Elems)
-}
-
 // Decode implements bin.Decoder.
 func (vec *LangPackStringClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -166,10 +164,12 @@ func (vec *LangPackStringClassVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for LangPackStringClassVector.
-var (
-	_ bin.Encoder     = &LangPackStringClassVector{}
-	_ bin.Decoder     = &LangPackStringClassVector{}
-	_ bin.BareEncoder = &LangPackStringClassVector{}
-	_ bin.BareDecoder = &LangPackStringClassVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *LangPackStringClassVector) GetElems() (value []LangPackStringClass) {
+	return vec.Elems
+}
+
+// MapElems returns field Elems wrapped in LangPackStringClassArray helper.
+func (vec *LangPackStringClassVector) MapElems() (value LangPackStringClassArray) {
+	return LangPackStringClassArray(vec.Elems)
+}

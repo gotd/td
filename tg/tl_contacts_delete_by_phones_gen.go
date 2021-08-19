@@ -41,6 +41,14 @@ type ContactsDeleteByPhonesRequest struct {
 // ContactsDeleteByPhonesRequestTypeID is TL type id of ContactsDeleteByPhonesRequest.
 const ContactsDeleteByPhonesRequestTypeID = 0x1013fd9e
 
+// Ensuring interfaces in compile-time for ContactsDeleteByPhonesRequest.
+var (
+	_ bin.Encoder     = &ContactsDeleteByPhonesRequest{}
+	_ bin.Decoder     = &ContactsDeleteByPhonesRequest{}
+	_ bin.BareEncoder = &ContactsDeleteByPhonesRequest{}
+	_ bin.BareDecoder = &ContactsDeleteByPhonesRequest{}
+)
+
 func (d *ContactsDeleteByPhonesRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -120,11 +128,6 @@ func (d *ContactsDeleteByPhonesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhones returns value of Phones field.
-func (d *ContactsDeleteByPhonesRequest) GetPhones() (value []string) {
-	return d.Phones
-}
-
 // Decode implements bin.Decoder.
 func (d *ContactsDeleteByPhonesRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -161,13 +164,10 @@ func (d *ContactsDeleteByPhonesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsDeleteByPhonesRequest.
-var (
-	_ bin.Encoder     = &ContactsDeleteByPhonesRequest{}
-	_ bin.Decoder     = &ContactsDeleteByPhonesRequest{}
-	_ bin.BareEncoder = &ContactsDeleteByPhonesRequest{}
-	_ bin.BareDecoder = &ContactsDeleteByPhonesRequest{}
-)
+// GetPhones returns value of Phones field.
+func (d *ContactsDeleteByPhonesRequest) GetPhones() (value []string) {
+	return d.Phones
+}
 
 // ContactsDeleteByPhones invokes method contacts.deleteByPhones#1013fd9e returning error if any.
 // Delete contacts by phone number

@@ -49,6 +49,19 @@ type WebDocument struct {
 // WebDocumentTypeID is TL type id of WebDocument.
 const WebDocumentTypeID = 0x1c570ed1
 
+// construct implements constructor of WebDocumentClass.
+func (w WebDocument) construct() WebDocumentClass { return &w }
+
+// Ensuring interfaces in compile-time for WebDocument.
+var (
+	_ bin.Encoder     = &WebDocument{}
+	_ bin.Decoder     = &WebDocument{}
+	_ bin.BareEncoder = &WebDocument{}
+	_ bin.BareDecoder = &WebDocument{}
+
+	_ WebDocumentClass = &WebDocument{}
+)
+
 func (w *WebDocument) Zero() bool {
 	if w == nil {
 		return true
@@ -173,36 +186,6 @@ func (w *WebDocument) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (w *WebDocument) GetURL() (value string) {
-	return w.URL
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (w *WebDocument) GetAccessHash() (value int64) {
-	return w.AccessHash
-}
-
-// GetSize returns value of Size field.
-func (w *WebDocument) GetSize() (value int) {
-	return w.Size
-}
-
-// GetMimeType returns value of MimeType field.
-func (w *WebDocument) GetMimeType() (value string) {
-	return w.MimeType
-}
-
-// GetAttributes returns value of Attributes field.
-func (w *WebDocument) GetAttributes() (value []DocumentAttributeClass) {
-	return w.Attributes
-}
-
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
-func (w *WebDocument) MapAttributes() (value DocumentAttributeClassArray) {
-	return DocumentAttributeClassArray(w.Attributes)
-}
-
 // Decode implements bin.Decoder.
 func (w *WebDocument) Decode(b *bin.Buffer) error {
 	if w == nil {
@@ -267,18 +250,35 @@ func (w *WebDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of WebDocumentClass.
-func (w WebDocument) construct() WebDocumentClass { return &w }
+// GetURL returns value of URL field.
+func (w *WebDocument) GetURL() (value string) {
+	return w.URL
+}
 
-// Ensuring interfaces in compile-time for WebDocument.
-var (
-	_ bin.Encoder     = &WebDocument{}
-	_ bin.Decoder     = &WebDocument{}
-	_ bin.BareEncoder = &WebDocument{}
-	_ bin.BareDecoder = &WebDocument{}
+// GetAccessHash returns value of AccessHash field.
+func (w *WebDocument) GetAccessHash() (value int64) {
+	return w.AccessHash
+}
 
-	_ WebDocumentClass = &WebDocument{}
-)
+// GetSize returns value of Size field.
+func (w *WebDocument) GetSize() (value int) {
+	return w.Size
+}
+
+// GetMimeType returns value of MimeType field.
+func (w *WebDocument) GetMimeType() (value string) {
+	return w.MimeType
+}
+
+// GetAttributes returns value of Attributes field.
+func (w *WebDocument) GetAttributes() (value []DocumentAttributeClass) {
+	return w.Attributes
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
+func (w *WebDocument) MapAttributes() (value DocumentAttributeClassArray) {
+	return DocumentAttributeClassArray(w.Attributes)
+}
 
 // WebDocumentNoProxy represents TL type `webDocumentNoProxy#f9c8bcc6`.
 // Remote document that can be downloaded without proxying through telegram¹
@@ -300,6 +300,19 @@ type WebDocumentNoProxy struct {
 
 // WebDocumentNoProxyTypeID is TL type id of WebDocumentNoProxy.
 const WebDocumentNoProxyTypeID = 0xf9c8bcc6
+
+// construct implements constructor of WebDocumentClass.
+func (w WebDocumentNoProxy) construct() WebDocumentClass { return &w }
+
+// Ensuring interfaces in compile-time for WebDocumentNoProxy.
+var (
+	_ bin.Encoder     = &WebDocumentNoProxy{}
+	_ bin.Decoder     = &WebDocumentNoProxy{}
+	_ bin.BareEncoder = &WebDocumentNoProxy{}
+	_ bin.BareDecoder = &WebDocumentNoProxy{}
+
+	_ WebDocumentClass = &WebDocumentNoProxy{}
+)
 
 func (w *WebDocumentNoProxy) Zero() bool {
 	if w == nil {
@@ -415,31 +428,6 @@ func (w *WebDocumentNoProxy) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (w *WebDocumentNoProxy) GetURL() (value string) {
-	return w.URL
-}
-
-// GetSize returns value of Size field.
-func (w *WebDocumentNoProxy) GetSize() (value int) {
-	return w.Size
-}
-
-// GetMimeType returns value of MimeType field.
-func (w *WebDocumentNoProxy) GetMimeType() (value string) {
-	return w.MimeType
-}
-
-// GetAttributes returns value of Attributes field.
-func (w *WebDocumentNoProxy) GetAttributes() (value []DocumentAttributeClass) {
-	return w.Attributes
-}
-
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
-func (w *WebDocumentNoProxy) MapAttributes() (value DocumentAttributeClassArray) {
-	return DocumentAttributeClassArray(w.Attributes)
-}
-
 // Decode implements bin.Decoder.
 func (w *WebDocumentNoProxy) Decode(b *bin.Buffer) error {
 	if w == nil {
@@ -497,18 +485,30 @@ func (w *WebDocumentNoProxy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of WebDocumentClass.
-func (w WebDocumentNoProxy) construct() WebDocumentClass { return &w }
+// GetURL returns value of URL field.
+func (w *WebDocumentNoProxy) GetURL() (value string) {
+	return w.URL
+}
 
-// Ensuring interfaces in compile-time for WebDocumentNoProxy.
-var (
-	_ bin.Encoder     = &WebDocumentNoProxy{}
-	_ bin.Decoder     = &WebDocumentNoProxy{}
-	_ bin.BareEncoder = &WebDocumentNoProxy{}
-	_ bin.BareDecoder = &WebDocumentNoProxy{}
+// GetSize returns value of Size field.
+func (w *WebDocumentNoProxy) GetSize() (value int) {
+	return w.Size
+}
 
-	_ WebDocumentClass = &WebDocumentNoProxy{}
-)
+// GetMimeType returns value of MimeType field.
+func (w *WebDocumentNoProxy) GetMimeType() (value string) {
+	return w.MimeType
+}
+
+// GetAttributes returns value of Attributes field.
+func (w *WebDocumentNoProxy) GetAttributes() (value []DocumentAttributeClass) {
+	return w.Attributes
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
+func (w *WebDocumentNoProxy) MapAttributes() (value DocumentAttributeClassArray) {
+	return DocumentAttributeClassArray(w.Attributes)
+}
 
 // WebDocumentClass represents WebDocument generic type.
 //
@@ -618,276 +618,4 @@ func (b *WebDocumentBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode WebDocumentClass as nil")
 	}
 	return b.WebDocument.Encode(buf)
-}
-
-// WebDocumentClassArray is adapter for slice of WebDocumentClass.
-type WebDocumentClassArray []WebDocumentClass
-
-// Sort sorts slice of WebDocumentClass.
-func (s WebDocumentClassArray) Sort(less func(a, b WebDocumentClass) bool) WebDocumentClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of WebDocumentClass.
-func (s WebDocumentClassArray) SortStable(less func(a, b WebDocumentClass) bool) WebDocumentClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of WebDocumentClass.
-func (s WebDocumentClassArray) Retain(keep func(x WebDocumentClass) bool) WebDocumentClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s WebDocumentClassArray) First() (v WebDocumentClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s WebDocumentClassArray) Last() (v WebDocumentClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *WebDocumentClassArray) PopFirst() (v WebDocumentClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero WebDocumentClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *WebDocumentClassArray) Pop() (v WebDocumentClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsWebDocument returns copy with only WebDocument constructors.
-func (s WebDocumentClassArray) AsWebDocument() (to WebDocumentArray) {
-	for _, elem := range s {
-		value, ok := elem.(*WebDocument)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsWebDocumentNoProxy returns copy with only WebDocumentNoProxy constructors.
-func (s WebDocumentClassArray) AsWebDocumentNoProxy() (to WebDocumentNoProxyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*WebDocumentNoProxy)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// WebDocumentArray is adapter for slice of WebDocument.
-type WebDocumentArray []WebDocument
-
-// Sort sorts slice of WebDocument.
-func (s WebDocumentArray) Sort(less func(a, b WebDocument) bool) WebDocumentArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of WebDocument.
-func (s WebDocumentArray) SortStable(less func(a, b WebDocument) bool) WebDocumentArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of WebDocument.
-func (s WebDocumentArray) Retain(keep func(x WebDocument) bool) WebDocumentArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s WebDocumentArray) First() (v WebDocument, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s WebDocumentArray) Last() (v WebDocument, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *WebDocumentArray) PopFirst() (v WebDocument, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero WebDocument
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *WebDocumentArray) Pop() (v WebDocument, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// WebDocumentNoProxyArray is adapter for slice of WebDocumentNoProxy.
-type WebDocumentNoProxyArray []WebDocumentNoProxy
-
-// Sort sorts slice of WebDocumentNoProxy.
-func (s WebDocumentNoProxyArray) Sort(less func(a, b WebDocumentNoProxy) bool) WebDocumentNoProxyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of WebDocumentNoProxy.
-func (s WebDocumentNoProxyArray) SortStable(less func(a, b WebDocumentNoProxy) bool) WebDocumentNoProxyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of WebDocumentNoProxy.
-func (s WebDocumentNoProxyArray) Retain(keep func(x WebDocumentNoProxy) bool) WebDocumentNoProxyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s WebDocumentNoProxyArray) First() (v WebDocumentNoProxy, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s WebDocumentNoProxyArray) Last() (v WebDocumentNoProxy, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *WebDocumentNoProxyArray) PopFirst() (v WebDocumentNoProxy, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero WebDocumentNoProxy
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *WebDocumentNoProxyArray) Pop() (v WebDocumentNoProxy, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

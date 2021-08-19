@@ -129,6 +129,14 @@ type ChannelAdminLogEventsFilter struct {
 // ChannelAdminLogEventsFilterTypeID is TL type id of ChannelAdminLogEventsFilter.
 const ChannelAdminLogEventsFilterTypeID = 0xea107ae4
 
+// Ensuring interfaces in compile-time for ChannelAdminLogEventsFilter.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventsFilter{}
+	_ bin.Decoder     = &ChannelAdminLogEventsFilter{}
+	_ bin.BareEncoder = &ChannelAdminLogEventsFilter{}
+	_ bin.BareDecoder = &ChannelAdminLogEventsFilter{}
+)
+
 func (c *ChannelAdminLogEventsFilter) Zero() bool {
 	if c == nil {
 		return true
@@ -409,6 +417,46 @@ func (c *ChannelAdminLogEventsFilter) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventsFilter) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventsFilter#ea107ae4 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventsFilterTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventsFilter#ea107ae4: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventsFilter) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventsFilter#ea107ae4 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventsFilter#ea107ae4: field flags: %w", err)
+		}
+	}
+	c.Join = c.Flags.Has(0)
+	c.Leave = c.Flags.Has(1)
+	c.Invite = c.Flags.Has(2)
+	c.Ban = c.Flags.Has(3)
+	c.Unban = c.Flags.Has(4)
+	c.Kick = c.Flags.Has(5)
+	c.Unkick = c.Flags.Has(6)
+	c.Promote = c.Flags.Has(7)
+	c.Demote = c.Flags.Has(8)
+	c.Info = c.Flags.Has(9)
+	c.Settings = c.Flags.Has(10)
+	c.Pinned = c.Flags.Has(11)
+	c.Edit = c.Flags.Has(12)
+	c.Delete = c.Flags.Has(13)
+	c.GroupCall = c.Flags.Has(14)
+	c.Invites = c.Flags.Has(15)
+	return nil
+}
+
 // SetJoin sets value of Join conditional field.
 func (c *ChannelAdminLogEventsFilter) SetJoin(value bool) {
 	if value {
@@ -664,51 +712,3 @@ func (c *ChannelAdminLogEventsFilter) SetInvites(value bool) {
 func (c *ChannelAdminLogEventsFilter) GetInvites() (value bool) {
 	return c.Flags.Has(15)
 }
-
-// Decode implements bin.Decoder.
-func (c *ChannelAdminLogEventsFilter) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode channelAdminLogEventsFilter#ea107ae4 to nil")
-	}
-	if err := b.ConsumeID(ChannelAdminLogEventsFilterTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelAdminLogEventsFilter#ea107ae4: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChannelAdminLogEventsFilter) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode channelAdminLogEventsFilter#ea107ae4 to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelAdminLogEventsFilter#ea107ae4: field flags: %w", err)
-		}
-	}
-	c.Join = c.Flags.Has(0)
-	c.Leave = c.Flags.Has(1)
-	c.Invite = c.Flags.Has(2)
-	c.Ban = c.Flags.Has(3)
-	c.Unban = c.Flags.Has(4)
-	c.Kick = c.Flags.Has(5)
-	c.Unkick = c.Flags.Has(6)
-	c.Promote = c.Flags.Has(7)
-	c.Demote = c.Flags.Has(8)
-	c.Info = c.Flags.Has(9)
-	c.Settings = c.Flags.Has(10)
-	c.Pinned = c.Flags.Has(11)
-	c.Edit = c.Flags.Has(12)
-	c.Delete = c.Flags.Has(13)
-	c.GroupCall = c.Flags.Has(14)
-	c.Invites = c.Flags.Has(15)
-	return nil
-}
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventsFilter.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventsFilter{}
-	_ bin.Decoder     = &ChannelAdminLogEventsFilter{}
-	_ bin.BareEncoder = &ChannelAdminLogEventsFilter{}
-	_ bin.BareDecoder = &ChannelAdminLogEventsFilter{}
-)

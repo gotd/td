@@ -51,6 +51,19 @@ type ReplyKeyboardHide struct {
 // ReplyKeyboardHideTypeID is TL type id of ReplyKeyboardHide.
 const ReplyKeyboardHideTypeID = 0xa03e5b85
 
+// construct implements constructor of ReplyMarkupClass.
+func (r ReplyKeyboardHide) construct() ReplyMarkupClass { return &r }
+
+// Ensuring interfaces in compile-time for ReplyKeyboardHide.
+var (
+	_ bin.Encoder     = &ReplyKeyboardHide{}
+	_ bin.Decoder     = &ReplyKeyboardHide{}
+	_ bin.BareEncoder = &ReplyKeyboardHide{}
+	_ bin.BareDecoder = &ReplyKeyboardHide{}
+
+	_ ReplyMarkupClass = &ReplyKeyboardHide{}
+)
+
 func (r *ReplyKeyboardHide) Zero() bool {
 	if r == nil {
 		return true
@@ -136,22 +149,6 @@ func (r *ReplyKeyboardHide) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetSelective sets value of Selective conditional field.
-func (r *ReplyKeyboardHide) SetSelective(value bool) {
-	if value {
-		r.Flags.Set(2)
-		r.Selective = true
-	} else {
-		r.Flags.Unset(2)
-		r.Selective = false
-	}
-}
-
-// GetSelective returns value of Selective conditional field.
-func (r *ReplyKeyboardHide) GetSelective() (value bool) {
-	return r.Flags.Has(2)
-}
-
 // Decode implements bin.Decoder.
 func (r *ReplyKeyboardHide) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -177,18 +174,21 @@ func (r *ReplyKeyboardHide) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ReplyMarkupClass.
-func (r ReplyKeyboardHide) construct() ReplyMarkupClass { return &r }
+// SetSelective sets value of Selective conditional field.
+func (r *ReplyKeyboardHide) SetSelective(value bool) {
+	if value {
+		r.Flags.Set(2)
+		r.Selective = true
+	} else {
+		r.Flags.Unset(2)
+		r.Selective = false
+	}
+}
 
-// Ensuring interfaces in compile-time for ReplyKeyboardHide.
-var (
-	_ bin.Encoder     = &ReplyKeyboardHide{}
-	_ bin.Decoder     = &ReplyKeyboardHide{}
-	_ bin.BareEncoder = &ReplyKeyboardHide{}
-	_ bin.BareDecoder = &ReplyKeyboardHide{}
-
-	_ ReplyMarkupClass = &ReplyKeyboardHide{}
-)
+// GetSelective returns value of Selective conditional field.
+func (r *ReplyKeyboardHide) GetSelective() (value bool) {
+	return r.Flags.Has(2)
+}
 
 // ReplyKeyboardForceReply represents TL type `replyKeyboardForceReply#86b40b08`.
 // Force the user to send a reply
@@ -219,6 +219,19 @@ type ReplyKeyboardForceReply struct {
 
 // ReplyKeyboardForceReplyTypeID is TL type id of ReplyKeyboardForceReply.
 const ReplyKeyboardForceReplyTypeID = 0x86b40b08
+
+// construct implements constructor of ReplyMarkupClass.
+func (r ReplyKeyboardForceReply) construct() ReplyMarkupClass { return &r }
+
+// Ensuring interfaces in compile-time for ReplyKeyboardForceReply.
+var (
+	_ bin.Encoder     = &ReplyKeyboardForceReply{}
+	_ bin.Decoder     = &ReplyKeyboardForceReply{}
+	_ bin.BareEncoder = &ReplyKeyboardForceReply{}
+	_ bin.BareDecoder = &ReplyKeyboardForceReply{}
+
+	_ ReplyMarkupClass = &ReplyKeyboardForceReply{}
+)
 
 func (r *ReplyKeyboardForceReply) Zero() bool {
 	if r == nil {
@@ -337,6 +350,39 @@ func (r *ReplyKeyboardForceReply) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (r *ReplyKeyboardForceReply) Decode(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode replyKeyboardForceReply#86b40b08 to nil")
+	}
+	if err := b.ConsumeID(ReplyKeyboardForceReplyTypeID); err != nil {
+		return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: %w", err)
+	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ReplyKeyboardForceReply) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode replyKeyboardForceReply#86b40b08 to nil")
+	}
+	{
+		if err := r.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: field flags: %w", err)
+		}
+	}
+	r.SingleUse = r.Flags.Has(1)
+	r.Selective = r.Flags.Has(2)
+	if r.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: field placeholder: %w", err)
+		}
+		r.Placeholder = value
+	}
+	return nil
+}
+
 // SetSingleUse sets value of SingleUse conditional field.
 func (r *ReplyKeyboardForceReply) SetSingleUse(value bool) {
 	if value {
@@ -384,52 +430,6 @@ func (r *ReplyKeyboardForceReply) GetPlaceholder() (value string, ok bool) {
 	return r.Placeholder, true
 }
 
-// Decode implements bin.Decoder.
-func (r *ReplyKeyboardForceReply) Decode(b *bin.Buffer) error {
-	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardForceReply#86b40b08 to nil")
-	}
-	if err := b.ConsumeID(ReplyKeyboardForceReplyTypeID); err != nil {
-		return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: %w", err)
-	}
-	return r.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (r *ReplyKeyboardForceReply) DecodeBare(b *bin.Buffer) error {
-	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardForceReply#86b40b08 to nil")
-	}
-	{
-		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: field flags: %w", err)
-		}
-	}
-	r.SingleUse = r.Flags.Has(1)
-	r.Selective = r.Flags.Has(2)
-	if r.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardForceReply#86b40b08: field placeholder: %w", err)
-		}
-		r.Placeholder = value
-	}
-	return nil
-}
-
-// construct implements constructor of ReplyMarkupClass.
-func (r ReplyKeyboardForceReply) construct() ReplyMarkupClass { return &r }
-
-// Ensuring interfaces in compile-time for ReplyKeyboardForceReply.
-var (
-	_ bin.Encoder     = &ReplyKeyboardForceReply{}
-	_ bin.Decoder     = &ReplyKeyboardForceReply{}
-	_ bin.BareEncoder = &ReplyKeyboardForceReply{}
-	_ bin.BareDecoder = &ReplyKeyboardForceReply{}
-
-	_ ReplyMarkupClass = &ReplyKeyboardForceReply{}
-)
-
 // ReplyKeyboardMarkup represents TL type `replyKeyboardMarkup#85dd99d1`.
 // Bot keyboard
 //
@@ -465,6 +465,19 @@ type ReplyKeyboardMarkup struct {
 
 // ReplyKeyboardMarkupTypeID is TL type id of ReplyKeyboardMarkup.
 const ReplyKeyboardMarkupTypeID = 0x85dd99d1
+
+// construct implements constructor of ReplyMarkupClass.
+func (r ReplyKeyboardMarkup) construct() ReplyMarkupClass { return &r }
+
+// Ensuring interfaces in compile-time for ReplyKeyboardMarkup.
+var (
+	_ bin.Encoder     = &ReplyKeyboardMarkup{}
+	_ bin.Decoder     = &ReplyKeyboardMarkup{}
+	_ bin.BareEncoder = &ReplyKeyboardMarkup{}
+	_ bin.BareDecoder = &ReplyKeyboardMarkup{}
+
+	_ ReplyMarkupClass = &ReplyKeyboardMarkup{}
+)
 
 func (r *ReplyKeyboardMarkup) Zero() bool {
 	if r == nil {
@@ -611,6 +624,57 @@ func (r *ReplyKeyboardMarkup) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (r *ReplyKeyboardMarkup) Decode(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode replyKeyboardMarkup#85dd99d1 to nil")
+	}
+	if err := b.ConsumeID(ReplyKeyboardMarkupTypeID); err != nil {
+		return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: %w", err)
+	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ReplyKeyboardMarkup) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode replyKeyboardMarkup#85dd99d1 to nil")
+	}
+	{
+		if err := r.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field flags: %w", err)
+		}
+	}
+	r.Resize = r.Flags.Has(0)
+	r.SingleUse = r.Flags.Has(1)
+	r.Selective = r.Flags.Has(2)
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field rows: %w", err)
+		}
+
+		if headerLen > 0 {
+			r.Rows = make([]KeyboardButtonRow, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value KeyboardButtonRow
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field rows: %w", err)
+			}
+			r.Rows = append(r.Rows, value)
+		}
+	}
+	if r.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field placeholder: %w", err)
+		}
+		r.Placeholder = value
+	}
+	return nil
+}
+
 // SetResize sets value of Resize conditional field.
 func (r *ReplyKeyboardMarkup) SetResize(value bool) {
 	if value {
@@ -679,70 +743,6 @@ func (r *ReplyKeyboardMarkup) GetPlaceholder() (value string, ok bool) {
 	return r.Placeholder, true
 }
 
-// Decode implements bin.Decoder.
-func (r *ReplyKeyboardMarkup) Decode(b *bin.Buffer) error {
-	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardMarkup#85dd99d1 to nil")
-	}
-	if err := b.ConsumeID(ReplyKeyboardMarkupTypeID); err != nil {
-		return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: %w", err)
-	}
-	return r.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (r *ReplyKeyboardMarkup) DecodeBare(b *bin.Buffer) error {
-	if r == nil {
-		return fmt.Errorf("can't decode replyKeyboardMarkup#85dd99d1 to nil")
-	}
-	{
-		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field flags: %w", err)
-		}
-	}
-	r.Resize = r.Flags.Has(0)
-	r.SingleUse = r.Flags.Has(1)
-	r.Selective = r.Flags.Has(2)
-	{
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field rows: %w", err)
-		}
-
-		if headerLen > 0 {
-			r.Rows = make([]KeyboardButtonRow, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value KeyboardButtonRow
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field rows: %w", err)
-			}
-			r.Rows = append(r.Rows, value)
-		}
-	}
-	if r.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode replyKeyboardMarkup#85dd99d1: field placeholder: %w", err)
-		}
-		r.Placeholder = value
-	}
-	return nil
-}
-
-// construct implements constructor of ReplyMarkupClass.
-func (r ReplyKeyboardMarkup) construct() ReplyMarkupClass { return &r }
-
-// Ensuring interfaces in compile-time for ReplyKeyboardMarkup.
-var (
-	_ bin.Encoder     = &ReplyKeyboardMarkup{}
-	_ bin.Decoder     = &ReplyKeyboardMarkup{}
-	_ bin.BareEncoder = &ReplyKeyboardMarkup{}
-	_ bin.BareDecoder = &ReplyKeyboardMarkup{}
-
-	_ ReplyMarkupClass = &ReplyKeyboardMarkup{}
-)
-
 // ReplyInlineMarkup represents TL type `replyInlineMarkup#48a30254`.
 // Bot or inline keyboard
 //
@@ -754,6 +754,19 @@ type ReplyInlineMarkup struct {
 
 // ReplyInlineMarkupTypeID is TL type id of ReplyInlineMarkup.
 const ReplyInlineMarkupTypeID = 0x48a30254
+
+// construct implements constructor of ReplyMarkupClass.
+func (r ReplyInlineMarkup) construct() ReplyMarkupClass { return &r }
+
+// Ensuring interfaces in compile-time for ReplyInlineMarkup.
+var (
+	_ bin.Encoder     = &ReplyInlineMarkup{}
+	_ bin.Decoder     = &ReplyInlineMarkup{}
+	_ bin.BareEncoder = &ReplyInlineMarkup{}
+	_ bin.BareDecoder = &ReplyInlineMarkup{}
+
+	_ ReplyMarkupClass = &ReplyInlineMarkup{}
+)
 
 func (r *ReplyInlineMarkup) Zero() bool {
 	if r == nil {
@@ -836,11 +849,6 @@ func (r *ReplyInlineMarkup) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRows returns value of Rows field.
-func (r *ReplyInlineMarkup) GetRows() (value []KeyboardButtonRow) {
-	return r.Rows
-}
-
 // Decode implements bin.Decoder.
 func (r *ReplyInlineMarkup) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -877,18 +885,10 @@ func (r *ReplyInlineMarkup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ReplyMarkupClass.
-func (r ReplyInlineMarkup) construct() ReplyMarkupClass { return &r }
-
-// Ensuring interfaces in compile-time for ReplyInlineMarkup.
-var (
-	_ bin.Encoder     = &ReplyInlineMarkup{}
-	_ bin.Decoder     = &ReplyInlineMarkup{}
-	_ bin.BareEncoder = &ReplyInlineMarkup{}
-	_ bin.BareDecoder = &ReplyInlineMarkup{}
-
-	_ ReplyMarkupClass = &ReplyInlineMarkup{}
-)
+// GetRows returns value of Rows field.
+func (r *ReplyInlineMarkup) GetRows() (value []KeyboardButtonRow) {
+	return r.Rows
+}
 
 // ReplyMarkupClass represents ReplyMarkup generic type.
 //
@@ -989,466 +989,4 @@ func (b *ReplyMarkupBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ReplyMarkupClass as nil")
 	}
 	return b.ReplyMarkup.Encode(buf)
-}
-
-// ReplyMarkupClassArray is adapter for slice of ReplyMarkupClass.
-type ReplyMarkupClassArray []ReplyMarkupClass
-
-// Sort sorts slice of ReplyMarkupClass.
-func (s ReplyMarkupClassArray) Sort(less func(a, b ReplyMarkupClass) bool) ReplyMarkupClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ReplyMarkupClass.
-func (s ReplyMarkupClassArray) SortStable(less func(a, b ReplyMarkupClass) bool) ReplyMarkupClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ReplyMarkupClass.
-func (s ReplyMarkupClassArray) Retain(keep func(x ReplyMarkupClass) bool) ReplyMarkupClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ReplyMarkupClassArray) First() (v ReplyMarkupClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ReplyMarkupClassArray) Last() (v ReplyMarkupClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ReplyMarkupClassArray) PopFirst() (v ReplyMarkupClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ReplyMarkupClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ReplyMarkupClassArray) Pop() (v ReplyMarkupClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsReplyKeyboardHide returns copy with only ReplyKeyboardHide constructors.
-func (s ReplyMarkupClassArray) AsReplyKeyboardHide() (to ReplyKeyboardHideArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ReplyKeyboardHide)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsReplyKeyboardForceReply returns copy with only ReplyKeyboardForceReply constructors.
-func (s ReplyMarkupClassArray) AsReplyKeyboardForceReply() (to ReplyKeyboardForceReplyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ReplyKeyboardForceReply)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsReplyKeyboardMarkup returns copy with only ReplyKeyboardMarkup constructors.
-func (s ReplyMarkupClassArray) AsReplyKeyboardMarkup() (to ReplyKeyboardMarkupArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ReplyKeyboardMarkup)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsReplyInlineMarkup returns copy with only ReplyInlineMarkup constructors.
-func (s ReplyMarkupClassArray) AsReplyInlineMarkup() (to ReplyInlineMarkupArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ReplyInlineMarkup)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// ReplyKeyboardHideArray is adapter for slice of ReplyKeyboardHide.
-type ReplyKeyboardHideArray []ReplyKeyboardHide
-
-// Sort sorts slice of ReplyKeyboardHide.
-func (s ReplyKeyboardHideArray) Sort(less func(a, b ReplyKeyboardHide) bool) ReplyKeyboardHideArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ReplyKeyboardHide.
-func (s ReplyKeyboardHideArray) SortStable(less func(a, b ReplyKeyboardHide) bool) ReplyKeyboardHideArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ReplyKeyboardHide.
-func (s ReplyKeyboardHideArray) Retain(keep func(x ReplyKeyboardHide) bool) ReplyKeyboardHideArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ReplyKeyboardHideArray) First() (v ReplyKeyboardHide, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ReplyKeyboardHideArray) Last() (v ReplyKeyboardHide, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ReplyKeyboardHideArray) PopFirst() (v ReplyKeyboardHide, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ReplyKeyboardHide
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ReplyKeyboardHideArray) Pop() (v ReplyKeyboardHide, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// ReplyKeyboardForceReplyArray is adapter for slice of ReplyKeyboardForceReply.
-type ReplyKeyboardForceReplyArray []ReplyKeyboardForceReply
-
-// Sort sorts slice of ReplyKeyboardForceReply.
-func (s ReplyKeyboardForceReplyArray) Sort(less func(a, b ReplyKeyboardForceReply) bool) ReplyKeyboardForceReplyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ReplyKeyboardForceReply.
-func (s ReplyKeyboardForceReplyArray) SortStable(less func(a, b ReplyKeyboardForceReply) bool) ReplyKeyboardForceReplyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ReplyKeyboardForceReply.
-func (s ReplyKeyboardForceReplyArray) Retain(keep func(x ReplyKeyboardForceReply) bool) ReplyKeyboardForceReplyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ReplyKeyboardForceReplyArray) First() (v ReplyKeyboardForceReply, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ReplyKeyboardForceReplyArray) Last() (v ReplyKeyboardForceReply, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ReplyKeyboardForceReplyArray) PopFirst() (v ReplyKeyboardForceReply, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ReplyKeyboardForceReply
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ReplyKeyboardForceReplyArray) Pop() (v ReplyKeyboardForceReply, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// ReplyKeyboardMarkupArray is adapter for slice of ReplyKeyboardMarkup.
-type ReplyKeyboardMarkupArray []ReplyKeyboardMarkup
-
-// Sort sorts slice of ReplyKeyboardMarkup.
-func (s ReplyKeyboardMarkupArray) Sort(less func(a, b ReplyKeyboardMarkup) bool) ReplyKeyboardMarkupArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ReplyKeyboardMarkup.
-func (s ReplyKeyboardMarkupArray) SortStable(less func(a, b ReplyKeyboardMarkup) bool) ReplyKeyboardMarkupArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ReplyKeyboardMarkup.
-func (s ReplyKeyboardMarkupArray) Retain(keep func(x ReplyKeyboardMarkup) bool) ReplyKeyboardMarkupArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ReplyKeyboardMarkupArray) First() (v ReplyKeyboardMarkup, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ReplyKeyboardMarkupArray) Last() (v ReplyKeyboardMarkup, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ReplyKeyboardMarkupArray) PopFirst() (v ReplyKeyboardMarkup, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ReplyKeyboardMarkup
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ReplyKeyboardMarkupArray) Pop() (v ReplyKeyboardMarkup, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// ReplyInlineMarkupArray is adapter for slice of ReplyInlineMarkup.
-type ReplyInlineMarkupArray []ReplyInlineMarkup
-
-// Sort sorts slice of ReplyInlineMarkup.
-func (s ReplyInlineMarkupArray) Sort(less func(a, b ReplyInlineMarkup) bool) ReplyInlineMarkupArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ReplyInlineMarkup.
-func (s ReplyInlineMarkupArray) SortStable(less func(a, b ReplyInlineMarkup) bool) ReplyInlineMarkupArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ReplyInlineMarkup.
-func (s ReplyInlineMarkupArray) Retain(keep func(x ReplyInlineMarkup) bool) ReplyInlineMarkupArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ReplyInlineMarkupArray) First() (v ReplyInlineMarkup, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ReplyInlineMarkupArray) Last() (v ReplyInlineMarkup, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ReplyInlineMarkupArray) PopFirst() (v ReplyInlineMarkup, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ReplyInlineMarkup
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ReplyInlineMarkupArray) Pop() (v ReplyInlineMarkup, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

@@ -62,6 +62,14 @@ type MessagesSetTypingRequest struct {
 // MessagesSetTypingRequestTypeID is TL type id of MessagesSetTypingRequest.
 const MessagesSetTypingRequestTypeID = 0x58943ee2
 
+// Ensuring interfaces in compile-time for MessagesSetTypingRequest.
+var (
+	_ bin.Encoder     = &MessagesSetTypingRequest{}
+	_ bin.Decoder     = &MessagesSetTypingRequest{}
+	_ bin.BareEncoder = &MessagesSetTypingRequest{}
+	_ bin.BareDecoder = &MessagesSetTypingRequest{}
+)
+
 func (s *MessagesSetTypingRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -183,31 +191,6 @@ func (s *MessagesSetTypingRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (s *MessagesSetTypingRequest) GetPeer() (value InputPeerClass) {
-	return s.Peer
-}
-
-// SetTopMsgID sets value of TopMsgID conditional field.
-func (s *MessagesSetTypingRequest) SetTopMsgID(value int) {
-	s.Flags.Set(0)
-	s.TopMsgID = value
-}
-
-// GetTopMsgID returns value of TopMsgID conditional field and
-// boolean which is true if field was set.
-func (s *MessagesSetTypingRequest) GetTopMsgID() (value int, ok bool) {
-	if !s.Flags.Has(0) {
-		return value, false
-	}
-	return s.TopMsgID, true
-}
-
-// GetAction returns value of Action field.
-func (s *MessagesSetTypingRequest) GetAction() (value SendMessageActionClass) {
-	return s.Action
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSetTypingRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -253,13 +236,30 @@ func (s *MessagesSetTypingRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSetTypingRequest.
-var (
-	_ bin.Encoder     = &MessagesSetTypingRequest{}
-	_ bin.Decoder     = &MessagesSetTypingRequest{}
-	_ bin.BareEncoder = &MessagesSetTypingRequest{}
-	_ bin.BareDecoder = &MessagesSetTypingRequest{}
-)
+// GetPeer returns value of Peer field.
+func (s *MessagesSetTypingRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// SetTopMsgID sets value of TopMsgID conditional field.
+func (s *MessagesSetTypingRequest) SetTopMsgID(value int) {
+	s.Flags.Set(0)
+	s.TopMsgID = value
+}
+
+// GetTopMsgID returns value of TopMsgID conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSetTypingRequest) GetTopMsgID() (value int, ok bool) {
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.TopMsgID, true
+}
+
+// GetAction returns value of Action field.
+func (s *MessagesSetTypingRequest) GetAction() (value SendMessageActionClass) {
+	return s.Action
+}
 
 // MessagesSetTyping invokes method messages.setTyping#58943ee2 returning error if any.
 // Sends a current user typing event (see SendMessageAction¹ for all event types) to a

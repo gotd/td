@@ -43,6 +43,14 @@ type AuthExportedAuthorization struct {
 // AuthExportedAuthorizationTypeID is TL type id of AuthExportedAuthorization.
 const AuthExportedAuthorizationTypeID = 0xdf969c2d
 
+// Ensuring interfaces in compile-time for AuthExportedAuthorization.
+var (
+	_ bin.Encoder     = &AuthExportedAuthorization{}
+	_ bin.Decoder     = &AuthExportedAuthorization{}
+	_ bin.BareEncoder = &AuthExportedAuthorization{}
+	_ bin.BareDecoder = &AuthExportedAuthorization{}
+)
+
 func (e *AuthExportedAuthorization) Zero() bool {
 	if e == nil {
 		return true
@@ -129,16 +137,6 @@ func (e *AuthExportedAuthorization) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (e *AuthExportedAuthorization) GetID() (value int) {
-	return e.ID
-}
-
-// GetBytes returns value of Bytes field.
-func (e *AuthExportedAuthorization) GetBytes() (value []byte) {
-	return e.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (e *AuthExportedAuthorization) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -172,10 +170,12 @@ func (e *AuthExportedAuthorization) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthExportedAuthorization.
-var (
-	_ bin.Encoder     = &AuthExportedAuthorization{}
-	_ bin.Decoder     = &AuthExportedAuthorization{}
-	_ bin.BareEncoder = &AuthExportedAuthorization{}
-	_ bin.BareDecoder = &AuthExportedAuthorization{}
-)
+// GetID returns value of ID field.
+func (e *AuthExportedAuthorization) GetID() (value int) {
+	return e.ID
+}
+
+// GetBytes returns value of Bytes field.
+func (e *AuthExportedAuthorization) GetBytes() (value []byte) {
+	return e.Bytes
+}

@@ -48,6 +48,14 @@ type PhoneAcceptCallRequest struct {
 // PhoneAcceptCallRequestTypeID is TL type id of PhoneAcceptCallRequest.
 const PhoneAcceptCallRequestTypeID = 0x3bd2b4a0
 
+// Ensuring interfaces in compile-time for PhoneAcceptCallRequest.
+var (
+	_ bin.Encoder     = &PhoneAcceptCallRequest{}
+	_ bin.Decoder     = &PhoneAcceptCallRequest{}
+	_ bin.BareEncoder = &PhoneAcceptCallRequest{}
+	_ bin.BareDecoder = &PhoneAcceptCallRequest{}
+)
+
 func (a *PhoneAcceptCallRequest) Zero() bool {
 	if a == nil {
 		return true
@@ -148,21 +156,6 @@ func (a *PhoneAcceptCallRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (a *PhoneAcceptCallRequest) GetPeer() (value InputPhoneCall) {
-	return a.Peer
-}
-
-// GetGB returns value of GB field.
-func (a *PhoneAcceptCallRequest) GetGB() (value []byte) {
-	return a.GB
-}
-
-// GetProtocol returns value of Protocol field.
-func (a *PhoneAcceptCallRequest) GetProtocol() (value PhoneCallProtocol) {
-	return a.Protocol
-}
-
 // Decode implements bin.Decoder.
 func (a *PhoneAcceptCallRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -199,13 +192,20 @@ func (a *PhoneAcceptCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneAcceptCallRequest.
-var (
-	_ bin.Encoder     = &PhoneAcceptCallRequest{}
-	_ bin.Decoder     = &PhoneAcceptCallRequest{}
-	_ bin.BareEncoder = &PhoneAcceptCallRequest{}
-	_ bin.BareDecoder = &PhoneAcceptCallRequest{}
-)
+// GetPeer returns value of Peer field.
+func (a *PhoneAcceptCallRequest) GetPeer() (value InputPhoneCall) {
+	return a.Peer
+}
+
+// GetGB returns value of GB field.
+func (a *PhoneAcceptCallRequest) GetGB() (value []byte) {
+	return a.GB
+}
+
+// GetProtocol returns value of Protocol field.
+func (a *PhoneAcceptCallRequest) GetProtocol() (value PhoneCallProtocol) {
+	return a.Protocol
+}
 
 // PhoneAcceptCall invokes method phone.acceptCall#3bd2b4a0 returning error if any.
 // Accept incoming call

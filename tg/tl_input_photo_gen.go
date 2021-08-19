@@ -39,6 +39,19 @@ type InputPhotoEmpty struct {
 // InputPhotoEmptyTypeID is TL type id of InputPhotoEmpty.
 const InputPhotoEmptyTypeID = 0x1cd7bf0d
 
+// construct implements constructor of InputPhotoClass.
+func (i InputPhotoEmpty) construct() InputPhotoClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPhotoEmpty.
+var (
+	_ bin.Encoder     = &InputPhotoEmpty{}
+	_ bin.Decoder     = &InputPhotoEmpty{}
+	_ bin.BareEncoder = &InputPhotoEmpty{}
+	_ bin.BareDecoder = &InputPhotoEmpty{}
+
+	_ InputPhotoClass = &InputPhotoEmpty{}
+)
+
 func (i *InputPhotoEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputPhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPhotoClass.
-func (i InputPhotoEmpty) construct() InputPhotoClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPhotoEmpty.
-var (
-	_ bin.Encoder     = &InputPhotoEmpty{}
-	_ bin.Decoder     = &InputPhotoEmpty{}
-	_ bin.BareEncoder = &InputPhotoEmpty{}
-	_ bin.BareDecoder = &InputPhotoEmpty{}
-
-	_ InputPhotoClass = &InputPhotoEmpty{}
-)
-
 // InputPhoto represents TL type `inputPhoto#3bb3b94a`.
 // Defines a photo for further interaction.
 //
@@ -152,6 +152,19 @@ type InputPhoto struct {
 
 // InputPhotoTypeID is TL type id of InputPhoto.
 const InputPhotoTypeID = 0x3bb3b94a
+
+// construct implements constructor of InputPhotoClass.
+func (i InputPhoto) construct() InputPhotoClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPhoto.
+var (
+	_ bin.Encoder     = &InputPhoto{}
+	_ bin.Decoder     = &InputPhoto{}
+	_ bin.BareEncoder = &InputPhoto{}
+	_ bin.BareDecoder = &InputPhoto{}
+
+	_ InputPhotoClass = &InputPhoto{}
+)
 
 func (i *InputPhoto) Zero() bool {
 	if i == nil {
@@ -249,21 +262,6 @@ func (i *InputPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputPhoto) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputPhoto) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
-// GetFileReference returns value of FileReference field.
-func (i *InputPhoto) GetFileReference() (value []byte) {
-	return i.FileReference
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -304,18 +302,20 @@ func (i *InputPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPhotoClass.
-func (i InputPhoto) construct() InputPhotoClass { return &i }
+// GetID returns value of ID field.
+func (i *InputPhoto) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputPhoto.
-var (
-	_ bin.Encoder     = &InputPhoto{}
-	_ bin.Decoder     = &InputPhoto{}
-	_ bin.BareEncoder = &InputPhoto{}
-	_ bin.BareDecoder = &InputPhoto{}
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPhoto) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
-	_ InputPhotoClass = &InputPhoto{}
-)
+// GetFileReference returns value of FileReference field.
+func (i *InputPhoto) GetFileReference() (value []byte) {
+	return i.FileReference
+}
 
 // InputPhotoClass represents InputPhoto generic type.
 //
@@ -413,236 +413,4 @@ func (b *InputPhotoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputPhotoClass as nil")
 	}
 	return b.InputPhoto.Encode(buf)
-}
-
-// InputPhotoClassArray is adapter for slice of InputPhotoClass.
-type InputPhotoClassArray []InputPhotoClass
-
-// Sort sorts slice of InputPhotoClass.
-func (s InputPhotoClassArray) Sort(less func(a, b InputPhotoClass) bool) InputPhotoClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPhotoClass.
-func (s InputPhotoClassArray) SortStable(less func(a, b InputPhotoClass) bool) InputPhotoClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPhotoClass.
-func (s InputPhotoClassArray) Retain(keep func(x InputPhotoClass) bool) InputPhotoClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPhotoClassArray) First() (v InputPhotoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPhotoClassArray) Last() (v InputPhotoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPhotoClassArray) PopFirst() (v InputPhotoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPhotoClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPhotoClassArray) Pop() (v InputPhotoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsInputPhoto returns copy with only InputPhoto constructors.
-func (s InputPhotoClassArray) AsInputPhoto() (to InputPhotoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputPhoto)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s InputPhotoClassArray) AppendOnlyNotEmpty(to []*InputPhoto) []*InputPhoto {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s InputPhotoClassArray) AsNotEmpty() (to []*InputPhoto) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s InputPhotoClassArray) FirstAsNotEmpty() (v *InputPhoto, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s InputPhotoClassArray) LastAsNotEmpty() (v *InputPhoto, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *InputPhotoClassArray) PopFirstAsNotEmpty() (v *InputPhoto, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *InputPhotoClassArray) PopAsNotEmpty() (v *InputPhoto, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// InputPhotoArray is adapter for slice of InputPhoto.
-type InputPhotoArray []InputPhoto
-
-// Sort sorts slice of InputPhoto.
-func (s InputPhotoArray) Sort(less func(a, b InputPhoto) bool) InputPhotoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPhoto.
-func (s InputPhotoArray) SortStable(less func(a, b InputPhoto) bool) InputPhotoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPhoto.
-func (s InputPhotoArray) Retain(keep func(x InputPhoto) bool) InputPhotoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPhotoArray) First() (v InputPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPhotoArray) Last() (v InputPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPhotoArray) PopFirst() (v InputPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPhoto
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPhotoArray) Pop() (v InputPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

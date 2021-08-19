@@ -45,6 +45,14 @@ type LangpackGetStringsRequest struct {
 // LangpackGetStringsRequestTypeID is TL type id of LangpackGetStringsRequest.
 const LangpackGetStringsRequestTypeID = 0xefea3803
 
+// Ensuring interfaces in compile-time for LangpackGetStringsRequest.
+var (
+	_ bin.Encoder     = &LangpackGetStringsRequest{}
+	_ bin.Decoder     = &LangpackGetStringsRequest{}
+	_ bin.BareEncoder = &LangpackGetStringsRequest{}
+	_ bin.BareDecoder = &LangpackGetStringsRequest{}
+)
+
 func (g *LangpackGetStringsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -144,21 +152,6 @@ func (g *LangpackGetStringsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLangPack returns value of LangPack field.
-func (g *LangpackGetStringsRequest) GetLangPack() (value string) {
-	return g.LangPack
-}
-
-// GetLangCode returns value of LangCode field.
-func (g *LangpackGetStringsRequest) GetLangCode() (value string) {
-	return g.LangCode
-}
-
-// GetKeys returns value of Keys field.
-func (g *LangpackGetStringsRequest) GetKeys() (value []string) {
-	return g.Keys
-}
-
 // Decode implements bin.Decoder.
 func (g *LangpackGetStringsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -209,13 +202,20 @@ func (g *LangpackGetStringsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for LangpackGetStringsRequest.
-var (
-	_ bin.Encoder     = &LangpackGetStringsRequest{}
-	_ bin.Decoder     = &LangpackGetStringsRequest{}
-	_ bin.BareEncoder = &LangpackGetStringsRequest{}
-	_ bin.BareDecoder = &LangpackGetStringsRequest{}
-)
+// GetLangPack returns value of LangPack field.
+func (g *LangpackGetStringsRequest) GetLangPack() (value string) {
+	return g.LangPack
+}
+
+// GetLangCode returns value of LangCode field.
+func (g *LangpackGetStringsRequest) GetLangCode() (value string) {
+	return g.LangCode
+}
+
+// GetKeys returns value of Keys field.
+func (g *LangpackGetStringsRequest) GetKeys() (value []string) {
+	return g.Keys
+}
 
 // LangpackGetStrings invokes method langpack.getStrings#efea3803 returning error if any.
 // Get strings from a language pack

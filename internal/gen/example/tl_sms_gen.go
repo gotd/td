@@ -40,6 +40,14 @@ type SMS struct {
 // SMSTypeID is TL type id of SMS.
 const SMSTypeID = 0xed8bebfe
 
+// Ensuring interfaces in compile-time for SMS.
+var (
+	_ bin.Encoder     = &SMS{}
+	_ bin.Decoder     = &SMS{}
+	_ bin.BareEncoder = &SMS{}
+	_ bin.BareDecoder = &SMS{}
+)
+
 func (s *SMS) Zero() bool {
 	if s == nil {
 		return true
@@ -58,13 +66,6 @@ func (s *SMS) String() string {
 	}
 	type Alias SMS
 	return fmt.Sprintf("SMS%+v", Alias(*s))
-}
-
-// FillFrom fills SMS from given interface.
-func (s *SMS) FillFrom(from interface {
-	GetText() (value string)
-}) {
-	s.Text = from.GetText()
 }
 
 // TypeID returns type id in TL schema.
@@ -116,11 +117,6 @@ func (s *SMS) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (s *SMS) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SMS) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -147,10 +143,7 @@ func (s *SMS) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for SMS.
-var (
-	_ bin.Encoder     = &SMS{}
-	_ bin.Decoder     = &SMS{}
-	_ bin.BareEncoder = &SMS{}
-	_ bin.BareDecoder = &SMS{}
-)
+// GetText returns value of Text field.
+func (s *SMS) GetText() (value string) {
+	return s.Text
+}

@@ -43,6 +43,14 @@ type Contact struct {
 // ContactTypeID is TL type id of Contact.
 const ContactTypeID = 0xf911c994
 
+// Ensuring interfaces in compile-time for Contact.
+var (
+	_ bin.Encoder     = &Contact{}
+	_ bin.Decoder     = &Contact{}
+	_ bin.BareEncoder = &Contact{}
+	_ bin.BareDecoder = &Contact{}
+)
+
 func (c *Contact) Zero() bool {
 	if c == nil {
 		return true
@@ -129,16 +137,6 @@ func (c *Contact) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (c *Contact) GetUserID() (value int) {
-	return c.UserID
-}
-
-// GetMutual returns value of Mutual field.
-func (c *Contact) GetMutual() (value bool) {
-	return c.Mutual
-}
-
 // Decode implements bin.Decoder.
 func (c *Contact) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -172,10 +170,12 @@ func (c *Contact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for Contact.
-var (
-	_ bin.Encoder     = &Contact{}
-	_ bin.Decoder     = &Contact{}
-	_ bin.BareEncoder = &Contact{}
-	_ bin.BareDecoder = &Contact{}
-)
+// GetUserID returns value of UserID field.
+func (c *Contact) GetUserID() (value int) {
+	return c.UserID
+}
+
+// GetMutual returns value of Mutual field.
+func (c *Contact) GetMutual() (value bool) {
+	return c.Mutual
+}

@@ -40,6 +40,19 @@ type DecryptedMessageActionSetMessageTTL struct {
 // DecryptedMessageActionSetMessageTTLTypeID is TL type id of DecryptedMessageActionSetMessageTTL.
 const DecryptedMessageActionSetMessageTTLTypeID = 0xa1733aec
 
+// construct implements constructor of DecryptedMessageActionClass.
+func (d DecryptedMessageActionSetMessageTTL) construct() DecryptedMessageActionClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageActionSetMessageTTL.
+var (
+	_ bin.Encoder     = &DecryptedMessageActionSetMessageTTL{}
+	_ bin.Decoder     = &DecryptedMessageActionSetMessageTTL{}
+	_ bin.BareEncoder = &DecryptedMessageActionSetMessageTTL{}
+	_ bin.BareDecoder = &DecryptedMessageActionSetMessageTTL{}
+
+	_ DecryptedMessageActionClass = &DecryptedMessageActionSetMessageTTL{}
+)
+
 func (d *DecryptedMessageActionSetMessageTTL) Zero() bool {
 	if d == nil {
 		return true
@@ -58,13 +71,6 @@ func (d *DecryptedMessageActionSetMessageTTL) String() string {
 	}
 	type Alias DecryptedMessageActionSetMessageTTL
 	return fmt.Sprintf("DecryptedMessageActionSetMessageTTL%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageActionSetMessageTTL from given interface.
-func (d *DecryptedMessageActionSetMessageTTL) FillFrom(from interface {
-	GetTTLSeconds() (value int)
-}) {
-	d.TTLSeconds = from.GetTTLSeconds()
 }
 
 // TypeID returns type id in TL schema.
@@ -116,11 +122,6 @@ func (d *DecryptedMessageActionSetMessageTTL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTTLSeconds returns value of TTLSeconds field.
-func (d *DecryptedMessageActionSetMessageTTL) GetTTLSeconds() (value int) {
-	return d.TTLSeconds
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageActionSetMessageTTL) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -147,18 +148,10 @@ func (d *DecryptedMessageActionSetMessageTTL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageActionClass.
-func (d DecryptedMessageActionSetMessageTTL) construct() DecryptedMessageActionClass { return &d }
-
-// Ensuring interfaces in compile-time for DecryptedMessageActionSetMessageTTL.
-var (
-	_ bin.Encoder     = &DecryptedMessageActionSetMessageTTL{}
-	_ bin.Decoder     = &DecryptedMessageActionSetMessageTTL{}
-	_ bin.BareEncoder = &DecryptedMessageActionSetMessageTTL{}
-	_ bin.BareDecoder = &DecryptedMessageActionSetMessageTTL{}
-
-	_ DecryptedMessageActionClass = &DecryptedMessageActionSetMessageTTL{}
-)
+// GetTTLSeconds returns value of TTLSeconds field.
+func (d *DecryptedMessageActionSetMessageTTL) GetTTLSeconds() (value int) {
+	return d.TTLSeconds
+}
 
 // DecryptedMessageActionReadMessages represents TL type `decryptedMessageActionReadMessages#c4f40be`.
 //
@@ -170,6 +163,19 @@ type DecryptedMessageActionReadMessages struct {
 
 // DecryptedMessageActionReadMessagesTypeID is TL type id of DecryptedMessageActionReadMessages.
 const DecryptedMessageActionReadMessagesTypeID = 0xc4f40be
+
+// construct implements constructor of DecryptedMessageActionClass.
+func (d DecryptedMessageActionReadMessages) construct() DecryptedMessageActionClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageActionReadMessages.
+var (
+	_ bin.Encoder     = &DecryptedMessageActionReadMessages{}
+	_ bin.Decoder     = &DecryptedMessageActionReadMessages{}
+	_ bin.BareEncoder = &DecryptedMessageActionReadMessages{}
+	_ bin.BareDecoder = &DecryptedMessageActionReadMessages{}
+
+	_ DecryptedMessageActionClass = &DecryptedMessageActionReadMessages{}
+)
 
 func (d *DecryptedMessageActionReadMessages) Zero() bool {
 	if d == nil {
@@ -189,13 +195,6 @@ func (d *DecryptedMessageActionReadMessages) String() string {
 	}
 	type Alias DecryptedMessageActionReadMessages
 	return fmt.Sprintf("DecryptedMessageActionReadMessages%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageActionReadMessages from given interface.
-func (d *DecryptedMessageActionReadMessages) FillFrom(from interface {
-	GetRandomIDs() (value []int64)
-}) {
-	d.RandomIDs = from.GetRandomIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -250,11 +249,6 @@ func (d *DecryptedMessageActionReadMessages) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandomIDs returns value of RandomIDs field.
-func (d *DecryptedMessageActionReadMessages) GetRandomIDs() (value []int64) {
-	return d.RandomIDs
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageActionReadMessages) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -291,18 +285,10 @@ func (d *DecryptedMessageActionReadMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageActionClass.
-func (d DecryptedMessageActionReadMessages) construct() DecryptedMessageActionClass { return &d }
-
-// Ensuring interfaces in compile-time for DecryptedMessageActionReadMessages.
-var (
-	_ bin.Encoder     = &DecryptedMessageActionReadMessages{}
-	_ bin.Decoder     = &DecryptedMessageActionReadMessages{}
-	_ bin.BareEncoder = &DecryptedMessageActionReadMessages{}
-	_ bin.BareDecoder = &DecryptedMessageActionReadMessages{}
-
-	_ DecryptedMessageActionClass = &DecryptedMessageActionReadMessages{}
-)
+// GetRandomIDs returns value of RandomIDs field.
+func (d *DecryptedMessageActionReadMessages) GetRandomIDs() (value []int64) {
+	return d.RandomIDs
+}
 
 // DecryptedMessageActionDeleteMessages represents TL type `decryptedMessageActionDeleteMessages#65614304`.
 //
@@ -314,6 +300,19 @@ type DecryptedMessageActionDeleteMessages struct {
 
 // DecryptedMessageActionDeleteMessagesTypeID is TL type id of DecryptedMessageActionDeleteMessages.
 const DecryptedMessageActionDeleteMessagesTypeID = 0x65614304
+
+// construct implements constructor of DecryptedMessageActionClass.
+func (d DecryptedMessageActionDeleteMessages) construct() DecryptedMessageActionClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageActionDeleteMessages.
+var (
+	_ bin.Encoder     = &DecryptedMessageActionDeleteMessages{}
+	_ bin.Decoder     = &DecryptedMessageActionDeleteMessages{}
+	_ bin.BareEncoder = &DecryptedMessageActionDeleteMessages{}
+	_ bin.BareDecoder = &DecryptedMessageActionDeleteMessages{}
+
+	_ DecryptedMessageActionClass = &DecryptedMessageActionDeleteMessages{}
+)
 
 func (d *DecryptedMessageActionDeleteMessages) Zero() bool {
 	if d == nil {
@@ -333,13 +332,6 @@ func (d *DecryptedMessageActionDeleteMessages) String() string {
 	}
 	type Alias DecryptedMessageActionDeleteMessages
 	return fmt.Sprintf("DecryptedMessageActionDeleteMessages%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageActionDeleteMessages from given interface.
-func (d *DecryptedMessageActionDeleteMessages) FillFrom(from interface {
-	GetRandomIDs() (value []int64)
-}) {
-	d.RandomIDs = from.GetRandomIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -394,11 +386,6 @@ func (d *DecryptedMessageActionDeleteMessages) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandomIDs returns value of RandomIDs field.
-func (d *DecryptedMessageActionDeleteMessages) GetRandomIDs() (value []int64) {
-	return d.RandomIDs
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageActionDeleteMessages) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -435,18 +422,10 @@ func (d *DecryptedMessageActionDeleteMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageActionClass.
-func (d DecryptedMessageActionDeleteMessages) construct() DecryptedMessageActionClass { return &d }
-
-// Ensuring interfaces in compile-time for DecryptedMessageActionDeleteMessages.
-var (
-	_ bin.Encoder     = &DecryptedMessageActionDeleteMessages{}
-	_ bin.Decoder     = &DecryptedMessageActionDeleteMessages{}
-	_ bin.BareEncoder = &DecryptedMessageActionDeleteMessages{}
-	_ bin.BareDecoder = &DecryptedMessageActionDeleteMessages{}
-
-	_ DecryptedMessageActionClass = &DecryptedMessageActionDeleteMessages{}
-)
+// GetRandomIDs returns value of RandomIDs field.
+func (d *DecryptedMessageActionDeleteMessages) GetRandomIDs() (value []int64) {
+	return d.RandomIDs
+}
 
 // DecryptedMessageActionScreenshotMessages represents TL type `decryptedMessageActionScreenshotMessages#8ac1f475`.
 //
@@ -458,6 +437,19 @@ type DecryptedMessageActionScreenshotMessages struct {
 
 // DecryptedMessageActionScreenshotMessagesTypeID is TL type id of DecryptedMessageActionScreenshotMessages.
 const DecryptedMessageActionScreenshotMessagesTypeID = 0x8ac1f475
+
+// construct implements constructor of DecryptedMessageActionClass.
+func (d DecryptedMessageActionScreenshotMessages) construct() DecryptedMessageActionClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageActionScreenshotMessages.
+var (
+	_ bin.Encoder     = &DecryptedMessageActionScreenshotMessages{}
+	_ bin.Decoder     = &DecryptedMessageActionScreenshotMessages{}
+	_ bin.BareEncoder = &DecryptedMessageActionScreenshotMessages{}
+	_ bin.BareDecoder = &DecryptedMessageActionScreenshotMessages{}
+
+	_ DecryptedMessageActionClass = &DecryptedMessageActionScreenshotMessages{}
+)
 
 func (d *DecryptedMessageActionScreenshotMessages) Zero() bool {
 	if d == nil {
@@ -477,13 +469,6 @@ func (d *DecryptedMessageActionScreenshotMessages) String() string {
 	}
 	type Alias DecryptedMessageActionScreenshotMessages
 	return fmt.Sprintf("DecryptedMessageActionScreenshotMessages%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageActionScreenshotMessages from given interface.
-func (d *DecryptedMessageActionScreenshotMessages) FillFrom(from interface {
-	GetRandomIDs() (value []int64)
-}) {
-	d.RandomIDs = from.GetRandomIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -538,11 +523,6 @@ func (d *DecryptedMessageActionScreenshotMessages) EncodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// GetRandomIDs returns value of RandomIDs field.
-func (d *DecryptedMessageActionScreenshotMessages) GetRandomIDs() (value []int64) {
-	return d.RandomIDs
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageActionScreenshotMessages) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -579,18 +559,10 @@ func (d *DecryptedMessageActionScreenshotMessages) DecodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageActionClass.
-func (d DecryptedMessageActionScreenshotMessages) construct() DecryptedMessageActionClass { return &d }
-
-// Ensuring interfaces in compile-time for DecryptedMessageActionScreenshotMessages.
-var (
-	_ bin.Encoder     = &DecryptedMessageActionScreenshotMessages{}
-	_ bin.Decoder     = &DecryptedMessageActionScreenshotMessages{}
-	_ bin.BareEncoder = &DecryptedMessageActionScreenshotMessages{}
-	_ bin.BareDecoder = &DecryptedMessageActionScreenshotMessages{}
-
-	_ DecryptedMessageActionClass = &DecryptedMessageActionScreenshotMessages{}
-)
+// GetRandomIDs returns value of RandomIDs field.
+func (d *DecryptedMessageActionScreenshotMessages) GetRandomIDs() (value []int64) {
+	return d.RandomIDs
+}
 
 // DecryptedMessageActionFlushHistory represents TL type `decryptedMessageActionFlushHistory#6719e45c`.
 //
@@ -600,6 +572,19 @@ type DecryptedMessageActionFlushHistory struct {
 
 // DecryptedMessageActionFlushHistoryTypeID is TL type id of DecryptedMessageActionFlushHistory.
 const DecryptedMessageActionFlushHistoryTypeID = 0x6719e45c
+
+// construct implements constructor of DecryptedMessageActionClass.
+func (d DecryptedMessageActionFlushHistory) construct() DecryptedMessageActionClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageActionFlushHistory.
+var (
+	_ bin.Encoder     = &DecryptedMessageActionFlushHistory{}
+	_ bin.Decoder     = &DecryptedMessageActionFlushHistory{}
+	_ bin.BareEncoder = &DecryptedMessageActionFlushHistory{}
+	_ bin.BareDecoder = &DecryptedMessageActionFlushHistory{}
+
+	_ DecryptedMessageActionClass = &DecryptedMessageActionFlushHistory{}
+)
 
 func (d *DecryptedMessageActionFlushHistory) Zero() bool {
 	if d == nil {
@@ -680,19 +665,6 @@ func (d *DecryptedMessageActionFlushHistory) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageActionClass.
-func (d DecryptedMessageActionFlushHistory) construct() DecryptedMessageActionClass { return &d }
-
-// Ensuring interfaces in compile-time for DecryptedMessageActionFlushHistory.
-var (
-	_ bin.Encoder     = &DecryptedMessageActionFlushHistory{}
-	_ bin.Decoder     = &DecryptedMessageActionFlushHistory{}
-	_ bin.BareEncoder = &DecryptedMessageActionFlushHistory{}
-	_ bin.BareDecoder = &DecryptedMessageActionFlushHistory{}
-
-	_ DecryptedMessageActionClass = &DecryptedMessageActionFlushHistory{}
-)
-
 // DecryptedMessageActionResend represents TL type `decryptedMessageActionResend#511110b0`.
 //
 // See https://core.telegram.org/constructor/decryptedMessageActionResend for reference.
@@ -705,6 +677,19 @@ type DecryptedMessageActionResend struct {
 
 // DecryptedMessageActionResendTypeID is TL type id of DecryptedMessageActionResend.
 const DecryptedMessageActionResendTypeID = 0x511110b0
+
+// construct implements constructor of DecryptedMessageActionClass.
+func (d DecryptedMessageActionResend) construct() DecryptedMessageActionClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageActionResend.
+var (
+	_ bin.Encoder     = &DecryptedMessageActionResend{}
+	_ bin.Decoder     = &DecryptedMessageActionResend{}
+	_ bin.BareEncoder = &DecryptedMessageActionResend{}
+	_ bin.BareDecoder = &DecryptedMessageActionResend{}
+
+	_ DecryptedMessageActionClass = &DecryptedMessageActionResend{}
+)
 
 func (d *DecryptedMessageActionResend) Zero() bool {
 	if d == nil {
@@ -727,15 +712,6 @@ func (d *DecryptedMessageActionResend) String() string {
 	}
 	type Alias DecryptedMessageActionResend
 	return fmt.Sprintf("DecryptedMessageActionResend%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageActionResend from given interface.
-func (d *DecryptedMessageActionResend) FillFrom(from interface {
-	GetStartSeqNo() (value int)
-	GetEndSeqNo() (value int)
-}) {
-	d.StartSeqNo = from.GetStartSeqNo()
-	d.EndSeqNo = from.GetEndSeqNo()
 }
 
 // TypeID returns type id in TL schema.
@@ -792,16 +768,6 @@ func (d *DecryptedMessageActionResend) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetStartSeqNo returns value of StartSeqNo field.
-func (d *DecryptedMessageActionResend) GetStartSeqNo() (value int) {
-	return d.StartSeqNo
-}
-
-// GetEndSeqNo returns value of EndSeqNo field.
-func (d *DecryptedMessageActionResend) GetEndSeqNo() (value int) {
-	return d.EndSeqNo
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageActionResend) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -835,18 +801,15 @@ func (d *DecryptedMessageActionResend) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageActionClass.
-func (d DecryptedMessageActionResend) construct() DecryptedMessageActionClass { return &d }
+// GetStartSeqNo returns value of StartSeqNo field.
+func (d *DecryptedMessageActionResend) GetStartSeqNo() (value int) {
+	return d.StartSeqNo
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageActionResend.
-var (
-	_ bin.Encoder     = &DecryptedMessageActionResend{}
-	_ bin.Decoder     = &DecryptedMessageActionResend{}
-	_ bin.BareEncoder = &DecryptedMessageActionResend{}
-	_ bin.BareDecoder = &DecryptedMessageActionResend{}
-
-	_ DecryptedMessageActionClass = &DecryptedMessageActionResend{}
-)
+// GetEndSeqNo returns value of EndSeqNo field.
+func (d *DecryptedMessageActionResend) GetEndSeqNo() (value int) {
+	return d.EndSeqNo
+}
 
 // DecryptedMessageActionNotifyLayer represents TL type `decryptedMessageActionNotifyLayer#f3048883`.
 //
@@ -858,6 +821,19 @@ type DecryptedMessageActionNotifyLayer struct {
 
 // DecryptedMessageActionNotifyLayerTypeID is TL type id of DecryptedMessageActionNotifyLayer.
 const DecryptedMessageActionNotifyLayerTypeID = 0xf3048883
+
+// construct implements constructor of DecryptedMessageActionClass.
+func (d DecryptedMessageActionNotifyLayer) construct() DecryptedMessageActionClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageActionNotifyLayer.
+var (
+	_ bin.Encoder     = &DecryptedMessageActionNotifyLayer{}
+	_ bin.Decoder     = &DecryptedMessageActionNotifyLayer{}
+	_ bin.BareEncoder = &DecryptedMessageActionNotifyLayer{}
+	_ bin.BareDecoder = &DecryptedMessageActionNotifyLayer{}
+
+	_ DecryptedMessageActionClass = &DecryptedMessageActionNotifyLayer{}
+)
 
 func (d *DecryptedMessageActionNotifyLayer) Zero() bool {
 	if d == nil {
@@ -877,13 +853,6 @@ func (d *DecryptedMessageActionNotifyLayer) String() string {
 	}
 	type Alias DecryptedMessageActionNotifyLayer
 	return fmt.Sprintf("DecryptedMessageActionNotifyLayer%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageActionNotifyLayer from given interface.
-func (d *DecryptedMessageActionNotifyLayer) FillFrom(from interface {
-	GetLayer() (value int)
-}) {
-	d.Layer = from.GetLayer()
 }
 
 // TypeID returns type id in TL schema.
@@ -935,11 +904,6 @@ func (d *DecryptedMessageActionNotifyLayer) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLayer returns value of Layer field.
-func (d *DecryptedMessageActionNotifyLayer) GetLayer() (value int) {
-	return d.Layer
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageActionNotifyLayer) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -966,18 +930,10 @@ func (d *DecryptedMessageActionNotifyLayer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageActionClass.
-func (d DecryptedMessageActionNotifyLayer) construct() DecryptedMessageActionClass { return &d }
-
-// Ensuring interfaces in compile-time for DecryptedMessageActionNotifyLayer.
-var (
-	_ bin.Encoder     = &DecryptedMessageActionNotifyLayer{}
-	_ bin.Decoder     = &DecryptedMessageActionNotifyLayer{}
-	_ bin.BareEncoder = &DecryptedMessageActionNotifyLayer{}
-	_ bin.BareDecoder = &DecryptedMessageActionNotifyLayer{}
-
-	_ DecryptedMessageActionClass = &DecryptedMessageActionNotifyLayer{}
-)
+// GetLayer returns value of Layer field.
+func (d *DecryptedMessageActionNotifyLayer) GetLayer() (value int) {
+	return d.Layer
+}
 
 // DecryptedMessageActionTyping represents TL type `decryptedMessageActionTyping#ccb27641`.
 //
@@ -989,6 +945,19 @@ type DecryptedMessageActionTyping struct {
 
 // DecryptedMessageActionTypingTypeID is TL type id of DecryptedMessageActionTyping.
 const DecryptedMessageActionTypingTypeID = 0xccb27641
+
+// construct implements constructor of DecryptedMessageActionClass.
+func (d DecryptedMessageActionTyping) construct() DecryptedMessageActionClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageActionTyping.
+var (
+	_ bin.Encoder     = &DecryptedMessageActionTyping{}
+	_ bin.Decoder     = &DecryptedMessageActionTyping{}
+	_ bin.BareEncoder = &DecryptedMessageActionTyping{}
+	_ bin.BareDecoder = &DecryptedMessageActionTyping{}
+
+	_ DecryptedMessageActionClass = &DecryptedMessageActionTyping{}
+)
 
 func (d *DecryptedMessageActionTyping) Zero() bool {
 	if d == nil {
@@ -1008,13 +977,6 @@ func (d *DecryptedMessageActionTyping) String() string {
 	}
 	type Alias DecryptedMessageActionTyping
 	return fmt.Sprintf("DecryptedMessageActionTyping%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageActionTyping from given interface.
-func (d *DecryptedMessageActionTyping) FillFrom(from interface {
-	GetAction() (value SendMessageActionClass)
-}) {
-	d.Action = from.GetAction()
 }
 
 // TypeID returns type id in TL schema.
@@ -1071,11 +1033,6 @@ func (d *DecryptedMessageActionTyping) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAction returns value of Action field.
-func (d *DecryptedMessageActionTyping) GetAction() (value SendMessageActionClass) {
-	return d.Action
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageActionTyping) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1102,18 +1059,10 @@ func (d *DecryptedMessageActionTyping) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageActionClass.
-func (d DecryptedMessageActionTyping) construct() DecryptedMessageActionClass { return &d }
-
-// Ensuring interfaces in compile-time for DecryptedMessageActionTyping.
-var (
-	_ bin.Encoder     = &DecryptedMessageActionTyping{}
-	_ bin.Decoder     = &DecryptedMessageActionTyping{}
-	_ bin.BareEncoder = &DecryptedMessageActionTyping{}
-	_ bin.BareDecoder = &DecryptedMessageActionTyping{}
-
-	_ DecryptedMessageActionClass = &DecryptedMessageActionTyping{}
-)
+// GetAction returns value of Action field.
+func (d *DecryptedMessageActionTyping) GetAction() (value SendMessageActionClass) {
+	return d.Action
+}
 
 // DecryptedMessageActionRequestKey represents TL type `decryptedMessageActionRequestKey#f3c9611b`.
 //
@@ -1127,6 +1076,19 @@ type DecryptedMessageActionRequestKey struct {
 
 // DecryptedMessageActionRequestKeyTypeID is TL type id of DecryptedMessageActionRequestKey.
 const DecryptedMessageActionRequestKeyTypeID = 0xf3c9611b
+
+// construct implements constructor of DecryptedMessageActionClass.
+func (d DecryptedMessageActionRequestKey) construct() DecryptedMessageActionClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageActionRequestKey.
+var (
+	_ bin.Encoder     = &DecryptedMessageActionRequestKey{}
+	_ bin.Decoder     = &DecryptedMessageActionRequestKey{}
+	_ bin.BareEncoder = &DecryptedMessageActionRequestKey{}
+	_ bin.BareDecoder = &DecryptedMessageActionRequestKey{}
+
+	_ DecryptedMessageActionClass = &DecryptedMessageActionRequestKey{}
+)
 
 func (d *DecryptedMessageActionRequestKey) Zero() bool {
 	if d == nil {
@@ -1149,15 +1111,6 @@ func (d *DecryptedMessageActionRequestKey) String() string {
 	}
 	type Alias DecryptedMessageActionRequestKey
 	return fmt.Sprintf("DecryptedMessageActionRequestKey%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageActionRequestKey from given interface.
-func (d *DecryptedMessageActionRequestKey) FillFrom(from interface {
-	GetExchangeID() (value int64)
-	GetGA() (value []byte)
-}) {
-	d.ExchangeID = from.GetExchangeID()
-	d.GA = from.GetGA()
 }
 
 // TypeID returns type id in TL schema.
@@ -1214,16 +1167,6 @@ func (d *DecryptedMessageActionRequestKey) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExchangeID returns value of ExchangeID field.
-func (d *DecryptedMessageActionRequestKey) GetExchangeID() (value int64) {
-	return d.ExchangeID
-}
-
-// GetGA returns value of GA field.
-func (d *DecryptedMessageActionRequestKey) GetGA() (value []byte) {
-	return d.GA
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageActionRequestKey) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1257,18 +1200,15 @@ func (d *DecryptedMessageActionRequestKey) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageActionClass.
-func (d DecryptedMessageActionRequestKey) construct() DecryptedMessageActionClass { return &d }
+// GetExchangeID returns value of ExchangeID field.
+func (d *DecryptedMessageActionRequestKey) GetExchangeID() (value int64) {
+	return d.ExchangeID
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageActionRequestKey.
-var (
-	_ bin.Encoder     = &DecryptedMessageActionRequestKey{}
-	_ bin.Decoder     = &DecryptedMessageActionRequestKey{}
-	_ bin.BareEncoder = &DecryptedMessageActionRequestKey{}
-	_ bin.BareDecoder = &DecryptedMessageActionRequestKey{}
-
-	_ DecryptedMessageActionClass = &DecryptedMessageActionRequestKey{}
-)
+// GetGA returns value of GA field.
+func (d *DecryptedMessageActionRequestKey) GetGA() (value []byte) {
+	return d.GA
+}
 
 // DecryptedMessageActionAcceptKey represents TL type `decryptedMessageActionAcceptKey#6fe1735b`.
 //
@@ -1284,6 +1224,19 @@ type DecryptedMessageActionAcceptKey struct {
 
 // DecryptedMessageActionAcceptKeyTypeID is TL type id of DecryptedMessageActionAcceptKey.
 const DecryptedMessageActionAcceptKeyTypeID = 0x6fe1735b
+
+// construct implements constructor of DecryptedMessageActionClass.
+func (d DecryptedMessageActionAcceptKey) construct() DecryptedMessageActionClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageActionAcceptKey.
+var (
+	_ bin.Encoder     = &DecryptedMessageActionAcceptKey{}
+	_ bin.Decoder     = &DecryptedMessageActionAcceptKey{}
+	_ bin.BareEncoder = &DecryptedMessageActionAcceptKey{}
+	_ bin.BareDecoder = &DecryptedMessageActionAcceptKey{}
+
+	_ DecryptedMessageActionClass = &DecryptedMessageActionAcceptKey{}
+)
 
 func (d *DecryptedMessageActionAcceptKey) Zero() bool {
 	if d == nil {
@@ -1309,17 +1262,6 @@ func (d *DecryptedMessageActionAcceptKey) String() string {
 	}
 	type Alias DecryptedMessageActionAcceptKey
 	return fmt.Sprintf("DecryptedMessageActionAcceptKey%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageActionAcceptKey from given interface.
-func (d *DecryptedMessageActionAcceptKey) FillFrom(from interface {
-	GetExchangeID() (value int64)
-	GetGB() (value []byte)
-	GetKeyFingerprint() (value int64)
-}) {
-	d.ExchangeID = from.GetExchangeID()
-	d.GB = from.GetGB()
-	d.KeyFingerprint = from.GetKeyFingerprint()
 }
 
 // TypeID returns type id in TL schema.
@@ -1381,21 +1323,6 @@ func (d *DecryptedMessageActionAcceptKey) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExchangeID returns value of ExchangeID field.
-func (d *DecryptedMessageActionAcceptKey) GetExchangeID() (value int64) {
-	return d.ExchangeID
-}
-
-// GetGB returns value of GB field.
-func (d *DecryptedMessageActionAcceptKey) GetGB() (value []byte) {
-	return d.GB
-}
-
-// GetKeyFingerprint returns value of KeyFingerprint field.
-func (d *DecryptedMessageActionAcceptKey) GetKeyFingerprint() (value int64) {
-	return d.KeyFingerprint
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageActionAcceptKey) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1436,18 +1363,20 @@ func (d *DecryptedMessageActionAcceptKey) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageActionClass.
-func (d DecryptedMessageActionAcceptKey) construct() DecryptedMessageActionClass { return &d }
+// GetExchangeID returns value of ExchangeID field.
+func (d *DecryptedMessageActionAcceptKey) GetExchangeID() (value int64) {
+	return d.ExchangeID
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageActionAcceptKey.
-var (
-	_ bin.Encoder     = &DecryptedMessageActionAcceptKey{}
-	_ bin.Decoder     = &DecryptedMessageActionAcceptKey{}
-	_ bin.BareEncoder = &DecryptedMessageActionAcceptKey{}
-	_ bin.BareDecoder = &DecryptedMessageActionAcceptKey{}
+// GetGB returns value of GB field.
+func (d *DecryptedMessageActionAcceptKey) GetGB() (value []byte) {
+	return d.GB
+}
 
-	_ DecryptedMessageActionClass = &DecryptedMessageActionAcceptKey{}
-)
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (d *DecryptedMessageActionAcceptKey) GetKeyFingerprint() (value int64) {
+	return d.KeyFingerprint
+}
 
 // DecryptedMessageActionAbortKey represents TL type `decryptedMessageActionAbortKey#dd05ec6b`.
 //
@@ -1459,6 +1388,19 @@ type DecryptedMessageActionAbortKey struct {
 
 // DecryptedMessageActionAbortKeyTypeID is TL type id of DecryptedMessageActionAbortKey.
 const DecryptedMessageActionAbortKeyTypeID = 0xdd05ec6b
+
+// construct implements constructor of DecryptedMessageActionClass.
+func (d DecryptedMessageActionAbortKey) construct() DecryptedMessageActionClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageActionAbortKey.
+var (
+	_ bin.Encoder     = &DecryptedMessageActionAbortKey{}
+	_ bin.Decoder     = &DecryptedMessageActionAbortKey{}
+	_ bin.BareEncoder = &DecryptedMessageActionAbortKey{}
+	_ bin.BareDecoder = &DecryptedMessageActionAbortKey{}
+
+	_ DecryptedMessageActionClass = &DecryptedMessageActionAbortKey{}
+)
 
 func (d *DecryptedMessageActionAbortKey) Zero() bool {
 	if d == nil {
@@ -1478,13 +1420,6 @@ func (d *DecryptedMessageActionAbortKey) String() string {
 	}
 	type Alias DecryptedMessageActionAbortKey
 	return fmt.Sprintf("DecryptedMessageActionAbortKey%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageActionAbortKey from given interface.
-func (d *DecryptedMessageActionAbortKey) FillFrom(from interface {
-	GetExchangeID() (value int64)
-}) {
-	d.ExchangeID = from.GetExchangeID()
 }
 
 // TypeID returns type id in TL schema.
@@ -1536,11 +1471,6 @@ func (d *DecryptedMessageActionAbortKey) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExchangeID returns value of ExchangeID field.
-func (d *DecryptedMessageActionAbortKey) GetExchangeID() (value int64) {
-	return d.ExchangeID
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageActionAbortKey) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1567,18 +1497,10 @@ func (d *DecryptedMessageActionAbortKey) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageActionClass.
-func (d DecryptedMessageActionAbortKey) construct() DecryptedMessageActionClass { return &d }
-
-// Ensuring interfaces in compile-time for DecryptedMessageActionAbortKey.
-var (
-	_ bin.Encoder     = &DecryptedMessageActionAbortKey{}
-	_ bin.Decoder     = &DecryptedMessageActionAbortKey{}
-	_ bin.BareEncoder = &DecryptedMessageActionAbortKey{}
-	_ bin.BareDecoder = &DecryptedMessageActionAbortKey{}
-
-	_ DecryptedMessageActionClass = &DecryptedMessageActionAbortKey{}
-)
+// GetExchangeID returns value of ExchangeID field.
+func (d *DecryptedMessageActionAbortKey) GetExchangeID() (value int64) {
+	return d.ExchangeID
+}
 
 // DecryptedMessageActionCommitKey represents TL type `decryptedMessageActionCommitKey#ec2e0b9b`.
 //
@@ -1592,6 +1514,19 @@ type DecryptedMessageActionCommitKey struct {
 
 // DecryptedMessageActionCommitKeyTypeID is TL type id of DecryptedMessageActionCommitKey.
 const DecryptedMessageActionCommitKeyTypeID = 0xec2e0b9b
+
+// construct implements constructor of DecryptedMessageActionClass.
+func (d DecryptedMessageActionCommitKey) construct() DecryptedMessageActionClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageActionCommitKey.
+var (
+	_ bin.Encoder     = &DecryptedMessageActionCommitKey{}
+	_ bin.Decoder     = &DecryptedMessageActionCommitKey{}
+	_ bin.BareEncoder = &DecryptedMessageActionCommitKey{}
+	_ bin.BareDecoder = &DecryptedMessageActionCommitKey{}
+
+	_ DecryptedMessageActionClass = &DecryptedMessageActionCommitKey{}
+)
 
 func (d *DecryptedMessageActionCommitKey) Zero() bool {
 	if d == nil {
@@ -1614,15 +1549,6 @@ func (d *DecryptedMessageActionCommitKey) String() string {
 	}
 	type Alias DecryptedMessageActionCommitKey
 	return fmt.Sprintf("DecryptedMessageActionCommitKey%+v", Alias(*d))
-}
-
-// FillFrom fills DecryptedMessageActionCommitKey from given interface.
-func (d *DecryptedMessageActionCommitKey) FillFrom(from interface {
-	GetExchangeID() (value int64)
-	GetKeyFingerprint() (value int64)
-}) {
-	d.ExchangeID = from.GetExchangeID()
-	d.KeyFingerprint = from.GetKeyFingerprint()
 }
 
 // TypeID returns type id in TL schema.
@@ -1679,16 +1605,6 @@ func (d *DecryptedMessageActionCommitKey) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExchangeID returns value of ExchangeID field.
-func (d *DecryptedMessageActionCommitKey) GetExchangeID() (value int64) {
-	return d.ExchangeID
-}
-
-// GetKeyFingerprint returns value of KeyFingerprint field.
-func (d *DecryptedMessageActionCommitKey) GetKeyFingerprint() (value int64) {
-	return d.KeyFingerprint
-}
-
 // Decode implements bin.Decoder.
 func (d *DecryptedMessageActionCommitKey) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -1722,18 +1638,15 @@ func (d *DecryptedMessageActionCommitKey) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DecryptedMessageActionClass.
-func (d DecryptedMessageActionCommitKey) construct() DecryptedMessageActionClass { return &d }
+// GetExchangeID returns value of ExchangeID field.
+func (d *DecryptedMessageActionCommitKey) GetExchangeID() (value int64) {
+	return d.ExchangeID
+}
 
-// Ensuring interfaces in compile-time for DecryptedMessageActionCommitKey.
-var (
-	_ bin.Encoder     = &DecryptedMessageActionCommitKey{}
-	_ bin.Decoder     = &DecryptedMessageActionCommitKey{}
-	_ bin.BareEncoder = &DecryptedMessageActionCommitKey{}
-	_ bin.BareDecoder = &DecryptedMessageActionCommitKey{}
-
-	_ DecryptedMessageActionClass = &DecryptedMessageActionCommitKey{}
-)
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (d *DecryptedMessageActionCommitKey) GetKeyFingerprint() (value int64) {
+	return d.KeyFingerprint
+}
 
 // DecryptedMessageActionNoop represents TL type `decryptedMessageActionNoop#a82fdd63`.
 //
@@ -1743,6 +1656,19 @@ type DecryptedMessageActionNoop struct {
 
 // DecryptedMessageActionNoopTypeID is TL type id of DecryptedMessageActionNoop.
 const DecryptedMessageActionNoopTypeID = 0xa82fdd63
+
+// construct implements constructor of DecryptedMessageActionClass.
+func (d DecryptedMessageActionNoop) construct() DecryptedMessageActionClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageActionNoop.
+var (
+	_ bin.Encoder     = &DecryptedMessageActionNoop{}
+	_ bin.Decoder     = &DecryptedMessageActionNoop{}
+	_ bin.BareEncoder = &DecryptedMessageActionNoop{}
+	_ bin.BareDecoder = &DecryptedMessageActionNoop{}
+
+	_ DecryptedMessageActionClass = &DecryptedMessageActionNoop{}
+)
 
 func (d *DecryptedMessageActionNoop) Zero() bool {
 	if d == nil {
@@ -1822,19 +1748,6 @@ func (d *DecryptedMessageActionNoop) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of DecryptedMessageActionClass.
-func (d DecryptedMessageActionNoop) construct() DecryptedMessageActionClass { return &d }
-
-// Ensuring interfaces in compile-time for DecryptedMessageActionNoop.
-var (
-	_ bin.Encoder     = &DecryptedMessageActionNoop{}
-	_ bin.Decoder     = &DecryptedMessageActionNoop{}
-	_ bin.BareEncoder = &DecryptedMessageActionNoop{}
-	_ bin.BareDecoder = &DecryptedMessageActionNoop{}
-
-	_ DecryptedMessageActionClass = &DecryptedMessageActionNoop{}
-)
 
 // DecryptedMessageActionClass represents DecryptedMessageAction generic type.
 //
@@ -2007,1131 +1920,4 @@ func (b *DecryptedMessageActionBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DecryptedMessageActionClass as nil")
 	}
 	return b.DecryptedMessageAction.Encode(buf)
-}
-
-// DecryptedMessageActionClassArray is adapter for slice of DecryptedMessageActionClass.
-type DecryptedMessageActionClassArray []DecryptedMessageActionClass
-
-// Sort sorts slice of DecryptedMessageActionClass.
-func (s DecryptedMessageActionClassArray) Sort(less func(a, b DecryptedMessageActionClass) bool) DecryptedMessageActionClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageActionClass.
-func (s DecryptedMessageActionClassArray) SortStable(less func(a, b DecryptedMessageActionClass) bool) DecryptedMessageActionClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageActionClass.
-func (s DecryptedMessageActionClassArray) Retain(keep func(x DecryptedMessageActionClass) bool) DecryptedMessageActionClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageActionClassArray) First() (v DecryptedMessageActionClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageActionClassArray) Last() (v DecryptedMessageActionClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionClassArray) PopFirst() (v DecryptedMessageActionClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageActionClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionClassArray) Pop() (v DecryptedMessageActionClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsDecryptedMessageActionSetMessageTTL returns copy with only DecryptedMessageActionSetMessageTTL constructors.
-func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionSetMessageTTL() (to DecryptedMessageActionSetMessageTTLArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageActionSetMessageTTL)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageActionReadMessages returns copy with only DecryptedMessageActionReadMessages constructors.
-func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionReadMessages() (to DecryptedMessageActionReadMessagesArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageActionReadMessages)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageActionDeleteMessages returns copy with only DecryptedMessageActionDeleteMessages constructors.
-func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionDeleteMessages() (to DecryptedMessageActionDeleteMessagesArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageActionDeleteMessages)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageActionScreenshotMessages returns copy with only DecryptedMessageActionScreenshotMessages constructors.
-func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionScreenshotMessages() (to DecryptedMessageActionScreenshotMessagesArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageActionScreenshotMessages)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageActionResend returns copy with only DecryptedMessageActionResend constructors.
-func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionResend() (to DecryptedMessageActionResendArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageActionResend)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageActionNotifyLayer returns copy with only DecryptedMessageActionNotifyLayer constructors.
-func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionNotifyLayer() (to DecryptedMessageActionNotifyLayerArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageActionNotifyLayer)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageActionTyping returns copy with only DecryptedMessageActionTyping constructors.
-func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionTyping() (to DecryptedMessageActionTypingArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageActionTyping)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageActionRequestKey returns copy with only DecryptedMessageActionRequestKey constructors.
-func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionRequestKey() (to DecryptedMessageActionRequestKeyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageActionRequestKey)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageActionAcceptKey returns copy with only DecryptedMessageActionAcceptKey constructors.
-func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionAcceptKey() (to DecryptedMessageActionAcceptKeyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageActionAcceptKey)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageActionAbortKey returns copy with only DecryptedMessageActionAbortKey constructors.
-func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionAbortKey() (to DecryptedMessageActionAbortKeyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageActionAbortKey)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDecryptedMessageActionCommitKey returns copy with only DecryptedMessageActionCommitKey constructors.
-func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionCommitKey() (to DecryptedMessageActionCommitKeyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DecryptedMessageActionCommitKey)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// DecryptedMessageActionSetMessageTTLArray is adapter for slice of DecryptedMessageActionSetMessageTTL.
-type DecryptedMessageActionSetMessageTTLArray []DecryptedMessageActionSetMessageTTL
-
-// Sort sorts slice of DecryptedMessageActionSetMessageTTL.
-func (s DecryptedMessageActionSetMessageTTLArray) Sort(less func(a, b DecryptedMessageActionSetMessageTTL) bool) DecryptedMessageActionSetMessageTTLArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageActionSetMessageTTL.
-func (s DecryptedMessageActionSetMessageTTLArray) SortStable(less func(a, b DecryptedMessageActionSetMessageTTL) bool) DecryptedMessageActionSetMessageTTLArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageActionSetMessageTTL.
-func (s DecryptedMessageActionSetMessageTTLArray) Retain(keep func(x DecryptedMessageActionSetMessageTTL) bool) DecryptedMessageActionSetMessageTTLArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageActionSetMessageTTLArray) First() (v DecryptedMessageActionSetMessageTTL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageActionSetMessageTTLArray) Last() (v DecryptedMessageActionSetMessageTTL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionSetMessageTTLArray) PopFirst() (v DecryptedMessageActionSetMessageTTL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageActionSetMessageTTL
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionSetMessageTTLArray) Pop() (v DecryptedMessageActionSetMessageTTL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageActionReadMessagesArray is adapter for slice of DecryptedMessageActionReadMessages.
-type DecryptedMessageActionReadMessagesArray []DecryptedMessageActionReadMessages
-
-// Sort sorts slice of DecryptedMessageActionReadMessages.
-func (s DecryptedMessageActionReadMessagesArray) Sort(less func(a, b DecryptedMessageActionReadMessages) bool) DecryptedMessageActionReadMessagesArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageActionReadMessages.
-func (s DecryptedMessageActionReadMessagesArray) SortStable(less func(a, b DecryptedMessageActionReadMessages) bool) DecryptedMessageActionReadMessagesArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageActionReadMessages.
-func (s DecryptedMessageActionReadMessagesArray) Retain(keep func(x DecryptedMessageActionReadMessages) bool) DecryptedMessageActionReadMessagesArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageActionReadMessagesArray) First() (v DecryptedMessageActionReadMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageActionReadMessagesArray) Last() (v DecryptedMessageActionReadMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionReadMessagesArray) PopFirst() (v DecryptedMessageActionReadMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageActionReadMessages
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionReadMessagesArray) Pop() (v DecryptedMessageActionReadMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageActionDeleteMessagesArray is adapter for slice of DecryptedMessageActionDeleteMessages.
-type DecryptedMessageActionDeleteMessagesArray []DecryptedMessageActionDeleteMessages
-
-// Sort sorts slice of DecryptedMessageActionDeleteMessages.
-func (s DecryptedMessageActionDeleteMessagesArray) Sort(less func(a, b DecryptedMessageActionDeleteMessages) bool) DecryptedMessageActionDeleteMessagesArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageActionDeleteMessages.
-func (s DecryptedMessageActionDeleteMessagesArray) SortStable(less func(a, b DecryptedMessageActionDeleteMessages) bool) DecryptedMessageActionDeleteMessagesArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageActionDeleteMessages.
-func (s DecryptedMessageActionDeleteMessagesArray) Retain(keep func(x DecryptedMessageActionDeleteMessages) bool) DecryptedMessageActionDeleteMessagesArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageActionDeleteMessagesArray) First() (v DecryptedMessageActionDeleteMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageActionDeleteMessagesArray) Last() (v DecryptedMessageActionDeleteMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionDeleteMessagesArray) PopFirst() (v DecryptedMessageActionDeleteMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageActionDeleteMessages
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionDeleteMessagesArray) Pop() (v DecryptedMessageActionDeleteMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageActionScreenshotMessagesArray is adapter for slice of DecryptedMessageActionScreenshotMessages.
-type DecryptedMessageActionScreenshotMessagesArray []DecryptedMessageActionScreenshotMessages
-
-// Sort sorts slice of DecryptedMessageActionScreenshotMessages.
-func (s DecryptedMessageActionScreenshotMessagesArray) Sort(less func(a, b DecryptedMessageActionScreenshotMessages) bool) DecryptedMessageActionScreenshotMessagesArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageActionScreenshotMessages.
-func (s DecryptedMessageActionScreenshotMessagesArray) SortStable(less func(a, b DecryptedMessageActionScreenshotMessages) bool) DecryptedMessageActionScreenshotMessagesArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageActionScreenshotMessages.
-func (s DecryptedMessageActionScreenshotMessagesArray) Retain(keep func(x DecryptedMessageActionScreenshotMessages) bool) DecryptedMessageActionScreenshotMessagesArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageActionScreenshotMessagesArray) First() (v DecryptedMessageActionScreenshotMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageActionScreenshotMessagesArray) Last() (v DecryptedMessageActionScreenshotMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionScreenshotMessagesArray) PopFirst() (v DecryptedMessageActionScreenshotMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageActionScreenshotMessages
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionScreenshotMessagesArray) Pop() (v DecryptedMessageActionScreenshotMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageActionResendArray is adapter for slice of DecryptedMessageActionResend.
-type DecryptedMessageActionResendArray []DecryptedMessageActionResend
-
-// Sort sorts slice of DecryptedMessageActionResend.
-func (s DecryptedMessageActionResendArray) Sort(less func(a, b DecryptedMessageActionResend) bool) DecryptedMessageActionResendArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageActionResend.
-func (s DecryptedMessageActionResendArray) SortStable(less func(a, b DecryptedMessageActionResend) bool) DecryptedMessageActionResendArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageActionResend.
-func (s DecryptedMessageActionResendArray) Retain(keep func(x DecryptedMessageActionResend) bool) DecryptedMessageActionResendArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageActionResendArray) First() (v DecryptedMessageActionResend, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageActionResendArray) Last() (v DecryptedMessageActionResend, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionResendArray) PopFirst() (v DecryptedMessageActionResend, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageActionResend
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionResendArray) Pop() (v DecryptedMessageActionResend, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageActionNotifyLayerArray is adapter for slice of DecryptedMessageActionNotifyLayer.
-type DecryptedMessageActionNotifyLayerArray []DecryptedMessageActionNotifyLayer
-
-// Sort sorts slice of DecryptedMessageActionNotifyLayer.
-func (s DecryptedMessageActionNotifyLayerArray) Sort(less func(a, b DecryptedMessageActionNotifyLayer) bool) DecryptedMessageActionNotifyLayerArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageActionNotifyLayer.
-func (s DecryptedMessageActionNotifyLayerArray) SortStable(less func(a, b DecryptedMessageActionNotifyLayer) bool) DecryptedMessageActionNotifyLayerArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageActionNotifyLayer.
-func (s DecryptedMessageActionNotifyLayerArray) Retain(keep func(x DecryptedMessageActionNotifyLayer) bool) DecryptedMessageActionNotifyLayerArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageActionNotifyLayerArray) First() (v DecryptedMessageActionNotifyLayer, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageActionNotifyLayerArray) Last() (v DecryptedMessageActionNotifyLayer, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionNotifyLayerArray) PopFirst() (v DecryptedMessageActionNotifyLayer, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageActionNotifyLayer
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionNotifyLayerArray) Pop() (v DecryptedMessageActionNotifyLayer, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageActionTypingArray is adapter for slice of DecryptedMessageActionTyping.
-type DecryptedMessageActionTypingArray []DecryptedMessageActionTyping
-
-// Sort sorts slice of DecryptedMessageActionTyping.
-func (s DecryptedMessageActionTypingArray) Sort(less func(a, b DecryptedMessageActionTyping) bool) DecryptedMessageActionTypingArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageActionTyping.
-func (s DecryptedMessageActionTypingArray) SortStable(less func(a, b DecryptedMessageActionTyping) bool) DecryptedMessageActionTypingArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageActionTyping.
-func (s DecryptedMessageActionTypingArray) Retain(keep func(x DecryptedMessageActionTyping) bool) DecryptedMessageActionTypingArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageActionTypingArray) First() (v DecryptedMessageActionTyping, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageActionTypingArray) Last() (v DecryptedMessageActionTyping, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionTypingArray) PopFirst() (v DecryptedMessageActionTyping, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageActionTyping
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionTypingArray) Pop() (v DecryptedMessageActionTyping, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageActionRequestKeyArray is adapter for slice of DecryptedMessageActionRequestKey.
-type DecryptedMessageActionRequestKeyArray []DecryptedMessageActionRequestKey
-
-// Sort sorts slice of DecryptedMessageActionRequestKey.
-func (s DecryptedMessageActionRequestKeyArray) Sort(less func(a, b DecryptedMessageActionRequestKey) bool) DecryptedMessageActionRequestKeyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageActionRequestKey.
-func (s DecryptedMessageActionRequestKeyArray) SortStable(less func(a, b DecryptedMessageActionRequestKey) bool) DecryptedMessageActionRequestKeyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageActionRequestKey.
-func (s DecryptedMessageActionRequestKeyArray) Retain(keep func(x DecryptedMessageActionRequestKey) bool) DecryptedMessageActionRequestKeyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageActionRequestKeyArray) First() (v DecryptedMessageActionRequestKey, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageActionRequestKeyArray) Last() (v DecryptedMessageActionRequestKey, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionRequestKeyArray) PopFirst() (v DecryptedMessageActionRequestKey, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageActionRequestKey
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionRequestKeyArray) Pop() (v DecryptedMessageActionRequestKey, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageActionAcceptKeyArray is adapter for slice of DecryptedMessageActionAcceptKey.
-type DecryptedMessageActionAcceptKeyArray []DecryptedMessageActionAcceptKey
-
-// Sort sorts slice of DecryptedMessageActionAcceptKey.
-func (s DecryptedMessageActionAcceptKeyArray) Sort(less func(a, b DecryptedMessageActionAcceptKey) bool) DecryptedMessageActionAcceptKeyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageActionAcceptKey.
-func (s DecryptedMessageActionAcceptKeyArray) SortStable(less func(a, b DecryptedMessageActionAcceptKey) bool) DecryptedMessageActionAcceptKeyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageActionAcceptKey.
-func (s DecryptedMessageActionAcceptKeyArray) Retain(keep func(x DecryptedMessageActionAcceptKey) bool) DecryptedMessageActionAcceptKeyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageActionAcceptKeyArray) First() (v DecryptedMessageActionAcceptKey, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageActionAcceptKeyArray) Last() (v DecryptedMessageActionAcceptKey, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionAcceptKeyArray) PopFirst() (v DecryptedMessageActionAcceptKey, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageActionAcceptKey
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionAcceptKeyArray) Pop() (v DecryptedMessageActionAcceptKey, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageActionAbortKeyArray is adapter for slice of DecryptedMessageActionAbortKey.
-type DecryptedMessageActionAbortKeyArray []DecryptedMessageActionAbortKey
-
-// Sort sorts slice of DecryptedMessageActionAbortKey.
-func (s DecryptedMessageActionAbortKeyArray) Sort(less func(a, b DecryptedMessageActionAbortKey) bool) DecryptedMessageActionAbortKeyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageActionAbortKey.
-func (s DecryptedMessageActionAbortKeyArray) SortStable(less func(a, b DecryptedMessageActionAbortKey) bool) DecryptedMessageActionAbortKeyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageActionAbortKey.
-func (s DecryptedMessageActionAbortKeyArray) Retain(keep func(x DecryptedMessageActionAbortKey) bool) DecryptedMessageActionAbortKeyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageActionAbortKeyArray) First() (v DecryptedMessageActionAbortKey, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageActionAbortKeyArray) Last() (v DecryptedMessageActionAbortKey, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionAbortKeyArray) PopFirst() (v DecryptedMessageActionAbortKey, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageActionAbortKey
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionAbortKeyArray) Pop() (v DecryptedMessageActionAbortKey, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DecryptedMessageActionCommitKeyArray is adapter for slice of DecryptedMessageActionCommitKey.
-type DecryptedMessageActionCommitKeyArray []DecryptedMessageActionCommitKey
-
-// Sort sorts slice of DecryptedMessageActionCommitKey.
-func (s DecryptedMessageActionCommitKeyArray) Sort(less func(a, b DecryptedMessageActionCommitKey) bool) DecryptedMessageActionCommitKeyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DecryptedMessageActionCommitKey.
-func (s DecryptedMessageActionCommitKeyArray) SortStable(less func(a, b DecryptedMessageActionCommitKey) bool) DecryptedMessageActionCommitKeyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DecryptedMessageActionCommitKey.
-func (s DecryptedMessageActionCommitKeyArray) Retain(keep func(x DecryptedMessageActionCommitKey) bool) DecryptedMessageActionCommitKeyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DecryptedMessageActionCommitKeyArray) First() (v DecryptedMessageActionCommitKey, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DecryptedMessageActionCommitKeyArray) Last() (v DecryptedMessageActionCommitKey, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionCommitKeyArray) PopFirst() (v DecryptedMessageActionCommitKey, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DecryptedMessageActionCommitKey
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionCommitKeyArray) Pop() (v DecryptedMessageActionCommitKey, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

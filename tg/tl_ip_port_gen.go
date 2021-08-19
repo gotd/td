@@ -42,6 +42,19 @@ type IPPort struct {
 // IPPortTypeID is TL type id of IPPort.
 const IPPortTypeID = 0xd433ad73
 
+// construct implements constructor of IPPortClass.
+func (i IPPort) construct() IPPortClass { return &i }
+
+// Ensuring interfaces in compile-time for IPPort.
+var (
+	_ bin.Encoder     = &IPPort{}
+	_ bin.Decoder     = &IPPort{}
+	_ bin.BareEncoder = &IPPort{}
+	_ bin.BareDecoder = &IPPort{}
+
+	_ IPPortClass = &IPPort{}
+)
+
 func (i *IPPort) Zero() bool {
 	if i == nil {
 		return true
@@ -128,16 +141,6 @@ func (i *IPPort) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetIpv4 returns value of Ipv4 field.
-func (i *IPPort) GetIpv4() (value int) {
-	return i.Ipv4
-}
-
-// GetPort returns value of Port field.
-func (i *IPPort) GetPort() (value int) {
-	return i.Port
-}
-
 // Decode implements bin.Decoder.
 func (i *IPPort) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -171,18 +174,15 @@ func (i *IPPort) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of IPPortClass.
-func (i IPPort) construct() IPPortClass { return &i }
+// GetIpv4 returns value of Ipv4 field.
+func (i *IPPort) GetIpv4() (value int) {
+	return i.Ipv4
+}
 
-// Ensuring interfaces in compile-time for IPPort.
-var (
-	_ bin.Encoder     = &IPPort{}
-	_ bin.Decoder     = &IPPort{}
-	_ bin.BareEncoder = &IPPort{}
-	_ bin.BareDecoder = &IPPort{}
-
-	_ IPPortClass = &IPPort{}
-)
+// GetPort returns value of Port field.
+func (i *IPPort) GetPort() (value int) {
+	return i.Port
+}
 
 // IPPortSecret represents TL type `ipPortSecret#37982646`.
 //
@@ -198,6 +198,19 @@ type IPPortSecret struct {
 
 // IPPortSecretTypeID is TL type id of IPPortSecret.
 const IPPortSecretTypeID = 0x37982646
+
+// construct implements constructor of IPPortClass.
+func (i IPPortSecret) construct() IPPortClass { return &i }
+
+// Ensuring interfaces in compile-time for IPPortSecret.
+var (
+	_ bin.Encoder     = &IPPortSecret{}
+	_ bin.Decoder     = &IPPortSecret{}
+	_ bin.BareEncoder = &IPPortSecret{}
+	_ bin.BareDecoder = &IPPortSecret{}
+
+	_ IPPortClass = &IPPortSecret{}
+)
 
 func (i *IPPortSecret) Zero() bool {
 	if i == nil {
@@ -295,21 +308,6 @@ func (i *IPPortSecret) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetIpv4 returns value of Ipv4 field.
-func (i *IPPortSecret) GetIpv4() (value int) {
-	return i.Ipv4
-}
-
-// GetPort returns value of Port field.
-func (i *IPPortSecret) GetPort() (value int) {
-	return i.Port
-}
-
-// GetSecret returns value of Secret field.
-func (i *IPPortSecret) GetSecret() (value []byte) {
-	return i.Secret
-}
-
 // Decode implements bin.Decoder.
 func (i *IPPortSecret) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -350,18 +348,20 @@ func (i *IPPortSecret) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of IPPortClass.
-func (i IPPortSecret) construct() IPPortClass { return &i }
+// GetIpv4 returns value of Ipv4 field.
+func (i *IPPortSecret) GetIpv4() (value int) {
+	return i.Ipv4
+}
 
-// Ensuring interfaces in compile-time for IPPortSecret.
-var (
-	_ bin.Encoder     = &IPPortSecret{}
-	_ bin.Decoder     = &IPPortSecret{}
-	_ bin.BareEncoder = &IPPortSecret{}
-	_ bin.BareDecoder = &IPPortSecret{}
+// GetPort returns value of Port field.
+func (i *IPPortSecret) GetPort() (value int) {
+	return i.Port
+}
 
-	_ IPPortClass = &IPPortSecret{}
-)
+// GetSecret returns value of Secret field.
+func (i *IPPortSecret) GetSecret() (value []byte) {
+	return i.Secret
+}
 
 // IPPortClass represents IpPort generic type.
 //
@@ -452,276 +452,4 @@ func (b *IPPortBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode IPPortClass as nil")
 	}
 	return b.IpPort.Encode(buf)
-}
-
-// IPPortClassArray is adapter for slice of IPPortClass.
-type IPPortClassArray []IPPortClass
-
-// Sort sorts slice of IPPortClass.
-func (s IPPortClassArray) Sort(less func(a, b IPPortClass) bool) IPPortClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of IPPortClass.
-func (s IPPortClassArray) SortStable(less func(a, b IPPortClass) bool) IPPortClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of IPPortClass.
-func (s IPPortClassArray) Retain(keep func(x IPPortClass) bool) IPPortClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s IPPortClassArray) First() (v IPPortClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s IPPortClassArray) Last() (v IPPortClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *IPPortClassArray) PopFirst() (v IPPortClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero IPPortClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *IPPortClassArray) Pop() (v IPPortClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsIPPort returns copy with only IPPort constructors.
-func (s IPPortClassArray) AsIPPort() (to IPPortArray) {
-	for _, elem := range s {
-		value, ok := elem.(*IPPort)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsIPPortSecret returns copy with only IPPortSecret constructors.
-func (s IPPortClassArray) AsIPPortSecret() (to IPPortSecretArray) {
-	for _, elem := range s {
-		value, ok := elem.(*IPPortSecret)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// IPPortArray is adapter for slice of IPPort.
-type IPPortArray []IPPort
-
-// Sort sorts slice of IPPort.
-func (s IPPortArray) Sort(less func(a, b IPPort) bool) IPPortArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of IPPort.
-func (s IPPortArray) SortStable(less func(a, b IPPort) bool) IPPortArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of IPPort.
-func (s IPPortArray) Retain(keep func(x IPPort) bool) IPPortArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s IPPortArray) First() (v IPPort, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s IPPortArray) Last() (v IPPort, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *IPPortArray) PopFirst() (v IPPort, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero IPPort
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *IPPortArray) Pop() (v IPPort, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// IPPortSecretArray is adapter for slice of IPPortSecret.
-type IPPortSecretArray []IPPortSecret
-
-// Sort sorts slice of IPPortSecret.
-func (s IPPortSecretArray) Sort(less func(a, b IPPortSecret) bool) IPPortSecretArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of IPPortSecret.
-func (s IPPortSecretArray) SortStable(less func(a, b IPPortSecret) bool) IPPortSecretArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of IPPortSecret.
-func (s IPPortSecretArray) Retain(keep func(x IPPortSecret) bool) IPPortSecretArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s IPPortSecretArray) First() (v IPPortSecret, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s IPPortSecretArray) Last() (v IPPortSecret, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *IPPortSecretArray) PopFirst() (v IPPortSecret, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero IPPortSecret
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *IPPortSecretArray) Pop() (v IPPortSecret, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

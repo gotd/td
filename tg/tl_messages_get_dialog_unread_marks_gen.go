@@ -39,6 +39,14 @@ type MessagesGetDialogUnreadMarksRequest struct {
 // MessagesGetDialogUnreadMarksRequestTypeID is TL type id of MessagesGetDialogUnreadMarksRequest.
 const MessagesGetDialogUnreadMarksRequestTypeID = 0x22e24e22
 
+// Ensuring interfaces in compile-time for MessagesGetDialogUnreadMarksRequest.
+var (
+	_ bin.Encoder     = &MessagesGetDialogUnreadMarksRequest{}
+	_ bin.Decoder     = &MessagesGetDialogUnreadMarksRequest{}
+	_ bin.BareEncoder = &MessagesGetDialogUnreadMarksRequest{}
+	_ bin.BareDecoder = &MessagesGetDialogUnreadMarksRequest{}
+)
+
 func (g *MessagesGetDialogUnreadMarksRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *MessagesGetDialogUnreadMarksRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for MessagesGetDialogUnreadMarksRequest.
-var (
-	_ bin.Encoder     = &MessagesGetDialogUnreadMarksRequest{}
-	_ bin.Decoder     = &MessagesGetDialogUnreadMarksRequest{}
-	_ bin.BareEncoder = &MessagesGetDialogUnreadMarksRequest{}
-	_ bin.BareDecoder = &MessagesGetDialogUnreadMarksRequest{}
-)
 
 // MessagesGetDialogUnreadMarks invokes method messages.getDialogUnreadMarks#22e24e22 returning error if any.
 // Get dialogs manually marked as unread

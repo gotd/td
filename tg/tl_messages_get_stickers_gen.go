@@ -46,6 +46,14 @@ type MessagesGetStickersRequest struct {
 // MessagesGetStickersRequestTypeID is TL type id of MessagesGetStickersRequest.
 const MessagesGetStickersRequestTypeID = 0x43d4f2c
 
+// Ensuring interfaces in compile-time for MessagesGetStickersRequest.
+var (
+	_ bin.Encoder     = &MessagesGetStickersRequest{}
+	_ bin.Decoder     = &MessagesGetStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetStickersRequest{}
+)
+
 func (g *MessagesGetStickersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -132,16 +140,6 @@ func (g *MessagesGetStickersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetEmoticon returns value of Emoticon field.
-func (g *MessagesGetStickersRequest) GetEmoticon() (value string) {
-	return g.Emoticon
-}
-
-// GetHash returns value of Hash field.
-func (g *MessagesGetStickersRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -175,13 +173,15 @@ func (g *MessagesGetStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetStickersRequest.
-var (
-	_ bin.Encoder     = &MessagesGetStickersRequest{}
-	_ bin.Decoder     = &MessagesGetStickersRequest{}
-	_ bin.BareEncoder = &MessagesGetStickersRequest{}
-	_ bin.BareDecoder = &MessagesGetStickersRequest{}
-)
+// GetEmoticon returns value of Emoticon field.
+func (g *MessagesGetStickersRequest) GetEmoticon() (value string) {
+	return g.Emoticon
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetStickersRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // MessagesGetStickers invokes method messages.getStickers#43d4f2c returning error if any.
 // Get stickers by emoji

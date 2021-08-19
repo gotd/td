@@ -45,6 +45,19 @@ type PeerLocated struct {
 // PeerLocatedTypeID is TL type id of PeerLocated.
 const PeerLocatedTypeID = 0xca461b5d
 
+// construct implements constructor of PeerLocatedClass.
+func (p PeerLocated) construct() PeerLocatedClass { return &p }
+
+// Ensuring interfaces in compile-time for PeerLocated.
+var (
+	_ bin.Encoder     = &PeerLocated{}
+	_ bin.Decoder     = &PeerLocated{}
+	_ bin.BareEncoder = &PeerLocated{}
+	_ bin.BareDecoder = &PeerLocated{}
+
+	_ PeerLocatedClass = &PeerLocated{}
+)
+
 func (p *PeerLocated) Zero() bool {
 	if p == nil {
 		return true
@@ -146,21 +159,6 @@ func (p *PeerLocated) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (p *PeerLocated) GetPeer() (value PeerClass) {
-	return p.Peer
-}
-
-// GetExpires returns value of Expires field.
-func (p *PeerLocated) GetExpires() (value int) {
-	return p.Expires
-}
-
-// GetDistance returns value of Distance field.
-func (p *PeerLocated) GetDistance() (value int) {
-	return p.Distance
-}
-
 // Decode implements bin.Decoder.
 func (p *PeerLocated) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -201,18 +199,20 @@ func (p *PeerLocated) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PeerLocatedClass.
-func (p PeerLocated) construct() PeerLocatedClass { return &p }
+// GetPeer returns value of Peer field.
+func (p *PeerLocated) GetPeer() (value PeerClass) {
+	return p.Peer
+}
 
-// Ensuring interfaces in compile-time for PeerLocated.
-var (
-	_ bin.Encoder     = &PeerLocated{}
-	_ bin.Decoder     = &PeerLocated{}
-	_ bin.BareEncoder = &PeerLocated{}
-	_ bin.BareDecoder = &PeerLocated{}
+// GetExpires returns value of Expires field.
+func (p *PeerLocated) GetExpires() (value int) {
+	return p.Expires
+}
 
-	_ PeerLocatedClass = &PeerLocated{}
-)
+// GetDistance returns value of Distance field.
+func (p *PeerLocated) GetDistance() (value int) {
+	return p.Distance
+}
 
 // PeerSelfLocated represents TL type `peerSelfLocated#f8ec284b`.
 // Current peer
@@ -225,6 +225,19 @@ type PeerSelfLocated struct {
 
 // PeerSelfLocatedTypeID is TL type id of PeerSelfLocated.
 const PeerSelfLocatedTypeID = 0xf8ec284b
+
+// construct implements constructor of PeerLocatedClass.
+func (p PeerSelfLocated) construct() PeerLocatedClass { return &p }
+
+// Ensuring interfaces in compile-time for PeerSelfLocated.
+var (
+	_ bin.Encoder     = &PeerSelfLocated{}
+	_ bin.Decoder     = &PeerSelfLocated{}
+	_ bin.BareEncoder = &PeerSelfLocated{}
+	_ bin.BareDecoder = &PeerSelfLocated{}
+
+	_ PeerLocatedClass = &PeerSelfLocated{}
+)
 
 func (p *PeerSelfLocated) Zero() bool {
 	if p == nil {
@@ -302,11 +315,6 @@ func (p *PeerSelfLocated) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExpires returns value of Expires field.
-func (p *PeerSelfLocated) GetExpires() (value int) {
-	return p.Expires
-}
-
 // Decode implements bin.Decoder.
 func (p *PeerSelfLocated) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -333,18 +341,10 @@ func (p *PeerSelfLocated) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PeerLocatedClass.
-func (p PeerSelfLocated) construct() PeerLocatedClass { return &p }
-
-// Ensuring interfaces in compile-time for PeerSelfLocated.
-var (
-	_ bin.Encoder     = &PeerSelfLocated{}
-	_ bin.Decoder     = &PeerSelfLocated{}
-	_ bin.BareEncoder = &PeerSelfLocated{}
-	_ bin.BareDecoder = &PeerSelfLocated{}
-
-	_ PeerLocatedClass = &PeerSelfLocated{}
-)
+// GetExpires returns value of Expires field.
+func (p *PeerSelfLocated) GetExpires() (value int) {
+	return p.Expires
+}
 
 // PeerLocatedClass represents PeerLocated generic type.
 //
@@ -432,276 +432,4 @@ func (b *PeerLocatedBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PeerLocatedClass as nil")
 	}
 	return b.PeerLocated.Encode(buf)
-}
-
-// PeerLocatedClassArray is adapter for slice of PeerLocatedClass.
-type PeerLocatedClassArray []PeerLocatedClass
-
-// Sort sorts slice of PeerLocatedClass.
-func (s PeerLocatedClassArray) Sort(less func(a, b PeerLocatedClass) bool) PeerLocatedClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PeerLocatedClass.
-func (s PeerLocatedClassArray) SortStable(less func(a, b PeerLocatedClass) bool) PeerLocatedClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PeerLocatedClass.
-func (s PeerLocatedClassArray) Retain(keep func(x PeerLocatedClass) bool) PeerLocatedClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PeerLocatedClassArray) First() (v PeerLocatedClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PeerLocatedClassArray) Last() (v PeerLocatedClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PeerLocatedClassArray) PopFirst() (v PeerLocatedClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PeerLocatedClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PeerLocatedClassArray) Pop() (v PeerLocatedClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsPeerLocated returns copy with only PeerLocated constructors.
-func (s PeerLocatedClassArray) AsPeerLocated() (to PeerLocatedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PeerLocated)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPeerSelfLocated returns copy with only PeerSelfLocated constructors.
-func (s PeerLocatedClassArray) AsPeerSelfLocated() (to PeerSelfLocatedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PeerSelfLocated)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// PeerLocatedArray is adapter for slice of PeerLocated.
-type PeerLocatedArray []PeerLocated
-
-// Sort sorts slice of PeerLocated.
-func (s PeerLocatedArray) Sort(less func(a, b PeerLocated) bool) PeerLocatedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PeerLocated.
-func (s PeerLocatedArray) SortStable(less func(a, b PeerLocated) bool) PeerLocatedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PeerLocated.
-func (s PeerLocatedArray) Retain(keep func(x PeerLocated) bool) PeerLocatedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PeerLocatedArray) First() (v PeerLocated, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PeerLocatedArray) Last() (v PeerLocated, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PeerLocatedArray) PopFirst() (v PeerLocated, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PeerLocated
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PeerLocatedArray) Pop() (v PeerLocated, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PeerSelfLocatedArray is adapter for slice of PeerSelfLocated.
-type PeerSelfLocatedArray []PeerSelfLocated
-
-// Sort sorts slice of PeerSelfLocated.
-func (s PeerSelfLocatedArray) Sort(less func(a, b PeerSelfLocated) bool) PeerSelfLocatedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PeerSelfLocated.
-func (s PeerSelfLocatedArray) SortStable(less func(a, b PeerSelfLocated) bool) PeerSelfLocatedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PeerSelfLocated.
-func (s PeerSelfLocatedArray) Retain(keep func(x PeerSelfLocated) bool) PeerSelfLocatedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PeerSelfLocatedArray) First() (v PeerSelfLocated, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PeerSelfLocatedArray) Last() (v PeerSelfLocated, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PeerSelfLocatedArray) PopFirst() (v PeerSelfLocated, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PeerSelfLocated
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PeerSelfLocatedArray) Pop() (v PeerSelfLocated, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

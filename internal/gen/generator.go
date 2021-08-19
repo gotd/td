@@ -45,30 +45,22 @@ type Generator struct {
 	doc          *getdoc.Doc
 	docLineLimit int
 
-	generateClient   bool
-	generateRegistry bool
-	generateServer   bool
+	generateFlags GenerateFlags
 }
 
 // NewGenerator initializes and returns new Generator from tl.Schema.
-func NewGenerator(s *tl.Schema, options ...Option) (*Generator, error) {
-	genOpt := &generateOptions{}
-	for _, opt := range options {
-		opt(genOpt)
-	}
+func NewGenerator(s *tl.Schema, genOpt GeneratorOptions) (*Generator, error) {
 	genOpt.setDefaults()
 	g := &Generator{
-		schema:           s,
-		classes:          map[string]classBinding{},
-		types:            map[string]typeBinding{},
-		mappings:         map[string][]constructorMapping{},
-		docLineLimit:     genOpt.docLineLimit,
-		generateClient:   genOpt.generateClient,
-		generateRegistry: genOpt.generateRegistry,
-		generateServer:   genOpt.generateServer,
+		schema:        s,
+		classes:       map[string]classBinding{},
+		types:         map[string]typeBinding{},
+		mappings:      map[string][]constructorMapping{},
+		docLineLimit:  genOpt.DocLineLimit,
+		generateFlags: genOpt.GenerateFlags,
 	}
-	if genOpt.docBaseURL != "" {
-		u, err := url.Parse(genOpt.docBaseURL)
+	if genOpt.DocBaseURL != "" {
+		u, err := url.Parse(genOpt.DocBaseURL)
 		if err != nil {
 			return nil, xerrors.Errorf("parse docBase: %w", err)
 		}

@@ -49,6 +49,19 @@ type InputGameID struct {
 // InputGameIDTypeID is TL type id of InputGameID.
 const InputGameIDTypeID = 0x32c3e77
 
+// construct implements constructor of InputGameClass.
+func (i InputGameID) construct() InputGameClass { return &i }
+
+// Ensuring interfaces in compile-time for InputGameID.
+var (
+	_ bin.Encoder     = &InputGameID{}
+	_ bin.Decoder     = &InputGameID{}
+	_ bin.BareEncoder = &InputGameID{}
+	_ bin.BareDecoder = &InputGameID{}
+
+	_ InputGameClass = &InputGameID{}
+)
+
 func (i *InputGameID) Zero() bool {
 	if i == nil {
 		return true
@@ -135,16 +148,6 @@ func (i *InputGameID) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputGameID) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputGameID) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputGameID) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -178,18 +181,15 @@ func (i *InputGameID) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputGameClass.
-func (i InputGameID) construct() InputGameClass { return &i }
+// GetID returns value of ID field.
+func (i *InputGameID) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputGameID.
-var (
-	_ bin.Encoder     = &InputGameID{}
-	_ bin.Decoder     = &InputGameID{}
-	_ bin.BareEncoder = &InputGameID{}
-	_ bin.BareDecoder = &InputGameID{}
-
-	_ InputGameClass = &InputGameID{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputGameID) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputGameShortName represents TL type `inputGameShortName#c331e80a`.
 // Game by short name
@@ -204,6 +204,19 @@ type InputGameShortName struct {
 
 // InputGameShortNameTypeID is TL type id of InputGameShortName.
 const InputGameShortNameTypeID = 0xc331e80a
+
+// construct implements constructor of InputGameClass.
+func (i InputGameShortName) construct() InputGameClass { return &i }
+
+// Ensuring interfaces in compile-time for InputGameShortName.
+var (
+	_ bin.Encoder     = &InputGameShortName{}
+	_ bin.Decoder     = &InputGameShortName{}
+	_ bin.BareEncoder = &InputGameShortName{}
+	_ bin.BareDecoder = &InputGameShortName{}
+
+	_ InputGameClass = &InputGameShortName{}
+)
 
 func (i *InputGameShortName) Zero() bool {
 	if i == nil {
@@ -296,16 +309,6 @@ func (i *InputGameShortName) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetBotID returns value of BotID field.
-func (i *InputGameShortName) GetBotID() (value InputUserClass) {
-	return i.BotID
-}
-
-// GetShortName returns value of ShortName field.
-func (i *InputGameShortName) GetShortName() (value string) {
-	return i.ShortName
-}
-
 // Decode implements bin.Decoder.
 func (i *InputGameShortName) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -339,18 +342,15 @@ func (i *InputGameShortName) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputGameClass.
-func (i InputGameShortName) construct() InputGameClass { return &i }
+// GetBotID returns value of BotID field.
+func (i *InputGameShortName) GetBotID() (value InputUserClass) {
+	return i.BotID
+}
 
-// Ensuring interfaces in compile-time for InputGameShortName.
-var (
-	_ bin.Encoder     = &InputGameShortName{}
-	_ bin.Decoder     = &InputGameShortName{}
-	_ bin.BareEncoder = &InputGameShortName{}
-	_ bin.BareDecoder = &InputGameShortName{}
-
-	_ InputGameClass = &InputGameShortName{}
-)
+// GetShortName returns value of ShortName field.
+func (i *InputGameShortName) GetShortName() (value string) {
+	return i.ShortName
+}
 
 // InputGameClass represents InputGame generic type.
 //
@@ -435,276 +435,4 @@ func (b *InputGameBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputGameClass as nil")
 	}
 	return b.InputGame.Encode(buf)
-}
-
-// InputGameClassArray is adapter for slice of InputGameClass.
-type InputGameClassArray []InputGameClass
-
-// Sort sorts slice of InputGameClass.
-func (s InputGameClassArray) Sort(less func(a, b InputGameClass) bool) InputGameClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputGameClass.
-func (s InputGameClassArray) SortStable(less func(a, b InputGameClass) bool) InputGameClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputGameClass.
-func (s InputGameClassArray) Retain(keep func(x InputGameClass) bool) InputGameClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputGameClassArray) First() (v InputGameClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputGameClassArray) Last() (v InputGameClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputGameClassArray) PopFirst() (v InputGameClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputGameClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputGameClassArray) Pop() (v InputGameClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsInputGameID returns copy with only InputGameID constructors.
-func (s InputGameClassArray) AsInputGameID() (to InputGameIDArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputGameID)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputGameShortName returns copy with only InputGameShortName constructors.
-func (s InputGameClassArray) AsInputGameShortName() (to InputGameShortNameArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputGameShortName)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// InputGameIDArray is adapter for slice of InputGameID.
-type InputGameIDArray []InputGameID
-
-// Sort sorts slice of InputGameID.
-func (s InputGameIDArray) Sort(less func(a, b InputGameID) bool) InputGameIDArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputGameID.
-func (s InputGameIDArray) SortStable(less func(a, b InputGameID) bool) InputGameIDArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputGameID.
-func (s InputGameIDArray) Retain(keep func(x InputGameID) bool) InputGameIDArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputGameIDArray) First() (v InputGameID, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputGameIDArray) Last() (v InputGameID, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputGameIDArray) PopFirst() (v InputGameID, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputGameID
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputGameIDArray) Pop() (v InputGameID, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputGameShortNameArray is adapter for slice of InputGameShortName.
-type InputGameShortNameArray []InputGameShortName
-
-// Sort sorts slice of InputGameShortName.
-func (s InputGameShortNameArray) Sort(less func(a, b InputGameShortName) bool) InputGameShortNameArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputGameShortName.
-func (s InputGameShortNameArray) SortStable(less func(a, b InputGameShortName) bool) InputGameShortNameArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputGameShortName.
-func (s InputGameShortNameArray) Retain(keep func(x InputGameShortName) bool) InputGameShortNameArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputGameShortNameArray) First() (v InputGameShortName, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputGameShortNameArray) Last() (v InputGameShortName, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputGameShortNameArray) PopFirst() (v InputGameShortName, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputGameShortName
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputGameShortNameArray) Pop() (v InputGameShortName, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

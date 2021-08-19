@@ -41,6 +41,14 @@ type AccountAuthorizations struct {
 // AccountAuthorizationsTypeID is TL type id of AccountAuthorizations.
 const AccountAuthorizationsTypeID = 0x1250abde
 
+// Ensuring interfaces in compile-time for AccountAuthorizations.
+var (
+	_ bin.Encoder     = &AccountAuthorizations{}
+	_ bin.Decoder     = &AccountAuthorizations{}
+	_ bin.BareEncoder = &AccountAuthorizations{}
+	_ bin.BareDecoder = &AccountAuthorizations{}
+)
+
 func (a *AccountAuthorizations) Zero() bool {
 	if a == nil {
 		return true
@@ -122,11 +130,6 @@ func (a *AccountAuthorizations) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAuthorizations returns value of Authorizations field.
-func (a *AccountAuthorizations) GetAuthorizations() (value []Authorization) {
-	return a.Authorizations
-}
-
 // Decode implements bin.Decoder.
 func (a *AccountAuthorizations) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -163,10 +166,7 @@ func (a *AccountAuthorizations) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountAuthorizations.
-var (
-	_ bin.Encoder     = &AccountAuthorizations{}
-	_ bin.Decoder     = &AccountAuthorizations{}
-	_ bin.BareEncoder = &AccountAuthorizations{}
-	_ bin.BareDecoder = &AccountAuthorizations{}
-)
+// GetAuthorizations returns value of Authorizations field.
+func (a *AccountAuthorizations) GetAuthorizations() (value []Authorization) {
+	return a.Authorizations
+}

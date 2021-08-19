@@ -39,6 +39,19 @@ type SecureFileEmpty struct {
 // SecureFileEmptyTypeID is TL type id of SecureFileEmpty.
 const SecureFileEmptyTypeID = 0x64199744
 
+// construct implements constructor of SecureFileClass.
+func (s SecureFileEmpty) construct() SecureFileClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureFileEmpty.
+var (
+	_ bin.Encoder     = &SecureFileEmpty{}
+	_ bin.Decoder     = &SecureFileEmpty{}
+	_ bin.BareEncoder = &SecureFileEmpty{}
+	_ bin.BareDecoder = &SecureFileEmpty{}
+
+	_ SecureFileClass = &SecureFileEmpty{}
+)
+
 func (s *SecureFileEmpty) Zero() bool {
 	if s == nil {
 		return true
@@ -118,19 +131,6 @@ func (s *SecureFileEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureFileClass.
-func (s SecureFileEmpty) construct() SecureFileClass { return &s }
-
-// Ensuring interfaces in compile-time for SecureFileEmpty.
-var (
-	_ bin.Encoder     = &SecureFileEmpty{}
-	_ bin.Decoder     = &SecureFileEmpty{}
-	_ bin.BareEncoder = &SecureFileEmpty{}
-	_ bin.BareDecoder = &SecureFileEmpty{}
-
-	_ SecureFileClass = &SecureFileEmpty{}
-)
-
 // SecureFile represents TL type `secureFile#e0277a62`.
 // Secure passport¹ file, for more info see the passport docs »²
 //
@@ -158,6 +158,19 @@ type SecureFile struct {
 
 // SecureFileTypeID is TL type id of SecureFile.
 const SecureFileTypeID = 0xe0277a62
+
+// construct implements constructor of SecureFileClass.
+func (s SecureFile) construct() SecureFileClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureFile.
+var (
+	_ bin.Encoder     = &SecureFile{}
+	_ bin.Decoder     = &SecureFile{}
+	_ bin.BareEncoder = &SecureFile{}
+	_ bin.BareDecoder = &SecureFile{}
+
+	_ SecureFileClass = &SecureFile{}
+)
 
 func (s *SecureFile) Zero() bool {
 	if s == nil {
@@ -295,41 +308,6 @@ func (s *SecureFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (s *SecureFile) GetID() (value int64) {
-	return s.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (s *SecureFile) GetAccessHash() (value int64) {
-	return s.AccessHash
-}
-
-// GetSize returns value of Size field.
-func (s *SecureFile) GetSize() (value int) {
-	return s.Size
-}
-
-// GetDCID returns value of DCID field.
-func (s *SecureFile) GetDCID() (value int) {
-	return s.DCID
-}
-
-// GetDate returns value of Date field.
-func (s *SecureFile) GetDate() (value int) {
-	return s.Date
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureFile) GetFileHash() (value []byte) {
-	return s.FileHash
-}
-
-// GetSecret returns value of Secret field.
-func (s *SecureFile) GetSecret() (value []byte) {
-	return s.Secret
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureFile) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -398,18 +376,40 @@ func (s *SecureFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureFileClass.
-func (s SecureFile) construct() SecureFileClass { return &s }
+// GetID returns value of ID field.
+func (s *SecureFile) GetID() (value int64) {
+	return s.ID
+}
 
-// Ensuring interfaces in compile-time for SecureFile.
-var (
-	_ bin.Encoder     = &SecureFile{}
-	_ bin.Decoder     = &SecureFile{}
-	_ bin.BareEncoder = &SecureFile{}
-	_ bin.BareDecoder = &SecureFile{}
+// GetAccessHash returns value of AccessHash field.
+func (s *SecureFile) GetAccessHash() (value int64) {
+	return s.AccessHash
+}
 
-	_ SecureFileClass = &SecureFile{}
-)
+// GetSize returns value of Size field.
+func (s *SecureFile) GetSize() (value int) {
+	return s.Size
+}
+
+// GetDCID returns value of DCID field.
+func (s *SecureFile) GetDCID() (value int) {
+	return s.DCID
+}
+
+// GetDate returns value of Date field.
+func (s *SecureFile) GetDate() (value int) {
+	return s.Date
+}
+
+// GetFileHash returns value of FileHash field.
+func (s *SecureFile) GetFileHash() (value []byte) {
+	return s.FileHash
+}
+
+// GetSecret returns value of Secret field.
+func (s *SecureFile) GetSecret() (value []byte) {
+	return s.Secret
+}
 
 // SecureFileClass represents SecureFile generic type.
 //
@@ -525,250 +525,4 @@ func (b *SecureFileBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SecureFileClass as nil")
 	}
 	return b.SecureFile.Encode(buf)
-}
-
-// SecureFileClassArray is adapter for slice of SecureFileClass.
-type SecureFileClassArray []SecureFileClass
-
-// Sort sorts slice of SecureFileClass.
-func (s SecureFileClassArray) Sort(less func(a, b SecureFileClass) bool) SecureFileClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecureFileClass.
-func (s SecureFileClassArray) SortStable(less func(a, b SecureFileClass) bool) SecureFileClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecureFileClass.
-func (s SecureFileClassArray) Retain(keep func(x SecureFileClass) bool) SecureFileClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecureFileClassArray) First() (v SecureFileClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecureFileClassArray) Last() (v SecureFileClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureFileClassArray) PopFirst() (v SecureFileClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecureFileClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureFileClassArray) Pop() (v SecureFileClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsSecureFile returns copy with only SecureFile constructors.
-func (s SecureFileClassArray) AsSecureFile() (to SecureFileArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SecureFile)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s SecureFileClassArray) AppendOnlyNotEmpty(to []*SecureFile) []*SecureFile {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s SecureFileClassArray) AsNotEmpty() (to []*SecureFile) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s SecureFileClassArray) FirstAsNotEmpty() (v *SecureFile, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s SecureFileClassArray) LastAsNotEmpty() (v *SecureFile, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *SecureFileClassArray) PopFirstAsNotEmpty() (v *SecureFile, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *SecureFileClassArray) PopAsNotEmpty() (v *SecureFile, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// SecureFileArray is adapter for slice of SecureFile.
-type SecureFileArray []SecureFile
-
-// Sort sorts slice of SecureFile.
-func (s SecureFileArray) Sort(less func(a, b SecureFile) bool) SecureFileArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecureFile.
-func (s SecureFileArray) SortStable(less func(a, b SecureFile) bool) SecureFileArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecureFile.
-func (s SecureFileArray) Retain(keep func(x SecureFile) bool) SecureFileArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecureFileArray) First() (v SecureFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecureFileArray) Last() (v SecureFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureFileArray) PopFirst() (v SecureFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecureFile
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureFileArray) Pop() (v SecureFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of SecureFile by Date.
-func (s SecureFileArray) SortByDate() SecureFileArray {
-	return s.Sort(func(a, b SecureFile) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of SecureFile by Date.
-func (s SecureFileArray) SortStableByDate() SecureFileArray {
-	return s.SortStable(func(a, b SecureFile) bool {
-		return a.GetDate() < b.GetDate()
-	})
 }

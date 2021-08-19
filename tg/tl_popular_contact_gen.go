@@ -43,6 +43,14 @@ type PopularContact struct {
 // PopularContactTypeID is TL type id of PopularContact.
 const PopularContactTypeID = 0x5ce14175
 
+// Ensuring interfaces in compile-time for PopularContact.
+var (
+	_ bin.Encoder     = &PopularContact{}
+	_ bin.Decoder     = &PopularContact{}
+	_ bin.BareEncoder = &PopularContact{}
+	_ bin.BareDecoder = &PopularContact{}
+)
+
 func (p *PopularContact) Zero() bool {
 	if p == nil {
 		return true
@@ -129,16 +137,6 @@ func (p *PopularContact) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetClientID returns value of ClientID field.
-func (p *PopularContact) GetClientID() (value int64) {
-	return p.ClientID
-}
-
-// GetImporters returns value of Importers field.
-func (p *PopularContact) GetImporters() (value int) {
-	return p.Importers
-}
-
 // Decode implements bin.Decoder.
 func (p *PopularContact) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -172,10 +170,12 @@ func (p *PopularContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PopularContact.
-var (
-	_ bin.Encoder     = &PopularContact{}
-	_ bin.Decoder     = &PopularContact{}
-	_ bin.BareEncoder = &PopularContact{}
-	_ bin.BareDecoder = &PopularContact{}
-)
+// GetClientID returns value of ClientID field.
+func (p *PopularContact) GetClientID() (value int64) {
+	return p.ClientID
+}
+
+// GetImporters returns value of Importers field.
+func (p *PopularContact) GetImporters() (value int) {
+	return p.Importers
+}

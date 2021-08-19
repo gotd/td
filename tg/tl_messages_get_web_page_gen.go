@@ -49,6 +49,14 @@ type MessagesGetWebPageRequest struct {
 // MessagesGetWebPageRequestTypeID is TL type id of MessagesGetWebPageRequest.
 const MessagesGetWebPageRequestTypeID = 0x32ca8f91
 
+// Ensuring interfaces in compile-time for MessagesGetWebPageRequest.
+var (
+	_ bin.Encoder     = &MessagesGetWebPageRequest{}
+	_ bin.Decoder     = &MessagesGetWebPageRequest{}
+	_ bin.BareEncoder = &MessagesGetWebPageRequest{}
+	_ bin.BareDecoder = &MessagesGetWebPageRequest{}
+)
+
 func (g *MessagesGetWebPageRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -135,16 +143,6 @@ func (g *MessagesGetWebPageRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (g *MessagesGetWebPageRequest) GetURL() (value string) {
-	return g.URL
-}
-
-// GetHash returns value of Hash field.
-func (g *MessagesGetWebPageRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetWebPageRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -178,13 +176,15 @@ func (g *MessagesGetWebPageRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetWebPageRequest.
-var (
-	_ bin.Encoder     = &MessagesGetWebPageRequest{}
-	_ bin.Decoder     = &MessagesGetWebPageRequest{}
-	_ bin.BareEncoder = &MessagesGetWebPageRequest{}
-	_ bin.BareDecoder = &MessagesGetWebPageRequest{}
-)
+// GetURL returns value of URL field.
+func (g *MessagesGetWebPageRequest) GetURL() (value string) {
+	return g.URL
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetWebPageRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // MessagesGetWebPage invokes method messages.getWebPage#32ca8f91 returning error if any.
 // Get instant view¹ page

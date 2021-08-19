@@ -42,6 +42,14 @@ type SetClientDHParamsRequest struct {
 // SetClientDHParamsRequestTypeID is TL type id of SetClientDHParamsRequest.
 const SetClientDHParamsRequestTypeID = 0xf5045f1f
 
+// Ensuring interfaces in compile-time for SetClientDHParamsRequest.
+var (
+	_ bin.Encoder     = &SetClientDHParamsRequest{}
+	_ bin.Decoder     = &SetClientDHParamsRequest{}
+	_ bin.BareEncoder = &SetClientDHParamsRequest{}
+	_ bin.BareDecoder = &SetClientDHParamsRequest{}
+)
+
 func (s *SetClientDHParamsRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -66,17 +74,6 @@ func (s *SetClientDHParamsRequest) String() string {
 	}
 	type Alias SetClientDHParamsRequest
 	return fmt.Sprintf("SetClientDHParamsRequest%+v", Alias(*s))
-}
-
-// FillFrom fills SetClientDHParamsRequest from given interface.
-func (s *SetClientDHParamsRequest) FillFrom(from interface {
-	GetNonce() (value bin.Int128)
-	GetServerNonce() (value bin.Int128)
-	GetEncryptedData() (value []byte)
-}) {
-	s.Nonce = from.GetNonce()
-	s.ServerNonce = from.GetServerNonce()
-	s.EncryptedData = from.GetEncryptedData()
 }
 
 // TypeID returns type id in TL schema.
@@ -138,21 +135,6 @@ func (s *SetClientDHParamsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNonce returns value of Nonce field.
-func (s *SetClientDHParamsRequest) GetNonce() (value bin.Int128) {
-	return s.Nonce
-}
-
-// GetServerNonce returns value of ServerNonce field.
-func (s *SetClientDHParamsRequest) GetServerNonce() (value bin.Int128) {
-	return s.ServerNonce
-}
-
-// GetEncryptedData returns value of EncryptedData field.
-func (s *SetClientDHParamsRequest) GetEncryptedData() (value []byte) {
-	return s.EncryptedData
-}
-
 // Decode implements bin.Decoder.
 func (s *SetClientDHParamsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -193,10 +175,17 @@ func (s *SetClientDHParamsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for SetClientDHParamsRequest.
-var (
-	_ bin.Encoder     = &SetClientDHParamsRequest{}
-	_ bin.Decoder     = &SetClientDHParamsRequest{}
-	_ bin.BareEncoder = &SetClientDHParamsRequest{}
-	_ bin.BareDecoder = &SetClientDHParamsRequest{}
-)
+// GetNonce returns value of Nonce field.
+func (s *SetClientDHParamsRequest) GetNonce() (value bin.Int128) {
+	return s.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (s *SetClientDHParamsRequest) GetServerNonce() (value bin.Int128) {
+	return s.ServerNonce
+}
+
+// GetEncryptedData returns value of EncryptedData field.
+func (s *SetClientDHParamsRequest) GetEncryptedData() (value []byte) {
+	return s.EncryptedData
+}

@@ -42,6 +42,14 @@ type BotsGetBotCommandsRequest struct {
 // BotsGetBotCommandsRequestTypeID is TL type id of BotsGetBotCommandsRequest.
 const BotsGetBotCommandsRequestTypeID = 0xe34c0dd6
 
+// Ensuring interfaces in compile-time for BotsGetBotCommandsRequest.
+var (
+	_ bin.Encoder     = &BotsGetBotCommandsRequest{}
+	_ bin.Decoder     = &BotsGetBotCommandsRequest{}
+	_ bin.BareEncoder = &BotsGetBotCommandsRequest{}
+	_ bin.BareDecoder = &BotsGetBotCommandsRequest{}
+)
+
 func (g *BotsGetBotCommandsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -133,16 +141,6 @@ func (g *BotsGetBotCommandsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetScope returns value of Scope field.
-func (g *BotsGetBotCommandsRequest) GetScope() (value BotCommandScopeClass) {
-	return g.Scope
-}
-
-// GetLangCode returns value of LangCode field.
-func (g *BotsGetBotCommandsRequest) GetLangCode() (value string) {
-	return g.LangCode
-}
-
 // Decode implements bin.Decoder.
 func (g *BotsGetBotCommandsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -176,13 +174,15 @@ func (g *BotsGetBotCommandsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for BotsGetBotCommandsRequest.
-var (
-	_ bin.Encoder     = &BotsGetBotCommandsRequest{}
-	_ bin.Decoder     = &BotsGetBotCommandsRequest{}
-	_ bin.BareEncoder = &BotsGetBotCommandsRequest{}
-	_ bin.BareDecoder = &BotsGetBotCommandsRequest{}
-)
+// GetScope returns value of Scope field.
+func (g *BotsGetBotCommandsRequest) GetScope() (value BotCommandScopeClass) {
+	return g.Scope
+}
+
+// GetLangCode returns value of LangCode field.
+func (g *BotsGetBotCommandsRequest) GetLangCode() (value string) {
+	return g.LangCode
+}
 
 // BotsGetBotCommands invokes method bots.getBotCommands#e34c0dd6 returning error if any.
 //

@@ -39,6 +39,14 @@ type HelpGetConfigRequest struct {
 // HelpGetConfigRequestTypeID is TL type id of HelpGetConfigRequest.
 const HelpGetConfigRequestTypeID = 0xc4f9186b
 
+// Ensuring interfaces in compile-time for HelpGetConfigRequest.
+var (
+	_ bin.Encoder     = &HelpGetConfigRequest{}
+	_ bin.Decoder     = &HelpGetConfigRequest{}
+	_ bin.BareEncoder = &HelpGetConfigRequest{}
+	_ bin.BareDecoder = &HelpGetConfigRequest{}
+)
+
 func (g *HelpGetConfigRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *HelpGetConfigRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for HelpGetConfigRequest.
-var (
-	_ bin.Encoder     = &HelpGetConfigRequest{}
-	_ bin.Decoder     = &HelpGetConfigRequest{}
-	_ bin.BareEncoder = &HelpGetConfigRequest{}
-	_ bin.BareDecoder = &HelpGetConfigRequest{}
-)
 
 // HelpGetConfig invokes method help.getConfig#c4f9186b returning error if any.
 // Returns current configuration, including data center configuration.

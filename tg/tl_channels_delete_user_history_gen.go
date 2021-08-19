@@ -49,6 +49,14 @@ type ChannelsDeleteUserHistoryRequest struct {
 // ChannelsDeleteUserHistoryRequestTypeID is TL type id of ChannelsDeleteUserHistoryRequest.
 const ChannelsDeleteUserHistoryRequestTypeID = 0xd10dd71b
 
+// Ensuring interfaces in compile-time for ChannelsDeleteUserHistoryRequest.
+var (
+	_ bin.Encoder     = &ChannelsDeleteUserHistoryRequest{}
+	_ bin.Decoder     = &ChannelsDeleteUserHistoryRequest{}
+	_ bin.BareEncoder = &ChannelsDeleteUserHistoryRequest{}
+	_ bin.BareDecoder = &ChannelsDeleteUserHistoryRequest{}
+)
+
 func (d *ChannelsDeleteUserHistoryRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -145,21 +153,6 @@ func (d *ChannelsDeleteUserHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (d *ChannelsDeleteUserHistoryRequest) GetChannel() (value InputChannelClass) {
-	return d.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (d *ChannelsDeleteUserHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return d.Channel.AsNotEmpty()
-}
-
-// GetUserID returns value of UserID field.
-func (d *ChannelsDeleteUserHistoryRequest) GetUserID() (value InputUserClass) {
-	return d.UserID
-}
-
 // Decode implements bin.Decoder.
 func (d *ChannelsDeleteUserHistoryRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -193,13 +186,20 @@ func (d *ChannelsDeleteUserHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsDeleteUserHistoryRequest.
-var (
-	_ bin.Encoder     = &ChannelsDeleteUserHistoryRequest{}
-	_ bin.Decoder     = &ChannelsDeleteUserHistoryRequest{}
-	_ bin.BareEncoder = &ChannelsDeleteUserHistoryRequest{}
-	_ bin.BareDecoder = &ChannelsDeleteUserHistoryRequest{}
-)
+// GetChannel returns value of Channel field.
+func (d *ChannelsDeleteUserHistoryRequest) GetChannel() (value InputChannelClass) {
+	return d.Channel
+}
+
+// GetUserID returns value of UserID field.
+func (d *ChannelsDeleteUserHistoryRequest) GetUserID() (value InputUserClass) {
+	return d.UserID
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (d *ChannelsDeleteUserHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return d.Channel.AsNotEmpty()
+}
 
 // ChannelsDeleteUserHistory invokes method channels.deleteUserHistory#d10dd71b returning error if any.
 // Delete all messages sent by a certain user in a supergroup¹

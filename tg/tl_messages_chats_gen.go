@@ -41,6 +41,19 @@ type MessagesChats struct {
 // MessagesChatsTypeID is TL type id of MessagesChats.
 const MessagesChatsTypeID = 0x64ff9fd5
 
+// construct implements constructor of MessagesChatsClass.
+func (c MessagesChats) construct() MessagesChatsClass { return &c }
+
+// Ensuring interfaces in compile-time for MessagesChats.
+var (
+	_ bin.Encoder     = &MessagesChats{}
+	_ bin.Decoder     = &MessagesChats{}
+	_ bin.BareEncoder = &MessagesChats{}
+	_ bin.BareDecoder = &MessagesChats{}
+
+	_ MessagesChatsClass = &MessagesChats{}
+)
+
 func (c *MessagesChats) Zero() bool {
 	if c == nil {
 		return true
@@ -125,16 +138,6 @@ func (c *MessagesChats) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChats returns value of Chats field.
-func (c *MessagesChats) GetChats() (value []ChatClass) {
-	return c.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (c *MessagesChats) MapChats() (value ChatClassArray) {
-	return ChatClassArray(c.Chats)
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesChats) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -171,18 +174,15 @@ func (c *MessagesChats) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesChatsClass.
-func (c MessagesChats) construct() MessagesChatsClass { return &c }
+// GetChats returns value of Chats field.
+func (c *MessagesChats) GetChats() (value []ChatClass) {
+	return c.Chats
+}
 
-// Ensuring interfaces in compile-time for MessagesChats.
-var (
-	_ bin.Encoder     = &MessagesChats{}
-	_ bin.Decoder     = &MessagesChats{}
-	_ bin.BareEncoder = &MessagesChats{}
-	_ bin.BareDecoder = &MessagesChats{}
-
-	_ MessagesChatsClass = &MessagesChats{}
-)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *MessagesChats) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
 
 // MessagesChatsSlice represents TL type `messages.chatsSlice#9cd81144`.
 // Partial list of chats, more would have to be fetched with pagination¹
@@ -200,6 +200,19 @@ type MessagesChatsSlice struct {
 
 // MessagesChatsSliceTypeID is TL type id of MessagesChatsSlice.
 const MessagesChatsSliceTypeID = 0x9cd81144
+
+// construct implements constructor of MessagesChatsClass.
+func (c MessagesChatsSlice) construct() MessagesChatsClass { return &c }
+
+// Ensuring interfaces in compile-time for MessagesChatsSlice.
+var (
+	_ bin.Encoder     = &MessagesChatsSlice{}
+	_ bin.Decoder     = &MessagesChatsSlice{}
+	_ bin.BareEncoder = &MessagesChatsSlice{}
+	_ bin.BareDecoder = &MessagesChatsSlice{}
+
+	_ MessagesChatsClass = &MessagesChatsSlice{}
+)
 
 func (c *MessagesChatsSlice) Zero() bool {
 	if c == nil {
@@ -295,21 +308,6 @@ func (c *MessagesChatsSlice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (c *MessagesChatsSlice) GetCount() (value int) {
-	return c.Count
-}
-
-// GetChats returns value of Chats field.
-func (c *MessagesChatsSlice) GetChats() (value []ChatClass) {
-	return c.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (c *MessagesChatsSlice) MapChats() (value ChatClassArray) {
-	return ChatClassArray(c.Chats)
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesChatsSlice) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -353,18 +351,20 @@ func (c *MessagesChatsSlice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesChatsClass.
-func (c MessagesChatsSlice) construct() MessagesChatsClass { return &c }
+// GetCount returns value of Count field.
+func (c *MessagesChatsSlice) GetCount() (value int) {
+	return c.Count
+}
 
-// Ensuring interfaces in compile-time for MessagesChatsSlice.
-var (
-	_ bin.Encoder     = &MessagesChatsSlice{}
-	_ bin.Decoder     = &MessagesChatsSlice{}
-	_ bin.BareEncoder = &MessagesChatsSlice{}
-	_ bin.BareDecoder = &MessagesChatsSlice{}
+// GetChats returns value of Chats field.
+func (c *MessagesChatsSlice) GetChats() (value []ChatClass) {
+	return c.Chats
+}
 
-	_ MessagesChatsClass = &MessagesChatsSlice{}
-)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *MessagesChatsSlice) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
 
 // MessagesChatsClass represents messages.Chats generic type.
 //
@@ -454,276 +454,4 @@ func (b *MessagesChatsBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesChatsClass as nil")
 	}
 	return b.Chats.Encode(buf)
-}
-
-// MessagesChatsClassArray is adapter for slice of MessagesChatsClass.
-type MessagesChatsClassArray []MessagesChatsClass
-
-// Sort sorts slice of MessagesChatsClass.
-func (s MessagesChatsClassArray) Sort(less func(a, b MessagesChatsClass) bool) MessagesChatsClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesChatsClass.
-func (s MessagesChatsClassArray) SortStable(less func(a, b MessagesChatsClass) bool) MessagesChatsClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesChatsClass.
-func (s MessagesChatsClassArray) Retain(keep func(x MessagesChatsClass) bool) MessagesChatsClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesChatsClassArray) First() (v MessagesChatsClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesChatsClassArray) Last() (v MessagesChatsClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesChatsClassArray) PopFirst() (v MessagesChatsClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesChatsClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesChatsClassArray) Pop() (v MessagesChatsClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsMessagesChats returns copy with only MessagesChats constructors.
-func (s MessagesChatsClassArray) AsMessagesChats() (to MessagesChatsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessagesChats)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessagesChatsSlice returns copy with only MessagesChatsSlice constructors.
-func (s MessagesChatsClassArray) AsMessagesChatsSlice() (to MessagesChatsSliceArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessagesChatsSlice)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// MessagesChatsArray is adapter for slice of MessagesChats.
-type MessagesChatsArray []MessagesChats
-
-// Sort sorts slice of MessagesChats.
-func (s MessagesChatsArray) Sort(less func(a, b MessagesChats) bool) MessagesChatsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesChats.
-func (s MessagesChatsArray) SortStable(less func(a, b MessagesChats) bool) MessagesChatsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesChats.
-func (s MessagesChatsArray) Retain(keep func(x MessagesChats) bool) MessagesChatsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesChatsArray) First() (v MessagesChats, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesChatsArray) Last() (v MessagesChats, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesChatsArray) PopFirst() (v MessagesChats, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesChats
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesChatsArray) Pop() (v MessagesChats, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessagesChatsSliceArray is adapter for slice of MessagesChatsSlice.
-type MessagesChatsSliceArray []MessagesChatsSlice
-
-// Sort sorts slice of MessagesChatsSlice.
-func (s MessagesChatsSliceArray) Sort(less func(a, b MessagesChatsSlice) bool) MessagesChatsSliceArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesChatsSlice.
-func (s MessagesChatsSliceArray) SortStable(less func(a, b MessagesChatsSlice) bool) MessagesChatsSliceArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesChatsSlice.
-func (s MessagesChatsSliceArray) Retain(keep func(x MessagesChatsSlice) bool) MessagesChatsSliceArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesChatsSliceArray) First() (v MessagesChatsSlice, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesChatsSliceArray) Last() (v MessagesChatsSlice, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesChatsSliceArray) PopFirst() (v MessagesChatsSlice, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesChatsSlice
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesChatsSliceArray) Pop() (v MessagesChatsSlice, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

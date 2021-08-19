@@ -60,6 +60,14 @@ type InputPeerNotifySettings struct {
 // InputPeerNotifySettingsTypeID is TL type id of InputPeerNotifySettings.
 const InputPeerNotifySettingsTypeID = 0x9c3d198e
 
+// Ensuring interfaces in compile-time for InputPeerNotifySettings.
+var (
+	_ bin.Encoder     = &InputPeerNotifySettings{}
+	_ bin.Decoder     = &InputPeerNotifySettings{}
+	_ bin.BareEncoder = &InputPeerNotifySettings{}
+	_ bin.BareDecoder = &InputPeerNotifySettings{}
+)
+
 func (i *InputPeerNotifySettings) Zero() bool {
 	if i == nil {
 		return true
@@ -208,6 +216,58 @@ func (i *InputPeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (i *InputPeerNotifySettings) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPeerNotifySettings#9c3d198e to nil")
+	}
+	if err := b.ConsumeID(InputPeerNotifySettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPeerNotifySettings) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPeerNotifySettings#9c3d198e to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field flags: %w", err)
+		}
+	}
+	if i.Flags.Has(0) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field show_previews: %w", err)
+		}
+		i.ShowPreviews = value
+	}
+	if i.Flags.Has(1) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field silent: %w", err)
+		}
+		i.Silent = value
+	}
+	if i.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field mute_until: %w", err)
+		}
+		i.MuteUntil = value
+	}
+	if i.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field sound: %w", err)
+		}
+		i.Sound = value
+	}
+	return nil
+}
+
 // SetShowPreviews sets value of ShowPreviews conditional field.
 func (i *InputPeerNotifySettings) SetShowPreviews(value bool) {
 	i.Flags.Set(0)
@@ -267,63 +327,3 @@ func (i *InputPeerNotifySettings) GetSound() (value string, ok bool) {
 	}
 	return i.Sound, true
 }
-
-// Decode implements bin.Decoder.
-func (i *InputPeerNotifySettings) Decode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputPeerNotifySettings#9c3d198e to nil")
-	}
-	if err := b.ConsumeID(InputPeerNotifySettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: %w", err)
-	}
-	return i.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (i *InputPeerNotifySettings) DecodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputPeerNotifySettings#9c3d198e to nil")
-	}
-	{
-		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field flags: %w", err)
-		}
-	}
-	if i.Flags.Has(0) {
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field show_previews: %w", err)
-		}
-		i.ShowPreviews = value
-	}
-	if i.Flags.Has(1) {
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field silent: %w", err)
-		}
-		i.Silent = value
-	}
-	if i.Flags.Has(2) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field mute_until: %w", err)
-		}
-		i.MuteUntil = value
-	}
-	if i.Flags.Has(3) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field sound: %w", err)
-		}
-		i.Sound = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for InputPeerNotifySettings.
-var (
-	_ bin.Encoder     = &InputPeerNotifySettings{}
-	_ bin.Decoder     = &InputPeerNotifySettings{}
-	_ bin.BareEncoder = &InputPeerNotifySettings{}
-	_ bin.BareDecoder = &InputPeerNotifySettings{}
-)

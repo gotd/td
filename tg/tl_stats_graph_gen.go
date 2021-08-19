@@ -46,6 +46,19 @@ type StatsGraphAsync struct {
 // StatsGraphAsyncTypeID is TL type id of StatsGraphAsync.
 const StatsGraphAsyncTypeID = 0x4a27eb2d
 
+// construct implements constructor of StatsGraphClass.
+func (s StatsGraphAsync) construct() StatsGraphClass { return &s }
+
+// Ensuring interfaces in compile-time for StatsGraphAsync.
+var (
+	_ bin.Encoder     = &StatsGraphAsync{}
+	_ bin.Decoder     = &StatsGraphAsync{}
+	_ bin.BareEncoder = &StatsGraphAsync{}
+	_ bin.BareDecoder = &StatsGraphAsync{}
+
+	_ StatsGraphClass = &StatsGraphAsync{}
+)
+
 func (s *StatsGraphAsync) Zero() bool {
 	if s == nil {
 		return true
@@ -122,11 +135,6 @@ func (s *StatsGraphAsync) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetToken returns value of Token field.
-func (s *StatsGraphAsync) GetToken() (value string) {
-	return s.Token
-}
-
 // Decode implements bin.Decoder.
 func (s *StatsGraphAsync) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -153,18 +161,10 @@ func (s *StatsGraphAsync) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StatsGraphClass.
-func (s StatsGraphAsync) construct() StatsGraphClass { return &s }
-
-// Ensuring interfaces in compile-time for StatsGraphAsync.
-var (
-	_ bin.Encoder     = &StatsGraphAsync{}
-	_ bin.Decoder     = &StatsGraphAsync{}
-	_ bin.BareEncoder = &StatsGraphAsync{}
-	_ bin.BareDecoder = &StatsGraphAsync{}
-
-	_ StatsGraphClass = &StatsGraphAsync{}
-)
+// GetToken returns value of Token field.
+func (s *StatsGraphAsync) GetToken() (value string) {
+	return s.Token
+}
 
 // StatsGraphError represents TL type `statsGraphError#bedc9822`.
 // An error occurred while generating the statistics graph¹
@@ -180,6 +180,19 @@ type StatsGraphError struct {
 
 // StatsGraphErrorTypeID is TL type id of StatsGraphError.
 const StatsGraphErrorTypeID = 0xbedc9822
+
+// construct implements constructor of StatsGraphClass.
+func (s StatsGraphError) construct() StatsGraphClass { return &s }
+
+// Ensuring interfaces in compile-time for StatsGraphError.
+var (
+	_ bin.Encoder     = &StatsGraphError{}
+	_ bin.Decoder     = &StatsGraphError{}
+	_ bin.BareEncoder = &StatsGraphError{}
+	_ bin.BareDecoder = &StatsGraphError{}
+
+	_ StatsGraphClass = &StatsGraphError{}
+)
 
 func (s *StatsGraphError) Zero() bool {
 	if s == nil {
@@ -257,11 +270,6 @@ func (s *StatsGraphError) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetError returns value of Error field.
-func (s *StatsGraphError) GetError() (value string) {
-	return s.Error
-}
-
 // Decode implements bin.Decoder.
 func (s *StatsGraphError) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -288,18 +296,10 @@ func (s *StatsGraphError) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StatsGraphClass.
-func (s StatsGraphError) construct() StatsGraphClass { return &s }
-
-// Ensuring interfaces in compile-time for StatsGraphError.
-var (
-	_ bin.Encoder     = &StatsGraphError{}
-	_ bin.Decoder     = &StatsGraphError{}
-	_ bin.BareEncoder = &StatsGraphError{}
-	_ bin.BareDecoder = &StatsGraphError{}
-
-	_ StatsGraphClass = &StatsGraphError{}
-)
+// GetError returns value of Error field.
+func (s *StatsGraphError) GetError() (value string) {
+	return s.Error
+}
 
 // StatsGraph represents TL type `statsGraph#8ea464b6`.
 // Channel statistics graph¹
@@ -324,6 +324,19 @@ type StatsGraph struct {
 
 // StatsGraphTypeID is TL type id of StatsGraph.
 const StatsGraphTypeID = 0x8ea464b6
+
+// construct implements constructor of StatsGraphClass.
+func (s StatsGraph) construct() StatsGraphClass { return &s }
+
+// Ensuring interfaces in compile-time for StatsGraph.
+var (
+	_ bin.Encoder     = &StatsGraph{}
+	_ bin.Decoder     = &StatsGraph{}
+	_ bin.BareEncoder = &StatsGraph{}
+	_ bin.BareDecoder = &StatsGraph{}
+
+	_ StatsGraphClass = &StatsGraph{}
+)
 
 func (s *StatsGraph) Zero() bool {
 	if s == nil {
@@ -428,26 +441,6 @@ func (s *StatsGraph) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetJSON returns value of JSON field.
-func (s *StatsGraph) GetJSON() (value DataJSON) {
-	return s.JSON
-}
-
-// SetZoomToken sets value of ZoomToken conditional field.
-func (s *StatsGraph) SetZoomToken(value string) {
-	s.Flags.Set(0)
-	s.ZoomToken = value
-}
-
-// GetZoomToken returns value of ZoomToken conditional field and
-// boolean which is true if field was set.
-func (s *StatsGraph) GetZoomToken() (value string, ok bool) {
-	if !s.Flags.Has(0) {
-		return value, false
-	}
-	return s.ZoomToken, true
-}
-
 // Decode implements bin.Decoder.
 func (s *StatsGraph) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -484,18 +477,25 @@ func (s *StatsGraph) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StatsGraphClass.
-func (s StatsGraph) construct() StatsGraphClass { return &s }
+// GetJSON returns value of JSON field.
+func (s *StatsGraph) GetJSON() (value DataJSON) {
+	return s.JSON
+}
 
-// Ensuring interfaces in compile-time for StatsGraph.
-var (
-	_ bin.Encoder     = &StatsGraph{}
-	_ bin.Decoder     = &StatsGraph{}
-	_ bin.BareEncoder = &StatsGraph{}
-	_ bin.BareDecoder = &StatsGraph{}
+// SetZoomToken sets value of ZoomToken conditional field.
+func (s *StatsGraph) SetZoomToken(value string) {
+	s.Flags.Set(0)
+	s.ZoomToken = value
+}
 
-	_ StatsGraphClass = &StatsGraph{}
-)
+// GetZoomToken returns value of ZoomToken conditional field and
+// boolean which is true if field was set.
+func (s *StatsGraph) GetZoomToken() (value string, ok bool) {
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.ZoomToken, true
+}
 
 // StatsGraphClass represents StatsGraph generic type.
 //
@@ -588,371 +588,4 @@ func (b *StatsGraphBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode StatsGraphClass as nil")
 	}
 	return b.StatsGraph.Encode(buf)
-}
-
-// StatsGraphClassArray is adapter for slice of StatsGraphClass.
-type StatsGraphClassArray []StatsGraphClass
-
-// Sort sorts slice of StatsGraphClass.
-func (s StatsGraphClassArray) Sort(less func(a, b StatsGraphClass) bool) StatsGraphClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of StatsGraphClass.
-func (s StatsGraphClassArray) SortStable(less func(a, b StatsGraphClass) bool) StatsGraphClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of StatsGraphClass.
-func (s StatsGraphClassArray) Retain(keep func(x StatsGraphClass) bool) StatsGraphClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s StatsGraphClassArray) First() (v StatsGraphClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s StatsGraphClassArray) Last() (v StatsGraphClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *StatsGraphClassArray) PopFirst() (v StatsGraphClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero StatsGraphClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *StatsGraphClassArray) Pop() (v StatsGraphClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsStatsGraphAsync returns copy with only StatsGraphAsync constructors.
-func (s StatsGraphClassArray) AsStatsGraphAsync() (to StatsGraphAsyncArray) {
-	for _, elem := range s {
-		value, ok := elem.(*StatsGraphAsync)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsStatsGraphError returns copy with only StatsGraphError constructors.
-func (s StatsGraphClassArray) AsStatsGraphError() (to StatsGraphErrorArray) {
-	for _, elem := range s {
-		value, ok := elem.(*StatsGraphError)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsStatsGraph returns copy with only StatsGraph constructors.
-func (s StatsGraphClassArray) AsStatsGraph() (to StatsGraphArray) {
-	for _, elem := range s {
-		value, ok := elem.(*StatsGraph)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// StatsGraphAsyncArray is adapter for slice of StatsGraphAsync.
-type StatsGraphAsyncArray []StatsGraphAsync
-
-// Sort sorts slice of StatsGraphAsync.
-func (s StatsGraphAsyncArray) Sort(less func(a, b StatsGraphAsync) bool) StatsGraphAsyncArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of StatsGraphAsync.
-func (s StatsGraphAsyncArray) SortStable(less func(a, b StatsGraphAsync) bool) StatsGraphAsyncArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of StatsGraphAsync.
-func (s StatsGraphAsyncArray) Retain(keep func(x StatsGraphAsync) bool) StatsGraphAsyncArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s StatsGraphAsyncArray) First() (v StatsGraphAsync, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s StatsGraphAsyncArray) Last() (v StatsGraphAsync, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *StatsGraphAsyncArray) PopFirst() (v StatsGraphAsync, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero StatsGraphAsync
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *StatsGraphAsyncArray) Pop() (v StatsGraphAsync, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// StatsGraphErrorArray is adapter for slice of StatsGraphError.
-type StatsGraphErrorArray []StatsGraphError
-
-// Sort sorts slice of StatsGraphError.
-func (s StatsGraphErrorArray) Sort(less func(a, b StatsGraphError) bool) StatsGraphErrorArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of StatsGraphError.
-func (s StatsGraphErrorArray) SortStable(less func(a, b StatsGraphError) bool) StatsGraphErrorArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of StatsGraphError.
-func (s StatsGraphErrorArray) Retain(keep func(x StatsGraphError) bool) StatsGraphErrorArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s StatsGraphErrorArray) First() (v StatsGraphError, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s StatsGraphErrorArray) Last() (v StatsGraphError, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *StatsGraphErrorArray) PopFirst() (v StatsGraphError, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero StatsGraphError
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *StatsGraphErrorArray) Pop() (v StatsGraphError, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// StatsGraphArray is adapter for slice of StatsGraph.
-type StatsGraphArray []StatsGraph
-
-// Sort sorts slice of StatsGraph.
-func (s StatsGraphArray) Sort(less func(a, b StatsGraph) bool) StatsGraphArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of StatsGraph.
-func (s StatsGraphArray) SortStable(less func(a, b StatsGraph) bool) StatsGraphArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of StatsGraph.
-func (s StatsGraphArray) Retain(keep func(x StatsGraph) bool) StatsGraphArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s StatsGraphArray) First() (v StatsGraph, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s StatsGraphArray) Last() (v StatsGraph, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *StatsGraphArray) PopFirst() (v StatsGraph, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero StatsGraph
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *StatsGraphArray) Pop() (v StatsGraph, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

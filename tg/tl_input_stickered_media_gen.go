@@ -41,6 +41,19 @@ type InputStickeredMediaPhoto struct {
 // InputStickeredMediaPhotoTypeID is TL type id of InputStickeredMediaPhoto.
 const InputStickeredMediaPhotoTypeID = 0x4a992157
 
+// construct implements constructor of InputStickeredMediaClass.
+func (i InputStickeredMediaPhoto) construct() InputStickeredMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickeredMediaPhoto.
+var (
+	_ bin.Encoder     = &InputStickeredMediaPhoto{}
+	_ bin.Decoder     = &InputStickeredMediaPhoto{}
+	_ bin.BareEncoder = &InputStickeredMediaPhoto{}
+	_ bin.BareDecoder = &InputStickeredMediaPhoto{}
+
+	_ InputStickeredMediaClass = &InputStickeredMediaPhoto{}
+)
+
 func (i *InputStickeredMediaPhoto) Zero() bool {
 	if i == nil {
 		return true
@@ -122,11 +135,6 @@ func (i *InputStickeredMediaPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputStickeredMediaPhoto) GetID() (value InputPhotoClass) {
-	return i.ID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputStickeredMediaPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -153,18 +161,10 @@ func (i *InputStickeredMediaPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputStickeredMediaClass.
-func (i InputStickeredMediaPhoto) construct() InputStickeredMediaClass { return &i }
-
-// Ensuring interfaces in compile-time for InputStickeredMediaPhoto.
-var (
-	_ bin.Encoder     = &InputStickeredMediaPhoto{}
-	_ bin.Decoder     = &InputStickeredMediaPhoto{}
-	_ bin.BareEncoder = &InputStickeredMediaPhoto{}
-	_ bin.BareDecoder = &InputStickeredMediaPhoto{}
-
-	_ InputStickeredMediaClass = &InputStickeredMediaPhoto{}
-)
+// GetID returns value of ID field.
+func (i *InputStickeredMediaPhoto) GetID() (value InputPhotoClass) {
+	return i.ID
+}
 
 // InputStickeredMediaDocument represents TL type `inputStickeredMediaDocument#438865b`.
 // A document with stickers attached
@@ -177,6 +177,19 @@ type InputStickeredMediaDocument struct {
 
 // InputStickeredMediaDocumentTypeID is TL type id of InputStickeredMediaDocument.
 const InputStickeredMediaDocumentTypeID = 0x438865b
+
+// construct implements constructor of InputStickeredMediaClass.
+func (i InputStickeredMediaDocument) construct() InputStickeredMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickeredMediaDocument.
+var (
+	_ bin.Encoder     = &InputStickeredMediaDocument{}
+	_ bin.Decoder     = &InputStickeredMediaDocument{}
+	_ bin.BareEncoder = &InputStickeredMediaDocument{}
+	_ bin.BareDecoder = &InputStickeredMediaDocument{}
+
+	_ InputStickeredMediaClass = &InputStickeredMediaDocument{}
+)
 
 func (i *InputStickeredMediaDocument) Zero() bool {
 	if i == nil {
@@ -259,11 +272,6 @@ func (i *InputStickeredMediaDocument) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputStickeredMediaDocument) GetID() (value InputDocumentClass) {
-	return i.ID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputStickeredMediaDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -290,18 +298,10 @@ func (i *InputStickeredMediaDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputStickeredMediaClass.
-func (i InputStickeredMediaDocument) construct() InputStickeredMediaClass { return &i }
-
-// Ensuring interfaces in compile-time for InputStickeredMediaDocument.
-var (
-	_ bin.Encoder     = &InputStickeredMediaDocument{}
-	_ bin.Decoder     = &InputStickeredMediaDocument{}
-	_ bin.BareEncoder = &InputStickeredMediaDocument{}
-	_ bin.BareDecoder = &InputStickeredMediaDocument{}
-
-	_ InputStickeredMediaClass = &InputStickeredMediaDocument{}
-)
+// GetID returns value of ID field.
+func (i *InputStickeredMediaDocument) GetID() (value InputDocumentClass) {
+	return i.ID
+}
 
 // InputStickeredMediaClass represents InputStickeredMedia generic type.
 //
@@ -386,276 +386,4 @@ func (b *InputStickeredMediaBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputStickeredMediaClass as nil")
 	}
 	return b.InputStickeredMedia.Encode(buf)
-}
-
-// InputStickeredMediaClassArray is adapter for slice of InputStickeredMediaClass.
-type InputStickeredMediaClassArray []InputStickeredMediaClass
-
-// Sort sorts slice of InputStickeredMediaClass.
-func (s InputStickeredMediaClassArray) Sort(less func(a, b InputStickeredMediaClass) bool) InputStickeredMediaClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputStickeredMediaClass.
-func (s InputStickeredMediaClassArray) SortStable(less func(a, b InputStickeredMediaClass) bool) InputStickeredMediaClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputStickeredMediaClass.
-func (s InputStickeredMediaClassArray) Retain(keep func(x InputStickeredMediaClass) bool) InputStickeredMediaClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputStickeredMediaClassArray) First() (v InputStickeredMediaClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputStickeredMediaClassArray) Last() (v InputStickeredMediaClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputStickeredMediaClassArray) PopFirst() (v InputStickeredMediaClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputStickeredMediaClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputStickeredMediaClassArray) Pop() (v InputStickeredMediaClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsInputStickeredMediaPhoto returns copy with only InputStickeredMediaPhoto constructors.
-func (s InputStickeredMediaClassArray) AsInputStickeredMediaPhoto() (to InputStickeredMediaPhotoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputStickeredMediaPhoto)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputStickeredMediaDocument returns copy with only InputStickeredMediaDocument constructors.
-func (s InputStickeredMediaClassArray) AsInputStickeredMediaDocument() (to InputStickeredMediaDocumentArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputStickeredMediaDocument)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// InputStickeredMediaPhotoArray is adapter for slice of InputStickeredMediaPhoto.
-type InputStickeredMediaPhotoArray []InputStickeredMediaPhoto
-
-// Sort sorts slice of InputStickeredMediaPhoto.
-func (s InputStickeredMediaPhotoArray) Sort(less func(a, b InputStickeredMediaPhoto) bool) InputStickeredMediaPhotoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputStickeredMediaPhoto.
-func (s InputStickeredMediaPhotoArray) SortStable(less func(a, b InputStickeredMediaPhoto) bool) InputStickeredMediaPhotoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputStickeredMediaPhoto.
-func (s InputStickeredMediaPhotoArray) Retain(keep func(x InputStickeredMediaPhoto) bool) InputStickeredMediaPhotoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputStickeredMediaPhotoArray) First() (v InputStickeredMediaPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputStickeredMediaPhotoArray) Last() (v InputStickeredMediaPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputStickeredMediaPhotoArray) PopFirst() (v InputStickeredMediaPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputStickeredMediaPhoto
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputStickeredMediaPhotoArray) Pop() (v InputStickeredMediaPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputStickeredMediaDocumentArray is adapter for slice of InputStickeredMediaDocument.
-type InputStickeredMediaDocumentArray []InputStickeredMediaDocument
-
-// Sort sorts slice of InputStickeredMediaDocument.
-func (s InputStickeredMediaDocumentArray) Sort(less func(a, b InputStickeredMediaDocument) bool) InputStickeredMediaDocumentArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputStickeredMediaDocument.
-func (s InputStickeredMediaDocumentArray) SortStable(less func(a, b InputStickeredMediaDocument) bool) InputStickeredMediaDocumentArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputStickeredMediaDocument.
-func (s InputStickeredMediaDocumentArray) Retain(keep func(x InputStickeredMediaDocument) bool) InputStickeredMediaDocumentArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputStickeredMediaDocumentArray) First() (v InputStickeredMediaDocument, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputStickeredMediaDocumentArray) Last() (v InputStickeredMediaDocument, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputStickeredMediaDocumentArray) PopFirst() (v InputStickeredMediaDocument, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputStickeredMediaDocument
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputStickeredMediaDocumentArray) Pop() (v InputStickeredMediaDocument, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

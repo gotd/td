@@ -68,6 +68,14 @@ type AccountAuthorizationForm struct {
 // AccountAuthorizationFormTypeID is TL type id of AccountAuthorizationForm.
 const AccountAuthorizationFormTypeID = 0xad2e1cd8
 
+// Ensuring interfaces in compile-time for AccountAuthorizationForm.
+var (
+	_ bin.Encoder     = &AccountAuthorizationForm{}
+	_ bin.Decoder     = &AccountAuthorizationForm{}
+	_ bin.BareEncoder = &AccountAuthorizationForm{}
+	_ bin.BareDecoder = &AccountAuthorizationForm{}
+)
+
 func (a *AccountAuthorizationForm) Zero() bool {
 	if a == nil {
 		return true
@@ -228,56 +236,6 @@ func (a *AccountAuthorizationForm) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRequiredTypes returns value of RequiredTypes field.
-func (a *AccountAuthorizationForm) GetRequiredTypes() (value []SecureRequiredTypeClass) {
-	return a.RequiredTypes
-}
-
-// MapRequiredTypes returns field RequiredTypes wrapped in SecureRequiredTypeClassArray helper.
-func (a *AccountAuthorizationForm) MapRequiredTypes() (value SecureRequiredTypeClassArray) {
-	return SecureRequiredTypeClassArray(a.RequiredTypes)
-}
-
-// GetValues returns value of Values field.
-func (a *AccountAuthorizationForm) GetValues() (value []SecureValue) {
-	return a.Values
-}
-
-// GetErrors returns value of Errors field.
-func (a *AccountAuthorizationForm) GetErrors() (value []SecureValueErrorClass) {
-	return a.Errors
-}
-
-// MapErrors returns field Errors wrapped in SecureValueErrorClassArray helper.
-func (a *AccountAuthorizationForm) MapErrors() (value SecureValueErrorClassArray) {
-	return SecureValueErrorClassArray(a.Errors)
-}
-
-// GetUsers returns value of Users field.
-func (a *AccountAuthorizationForm) GetUsers() (value []UserClass) {
-	return a.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (a *AccountAuthorizationForm) MapUsers() (value UserClassArray) {
-	return UserClassArray(a.Users)
-}
-
-// SetPrivacyPolicyURL sets value of PrivacyPolicyURL conditional field.
-func (a *AccountAuthorizationForm) SetPrivacyPolicyURL(value string) {
-	a.Flags.Set(0)
-	a.PrivacyPolicyURL = value
-}
-
-// GetPrivacyPolicyURL returns value of PrivacyPolicyURL conditional field and
-// boolean which is true if field was set.
-func (a *AccountAuthorizationForm) GetPrivacyPolicyURL() (value string, ok bool) {
-	if !a.Flags.Has(0) {
-		return value, false
-	}
-	return a.PrivacyPolicyURL, true
-}
-
 // Decode implements bin.Decoder.
 func (a *AccountAuthorizationForm) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -377,10 +335,52 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountAuthorizationForm.
-var (
-	_ bin.Encoder     = &AccountAuthorizationForm{}
-	_ bin.Decoder     = &AccountAuthorizationForm{}
-	_ bin.BareEncoder = &AccountAuthorizationForm{}
-	_ bin.BareDecoder = &AccountAuthorizationForm{}
-)
+// GetRequiredTypes returns value of RequiredTypes field.
+func (a *AccountAuthorizationForm) GetRequiredTypes() (value []SecureRequiredTypeClass) {
+	return a.RequiredTypes
+}
+
+// GetValues returns value of Values field.
+func (a *AccountAuthorizationForm) GetValues() (value []SecureValue) {
+	return a.Values
+}
+
+// GetErrors returns value of Errors field.
+func (a *AccountAuthorizationForm) GetErrors() (value []SecureValueErrorClass) {
+	return a.Errors
+}
+
+// GetUsers returns value of Users field.
+func (a *AccountAuthorizationForm) GetUsers() (value []UserClass) {
+	return a.Users
+}
+
+// SetPrivacyPolicyURL sets value of PrivacyPolicyURL conditional field.
+func (a *AccountAuthorizationForm) SetPrivacyPolicyURL(value string) {
+	a.Flags.Set(0)
+	a.PrivacyPolicyURL = value
+}
+
+// GetPrivacyPolicyURL returns value of PrivacyPolicyURL conditional field and
+// boolean which is true if field was set.
+func (a *AccountAuthorizationForm) GetPrivacyPolicyURL() (value string, ok bool) {
+	if !a.Flags.Has(0) {
+		return value, false
+	}
+	return a.PrivacyPolicyURL, true
+}
+
+// MapRequiredTypes returns field RequiredTypes wrapped in SecureRequiredTypeClassArray helper.
+func (a *AccountAuthorizationForm) MapRequiredTypes() (value SecureRequiredTypeClassArray) {
+	return SecureRequiredTypeClassArray(a.RequiredTypes)
+}
+
+// MapErrors returns field Errors wrapped in SecureValueErrorClassArray helper.
+func (a *AccountAuthorizationForm) MapErrors() (value SecureValueErrorClassArray) {
+	return SecureValueErrorClassArray(a.Errors)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (a *AccountAuthorizationForm) MapUsers() (value UserClassArray) {
+	return UserClassArray(a.Users)
+}

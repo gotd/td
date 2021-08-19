@@ -48,6 +48,14 @@ type ReqDHParamsRequest struct {
 // ReqDHParamsRequestTypeID is TL type id of ReqDHParamsRequest.
 const ReqDHParamsRequestTypeID = 0xd712e4be
 
+// Ensuring interfaces in compile-time for ReqDHParamsRequest.
+var (
+	_ bin.Encoder     = &ReqDHParamsRequest{}
+	_ bin.Decoder     = &ReqDHParamsRequest{}
+	_ bin.BareEncoder = &ReqDHParamsRequest{}
+	_ bin.BareDecoder = &ReqDHParamsRequest{}
+)
+
 func (r *ReqDHParamsRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -81,23 +89,6 @@ func (r *ReqDHParamsRequest) String() string {
 	}
 	type Alias ReqDHParamsRequest
 	return fmt.Sprintf("ReqDHParamsRequest%+v", Alias(*r))
-}
-
-// FillFrom fills ReqDHParamsRequest from given interface.
-func (r *ReqDHParamsRequest) FillFrom(from interface {
-	GetNonce() (value bin.Int128)
-	GetServerNonce() (value bin.Int128)
-	GetP() (value []byte)
-	GetQ() (value []byte)
-	GetPublicKeyFingerprint() (value int64)
-	GetEncryptedData() (value []byte)
-}) {
-	r.Nonce = from.GetNonce()
-	r.ServerNonce = from.GetServerNonce()
-	r.P = from.GetP()
-	r.Q = from.GetQ()
-	r.PublicKeyFingerprint = from.GetPublicKeyFingerprint()
-	r.EncryptedData = from.GetEncryptedData()
 }
 
 // TypeID returns type id in TL schema.
@@ -174,36 +165,6 @@ func (r *ReqDHParamsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNonce returns value of Nonce field.
-func (r *ReqDHParamsRequest) GetNonce() (value bin.Int128) {
-	return r.Nonce
-}
-
-// GetServerNonce returns value of ServerNonce field.
-func (r *ReqDHParamsRequest) GetServerNonce() (value bin.Int128) {
-	return r.ServerNonce
-}
-
-// GetP returns value of P field.
-func (r *ReqDHParamsRequest) GetP() (value []byte) {
-	return r.P
-}
-
-// GetQ returns value of Q field.
-func (r *ReqDHParamsRequest) GetQ() (value []byte) {
-	return r.Q
-}
-
-// GetPublicKeyFingerprint returns value of PublicKeyFingerprint field.
-func (r *ReqDHParamsRequest) GetPublicKeyFingerprint() (value int64) {
-	return r.PublicKeyFingerprint
-}
-
-// GetEncryptedData returns value of EncryptedData field.
-func (r *ReqDHParamsRequest) GetEncryptedData() (value []byte) {
-	return r.EncryptedData
-}
-
 // Decode implements bin.Decoder.
 func (r *ReqDHParamsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -265,10 +226,32 @@ func (r *ReqDHParamsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ReqDHParamsRequest.
-var (
-	_ bin.Encoder     = &ReqDHParamsRequest{}
-	_ bin.Decoder     = &ReqDHParamsRequest{}
-	_ bin.BareEncoder = &ReqDHParamsRequest{}
-	_ bin.BareDecoder = &ReqDHParamsRequest{}
-)
+// GetNonce returns value of Nonce field.
+func (r *ReqDHParamsRequest) GetNonce() (value bin.Int128) {
+	return r.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (r *ReqDHParamsRequest) GetServerNonce() (value bin.Int128) {
+	return r.ServerNonce
+}
+
+// GetP returns value of P field.
+func (r *ReqDHParamsRequest) GetP() (value []byte) {
+	return r.P
+}
+
+// GetQ returns value of Q field.
+func (r *ReqDHParamsRequest) GetQ() (value []byte) {
+	return r.Q
+}
+
+// GetPublicKeyFingerprint returns value of PublicKeyFingerprint field.
+func (r *ReqDHParamsRequest) GetPublicKeyFingerprint() (value int64) {
+	return r.PublicKeyFingerprint
+}
+
+// GetEncryptedData returns value of EncryptedData field.
+func (r *ReqDHParamsRequest) GetEncryptedData() (value []byte) {
+	return r.EncryptedData
+}

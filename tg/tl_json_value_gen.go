@@ -39,6 +39,19 @@ type JSONNull struct {
 // JSONNullTypeID is TL type id of JSONNull.
 const JSONNullTypeID = 0x3f6d7b68
 
+// construct implements constructor of JSONValueClass.
+func (j JSONNull) construct() JSONValueClass { return &j }
+
+// Ensuring interfaces in compile-time for JSONNull.
+var (
+	_ bin.Encoder     = &JSONNull{}
+	_ bin.Decoder     = &JSONNull{}
+	_ bin.BareEncoder = &JSONNull{}
+	_ bin.BareDecoder = &JSONNull{}
+
+	_ JSONValueClass = &JSONNull{}
+)
+
 func (j *JSONNull) Zero() bool {
 	if j == nil {
 		return true
@@ -118,19 +131,6 @@ func (j *JSONNull) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of JSONValueClass.
-func (j JSONNull) construct() JSONValueClass { return &j }
-
-// Ensuring interfaces in compile-time for JSONNull.
-var (
-	_ bin.Encoder     = &JSONNull{}
-	_ bin.Decoder     = &JSONNull{}
-	_ bin.BareEncoder = &JSONNull{}
-	_ bin.BareDecoder = &JSONNull{}
-
-	_ JSONValueClass = &JSONNull{}
-)
-
 // JSONBool represents TL type `jsonBool#c7345e6a`.
 // JSON boolean value
 //
@@ -142,6 +142,19 @@ type JSONBool struct {
 
 // JSONBoolTypeID is TL type id of JSONBool.
 const JSONBoolTypeID = 0xc7345e6a
+
+// construct implements constructor of JSONValueClass.
+func (j JSONBool) construct() JSONValueClass { return &j }
+
+// Ensuring interfaces in compile-time for JSONBool.
+var (
+	_ bin.Encoder     = &JSONBool{}
+	_ bin.Decoder     = &JSONBool{}
+	_ bin.BareEncoder = &JSONBool{}
+	_ bin.BareDecoder = &JSONBool{}
+
+	_ JSONValueClass = &JSONBool{}
+)
 
 func (j *JSONBool) Zero() bool {
 	if j == nil {
@@ -219,11 +232,6 @@ func (j *JSONBool) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (j *JSONBool) GetValue() (value bool) {
-	return j.Value
-}
-
 // Decode implements bin.Decoder.
 func (j *JSONBool) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -250,18 +258,10 @@ func (j *JSONBool) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of JSONValueClass.
-func (j JSONBool) construct() JSONValueClass { return &j }
-
-// Ensuring interfaces in compile-time for JSONBool.
-var (
-	_ bin.Encoder     = &JSONBool{}
-	_ bin.Decoder     = &JSONBool{}
-	_ bin.BareEncoder = &JSONBool{}
-	_ bin.BareDecoder = &JSONBool{}
-
-	_ JSONValueClass = &JSONBool{}
-)
+// GetValue returns value of Value field.
+func (j *JSONBool) GetValue() (value bool) {
+	return j.Value
+}
 
 // JSONNumber represents TL type `jsonNumber#2be0dfa4`.
 // JSON numeric value
@@ -274,6 +274,19 @@ type JSONNumber struct {
 
 // JSONNumberTypeID is TL type id of JSONNumber.
 const JSONNumberTypeID = 0x2be0dfa4
+
+// construct implements constructor of JSONValueClass.
+func (j JSONNumber) construct() JSONValueClass { return &j }
+
+// Ensuring interfaces in compile-time for JSONNumber.
+var (
+	_ bin.Encoder     = &JSONNumber{}
+	_ bin.Decoder     = &JSONNumber{}
+	_ bin.BareEncoder = &JSONNumber{}
+	_ bin.BareDecoder = &JSONNumber{}
+
+	_ JSONValueClass = &JSONNumber{}
+)
 
 func (j *JSONNumber) Zero() bool {
 	if j == nil {
@@ -351,11 +364,6 @@ func (j *JSONNumber) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (j *JSONNumber) GetValue() (value float64) {
-	return j.Value
-}
-
 // Decode implements bin.Decoder.
 func (j *JSONNumber) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -382,18 +390,10 @@ func (j *JSONNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of JSONValueClass.
-func (j JSONNumber) construct() JSONValueClass { return &j }
-
-// Ensuring interfaces in compile-time for JSONNumber.
-var (
-	_ bin.Encoder     = &JSONNumber{}
-	_ bin.Decoder     = &JSONNumber{}
-	_ bin.BareEncoder = &JSONNumber{}
-	_ bin.BareDecoder = &JSONNumber{}
-
-	_ JSONValueClass = &JSONNumber{}
-)
+// GetValue returns value of Value field.
+func (j *JSONNumber) GetValue() (value float64) {
+	return j.Value
+}
 
 // JSONString represents TL type `jsonString#b71e767a`.
 // JSON string
@@ -406,6 +406,19 @@ type JSONString struct {
 
 // JSONStringTypeID is TL type id of JSONString.
 const JSONStringTypeID = 0xb71e767a
+
+// construct implements constructor of JSONValueClass.
+func (j JSONString) construct() JSONValueClass { return &j }
+
+// Ensuring interfaces in compile-time for JSONString.
+var (
+	_ bin.Encoder     = &JSONString{}
+	_ bin.Decoder     = &JSONString{}
+	_ bin.BareEncoder = &JSONString{}
+	_ bin.BareDecoder = &JSONString{}
+
+	_ JSONValueClass = &JSONString{}
+)
 
 func (j *JSONString) Zero() bool {
 	if j == nil {
@@ -483,11 +496,6 @@ func (j *JSONString) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (j *JSONString) GetValue() (value string) {
-	return j.Value
-}
-
 // Decode implements bin.Decoder.
 func (j *JSONString) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -514,18 +522,10 @@ func (j *JSONString) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of JSONValueClass.
-func (j JSONString) construct() JSONValueClass { return &j }
-
-// Ensuring interfaces in compile-time for JSONString.
-var (
-	_ bin.Encoder     = &JSONString{}
-	_ bin.Decoder     = &JSONString{}
-	_ bin.BareEncoder = &JSONString{}
-	_ bin.BareDecoder = &JSONString{}
-
-	_ JSONValueClass = &JSONString{}
-)
+// GetValue returns value of Value field.
+func (j *JSONString) GetValue() (value string) {
+	return j.Value
+}
 
 // JSONArray represents TL type `jsonArray#f7444763`.
 // JSON array
@@ -538,6 +538,19 @@ type JSONArray struct {
 
 // JSONArrayTypeID is TL type id of JSONArray.
 const JSONArrayTypeID = 0xf7444763
+
+// construct implements constructor of JSONValueClass.
+func (j JSONArray) construct() JSONValueClass { return &j }
+
+// Ensuring interfaces in compile-time for JSONArray.
+var (
+	_ bin.Encoder     = &JSONArray{}
+	_ bin.Decoder     = &JSONArray{}
+	_ bin.BareEncoder = &JSONArray{}
+	_ bin.BareDecoder = &JSONArray{}
+
+	_ JSONValueClass = &JSONArray{}
+)
 
 func (j *JSONArray) Zero() bool {
 	if j == nil {
@@ -623,16 +636,6 @@ func (j *JSONArray) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (j *JSONArray) GetValue() (value []JSONValueClass) {
-	return j.Value
-}
-
-// MapValue returns field Value wrapped in JSONValueClassArray helper.
-func (j *JSONArray) MapValue() (value JSONValueClassArray) {
-	return JSONValueClassArray(j.Value)
-}
-
 // Decode implements bin.Decoder.
 func (j *JSONArray) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -669,18 +672,15 @@ func (j *JSONArray) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of JSONValueClass.
-func (j JSONArray) construct() JSONValueClass { return &j }
+// GetValue returns value of Value field.
+func (j *JSONArray) GetValue() (value []JSONValueClass) {
+	return j.Value
+}
 
-// Ensuring interfaces in compile-time for JSONArray.
-var (
-	_ bin.Encoder     = &JSONArray{}
-	_ bin.Decoder     = &JSONArray{}
-	_ bin.BareEncoder = &JSONArray{}
-	_ bin.BareDecoder = &JSONArray{}
-
-	_ JSONValueClass = &JSONArray{}
-)
+// MapValue returns field Value wrapped in JSONValueClassArray helper.
+func (j *JSONArray) MapValue() (value JSONValueClassArray) {
+	return JSONValueClassArray(j.Value)
+}
 
 // JSONObject represents TL type `jsonObject#99c1d49d`.
 // JSON object value
@@ -693,6 +693,19 @@ type JSONObject struct {
 
 // JSONObjectTypeID is TL type id of JSONObject.
 const JSONObjectTypeID = 0x99c1d49d
+
+// construct implements constructor of JSONValueClass.
+func (j JSONObject) construct() JSONValueClass { return &j }
+
+// Ensuring interfaces in compile-time for JSONObject.
+var (
+	_ bin.Encoder     = &JSONObject{}
+	_ bin.Decoder     = &JSONObject{}
+	_ bin.BareEncoder = &JSONObject{}
+	_ bin.BareDecoder = &JSONObject{}
+
+	_ JSONValueClass = &JSONObject{}
+)
 
 func (j *JSONObject) Zero() bool {
 	if j == nil {
@@ -775,11 +788,6 @@ func (j *JSONObject) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (j *JSONObject) GetValue() (value []JSONObjectValue) {
-	return j.Value
-}
-
 // Decode implements bin.Decoder.
 func (j *JSONObject) Decode(b *bin.Buffer) error {
 	if j == nil {
@@ -816,18 +824,10 @@ func (j *JSONObject) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of JSONValueClass.
-func (j JSONObject) construct() JSONValueClass { return &j }
-
-// Ensuring interfaces in compile-time for JSONObject.
-var (
-	_ bin.Encoder     = &JSONObject{}
-	_ bin.Decoder     = &JSONObject{}
-	_ bin.BareEncoder = &JSONObject{}
-	_ bin.BareDecoder = &JSONObject{}
-
-	_ JSONValueClass = &JSONObject{}
-)
+// GetValue returns value of Value field.
+func (j *JSONObject) GetValue() (value []JSONObjectValue) {
+	return j.Value
+}
 
 // JSONValueClass represents JSONValue generic type.
 //
@@ -944,561 +944,4 @@ func (b *JSONValueBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode JSONValueClass as nil")
 	}
 	return b.JSONValue.Encode(buf)
-}
-
-// JSONValueClassArray is adapter for slice of JSONValueClass.
-type JSONValueClassArray []JSONValueClass
-
-// Sort sorts slice of JSONValueClass.
-func (s JSONValueClassArray) Sort(less func(a, b JSONValueClass) bool) JSONValueClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of JSONValueClass.
-func (s JSONValueClassArray) SortStable(less func(a, b JSONValueClass) bool) JSONValueClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of JSONValueClass.
-func (s JSONValueClassArray) Retain(keep func(x JSONValueClass) bool) JSONValueClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s JSONValueClassArray) First() (v JSONValueClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s JSONValueClassArray) Last() (v JSONValueClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *JSONValueClassArray) PopFirst() (v JSONValueClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero JSONValueClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *JSONValueClassArray) Pop() (v JSONValueClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsJSONBool returns copy with only JSONBool constructors.
-func (s JSONValueClassArray) AsJSONBool() (to JSONBoolArray) {
-	for _, elem := range s {
-		value, ok := elem.(*JSONBool)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsJSONNumber returns copy with only JSONNumber constructors.
-func (s JSONValueClassArray) AsJSONNumber() (to JSONNumberArray) {
-	for _, elem := range s {
-		value, ok := elem.(*JSONNumber)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsJSONString returns copy with only JSONString constructors.
-func (s JSONValueClassArray) AsJSONString() (to JSONStringArray) {
-	for _, elem := range s {
-		value, ok := elem.(*JSONString)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsJSONArray returns copy with only JSONArray constructors.
-func (s JSONValueClassArray) AsJSONArray() (to JSONArrayArray) {
-	for _, elem := range s {
-		value, ok := elem.(*JSONArray)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsJSONObject returns copy with only JSONObject constructors.
-func (s JSONValueClassArray) AsJSONObject() (to JSONObjectArray) {
-	for _, elem := range s {
-		value, ok := elem.(*JSONObject)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// JSONBoolArray is adapter for slice of JSONBool.
-type JSONBoolArray []JSONBool
-
-// Sort sorts slice of JSONBool.
-func (s JSONBoolArray) Sort(less func(a, b JSONBool) bool) JSONBoolArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of JSONBool.
-func (s JSONBoolArray) SortStable(less func(a, b JSONBool) bool) JSONBoolArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of JSONBool.
-func (s JSONBoolArray) Retain(keep func(x JSONBool) bool) JSONBoolArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s JSONBoolArray) First() (v JSONBool, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s JSONBoolArray) Last() (v JSONBool, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *JSONBoolArray) PopFirst() (v JSONBool, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero JSONBool
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *JSONBoolArray) Pop() (v JSONBool, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// JSONNumberArray is adapter for slice of JSONNumber.
-type JSONNumberArray []JSONNumber
-
-// Sort sorts slice of JSONNumber.
-func (s JSONNumberArray) Sort(less func(a, b JSONNumber) bool) JSONNumberArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of JSONNumber.
-func (s JSONNumberArray) SortStable(less func(a, b JSONNumber) bool) JSONNumberArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of JSONNumber.
-func (s JSONNumberArray) Retain(keep func(x JSONNumber) bool) JSONNumberArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s JSONNumberArray) First() (v JSONNumber, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s JSONNumberArray) Last() (v JSONNumber, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *JSONNumberArray) PopFirst() (v JSONNumber, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero JSONNumber
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *JSONNumberArray) Pop() (v JSONNumber, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// JSONStringArray is adapter for slice of JSONString.
-type JSONStringArray []JSONString
-
-// Sort sorts slice of JSONString.
-func (s JSONStringArray) Sort(less func(a, b JSONString) bool) JSONStringArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of JSONString.
-func (s JSONStringArray) SortStable(less func(a, b JSONString) bool) JSONStringArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of JSONString.
-func (s JSONStringArray) Retain(keep func(x JSONString) bool) JSONStringArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s JSONStringArray) First() (v JSONString, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s JSONStringArray) Last() (v JSONString, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *JSONStringArray) PopFirst() (v JSONString, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero JSONString
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *JSONStringArray) Pop() (v JSONString, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// JSONArrayArray is adapter for slice of JSONArray.
-type JSONArrayArray []JSONArray
-
-// Sort sorts slice of JSONArray.
-func (s JSONArrayArray) Sort(less func(a, b JSONArray) bool) JSONArrayArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of JSONArray.
-func (s JSONArrayArray) SortStable(less func(a, b JSONArray) bool) JSONArrayArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of JSONArray.
-func (s JSONArrayArray) Retain(keep func(x JSONArray) bool) JSONArrayArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s JSONArrayArray) First() (v JSONArray, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s JSONArrayArray) Last() (v JSONArray, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *JSONArrayArray) PopFirst() (v JSONArray, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero JSONArray
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *JSONArrayArray) Pop() (v JSONArray, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// JSONObjectArray is adapter for slice of JSONObject.
-type JSONObjectArray []JSONObject
-
-// Sort sorts slice of JSONObject.
-func (s JSONObjectArray) Sort(less func(a, b JSONObject) bool) JSONObjectArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of JSONObject.
-func (s JSONObjectArray) SortStable(less func(a, b JSONObject) bool) JSONObjectArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of JSONObject.
-func (s JSONObjectArray) Retain(keep func(x JSONObject) bool) JSONObjectArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s JSONObjectArray) First() (v JSONObject, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s JSONObjectArray) Last() (v JSONObject, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *JSONObjectArray) PopFirst() (v JSONObject, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero JSONObject
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *JSONObjectArray) Pop() (v JSONObject, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

@@ -41,6 +41,14 @@ type HelpAcceptTermsOfServiceRequest struct {
 // HelpAcceptTermsOfServiceRequestTypeID is TL type id of HelpAcceptTermsOfServiceRequest.
 const HelpAcceptTermsOfServiceRequestTypeID = 0xee72f79a
 
+// Ensuring interfaces in compile-time for HelpAcceptTermsOfServiceRequest.
+var (
+	_ bin.Encoder     = &HelpAcceptTermsOfServiceRequest{}
+	_ bin.Decoder     = &HelpAcceptTermsOfServiceRequest{}
+	_ bin.BareEncoder = &HelpAcceptTermsOfServiceRequest{}
+	_ bin.BareDecoder = &HelpAcceptTermsOfServiceRequest{}
+)
+
 func (a *HelpAcceptTermsOfServiceRequest) Zero() bool {
 	if a == nil {
 		return true
@@ -119,11 +127,6 @@ func (a *HelpAcceptTermsOfServiceRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (a *HelpAcceptTermsOfServiceRequest) GetID() (value DataJSON) {
-	return a.ID
-}
-
 // Decode implements bin.Decoder.
 func (a *HelpAcceptTermsOfServiceRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -148,13 +151,10 @@ func (a *HelpAcceptTermsOfServiceRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpAcceptTermsOfServiceRequest.
-var (
-	_ bin.Encoder     = &HelpAcceptTermsOfServiceRequest{}
-	_ bin.Decoder     = &HelpAcceptTermsOfServiceRequest{}
-	_ bin.BareEncoder = &HelpAcceptTermsOfServiceRequest{}
-	_ bin.BareDecoder = &HelpAcceptTermsOfServiceRequest{}
-)
+// GetID returns value of ID field.
+func (a *HelpAcceptTermsOfServiceRequest) GetID() (value DataJSON) {
+	return a.ID
+}
 
 // HelpAcceptTermsOfService invokes method help.acceptTermsOfService#ee72f79a returning error if any.
 // Accept the new terms of service

@@ -60,6 +60,14 @@ type PaymentRequestedInfo struct {
 // PaymentRequestedInfoTypeID is TL type id of PaymentRequestedInfo.
 const PaymentRequestedInfoTypeID = 0x909c3f94
 
+// Ensuring interfaces in compile-time for PaymentRequestedInfo.
+var (
+	_ bin.Encoder     = &PaymentRequestedInfo{}
+	_ bin.Decoder     = &PaymentRequestedInfo{}
+	_ bin.BareEncoder = &PaymentRequestedInfo{}
+	_ bin.BareDecoder = &PaymentRequestedInfo{}
+)
+
 func (p *PaymentRequestedInfo) Zero() bool {
 	if p == nil {
 		return true
@@ -210,6 +218,56 @@ func (p *PaymentRequestedInfo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *PaymentRequestedInfo) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode paymentRequestedInfo#909c3f94 to nil")
+	}
+	if err := b.ConsumeID(PaymentRequestedInfoTypeID); err != nil {
+		return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PaymentRequestedInfo) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode paymentRequestedInfo#909c3f94 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field flags: %w", err)
+		}
+	}
+	if p.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field name: %w", err)
+		}
+		p.Name = value
+	}
+	if p.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field phone: %w", err)
+		}
+		p.Phone = value
+	}
+	if p.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field email: %w", err)
+		}
+		p.Email = value
+	}
+	if p.Flags.Has(3) {
+		if err := p.ShippingAddress.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field shipping_address: %w", err)
+		}
+	}
+	return nil
+}
+
 // SetName sets value of Name conditional field.
 func (p *PaymentRequestedInfo) SetName(value string) {
 	p.Flags.Set(0)
@@ -269,61 +327,3 @@ func (p *PaymentRequestedInfo) GetShippingAddress() (value PostAddress, ok bool)
 	}
 	return p.ShippingAddress, true
 }
-
-// Decode implements bin.Decoder.
-func (p *PaymentRequestedInfo) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode paymentRequestedInfo#909c3f94 to nil")
-	}
-	if err := b.ConsumeID(PaymentRequestedInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *PaymentRequestedInfo) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode paymentRequestedInfo#909c3f94 to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field flags: %w", err)
-		}
-	}
-	if p.Flags.Has(0) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field name: %w", err)
-		}
-		p.Name = value
-	}
-	if p.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field phone: %w", err)
-		}
-		p.Phone = value
-	}
-	if p.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field email: %w", err)
-		}
-		p.Email = value
-	}
-	if p.Flags.Has(3) {
-		if err := p.ShippingAddress.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field shipping_address: %w", err)
-		}
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for PaymentRequestedInfo.
-var (
-	_ bin.Encoder     = &PaymentRequestedInfo{}
-	_ bin.Decoder     = &PaymentRequestedInfo{}
-	_ bin.BareEncoder = &PaymentRequestedInfo{}
-	_ bin.BareDecoder = &PaymentRequestedInfo{}
-)

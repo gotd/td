@@ -41,6 +41,14 @@ type PhotosUpdateProfilePhotoRequest struct {
 // PhotosUpdateProfilePhotoRequestTypeID is TL type id of PhotosUpdateProfilePhotoRequest.
 const PhotosUpdateProfilePhotoRequestTypeID = 0x72d4742c
 
+// Ensuring interfaces in compile-time for PhotosUpdateProfilePhotoRequest.
+var (
+	_ bin.Encoder     = &PhotosUpdateProfilePhotoRequest{}
+	_ bin.Decoder     = &PhotosUpdateProfilePhotoRequest{}
+	_ bin.BareEncoder = &PhotosUpdateProfilePhotoRequest{}
+	_ bin.BareDecoder = &PhotosUpdateProfilePhotoRequest{}
+)
+
 func (u *PhotosUpdateProfilePhotoRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -122,16 +130,6 @@ func (u *PhotosUpdateProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (u *PhotosUpdateProfilePhotoRequest) GetID() (value InputPhotoClass) {
-	return u.ID
-}
-
-// GetIDAsNotEmpty returns mapped value of ID field.
-func (u *PhotosUpdateProfilePhotoRequest) GetIDAsNotEmpty() (*InputPhoto, bool) {
-	return u.ID.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (u *PhotosUpdateProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -158,13 +156,15 @@ func (u *PhotosUpdateProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhotosUpdateProfilePhotoRequest.
-var (
-	_ bin.Encoder     = &PhotosUpdateProfilePhotoRequest{}
-	_ bin.Decoder     = &PhotosUpdateProfilePhotoRequest{}
-	_ bin.BareEncoder = &PhotosUpdateProfilePhotoRequest{}
-	_ bin.BareDecoder = &PhotosUpdateProfilePhotoRequest{}
-)
+// GetID returns value of ID field.
+func (u *PhotosUpdateProfilePhotoRequest) GetID() (value InputPhotoClass) {
+	return u.ID
+}
+
+// GetIDAsNotEmpty returns mapped value of ID field.
+func (u *PhotosUpdateProfilePhotoRequest) GetIDAsNotEmpty() (*InputPhoto, bool) {
+	return u.ID.AsNotEmpty()
+}
 
 // PhotosUpdateProfilePhoto invokes method photos.updateProfilePhoto#72d4742c returning error if any.
 // Installs a previously uploaded photo as a profile photo.

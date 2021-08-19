@@ -38,6 +38,14 @@ type ReceivedNotifyMessageVector struct {
 // ReceivedNotifyMessageVectorTypeID is TL type id of ReceivedNotifyMessageVector.
 const ReceivedNotifyMessageVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for ReceivedNotifyMessageVector.
+var (
+	_ bin.Encoder     = &ReceivedNotifyMessageVector{}
+	_ bin.Decoder     = &ReceivedNotifyMessageVector{}
+	_ bin.BareEncoder = &ReceivedNotifyMessageVector{}
+	_ bin.BareDecoder = &ReceivedNotifyMessageVector{}
+)
+
 func (vec *ReceivedNotifyMessageVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -119,11 +127,6 @@ func (vec *ReceivedNotifyMessageVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *ReceivedNotifyMessageVector) GetElems() (value []ReceivedNotifyMessage) {
-	return vec.Elems
-}
-
 // Decode implements bin.Decoder.
 func (vec *ReceivedNotifyMessageVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -158,10 +161,7 @@ func (vec *ReceivedNotifyMessageVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ReceivedNotifyMessageVector.
-var (
-	_ bin.Encoder     = &ReceivedNotifyMessageVector{}
-	_ bin.Decoder     = &ReceivedNotifyMessageVector{}
-	_ bin.BareEncoder = &ReceivedNotifyMessageVector{}
-	_ bin.BareDecoder = &ReceivedNotifyMessageVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *ReceivedNotifyMessageVector) GetElems() (value []ReceivedNotifyMessage) {
+	return vec.Elems
+}

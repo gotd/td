@@ -66,6 +66,14 @@ type MessagesAcceptURLAuthRequest struct {
 // MessagesAcceptURLAuthRequestTypeID is TL type id of MessagesAcceptURLAuthRequest.
 const MessagesAcceptURLAuthRequestTypeID = 0xb12c7125
 
+// Ensuring interfaces in compile-time for MessagesAcceptURLAuthRequest.
+var (
+	_ bin.Encoder     = &MessagesAcceptURLAuthRequest{}
+	_ bin.Decoder     = &MessagesAcceptURLAuthRequest{}
+	_ bin.BareEncoder = &MessagesAcceptURLAuthRequest{}
+	_ bin.BareDecoder = &MessagesAcceptURLAuthRequest{}
+)
+
 func (a *MessagesAcceptURLAuthRequest) Zero() bool {
 	if a == nil {
 		return true
@@ -232,6 +240,59 @@ func (a *MessagesAcceptURLAuthRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (a *MessagesAcceptURLAuthRequest) Decode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode messages.acceptUrlAuth#b12c7125 to nil")
+	}
+	if err := b.ConsumeID(MessagesAcceptURLAuthRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: %w", err)
+	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *MessagesAcceptURLAuthRequest) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode messages.acceptUrlAuth#b12c7125 to nil")
+	}
+	{
+		if err := a.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field flags: %w", err)
+		}
+	}
+	a.WriteAllowed = a.Flags.Has(0)
+	if a.Flags.Has(1) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field peer: %w", err)
+		}
+		a.Peer = value
+	}
+	if a.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field msg_id: %w", err)
+		}
+		a.MsgID = value
+	}
+	if a.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field button_id: %w", err)
+		}
+		a.ButtonID = value
+	}
+	if a.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field url: %w", err)
+		}
+		a.URL = value
+	}
+	return nil
+}
+
 // SetWriteAllowed sets value of WriteAllowed conditional field.
 func (a *MessagesAcceptURLAuthRequest) SetWriteAllowed(value bool) {
 	if value {
@@ -307,67 +368,6 @@ func (a *MessagesAcceptURLAuthRequest) GetURL() (value string, ok bool) {
 	}
 	return a.URL, true
 }
-
-// Decode implements bin.Decoder.
-func (a *MessagesAcceptURLAuthRequest) Decode(b *bin.Buffer) error {
-	if a == nil {
-		return fmt.Errorf("can't decode messages.acceptUrlAuth#b12c7125 to nil")
-	}
-	if err := b.ConsumeID(MessagesAcceptURLAuthRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: %w", err)
-	}
-	return a.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (a *MessagesAcceptURLAuthRequest) DecodeBare(b *bin.Buffer) error {
-	if a == nil {
-		return fmt.Errorf("can't decode messages.acceptUrlAuth#b12c7125 to nil")
-	}
-	{
-		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field flags: %w", err)
-		}
-	}
-	a.WriteAllowed = a.Flags.Has(0)
-	if a.Flags.Has(1) {
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field peer: %w", err)
-		}
-		a.Peer = value
-	}
-	if a.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field msg_id: %w", err)
-		}
-		a.MsgID = value
-	}
-	if a.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field button_id: %w", err)
-		}
-		a.ButtonID = value
-	}
-	if a.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field url: %w", err)
-		}
-		a.URL = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesAcceptURLAuthRequest.
-var (
-	_ bin.Encoder     = &MessagesAcceptURLAuthRequest{}
-	_ bin.Decoder     = &MessagesAcceptURLAuthRequest{}
-	_ bin.BareEncoder = &MessagesAcceptURLAuthRequest{}
-	_ bin.BareDecoder = &MessagesAcceptURLAuthRequest{}
-)
 
 // MessagesAcceptURLAuth invokes method messages.acceptUrlAuth#b12c7125 returning error if any.
 // Use this to accept a Seamless Telegram Login authorization request, for more info

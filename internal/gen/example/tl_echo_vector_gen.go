@@ -40,6 +40,14 @@ type EchoVectorRequest struct {
 // EchoVectorRequestTypeID is TL type id of EchoVectorRequest.
 const EchoVectorRequestTypeID = 0xd4785939
 
+// Ensuring interfaces in compile-time for EchoVectorRequest.
+var (
+	_ bin.Encoder     = &EchoVectorRequest{}
+	_ bin.Decoder     = &EchoVectorRequest{}
+	_ bin.BareEncoder = &EchoVectorRequest{}
+	_ bin.BareDecoder = &EchoVectorRequest{}
+)
+
 func (e *EchoVectorRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -58,13 +66,6 @@ func (e *EchoVectorRequest) String() string {
 	}
 	type Alias EchoVectorRequest
 	return fmt.Sprintf("EchoVectorRequest%+v", Alias(*e))
-}
-
-// FillFrom fills EchoVectorRequest from given interface.
-func (e *EchoVectorRequest) FillFrom(from interface {
-	GetIDs() (value []int)
-}) {
-	e.IDs = from.GetIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -119,11 +120,6 @@ func (e *EchoVectorRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetIDs returns value of IDs field.
-func (e *EchoVectorRequest) GetIDs() (value []int) {
-	return e.IDs
-}
-
 // Decode implements bin.Decoder.
 func (e *EchoVectorRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -160,13 +156,10 @@ func (e *EchoVectorRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for EchoVectorRequest.
-var (
-	_ bin.Encoder     = &EchoVectorRequest{}
-	_ bin.Decoder     = &EchoVectorRequest{}
-	_ bin.BareEncoder = &EchoVectorRequest{}
-	_ bin.BareDecoder = &EchoVectorRequest{}
-)
+// GetIDs returns value of IDs field.
+func (e *EchoVectorRequest) GetIDs() (value []int) {
+	return e.IDs
+}
 
 // EchoVector invokes method echoVector#d4785939 returning error if any.
 //

@@ -44,6 +44,14 @@ type AccountSendVerifyEmailCodeRequest struct {
 // AccountSendVerifyEmailCodeRequestTypeID is TL type id of AccountSendVerifyEmailCodeRequest.
 const AccountSendVerifyEmailCodeRequestTypeID = 0x7011509f
 
+// Ensuring interfaces in compile-time for AccountSendVerifyEmailCodeRequest.
+var (
+	_ bin.Encoder     = &AccountSendVerifyEmailCodeRequest{}
+	_ bin.Decoder     = &AccountSendVerifyEmailCodeRequest{}
+	_ bin.BareEncoder = &AccountSendVerifyEmailCodeRequest{}
+	_ bin.BareDecoder = &AccountSendVerifyEmailCodeRequest{}
+)
+
 func (s *AccountSendVerifyEmailCodeRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -120,11 +128,6 @@ func (s *AccountSendVerifyEmailCodeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetEmail returns value of Email field.
-func (s *AccountSendVerifyEmailCodeRequest) GetEmail() (value string) {
-	return s.Email
-}
-
 // Decode implements bin.Decoder.
 func (s *AccountSendVerifyEmailCodeRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -151,13 +154,10 @@ func (s *AccountSendVerifyEmailCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountSendVerifyEmailCodeRequest.
-var (
-	_ bin.Encoder     = &AccountSendVerifyEmailCodeRequest{}
-	_ bin.Decoder     = &AccountSendVerifyEmailCodeRequest{}
-	_ bin.BareEncoder = &AccountSendVerifyEmailCodeRequest{}
-	_ bin.BareDecoder = &AccountSendVerifyEmailCodeRequest{}
-)
+// GetEmail returns value of Email field.
+func (s *AccountSendVerifyEmailCodeRequest) GetEmail() (value string) {
+	return s.Email
+}
 
 // AccountSendVerifyEmailCode invokes method account.sendVerifyEmailCode#7011509f returning error if any.
 // Send the verification email code for telegram passport¹.

@@ -51,6 +51,14 @@ type MessagesGetCommonChatsRequest struct {
 // MessagesGetCommonChatsRequestTypeID is TL type id of MessagesGetCommonChatsRequest.
 const MessagesGetCommonChatsRequestTypeID = 0xd0a48c4
 
+// Ensuring interfaces in compile-time for MessagesGetCommonChatsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetCommonChatsRequest{}
+	_ bin.Decoder     = &MessagesGetCommonChatsRequest{}
+	_ bin.BareEncoder = &MessagesGetCommonChatsRequest{}
+	_ bin.BareDecoder = &MessagesGetCommonChatsRequest{}
+)
+
 func (g *MessagesGetCommonChatsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -152,21 +160,6 @@ func (g *MessagesGetCommonChatsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (g *MessagesGetCommonChatsRequest) GetUserID() (value InputUserClass) {
-	return g.UserID
-}
-
-// GetMaxID returns value of MaxID field.
-func (g *MessagesGetCommonChatsRequest) GetMaxID() (value int) {
-	return g.MaxID
-}
-
-// GetLimit returns value of Limit field.
-func (g *MessagesGetCommonChatsRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetCommonChatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -207,13 +200,20 @@ func (g *MessagesGetCommonChatsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetCommonChatsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetCommonChatsRequest{}
-	_ bin.Decoder     = &MessagesGetCommonChatsRequest{}
-	_ bin.BareEncoder = &MessagesGetCommonChatsRequest{}
-	_ bin.BareDecoder = &MessagesGetCommonChatsRequest{}
-)
+// GetUserID returns value of UserID field.
+func (g *MessagesGetCommonChatsRequest) GetUserID() (value InputUserClass) {
+	return g.UserID
+}
+
+// GetMaxID returns value of MaxID field.
+func (g *MessagesGetCommonChatsRequest) GetMaxID() (value int) {
+	return g.MaxID
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetCommonChatsRequest) GetLimit() (value int) {
+	return g.Limit
+}
 
 // MessagesGetCommonChats invokes method messages.getCommonChats#d0a48c4 returning error if any.
 // Get chats in common with a user

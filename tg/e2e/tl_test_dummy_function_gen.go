@@ -38,6 +38,14 @@ type TestDummyFunctionRequest struct {
 // TestDummyFunctionRequestTypeID is TL type id of TestDummyFunctionRequest.
 const TestDummyFunctionRequestTypeID = 0xc8357709
 
+// Ensuring interfaces in compile-time for TestDummyFunctionRequest.
+var (
+	_ bin.Encoder     = &TestDummyFunctionRequest{}
+	_ bin.Decoder     = &TestDummyFunctionRequest{}
+	_ bin.BareEncoder = &TestDummyFunctionRequest{}
+	_ bin.BareDecoder = &TestDummyFunctionRequest{}
+)
+
 func (d *TestDummyFunctionRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -116,14 +124,6 @@ func (d *TestDummyFunctionRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for TestDummyFunctionRequest.
-var (
-	_ bin.Encoder     = &TestDummyFunctionRequest{}
-	_ bin.Decoder     = &TestDummyFunctionRequest{}
-	_ bin.BareEncoder = &TestDummyFunctionRequest{}
-	_ bin.BareDecoder = &TestDummyFunctionRequest{}
-)
 
 // TestDummyFunction invokes method test.dummyFunction#c8357709 returning error if any.
 //

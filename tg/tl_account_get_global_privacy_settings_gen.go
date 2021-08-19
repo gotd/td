@@ -39,6 +39,14 @@ type AccountGetGlobalPrivacySettingsRequest struct {
 // AccountGetGlobalPrivacySettingsRequestTypeID is TL type id of AccountGetGlobalPrivacySettingsRequest.
 const AccountGetGlobalPrivacySettingsRequestTypeID = 0xeb2b4cf6
 
+// Ensuring interfaces in compile-time for AccountGetGlobalPrivacySettingsRequest.
+var (
+	_ bin.Encoder     = &AccountGetGlobalPrivacySettingsRequest{}
+	_ bin.Decoder     = &AccountGetGlobalPrivacySettingsRequest{}
+	_ bin.BareEncoder = &AccountGetGlobalPrivacySettingsRequest{}
+	_ bin.BareDecoder = &AccountGetGlobalPrivacySettingsRequest{}
+)
+
 func (g *AccountGetGlobalPrivacySettingsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *AccountGetGlobalPrivacySettingsRequest) DecodeBare(b *bin.Buffer) error
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountGetGlobalPrivacySettingsRequest.
-var (
-	_ bin.Encoder     = &AccountGetGlobalPrivacySettingsRequest{}
-	_ bin.Decoder     = &AccountGetGlobalPrivacySettingsRequest{}
-	_ bin.BareEncoder = &AccountGetGlobalPrivacySettingsRequest{}
-	_ bin.BareDecoder = &AccountGetGlobalPrivacySettingsRequest{}
-)
 
 // AccountGetGlobalPrivacySettings invokes method account.getGlobalPrivacySettings#eb2b4cf6 returning error if any.
 // Get global privacy settings

@@ -43,6 +43,14 @@ type AccountGetAllSecureValuesRequest struct {
 // AccountGetAllSecureValuesRequestTypeID is TL type id of AccountGetAllSecureValuesRequest.
 const AccountGetAllSecureValuesRequestTypeID = 0xb288bc7d
 
+// Ensuring interfaces in compile-time for AccountGetAllSecureValuesRequest.
+var (
+	_ bin.Encoder     = &AccountGetAllSecureValuesRequest{}
+	_ bin.Decoder     = &AccountGetAllSecureValuesRequest{}
+	_ bin.BareEncoder = &AccountGetAllSecureValuesRequest{}
+	_ bin.BareDecoder = &AccountGetAllSecureValuesRequest{}
+)
+
 func (g *AccountGetAllSecureValuesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -121,14 +129,6 @@ func (g *AccountGetAllSecureValuesRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountGetAllSecureValuesRequest.
-var (
-	_ bin.Encoder     = &AccountGetAllSecureValuesRequest{}
-	_ bin.Decoder     = &AccountGetAllSecureValuesRequest{}
-	_ bin.BareEncoder = &AccountGetAllSecureValuesRequest{}
-	_ bin.BareDecoder = &AccountGetAllSecureValuesRequest{}
-)
 
 // AccountGetAllSecureValues invokes method account.getAllSecureValues#b288bc7d returning error if any.
 // Get all saved Telegram Passport¹ documents, for more info see the passport docs »²

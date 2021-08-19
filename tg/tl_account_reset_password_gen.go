@@ -38,6 +38,14 @@ type AccountResetPasswordRequest struct {
 // AccountResetPasswordRequestTypeID is TL type id of AccountResetPasswordRequest.
 const AccountResetPasswordRequestTypeID = 0x9308ce1b
 
+// Ensuring interfaces in compile-time for AccountResetPasswordRequest.
+var (
+	_ bin.Encoder     = &AccountResetPasswordRequest{}
+	_ bin.Decoder     = &AccountResetPasswordRequest{}
+	_ bin.BareEncoder = &AccountResetPasswordRequest{}
+	_ bin.BareDecoder = &AccountResetPasswordRequest{}
+)
+
 func (r *AccountResetPasswordRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -116,14 +124,6 @@ func (r *AccountResetPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountResetPasswordRequest.
-var (
-	_ bin.Encoder     = &AccountResetPasswordRequest{}
-	_ bin.Decoder     = &AccountResetPasswordRequest{}
-	_ bin.BareEncoder = &AccountResetPasswordRequest{}
-	_ bin.BareDecoder = &AccountResetPasswordRequest{}
-)
 
 // AccountResetPassword invokes method account.resetPassword#9308ce1b returning error if any.
 //

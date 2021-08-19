@@ -43,6 +43,19 @@ type StickerSetCovered struct {
 // StickerSetCoveredTypeID is TL type id of StickerSetCovered.
 const StickerSetCoveredTypeID = 0x6410a5d2
 
+// construct implements constructor of StickerSetCoveredClass.
+func (s StickerSetCovered) construct() StickerSetCoveredClass { return &s }
+
+// Ensuring interfaces in compile-time for StickerSetCovered.
+var (
+	_ bin.Encoder     = &StickerSetCovered{}
+	_ bin.Decoder     = &StickerSetCovered{}
+	_ bin.BareEncoder = &StickerSetCovered{}
+	_ bin.BareDecoder = &StickerSetCovered{}
+
+	_ StickerSetCoveredClass = &StickerSetCovered{}
+)
+
 func (s *StickerSetCovered) Zero() bool {
 	if s == nil {
 		return true
@@ -136,16 +149,6 @@ func (s *StickerSetCovered) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSet returns value of Set field.
-func (s *StickerSetCovered) GetSet() (value StickerSet) {
-	return s.Set
-}
-
-// GetCover returns value of Cover field.
-func (s *StickerSetCovered) GetCover() (value DocumentClass) {
-	return s.Cover
-}
-
 // Decode implements bin.Decoder.
 func (s *StickerSetCovered) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -177,18 +180,15 @@ func (s *StickerSetCovered) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StickerSetCoveredClass.
-func (s StickerSetCovered) construct() StickerSetCoveredClass { return &s }
+// GetSet returns value of Set field.
+func (s *StickerSetCovered) GetSet() (value StickerSet) {
+	return s.Set
+}
 
-// Ensuring interfaces in compile-time for StickerSetCovered.
-var (
-	_ bin.Encoder     = &StickerSetCovered{}
-	_ bin.Decoder     = &StickerSetCovered{}
-	_ bin.BareEncoder = &StickerSetCovered{}
-	_ bin.BareDecoder = &StickerSetCovered{}
-
-	_ StickerSetCoveredClass = &StickerSetCovered{}
-)
+// GetCover returns value of Cover field.
+func (s *StickerSetCovered) GetCover() (value DocumentClass) {
+	return s.Cover
+}
 
 // StickerSetMultiCovered represents TL type `stickerSetMultiCovered#3407e51b`.
 // Stickerset, with a specific stickers as preview
@@ -203,6 +203,19 @@ type StickerSetMultiCovered struct {
 
 // StickerSetMultiCoveredTypeID is TL type id of StickerSetMultiCovered.
 const StickerSetMultiCoveredTypeID = 0x3407e51b
+
+// construct implements constructor of StickerSetCoveredClass.
+func (s StickerSetMultiCovered) construct() StickerSetCoveredClass { return &s }
+
+// Ensuring interfaces in compile-time for StickerSetMultiCovered.
+var (
+	_ bin.Encoder     = &StickerSetMultiCovered{}
+	_ bin.Decoder     = &StickerSetMultiCovered{}
+	_ bin.BareEncoder = &StickerSetMultiCovered{}
+	_ bin.BareDecoder = &StickerSetMultiCovered{}
+
+	_ StickerSetCoveredClass = &StickerSetMultiCovered{}
+)
 
 func (s *StickerSetMultiCovered) Zero() bool {
 	if s == nil {
@@ -300,21 +313,6 @@ func (s *StickerSetMultiCovered) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSet returns value of Set field.
-func (s *StickerSetMultiCovered) GetSet() (value StickerSet) {
-	return s.Set
-}
-
-// GetCovers returns value of Covers field.
-func (s *StickerSetMultiCovered) GetCovers() (value []DocumentClass) {
-	return s.Covers
-}
-
-// MapCovers returns field Covers wrapped in DocumentClassArray helper.
-func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassArray) {
-	return DocumentClassArray(s.Covers)
-}
-
 // Decode implements bin.Decoder.
 func (s *StickerSetMultiCovered) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -356,18 +354,20 @@ func (s *StickerSetMultiCovered) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of StickerSetCoveredClass.
-func (s StickerSetMultiCovered) construct() StickerSetCoveredClass { return &s }
+// GetSet returns value of Set field.
+func (s *StickerSetMultiCovered) GetSet() (value StickerSet) {
+	return s.Set
+}
 
-// Ensuring interfaces in compile-time for StickerSetMultiCovered.
-var (
-	_ bin.Encoder     = &StickerSetMultiCovered{}
-	_ bin.Decoder     = &StickerSetMultiCovered{}
-	_ bin.BareEncoder = &StickerSetMultiCovered{}
-	_ bin.BareDecoder = &StickerSetMultiCovered{}
+// GetCovers returns value of Covers field.
+func (s *StickerSetMultiCovered) GetCovers() (value []DocumentClass) {
+	return s.Covers
+}
 
-	_ StickerSetCoveredClass = &StickerSetMultiCovered{}
-)
+// MapCovers returns field Covers wrapped in DocumentClassArray helper.
+func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassArray) {
+	return DocumentClassArray(s.Covers)
+}
 
 // StickerSetCoveredClass represents StickerSetCovered generic type.
 //
@@ -455,276 +455,4 @@ func (b *StickerSetCoveredBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode StickerSetCoveredClass as nil")
 	}
 	return b.StickerSetCovered.Encode(buf)
-}
-
-// StickerSetCoveredClassArray is adapter for slice of StickerSetCoveredClass.
-type StickerSetCoveredClassArray []StickerSetCoveredClass
-
-// Sort sorts slice of StickerSetCoveredClass.
-func (s StickerSetCoveredClassArray) Sort(less func(a, b StickerSetCoveredClass) bool) StickerSetCoveredClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of StickerSetCoveredClass.
-func (s StickerSetCoveredClassArray) SortStable(less func(a, b StickerSetCoveredClass) bool) StickerSetCoveredClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of StickerSetCoveredClass.
-func (s StickerSetCoveredClassArray) Retain(keep func(x StickerSetCoveredClass) bool) StickerSetCoveredClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s StickerSetCoveredClassArray) First() (v StickerSetCoveredClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s StickerSetCoveredClassArray) Last() (v StickerSetCoveredClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *StickerSetCoveredClassArray) PopFirst() (v StickerSetCoveredClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero StickerSetCoveredClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *StickerSetCoveredClassArray) Pop() (v StickerSetCoveredClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsStickerSetCovered returns copy with only StickerSetCovered constructors.
-func (s StickerSetCoveredClassArray) AsStickerSetCovered() (to StickerSetCoveredArray) {
-	for _, elem := range s {
-		value, ok := elem.(*StickerSetCovered)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsStickerSetMultiCovered returns copy with only StickerSetMultiCovered constructors.
-func (s StickerSetCoveredClassArray) AsStickerSetMultiCovered() (to StickerSetMultiCoveredArray) {
-	for _, elem := range s {
-		value, ok := elem.(*StickerSetMultiCovered)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// StickerSetCoveredArray is adapter for slice of StickerSetCovered.
-type StickerSetCoveredArray []StickerSetCovered
-
-// Sort sorts slice of StickerSetCovered.
-func (s StickerSetCoveredArray) Sort(less func(a, b StickerSetCovered) bool) StickerSetCoveredArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of StickerSetCovered.
-func (s StickerSetCoveredArray) SortStable(less func(a, b StickerSetCovered) bool) StickerSetCoveredArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of StickerSetCovered.
-func (s StickerSetCoveredArray) Retain(keep func(x StickerSetCovered) bool) StickerSetCoveredArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s StickerSetCoveredArray) First() (v StickerSetCovered, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s StickerSetCoveredArray) Last() (v StickerSetCovered, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *StickerSetCoveredArray) PopFirst() (v StickerSetCovered, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero StickerSetCovered
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *StickerSetCoveredArray) Pop() (v StickerSetCovered, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// StickerSetMultiCoveredArray is adapter for slice of StickerSetMultiCovered.
-type StickerSetMultiCoveredArray []StickerSetMultiCovered
-
-// Sort sorts slice of StickerSetMultiCovered.
-func (s StickerSetMultiCoveredArray) Sort(less func(a, b StickerSetMultiCovered) bool) StickerSetMultiCoveredArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of StickerSetMultiCovered.
-func (s StickerSetMultiCoveredArray) SortStable(less func(a, b StickerSetMultiCovered) bool) StickerSetMultiCoveredArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of StickerSetMultiCovered.
-func (s StickerSetMultiCoveredArray) Retain(keep func(x StickerSetMultiCovered) bool) StickerSetMultiCoveredArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s StickerSetMultiCoveredArray) First() (v StickerSetMultiCovered, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s StickerSetMultiCoveredArray) Last() (v StickerSetMultiCovered, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *StickerSetMultiCoveredArray) PopFirst() (v StickerSetMultiCovered, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero StickerSetMultiCovered
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *StickerSetMultiCoveredArray) Pop() (v StickerSetMultiCovered, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

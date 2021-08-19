@@ -74,6 +74,14 @@ type ChannelsGetAdminLogRequest struct {
 // ChannelsGetAdminLogRequestTypeID is TL type id of ChannelsGetAdminLogRequest.
 const ChannelsGetAdminLogRequestTypeID = 0x33ddf480
 
+// Ensuring interfaces in compile-time for ChannelsGetAdminLogRequest.
+var (
+	_ bin.Encoder     = &ChannelsGetAdminLogRequest{}
+	_ bin.Decoder     = &ChannelsGetAdminLogRequest{}
+	_ bin.BareEncoder = &ChannelsGetAdminLogRequest{}
+	_ bin.BareDecoder = &ChannelsGetAdminLogRequest{}
+)
+
 func (g *ChannelsGetAdminLogRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -249,74 +257,6 @@ func (g *ChannelsGetAdminLogRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (g *ChannelsGetAdminLogRequest) GetChannel() (value InputChannelClass) {
-	return g.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (g *ChannelsGetAdminLogRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
-}
-
-// GetQ returns value of Q field.
-func (g *ChannelsGetAdminLogRequest) GetQ() (value string) {
-	return g.Q
-}
-
-// SetEventsFilter sets value of EventsFilter conditional field.
-func (g *ChannelsGetAdminLogRequest) SetEventsFilter(value ChannelAdminLogEventsFilter) {
-	g.Flags.Set(0)
-	g.EventsFilter = value
-}
-
-// GetEventsFilter returns value of EventsFilter conditional field and
-// boolean which is true if field was set.
-func (g *ChannelsGetAdminLogRequest) GetEventsFilter() (value ChannelAdminLogEventsFilter, ok bool) {
-	if !g.Flags.Has(0) {
-		return value, false
-	}
-	return g.EventsFilter, true
-}
-
-// SetAdmins sets value of Admins conditional field.
-func (g *ChannelsGetAdminLogRequest) SetAdmins(value []InputUserClass) {
-	g.Flags.Set(1)
-	g.Admins = value
-}
-
-// GetAdmins returns value of Admins conditional field and
-// boolean which is true if field was set.
-func (g *ChannelsGetAdminLogRequest) GetAdmins() (value []InputUserClass, ok bool) {
-	if !g.Flags.Has(1) {
-		return value, false
-	}
-	return g.Admins, true
-}
-
-// MapAdmins returns field Admins wrapped in InputUserClassArray helper.
-func (g *ChannelsGetAdminLogRequest) MapAdmins() (value InputUserClassArray, ok bool) {
-	if !g.Flags.Has(1) {
-		return value, false
-	}
-	return InputUserClassArray(g.Admins), true
-}
-
-// GetMaxID returns value of MaxID field.
-func (g *ChannelsGetAdminLogRequest) GetMaxID() (value int64) {
-	return g.MaxID
-}
-
-// GetMinID returns value of MinID field.
-func (g *ChannelsGetAdminLogRequest) GetMinID() (value int64) {
-	return g.MinID
-}
-
-// GetLimit returns value of Limit field.
-func (g *ChannelsGetAdminLogRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *ChannelsGetAdminLogRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -398,13 +338,73 @@ func (g *ChannelsGetAdminLogRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsGetAdminLogRequest.
-var (
-	_ bin.Encoder     = &ChannelsGetAdminLogRequest{}
-	_ bin.Decoder     = &ChannelsGetAdminLogRequest{}
-	_ bin.BareEncoder = &ChannelsGetAdminLogRequest{}
-	_ bin.BareDecoder = &ChannelsGetAdminLogRequest{}
-)
+// GetChannel returns value of Channel field.
+func (g *ChannelsGetAdminLogRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
+}
+
+// GetQ returns value of Q field.
+func (g *ChannelsGetAdminLogRequest) GetQ() (value string) {
+	return g.Q
+}
+
+// SetEventsFilter sets value of EventsFilter conditional field.
+func (g *ChannelsGetAdminLogRequest) SetEventsFilter(value ChannelAdminLogEventsFilter) {
+	g.Flags.Set(0)
+	g.EventsFilter = value
+}
+
+// GetEventsFilter returns value of EventsFilter conditional field and
+// boolean which is true if field was set.
+func (g *ChannelsGetAdminLogRequest) GetEventsFilter() (value ChannelAdminLogEventsFilter, ok bool) {
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.EventsFilter, true
+}
+
+// SetAdmins sets value of Admins conditional field.
+func (g *ChannelsGetAdminLogRequest) SetAdmins(value []InputUserClass) {
+	g.Flags.Set(1)
+	g.Admins = value
+}
+
+// GetAdmins returns value of Admins conditional field and
+// boolean which is true if field was set.
+func (g *ChannelsGetAdminLogRequest) GetAdmins() (value []InputUserClass, ok bool) {
+	if !g.Flags.Has(1) {
+		return value, false
+	}
+	return g.Admins, true
+}
+
+// GetMaxID returns value of MaxID field.
+func (g *ChannelsGetAdminLogRequest) GetMaxID() (value int64) {
+	return g.MaxID
+}
+
+// GetMinID returns value of MinID field.
+func (g *ChannelsGetAdminLogRequest) GetMinID() (value int64) {
+	return g.MinID
+}
+
+// GetLimit returns value of Limit field.
+func (g *ChannelsGetAdminLogRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *ChannelsGetAdminLogRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
+}
+
+// MapAdmins returns field Admins wrapped in InputUserClassArray helper.
+func (g *ChannelsGetAdminLogRequest) MapAdmins() (value InputUserClassArray, ok bool) {
+	if !g.Flags.Has(1) {
+		return value, false
+	}
+	return InputUserClassArray(g.Admins), true
+}
 
 // ChannelsGetAdminLog invokes method channels.getAdminLog#33ddf480 returning error if any.
 // Get the admin log of a channel/supergroup¹

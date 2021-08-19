@@ -53,6 +53,19 @@ type EncryptedMessage struct {
 // EncryptedMessageTypeID is TL type id of EncryptedMessage.
 const EncryptedMessageTypeID = 0xed18c118
 
+// construct implements constructor of EncryptedMessageClass.
+func (e EncryptedMessage) construct() EncryptedMessageClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedMessage.
+var (
+	_ bin.Encoder     = &EncryptedMessage{}
+	_ bin.Decoder     = &EncryptedMessage{}
+	_ bin.BareEncoder = &EncryptedMessage{}
+	_ bin.BareDecoder = &EncryptedMessage{}
+
+	_ EncryptedMessageClass = &EncryptedMessage{}
+)
+
 func (e *EncryptedMessage) Zero() bool {
 	if e == nil {
 		return true
@@ -174,31 +187,6 @@ func (e *EncryptedMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandomID returns value of RandomID field.
-func (e *EncryptedMessage) GetRandomID() (value int64) {
-	return e.RandomID
-}
-
-// GetChatID returns value of ChatID field.
-func (e *EncryptedMessage) GetChatID() (value int) {
-	return e.ChatID
-}
-
-// GetDate returns value of Date field.
-func (e *EncryptedMessage) GetDate() (value int) {
-	return e.Date
-}
-
-// GetBytes returns value of Bytes field.
-func (e *EncryptedMessage) GetBytes() (value []byte) {
-	return e.Bytes
-}
-
-// GetFile returns value of File field.
-func (e *EncryptedMessage) GetFile() (value EncryptedFileClass) {
-	return e.File
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedMessage) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -253,18 +241,30 @@ func (e *EncryptedMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedMessageClass.
-func (e EncryptedMessage) construct() EncryptedMessageClass { return &e }
+// GetRandomID returns value of RandomID field.
+func (e *EncryptedMessage) GetRandomID() (value int64) {
+	return e.RandomID
+}
 
-// Ensuring interfaces in compile-time for EncryptedMessage.
-var (
-	_ bin.Encoder     = &EncryptedMessage{}
-	_ bin.Decoder     = &EncryptedMessage{}
-	_ bin.BareEncoder = &EncryptedMessage{}
-	_ bin.BareDecoder = &EncryptedMessage{}
+// GetChatID returns value of ChatID field.
+func (e *EncryptedMessage) GetChatID() (value int) {
+	return e.ChatID
+}
 
-	_ EncryptedMessageClass = &EncryptedMessage{}
-)
+// GetDate returns value of Date field.
+func (e *EncryptedMessage) GetDate() (value int) {
+	return e.Date
+}
+
+// GetBytes returns value of Bytes field.
+func (e *EncryptedMessage) GetBytes() (value []byte) {
+	return e.Bytes
+}
+
+// GetFile returns value of File field.
+func (e *EncryptedMessage) GetFile() (value EncryptedFileClass) {
+	return e.File
+}
 
 // EncryptedMessageService represents TL type `encryptedMessageService#23734b06`.
 // Encrypted service message
@@ -287,6 +287,19 @@ type EncryptedMessageService struct {
 
 // EncryptedMessageServiceTypeID is TL type id of EncryptedMessageService.
 const EncryptedMessageServiceTypeID = 0x23734b06
+
+// construct implements constructor of EncryptedMessageClass.
+func (e EncryptedMessageService) construct() EncryptedMessageClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedMessageService.
+var (
+	_ bin.Encoder     = &EncryptedMessageService{}
+	_ bin.Decoder     = &EncryptedMessageService{}
+	_ bin.BareEncoder = &EncryptedMessageService{}
+	_ bin.BareDecoder = &EncryptedMessageService{}
+
+	_ EncryptedMessageClass = &EncryptedMessageService{}
+)
 
 func (e *EncryptedMessageService) Zero() bool {
 	if e == nil {
@@ -394,26 +407,6 @@ func (e *EncryptedMessageService) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandomID returns value of RandomID field.
-func (e *EncryptedMessageService) GetRandomID() (value int64) {
-	return e.RandomID
-}
-
-// GetChatID returns value of ChatID field.
-func (e *EncryptedMessageService) GetChatID() (value int) {
-	return e.ChatID
-}
-
-// GetDate returns value of Date field.
-func (e *EncryptedMessageService) GetDate() (value int) {
-	return e.Date
-}
-
-// GetBytes returns value of Bytes field.
-func (e *EncryptedMessageService) GetBytes() (value []byte) {
-	return e.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedMessageService) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -461,18 +454,25 @@ func (e *EncryptedMessageService) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedMessageClass.
-func (e EncryptedMessageService) construct() EncryptedMessageClass { return &e }
+// GetRandomID returns value of RandomID field.
+func (e *EncryptedMessageService) GetRandomID() (value int64) {
+	return e.RandomID
+}
 
-// Ensuring interfaces in compile-time for EncryptedMessageService.
-var (
-	_ bin.Encoder     = &EncryptedMessageService{}
-	_ bin.Decoder     = &EncryptedMessageService{}
-	_ bin.BareEncoder = &EncryptedMessageService{}
-	_ bin.BareDecoder = &EncryptedMessageService{}
+// GetChatID returns value of ChatID field.
+func (e *EncryptedMessageService) GetChatID() (value int) {
+	return e.ChatID
+}
 
-	_ EncryptedMessageClass = &EncryptedMessageService{}
-)
+// GetDate returns value of Date field.
+func (e *EncryptedMessageService) GetDate() (value int) {
+	return e.Date
+}
+
+// GetBytes returns value of Bytes field.
+func (e *EncryptedMessageService) GetBytes() (value []byte) {
+	return e.Bytes
+}
 
 // EncryptedMessageClass represents EncryptedMessage generic type.
 //
@@ -573,318 +573,4 @@ func (b *EncryptedMessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode EncryptedMessageClass as nil")
 	}
 	return b.EncryptedMessage.Encode(buf)
-}
-
-// EncryptedMessageClassArray is adapter for slice of EncryptedMessageClass.
-type EncryptedMessageClassArray []EncryptedMessageClass
-
-// Sort sorts slice of EncryptedMessageClass.
-func (s EncryptedMessageClassArray) Sort(less func(a, b EncryptedMessageClass) bool) EncryptedMessageClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of EncryptedMessageClass.
-func (s EncryptedMessageClassArray) SortStable(less func(a, b EncryptedMessageClass) bool) EncryptedMessageClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of EncryptedMessageClass.
-func (s EncryptedMessageClassArray) Retain(keep func(x EncryptedMessageClass) bool) EncryptedMessageClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s EncryptedMessageClassArray) First() (v EncryptedMessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s EncryptedMessageClassArray) Last() (v EncryptedMessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedMessageClassArray) PopFirst() (v EncryptedMessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero EncryptedMessageClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedMessageClassArray) Pop() (v EncryptedMessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of EncryptedMessageClass by Date.
-func (s EncryptedMessageClassArray) SortByDate() EncryptedMessageClassArray {
-	return s.Sort(func(a, b EncryptedMessageClass) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of EncryptedMessageClass by Date.
-func (s EncryptedMessageClassArray) SortStableByDate() EncryptedMessageClassArray {
-	return s.SortStable(func(a, b EncryptedMessageClass) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// AsEncryptedMessage returns copy with only EncryptedMessage constructors.
-func (s EncryptedMessageClassArray) AsEncryptedMessage() (to EncryptedMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*EncryptedMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsEncryptedMessageService returns copy with only EncryptedMessageService constructors.
-func (s EncryptedMessageClassArray) AsEncryptedMessageService() (to EncryptedMessageServiceArray) {
-	for _, elem := range s {
-		value, ok := elem.(*EncryptedMessageService)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// EncryptedMessageArray is adapter for slice of EncryptedMessage.
-type EncryptedMessageArray []EncryptedMessage
-
-// Sort sorts slice of EncryptedMessage.
-func (s EncryptedMessageArray) Sort(less func(a, b EncryptedMessage) bool) EncryptedMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of EncryptedMessage.
-func (s EncryptedMessageArray) SortStable(less func(a, b EncryptedMessage) bool) EncryptedMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of EncryptedMessage.
-func (s EncryptedMessageArray) Retain(keep func(x EncryptedMessage) bool) EncryptedMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s EncryptedMessageArray) First() (v EncryptedMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s EncryptedMessageArray) Last() (v EncryptedMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedMessageArray) PopFirst() (v EncryptedMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero EncryptedMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedMessageArray) Pop() (v EncryptedMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of EncryptedMessage by Date.
-func (s EncryptedMessageArray) SortByDate() EncryptedMessageArray {
-	return s.Sort(func(a, b EncryptedMessage) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of EncryptedMessage by Date.
-func (s EncryptedMessageArray) SortStableByDate() EncryptedMessageArray {
-	return s.SortStable(func(a, b EncryptedMessage) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// EncryptedMessageServiceArray is adapter for slice of EncryptedMessageService.
-type EncryptedMessageServiceArray []EncryptedMessageService
-
-// Sort sorts slice of EncryptedMessageService.
-func (s EncryptedMessageServiceArray) Sort(less func(a, b EncryptedMessageService) bool) EncryptedMessageServiceArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of EncryptedMessageService.
-func (s EncryptedMessageServiceArray) SortStable(less func(a, b EncryptedMessageService) bool) EncryptedMessageServiceArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of EncryptedMessageService.
-func (s EncryptedMessageServiceArray) Retain(keep func(x EncryptedMessageService) bool) EncryptedMessageServiceArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s EncryptedMessageServiceArray) First() (v EncryptedMessageService, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s EncryptedMessageServiceArray) Last() (v EncryptedMessageService, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedMessageServiceArray) PopFirst() (v EncryptedMessageService, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero EncryptedMessageService
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedMessageServiceArray) Pop() (v EncryptedMessageService, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of EncryptedMessageService by Date.
-func (s EncryptedMessageServiceArray) SortByDate() EncryptedMessageServiceArray {
-	return s.Sort(func(a, b EncryptedMessageService) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of EncryptedMessageService by Date.
-func (s EncryptedMessageServiceArray) SortStableByDate() EncryptedMessageServiceArray {
-	return s.SortStable(func(a, b EncryptedMessageService) bool {
-		return a.GetDate() < b.GetDate()
-	})
 }

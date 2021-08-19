@@ -45,6 +45,14 @@ type MessagesSendScreenshotNotificationRequest struct {
 // MessagesSendScreenshotNotificationRequestTypeID is TL type id of MessagesSendScreenshotNotificationRequest.
 const MessagesSendScreenshotNotificationRequestTypeID = 0xc97df020
 
+// Ensuring interfaces in compile-time for MessagesSendScreenshotNotificationRequest.
+var (
+	_ bin.Encoder     = &MessagesSendScreenshotNotificationRequest{}
+	_ bin.Decoder     = &MessagesSendScreenshotNotificationRequest{}
+	_ bin.BareEncoder = &MessagesSendScreenshotNotificationRequest{}
+	_ bin.BareDecoder = &MessagesSendScreenshotNotificationRequest{}
+)
+
 func (s *MessagesSendScreenshotNotificationRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -146,21 +154,6 @@ func (s *MessagesSendScreenshotNotificationRequest) EncodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (s *MessagesSendScreenshotNotificationRequest) GetPeer() (value InputPeerClass) {
-	return s.Peer
-}
-
-// GetReplyToMsgID returns value of ReplyToMsgID field.
-func (s *MessagesSendScreenshotNotificationRequest) GetReplyToMsgID() (value int) {
-	return s.ReplyToMsgID
-}
-
-// GetRandomID returns value of RandomID field.
-func (s *MessagesSendScreenshotNotificationRequest) GetRandomID() (value int64) {
-	return s.RandomID
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSendScreenshotNotificationRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -201,13 +194,20 @@ func (s *MessagesSendScreenshotNotificationRequest) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSendScreenshotNotificationRequest.
-var (
-	_ bin.Encoder     = &MessagesSendScreenshotNotificationRequest{}
-	_ bin.Decoder     = &MessagesSendScreenshotNotificationRequest{}
-	_ bin.BareEncoder = &MessagesSendScreenshotNotificationRequest{}
-	_ bin.BareDecoder = &MessagesSendScreenshotNotificationRequest{}
-)
+// GetPeer returns value of Peer field.
+func (s *MessagesSendScreenshotNotificationRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetReplyToMsgID returns value of ReplyToMsgID field.
+func (s *MessagesSendScreenshotNotificationRequest) GetReplyToMsgID() (value int) {
+	return s.ReplyToMsgID
+}
+
+// GetRandomID returns value of RandomID field.
+func (s *MessagesSendScreenshotNotificationRequest) GetRandomID() (value int64) {
+	return s.RandomID
+}
 
 // MessagesSendScreenshotNotification invokes method messages.sendScreenshotNotification#c97df020 returning error if any.
 // Notify the other user in a private chat that a screenshot of the chat was taken

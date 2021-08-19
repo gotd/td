@@ -39,6 +39,19 @@ type ChatPhotoEmpty struct {
 // ChatPhotoEmptyTypeID is TL type id of ChatPhotoEmpty.
 const ChatPhotoEmptyTypeID = 0x37c1011c
 
+// construct implements constructor of ChatPhotoClass.
+func (c ChatPhotoEmpty) construct() ChatPhotoClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatPhotoEmpty.
+var (
+	_ bin.Encoder     = &ChatPhotoEmpty{}
+	_ bin.Decoder     = &ChatPhotoEmpty{}
+	_ bin.BareEncoder = &ChatPhotoEmpty{}
+	_ bin.BareDecoder = &ChatPhotoEmpty{}
+
+	_ ChatPhotoClass = &ChatPhotoEmpty{}
+)
+
 func (c *ChatPhotoEmpty) Zero() bool {
 	if c == nil {
 		return true
@@ -118,19 +131,6 @@ func (c *ChatPhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatPhotoClass.
-func (c ChatPhotoEmpty) construct() ChatPhotoClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatPhotoEmpty.
-var (
-	_ bin.Encoder     = &ChatPhotoEmpty{}
-	_ bin.Decoder     = &ChatPhotoEmpty{}
-	_ bin.BareEncoder = &ChatPhotoEmpty{}
-	_ bin.BareDecoder = &ChatPhotoEmpty{}
-
-	_ ChatPhotoClass = &ChatPhotoEmpty{}
-)
-
 // ChatPhoto represents TL type `chatPhoto#1c6e1c11`.
 // Group profile photo.
 //
@@ -155,6 +155,19 @@ type ChatPhoto struct {
 
 // ChatPhotoTypeID is TL type id of ChatPhoto.
 const ChatPhotoTypeID = 0x1c6e1c11
+
+// construct implements constructor of ChatPhotoClass.
+func (c ChatPhoto) construct() ChatPhotoClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatPhoto.
+var (
+	_ bin.Encoder     = &ChatPhoto{}
+	_ bin.Decoder     = &ChatPhoto{}
+	_ bin.BareEncoder = &ChatPhoto{}
+	_ bin.BareDecoder = &ChatPhoto{}
+
+	_ ChatPhotoClass = &ChatPhoto{}
+)
 
 func (c *ChatPhoto) Zero() bool {
 	if c == nil {
@@ -280,47 +293,6 @@ func (c *ChatPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetHasVideo sets value of HasVideo conditional field.
-func (c *ChatPhoto) SetHasVideo(value bool) {
-	if value {
-		c.Flags.Set(0)
-		c.HasVideo = true
-	} else {
-		c.Flags.Unset(0)
-		c.HasVideo = false
-	}
-}
-
-// GetHasVideo returns value of HasVideo conditional field.
-func (c *ChatPhoto) GetHasVideo() (value bool) {
-	return c.Flags.Has(0)
-}
-
-// GetPhotoID returns value of PhotoID field.
-func (c *ChatPhoto) GetPhotoID() (value int64) {
-	return c.PhotoID
-}
-
-// SetStrippedThumb sets value of StrippedThumb conditional field.
-func (c *ChatPhoto) SetStrippedThumb(value []byte) {
-	c.Flags.Set(1)
-	c.StrippedThumb = value
-}
-
-// GetStrippedThumb returns value of StrippedThumb conditional field and
-// boolean which is true if field was set.
-func (c *ChatPhoto) GetStrippedThumb() (value []byte, ok bool) {
-	if !c.Flags.Has(1) {
-		return value, false
-	}
-	return c.StrippedThumb, true
-}
-
-// GetDCID returns value of DCID field.
-func (c *ChatPhoto) GetDCID() (value int) {
-	return c.DCID
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatPhoto) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -367,18 +339,46 @@ func (c *ChatPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatPhotoClass.
-func (c ChatPhoto) construct() ChatPhotoClass { return &c }
+// SetHasVideo sets value of HasVideo conditional field.
+func (c *ChatPhoto) SetHasVideo(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.HasVideo = true
+	} else {
+		c.Flags.Unset(0)
+		c.HasVideo = false
+	}
+}
 
-// Ensuring interfaces in compile-time for ChatPhoto.
-var (
-	_ bin.Encoder     = &ChatPhoto{}
-	_ bin.Decoder     = &ChatPhoto{}
-	_ bin.BareEncoder = &ChatPhoto{}
-	_ bin.BareDecoder = &ChatPhoto{}
+// GetHasVideo returns value of HasVideo conditional field.
+func (c *ChatPhoto) GetHasVideo() (value bool) {
+	return c.Flags.Has(0)
+}
 
-	_ ChatPhotoClass = &ChatPhoto{}
-)
+// GetPhotoID returns value of PhotoID field.
+func (c *ChatPhoto) GetPhotoID() (value int64) {
+	return c.PhotoID
+}
+
+// SetStrippedThumb sets value of StrippedThumb conditional field.
+func (c *ChatPhoto) SetStrippedThumb(value []byte) {
+	c.Flags.Set(1)
+	c.StrippedThumb = value
+}
+
+// GetStrippedThumb returns value of StrippedThumb conditional field and
+// boolean which is true if field was set.
+func (c *ChatPhoto) GetStrippedThumb() (value []byte, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.StrippedThumb, true
+}
+
+// GetDCID returns value of DCID field.
+func (c *ChatPhoto) GetDCID() (value int) {
+	return c.DCID
+}
 
 // ChatPhotoClass represents ChatPhoto generic type.
 //
@@ -476,236 +476,4 @@ func (b *ChatPhotoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChatPhotoClass as nil")
 	}
 	return b.ChatPhoto.Encode(buf)
-}
-
-// ChatPhotoClassArray is adapter for slice of ChatPhotoClass.
-type ChatPhotoClassArray []ChatPhotoClass
-
-// Sort sorts slice of ChatPhotoClass.
-func (s ChatPhotoClassArray) Sort(less func(a, b ChatPhotoClass) bool) ChatPhotoClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChatPhotoClass.
-func (s ChatPhotoClassArray) SortStable(less func(a, b ChatPhotoClass) bool) ChatPhotoClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChatPhotoClass.
-func (s ChatPhotoClassArray) Retain(keep func(x ChatPhotoClass) bool) ChatPhotoClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChatPhotoClassArray) First() (v ChatPhotoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChatPhotoClassArray) Last() (v ChatPhotoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChatPhotoClassArray) PopFirst() (v ChatPhotoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChatPhotoClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChatPhotoClassArray) Pop() (v ChatPhotoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsChatPhoto returns copy with only ChatPhoto constructors.
-func (s ChatPhotoClassArray) AsChatPhoto() (to ChatPhotoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChatPhoto)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s ChatPhotoClassArray) AppendOnlyNotEmpty(to []*ChatPhoto) []*ChatPhoto {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s ChatPhotoClassArray) AsNotEmpty() (to []*ChatPhoto) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s ChatPhotoClassArray) FirstAsNotEmpty() (v *ChatPhoto, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s ChatPhotoClassArray) LastAsNotEmpty() (v *ChatPhoto, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *ChatPhotoClassArray) PopFirstAsNotEmpty() (v *ChatPhoto, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *ChatPhotoClassArray) PopAsNotEmpty() (v *ChatPhoto, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// ChatPhotoArray is adapter for slice of ChatPhoto.
-type ChatPhotoArray []ChatPhoto
-
-// Sort sorts slice of ChatPhoto.
-func (s ChatPhotoArray) Sort(less func(a, b ChatPhoto) bool) ChatPhotoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChatPhoto.
-func (s ChatPhotoArray) SortStable(less func(a, b ChatPhoto) bool) ChatPhotoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChatPhoto.
-func (s ChatPhotoArray) Retain(keep func(x ChatPhoto) bool) ChatPhotoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChatPhotoArray) First() (v ChatPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChatPhotoArray) Last() (v ChatPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChatPhotoArray) PopFirst() (v ChatPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChatPhoto
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChatPhotoArray) Pop() (v ChatPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

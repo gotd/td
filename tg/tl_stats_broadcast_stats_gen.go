@@ -78,6 +78,14 @@ type StatsBroadcastStats struct {
 // StatsBroadcastStatsTypeID is TL type id of StatsBroadcastStats.
 const StatsBroadcastStatsTypeID = 0xbdf78394
 
+// Ensuring interfaces in compile-time for StatsBroadcastStats.
+var (
+	_ bin.Encoder     = &StatsBroadcastStats{}
+	_ bin.Decoder     = &StatsBroadcastStats{}
+	_ bin.BareEncoder = &StatsBroadcastStats{}
+	_ bin.BareDecoder = &StatsBroadcastStats{}
+)
+
 func (b *StatsBroadcastStats) Zero() bool {
 	if b == nil {
 		return true
@@ -354,81 +362,6 @@ func (b *StatsBroadcastStats) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetPeriod returns value of Period field.
-func (b *StatsBroadcastStats) GetPeriod() (value StatsDateRangeDays) {
-	return b.Period
-}
-
-// GetFollowers returns value of Followers field.
-func (b *StatsBroadcastStats) GetFollowers() (value StatsAbsValueAndPrev) {
-	return b.Followers
-}
-
-// GetViewsPerPost returns value of ViewsPerPost field.
-func (b *StatsBroadcastStats) GetViewsPerPost() (value StatsAbsValueAndPrev) {
-	return b.ViewsPerPost
-}
-
-// GetSharesPerPost returns value of SharesPerPost field.
-func (b *StatsBroadcastStats) GetSharesPerPost() (value StatsAbsValueAndPrev) {
-	return b.SharesPerPost
-}
-
-// GetEnabledNotifications returns value of EnabledNotifications field.
-func (b *StatsBroadcastStats) GetEnabledNotifications() (value StatsPercentValue) {
-	return b.EnabledNotifications
-}
-
-// GetGrowthGraph returns value of GrowthGraph field.
-func (b *StatsBroadcastStats) GetGrowthGraph() (value StatsGraphClass) {
-	return b.GrowthGraph
-}
-
-// GetFollowersGraph returns value of FollowersGraph field.
-func (b *StatsBroadcastStats) GetFollowersGraph() (value StatsGraphClass) {
-	return b.FollowersGraph
-}
-
-// GetMuteGraph returns value of MuteGraph field.
-func (b *StatsBroadcastStats) GetMuteGraph() (value StatsGraphClass) {
-	return b.MuteGraph
-}
-
-// GetTopHoursGraph returns value of TopHoursGraph field.
-func (b *StatsBroadcastStats) GetTopHoursGraph() (value StatsGraphClass) {
-	return b.TopHoursGraph
-}
-
-// GetInteractionsGraph returns value of InteractionsGraph field.
-func (b *StatsBroadcastStats) GetInteractionsGraph() (value StatsGraphClass) {
-	return b.InteractionsGraph
-}
-
-// GetIvInteractionsGraph returns value of IvInteractionsGraph field.
-func (b *StatsBroadcastStats) GetIvInteractionsGraph() (value StatsGraphClass) {
-	return b.IvInteractionsGraph
-}
-
-// GetViewsBySourceGraph returns value of ViewsBySourceGraph field.
-func (b *StatsBroadcastStats) GetViewsBySourceGraph() (value StatsGraphClass) {
-	return b.ViewsBySourceGraph
-}
-
-// GetNewFollowersBySourceGraph returns value of NewFollowersBySourceGraph field.
-func (b *StatsBroadcastStats) GetNewFollowersBySourceGraph() (value StatsGraphClass) {
-	return b.NewFollowersBySourceGraph
-}
-
-// GetLanguagesGraph returns value of LanguagesGraph field.
-func (b *StatsBroadcastStats) GetLanguagesGraph() (value StatsGraphClass) {
-	return b.LanguagesGraph
-}
-
-// GetRecentMessageInteractions returns value of RecentMessageInteractions field.
-func (b *StatsBroadcastStats) GetRecentMessageInteractions() (value []MessageInteractionCounters) {
-	return b.RecentMessageInteractions
-}
-
 // Decode implements bin.Decoder.
 func (b *StatsBroadcastStats) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -553,10 +486,77 @@ func (b *StatsBroadcastStats) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsBroadcastStats.
-var (
-	_ bin.Encoder     = &StatsBroadcastStats{}
-	_ bin.Decoder     = &StatsBroadcastStats{}
-	_ bin.BareEncoder = &StatsBroadcastStats{}
-	_ bin.BareDecoder = &StatsBroadcastStats{}
-)
+// GetPeriod returns value of Period field.
+func (b *StatsBroadcastStats) GetPeriod() (value StatsDateRangeDays) {
+	return b.Period
+}
+
+// GetFollowers returns value of Followers field.
+func (b *StatsBroadcastStats) GetFollowers() (value StatsAbsValueAndPrev) {
+	return b.Followers
+}
+
+// GetViewsPerPost returns value of ViewsPerPost field.
+func (b *StatsBroadcastStats) GetViewsPerPost() (value StatsAbsValueAndPrev) {
+	return b.ViewsPerPost
+}
+
+// GetSharesPerPost returns value of SharesPerPost field.
+func (b *StatsBroadcastStats) GetSharesPerPost() (value StatsAbsValueAndPrev) {
+	return b.SharesPerPost
+}
+
+// GetEnabledNotifications returns value of EnabledNotifications field.
+func (b *StatsBroadcastStats) GetEnabledNotifications() (value StatsPercentValue) {
+	return b.EnabledNotifications
+}
+
+// GetGrowthGraph returns value of GrowthGraph field.
+func (b *StatsBroadcastStats) GetGrowthGraph() (value StatsGraphClass) {
+	return b.GrowthGraph
+}
+
+// GetFollowersGraph returns value of FollowersGraph field.
+func (b *StatsBroadcastStats) GetFollowersGraph() (value StatsGraphClass) {
+	return b.FollowersGraph
+}
+
+// GetMuteGraph returns value of MuteGraph field.
+func (b *StatsBroadcastStats) GetMuteGraph() (value StatsGraphClass) {
+	return b.MuteGraph
+}
+
+// GetTopHoursGraph returns value of TopHoursGraph field.
+func (b *StatsBroadcastStats) GetTopHoursGraph() (value StatsGraphClass) {
+	return b.TopHoursGraph
+}
+
+// GetInteractionsGraph returns value of InteractionsGraph field.
+func (b *StatsBroadcastStats) GetInteractionsGraph() (value StatsGraphClass) {
+	return b.InteractionsGraph
+}
+
+// GetIvInteractionsGraph returns value of IvInteractionsGraph field.
+func (b *StatsBroadcastStats) GetIvInteractionsGraph() (value StatsGraphClass) {
+	return b.IvInteractionsGraph
+}
+
+// GetViewsBySourceGraph returns value of ViewsBySourceGraph field.
+func (b *StatsBroadcastStats) GetViewsBySourceGraph() (value StatsGraphClass) {
+	return b.ViewsBySourceGraph
+}
+
+// GetNewFollowersBySourceGraph returns value of NewFollowersBySourceGraph field.
+func (b *StatsBroadcastStats) GetNewFollowersBySourceGraph() (value StatsGraphClass) {
+	return b.NewFollowersBySourceGraph
+}
+
+// GetLanguagesGraph returns value of LanguagesGraph field.
+func (b *StatsBroadcastStats) GetLanguagesGraph() (value StatsGraphClass) {
+	return b.LanguagesGraph
+}
+
+// GetRecentMessageInteractions returns value of RecentMessageInteractions field.
+func (b *StatsBroadcastStats) GetRecentMessageInteractions() (value []MessageInteractionCounters) {
+	return b.RecentMessageInteractions
+}

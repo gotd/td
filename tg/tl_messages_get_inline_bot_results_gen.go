@@ -56,6 +56,14 @@ type MessagesGetInlineBotResultsRequest struct {
 // MessagesGetInlineBotResultsRequestTypeID is TL type id of MessagesGetInlineBotResultsRequest.
 const MessagesGetInlineBotResultsRequestTypeID = 0x514e999d
 
+// Ensuring interfaces in compile-time for MessagesGetInlineBotResultsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetInlineBotResultsRequest{}
+	_ bin.Decoder     = &MessagesGetInlineBotResultsRequest{}
+	_ bin.BareEncoder = &MessagesGetInlineBotResultsRequest{}
+	_ bin.BareDecoder = &MessagesGetInlineBotResultsRequest{}
+)
+
 func (g *MessagesGetInlineBotResultsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -202,50 +210,6 @@ func (g *MessagesGetInlineBotResultsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetBot returns value of Bot field.
-func (g *MessagesGetInlineBotResultsRequest) GetBot() (value InputUserClass) {
-	return g.Bot
-}
-
-// GetPeer returns value of Peer field.
-func (g *MessagesGetInlineBotResultsRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// SetGeoPoint sets value of GeoPoint conditional field.
-func (g *MessagesGetInlineBotResultsRequest) SetGeoPoint(value InputGeoPointClass) {
-	g.Flags.Set(0)
-	g.GeoPoint = value
-}
-
-// GetGeoPoint returns value of GeoPoint conditional field and
-// boolean which is true if field was set.
-func (g *MessagesGetInlineBotResultsRequest) GetGeoPoint() (value InputGeoPointClass, ok bool) {
-	if !g.Flags.Has(0) {
-		return value, false
-	}
-	return g.GeoPoint, true
-}
-
-// GetGeoPointAsNotEmpty returns mapped value of GeoPoint conditional field and
-// boolean which is true if field was set.
-func (g *MessagesGetInlineBotResultsRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, bool) {
-	if value, ok := g.GetGeoPoint(); ok {
-		return value.AsNotEmpty()
-	}
-	return nil, false
-}
-
-// GetQuery returns value of Query field.
-func (g *MessagesGetInlineBotResultsRequest) GetQuery() (value string) {
-	return g.Query
-}
-
-// GetOffset returns value of Offset field.
-func (g *MessagesGetInlineBotResultsRequest) GetOffset() (value string) {
-	return g.Offset
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetInlineBotResultsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -305,13 +269,49 @@ func (g *MessagesGetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetInlineBotResultsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetInlineBotResultsRequest{}
-	_ bin.Decoder     = &MessagesGetInlineBotResultsRequest{}
-	_ bin.BareEncoder = &MessagesGetInlineBotResultsRequest{}
-	_ bin.BareDecoder = &MessagesGetInlineBotResultsRequest{}
-)
+// GetBot returns value of Bot field.
+func (g *MessagesGetInlineBotResultsRequest) GetBot() (value InputUserClass) {
+	return g.Bot
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetInlineBotResultsRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// SetGeoPoint sets value of GeoPoint conditional field.
+func (g *MessagesGetInlineBotResultsRequest) SetGeoPoint(value InputGeoPointClass) {
+	g.Flags.Set(0)
+	g.GeoPoint = value
+}
+
+// GetGeoPoint returns value of GeoPoint conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetInlineBotResultsRequest) GetGeoPoint() (value InputGeoPointClass, ok bool) {
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.GeoPoint, true
+}
+
+// GetQuery returns value of Query field.
+func (g *MessagesGetInlineBotResultsRequest) GetQuery() (value string) {
+	return g.Query
+}
+
+// GetOffset returns value of Offset field.
+func (g *MessagesGetInlineBotResultsRequest) GetOffset() (value string) {
+	return g.Offset
+}
+
+// GetGeoPointAsNotEmpty returns mapped value of GeoPoint conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetInlineBotResultsRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, bool) {
+	if value, ok := g.GetGeoPoint(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}
 
 // MessagesGetInlineBotResults invokes method messages.getInlineBotResults#514e999d returning error if any.
 // Query an inline bot

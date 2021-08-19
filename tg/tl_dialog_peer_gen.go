@@ -41,6 +41,19 @@ type DialogPeer struct {
 // DialogPeerTypeID is TL type id of DialogPeer.
 const DialogPeerTypeID = 0xe56dbf05
 
+// construct implements constructor of DialogPeerClass.
+func (d DialogPeer) construct() DialogPeerClass { return &d }
+
+// Ensuring interfaces in compile-time for DialogPeer.
+var (
+	_ bin.Encoder     = &DialogPeer{}
+	_ bin.Decoder     = &DialogPeer{}
+	_ bin.BareEncoder = &DialogPeer{}
+	_ bin.BareDecoder = &DialogPeer{}
+
+	_ DialogPeerClass = &DialogPeer{}
+)
+
 func (d *DialogPeer) Zero() bool {
 	if d == nil {
 		return true
@@ -122,11 +135,6 @@ func (d *DialogPeer) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (d *DialogPeer) GetPeer() (value PeerClass) {
-	return d.Peer
-}
-
 // Decode implements bin.Decoder.
 func (d *DialogPeer) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -153,18 +161,10 @@ func (d *DialogPeer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DialogPeerClass.
-func (d DialogPeer) construct() DialogPeerClass { return &d }
-
-// Ensuring interfaces in compile-time for DialogPeer.
-var (
-	_ bin.Encoder     = &DialogPeer{}
-	_ bin.Decoder     = &DialogPeer{}
-	_ bin.BareEncoder = &DialogPeer{}
-	_ bin.BareDecoder = &DialogPeer{}
-
-	_ DialogPeerClass = &DialogPeer{}
-)
+// GetPeer returns value of Peer field.
+func (d *DialogPeer) GetPeer() (value PeerClass) {
+	return d.Peer
+}
 
 // DialogPeerFolder represents TL type `dialogPeerFolder#514519e2`.
 // Peer folder¹
@@ -183,6 +183,19 @@ type DialogPeerFolder struct {
 
 // DialogPeerFolderTypeID is TL type id of DialogPeerFolder.
 const DialogPeerFolderTypeID = 0x514519e2
+
+// construct implements constructor of DialogPeerClass.
+func (d DialogPeerFolder) construct() DialogPeerClass { return &d }
+
+// Ensuring interfaces in compile-time for DialogPeerFolder.
+var (
+	_ bin.Encoder     = &DialogPeerFolder{}
+	_ bin.Decoder     = &DialogPeerFolder{}
+	_ bin.BareEncoder = &DialogPeerFolder{}
+	_ bin.BareDecoder = &DialogPeerFolder{}
+
+	_ DialogPeerClass = &DialogPeerFolder{}
+)
 
 func (d *DialogPeerFolder) Zero() bool {
 	if d == nil {
@@ -260,11 +273,6 @@ func (d *DialogPeerFolder) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFolderID returns value of FolderID field.
-func (d *DialogPeerFolder) GetFolderID() (value int) {
-	return d.FolderID
-}
-
 // Decode implements bin.Decoder.
 func (d *DialogPeerFolder) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -291,18 +299,10 @@ func (d *DialogPeerFolder) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DialogPeerClass.
-func (d DialogPeerFolder) construct() DialogPeerClass { return &d }
-
-// Ensuring interfaces in compile-time for DialogPeerFolder.
-var (
-	_ bin.Encoder     = &DialogPeerFolder{}
-	_ bin.Decoder     = &DialogPeerFolder{}
-	_ bin.BareEncoder = &DialogPeerFolder{}
-	_ bin.BareDecoder = &DialogPeerFolder{}
-
-	_ DialogPeerClass = &DialogPeerFolder{}
-)
+// GetFolderID returns value of FolderID field.
+func (d *DialogPeerFolder) GetFolderID() (value int) {
+	return d.FolderID
+}
 
 // DialogPeerClass represents DialogPeer generic type.
 //
@@ -395,276 +395,4 @@ func (b *DialogPeerBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DialogPeerClass as nil")
 	}
 	return b.DialogPeer.Encode(buf)
-}
-
-// DialogPeerClassArray is adapter for slice of DialogPeerClass.
-type DialogPeerClassArray []DialogPeerClass
-
-// Sort sorts slice of DialogPeerClass.
-func (s DialogPeerClassArray) Sort(less func(a, b DialogPeerClass) bool) DialogPeerClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DialogPeerClass.
-func (s DialogPeerClassArray) SortStable(less func(a, b DialogPeerClass) bool) DialogPeerClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DialogPeerClass.
-func (s DialogPeerClassArray) Retain(keep func(x DialogPeerClass) bool) DialogPeerClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DialogPeerClassArray) First() (v DialogPeerClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DialogPeerClassArray) Last() (v DialogPeerClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DialogPeerClassArray) PopFirst() (v DialogPeerClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DialogPeerClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DialogPeerClassArray) Pop() (v DialogPeerClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsDialogPeer returns copy with only DialogPeer constructors.
-func (s DialogPeerClassArray) AsDialogPeer() (to DialogPeerArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DialogPeer)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDialogPeerFolder returns copy with only DialogPeerFolder constructors.
-func (s DialogPeerClassArray) AsDialogPeerFolder() (to DialogPeerFolderArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DialogPeerFolder)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// DialogPeerArray is adapter for slice of DialogPeer.
-type DialogPeerArray []DialogPeer
-
-// Sort sorts slice of DialogPeer.
-func (s DialogPeerArray) Sort(less func(a, b DialogPeer) bool) DialogPeerArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DialogPeer.
-func (s DialogPeerArray) SortStable(less func(a, b DialogPeer) bool) DialogPeerArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DialogPeer.
-func (s DialogPeerArray) Retain(keep func(x DialogPeer) bool) DialogPeerArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DialogPeerArray) First() (v DialogPeer, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DialogPeerArray) Last() (v DialogPeer, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DialogPeerArray) PopFirst() (v DialogPeer, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DialogPeer
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DialogPeerArray) Pop() (v DialogPeer, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DialogPeerFolderArray is adapter for slice of DialogPeerFolder.
-type DialogPeerFolderArray []DialogPeerFolder
-
-// Sort sorts slice of DialogPeerFolder.
-func (s DialogPeerFolderArray) Sort(less func(a, b DialogPeerFolder) bool) DialogPeerFolderArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DialogPeerFolder.
-func (s DialogPeerFolderArray) SortStable(less func(a, b DialogPeerFolder) bool) DialogPeerFolderArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DialogPeerFolder.
-func (s DialogPeerFolderArray) Retain(keep func(x DialogPeerFolder) bool) DialogPeerFolderArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DialogPeerFolderArray) First() (v DialogPeerFolder, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DialogPeerFolderArray) Last() (v DialogPeerFolder, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DialogPeerFolderArray) PopFirst() (v DialogPeerFolder, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DialogPeerFolder
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DialogPeerFolderArray) Pop() (v DialogPeerFolder, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

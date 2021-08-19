@@ -47,6 +47,14 @@ type AccountConfirmPasswordEmailRequest struct {
 // AccountConfirmPasswordEmailRequestTypeID is TL type id of AccountConfirmPasswordEmailRequest.
 const AccountConfirmPasswordEmailRequestTypeID = 0x8fdf1920
 
+// Ensuring interfaces in compile-time for AccountConfirmPasswordEmailRequest.
+var (
+	_ bin.Encoder     = &AccountConfirmPasswordEmailRequest{}
+	_ bin.Decoder     = &AccountConfirmPasswordEmailRequest{}
+	_ bin.BareEncoder = &AccountConfirmPasswordEmailRequest{}
+	_ bin.BareDecoder = &AccountConfirmPasswordEmailRequest{}
+)
+
 func (c *AccountConfirmPasswordEmailRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -123,11 +131,6 @@ func (c *AccountConfirmPasswordEmailRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCode returns value of Code field.
-func (c *AccountConfirmPasswordEmailRequest) GetCode() (value string) {
-	return c.Code
-}
-
 // Decode implements bin.Decoder.
 func (c *AccountConfirmPasswordEmailRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -154,13 +157,10 @@ func (c *AccountConfirmPasswordEmailRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountConfirmPasswordEmailRequest.
-var (
-	_ bin.Encoder     = &AccountConfirmPasswordEmailRequest{}
-	_ bin.Decoder     = &AccountConfirmPasswordEmailRequest{}
-	_ bin.BareEncoder = &AccountConfirmPasswordEmailRequest{}
-	_ bin.BareDecoder = &AccountConfirmPasswordEmailRequest{}
-)
+// GetCode returns value of Code field.
+func (c *AccountConfirmPasswordEmailRequest) GetCode() (value string) {
+	return c.Code
+}
 
 // AccountConfirmPasswordEmail invokes method account.confirmPasswordEmail#8fdf1920 returning error if any.
 // Verify an email to use as 2FA recovery method¹.

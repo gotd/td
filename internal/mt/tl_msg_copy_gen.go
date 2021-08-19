@@ -38,6 +38,14 @@ type MsgCopy struct {
 // MsgCopyTypeID is TL type id of MsgCopy.
 const MsgCopyTypeID = 0xe06046b2
 
+// Ensuring interfaces in compile-time for MsgCopy.
+var (
+	_ bin.Encoder     = &MsgCopy{}
+	_ bin.Decoder     = &MsgCopy{}
+	_ bin.BareEncoder = &MsgCopy{}
+	_ bin.BareDecoder = &MsgCopy{}
+)
+
 func (m *MsgCopy) Zero() bool {
 	if m == nil {
 		return true
@@ -56,13 +64,6 @@ func (m *MsgCopy) String() string {
 	}
 	type Alias MsgCopy
 	return fmt.Sprintf("MsgCopy%+v", Alias(*m))
-}
-
-// FillFrom fills MsgCopy from given interface.
-func (m *MsgCopy) FillFrom(from interface {
-	GetOrigMessage() (value Message)
-}) {
-	m.OrigMessage = from.GetOrigMessage()
 }
 
 // TypeID returns type id in TL schema.
@@ -116,11 +117,6 @@ func (m *MsgCopy) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOrigMessage returns value of OrigMessage field.
-func (m *MsgCopy) GetOrigMessage() (value Message) {
-	return m.OrigMessage
-}
-
 // Decode implements bin.Decoder.
 func (m *MsgCopy) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -145,10 +141,7 @@ func (m *MsgCopy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MsgCopy.
-var (
-	_ bin.Encoder     = &MsgCopy{}
-	_ bin.Decoder     = &MsgCopy{}
-	_ bin.BareEncoder = &MsgCopy{}
-	_ bin.BareDecoder = &MsgCopy{}
-)
+// GetOrigMessage returns value of OrigMessage field.
+func (m *MsgCopy) GetOrigMessage() (value Message) {
+	return m.OrigMessage
+}

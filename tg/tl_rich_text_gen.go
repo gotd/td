@@ -39,6 +39,19 @@ type TextEmpty struct {
 // TextEmptyTypeID is TL type id of TextEmpty.
 const TextEmptyTypeID = 0xdc3d824f
 
+// construct implements constructor of RichTextClass.
+func (t TextEmpty) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEmpty.
+var (
+	_ bin.Encoder     = &TextEmpty{}
+	_ bin.Decoder     = &TextEmpty{}
+	_ bin.BareEncoder = &TextEmpty{}
+	_ bin.BareDecoder = &TextEmpty{}
+
+	_ RichTextClass = &TextEmpty{}
+)
+
 func (t *TextEmpty) Zero() bool {
 	if t == nil {
 		return true
@@ -118,19 +131,6 @@ func (t *TextEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextEmpty) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextEmpty.
-var (
-	_ bin.Encoder     = &TextEmpty{}
-	_ bin.Decoder     = &TextEmpty{}
-	_ bin.BareEncoder = &TextEmpty{}
-	_ bin.BareDecoder = &TextEmpty{}
-
-	_ RichTextClass = &TextEmpty{}
-)
-
 // TextPlain represents TL type `textPlain#744694e0`.
 // Plain text
 //
@@ -142,6 +142,19 @@ type TextPlain struct {
 
 // TextPlainTypeID is TL type id of TextPlain.
 const TextPlainTypeID = 0x744694e0
+
+// construct implements constructor of RichTextClass.
+func (t TextPlain) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextPlain.
+var (
+	_ bin.Encoder     = &TextPlain{}
+	_ bin.Decoder     = &TextPlain{}
+	_ bin.BareEncoder = &TextPlain{}
+	_ bin.BareDecoder = &TextPlain{}
+
+	_ RichTextClass = &TextPlain{}
+)
 
 func (t *TextPlain) Zero() bool {
 	if t == nil {
@@ -219,11 +232,6 @@ func (t *TextPlain) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextPlain) GetText() (value string) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextPlain) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -250,18 +258,10 @@ func (t *TextPlain) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextPlain) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextPlain.
-var (
-	_ bin.Encoder     = &TextPlain{}
-	_ bin.Decoder     = &TextPlain{}
-	_ bin.BareEncoder = &TextPlain{}
-	_ bin.BareDecoder = &TextPlain{}
-
-	_ RichTextClass = &TextPlain{}
-)
+// GetText returns value of Text field.
+func (t *TextPlain) GetText() (value string) {
+	return t.Text
+}
 
 // TextBold represents TL type `textBold#6724abc4`.
 // Bold text
@@ -274,6 +274,19 @@ type TextBold struct {
 
 // TextBoldTypeID is TL type id of TextBold.
 const TextBoldTypeID = 0x6724abc4
+
+// construct implements constructor of RichTextClass.
+func (t TextBold) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextBold.
+var (
+	_ bin.Encoder     = &TextBold{}
+	_ bin.Decoder     = &TextBold{}
+	_ bin.BareEncoder = &TextBold{}
+	_ bin.BareDecoder = &TextBold{}
+
+	_ RichTextClass = &TextBold{}
+)
 
 func (t *TextBold) Zero() bool {
 	if t == nil {
@@ -356,11 +369,6 @@ func (t *TextBold) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextBold) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextBold) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -387,18 +395,10 @@ func (t *TextBold) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextBold) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextBold.
-var (
-	_ bin.Encoder     = &TextBold{}
-	_ bin.Decoder     = &TextBold{}
-	_ bin.BareEncoder = &TextBold{}
-	_ bin.BareDecoder = &TextBold{}
-
-	_ RichTextClass = &TextBold{}
-)
+// GetText returns value of Text field.
+func (t *TextBold) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextItalic represents TL type `textItalic#d912a59c`.
 // Italic text
@@ -411,6 +411,19 @@ type TextItalic struct {
 
 // TextItalicTypeID is TL type id of TextItalic.
 const TextItalicTypeID = 0xd912a59c
+
+// construct implements constructor of RichTextClass.
+func (t TextItalic) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextItalic.
+var (
+	_ bin.Encoder     = &TextItalic{}
+	_ bin.Decoder     = &TextItalic{}
+	_ bin.BareEncoder = &TextItalic{}
+	_ bin.BareDecoder = &TextItalic{}
+
+	_ RichTextClass = &TextItalic{}
+)
 
 func (t *TextItalic) Zero() bool {
 	if t == nil {
@@ -493,11 +506,6 @@ func (t *TextItalic) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextItalic) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextItalic) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -524,18 +532,10 @@ func (t *TextItalic) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextItalic) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextItalic.
-var (
-	_ bin.Encoder     = &TextItalic{}
-	_ bin.Decoder     = &TextItalic{}
-	_ bin.BareEncoder = &TextItalic{}
-	_ bin.BareDecoder = &TextItalic{}
-
-	_ RichTextClass = &TextItalic{}
-)
+// GetText returns value of Text field.
+func (t *TextItalic) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextUnderline represents TL type `textUnderline#c12622c4`.
 // Underlined text
@@ -548,6 +548,19 @@ type TextUnderline struct {
 
 // TextUnderlineTypeID is TL type id of TextUnderline.
 const TextUnderlineTypeID = 0xc12622c4
+
+// construct implements constructor of RichTextClass.
+func (t TextUnderline) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextUnderline.
+var (
+	_ bin.Encoder     = &TextUnderline{}
+	_ bin.Decoder     = &TextUnderline{}
+	_ bin.BareEncoder = &TextUnderline{}
+	_ bin.BareDecoder = &TextUnderline{}
+
+	_ RichTextClass = &TextUnderline{}
+)
 
 func (t *TextUnderline) Zero() bool {
 	if t == nil {
@@ -630,11 +643,6 @@ func (t *TextUnderline) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextUnderline) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextUnderline) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -661,18 +669,10 @@ func (t *TextUnderline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextUnderline) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextUnderline.
-var (
-	_ bin.Encoder     = &TextUnderline{}
-	_ bin.Decoder     = &TextUnderline{}
-	_ bin.BareEncoder = &TextUnderline{}
-	_ bin.BareDecoder = &TextUnderline{}
-
-	_ RichTextClass = &TextUnderline{}
-)
+// GetText returns value of Text field.
+func (t *TextUnderline) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextStrike represents TL type `textStrike#9bf8bb95`.
 // Strikethrough text
@@ -685,6 +685,19 @@ type TextStrike struct {
 
 // TextStrikeTypeID is TL type id of TextStrike.
 const TextStrikeTypeID = 0x9bf8bb95
+
+// construct implements constructor of RichTextClass.
+func (t TextStrike) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextStrike.
+var (
+	_ bin.Encoder     = &TextStrike{}
+	_ bin.Decoder     = &TextStrike{}
+	_ bin.BareEncoder = &TextStrike{}
+	_ bin.BareDecoder = &TextStrike{}
+
+	_ RichTextClass = &TextStrike{}
+)
 
 func (t *TextStrike) Zero() bool {
 	if t == nil {
@@ -767,11 +780,6 @@ func (t *TextStrike) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextStrike) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextStrike) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -798,18 +806,10 @@ func (t *TextStrike) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextStrike) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextStrike.
-var (
-	_ bin.Encoder     = &TextStrike{}
-	_ bin.Decoder     = &TextStrike{}
-	_ bin.BareEncoder = &TextStrike{}
-	_ bin.BareDecoder = &TextStrike{}
-
-	_ RichTextClass = &TextStrike{}
-)
+// GetText returns value of Text field.
+func (t *TextStrike) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextFixed represents TL type `textFixed#6c3f19b9`.
 // fixed-width rich text
@@ -822,6 +822,19 @@ type TextFixed struct {
 
 // TextFixedTypeID is TL type id of TextFixed.
 const TextFixedTypeID = 0x6c3f19b9
+
+// construct implements constructor of RichTextClass.
+func (t TextFixed) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextFixed.
+var (
+	_ bin.Encoder     = &TextFixed{}
+	_ bin.Decoder     = &TextFixed{}
+	_ bin.BareEncoder = &TextFixed{}
+	_ bin.BareDecoder = &TextFixed{}
+
+	_ RichTextClass = &TextFixed{}
+)
 
 func (t *TextFixed) Zero() bool {
 	if t == nil {
@@ -904,11 +917,6 @@ func (t *TextFixed) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextFixed) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextFixed) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -935,18 +943,10 @@ func (t *TextFixed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextFixed) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextFixed.
-var (
-	_ bin.Encoder     = &TextFixed{}
-	_ bin.Decoder     = &TextFixed{}
-	_ bin.BareEncoder = &TextFixed{}
-	_ bin.BareDecoder = &TextFixed{}
-
-	_ RichTextClass = &TextFixed{}
-)
+// GetText returns value of Text field.
+func (t *TextFixed) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextURL represents TL type `textUrl#3c2884c1`.
 // Link
@@ -963,6 +963,19 @@ type TextURL struct {
 
 // TextURLTypeID is TL type id of TextURL.
 const TextURLTypeID = 0x3c2884c1
+
+// construct implements constructor of RichTextClass.
+func (t TextURL) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextURL.
+var (
+	_ bin.Encoder     = &TextURL{}
+	_ bin.Decoder     = &TextURL{}
+	_ bin.BareEncoder = &TextURL{}
+	_ bin.BareDecoder = &TextURL{}
+
+	_ RichTextClass = &TextURL{}
+)
 
 func (t *TextURL) Zero() bool {
 	if t == nil {
@@ -1065,21 +1078,6 @@ func (t *TextURL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextURL) GetText() (value RichTextClass) {
-	return t.Text
-}
-
-// GetURL returns value of URL field.
-func (t *TextURL) GetURL() (value string) {
-	return t.URL
-}
-
-// GetWebpageID returns value of WebpageID field.
-func (t *TextURL) GetWebpageID() (value int64) {
-	return t.WebpageID
-}
-
 // Decode implements bin.Decoder.
 func (t *TextURL) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1120,18 +1118,20 @@ func (t *TextURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextURL) construct() RichTextClass { return &t }
+// GetText returns value of Text field.
+func (t *TextURL) GetText() (value RichTextClass) {
+	return t.Text
+}
 
-// Ensuring interfaces in compile-time for TextURL.
-var (
-	_ bin.Encoder     = &TextURL{}
-	_ bin.Decoder     = &TextURL{}
-	_ bin.BareEncoder = &TextURL{}
-	_ bin.BareDecoder = &TextURL{}
+// GetURL returns value of URL field.
+func (t *TextURL) GetURL() (value string) {
+	return t.URL
+}
 
-	_ RichTextClass = &TextURL{}
-)
+// GetWebpageID returns value of WebpageID field.
+func (t *TextURL) GetWebpageID() (value int64) {
+	return t.WebpageID
+}
 
 // TextEmail represents TL type `textEmail#de5a0dd6`.
 // Rich text email link
@@ -1146,6 +1146,19 @@ type TextEmail struct {
 
 // TextEmailTypeID is TL type id of TextEmail.
 const TextEmailTypeID = 0xde5a0dd6
+
+// construct implements constructor of RichTextClass.
+func (t TextEmail) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEmail.
+var (
+	_ bin.Encoder     = &TextEmail{}
+	_ bin.Decoder     = &TextEmail{}
+	_ bin.BareEncoder = &TextEmail{}
+	_ bin.BareDecoder = &TextEmail{}
+
+	_ RichTextClass = &TextEmail{}
+)
 
 func (t *TextEmail) Zero() bool {
 	if t == nil {
@@ -1238,16 +1251,6 @@ func (t *TextEmail) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextEmail) GetText() (value RichTextClass) {
-	return t.Text
-}
-
-// GetEmail returns value of Email field.
-func (t *TextEmail) GetEmail() (value string) {
-	return t.Email
-}
-
 // Decode implements bin.Decoder.
 func (t *TextEmail) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1281,18 +1284,15 @@ func (t *TextEmail) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextEmail) construct() RichTextClass { return &t }
+// GetText returns value of Text field.
+func (t *TextEmail) GetText() (value RichTextClass) {
+	return t.Text
+}
 
-// Ensuring interfaces in compile-time for TextEmail.
-var (
-	_ bin.Encoder     = &TextEmail{}
-	_ bin.Decoder     = &TextEmail{}
-	_ bin.BareEncoder = &TextEmail{}
-	_ bin.BareDecoder = &TextEmail{}
-
-	_ RichTextClass = &TextEmail{}
-)
+// GetEmail returns value of Email field.
+func (t *TextEmail) GetEmail() (value string) {
+	return t.Email
+}
 
 // TextConcat represents TL type `textConcat#7e6260d7`.
 // Concatenation of rich texts
@@ -1305,6 +1305,19 @@ type TextConcat struct {
 
 // TextConcatTypeID is TL type id of TextConcat.
 const TextConcatTypeID = 0x7e6260d7
+
+// construct implements constructor of RichTextClass.
+func (t TextConcat) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextConcat.
+var (
+	_ bin.Encoder     = &TextConcat{}
+	_ bin.Decoder     = &TextConcat{}
+	_ bin.BareEncoder = &TextConcat{}
+	_ bin.BareDecoder = &TextConcat{}
+
+	_ RichTextClass = &TextConcat{}
+)
 
 func (t *TextConcat) Zero() bool {
 	if t == nil {
@@ -1390,16 +1403,6 @@ func (t *TextConcat) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTexts returns value of Texts field.
-func (t *TextConcat) GetTexts() (value []RichTextClass) {
-	return t.Texts
-}
-
-// MapTexts returns field Texts wrapped in RichTextClassArray helper.
-func (t *TextConcat) MapTexts() (value RichTextClassArray) {
-	return RichTextClassArray(t.Texts)
-}
-
 // Decode implements bin.Decoder.
 func (t *TextConcat) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1436,18 +1439,15 @@ func (t *TextConcat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextConcat) construct() RichTextClass { return &t }
+// GetTexts returns value of Texts field.
+func (t *TextConcat) GetTexts() (value []RichTextClass) {
+	return t.Texts
+}
 
-// Ensuring interfaces in compile-time for TextConcat.
-var (
-	_ bin.Encoder     = &TextConcat{}
-	_ bin.Decoder     = &TextConcat{}
-	_ bin.BareEncoder = &TextConcat{}
-	_ bin.BareDecoder = &TextConcat{}
-
-	_ RichTextClass = &TextConcat{}
-)
+// MapTexts returns field Texts wrapped in RichTextClassArray helper.
+func (t *TextConcat) MapTexts() (value RichTextClassArray) {
+	return RichTextClassArray(t.Texts)
+}
 
 // TextSubscript represents TL type `textSubscript#ed6a8504`.
 // Subscript text
@@ -1460,6 +1460,19 @@ type TextSubscript struct {
 
 // TextSubscriptTypeID is TL type id of TextSubscript.
 const TextSubscriptTypeID = 0xed6a8504
+
+// construct implements constructor of RichTextClass.
+func (t TextSubscript) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextSubscript.
+var (
+	_ bin.Encoder     = &TextSubscript{}
+	_ bin.Decoder     = &TextSubscript{}
+	_ bin.BareEncoder = &TextSubscript{}
+	_ bin.BareDecoder = &TextSubscript{}
+
+	_ RichTextClass = &TextSubscript{}
+)
 
 func (t *TextSubscript) Zero() bool {
 	if t == nil {
@@ -1542,11 +1555,6 @@ func (t *TextSubscript) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextSubscript) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextSubscript) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1573,18 +1581,10 @@ func (t *TextSubscript) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextSubscript) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextSubscript.
-var (
-	_ bin.Encoder     = &TextSubscript{}
-	_ bin.Decoder     = &TextSubscript{}
-	_ bin.BareEncoder = &TextSubscript{}
-	_ bin.BareDecoder = &TextSubscript{}
-
-	_ RichTextClass = &TextSubscript{}
-)
+// GetText returns value of Text field.
+func (t *TextSubscript) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextSuperscript represents TL type `textSuperscript#c7fb5e01`.
 // Superscript text
@@ -1597,6 +1597,19 @@ type TextSuperscript struct {
 
 // TextSuperscriptTypeID is TL type id of TextSuperscript.
 const TextSuperscriptTypeID = 0xc7fb5e01
+
+// construct implements constructor of RichTextClass.
+func (t TextSuperscript) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextSuperscript.
+var (
+	_ bin.Encoder     = &TextSuperscript{}
+	_ bin.Decoder     = &TextSuperscript{}
+	_ bin.BareEncoder = &TextSuperscript{}
+	_ bin.BareDecoder = &TextSuperscript{}
+
+	_ RichTextClass = &TextSuperscript{}
+)
 
 func (t *TextSuperscript) Zero() bool {
 	if t == nil {
@@ -1679,11 +1692,6 @@ func (t *TextSuperscript) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextSuperscript) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextSuperscript) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1710,18 +1718,10 @@ func (t *TextSuperscript) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextSuperscript) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextSuperscript.
-var (
-	_ bin.Encoder     = &TextSuperscript{}
-	_ bin.Decoder     = &TextSuperscript{}
-	_ bin.BareEncoder = &TextSuperscript{}
-	_ bin.BareDecoder = &TextSuperscript{}
-
-	_ RichTextClass = &TextSuperscript{}
-)
+// GetText returns value of Text field.
+func (t *TextSuperscript) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextMarked represents TL type `textMarked#34b8621`.
 // Highlighted text
@@ -1734,6 +1734,19 @@ type TextMarked struct {
 
 // TextMarkedTypeID is TL type id of TextMarked.
 const TextMarkedTypeID = 0x34b8621
+
+// construct implements constructor of RichTextClass.
+func (t TextMarked) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextMarked.
+var (
+	_ bin.Encoder     = &TextMarked{}
+	_ bin.Decoder     = &TextMarked{}
+	_ bin.BareEncoder = &TextMarked{}
+	_ bin.BareDecoder = &TextMarked{}
+
+	_ RichTextClass = &TextMarked{}
+)
 
 func (t *TextMarked) Zero() bool {
 	if t == nil {
@@ -1816,11 +1829,6 @@ func (t *TextMarked) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextMarked) GetText() (value RichTextClass) {
-	return t.Text
-}
-
 // Decode implements bin.Decoder.
 func (t *TextMarked) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -1847,18 +1855,10 @@ func (t *TextMarked) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextMarked) construct() RichTextClass { return &t }
-
-// Ensuring interfaces in compile-time for TextMarked.
-var (
-	_ bin.Encoder     = &TextMarked{}
-	_ bin.Decoder     = &TextMarked{}
-	_ bin.BareEncoder = &TextMarked{}
-	_ bin.BareDecoder = &TextMarked{}
-
-	_ RichTextClass = &TextMarked{}
-)
+// GetText returns value of Text field.
+func (t *TextMarked) GetText() (value RichTextClass) {
+	return t.Text
+}
 
 // TextPhone represents TL type `textPhone#1ccb966a`.
 // Rich text linked to a phone number
@@ -1873,6 +1873,19 @@ type TextPhone struct {
 
 // TextPhoneTypeID is TL type id of TextPhone.
 const TextPhoneTypeID = 0x1ccb966a
+
+// construct implements constructor of RichTextClass.
+func (t TextPhone) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextPhone.
+var (
+	_ bin.Encoder     = &TextPhone{}
+	_ bin.Decoder     = &TextPhone{}
+	_ bin.BareEncoder = &TextPhone{}
+	_ bin.BareDecoder = &TextPhone{}
+
+	_ RichTextClass = &TextPhone{}
+)
 
 func (t *TextPhone) Zero() bool {
 	if t == nil {
@@ -1965,16 +1978,6 @@ func (t *TextPhone) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextPhone) GetText() (value RichTextClass) {
-	return t.Text
-}
-
-// GetPhone returns value of Phone field.
-func (t *TextPhone) GetPhone() (value string) {
-	return t.Phone
-}
-
 // Decode implements bin.Decoder.
 func (t *TextPhone) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -2008,18 +2011,15 @@ func (t *TextPhone) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextPhone) construct() RichTextClass { return &t }
+// GetText returns value of Text field.
+func (t *TextPhone) GetText() (value RichTextClass) {
+	return t.Text
+}
 
-// Ensuring interfaces in compile-time for TextPhone.
-var (
-	_ bin.Encoder     = &TextPhone{}
-	_ bin.Decoder     = &TextPhone{}
-	_ bin.BareEncoder = &TextPhone{}
-	_ bin.BareDecoder = &TextPhone{}
-
-	_ RichTextClass = &TextPhone{}
-)
+// GetPhone returns value of Phone field.
+func (t *TextPhone) GetPhone() (value string) {
+	return t.Phone
+}
 
 // TextImage represents TL type `textImage#81ccf4f`.
 // Inline image
@@ -2036,6 +2036,19 @@ type TextImage struct {
 
 // TextImageTypeID is TL type id of TextImage.
 const TextImageTypeID = 0x81ccf4f
+
+// construct implements constructor of RichTextClass.
+func (t TextImage) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextImage.
+var (
+	_ bin.Encoder     = &TextImage{}
+	_ bin.Decoder     = &TextImage{}
+	_ bin.BareEncoder = &TextImage{}
+	_ bin.BareDecoder = &TextImage{}
+
+	_ RichTextClass = &TextImage{}
+)
 
 func (t *TextImage) Zero() bool {
 	if t == nil {
@@ -2133,21 +2146,6 @@ func (t *TextImage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDocumentID returns value of DocumentID field.
-func (t *TextImage) GetDocumentID() (value int64) {
-	return t.DocumentID
-}
-
-// GetW returns value of W field.
-func (t *TextImage) GetW() (value int) {
-	return t.W
-}
-
-// GetH returns value of H field.
-func (t *TextImage) GetH() (value int) {
-	return t.H
-}
-
 // Decode implements bin.Decoder.
 func (t *TextImage) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -2188,18 +2186,20 @@ func (t *TextImage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextImage) construct() RichTextClass { return &t }
+// GetDocumentID returns value of DocumentID field.
+func (t *TextImage) GetDocumentID() (value int64) {
+	return t.DocumentID
+}
 
-// Ensuring interfaces in compile-time for TextImage.
-var (
-	_ bin.Encoder     = &TextImage{}
-	_ bin.Decoder     = &TextImage{}
-	_ bin.BareEncoder = &TextImage{}
-	_ bin.BareDecoder = &TextImage{}
+// GetW returns value of W field.
+func (t *TextImage) GetW() (value int) {
+	return t.W
+}
 
-	_ RichTextClass = &TextImage{}
-)
+// GetH returns value of H field.
+func (t *TextImage) GetH() (value int) {
+	return t.H
+}
 
 // TextAnchor represents TL type `textAnchor#35553762`.
 // Text linking to another section of the page
@@ -2214,6 +2214,19 @@ type TextAnchor struct {
 
 // TextAnchorTypeID is TL type id of TextAnchor.
 const TextAnchorTypeID = 0x35553762
+
+// construct implements constructor of RichTextClass.
+func (t TextAnchor) construct() RichTextClass { return &t }
+
+// Ensuring interfaces in compile-time for TextAnchor.
+var (
+	_ bin.Encoder     = &TextAnchor{}
+	_ bin.Decoder     = &TextAnchor{}
+	_ bin.BareEncoder = &TextAnchor{}
+	_ bin.BareDecoder = &TextAnchor{}
+
+	_ RichTextClass = &TextAnchor{}
+)
 
 func (t *TextAnchor) Zero() bool {
 	if t == nil {
@@ -2306,16 +2319,6 @@ func (t *TextAnchor) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (t *TextAnchor) GetText() (value RichTextClass) {
-	return t.Text
-}
-
-// GetName returns value of Name field.
-func (t *TextAnchor) GetName() (value string) {
-	return t.Name
-}
-
 // Decode implements bin.Decoder.
 func (t *TextAnchor) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -2349,18 +2352,15 @@ func (t *TextAnchor) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RichTextClass.
-func (t TextAnchor) construct() RichTextClass { return &t }
+// GetText returns value of Text field.
+func (t *TextAnchor) GetText() (value RichTextClass) {
+	return t.Text
+}
 
-// Ensuring interfaces in compile-time for TextAnchor.
-var (
-	_ bin.Encoder     = &TextAnchor{}
-	_ bin.Decoder     = &TextAnchor{}
-	_ bin.BareEncoder = &TextAnchor{}
-	_ bin.BareDecoder = &TextAnchor{}
-
-	_ RichTextClass = &TextAnchor{}
-)
+// GetName returns value of Name field.
+func (t *TextAnchor) GetName() (value string) {
+	return t.Name
+}
 
 // RichTextClass represents RichText generic type.
 //
@@ -2557,1511 +2557,4 @@ func (b *RichTextBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode RichTextClass as nil")
 	}
 	return b.RichText.Encode(buf)
-}
-
-// RichTextClassArray is adapter for slice of RichTextClass.
-type RichTextClassArray []RichTextClass
-
-// Sort sorts slice of RichTextClass.
-func (s RichTextClassArray) Sort(less func(a, b RichTextClass) bool) RichTextClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of RichTextClass.
-func (s RichTextClassArray) SortStable(less func(a, b RichTextClass) bool) RichTextClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of RichTextClass.
-func (s RichTextClassArray) Retain(keep func(x RichTextClass) bool) RichTextClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s RichTextClassArray) First() (v RichTextClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s RichTextClassArray) Last() (v RichTextClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *RichTextClassArray) PopFirst() (v RichTextClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero RichTextClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *RichTextClassArray) Pop() (v RichTextClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsTextPlain returns copy with only TextPlain constructors.
-func (s RichTextClassArray) AsTextPlain() (to TextPlainArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextPlain)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextBold returns copy with only TextBold constructors.
-func (s RichTextClassArray) AsTextBold() (to TextBoldArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextBold)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextItalic returns copy with only TextItalic constructors.
-func (s RichTextClassArray) AsTextItalic() (to TextItalicArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextItalic)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextUnderline returns copy with only TextUnderline constructors.
-func (s RichTextClassArray) AsTextUnderline() (to TextUnderlineArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextUnderline)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextStrike returns copy with only TextStrike constructors.
-func (s RichTextClassArray) AsTextStrike() (to TextStrikeArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextStrike)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextFixed returns copy with only TextFixed constructors.
-func (s RichTextClassArray) AsTextFixed() (to TextFixedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextFixed)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextURL returns copy with only TextURL constructors.
-func (s RichTextClassArray) AsTextURL() (to TextURLArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextURL)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextEmail returns copy with only TextEmail constructors.
-func (s RichTextClassArray) AsTextEmail() (to TextEmailArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextEmail)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextConcat returns copy with only TextConcat constructors.
-func (s RichTextClassArray) AsTextConcat() (to TextConcatArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextConcat)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextSubscript returns copy with only TextSubscript constructors.
-func (s RichTextClassArray) AsTextSubscript() (to TextSubscriptArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextSubscript)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextSuperscript returns copy with only TextSuperscript constructors.
-func (s RichTextClassArray) AsTextSuperscript() (to TextSuperscriptArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextSuperscript)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextMarked returns copy with only TextMarked constructors.
-func (s RichTextClassArray) AsTextMarked() (to TextMarkedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextMarked)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextPhone returns copy with only TextPhone constructors.
-func (s RichTextClassArray) AsTextPhone() (to TextPhoneArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextPhone)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextImage returns copy with only TextImage constructors.
-func (s RichTextClassArray) AsTextImage() (to TextImageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextImage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTextAnchor returns copy with only TextAnchor constructors.
-func (s RichTextClassArray) AsTextAnchor() (to TextAnchorArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TextAnchor)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// TextPlainArray is adapter for slice of TextPlain.
-type TextPlainArray []TextPlain
-
-// Sort sorts slice of TextPlain.
-func (s TextPlainArray) Sort(less func(a, b TextPlain) bool) TextPlainArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextPlain.
-func (s TextPlainArray) SortStable(less func(a, b TextPlain) bool) TextPlainArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextPlain.
-func (s TextPlainArray) Retain(keep func(x TextPlain) bool) TextPlainArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextPlainArray) First() (v TextPlain, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextPlainArray) Last() (v TextPlain, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextPlainArray) PopFirst() (v TextPlain, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextPlain
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextPlainArray) Pop() (v TextPlain, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextBoldArray is adapter for slice of TextBold.
-type TextBoldArray []TextBold
-
-// Sort sorts slice of TextBold.
-func (s TextBoldArray) Sort(less func(a, b TextBold) bool) TextBoldArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextBold.
-func (s TextBoldArray) SortStable(less func(a, b TextBold) bool) TextBoldArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextBold.
-func (s TextBoldArray) Retain(keep func(x TextBold) bool) TextBoldArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextBoldArray) First() (v TextBold, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextBoldArray) Last() (v TextBold, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextBoldArray) PopFirst() (v TextBold, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextBold
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextBoldArray) Pop() (v TextBold, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextItalicArray is adapter for slice of TextItalic.
-type TextItalicArray []TextItalic
-
-// Sort sorts slice of TextItalic.
-func (s TextItalicArray) Sort(less func(a, b TextItalic) bool) TextItalicArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextItalic.
-func (s TextItalicArray) SortStable(less func(a, b TextItalic) bool) TextItalicArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextItalic.
-func (s TextItalicArray) Retain(keep func(x TextItalic) bool) TextItalicArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextItalicArray) First() (v TextItalic, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextItalicArray) Last() (v TextItalic, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextItalicArray) PopFirst() (v TextItalic, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextItalic
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextItalicArray) Pop() (v TextItalic, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextUnderlineArray is adapter for slice of TextUnderline.
-type TextUnderlineArray []TextUnderline
-
-// Sort sorts slice of TextUnderline.
-func (s TextUnderlineArray) Sort(less func(a, b TextUnderline) bool) TextUnderlineArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextUnderline.
-func (s TextUnderlineArray) SortStable(less func(a, b TextUnderline) bool) TextUnderlineArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextUnderline.
-func (s TextUnderlineArray) Retain(keep func(x TextUnderline) bool) TextUnderlineArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextUnderlineArray) First() (v TextUnderline, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextUnderlineArray) Last() (v TextUnderline, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextUnderlineArray) PopFirst() (v TextUnderline, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextUnderline
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextUnderlineArray) Pop() (v TextUnderline, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextStrikeArray is adapter for slice of TextStrike.
-type TextStrikeArray []TextStrike
-
-// Sort sorts slice of TextStrike.
-func (s TextStrikeArray) Sort(less func(a, b TextStrike) bool) TextStrikeArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextStrike.
-func (s TextStrikeArray) SortStable(less func(a, b TextStrike) bool) TextStrikeArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextStrike.
-func (s TextStrikeArray) Retain(keep func(x TextStrike) bool) TextStrikeArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextStrikeArray) First() (v TextStrike, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextStrikeArray) Last() (v TextStrike, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextStrikeArray) PopFirst() (v TextStrike, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextStrike
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextStrikeArray) Pop() (v TextStrike, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextFixedArray is adapter for slice of TextFixed.
-type TextFixedArray []TextFixed
-
-// Sort sorts slice of TextFixed.
-func (s TextFixedArray) Sort(less func(a, b TextFixed) bool) TextFixedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextFixed.
-func (s TextFixedArray) SortStable(less func(a, b TextFixed) bool) TextFixedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextFixed.
-func (s TextFixedArray) Retain(keep func(x TextFixed) bool) TextFixedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextFixedArray) First() (v TextFixed, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextFixedArray) Last() (v TextFixed, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextFixedArray) PopFirst() (v TextFixed, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextFixed
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextFixedArray) Pop() (v TextFixed, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextURLArray is adapter for slice of TextURL.
-type TextURLArray []TextURL
-
-// Sort sorts slice of TextURL.
-func (s TextURLArray) Sort(less func(a, b TextURL) bool) TextURLArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextURL.
-func (s TextURLArray) SortStable(less func(a, b TextURL) bool) TextURLArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextURL.
-func (s TextURLArray) Retain(keep func(x TextURL) bool) TextURLArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextURLArray) First() (v TextURL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextURLArray) Last() (v TextURL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextURLArray) PopFirst() (v TextURL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextURL
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextURLArray) Pop() (v TextURL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextEmailArray is adapter for slice of TextEmail.
-type TextEmailArray []TextEmail
-
-// Sort sorts slice of TextEmail.
-func (s TextEmailArray) Sort(less func(a, b TextEmail) bool) TextEmailArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextEmail.
-func (s TextEmailArray) SortStable(less func(a, b TextEmail) bool) TextEmailArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextEmail.
-func (s TextEmailArray) Retain(keep func(x TextEmail) bool) TextEmailArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextEmailArray) First() (v TextEmail, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextEmailArray) Last() (v TextEmail, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextEmailArray) PopFirst() (v TextEmail, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextEmail
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextEmailArray) Pop() (v TextEmail, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextConcatArray is adapter for slice of TextConcat.
-type TextConcatArray []TextConcat
-
-// Sort sorts slice of TextConcat.
-func (s TextConcatArray) Sort(less func(a, b TextConcat) bool) TextConcatArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextConcat.
-func (s TextConcatArray) SortStable(less func(a, b TextConcat) bool) TextConcatArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextConcat.
-func (s TextConcatArray) Retain(keep func(x TextConcat) bool) TextConcatArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextConcatArray) First() (v TextConcat, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextConcatArray) Last() (v TextConcat, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextConcatArray) PopFirst() (v TextConcat, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextConcat
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextConcatArray) Pop() (v TextConcat, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextSubscriptArray is adapter for slice of TextSubscript.
-type TextSubscriptArray []TextSubscript
-
-// Sort sorts slice of TextSubscript.
-func (s TextSubscriptArray) Sort(less func(a, b TextSubscript) bool) TextSubscriptArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextSubscript.
-func (s TextSubscriptArray) SortStable(less func(a, b TextSubscript) bool) TextSubscriptArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextSubscript.
-func (s TextSubscriptArray) Retain(keep func(x TextSubscript) bool) TextSubscriptArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextSubscriptArray) First() (v TextSubscript, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextSubscriptArray) Last() (v TextSubscript, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextSubscriptArray) PopFirst() (v TextSubscript, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextSubscript
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextSubscriptArray) Pop() (v TextSubscript, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextSuperscriptArray is adapter for slice of TextSuperscript.
-type TextSuperscriptArray []TextSuperscript
-
-// Sort sorts slice of TextSuperscript.
-func (s TextSuperscriptArray) Sort(less func(a, b TextSuperscript) bool) TextSuperscriptArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextSuperscript.
-func (s TextSuperscriptArray) SortStable(less func(a, b TextSuperscript) bool) TextSuperscriptArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextSuperscript.
-func (s TextSuperscriptArray) Retain(keep func(x TextSuperscript) bool) TextSuperscriptArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextSuperscriptArray) First() (v TextSuperscript, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextSuperscriptArray) Last() (v TextSuperscript, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextSuperscriptArray) PopFirst() (v TextSuperscript, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextSuperscript
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextSuperscriptArray) Pop() (v TextSuperscript, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextMarkedArray is adapter for slice of TextMarked.
-type TextMarkedArray []TextMarked
-
-// Sort sorts slice of TextMarked.
-func (s TextMarkedArray) Sort(less func(a, b TextMarked) bool) TextMarkedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextMarked.
-func (s TextMarkedArray) SortStable(less func(a, b TextMarked) bool) TextMarkedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextMarked.
-func (s TextMarkedArray) Retain(keep func(x TextMarked) bool) TextMarkedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextMarkedArray) First() (v TextMarked, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextMarkedArray) Last() (v TextMarked, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextMarkedArray) PopFirst() (v TextMarked, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextMarked
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextMarkedArray) Pop() (v TextMarked, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextPhoneArray is adapter for slice of TextPhone.
-type TextPhoneArray []TextPhone
-
-// Sort sorts slice of TextPhone.
-func (s TextPhoneArray) Sort(less func(a, b TextPhone) bool) TextPhoneArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextPhone.
-func (s TextPhoneArray) SortStable(less func(a, b TextPhone) bool) TextPhoneArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextPhone.
-func (s TextPhoneArray) Retain(keep func(x TextPhone) bool) TextPhoneArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextPhoneArray) First() (v TextPhone, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextPhoneArray) Last() (v TextPhone, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextPhoneArray) PopFirst() (v TextPhone, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextPhone
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextPhoneArray) Pop() (v TextPhone, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextImageArray is adapter for slice of TextImage.
-type TextImageArray []TextImage
-
-// Sort sorts slice of TextImage.
-func (s TextImageArray) Sort(less func(a, b TextImage) bool) TextImageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextImage.
-func (s TextImageArray) SortStable(less func(a, b TextImage) bool) TextImageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextImage.
-func (s TextImageArray) Retain(keep func(x TextImage) bool) TextImageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextImageArray) First() (v TextImage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextImageArray) Last() (v TextImage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextImageArray) PopFirst() (v TextImage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextImage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextImageArray) Pop() (v TextImage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TextAnchorArray is adapter for slice of TextAnchor.
-type TextAnchorArray []TextAnchor
-
-// Sort sorts slice of TextAnchor.
-func (s TextAnchorArray) Sort(less func(a, b TextAnchor) bool) TextAnchorArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TextAnchor.
-func (s TextAnchorArray) SortStable(less func(a, b TextAnchor) bool) TextAnchorArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TextAnchor.
-func (s TextAnchorArray) Retain(keep func(x TextAnchor) bool) TextAnchorArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TextAnchorArray) First() (v TextAnchor, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TextAnchorArray) Last() (v TextAnchor, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextAnchorArray) PopFirst() (v TextAnchor, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TextAnchor
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TextAnchorArray) Pop() (v TextAnchor, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

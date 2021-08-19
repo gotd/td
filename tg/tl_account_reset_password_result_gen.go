@@ -40,6 +40,19 @@ type AccountResetPasswordFailedWait struct {
 // AccountResetPasswordFailedWaitTypeID is TL type id of AccountResetPasswordFailedWait.
 const AccountResetPasswordFailedWaitTypeID = 0xe3779861
 
+// construct implements constructor of AccountResetPasswordResultClass.
+func (r AccountResetPasswordFailedWait) construct() AccountResetPasswordResultClass { return &r }
+
+// Ensuring interfaces in compile-time for AccountResetPasswordFailedWait.
+var (
+	_ bin.Encoder     = &AccountResetPasswordFailedWait{}
+	_ bin.Decoder     = &AccountResetPasswordFailedWait{}
+	_ bin.BareEncoder = &AccountResetPasswordFailedWait{}
+	_ bin.BareDecoder = &AccountResetPasswordFailedWait{}
+
+	_ AccountResetPasswordResultClass = &AccountResetPasswordFailedWait{}
+)
+
 func (r *AccountResetPasswordFailedWait) Zero() bool {
 	if r == nil {
 		return true
@@ -116,11 +129,6 @@ func (r *AccountResetPasswordFailedWait) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRetryDate returns value of RetryDate field.
-func (r *AccountResetPasswordFailedWait) GetRetryDate() (value int) {
-	return r.RetryDate
-}
-
 // Decode implements bin.Decoder.
 func (r *AccountResetPasswordFailedWait) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -147,18 +155,10 @@ func (r *AccountResetPasswordFailedWait) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AccountResetPasswordResultClass.
-func (r AccountResetPasswordFailedWait) construct() AccountResetPasswordResultClass { return &r }
-
-// Ensuring interfaces in compile-time for AccountResetPasswordFailedWait.
-var (
-	_ bin.Encoder     = &AccountResetPasswordFailedWait{}
-	_ bin.Decoder     = &AccountResetPasswordFailedWait{}
-	_ bin.BareEncoder = &AccountResetPasswordFailedWait{}
-	_ bin.BareDecoder = &AccountResetPasswordFailedWait{}
-
-	_ AccountResetPasswordResultClass = &AccountResetPasswordFailedWait{}
-)
+// GetRetryDate returns value of RetryDate field.
+func (r *AccountResetPasswordFailedWait) GetRetryDate() (value int) {
+	return r.RetryDate
+}
 
 // AccountResetPasswordRequestedWait represents TL type `account.resetPasswordRequestedWait#e9effc7d`.
 //
@@ -170,6 +170,19 @@ type AccountResetPasswordRequestedWait struct {
 
 // AccountResetPasswordRequestedWaitTypeID is TL type id of AccountResetPasswordRequestedWait.
 const AccountResetPasswordRequestedWaitTypeID = 0xe9effc7d
+
+// construct implements constructor of AccountResetPasswordResultClass.
+func (r AccountResetPasswordRequestedWait) construct() AccountResetPasswordResultClass { return &r }
+
+// Ensuring interfaces in compile-time for AccountResetPasswordRequestedWait.
+var (
+	_ bin.Encoder     = &AccountResetPasswordRequestedWait{}
+	_ bin.Decoder     = &AccountResetPasswordRequestedWait{}
+	_ bin.BareEncoder = &AccountResetPasswordRequestedWait{}
+	_ bin.BareDecoder = &AccountResetPasswordRequestedWait{}
+
+	_ AccountResetPasswordResultClass = &AccountResetPasswordRequestedWait{}
+)
 
 func (r *AccountResetPasswordRequestedWait) Zero() bool {
 	if r == nil {
@@ -247,11 +260,6 @@ func (r *AccountResetPasswordRequestedWait) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUntilDate returns value of UntilDate field.
-func (r *AccountResetPasswordRequestedWait) GetUntilDate() (value int) {
-	return r.UntilDate
-}
-
 // Decode implements bin.Decoder.
 func (r *AccountResetPasswordRequestedWait) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -278,18 +286,10 @@ func (r *AccountResetPasswordRequestedWait) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AccountResetPasswordResultClass.
-func (r AccountResetPasswordRequestedWait) construct() AccountResetPasswordResultClass { return &r }
-
-// Ensuring interfaces in compile-time for AccountResetPasswordRequestedWait.
-var (
-	_ bin.Encoder     = &AccountResetPasswordRequestedWait{}
-	_ bin.Decoder     = &AccountResetPasswordRequestedWait{}
-	_ bin.BareEncoder = &AccountResetPasswordRequestedWait{}
-	_ bin.BareDecoder = &AccountResetPasswordRequestedWait{}
-
-	_ AccountResetPasswordResultClass = &AccountResetPasswordRequestedWait{}
-)
+// GetUntilDate returns value of UntilDate field.
+func (r *AccountResetPasswordRequestedWait) GetUntilDate() (value int) {
+	return r.UntilDate
+}
 
 // AccountResetPasswordOk represents TL type `account.resetPasswordOk#e926d63e`.
 //
@@ -299,6 +299,19 @@ type AccountResetPasswordOk struct {
 
 // AccountResetPasswordOkTypeID is TL type id of AccountResetPasswordOk.
 const AccountResetPasswordOkTypeID = 0xe926d63e
+
+// construct implements constructor of AccountResetPasswordResultClass.
+func (r AccountResetPasswordOk) construct() AccountResetPasswordResultClass { return &r }
+
+// Ensuring interfaces in compile-time for AccountResetPasswordOk.
+var (
+	_ bin.Encoder     = &AccountResetPasswordOk{}
+	_ bin.Decoder     = &AccountResetPasswordOk{}
+	_ bin.BareEncoder = &AccountResetPasswordOk{}
+	_ bin.BareDecoder = &AccountResetPasswordOk{}
+
+	_ AccountResetPasswordResultClass = &AccountResetPasswordOk{}
+)
 
 func (r *AccountResetPasswordOk) Zero() bool {
 	if r == nil {
@@ -378,19 +391,6 @@ func (r *AccountResetPasswordOk) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of AccountResetPasswordResultClass.
-func (r AccountResetPasswordOk) construct() AccountResetPasswordResultClass { return &r }
-
-// Ensuring interfaces in compile-time for AccountResetPasswordOk.
-var (
-	_ bin.Encoder     = &AccountResetPasswordOk{}
-	_ bin.Decoder     = &AccountResetPasswordOk{}
-	_ bin.BareEncoder = &AccountResetPasswordOk{}
-	_ bin.BareDecoder = &AccountResetPasswordOk{}
-
-	_ AccountResetPasswordResultClass = &AccountResetPasswordOk{}
-)
 
 // AccountResetPasswordResultClass represents account.ResetPasswordResult generic type.
 //
@@ -483,276 +483,4 @@ func (b *AccountResetPasswordResultBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode AccountResetPasswordResultClass as nil")
 	}
 	return b.ResetPasswordResult.Encode(buf)
-}
-
-// AccountResetPasswordResultClassArray is adapter for slice of AccountResetPasswordResultClass.
-type AccountResetPasswordResultClassArray []AccountResetPasswordResultClass
-
-// Sort sorts slice of AccountResetPasswordResultClass.
-func (s AccountResetPasswordResultClassArray) Sort(less func(a, b AccountResetPasswordResultClass) bool) AccountResetPasswordResultClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AccountResetPasswordResultClass.
-func (s AccountResetPasswordResultClassArray) SortStable(less func(a, b AccountResetPasswordResultClass) bool) AccountResetPasswordResultClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AccountResetPasswordResultClass.
-func (s AccountResetPasswordResultClassArray) Retain(keep func(x AccountResetPasswordResultClass) bool) AccountResetPasswordResultClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AccountResetPasswordResultClassArray) First() (v AccountResetPasswordResultClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AccountResetPasswordResultClassArray) Last() (v AccountResetPasswordResultClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AccountResetPasswordResultClassArray) PopFirst() (v AccountResetPasswordResultClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AccountResetPasswordResultClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AccountResetPasswordResultClassArray) Pop() (v AccountResetPasswordResultClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsAccountResetPasswordFailedWait returns copy with only AccountResetPasswordFailedWait constructors.
-func (s AccountResetPasswordResultClassArray) AsAccountResetPasswordFailedWait() (to AccountResetPasswordFailedWaitArray) {
-	for _, elem := range s {
-		value, ok := elem.(*AccountResetPasswordFailedWait)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsAccountResetPasswordRequestedWait returns copy with only AccountResetPasswordRequestedWait constructors.
-func (s AccountResetPasswordResultClassArray) AsAccountResetPasswordRequestedWait() (to AccountResetPasswordRequestedWaitArray) {
-	for _, elem := range s {
-		value, ok := elem.(*AccountResetPasswordRequestedWait)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AccountResetPasswordFailedWaitArray is adapter for slice of AccountResetPasswordFailedWait.
-type AccountResetPasswordFailedWaitArray []AccountResetPasswordFailedWait
-
-// Sort sorts slice of AccountResetPasswordFailedWait.
-func (s AccountResetPasswordFailedWaitArray) Sort(less func(a, b AccountResetPasswordFailedWait) bool) AccountResetPasswordFailedWaitArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AccountResetPasswordFailedWait.
-func (s AccountResetPasswordFailedWaitArray) SortStable(less func(a, b AccountResetPasswordFailedWait) bool) AccountResetPasswordFailedWaitArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AccountResetPasswordFailedWait.
-func (s AccountResetPasswordFailedWaitArray) Retain(keep func(x AccountResetPasswordFailedWait) bool) AccountResetPasswordFailedWaitArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AccountResetPasswordFailedWaitArray) First() (v AccountResetPasswordFailedWait, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AccountResetPasswordFailedWaitArray) Last() (v AccountResetPasswordFailedWait, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AccountResetPasswordFailedWaitArray) PopFirst() (v AccountResetPasswordFailedWait, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AccountResetPasswordFailedWait
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AccountResetPasswordFailedWaitArray) Pop() (v AccountResetPasswordFailedWait, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AccountResetPasswordRequestedWaitArray is adapter for slice of AccountResetPasswordRequestedWait.
-type AccountResetPasswordRequestedWaitArray []AccountResetPasswordRequestedWait
-
-// Sort sorts slice of AccountResetPasswordRequestedWait.
-func (s AccountResetPasswordRequestedWaitArray) Sort(less func(a, b AccountResetPasswordRequestedWait) bool) AccountResetPasswordRequestedWaitArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AccountResetPasswordRequestedWait.
-func (s AccountResetPasswordRequestedWaitArray) SortStable(less func(a, b AccountResetPasswordRequestedWait) bool) AccountResetPasswordRequestedWaitArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AccountResetPasswordRequestedWait.
-func (s AccountResetPasswordRequestedWaitArray) Retain(keep func(x AccountResetPasswordRequestedWait) bool) AccountResetPasswordRequestedWaitArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AccountResetPasswordRequestedWaitArray) First() (v AccountResetPasswordRequestedWait, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AccountResetPasswordRequestedWaitArray) Last() (v AccountResetPasswordRequestedWait, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AccountResetPasswordRequestedWaitArray) PopFirst() (v AccountResetPasswordRequestedWait, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AccountResetPasswordRequestedWait
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AccountResetPasswordRequestedWaitArray) Pop() (v AccountResetPasswordRequestedWait, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

@@ -69,6 +69,14 @@ type StatsGetMessagePublicForwardsRequest struct {
 // StatsGetMessagePublicForwardsRequestTypeID is TL type id of StatsGetMessagePublicForwardsRequest.
 const StatsGetMessagePublicForwardsRequestTypeID = 0x5630281b
 
+// Ensuring interfaces in compile-time for StatsGetMessagePublicForwardsRequest.
+var (
+	_ bin.Encoder     = &StatsGetMessagePublicForwardsRequest{}
+	_ bin.Decoder     = &StatsGetMessagePublicForwardsRequest{}
+	_ bin.BareEncoder = &StatsGetMessagePublicForwardsRequest{}
+	_ bin.BareDecoder = &StatsGetMessagePublicForwardsRequest{}
+)
+
 func (g *StatsGetMessagePublicForwardsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -205,41 +213,6 @@ func (g *StatsGetMessagePublicForwardsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (g *StatsGetMessagePublicForwardsRequest) GetChannel() (value InputChannelClass) {
-	return g.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (g *StatsGetMessagePublicForwardsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
-}
-
-// GetMsgID returns value of MsgID field.
-func (g *StatsGetMessagePublicForwardsRequest) GetMsgID() (value int) {
-	return g.MsgID
-}
-
-// GetOffsetRate returns value of OffsetRate field.
-func (g *StatsGetMessagePublicForwardsRequest) GetOffsetRate() (value int) {
-	return g.OffsetRate
-}
-
-// GetOffsetPeer returns value of OffsetPeer field.
-func (g *StatsGetMessagePublicForwardsRequest) GetOffsetPeer() (value InputPeerClass) {
-	return g.OffsetPeer
-}
-
-// GetOffsetID returns value of OffsetID field.
-func (g *StatsGetMessagePublicForwardsRequest) GetOffsetID() (value int) {
-	return g.OffsetID
-}
-
-// GetLimit returns value of Limit field.
-func (g *StatsGetMessagePublicForwardsRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *StatsGetMessagePublicForwardsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -301,13 +274,40 @@ func (g *StatsGetMessagePublicForwardsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsGetMessagePublicForwardsRequest.
-var (
-	_ bin.Encoder     = &StatsGetMessagePublicForwardsRequest{}
-	_ bin.Decoder     = &StatsGetMessagePublicForwardsRequest{}
-	_ bin.BareEncoder = &StatsGetMessagePublicForwardsRequest{}
-	_ bin.BareDecoder = &StatsGetMessagePublicForwardsRequest{}
-)
+// GetChannel returns value of Channel field.
+func (g *StatsGetMessagePublicForwardsRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
+}
+
+// GetMsgID returns value of MsgID field.
+func (g *StatsGetMessagePublicForwardsRequest) GetMsgID() (value int) {
+	return g.MsgID
+}
+
+// GetOffsetRate returns value of OffsetRate field.
+func (g *StatsGetMessagePublicForwardsRequest) GetOffsetRate() (value int) {
+	return g.OffsetRate
+}
+
+// GetOffsetPeer returns value of OffsetPeer field.
+func (g *StatsGetMessagePublicForwardsRequest) GetOffsetPeer() (value InputPeerClass) {
+	return g.OffsetPeer
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (g *StatsGetMessagePublicForwardsRequest) GetOffsetID() (value int) {
+	return g.OffsetID
+}
+
+// GetLimit returns value of Limit field.
+func (g *StatsGetMessagePublicForwardsRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *StatsGetMessagePublicForwardsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
+}
 
 // StatsGetMessagePublicForwards invokes method stats.getMessagePublicForwards#5630281b returning error if any.
 // Obtains a list of messages, indicating to which other public channels was a channel

@@ -43,6 +43,14 @@ type MessagesUploadEncryptedFileRequest struct {
 // MessagesUploadEncryptedFileRequestTypeID is TL type id of MessagesUploadEncryptedFileRequest.
 const MessagesUploadEncryptedFileRequestTypeID = 0x5057c497
 
+// Ensuring interfaces in compile-time for MessagesUploadEncryptedFileRequest.
+var (
+	_ bin.Encoder     = &MessagesUploadEncryptedFileRequest{}
+	_ bin.Decoder     = &MessagesUploadEncryptedFileRequest{}
+	_ bin.BareEncoder = &MessagesUploadEncryptedFileRequest{}
+	_ bin.BareDecoder = &MessagesUploadEncryptedFileRequest{}
+)
+
 func (u *MessagesUploadEncryptedFileRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -136,21 +144,6 @@ func (u *MessagesUploadEncryptedFileRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *MessagesUploadEncryptedFileRequest) GetPeer() (value InputEncryptedChat) {
-	return u.Peer
-}
-
-// GetFile returns value of File field.
-func (u *MessagesUploadEncryptedFileRequest) GetFile() (value InputEncryptedFileClass) {
-	return u.File
-}
-
-// GetFileAsNotEmpty returns mapped value of File field.
-func (u *MessagesUploadEncryptedFileRequest) GetFileAsNotEmpty() (NotEmptyInputEncryptedFile, bool) {
-	return u.File.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (u *MessagesUploadEncryptedFileRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -182,13 +175,20 @@ func (u *MessagesUploadEncryptedFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesUploadEncryptedFileRequest.
-var (
-	_ bin.Encoder     = &MessagesUploadEncryptedFileRequest{}
-	_ bin.Decoder     = &MessagesUploadEncryptedFileRequest{}
-	_ bin.BareEncoder = &MessagesUploadEncryptedFileRequest{}
-	_ bin.BareDecoder = &MessagesUploadEncryptedFileRequest{}
-)
+// GetPeer returns value of Peer field.
+func (u *MessagesUploadEncryptedFileRequest) GetPeer() (value InputEncryptedChat) {
+	return u.Peer
+}
+
+// GetFile returns value of File field.
+func (u *MessagesUploadEncryptedFileRequest) GetFile() (value InputEncryptedFileClass) {
+	return u.File
+}
+
+// GetFileAsNotEmpty returns mapped value of File field.
+func (u *MessagesUploadEncryptedFileRequest) GetFileAsNotEmpty() (NotEmptyInputEncryptedFile, bool) {
+	return u.File.AsNotEmpty()
+}
 
 // MessagesUploadEncryptedFile invokes method messages.uploadEncryptedFile#5057c497 returning error if any.
 // Upload encrypted file and associate it to a secret chat

@@ -42,6 +42,14 @@ type AccountGetWebAuthorizationsRequest struct {
 // AccountGetWebAuthorizationsRequestTypeID is TL type id of AccountGetWebAuthorizationsRequest.
 const AccountGetWebAuthorizationsRequestTypeID = 0x182e6d6f
 
+// Ensuring interfaces in compile-time for AccountGetWebAuthorizationsRequest.
+var (
+	_ bin.Encoder     = &AccountGetWebAuthorizationsRequest{}
+	_ bin.Decoder     = &AccountGetWebAuthorizationsRequest{}
+	_ bin.BareEncoder = &AccountGetWebAuthorizationsRequest{}
+	_ bin.BareDecoder = &AccountGetWebAuthorizationsRequest{}
+)
+
 func (g *AccountGetWebAuthorizationsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -120,14 +128,6 @@ func (g *AccountGetWebAuthorizationsRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountGetWebAuthorizationsRequest.
-var (
-	_ bin.Encoder     = &AccountGetWebAuthorizationsRequest{}
-	_ bin.Decoder     = &AccountGetWebAuthorizationsRequest{}
-	_ bin.BareEncoder = &AccountGetWebAuthorizationsRequest{}
-	_ bin.BareDecoder = &AccountGetWebAuthorizationsRequest{}
-)
 
 // AccountGetWebAuthorizations invokes method account.getWebAuthorizations#182e6d6f returning error if any.
 // Get web login widget¹ authorizations

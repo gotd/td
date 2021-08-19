@@ -40,6 +40,14 @@ type PhoneDiscardGroupCallRequest struct {
 // PhoneDiscardGroupCallRequestTypeID is TL type id of PhoneDiscardGroupCallRequest.
 const PhoneDiscardGroupCallRequestTypeID = 0x7a777135
 
+// Ensuring interfaces in compile-time for PhoneDiscardGroupCallRequest.
+var (
+	_ bin.Encoder     = &PhoneDiscardGroupCallRequest{}
+	_ bin.Decoder     = &PhoneDiscardGroupCallRequest{}
+	_ bin.BareEncoder = &PhoneDiscardGroupCallRequest{}
+	_ bin.BareDecoder = &PhoneDiscardGroupCallRequest{}
+)
+
 func (d *PhoneDiscardGroupCallRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -118,11 +126,6 @@ func (d *PhoneDiscardGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (d *PhoneDiscardGroupCallRequest) GetCall() (value InputGroupCall) {
-	return d.Call
-}
-
 // Decode implements bin.Decoder.
 func (d *PhoneDiscardGroupCallRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -147,13 +150,10 @@ func (d *PhoneDiscardGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneDiscardGroupCallRequest.
-var (
-	_ bin.Encoder     = &PhoneDiscardGroupCallRequest{}
-	_ bin.Decoder     = &PhoneDiscardGroupCallRequest{}
-	_ bin.BareEncoder = &PhoneDiscardGroupCallRequest{}
-	_ bin.BareDecoder = &PhoneDiscardGroupCallRequest{}
-)
+// GetCall returns value of Call field.
+func (d *PhoneDiscardGroupCallRequest) GetCall() (value InputGroupCall) {
+	return d.Call
+}
 
 // PhoneDiscardGroupCall invokes method phone.discardGroupCall#7a777135 returning error if any.
 //

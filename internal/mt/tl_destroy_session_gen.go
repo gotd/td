@@ -38,6 +38,14 @@ type DestroySessionRequest struct {
 // DestroySessionRequestTypeID is TL type id of DestroySessionRequest.
 const DestroySessionRequestTypeID = 0xe7512126
 
+// Ensuring interfaces in compile-time for DestroySessionRequest.
+var (
+	_ bin.Encoder     = &DestroySessionRequest{}
+	_ bin.Decoder     = &DestroySessionRequest{}
+	_ bin.BareEncoder = &DestroySessionRequest{}
+	_ bin.BareDecoder = &DestroySessionRequest{}
+)
+
 func (d *DestroySessionRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -56,13 +64,6 @@ func (d *DestroySessionRequest) String() string {
 	}
 	type Alias DestroySessionRequest
 	return fmt.Sprintf("DestroySessionRequest%+v", Alias(*d))
-}
-
-// FillFrom fills DestroySessionRequest from given interface.
-func (d *DestroySessionRequest) FillFrom(from interface {
-	GetSessionID() (value int64)
-}) {
-	d.SessionID = from.GetSessionID()
 }
 
 // TypeID returns type id in TL schema.
@@ -114,11 +115,6 @@ func (d *DestroySessionRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSessionID returns value of SessionID field.
-func (d *DestroySessionRequest) GetSessionID() (value int64) {
-	return d.SessionID
-}
-
 // Decode implements bin.Decoder.
 func (d *DestroySessionRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -145,10 +141,7 @@ func (d *DestroySessionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for DestroySessionRequest.
-var (
-	_ bin.Encoder     = &DestroySessionRequest{}
-	_ bin.Decoder     = &DestroySessionRequest{}
-	_ bin.BareEncoder = &DestroySessionRequest{}
-	_ bin.BareDecoder = &DestroySessionRequest{}
-)
+// GetSessionID returns value of SessionID field.
+func (d *DestroySessionRequest) GetSessionID() (value int64) {
+	return d.SessionID
+}

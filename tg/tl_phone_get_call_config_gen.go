@@ -39,6 +39,14 @@ type PhoneGetCallConfigRequest struct {
 // PhoneGetCallConfigRequestTypeID is TL type id of PhoneGetCallConfigRequest.
 const PhoneGetCallConfigRequestTypeID = 0x55451fa9
 
+// Ensuring interfaces in compile-time for PhoneGetCallConfigRequest.
+var (
+	_ bin.Encoder     = &PhoneGetCallConfigRequest{}
+	_ bin.Decoder     = &PhoneGetCallConfigRequest{}
+	_ bin.BareEncoder = &PhoneGetCallConfigRequest{}
+	_ bin.BareDecoder = &PhoneGetCallConfigRequest{}
+)
+
 func (g *PhoneGetCallConfigRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *PhoneGetCallConfigRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for PhoneGetCallConfigRequest.
-var (
-	_ bin.Encoder     = &PhoneGetCallConfigRequest{}
-	_ bin.Decoder     = &PhoneGetCallConfigRequest{}
-	_ bin.BareEncoder = &PhoneGetCallConfigRequest{}
-	_ bin.BareDecoder = &PhoneGetCallConfigRequest{}
-)
 
 // PhoneGetCallConfig invokes method phone.getCallConfig#55451fa9 returning error if any.
 // Get phone call configuration to be passed to libtgvoip's shared config

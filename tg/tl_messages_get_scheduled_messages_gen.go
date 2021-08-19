@@ -43,6 +43,14 @@ type MessagesGetScheduledMessagesRequest struct {
 // MessagesGetScheduledMessagesRequestTypeID is TL type id of MessagesGetScheduledMessagesRequest.
 const MessagesGetScheduledMessagesRequestTypeID = 0xbdbb0464
 
+// Ensuring interfaces in compile-time for MessagesGetScheduledMessagesRequest.
+var (
+	_ bin.Encoder     = &MessagesGetScheduledMessagesRequest{}
+	_ bin.Decoder     = &MessagesGetScheduledMessagesRequest{}
+	_ bin.BareEncoder = &MessagesGetScheduledMessagesRequest{}
+	_ bin.BareDecoder = &MessagesGetScheduledMessagesRequest{}
+)
+
 func (g *MessagesGetScheduledMessagesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -137,16 +145,6 @@ func (g *MessagesGetScheduledMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetScheduledMessagesRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetID returns value of ID field.
-func (g *MessagesGetScheduledMessagesRequest) GetID() (value []int) {
-	return g.ID
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetScheduledMessagesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -190,13 +188,15 @@ func (g *MessagesGetScheduledMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetScheduledMessagesRequest.
-var (
-	_ bin.Encoder     = &MessagesGetScheduledMessagesRequest{}
-	_ bin.Decoder     = &MessagesGetScheduledMessagesRequest{}
-	_ bin.BareEncoder = &MessagesGetScheduledMessagesRequest{}
-	_ bin.BareDecoder = &MessagesGetScheduledMessagesRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetScheduledMessagesRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetID returns value of ID field.
+func (g *MessagesGetScheduledMessagesRequest) GetID() (value []int) {
+	return g.ID
+}
 
 // MessagesGetScheduledMessages invokes method messages.getScheduledMessages#bdbb0464 returning error if any.
 // Get scheduled messages

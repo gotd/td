@@ -64,6 +64,14 @@ type MessagesSaveDraftRequest struct {
 // MessagesSaveDraftRequestTypeID is TL type id of MessagesSaveDraftRequest.
 const MessagesSaveDraftRequestTypeID = 0xbc39e14b
 
+// Ensuring interfaces in compile-time for MessagesSaveDraftRequest.
+var (
+	_ bin.Encoder     = &MessagesSaveDraftRequest{}
+	_ bin.Decoder     = &MessagesSaveDraftRequest{}
+	_ bin.BareEncoder = &MessagesSaveDraftRequest{}
+	_ bin.BareDecoder = &MessagesSaveDraftRequest{}
+)
+
 func (s *MessagesSaveDraftRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -220,70 +228,6 @@ func (s *MessagesSaveDraftRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetNoWebpage sets value of NoWebpage conditional field.
-func (s *MessagesSaveDraftRequest) SetNoWebpage(value bool) {
-	if value {
-		s.Flags.Set(1)
-		s.NoWebpage = true
-	} else {
-		s.Flags.Unset(1)
-		s.NoWebpage = false
-	}
-}
-
-// GetNoWebpage returns value of NoWebpage conditional field.
-func (s *MessagesSaveDraftRequest) GetNoWebpage() (value bool) {
-	return s.Flags.Has(1)
-}
-
-// SetReplyToMsgID sets value of ReplyToMsgID conditional field.
-func (s *MessagesSaveDraftRequest) SetReplyToMsgID(value int) {
-	s.Flags.Set(0)
-	s.ReplyToMsgID = value
-}
-
-// GetReplyToMsgID returns value of ReplyToMsgID conditional field and
-// boolean which is true if field was set.
-func (s *MessagesSaveDraftRequest) GetReplyToMsgID() (value int, ok bool) {
-	if !s.Flags.Has(0) {
-		return value, false
-	}
-	return s.ReplyToMsgID, true
-}
-
-// GetPeer returns value of Peer field.
-func (s *MessagesSaveDraftRequest) GetPeer() (value InputPeerClass) {
-	return s.Peer
-}
-
-// GetMessage returns value of Message field.
-func (s *MessagesSaveDraftRequest) GetMessage() (value string) {
-	return s.Message
-}
-
-// SetEntities sets value of Entities conditional field.
-func (s *MessagesSaveDraftRequest) SetEntities(value []MessageEntityClass) {
-	s.Flags.Set(3)
-	s.Entities = value
-}
-
-// GetEntities returns value of Entities conditional field and
-// boolean which is true if field was set.
-func (s *MessagesSaveDraftRequest) GetEntities() (value []MessageEntityClass, ok bool) {
-	if !s.Flags.Has(3) {
-		return value, false
-	}
-	return s.Entities, true
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (s *MessagesSaveDraftRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !s.Flags.Has(3) {
-		return value, false
-	}
-	return MessageEntityClassArray(s.Entities), true
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSaveDraftRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -347,13 +291,69 @@ func (s *MessagesSaveDraftRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSaveDraftRequest.
-var (
-	_ bin.Encoder     = &MessagesSaveDraftRequest{}
-	_ bin.Decoder     = &MessagesSaveDraftRequest{}
-	_ bin.BareEncoder = &MessagesSaveDraftRequest{}
-	_ bin.BareDecoder = &MessagesSaveDraftRequest{}
-)
+// SetNoWebpage sets value of NoWebpage conditional field.
+func (s *MessagesSaveDraftRequest) SetNoWebpage(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.NoWebpage = true
+	} else {
+		s.Flags.Unset(1)
+		s.NoWebpage = false
+	}
+}
+
+// GetNoWebpage returns value of NoWebpage conditional field.
+func (s *MessagesSaveDraftRequest) GetNoWebpage() (value bool) {
+	return s.Flags.Has(1)
+}
+
+// SetReplyToMsgID sets value of ReplyToMsgID conditional field.
+func (s *MessagesSaveDraftRequest) SetReplyToMsgID(value int) {
+	s.Flags.Set(0)
+	s.ReplyToMsgID = value
+}
+
+// GetReplyToMsgID returns value of ReplyToMsgID conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSaveDraftRequest) GetReplyToMsgID() (value int, ok bool) {
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.ReplyToMsgID, true
+}
+
+// GetPeer returns value of Peer field.
+func (s *MessagesSaveDraftRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetMessage returns value of Message field.
+func (s *MessagesSaveDraftRequest) GetMessage() (value string) {
+	return s.Message
+}
+
+// SetEntities sets value of Entities conditional field.
+func (s *MessagesSaveDraftRequest) SetEntities(value []MessageEntityClass) {
+	s.Flags.Set(3)
+	s.Entities = value
+}
+
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSaveDraftRequest) GetEntities() (value []MessageEntityClass, ok bool) {
+	if !s.Flags.Has(3) {
+		return value, false
+	}
+	return s.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (s *MessagesSaveDraftRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !s.Flags.Has(3) {
+		return value, false
+	}
+	return MessageEntityClassArray(s.Entities), true
+}
 
 // MessagesSaveDraft invokes method messages.saveDraft#bc39e14b returning error if any.
 // Save a message draft¹ associated to a chat.

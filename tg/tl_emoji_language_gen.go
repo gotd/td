@@ -41,6 +41,14 @@ type EmojiLanguage struct {
 // EmojiLanguageTypeID is TL type id of EmojiLanguage.
 const EmojiLanguageTypeID = 0xb3fb5361
 
+// Ensuring interfaces in compile-time for EmojiLanguage.
+var (
+	_ bin.Encoder     = &EmojiLanguage{}
+	_ bin.Decoder     = &EmojiLanguage{}
+	_ bin.BareEncoder = &EmojiLanguage{}
+	_ bin.BareDecoder = &EmojiLanguage{}
+)
+
 func (e *EmojiLanguage) Zero() bool {
 	if e == nil {
 		return true
@@ -117,11 +125,6 @@ func (e *EmojiLanguage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLangCode returns value of LangCode field.
-func (e *EmojiLanguage) GetLangCode() (value string) {
-	return e.LangCode
-}
-
 // Decode implements bin.Decoder.
 func (e *EmojiLanguage) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -148,10 +151,7 @@ func (e *EmojiLanguage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for EmojiLanguage.
-var (
-	_ bin.Encoder     = &EmojiLanguage{}
-	_ bin.Decoder     = &EmojiLanguage{}
-	_ bin.BareEncoder = &EmojiLanguage{}
-	_ bin.BareDecoder = &EmojiLanguage{}
-)
+// GetLangCode returns value of LangCode field.
+func (e *EmojiLanguage) GetLangCode() (value string) {
+	return e.LangCode
+}

@@ -54,6 +54,19 @@ type InputFile struct {
 // InputFileTypeID is TL type id of InputFile.
 const InputFileTypeID = 0xf52ff27f
 
+// construct implements constructor of InputFileClass.
+func (i InputFile) construct() InputFileClass { return &i }
+
+// Ensuring interfaces in compile-time for InputFile.
+var (
+	_ bin.Encoder     = &InputFile{}
+	_ bin.Decoder     = &InputFile{}
+	_ bin.BareEncoder = &InputFile{}
+	_ bin.BareDecoder = &InputFile{}
+
+	_ InputFileClass = &InputFile{}
+)
+
 func (i *InputFile) Zero() bool {
 	if i == nil {
 		return true
@@ -160,26 +173,6 @@ func (i *InputFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputFile) GetID() (value int64) {
-	return i.ID
-}
-
-// GetParts returns value of Parts field.
-func (i *InputFile) GetParts() (value int) {
-	return i.Parts
-}
-
-// GetName returns value of Name field.
-func (i *InputFile) GetName() (value string) {
-	return i.Name
-}
-
-// GetMD5Checksum returns value of MD5Checksum field.
-func (i *InputFile) GetMD5Checksum() (value string) {
-	return i.MD5Checksum
-}
-
 // Decode implements bin.Decoder.
 func (i *InputFile) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -227,18 +220,25 @@ func (i *InputFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileClass.
-func (i InputFile) construct() InputFileClass { return &i }
+// GetID returns value of ID field.
+func (i *InputFile) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputFile.
-var (
-	_ bin.Encoder     = &InputFile{}
-	_ bin.Decoder     = &InputFile{}
-	_ bin.BareEncoder = &InputFile{}
-	_ bin.BareDecoder = &InputFile{}
+// GetParts returns value of Parts field.
+func (i *InputFile) GetParts() (value int) {
+	return i.Parts
+}
 
-	_ InputFileClass = &InputFile{}
-)
+// GetName returns value of Name field.
+func (i *InputFile) GetName() (value string) {
+	return i.Name
+}
+
+// GetMD5Checksum returns value of MD5Checksum field.
+func (i *InputFile) GetMD5Checksum() (value string) {
+	return i.MD5Checksum
+}
 
 // InputFileBig represents TL type `inputFileBig#fa4f0bb5`.
 // Assigns a big file (over 10Mb in size), saved in part using the method upload
@@ -259,6 +259,19 @@ type InputFileBig struct {
 
 // InputFileBigTypeID is TL type id of InputFileBig.
 const InputFileBigTypeID = 0xfa4f0bb5
+
+// construct implements constructor of InputFileClass.
+func (i InputFileBig) construct() InputFileClass { return &i }
+
+// Ensuring interfaces in compile-time for InputFileBig.
+var (
+	_ bin.Encoder     = &InputFileBig{}
+	_ bin.Decoder     = &InputFileBig{}
+	_ bin.BareEncoder = &InputFileBig{}
+	_ bin.BareDecoder = &InputFileBig{}
+
+	_ InputFileClass = &InputFileBig{}
+)
 
 func (i *InputFileBig) Zero() bool {
 	if i == nil {
@@ -356,21 +369,6 @@ func (i *InputFileBig) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputFileBig) GetID() (value int64) {
-	return i.ID
-}
-
-// GetParts returns value of Parts field.
-func (i *InputFileBig) GetParts() (value int) {
-	return i.Parts
-}
-
-// GetName returns value of Name field.
-func (i *InputFileBig) GetName() (value string) {
-	return i.Name
-}
-
 // Decode implements bin.Decoder.
 func (i *InputFileBig) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -411,18 +409,20 @@ func (i *InputFileBig) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputFileClass.
-func (i InputFileBig) construct() InputFileClass { return &i }
+// GetID returns value of ID field.
+func (i *InputFileBig) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputFileBig.
-var (
-	_ bin.Encoder     = &InputFileBig{}
-	_ bin.Decoder     = &InputFileBig{}
-	_ bin.BareEncoder = &InputFileBig{}
-	_ bin.BareDecoder = &InputFileBig{}
+// GetParts returns value of Parts field.
+func (i *InputFileBig) GetParts() (value int) {
+	return i.Parts
+}
 
-	_ InputFileClass = &InputFileBig{}
-)
+// GetName returns value of Name field.
+func (i *InputFileBig) GetName() (value string) {
+	return i.Name
+}
 
 // InputFileClass represents InputFile generic type.
 //
@@ -516,276 +516,4 @@ func (b *InputFileBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputFileClass as nil")
 	}
 	return b.InputFile.Encode(buf)
-}
-
-// InputFileClassArray is adapter for slice of InputFileClass.
-type InputFileClassArray []InputFileClass
-
-// Sort sorts slice of InputFileClass.
-func (s InputFileClassArray) Sort(less func(a, b InputFileClass) bool) InputFileClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputFileClass.
-func (s InputFileClassArray) SortStable(less func(a, b InputFileClass) bool) InputFileClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputFileClass.
-func (s InputFileClassArray) Retain(keep func(x InputFileClass) bool) InputFileClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputFileClassArray) First() (v InputFileClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputFileClassArray) Last() (v InputFileClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputFileClassArray) PopFirst() (v InputFileClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputFileClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputFileClassArray) Pop() (v InputFileClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsInputFile returns copy with only InputFile constructors.
-func (s InputFileClassArray) AsInputFile() (to InputFileArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputFile)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputFileBig returns copy with only InputFileBig constructors.
-func (s InputFileClassArray) AsInputFileBig() (to InputFileBigArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputFileBig)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// InputFileArray is adapter for slice of InputFile.
-type InputFileArray []InputFile
-
-// Sort sorts slice of InputFile.
-func (s InputFileArray) Sort(less func(a, b InputFile) bool) InputFileArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputFile.
-func (s InputFileArray) SortStable(less func(a, b InputFile) bool) InputFileArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputFile.
-func (s InputFileArray) Retain(keep func(x InputFile) bool) InputFileArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputFileArray) First() (v InputFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputFileArray) Last() (v InputFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputFileArray) PopFirst() (v InputFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputFile
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputFileArray) Pop() (v InputFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputFileBigArray is adapter for slice of InputFileBig.
-type InputFileBigArray []InputFileBig
-
-// Sort sorts slice of InputFileBig.
-func (s InputFileBigArray) Sort(less func(a, b InputFileBig) bool) InputFileBigArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputFileBig.
-func (s InputFileBigArray) SortStable(less func(a, b InputFileBig) bool) InputFileBigArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputFileBig.
-func (s InputFileBigArray) Retain(keep func(x InputFileBig) bool) InputFileBigArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputFileBigArray) First() (v InputFileBig, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputFileBigArray) Last() (v InputFileBig, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputFileBigArray) PopFirst() (v InputFileBig, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputFileBig
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputFileBigArray) Pop() (v InputFileBig, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

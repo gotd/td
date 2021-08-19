@@ -43,6 +43,14 @@ type MessagesGetEmojiURLRequest struct {
 // MessagesGetEmojiURLRequestTypeID is TL type id of MessagesGetEmojiURLRequest.
 const MessagesGetEmojiURLRequestTypeID = 0xd5b10c26
 
+// Ensuring interfaces in compile-time for MessagesGetEmojiURLRequest.
+var (
+	_ bin.Encoder     = &MessagesGetEmojiURLRequest{}
+	_ bin.Decoder     = &MessagesGetEmojiURLRequest{}
+	_ bin.BareEncoder = &MessagesGetEmojiURLRequest{}
+	_ bin.BareDecoder = &MessagesGetEmojiURLRequest{}
+)
+
 func (g *MessagesGetEmojiURLRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -119,11 +127,6 @@ func (g *MessagesGetEmojiURLRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLangCode returns value of LangCode field.
-func (g *MessagesGetEmojiURLRequest) GetLangCode() (value string) {
-	return g.LangCode
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetEmojiURLRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -150,13 +153,10 @@ func (g *MessagesGetEmojiURLRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetEmojiURLRequest.
-var (
-	_ bin.Encoder     = &MessagesGetEmojiURLRequest{}
-	_ bin.Decoder     = &MessagesGetEmojiURLRequest{}
-	_ bin.BareEncoder = &MessagesGetEmojiURLRequest{}
-	_ bin.BareDecoder = &MessagesGetEmojiURLRequest{}
-)
+// GetLangCode returns value of LangCode field.
+func (g *MessagesGetEmojiURLRequest) GetLangCode() (value string) {
+	return g.LangCode
+}
 
 // MessagesGetEmojiURL invokes method messages.getEmojiURL#d5b10c26 returning error if any.
 // Returns an HTTP URL which can be used to automatically log in into translation

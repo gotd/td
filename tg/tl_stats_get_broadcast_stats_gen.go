@@ -51,6 +51,14 @@ type StatsGetBroadcastStatsRequest struct {
 // StatsGetBroadcastStatsRequestTypeID is TL type id of StatsGetBroadcastStatsRequest.
 const StatsGetBroadcastStatsRequestTypeID = 0xab42441a
 
+// Ensuring interfaces in compile-time for StatsGetBroadcastStatsRequest.
+var (
+	_ bin.Encoder     = &StatsGetBroadcastStatsRequest{}
+	_ bin.Decoder     = &StatsGetBroadcastStatsRequest{}
+	_ bin.BareEncoder = &StatsGetBroadcastStatsRequest{}
+	_ bin.BareDecoder = &StatsGetBroadcastStatsRequest{}
+)
+
 func (g *StatsGetBroadcastStatsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -151,32 +159,6 @@ func (g *StatsGetBroadcastStatsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetDark sets value of Dark conditional field.
-func (g *StatsGetBroadcastStatsRequest) SetDark(value bool) {
-	if value {
-		g.Flags.Set(0)
-		g.Dark = true
-	} else {
-		g.Flags.Unset(0)
-		g.Dark = false
-	}
-}
-
-// GetDark returns value of Dark conditional field.
-func (g *StatsGetBroadcastStatsRequest) GetDark() (value bool) {
-	return g.Flags.Has(0)
-}
-
-// GetChannel returns value of Channel field.
-func (g *StatsGetBroadcastStatsRequest) GetChannel() (value InputChannelClass) {
-	return g.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (g *StatsGetBroadcastStatsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (g *StatsGetBroadcastStatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -209,13 +191,31 @@ func (g *StatsGetBroadcastStatsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsGetBroadcastStatsRequest.
-var (
-	_ bin.Encoder     = &StatsGetBroadcastStatsRequest{}
-	_ bin.Decoder     = &StatsGetBroadcastStatsRequest{}
-	_ bin.BareEncoder = &StatsGetBroadcastStatsRequest{}
-	_ bin.BareDecoder = &StatsGetBroadcastStatsRequest{}
-)
+// SetDark sets value of Dark conditional field.
+func (g *StatsGetBroadcastStatsRequest) SetDark(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.Dark = true
+	} else {
+		g.Flags.Unset(0)
+		g.Dark = false
+	}
+}
+
+// GetDark returns value of Dark conditional field.
+func (g *StatsGetBroadcastStatsRequest) GetDark() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// GetChannel returns value of Channel field.
+func (g *StatsGetBroadcastStatsRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *StatsGetBroadcastStatsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
+}
 
 // StatsGetBroadcastStats invokes method stats.getBroadcastStats#ab42441a returning error if any.
 // Get channel statistics¹

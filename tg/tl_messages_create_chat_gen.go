@@ -43,6 +43,14 @@ type MessagesCreateChatRequest struct {
 // MessagesCreateChatRequestTypeID is TL type id of MessagesCreateChatRequest.
 const MessagesCreateChatRequestTypeID = 0x9cb126e
 
+// Ensuring interfaces in compile-time for MessagesCreateChatRequest.
+var (
+	_ bin.Encoder     = &MessagesCreateChatRequest{}
+	_ bin.Decoder     = &MessagesCreateChatRequest{}
+	_ bin.BareEncoder = &MessagesCreateChatRequest{}
+	_ bin.BareDecoder = &MessagesCreateChatRequest{}
+)
+
 func (c *MessagesCreateChatRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -137,21 +145,6 @@ func (c *MessagesCreateChatRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUsers returns value of Users field.
-func (c *MessagesCreateChatRequest) GetUsers() (value []InputUserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in InputUserClassArray helper.
-func (c *MessagesCreateChatRequest) MapUsers() (value InputUserClassArray) {
-	return InputUserClassArray(c.Users)
-}
-
-// GetTitle returns value of Title field.
-func (c *MessagesCreateChatRequest) GetTitle() (value string) {
-	return c.Title
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesCreateChatRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -195,13 +188,20 @@ func (c *MessagesCreateChatRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesCreateChatRequest.
-var (
-	_ bin.Encoder     = &MessagesCreateChatRequest{}
-	_ bin.Decoder     = &MessagesCreateChatRequest{}
-	_ bin.BareEncoder = &MessagesCreateChatRequest{}
-	_ bin.BareDecoder = &MessagesCreateChatRequest{}
-)
+// GetUsers returns value of Users field.
+func (c *MessagesCreateChatRequest) GetUsers() (value []InputUserClass) {
+	return c.Users
+}
+
+// GetTitle returns value of Title field.
+func (c *MessagesCreateChatRequest) GetTitle() (value string) {
+	return c.Title
+}
+
+// MapUsers returns field Users wrapped in InputUserClassArray helper.
+func (c *MessagesCreateChatRequest) MapUsers() (value InputUserClassArray) {
+	return InputUserClassArray(c.Users)
+}
 
 // MessagesCreateChat invokes method messages.createChat#9cb126e returning error if any.
 // Creates a new chat.

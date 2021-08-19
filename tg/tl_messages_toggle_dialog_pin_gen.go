@@ -48,6 +48,14 @@ type MessagesToggleDialogPinRequest struct {
 // MessagesToggleDialogPinRequestTypeID is TL type id of MessagesToggleDialogPinRequest.
 const MessagesToggleDialogPinRequestTypeID = 0xa731e257
 
+// Ensuring interfaces in compile-time for MessagesToggleDialogPinRequest.
+var (
+	_ bin.Encoder     = &MessagesToggleDialogPinRequest{}
+	_ bin.Decoder     = &MessagesToggleDialogPinRequest{}
+	_ bin.BareEncoder = &MessagesToggleDialogPinRequest{}
+	_ bin.BareDecoder = &MessagesToggleDialogPinRequest{}
+)
+
 func (t *MessagesToggleDialogPinRequest) Zero() bool {
 	if t == nil {
 		return true
@@ -148,27 +156,6 @@ func (t *MessagesToggleDialogPinRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetPinned sets value of Pinned conditional field.
-func (t *MessagesToggleDialogPinRequest) SetPinned(value bool) {
-	if value {
-		t.Flags.Set(0)
-		t.Pinned = true
-	} else {
-		t.Flags.Unset(0)
-		t.Pinned = false
-	}
-}
-
-// GetPinned returns value of Pinned conditional field.
-func (t *MessagesToggleDialogPinRequest) GetPinned() (value bool) {
-	return t.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (t *MessagesToggleDialogPinRequest) GetPeer() (value InputDialogPeerClass) {
-	return t.Peer
-}
-
 // Decode implements bin.Decoder.
 func (t *MessagesToggleDialogPinRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -201,13 +188,26 @@ func (t *MessagesToggleDialogPinRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesToggleDialogPinRequest.
-var (
-	_ bin.Encoder     = &MessagesToggleDialogPinRequest{}
-	_ bin.Decoder     = &MessagesToggleDialogPinRequest{}
-	_ bin.BareEncoder = &MessagesToggleDialogPinRequest{}
-	_ bin.BareDecoder = &MessagesToggleDialogPinRequest{}
-)
+// SetPinned sets value of Pinned conditional field.
+func (t *MessagesToggleDialogPinRequest) SetPinned(value bool) {
+	if value {
+		t.Flags.Set(0)
+		t.Pinned = true
+	} else {
+		t.Flags.Unset(0)
+		t.Pinned = false
+	}
+}
+
+// GetPinned returns value of Pinned conditional field.
+func (t *MessagesToggleDialogPinRequest) GetPinned() (value bool) {
+	return t.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (t *MessagesToggleDialogPinRequest) GetPeer() (value InputDialogPeerClass) {
+	return t.Peer
+}
 
 // MessagesToggleDialogPin invokes method messages.toggleDialogPin#a731e257 returning error if any.
 // Pin/unpin a dialog

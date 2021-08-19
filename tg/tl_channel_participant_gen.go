@@ -43,6 +43,19 @@ type ChannelParticipant struct {
 // ChannelParticipantTypeID is TL type id of ChannelParticipant.
 const ChannelParticipantTypeID = 0x15ebac1d
 
+// construct implements constructor of ChannelParticipantClass.
+func (c ChannelParticipant) construct() ChannelParticipantClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipant.
+var (
+	_ bin.Encoder     = &ChannelParticipant{}
+	_ bin.Decoder     = &ChannelParticipant{}
+	_ bin.BareEncoder = &ChannelParticipant{}
+	_ bin.BareDecoder = &ChannelParticipant{}
+
+	_ ChannelParticipantClass = &ChannelParticipant{}
+)
+
 func (c *ChannelParticipant) Zero() bool {
 	if c == nil {
 		return true
@@ -129,16 +142,6 @@ func (c *ChannelParticipant) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (c *ChannelParticipant) GetUserID() (value int) {
-	return c.UserID
-}
-
-// GetDate returns value of Date field.
-func (c *ChannelParticipant) GetDate() (value int) {
-	return c.Date
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelParticipant) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -172,18 +175,15 @@ func (c *ChannelParticipant) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelParticipantClass.
-func (c ChannelParticipant) construct() ChannelParticipantClass { return &c }
+// GetUserID returns value of UserID field.
+func (c *ChannelParticipant) GetUserID() (value int) {
+	return c.UserID
+}
 
-// Ensuring interfaces in compile-time for ChannelParticipant.
-var (
-	_ bin.Encoder     = &ChannelParticipant{}
-	_ bin.Decoder     = &ChannelParticipant{}
-	_ bin.BareEncoder = &ChannelParticipant{}
-	_ bin.BareDecoder = &ChannelParticipant{}
-
-	_ ChannelParticipantClass = &ChannelParticipant{}
-)
+// GetDate returns value of Date field.
+func (c *ChannelParticipant) GetDate() (value int) {
+	return c.Date
+}
 
 // ChannelParticipantSelf represents TL type `channelParticipantSelf#a3289a6d`.
 // Myself
@@ -200,6 +200,19 @@ type ChannelParticipantSelf struct {
 
 // ChannelParticipantSelfTypeID is TL type id of ChannelParticipantSelf.
 const ChannelParticipantSelfTypeID = 0xa3289a6d
+
+// construct implements constructor of ChannelParticipantClass.
+func (c ChannelParticipantSelf) construct() ChannelParticipantClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipantSelf.
+var (
+	_ bin.Encoder     = &ChannelParticipantSelf{}
+	_ bin.Decoder     = &ChannelParticipantSelf{}
+	_ bin.BareEncoder = &ChannelParticipantSelf{}
+	_ bin.BareDecoder = &ChannelParticipantSelf{}
+
+	_ ChannelParticipantClass = &ChannelParticipantSelf{}
+)
 
 func (c *ChannelParticipantSelf) Zero() bool {
 	if c == nil {
@@ -297,21 +310,6 @@ func (c *ChannelParticipantSelf) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (c *ChannelParticipantSelf) GetUserID() (value int) {
-	return c.UserID
-}
-
-// GetInviterID returns value of InviterID field.
-func (c *ChannelParticipantSelf) GetInviterID() (value int) {
-	return c.InviterID
-}
-
-// GetDate returns value of Date field.
-func (c *ChannelParticipantSelf) GetDate() (value int) {
-	return c.Date
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelParticipantSelf) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -352,18 +350,20 @@ func (c *ChannelParticipantSelf) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelParticipantClass.
-func (c ChannelParticipantSelf) construct() ChannelParticipantClass { return &c }
+// GetUserID returns value of UserID field.
+func (c *ChannelParticipantSelf) GetUserID() (value int) {
+	return c.UserID
+}
 
-// Ensuring interfaces in compile-time for ChannelParticipantSelf.
-var (
-	_ bin.Encoder     = &ChannelParticipantSelf{}
-	_ bin.Decoder     = &ChannelParticipantSelf{}
-	_ bin.BareEncoder = &ChannelParticipantSelf{}
-	_ bin.BareDecoder = &ChannelParticipantSelf{}
+// GetInviterID returns value of InviterID field.
+func (c *ChannelParticipantSelf) GetInviterID() (value int) {
+	return c.InviterID
+}
 
-	_ ChannelParticipantClass = &ChannelParticipantSelf{}
-)
+// GetDate returns value of Date field.
+func (c *ChannelParticipantSelf) GetDate() (value int) {
+	return c.Date
+}
 
 // ChannelParticipantCreator represents TL type `channelParticipantCreator#447dca4b`.
 // Channel/supergroup creator
@@ -388,6 +388,19 @@ type ChannelParticipantCreator struct {
 
 // ChannelParticipantCreatorTypeID is TL type id of ChannelParticipantCreator.
 const ChannelParticipantCreatorTypeID = 0x447dca4b
+
+// construct implements constructor of ChannelParticipantClass.
+func (c ChannelParticipantCreator) construct() ChannelParticipantClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipantCreator.
+var (
+	_ bin.Encoder     = &ChannelParticipantCreator{}
+	_ bin.Decoder     = &ChannelParticipantCreator{}
+	_ bin.BareEncoder = &ChannelParticipantCreator{}
+	_ bin.BareDecoder = &ChannelParticipantCreator{}
+
+	_ ChannelParticipantClass = &ChannelParticipantCreator{}
+)
 
 func (c *ChannelParticipantCreator) Zero() bool {
 	if c == nil {
@@ -502,31 +515,6 @@ func (c *ChannelParticipantCreator) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (c *ChannelParticipantCreator) GetUserID() (value int) {
-	return c.UserID
-}
-
-// GetAdminRights returns value of AdminRights field.
-func (c *ChannelParticipantCreator) GetAdminRights() (value ChatAdminRights) {
-	return c.AdminRights
-}
-
-// SetRank sets value of Rank conditional field.
-func (c *ChannelParticipantCreator) SetRank(value string) {
-	c.Flags.Set(0)
-	c.Rank = value
-}
-
-// GetRank returns value of Rank conditional field and
-// boolean which is true if field was set.
-func (c *ChannelParticipantCreator) GetRank() (value string, ok bool) {
-	if !c.Flags.Has(0) {
-		return value, false
-	}
-	return c.Rank, true
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelParticipantCreator) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -570,18 +558,30 @@ func (c *ChannelParticipantCreator) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelParticipantClass.
-func (c ChannelParticipantCreator) construct() ChannelParticipantClass { return &c }
+// GetUserID returns value of UserID field.
+func (c *ChannelParticipantCreator) GetUserID() (value int) {
+	return c.UserID
+}
 
-// Ensuring interfaces in compile-time for ChannelParticipantCreator.
-var (
-	_ bin.Encoder     = &ChannelParticipantCreator{}
-	_ bin.Decoder     = &ChannelParticipantCreator{}
-	_ bin.BareEncoder = &ChannelParticipantCreator{}
-	_ bin.BareDecoder = &ChannelParticipantCreator{}
+// GetAdminRights returns value of AdminRights field.
+func (c *ChannelParticipantCreator) GetAdminRights() (value ChatAdminRights) {
+	return c.AdminRights
+}
 
-	_ ChannelParticipantClass = &ChannelParticipantCreator{}
-)
+// SetRank sets value of Rank conditional field.
+func (c *ChannelParticipantCreator) SetRank(value string) {
+	c.Flags.Set(0)
+	c.Rank = value
+}
+
+// GetRank returns value of Rank conditional field and
+// boolean which is true if field was set.
+func (c *ChannelParticipantCreator) GetRank() (value string, ok bool) {
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.Rank, true
+}
 
 // ChannelParticipantAdmin represents TL type `channelParticipantAdmin#ccbebbaf`.
 // Admin
@@ -620,6 +620,19 @@ type ChannelParticipantAdmin struct {
 
 // ChannelParticipantAdminTypeID is TL type id of ChannelParticipantAdmin.
 const ChannelParticipantAdminTypeID = 0xccbebbaf
+
+// construct implements constructor of ChannelParticipantClass.
+func (c ChannelParticipantAdmin) construct() ChannelParticipantClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipantAdmin.
+var (
+	_ bin.Encoder     = &ChannelParticipantAdmin{}
+	_ bin.Decoder     = &ChannelParticipantAdmin{}
+	_ bin.BareEncoder = &ChannelParticipantAdmin{}
+	_ bin.BareDecoder = &ChannelParticipantAdmin{}
+
+	_ ChannelParticipantClass = &ChannelParticipantAdmin{}
+)
 
 func (c *ChannelParticipantAdmin) Zero() bool {
 	if c == nil {
@@ -799,6 +812,72 @@ func (c *ChannelParticipantAdmin) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *ChannelParticipantAdmin) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelParticipantAdmin#ccbebbaf to nil")
+	}
+	if err := b.ConsumeID(ChannelParticipantAdminTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelParticipantAdmin) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelParticipantAdmin#ccbebbaf to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field flags: %w", err)
+		}
+	}
+	c.CanEdit = c.Flags.Has(0)
+	c.Self = c.Flags.Has(1)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field user_id: %w", err)
+		}
+		c.UserID = value
+	}
+	if c.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field inviter_id: %w", err)
+		}
+		c.InviterID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field promoted_by: %w", err)
+		}
+		c.PromotedBy = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field date: %w", err)
+		}
+		c.Date = value
+	}
+	{
+		if err := c.AdminRights.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field admin_rights: %w", err)
+		}
+	}
+	if c.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field rank: %w", err)
+		}
+		c.Rank = value
+	}
+	return nil
+}
+
 // SetCanEdit sets value of CanEdit conditional field.
 func (c *ChannelParticipantAdmin) SetCanEdit(value bool) {
 	if value {
@@ -881,85 +960,6 @@ func (c *ChannelParticipantAdmin) GetRank() (value string, ok bool) {
 	return c.Rank, true
 }
 
-// Decode implements bin.Decoder.
-func (c *ChannelParticipantAdmin) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode channelParticipantAdmin#ccbebbaf to nil")
-	}
-	if err := b.ConsumeID(ChannelParticipantAdminTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChannelParticipantAdmin) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode channelParticipantAdmin#ccbebbaf to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field flags: %w", err)
-		}
-	}
-	c.CanEdit = c.Flags.Has(0)
-	c.Self = c.Flags.Has(1)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field user_id: %w", err)
-		}
-		c.UserID = value
-	}
-	if c.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field inviter_id: %w", err)
-		}
-		c.InviterID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field promoted_by: %w", err)
-		}
-		c.PromotedBy = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field date: %w", err)
-		}
-		c.Date = value
-	}
-	{
-		if err := c.AdminRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field admin_rights: %w", err)
-		}
-	}
-	if c.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field rank: %w", err)
-		}
-		c.Rank = value
-	}
-	return nil
-}
-
-// construct implements constructor of ChannelParticipantClass.
-func (c ChannelParticipantAdmin) construct() ChannelParticipantClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelParticipantAdmin.
-var (
-	_ bin.Encoder     = &ChannelParticipantAdmin{}
-	_ bin.Decoder     = &ChannelParticipantAdmin{}
-	_ bin.BareEncoder = &ChannelParticipantAdmin{}
-	_ bin.BareDecoder = &ChannelParticipantAdmin{}
-
-	_ ChannelParticipantClass = &ChannelParticipantAdmin{}
-)
-
 // ChannelParticipantBanned represents TL type `channelParticipantBanned#50a1dfd6`.
 // Banned/kicked user
 //
@@ -987,6 +987,19 @@ type ChannelParticipantBanned struct {
 
 // ChannelParticipantBannedTypeID is TL type id of ChannelParticipantBanned.
 const ChannelParticipantBannedTypeID = 0x50a1dfd6
+
+// construct implements constructor of ChannelParticipantClass.
+func (c ChannelParticipantBanned) construct() ChannelParticipantClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipantBanned.
+var (
+	_ bin.Encoder     = &ChannelParticipantBanned{}
+	_ bin.Decoder     = &ChannelParticipantBanned{}
+	_ bin.BareEncoder = &ChannelParticipantBanned{}
+	_ bin.BareDecoder = &ChannelParticipantBanned{}
+
+	_ ChannelParticipantClass = &ChannelParticipantBanned{}
+)
 
 func (c *ChannelParticipantBanned) Zero() bool {
 	if c == nil {
@@ -1120,42 +1133,6 @@ func (c *ChannelParticipantBanned) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetLeft sets value of Left conditional field.
-func (c *ChannelParticipantBanned) SetLeft(value bool) {
-	if value {
-		c.Flags.Set(0)
-		c.Left = true
-	} else {
-		c.Flags.Unset(0)
-		c.Left = false
-	}
-}
-
-// GetLeft returns value of Left conditional field.
-func (c *ChannelParticipantBanned) GetLeft() (value bool) {
-	return c.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (c *ChannelParticipantBanned) GetPeer() (value PeerClass) {
-	return c.Peer
-}
-
-// GetKickedBy returns value of KickedBy field.
-func (c *ChannelParticipantBanned) GetKickedBy() (value int) {
-	return c.KickedBy
-}
-
-// GetDate returns value of Date field.
-func (c *ChannelParticipantBanned) GetDate() (value int) {
-	return c.Date
-}
-
-// GetBannedRights returns value of BannedRights field.
-func (c *ChannelParticipantBanned) GetBannedRights() (value ChatBannedRights) {
-	return c.BannedRights
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelParticipantBanned) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -1207,18 +1184,41 @@ func (c *ChannelParticipantBanned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelParticipantClass.
-func (c ChannelParticipantBanned) construct() ChannelParticipantClass { return &c }
+// SetLeft sets value of Left conditional field.
+func (c *ChannelParticipantBanned) SetLeft(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.Left = true
+	} else {
+		c.Flags.Unset(0)
+		c.Left = false
+	}
+}
 
-// Ensuring interfaces in compile-time for ChannelParticipantBanned.
-var (
-	_ bin.Encoder     = &ChannelParticipantBanned{}
-	_ bin.Decoder     = &ChannelParticipantBanned{}
-	_ bin.BareEncoder = &ChannelParticipantBanned{}
-	_ bin.BareDecoder = &ChannelParticipantBanned{}
+// GetLeft returns value of Left conditional field.
+func (c *ChannelParticipantBanned) GetLeft() (value bool) {
+	return c.Flags.Has(0)
+}
 
-	_ ChannelParticipantClass = &ChannelParticipantBanned{}
-)
+// GetPeer returns value of Peer field.
+func (c *ChannelParticipantBanned) GetPeer() (value PeerClass) {
+	return c.Peer
+}
+
+// GetKickedBy returns value of KickedBy field.
+func (c *ChannelParticipantBanned) GetKickedBy() (value int) {
+	return c.KickedBy
+}
+
+// GetDate returns value of Date field.
+func (c *ChannelParticipantBanned) GetDate() (value int) {
+	return c.Date
+}
+
+// GetBannedRights returns value of BannedRights field.
+func (c *ChannelParticipantBanned) GetBannedRights() (value ChatBannedRights) {
+	return c.BannedRights
+}
 
 // ChannelParticipantLeft represents TL type `channelParticipantLeft#1b03f006`.
 // A participant that left the channel/supergroup
@@ -1231,6 +1231,19 @@ type ChannelParticipantLeft struct {
 
 // ChannelParticipantLeftTypeID is TL type id of ChannelParticipantLeft.
 const ChannelParticipantLeftTypeID = 0x1b03f006
+
+// construct implements constructor of ChannelParticipantClass.
+func (c ChannelParticipantLeft) construct() ChannelParticipantClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelParticipantLeft.
+var (
+	_ bin.Encoder     = &ChannelParticipantLeft{}
+	_ bin.Decoder     = &ChannelParticipantLeft{}
+	_ bin.BareEncoder = &ChannelParticipantLeft{}
+	_ bin.BareDecoder = &ChannelParticipantLeft{}
+
+	_ ChannelParticipantClass = &ChannelParticipantLeft{}
+)
 
 func (c *ChannelParticipantLeft) Zero() bool {
 	if c == nil {
@@ -1313,11 +1326,6 @@ func (c *ChannelParticipantLeft) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (c *ChannelParticipantLeft) GetPeer() (value PeerClass) {
-	return c.Peer
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelParticipantLeft) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -1344,18 +1352,10 @@ func (c *ChannelParticipantLeft) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChannelParticipantClass.
-func (c ChannelParticipantLeft) construct() ChannelParticipantClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelParticipantLeft.
-var (
-	_ bin.Encoder     = &ChannelParticipantLeft{}
-	_ bin.Decoder     = &ChannelParticipantLeft{}
-	_ bin.BareEncoder = &ChannelParticipantLeft{}
-	_ bin.BareDecoder = &ChannelParticipantLeft{}
-
-	_ ChannelParticipantClass = &ChannelParticipantLeft{}
-)
+// GetPeer returns value of Peer field.
+func (c *ChannelParticipantLeft) GetPeer() (value PeerClass) {
+	return c.Peer
+}
 
 // ChannelParticipantClass represents ChannelParticipant generic type.
 //
@@ -1472,712 +1472,4 @@ func (b *ChannelParticipantBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChannelParticipantClass as nil")
 	}
 	return b.ChannelParticipant.Encode(buf)
-}
-
-// ChannelParticipantClassArray is adapter for slice of ChannelParticipantClass.
-type ChannelParticipantClassArray []ChannelParticipantClass
-
-// Sort sorts slice of ChannelParticipantClass.
-func (s ChannelParticipantClassArray) Sort(less func(a, b ChannelParticipantClass) bool) ChannelParticipantClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChannelParticipantClass.
-func (s ChannelParticipantClassArray) SortStable(less func(a, b ChannelParticipantClass) bool) ChannelParticipantClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChannelParticipantClass.
-func (s ChannelParticipantClassArray) Retain(keep func(x ChannelParticipantClass) bool) ChannelParticipantClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChannelParticipantClassArray) First() (v ChannelParticipantClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChannelParticipantClassArray) Last() (v ChannelParticipantClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelParticipantClassArray) PopFirst() (v ChannelParticipantClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChannelParticipantClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelParticipantClassArray) Pop() (v ChannelParticipantClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsChannelParticipant returns copy with only ChannelParticipant constructors.
-func (s ChannelParticipantClassArray) AsChannelParticipant() (to ChannelParticipantArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChannelParticipant)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsChannelParticipantSelf returns copy with only ChannelParticipantSelf constructors.
-func (s ChannelParticipantClassArray) AsChannelParticipantSelf() (to ChannelParticipantSelfArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChannelParticipantSelf)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsChannelParticipantCreator returns copy with only ChannelParticipantCreator constructors.
-func (s ChannelParticipantClassArray) AsChannelParticipantCreator() (to ChannelParticipantCreatorArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChannelParticipantCreator)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsChannelParticipantAdmin returns copy with only ChannelParticipantAdmin constructors.
-func (s ChannelParticipantClassArray) AsChannelParticipantAdmin() (to ChannelParticipantAdminArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChannelParticipantAdmin)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsChannelParticipantBanned returns copy with only ChannelParticipantBanned constructors.
-func (s ChannelParticipantClassArray) AsChannelParticipantBanned() (to ChannelParticipantBannedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChannelParticipantBanned)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsChannelParticipantLeft returns copy with only ChannelParticipantLeft constructors.
-func (s ChannelParticipantClassArray) AsChannelParticipantLeft() (to ChannelParticipantLeftArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChannelParticipantLeft)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// ChannelParticipantArray is adapter for slice of ChannelParticipant.
-type ChannelParticipantArray []ChannelParticipant
-
-// Sort sorts slice of ChannelParticipant.
-func (s ChannelParticipantArray) Sort(less func(a, b ChannelParticipant) bool) ChannelParticipantArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChannelParticipant.
-func (s ChannelParticipantArray) SortStable(less func(a, b ChannelParticipant) bool) ChannelParticipantArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChannelParticipant.
-func (s ChannelParticipantArray) Retain(keep func(x ChannelParticipant) bool) ChannelParticipantArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChannelParticipantArray) First() (v ChannelParticipant, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChannelParticipantArray) Last() (v ChannelParticipant, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelParticipantArray) PopFirst() (v ChannelParticipant, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChannelParticipant
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelParticipantArray) Pop() (v ChannelParticipant, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of ChannelParticipant by Date.
-func (s ChannelParticipantArray) SortByDate() ChannelParticipantArray {
-	return s.Sort(func(a, b ChannelParticipant) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of ChannelParticipant by Date.
-func (s ChannelParticipantArray) SortStableByDate() ChannelParticipantArray {
-	return s.SortStable(func(a, b ChannelParticipant) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// ChannelParticipantSelfArray is adapter for slice of ChannelParticipantSelf.
-type ChannelParticipantSelfArray []ChannelParticipantSelf
-
-// Sort sorts slice of ChannelParticipantSelf.
-func (s ChannelParticipantSelfArray) Sort(less func(a, b ChannelParticipantSelf) bool) ChannelParticipantSelfArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChannelParticipantSelf.
-func (s ChannelParticipantSelfArray) SortStable(less func(a, b ChannelParticipantSelf) bool) ChannelParticipantSelfArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChannelParticipantSelf.
-func (s ChannelParticipantSelfArray) Retain(keep func(x ChannelParticipantSelf) bool) ChannelParticipantSelfArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChannelParticipantSelfArray) First() (v ChannelParticipantSelf, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChannelParticipantSelfArray) Last() (v ChannelParticipantSelf, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelParticipantSelfArray) PopFirst() (v ChannelParticipantSelf, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChannelParticipantSelf
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelParticipantSelfArray) Pop() (v ChannelParticipantSelf, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of ChannelParticipantSelf by Date.
-func (s ChannelParticipantSelfArray) SortByDate() ChannelParticipantSelfArray {
-	return s.Sort(func(a, b ChannelParticipantSelf) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of ChannelParticipantSelf by Date.
-func (s ChannelParticipantSelfArray) SortStableByDate() ChannelParticipantSelfArray {
-	return s.SortStable(func(a, b ChannelParticipantSelf) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// ChannelParticipantCreatorArray is adapter for slice of ChannelParticipantCreator.
-type ChannelParticipantCreatorArray []ChannelParticipantCreator
-
-// Sort sorts slice of ChannelParticipantCreator.
-func (s ChannelParticipantCreatorArray) Sort(less func(a, b ChannelParticipantCreator) bool) ChannelParticipantCreatorArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChannelParticipantCreator.
-func (s ChannelParticipantCreatorArray) SortStable(less func(a, b ChannelParticipantCreator) bool) ChannelParticipantCreatorArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChannelParticipantCreator.
-func (s ChannelParticipantCreatorArray) Retain(keep func(x ChannelParticipantCreator) bool) ChannelParticipantCreatorArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChannelParticipantCreatorArray) First() (v ChannelParticipantCreator, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChannelParticipantCreatorArray) Last() (v ChannelParticipantCreator, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelParticipantCreatorArray) PopFirst() (v ChannelParticipantCreator, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChannelParticipantCreator
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelParticipantCreatorArray) Pop() (v ChannelParticipantCreator, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// ChannelParticipantAdminArray is adapter for slice of ChannelParticipantAdmin.
-type ChannelParticipantAdminArray []ChannelParticipantAdmin
-
-// Sort sorts slice of ChannelParticipantAdmin.
-func (s ChannelParticipantAdminArray) Sort(less func(a, b ChannelParticipantAdmin) bool) ChannelParticipantAdminArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChannelParticipantAdmin.
-func (s ChannelParticipantAdminArray) SortStable(less func(a, b ChannelParticipantAdmin) bool) ChannelParticipantAdminArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChannelParticipantAdmin.
-func (s ChannelParticipantAdminArray) Retain(keep func(x ChannelParticipantAdmin) bool) ChannelParticipantAdminArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChannelParticipantAdminArray) First() (v ChannelParticipantAdmin, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChannelParticipantAdminArray) Last() (v ChannelParticipantAdmin, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelParticipantAdminArray) PopFirst() (v ChannelParticipantAdmin, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChannelParticipantAdmin
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelParticipantAdminArray) Pop() (v ChannelParticipantAdmin, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of ChannelParticipantAdmin by Date.
-func (s ChannelParticipantAdminArray) SortByDate() ChannelParticipantAdminArray {
-	return s.Sort(func(a, b ChannelParticipantAdmin) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of ChannelParticipantAdmin by Date.
-func (s ChannelParticipantAdminArray) SortStableByDate() ChannelParticipantAdminArray {
-	return s.SortStable(func(a, b ChannelParticipantAdmin) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// ChannelParticipantBannedArray is adapter for slice of ChannelParticipantBanned.
-type ChannelParticipantBannedArray []ChannelParticipantBanned
-
-// Sort sorts slice of ChannelParticipantBanned.
-func (s ChannelParticipantBannedArray) Sort(less func(a, b ChannelParticipantBanned) bool) ChannelParticipantBannedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChannelParticipantBanned.
-func (s ChannelParticipantBannedArray) SortStable(less func(a, b ChannelParticipantBanned) bool) ChannelParticipantBannedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChannelParticipantBanned.
-func (s ChannelParticipantBannedArray) Retain(keep func(x ChannelParticipantBanned) bool) ChannelParticipantBannedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChannelParticipantBannedArray) First() (v ChannelParticipantBanned, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChannelParticipantBannedArray) Last() (v ChannelParticipantBanned, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelParticipantBannedArray) PopFirst() (v ChannelParticipantBanned, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChannelParticipantBanned
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelParticipantBannedArray) Pop() (v ChannelParticipantBanned, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of ChannelParticipantBanned by Date.
-func (s ChannelParticipantBannedArray) SortByDate() ChannelParticipantBannedArray {
-	return s.Sort(func(a, b ChannelParticipantBanned) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of ChannelParticipantBanned by Date.
-func (s ChannelParticipantBannedArray) SortStableByDate() ChannelParticipantBannedArray {
-	return s.SortStable(func(a, b ChannelParticipantBanned) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// ChannelParticipantLeftArray is adapter for slice of ChannelParticipantLeft.
-type ChannelParticipantLeftArray []ChannelParticipantLeft
-
-// Sort sorts slice of ChannelParticipantLeft.
-func (s ChannelParticipantLeftArray) Sort(less func(a, b ChannelParticipantLeft) bool) ChannelParticipantLeftArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChannelParticipantLeft.
-func (s ChannelParticipantLeftArray) SortStable(less func(a, b ChannelParticipantLeft) bool) ChannelParticipantLeftArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChannelParticipantLeft.
-func (s ChannelParticipantLeftArray) Retain(keep func(x ChannelParticipantLeft) bool) ChannelParticipantLeftArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChannelParticipantLeftArray) First() (v ChannelParticipantLeft, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChannelParticipantLeftArray) Last() (v ChannelParticipantLeft, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelParticipantLeftArray) PopFirst() (v ChannelParticipantLeft, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChannelParticipantLeft
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelParticipantLeftArray) Pop() (v ChannelParticipantLeft, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

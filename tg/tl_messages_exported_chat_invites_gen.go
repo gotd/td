@@ -44,6 +44,14 @@ type MessagesExportedChatInvites struct {
 // MessagesExportedChatInvitesTypeID is TL type id of MessagesExportedChatInvites.
 const MessagesExportedChatInvitesTypeID = 0xbdc62dcc
 
+// Ensuring interfaces in compile-time for MessagesExportedChatInvites.
+var (
+	_ bin.Encoder     = &MessagesExportedChatInvites{}
+	_ bin.Decoder     = &MessagesExportedChatInvites{}
+	_ bin.BareEncoder = &MessagesExportedChatInvites{}
+	_ bin.BareDecoder = &MessagesExportedChatInvites{}
+)
+
 func (e *MessagesExportedChatInvites) Zero() bool {
 	if e == nil {
 		return true
@@ -153,26 +161,6 @@ func (e *MessagesExportedChatInvites) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (e *MessagesExportedChatInvites) GetCount() (value int) {
-	return e.Count
-}
-
-// GetInvites returns value of Invites field.
-func (e *MessagesExportedChatInvites) GetInvites() (value []ChatInviteExported) {
-	return e.Invites
-}
-
-// GetUsers returns value of Users field.
-func (e *MessagesExportedChatInvites) GetUsers() (value []UserClass) {
-	return e.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (e *MessagesExportedChatInvites) MapUsers() (value UserClassArray) {
-	return UserClassArray(e.Users)
-}
-
 // Decode implements bin.Decoder.
 func (e *MessagesExportedChatInvites) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -233,10 +221,22 @@ func (e *MessagesExportedChatInvites) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesExportedChatInvites.
-var (
-	_ bin.Encoder     = &MessagesExportedChatInvites{}
-	_ bin.Decoder     = &MessagesExportedChatInvites{}
-	_ bin.BareEncoder = &MessagesExportedChatInvites{}
-	_ bin.BareDecoder = &MessagesExportedChatInvites{}
-)
+// GetCount returns value of Count field.
+func (e *MessagesExportedChatInvites) GetCount() (value int) {
+	return e.Count
+}
+
+// GetInvites returns value of Invites field.
+func (e *MessagesExportedChatInvites) GetInvites() (value []ChatInviteExported) {
+	return e.Invites
+}
+
+// GetUsers returns value of Users field.
+func (e *MessagesExportedChatInvites) GetUsers() (value []UserClass) {
+	return e.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (e *MessagesExportedChatInvites) MapUsers() (value UserClassArray) {
+	return UserClassArray(e.Users)
+}

@@ -49,6 +49,14 @@ type MessagesSendEncryptedServiceRequest struct {
 // MessagesSendEncryptedServiceRequestTypeID is TL type id of MessagesSendEncryptedServiceRequest.
 const MessagesSendEncryptedServiceRequestTypeID = 0x32d439a4
 
+// Ensuring interfaces in compile-time for MessagesSendEncryptedServiceRequest.
+var (
+	_ bin.Encoder     = &MessagesSendEncryptedServiceRequest{}
+	_ bin.Decoder     = &MessagesSendEncryptedServiceRequest{}
+	_ bin.BareEncoder = &MessagesSendEncryptedServiceRequest{}
+	_ bin.BareDecoder = &MessagesSendEncryptedServiceRequest{}
+)
+
 func (s *MessagesSendEncryptedServiceRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -147,21 +155,6 @@ func (s *MessagesSendEncryptedServiceRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (s *MessagesSendEncryptedServiceRequest) GetPeer() (value InputEncryptedChat) {
-	return s.Peer
-}
-
-// GetRandomID returns value of RandomID field.
-func (s *MessagesSendEncryptedServiceRequest) GetRandomID() (value int64) {
-	return s.RandomID
-}
-
-// GetData returns value of Data field.
-func (s *MessagesSendEncryptedServiceRequest) GetData() (value []byte) {
-	return s.Data
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSendEncryptedServiceRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -200,13 +193,20 @@ func (s *MessagesSendEncryptedServiceRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSendEncryptedServiceRequest.
-var (
-	_ bin.Encoder     = &MessagesSendEncryptedServiceRequest{}
-	_ bin.Decoder     = &MessagesSendEncryptedServiceRequest{}
-	_ bin.BareEncoder = &MessagesSendEncryptedServiceRequest{}
-	_ bin.BareDecoder = &MessagesSendEncryptedServiceRequest{}
-)
+// GetPeer returns value of Peer field.
+func (s *MessagesSendEncryptedServiceRequest) GetPeer() (value InputEncryptedChat) {
+	return s.Peer
+}
+
+// GetRandomID returns value of RandomID field.
+func (s *MessagesSendEncryptedServiceRequest) GetRandomID() (value int64) {
+	return s.RandomID
+}
+
+// GetData returns value of Data field.
+func (s *MessagesSendEncryptedServiceRequest) GetData() (value []byte) {
+	return s.Data
+}
 
 // MessagesSendEncryptedService invokes method messages.sendEncryptedService#32d439a4 returning error if any.
 // Sends a service message to a secret chat.

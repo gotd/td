@@ -49,6 +49,14 @@ type AccountContentSettings struct {
 // AccountContentSettingsTypeID is TL type id of AccountContentSettings.
 const AccountContentSettingsTypeID = 0x57e28221
 
+// Ensuring interfaces in compile-time for AccountContentSettings.
+var (
+	_ bin.Encoder     = &AccountContentSettings{}
+	_ bin.Decoder     = &AccountContentSettings{}
+	_ bin.BareEncoder = &AccountContentSettings{}
+	_ bin.BareDecoder = &AccountContentSettings{}
+)
+
 func (c *AccountContentSettings) Zero() bool {
 	if c == nil {
 		return true
@@ -147,6 +155,32 @@ func (c *AccountContentSettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *AccountContentSettings) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode account.contentSettings#57e28221 to nil")
+	}
+	if err := b.ConsumeID(AccountContentSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode account.contentSettings#57e28221: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *AccountContentSettings) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode account.contentSettings#57e28221 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode account.contentSettings#57e28221: field flags: %w", err)
+		}
+	}
+	c.SensitiveEnabled = c.Flags.Has(0)
+	c.SensitiveCanChange = c.Flags.Has(1)
+	return nil
+}
+
 // SetSensitiveEnabled sets value of SensitiveEnabled conditional field.
 func (c *AccountContentSettings) SetSensitiveEnabled(value bool) {
 	if value {
@@ -178,37 +212,3 @@ func (c *AccountContentSettings) SetSensitiveCanChange(value bool) {
 func (c *AccountContentSettings) GetSensitiveCanChange() (value bool) {
 	return c.Flags.Has(1)
 }
-
-// Decode implements bin.Decoder.
-func (c *AccountContentSettings) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode account.contentSettings#57e28221 to nil")
-	}
-	if err := b.ConsumeID(AccountContentSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.contentSettings#57e28221: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *AccountContentSettings) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode account.contentSettings#57e28221 to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.contentSettings#57e28221: field flags: %w", err)
-		}
-	}
-	c.SensitiveEnabled = c.Flags.Has(0)
-	c.SensitiveCanChange = c.Flags.Has(1)
-	return nil
-}
-
-// Ensuring interfaces in compile-time for AccountContentSettings.
-var (
-	_ bin.Encoder     = &AccountContentSettings{}
-	_ bin.Decoder     = &AccountContentSettings{}
-	_ bin.BareEncoder = &AccountContentSettings{}
-	_ bin.BareDecoder = &AccountContentSettings{}
-)

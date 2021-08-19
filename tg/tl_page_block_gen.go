@@ -39,6 +39,19 @@ type PageBlockUnsupported struct {
 // PageBlockUnsupportedTypeID is TL type id of PageBlockUnsupported.
 const PageBlockUnsupportedTypeID = 0x13567e8a
 
+// construct implements constructor of PageBlockClass.
+func (p PageBlockUnsupported) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockUnsupported.
+var (
+	_ bin.Encoder     = &PageBlockUnsupported{}
+	_ bin.Decoder     = &PageBlockUnsupported{}
+	_ bin.BareEncoder = &PageBlockUnsupported{}
+	_ bin.BareDecoder = &PageBlockUnsupported{}
+
+	_ PageBlockClass = &PageBlockUnsupported{}
+)
+
 func (p *PageBlockUnsupported) Zero() bool {
 	if p == nil {
 		return true
@@ -118,19 +131,6 @@ func (p *PageBlockUnsupported) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockUnsupported) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockUnsupported.
-var (
-	_ bin.Encoder     = &PageBlockUnsupported{}
-	_ bin.Decoder     = &PageBlockUnsupported{}
-	_ bin.BareEncoder = &PageBlockUnsupported{}
-	_ bin.BareDecoder = &PageBlockUnsupported{}
-
-	_ PageBlockClass = &PageBlockUnsupported{}
-)
-
 // PageBlockTitle represents TL type `pageBlockTitle#70abc3fd`.
 // Title
 //
@@ -142,6 +142,19 @@ type PageBlockTitle struct {
 
 // PageBlockTitleTypeID is TL type id of PageBlockTitle.
 const PageBlockTitleTypeID = 0x70abc3fd
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockTitle) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockTitle.
+var (
+	_ bin.Encoder     = &PageBlockTitle{}
+	_ bin.Decoder     = &PageBlockTitle{}
+	_ bin.BareEncoder = &PageBlockTitle{}
+	_ bin.BareDecoder = &PageBlockTitle{}
+
+	_ PageBlockClass = &PageBlockTitle{}
+)
 
 func (p *PageBlockTitle) Zero() bool {
 	if p == nil {
@@ -224,11 +237,6 @@ func (p *PageBlockTitle) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (p *PageBlockTitle) GetText() (value RichTextClass) {
-	return p.Text
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockTitle) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -255,18 +263,10 @@ func (p *PageBlockTitle) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockTitle) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockTitle.
-var (
-	_ bin.Encoder     = &PageBlockTitle{}
-	_ bin.Decoder     = &PageBlockTitle{}
-	_ bin.BareEncoder = &PageBlockTitle{}
-	_ bin.BareDecoder = &PageBlockTitle{}
-
-	_ PageBlockClass = &PageBlockTitle{}
-)
+// GetText returns value of Text field.
+func (p *PageBlockTitle) GetText() (value RichTextClass) {
+	return p.Text
+}
 
 // PageBlockSubtitle represents TL type `pageBlockSubtitle#8ffa9a1f`.
 // Subtitle
@@ -279,6 +279,19 @@ type PageBlockSubtitle struct {
 
 // PageBlockSubtitleTypeID is TL type id of PageBlockSubtitle.
 const PageBlockSubtitleTypeID = 0x8ffa9a1f
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockSubtitle) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockSubtitle.
+var (
+	_ bin.Encoder     = &PageBlockSubtitle{}
+	_ bin.Decoder     = &PageBlockSubtitle{}
+	_ bin.BareEncoder = &PageBlockSubtitle{}
+	_ bin.BareDecoder = &PageBlockSubtitle{}
+
+	_ PageBlockClass = &PageBlockSubtitle{}
+)
 
 func (p *PageBlockSubtitle) Zero() bool {
 	if p == nil {
@@ -361,11 +374,6 @@ func (p *PageBlockSubtitle) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (p *PageBlockSubtitle) GetText() (value RichTextClass) {
-	return p.Text
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockSubtitle) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -392,18 +400,10 @@ func (p *PageBlockSubtitle) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockSubtitle) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockSubtitle.
-var (
-	_ bin.Encoder     = &PageBlockSubtitle{}
-	_ bin.Decoder     = &PageBlockSubtitle{}
-	_ bin.BareEncoder = &PageBlockSubtitle{}
-	_ bin.BareDecoder = &PageBlockSubtitle{}
-
-	_ PageBlockClass = &PageBlockSubtitle{}
-)
+// GetText returns value of Text field.
+func (p *PageBlockSubtitle) GetText() (value RichTextClass) {
+	return p.Text
+}
 
 // PageBlockAuthorDate represents TL type `pageBlockAuthorDate#baafe5e0`.
 // Author and date of creation of article
@@ -418,6 +418,19 @@ type PageBlockAuthorDate struct {
 
 // PageBlockAuthorDateTypeID is TL type id of PageBlockAuthorDate.
 const PageBlockAuthorDateTypeID = 0xbaafe5e0
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockAuthorDate) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockAuthorDate.
+var (
+	_ bin.Encoder     = &PageBlockAuthorDate{}
+	_ bin.Decoder     = &PageBlockAuthorDate{}
+	_ bin.BareEncoder = &PageBlockAuthorDate{}
+	_ bin.BareDecoder = &PageBlockAuthorDate{}
+
+	_ PageBlockClass = &PageBlockAuthorDate{}
+)
 
 func (p *PageBlockAuthorDate) Zero() bool {
 	if p == nil {
@@ -510,16 +523,6 @@ func (p *PageBlockAuthorDate) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAuthor returns value of Author field.
-func (p *PageBlockAuthorDate) GetAuthor() (value RichTextClass) {
-	return p.Author
-}
-
-// GetPublishedDate returns value of PublishedDate field.
-func (p *PageBlockAuthorDate) GetPublishedDate() (value int) {
-	return p.PublishedDate
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockAuthorDate) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -553,18 +556,15 @@ func (p *PageBlockAuthorDate) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockAuthorDate) construct() PageBlockClass { return &p }
+// GetAuthor returns value of Author field.
+func (p *PageBlockAuthorDate) GetAuthor() (value RichTextClass) {
+	return p.Author
+}
 
-// Ensuring interfaces in compile-time for PageBlockAuthorDate.
-var (
-	_ bin.Encoder     = &PageBlockAuthorDate{}
-	_ bin.Decoder     = &PageBlockAuthorDate{}
-	_ bin.BareEncoder = &PageBlockAuthorDate{}
-	_ bin.BareDecoder = &PageBlockAuthorDate{}
-
-	_ PageBlockClass = &PageBlockAuthorDate{}
-)
+// GetPublishedDate returns value of PublishedDate field.
+func (p *PageBlockAuthorDate) GetPublishedDate() (value int) {
+	return p.PublishedDate
+}
 
 // PageBlockHeader represents TL type `pageBlockHeader#bfd064ec`.
 // Page header
@@ -577,6 +577,19 @@ type PageBlockHeader struct {
 
 // PageBlockHeaderTypeID is TL type id of PageBlockHeader.
 const PageBlockHeaderTypeID = 0xbfd064ec
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockHeader) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockHeader.
+var (
+	_ bin.Encoder     = &PageBlockHeader{}
+	_ bin.Decoder     = &PageBlockHeader{}
+	_ bin.BareEncoder = &PageBlockHeader{}
+	_ bin.BareDecoder = &PageBlockHeader{}
+
+	_ PageBlockClass = &PageBlockHeader{}
+)
 
 func (p *PageBlockHeader) Zero() bool {
 	if p == nil {
@@ -659,11 +672,6 @@ func (p *PageBlockHeader) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (p *PageBlockHeader) GetText() (value RichTextClass) {
-	return p.Text
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockHeader) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -690,18 +698,10 @@ func (p *PageBlockHeader) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockHeader) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockHeader.
-var (
-	_ bin.Encoder     = &PageBlockHeader{}
-	_ bin.Decoder     = &PageBlockHeader{}
-	_ bin.BareEncoder = &PageBlockHeader{}
-	_ bin.BareDecoder = &PageBlockHeader{}
-
-	_ PageBlockClass = &PageBlockHeader{}
-)
+// GetText returns value of Text field.
+func (p *PageBlockHeader) GetText() (value RichTextClass) {
+	return p.Text
+}
 
 // PageBlockSubheader represents TL type `pageBlockSubheader#f12bb6e1`.
 // Subheader
@@ -714,6 +714,19 @@ type PageBlockSubheader struct {
 
 // PageBlockSubheaderTypeID is TL type id of PageBlockSubheader.
 const PageBlockSubheaderTypeID = 0xf12bb6e1
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockSubheader) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockSubheader.
+var (
+	_ bin.Encoder     = &PageBlockSubheader{}
+	_ bin.Decoder     = &PageBlockSubheader{}
+	_ bin.BareEncoder = &PageBlockSubheader{}
+	_ bin.BareDecoder = &PageBlockSubheader{}
+
+	_ PageBlockClass = &PageBlockSubheader{}
+)
 
 func (p *PageBlockSubheader) Zero() bool {
 	if p == nil {
@@ -796,11 +809,6 @@ func (p *PageBlockSubheader) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (p *PageBlockSubheader) GetText() (value RichTextClass) {
-	return p.Text
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockSubheader) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -827,18 +835,10 @@ func (p *PageBlockSubheader) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockSubheader) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockSubheader.
-var (
-	_ bin.Encoder     = &PageBlockSubheader{}
-	_ bin.Decoder     = &PageBlockSubheader{}
-	_ bin.BareEncoder = &PageBlockSubheader{}
-	_ bin.BareDecoder = &PageBlockSubheader{}
-
-	_ PageBlockClass = &PageBlockSubheader{}
-)
+// GetText returns value of Text field.
+func (p *PageBlockSubheader) GetText() (value RichTextClass) {
+	return p.Text
+}
 
 // PageBlockParagraph represents TL type `pageBlockParagraph#467a0766`.
 // A paragraph
@@ -851,6 +851,19 @@ type PageBlockParagraph struct {
 
 // PageBlockParagraphTypeID is TL type id of PageBlockParagraph.
 const PageBlockParagraphTypeID = 0x467a0766
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockParagraph) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockParagraph.
+var (
+	_ bin.Encoder     = &PageBlockParagraph{}
+	_ bin.Decoder     = &PageBlockParagraph{}
+	_ bin.BareEncoder = &PageBlockParagraph{}
+	_ bin.BareDecoder = &PageBlockParagraph{}
+
+	_ PageBlockClass = &PageBlockParagraph{}
+)
 
 func (p *PageBlockParagraph) Zero() bool {
 	if p == nil {
@@ -933,11 +946,6 @@ func (p *PageBlockParagraph) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (p *PageBlockParagraph) GetText() (value RichTextClass) {
-	return p.Text
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockParagraph) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -964,18 +972,10 @@ func (p *PageBlockParagraph) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockParagraph) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockParagraph.
-var (
-	_ bin.Encoder     = &PageBlockParagraph{}
-	_ bin.Decoder     = &PageBlockParagraph{}
-	_ bin.BareEncoder = &PageBlockParagraph{}
-	_ bin.BareDecoder = &PageBlockParagraph{}
-
-	_ PageBlockClass = &PageBlockParagraph{}
-)
+// GetText returns value of Text field.
+func (p *PageBlockParagraph) GetText() (value RichTextClass) {
+	return p.Text
+}
 
 // PageBlockPreformatted represents TL type `pageBlockPreformatted#c070d93e`.
 // Preformatted (<pre> text)
@@ -990,6 +990,19 @@ type PageBlockPreformatted struct {
 
 // PageBlockPreformattedTypeID is TL type id of PageBlockPreformatted.
 const PageBlockPreformattedTypeID = 0xc070d93e
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockPreformatted) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockPreformatted.
+var (
+	_ bin.Encoder     = &PageBlockPreformatted{}
+	_ bin.Decoder     = &PageBlockPreformatted{}
+	_ bin.BareEncoder = &PageBlockPreformatted{}
+	_ bin.BareDecoder = &PageBlockPreformatted{}
+
+	_ PageBlockClass = &PageBlockPreformatted{}
+)
 
 func (p *PageBlockPreformatted) Zero() bool {
 	if p == nil {
@@ -1082,16 +1095,6 @@ func (p *PageBlockPreformatted) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (p *PageBlockPreformatted) GetText() (value RichTextClass) {
-	return p.Text
-}
-
-// GetLanguage returns value of Language field.
-func (p *PageBlockPreformatted) GetLanguage() (value string) {
-	return p.Language
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockPreformatted) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -1125,18 +1128,15 @@ func (p *PageBlockPreformatted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockPreformatted) construct() PageBlockClass { return &p }
+// GetText returns value of Text field.
+func (p *PageBlockPreformatted) GetText() (value RichTextClass) {
+	return p.Text
+}
 
-// Ensuring interfaces in compile-time for PageBlockPreformatted.
-var (
-	_ bin.Encoder     = &PageBlockPreformatted{}
-	_ bin.Decoder     = &PageBlockPreformatted{}
-	_ bin.BareEncoder = &PageBlockPreformatted{}
-	_ bin.BareDecoder = &PageBlockPreformatted{}
-
-	_ PageBlockClass = &PageBlockPreformatted{}
-)
+// GetLanguage returns value of Language field.
+func (p *PageBlockPreformatted) GetLanguage() (value string) {
+	return p.Language
+}
 
 // PageBlockFooter represents TL type `pageBlockFooter#48870999`.
 // Page footer
@@ -1149,6 +1149,19 @@ type PageBlockFooter struct {
 
 // PageBlockFooterTypeID is TL type id of PageBlockFooter.
 const PageBlockFooterTypeID = 0x48870999
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockFooter) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockFooter.
+var (
+	_ bin.Encoder     = &PageBlockFooter{}
+	_ bin.Decoder     = &PageBlockFooter{}
+	_ bin.BareEncoder = &PageBlockFooter{}
+	_ bin.BareDecoder = &PageBlockFooter{}
+
+	_ PageBlockClass = &PageBlockFooter{}
+)
 
 func (p *PageBlockFooter) Zero() bool {
 	if p == nil {
@@ -1231,11 +1244,6 @@ func (p *PageBlockFooter) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (p *PageBlockFooter) GetText() (value RichTextClass) {
-	return p.Text
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockFooter) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -1262,18 +1270,10 @@ func (p *PageBlockFooter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockFooter) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockFooter.
-var (
-	_ bin.Encoder     = &PageBlockFooter{}
-	_ bin.Decoder     = &PageBlockFooter{}
-	_ bin.BareEncoder = &PageBlockFooter{}
-	_ bin.BareDecoder = &PageBlockFooter{}
-
-	_ PageBlockClass = &PageBlockFooter{}
-)
+// GetText returns value of Text field.
+func (p *PageBlockFooter) GetText() (value RichTextClass) {
+	return p.Text
+}
 
 // PageBlockDivider represents TL type `pageBlockDivider#db20b188`.
 // An empty block separating a page
@@ -1284,6 +1284,19 @@ type PageBlockDivider struct {
 
 // PageBlockDividerTypeID is TL type id of PageBlockDivider.
 const PageBlockDividerTypeID = 0xdb20b188
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockDivider) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockDivider.
+var (
+	_ bin.Encoder     = &PageBlockDivider{}
+	_ bin.Decoder     = &PageBlockDivider{}
+	_ bin.BareEncoder = &PageBlockDivider{}
+	_ bin.BareDecoder = &PageBlockDivider{}
+
+	_ PageBlockClass = &PageBlockDivider{}
+)
 
 func (p *PageBlockDivider) Zero() bool {
 	if p == nil {
@@ -1364,19 +1377,6 @@ func (p *PageBlockDivider) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockDivider) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockDivider.
-var (
-	_ bin.Encoder     = &PageBlockDivider{}
-	_ bin.Decoder     = &PageBlockDivider{}
-	_ bin.BareEncoder = &PageBlockDivider{}
-	_ bin.BareDecoder = &PageBlockDivider{}
-
-	_ PageBlockClass = &PageBlockDivider{}
-)
-
 // PageBlockAnchor represents TL type `pageBlockAnchor#ce0d37b0`.
 // Link to section within the page itself (like <a href="#target">anchor</a>)
 //
@@ -1388,6 +1388,19 @@ type PageBlockAnchor struct {
 
 // PageBlockAnchorTypeID is TL type id of PageBlockAnchor.
 const PageBlockAnchorTypeID = 0xce0d37b0
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockAnchor) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockAnchor.
+var (
+	_ bin.Encoder     = &PageBlockAnchor{}
+	_ bin.Decoder     = &PageBlockAnchor{}
+	_ bin.BareEncoder = &PageBlockAnchor{}
+	_ bin.BareDecoder = &PageBlockAnchor{}
+
+	_ PageBlockClass = &PageBlockAnchor{}
+)
 
 func (p *PageBlockAnchor) Zero() bool {
 	if p == nil {
@@ -1465,11 +1478,6 @@ func (p *PageBlockAnchor) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetName returns value of Name field.
-func (p *PageBlockAnchor) GetName() (value string) {
-	return p.Name
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockAnchor) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -1496,18 +1504,10 @@ func (p *PageBlockAnchor) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockAnchor) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockAnchor.
-var (
-	_ bin.Encoder     = &PageBlockAnchor{}
-	_ bin.Decoder     = &PageBlockAnchor{}
-	_ bin.BareEncoder = &PageBlockAnchor{}
-	_ bin.BareDecoder = &PageBlockAnchor{}
-
-	_ PageBlockClass = &PageBlockAnchor{}
-)
+// GetName returns value of Name field.
+func (p *PageBlockAnchor) GetName() (value string) {
+	return p.Name
+}
 
 // PageBlockList represents TL type `pageBlockList#e4e88011`.
 // Unordered list of IV blocks
@@ -1520,6 +1520,19 @@ type PageBlockList struct {
 
 // PageBlockListTypeID is TL type id of PageBlockList.
 const PageBlockListTypeID = 0xe4e88011
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockList) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockList.
+var (
+	_ bin.Encoder     = &PageBlockList{}
+	_ bin.Decoder     = &PageBlockList{}
+	_ bin.BareEncoder = &PageBlockList{}
+	_ bin.BareDecoder = &PageBlockList{}
+
+	_ PageBlockClass = &PageBlockList{}
+)
 
 func (p *PageBlockList) Zero() bool {
 	if p == nil {
@@ -1605,16 +1618,6 @@ func (p *PageBlockList) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetItems returns value of Items field.
-func (p *PageBlockList) GetItems() (value []PageListItemClass) {
-	return p.Items
-}
-
-// MapItems returns field Items wrapped in PageListItemClassArray helper.
-func (p *PageBlockList) MapItems() (value PageListItemClassArray) {
-	return PageListItemClassArray(p.Items)
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockList) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -1651,18 +1654,15 @@ func (p *PageBlockList) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockList) construct() PageBlockClass { return &p }
+// GetItems returns value of Items field.
+func (p *PageBlockList) GetItems() (value []PageListItemClass) {
+	return p.Items
+}
 
-// Ensuring interfaces in compile-time for PageBlockList.
-var (
-	_ bin.Encoder     = &PageBlockList{}
-	_ bin.Decoder     = &PageBlockList{}
-	_ bin.BareEncoder = &PageBlockList{}
-	_ bin.BareDecoder = &PageBlockList{}
-
-	_ PageBlockClass = &PageBlockList{}
-)
+// MapItems returns field Items wrapped in PageListItemClassArray helper.
+func (p *PageBlockList) MapItems() (value PageListItemClassArray) {
+	return PageListItemClassArray(p.Items)
+}
 
 // PageBlockBlockquote represents TL type `pageBlockBlockquote#263d7c26`.
 // Quote (equivalent to the HTML <blockquote>)
@@ -1677,6 +1677,19 @@ type PageBlockBlockquote struct {
 
 // PageBlockBlockquoteTypeID is TL type id of PageBlockBlockquote.
 const PageBlockBlockquoteTypeID = 0x263d7c26
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockBlockquote) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockBlockquote.
+var (
+	_ bin.Encoder     = &PageBlockBlockquote{}
+	_ bin.Decoder     = &PageBlockBlockquote{}
+	_ bin.BareEncoder = &PageBlockBlockquote{}
+	_ bin.BareDecoder = &PageBlockBlockquote{}
+
+	_ PageBlockClass = &PageBlockBlockquote{}
+)
 
 func (p *PageBlockBlockquote) Zero() bool {
 	if p == nil {
@@ -1774,16 +1787,6 @@ func (p *PageBlockBlockquote) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (p *PageBlockBlockquote) GetText() (value RichTextClass) {
-	return p.Text
-}
-
-// GetCaption returns value of Caption field.
-func (p *PageBlockBlockquote) GetCaption() (value RichTextClass) {
-	return p.Caption
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockBlockquote) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -1817,18 +1820,15 @@ func (p *PageBlockBlockquote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockBlockquote) construct() PageBlockClass { return &p }
+// GetText returns value of Text field.
+func (p *PageBlockBlockquote) GetText() (value RichTextClass) {
+	return p.Text
+}
 
-// Ensuring interfaces in compile-time for PageBlockBlockquote.
-var (
-	_ bin.Encoder     = &PageBlockBlockquote{}
-	_ bin.Decoder     = &PageBlockBlockquote{}
-	_ bin.BareEncoder = &PageBlockBlockquote{}
-	_ bin.BareDecoder = &PageBlockBlockquote{}
-
-	_ PageBlockClass = &PageBlockBlockquote{}
-)
+// GetCaption returns value of Caption field.
+func (p *PageBlockBlockquote) GetCaption() (value RichTextClass) {
+	return p.Caption
+}
 
 // PageBlockPullquote represents TL type `pageBlockPullquote#4f4456d3`.
 // Pullquote
@@ -1843,6 +1843,19 @@ type PageBlockPullquote struct {
 
 // PageBlockPullquoteTypeID is TL type id of PageBlockPullquote.
 const PageBlockPullquoteTypeID = 0x4f4456d3
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockPullquote) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockPullquote.
+var (
+	_ bin.Encoder     = &PageBlockPullquote{}
+	_ bin.Decoder     = &PageBlockPullquote{}
+	_ bin.BareEncoder = &PageBlockPullquote{}
+	_ bin.BareDecoder = &PageBlockPullquote{}
+
+	_ PageBlockClass = &PageBlockPullquote{}
+)
 
 func (p *PageBlockPullquote) Zero() bool {
 	if p == nil {
@@ -1940,16 +1953,6 @@ func (p *PageBlockPullquote) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (p *PageBlockPullquote) GetText() (value RichTextClass) {
-	return p.Text
-}
-
-// GetCaption returns value of Caption field.
-func (p *PageBlockPullquote) GetCaption() (value RichTextClass) {
-	return p.Caption
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockPullquote) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -1983,18 +1986,15 @@ func (p *PageBlockPullquote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockPullquote) construct() PageBlockClass { return &p }
+// GetText returns value of Text field.
+func (p *PageBlockPullquote) GetText() (value RichTextClass) {
+	return p.Text
+}
 
-// Ensuring interfaces in compile-time for PageBlockPullquote.
-var (
-	_ bin.Encoder     = &PageBlockPullquote{}
-	_ bin.Decoder     = &PageBlockPullquote{}
-	_ bin.BareEncoder = &PageBlockPullquote{}
-	_ bin.BareDecoder = &PageBlockPullquote{}
-
-	_ PageBlockClass = &PageBlockPullquote{}
-)
+// GetCaption returns value of Caption field.
+func (p *PageBlockPullquote) GetCaption() (value RichTextClass) {
+	return p.Caption
+}
 
 // PageBlockPhoto represents TL type `pageBlockPhoto#1759c560`.
 // A photo
@@ -2022,6 +2022,19 @@ type PageBlockPhoto struct {
 
 // PageBlockPhotoTypeID is TL type id of PageBlockPhoto.
 const PageBlockPhotoTypeID = 0x1759c560
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockPhoto) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockPhoto.
+var (
+	_ bin.Encoder     = &PageBlockPhoto{}
+	_ bin.Decoder     = &PageBlockPhoto{}
+	_ bin.BareEncoder = &PageBlockPhoto{}
+	_ bin.BareDecoder = &PageBlockPhoto{}
+
+	_ PageBlockClass = &PageBlockPhoto{}
+)
 
 func (p *PageBlockPhoto) Zero() bool {
 	if p == nil {
@@ -2155,46 +2168,6 @@ func (p *PageBlockPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhotoID returns value of PhotoID field.
-func (p *PageBlockPhoto) GetPhotoID() (value int64) {
-	return p.PhotoID
-}
-
-// GetCaption returns value of Caption field.
-func (p *PageBlockPhoto) GetCaption() (value PageCaption) {
-	return p.Caption
-}
-
-// SetURL sets value of URL conditional field.
-func (p *PageBlockPhoto) SetURL(value string) {
-	p.Flags.Set(0)
-	p.URL = value
-}
-
-// GetURL returns value of URL conditional field and
-// boolean which is true if field was set.
-func (p *PageBlockPhoto) GetURL() (value string, ok bool) {
-	if !p.Flags.Has(0) {
-		return value, false
-	}
-	return p.URL, true
-}
-
-// SetWebpageID sets value of WebpageID conditional field.
-func (p *PageBlockPhoto) SetWebpageID(value int64) {
-	p.Flags.Set(0)
-	p.WebpageID = value
-}
-
-// GetWebpageID returns value of WebpageID conditional field and
-// boolean which is true if field was set.
-func (p *PageBlockPhoto) GetWebpageID() (value int64, ok bool) {
-	if !p.Flags.Has(0) {
-		return value, false
-	}
-	return p.WebpageID, true
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockPhoto) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -2245,18 +2218,45 @@ func (p *PageBlockPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockPhoto) construct() PageBlockClass { return &p }
+// GetPhotoID returns value of PhotoID field.
+func (p *PageBlockPhoto) GetPhotoID() (value int64) {
+	return p.PhotoID
+}
 
-// Ensuring interfaces in compile-time for PageBlockPhoto.
-var (
-	_ bin.Encoder     = &PageBlockPhoto{}
-	_ bin.Decoder     = &PageBlockPhoto{}
-	_ bin.BareEncoder = &PageBlockPhoto{}
-	_ bin.BareDecoder = &PageBlockPhoto{}
+// GetCaption returns value of Caption field.
+func (p *PageBlockPhoto) GetCaption() (value PageCaption) {
+	return p.Caption
+}
 
-	_ PageBlockClass = &PageBlockPhoto{}
-)
+// SetURL sets value of URL conditional field.
+func (p *PageBlockPhoto) SetURL(value string) {
+	p.Flags.Set(0)
+	p.URL = value
+}
+
+// GetURL returns value of URL conditional field and
+// boolean which is true if field was set.
+func (p *PageBlockPhoto) GetURL() (value string, ok bool) {
+	if !p.Flags.Has(0) {
+		return value, false
+	}
+	return p.URL, true
+}
+
+// SetWebpageID sets value of WebpageID conditional field.
+func (p *PageBlockPhoto) SetWebpageID(value int64) {
+	p.Flags.Set(0)
+	p.WebpageID = value
+}
+
+// GetWebpageID returns value of WebpageID conditional field and
+// boolean which is true if field was set.
+func (p *PageBlockPhoto) GetWebpageID() (value int64, ok bool) {
+	if !p.Flags.Has(0) {
+		return value, false
+	}
+	return p.WebpageID, true
+}
 
 // PageBlockVideo represents TL type `pageBlockVideo#7c8fe7b6`.
 // Video
@@ -2280,6 +2280,19 @@ type PageBlockVideo struct {
 
 // PageBlockVideoTypeID is TL type id of PageBlockVideo.
 const PageBlockVideoTypeID = 0x7c8fe7b6
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockVideo) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockVideo.
+var (
+	_ bin.Encoder     = &PageBlockVideo{}
+	_ bin.Decoder     = &PageBlockVideo{}
+	_ bin.BareEncoder = &PageBlockVideo{}
+	_ bin.BareDecoder = &PageBlockVideo{}
+
+	_ PageBlockClass = &PageBlockVideo{}
+)
 
 func (p *PageBlockVideo) Zero() bool {
 	if p == nil {
@@ -2401,6 +2414,44 @@ func (p *PageBlockVideo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *PageBlockVideo) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockVideo#7c8fe7b6 to nil")
+	}
+	if err := b.ConsumeID(PageBlockVideoTypeID); err != nil {
+		return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockVideo) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockVideo#7c8fe7b6 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: field flags: %w", err)
+		}
+	}
+	p.Autoplay = p.Flags.Has(0)
+	p.Loop = p.Flags.Has(1)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: field video_id: %w", err)
+		}
+		p.VideoID = value
+	}
+	{
+		if err := p.Caption.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: field caption: %w", err)
+		}
+	}
+	return nil
+}
+
 // SetAutoplay sets value of Autoplay conditional field.
 func (p *PageBlockVideo) SetAutoplay(value bool) {
 	if value {
@@ -2443,57 +2494,6 @@ func (p *PageBlockVideo) GetCaption() (value PageCaption) {
 	return p.Caption
 }
 
-// Decode implements bin.Decoder.
-func (p *PageBlockVideo) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode pageBlockVideo#7c8fe7b6 to nil")
-	}
-	if err := b.ConsumeID(PageBlockVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *PageBlockVideo) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode pageBlockVideo#7c8fe7b6 to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: field flags: %w", err)
-		}
-	}
-	p.Autoplay = p.Flags.Has(0)
-	p.Loop = p.Flags.Has(1)
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: field video_id: %w", err)
-		}
-		p.VideoID = value
-	}
-	{
-		if err := p.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: field caption: %w", err)
-		}
-	}
-	return nil
-}
-
-// construct implements constructor of PageBlockClass.
-func (p PageBlockVideo) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockVideo.
-var (
-	_ bin.Encoder     = &PageBlockVideo{}
-	_ bin.Decoder     = &PageBlockVideo{}
-	_ bin.BareEncoder = &PageBlockVideo{}
-	_ bin.BareDecoder = &PageBlockVideo{}
-
-	_ PageBlockClass = &PageBlockVideo{}
-)
-
 // PageBlockCover represents TL type `pageBlockCover#39f23300`.
 // A page cover
 //
@@ -2505,6 +2505,19 @@ type PageBlockCover struct {
 
 // PageBlockCoverTypeID is TL type id of PageBlockCover.
 const PageBlockCoverTypeID = 0x39f23300
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockCover) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockCover.
+var (
+	_ bin.Encoder     = &PageBlockCover{}
+	_ bin.Decoder     = &PageBlockCover{}
+	_ bin.BareEncoder = &PageBlockCover{}
+	_ bin.BareDecoder = &PageBlockCover{}
+
+	_ PageBlockClass = &PageBlockCover{}
+)
 
 func (p *PageBlockCover) Zero() bool {
 	if p == nil {
@@ -2587,11 +2600,6 @@ func (p *PageBlockCover) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCover returns value of Cover field.
-func (p *PageBlockCover) GetCover() (value PageBlockClass) {
-	return p.Cover
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockCover) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -2618,18 +2626,10 @@ func (p *PageBlockCover) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockCover) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockCover.
-var (
-	_ bin.Encoder     = &PageBlockCover{}
-	_ bin.Decoder     = &PageBlockCover{}
-	_ bin.BareEncoder = &PageBlockCover{}
-	_ bin.BareDecoder = &PageBlockCover{}
-
-	_ PageBlockClass = &PageBlockCover{}
-)
+// GetCover returns value of Cover field.
+func (p *PageBlockCover) GetCover() (value PageBlockClass) {
+	return p.Cover
+}
 
 // PageBlockEmbed represents TL type `pageBlockEmbed#a8718dc5`.
 // An embedded webpage
@@ -2671,6 +2671,19 @@ type PageBlockEmbed struct {
 
 // PageBlockEmbedTypeID is TL type id of PageBlockEmbed.
 const PageBlockEmbedTypeID = 0xa8718dc5
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockEmbed) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockEmbed.
+var (
+	_ bin.Encoder     = &PageBlockEmbed{}
+	_ bin.Decoder     = &PageBlockEmbed{}
+	_ bin.BareEncoder = &PageBlockEmbed{}
+	_ bin.BareDecoder = &PageBlockEmbed{}
+
+	_ PageBlockClass = &PageBlockEmbed{}
+)
 
 func (p *PageBlockEmbed) Zero() bool {
 	if p == nil {
@@ -2877,6 +2890,72 @@ func (p *PageBlockEmbed) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (p *PageBlockEmbed) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockEmbed#a8718dc5 to nil")
+	}
+	if err := b.ConsumeID(PageBlockEmbedTypeID); err != nil {
+		return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockEmbed) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockEmbed#a8718dc5 to nil")
+	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field flags: %w", err)
+		}
+	}
+	p.FullWidth = p.Flags.Has(0)
+	p.AllowScrolling = p.Flags.Has(3)
+	if p.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field url: %w", err)
+		}
+		p.URL = value
+	}
+	if p.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field html: %w", err)
+		}
+		p.HTML = value
+	}
+	if p.Flags.Has(4) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field poster_photo_id: %w", err)
+		}
+		p.PosterPhotoID = value
+	}
+	if p.Flags.Has(5) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field w: %w", err)
+		}
+		p.W = value
+	}
+	if p.Flags.Has(5) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field h: %w", err)
+		}
+		p.H = value
+	}
+	{
+		if err := p.Caption.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field caption: %w", err)
+		}
+	}
+	return nil
+}
+
 // SetFullWidth sets value of FullWidth conditional field.
 func (p *PageBlockEmbed) SetFullWidth(value bool) {
 	if value {
@@ -2989,85 +3068,6 @@ func (p *PageBlockEmbed) GetCaption() (value PageCaption) {
 	return p.Caption
 }
 
-// Decode implements bin.Decoder.
-func (p *PageBlockEmbed) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode pageBlockEmbed#a8718dc5 to nil")
-	}
-	if err := b.ConsumeID(PageBlockEmbedTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: %w", err)
-	}
-	return p.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (p *PageBlockEmbed) DecodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode pageBlockEmbed#a8718dc5 to nil")
-	}
-	{
-		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field flags: %w", err)
-		}
-	}
-	p.FullWidth = p.Flags.Has(0)
-	p.AllowScrolling = p.Flags.Has(3)
-	if p.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field url: %w", err)
-		}
-		p.URL = value
-	}
-	if p.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field html: %w", err)
-		}
-		p.HTML = value
-	}
-	if p.Flags.Has(4) {
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field poster_photo_id: %w", err)
-		}
-		p.PosterPhotoID = value
-	}
-	if p.Flags.Has(5) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field w: %w", err)
-		}
-		p.W = value
-	}
-	if p.Flags.Has(5) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field h: %w", err)
-		}
-		p.H = value
-	}
-	{
-		if err := p.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field caption: %w", err)
-		}
-	}
-	return nil
-}
-
-// construct implements constructor of PageBlockClass.
-func (p PageBlockEmbed) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockEmbed.
-var (
-	_ bin.Encoder     = &PageBlockEmbed{}
-	_ bin.Decoder     = &PageBlockEmbed{}
-	_ bin.BareEncoder = &PageBlockEmbed{}
-	_ bin.BareDecoder = &PageBlockEmbed{}
-
-	_ PageBlockClass = &PageBlockEmbed{}
-)
-
 // PageBlockEmbedPost represents TL type `pageBlockEmbedPost#f259a80b`.
 // An embedded post
 //
@@ -3091,6 +3091,19 @@ type PageBlockEmbedPost struct {
 
 // PageBlockEmbedPostTypeID is TL type id of PageBlockEmbedPost.
 const PageBlockEmbedPostTypeID = 0xf259a80b
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockEmbedPost) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockEmbedPost.
+var (
+	_ bin.Encoder     = &PageBlockEmbedPost{}
+	_ bin.Decoder     = &PageBlockEmbedPost{}
+	_ bin.BareEncoder = &PageBlockEmbedPost{}
+	_ bin.BareDecoder = &PageBlockEmbedPost{}
+
+	_ PageBlockClass = &PageBlockEmbedPost{}
+)
 
 func (p *PageBlockEmbedPost) Zero() bool {
 	if p == nil {
@@ -3238,46 +3251,6 @@ func (p *PageBlockEmbedPost) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (p *PageBlockEmbedPost) GetURL() (value string) {
-	return p.URL
-}
-
-// GetWebpageID returns value of WebpageID field.
-func (p *PageBlockEmbedPost) GetWebpageID() (value int64) {
-	return p.WebpageID
-}
-
-// GetAuthorPhotoID returns value of AuthorPhotoID field.
-func (p *PageBlockEmbedPost) GetAuthorPhotoID() (value int64) {
-	return p.AuthorPhotoID
-}
-
-// GetAuthor returns value of Author field.
-func (p *PageBlockEmbedPost) GetAuthor() (value string) {
-	return p.Author
-}
-
-// GetDate returns value of Date field.
-func (p *PageBlockEmbedPost) GetDate() (value int) {
-	return p.Date
-}
-
-// GetBlocks returns value of Blocks field.
-func (p *PageBlockEmbedPost) GetBlocks() (value []PageBlockClass) {
-	return p.Blocks
-}
-
-// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
-func (p *PageBlockEmbedPost) MapBlocks() (value PageBlockClassArray) {
-	return PageBlockClassArray(p.Blocks)
-}
-
-// GetCaption returns value of Caption field.
-func (p *PageBlockEmbedPost) GetCaption() (value PageCaption) {
-	return p.Caption
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockEmbedPost) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -3354,18 +3327,45 @@ func (p *PageBlockEmbedPost) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockEmbedPost) construct() PageBlockClass { return &p }
+// GetURL returns value of URL field.
+func (p *PageBlockEmbedPost) GetURL() (value string) {
+	return p.URL
+}
 
-// Ensuring interfaces in compile-time for PageBlockEmbedPost.
-var (
-	_ bin.Encoder     = &PageBlockEmbedPost{}
-	_ bin.Decoder     = &PageBlockEmbedPost{}
-	_ bin.BareEncoder = &PageBlockEmbedPost{}
-	_ bin.BareDecoder = &PageBlockEmbedPost{}
+// GetWebpageID returns value of WebpageID field.
+func (p *PageBlockEmbedPost) GetWebpageID() (value int64) {
+	return p.WebpageID
+}
 
-	_ PageBlockClass = &PageBlockEmbedPost{}
-)
+// GetAuthorPhotoID returns value of AuthorPhotoID field.
+func (p *PageBlockEmbedPost) GetAuthorPhotoID() (value int64) {
+	return p.AuthorPhotoID
+}
+
+// GetAuthor returns value of Author field.
+func (p *PageBlockEmbedPost) GetAuthor() (value string) {
+	return p.Author
+}
+
+// GetDate returns value of Date field.
+func (p *PageBlockEmbedPost) GetDate() (value int) {
+	return p.Date
+}
+
+// GetBlocks returns value of Blocks field.
+func (p *PageBlockEmbedPost) GetBlocks() (value []PageBlockClass) {
+	return p.Blocks
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockEmbedPost) GetCaption() (value PageCaption) {
+	return p.Caption
+}
+
+// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
+func (p *PageBlockEmbedPost) MapBlocks() (value PageBlockClassArray) {
+	return PageBlockClassArray(p.Blocks)
+}
 
 // PageBlockCollage represents TL type `pageBlockCollage#65a0fa4d`.
 // Collage of media
@@ -3380,6 +3380,19 @@ type PageBlockCollage struct {
 
 // PageBlockCollageTypeID is TL type id of PageBlockCollage.
 const PageBlockCollageTypeID = 0x65a0fa4d
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockCollage) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockCollage.
+var (
+	_ bin.Encoder     = &PageBlockCollage{}
+	_ bin.Decoder     = &PageBlockCollage{}
+	_ bin.BareEncoder = &PageBlockCollage{}
+	_ bin.BareDecoder = &PageBlockCollage{}
+
+	_ PageBlockClass = &PageBlockCollage{}
+)
 
 func (p *PageBlockCollage) Zero() bool {
 	if p == nil {
@@ -3477,21 +3490,6 @@ func (p *PageBlockCollage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetItems returns value of Items field.
-func (p *PageBlockCollage) GetItems() (value []PageBlockClass) {
-	return p.Items
-}
-
-// MapItems returns field Items wrapped in PageBlockClassArray helper.
-func (p *PageBlockCollage) MapItems() (value PageBlockClassArray) {
-	return PageBlockClassArray(p.Items)
-}
-
-// GetCaption returns value of Caption field.
-func (p *PageBlockCollage) GetCaption() (value PageCaption) {
-	return p.Caption
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockCollage) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -3533,18 +3531,20 @@ func (p *PageBlockCollage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockCollage) construct() PageBlockClass { return &p }
+// GetItems returns value of Items field.
+func (p *PageBlockCollage) GetItems() (value []PageBlockClass) {
+	return p.Items
+}
 
-// Ensuring interfaces in compile-time for PageBlockCollage.
-var (
-	_ bin.Encoder     = &PageBlockCollage{}
-	_ bin.Decoder     = &PageBlockCollage{}
-	_ bin.BareEncoder = &PageBlockCollage{}
-	_ bin.BareDecoder = &PageBlockCollage{}
+// GetCaption returns value of Caption field.
+func (p *PageBlockCollage) GetCaption() (value PageCaption) {
+	return p.Caption
+}
 
-	_ PageBlockClass = &PageBlockCollage{}
-)
+// MapItems returns field Items wrapped in PageBlockClassArray helper.
+func (p *PageBlockCollage) MapItems() (value PageBlockClassArray) {
+	return PageBlockClassArray(p.Items)
+}
 
 // PageBlockSlideshow represents TL type `pageBlockSlideshow#31f9590`.
 // Slideshow
@@ -3559,6 +3559,19 @@ type PageBlockSlideshow struct {
 
 // PageBlockSlideshowTypeID is TL type id of PageBlockSlideshow.
 const PageBlockSlideshowTypeID = 0x31f9590
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockSlideshow) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockSlideshow.
+var (
+	_ bin.Encoder     = &PageBlockSlideshow{}
+	_ bin.Decoder     = &PageBlockSlideshow{}
+	_ bin.BareEncoder = &PageBlockSlideshow{}
+	_ bin.BareDecoder = &PageBlockSlideshow{}
+
+	_ PageBlockClass = &PageBlockSlideshow{}
+)
 
 func (p *PageBlockSlideshow) Zero() bool {
 	if p == nil {
@@ -3656,21 +3669,6 @@ func (p *PageBlockSlideshow) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetItems returns value of Items field.
-func (p *PageBlockSlideshow) GetItems() (value []PageBlockClass) {
-	return p.Items
-}
-
-// MapItems returns field Items wrapped in PageBlockClassArray helper.
-func (p *PageBlockSlideshow) MapItems() (value PageBlockClassArray) {
-	return PageBlockClassArray(p.Items)
-}
-
-// GetCaption returns value of Caption field.
-func (p *PageBlockSlideshow) GetCaption() (value PageCaption) {
-	return p.Caption
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockSlideshow) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -3712,18 +3710,20 @@ func (p *PageBlockSlideshow) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockSlideshow) construct() PageBlockClass { return &p }
+// GetItems returns value of Items field.
+func (p *PageBlockSlideshow) GetItems() (value []PageBlockClass) {
+	return p.Items
+}
 
-// Ensuring interfaces in compile-time for PageBlockSlideshow.
-var (
-	_ bin.Encoder     = &PageBlockSlideshow{}
-	_ bin.Decoder     = &PageBlockSlideshow{}
-	_ bin.BareEncoder = &PageBlockSlideshow{}
-	_ bin.BareDecoder = &PageBlockSlideshow{}
+// GetCaption returns value of Caption field.
+func (p *PageBlockSlideshow) GetCaption() (value PageCaption) {
+	return p.Caption
+}
 
-	_ PageBlockClass = &PageBlockSlideshow{}
-)
+// MapItems returns field Items wrapped in PageBlockClassArray helper.
+func (p *PageBlockSlideshow) MapItems() (value PageBlockClassArray) {
+	return PageBlockClassArray(p.Items)
+}
 
 // PageBlockChannel represents TL type `pageBlockChannel#ef1751b5`.
 // Reference to a telegram channel
@@ -3736,6 +3736,19 @@ type PageBlockChannel struct {
 
 // PageBlockChannelTypeID is TL type id of PageBlockChannel.
 const PageBlockChannelTypeID = 0xef1751b5
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockChannel) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockChannel.
+var (
+	_ bin.Encoder     = &PageBlockChannel{}
+	_ bin.Decoder     = &PageBlockChannel{}
+	_ bin.BareEncoder = &PageBlockChannel{}
+	_ bin.BareDecoder = &PageBlockChannel{}
+
+	_ PageBlockClass = &PageBlockChannel{}
+)
 
 func (p *PageBlockChannel) Zero() bool {
 	if p == nil {
@@ -3818,11 +3831,6 @@ func (p *PageBlockChannel) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (p *PageBlockChannel) GetChannel() (value ChatClass) {
-	return p.Channel
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockChannel) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -3849,18 +3857,10 @@ func (p *PageBlockChannel) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockChannel) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockChannel.
-var (
-	_ bin.Encoder     = &PageBlockChannel{}
-	_ bin.Decoder     = &PageBlockChannel{}
-	_ bin.BareEncoder = &PageBlockChannel{}
-	_ bin.BareDecoder = &PageBlockChannel{}
-
-	_ PageBlockClass = &PageBlockChannel{}
-)
+// GetChannel returns value of Channel field.
+func (p *PageBlockChannel) GetChannel() (value ChatClass) {
+	return p.Channel
+}
 
 // PageBlockAudio represents TL type `pageBlockAudio#804361ea`.
 // Audio
@@ -3878,6 +3878,19 @@ type PageBlockAudio struct {
 
 // PageBlockAudioTypeID is TL type id of PageBlockAudio.
 const PageBlockAudioTypeID = 0x804361ea
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockAudio) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockAudio.
+var (
+	_ bin.Encoder     = &PageBlockAudio{}
+	_ bin.Decoder     = &PageBlockAudio{}
+	_ bin.BareEncoder = &PageBlockAudio{}
+	_ bin.BareDecoder = &PageBlockAudio{}
+
+	_ PageBlockClass = &PageBlockAudio{}
+)
 
 func (p *PageBlockAudio) Zero() bool {
 	if p == nil {
@@ -3967,16 +3980,6 @@ func (p *PageBlockAudio) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAudioID returns value of AudioID field.
-func (p *PageBlockAudio) GetAudioID() (value int64) {
-	return p.AudioID
-}
-
-// GetCaption returns value of Caption field.
-func (p *PageBlockAudio) GetCaption() (value PageCaption) {
-	return p.Caption
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockAudio) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -4008,18 +4011,15 @@ func (p *PageBlockAudio) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockAudio) construct() PageBlockClass { return &p }
+// GetAudioID returns value of AudioID field.
+func (p *PageBlockAudio) GetAudioID() (value int64) {
+	return p.AudioID
+}
 
-// Ensuring interfaces in compile-time for PageBlockAudio.
-var (
-	_ bin.Encoder     = &PageBlockAudio{}
-	_ bin.Decoder     = &PageBlockAudio{}
-	_ bin.BareEncoder = &PageBlockAudio{}
-	_ bin.BareDecoder = &PageBlockAudio{}
-
-	_ PageBlockClass = &PageBlockAudio{}
-)
+// GetCaption returns value of Caption field.
+func (p *PageBlockAudio) GetCaption() (value PageCaption) {
+	return p.Caption
+}
 
 // PageBlockKicker represents TL type `pageBlockKicker#1e148390`.
 // Kicker
@@ -4032,6 +4032,19 @@ type PageBlockKicker struct {
 
 // PageBlockKickerTypeID is TL type id of PageBlockKicker.
 const PageBlockKickerTypeID = 0x1e148390
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockKicker) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockKicker.
+var (
+	_ bin.Encoder     = &PageBlockKicker{}
+	_ bin.Decoder     = &PageBlockKicker{}
+	_ bin.BareEncoder = &PageBlockKicker{}
+	_ bin.BareDecoder = &PageBlockKicker{}
+
+	_ PageBlockClass = &PageBlockKicker{}
+)
 
 func (p *PageBlockKicker) Zero() bool {
 	if p == nil {
@@ -4114,11 +4127,6 @@ func (p *PageBlockKicker) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (p *PageBlockKicker) GetText() (value RichTextClass) {
-	return p.Text
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockKicker) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -4145,18 +4153,10 @@ func (p *PageBlockKicker) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockKicker) construct() PageBlockClass { return &p }
-
-// Ensuring interfaces in compile-time for PageBlockKicker.
-var (
-	_ bin.Encoder     = &PageBlockKicker{}
-	_ bin.Decoder     = &PageBlockKicker{}
-	_ bin.BareEncoder = &PageBlockKicker{}
-	_ bin.BareDecoder = &PageBlockKicker{}
-
-	_ PageBlockClass = &PageBlockKicker{}
-)
+// GetText returns value of Text field.
+func (p *PageBlockKicker) GetText() (value RichTextClass) {
+	return p.Text
+}
 
 // PageBlockTable represents TL type `pageBlockTable#bf4dea82`.
 // Table
@@ -4180,6 +4180,19 @@ type PageBlockTable struct {
 
 // PageBlockTableTypeID is TL type id of PageBlockTable.
 const PageBlockTableTypeID = 0xbf4dea82
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockTable) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockTable.
+var (
+	_ bin.Encoder     = &PageBlockTable{}
+	_ bin.Decoder     = &PageBlockTable{}
+	_ bin.BareEncoder = &PageBlockTable{}
+	_ bin.BareDecoder = &PageBlockTable{}
+
+	_ PageBlockClass = &PageBlockTable{}
+)
 
 func (p *PageBlockTable) Zero() bool {
 	if p == nil {
@@ -4309,48 +4322,6 @@ func (p *PageBlockTable) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetBordered sets value of Bordered conditional field.
-func (p *PageBlockTable) SetBordered(value bool) {
-	if value {
-		p.Flags.Set(0)
-		p.Bordered = true
-	} else {
-		p.Flags.Unset(0)
-		p.Bordered = false
-	}
-}
-
-// GetBordered returns value of Bordered conditional field.
-func (p *PageBlockTable) GetBordered() (value bool) {
-	return p.Flags.Has(0)
-}
-
-// SetStriped sets value of Striped conditional field.
-func (p *PageBlockTable) SetStriped(value bool) {
-	if value {
-		p.Flags.Set(1)
-		p.Striped = true
-	} else {
-		p.Flags.Unset(1)
-		p.Striped = false
-	}
-}
-
-// GetStriped returns value of Striped conditional field.
-func (p *PageBlockTable) GetStriped() (value bool) {
-	return p.Flags.Has(1)
-}
-
-// GetTitle returns value of Title field.
-func (p *PageBlockTable) GetTitle() (value RichTextClass) {
-	return p.Title
-}
-
-// GetRows returns value of Rows field.
-func (p *PageBlockTable) GetRows() (value []PageTableRow) {
-	return p.Rows
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockTable) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -4401,18 +4372,47 @@ func (p *PageBlockTable) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockTable) construct() PageBlockClass { return &p }
+// SetBordered sets value of Bordered conditional field.
+func (p *PageBlockTable) SetBordered(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.Bordered = true
+	} else {
+		p.Flags.Unset(0)
+		p.Bordered = false
+	}
+}
 
-// Ensuring interfaces in compile-time for PageBlockTable.
-var (
-	_ bin.Encoder     = &PageBlockTable{}
-	_ bin.Decoder     = &PageBlockTable{}
-	_ bin.BareEncoder = &PageBlockTable{}
-	_ bin.BareDecoder = &PageBlockTable{}
+// GetBordered returns value of Bordered conditional field.
+func (p *PageBlockTable) GetBordered() (value bool) {
+	return p.Flags.Has(0)
+}
 
-	_ PageBlockClass = &PageBlockTable{}
-)
+// SetStriped sets value of Striped conditional field.
+func (p *PageBlockTable) SetStriped(value bool) {
+	if value {
+		p.Flags.Set(1)
+		p.Striped = true
+	} else {
+		p.Flags.Unset(1)
+		p.Striped = false
+	}
+}
+
+// GetStriped returns value of Striped conditional field.
+func (p *PageBlockTable) GetStriped() (value bool) {
+	return p.Flags.Has(1)
+}
+
+// GetTitle returns value of Title field.
+func (p *PageBlockTable) GetTitle() (value RichTextClass) {
+	return p.Title
+}
+
+// GetRows returns value of Rows field.
+func (p *PageBlockTable) GetRows() (value []PageTableRow) {
+	return p.Rows
+}
 
 // PageBlockOrderedList represents TL type `pageBlockOrderedList#9a8ae1e1`.
 // Ordered list of IV blocks
@@ -4425,6 +4425,19 @@ type PageBlockOrderedList struct {
 
 // PageBlockOrderedListTypeID is TL type id of PageBlockOrderedList.
 const PageBlockOrderedListTypeID = 0x9a8ae1e1
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockOrderedList) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockOrderedList.
+var (
+	_ bin.Encoder     = &PageBlockOrderedList{}
+	_ bin.Decoder     = &PageBlockOrderedList{}
+	_ bin.BareEncoder = &PageBlockOrderedList{}
+	_ bin.BareDecoder = &PageBlockOrderedList{}
+
+	_ PageBlockClass = &PageBlockOrderedList{}
+)
 
 func (p *PageBlockOrderedList) Zero() bool {
 	if p == nil {
@@ -4510,16 +4523,6 @@ func (p *PageBlockOrderedList) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetItems returns value of Items field.
-func (p *PageBlockOrderedList) GetItems() (value []PageListOrderedItemClass) {
-	return p.Items
-}
-
-// MapItems returns field Items wrapped in PageListOrderedItemClassArray helper.
-func (p *PageBlockOrderedList) MapItems() (value PageListOrderedItemClassArray) {
-	return PageListOrderedItemClassArray(p.Items)
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockOrderedList) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -4556,18 +4559,15 @@ func (p *PageBlockOrderedList) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockOrderedList) construct() PageBlockClass { return &p }
+// GetItems returns value of Items field.
+func (p *PageBlockOrderedList) GetItems() (value []PageListOrderedItemClass) {
+	return p.Items
+}
 
-// Ensuring interfaces in compile-time for PageBlockOrderedList.
-var (
-	_ bin.Encoder     = &PageBlockOrderedList{}
-	_ bin.Decoder     = &PageBlockOrderedList{}
-	_ bin.BareEncoder = &PageBlockOrderedList{}
-	_ bin.BareDecoder = &PageBlockOrderedList{}
-
-	_ PageBlockClass = &PageBlockOrderedList{}
-)
+// MapItems returns field Items wrapped in PageListOrderedItemClassArray helper.
+func (p *PageBlockOrderedList) MapItems() (value PageListOrderedItemClassArray) {
+	return PageListOrderedItemClassArray(p.Items)
+}
 
 // PageBlockDetails represents TL type `pageBlockDetails#76768bed`.
 // A collapsible details block
@@ -4589,6 +4589,19 @@ type PageBlockDetails struct {
 
 // PageBlockDetailsTypeID is TL type id of PageBlockDetails.
 const PageBlockDetailsTypeID = 0x76768bed
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockDetails) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockDetails.
+var (
+	_ bin.Encoder     = &PageBlockDetails{}
+	_ bin.Decoder     = &PageBlockDetails{}
+	_ bin.BareEncoder = &PageBlockDetails{}
+	_ bin.BareDecoder = &PageBlockDetails{}
+
+	_ PageBlockClass = &PageBlockDetails{}
+)
 
 func (p *PageBlockDetails) Zero() bool {
 	if p == nil {
@@ -4708,37 +4721,6 @@ func (p *PageBlockDetails) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetOpen sets value of Open conditional field.
-func (p *PageBlockDetails) SetOpen(value bool) {
-	if value {
-		p.Flags.Set(0)
-		p.Open = true
-	} else {
-		p.Flags.Unset(0)
-		p.Open = false
-	}
-}
-
-// GetOpen returns value of Open conditional field.
-func (p *PageBlockDetails) GetOpen() (value bool) {
-	return p.Flags.Has(0)
-}
-
-// GetBlocks returns value of Blocks field.
-func (p *PageBlockDetails) GetBlocks() (value []PageBlockClass) {
-	return p.Blocks
-}
-
-// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
-func (p *PageBlockDetails) MapBlocks() (value PageBlockClassArray) {
-	return PageBlockClassArray(p.Blocks)
-}
-
-// GetTitle returns value of Title field.
-func (p *PageBlockDetails) GetTitle() (value RichTextClass) {
-	return p.Title
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockDetails) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -4788,18 +4770,36 @@ func (p *PageBlockDetails) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockDetails) construct() PageBlockClass { return &p }
+// SetOpen sets value of Open conditional field.
+func (p *PageBlockDetails) SetOpen(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.Open = true
+	} else {
+		p.Flags.Unset(0)
+		p.Open = false
+	}
+}
 
-// Ensuring interfaces in compile-time for PageBlockDetails.
-var (
-	_ bin.Encoder     = &PageBlockDetails{}
-	_ bin.Decoder     = &PageBlockDetails{}
-	_ bin.BareEncoder = &PageBlockDetails{}
-	_ bin.BareDecoder = &PageBlockDetails{}
+// GetOpen returns value of Open conditional field.
+func (p *PageBlockDetails) GetOpen() (value bool) {
+	return p.Flags.Has(0)
+}
 
-	_ PageBlockClass = &PageBlockDetails{}
-)
+// GetBlocks returns value of Blocks field.
+func (p *PageBlockDetails) GetBlocks() (value []PageBlockClass) {
+	return p.Blocks
+}
+
+// GetTitle returns value of Title field.
+func (p *PageBlockDetails) GetTitle() (value RichTextClass) {
+	return p.Title
+}
+
+// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
+func (p *PageBlockDetails) MapBlocks() (value PageBlockClassArray) {
+	return PageBlockClassArray(p.Blocks)
+}
 
 // PageBlockRelatedArticles represents TL type `pageBlockRelatedArticles#16115a96`.
 // Related articles
@@ -4814,6 +4814,19 @@ type PageBlockRelatedArticles struct {
 
 // PageBlockRelatedArticlesTypeID is TL type id of PageBlockRelatedArticles.
 const PageBlockRelatedArticlesTypeID = 0x16115a96
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockRelatedArticles) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockRelatedArticles.
+var (
+	_ bin.Encoder     = &PageBlockRelatedArticles{}
+	_ bin.Decoder     = &PageBlockRelatedArticles{}
+	_ bin.BareEncoder = &PageBlockRelatedArticles{}
+	_ bin.BareDecoder = &PageBlockRelatedArticles{}
+
+	_ PageBlockClass = &PageBlockRelatedArticles{}
+)
 
 func (p *PageBlockRelatedArticles) Zero() bool {
 	if p == nil {
@@ -4911,16 +4924,6 @@ func (p *PageBlockRelatedArticles) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTitle returns value of Title field.
-func (p *PageBlockRelatedArticles) GetTitle() (value RichTextClass) {
-	return p.Title
-}
-
-// GetArticles returns value of Articles field.
-func (p *PageBlockRelatedArticles) GetArticles() (value []PageRelatedArticle) {
-	return p.Articles
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockRelatedArticles) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -4964,18 +4967,15 @@ func (p *PageBlockRelatedArticles) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockRelatedArticles) construct() PageBlockClass { return &p }
+// GetTitle returns value of Title field.
+func (p *PageBlockRelatedArticles) GetTitle() (value RichTextClass) {
+	return p.Title
+}
 
-// Ensuring interfaces in compile-time for PageBlockRelatedArticles.
-var (
-	_ bin.Encoder     = &PageBlockRelatedArticles{}
-	_ bin.Decoder     = &PageBlockRelatedArticles{}
-	_ bin.BareEncoder = &PageBlockRelatedArticles{}
-	_ bin.BareDecoder = &PageBlockRelatedArticles{}
-
-	_ PageBlockClass = &PageBlockRelatedArticles{}
-)
+// GetArticles returns value of Articles field.
+func (p *PageBlockRelatedArticles) GetArticles() (value []PageRelatedArticle) {
+	return p.Articles
+}
 
 // PageBlockMap represents TL type `pageBlockMap#a44f3ef6`.
 // A map
@@ -4996,6 +4996,19 @@ type PageBlockMap struct {
 
 // PageBlockMapTypeID is TL type id of PageBlockMap.
 const PageBlockMapTypeID = 0xa44f3ef6
+
+// construct implements constructor of PageBlockClass.
+func (p PageBlockMap) construct() PageBlockClass { return &p }
+
+// Ensuring interfaces in compile-time for PageBlockMap.
+var (
+	_ bin.Encoder     = &PageBlockMap{}
+	_ bin.Decoder     = &PageBlockMap{}
+	_ bin.BareEncoder = &PageBlockMap{}
+	_ bin.BareDecoder = &PageBlockMap{}
+
+	_ PageBlockClass = &PageBlockMap{}
+)
 
 func (p *PageBlockMap) Zero() bool {
 	if p == nil {
@@ -5120,31 +5133,6 @@ func (p *PageBlockMap) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetGeo returns value of Geo field.
-func (p *PageBlockMap) GetGeo() (value GeoPointClass) {
-	return p.Geo
-}
-
-// GetZoom returns value of Zoom field.
-func (p *PageBlockMap) GetZoom() (value int) {
-	return p.Zoom
-}
-
-// GetW returns value of W field.
-func (p *PageBlockMap) GetW() (value int) {
-	return p.W
-}
-
-// GetH returns value of H field.
-func (p *PageBlockMap) GetH() (value int) {
-	return p.H
-}
-
-// GetCaption returns value of Caption field.
-func (p *PageBlockMap) GetCaption() (value PageCaption) {
-	return p.Caption
-}
-
 // Decode implements bin.Decoder.
 func (p *PageBlockMap) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -5197,18 +5185,30 @@ func (p *PageBlockMap) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageBlockClass.
-func (p PageBlockMap) construct() PageBlockClass { return &p }
+// GetGeo returns value of Geo field.
+func (p *PageBlockMap) GetGeo() (value GeoPointClass) {
+	return p.Geo
+}
 
-// Ensuring interfaces in compile-time for PageBlockMap.
-var (
-	_ bin.Encoder     = &PageBlockMap{}
-	_ bin.Decoder     = &PageBlockMap{}
-	_ bin.BareEncoder = &PageBlockMap{}
-	_ bin.BareDecoder = &PageBlockMap{}
+// GetZoom returns value of Zoom field.
+func (p *PageBlockMap) GetZoom() (value int) {
+	return p.Zoom
+}
 
-	_ PageBlockClass = &PageBlockMap{}
-)
+// GetW returns value of W field.
+func (p *PageBlockMap) GetW() (value int) {
+	return p.W
+}
+
+// GetH returns value of H field.
+func (p *PageBlockMap) GetH() (value int) {
+	return p.H
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockMap) GetCaption() (value PageCaption) {
+	return p.Caption
+}
 
 // PageBlockClass represents PageBlock generic type.
 //
@@ -5509,2665 +5509,4 @@ func (b *PageBlockBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PageBlockClass as nil")
 	}
 	return b.PageBlock.Encode(buf)
-}
-
-// PageBlockClassArray is adapter for slice of PageBlockClass.
-type PageBlockClassArray []PageBlockClass
-
-// Sort sorts slice of PageBlockClass.
-func (s PageBlockClassArray) Sort(less func(a, b PageBlockClass) bool) PageBlockClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockClass.
-func (s PageBlockClassArray) SortStable(less func(a, b PageBlockClass) bool) PageBlockClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockClass.
-func (s PageBlockClassArray) Retain(keep func(x PageBlockClass) bool) PageBlockClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockClassArray) First() (v PageBlockClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockClassArray) Last() (v PageBlockClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockClassArray) PopFirst() (v PageBlockClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockClassArray) Pop() (v PageBlockClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsPageBlockTitle returns copy with only PageBlockTitle constructors.
-func (s PageBlockClassArray) AsPageBlockTitle() (to PageBlockTitleArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockTitle)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockSubtitle returns copy with only PageBlockSubtitle constructors.
-func (s PageBlockClassArray) AsPageBlockSubtitle() (to PageBlockSubtitleArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockSubtitle)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockAuthorDate returns copy with only PageBlockAuthorDate constructors.
-func (s PageBlockClassArray) AsPageBlockAuthorDate() (to PageBlockAuthorDateArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockAuthorDate)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockHeader returns copy with only PageBlockHeader constructors.
-func (s PageBlockClassArray) AsPageBlockHeader() (to PageBlockHeaderArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockHeader)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockSubheader returns copy with only PageBlockSubheader constructors.
-func (s PageBlockClassArray) AsPageBlockSubheader() (to PageBlockSubheaderArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockSubheader)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockParagraph returns copy with only PageBlockParagraph constructors.
-func (s PageBlockClassArray) AsPageBlockParagraph() (to PageBlockParagraphArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockParagraph)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockPreformatted returns copy with only PageBlockPreformatted constructors.
-func (s PageBlockClassArray) AsPageBlockPreformatted() (to PageBlockPreformattedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockPreformatted)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockFooter returns copy with only PageBlockFooter constructors.
-func (s PageBlockClassArray) AsPageBlockFooter() (to PageBlockFooterArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockFooter)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockAnchor returns copy with only PageBlockAnchor constructors.
-func (s PageBlockClassArray) AsPageBlockAnchor() (to PageBlockAnchorArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockAnchor)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockList returns copy with only PageBlockList constructors.
-func (s PageBlockClassArray) AsPageBlockList() (to PageBlockListArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockList)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockBlockquote returns copy with only PageBlockBlockquote constructors.
-func (s PageBlockClassArray) AsPageBlockBlockquote() (to PageBlockBlockquoteArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockBlockquote)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockPullquote returns copy with only PageBlockPullquote constructors.
-func (s PageBlockClassArray) AsPageBlockPullquote() (to PageBlockPullquoteArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockPullquote)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockPhoto returns copy with only PageBlockPhoto constructors.
-func (s PageBlockClassArray) AsPageBlockPhoto() (to PageBlockPhotoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockPhoto)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockVideo returns copy with only PageBlockVideo constructors.
-func (s PageBlockClassArray) AsPageBlockVideo() (to PageBlockVideoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockVideo)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockCover returns copy with only PageBlockCover constructors.
-func (s PageBlockClassArray) AsPageBlockCover() (to PageBlockCoverArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockCover)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockEmbed returns copy with only PageBlockEmbed constructors.
-func (s PageBlockClassArray) AsPageBlockEmbed() (to PageBlockEmbedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockEmbed)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockEmbedPost returns copy with only PageBlockEmbedPost constructors.
-func (s PageBlockClassArray) AsPageBlockEmbedPost() (to PageBlockEmbedPostArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockEmbedPost)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockCollage returns copy with only PageBlockCollage constructors.
-func (s PageBlockClassArray) AsPageBlockCollage() (to PageBlockCollageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockCollage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockSlideshow returns copy with only PageBlockSlideshow constructors.
-func (s PageBlockClassArray) AsPageBlockSlideshow() (to PageBlockSlideshowArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockSlideshow)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockChannel returns copy with only PageBlockChannel constructors.
-func (s PageBlockClassArray) AsPageBlockChannel() (to PageBlockChannelArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockChannel)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockAudio returns copy with only PageBlockAudio constructors.
-func (s PageBlockClassArray) AsPageBlockAudio() (to PageBlockAudioArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockAudio)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockKicker returns copy with only PageBlockKicker constructors.
-func (s PageBlockClassArray) AsPageBlockKicker() (to PageBlockKickerArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockKicker)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockTable returns copy with only PageBlockTable constructors.
-func (s PageBlockClassArray) AsPageBlockTable() (to PageBlockTableArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockTable)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockOrderedList returns copy with only PageBlockOrderedList constructors.
-func (s PageBlockClassArray) AsPageBlockOrderedList() (to PageBlockOrderedListArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockOrderedList)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockDetails returns copy with only PageBlockDetails constructors.
-func (s PageBlockClassArray) AsPageBlockDetails() (to PageBlockDetailsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockDetails)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockRelatedArticles returns copy with only PageBlockRelatedArticles constructors.
-func (s PageBlockClassArray) AsPageBlockRelatedArticles() (to PageBlockRelatedArticlesArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockRelatedArticles)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageBlockMap returns copy with only PageBlockMap constructors.
-func (s PageBlockClassArray) AsPageBlockMap() (to PageBlockMapArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageBlockMap)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// PageBlockTitleArray is adapter for slice of PageBlockTitle.
-type PageBlockTitleArray []PageBlockTitle
-
-// Sort sorts slice of PageBlockTitle.
-func (s PageBlockTitleArray) Sort(less func(a, b PageBlockTitle) bool) PageBlockTitleArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockTitle.
-func (s PageBlockTitleArray) SortStable(less func(a, b PageBlockTitle) bool) PageBlockTitleArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockTitle.
-func (s PageBlockTitleArray) Retain(keep func(x PageBlockTitle) bool) PageBlockTitleArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockTitleArray) First() (v PageBlockTitle, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockTitleArray) Last() (v PageBlockTitle, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockTitleArray) PopFirst() (v PageBlockTitle, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockTitle
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockTitleArray) Pop() (v PageBlockTitle, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockSubtitleArray is adapter for slice of PageBlockSubtitle.
-type PageBlockSubtitleArray []PageBlockSubtitle
-
-// Sort sorts slice of PageBlockSubtitle.
-func (s PageBlockSubtitleArray) Sort(less func(a, b PageBlockSubtitle) bool) PageBlockSubtitleArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockSubtitle.
-func (s PageBlockSubtitleArray) SortStable(less func(a, b PageBlockSubtitle) bool) PageBlockSubtitleArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockSubtitle.
-func (s PageBlockSubtitleArray) Retain(keep func(x PageBlockSubtitle) bool) PageBlockSubtitleArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockSubtitleArray) First() (v PageBlockSubtitle, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockSubtitleArray) Last() (v PageBlockSubtitle, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockSubtitleArray) PopFirst() (v PageBlockSubtitle, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockSubtitle
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockSubtitleArray) Pop() (v PageBlockSubtitle, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockAuthorDateArray is adapter for slice of PageBlockAuthorDate.
-type PageBlockAuthorDateArray []PageBlockAuthorDate
-
-// Sort sorts slice of PageBlockAuthorDate.
-func (s PageBlockAuthorDateArray) Sort(less func(a, b PageBlockAuthorDate) bool) PageBlockAuthorDateArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockAuthorDate.
-func (s PageBlockAuthorDateArray) SortStable(less func(a, b PageBlockAuthorDate) bool) PageBlockAuthorDateArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockAuthorDate.
-func (s PageBlockAuthorDateArray) Retain(keep func(x PageBlockAuthorDate) bool) PageBlockAuthorDateArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockAuthorDateArray) First() (v PageBlockAuthorDate, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockAuthorDateArray) Last() (v PageBlockAuthorDate, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockAuthorDateArray) PopFirst() (v PageBlockAuthorDate, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockAuthorDate
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockAuthorDateArray) Pop() (v PageBlockAuthorDate, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockHeaderArray is adapter for slice of PageBlockHeader.
-type PageBlockHeaderArray []PageBlockHeader
-
-// Sort sorts slice of PageBlockHeader.
-func (s PageBlockHeaderArray) Sort(less func(a, b PageBlockHeader) bool) PageBlockHeaderArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockHeader.
-func (s PageBlockHeaderArray) SortStable(less func(a, b PageBlockHeader) bool) PageBlockHeaderArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockHeader.
-func (s PageBlockHeaderArray) Retain(keep func(x PageBlockHeader) bool) PageBlockHeaderArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockHeaderArray) First() (v PageBlockHeader, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockHeaderArray) Last() (v PageBlockHeader, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockHeaderArray) PopFirst() (v PageBlockHeader, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockHeader
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockHeaderArray) Pop() (v PageBlockHeader, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockSubheaderArray is adapter for slice of PageBlockSubheader.
-type PageBlockSubheaderArray []PageBlockSubheader
-
-// Sort sorts slice of PageBlockSubheader.
-func (s PageBlockSubheaderArray) Sort(less func(a, b PageBlockSubheader) bool) PageBlockSubheaderArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockSubheader.
-func (s PageBlockSubheaderArray) SortStable(less func(a, b PageBlockSubheader) bool) PageBlockSubheaderArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockSubheader.
-func (s PageBlockSubheaderArray) Retain(keep func(x PageBlockSubheader) bool) PageBlockSubheaderArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockSubheaderArray) First() (v PageBlockSubheader, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockSubheaderArray) Last() (v PageBlockSubheader, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockSubheaderArray) PopFirst() (v PageBlockSubheader, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockSubheader
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockSubheaderArray) Pop() (v PageBlockSubheader, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockParagraphArray is adapter for slice of PageBlockParagraph.
-type PageBlockParagraphArray []PageBlockParagraph
-
-// Sort sorts slice of PageBlockParagraph.
-func (s PageBlockParagraphArray) Sort(less func(a, b PageBlockParagraph) bool) PageBlockParagraphArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockParagraph.
-func (s PageBlockParagraphArray) SortStable(less func(a, b PageBlockParagraph) bool) PageBlockParagraphArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockParagraph.
-func (s PageBlockParagraphArray) Retain(keep func(x PageBlockParagraph) bool) PageBlockParagraphArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockParagraphArray) First() (v PageBlockParagraph, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockParagraphArray) Last() (v PageBlockParagraph, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockParagraphArray) PopFirst() (v PageBlockParagraph, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockParagraph
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockParagraphArray) Pop() (v PageBlockParagraph, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockPreformattedArray is adapter for slice of PageBlockPreformatted.
-type PageBlockPreformattedArray []PageBlockPreformatted
-
-// Sort sorts slice of PageBlockPreformatted.
-func (s PageBlockPreformattedArray) Sort(less func(a, b PageBlockPreformatted) bool) PageBlockPreformattedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockPreformatted.
-func (s PageBlockPreformattedArray) SortStable(less func(a, b PageBlockPreformatted) bool) PageBlockPreformattedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockPreformatted.
-func (s PageBlockPreformattedArray) Retain(keep func(x PageBlockPreformatted) bool) PageBlockPreformattedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockPreformattedArray) First() (v PageBlockPreformatted, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockPreformattedArray) Last() (v PageBlockPreformatted, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockPreformattedArray) PopFirst() (v PageBlockPreformatted, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockPreformatted
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockPreformattedArray) Pop() (v PageBlockPreformatted, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockFooterArray is adapter for slice of PageBlockFooter.
-type PageBlockFooterArray []PageBlockFooter
-
-// Sort sorts slice of PageBlockFooter.
-func (s PageBlockFooterArray) Sort(less func(a, b PageBlockFooter) bool) PageBlockFooterArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockFooter.
-func (s PageBlockFooterArray) SortStable(less func(a, b PageBlockFooter) bool) PageBlockFooterArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockFooter.
-func (s PageBlockFooterArray) Retain(keep func(x PageBlockFooter) bool) PageBlockFooterArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockFooterArray) First() (v PageBlockFooter, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockFooterArray) Last() (v PageBlockFooter, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockFooterArray) PopFirst() (v PageBlockFooter, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockFooter
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockFooterArray) Pop() (v PageBlockFooter, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockAnchorArray is adapter for slice of PageBlockAnchor.
-type PageBlockAnchorArray []PageBlockAnchor
-
-// Sort sorts slice of PageBlockAnchor.
-func (s PageBlockAnchorArray) Sort(less func(a, b PageBlockAnchor) bool) PageBlockAnchorArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockAnchor.
-func (s PageBlockAnchorArray) SortStable(less func(a, b PageBlockAnchor) bool) PageBlockAnchorArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockAnchor.
-func (s PageBlockAnchorArray) Retain(keep func(x PageBlockAnchor) bool) PageBlockAnchorArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockAnchorArray) First() (v PageBlockAnchor, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockAnchorArray) Last() (v PageBlockAnchor, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockAnchorArray) PopFirst() (v PageBlockAnchor, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockAnchor
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockAnchorArray) Pop() (v PageBlockAnchor, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockListArray is adapter for slice of PageBlockList.
-type PageBlockListArray []PageBlockList
-
-// Sort sorts slice of PageBlockList.
-func (s PageBlockListArray) Sort(less func(a, b PageBlockList) bool) PageBlockListArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockList.
-func (s PageBlockListArray) SortStable(less func(a, b PageBlockList) bool) PageBlockListArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockList.
-func (s PageBlockListArray) Retain(keep func(x PageBlockList) bool) PageBlockListArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockListArray) First() (v PageBlockList, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockListArray) Last() (v PageBlockList, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockListArray) PopFirst() (v PageBlockList, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockList
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockListArray) Pop() (v PageBlockList, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockBlockquoteArray is adapter for slice of PageBlockBlockquote.
-type PageBlockBlockquoteArray []PageBlockBlockquote
-
-// Sort sorts slice of PageBlockBlockquote.
-func (s PageBlockBlockquoteArray) Sort(less func(a, b PageBlockBlockquote) bool) PageBlockBlockquoteArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockBlockquote.
-func (s PageBlockBlockquoteArray) SortStable(less func(a, b PageBlockBlockquote) bool) PageBlockBlockquoteArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockBlockquote.
-func (s PageBlockBlockquoteArray) Retain(keep func(x PageBlockBlockquote) bool) PageBlockBlockquoteArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockBlockquoteArray) First() (v PageBlockBlockquote, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockBlockquoteArray) Last() (v PageBlockBlockquote, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockBlockquoteArray) PopFirst() (v PageBlockBlockquote, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockBlockquote
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockBlockquoteArray) Pop() (v PageBlockBlockquote, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockPullquoteArray is adapter for slice of PageBlockPullquote.
-type PageBlockPullquoteArray []PageBlockPullquote
-
-// Sort sorts slice of PageBlockPullquote.
-func (s PageBlockPullquoteArray) Sort(less func(a, b PageBlockPullquote) bool) PageBlockPullquoteArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockPullquote.
-func (s PageBlockPullquoteArray) SortStable(less func(a, b PageBlockPullquote) bool) PageBlockPullquoteArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockPullquote.
-func (s PageBlockPullquoteArray) Retain(keep func(x PageBlockPullquote) bool) PageBlockPullquoteArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockPullquoteArray) First() (v PageBlockPullquote, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockPullquoteArray) Last() (v PageBlockPullquote, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockPullquoteArray) PopFirst() (v PageBlockPullquote, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockPullquote
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockPullquoteArray) Pop() (v PageBlockPullquote, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockPhotoArray is adapter for slice of PageBlockPhoto.
-type PageBlockPhotoArray []PageBlockPhoto
-
-// Sort sorts slice of PageBlockPhoto.
-func (s PageBlockPhotoArray) Sort(less func(a, b PageBlockPhoto) bool) PageBlockPhotoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockPhoto.
-func (s PageBlockPhotoArray) SortStable(less func(a, b PageBlockPhoto) bool) PageBlockPhotoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockPhoto.
-func (s PageBlockPhotoArray) Retain(keep func(x PageBlockPhoto) bool) PageBlockPhotoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockPhotoArray) First() (v PageBlockPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockPhotoArray) Last() (v PageBlockPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockPhotoArray) PopFirst() (v PageBlockPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockPhoto
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockPhotoArray) Pop() (v PageBlockPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockVideoArray is adapter for slice of PageBlockVideo.
-type PageBlockVideoArray []PageBlockVideo
-
-// Sort sorts slice of PageBlockVideo.
-func (s PageBlockVideoArray) Sort(less func(a, b PageBlockVideo) bool) PageBlockVideoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockVideo.
-func (s PageBlockVideoArray) SortStable(less func(a, b PageBlockVideo) bool) PageBlockVideoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockVideo.
-func (s PageBlockVideoArray) Retain(keep func(x PageBlockVideo) bool) PageBlockVideoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockVideoArray) First() (v PageBlockVideo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockVideoArray) Last() (v PageBlockVideo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockVideoArray) PopFirst() (v PageBlockVideo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockVideo
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockVideoArray) Pop() (v PageBlockVideo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockCoverArray is adapter for slice of PageBlockCover.
-type PageBlockCoverArray []PageBlockCover
-
-// Sort sorts slice of PageBlockCover.
-func (s PageBlockCoverArray) Sort(less func(a, b PageBlockCover) bool) PageBlockCoverArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockCover.
-func (s PageBlockCoverArray) SortStable(less func(a, b PageBlockCover) bool) PageBlockCoverArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockCover.
-func (s PageBlockCoverArray) Retain(keep func(x PageBlockCover) bool) PageBlockCoverArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockCoverArray) First() (v PageBlockCover, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockCoverArray) Last() (v PageBlockCover, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockCoverArray) PopFirst() (v PageBlockCover, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockCover
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockCoverArray) Pop() (v PageBlockCover, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockEmbedArray is adapter for slice of PageBlockEmbed.
-type PageBlockEmbedArray []PageBlockEmbed
-
-// Sort sorts slice of PageBlockEmbed.
-func (s PageBlockEmbedArray) Sort(less func(a, b PageBlockEmbed) bool) PageBlockEmbedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockEmbed.
-func (s PageBlockEmbedArray) SortStable(less func(a, b PageBlockEmbed) bool) PageBlockEmbedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockEmbed.
-func (s PageBlockEmbedArray) Retain(keep func(x PageBlockEmbed) bool) PageBlockEmbedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockEmbedArray) First() (v PageBlockEmbed, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockEmbedArray) Last() (v PageBlockEmbed, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockEmbedArray) PopFirst() (v PageBlockEmbed, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockEmbed
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockEmbedArray) Pop() (v PageBlockEmbed, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockEmbedPostArray is adapter for slice of PageBlockEmbedPost.
-type PageBlockEmbedPostArray []PageBlockEmbedPost
-
-// Sort sorts slice of PageBlockEmbedPost.
-func (s PageBlockEmbedPostArray) Sort(less func(a, b PageBlockEmbedPost) bool) PageBlockEmbedPostArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockEmbedPost.
-func (s PageBlockEmbedPostArray) SortStable(less func(a, b PageBlockEmbedPost) bool) PageBlockEmbedPostArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockEmbedPost.
-func (s PageBlockEmbedPostArray) Retain(keep func(x PageBlockEmbedPost) bool) PageBlockEmbedPostArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockEmbedPostArray) First() (v PageBlockEmbedPost, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockEmbedPostArray) Last() (v PageBlockEmbedPost, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockEmbedPostArray) PopFirst() (v PageBlockEmbedPost, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockEmbedPost
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockEmbedPostArray) Pop() (v PageBlockEmbedPost, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of PageBlockEmbedPost by Date.
-func (s PageBlockEmbedPostArray) SortByDate() PageBlockEmbedPostArray {
-	return s.Sort(func(a, b PageBlockEmbedPost) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of PageBlockEmbedPost by Date.
-func (s PageBlockEmbedPostArray) SortStableByDate() PageBlockEmbedPostArray {
-	return s.SortStable(func(a, b PageBlockEmbedPost) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// PageBlockCollageArray is adapter for slice of PageBlockCollage.
-type PageBlockCollageArray []PageBlockCollage
-
-// Sort sorts slice of PageBlockCollage.
-func (s PageBlockCollageArray) Sort(less func(a, b PageBlockCollage) bool) PageBlockCollageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockCollage.
-func (s PageBlockCollageArray) SortStable(less func(a, b PageBlockCollage) bool) PageBlockCollageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockCollage.
-func (s PageBlockCollageArray) Retain(keep func(x PageBlockCollage) bool) PageBlockCollageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockCollageArray) First() (v PageBlockCollage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockCollageArray) Last() (v PageBlockCollage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockCollageArray) PopFirst() (v PageBlockCollage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockCollage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockCollageArray) Pop() (v PageBlockCollage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockSlideshowArray is adapter for slice of PageBlockSlideshow.
-type PageBlockSlideshowArray []PageBlockSlideshow
-
-// Sort sorts slice of PageBlockSlideshow.
-func (s PageBlockSlideshowArray) Sort(less func(a, b PageBlockSlideshow) bool) PageBlockSlideshowArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockSlideshow.
-func (s PageBlockSlideshowArray) SortStable(less func(a, b PageBlockSlideshow) bool) PageBlockSlideshowArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockSlideshow.
-func (s PageBlockSlideshowArray) Retain(keep func(x PageBlockSlideshow) bool) PageBlockSlideshowArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockSlideshowArray) First() (v PageBlockSlideshow, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockSlideshowArray) Last() (v PageBlockSlideshow, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockSlideshowArray) PopFirst() (v PageBlockSlideshow, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockSlideshow
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockSlideshowArray) Pop() (v PageBlockSlideshow, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockChannelArray is adapter for slice of PageBlockChannel.
-type PageBlockChannelArray []PageBlockChannel
-
-// Sort sorts slice of PageBlockChannel.
-func (s PageBlockChannelArray) Sort(less func(a, b PageBlockChannel) bool) PageBlockChannelArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockChannel.
-func (s PageBlockChannelArray) SortStable(less func(a, b PageBlockChannel) bool) PageBlockChannelArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockChannel.
-func (s PageBlockChannelArray) Retain(keep func(x PageBlockChannel) bool) PageBlockChannelArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockChannelArray) First() (v PageBlockChannel, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockChannelArray) Last() (v PageBlockChannel, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockChannelArray) PopFirst() (v PageBlockChannel, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockChannel
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockChannelArray) Pop() (v PageBlockChannel, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockAudioArray is adapter for slice of PageBlockAudio.
-type PageBlockAudioArray []PageBlockAudio
-
-// Sort sorts slice of PageBlockAudio.
-func (s PageBlockAudioArray) Sort(less func(a, b PageBlockAudio) bool) PageBlockAudioArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockAudio.
-func (s PageBlockAudioArray) SortStable(less func(a, b PageBlockAudio) bool) PageBlockAudioArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockAudio.
-func (s PageBlockAudioArray) Retain(keep func(x PageBlockAudio) bool) PageBlockAudioArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockAudioArray) First() (v PageBlockAudio, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockAudioArray) Last() (v PageBlockAudio, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockAudioArray) PopFirst() (v PageBlockAudio, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockAudio
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockAudioArray) Pop() (v PageBlockAudio, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockKickerArray is adapter for slice of PageBlockKicker.
-type PageBlockKickerArray []PageBlockKicker
-
-// Sort sorts slice of PageBlockKicker.
-func (s PageBlockKickerArray) Sort(less func(a, b PageBlockKicker) bool) PageBlockKickerArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockKicker.
-func (s PageBlockKickerArray) SortStable(less func(a, b PageBlockKicker) bool) PageBlockKickerArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockKicker.
-func (s PageBlockKickerArray) Retain(keep func(x PageBlockKicker) bool) PageBlockKickerArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockKickerArray) First() (v PageBlockKicker, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockKickerArray) Last() (v PageBlockKicker, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockKickerArray) PopFirst() (v PageBlockKicker, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockKicker
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockKickerArray) Pop() (v PageBlockKicker, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockTableArray is adapter for slice of PageBlockTable.
-type PageBlockTableArray []PageBlockTable
-
-// Sort sorts slice of PageBlockTable.
-func (s PageBlockTableArray) Sort(less func(a, b PageBlockTable) bool) PageBlockTableArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockTable.
-func (s PageBlockTableArray) SortStable(less func(a, b PageBlockTable) bool) PageBlockTableArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockTable.
-func (s PageBlockTableArray) Retain(keep func(x PageBlockTable) bool) PageBlockTableArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockTableArray) First() (v PageBlockTable, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockTableArray) Last() (v PageBlockTable, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockTableArray) PopFirst() (v PageBlockTable, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockTable
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockTableArray) Pop() (v PageBlockTable, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockOrderedListArray is adapter for slice of PageBlockOrderedList.
-type PageBlockOrderedListArray []PageBlockOrderedList
-
-// Sort sorts slice of PageBlockOrderedList.
-func (s PageBlockOrderedListArray) Sort(less func(a, b PageBlockOrderedList) bool) PageBlockOrderedListArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockOrderedList.
-func (s PageBlockOrderedListArray) SortStable(less func(a, b PageBlockOrderedList) bool) PageBlockOrderedListArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockOrderedList.
-func (s PageBlockOrderedListArray) Retain(keep func(x PageBlockOrderedList) bool) PageBlockOrderedListArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockOrderedListArray) First() (v PageBlockOrderedList, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockOrderedListArray) Last() (v PageBlockOrderedList, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockOrderedListArray) PopFirst() (v PageBlockOrderedList, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockOrderedList
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockOrderedListArray) Pop() (v PageBlockOrderedList, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockDetailsArray is adapter for slice of PageBlockDetails.
-type PageBlockDetailsArray []PageBlockDetails
-
-// Sort sorts slice of PageBlockDetails.
-func (s PageBlockDetailsArray) Sort(less func(a, b PageBlockDetails) bool) PageBlockDetailsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockDetails.
-func (s PageBlockDetailsArray) SortStable(less func(a, b PageBlockDetails) bool) PageBlockDetailsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockDetails.
-func (s PageBlockDetailsArray) Retain(keep func(x PageBlockDetails) bool) PageBlockDetailsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockDetailsArray) First() (v PageBlockDetails, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockDetailsArray) Last() (v PageBlockDetails, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockDetailsArray) PopFirst() (v PageBlockDetails, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockDetails
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockDetailsArray) Pop() (v PageBlockDetails, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockRelatedArticlesArray is adapter for slice of PageBlockRelatedArticles.
-type PageBlockRelatedArticlesArray []PageBlockRelatedArticles
-
-// Sort sorts slice of PageBlockRelatedArticles.
-func (s PageBlockRelatedArticlesArray) Sort(less func(a, b PageBlockRelatedArticles) bool) PageBlockRelatedArticlesArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockRelatedArticles.
-func (s PageBlockRelatedArticlesArray) SortStable(less func(a, b PageBlockRelatedArticles) bool) PageBlockRelatedArticlesArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockRelatedArticles.
-func (s PageBlockRelatedArticlesArray) Retain(keep func(x PageBlockRelatedArticles) bool) PageBlockRelatedArticlesArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockRelatedArticlesArray) First() (v PageBlockRelatedArticles, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockRelatedArticlesArray) Last() (v PageBlockRelatedArticles, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockRelatedArticlesArray) PopFirst() (v PageBlockRelatedArticles, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockRelatedArticles
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockRelatedArticlesArray) Pop() (v PageBlockRelatedArticles, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageBlockMapArray is adapter for slice of PageBlockMap.
-type PageBlockMapArray []PageBlockMap
-
-// Sort sorts slice of PageBlockMap.
-func (s PageBlockMapArray) Sort(less func(a, b PageBlockMap) bool) PageBlockMapArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageBlockMap.
-func (s PageBlockMapArray) SortStable(less func(a, b PageBlockMap) bool) PageBlockMapArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageBlockMap.
-func (s PageBlockMapArray) Retain(keep func(x PageBlockMap) bool) PageBlockMapArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageBlockMapArray) First() (v PageBlockMap, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageBlockMapArray) Last() (v PageBlockMap, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageBlockMapArray) PopFirst() (v PageBlockMap, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageBlockMap
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageBlockMapArray) Pop() (v PageBlockMap, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

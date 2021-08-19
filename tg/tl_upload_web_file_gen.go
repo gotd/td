@@ -53,6 +53,14 @@ type UploadWebFile struct {
 // UploadWebFileTypeID is TL type id of UploadWebFile.
 const UploadWebFileTypeID = 0x21e753bc
 
+// Ensuring interfaces in compile-time for UploadWebFile.
+var (
+	_ bin.Encoder     = &UploadWebFile{}
+	_ bin.Decoder     = &UploadWebFile{}
+	_ bin.BareEncoder = &UploadWebFile{}
+	_ bin.BareDecoder = &UploadWebFile{}
+)
+
 func (w *UploadWebFile) Zero() bool {
 	if w == nil {
 		return true
@@ -174,31 +182,6 @@ func (w *UploadWebFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSize returns value of Size field.
-func (w *UploadWebFile) GetSize() (value int) {
-	return w.Size
-}
-
-// GetMimeType returns value of MimeType field.
-func (w *UploadWebFile) GetMimeType() (value string) {
-	return w.MimeType
-}
-
-// GetFileType returns value of FileType field.
-func (w *UploadWebFile) GetFileType() (value StorageFileTypeClass) {
-	return w.FileType
-}
-
-// GetMtime returns value of Mtime field.
-func (w *UploadWebFile) GetMtime() (value int) {
-	return w.Mtime
-}
-
-// GetBytes returns value of Bytes field.
-func (w *UploadWebFile) GetBytes() (value []byte) {
-	return w.Bytes
-}
-
 // Decode implements bin.Decoder.
 func (w *UploadWebFile) Decode(b *bin.Buffer) error {
 	if w == nil {
@@ -253,10 +236,27 @@ func (w *UploadWebFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UploadWebFile.
-var (
-	_ bin.Encoder     = &UploadWebFile{}
-	_ bin.Decoder     = &UploadWebFile{}
-	_ bin.BareEncoder = &UploadWebFile{}
-	_ bin.BareDecoder = &UploadWebFile{}
-)
+// GetSize returns value of Size field.
+func (w *UploadWebFile) GetSize() (value int) {
+	return w.Size
+}
+
+// GetMimeType returns value of MimeType field.
+func (w *UploadWebFile) GetMimeType() (value string) {
+	return w.MimeType
+}
+
+// GetFileType returns value of FileType field.
+func (w *UploadWebFile) GetFileType() (value StorageFileTypeClass) {
+	return w.FileType
+}
+
+// GetMtime returns value of Mtime field.
+func (w *UploadWebFile) GetMtime() (value int) {
+	return w.Mtime
+}
+
+// GetBytes returns value of Bytes field.
+func (w *UploadWebFile) GetBytes() (value []byte) {
+	return w.Bytes
+}

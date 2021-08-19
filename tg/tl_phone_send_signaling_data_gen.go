@@ -43,6 +43,14 @@ type PhoneSendSignalingDataRequest struct {
 // PhoneSendSignalingDataRequestTypeID is TL type id of PhoneSendSignalingDataRequest.
 const PhoneSendSignalingDataRequestTypeID = 0xff7a9383
 
+// Ensuring interfaces in compile-time for PhoneSendSignalingDataRequest.
+var (
+	_ bin.Encoder     = &PhoneSendSignalingDataRequest{}
+	_ bin.Decoder     = &PhoneSendSignalingDataRequest{}
+	_ bin.BareEncoder = &PhoneSendSignalingDataRequest{}
+	_ bin.BareDecoder = &PhoneSendSignalingDataRequest{}
+)
+
 func (s *PhoneSendSignalingDataRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -131,16 +139,6 @@ func (s *PhoneSendSignalingDataRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (s *PhoneSendSignalingDataRequest) GetPeer() (value InputPhoneCall) {
-	return s.Peer
-}
-
-// GetData returns value of Data field.
-func (s *PhoneSendSignalingDataRequest) GetData() (value []byte) {
-	return s.Data
-}
-
 // Decode implements bin.Decoder.
 func (s *PhoneSendSignalingDataRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -172,13 +170,15 @@ func (s *PhoneSendSignalingDataRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneSendSignalingDataRequest.
-var (
-	_ bin.Encoder     = &PhoneSendSignalingDataRequest{}
-	_ bin.Decoder     = &PhoneSendSignalingDataRequest{}
-	_ bin.BareEncoder = &PhoneSendSignalingDataRequest{}
-	_ bin.BareDecoder = &PhoneSendSignalingDataRequest{}
-)
+// GetPeer returns value of Peer field.
+func (s *PhoneSendSignalingDataRequest) GetPeer() (value InputPhoneCall) {
+	return s.Peer
+}
+
+// GetData returns value of Data field.
+func (s *PhoneSendSignalingDataRequest) GetData() (value []byte) {
+	return s.Data
+}
 
 // PhoneSendSignalingData invokes method phone.sendSignalingData#ff7a9383 returning error if any.
 // Send VoIP signaling data

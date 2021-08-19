@@ -41,6 +41,19 @@ type HelpPromoDataEmpty struct {
 // HelpPromoDataEmptyTypeID is TL type id of HelpPromoDataEmpty.
 const HelpPromoDataEmptyTypeID = 0x98f6ac75
 
+// construct implements constructor of HelpPromoDataClass.
+func (p HelpPromoDataEmpty) construct() HelpPromoDataClass { return &p }
+
+// Ensuring interfaces in compile-time for HelpPromoDataEmpty.
+var (
+	_ bin.Encoder     = &HelpPromoDataEmpty{}
+	_ bin.Decoder     = &HelpPromoDataEmpty{}
+	_ bin.BareEncoder = &HelpPromoDataEmpty{}
+	_ bin.BareDecoder = &HelpPromoDataEmpty{}
+
+	_ HelpPromoDataClass = &HelpPromoDataEmpty{}
+)
+
 func (p *HelpPromoDataEmpty) Zero() bool {
 	if p == nil {
 		return true
@@ -117,11 +130,6 @@ func (p *HelpPromoDataEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExpires returns value of Expires field.
-func (p *HelpPromoDataEmpty) GetExpires() (value int) {
-	return p.Expires
-}
-
 // Decode implements bin.Decoder.
 func (p *HelpPromoDataEmpty) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -148,18 +156,10 @@ func (p *HelpPromoDataEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpPromoDataClass.
-func (p HelpPromoDataEmpty) construct() HelpPromoDataClass { return &p }
-
-// Ensuring interfaces in compile-time for HelpPromoDataEmpty.
-var (
-	_ bin.Encoder     = &HelpPromoDataEmpty{}
-	_ bin.Decoder     = &HelpPromoDataEmpty{}
-	_ bin.BareEncoder = &HelpPromoDataEmpty{}
-	_ bin.BareDecoder = &HelpPromoDataEmpty{}
-
-	_ HelpPromoDataClass = &HelpPromoDataEmpty{}
-)
+// GetExpires returns value of Expires field.
+func (p *HelpPromoDataEmpty) GetExpires() (value int) {
+	return p.Expires
+}
 
 // HelpPromoData represents TL type `help.promoData#8c39793f`.
 // MTProxy/Public Service Announcement information
@@ -193,6 +193,19 @@ type HelpPromoData struct {
 
 // HelpPromoDataTypeID is TL type id of HelpPromoData.
 const HelpPromoDataTypeID = 0x8c39793f
+
+// construct implements constructor of HelpPromoDataClass.
+func (p HelpPromoData) construct() HelpPromoDataClass { return &p }
+
+// Ensuring interfaces in compile-time for HelpPromoData.
+var (
+	_ bin.Encoder     = &HelpPromoData{}
+	_ bin.Decoder     = &HelpPromoData{}
+	_ bin.BareEncoder = &HelpPromoData{}
+	_ bin.BareDecoder = &HelpPromoData{}
+
+	_ HelpPromoDataClass = &HelpPromoData{}
+)
 
 func (p *HelpPromoData) Zero() bool {
 	if p == nil {
@@ -378,82 +391,6 @@ func (p *HelpPromoData) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetProxy sets value of Proxy conditional field.
-func (p *HelpPromoData) SetProxy(value bool) {
-	if value {
-		p.Flags.Set(0)
-		p.Proxy = true
-	} else {
-		p.Flags.Unset(0)
-		p.Proxy = false
-	}
-}
-
-// GetProxy returns value of Proxy conditional field.
-func (p *HelpPromoData) GetProxy() (value bool) {
-	return p.Flags.Has(0)
-}
-
-// GetExpires returns value of Expires field.
-func (p *HelpPromoData) GetExpires() (value int) {
-	return p.Expires
-}
-
-// GetPeer returns value of Peer field.
-func (p *HelpPromoData) GetPeer() (value PeerClass) {
-	return p.Peer
-}
-
-// GetChats returns value of Chats field.
-func (p *HelpPromoData) GetChats() (value []ChatClass) {
-	return p.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (p *HelpPromoData) MapChats() (value ChatClassArray) {
-	return ChatClassArray(p.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (p *HelpPromoData) GetUsers() (value []UserClass) {
-	return p.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (p *HelpPromoData) MapUsers() (value UserClassArray) {
-	return UserClassArray(p.Users)
-}
-
-// SetPsaType sets value of PsaType conditional field.
-func (p *HelpPromoData) SetPsaType(value string) {
-	p.Flags.Set(1)
-	p.PsaType = value
-}
-
-// GetPsaType returns value of PsaType conditional field and
-// boolean which is true if field was set.
-func (p *HelpPromoData) GetPsaType() (value string, ok bool) {
-	if !p.Flags.Has(1) {
-		return value, false
-	}
-	return p.PsaType, true
-}
-
-// SetPsaMessage sets value of PsaMessage conditional field.
-func (p *HelpPromoData) SetPsaMessage(value string) {
-	p.Flags.Set(2)
-	p.PsaMessage = value
-}
-
-// GetPsaMessage returns value of PsaMessage conditional field and
-// boolean which is true if field was set.
-func (p *HelpPromoData) GetPsaMessage() (value string, ok bool) {
-	if !p.Flags.Has(2) {
-		return value, false
-	}
-	return p.PsaMessage, true
-}
-
 // Decode implements bin.Decoder.
 func (p *HelpPromoData) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -541,18 +478,81 @@ func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpPromoDataClass.
-func (p HelpPromoData) construct() HelpPromoDataClass { return &p }
+// SetProxy sets value of Proxy conditional field.
+func (p *HelpPromoData) SetProxy(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.Proxy = true
+	} else {
+		p.Flags.Unset(0)
+		p.Proxy = false
+	}
+}
 
-// Ensuring interfaces in compile-time for HelpPromoData.
-var (
-	_ bin.Encoder     = &HelpPromoData{}
-	_ bin.Decoder     = &HelpPromoData{}
-	_ bin.BareEncoder = &HelpPromoData{}
-	_ bin.BareDecoder = &HelpPromoData{}
+// GetProxy returns value of Proxy conditional field.
+func (p *HelpPromoData) GetProxy() (value bool) {
+	return p.Flags.Has(0)
+}
 
-	_ HelpPromoDataClass = &HelpPromoData{}
-)
+// GetExpires returns value of Expires field.
+func (p *HelpPromoData) GetExpires() (value int) {
+	return p.Expires
+}
+
+// GetPeer returns value of Peer field.
+func (p *HelpPromoData) GetPeer() (value PeerClass) {
+	return p.Peer
+}
+
+// GetChats returns value of Chats field.
+func (p *HelpPromoData) GetChats() (value []ChatClass) {
+	return p.Chats
+}
+
+// GetUsers returns value of Users field.
+func (p *HelpPromoData) GetUsers() (value []UserClass) {
+	return p.Users
+}
+
+// SetPsaType sets value of PsaType conditional field.
+func (p *HelpPromoData) SetPsaType(value string) {
+	p.Flags.Set(1)
+	p.PsaType = value
+}
+
+// GetPsaType returns value of PsaType conditional field and
+// boolean which is true if field was set.
+func (p *HelpPromoData) GetPsaType() (value string, ok bool) {
+	if !p.Flags.Has(1) {
+		return value, false
+	}
+	return p.PsaType, true
+}
+
+// SetPsaMessage sets value of PsaMessage conditional field.
+func (p *HelpPromoData) SetPsaMessage(value string) {
+	p.Flags.Set(2)
+	p.PsaMessage = value
+}
+
+// GetPsaMessage returns value of PsaMessage conditional field and
+// boolean which is true if field was set.
+func (p *HelpPromoData) GetPsaMessage() (value string, ok bool) {
+	if !p.Flags.Has(2) {
+		return value, false
+	}
+	return p.PsaMessage, true
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (p *HelpPromoData) MapChats() (value ChatClassArray) {
+	return ChatClassArray(p.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *HelpPromoData) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
+}
 
 // HelpPromoDataClass represents help.PromoData generic type.
 //
@@ -653,331 +653,4 @@ func (b *HelpPromoDataBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode HelpPromoDataClass as nil")
 	}
 	return b.PromoData.Encode(buf)
-}
-
-// HelpPromoDataClassArray is adapter for slice of HelpPromoDataClass.
-type HelpPromoDataClassArray []HelpPromoDataClass
-
-// Sort sorts slice of HelpPromoDataClass.
-func (s HelpPromoDataClassArray) Sort(less func(a, b HelpPromoDataClass) bool) HelpPromoDataClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of HelpPromoDataClass.
-func (s HelpPromoDataClassArray) SortStable(less func(a, b HelpPromoDataClass) bool) HelpPromoDataClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of HelpPromoDataClass.
-func (s HelpPromoDataClassArray) Retain(keep func(x HelpPromoDataClass) bool) HelpPromoDataClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s HelpPromoDataClassArray) First() (v HelpPromoDataClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s HelpPromoDataClassArray) Last() (v HelpPromoDataClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpPromoDataClassArray) PopFirst() (v HelpPromoDataClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero HelpPromoDataClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpPromoDataClassArray) Pop() (v HelpPromoDataClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsHelpPromoDataEmpty returns copy with only HelpPromoDataEmpty constructors.
-func (s HelpPromoDataClassArray) AsHelpPromoDataEmpty() (to HelpPromoDataEmptyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*HelpPromoDataEmpty)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsHelpPromoData returns copy with only HelpPromoData constructors.
-func (s HelpPromoDataClassArray) AsHelpPromoData() (to HelpPromoDataArray) {
-	for _, elem := range s {
-		value, ok := elem.(*HelpPromoData)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s HelpPromoDataClassArray) AppendOnlyNotEmpty(to []*HelpPromoData) []*HelpPromoData {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s HelpPromoDataClassArray) AsNotEmpty() (to []*HelpPromoData) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s HelpPromoDataClassArray) FirstAsNotEmpty() (v *HelpPromoData, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s HelpPromoDataClassArray) LastAsNotEmpty() (v *HelpPromoData, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *HelpPromoDataClassArray) PopFirstAsNotEmpty() (v *HelpPromoData, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *HelpPromoDataClassArray) PopAsNotEmpty() (v *HelpPromoData, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// HelpPromoDataEmptyArray is adapter for slice of HelpPromoDataEmpty.
-type HelpPromoDataEmptyArray []HelpPromoDataEmpty
-
-// Sort sorts slice of HelpPromoDataEmpty.
-func (s HelpPromoDataEmptyArray) Sort(less func(a, b HelpPromoDataEmpty) bool) HelpPromoDataEmptyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of HelpPromoDataEmpty.
-func (s HelpPromoDataEmptyArray) SortStable(less func(a, b HelpPromoDataEmpty) bool) HelpPromoDataEmptyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of HelpPromoDataEmpty.
-func (s HelpPromoDataEmptyArray) Retain(keep func(x HelpPromoDataEmpty) bool) HelpPromoDataEmptyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s HelpPromoDataEmptyArray) First() (v HelpPromoDataEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s HelpPromoDataEmptyArray) Last() (v HelpPromoDataEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpPromoDataEmptyArray) PopFirst() (v HelpPromoDataEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero HelpPromoDataEmpty
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpPromoDataEmptyArray) Pop() (v HelpPromoDataEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// HelpPromoDataArray is adapter for slice of HelpPromoData.
-type HelpPromoDataArray []HelpPromoData
-
-// Sort sorts slice of HelpPromoData.
-func (s HelpPromoDataArray) Sort(less func(a, b HelpPromoData) bool) HelpPromoDataArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of HelpPromoData.
-func (s HelpPromoDataArray) SortStable(less func(a, b HelpPromoData) bool) HelpPromoDataArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of HelpPromoData.
-func (s HelpPromoDataArray) Retain(keep func(x HelpPromoData) bool) HelpPromoDataArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s HelpPromoDataArray) First() (v HelpPromoData, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s HelpPromoDataArray) Last() (v HelpPromoData, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpPromoDataArray) PopFirst() (v HelpPromoData, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero HelpPromoData
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpPromoDataArray) Pop() (v HelpPromoData, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

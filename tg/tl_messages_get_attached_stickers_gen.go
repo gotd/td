@@ -41,6 +41,14 @@ type MessagesGetAttachedStickersRequest struct {
 // MessagesGetAttachedStickersRequestTypeID is TL type id of MessagesGetAttachedStickersRequest.
 const MessagesGetAttachedStickersRequestTypeID = 0xcc5b67cc
 
+// Ensuring interfaces in compile-time for MessagesGetAttachedStickersRequest.
+var (
+	_ bin.Encoder     = &MessagesGetAttachedStickersRequest{}
+	_ bin.Decoder     = &MessagesGetAttachedStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetAttachedStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetAttachedStickersRequest{}
+)
+
 func (g *MessagesGetAttachedStickersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -122,11 +130,6 @@ func (g *MessagesGetAttachedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMedia returns value of Media field.
-func (g *MessagesGetAttachedStickersRequest) GetMedia() (value InputStickeredMediaClass) {
-	return g.Media
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetAttachedStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -153,13 +156,10 @@ func (g *MessagesGetAttachedStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetAttachedStickersRequest.
-var (
-	_ bin.Encoder     = &MessagesGetAttachedStickersRequest{}
-	_ bin.Decoder     = &MessagesGetAttachedStickersRequest{}
-	_ bin.BareEncoder = &MessagesGetAttachedStickersRequest{}
-	_ bin.BareDecoder = &MessagesGetAttachedStickersRequest{}
-)
+// GetMedia returns value of Media field.
+func (g *MessagesGetAttachedStickersRequest) GetMedia() (value InputStickeredMediaClass) {
+	return g.Media
+}
 
 // MessagesGetAttachedStickers invokes method messages.getAttachedStickers#cc5b67cc returning error if any.
 // Get stickers attached to a photo or video

@@ -52,6 +52,14 @@ type InputPhoneContact struct {
 // InputPhoneContactTypeID is TL type id of InputPhoneContact.
 const InputPhoneContactTypeID = 0xf392b7f4
 
+// Ensuring interfaces in compile-time for InputPhoneContact.
+var (
+	_ bin.Encoder     = &InputPhoneContact{}
+	_ bin.Decoder     = &InputPhoneContact{}
+	_ bin.BareEncoder = &InputPhoneContact{}
+	_ bin.BareDecoder = &InputPhoneContact{}
+)
+
 func (i *InputPhoneContact) Zero() bool {
 	if i == nil {
 		return true
@@ -158,26 +166,6 @@ func (i *InputPhoneContact) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetClientID returns value of ClientID field.
-func (i *InputPhoneContact) GetClientID() (value int64) {
-	return i.ClientID
-}
-
-// GetPhone returns value of Phone field.
-func (i *InputPhoneContact) GetPhone() (value string) {
-	return i.Phone
-}
-
-// GetFirstName returns value of FirstName field.
-func (i *InputPhoneContact) GetFirstName() (value string) {
-	return i.FirstName
-}
-
-// GetLastName returns value of LastName field.
-func (i *InputPhoneContact) GetLastName() (value string) {
-	return i.LastName
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPhoneContact) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -225,10 +213,22 @@ func (i *InputPhoneContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InputPhoneContact.
-var (
-	_ bin.Encoder     = &InputPhoneContact{}
-	_ bin.Decoder     = &InputPhoneContact{}
-	_ bin.BareEncoder = &InputPhoneContact{}
-	_ bin.BareDecoder = &InputPhoneContact{}
-)
+// GetClientID returns value of ClientID field.
+func (i *InputPhoneContact) GetClientID() (value int64) {
+	return i.ClientID
+}
+
+// GetPhone returns value of Phone field.
+func (i *InputPhoneContact) GetPhone() (value string) {
+	return i.Phone
+}
+
+// GetFirstName returns value of FirstName field.
+func (i *InputPhoneContact) GetFirstName() (value string) {
+	return i.FirstName
+}
+
+// GetLastName returns value of LastName field.
+func (i *InputPhoneContact) GetLastName() (value string) {
+	return i.LastName
+}

@@ -42,6 +42,14 @@ type MessagesChatAdminsWithInvites struct {
 // MessagesChatAdminsWithInvitesTypeID is TL type id of MessagesChatAdminsWithInvites.
 const MessagesChatAdminsWithInvitesTypeID = 0xb69b72d7
 
+// Ensuring interfaces in compile-time for MessagesChatAdminsWithInvites.
+var (
+	_ bin.Encoder     = &MessagesChatAdminsWithInvites{}
+	_ bin.Decoder     = &MessagesChatAdminsWithInvites{}
+	_ bin.BareEncoder = &MessagesChatAdminsWithInvites{}
+	_ bin.BareDecoder = &MessagesChatAdminsWithInvites{}
+)
+
 func (c *MessagesChatAdminsWithInvites) Zero() bool {
 	if c == nil {
 		return true
@@ -141,21 +149,6 @@ func (c *MessagesChatAdminsWithInvites) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAdmins returns value of Admins field.
-func (c *MessagesChatAdminsWithInvites) GetAdmins() (value []ChatAdminWithInvites) {
-	return c.Admins
-}
-
-// GetUsers returns value of Users field.
-func (c *MessagesChatAdminsWithInvites) GetUsers() (value []UserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (c *MessagesChatAdminsWithInvites) MapUsers() (value UserClassArray) {
-	return UserClassArray(c.Users)
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesChatAdminsWithInvites) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -209,10 +202,17 @@ func (c *MessagesChatAdminsWithInvites) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesChatAdminsWithInvites.
-var (
-	_ bin.Encoder     = &MessagesChatAdminsWithInvites{}
-	_ bin.Decoder     = &MessagesChatAdminsWithInvites{}
-	_ bin.BareEncoder = &MessagesChatAdminsWithInvites{}
-	_ bin.BareDecoder = &MessagesChatAdminsWithInvites{}
-)
+// GetAdmins returns value of Admins field.
+func (c *MessagesChatAdminsWithInvites) GetAdmins() (value []ChatAdminWithInvites) {
+	return c.Admins
+}
+
+// GetUsers returns value of Users field.
+func (c *MessagesChatAdminsWithInvites) GetUsers() (value []UserClass) {
+	return c.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *MessagesChatAdminsWithInvites) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
+}

@@ -45,6 +45,14 @@ type AccountDeleteSecureValueRequest struct {
 // AccountDeleteSecureValueRequestTypeID is TL type id of AccountDeleteSecureValueRequest.
 const AccountDeleteSecureValueRequestTypeID = 0xb880bc4b
 
+// Ensuring interfaces in compile-time for AccountDeleteSecureValueRequest.
+var (
+	_ bin.Encoder     = &AccountDeleteSecureValueRequest{}
+	_ bin.Decoder     = &AccountDeleteSecureValueRequest{}
+	_ bin.BareEncoder = &AccountDeleteSecureValueRequest{}
+	_ bin.BareDecoder = &AccountDeleteSecureValueRequest{}
+)
+
 func (d *AccountDeleteSecureValueRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -129,16 +137,6 @@ func (d *AccountDeleteSecureValueRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTypes returns value of Types field.
-func (d *AccountDeleteSecureValueRequest) GetTypes() (value []SecureValueTypeClass) {
-	return d.Types
-}
-
-// MapTypes returns field Types wrapped in SecureValueTypeClassArray helper.
-func (d *AccountDeleteSecureValueRequest) MapTypes() (value SecureValueTypeClassArray) {
-	return SecureValueTypeClassArray(d.Types)
-}
-
 // Decode implements bin.Decoder.
 func (d *AccountDeleteSecureValueRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -175,13 +173,15 @@ func (d *AccountDeleteSecureValueRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountDeleteSecureValueRequest.
-var (
-	_ bin.Encoder     = &AccountDeleteSecureValueRequest{}
-	_ bin.Decoder     = &AccountDeleteSecureValueRequest{}
-	_ bin.BareEncoder = &AccountDeleteSecureValueRequest{}
-	_ bin.BareDecoder = &AccountDeleteSecureValueRequest{}
-)
+// GetTypes returns value of Types field.
+func (d *AccountDeleteSecureValueRequest) GetTypes() (value []SecureValueTypeClass) {
+	return d.Types
+}
+
+// MapTypes returns field Types wrapped in SecureValueTypeClassArray helper.
+func (d *AccountDeleteSecureValueRequest) MapTypes() (value SecureValueTypeClassArray) {
+	return SecureValueTypeClassArray(d.Types)
+}
 
 // AccountDeleteSecureValue invokes method account.deleteSecureValue#b880bc4b returning error if any.
 // Delete stored Telegram Passport¹ documents, for more info see the passport docs »²

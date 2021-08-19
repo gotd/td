@@ -53,6 +53,14 @@ type AuthSendCodeRequest struct {
 // AuthSendCodeRequestTypeID is TL type id of AuthSendCodeRequest.
 const AuthSendCodeRequestTypeID = 0xa677244f
 
+// Ensuring interfaces in compile-time for AuthSendCodeRequest.
+var (
+	_ bin.Encoder     = &AuthSendCodeRequest{}
+	_ bin.Decoder     = &AuthSendCodeRequest{}
+	_ bin.BareEncoder = &AuthSendCodeRequest{}
+	_ bin.BareDecoder = &AuthSendCodeRequest{}
+)
+
 func (s *AuthSendCodeRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -161,26 +169,6 @@ func (s *AuthSendCodeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (s *AuthSendCodeRequest) GetPhoneNumber() (value string) {
-	return s.PhoneNumber
-}
-
-// GetAPIID returns value of APIID field.
-func (s *AuthSendCodeRequest) GetAPIID() (value int) {
-	return s.APIID
-}
-
-// GetAPIHash returns value of APIHash field.
-func (s *AuthSendCodeRequest) GetAPIHash() (value string) {
-	return s.APIHash
-}
-
-// GetSettings returns value of Settings field.
-func (s *AuthSendCodeRequest) GetSettings() (value CodeSettings) {
-	return s.Settings
-}
-
 // Decode implements bin.Decoder.
 func (s *AuthSendCodeRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -226,13 +214,25 @@ func (s *AuthSendCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthSendCodeRequest.
-var (
-	_ bin.Encoder     = &AuthSendCodeRequest{}
-	_ bin.Decoder     = &AuthSendCodeRequest{}
-	_ bin.BareEncoder = &AuthSendCodeRequest{}
-	_ bin.BareDecoder = &AuthSendCodeRequest{}
-)
+// GetPhoneNumber returns value of PhoneNumber field.
+func (s *AuthSendCodeRequest) GetPhoneNumber() (value string) {
+	return s.PhoneNumber
+}
+
+// GetAPIID returns value of APIID field.
+func (s *AuthSendCodeRequest) GetAPIID() (value int) {
+	return s.APIID
+}
+
+// GetAPIHash returns value of APIHash field.
+func (s *AuthSendCodeRequest) GetAPIHash() (value string) {
+	return s.APIHash
+}
+
+// GetSettings returns value of Settings field.
+func (s *AuthSendCodeRequest) GetSettings() (value CodeSettings) {
+	return s.Settings
+}
 
 // AuthSendCode invokes method auth.sendCode#a677244f returning error if any.
 // Send the verification code for login

@@ -39,6 +39,19 @@ type AccountWallPapersNotModified struct {
 // AccountWallPapersNotModifiedTypeID is TL type id of AccountWallPapersNotModified.
 const AccountWallPapersNotModifiedTypeID = 0x1c199183
 
+// construct implements constructor of AccountWallPapersClass.
+func (w AccountWallPapersNotModified) construct() AccountWallPapersClass { return &w }
+
+// Ensuring interfaces in compile-time for AccountWallPapersNotModified.
+var (
+	_ bin.Encoder     = &AccountWallPapersNotModified{}
+	_ bin.Decoder     = &AccountWallPapersNotModified{}
+	_ bin.BareEncoder = &AccountWallPapersNotModified{}
+	_ bin.BareDecoder = &AccountWallPapersNotModified{}
+
+	_ AccountWallPapersClass = &AccountWallPapersNotModified{}
+)
+
 func (w *AccountWallPapersNotModified) Zero() bool {
 	if w == nil {
 		return true
@@ -118,19 +131,6 @@ func (w *AccountWallPapersNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AccountWallPapersClass.
-func (w AccountWallPapersNotModified) construct() AccountWallPapersClass { return &w }
-
-// Ensuring interfaces in compile-time for AccountWallPapersNotModified.
-var (
-	_ bin.Encoder     = &AccountWallPapersNotModified{}
-	_ bin.Decoder     = &AccountWallPapersNotModified{}
-	_ bin.BareEncoder = &AccountWallPapersNotModified{}
-	_ bin.BareDecoder = &AccountWallPapersNotModified{}
-
-	_ AccountWallPapersClass = &AccountWallPapersNotModified{}
-)
-
 // AccountWallPapers represents TL type `account.wallPapers#702b65a9`.
 // Installed wallpapers
 //
@@ -147,6 +147,19 @@ type AccountWallPapers struct {
 
 // AccountWallPapersTypeID is TL type id of AccountWallPapers.
 const AccountWallPapersTypeID = 0x702b65a9
+
+// construct implements constructor of AccountWallPapersClass.
+func (w AccountWallPapers) construct() AccountWallPapersClass { return &w }
+
+// Ensuring interfaces in compile-time for AccountWallPapers.
+var (
+	_ bin.Encoder     = &AccountWallPapers{}
+	_ bin.Decoder     = &AccountWallPapers{}
+	_ bin.BareEncoder = &AccountWallPapers{}
+	_ bin.BareDecoder = &AccountWallPapers{}
+
+	_ AccountWallPapersClass = &AccountWallPapers{}
+)
 
 func (w *AccountWallPapers) Zero() bool {
 	if w == nil {
@@ -242,21 +255,6 @@ func (w *AccountWallPapers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (w *AccountWallPapers) GetHash() (value int) {
-	return w.Hash
-}
-
-// GetWallpapers returns value of Wallpapers field.
-func (w *AccountWallPapers) GetWallpapers() (value []WallPaperClass) {
-	return w.Wallpapers
-}
-
-// MapWallpapers returns field Wallpapers wrapped in WallPaperClassArray helper.
-func (w *AccountWallPapers) MapWallpapers() (value WallPaperClassArray) {
-	return WallPaperClassArray(w.Wallpapers)
-}
-
 // Decode implements bin.Decoder.
 func (w *AccountWallPapers) Decode(b *bin.Buffer) error {
 	if w == nil {
@@ -300,18 +298,20 @@ func (w *AccountWallPapers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AccountWallPapersClass.
-func (w AccountWallPapers) construct() AccountWallPapersClass { return &w }
+// GetHash returns value of Hash field.
+func (w *AccountWallPapers) GetHash() (value int) {
+	return w.Hash
+}
 
-// Ensuring interfaces in compile-time for AccountWallPapers.
-var (
-	_ bin.Encoder     = &AccountWallPapers{}
-	_ bin.Decoder     = &AccountWallPapers{}
-	_ bin.BareEncoder = &AccountWallPapers{}
-	_ bin.BareDecoder = &AccountWallPapers{}
+// GetWallpapers returns value of Wallpapers field.
+func (w *AccountWallPapers) GetWallpapers() (value []WallPaperClass) {
+	return w.Wallpapers
+}
 
-	_ AccountWallPapersClass = &AccountWallPapers{}
-)
+// MapWallpapers returns field Wallpapers wrapped in WallPaperClassArray helper.
+func (w *AccountWallPapers) MapWallpapers() (value WallPaperClassArray) {
+	return WallPaperClassArray(w.Wallpapers)
+}
 
 // AccountWallPapersClass represents account.WallPapers generic type.
 //
@@ -409,236 +409,4 @@ func (b *AccountWallPapersBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode AccountWallPapersClass as nil")
 	}
 	return b.WallPapers.Encode(buf)
-}
-
-// AccountWallPapersClassArray is adapter for slice of AccountWallPapersClass.
-type AccountWallPapersClassArray []AccountWallPapersClass
-
-// Sort sorts slice of AccountWallPapersClass.
-func (s AccountWallPapersClassArray) Sort(less func(a, b AccountWallPapersClass) bool) AccountWallPapersClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AccountWallPapersClass.
-func (s AccountWallPapersClassArray) SortStable(less func(a, b AccountWallPapersClass) bool) AccountWallPapersClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AccountWallPapersClass.
-func (s AccountWallPapersClassArray) Retain(keep func(x AccountWallPapersClass) bool) AccountWallPapersClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AccountWallPapersClassArray) First() (v AccountWallPapersClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AccountWallPapersClassArray) Last() (v AccountWallPapersClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AccountWallPapersClassArray) PopFirst() (v AccountWallPapersClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AccountWallPapersClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AccountWallPapersClassArray) Pop() (v AccountWallPapersClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsAccountWallPapers returns copy with only AccountWallPapers constructors.
-func (s AccountWallPapersClassArray) AsAccountWallPapers() (to AccountWallPapersArray) {
-	for _, elem := range s {
-		value, ok := elem.(*AccountWallPapers)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyModified appends only Modified constructors to
-// given slice.
-func (s AccountWallPapersClassArray) AppendOnlyModified(to []*AccountWallPapers) []*AccountWallPapers {
-	for _, elem := range s {
-		value, ok := elem.AsModified()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsModified returns copy with only Modified constructors.
-func (s AccountWallPapersClassArray) AsModified() (to []*AccountWallPapers) {
-	return s.AppendOnlyModified(to)
-}
-
-// FirstAsModified returns first element of slice (if exists).
-func (s AccountWallPapersClassArray) FirstAsModified() (v *AccountWallPapers, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// LastAsModified returns last element of slice (if exists).
-func (s AccountWallPapersClassArray) LastAsModified() (v *AccountWallPapers, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// PopFirstAsModified returns element of slice (if exists).
-func (s *AccountWallPapersClassArray) PopFirstAsModified() (v *AccountWallPapers, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// PopAsModified returns element of slice (if exists).
-func (s *AccountWallPapersClassArray) PopAsModified() (v *AccountWallPapers, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// AccountWallPapersArray is adapter for slice of AccountWallPapers.
-type AccountWallPapersArray []AccountWallPapers
-
-// Sort sorts slice of AccountWallPapers.
-func (s AccountWallPapersArray) Sort(less func(a, b AccountWallPapers) bool) AccountWallPapersArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AccountWallPapers.
-func (s AccountWallPapersArray) SortStable(less func(a, b AccountWallPapers) bool) AccountWallPapersArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AccountWallPapers.
-func (s AccountWallPapersArray) Retain(keep func(x AccountWallPapers) bool) AccountWallPapersArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AccountWallPapersArray) First() (v AccountWallPapers, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AccountWallPapersArray) Last() (v AccountWallPapers, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AccountWallPapersArray) PopFirst() (v AccountWallPapers, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AccountWallPapers
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AccountWallPapersArray) Pop() (v AccountWallPapers, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

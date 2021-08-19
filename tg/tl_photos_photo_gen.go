@@ -43,6 +43,14 @@ type PhotosPhoto struct {
 // PhotosPhotoTypeID is TL type id of PhotosPhoto.
 const PhotosPhotoTypeID = 0x20212ca8
 
+// Ensuring interfaces in compile-time for PhotosPhoto.
+var (
+	_ bin.Encoder     = &PhotosPhoto{}
+	_ bin.Decoder     = &PhotosPhoto{}
+	_ bin.BareEncoder = &PhotosPhoto{}
+	_ bin.BareDecoder = &PhotosPhoto{}
+)
+
 func (p *PhotosPhoto) Zero() bool {
 	if p == nil {
 		return true
@@ -142,26 +150,6 @@ func (p *PhotosPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoto returns value of Photo field.
-func (p *PhotosPhoto) GetPhoto() (value PhotoClass) {
-	return p.Photo
-}
-
-// GetPhotoAsNotEmpty returns mapped value of Photo field.
-func (p *PhotosPhoto) GetPhotoAsNotEmpty() (*Photo, bool) {
-	return p.Photo.AsNotEmpty()
-}
-
-// GetUsers returns value of Users field.
-func (p *PhotosPhoto) GetUsers() (value []UserClass) {
-	return p.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (p *PhotosPhoto) MapUsers() (value UserClassArray) {
-	return UserClassArray(p.Users)
-}
-
 // Decode implements bin.Decoder.
 func (p *PhotosPhoto) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -205,10 +193,22 @@ func (p *PhotosPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhotosPhoto.
-var (
-	_ bin.Encoder     = &PhotosPhoto{}
-	_ bin.Decoder     = &PhotosPhoto{}
-	_ bin.BareEncoder = &PhotosPhoto{}
-	_ bin.BareDecoder = &PhotosPhoto{}
-)
+// GetPhoto returns value of Photo field.
+func (p *PhotosPhoto) GetPhoto() (value PhotoClass) {
+	return p.Photo
+}
+
+// GetUsers returns value of Users field.
+func (p *PhotosPhoto) GetUsers() (value []UserClass) {
+	return p.Users
+}
+
+// GetPhotoAsNotEmpty returns mapped value of Photo field.
+func (p *PhotosPhoto) GetPhotoAsNotEmpty() (*Photo, bool) {
+	return p.Photo.AsNotEmpty()
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *PhotosPhoto) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
+}

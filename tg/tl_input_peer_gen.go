@@ -39,6 +39,19 @@ type InputPeerEmpty struct {
 // InputPeerEmptyTypeID is TL type id of InputPeerEmpty.
 const InputPeerEmptyTypeID = 0x7f3b18ea
 
+// construct implements constructor of InputPeerClass.
+func (i InputPeerEmpty) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerEmpty.
+var (
+	_ bin.Encoder     = &InputPeerEmpty{}
+	_ bin.Decoder     = &InputPeerEmpty{}
+	_ bin.BareEncoder = &InputPeerEmpty{}
+	_ bin.BareDecoder = &InputPeerEmpty{}
+
+	_ InputPeerClass = &InputPeerEmpty{}
+)
+
 func (i *InputPeerEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputPeerEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerEmpty) construct() InputPeerClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPeerEmpty.
-var (
-	_ bin.Encoder     = &InputPeerEmpty{}
-	_ bin.Decoder     = &InputPeerEmpty{}
-	_ bin.BareEncoder = &InputPeerEmpty{}
-	_ bin.BareDecoder = &InputPeerEmpty{}
-
-	_ InputPeerClass = &InputPeerEmpty{}
-)
-
 // InputPeerSelf represents TL type `inputPeerSelf#7da07ec9`.
 // Defines the current user.
 //
@@ -140,6 +140,19 @@ type InputPeerSelf struct {
 
 // InputPeerSelfTypeID is TL type id of InputPeerSelf.
 const InputPeerSelfTypeID = 0x7da07ec9
+
+// construct implements constructor of InputPeerClass.
+func (i InputPeerSelf) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerSelf.
+var (
+	_ bin.Encoder     = &InputPeerSelf{}
+	_ bin.Decoder     = &InputPeerSelf{}
+	_ bin.BareEncoder = &InputPeerSelf{}
+	_ bin.BareDecoder = &InputPeerSelf{}
+
+	_ InputPeerClass = &InputPeerSelf{}
+)
 
 func (i *InputPeerSelf) Zero() bool {
 	if i == nil {
@@ -220,19 +233,6 @@ func (i *InputPeerSelf) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerSelf) construct() InputPeerClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPeerSelf.
-var (
-	_ bin.Encoder     = &InputPeerSelf{}
-	_ bin.Decoder     = &InputPeerSelf{}
-	_ bin.BareEncoder = &InputPeerSelf{}
-	_ bin.BareDecoder = &InputPeerSelf{}
-
-	_ InputPeerClass = &InputPeerSelf{}
-)
-
 // InputPeerChat represents TL type `inputPeerChat#179be863`.
 // Defines a chat for further interaction.
 //
@@ -244,6 +244,19 @@ type InputPeerChat struct {
 
 // InputPeerChatTypeID is TL type id of InputPeerChat.
 const InputPeerChatTypeID = 0x179be863
+
+// construct implements constructor of InputPeerClass.
+func (i InputPeerChat) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerChat.
+var (
+	_ bin.Encoder     = &InputPeerChat{}
+	_ bin.Decoder     = &InputPeerChat{}
+	_ bin.BareEncoder = &InputPeerChat{}
+	_ bin.BareDecoder = &InputPeerChat{}
+
+	_ InputPeerClass = &InputPeerChat{}
+)
 
 func (i *InputPeerChat) Zero() bool {
 	if i == nil {
@@ -321,11 +334,6 @@ func (i *InputPeerChat) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (i *InputPeerChat) GetChatID() (value int) {
-	return i.ChatID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPeerChat) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -352,18 +360,10 @@ func (i *InputPeerChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerChat) construct() InputPeerClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPeerChat.
-var (
-	_ bin.Encoder     = &InputPeerChat{}
-	_ bin.Decoder     = &InputPeerChat{}
-	_ bin.BareEncoder = &InputPeerChat{}
-	_ bin.BareDecoder = &InputPeerChat{}
-
-	_ InputPeerClass = &InputPeerChat{}
-)
+// GetChatID returns value of ChatID field.
+func (i *InputPeerChat) GetChatID() (value int) {
+	return i.ChatID
+}
 
 // InputPeerUser represents TL type `inputPeerUser#7b8e7de6`.
 // Defines a user for further interaction.
@@ -381,6 +381,19 @@ type InputPeerUser struct {
 
 // InputPeerUserTypeID is TL type id of InputPeerUser.
 const InputPeerUserTypeID = 0x7b8e7de6
+
+// construct implements constructor of InputPeerClass.
+func (i InputPeerUser) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerUser.
+var (
+	_ bin.Encoder     = &InputPeerUser{}
+	_ bin.Decoder     = &InputPeerUser{}
+	_ bin.BareEncoder = &InputPeerUser{}
+	_ bin.BareDecoder = &InputPeerUser{}
+
+	_ InputPeerClass = &InputPeerUser{}
+)
 
 func (i *InputPeerUser) Zero() bool {
 	if i == nil {
@@ -468,16 +481,6 @@ func (i *InputPeerUser) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (i *InputPeerUser) GetUserID() (value int) {
-	return i.UserID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputPeerUser) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPeerUser) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -511,18 +514,15 @@ func (i *InputPeerUser) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerUser) construct() InputPeerClass { return &i }
+// GetUserID returns value of UserID field.
+func (i *InputPeerUser) GetUserID() (value int) {
+	return i.UserID
+}
 
-// Ensuring interfaces in compile-time for InputPeerUser.
-var (
-	_ bin.Encoder     = &InputPeerUser{}
-	_ bin.Decoder     = &InputPeerUser{}
-	_ bin.BareEncoder = &InputPeerUser{}
-	_ bin.BareDecoder = &InputPeerUser{}
-
-	_ InputPeerClass = &InputPeerUser{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPeerUser) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputPeerChannel represents TL type `inputPeerChannel#20adaef8`.
 // Defines a channel for further interaction.
@@ -540,6 +540,19 @@ type InputPeerChannel struct {
 
 // InputPeerChannelTypeID is TL type id of InputPeerChannel.
 const InputPeerChannelTypeID = 0x20adaef8
+
+// construct implements constructor of InputPeerClass.
+func (i InputPeerChannel) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerChannel.
+var (
+	_ bin.Encoder     = &InputPeerChannel{}
+	_ bin.Decoder     = &InputPeerChannel{}
+	_ bin.BareEncoder = &InputPeerChannel{}
+	_ bin.BareDecoder = &InputPeerChannel{}
+
+	_ InputPeerClass = &InputPeerChannel{}
+)
 
 func (i *InputPeerChannel) Zero() bool {
 	if i == nil {
@@ -627,16 +640,6 @@ func (i *InputPeerChannel) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (i *InputPeerChannel) GetChannelID() (value int) {
-	return i.ChannelID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputPeerChannel) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPeerChannel) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -670,18 +673,15 @@ func (i *InputPeerChannel) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerChannel) construct() InputPeerClass { return &i }
+// GetChannelID returns value of ChannelID field.
+func (i *InputPeerChannel) GetChannelID() (value int) {
+	return i.ChannelID
+}
 
-// Ensuring interfaces in compile-time for InputPeerChannel.
-var (
-	_ bin.Encoder     = &InputPeerChannel{}
-	_ bin.Decoder     = &InputPeerChannel{}
-	_ bin.BareEncoder = &InputPeerChannel{}
-	_ bin.BareDecoder = &InputPeerChannel{}
-
-	_ InputPeerClass = &InputPeerChannel{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPeerChannel) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputPeerUserFromMessage represents TL type `inputPeerUserFromMessage#17bae2e6`.
 // Defines a min¹ user that was seen in a certain message of a certain chat.
@@ -701,6 +701,19 @@ type InputPeerUserFromMessage struct {
 
 // InputPeerUserFromMessageTypeID is TL type id of InputPeerUserFromMessage.
 const InputPeerUserFromMessageTypeID = 0x17bae2e6
+
+// construct implements constructor of InputPeerClass.
+func (i InputPeerUserFromMessage) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerUserFromMessage.
+var (
+	_ bin.Encoder     = &InputPeerUserFromMessage{}
+	_ bin.Decoder     = &InputPeerUserFromMessage{}
+	_ bin.BareEncoder = &InputPeerUserFromMessage{}
+	_ bin.BareDecoder = &InputPeerUserFromMessage{}
+
+	_ InputPeerClass = &InputPeerUserFromMessage{}
+)
 
 func (i *InputPeerUserFromMessage) Zero() bool {
 	if i == nil {
@@ -803,21 +816,6 @@ func (i *InputPeerUserFromMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (i *InputPeerUserFromMessage) GetPeer() (value InputPeerClass) {
-	return i.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (i *InputPeerUserFromMessage) GetMsgID() (value int) {
-	return i.MsgID
-}
-
-// GetUserID returns value of UserID field.
-func (i *InputPeerUserFromMessage) GetUserID() (value int) {
-	return i.UserID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPeerUserFromMessage) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -858,18 +856,20 @@ func (i *InputPeerUserFromMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerUserFromMessage) construct() InputPeerClass { return &i }
+// GetPeer returns value of Peer field.
+func (i *InputPeerUserFromMessage) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
 
-// Ensuring interfaces in compile-time for InputPeerUserFromMessage.
-var (
-	_ bin.Encoder     = &InputPeerUserFromMessage{}
-	_ bin.Decoder     = &InputPeerUserFromMessage{}
-	_ bin.BareEncoder = &InputPeerUserFromMessage{}
-	_ bin.BareDecoder = &InputPeerUserFromMessage{}
+// GetMsgID returns value of MsgID field.
+func (i *InputPeerUserFromMessage) GetMsgID() (value int) {
+	return i.MsgID
+}
 
-	_ InputPeerClass = &InputPeerUserFromMessage{}
-)
+// GetUserID returns value of UserID field.
+func (i *InputPeerUserFromMessage) GetUserID() (value int) {
+	return i.UserID
+}
 
 // InputPeerChannelFromMessage represents TL type `inputPeerChannelFromMessage#9c95f7bb`.
 // Defines a min¹ channel that was seen in a certain message of a certain chat.
@@ -889,6 +889,19 @@ type InputPeerChannelFromMessage struct {
 
 // InputPeerChannelFromMessageTypeID is TL type id of InputPeerChannelFromMessage.
 const InputPeerChannelFromMessageTypeID = 0x9c95f7bb
+
+// construct implements constructor of InputPeerClass.
+func (i InputPeerChannelFromMessage) construct() InputPeerClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerChannelFromMessage.
+var (
+	_ bin.Encoder     = &InputPeerChannelFromMessage{}
+	_ bin.Decoder     = &InputPeerChannelFromMessage{}
+	_ bin.BareEncoder = &InputPeerChannelFromMessage{}
+	_ bin.BareDecoder = &InputPeerChannelFromMessage{}
+
+	_ InputPeerClass = &InputPeerChannelFromMessage{}
+)
 
 func (i *InputPeerChannelFromMessage) Zero() bool {
 	if i == nil {
@@ -991,21 +1004,6 @@ func (i *InputPeerChannelFromMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (i *InputPeerChannelFromMessage) GetPeer() (value InputPeerClass) {
-	return i.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (i *InputPeerChannelFromMessage) GetMsgID() (value int) {
-	return i.MsgID
-}
-
-// GetChannelID returns value of ChannelID field.
-func (i *InputPeerChannelFromMessage) GetChannelID() (value int) {
-	return i.ChannelID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPeerChannelFromMessage) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -1046,18 +1044,20 @@ func (i *InputPeerChannelFromMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPeerClass.
-func (i InputPeerChannelFromMessage) construct() InputPeerClass { return &i }
+// GetPeer returns value of Peer field.
+func (i *InputPeerChannelFromMessage) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
 
-// Ensuring interfaces in compile-time for InputPeerChannelFromMessage.
-var (
-	_ bin.Encoder     = &InputPeerChannelFromMessage{}
-	_ bin.Decoder     = &InputPeerChannelFromMessage{}
-	_ bin.BareEncoder = &InputPeerChannelFromMessage{}
-	_ bin.BareDecoder = &InputPeerChannelFromMessage{}
+// GetMsgID returns value of MsgID field.
+func (i *InputPeerChannelFromMessage) GetMsgID() (value int) {
+	return i.MsgID
+}
 
-	_ InputPeerClass = &InputPeerChannelFromMessage{}
-)
+// GetChannelID returns value of ChannelID field.
+func (i *InputPeerChannelFromMessage) GetChannelID() (value int) {
+	return i.ChannelID
+}
 
 // InputPeerClass represents InputPeer generic type.
 //
@@ -1182,561 +1182,4 @@ func (b *InputPeerBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputPeerClass as nil")
 	}
 	return b.InputPeer.Encode(buf)
-}
-
-// InputPeerClassArray is adapter for slice of InputPeerClass.
-type InputPeerClassArray []InputPeerClass
-
-// Sort sorts slice of InputPeerClass.
-func (s InputPeerClassArray) Sort(less func(a, b InputPeerClass) bool) InputPeerClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPeerClass.
-func (s InputPeerClassArray) SortStable(less func(a, b InputPeerClass) bool) InputPeerClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPeerClass.
-func (s InputPeerClassArray) Retain(keep func(x InputPeerClass) bool) InputPeerClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPeerClassArray) First() (v InputPeerClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPeerClassArray) Last() (v InputPeerClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPeerClassArray) PopFirst() (v InputPeerClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPeerClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPeerClassArray) Pop() (v InputPeerClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsInputPeerChat returns copy with only InputPeerChat constructors.
-func (s InputPeerClassArray) AsInputPeerChat() (to InputPeerChatArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputPeerChat)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputPeerUser returns copy with only InputPeerUser constructors.
-func (s InputPeerClassArray) AsInputPeerUser() (to InputPeerUserArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputPeerUser)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputPeerChannel returns copy with only InputPeerChannel constructors.
-func (s InputPeerClassArray) AsInputPeerChannel() (to InputPeerChannelArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputPeerChannel)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputPeerUserFromMessage returns copy with only InputPeerUserFromMessage constructors.
-func (s InputPeerClassArray) AsInputPeerUserFromMessage() (to InputPeerUserFromMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputPeerUserFromMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputPeerChannelFromMessage returns copy with only InputPeerChannelFromMessage constructors.
-func (s InputPeerClassArray) AsInputPeerChannelFromMessage() (to InputPeerChannelFromMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputPeerChannelFromMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// InputPeerChatArray is adapter for slice of InputPeerChat.
-type InputPeerChatArray []InputPeerChat
-
-// Sort sorts slice of InputPeerChat.
-func (s InputPeerChatArray) Sort(less func(a, b InputPeerChat) bool) InputPeerChatArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPeerChat.
-func (s InputPeerChatArray) SortStable(less func(a, b InputPeerChat) bool) InputPeerChatArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPeerChat.
-func (s InputPeerChatArray) Retain(keep func(x InputPeerChat) bool) InputPeerChatArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPeerChatArray) First() (v InputPeerChat, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPeerChatArray) Last() (v InputPeerChat, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPeerChatArray) PopFirst() (v InputPeerChat, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPeerChat
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPeerChatArray) Pop() (v InputPeerChat, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputPeerUserArray is adapter for slice of InputPeerUser.
-type InputPeerUserArray []InputPeerUser
-
-// Sort sorts slice of InputPeerUser.
-func (s InputPeerUserArray) Sort(less func(a, b InputPeerUser) bool) InputPeerUserArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPeerUser.
-func (s InputPeerUserArray) SortStable(less func(a, b InputPeerUser) bool) InputPeerUserArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPeerUser.
-func (s InputPeerUserArray) Retain(keep func(x InputPeerUser) bool) InputPeerUserArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPeerUserArray) First() (v InputPeerUser, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPeerUserArray) Last() (v InputPeerUser, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPeerUserArray) PopFirst() (v InputPeerUser, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPeerUser
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPeerUserArray) Pop() (v InputPeerUser, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputPeerChannelArray is adapter for slice of InputPeerChannel.
-type InputPeerChannelArray []InputPeerChannel
-
-// Sort sorts slice of InputPeerChannel.
-func (s InputPeerChannelArray) Sort(less func(a, b InputPeerChannel) bool) InputPeerChannelArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPeerChannel.
-func (s InputPeerChannelArray) SortStable(less func(a, b InputPeerChannel) bool) InputPeerChannelArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPeerChannel.
-func (s InputPeerChannelArray) Retain(keep func(x InputPeerChannel) bool) InputPeerChannelArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPeerChannelArray) First() (v InputPeerChannel, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPeerChannelArray) Last() (v InputPeerChannel, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPeerChannelArray) PopFirst() (v InputPeerChannel, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPeerChannel
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPeerChannelArray) Pop() (v InputPeerChannel, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputPeerUserFromMessageArray is adapter for slice of InputPeerUserFromMessage.
-type InputPeerUserFromMessageArray []InputPeerUserFromMessage
-
-// Sort sorts slice of InputPeerUserFromMessage.
-func (s InputPeerUserFromMessageArray) Sort(less func(a, b InputPeerUserFromMessage) bool) InputPeerUserFromMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPeerUserFromMessage.
-func (s InputPeerUserFromMessageArray) SortStable(less func(a, b InputPeerUserFromMessage) bool) InputPeerUserFromMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPeerUserFromMessage.
-func (s InputPeerUserFromMessageArray) Retain(keep func(x InputPeerUserFromMessage) bool) InputPeerUserFromMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPeerUserFromMessageArray) First() (v InputPeerUserFromMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPeerUserFromMessageArray) Last() (v InputPeerUserFromMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPeerUserFromMessageArray) PopFirst() (v InputPeerUserFromMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPeerUserFromMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPeerUserFromMessageArray) Pop() (v InputPeerUserFromMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputPeerChannelFromMessageArray is adapter for slice of InputPeerChannelFromMessage.
-type InputPeerChannelFromMessageArray []InputPeerChannelFromMessage
-
-// Sort sorts slice of InputPeerChannelFromMessage.
-func (s InputPeerChannelFromMessageArray) Sort(less func(a, b InputPeerChannelFromMessage) bool) InputPeerChannelFromMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPeerChannelFromMessage.
-func (s InputPeerChannelFromMessageArray) SortStable(less func(a, b InputPeerChannelFromMessage) bool) InputPeerChannelFromMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPeerChannelFromMessage.
-func (s InputPeerChannelFromMessageArray) Retain(keep func(x InputPeerChannelFromMessage) bool) InputPeerChannelFromMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPeerChannelFromMessageArray) First() (v InputPeerChannelFromMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPeerChannelFromMessageArray) Last() (v InputPeerChannelFromMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPeerChannelFromMessageArray) PopFirst() (v InputPeerChannelFromMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPeerChannelFromMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPeerChannelFromMessageArray) Pop() (v InputPeerChannelFromMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

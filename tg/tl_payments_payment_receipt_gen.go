@@ -89,6 +89,14 @@ type PaymentsPaymentReceipt struct {
 // PaymentsPaymentReceiptTypeID is TL type id of PaymentsPaymentReceipt.
 const PaymentsPaymentReceiptTypeID = 0x10b555d0
 
+// Ensuring interfaces in compile-time for PaymentsPaymentReceipt.
+var (
+	_ bin.Encoder     = &PaymentsPaymentReceipt{}
+	_ bin.Decoder     = &PaymentsPaymentReceipt{}
+	_ bin.BareEncoder = &PaymentsPaymentReceipt{}
+	_ bin.BareDecoder = &PaymentsPaymentReceipt{}
+)
+
 func (p *PaymentsPaymentReceipt) Zero() bool {
 	if p == nil {
 		return true
@@ -356,121 +364,6 @@ func (p *PaymentsPaymentReceipt) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDate returns value of Date field.
-func (p *PaymentsPaymentReceipt) GetDate() (value int) {
-	return p.Date
-}
-
-// GetBotID returns value of BotID field.
-func (p *PaymentsPaymentReceipt) GetBotID() (value int) {
-	return p.BotID
-}
-
-// GetProviderID returns value of ProviderID field.
-func (p *PaymentsPaymentReceipt) GetProviderID() (value int) {
-	return p.ProviderID
-}
-
-// GetTitle returns value of Title field.
-func (p *PaymentsPaymentReceipt) GetTitle() (value string) {
-	return p.Title
-}
-
-// GetDescription returns value of Description field.
-func (p *PaymentsPaymentReceipt) GetDescription() (value string) {
-	return p.Description
-}
-
-// SetPhoto sets value of Photo conditional field.
-func (p *PaymentsPaymentReceipt) SetPhoto(value WebDocumentClass) {
-	p.Flags.Set(2)
-	p.Photo = value
-}
-
-// GetPhoto returns value of Photo conditional field and
-// boolean which is true if field was set.
-func (p *PaymentsPaymentReceipt) GetPhoto() (value WebDocumentClass, ok bool) {
-	if !p.Flags.Has(2) {
-		return value, false
-	}
-	return p.Photo, true
-}
-
-// GetInvoice returns value of Invoice field.
-func (p *PaymentsPaymentReceipt) GetInvoice() (value Invoice) {
-	return p.Invoice
-}
-
-// SetInfo sets value of Info conditional field.
-func (p *PaymentsPaymentReceipt) SetInfo(value PaymentRequestedInfo) {
-	p.Flags.Set(0)
-	p.Info = value
-}
-
-// GetInfo returns value of Info conditional field and
-// boolean which is true if field was set.
-func (p *PaymentsPaymentReceipt) GetInfo() (value PaymentRequestedInfo, ok bool) {
-	if !p.Flags.Has(0) {
-		return value, false
-	}
-	return p.Info, true
-}
-
-// SetShipping sets value of Shipping conditional field.
-func (p *PaymentsPaymentReceipt) SetShipping(value ShippingOption) {
-	p.Flags.Set(1)
-	p.Shipping = value
-}
-
-// GetShipping returns value of Shipping conditional field and
-// boolean which is true if field was set.
-func (p *PaymentsPaymentReceipt) GetShipping() (value ShippingOption, ok bool) {
-	if !p.Flags.Has(1) {
-		return value, false
-	}
-	return p.Shipping, true
-}
-
-// SetTipAmount sets value of TipAmount conditional field.
-func (p *PaymentsPaymentReceipt) SetTipAmount(value int64) {
-	p.Flags.Set(3)
-	p.TipAmount = value
-}
-
-// GetTipAmount returns value of TipAmount conditional field and
-// boolean which is true if field was set.
-func (p *PaymentsPaymentReceipt) GetTipAmount() (value int64, ok bool) {
-	if !p.Flags.Has(3) {
-		return value, false
-	}
-	return p.TipAmount, true
-}
-
-// GetCurrency returns value of Currency field.
-func (p *PaymentsPaymentReceipt) GetCurrency() (value string) {
-	return p.Currency
-}
-
-// GetTotalAmount returns value of TotalAmount field.
-func (p *PaymentsPaymentReceipt) GetTotalAmount() (value int64) {
-	return p.TotalAmount
-}
-
-// GetCredentialsTitle returns value of CredentialsTitle field.
-func (p *PaymentsPaymentReceipt) GetCredentialsTitle() (value string) {
-	return p.CredentialsTitle
-}
-
-// GetUsers returns value of Users field.
-func (p *PaymentsPaymentReceipt) GetUsers() (value []UserClass) {
-	return p.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (p *PaymentsPaymentReceipt) MapUsers() (value UserClassArray) {
-	return UserClassArray(p.Users)
-}
-
 // Decode implements bin.Decoder.
 func (p *PaymentsPaymentReceipt) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -597,10 +490,117 @@ func (p *PaymentsPaymentReceipt) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PaymentsPaymentReceipt.
-var (
-	_ bin.Encoder     = &PaymentsPaymentReceipt{}
-	_ bin.Decoder     = &PaymentsPaymentReceipt{}
-	_ bin.BareEncoder = &PaymentsPaymentReceipt{}
-	_ bin.BareDecoder = &PaymentsPaymentReceipt{}
-)
+// GetDate returns value of Date field.
+func (p *PaymentsPaymentReceipt) GetDate() (value int) {
+	return p.Date
+}
+
+// GetBotID returns value of BotID field.
+func (p *PaymentsPaymentReceipt) GetBotID() (value int) {
+	return p.BotID
+}
+
+// GetProviderID returns value of ProviderID field.
+func (p *PaymentsPaymentReceipt) GetProviderID() (value int) {
+	return p.ProviderID
+}
+
+// GetTitle returns value of Title field.
+func (p *PaymentsPaymentReceipt) GetTitle() (value string) {
+	return p.Title
+}
+
+// GetDescription returns value of Description field.
+func (p *PaymentsPaymentReceipt) GetDescription() (value string) {
+	return p.Description
+}
+
+// SetPhoto sets value of Photo conditional field.
+func (p *PaymentsPaymentReceipt) SetPhoto(value WebDocumentClass) {
+	p.Flags.Set(2)
+	p.Photo = value
+}
+
+// GetPhoto returns value of Photo conditional field and
+// boolean which is true if field was set.
+func (p *PaymentsPaymentReceipt) GetPhoto() (value WebDocumentClass, ok bool) {
+	if !p.Flags.Has(2) {
+		return value, false
+	}
+	return p.Photo, true
+}
+
+// GetInvoice returns value of Invoice field.
+func (p *PaymentsPaymentReceipt) GetInvoice() (value Invoice) {
+	return p.Invoice
+}
+
+// SetInfo sets value of Info conditional field.
+func (p *PaymentsPaymentReceipt) SetInfo(value PaymentRequestedInfo) {
+	p.Flags.Set(0)
+	p.Info = value
+}
+
+// GetInfo returns value of Info conditional field and
+// boolean which is true if field was set.
+func (p *PaymentsPaymentReceipt) GetInfo() (value PaymentRequestedInfo, ok bool) {
+	if !p.Flags.Has(0) {
+		return value, false
+	}
+	return p.Info, true
+}
+
+// SetShipping sets value of Shipping conditional field.
+func (p *PaymentsPaymentReceipt) SetShipping(value ShippingOption) {
+	p.Flags.Set(1)
+	p.Shipping = value
+}
+
+// GetShipping returns value of Shipping conditional field and
+// boolean which is true if field was set.
+func (p *PaymentsPaymentReceipt) GetShipping() (value ShippingOption, ok bool) {
+	if !p.Flags.Has(1) {
+		return value, false
+	}
+	return p.Shipping, true
+}
+
+// SetTipAmount sets value of TipAmount conditional field.
+func (p *PaymentsPaymentReceipt) SetTipAmount(value int64) {
+	p.Flags.Set(3)
+	p.TipAmount = value
+}
+
+// GetTipAmount returns value of TipAmount conditional field and
+// boolean which is true if field was set.
+func (p *PaymentsPaymentReceipt) GetTipAmount() (value int64, ok bool) {
+	if !p.Flags.Has(3) {
+		return value, false
+	}
+	return p.TipAmount, true
+}
+
+// GetCurrency returns value of Currency field.
+func (p *PaymentsPaymentReceipt) GetCurrency() (value string) {
+	return p.Currency
+}
+
+// GetTotalAmount returns value of TotalAmount field.
+func (p *PaymentsPaymentReceipt) GetTotalAmount() (value int64) {
+	return p.TotalAmount
+}
+
+// GetCredentialsTitle returns value of CredentialsTitle field.
+func (p *PaymentsPaymentReceipt) GetCredentialsTitle() (value string) {
+	return p.CredentialsTitle
+}
+
+// GetUsers returns value of Users field.
+func (p *PaymentsPaymentReceipt) GetUsers() (value []UserClass) {
+	return p.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *PaymentsPaymentReceipt) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
+}

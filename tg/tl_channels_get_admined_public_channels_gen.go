@@ -65,6 +65,14 @@ type ChannelsGetAdminedPublicChannelsRequest struct {
 // ChannelsGetAdminedPublicChannelsRequestTypeID is TL type id of ChannelsGetAdminedPublicChannelsRequest.
 const ChannelsGetAdminedPublicChannelsRequestTypeID = 0xf8b036af
 
+// Ensuring interfaces in compile-time for ChannelsGetAdminedPublicChannelsRequest.
+var (
+	_ bin.Encoder     = &ChannelsGetAdminedPublicChannelsRequest{}
+	_ bin.Decoder     = &ChannelsGetAdminedPublicChannelsRequest{}
+	_ bin.BareEncoder = &ChannelsGetAdminedPublicChannelsRequest{}
+	_ bin.BareDecoder = &ChannelsGetAdminedPublicChannelsRequest{}
+)
+
 func (g *ChannelsGetAdminedPublicChannelsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -163,6 +171,32 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) EncodeBare(b *bin.Buffer) erro
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (g *ChannelsGetAdminedPublicChannelsRequest) Decode(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode channels.getAdminedPublicChannels#f8b036af to nil")
+	}
+	if err := b.ConsumeID(ChannelsGetAdminedPublicChannelsRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode channels.getAdminedPublicChannels#f8b036af: %w", err)
+	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ChannelsGetAdminedPublicChannelsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode channels.getAdminedPublicChannels#f8b036af to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channels.getAdminedPublicChannels#f8b036af: field flags: %w", err)
+		}
+	}
+	g.ByLocation = g.Flags.Has(0)
+	g.CheckLimit = g.Flags.Has(1)
+	return nil
+}
+
 // SetByLocation sets value of ByLocation conditional field.
 func (g *ChannelsGetAdminedPublicChannelsRequest) SetByLocation(value bool) {
 	if value {
@@ -194,40 +228,6 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) SetCheckLimit(value bool) {
 func (g *ChannelsGetAdminedPublicChannelsRequest) GetCheckLimit() (value bool) {
 	return g.Flags.Has(1)
 }
-
-// Decode implements bin.Decoder.
-func (g *ChannelsGetAdminedPublicChannelsRequest) Decode(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't decode channels.getAdminedPublicChannels#f8b036af to nil")
-	}
-	if err := b.ConsumeID(ChannelsGetAdminedPublicChannelsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.getAdminedPublicChannels#f8b036af: %w", err)
-	}
-	return g.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (g *ChannelsGetAdminedPublicChannelsRequest) DecodeBare(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't decode channels.getAdminedPublicChannels#f8b036af to nil")
-	}
-	{
-		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channels.getAdminedPublicChannels#f8b036af: field flags: %w", err)
-		}
-	}
-	g.ByLocation = g.Flags.Has(0)
-	g.CheckLimit = g.Flags.Has(1)
-	return nil
-}
-
-// Ensuring interfaces in compile-time for ChannelsGetAdminedPublicChannelsRequest.
-var (
-	_ bin.Encoder     = &ChannelsGetAdminedPublicChannelsRequest{}
-	_ bin.Decoder     = &ChannelsGetAdminedPublicChannelsRequest{}
-	_ bin.BareEncoder = &ChannelsGetAdminedPublicChannelsRequest{}
-	_ bin.BareDecoder = &ChannelsGetAdminedPublicChannelsRequest{}
-)
 
 // ChannelsGetAdminedPublicChannels invokes method channels.getAdminedPublicChannels#f8b036af returning error if any.
 // Get channels/supergroups/geogroups¹ we're admin in. Usually called when the user

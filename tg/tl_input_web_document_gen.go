@@ -50,6 +50,14 @@ type InputWebDocument struct {
 // InputWebDocumentTypeID is TL type id of InputWebDocument.
 const InputWebDocumentTypeID = 0x9bed434d
 
+// Ensuring interfaces in compile-time for InputWebDocument.
+var (
+	_ bin.Encoder     = &InputWebDocument{}
+	_ bin.Decoder     = &InputWebDocument{}
+	_ bin.BareEncoder = &InputWebDocument{}
+	_ bin.BareDecoder = &InputWebDocument{}
+)
+
 func (i *InputWebDocument) Zero() bool {
 	if i == nil {
 		return true
@@ -164,31 +172,6 @@ func (i *InputWebDocument) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (i *InputWebDocument) GetURL() (value string) {
-	return i.URL
-}
-
-// GetSize returns value of Size field.
-func (i *InputWebDocument) GetSize() (value int) {
-	return i.Size
-}
-
-// GetMimeType returns value of MimeType field.
-func (i *InputWebDocument) GetMimeType() (value string) {
-	return i.MimeType
-}
-
-// GetAttributes returns value of Attributes field.
-func (i *InputWebDocument) GetAttributes() (value []DocumentAttributeClass) {
-	return i.Attributes
-}
-
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
-func (i *InputWebDocument) MapAttributes() (value DocumentAttributeClassArray) {
-	return DocumentAttributeClassArray(i.Attributes)
-}
-
 // Decode implements bin.Decoder.
 func (i *InputWebDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -246,10 +229,27 @@ func (i *InputWebDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InputWebDocument.
-var (
-	_ bin.Encoder     = &InputWebDocument{}
-	_ bin.Decoder     = &InputWebDocument{}
-	_ bin.BareEncoder = &InputWebDocument{}
-	_ bin.BareDecoder = &InputWebDocument{}
-)
+// GetURL returns value of URL field.
+func (i *InputWebDocument) GetURL() (value string) {
+	return i.URL
+}
+
+// GetSize returns value of Size field.
+func (i *InputWebDocument) GetSize() (value int) {
+	return i.Size
+}
+
+// GetMimeType returns value of MimeType field.
+func (i *InputWebDocument) GetMimeType() (value string) {
+	return i.MimeType
+}
+
+// GetAttributes returns value of Attributes field.
+func (i *InputWebDocument) GetAttributes() (value []DocumentAttributeClass) {
+	return i.Attributes
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
+func (i *InputWebDocument) MapAttributes() (value DocumentAttributeClassArray) {
+	return DocumentAttributeClassArray(i.Attributes)
+}

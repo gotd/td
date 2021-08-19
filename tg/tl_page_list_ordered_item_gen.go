@@ -43,6 +43,19 @@ type PageListOrderedItemText struct {
 // PageListOrderedItemTextTypeID is TL type id of PageListOrderedItemText.
 const PageListOrderedItemTextTypeID = 0x5e068047
 
+// construct implements constructor of PageListOrderedItemClass.
+func (p PageListOrderedItemText) construct() PageListOrderedItemClass { return &p }
+
+// Ensuring interfaces in compile-time for PageListOrderedItemText.
+var (
+	_ bin.Encoder     = &PageListOrderedItemText{}
+	_ bin.Decoder     = &PageListOrderedItemText{}
+	_ bin.BareEncoder = &PageListOrderedItemText{}
+	_ bin.BareDecoder = &PageListOrderedItemText{}
+
+	_ PageListOrderedItemClass = &PageListOrderedItemText{}
+)
+
 func (p *PageListOrderedItemText) Zero() bool {
 	if p == nil {
 		return true
@@ -134,16 +147,6 @@ func (p *PageListOrderedItemText) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNum returns value of Num field.
-func (p *PageListOrderedItemText) GetNum() (value string) {
-	return p.Num
-}
-
-// GetText returns value of Text field.
-func (p *PageListOrderedItemText) GetText() (value RichTextClass) {
-	return p.Text
-}
-
 // Decode implements bin.Decoder.
 func (p *PageListOrderedItemText) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -177,18 +180,15 @@ func (p *PageListOrderedItemText) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageListOrderedItemClass.
-func (p PageListOrderedItemText) construct() PageListOrderedItemClass { return &p }
+// GetNum returns value of Num field.
+func (p *PageListOrderedItemText) GetNum() (value string) {
+	return p.Num
+}
 
-// Ensuring interfaces in compile-time for PageListOrderedItemText.
-var (
-	_ bin.Encoder     = &PageListOrderedItemText{}
-	_ bin.Decoder     = &PageListOrderedItemText{}
-	_ bin.BareEncoder = &PageListOrderedItemText{}
-	_ bin.BareDecoder = &PageListOrderedItemText{}
-
-	_ PageListOrderedItemClass = &PageListOrderedItemText{}
-)
+// GetText returns value of Text field.
+func (p *PageListOrderedItemText) GetText() (value RichTextClass) {
+	return p.Text
+}
 
 // PageListOrderedItemBlocks represents TL type `pageListOrderedItemBlocks#98dd8936`.
 // Ordered list of IV¹ blocks
@@ -206,6 +206,19 @@ type PageListOrderedItemBlocks struct {
 
 // PageListOrderedItemBlocksTypeID is TL type id of PageListOrderedItemBlocks.
 const PageListOrderedItemBlocksTypeID = 0x98dd8936
+
+// construct implements constructor of PageListOrderedItemClass.
+func (p PageListOrderedItemBlocks) construct() PageListOrderedItemClass { return &p }
+
+// Ensuring interfaces in compile-time for PageListOrderedItemBlocks.
+var (
+	_ bin.Encoder     = &PageListOrderedItemBlocks{}
+	_ bin.Decoder     = &PageListOrderedItemBlocks{}
+	_ bin.BareEncoder = &PageListOrderedItemBlocks{}
+	_ bin.BareDecoder = &PageListOrderedItemBlocks{}
+
+	_ PageListOrderedItemClass = &PageListOrderedItemBlocks{}
+)
 
 func (p *PageListOrderedItemBlocks) Zero() bool {
 	if p == nil {
@@ -301,21 +314,6 @@ func (p *PageListOrderedItemBlocks) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNum returns value of Num field.
-func (p *PageListOrderedItemBlocks) GetNum() (value string) {
-	return p.Num
-}
-
-// GetBlocks returns value of Blocks field.
-func (p *PageListOrderedItemBlocks) GetBlocks() (value []PageBlockClass) {
-	return p.Blocks
-}
-
-// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
-func (p *PageListOrderedItemBlocks) MapBlocks() (value PageBlockClassArray) {
-	return PageBlockClassArray(p.Blocks)
-}
-
 // Decode implements bin.Decoder.
 func (p *PageListOrderedItemBlocks) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -359,18 +357,20 @@ func (p *PageListOrderedItemBlocks) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PageListOrderedItemClass.
-func (p PageListOrderedItemBlocks) construct() PageListOrderedItemClass { return &p }
+// GetNum returns value of Num field.
+func (p *PageListOrderedItemBlocks) GetNum() (value string) {
+	return p.Num
+}
 
-// Ensuring interfaces in compile-time for PageListOrderedItemBlocks.
-var (
-	_ bin.Encoder     = &PageListOrderedItemBlocks{}
-	_ bin.Decoder     = &PageListOrderedItemBlocks{}
-	_ bin.BareEncoder = &PageListOrderedItemBlocks{}
-	_ bin.BareDecoder = &PageListOrderedItemBlocks{}
+// GetBlocks returns value of Blocks field.
+func (p *PageListOrderedItemBlocks) GetBlocks() (value []PageBlockClass) {
+	return p.Blocks
+}
 
-	_ PageListOrderedItemClass = &PageListOrderedItemBlocks{}
-)
+// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
+func (p *PageListOrderedItemBlocks) MapBlocks() (value PageBlockClassArray) {
+	return PageBlockClassArray(p.Blocks)
+}
 
 // PageListOrderedItemClass represents PageListOrderedItem generic type.
 //
@@ -458,276 +458,4 @@ func (b *PageListOrderedItemBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PageListOrderedItemClass as nil")
 	}
 	return b.PageListOrderedItem.Encode(buf)
-}
-
-// PageListOrderedItemClassArray is adapter for slice of PageListOrderedItemClass.
-type PageListOrderedItemClassArray []PageListOrderedItemClass
-
-// Sort sorts slice of PageListOrderedItemClass.
-func (s PageListOrderedItemClassArray) Sort(less func(a, b PageListOrderedItemClass) bool) PageListOrderedItemClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageListOrderedItemClass.
-func (s PageListOrderedItemClassArray) SortStable(less func(a, b PageListOrderedItemClass) bool) PageListOrderedItemClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageListOrderedItemClass.
-func (s PageListOrderedItemClassArray) Retain(keep func(x PageListOrderedItemClass) bool) PageListOrderedItemClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageListOrderedItemClassArray) First() (v PageListOrderedItemClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageListOrderedItemClassArray) Last() (v PageListOrderedItemClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageListOrderedItemClassArray) PopFirst() (v PageListOrderedItemClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageListOrderedItemClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageListOrderedItemClassArray) Pop() (v PageListOrderedItemClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsPageListOrderedItemText returns copy with only PageListOrderedItemText constructors.
-func (s PageListOrderedItemClassArray) AsPageListOrderedItemText() (to PageListOrderedItemTextArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageListOrderedItemText)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPageListOrderedItemBlocks returns copy with only PageListOrderedItemBlocks constructors.
-func (s PageListOrderedItemClassArray) AsPageListOrderedItemBlocks() (to PageListOrderedItemBlocksArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PageListOrderedItemBlocks)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// PageListOrderedItemTextArray is adapter for slice of PageListOrderedItemText.
-type PageListOrderedItemTextArray []PageListOrderedItemText
-
-// Sort sorts slice of PageListOrderedItemText.
-func (s PageListOrderedItemTextArray) Sort(less func(a, b PageListOrderedItemText) bool) PageListOrderedItemTextArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageListOrderedItemText.
-func (s PageListOrderedItemTextArray) SortStable(less func(a, b PageListOrderedItemText) bool) PageListOrderedItemTextArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageListOrderedItemText.
-func (s PageListOrderedItemTextArray) Retain(keep func(x PageListOrderedItemText) bool) PageListOrderedItemTextArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageListOrderedItemTextArray) First() (v PageListOrderedItemText, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageListOrderedItemTextArray) Last() (v PageListOrderedItemText, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageListOrderedItemTextArray) PopFirst() (v PageListOrderedItemText, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageListOrderedItemText
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageListOrderedItemTextArray) Pop() (v PageListOrderedItemText, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PageListOrderedItemBlocksArray is adapter for slice of PageListOrderedItemBlocks.
-type PageListOrderedItemBlocksArray []PageListOrderedItemBlocks
-
-// Sort sorts slice of PageListOrderedItemBlocks.
-func (s PageListOrderedItemBlocksArray) Sort(less func(a, b PageListOrderedItemBlocks) bool) PageListOrderedItemBlocksArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PageListOrderedItemBlocks.
-func (s PageListOrderedItemBlocksArray) SortStable(less func(a, b PageListOrderedItemBlocks) bool) PageListOrderedItemBlocksArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PageListOrderedItemBlocks.
-func (s PageListOrderedItemBlocksArray) Retain(keep func(x PageListOrderedItemBlocks) bool) PageListOrderedItemBlocksArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PageListOrderedItemBlocksArray) First() (v PageListOrderedItemBlocks, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PageListOrderedItemBlocksArray) Last() (v PageListOrderedItemBlocks, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PageListOrderedItemBlocksArray) PopFirst() (v PageListOrderedItemBlocks, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PageListOrderedItemBlocks
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PageListOrderedItemBlocksArray) Pop() (v PageListOrderedItemBlocks, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

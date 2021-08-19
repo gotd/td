@@ -45,6 +45,14 @@ type LangpackGetDifferenceRequest struct {
 // LangpackGetDifferenceRequestTypeID is TL type id of LangpackGetDifferenceRequest.
 const LangpackGetDifferenceRequestTypeID = 0xcd984aa5
 
+// Ensuring interfaces in compile-time for LangpackGetDifferenceRequest.
+var (
+	_ bin.Encoder     = &LangpackGetDifferenceRequest{}
+	_ bin.Decoder     = &LangpackGetDifferenceRequest{}
+	_ bin.BareEncoder = &LangpackGetDifferenceRequest{}
+	_ bin.BareDecoder = &LangpackGetDifferenceRequest{}
+)
+
 func (g *LangpackGetDifferenceRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -141,21 +149,6 @@ func (g *LangpackGetDifferenceRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLangPack returns value of LangPack field.
-func (g *LangpackGetDifferenceRequest) GetLangPack() (value string) {
-	return g.LangPack
-}
-
-// GetLangCode returns value of LangCode field.
-func (g *LangpackGetDifferenceRequest) GetLangCode() (value string) {
-	return g.LangCode
-}
-
-// GetFromVersion returns value of FromVersion field.
-func (g *LangpackGetDifferenceRequest) GetFromVersion() (value int) {
-	return g.FromVersion
-}
-
 // Decode implements bin.Decoder.
 func (g *LangpackGetDifferenceRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -196,13 +189,20 @@ func (g *LangpackGetDifferenceRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for LangpackGetDifferenceRequest.
-var (
-	_ bin.Encoder     = &LangpackGetDifferenceRequest{}
-	_ bin.Decoder     = &LangpackGetDifferenceRequest{}
-	_ bin.BareEncoder = &LangpackGetDifferenceRequest{}
-	_ bin.BareDecoder = &LangpackGetDifferenceRequest{}
-)
+// GetLangPack returns value of LangPack field.
+func (g *LangpackGetDifferenceRequest) GetLangPack() (value string) {
+	return g.LangPack
+}
+
+// GetLangCode returns value of LangCode field.
+func (g *LangpackGetDifferenceRequest) GetLangCode() (value string) {
+	return g.LangCode
+}
+
+// GetFromVersion returns value of FromVersion field.
+func (g *LangpackGetDifferenceRequest) GetFromVersion() (value int) {
+	return g.FromVersion
+}
 
 // LangpackGetDifference invokes method langpack.getDifference#cd984aa5 returning error if any.
 // Get new strings in languagepack

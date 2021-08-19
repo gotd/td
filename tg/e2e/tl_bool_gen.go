@@ -39,6 +39,19 @@ type BoolFalse struct {
 // BoolFalseTypeID is TL type id of BoolFalse.
 const BoolFalseTypeID = 0xbc799737
 
+// construct implements constructor of BoolClass.
+func (b BoolFalse) construct() BoolClass { return &b }
+
+// Ensuring interfaces in compile-time for BoolFalse.
+var (
+	_ bin.Encoder     = &BoolFalse{}
+	_ bin.Decoder     = &BoolFalse{}
+	_ bin.BareEncoder = &BoolFalse{}
+	_ bin.BareDecoder = &BoolFalse{}
+
+	_ BoolClass = &BoolFalse{}
+)
+
 func (b *BoolFalse) Zero() bool {
 	if b == nil {
 		return true
@@ -118,19 +131,6 @@ func (b *BoolFalse) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BoolClass.
-func (b BoolFalse) construct() BoolClass { return &b }
-
-// Ensuring interfaces in compile-time for BoolFalse.
-var (
-	_ bin.Encoder     = &BoolFalse{}
-	_ bin.Decoder     = &BoolFalse{}
-	_ bin.BareEncoder = &BoolFalse{}
-	_ bin.BareDecoder = &BoolFalse{}
-
-	_ BoolClass = &BoolFalse{}
-)
-
 // BoolTrue represents TL type `boolTrue#997275b5`.
 // The constructor can be interpreted as a booleantrue value.
 //
@@ -140,6 +140,19 @@ type BoolTrue struct {
 
 // BoolTrueTypeID is TL type id of BoolTrue.
 const BoolTrueTypeID = 0x997275b5
+
+// construct implements constructor of BoolClass.
+func (b BoolTrue) construct() BoolClass { return &b }
+
+// Ensuring interfaces in compile-time for BoolTrue.
+var (
+	_ bin.Encoder     = &BoolTrue{}
+	_ bin.Decoder     = &BoolTrue{}
+	_ bin.BareEncoder = &BoolTrue{}
+	_ bin.BareDecoder = &BoolTrue{}
+
+	_ BoolClass = &BoolTrue{}
+)
 
 func (b *BoolTrue) Zero() bool {
 	if b == nil {
@@ -219,19 +232,6 @@ func (b *BoolTrue) DecodeBare(buf *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of BoolClass.
-func (b BoolTrue) construct() BoolClass { return &b }
-
-// Ensuring interfaces in compile-time for BoolTrue.
-var (
-	_ bin.Encoder     = &BoolTrue{}
-	_ bin.Decoder     = &BoolTrue{}
-	_ bin.BareEncoder = &BoolTrue{}
-	_ bin.BareDecoder = &BoolTrue{}
-
-	_ BoolClass = &BoolTrue{}
-)
 
 // BoolClass represents Bool generic type.
 //
@@ -316,86 +316,4 @@ func (b *BoolBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode BoolClass as nil")
 	}
 	return b.Bool.Encode(buf)
-}
-
-// BoolClassArray is adapter for slice of BoolClass.
-type BoolClassArray []BoolClass
-
-// Sort sorts slice of BoolClass.
-func (s BoolClassArray) Sort(less func(a, b BoolClass) bool) BoolClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BoolClass.
-func (s BoolClassArray) SortStable(less func(a, b BoolClass) bool) BoolClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BoolClass.
-func (s BoolClassArray) Retain(keep func(x BoolClass) bool) BoolClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BoolClassArray) First() (v BoolClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BoolClassArray) Last() (v BoolClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BoolClassArray) PopFirst() (v BoolClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BoolClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BoolClassArray) Pop() (v BoolClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

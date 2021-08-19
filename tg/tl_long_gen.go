@@ -38,6 +38,14 @@ type Long struct {
 // LongTypeID is TL type id of Long.
 const LongTypeID = 0x22076cba
 
+// Ensuring interfaces in compile-time for Long.
+var (
+	_ bin.Encoder     = &Long{}
+	_ bin.Decoder     = &Long{}
+	_ bin.BareEncoder = &Long{}
+	_ bin.BareDecoder = &Long{}
+)
+
 func (l *Long) Zero() bool {
 	if l == nil {
 		return true
@@ -116,11 +124,3 @@ func (l *Long) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for Long.
-var (
-	_ bin.Encoder     = &Long{}
-	_ bin.Decoder     = &Long{}
-	_ bin.BareEncoder = &Long{}
-	_ bin.BareDecoder = &Long{}
-)

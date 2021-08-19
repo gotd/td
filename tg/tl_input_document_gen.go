@@ -39,6 +39,19 @@ type InputDocumentEmpty struct {
 // InputDocumentEmptyTypeID is TL type id of InputDocumentEmpty.
 const InputDocumentEmptyTypeID = 0x72f0eaae
 
+// construct implements constructor of InputDocumentClass.
+func (i InputDocumentEmpty) construct() InputDocumentClass { return &i }
+
+// Ensuring interfaces in compile-time for InputDocumentEmpty.
+var (
+	_ bin.Encoder     = &InputDocumentEmpty{}
+	_ bin.Decoder     = &InputDocumentEmpty{}
+	_ bin.BareEncoder = &InputDocumentEmpty{}
+	_ bin.BareDecoder = &InputDocumentEmpty{}
+
+	_ InputDocumentClass = &InputDocumentEmpty{}
+)
+
 func (i *InputDocumentEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputDocumentEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputDocumentClass.
-func (i InputDocumentEmpty) construct() InputDocumentClass { return &i }
-
-// Ensuring interfaces in compile-time for InputDocumentEmpty.
-var (
-	_ bin.Encoder     = &InputDocumentEmpty{}
-	_ bin.Decoder     = &InputDocumentEmpty{}
-	_ bin.BareEncoder = &InputDocumentEmpty{}
-	_ bin.BareDecoder = &InputDocumentEmpty{}
-
-	_ InputDocumentClass = &InputDocumentEmpty{}
-)
-
 // InputDocument represents TL type `inputDocument#1abfb575`.
 // Defines a video for subsequent interaction.
 //
@@ -152,6 +152,19 @@ type InputDocument struct {
 
 // InputDocumentTypeID is TL type id of InputDocument.
 const InputDocumentTypeID = 0x1abfb575
+
+// construct implements constructor of InputDocumentClass.
+func (i InputDocument) construct() InputDocumentClass { return &i }
+
+// Ensuring interfaces in compile-time for InputDocument.
+var (
+	_ bin.Encoder     = &InputDocument{}
+	_ bin.Decoder     = &InputDocument{}
+	_ bin.BareEncoder = &InputDocument{}
+	_ bin.BareDecoder = &InputDocument{}
+
+	_ InputDocumentClass = &InputDocument{}
+)
 
 func (i *InputDocument) Zero() bool {
 	if i == nil {
@@ -249,21 +262,6 @@ func (i *InputDocument) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputDocument) GetID() (value int64) {
-	return i.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputDocument) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
-// GetFileReference returns value of FileReference field.
-func (i *InputDocument) GetFileReference() (value []byte) {
-	return i.FileReference
-}
-
 // Decode implements bin.Decoder.
 func (i *InputDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -304,18 +302,20 @@ func (i *InputDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputDocumentClass.
-func (i InputDocument) construct() InputDocumentClass { return &i }
+// GetID returns value of ID field.
+func (i *InputDocument) GetID() (value int64) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputDocument.
-var (
-	_ bin.Encoder     = &InputDocument{}
-	_ bin.Decoder     = &InputDocument{}
-	_ bin.BareEncoder = &InputDocument{}
-	_ bin.BareDecoder = &InputDocument{}
+// GetAccessHash returns value of AccessHash field.
+func (i *InputDocument) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
-	_ InputDocumentClass = &InputDocument{}
-)
+// GetFileReference returns value of FileReference field.
+func (i *InputDocument) GetFileReference() (value []byte) {
+	return i.FileReference
+}
 
 // InputDocumentClass represents InputDocument generic type.
 //
@@ -423,236 +423,4 @@ func (b *InputDocumentBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputDocumentClass as nil")
 	}
 	return b.InputDocument.Encode(buf)
-}
-
-// InputDocumentClassArray is adapter for slice of InputDocumentClass.
-type InputDocumentClassArray []InputDocumentClass
-
-// Sort sorts slice of InputDocumentClass.
-func (s InputDocumentClassArray) Sort(less func(a, b InputDocumentClass) bool) InputDocumentClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputDocumentClass.
-func (s InputDocumentClassArray) SortStable(less func(a, b InputDocumentClass) bool) InputDocumentClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputDocumentClass.
-func (s InputDocumentClassArray) Retain(keep func(x InputDocumentClass) bool) InputDocumentClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputDocumentClassArray) First() (v InputDocumentClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputDocumentClassArray) Last() (v InputDocumentClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputDocumentClassArray) PopFirst() (v InputDocumentClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputDocumentClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputDocumentClassArray) Pop() (v InputDocumentClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsInputDocument returns copy with only InputDocument constructors.
-func (s InputDocumentClassArray) AsInputDocument() (to InputDocumentArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputDocument)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s InputDocumentClassArray) AppendOnlyNotEmpty(to []*InputDocument) []*InputDocument {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s InputDocumentClassArray) AsNotEmpty() (to []*InputDocument) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s InputDocumentClassArray) FirstAsNotEmpty() (v *InputDocument, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s InputDocumentClassArray) LastAsNotEmpty() (v *InputDocument, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *InputDocumentClassArray) PopFirstAsNotEmpty() (v *InputDocument, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *InputDocumentClassArray) PopAsNotEmpty() (v *InputDocument, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// InputDocumentArray is adapter for slice of InputDocument.
-type InputDocumentArray []InputDocument
-
-// Sort sorts slice of InputDocument.
-func (s InputDocumentArray) Sort(less func(a, b InputDocument) bool) InputDocumentArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputDocument.
-func (s InputDocumentArray) SortStable(less func(a, b InputDocument) bool) InputDocumentArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputDocument.
-func (s InputDocumentArray) Retain(keep func(x InputDocument) bool) InputDocumentArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputDocumentArray) First() (v InputDocument, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputDocumentArray) Last() (v InputDocument, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputDocumentArray) PopFirst() (v InputDocument, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputDocument
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputDocumentArray) Pop() (v InputDocument, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

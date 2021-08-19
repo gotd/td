@@ -44,6 +44,14 @@ type MessagesUnpinAllMessagesRequest struct {
 // MessagesUnpinAllMessagesRequestTypeID is TL type id of MessagesUnpinAllMessagesRequest.
 const MessagesUnpinAllMessagesRequestTypeID = 0xf025bc8b
 
+// Ensuring interfaces in compile-time for MessagesUnpinAllMessagesRequest.
+var (
+	_ bin.Encoder     = &MessagesUnpinAllMessagesRequest{}
+	_ bin.Decoder     = &MessagesUnpinAllMessagesRequest{}
+	_ bin.BareEncoder = &MessagesUnpinAllMessagesRequest{}
+	_ bin.BareDecoder = &MessagesUnpinAllMessagesRequest{}
+)
+
 func (u *MessagesUnpinAllMessagesRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -125,11 +133,6 @@ func (u *MessagesUnpinAllMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *MessagesUnpinAllMessagesRequest) GetPeer() (value InputPeerClass) {
-	return u.Peer
-}
-
 // Decode implements bin.Decoder.
 func (u *MessagesUnpinAllMessagesRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -156,13 +159,10 @@ func (u *MessagesUnpinAllMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesUnpinAllMessagesRequest.
-var (
-	_ bin.Encoder     = &MessagesUnpinAllMessagesRequest{}
-	_ bin.Decoder     = &MessagesUnpinAllMessagesRequest{}
-	_ bin.BareEncoder = &MessagesUnpinAllMessagesRequest{}
-	_ bin.BareDecoder = &MessagesUnpinAllMessagesRequest{}
-)
+// GetPeer returns value of Peer field.
+func (u *MessagesUnpinAllMessagesRequest) GetPeer() (value InputPeerClass) {
+	return u.Peer
+}
 
 // MessagesUnpinAllMessages invokes method messages.unpinAllMessages#f025bc8b returning error if any.
 // Unpin¹ all pinned messages

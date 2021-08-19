@@ -48,6 +48,14 @@ type MessagesSetEncryptedTypingRequest struct {
 // MessagesSetEncryptedTypingRequestTypeID is TL type id of MessagesSetEncryptedTypingRequest.
 const MessagesSetEncryptedTypingRequestTypeID = 0x791451ed
 
+// Ensuring interfaces in compile-time for MessagesSetEncryptedTypingRequest.
+var (
+	_ bin.Encoder     = &MessagesSetEncryptedTypingRequest{}
+	_ bin.Decoder     = &MessagesSetEncryptedTypingRequest{}
+	_ bin.BareEncoder = &MessagesSetEncryptedTypingRequest{}
+	_ bin.BareDecoder = &MessagesSetEncryptedTypingRequest{}
+)
+
 func (s *MessagesSetEncryptedTypingRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -136,16 +144,6 @@ func (s *MessagesSetEncryptedTypingRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (s *MessagesSetEncryptedTypingRequest) GetPeer() (value InputEncryptedChat) {
-	return s.Peer
-}
-
-// GetTyping returns value of Typing field.
-func (s *MessagesSetEncryptedTypingRequest) GetTyping() (value bool) {
-	return s.Typing
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSetEncryptedTypingRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -177,13 +175,15 @@ func (s *MessagesSetEncryptedTypingRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSetEncryptedTypingRequest.
-var (
-	_ bin.Encoder     = &MessagesSetEncryptedTypingRequest{}
-	_ bin.Decoder     = &MessagesSetEncryptedTypingRequest{}
-	_ bin.BareEncoder = &MessagesSetEncryptedTypingRequest{}
-	_ bin.BareDecoder = &MessagesSetEncryptedTypingRequest{}
-)
+// GetPeer returns value of Peer field.
+func (s *MessagesSetEncryptedTypingRequest) GetPeer() (value InputEncryptedChat) {
+	return s.Peer
+}
+
+// GetTyping returns value of Typing field.
+func (s *MessagesSetEncryptedTypingRequest) GetTyping() (value bool) {
+	return s.Typing
+}
 
 // MessagesSetEncryptedTyping invokes method messages.setEncryptedTyping#791451ed returning error if any.
 // Send typing event by the current user to a secret chat.

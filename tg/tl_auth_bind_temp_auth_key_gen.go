@@ -62,6 +62,14 @@ type AuthBindTempAuthKeyRequest struct {
 // AuthBindTempAuthKeyRequestTypeID is TL type id of AuthBindTempAuthKeyRequest.
 const AuthBindTempAuthKeyRequestTypeID = 0xcdd42a05
 
+// Ensuring interfaces in compile-time for AuthBindTempAuthKeyRequest.
+var (
+	_ bin.Encoder     = &AuthBindTempAuthKeyRequest{}
+	_ bin.Decoder     = &AuthBindTempAuthKeyRequest{}
+	_ bin.BareEncoder = &AuthBindTempAuthKeyRequest{}
+	_ bin.BareDecoder = &AuthBindTempAuthKeyRequest{}
+)
+
 func (b *AuthBindTempAuthKeyRequest) Zero() bool {
 	if b == nil {
 		return true
@@ -168,26 +176,6 @@ func (b *AuthBindTempAuthKeyRequest) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetPermAuthKeyID returns value of PermAuthKeyID field.
-func (b *AuthBindTempAuthKeyRequest) GetPermAuthKeyID() (value int64) {
-	return b.PermAuthKeyID
-}
-
-// GetNonce returns value of Nonce field.
-func (b *AuthBindTempAuthKeyRequest) GetNonce() (value int64) {
-	return b.Nonce
-}
-
-// GetExpiresAt returns value of ExpiresAt field.
-func (b *AuthBindTempAuthKeyRequest) GetExpiresAt() (value int) {
-	return b.ExpiresAt
-}
-
-// GetEncryptedMessage returns value of EncryptedMessage field.
-func (b *AuthBindTempAuthKeyRequest) GetEncryptedMessage() (value []byte) {
-	return b.EncryptedMessage
-}
-
 // Decode implements bin.Decoder.
 func (b *AuthBindTempAuthKeyRequest) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -235,13 +223,25 @@ func (b *AuthBindTempAuthKeyRequest) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AuthBindTempAuthKeyRequest.
-var (
-	_ bin.Encoder     = &AuthBindTempAuthKeyRequest{}
-	_ bin.Decoder     = &AuthBindTempAuthKeyRequest{}
-	_ bin.BareEncoder = &AuthBindTempAuthKeyRequest{}
-	_ bin.BareDecoder = &AuthBindTempAuthKeyRequest{}
-)
+// GetPermAuthKeyID returns value of PermAuthKeyID field.
+func (b *AuthBindTempAuthKeyRequest) GetPermAuthKeyID() (value int64) {
+	return b.PermAuthKeyID
+}
+
+// GetNonce returns value of Nonce field.
+func (b *AuthBindTempAuthKeyRequest) GetNonce() (value int64) {
+	return b.Nonce
+}
+
+// GetExpiresAt returns value of ExpiresAt field.
+func (b *AuthBindTempAuthKeyRequest) GetExpiresAt() (value int) {
+	return b.ExpiresAt
+}
+
+// GetEncryptedMessage returns value of EncryptedMessage field.
+func (b *AuthBindTempAuthKeyRequest) GetEncryptedMessage() (value []byte) {
+	return b.EncryptedMessage
+}
 
 // AuthBindTempAuthKey invokes method auth.bindTempAuthKey#cdd42a05 returning error if any.
 // Binds a temporary authorization key temp_auth_key_id to the permanent authorization

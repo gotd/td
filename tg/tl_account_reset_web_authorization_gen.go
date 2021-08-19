@@ -47,6 +47,14 @@ type AccountResetWebAuthorizationRequest struct {
 // AccountResetWebAuthorizationRequestTypeID is TL type id of AccountResetWebAuthorizationRequest.
 const AccountResetWebAuthorizationRequestTypeID = 0x2d01b9ef
 
+// Ensuring interfaces in compile-time for AccountResetWebAuthorizationRequest.
+var (
+	_ bin.Encoder     = &AccountResetWebAuthorizationRequest{}
+	_ bin.Decoder     = &AccountResetWebAuthorizationRequest{}
+	_ bin.BareEncoder = &AccountResetWebAuthorizationRequest{}
+	_ bin.BareDecoder = &AccountResetWebAuthorizationRequest{}
+)
+
 func (r *AccountResetWebAuthorizationRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -123,11 +131,6 @@ func (r *AccountResetWebAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (r *AccountResetWebAuthorizationRequest) GetHash() (value int64) {
-	return r.Hash
-}
-
 // Decode implements bin.Decoder.
 func (r *AccountResetWebAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -154,13 +157,10 @@ func (r *AccountResetWebAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountResetWebAuthorizationRequest.
-var (
-	_ bin.Encoder     = &AccountResetWebAuthorizationRequest{}
-	_ bin.Decoder     = &AccountResetWebAuthorizationRequest{}
-	_ bin.BareEncoder = &AccountResetWebAuthorizationRequest{}
-	_ bin.BareDecoder = &AccountResetWebAuthorizationRequest{}
-)
+// GetHash returns value of Hash field.
+func (r *AccountResetWebAuthorizationRequest) GetHash() (value int64) {
+	return r.Hash
+}
 
 // AccountResetWebAuthorization invokes method account.resetWebAuthorization#2d01b9ef returning error if any.
 // Log out an active web telegram login¹ session

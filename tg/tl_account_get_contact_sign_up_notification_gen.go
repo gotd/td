@@ -39,6 +39,14 @@ type AccountGetContactSignUpNotificationRequest struct {
 // AccountGetContactSignUpNotificationRequestTypeID is TL type id of AccountGetContactSignUpNotificationRequest.
 const AccountGetContactSignUpNotificationRequestTypeID = 0x9f07c728
 
+// Ensuring interfaces in compile-time for AccountGetContactSignUpNotificationRequest.
+var (
+	_ bin.Encoder     = &AccountGetContactSignUpNotificationRequest{}
+	_ bin.Decoder     = &AccountGetContactSignUpNotificationRequest{}
+	_ bin.BareEncoder = &AccountGetContactSignUpNotificationRequest{}
+	_ bin.BareDecoder = &AccountGetContactSignUpNotificationRequest{}
+)
+
 func (g *AccountGetContactSignUpNotificationRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *AccountGetContactSignUpNotificationRequest) DecodeBare(b *bin.Buffer) e
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountGetContactSignUpNotificationRequest.
-var (
-	_ bin.Encoder     = &AccountGetContactSignUpNotificationRequest{}
-	_ bin.Decoder     = &AccountGetContactSignUpNotificationRequest{}
-	_ bin.BareEncoder = &AccountGetContactSignUpNotificationRequest{}
-	_ bin.BareDecoder = &AccountGetContactSignUpNotificationRequest{}
-)
 
 // AccountGetContactSignUpNotification invokes method account.getContactSignUpNotification#9f07c728 returning error if any.
 // Whether the user will receive notifications when contacts sign up

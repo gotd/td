@@ -44,6 +44,14 @@ type ChatAdminWithInvites struct {
 // ChatAdminWithInvitesTypeID is TL type id of ChatAdminWithInvites.
 const ChatAdminWithInvitesTypeID = 0xdfd2330f
 
+// Ensuring interfaces in compile-time for ChatAdminWithInvites.
+var (
+	_ bin.Encoder     = &ChatAdminWithInvites{}
+	_ bin.Decoder     = &ChatAdminWithInvites{}
+	_ bin.BareEncoder = &ChatAdminWithInvites{}
+	_ bin.BareDecoder = &ChatAdminWithInvites{}
+)
+
 func (c *ChatAdminWithInvites) Zero() bool {
 	if c == nil {
 		return true
@@ -140,21 +148,6 @@ func (c *ChatAdminWithInvites) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAdminID returns value of AdminID field.
-func (c *ChatAdminWithInvites) GetAdminID() (value int) {
-	return c.AdminID
-}
-
-// GetInvitesCount returns value of InvitesCount field.
-func (c *ChatAdminWithInvites) GetInvitesCount() (value int) {
-	return c.InvitesCount
-}
-
-// GetRevokedInvitesCount returns value of RevokedInvitesCount field.
-func (c *ChatAdminWithInvites) GetRevokedInvitesCount() (value int) {
-	return c.RevokedInvitesCount
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatAdminWithInvites) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -195,10 +188,17 @@ func (c *ChatAdminWithInvites) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChatAdminWithInvites.
-var (
-	_ bin.Encoder     = &ChatAdminWithInvites{}
-	_ bin.Decoder     = &ChatAdminWithInvites{}
-	_ bin.BareEncoder = &ChatAdminWithInvites{}
-	_ bin.BareDecoder = &ChatAdminWithInvites{}
-)
+// GetAdminID returns value of AdminID field.
+func (c *ChatAdminWithInvites) GetAdminID() (value int) {
+	return c.AdminID
+}
+
+// GetInvitesCount returns value of InvitesCount field.
+func (c *ChatAdminWithInvites) GetInvitesCount() (value int) {
+	return c.InvitesCount
+}
+
+// GetRevokedInvitesCount returns value of RevokedInvitesCount field.
+func (c *ChatAdminWithInvites) GetRevokedInvitesCount() (value int) {
+	return c.RevokedInvitesCount
+}

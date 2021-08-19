@@ -45,6 +45,14 @@ type MessagesInactiveChats struct {
 // MessagesInactiveChatsTypeID is TL type id of MessagesInactiveChats.
 const MessagesInactiveChatsTypeID = 0xa927fec5
 
+// Ensuring interfaces in compile-time for MessagesInactiveChats.
+var (
+	_ bin.Encoder     = &MessagesInactiveChats{}
+	_ bin.Decoder     = &MessagesInactiveChats{}
+	_ bin.BareEncoder = &MessagesInactiveChats{}
+	_ bin.BareDecoder = &MessagesInactiveChats{}
+)
+
 func (i *MessagesInactiveChats) Zero() bool {
 	if i == nil {
 		return true
@@ -160,31 +168,6 @@ func (i *MessagesInactiveChats) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDates returns value of Dates field.
-func (i *MessagesInactiveChats) GetDates() (value []int) {
-	return i.Dates
-}
-
-// GetChats returns value of Chats field.
-func (i *MessagesInactiveChats) GetChats() (value []ChatClass) {
-	return i.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (i *MessagesInactiveChats) MapChats() (value ChatClassArray) {
-	return ChatClassArray(i.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (i *MessagesInactiveChats) GetUsers() (value []UserClass) {
-	return i.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (i *MessagesInactiveChats) MapUsers() (value UserClassArray) {
-	return UserClassArray(i.Users)
-}
-
 // Decode implements bin.Decoder.
 func (i *MessagesInactiveChats) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -255,10 +238,27 @@ func (i *MessagesInactiveChats) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesInactiveChats.
-var (
-	_ bin.Encoder     = &MessagesInactiveChats{}
-	_ bin.Decoder     = &MessagesInactiveChats{}
-	_ bin.BareEncoder = &MessagesInactiveChats{}
-	_ bin.BareDecoder = &MessagesInactiveChats{}
-)
+// GetDates returns value of Dates field.
+func (i *MessagesInactiveChats) GetDates() (value []int) {
+	return i.Dates
+}
+
+// GetChats returns value of Chats field.
+func (i *MessagesInactiveChats) GetChats() (value []ChatClass) {
+	return i.Chats
+}
+
+// GetUsers returns value of Users field.
+func (i *MessagesInactiveChats) GetUsers() (value []UserClass) {
+	return i.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (i *MessagesInactiveChats) MapChats() (value ChatClassArray) {
+	return ChatClassArray(i.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (i *MessagesInactiveChats) MapUsers() (value UserClassArray) {
+	return UserClassArray(i.Users)
+}

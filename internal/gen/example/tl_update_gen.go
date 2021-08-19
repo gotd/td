@@ -42,6 +42,14 @@ type Update struct {
 // UpdateTypeID is TL type id of Update.
 const UpdateTypeID = 0xb03e2ef8
 
+// Ensuring interfaces in compile-time for Update.
+var (
+	_ bin.Encoder     = &Update{}
+	_ bin.Decoder     = &Update{}
+	_ bin.BareEncoder = &Update{}
+	_ bin.BareDecoder = &Update{}
+)
+
 func (u *Update) Zero() bool {
 	if u == nil {
 		return true
@@ -63,15 +71,6 @@ func (u *Update) String() string {
 	}
 	type Alias Update
 	return fmt.Sprintf("Update%+v", Alias(*u))
-}
-
-// FillFrom fills Update from given interface.
-func (u *Update) FillFrom(from interface {
-	GetMsg() (value AbstractMessageClass)
-	GetDelay() (value int32)
-}) {
-	u.Msg = from.GetMsg()
-	u.Delay = from.GetDelay()
 }
 
 // TypeID returns type id in TL schema.
@@ -133,16 +132,6 @@ func (u *Update) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMsg returns value of Msg field.
-func (u *Update) GetMsg() (value AbstractMessageClass) {
-	return u.Msg
-}
-
-// GetDelay returns value of Delay field.
-func (u *Update) GetDelay() (value int32) {
-	return u.Delay
-}
-
 // Decode implements bin.Decoder.
 func (u *Update) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -176,10 +165,12 @@ func (u *Update) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for Update.
-var (
-	_ bin.Encoder     = &Update{}
-	_ bin.Decoder     = &Update{}
-	_ bin.BareEncoder = &Update{}
-	_ bin.BareDecoder = &Update{}
-)
+// GetMsg returns value of Msg field.
+func (u *Update) GetMsg() (value AbstractMessageClass) {
+	return u.Msg
+}
+
+// GetDelay returns value of Delay field.
+func (u *Update) GetDelay() (value int32) {
+	return u.Delay
+}

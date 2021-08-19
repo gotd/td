@@ -39,6 +39,19 @@ type BaseThemeClassic struct {
 // BaseThemeClassicTypeID is TL type id of BaseThemeClassic.
 const BaseThemeClassicTypeID = 0xc3a12462
 
+// construct implements constructor of BaseThemeClass.
+func (b BaseThemeClassic) construct() BaseThemeClass { return &b }
+
+// Ensuring interfaces in compile-time for BaseThemeClassic.
+var (
+	_ bin.Encoder     = &BaseThemeClassic{}
+	_ bin.Decoder     = &BaseThemeClassic{}
+	_ bin.BareEncoder = &BaseThemeClassic{}
+	_ bin.BareDecoder = &BaseThemeClassic{}
+
+	_ BaseThemeClass = &BaseThemeClassic{}
+)
+
 func (b *BaseThemeClassic) Zero() bool {
 	if b == nil {
 		return true
@@ -118,19 +131,6 @@ func (b *BaseThemeClassic) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BaseThemeClass.
-func (b BaseThemeClassic) construct() BaseThemeClass { return &b }
-
-// Ensuring interfaces in compile-time for BaseThemeClassic.
-var (
-	_ bin.Encoder     = &BaseThemeClassic{}
-	_ bin.Decoder     = &BaseThemeClassic{}
-	_ bin.BareEncoder = &BaseThemeClassic{}
-	_ bin.BareDecoder = &BaseThemeClassic{}
-
-	_ BaseThemeClass = &BaseThemeClassic{}
-)
-
 // BaseThemeDay represents TL type `baseThemeDay#fbd81688`.
 // Day theme
 //
@@ -140,6 +140,19 @@ type BaseThemeDay struct {
 
 // BaseThemeDayTypeID is TL type id of BaseThemeDay.
 const BaseThemeDayTypeID = 0xfbd81688
+
+// construct implements constructor of BaseThemeClass.
+func (b BaseThemeDay) construct() BaseThemeClass { return &b }
+
+// Ensuring interfaces in compile-time for BaseThemeDay.
+var (
+	_ bin.Encoder     = &BaseThemeDay{}
+	_ bin.Decoder     = &BaseThemeDay{}
+	_ bin.BareEncoder = &BaseThemeDay{}
+	_ bin.BareDecoder = &BaseThemeDay{}
+
+	_ BaseThemeClass = &BaseThemeDay{}
+)
 
 func (b *BaseThemeDay) Zero() bool {
 	if b == nil {
@@ -220,19 +233,6 @@ func (b *BaseThemeDay) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BaseThemeClass.
-func (b BaseThemeDay) construct() BaseThemeClass { return &b }
-
-// Ensuring interfaces in compile-time for BaseThemeDay.
-var (
-	_ bin.Encoder     = &BaseThemeDay{}
-	_ bin.Decoder     = &BaseThemeDay{}
-	_ bin.BareEncoder = &BaseThemeDay{}
-	_ bin.BareDecoder = &BaseThemeDay{}
-
-	_ BaseThemeClass = &BaseThemeDay{}
-)
-
 // BaseThemeNight represents TL type `baseThemeNight#b7b31ea8`.
 // Night theme
 //
@@ -242,6 +242,19 @@ type BaseThemeNight struct {
 
 // BaseThemeNightTypeID is TL type id of BaseThemeNight.
 const BaseThemeNightTypeID = 0xb7b31ea8
+
+// construct implements constructor of BaseThemeClass.
+func (b BaseThemeNight) construct() BaseThemeClass { return &b }
+
+// Ensuring interfaces in compile-time for BaseThemeNight.
+var (
+	_ bin.Encoder     = &BaseThemeNight{}
+	_ bin.Decoder     = &BaseThemeNight{}
+	_ bin.BareEncoder = &BaseThemeNight{}
+	_ bin.BareDecoder = &BaseThemeNight{}
+
+	_ BaseThemeClass = &BaseThemeNight{}
+)
 
 func (b *BaseThemeNight) Zero() bool {
 	if b == nil {
@@ -322,19 +335,6 @@ func (b *BaseThemeNight) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BaseThemeClass.
-func (b BaseThemeNight) construct() BaseThemeClass { return &b }
-
-// Ensuring interfaces in compile-time for BaseThemeNight.
-var (
-	_ bin.Encoder     = &BaseThemeNight{}
-	_ bin.Decoder     = &BaseThemeNight{}
-	_ bin.BareEncoder = &BaseThemeNight{}
-	_ bin.BareDecoder = &BaseThemeNight{}
-
-	_ BaseThemeClass = &BaseThemeNight{}
-)
-
 // BaseThemeTinted represents TL type `baseThemeTinted#6d5f77ee`.
 // Tinted theme
 //
@@ -344,6 +344,19 @@ type BaseThemeTinted struct {
 
 // BaseThemeTintedTypeID is TL type id of BaseThemeTinted.
 const BaseThemeTintedTypeID = 0x6d5f77ee
+
+// construct implements constructor of BaseThemeClass.
+func (b BaseThemeTinted) construct() BaseThemeClass { return &b }
+
+// Ensuring interfaces in compile-time for BaseThemeTinted.
+var (
+	_ bin.Encoder     = &BaseThemeTinted{}
+	_ bin.Decoder     = &BaseThemeTinted{}
+	_ bin.BareEncoder = &BaseThemeTinted{}
+	_ bin.BareDecoder = &BaseThemeTinted{}
+
+	_ BaseThemeClass = &BaseThemeTinted{}
+)
 
 func (b *BaseThemeTinted) Zero() bool {
 	if b == nil {
@@ -424,19 +437,6 @@ func (b *BaseThemeTinted) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of BaseThemeClass.
-func (b BaseThemeTinted) construct() BaseThemeClass { return &b }
-
-// Ensuring interfaces in compile-time for BaseThemeTinted.
-var (
-	_ bin.Encoder     = &BaseThemeTinted{}
-	_ bin.Decoder     = &BaseThemeTinted{}
-	_ bin.BareEncoder = &BaseThemeTinted{}
-	_ bin.BareDecoder = &BaseThemeTinted{}
-
-	_ BaseThemeClass = &BaseThemeTinted{}
-)
-
 // BaseThemeArctic represents TL type `baseThemeArctic#5b11125a`.
 // Arctic theme
 //
@@ -446,6 +446,19 @@ type BaseThemeArctic struct {
 
 // BaseThemeArcticTypeID is TL type id of BaseThemeArctic.
 const BaseThemeArcticTypeID = 0x5b11125a
+
+// construct implements constructor of BaseThemeClass.
+func (b BaseThemeArctic) construct() BaseThemeClass { return &b }
+
+// Ensuring interfaces in compile-time for BaseThemeArctic.
+var (
+	_ bin.Encoder     = &BaseThemeArctic{}
+	_ bin.Decoder     = &BaseThemeArctic{}
+	_ bin.BareEncoder = &BaseThemeArctic{}
+	_ bin.BareDecoder = &BaseThemeArctic{}
+
+	_ BaseThemeClass = &BaseThemeArctic{}
+)
 
 func (b *BaseThemeArctic) Zero() bool {
 	if b == nil {
@@ -525,19 +538,6 @@ func (b *BaseThemeArctic) DecodeBare(buf *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of BaseThemeClass.
-func (b BaseThemeArctic) construct() BaseThemeClass { return &b }
-
-// Ensuring interfaces in compile-time for BaseThemeArctic.
-var (
-	_ bin.Encoder     = &BaseThemeArctic{}
-	_ bin.Decoder     = &BaseThemeArctic{}
-	_ bin.BareEncoder = &BaseThemeArctic{}
-	_ bin.BareDecoder = &BaseThemeArctic{}
-
-	_ BaseThemeClass = &BaseThemeArctic{}
-)
 
 // BaseThemeClass represents BaseTheme generic type.
 //
@@ -646,86 +646,4 @@ func (b *BaseThemeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode BaseThemeClass as nil")
 	}
 	return b.BaseTheme.Encode(buf)
-}
-
-// BaseThemeClassArray is adapter for slice of BaseThemeClass.
-type BaseThemeClassArray []BaseThemeClass
-
-// Sort sorts slice of BaseThemeClass.
-func (s BaseThemeClassArray) Sort(less func(a, b BaseThemeClass) bool) BaseThemeClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BaseThemeClass.
-func (s BaseThemeClassArray) SortStable(less func(a, b BaseThemeClass) bool) BaseThemeClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BaseThemeClass.
-func (s BaseThemeClassArray) Retain(keep func(x BaseThemeClass) bool) BaseThemeClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BaseThemeClassArray) First() (v BaseThemeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BaseThemeClassArray) Last() (v BaseThemeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BaseThemeClassArray) PopFirst() (v BaseThemeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BaseThemeClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BaseThemeClassArray) Pop() (v BaseThemeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

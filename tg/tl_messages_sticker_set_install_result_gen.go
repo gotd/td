@@ -39,6 +39,21 @@ type MessagesStickerSetInstallResultSuccess struct {
 // MessagesStickerSetInstallResultSuccessTypeID is TL type id of MessagesStickerSetInstallResultSuccess.
 const MessagesStickerSetInstallResultSuccessTypeID = 0x38641628
 
+// construct implements constructor of MessagesStickerSetInstallResultClass.
+func (s MessagesStickerSetInstallResultSuccess) construct() MessagesStickerSetInstallResultClass {
+	return &s
+}
+
+// Ensuring interfaces in compile-time for MessagesStickerSetInstallResultSuccess.
+var (
+	_ bin.Encoder     = &MessagesStickerSetInstallResultSuccess{}
+	_ bin.Decoder     = &MessagesStickerSetInstallResultSuccess{}
+	_ bin.BareEncoder = &MessagesStickerSetInstallResultSuccess{}
+	_ bin.BareDecoder = &MessagesStickerSetInstallResultSuccess{}
+
+	_ MessagesStickerSetInstallResultClass = &MessagesStickerSetInstallResultSuccess{}
+)
+
 func (s *MessagesStickerSetInstallResultSuccess) Zero() bool {
 	if s == nil {
 		return true
@@ -118,21 +133,6 @@ func (s *MessagesStickerSetInstallResultSuccess) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// construct implements constructor of MessagesStickerSetInstallResultClass.
-func (s MessagesStickerSetInstallResultSuccess) construct() MessagesStickerSetInstallResultClass {
-	return &s
-}
-
-// Ensuring interfaces in compile-time for MessagesStickerSetInstallResultSuccess.
-var (
-	_ bin.Encoder     = &MessagesStickerSetInstallResultSuccess{}
-	_ bin.Decoder     = &MessagesStickerSetInstallResultSuccess{}
-	_ bin.BareEncoder = &MessagesStickerSetInstallResultSuccess{}
-	_ bin.BareDecoder = &MessagesStickerSetInstallResultSuccess{}
-
-	_ MessagesStickerSetInstallResultClass = &MessagesStickerSetInstallResultSuccess{}
-)
-
 // MessagesStickerSetInstallResultArchive represents TL type `messages.stickerSetInstallResultArchive#35e410a8`.
 // The stickerset was installed, but since there are too many stickersets some were
 // archived
@@ -145,6 +145,21 @@ type MessagesStickerSetInstallResultArchive struct {
 
 // MessagesStickerSetInstallResultArchiveTypeID is TL type id of MessagesStickerSetInstallResultArchive.
 const MessagesStickerSetInstallResultArchiveTypeID = 0x35e410a8
+
+// construct implements constructor of MessagesStickerSetInstallResultClass.
+func (s MessagesStickerSetInstallResultArchive) construct() MessagesStickerSetInstallResultClass {
+	return &s
+}
+
+// Ensuring interfaces in compile-time for MessagesStickerSetInstallResultArchive.
+var (
+	_ bin.Encoder     = &MessagesStickerSetInstallResultArchive{}
+	_ bin.Decoder     = &MessagesStickerSetInstallResultArchive{}
+	_ bin.BareEncoder = &MessagesStickerSetInstallResultArchive{}
+	_ bin.BareDecoder = &MessagesStickerSetInstallResultArchive{}
+
+	_ MessagesStickerSetInstallResultClass = &MessagesStickerSetInstallResultArchive{}
+)
 
 func (s *MessagesStickerSetInstallResultArchive) Zero() bool {
 	if s == nil {
@@ -230,16 +245,6 @@ func (s *MessagesStickerSetInstallResultArchive) EncodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// GetSets returns value of Sets field.
-func (s *MessagesStickerSetInstallResultArchive) GetSets() (value []StickerSetCoveredClass) {
-	return s.Sets
-}
-
-// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
-func (s *MessagesStickerSetInstallResultArchive) MapSets() (value StickerSetCoveredClassArray) {
-	return StickerSetCoveredClassArray(s.Sets)
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesStickerSetInstallResultArchive) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -276,20 +281,15 @@ func (s *MessagesStickerSetInstallResultArchive) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// construct implements constructor of MessagesStickerSetInstallResultClass.
-func (s MessagesStickerSetInstallResultArchive) construct() MessagesStickerSetInstallResultClass {
-	return &s
+// GetSets returns value of Sets field.
+func (s *MessagesStickerSetInstallResultArchive) GetSets() (value []StickerSetCoveredClass) {
+	return s.Sets
 }
 
-// Ensuring interfaces in compile-time for MessagesStickerSetInstallResultArchive.
-var (
-	_ bin.Encoder     = &MessagesStickerSetInstallResultArchive{}
-	_ bin.Decoder     = &MessagesStickerSetInstallResultArchive{}
-	_ bin.BareEncoder = &MessagesStickerSetInstallResultArchive{}
-	_ bin.BareDecoder = &MessagesStickerSetInstallResultArchive{}
-
-	_ MessagesStickerSetInstallResultClass = &MessagesStickerSetInstallResultArchive{}
-)
+// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
+func (s *MessagesStickerSetInstallResultArchive) MapSets() (value StickerSetCoveredClassArray) {
+	return StickerSetCoveredClassArray(s.Sets)
+}
 
 // MessagesStickerSetInstallResultClass represents messages.StickerSetInstallResult generic type.
 //
@@ -374,181 +374,4 @@ func (b *MessagesStickerSetInstallResultBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesStickerSetInstallResultClass as nil")
 	}
 	return b.StickerSetInstallResult.Encode(buf)
-}
-
-// MessagesStickerSetInstallResultClassArray is adapter for slice of MessagesStickerSetInstallResultClass.
-type MessagesStickerSetInstallResultClassArray []MessagesStickerSetInstallResultClass
-
-// Sort sorts slice of MessagesStickerSetInstallResultClass.
-func (s MessagesStickerSetInstallResultClassArray) Sort(less func(a, b MessagesStickerSetInstallResultClass) bool) MessagesStickerSetInstallResultClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesStickerSetInstallResultClass.
-func (s MessagesStickerSetInstallResultClassArray) SortStable(less func(a, b MessagesStickerSetInstallResultClass) bool) MessagesStickerSetInstallResultClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesStickerSetInstallResultClass.
-func (s MessagesStickerSetInstallResultClassArray) Retain(keep func(x MessagesStickerSetInstallResultClass) bool) MessagesStickerSetInstallResultClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesStickerSetInstallResultClassArray) First() (v MessagesStickerSetInstallResultClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesStickerSetInstallResultClassArray) Last() (v MessagesStickerSetInstallResultClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesStickerSetInstallResultClassArray) PopFirst() (v MessagesStickerSetInstallResultClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesStickerSetInstallResultClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesStickerSetInstallResultClassArray) Pop() (v MessagesStickerSetInstallResultClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsMessagesStickerSetInstallResultArchive returns copy with only MessagesStickerSetInstallResultArchive constructors.
-func (s MessagesStickerSetInstallResultClassArray) AsMessagesStickerSetInstallResultArchive() (to MessagesStickerSetInstallResultArchiveArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessagesStickerSetInstallResultArchive)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// MessagesStickerSetInstallResultArchiveArray is adapter for slice of MessagesStickerSetInstallResultArchive.
-type MessagesStickerSetInstallResultArchiveArray []MessagesStickerSetInstallResultArchive
-
-// Sort sorts slice of MessagesStickerSetInstallResultArchive.
-func (s MessagesStickerSetInstallResultArchiveArray) Sort(less func(a, b MessagesStickerSetInstallResultArchive) bool) MessagesStickerSetInstallResultArchiveArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesStickerSetInstallResultArchive.
-func (s MessagesStickerSetInstallResultArchiveArray) SortStable(less func(a, b MessagesStickerSetInstallResultArchive) bool) MessagesStickerSetInstallResultArchiveArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesStickerSetInstallResultArchive.
-func (s MessagesStickerSetInstallResultArchiveArray) Retain(keep func(x MessagesStickerSetInstallResultArchive) bool) MessagesStickerSetInstallResultArchiveArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesStickerSetInstallResultArchiveArray) First() (v MessagesStickerSetInstallResultArchive, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesStickerSetInstallResultArchiveArray) Last() (v MessagesStickerSetInstallResultArchive, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesStickerSetInstallResultArchiveArray) PopFirst() (v MessagesStickerSetInstallResultArchive, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesStickerSetInstallResultArchive
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesStickerSetInstallResultArchiveArray) Pop() (v MessagesStickerSetInstallResultArchive, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

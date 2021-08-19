@@ -58,6 +58,14 @@ type UploadGetFileRequest struct {
 // UploadGetFileRequestTypeID is TL type id of UploadGetFileRequest.
 const UploadGetFileRequestTypeID = 0xb15a9afc
 
+// Ensuring interfaces in compile-time for UploadGetFileRequest.
+var (
+	_ bin.Encoder     = &UploadGetFileRequest{}
+	_ bin.Decoder     = &UploadGetFileRequest{}
+	_ bin.BareEncoder = &UploadGetFileRequest{}
+	_ bin.BareDecoder = &UploadGetFileRequest{}
+)
+
 func (g *UploadGetFileRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -191,53 +199,6 @@ func (g *UploadGetFileRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetPrecise sets value of Precise conditional field.
-func (g *UploadGetFileRequest) SetPrecise(value bool) {
-	if value {
-		g.Flags.Set(0)
-		g.Precise = true
-	} else {
-		g.Flags.Unset(0)
-		g.Precise = false
-	}
-}
-
-// GetPrecise returns value of Precise conditional field.
-func (g *UploadGetFileRequest) GetPrecise() (value bool) {
-	return g.Flags.Has(0)
-}
-
-// SetCDNSupported sets value of CDNSupported conditional field.
-func (g *UploadGetFileRequest) SetCDNSupported(value bool) {
-	if value {
-		g.Flags.Set(1)
-		g.CDNSupported = true
-	} else {
-		g.Flags.Unset(1)
-		g.CDNSupported = false
-	}
-}
-
-// GetCDNSupported returns value of CDNSupported conditional field.
-func (g *UploadGetFileRequest) GetCDNSupported() (value bool) {
-	return g.Flags.Has(1)
-}
-
-// GetLocation returns value of Location field.
-func (g *UploadGetFileRequest) GetLocation() (value InputFileLocationClass) {
-	return g.Location
-}
-
-// GetOffset returns value of Offset field.
-func (g *UploadGetFileRequest) GetOffset() (value int) {
-	return g.Offset
-}
-
-// GetLimit returns value of Limit field.
-func (g *UploadGetFileRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *UploadGetFileRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -285,13 +246,52 @@ func (g *UploadGetFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UploadGetFileRequest.
-var (
-	_ bin.Encoder     = &UploadGetFileRequest{}
-	_ bin.Decoder     = &UploadGetFileRequest{}
-	_ bin.BareEncoder = &UploadGetFileRequest{}
-	_ bin.BareDecoder = &UploadGetFileRequest{}
-)
+// SetPrecise sets value of Precise conditional field.
+func (g *UploadGetFileRequest) SetPrecise(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.Precise = true
+	} else {
+		g.Flags.Unset(0)
+		g.Precise = false
+	}
+}
+
+// GetPrecise returns value of Precise conditional field.
+func (g *UploadGetFileRequest) GetPrecise() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// SetCDNSupported sets value of CDNSupported conditional field.
+func (g *UploadGetFileRequest) SetCDNSupported(value bool) {
+	if value {
+		g.Flags.Set(1)
+		g.CDNSupported = true
+	} else {
+		g.Flags.Unset(1)
+		g.CDNSupported = false
+	}
+}
+
+// GetCDNSupported returns value of CDNSupported conditional field.
+func (g *UploadGetFileRequest) GetCDNSupported() (value bool) {
+	return g.Flags.Has(1)
+}
+
+// GetLocation returns value of Location field.
+func (g *UploadGetFileRequest) GetLocation() (value InputFileLocationClass) {
+	return g.Location
+}
+
+// GetOffset returns value of Offset field.
+func (g *UploadGetFileRequest) GetOffset() (value int) {
+	return g.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (g *UploadGetFileRequest) GetLimit() (value int) {
+	return g.Limit
+}
 
 // UploadGetFile invokes method upload.getFile#b15a9afc returning error if any.
 // Returns content of a whole file or its part.

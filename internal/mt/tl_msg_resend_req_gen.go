@@ -38,6 +38,14 @@ type MsgResendReq struct {
 // MsgResendReqTypeID is TL type id of MsgResendReq.
 const MsgResendReqTypeID = 0x7d861a08
 
+// Ensuring interfaces in compile-time for MsgResendReq.
+var (
+	_ bin.Encoder     = &MsgResendReq{}
+	_ bin.Decoder     = &MsgResendReq{}
+	_ bin.BareEncoder = &MsgResendReq{}
+	_ bin.BareDecoder = &MsgResendReq{}
+)
+
 func (m *MsgResendReq) Zero() bool {
 	if m == nil {
 		return true
@@ -56,13 +64,6 @@ func (m *MsgResendReq) String() string {
 	}
 	type Alias MsgResendReq
 	return fmt.Sprintf("MsgResendReq%+v", Alias(*m))
-}
-
-// FillFrom fills MsgResendReq from given interface.
-func (m *MsgResendReq) FillFrom(from interface {
-	GetMsgIDs() (value []int64)
-}) {
-	m.MsgIDs = from.GetMsgIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -117,11 +118,6 @@ func (m *MsgResendReq) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMsgIDs returns value of MsgIDs field.
-func (m *MsgResendReq) GetMsgIDs() (value []int64) {
-	return m.MsgIDs
-}
-
 // Decode implements bin.Decoder.
 func (m *MsgResendReq) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -158,10 +154,7 @@ func (m *MsgResendReq) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MsgResendReq.
-var (
-	_ bin.Encoder     = &MsgResendReq{}
-	_ bin.Decoder     = &MsgResendReq{}
-	_ bin.BareEncoder = &MsgResendReq{}
-	_ bin.BareDecoder = &MsgResendReq{}
-)
+// GetMsgIDs returns value of MsgIDs field.
+func (m *MsgResendReq) GetMsgIDs() (value []int64) {
+	return m.MsgIDs
+}

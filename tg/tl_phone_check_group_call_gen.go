@@ -42,6 +42,14 @@ type PhoneCheckGroupCallRequest struct {
 // PhoneCheckGroupCallRequestTypeID is TL type id of PhoneCheckGroupCallRequest.
 const PhoneCheckGroupCallRequestTypeID = 0xb59cf977
 
+// Ensuring interfaces in compile-time for PhoneCheckGroupCallRequest.
+var (
+	_ bin.Encoder     = &PhoneCheckGroupCallRequest{}
+	_ bin.Decoder     = &PhoneCheckGroupCallRequest{}
+	_ bin.BareEncoder = &PhoneCheckGroupCallRequest{}
+	_ bin.BareDecoder = &PhoneCheckGroupCallRequest{}
+)
+
 func (c *PhoneCheckGroupCallRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -133,16 +141,6 @@ func (c *PhoneCheckGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (c *PhoneCheckGroupCallRequest) GetCall() (value InputGroupCall) {
-	return c.Call
-}
-
-// GetSources returns value of Sources field.
-func (c *PhoneCheckGroupCallRequest) GetSources() (value []int) {
-	return c.Sources
-}
-
 // Decode implements bin.Decoder.
 func (c *PhoneCheckGroupCallRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -184,13 +182,15 @@ func (c *PhoneCheckGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneCheckGroupCallRequest.
-var (
-	_ bin.Encoder     = &PhoneCheckGroupCallRequest{}
-	_ bin.Decoder     = &PhoneCheckGroupCallRequest{}
-	_ bin.BareEncoder = &PhoneCheckGroupCallRequest{}
-	_ bin.BareDecoder = &PhoneCheckGroupCallRequest{}
-)
+// GetCall returns value of Call field.
+func (c *PhoneCheckGroupCallRequest) GetCall() (value InputGroupCall) {
+	return c.Call
+}
+
+// GetSources returns value of Sources field.
+func (c *PhoneCheckGroupCallRequest) GetSources() (value []int) {
+	return c.Sources
+}
 
 // PhoneCheckGroupCall invokes method phone.checkGroupCall#b59cf977 returning error if any.
 //

@@ -38,6 +38,14 @@ type GetFutureSaltsRequest struct {
 // GetFutureSaltsRequestTypeID is TL type id of GetFutureSaltsRequest.
 const GetFutureSaltsRequestTypeID = 0xb921bd04
 
+// Ensuring interfaces in compile-time for GetFutureSaltsRequest.
+var (
+	_ bin.Encoder     = &GetFutureSaltsRequest{}
+	_ bin.Decoder     = &GetFutureSaltsRequest{}
+	_ bin.BareEncoder = &GetFutureSaltsRequest{}
+	_ bin.BareDecoder = &GetFutureSaltsRequest{}
+)
+
 func (g *GetFutureSaltsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -56,13 +64,6 @@ func (g *GetFutureSaltsRequest) String() string {
 	}
 	type Alias GetFutureSaltsRequest
 	return fmt.Sprintf("GetFutureSaltsRequest%+v", Alias(*g))
-}
-
-// FillFrom fills GetFutureSaltsRequest from given interface.
-func (g *GetFutureSaltsRequest) FillFrom(from interface {
-	GetNum() (value int)
-}) {
-	g.Num = from.GetNum()
 }
 
 // TypeID returns type id in TL schema.
@@ -114,11 +115,6 @@ func (g *GetFutureSaltsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNum returns value of Num field.
-func (g *GetFutureSaltsRequest) GetNum() (value int) {
-	return g.Num
-}
-
 // Decode implements bin.Decoder.
 func (g *GetFutureSaltsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -145,10 +141,7 @@ func (g *GetFutureSaltsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for GetFutureSaltsRequest.
-var (
-	_ bin.Encoder     = &GetFutureSaltsRequest{}
-	_ bin.Decoder     = &GetFutureSaltsRequest{}
-	_ bin.BareEncoder = &GetFutureSaltsRequest{}
-	_ bin.BareDecoder = &GetFutureSaltsRequest{}
-)
+// GetNum returns value of Num field.
+func (g *GetFutureSaltsRequest) GetNum() (value int) {
+	return g.Num
+}

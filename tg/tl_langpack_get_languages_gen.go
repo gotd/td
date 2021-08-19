@@ -41,6 +41,14 @@ type LangpackGetLanguagesRequest struct {
 // LangpackGetLanguagesRequestTypeID is TL type id of LangpackGetLanguagesRequest.
 const LangpackGetLanguagesRequestTypeID = 0x42c6978f
 
+// Ensuring interfaces in compile-time for LangpackGetLanguagesRequest.
+var (
+	_ bin.Encoder     = &LangpackGetLanguagesRequest{}
+	_ bin.Decoder     = &LangpackGetLanguagesRequest{}
+	_ bin.BareEncoder = &LangpackGetLanguagesRequest{}
+	_ bin.BareDecoder = &LangpackGetLanguagesRequest{}
+)
+
 func (g *LangpackGetLanguagesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,11 +125,6 @@ func (g *LangpackGetLanguagesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLangPack returns value of LangPack field.
-func (g *LangpackGetLanguagesRequest) GetLangPack() (value string) {
-	return g.LangPack
-}
-
 // Decode implements bin.Decoder.
 func (g *LangpackGetLanguagesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -148,13 +151,10 @@ func (g *LangpackGetLanguagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for LangpackGetLanguagesRequest.
-var (
-	_ bin.Encoder     = &LangpackGetLanguagesRequest{}
-	_ bin.Decoder     = &LangpackGetLanguagesRequest{}
-	_ bin.BareEncoder = &LangpackGetLanguagesRequest{}
-	_ bin.BareDecoder = &LangpackGetLanguagesRequest{}
-)
+// GetLangPack returns value of LangPack field.
+func (g *LangpackGetLanguagesRequest) GetLangPack() (value string) {
+	return g.LangPack
+}
 
 // LangpackGetLanguages invokes method langpack.getLanguages#42c6978f returning error if any.
 // Get information about all languages in a localization pack

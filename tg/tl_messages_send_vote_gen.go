@@ -48,6 +48,14 @@ type MessagesSendVoteRequest struct {
 // MessagesSendVoteRequestTypeID is TL type id of MessagesSendVoteRequest.
 const MessagesSendVoteRequestTypeID = 0x10ea6184
 
+// Ensuring interfaces in compile-time for MessagesSendVoteRequest.
+var (
+	_ bin.Encoder     = &MessagesSendVoteRequest{}
+	_ bin.Decoder     = &MessagesSendVoteRequest{}
+	_ bin.BareEncoder = &MessagesSendVoteRequest{}
+	_ bin.BareDecoder = &MessagesSendVoteRequest{}
+)
+
 func (s *MessagesSendVoteRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -152,21 +160,6 @@ func (s *MessagesSendVoteRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (s *MessagesSendVoteRequest) GetPeer() (value InputPeerClass) {
-	return s.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (s *MessagesSendVoteRequest) GetMsgID() (value int) {
-	return s.MsgID
-}
-
-// GetOptions returns value of Options field.
-func (s *MessagesSendVoteRequest) GetOptions() (value [][]byte) {
-	return s.Options
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSendVoteRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -217,13 +210,20 @@ func (s *MessagesSendVoteRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSendVoteRequest.
-var (
-	_ bin.Encoder     = &MessagesSendVoteRequest{}
-	_ bin.Decoder     = &MessagesSendVoteRequest{}
-	_ bin.BareEncoder = &MessagesSendVoteRequest{}
-	_ bin.BareDecoder = &MessagesSendVoteRequest{}
-)
+// GetPeer returns value of Peer field.
+func (s *MessagesSendVoteRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (s *MessagesSendVoteRequest) GetMsgID() (value int) {
+	return s.MsgID
+}
+
+// GetOptions returns value of Options field.
+func (s *MessagesSendVoteRequest) GetOptions() (value [][]byte) {
+	return s.Options
+}
 
 // MessagesSendVote invokes method messages.sendVote#10ea6184 returning error if any.
 // Vote in a poll¹

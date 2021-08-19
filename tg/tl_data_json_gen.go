@@ -41,6 +41,14 @@ type DataJSON struct {
 // DataJSONTypeID is TL type id of DataJSON.
 const DataJSONTypeID = 0x7d748d04
 
+// Ensuring interfaces in compile-time for DataJSON.
+var (
+	_ bin.Encoder     = &DataJSON{}
+	_ bin.Decoder     = &DataJSON{}
+	_ bin.BareEncoder = &DataJSON{}
+	_ bin.BareDecoder = &DataJSON{}
+)
+
 func (d *DataJSON) Zero() bool {
 	if d == nil {
 		return true
@@ -117,11 +125,6 @@ func (d *DataJSON) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetData returns value of Data field.
-func (d *DataJSON) GetData() (value string) {
-	return d.Data
-}
-
 // Decode implements bin.Decoder.
 func (d *DataJSON) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -148,10 +151,7 @@ func (d *DataJSON) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for DataJSON.
-var (
-	_ bin.Encoder     = &DataJSON{}
-	_ bin.Decoder     = &DataJSON{}
-	_ bin.BareEncoder = &DataJSON{}
-	_ bin.BareDecoder = &DataJSON{}
-)
+// GetData returns value of Data field.
+func (d *DataJSON) GetData() (value string) {
+	return d.Data
+}

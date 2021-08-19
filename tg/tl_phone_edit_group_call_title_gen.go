@@ -42,6 +42,14 @@ type PhoneEditGroupCallTitleRequest struct {
 // PhoneEditGroupCallTitleRequestTypeID is TL type id of PhoneEditGroupCallTitleRequest.
 const PhoneEditGroupCallTitleRequestTypeID = 0x1ca6ac0a
 
+// Ensuring interfaces in compile-time for PhoneEditGroupCallTitleRequest.
+var (
+	_ bin.Encoder     = &PhoneEditGroupCallTitleRequest{}
+	_ bin.Decoder     = &PhoneEditGroupCallTitleRequest{}
+	_ bin.BareEncoder = &PhoneEditGroupCallTitleRequest{}
+	_ bin.BareDecoder = &PhoneEditGroupCallTitleRequest{}
+)
+
 func (e *PhoneEditGroupCallTitleRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -130,16 +138,6 @@ func (e *PhoneEditGroupCallTitleRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (e *PhoneEditGroupCallTitleRequest) GetCall() (value InputGroupCall) {
-	return e.Call
-}
-
-// GetTitle returns value of Title field.
-func (e *PhoneEditGroupCallTitleRequest) GetTitle() (value string) {
-	return e.Title
-}
-
 // Decode implements bin.Decoder.
 func (e *PhoneEditGroupCallTitleRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -171,13 +169,15 @@ func (e *PhoneEditGroupCallTitleRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneEditGroupCallTitleRequest.
-var (
-	_ bin.Encoder     = &PhoneEditGroupCallTitleRequest{}
-	_ bin.Decoder     = &PhoneEditGroupCallTitleRequest{}
-	_ bin.BareEncoder = &PhoneEditGroupCallTitleRequest{}
-	_ bin.BareDecoder = &PhoneEditGroupCallTitleRequest{}
-)
+// GetCall returns value of Call field.
+func (e *PhoneEditGroupCallTitleRequest) GetCall() (value InputGroupCall) {
+	return e.Call
+}
+
+// GetTitle returns value of Title field.
+func (e *PhoneEditGroupCallTitleRequest) GetTitle() (value string) {
+	return e.Title
+}
 
 // PhoneEditGroupCallTitle invokes method phone.editGroupCallTitle#1ca6ac0a returning error if any.
 //

@@ -51,6 +51,14 @@ type MessagesGetDiscussionMessageRequest struct {
 // MessagesGetDiscussionMessageRequestTypeID is TL type id of MessagesGetDiscussionMessageRequest.
 const MessagesGetDiscussionMessageRequestTypeID = 0x446972fd
 
+// Ensuring interfaces in compile-time for MessagesGetDiscussionMessageRequest.
+var (
+	_ bin.Encoder     = &MessagesGetDiscussionMessageRequest{}
+	_ bin.Decoder     = &MessagesGetDiscussionMessageRequest{}
+	_ bin.BareEncoder = &MessagesGetDiscussionMessageRequest{}
+	_ bin.BareDecoder = &MessagesGetDiscussionMessageRequest{}
+)
+
 func (g *MessagesGetDiscussionMessageRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -142,16 +150,6 @@ func (g *MessagesGetDiscussionMessageRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetDiscussionMessageRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (g *MessagesGetDiscussionMessageRequest) GetMsgID() (value int) {
-	return g.MsgID
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetDiscussionMessageRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -185,13 +183,15 @@ func (g *MessagesGetDiscussionMessageRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetDiscussionMessageRequest.
-var (
-	_ bin.Encoder     = &MessagesGetDiscussionMessageRequest{}
-	_ bin.Decoder     = &MessagesGetDiscussionMessageRequest{}
-	_ bin.BareEncoder = &MessagesGetDiscussionMessageRequest{}
-	_ bin.BareDecoder = &MessagesGetDiscussionMessageRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetDiscussionMessageRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (g *MessagesGetDiscussionMessageRequest) GetMsgID() (value int) {
+	return g.MsgID
+}
 
 // MessagesGetDiscussionMessage invokes method messages.getDiscussionMessage#446972fd returning error if any.
 // Get discussion message¹ from the associated discussion group² of a channel to show

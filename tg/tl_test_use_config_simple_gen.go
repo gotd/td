@@ -38,6 +38,14 @@ type TestUseConfigSimpleRequest struct {
 // TestUseConfigSimpleRequestTypeID is TL type id of TestUseConfigSimpleRequest.
 const TestUseConfigSimpleRequestTypeID = 0xf9b7b23d
 
+// Ensuring interfaces in compile-time for TestUseConfigSimpleRequest.
+var (
+	_ bin.Encoder     = &TestUseConfigSimpleRequest{}
+	_ bin.Decoder     = &TestUseConfigSimpleRequest{}
+	_ bin.BareEncoder = &TestUseConfigSimpleRequest{}
+	_ bin.BareDecoder = &TestUseConfigSimpleRequest{}
+)
+
 func (u *TestUseConfigSimpleRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -116,14 +124,6 @@ func (u *TestUseConfigSimpleRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for TestUseConfigSimpleRequest.
-var (
-	_ bin.Encoder     = &TestUseConfigSimpleRequest{}
-	_ bin.Decoder     = &TestUseConfigSimpleRequest{}
-	_ bin.BareEncoder = &TestUseConfigSimpleRequest{}
-	_ bin.BareDecoder = &TestUseConfigSimpleRequest{}
-)
 
 // TestUseConfigSimple invokes method test.useConfigSimple#f9b7b23d returning error if any.
 //

@@ -43,6 +43,14 @@ type AccountSetPrivacyRequest struct {
 // AccountSetPrivacyRequestTypeID is TL type id of AccountSetPrivacyRequest.
 const AccountSetPrivacyRequestTypeID = 0xc9f81ce8
 
+// Ensuring interfaces in compile-time for AccountSetPrivacyRequest.
+var (
+	_ bin.Encoder     = &AccountSetPrivacyRequest{}
+	_ bin.Decoder     = &AccountSetPrivacyRequest{}
+	_ bin.BareEncoder = &AccountSetPrivacyRequest{}
+	_ bin.BareDecoder = &AccountSetPrivacyRequest{}
+)
+
 func (s *AccountSetPrivacyRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -142,21 +150,6 @@ func (s *AccountSetPrivacyRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetKey returns value of Key field.
-func (s *AccountSetPrivacyRequest) GetKey() (value InputPrivacyKeyClass) {
-	return s.Key
-}
-
-// GetRules returns value of Rules field.
-func (s *AccountSetPrivacyRequest) GetRules() (value []InputPrivacyRuleClass) {
-	return s.Rules
-}
-
-// MapRules returns field Rules wrapped in InputPrivacyRuleClassArray helper.
-func (s *AccountSetPrivacyRequest) MapRules() (value InputPrivacyRuleClassArray) {
-	return InputPrivacyRuleClassArray(s.Rules)
-}
-
 // Decode implements bin.Decoder.
 func (s *AccountSetPrivacyRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -200,13 +193,20 @@ func (s *AccountSetPrivacyRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountSetPrivacyRequest.
-var (
-	_ bin.Encoder     = &AccountSetPrivacyRequest{}
-	_ bin.Decoder     = &AccountSetPrivacyRequest{}
-	_ bin.BareEncoder = &AccountSetPrivacyRequest{}
-	_ bin.BareDecoder = &AccountSetPrivacyRequest{}
-)
+// GetKey returns value of Key field.
+func (s *AccountSetPrivacyRequest) GetKey() (value InputPrivacyKeyClass) {
+	return s.Key
+}
+
+// GetRules returns value of Rules field.
+func (s *AccountSetPrivacyRequest) GetRules() (value []InputPrivacyRuleClass) {
+	return s.Rules
+}
+
+// MapRules returns field Rules wrapped in InputPrivacyRuleClassArray helper.
+func (s *AccountSetPrivacyRequest) MapRules() (value InputPrivacyRuleClassArray) {
+	return InputPrivacyRuleClassArray(s.Rules)
+}
 
 // AccountSetPrivacy invokes method account.setPrivacy#c9f81ce8 returning error if any.
 // Change privacy settings of current account

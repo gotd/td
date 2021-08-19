@@ -48,6 +48,14 @@ type MessagesGetChatInviteImportersRequest struct {
 // MessagesGetChatInviteImportersRequestTypeID is TL type id of MessagesGetChatInviteImportersRequest.
 const MessagesGetChatInviteImportersRequestTypeID = 0x26fb7289
 
+// Ensuring interfaces in compile-time for MessagesGetChatInviteImportersRequest.
+var (
+	_ bin.Encoder     = &MessagesGetChatInviteImportersRequest{}
+	_ bin.Decoder     = &MessagesGetChatInviteImportersRequest{}
+	_ bin.BareEncoder = &MessagesGetChatInviteImportersRequest{}
+	_ bin.BareDecoder = &MessagesGetChatInviteImportersRequest{}
+)
+
 func (g *MessagesGetChatInviteImportersRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -174,31 +182,6 @@ func (g *MessagesGetChatInviteImportersRequest) EncodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetChatInviteImportersRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetLink returns value of Link field.
-func (g *MessagesGetChatInviteImportersRequest) GetLink() (value string) {
-	return g.Link
-}
-
-// GetOffsetDate returns value of OffsetDate field.
-func (g *MessagesGetChatInviteImportersRequest) GetOffsetDate() (value int) {
-	return g.OffsetDate
-}
-
-// GetOffsetUser returns value of OffsetUser field.
-func (g *MessagesGetChatInviteImportersRequest) GetOffsetUser() (value InputUserClass) {
-	return g.OffsetUser
-}
-
-// GetLimit returns value of Limit field.
-func (g *MessagesGetChatInviteImportersRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetChatInviteImportersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -253,13 +236,30 @@ func (g *MessagesGetChatInviteImportersRequest) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetChatInviteImportersRequest.
-var (
-	_ bin.Encoder     = &MessagesGetChatInviteImportersRequest{}
-	_ bin.Decoder     = &MessagesGetChatInviteImportersRequest{}
-	_ bin.BareEncoder = &MessagesGetChatInviteImportersRequest{}
-	_ bin.BareDecoder = &MessagesGetChatInviteImportersRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetChatInviteImportersRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetLink returns value of Link field.
+func (g *MessagesGetChatInviteImportersRequest) GetLink() (value string) {
+	return g.Link
+}
+
+// GetOffsetDate returns value of OffsetDate field.
+func (g *MessagesGetChatInviteImportersRequest) GetOffsetDate() (value int) {
+	return g.OffsetDate
+}
+
+// GetOffsetUser returns value of OffsetUser field.
+func (g *MessagesGetChatInviteImportersRequest) GetOffsetUser() (value InputUserClass) {
+	return g.OffsetUser
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetChatInviteImportersRequest) GetLimit() (value int) {
+	return g.Limit
+}
 
 // MessagesGetChatInviteImporters invokes method messages.getChatInviteImporters#26fb7289 returning error if any.
 //

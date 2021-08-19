@@ -41,6 +41,14 @@ type MessagesReceivedQueueRequest struct {
 // MessagesReceivedQueueRequestTypeID is TL type id of MessagesReceivedQueueRequest.
 const MessagesReceivedQueueRequestTypeID = 0x55a5bb66
 
+// Ensuring interfaces in compile-time for MessagesReceivedQueueRequest.
+var (
+	_ bin.Encoder     = &MessagesReceivedQueueRequest{}
+	_ bin.Decoder     = &MessagesReceivedQueueRequest{}
+	_ bin.BareEncoder = &MessagesReceivedQueueRequest{}
+	_ bin.BareDecoder = &MessagesReceivedQueueRequest{}
+)
+
 func (r *MessagesReceivedQueueRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -117,11 +125,6 @@ func (r *MessagesReceivedQueueRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMaxQts returns value of MaxQts field.
-func (r *MessagesReceivedQueueRequest) GetMaxQts() (value int) {
-	return r.MaxQts
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesReceivedQueueRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -148,13 +151,10 @@ func (r *MessagesReceivedQueueRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesReceivedQueueRequest.
-var (
-	_ bin.Encoder     = &MessagesReceivedQueueRequest{}
-	_ bin.Decoder     = &MessagesReceivedQueueRequest{}
-	_ bin.BareEncoder = &MessagesReceivedQueueRequest{}
-	_ bin.BareDecoder = &MessagesReceivedQueueRequest{}
-)
+// GetMaxQts returns value of MaxQts field.
+func (r *MessagesReceivedQueueRequest) GetMaxQts() (value int) {
+	return r.MaxQts
+}
 
 // MessagesReceivedQueue invokes method messages.receivedQueue#55a5bb66 returning error if any.
 // Confirms receipt of messages in a secret chat by client, cancels push notifications.

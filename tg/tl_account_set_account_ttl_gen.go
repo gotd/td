@@ -41,6 +41,14 @@ type AccountSetAccountTTLRequest struct {
 // AccountSetAccountTTLRequestTypeID is TL type id of AccountSetAccountTTLRequest.
 const AccountSetAccountTTLRequestTypeID = 0x2442485e
 
+// Ensuring interfaces in compile-time for AccountSetAccountTTLRequest.
+var (
+	_ bin.Encoder     = &AccountSetAccountTTLRequest{}
+	_ bin.Decoder     = &AccountSetAccountTTLRequest{}
+	_ bin.BareEncoder = &AccountSetAccountTTLRequest{}
+	_ bin.BareDecoder = &AccountSetAccountTTLRequest{}
+)
+
 func (s *AccountSetAccountTTLRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -119,11 +127,6 @@ func (s *AccountSetAccountTTLRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTTL returns value of TTL field.
-func (s *AccountSetAccountTTLRequest) GetTTL() (value AccountDaysTTL) {
-	return s.TTL
-}
-
 // Decode implements bin.Decoder.
 func (s *AccountSetAccountTTLRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -148,13 +151,10 @@ func (s *AccountSetAccountTTLRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountSetAccountTTLRequest.
-var (
-	_ bin.Encoder     = &AccountSetAccountTTLRequest{}
-	_ bin.Decoder     = &AccountSetAccountTTLRequest{}
-	_ bin.BareEncoder = &AccountSetAccountTTLRequest{}
-	_ bin.BareDecoder = &AccountSetAccountTTLRequest{}
-)
+// GetTTL returns value of TTL field.
+func (s *AccountSetAccountTTLRequest) GetTTL() (value AccountDaysTTL) {
+	return s.TTL
+}
 
 // AccountSetAccountTTL invokes method account.setAccountTTL#2442485e returning error if any.
 // Set account self-destruction period

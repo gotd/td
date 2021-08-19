@@ -48,6 +48,14 @@ type ChannelsEditCreatorRequest struct {
 // ChannelsEditCreatorRequestTypeID is TL type id of ChannelsEditCreatorRequest.
 const ChannelsEditCreatorRequestTypeID = 0x8f38cd1f
 
+// Ensuring interfaces in compile-time for ChannelsEditCreatorRequest.
+var (
+	_ bin.Encoder     = &ChannelsEditCreatorRequest{}
+	_ bin.Decoder     = &ChannelsEditCreatorRequest{}
+	_ bin.BareEncoder = &ChannelsEditCreatorRequest{}
+	_ bin.BareDecoder = &ChannelsEditCreatorRequest{}
+)
+
 func (e *ChannelsEditCreatorRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -159,31 +167,6 @@ func (e *ChannelsEditCreatorRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (e *ChannelsEditCreatorRequest) GetChannel() (value InputChannelClass) {
-	return e.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (e *ChannelsEditCreatorRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return e.Channel.AsNotEmpty()
-}
-
-// GetUserID returns value of UserID field.
-func (e *ChannelsEditCreatorRequest) GetUserID() (value InputUserClass) {
-	return e.UserID
-}
-
-// GetPassword returns value of Password field.
-func (e *ChannelsEditCreatorRequest) GetPassword() (value InputCheckPasswordSRPClass) {
-	return e.Password
-}
-
-// GetPasswordAsNotEmpty returns mapped value of Password field.
-func (e *ChannelsEditCreatorRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
-	return e.Password.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (e *ChannelsEditCreatorRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -224,13 +207,30 @@ func (e *ChannelsEditCreatorRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsEditCreatorRequest.
-var (
-	_ bin.Encoder     = &ChannelsEditCreatorRequest{}
-	_ bin.Decoder     = &ChannelsEditCreatorRequest{}
-	_ bin.BareEncoder = &ChannelsEditCreatorRequest{}
-	_ bin.BareDecoder = &ChannelsEditCreatorRequest{}
-)
+// GetChannel returns value of Channel field.
+func (e *ChannelsEditCreatorRequest) GetChannel() (value InputChannelClass) {
+	return e.Channel
+}
+
+// GetUserID returns value of UserID field.
+func (e *ChannelsEditCreatorRequest) GetUserID() (value InputUserClass) {
+	return e.UserID
+}
+
+// GetPassword returns value of Password field.
+func (e *ChannelsEditCreatorRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+	return e.Password
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsEditCreatorRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
+}
+
+// GetPasswordAsNotEmpty returns mapped value of Password field.
+func (e *ChannelsEditCreatorRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
+	return e.Password.AsNotEmpty()
+}
 
 // ChannelsEditCreator invokes method channels.editCreator#8f38cd1f returning error if any.
 // Transfer channel ownership

@@ -59,6 +59,14 @@ type VideoSize struct {
 // VideoSizeTypeID is TL type id of VideoSize.
 const VideoSizeTypeID = 0xde33b094
 
+// Ensuring interfaces in compile-time for VideoSize.
+var (
+	_ bin.Encoder     = &VideoSize{}
+	_ bin.Decoder     = &VideoSize{}
+	_ bin.BareEncoder = &VideoSize{}
+	_ bin.BareDecoder = &VideoSize{}
+)
+
 func (v *VideoSize) Zero() bool {
 	if v == nil {
 		return true
@@ -190,41 +198,6 @@ func (v *VideoSize) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (v *VideoSize) GetType() (value string) {
-	return v.Type
-}
-
-// GetW returns value of W field.
-func (v *VideoSize) GetW() (value int) {
-	return v.W
-}
-
-// GetH returns value of H field.
-func (v *VideoSize) GetH() (value int) {
-	return v.H
-}
-
-// GetSize returns value of Size field.
-func (v *VideoSize) GetSize() (value int) {
-	return v.Size
-}
-
-// SetVideoStartTs sets value of VideoStartTs conditional field.
-func (v *VideoSize) SetVideoStartTs(value float64) {
-	v.Flags.Set(0)
-	v.VideoStartTs = value
-}
-
-// GetVideoStartTs returns value of VideoStartTs conditional field and
-// boolean which is true if field was set.
-func (v *VideoSize) GetVideoStartTs() (value float64, ok bool) {
-	if !v.Flags.Has(0) {
-		return value, false
-	}
-	return v.VideoStartTs, true
-}
-
 // Decode implements bin.Decoder.
 func (v *VideoSize) Decode(b *bin.Buffer) error {
 	if v == nil {
@@ -284,10 +257,37 @@ func (v *VideoSize) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for VideoSize.
-var (
-	_ bin.Encoder     = &VideoSize{}
-	_ bin.Decoder     = &VideoSize{}
-	_ bin.BareEncoder = &VideoSize{}
-	_ bin.BareDecoder = &VideoSize{}
-)
+// GetType returns value of Type field.
+func (v *VideoSize) GetType() (value string) {
+	return v.Type
+}
+
+// GetW returns value of W field.
+func (v *VideoSize) GetW() (value int) {
+	return v.W
+}
+
+// GetH returns value of H field.
+func (v *VideoSize) GetH() (value int) {
+	return v.H
+}
+
+// GetSize returns value of Size field.
+func (v *VideoSize) GetSize() (value int) {
+	return v.Size
+}
+
+// SetVideoStartTs sets value of VideoStartTs conditional field.
+func (v *VideoSize) SetVideoStartTs(value float64) {
+	v.Flags.Set(0)
+	v.VideoStartTs = value
+}
+
+// GetVideoStartTs returns value of VideoStartTs conditional field and
+// boolean which is true if field was set.
+func (v *VideoSize) GetVideoStartTs() (value float64, ok bool) {
+	if !v.Flags.Has(0) {
+		return value, false
+	}
+	return v.VideoStartTs, true
+}

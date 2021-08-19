@@ -98,6 +98,14 @@ type MessagesSearchRequest struct {
 // MessagesSearchRequestTypeID is TL type id of MessagesSearchRequest.
 const MessagesSearchRequestTypeID = 0xc352eec
 
+// Ensuring interfaces in compile-time for MessagesSearchRequest.
+var (
+	_ bin.Encoder     = &MessagesSearchRequest{}
+	_ bin.Decoder     = &MessagesSearchRequest{}
+	_ bin.BareEncoder = &MessagesSearchRequest{}
+	_ bin.BareDecoder = &MessagesSearchRequest{}
+)
+
 func (s *MessagesSearchRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -333,91 +341,6 @@ func (s *MessagesSearchRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (s *MessagesSearchRequest) GetPeer() (value InputPeerClass) {
-	return s.Peer
-}
-
-// GetQ returns value of Q field.
-func (s *MessagesSearchRequest) GetQ() (value string) {
-	return s.Q
-}
-
-// SetFromID sets value of FromID conditional field.
-func (s *MessagesSearchRequest) SetFromID(value InputPeerClass) {
-	s.Flags.Set(0)
-	s.FromID = value
-}
-
-// GetFromID returns value of FromID conditional field and
-// boolean which is true if field was set.
-func (s *MessagesSearchRequest) GetFromID() (value InputPeerClass, ok bool) {
-	if !s.Flags.Has(0) {
-		return value, false
-	}
-	return s.FromID, true
-}
-
-// SetTopMsgID sets value of TopMsgID conditional field.
-func (s *MessagesSearchRequest) SetTopMsgID(value int) {
-	s.Flags.Set(1)
-	s.TopMsgID = value
-}
-
-// GetTopMsgID returns value of TopMsgID conditional field and
-// boolean which is true if field was set.
-func (s *MessagesSearchRequest) GetTopMsgID() (value int, ok bool) {
-	if !s.Flags.Has(1) {
-		return value, false
-	}
-	return s.TopMsgID, true
-}
-
-// GetFilter returns value of Filter field.
-func (s *MessagesSearchRequest) GetFilter() (value MessagesFilterClass) {
-	return s.Filter
-}
-
-// GetMinDate returns value of MinDate field.
-func (s *MessagesSearchRequest) GetMinDate() (value int) {
-	return s.MinDate
-}
-
-// GetMaxDate returns value of MaxDate field.
-func (s *MessagesSearchRequest) GetMaxDate() (value int) {
-	return s.MaxDate
-}
-
-// GetOffsetID returns value of OffsetID field.
-func (s *MessagesSearchRequest) GetOffsetID() (value int) {
-	return s.OffsetID
-}
-
-// GetAddOffset returns value of AddOffset field.
-func (s *MessagesSearchRequest) GetAddOffset() (value int) {
-	return s.AddOffset
-}
-
-// GetLimit returns value of Limit field.
-func (s *MessagesSearchRequest) GetLimit() (value int) {
-	return s.Limit
-}
-
-// GetMaxID returns value of MaxID field.
-func (s *MessagesSearchRequest) GetMaxID() (value int) {
-	return s.MaxID
-}
-
-// GetMinID returns value of MinID field.
-func (s *MessagesSearchRequest) GetMinID() (value int) {
-	return s.MinID
-}
-
-// GetHash returns value of Hash field.
-func (s *MessagesSearchRequest) GetHash() (value int) {
-	return s.Hash
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSearchRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -533,13 +456,90 @@ func (s *MessagesSearchRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSearchRequest.
-var (
-	_ bin.Encoder     = &MessagesSearchRequest{}
-	_ bin.Decoder     = &MessagesSearchRequest{}
-	_ bin.BareEncoder = &MessagesSearchRequest{}
-	_ bin.BareDecoder = &MessagesSearchRequest{}
-)
+// GetPeer returns value of Peer field.
+func (s *MessagesSearchRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetQ returns value of Q field.
+func (s *MessagesSearchRequest) GetQ() (value string) {
+	return s.Q
+}
+
+// SetFromID sets value of FromID conditional field.
+func (s *MessagesSearchRequest) SetFromID(value InputPeerClass) {
+	s.Flags.Set(0)
+	s.FromID = value
+}
+
+// GetFromID returns value of FromID conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSearchRequest) GetFromID() (value InputPeerClass, ok bool) {
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.FromID, true
+}
+
+// SetTopMsgID sets value of TopMsgID conditional field.
+func (s *MessagesSearchRequest) SetTopMsgID(value int) {
+	s.Flags.Set(1)
+	s.TopMsgID = value
+}
+
+// GetTopMsgID returns value of TopMsgID conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSearchRequest) GetTopMsgID() (value int, ok bool) {
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.TopMsgID, true
+}
+
+// GetFilter returns value of Filter field.
+func (s *MessagesSearchRequest) GetFilter() (value MessagesFilterClass) {
+	return s.Filter
+}
+
+// GetMinDate returns value of MinDate field.
+func (s *MessagesSearchRequest) GetMinDate() (value int) {
+	return s.MinDate
+}
+
+// GetMaxDate returns value of MaxDate field.
+func (s *MessagesSearchRequest) GetMaxDate() (value int) {
+	return s.MaxDate
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (s *MessagesSearchRequest) GetOffsetID() (value int) {
+	return s.OffsetID
+}
+
+// GetAddOffset returns value of AddOffset field.
+func (s *MessagesSearchRequest) GetAddOffset() (value int) {
+	return s.AddOffset
+}
+
+// GetLimit returns value of Limit field.
+func (s *MessagesSearchRequest) GetLimit() (value int) {
+	return s.Limit
+}
+
+// GetMaxID returns value of MaxID field.
+func (s *MessagesSearchRequest) GetMaxID() (value int) {
+	return s.MaxID
+}
+
+// GetMinID returns value of MinID field.
+func (s *MessagesSearchRequest) GetMinID() (value int) {
+	return s.MinID
+}
+
+// GetHash returns value of Hash field.
+func (s *MessagesSearchRequest) GetHash() (value int) {
+	return s.Hash
+}
 
 // MessagesSearch invokes method messages.search#c352eec returning error if any.
 // Gets back found messages

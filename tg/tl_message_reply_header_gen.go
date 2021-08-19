@@ -64,6 +64,14 @@ type MessageReplyHeader struct {
 // MessageReplyHeaderTypeID is TL type id of MessageReplyHeader.
 const MessageReplyHeaderTypeID = 0xa6d57763
 
+// Ensuring interfaces in compile-time for MessageReplyHeader.
+var (
+	_ bin.Encoder     = &MessageReplyHeader{}
+	_ bin.Decoder     = &MessageReplyHeader{}
+	_ bin.BareEncoder = &MessageReplyHeader{}
+	_ bin.BareDecoder = &MessageReplyHeader{}
+)
+
 func (m *MessageReplyHeader) Zero() bool {
 	if m == nil {
 		return true
@@ -189,41 +197,6 @@ func (m *MessageReplyHeader) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetReplyToMsgID returns value of ReplyToMsgID field.
-func (m *MessageReplyHeader) GetReplyToMsgID() (value int) {
-	return m.ReplyToMsgID
-}
-
-// SetReplyToPeerID sets value of ReplyToPeerID conditional field.
-func (m *MessageReplyHeader) SetReplyToPeerID(value PeerClass) {
-	m.Flags.Set(0)
-	m.ReplyToPeerID = value
-}
-
-// GetReplyToPeerID returns value of ReplyToPeerID conditional field and
-// boolean which is true if field was set.
-func (m *MessageReplyHeader) GetReplyToPeerID() (value PeerClass, ok bool) {
-	if !m.Flags.Has(0) {
-		return value, false
-	}
-	return m.ReplyToPeerID, true
-}
-
-// SetReplyToTopID sets value of ReplyToTopID conditional field.
-func (m *MessageReplyHeader) SetReplyToTopID(value int) {
-	m.Flags.Set(1)
-	m.ReplyToTopID = value
-}
-
-// GetReplyToTopID returns value of ReplyToTopID conditional field and
-// boolean which is true if field was set.
-func (m *MessageReplyHeader) GetReplyToTopID() (value int, ok bool) {
-	if !m.Flags.Has(1) {
-		return value, false
-	}
-	return m.ReplyToTopID, true
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageReplyHeader) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -269,10 +242,37 @@ func (m *MessageReplyHeader) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessageReplyHeader.
-var (
-	_ bin.Encoder     = &MessageReplyHeader{}
-	_ bin.Decoder     = &MessageReplyHeader{}
-	_ bin.BareEncoder = &MessageReplyHeader{}
-	_ bin.BareDecoder = &MessageReplyHeader{}
-)
+// GetReplyToMsgID returns value of ReplyToMsgID field.
+func (m *MessageReplyHeader) GetReplyToMsgID() (value int) {
+	return m.ReplyToMsgID
+}
+
+// SetReplyToPeerID sets value of ReplyToPeerID conditional field.
+func (m *MessageReplyHeader) SetReplyToPeerID(value PeerClass) {
+	m.Flags.Set(0)
+	m.ReplyToPeerID = value
+}
+
+// GetReplyToPeerID returns value of ReplyToPeerID conditional field and
+// boolean which is true if field was set.
+func (m *MessageReplyHeader) GetReplyToPeerID() (value PeerClass, ok bool) {
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.ReplyToPeerID, true
+}
+
+// SetReplyToTopID sets value of ReplyToTopID conditional field.
+func (m *MessageReplyHeader) SetReplyToTopID(value int) {
+	m.Flags.Set(1)
+	m.ReplyToTopID = value
+}
+
+// GetReplyToTopID returns value of ReplyToTopID conditional field and
+// boolean which is true if field was set.
+func (m *MessageReplyHeader) GetReplyToTopID() (value int, ok bool) {
+	if !m.Flags.Has(1) {
+		return value, false
+	}
+	return m.ReplyToTopID, true
+}

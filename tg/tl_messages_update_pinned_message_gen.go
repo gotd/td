@@ -54,6 +54,14 @@ type MessagesUpdatePinnedMessageRequest struct {
 // MessagesUpdatePinnedMessageRequestTypeID is TL type id of MessagesUpdatePinnedMessageRequest.
 const MessagesUpdatePinnedMessageRequestTypeID = 0xd2aaf7ec
 
+// Ensuring interfaces in compile-time for MessagesUpdatePinnedMessageRequest.
+var (
+	_ bin.Encoder     = &MessagesUpdatePinnedMessageRequest{}
+	_ bin.Decoder     = &MessagesUpdatePinnedMessageRequest{}
+	_ bin.BareEncoder = &MessagesUpdatePinnedMessageRequest{}
+	_ bin.BareDecoder = &MessagesUpdatePinnedMessageRequest{}
+)
+
 func (u *MessagesUpdatePinnedMessageRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -190,6 +198,47 @@ func (u *MessagesUpdatePinnedMessageRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (u *MessagesUpdatePinnedMessageRequest) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode messages.updatePinnedMessage#d2aaf7ec to nil")
+	}
+	if err := b.ConsumeID(MessagesUpdatePinnedMessageRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *MessagesUpdatePinnedMessageRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode messages.updatePinnedMessage#d2aaf7ec to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: field flags: %w", err)
+		}
+	}
+	u.Silent = u.Flags.Has(0)
+	u.Unpin = u.Flags.Has(1)
+	u.PmOneside = u.Flags.Has(2)
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: field id: %w", err)
+		}
+		u.ID = value
+	}
+	return nil
+}
+
 // SetSilent sets value of Silent conditional field.
 func (u *MessagesUpdatePinnedMessageRequest) SetSilent(value bool) {
 	if value {
@@ -247,55 +296,6 @@ func (u *MessagesUpdatePinnedMessageRequest) GetPeer() (value InputPeerClass) {
 func (u *MessagesUpdatePinnedMessageRequest) GetID() (value int) {
 	return u.ID
 }
-
-// Decode implements bin.Decoder.
-func (u *MessagesUpdatePinnedMessageRequest) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode messages.updatePinnedMessage#d2aaf7ec to nil")
-	}
-	if err := b.ConsumeID(MessagesUpdatePinnedMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *MessagesUpdatePinnedMessageRequest) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode messages.updatePinnedMessage#d2aaf7ec to nil")
-	}
-	{
-		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: field flags: %w", err)
-		}
-	}
-	u.Silent = u.Flags.Has(0)
-	u.Unpin = u.Flags.Has(1)
-	u.PmOneside = u.Flags.Has(2)
-	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: field peer: %w", err)
-		}
-		u.Peer = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: field id: %w", err)
-		}
-		u.ID = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesUpdatePinnedMessageRequest.
-var (
-	_ bin.Encoder     = &MessagesUpdatePinnedMessageRequest{}
-	_ bin.Decoder     = &MessagesUpdatePinnedMessageRequest{}
-	_ bin.BareEncoder = &MessagesUpdatePinnedMessageRequest{}
-	_ bin.BareDecoder = &MessagesUpdatePinnedMessageRequest{}
-)
 
 // MessagesUpdatePinnedMessage invokes method messages.updatePinnedMessage#d2aaf7ec returning error if any.
 // Pin a message

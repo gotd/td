@@ -39,6 +39,19 @@ type InputChatPhotoEmpty struct {
 // InputChatPhotoEmptyTypeID is TL type id of InputChatPhotoEmpty.
 const InputChatPhotoEmptyTypeID = 0x1ca48f57
 
+// construct implements constructor of InputChatPhotoClass.
+func (i InputChatPhotoEmpty) construct() InputChatPhotoClass { return &i }
+
+// Ensuring interfaces in compile-time for InputChatPhotoEmpty.
+var (
+	_ bin.Encoder     = &InputChatPhotoEmpty{}
+	_ bin.Decoder     = &InputChatPhotoEmpty{}
+	_ bin.BareEncoder = &InputChatPhotoEmpty{}
+	_ bin.BareDecoder = &InputChatPhotoEmpty{}
+
+	_ InputChatPhotoClass = &InputChatPhotoEmpty{}
+)
+
 func (i *InputChatPhotoEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputChatPhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputChatPhotoClass.
-func (i InputChatPhotoEmpty) construct() InputChatPhotoClass { return &i }
-
-// Ensuring interfaces in compile-time for InputChatPhotoEmpty.
-var (
-	_ bin.Encoder     = &InputChatPhotoEmpty{}
-	_ bin.Decoder     = &InputChatPhotoEmpty{}
-	_ bin.BareEncoder = &InputChatPhotoEmpty{}
-	_ bin.BareDecoder = &InputChatPhotoEmpty{}
-
-	_ InputChatPhotoClass = &InputChatPhotoEmpty{}
-)
-
 // InputChatUploadedPhoto represents TL type `inputChatUploadedPhoto#c642724e`.
 // New photo to be set as group profile photo.
 //
@@ -160,6 +160,19 @@ type InputChatUploadedPhoto struct {
 
 // InputChatUploadedPhotoTypeID is TL type id of InputChatUploadedPhoto.
 const InputChatUploadedPhotoTypeID = 0xc642724e
+
+// construct implements constructor of InputChatPhotoClass.
+func (i InputChatUploadedPhoto) construct() InputChatPhotoClass { return &i }
+
+// Ensuring interfaces in compile-time for InputChatUploadedPhoto.
+var (
+	_ bin.Encoder     = &InputChatUploadedPhoto{}
+	_ bin.Decoder     = &InputChatUploadedPhoto{}
+	_ bin.BareEncoder = &InputChatUploadedPhoto{}
+	_ bin.BareDecoder = &InputChatUploadedPhoto{}
+
+	_ InputChatPhotoClass = &InputChatUploadedPhoto{}
+)
 
 func (i *InputChatUploadedPhoto) Zero() bool {
 	if i == nil {
@@ -300,51 +313,6 @@ func (i *InputChatUploadedPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFile sets value of File conditional field.
-func (i *InputChatUploadedPhoto) SetFile(value InputFileClass) {
-	i.Flags.Set(0)
-	i.File = value
-}
-
-// GetFile returns value of File conditional field and
-// boolean which is true if field was set.
-func (i *InputChatUploadedPhoto) GetFile() (value InputFileClass, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.File, true
-}
-
-// SetVideo sets value of Video conditional field.
-func (i *InputChatUploadedPhoto) SetVideo(value InputFileClass) {
-	i.Flags.Set(1)
-	i.Video = value
-}
-
-// GetVideo returns value of Video conditional field and
-// boolean which is true if field was set.
-func (i *InputChatUploadedPhoto) GetVideo() (value InputFileClass, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.Video, true
-}
-
-// SetVideoStartTs sets value of VideoStartTs conditional field.
-func (i *InputChatUploadedPhoto) SetVideoStartTs(value float64) {
-	i.Flags.Set(2)
-	i.VideoStartTs = value
-}
-
-// GetVideoStartTs returns value of VideoStartTs conditional field and
-// boolean which is true if field was set.
-func (i *InputChatUploadedPhoto) GetVideoStartTs() (value float64, ok bool) {
-	if !i.Flags.Has(2) {
-		return value, false
-	}
-	return i.VideoStartTs, true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputChatUploadedPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -390,18 +358,50 @@ func (i *InputChatUploadedPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputChatPhotoClass.
-func (i InputChatUploadedPhoto) construct() InputChatPhotoClass { return &i }
+// SetFile sets value of File conditional field.
+func (i *InputChatUploadedPhoto) SetFile(value InputFileClass) {
+	i.Flags.Set(0)
+	i.File = value
+}
 
-// Ensuring interfaces in compile-time for InputChatUploadedPhoto.
-var (
-	_ bin.Encoder     = &InputChatUploadedPhoto{}
-	_ bin.Decoder     = &InputChatUploadedPhoto{}
-	_ bin.BareEncoder = &InputChatUploadedPhoto{}
-	_ bin.BareDecoder = &InputChatUploadedPhoto{}
+// GetFile returns value of File conditional field and
+// boolean which is true if field was set.
+func (i *InputChatUploadedPhoto) GetFile() (value InputFileClass, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.File, true
+}
 
-	_ InputChatPhotoClass = &InputChatUploadedPhoto{}
-)
+// SetVideo sets value of Video conditional field.
+func (i *InputChatUploadedPhoto) SetVideo(value InputFileClass) {
+	i.Flags.Set(1)
+	i.Video = value
+}
+
+// GetVideo returns value of Video conditional field and
+// boolean which is true if field was set.
+func (i *InputChatUploadedPhoto) GetVideo() (value InputFileClass, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.Video, true
+}
+
+// SetVideoStartTs sets value of VideoStartTs conditional field.
+func (i *InputChatUploadedPhoto) SetVideoStartTs(value float64) {
+	i.Flags.Set(2)
+	i.VideoStartTs = value
+}
+
+// GetVideoStartTs returns value of VideoStartTs conditional field and
+// boolean which is true if field was set.
+func (i *InputChatUploadedPhoto) GetVideoStartTs() (value float64, ok bool) {
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.VideoStartTs, true
+}
 
 // InputChatPhoto represents TL type `inputChatPhoto#8953ad37`.
 // Existing photo to be set as a chat profile photo.
@@ -414,6 +414,19 @@ type InputChatPhoto struct {
 
 // InputChatPhotoTypeID is TL type id of InputChatPhoto.
 const InputChatPhotoTypeID = 0x8953ad37
+
+// construct implements constructor of InputChatPhotoClass.
+func (i InputChatPhoto) construct() InputChatPhotoClass { return &i }
+
+// Ensuring interfaces in compile-time for InputChatPhoto.
+var (
+	_ bin.Encoder     = &InputChatPhoto{}
+	_ bin.Decoder     = &InputChatPhoto{}
+	_ bin.BareEncoder = &InputChatPhoto{}
+	_ bin.BareDecoder = &InputChatPhoto{}
+
+	_ InputChatPhotoClass = &InputChatPhoto{}
+)
 
 func (i *InputChatPhoto) Zero() bool {
 	if i == nil {
@@ -496,11 +509,6 @@ func (i *InputChatPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputChatPhoto) GetID() (value InputPhotoClass) {
-	return i.ID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputChatPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -527,18 +535,10 @@ func (i *InputChatPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputChatPhotoClass.
-func (i InputChatPhoto) construct() InputChatPhotoClass { return &i }
-
-// Ensuring interfaces in compile-time for InputChatPhoto.
-var (
-	_ bin.Encoder     = &InputChatPhoto{}
-	_ bin.Decoder     = &InputChatPhoto{}
-	_ bin.BareEncoder = &InputChatPhoto{}
-	_ bin.BareDecoder = &InputChatPhoto{}
-
-	_ InputChatPhotoClass = &InputChatPhoto{}
-)
+// GetID returns value of ID field.
+func (i *InputChatPhoto) GetID() (value InputPhotoClass) {
+	return i.ID
+}
 
 // InputChatPhotoClass represents InputChatPhoto generic type.
 //
@@ -631,276 +631,4 @@ func (b *InputChatPhotoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputChatPhotoClass as nil")
 	}
 	return b.InputChatPhoto.Encode(buf)
-}
-
-// InputChatPhotoClassArray is adapter for slice of InputChatPhotoClass.
-type InputChatPhotoClassArray []InputChatPhotoClass
-
-// Sort sorts slice of InputChatPhotoClass.
-func (s InputChatPhotoClassArray) Sort(less func(a, b InputChatPhotoClass) bool) InputChatPhotoClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputChatPhotoClass.
-func (s InputChatPhotoClassArray) SortStable(less func(a, b InputChatPhotoClass) bool) InputChatPhotoClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputChatPhotoClass.
-func (s InputChatPhotoClassArray) Retain(keep func(x InputChatPhotoClass) bool) InputChatPhotoClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputChatPhotoClassArray) First() (v InputChatPhotoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputChatPhotoClassArray) Last() (v InputChatPhotoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputChatPhotoClassArray) PopFirst() (v InputChatPhotoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputChatPhotoClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputChatPhotoClassArray) Pop() (v InputChatPhotoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsInputChatUploadedPhoto returns copy with only InputChatUploadedPhoto constructors.
-func (s InputChatPhotoClassArray) AsInputChatUploadedPhoto() (to InputChatUploadedPhotoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputChatUploadedPhoto)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputChatPhoto returns copy with only InputChatPhoto constructors.
-func (s InputChatPhotoClassArray) AsInputChatPhoto() (to InputChatPhotoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputChatPhoto)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// InputChatUploadedPhotoArray is adapter for slice of InputChatUploadedPhoto.
-type InputChatUploadedPhotoArray []InputChatUploadedPhoto
-
-// Sort sorts slice of InputChatUploadedPhoto.
-func (s InputChatUploadedPhotoArray) Sort(less func(a, b InputChatUploadedPhoto) bool) InputChatUploadedPhotoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputChatUploadedPhoto.
-func (s InputChatUploadedPhotoArray) SortStable(less func(a, b InputChatUploadedPhoto) bool) InputChatUploadedPhotoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputChatUploadedPhoto.
-func (s InputChatUploadedPhotoArray) Retain(keep func(x InputChatUploadedPhoto) bool) InputChatUploadedPhotoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputChatUploadedPhotoArray) First() (v InputChatUploadedPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputChatUploadedPhotoArray) Last() (v InputChatUploadedPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputChatUploadedPhotoArray) PopFirst() (v InputChatUploadedPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputChatUploadedPhoto
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputChatUploadedPhotoArray) Pop() (v InputChatUploadedPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputChatPhotoArray is adapter for slice of InputChatPhoto.
-type InputChatPhotoArray []InputChatPhoto
-
-// Sort sorts slice of InputChatPhoto.
-func (s InputChatPhotoArray) Sort(less func(a, b InputChatPhoto) bool) InputChatPhotoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputChatPhoto.
-func (s InputChatPhotoArray) SortStable(less func(a, b InputChatPhoto) bool) InputChatPhotoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputChatPhoto.
-func (s InputChatPhotoArray) Retain(keep func(x InputChatPhoto) bool) InputChatPhotoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputChatPhotoArray) First() (v InputChatPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputChatPhotoArray) Last() (v InputChatPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputChatPhotoArray) PopFirst() (v InputChatPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputChatPhoto
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputChatPhotoArray) Pop() (v InputChatPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

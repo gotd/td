@@ -42,6 +42,19 @@ type MessagesExportedChatInvite struct {
 // MessagesExportedChatInviteTypeID is TL type id of MessagesExportedChatInvite.
 const MessagesExportedChatInviteTypeID = 0x1871be50
 
+// construct implements constructor of MessagesExportedChatInviteClass.
+func (e MessagesExportedChatInvite) construct() MessagesExportedChatInviteClass { return &e }
+
+// Ensuring interfaces in compile-time for MessagesExportedChatInvite.
+var (
+	_ bin.Encoder     = &MessagesExportedChatInvite{}
+	_ bin.Decoder     = &MessagesExportedChatInvite{}
+	_ bin.BareEncoder = &MessagesExportedChatInvite{}
+	_ bin.BareDecoder = &MessagesExportedChatInvite{}
+
+	_ MessagesExportedChatInviteClass = &MessagesExportedChatInvite{}
+)
+
 func (e *MessagesExportedChatInvite) Zero() bool {
 	if e == nil {
 		return true
@@ -138,21 +151,6 @@ func (e *MessagesExportedChatInvite) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetInvite returns value of Invite field.
-func (e *MessagesExportedChatInvite) GetInvite() (value ChatInviteExported) {
-	return e.Invite
-}
-
-// GetUsers returns value of Users field.
-func (e *MessagesExportedChatInvite) GetUsers() (value []UserClass) {
-	return e.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (e *MessagesExportedChatInvite) MapUsers() (value UserClassArray) {
-	return UserClassArray(e.Users)
-}
-
 // Decode implements bin.Decoder.
 func (e *MessagesExportedChatInvite) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -194,18 +192,20 @@ func (e *MessagesExportedChatInvite) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesExportedChatInviteClass.
-func (e MessagesExportedChatInvite) construct() MessagesExportedChatInviteClass { return &e }
+// GetInvite returns value of Invite field.
+func (e *MessagesExportedChatInvite) GetInvite() (value ChatInviteExported) {
+	return e.Invite
+}
 
-// Ensuring interfaces in compile-time for MessagesExportedChatInvite.
-var (
-	_ bin.Encoder     = &MessagesExportedChatInvite{}
-	_ bin.Decoder     = &MessagesExportedChatInvite{}
-	_ bin.BareEncoder = &MessagesExportedChatInvite{}
-	_ bin.BareDecoder = &MessagesExportedChatInvite{}
+// GetUsers returns value of Users field.
+func (e *MessagesExportedChatInvite) GetUsers() (value []UserClass) {
+	return e.Users
+}
 
-	_ MessagesExportedChatInviteClass = &MessagesExportedChatInvite{}
-)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (e *MessagesExportedChatInvite) MapUsers() (value UserClassArray) {
+	return UserClassArray(e.Users)
+}
 
 // MessagesExportedChatInviteReplaced represents TL type `messages.exportedChatInviteReplaced#222600ef`.
 //
@@ -221,6 +221,19 @@ type MessagesExportedChatInviteReplaced struct {
 
 // MessagesExportedChatInviteReplacedTypeID is TL type id of MessagesExportedChatInviteReplaced.
 const MessagesExportedChatInviteReplacedTypeID = 0x222600ef
+
+// construct implements constructor of MessagesExportedChatInviteClass.
+func (e MessagesExportedChatInviteReplaced) construct() MessagesExportedChatInviteClass { return &e }
+
+// Ensuring interfaces in compile-time for MessagesExportedChatInviteReplaced.
+var (
+	_ bin.Encoder     = &MessagesExportedChatInviteReplaced{}
+	_ bin.Decoder     = &MessagesExportedChatInviteReplaced{}
+	_ bin.BareEncoder = &MessagesExportedChatInviteReplaced{}
+	_ bin.BareDecoder = &MessagesExportedChatInviteReplaced{}
+
+	_ MessagesExportedChatInviteClass = &MessagesExportedChatInviteReplaced{}
+)
 
 func (e *MessagesExportedChatInviteReplaced) Zero() bool {
 	if e == nil {
@@ -330,26 +343,6 @@ func (e *MessagesExportedChatInviteReplaced) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetInvite returns value of Invite field.
-func (e *MessagesExportedChatInviteReplaced) GetInvite() (value ChatInviteExported) {
-	return e.Invite
-}
-
-// GetNewInvite returns value of NewInvite field.
-func (e *MessagesExportedChatInviteReplaced) GetNewInvite() (value ChatInviteExported) {
-	return e.NewInvite
-}
-
-// GetUsers returns value of Users field.
-func (e *MessagesExportedChatInviteReplaced) GetUsers() (value []UserClass) {
-	return e.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (e *MessagesExportedChatInviteReplaced) MapUsers() (value UserClassArray) {
-	return UserClassArray(e.Users)
-}
-
 // Decode implements bin.Decoder.
 func (e *MessagesExportedChatInviteReplaced) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -396,18 +389,25 @@ func (e *MessagesExportedChatInviteReplaced) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesExportedChatInviteClass.
-func (e MessagesExportedChatInviteReplaced) construct() MessagesExportedChatInviteClass { return &e }
+// GetInvite returns value of Invite field.
+func (e *MessagesExportedChatInviteReplaced) GetInvite() (value ChatInviteExported) {
+	return e.Invite
+}
 
-// Ensuring interfaces in compile-time for MessagesExportedChatInviteReplaced.
-var (
-	_ bin.Encoder     = &MessagesExportedChatInviteReplaced{}
-	_ bin.Decoder     = &MessagesExportedChatInviteReplaced{}
-	_ bin.BareEncoder = &MessagesExportedChatInviteReplaced{}
-	_ bin.BareDecoder = &MessagesExportedChatInviteReplaced{}
+// GetNewInvite returns value of NewInvite field.
+func (e *MessagesExportedChatInviteReplaced) GetNewInvite() (value ChatInviteExported) {
+	return e.NewInvite
+}
 
-	_ MessagesExportedChatInviteClass = &MessagesExportedChatInviteReplaced{}
-)
+// GetUsers returns value of Users field.
+func (e *MessagesExportedChatInviteReplaced) GetUsers() (value []UserClass) {
+	return e.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (e *MessagesExportedChatInviteReplaced) MapUsers() (value UserClassArray) {
+	return UserClassArray(e.Users)
+}
 
 // MessagesExportedChatInviteClass represents messages.ExportedChatInvite generic type.
 //
@@ -500,276 +500,4 @@ func (b *MessagesExportedChatInviteBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesExportedChatInviteClass as nil")
 	}
 	return b.ExportedChatInvite.Encode(buf)
-}
-
-// MessagesExportedChatInviteClassArray is adapter for slice of MessagesExportedChatInviteClass.
-type MessagesExportedChatInviteClassArray []MessagesExportedChatInviteClass
-
-// Sort sorts slice of MessagesExportedChatInviteClass.
-func (s MessagesExportedChatInviteClassArray) Sort(less func(a, b MessagesExportedChatInviteClass) bool) MessagesExportedChatInviteClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesExportedChatInviteClass.
-func (s MessagesExportedChatInviteClassArray) SortStable(less func(a, b MessagesExportedChatInviteClass) bool) MessagesExportedChatInviteClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesExportedChatInviteClass.
-func (s MessagesExportedChatInviteClassArray) Retain(keep func(x MessagesExportedChatInviteClass) bool) MessagesExportedChatInviteClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesExportedChatInviteClassArray) First() (v MessagesExportedChatInviteClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesExportedChatInviteClassArray) Last() (v MessagesExportedChatInviteClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesExportedChatInviteClassArray) PopFirst() (v MessagesExportedChatInviteClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesExportedChatInviteClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesExportedChatInviteClassArray) Pop() (v MessagesExportedChatInviteClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsMessagesExportedChatInvite returns copy with only MessagesExportedChatInvite constructors.
-func (s MessagesExportedChatInviteClassArray) AsMessagesExportedChatInvite() (to MessagesExportedChatInviteArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessagesExportedChatInvite)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessagesExportedChatInviteReplaced returns copy with only MessagesExportedChatInviteReplaced constructors.
-func (s MessagesExportedChatInviteClassArray) AsMessagesExportedChatInviteReplaced() (to MessagesExportedChatInviteReplacedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessagesExportedChatInviteReplaced)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// MessagesExportedChatInviteArray is adapter for slice of MessagesExportedChatInvite.
-type MessagesExportedChatInviteArray []MessagesExportedChatInvite
-
-// Sort sorts slice of MessagesExportedChatInvite.
-func (s MessagesExportedChatInviteArray) Sort(less func(a, b MessagesExportedChatInvite) bool) MessagesExportedChatInviteArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesExportedChatInvite.
-func (s MessagesExportedChatInviteArray) SortStable(less func(a, b MessagesExportedChatInvite) bool) MessagesExportedChatInviteArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesExportedChatInvite.
-func (s MessagesExportedChatInviteArray) Retain(keep func(x MessagesExportedChatInvite) bool) MessagesExportedChatInviteArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesExportedChatInviteArray) First() (v MessagesExportedChatInvite, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesExportedChatInviteArray) Last() (v MessagesExportedChatInvite, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesExportedChatInviteArray) PopFirst() (v MessagesExportedChatInvite, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesExportedChatInvite
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesExportedChatInviteArray) Pop() (v MessagesExportedChatInvite, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessagesExportedChatInviteReplacedArray is adapter for slice of MessagesExportedChatInviteReplaced.
-type MessagesExportedChatInviteReplacedArray []MessagesExportedChatInviteReplaced
-
-// Sort sorts slice of MessagesExportedChatInviteReplaced.
-func (s MessagesExportedChatInviteReplacedArray) Sort(less func(a, b MessagesExportedChatInviteReplaced) bool) MessagesExportedChatInviteReplacedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesExportedChatInviteReplaced.
-func (s MessagesExportedChatInviteReplacedArray) SortStable(less func(a, b MessagesExportedChatInviteReplaced) bool) MessagesExportedChatInviteReplacedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesExportedChatInviteReplaced.
-func (s MessagesExportedChatInviteReplacedArray) Retain(keep func(x MessagesExportedChatInviteReplaced) bool) MessagesExportedChatInviteReplacedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesExportedChatInviteReplacedArray) First() (v MessagesExportedChatInviteReplaced, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesExportedChatInviteReplacedArray) Last() (v MessagesExportedChatInviteReplaced, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesExportedChatInviteReplacedArray) PopFirst() (v MessagesExportedChatInviteReplaced, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesExportedChatInviteReplaced
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesExportedChatInviteReplacedArray) Pop() (v MessagesExportedChatInviteReplaced, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

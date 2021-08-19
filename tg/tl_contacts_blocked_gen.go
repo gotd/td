@@ -45,6 +45,19 @@ type ContactsBlocked struct {
 // ContactsBlockedTypeID is TL type id of ContactsBlocked.
 const ContactsBlockedTypeID = 0xade1591
 
+// construct implements constructor of ContactsBlockedClass.
+func (b ContactsBlocked) construct() ContactsBlockedClass { return &b }
+
+// Ensuring interfaces in compile-time for ContactsBlocked.
+var (
+	_ bin.Encoder     = &ContactsBlocked{}
+	_ bin.Decoder     = &ContactsBlocked{}
+	_ bin.BareEncoder = &ContactsBlocked{}
+	_ bin.BareDecoder = &ContactsBlocked{}
+
+	_ ContactsBlockedClass = &ContactsBlocked{}
+)
+
 func (b *ContactsBlocked) Zero() bool {
 	if b == nil {
 		return true
@@ -162,31 +175,6 @@ func (b *ContactsBlocked) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetBlocked returns value of Blocked field.
-func (b *ContactsBlocked) GetBlocked() (value []PeerBlocked) {
-	return b.Blocked
-}
-
-// GetChats returns value of Chats field.
-func (b *ContactsBlocked) GetChats() (value []ChatClass) {
-	return b.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (b *ContactsBlocked) MapChats() (value ChatClassArray) {
-	return ChatClassArray(b.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (b *ContactsBlocked) GetUsers() (value []UserClass) {
-	return b.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (b *ContactsBlocked) MapUsers() (value UserClassArray) {
-	return UserClassArray(b.Users)
-}
-
 // Decode implements bin.Decoder.
 func (b *ContactsBlocked) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -257,18 +245,30 @@ func (b *ContactsBlocked) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ContactsBlockedClass.
-func (b ContactsBlocked) construct() ContactsBlockedClass { return &b }
+// GetBlocked returns value of Blocked field.
+func (b *ContactsBlocked) GetBlocked() (value []PeerBlocked) {
+	return b.Blocked
+}
 
-// Ensuring interfaces in compile-time for ContactsBlocked.
-var (
-	_ bin.Encoder     = &ContactsBlocked{}
-	_ bin.Decoder     = &ContactsBlocked{}
-	_ bin.BareEncoder = &ContactsBlocked{}
-	_ bin.BareDecoder = &ContactsBlocked{}
+// GetChats returns value of Chats field.
+func (b *ContactsBlocked) GetChats() (value []ChatClass) {
+	return b.Chats
+}
 
-	_ ContactsBlockedClass = &ContactsBlocked{}
-)
+// GetUsers returns value of Users field.
+func (b *ContactsBlocked) GetUsers() (value []UserClass) {
+	return b.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (b *ContactsBlocked) MapChats() (value ChatClassArray) {
+	return ChatClassArray(b.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (b *ContactsBlocked) MapUsers() (value UserClassArray) {
+	return UserClassArray(b.Users)
+}
 
 // ContactsBlockedSlice represents TL type `contacts.blockedSlice#e1664194`.
 // Incomplete list of blocked users.
@@ -287,6 +287,19 @@ type ContactsBlockedSlice struct {
 
 // ContactsBlockedSliceTypeID is TL type id of ContactsBlockedSlice.
 const ContactsBlockedSliceTypeID = 0xe1664194
+
+// construct implements constructor of ContactsBlockedClass.
+func (b ContactsBlockedSlice) construct() ContactsBlockedClass { return &b }
+
+// Ensuring interfaces in compile-time for ContactsBlockedSlice.
+var (
+	_ bin.Encoder     = &ContactsBlockedSlice{}
+	_ bin.Decoder     = &ContactsBlockedSlice{}
+	_ bin.BareEncoder = &ContactsBlockedSlice{}
+	_ bin.BareDecoder = &ContactsBlockedSlice{}
+
+	_ ContactsBlockedClass = &ContactsBlockedSlice{}
+)
 
 func (b *ContactsBlockedSlice) Zero() bool {
 	if b == nil {
@@ -415,36 +428,6 @@ func (b *ContactsBlockedSlice) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (b *ContactsBlockedSlice) GetCount() (value int) {
-	return b.Count
-}
-
-// GetBlocked returns value of Blocked field.
-func (b *ContactsBlockedSlice) GetBlocked() (value []PeerBlocked) {
-	return b.Blocked
-}
-
-// GetChats returns value of Chats field.
-func (b *ContactsBlockedSlice) GetChats() (value []ChatClass) {
-	return b.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (b *ContactsBlockedSlice) MapChats() (value ChatClassArray) {
-	return ChatClassArray(b.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (b *ContactsBlockedSlice) GetUsers() (value []UserClass) {
-	return b.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (b *ContactsBlockedSlice) MapUsers() (value UserClassArray) {
-	return UserClassArray(b.Users)
-}
-
 // Decode implements bin.Decoder.
 func (b *ContactsBlockedSlice) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -522,18 +505,35 @@ func (b *ContactsBlockedSlice) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ContactsBlockedClass.
-func (b ContactsBlockedSlice) construct() ContactsBlockedClass { return &b }
+// GetCount returns value of Count field.
+func (b *ContactsBlockedSlice) GetCount() (value int) {
+	return b.Count
+}
 
-// Ensuring interfaces in compile-time for ContactsBlockedSlice.
-var (
-	_ bin.Encoder     = &ContactsBlockedSlice{}
-	_ bin.Decoder     = &ContactsBlockedSlice{}
-	_ bin.BareEncoder = &ContactsBlockedSlice{}
-	_ bin.BareDecoder = &ContactsBlockedSlice{}
+// GetBlocked returns value of Blocked field.
+func (b *ContactsBlockedSlice) GetBlocked() (value []PeerBlocked) {
+	return b.Blocked
+}
 
-	_ ContactsBlockedClass = &ContactsBlockedSlice{}
-)
+// GetChats returns value of Chats field.
+func (b *ContactsBlockedSlice) GetChats() (value []ChatClass) {
+	return b.Chats
+}
+
+// GetUsers returns value of Users field.
+func (b *ContactsBlockedSlice) GetUsers() (value []UserClass) {
+	return b.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (b *ContactsBlockedSlice) MapChats() (value ChatClassArray) {
+	return ChatClassArray(b.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (b *ContactsBlockedSlice) MapUsers() (value UserClassArray) {
+	return UserClassArray(b.Users)
+}
 
 // ContactsBlockedClass represents contacts.Blocked generic type.
 //
@@ -629,276 +629,4 @@ func (b *ContactsBlockedBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ContactsBlockedClass as nil")
 	}
 	return b.Blocked.Encode(buf)
-}
-
-// ContactsBlockedClassArray is adapter for slice of ContactsBlockedClass.
-type ContactsBlockedClassArray []ContactsBlockedClass
-
-// Sort sorts slice of ContactsBlockedClass.
-func (s ContactsBlockedClassArray) Sort(less func(a, b ContactsBlockedClass) bool) ContactsBlockedClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ContactsBlockedClass.
-func (s ContactsBlockedClassArray) SortStable(less func(a, b ContactsBlockedClass) bool) ContactsBlockedClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ContactsBlockedClass.
-func (s ContactsBlockedClassArray) Retain(keep func(x ContactsBlockedClass) bool) ContactsBlockedClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ContactsBlockedClassArray) First() (v ContactsBlockedClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ContactsBlockedClassArray) Last() (v ContactsBlockedClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ContactsBlockedClassArray) PopFirst() (v ContactsBlockedClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ContactsBlockedClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ContactsBlockedClassArray) Pop() (v ContactsBlockedClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsContactsBlocked returns copy with only ContactsBlocked constructors.
-func (s ContactsBlockedClassArray) AsContactsBlocked() (to ContactsBlockedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ContactsBlocked)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsContactsBlockedSlice returns copy with only ContactsBlockedSlice constructors.
-func (s ContactsBlockedClassArray) AsContactsBlockedSlice() (to ContactsBlockedSliceArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ContactsBlockedSlice)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// ContactsBlockedArray is adapter for slice of ContactsBlocked.
-type ContactsBlockedArray []ContactsBlocked
-
-// Sort sorts slice of ContactsBlocked.
-func (s ContactsBlockedArray) Sort(less func(a, b ContactsBlocked) bool) ContactsBlockedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ContactsBlocked.
-func (s ContactsBlockedArray) SortStable(less func(a, b ContactsBlocked) bool) ContactsBlockedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ContactsBlocked.
-func (s ContactsBlockedArray) Retain(keep func(x ContactsBlocked) bool) ContactsBlockedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ContactsBlockedArray) First() (v ContactsBlocked, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ContactsBlockedArray) Last() (v ContactsBlocked, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ContactsBlockedArray) PopFirst() (v ContactsBlocked, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ContactsBlocked
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ContactsBlockedArray) Pop() (v ContactsBlocked, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// ContactsBlockedSliceArray is adapter for slice of ContactsBlockedSlice.
-type ContactsBlockedSliceArray []ContactsBlockedSlice
-
-// Sort sorts slice of ContactsBlockedSlice.
-func (s ContactsBlockedSliceArray) Sort(less func(a, b ContactsBlockedSlice) bool) ContactsBlockedSliceArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ContactsBlockedSlice.
-func (s ContactsBlockedSliceArray) SortStable(less func(a, b ContactsBlockedSlice) bool) ContactsBlockedSliceArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ContactsBlockedSlice.
-func (s ContactsBlockedSliceArray) Retain(keep func(x ContactsBlockedSlice) bool) ContactsBlockedSliceArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ContactsBlockedSliceArray) First() (v ContactsBlockedSlice, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ContactsBlockedSliceArray) Last() (v ContactsBlockedSlice, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ContactsBlockedSliceArray) PopFirst() (v ContactsBlockedSlice, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ContactsBlockedSlice
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ContactsBlockedSliceArray) Pop() (v ContactsBlockedSlice, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

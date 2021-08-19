@@ -48,6 +48,19 @@ type BigMessage struct {
 // BigMessageTypeID is TL type id of BigMessage.
 const BigMessageTypeID = 0x7490dcc5
 
+// construct implements constructor of AbstractMessageClass.
+func (b BigMessage) construct() AbstractMessageClass { return &b }
+
+// Ensuring interfaces in compile-time for BigMessage.
+var (
+	_ bin.Encoder     = &BigMessage{}
+	_ bin.Decoder     = &BigMessage{}
+	_ bin.BareEncoder = &BigMessage{}
+	_ bin.BareDecoder = &BigMessage{}
+
+	_ AbstractMessageClass = &BigMessage{}
+)
+
 func (b *BigMessage) Zero() bool {
 	if b == nil {
 		return true
@@ -78,21 +91,6 @@ func (b *BigMessage) String() string {
 	}
 	type Alias BigMessage
 	return fmt.Sprintf("BigMessage%+v", Alias(*b))
-}
-
-// FillFrom fills BigMessage from given interface.
-func (b *BigMessage) FillFrom(from interface {
-	GetID() (value int32)
-	GetCount() (value int32)
-	GetTargetID() (value int32)
-	GetEscape() (value bool)
-	GetSummary() (value bool)
-}) {
-	b.ID = from.GetID()
-	b.Count = from.GetCount()
-	b.TargetID = from.GetTargetID()
-	b.Escape = from.GetEscape()
-	b.Summary = from.GetSummary()
 }
 
 // TypeID returns type id in TL schema.
@@ -164,31 +162,6 @@ func (b *BigMessage) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (b *BigMessage) GetID() (value int32) {
-	return b.ID
-}
-
-// GetCount returns value of Count field.
-func (b *BigMessage) GetCount() (value int32) {
-	return b.Count
-}
-
-// GetTargetID returns value of TargetID field.
-func (b *BigMessage) GetTargetID() (value int32) {
-	return b.TargetID
-}
-
-// GetEscape returns value of Escape field.
-func (b *BigMessage) GetEscape() (value bool) {
-	return b.Escape
-}
-
-// GetSummary returns value of Summary field.
-func (b *BigMessage) GetSummary() (value bool) {
-	return b.Summary
-}
-
 // Decode implements bin.Decoder.
 func (b *BigMessage) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -243,18 +216,30 @@ func (b *BigMessage) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AbstractMessageClass.
-func (b BigMessage) construct() AbstractMessageClass { return &b }
+// GetID returns value of ID field.
+func (b *BigMessage) GetID() (value int32) {
+	return b.ID
+}
 
-// Ensuring interfaces in compile-time for BigMessage.
-var (
-	_ bin.Encoder     = &BigMessage{}
-	_ bin.Decoder     = &BigMessage{}
-	_ bin.BareEncoder = &BigMessage{}
-	_ bin.BareDecoder = &BigMessage{}
+// GetCount returns value of Count field.
+func (b *BigMessage) GetCount() (value int32) {
+	return b.Count
+}
 
-	_ AbstractMessageClass = &BigMessage{}
-)
+// GetTargetID returns value of TargetID field.
+func (b *BigMessage) GetTargetID() (value int32) {
+	return b.TargetID
+}
+
+// GetEscape returns value of Escape field.
+func (b *BigMessage) GetEscape() (value bool) {
+	return b.Escape
+}
+
+// GetSummary returns value of Summary field.
+func (b *BigMessage) GetSummary() (value bool) {
+	return b.Summary
+}
 
 // NoMessage represents TL type `noMessage#ee6324c4`.
 //
@@ -264,6 +249,19 @@ type NoMessage struct {
 
 // NoMessageTypeID is TL type id of NoMessage.
 const NoMessageTypeID = 0xee6324c4
+
+// construct implements constructor of AbstractMessageClass.
+func (n NoMessage) construct() AbstractMessageClass { return &n }
+
+// Ensuring interfaces in compile-time for NoMessage.
+var (
+	_ bin.Encoder     = &NoMessage{}
+	_ bin.Decoder     = &NoMessage{}
+	_ bin.BareEncoder = &NoMessage{}
+	_ bin.BareDecoder = &NoMessage{}
+
+	_ AbstractMessageClass = &NoMessage{}
+)
 
 func (n *NoMessage) Zero() bool {
 	if n == nil {
@@ -344,19 +342,6 @@ func (n *NoMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AbstractMessageClass.
-func (n NoMessage) construct() AbstractMessageClass { return &n }
-
-// Ensuring interfaces in compile-time for NoMessage.
-var (
-	_ bin.Encoder     = &NoMessage{}
-	_ bin.Decoder     = &NoMessage{}
-	_ bin.BareEncoder = &NoMessage{}
-	_ bin.BareDecoder = &NoMessage{}
-
-	_ AbstractMessageClass = &NoMessage{}
-)
-
 // TargetsMessage represents TL type `targetsMessage#cc6136f1`.
 //
 // See https://localhost:80/doc/constructor/targetsMessage for reference.
@@ -367,6 +352,19 @@ type TargetsMessage struct {
 
 // TargetsMessageTypeID is TL type id of TargetsMessage.
 const TargetsMessageTypeID = 0xcc6136f1
+
+// construct implements constructor of AbstractMessageClass.
+func (t TargetsMessage) construct() AbstractMessageClass { return &t }
+
+// Ensuring interfaces in compile-time for TargetsMessage.
+var (
+	_ bin.Encoder     = &TargetsMessage{}
+	_ bin.Decoder     = &TargetsMessage{}
+	_ bin.BareEncoder = &TargetsMessage{}
+	_ bin.BareDecoder = &TargetsMessage{}
+
+	_ AbstractMessageClass = &TargetsMessage{}
+)
 
 func (t *TargetsMessage) Zero() bool {
 	if t == nil {
@@ -386,13 +384,6 @@ func (t *TargetsMessage) String() string {
 	}
 	type Alias TargetsMessage
 	return fmt.Sprintf("TargetsMessage%+v", Alias(*t))
-}
-
-// FillFrom fills TargetsMessage from given interface.
-func (t *TargetsMessage) FillFrom(from interface {
-	GetTargets() (value []int32)
-}) {
-	t.Targets = from.GetTargets()
 }
 
 // TypeID returns type id in TL schema.
@@ -447,11 +438,6 @@ func (t *TargetsMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTargets returns value of Targets field.
-func (t *TargetsMessage) GetTargets() (value []int32) {
-	return t.Targets
-}
-
 // Decode implements bin.Decoder.
 func (t *TargetsMessage) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -488,18 +474,10 @@ func (t *TargetsMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AbstractMessageClass.
-func (t TargetsMessage) construct() AbstractMessageClass { return &t }
-
-// Ensuring interfaces in compile-time for TargetsMessage.
-var (
-	_ bin.Encoder     = &TargetsMessage{}
-	_ bin.Decoder     = &TargetsMessage{}
-	_ bin.BareEncoder = &TargetsMessage{}
-	_ bin.BareDecoder = &TargetsMessage{}
-
-	_ AbstractMessageClass = &TargetsMessage{}
-)
+// GetTargets returns value of Targets field.
+func (t *TargetsMessage) GetTargets() (value []int32) {
+	return t.Targets
+}
 
 // FieldsMessage represents TL type `fieldsMessage#947225b5`.
 //
@@ -519,6 +497,19 @@ type FieldsMessage struct {
 
 // FieldsMessageTypeID is TL type id of FieldsMessage.
 const FieldsMessageTypeID = 0x947225b5
+
+// construct implements constructor of AbstractMessageClass.
+func (f FieldsMessage) construct() AbstractMessageClass { return &f }
+
+// Ensuring interfaces in compile-time for FieldsMessage.
+var (
+	_ bin.Encoder     = &FieldsMessage{}
+	_ bin.Decoder     = &FieldsMessage{}
+	_ bin.BareEncoder = &FieldsMessage{}
+	_ bin.BareDecoder = &FieldsMessage{}
+
+	_ AbstractMessageClass = &FieldsMessage{}
+)
 
 func (f *FieldsMessage) Zero() bool {
 	if f == nil {
@@ -544,21 +535,6 @@ func (f *FieldsMessage) String() string {
 	}
 	type Alias FieldsMessage
 	return fmt.Sprintf("FieldsMessage%+v", Alias(*f))
-}
-
-// FillFrom fills FieldsMessage from given interface.
-func (f *FieldsMessage) FillFrom(from interface {
-	GetEscape() (value bool, ok bool)
-	GetTTLSeconds() (value int, ok bool)
-}) {
-	if val, ok := from.GetEscape(); ok {
-		f.Escape = val
-	}
-
-	if val, ok := from.GetTTLSeconds(); ok {
-		f.TTLSeconds = val
-	}
-
 }
 
 // TypeID returns type id in TL schema.
@@ -630,36 +606,6 @@ func (f *FieldsMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetEscape sets value of Escape conditional field.
-func (f *FieldsMessage) SetEscape(value bool) {
-	f.Flags.Set(0)
-	f.Escape = value
-}
-
-// GetEscape returns value of Escape conditional field and
-// boolean which is true if field was set.
-func (f *FieldsMessage) GetEscape() (value bool, ok bool) {
-	if !f.Flags.Has(0) {
-		return value, false
-	}
-	return f.Escape, true
-}
-
-// SetTTLSeconds sets value of TTLSeconds conditional field.
-func (f *FieldsMessage) SetTTLSeconds(value int) {
-	f.Flags.Set(1)
-	f.TTLSeconds = value
-}
-
-// GetTTLSeconds returns value of TTLSeconds conditional field and
-// boolean which is true if field was set.
-func (f *FieldsMessage) GetTTLSeconds() (value int, ok bool) {
-	if !f.Flags.Has(1) {
-		return value, false
-	}
-	return f.TTLSeconds, true
-}
-
 // Decode implements bin.Decoder.
 func (f *FieldsMessage) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -698,18 +644,35 @@ func (f *FieldsMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AbstractMessageClass.
-func (f FieldsMessage) construct() AbstractMessageClass { return &f }
+// SetEscape sets value of Escape conditional field.
+func (f *FieldsMessage) SetEscape(value bool) {
+	f.Flags.Set(0)
+	f.Escape = value
+}
 
-// Ensuring interfaces in compile-time for FieldsMessage.
-var (
-	_ bin.Encoder     = &FieldsMessage{}
-	_ bin.Decoder     = &FieldsMessage{}
-	_ bin.BareEncoder = &FieldsMessage{}
-	_ bin.BareDecoder = &FieldsMessage{}
+// GetEscape returns value of Escape conditional field and
+// boolean which is true if field was set.
+func (f *FieldsMessage) GetEscape() (value bool, ok bool) {
+	if !f.Flags.Has(0) {
+		return value, false
+	}
+	return f.Escape, true
+}
 
-	_ AbstractMessageClass = &FieldsMessage{}
-)
+// SetTTLSeconds sets value of TTLSeconds conditional field.
+func (f *FieldsMessage) SetTTLSeconds(value int) {
+	f.Flags.Set(1)
+	f.TTLSeconds = value
+}
+
+// GetTTLSeconds returns value of TTLSeconds conditional field and
+// boolean which is true if field was set.
+func (f *FieldsMessage) GetTTLSeconds() (value int, ok bool) {
+	if !f.Flags.Has(1) {
+		return value, false
+	}
+	return f.TTLSeconds, true
+}
 
 // BytesMessage represents TL type `bytesMessage#f990a67d`.
 //
@@ -721,6 +684,19 @@ type BytesMessage struct {
 
 // BytesMessageTypeID is TL type id of BytesMessage.
 const BytesMessageTypeID = 0xf990a67d
+
+// construct implements constructor of AbstractMessageClass.
+func (b BytesMessage) construct() AbstractMessageClass { return &b }
+
+// Ensuring interfaces in compile-time for BytesMessage.
+var (
+	_ bin.Encoder     = &BytesMessage{}
+	_ bin.Decoder     = &BytesMessage{}
+	_ bin.BareEncoder = &BytesMessage{}
+	_ bin.BareDecoder = &BytesMessage{}
+
+	_ AbstractMessageClass = &BytesMessage{}
+)
 
 func (b *BytesMessage) Zero() bool {
 	if b == nil {
@@ -740,13 +716,6 @@ func (b *BytesMessage) String() string {
 	}
 	type Alias BytesMessage
 	return fmt.Sprintf("BytesMessage%+v", Alias(*b))
-}
-
-// FillFrom fills BytesMessage from given interface.
-func (b *BytesMessage) FillFrom(from interface {
-	GetData() (value []byte)
-}) {
-	b.Data = from.GetData()
 }
 
 // TypeID returns type id in TL schema.
@@ -798,11 +767,6 @@ func (b *BytesMessage) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// GetData returns value of Data field.
-func (b *BytesMessage) GetData() (value []byte) {
-	return b.Data
-}
-
 // Decode implements bin.Decoder.
 func (b *BytesMessage) Decode(buf *bin.Buffer) error {
 	if b == nil {
@@ -829,18 +793,10 @@ func (b *BytesMessage) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AbstractMessageClass.
-func (b BytesMessage) construct() AbstractMessageClass { return &b }
-
-// Ensuring interfaces in compile-time for BytesMessage.
-var (
-	_ bin.Encoder     = &BytesMessage{}
-	_ bin.Decoder     = &BytesMessage{}
-	_ bin.BareEncoder = &BytesMessage{}
-	_ bin.BareDecoder = &BytesMessage{}
-
-	_ AbstractMessageClass = &BytesMessage{}
-)
+// GetData returns value of Data field.
+func (b *BytesMessage) GetData() (value []byte) {
+	return b.Data
+}
 
 // AbstractMessageClass represents AbstractMessage generic type.
 //
@@ -949,466 +905,4 @@ func (b *AbstractMessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode AbstractMessageClass as nil")
 	}
 	return b.AbstractMessage.Encode(buf)
-}
-
-// AbstractMessageClassArray is adapter for slice of AbstractMessageClass.
-type AbstractMessageClassArray []AbstractMessageClass
-
-// Sort sorts slice of AbstractMessageClass.
-func (s AbstractMessageClassArray) Sort(less func(a, b AbstractMessageClass) bool) AbstractMessageClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AbstractMessageClass.
-func (s AbstractMessageClassArray) SortStable(less func(a, b AbstractMessageClass) bool) AbstractMessageClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AbstractMessageClass.
-func (s AbstractMessageClassArray) Retain(keep func(x AbstractMessageClass) bool) AbstractMessageClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AbstractMessageClassArray) First() (v AbstractMessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AbstractMessageClassArray) Last() (v AbstractMessageClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AbstractMessageClassArray) PopFirst() (v AbstractMessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AbstractMessageClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AbstractMessageClassArray) Pop() (v AbstractMessageClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsBigMessage returns copy with only BigMessage constructors.
-func (s AbstractMessageClassArray) AsBigMessage() (to BigMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*BigMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsTargetsMessage returns copy with only TargetsMessage constructors.
-func (s AbstractMessageClassArray) AsTargetsMessage() (to TargetsMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*TargetsMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsFieldsMessage returns copy with only FieldsMessage constructors.
-func (s AbstractMessageClassArray) AsFieldsMessage() (to FieldsMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*FieldsMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsBytesMessage returns copy with only BytesMessage constructors.
-func (s AbstractMessageClassArray) AsBytesMessage() (to BytesMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*BytesMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// BigMessageArray is adapter for slice of BigMessage.
-type BigMessageArray []BigMessage
-
-// Sort sorts slice of BigMessage.
-func (s BigMessageArray) Sort(less func(a, b BigMessage) bool) BigMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BigMessage.
-func (s BigMessageArray) SortStable(less func(a, b BigMessage) bool) BigMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BigMessage.
-func (s BigMessageArray) Retain(keep func(x BigMessage) bool) BigMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BigMessageArray) First() (v BigMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BigMessageArray) Last() (v BigMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BigMessageArray) PopFirst() (v BigMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BigMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BigMessageArray) Pop() (v BigMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// TargetsMessageArray is adapter for slice of TargetsMessage.
-type TargetsMessageArray []TargetsMessage
-
-// Sort sorts slice of TargetsMessage.
-func (s TargetsMessageArray) Sort(less func(a, b TargetsMessage) bool) TargetsMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of TargetsMessage.
-func (s TargetsMessageArray) SortStable(less func(a, b TargetsMessage) bool) TargetsMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of TargetsMessage.
-func (s TargetsMessageArray) Retain(keep func(x TargetsMessage) bool) TargetsMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s TargetsMessageArray) First() (v TargetsMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s TargetsMessageArray) Last() (v TargetsMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TargetsMessageArray) PopFirst() (v TargetsMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero TargetsMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *TargetsMessageArray) Pop() (v TargetsMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// FieldsMessageArray is adapter for slice of FieldsMessage.
-type FieldsMessageArray []FieldsMessage
-
-// Sort sorts slice of FieldsMessage.
-func (s FieldsMessageArray) Sort(less func(a, b FieldsMessage) bool) FieldsMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of FieldsMessage.
-func (s FieldsMessageArray) SortStable(less func(a, b FieldsMessage) bool) FieldsMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of FieldsMessage.
-func (s FieldsMessageArray) Retain(keep func(x FieldsMessage) bool) FieldsMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s FieldsMessageArray) First() (v FieldsMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s FieldsMessageArray) Last() (v FieldsMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *FieldsMessageArray) PopFirst() (v FieldsMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero FieldsMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *FieldsMessageArray) Pop() (v FieldsMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// BytesMessageArray is adapter for slice of BytesMessage.
-type BytesMessageArray []BytesMessage
-
-// Sort sorts slice of BytesMessage.
-func (s BytesMessageArray) Sort(less func(a, b BytesMessage) bool) BytesMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BytesMessage.
-func (s BytesMessageArray) SortStable(less func(a, b BytesMessage) bool) BytesMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BytesMessage.
-func (s BytesMessageArray) Retain(keep func(x BytesMessage) bool) BytesMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BytesMessageArray) First() (v BytesMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BytesMessageArray) Last() (v BytesMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BytesMessageArray) PopFirst() (v BytesMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BytesMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BytesMessageArray) Pop() (v BytesMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

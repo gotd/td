@@ -61,6 +61,14 @@ type MessagesRequestURLAuthRequest struct {
 // MessagesRequestURLAuthRequestTypeID is TL type id of MessagesRequestURLAuthRequest.
 const MessagesRequestURLAuthRequestTypeID = 0x198fb446
 
+// Ensuring interfaces in compile-time for MessagesRequestURLAuthRequest.
+var (
+	_ bin.Encoder     = &MessagesRequestURLAuthRequest{}
+	_ bin.Decoder     = &MessagesRequestURLAuthRequest{}
+	_ bin.BareEncoder = &MessagesRequestURLAuthRequest{}
+	_ bin.BareDecoder = &MessagesRequestURLAuthRequest{}
+)
+
 func (r *MessagesRequestURLAuthRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -214,6 +222,58 @@ func (r *MessagesRequestURLAuthRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (r *MessagesRequestURLAuthRequest) Decode(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.requestUrlAuth#198fb446 to nil")
+	}
+	if err := b.ConsumeID(MessagesRequestURLAuthRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: %w", err)
+	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesRequestURLAuthRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.requestUrlAuth#198fb446 to nil")
+	}
+	{
+		if err := r.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field flags: %w", err)
+		}
+	}
+	if r.Flags.Has(1) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field peer: %w", err)
+		}
+		r.Peer = value
+	}
+	if r.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field msg_id: %w", err)
+		}
+		r.MsgID = value
+	}
+	if r.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field button_id: %w", err)
+		}
+		r.ButtonID = value
+	}
+	if r.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field url: %w", err)
+		}
+		r.URL = value
+	}
+	return nil
+}
+
 // SetPeer sets value of Peer conditional field.
 func (r *MessagesRequestURLAuthRequest) SetPeer(value InputPeerClass) {
 	r.Flags.Set(1)
@@ -273,66 +333,6 @@ func (r *MessagesRequestURLAuthRequest) GetURL() (value string, ok bool) {
 	}
 	return r.URL, true
 }
-
-// Decode implements bin.Decoder.
-func (r *MessagesRequestURLAuthRequest) Decode(b *bin.Buffer) error {
-	if r == nil {
-		return fmt.Errorf("can't decode messages.requestUrlAuth#198fb446 to nil")
-	}
-	if err := b.ConsumeID(MessagesRequestURLAuthRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: %w", err)
-	}
-	return r.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (r *MessagesRequestURLAuthRequest) DecodeBare(b *bin.Buffer) error {
-	if r == nil {
-		return fmt.Errorf("can't decode messages.requestUrlAuth#198fb446 to nil")
-	}
-	{
-		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field flags: %w", err)
-		}
-	}
-	if r.Flags.Has(1) {
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field peer: %w", err)
-		}
-		r.Peer = value
-	}
-	if r.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field msg_id: %w", err)
-		}
-		r.MsgID = value
-	}
-	if r.Flags.Has(1) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field button_id: %w", err)
-		}
-		r.ButtonID = value
-	}
-	if r.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field url: %w", err)
-		}
-		r.URL = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesRequestURLAuthRequest.
-var (
-	_ bin.Encoder     = &MessagesRequestURLAuthRequest{}
-	_ bin.Decoder     = &MessagesRequestURLAuthRequest{}
-	_ bin.BareEncoder = &MessagesRequestURLAuthRequest{}
-	_ bin.BareDecoder = &MessagesRequestURLAuthRequest{}
-)
 
 // MessagesRequestURLAuth invokes method messages.requestUrlAuth#198fb446 returning error if any.
 // Get more info about a Seamless Telegram Login authorization request, for more info

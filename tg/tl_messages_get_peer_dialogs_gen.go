@@ -41,6 +41,14 @@ type MessagesGetPeerDialogsRequest struct {
 // MessagesGetPeerDialogsRequestTypeID is TL type id of MessagesGetPeerDialogsRequest.
 const MessagesGetPeerDialogsRequestTypeID = 0xe470bcfd
 
+// Ensuring interfaces in compile-time for MessagesGetPeerDialogsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetPeerDialogsRequest{}
+	_ bin.Decoder     = &MessagesGetPeerDialogsRequest{}
+	_ bin.BareEncoder = &MessagesGetPeerDialogsRequest{}
+	_ bin.BareDecoder = &MessagesGetPeerDialogsRequest{}
+)
+
 func (g *MessagesGetPeerDialogsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -125,16 +133,6 @@ func (g *MessagesGetPeerDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeers returns value of Peers field.
-func (g *MessagesGetPeerDialogsRequest) GetPeers() (value []InputDialogPeerClass) {
-	return g.Peers
-}
-
-// MapPeers returns field Peers wrapped in InputDialogPeerClassArray helper.
-func (g *MessagesGetPeerDialogsRequest) MapPeers() (value InputDialogPeerClassArray) {
-	return InputDialogPeerClassArray(g.Peers)
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetPeerDialogsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -171,13 +169,15 @@ func (g *MessagesGetPeerDialogsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetPeerDialogsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetPeerDialogsRequest{}
-	_ bin.Decoder     = &MessagesGetPeerDialogsRequest{}
-	_ bin.BareEncoder = &MessagesGetPeerDialogsRequest{}
-	_ bin.BareDecoder = &MessagesGetPeerDialogsRequest{}
-)
+// GetPeers returns value of Peers field.
+func (g *MessagesGetPeerDialogsRequest) GetPeers() (value []InputDialogPeerClass) {
+	return g.Peers
+}
+
+// MapPeers returns field Peers wrapped in InputDialogPeerClassArray helper.
+func (g *MessagesGetPeerDialogsRequest) MapPeers() (value InputDialogPeerClassArray) {
+	return InputDialogPeerClassArray(g.Peers)
+}
 
 // MessagesGetPeerDialogs invokes method messages.getPeerDialogs#e470bcfd returning error if any.
 // Get dialog info of specified peers

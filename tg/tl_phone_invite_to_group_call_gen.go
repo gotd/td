@@ -42,6 +42,14 @@ type PhoneInviteToGroupCallRequest struct {
 // PhoneInviteToGroupCallRequestTypeID is TL type id of PhoneInviteToGroupCallRequest.
 const PhoneInviteToGroupCallRequestTypeID = 0x7b393160
 
+// Ensuring interfaces in compile-time for PhoneInviteToGroupCallRequest.
+var (
+	_ bin.Encoder     = &PhoneInviteToGroupCallRequest{}
+	_ bin.Decoder     = &PhoneInviteToGroupCallRequest{}
+	_ bin.BareEncoder = &PhoneInviteToGroupCallRequest{}
+	_ bin.BareDecoder = &PhoneInviteToGroupCallRequest{}
+)
+
 func (i *PhoneInviteToGroupCallRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -138,21 +146,6 @@ func (i *PhoneInviteToGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (i *PhoneInviteToGroupCallRequest) GetCall() (value InputGroupCall) {
-	return i.Call
-}
-
-// GetUsers returns value of Users field.
-func (i *PhoneInviteToGroupCallRequest) GetUsers() (value []InputUserClass) {
-	return i.Users
-}
-
-// MapUsers returns field Users wrapped in InputUserClassArray helper.
-func (i *PhoneInviteToGroupCallRequest) MapUsers() (value InputUserClassArray) {
-	return InputUserClassArray(i.Users)
-}
-
 // Decode implements bin.Decoder.
 func (i *PhoneInviteToGroupCallRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -194,13 +187,20 @@ func (i *PhoneInviteToGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneInviteToGroupCallRequest.
-var (
-	_ bin.Encoder     = &PhoneInviteToGroupCallRequest{}
-	_ bin.Decoder     = &PhoneInviteToGroupCallRequest{}
-	_ bin.BareEncoder = &PhoneInviteToGroupCallRequest{}
-	_ bin.BareDecoder = &PhoneInviteToGroupCallRequest{}
-)
+// GetCall returns value of Call field.
+func (i *PhoneInviteToGroupCallRequest) GetCall() (value InputGroupCall) {
+	return i.Call
+}
+
+// GetUsers returns value of Users field.
+func (i *PhoneInviteToGroupCallRequest) GetUsers() (value []InputUserClass) {
+	return i.Users
+}
+
+// MapUsers returns field Users wrapped in InputUserClassArray helper.
+func (i *PhoneInviteToGroupCallRequest) MapUsers() (value InputUserClassArray) {
+	return InputUserClassArray(i.Users)
+}
 
 // PhoneInviteToGroupCall invokes method phone.inviteToGroupCall#7b393160 returning error if any.
 //

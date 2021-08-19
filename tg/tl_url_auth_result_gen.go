@@ -58,6 +58,19 @@ type URLAuthResultRequest struct {
 // URLAuthResultRequestTypeID is TL type id of URLAuthResultRequest.
 const URLAuthResultRequestTypeID = 0x92d33a0e
 
+// construct implements constructor of URLAuthResultClass.
+func (u URLAuthResultRequest) construct() URLAuthResultClass { return &u }
+
+// Ensuring interfaces in compile-time for URLAuthResultRequest.
+var (
+	_ bin.Encoder     = &URLAuthResultRequest{}
+	_ bin.Decoder     = &URLAuthResultRequest{}
+	_ bin.BareEncoder = &URLAuthResultRequest{}
+	_ bin.BareDecoder = &URLAuthResultRequest{}
+
+	_ URLAuthResultClass = &URLAuthResultRequest{}
+)
+
 func (u *URLAuthResultRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -168,32 +181,6 @@ func (u *URLAuthResultRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetRequestWriteAccess sets value of RequestWriteAccess conditional field.
-func (u *URLAuthResultRequest) SetRequestWriteAccess(value bool) {
-	if value {
-		u.Flags.Set(0)
-		u.RequestWriteAccess = true
-	} else {
-		u.Flags.Unset(0)
-		u.RequestWriteAccess = false
-	}
-}
-
-// GetRequestWriteAccess returns value of RequestWriteAccess conditional field.
-func (u *URLAuthResultRequest) GetRequestWriteAccess() (value bool) {
-	return u.Flags.Has(0)
-}
-
-// GetBot returns value of Bot field.
-func (u *URLAuthResultRequest) GetBot() (value UserClass) {
-	return u.Bot
-}
-
-// GetDomain returns value of Domain field.
-func (u *URLAuthResultRequest) GetDomain() (value string) {
-	return u.Domain
-}
-
 // Decode implements bin.Decoder.
 func (u *URLAuthResultRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -233,18 +220,31 @@ func (u *URLAuthResultRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of URLAuthResultClass.
-func (u URLAuthResultRequest) construct() URLAuthResultClass { return &u }
+// SetRequestWriteAccess sets value of RequestWriteAccess conditional field.
+func (u *URLAuthResultRequest) SetRequestWriteAccess(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.RequestWriteAccess = true
+	} else {
+		u.Flags.Unset(0)
+		u.RequestWriteAccess = false
+	}
+}
 
-// Ensuring interfaces in compile-time for URLAuthResultRequest.
-var (
-	_ bin.Encoder     = &URLAuthResultRequest{}
-	_ bin.Decoder     = &URLAuthResultRequest{}
-	_ bin.BareEncoder = &URLAuthResultRequest{}
-	_ bin.BareDecoder = &URLAuthResultRequest{}
+// GetRequestWriteAccess returns value of RequestWriteAccess conditional field.
+func (u *URLAuthResultRequest) GetRequestWriteAccess() (value bool) {
+	return u.Flags.Has(0)
+}
 
-	_ URLAuthResultClass = &URLAuthResultRequest{}
-)
+// GetBot returns value of Bot field.
+func (u *URLAuthResultRequest) GetBot() (value UserClass) {
+	return u.Bot
+}
+
+// GetDomain returns value of Domain field.
+func (u *URLAuthResultRequest) GetDomain() (value string) {
+	return u.Domain
+}
 
 // URLAuthResultAccepted represents TL type `urlAuthResultAccepted#8f8c0e4e`.
 // Details about an accepted authorization request, for more info click here »¹
@@ -260,6 +260,19 @@ type URLAuthResultAccepted struct {
 
 // URLAuthResultAcceptedTypeID is TL type id of URLAuthResultAccepted.
 const URLAuthResultAcceptedTypeID = 0x8f8c0e4e
+
+// construct implements constructor of URLAuthResultClass.
+func (u URLAuthResultAccepted) construct() URLAuthResultClass { return &u }
+
+// Ensuring interfaces in compile-time for URLAuthResultAccepted.
+var (
+	_ bin.Encoder     = &URLAuthResultAccepted{}
+	_ bin.Decoder     = &URLAuthResultAccepted{}
+	_ bin.BareEncoder = &URLAuthResultAccepted{}
+	_ bin.BareDecoder = &URLAuthResultAccepted{}
+
+	_ URLAuthResultClass = &URLAuthResultAccepted{}
+)
 
 func (u *URLAuthResultAccepted) Zero() bool {
 	if u == nil {
@@ -337,11 +350,6 @@ func (u *URLAuthResultAccepted) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (u *URLAuthResultAccepted) GetURL() (value string) {
-	return u.URL
-}
-
 // Decode implements bin.Decoder.
 func (u *URLAuthResultAccepted) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -368,18 +376,10 @@ func (u *URLAuthResultAccepted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of URLAuthResultClass.
-func (u URLAuthResultAccepted) construct() URLAuthResultClass { return &u }
-
-// Ensuring interfaces in compile-time for URLAuthResultAccepted.
-var (
-	_ bin.Encoder     = &URLAuthResultAccepted{}
-	_ bin.Decoder     = &URLAuthResultAccepted{}
-	_ bin.BareEncoder = &URLAuthResultAccepted{}
-	_ bin.BareDecoder = &URLAuthResultAccepted{}
-
-	_ URLAuthResultClass = &URLAuthResultAccepted{}
-)
+// GetURL returns value of URL field.
+func (u *URLAuthResultAccepted) GetURL() (value string) {
+	return u.URL
+}
 
 // URLAuthResultDefault represents TL type `urlAuthResultDefault#a9d6db1f`.
 // Details about an accepted authorization request, for more info click here »¹
@@ -393,6 +393,19 @@ type URLAuthResultDefault struct {
 
 // URLAuthResultDefaultTypeID is TL type id of URLAuthResultDefault.
 const URLAuthResultDefaultTypeID = 0xa9d6db1f
+
+// construct implements constructor of URLAuthResultClass.
+func (u URLAuthResultDefault) construct() URLAuthResultClass { return &u }
+
+// Ensuring interfaces in compile-time for URLAuthResultDefault.
+var (
+	_ bin.Encoder     = &URLAuthResultDefault{}
+	_ bin.Decoder     = &URLAuthResultDefault{}
+	_ bin.BareEncoder = &URLAuthResultDefault{}
+	_ bin.BareDecoder = &URLAuthResultDefault{}
+
+	_ URLAuthResultClass = &URLAuthResultDefault{}
+)
 
 func (u *URLAuthResultDefault) Zero() bool {
 	if u == nil {
@@ -472,19 +485,6 @@ func (u *URLAuthResultDefault) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of URLAuthResultClass.
-func (u URLAuthResultDefault) construct() URLAuthResultClass { return &u }
-
-// Ensuring interfaces in compile-time for URLAuthResultDefault.
-var (
-	_ bin.Encoder     = &URLAuthResultDefault{}
-	_ bin.Decoder     = &URLAuthResultDefault{}
-	_ bin.BareEncoder = &URLAuthResultDefault{}
-	_ bin.BareDecoder = &URLAuthResultDefault{}
-
-	_ URLAuthResultClass = &URLAuthResultDefault{}
-)
 
 // URLAuthResultClass represents UrlAuthResult generic type.
 //
@@ -577,276 +577,4 @@ func (b *URLAuthResultBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode URLAuthResultClass as nil")
 	}
 	return b.UrlAuthResult.Encode(buf)
-}
-
-// URLAuthResultClassArray is adapter for slice of URLAuthResultClass.
-type URLAuthResultClassArray []URLAuthResultClass
-
-// Sort sorts slice of URLAuthResultClass.
-func (s URLAuthResultClassArray) Sort(less func(a, b URLAuthResultClass) bool) URLAuthResultClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of URLAuthResultClass.
-func (s URLAuthResultClassArray) SortStable(less func(a, b URLAuthResultClass) bool) URLAuthResultClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of URLAuthResultClass.
-func (s URLAuthResultClassArray) Retain(keep func(x URLAuthResultClass) bool) URLAuthResultClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s URLAuthResultClassArray) First() (v URLAuthResultClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s URLAuthResultClassArray) Last() (v URLAuthResultClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *URLAuthResultClassArray) PopFirst() (v URLAuthResultClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero URLAuthResultClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *URLAuthResultClassArray) Pop() (v URLAuthResultClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsURLAuthResultRequest returns copy with only URLAuthResultRequest constructors.
-func (s URLAuthResultClassArray) AsURLAuthResultRequest() (to URLAuthResultRequestArray) {
-	for _, elem := range s {
-		value, ok := elem.(*URLAuthResultRequest)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsURLAuthResultAccepted returns copy with only URLAuthResultAccepted constructors.
-func (s URLAuthResultClassArray) AsURLAuthResultAccepted() (to URLAuthResultAcceptedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*URLAuthResultAccepted)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// URLAuthResultRequestArray is adapter for slice of URLAuthResultRequest.
-type URLAuthResultRequestArray []URLAuthResultRequest
-
-// Sort sorts slice of URLAuthResultRequest.
-func (s URLAuthResultRequestArray) Sort(less func(a, b URLAuthResultRequest) bool) URLAuthResultRequestArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of URLAuthResultRequest.
-func (s URLAuthResultRequestArray) SortStable(less func(a, b URLAuthResultRequest) bool) URLAuthResultRequestArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of URLAuthResultRequest.
-func (s URLAuthResultRequestArray) Retain(keep func(x URLAuthResultRequest) bool) URLAuthResultRequestArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s URLAuthResultRequestArray) First() (v URLAuthResultRequest, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s URLAuthResultRequestArray) Last() (v URLAuthResultRequest, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *URLAuthResultRequestArray) PopFirst() (v URLAuthResultRequest, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero URLAuthResultRequest
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *URLAuthResultRequestArray) Pop() (v URLAuthResultRequest, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// URLAuthResultAcceptedArray is adapter for slice of URLAuthResultAccepted.
-type URLAuthResultAcceptedArray []URLAuthResultAccepted
-
-// Sort sorts slice of URLAuthResultAccepted.
-func (s URLAuthResultAcceptedArray) Sort(less func(a, b URLAuthResultAccepted) bool) URLAuthResultAcceptedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of URLAuthResultAccepted.
-func (s URLAuthResultAcceptedArray) SortStable(less func(a, b URLAuthResultAccepted) bool) URLAuthResultAcceptedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of URLAuthResultAccepted.
-func (s URLAuthResultAcceptedArray) Retain(keep func(x URLAuthResultAccepted) bool) URLAuthResultAcceptedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s URLAuthResultAcceptedArray) First() (v URLAuthResultAccepted, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s URLAuthResultAcceptedArray) Last() (v URLAuthResultAccepted, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *URLAuthResultAcceptedArray) PopFirst() (v URLAuthResultAccepted, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero URLAuthResultAccepted
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *URLAuthResultAcceptedArray) Pop() (v URLAuthResultAccepted, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

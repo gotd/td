@@ -52,6 +52,14 @@ type WebPageAttributeTheme struct {
 // WebPageAttributeThemeTypeID is TL type id of WebPageAttributeTheme.
 const WebPageAttributeThemeTypeID = 0x54b56617
 
+// Ensuring interfaces in compile-time for WebPageAttributeTheme.
+var (
+	_ bin.Encoder     = &WebPageAttributeTheme{}
+	_ bin.Decoder     = &WebPageAttributeTheme{}
+	_ bin.BareEncoder = &WebPageAttributeTheme{}
+	_ bin.BareDecoder = &WebPageAttributeTheme{}
+)
+
 func (w *WebPageAttributeTheme) Zero() bool {
 	if w == nil {
 		return true
@@ -172,44 +180,6 @@ func (w *WebPageAttributeTheme) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetDocuments sets value of Documents conditional field.
-func (w *WebPageAttributeTheme) SetDocuments(value []DocumentClass) {
-	w.Flags.Set(0)
-	w.Documents = value
-}
-
-// GetDocuments returns value of Documents conditional field and
-// boolean which is true if field was set.
-func (w *WebPageAttributeTheme) GetDocuments() (value []DocumentClass, ok bool) {
-	if !w.Flags.Has(0) {
-		return value, false
-	}
-	return w.Documents, true
-}
-
-// MapDocuments returns field Documents wrapped in DocumentClassArray helper.
-func (w *WebPageAttributeTheme) MapDocuments() (value DocumentClassArray, ok bool) {
-	if !w.Flags.Has(0) {
-		return value, false
-	}
-	return DocumentClassArray(w.Documents), true
-}
-
-// SetSettings sets value of Settings conditional field.
-func (w *WebPageAttributeTheme) SetSettings(value ThemeSettings) {
-	w.Flags.Set(1)
-	w.Settings = value
-}
-
-// GetSettings returns value of Settings conditional field and
-// boolean which is true if field was set.
-func (w *WebPageAttributeTheme) GetSettings() (value ThemeSettings, ok bool) {
-	if !w.Flags.Has(1) {
-		return value, false
-	}
-	return w.Settings, true
-}
-
 // Decode implements bin.Decoder.
 func (w *WebPageAttributeTheme) Decode(b *bin.Buffer) error {
 	if w == nil {
@@ -256,10 +226,40 @@ func (w *WebPageAttributeTheme) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for WebPageAttributeTheme.
-var (
-	_ bin.Encoder     = &WebPageAttributeTheme{}
-	_ bin.Decoder     = &WebPageAttributeTheme{}
-	_ bin.BareEncoder = &WebPageAttributeTheme{}
-	_ bin.BareDecoder = &WebPageAttributeTheme{}
-)
+// SetDocuments sets value of Documents conditional field.
+func (w *WebPageAttributeTheme) SetDocuments(value []DocumentClass) {
+	w.Flags.Set(0)
+	w.Documents = value
+}
+
+// GetDocuments returns value of Documents conditional field and
+// boolean which is true if field was set.
+func (w *WebPageAttributeTheme) GetDocuments() (value []DocumentClass, ok bool) {
+	if !w.Flags.Has(0) {
+		return value, false
+	}
+	return w.Documents, true
+}
+
+// SetSettings sets value of Settings conditional field.
+func (w *WebPageAttributeTheme) SetSettings(value ThemeSettings) {
+	w.Flags.Set(1)
+	w.Settings = value
+}
+
+// GetSettings returns value of Settings conditional field and
+// boolean which is true if field was set.
+func (w *WebPageAttributeTheme) GetSettings() (value ThemeSettings, ok bool) {
+	if !w.Flags.Has(1) {
+		return value, false
+	}
+	return w.Settings, true
+}
+
+// MapDocuments returns field Documents wrapped in DocumentClassArray helper.
+func (w *WebPageAttributeTheme) MapDocuments() (value DocumentClassArray, ok bool) {
+	if !w.Flags.Has(0) {
+		return value, false
+	}
+	return DocumentClassArray(w.Documents), true
+}

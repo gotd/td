@@ -41,6 +41,14 @@ type HelpGetRecentMeURLsRequest struct {
 // HelpGetRecentMeURLsRequestTypeID is TL type id of HelpGetRecentMeURLsRequest.
 const HelpGetRecentMeURLsRequestTypeID = 0x3dc0f114
 
+// Ensuring interfaces in compile-time for HelpGetRecentMeURLsRequest.
+var (
+	_ bin.Encoder     = &HelpGetRecentMeURLsRequest{}
+	_ bin.Decoder     = &HelpGetRecentMeURLsRequest{}
+	_ bin.BareEncoder = &HelpGetRecentMeURLsRequest{}
+	_ bin.BareDecoder = &HelpGetRecentMeURLsRequest{}
+)
+
 func (g *HelpGetRecentMeURLsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,11 +125,6 @@ func (g *HelpGetRecentMeURLsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetReferer returns value of Referer field.
-func (g *HelpGetRecentMeURLsRequest) GetReferer() (value string) {
-	return g.Referer
-}
-
 // Decode implements bin.Decoder.
 func (g *HelpGetRecentMeURLsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -148,13 +151,10 @@ func (g *HelpGetRecentMeURLsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpGetRecentMeURLsRequest.
-var (
-	_ bin.Encoder     = &HelpGetRecentMeURLsRequest{}
-	_ bin.Decoder     = &HelpGetRecentMeURLsRequest{}
-	_ bin.BareEncoder = &HelpGetRecentMeURLsRequest{}
-	_ bin.BareDecoder = &HelpGetRecentMeURLsRequest{}
-)
+// GetReferer returns value of Referer field.
+func (g *HelpGetRecentMeURLsRequest) GetReferer() (value string) {
+	return g.Referer
+}
 
 // HelpGetRecentMeURLs invokes method help.getRecentMeUrls#3dc0f114 returning error if any.
 // Get recently used t.me links

@@ -48,6 +48,14 @@ type MessagesReadDiscussionRequest struct {
 // MessagesReadDiscussionRequestTypeID is TL type id of MessagesReadDiscussionRequest.
 const MessagesReadDiscussionRequestTypeID = 0xf731a9f4
 
+// Ensuring interfaces in compile-time for MessagesReadDiscussionRequest.
+var (
+	_ bin.Encoder     = &MessagesReadDiscussionRequest{}
+	_ bin.Decoder     = &MessagesReadDiscussionRequest{}
+	_ bin.BareEncoder = &MessagesReadDiscussionRequest{}
+	_ bin.BareDecoder = &MessagesReadDiscussionRequest{}
+)
+
 func (r *MessagesReadDiscussionRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -149,21 +157,6 @@ func (r *MessagesReadDiscussionRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (r *MessagesReadDiscussionRequest) GetPeer() (value InputPeerClass) {
-	return r.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (r *MessagesReadDiscussionRequest) GetMsgID() (value int) {
-	return r.MsgID
-}
-
-// GetReadMaxID returns value of ReadMaxID field.
-func (r *MessagesReadDiscussionRequest) GetReadMaxID() (value int) {
-	return r.ReadMaxID
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesReadDiscussionRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -204,13 +197,20 @@ func (r *MessagesReadDiscussionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesReadDiscussionRequest.
-var (
-	_ bin.Encoder     = &MessagesReadDiscussionRequest{}
-	_ bin.Decoder     = &MessagesReadDiscussionRequest{}
-	_ bin.BareEncoder = &MessagesReadDiscussionRequest{}
-	_ bin.BareDecoder = &MessagesReadDiscussionRequest{}
-)
+// GetPeer returns value of Peer field.
+func (r *MessagesReadDiscussionRequest) GetPeer() (value InputPeerClass) {
+	return r.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (r *MessagesReadDiscussionRequest) GetMsgID() (value int) {
+	return r.MsgID
+}
+
+// GetReadMaxID returns value of ReadMaxID field.
+func (r *MessagesReadDiscussionRequest) GetReadMaxID() (value int) {
+	return r.ReadMaxID
+}
 
 // MessagesReadDiscussion invokes method messages.readDiscussion#f731a9f4 returning error if any.
 // Mark a thread¹ as read

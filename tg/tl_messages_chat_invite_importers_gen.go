@@ -44,6 +44,14 @@ type MessagesChatInviteImporters struct {
 // MessagesChatInviteImportersTypeID is TL type id of MessagesChatInviteImporters.
 const MessagesChatInviteImportersTypeID = 0x81b6b00a
 
+// Ensuring interfaces in compile-time for MessagesChatInviteImporters.
+var (
+	_ bin.Encoder     = &MessagesChatInviteImporters{}
+	_ bin.Decoder     = &MessagesChatInviteImporters{}
+	_ bin.BareEncoder = &MessagesChatInviteImporters{}
+	_ bin.BareDecoder = &MessagesChatInviteImporters{}
+)
+
 func (c *MessagesChatInviteImporters) Zero() bool {
 	if c == nil {
 		return true
@@ -153,26 +161,6 @@ func (c *MessagesChatInviteImporters) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (c *MessagesChatInviteImporters) GetCount() (value int) {
-	return c.Count
-}
-
-// GetImporters returns value of Importers field.
-func (c *MessagesChatInviteImporters) GetImporters() (value []ChatInviteImporter) {
-	return c.Importers
-}
-
-// GetUsers returns value of Users field.
-func (c *MessagesChatInviteImporters) GetUsers() (value []UserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (c *MessagesChatInviteImporters) MapUsers() (value UserClassArray) {
-	return UserClassArray(c.Users)
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesChatInviteImporters) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -233,10 +221,22 @@ func (c *MessagesChatInviteImporters) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesChatInviteImporters.
-var (
-	_ bin.Encoder     = &MessagesChatInviteImporters{}
-	_ bin.Decoder     = &MessagesChatInviteImporters{}
-	_ bin.BareEncoder = &MessagesChatInviteImporters{}
-	_ bin.BareDecoder = &MessagesChatInviteImporters{}
-)
+// GetCount returns value of Count field.
+func (c *MessagesChatInviteImporters) GetCount() (value int) {
+	return c.Count
+}
+
+// GetImporters returns value of Importers field.
+func (c *MessagesChatInviteImporters) GetImporters() (value []ChatInviteImporter) {
+	return c.Importers
+}
+
+// GetUsers returns value of Users field.
+func (c *MessagesChatInviteImporters) GetUsers() (value []UserClass) {
+	return c.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *MessagesChatInviteImporters) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
+}

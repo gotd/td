@@ -43,6 +43,14 @@ type HelpSupport struct {
 // HelpSupportTypeID is TL type id of HelpSupport.
 const HelpSupportTypeID = 0x17c6b5f6
 
+// Ensuring interfaces in compile-time for HelpSupport.
+var (
+	_ bin.Encoder     = &HelpSupport{}
+	_ bin.Decoder     = &HelpSupport{}
+	_ bin.BareEncoder = &HelpSupport{}
+	_ bin.BareDecoder = &HelpSupport{}
+)
+
 func (s *HelpSupport) Zero() bool {
 	if s == nil {
 		return true
@@ -134,21 +142,6 @@ func (s *HelpSupport) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (s *HelpSupport) GetPhoneNumber() (value string) {
-	return s.PhoneNumber
-}
-
-// GetUser returns value of User field.
-func (s *HelpSupport) GetUser() (value UserClass) {
-	return s.User
-}
-
-// GetUserAsNotEmpty returns mapped value of User field.
-func (s *HelpSupport) GetUserAsNotEmpty() (*User, bool) {
-	return s.User.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (s *HelpSupport) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -182,10 +175,17 @@ func (s *HelpSupport) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpSupport.
-var (
-	_ bin.Encoder     = &HelpSupport{}
-	_ bin.Decoder     = &HelpSupport{}
-	_ bin.BareEncoder = &HelpSupport{}
-	_ bin.BareDecoder = &HelpSupport{}
-)
+// GetPhoneNumber returns value of PhoneNumber field.
+func (s *HelpSupport) GetPhoneNumber() (value string) {
+	return s.PhoneNumber
+}
+
+// GetUser returns value of User field.
+func (s *HelpSupport) GetUser() (value UserClass) {
+	return s.User
+}
+
+// GetUserAsNotEmpty returns mapped value of User field.
+func (s *HelpSupport) GetUserAsNotEmpty() (*User, bool) {
+	return s.User.AsNotEmpty()
+}

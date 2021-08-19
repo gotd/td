@@ -43,6 +43,19 @@ type InputPaymentCredentialsSaved struct {
 // InputPaymentCredentialsSavedTypeID is TL type id of InputPaymentCredentialsSaved.
 const InputPaymentCredentialsSavedTypeID = 0xc10eb2cf
 
+// construct implements constructor of InputPaymentCredentialsClass.
+func (i InputPaymentCredentialsSaved) construct() InputPaymentCredentialsClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPaymentCredentialsSaved.
+var (
+	_ bin.Encoder     = &InputPaymentCredentialsSaved{}
+	_ bin.Decoder     = &InputPaymentCredentialsSaved{}
+	_ bin.BareEncoder = &InputPaymentCredentialsSaved{}
+	_ bin.BareDecoder = &InputPaymentCredentialsSaved{}
+
+	_ InputPaymentCredentialsClass = &InputPaymentCredentialsSaved{}
+)
+
 func (i *InputPaymentCredentialsSaved) Zero() bool {
 	if i == nil {
 		return true
@@ -129,16 +142,6 @@ func (i *InputPaymentCredentialsSaved) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (i *InputPaymentCredentialsSaved) GetID() (value string) {
-	return i.ID
-}
-
-// GetTmpPassword returns value of TmpPassword field.
-func (i *InputPaymentCredentialsSaved) GetTmpPassword() (value []byte) {
-	return i.TmpPassword
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPaymentCredentialsSaved) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -172,18 +175,15 @@ func (i *InputPaymentCredentialsSaved) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPaymentCredentialsClass.
-func (i InputPaymentCredentialsSaved) construct() InputPaymentCredentialsClass { return &i }
+// GetID returns value of ID field.
+func (i *InputPaymentCredentialsSaved) GetID() (value string) {
+	return i.ID
+}
 
-// Ensuring interfaces in compile-time for InputPaymentCredentialsSaved.
-var (
-	_ bin.Encoder     = &InputPaymentCredentialsSaved{}
-	_ bin.Decoder     = &InputPaymentCredentialsSaved{}
-	_ bin.BareEncoder = &InputPaymentCredentialsSaved{}
-	_ bin.BareDecoder = &InputPaymentCredentialsSaved{}
-
-	_ InputPaymentCredentialsClass = &InputPaymentCredentialsSaved{}
-)
+// GetTmpPassword returns value of TmpPassword field.
+func (i *InputPaymentCredentialsSaved) GetTmpPassword() (value []byte) {
+	return i.TmpPassword
+}
 
 // InputPaymentCredentials represents TL type `inputPaymentCredentials#3417d728`.
 // Payment credentials
@@ -203,6 +203,19 @@ type InputPaymentCredentials struct {
 
 // InputPaymentCredentialsTypeID is TL type id of InputPaymentCredentials.
 const InputPaymentCredentialsTypeID = 0x3417d728
+
+// construct implements constructor of InputPaymentCredentialsClass.
+func (i InputPaymentCredentials) construct() InputPaymentCredentialsClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPaymentCredentials.
+var (
+	_ bin.Encoder     = &InputPaymentCredentials{}
+	_ bin.Decoder     = &InputPaymentCredentials{}
+	_ bin.BareEncoder = &InputPaymentCredentials{}
+	_ bin.BareDecoder = &InputPaymentCredentials{}
+
+	_ InputPaymentCredentialsClass = &InputPaymentCredentials{}
+)
 
 func (i *InputPaymentCredentials) Zero() bool {
 	if i == nil {
@@ -301,27 +314,6 @@ func (i *InputPaymentCredentials) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetSave sets value of Save conditional field.
-func (i *InputPaymentCredentials) SetSave(value bool) {
-	if value {
-		i.Flags.Set(0)
-		i.Save = true
-	} else {
-		i.Flags.Unset(0)
-		i.Save = false
-	}
-}
-
-// GetSave returns value of Save conditional field.
-func (i *InputPaymentCredentials) GetSave() (value bool) {
-	return i.Flags.Has(0)
-}
-
-// GetData returns value of Data field.
-func (i *InputPaymentCredentials) GetData() (value DataJSON) {
-	return i.Data
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPaymentCredentials) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -352,18 +344,26 @@ func (i *InputPaymentCredentials) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPaymentCredentialsClass.
-func (i InputPaymentCredentials) construct() InputPaymentCredentialsClass { return &i }
+// SetSave sets value of Save conditional field.
+func (i *InputPaymentCredentials) SetSave(value bool) {
+	if value {
+		i.Flags.Set(0)
+		i.Save = true
+	} else {
+		i.Flags.Unset(0)
+		i.Save = false
+	}
+}
 
-// Ensuring interfaces in compile-time for InputPaymentCredentials.
-var (
-	_ bin.Encoder     = &InputPaymentCredentials{}
-	_ bin.Decoder     = &InputPaymentCredentials{}
-	_ bin.BareEncoder = &InputPaymentCredentials{}
-	_ bin.BareDecoder = &InputPaymentCredentials{}
+// GetSave returns value of Save conditional field.
+func (i *InputPaymentCredentials) GetSave() (value bool) {
+	return i.Flags.Has(0)
+}
 
-	_ InputPaymentCredentialsClass = &InputPaymentCredentials{}
-)
+// GetData returns value of Data field.
+func (i *InputPaymentCredentials) GetData() (value DataJSON) {
+	return i.Data
+}
 
 // InputPaymentCredentialsApplePay represents TL type `inputPaymentCredentialsApplePay#aa1c39f`.
 // Apple pay payment credentials
@@ -376,6 +376,19 @@ type InputPaymentCredentialsApplePay struct {
 
 // InputPaymentCredentialsApplePayTypeID is TL type id of InputPaymentCredentialsApplePay.
 const InputPaymentCredentialsApplePayTypeID = 0xaa1c39f
+
+// construct implements constructor of InputPaymentCredentialsClass.
+func (i InputPaymentCredentialsApplePay) construct() InputPaymentCredentialsClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPaymentCredentialsApplePay.
+var (
+	_ bin.Encoder     = &InputPaymentCredentialsApplePay{}
+	_ bin.Decoder     = &InputPaymentCredentialsApplePay{}
+	_ bin.BareEncoder = &InputPaymentCredentialsApplePay{}
+	_ bin.BareDecoder = &InputPaymentCredentialsApplePay{}
+
+	_ InputPaymentCredentialsClass = &InputPaymentCredentialsApplePay{}
+)
 
 func (i *InputPaymentCredentialsApplePay) Zero() bool {
 	if i == nil {
@@ -455,11 +468,6 @@ func (i *InputPaymentCredentialsApplePay) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPaymentData returns value of PaymentData field.
-func (i *InputPaymentCredentialsApplePay) GetPaymentData() (value DataJSON) {
-	return i.PaymentData
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPaymentCredentialsApplePay) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -484,18 +492,10 @@ func (i *InputPaymentCredentialsApplePay) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPaymentCredentialsClass.
-func (i InputPaymentCredentialsApplePay) construct() InputPaymentCredentialsClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPaymentCredentialsApplePay.
-var (
-	_ bin.Encoder     = &InputPaymentCredentialsApplePay{}
-	_ bin.Decoder     = &InputPaymentCredentialsApplePay{}
-	_ bin.BareEncoder = &InputPaymentCredentialsApplePay{}
-	_ bin.BareDecoder = &InputPaymentCredentialsApplePay{}
-
-	_ InputPaymentCredentialsClass = &InputPaymentCredentialsApplePay{}
-)
+// GetPaymentData returns value of PaymentData field.
+func (i *InputPaymentCredentialsApplePay) GetPaymentData() (value DataJSON) {
+	return i.PaymentData
+}
 
 // InputPaymentCredentialsGooglePay represents TL type `inputPaymentCredentialsGooglePay#8ac32801`.
 //
@@ -507,6 +507,19 @@ type InputPaymentCredentialsGooglePay struct {
 
 // InputPaymentCredentialsGooglePayTypeID is TL type id of InputPaymentCredentialsGooglePay.
 const InputPaymentCredentialsGooglePayTypeID = 0x8ac32801
+
+// construct implements constructor of InputPaymentCredentialsClass.
+func (i InputPaymentCredentialsGooglePay) construct() InputPaymentCredentialsClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPaymentCredentialsGooglePay.
+var (
+	_ bin.Encoder     = &InputPaymentCredentialsGooglePay{}
+	_ bin.Decoder     = &InputPaymentCredentialsGooglePay{}
+	_ bin.BareEncoder = &InputPaymentCredentialsGooglePay{}
+	_ bin.BareDecoder = &InputPaymentCredentialsGooglePay{}
+
+	_ InputPaymentCredentialsClass = &InputPaymentCredentialsGooglePay{}
+)
 
 func (i *InputPaymentCredentialsGooglePay) Zero() bool {
 	if i == nil {
@@ -586,11 +599,6 @@ func (i *InputPaymentCredentialsGooglePay) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPaymentToken returns value of PaymentToken field.
-func (i *InputPaymentCredentialsGooglePay) GetPaymentToken() (value DataJSON) {
-	return i.PaymentToken
-}
-
 // Decode implements bin.Decoder.
 func (i *InputPaymentCredentialsGooglePay) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -615,18 +623,10 @@ func (i *InputPaymentCredentialsGooglePay) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputPaymentCredentialsClass.
-func (i InputPaymentCredentialsGooglePay) construct() InputPaymentCredentialsClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPaymentCredentialsGooglePay.
-var (
-	_ bin.Encoder     = &InputPaymentCredentialsGooglePay{}
-	_ bin.Decoder     = &InputPaymentCredentialsGooglePay{}
-	_ bin.BareEncoder = &InputPaymentCredentialsGooglePay{}
-	_ bin.BareDecoder = &InputPaymentCredentialsGooglePay{}
-
-	_ InputPaymentCredentialsClass = &InputPaymentCredentialsGooglePay{}
-)
+// GetPaymentToken returns value of PaymentToken field.
+func (i *InputPaymentCredentialsGooglePay) GetPaymentToken() (value DataJSON) {
+	return i.PaymentToken
+}
 
 // InputPaymentCredentialsClass represents InputPaymentCredentials generic type.
 //
@@ -727,466 +727,4 @@ func (b *InputPaymentCredentialsBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputPaymentCredentialsClass as nil")
 	}
 	return b.InputPaymentCredentials.Encode(buf)
-}
-
-// InputPaymentCredentialsClassArray is adapter for slice of InputPaymentCredentialsClass.
-type InputPaymentCredentialsClassArray []InputPaymentCredentialsClass
-
-// Sort sorts slice of InputPaymentCredentialsClass.
-func (s InputPaymentCredentialsClassArray) Sort(less func(a, b InputPaymentCredentialsClass) bool) InputPaymentCredentialsClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPaymentCredentialsClass.
-func (s InputPaymentCredentialsClassArray) SortStable(less func(a, b InputPaymentCredentialsClass) bool) InputPaymentCredentialsClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPaymentCredentialsClass.
-func (s InputPaymentCredentialsClassArray) Retain(keep func(x InputPaymentCredentialsClass) bool) InputPaymentCredentialsClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPaymentCredentialsClassArray) First() (v InputPaymentCredentialsClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPaymentCredentialsClassArray) Last() (v InputPaymentCredentialsClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPaymentCredentialsClassArray) PopFirst() (v InputPaymentCredentialsClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPaymentCredentialsClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPaymentCredentialsClassArray) Pop() (v InputPaymentCredentialsClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsInputPaymentCredentialsSaved returns copy with only InputPaymentCredentialsSaved constructors.
-func (s InputPaymentCredentialsClassArray) AsInputPaymentCredentialsSaved() (to InputPaymentCredentialsSavedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputPaymentCredentialsSaved)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputPaymentCredentials returns copy with only InputPaymentCredentials constructors.
-func (s InputPaymentCredentialsClassArray) AsInputPaymentCredentials() (to InputPaymentCredentialsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputPaymentCredentials)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputPaymentCredentialsApplePay returns copy with only InputPaymentCredentialsApplePay constructors.
-func (s InputPaymentCredentialsClassArray) AsInputPaymentCredentialsApplePay() (to InputPaymentCredentialsApplePayArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputPaymentCredentialsApplePay)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputPaymentCredentialsGooglePay returns copy with only InputPaymentCredentialsGooglePay constructors.
-func (s InputPaymentCredentialsClassArray) AsInputPaymentCredentialsGooglePay() (to InputPaymentCredentialsGooglePayArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputPaymentCredentialsGooglePay)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// InputPaymentCredentialsSavedArray is adapter for slice of InputPaymentCredentialsSaved.
-type InputPaymentCredentialsSavedArray []InputPaymentCredentialsSaved
-
-// Sort sorts slice of InputPaymentCredentialsSaved.
-func (s InputPaymentCredentialsSavedArray) Sort(less func(a, b InputPaymentCredentialsSaved) bool) InputPaymentCredentialsSavedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPaymentCredentialsSaved.
-func (s InputPaymentCredentialsSavedArray) SortStable(less func(a, b InputPaymentCredentialsSaved) bool) InputPaymentCredentialsSavedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPaymentCredentialsSaved.
-func (s InputPaymentCredentialsSavedArray) Retain(keep func(x InputPaymentCredentialsSaved) bool) InputPaymentCredentialsSavedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPaymentCredentialsSavedArray) First() (v InputPaymentCredentialsSaved, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPaymentCredentialsSavedArray) Last() (v InputPaymentCredentialsSaved, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPaymentCredentialsSavedArray) PopFirst() (v InputPaymentCredentialsSaved, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPaymentCredentialsSaved
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPaymentCredentialsSavedArray) Pop() (v InputPaymentCredentialsSaved, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputPaymentCredentialsArray is adapter for slice of InputPaymentCredentials.
-type InputPaymentCredentialsArray []InputPaymentCredentials
-
-// Sort sorts slice of InputPaymentCredentials.
-func (s InputPaymentCredentialsArray) Sort(less func(a, b InputPaymentCredentials) bool) InputPaymentCredentialsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPaymentCredentials.
-func (s InputPaymentCredentialsArray) SortStable(less func(a, b InputPaymentCredentials) bool) InputPaymentCredentialsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPaymentCredentials.
-func (s InputPaymentCredentialsArray) Retain(keep func(x InputPaymentCredentials) bool) InputPaymentCredentialsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPaymentCredentialsArray) First() (v InputPaymentCredentials, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPaymentCredentialsArray) Last() (v InputPaymentCredentials, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPaymentCredentialsArray) PopFirst() (v InputPaymentCredentials, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPaymentCredentials
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPaymentCredentialsArray) Pop() (v InputPaymentCredentials, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputPaymentCredentialsApplePayArray is adapter for slice of InputPaymentCredentialsApplePay.
-type InputPaymentCredentialsApplePayArray []InputPaymentCredentialsApplePay
-
-// Sort sorts slice of InputPaymentCredentialsApplePay.
-func (s InputPaymentCredentialsApplePayArray) Sort(less func(a, b InputPaymentCredentialsApplePay) bool) InputPaymentCredentialsApplePayArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPaymentCredentialsApplePay.
-func (s InputPaymentCredentialsApplePayArray) SortStable(less func(a, b InputPaymentCredentialsApplePay) bool) InputPaymentCredentialsApplePayArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPaymentCredentialsApplePay.
-func (s InputPaymentCredentialsApplePayArray) Retain(keep func(x InputPaymentCredentialsApplePay) bool) InputPaymentCredentialsApplePayArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPaymentCredentialsApplePayArray) First() (v InputPaymentCredentialsApplePay, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPaymentCredentialsApplePayArray) Last() (v InputPaymentCredentialsApplePay, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPaymentCredentialsApplePayArray) PopFirst() (v InputPaymentCredentialsApplePay, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPaymentCredentialsApplePay
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPaymentCredentialsApplePayArray) Pop() (v InputPaymentCredentialsApplePay, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputPaymentCredentialsGooglePayArray is adapter for slice of InputPaymentCredentialsGooglePay.
-type InputPaymentCredentialsGooglePayArray []InputPaymentCredentialsGooglePay
-
-// Sort sorts slice of InputPaymentCredentialsGooglePay.
-func (s InputPaymentCredentialsGooglePayArray) Sort(less func(a, b InputPaymentCredentialsGooglePay) bool) InputPaymentCredentialsGooglePayArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPaymentCredentialsGooglePay.
-func (s InputPaymentCredentialsGooglePayArray) SortStable(less func(a, b InputPaymentCredentialsGooglePay) bool) InputPaymentCredentialsGooglePayArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPaymentCredentialsGooglePay.
-func (s InputPaymentCredentialsGooglePayArray) Retain(keep func(x InputPaymentCredentialsGooglePay) bool) InputPaymentCredentialsGooglePayArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPaymentCredentialsGooglePayArray) First() (v InputPaymentCredentialsGooglePay, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPaymentCredentialsGooglePayArray) Last() (v InputPaymentCredentialsGooglePay, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPaymentCredentialsGooglePayArray) PopFirst() (v InputPaymentCredentialsGooglePay, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPaymentCredentialsGooglePay
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPaymentCredentialsGooglePayArray) Pop() (v InputPaymentCredentialsGooglePay, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

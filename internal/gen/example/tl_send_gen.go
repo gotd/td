@@ -40,6 +40,14 @@ type SendRequest struct {
 // SendRequestTypeID is TL type id of SendRequest.
 const SendRequestTypeID = 0xf74488a
 
+// Ensuring interfaces in compile-time for SendRequest.
+var (
+	_ bin.Encoder     = &SendRequest{}
+	_ bin.Decoder     = &SendRequest{}
+	_ bin.BareEncoder = &SendRequest{}
+	_ bin.BareDecoder = &SendRequest{}
+)
+
 func (s *SendRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -58,13 +66,6 @@ func (s *SendRequest) String() string {
 	}
 	type Alias SendRequest
 	return fmt.Sprintf("SendRequest%+v", Alias(*s))
-}
-
-// FillFrom fills SendRequest from given interface.
-func (s *SendRequest) FillFrom(from interface {
-	GetMsg() (value SMS)
-}) {
-	s.Msg = from.GetMsg()
 }
 
 // TypeID returns type id in TL schema.
@@ -118,11 +119,6 @@ func (s *SendRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMsg returns value of Msg field.
-func (s *SendRequest) GetMsg() (value SMS) {
-	return s.Msg
-}
-
 // Decode implements bin.Decoder.
 func (s *SendRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -147,13 +143,10 @@ func (s *SendRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for SendRequest.
-var (
-	_ bin.Encoder     = &SendRequest{}
-	_ bin.Decoder     = &SendRequest{}
-	_ bin.BareEncoder = &SendRequest{}
-	_ bin.BareDecoder = &SendRequest{}
-)
+// GetMsg returns value of Msg field.
+func (s *SendRequest) GetMsg() (value SMS) {
+	return s.Msg
+}
 
 // Send invokes method send#f74488a returning error if any.
 //

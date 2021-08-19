@@ -43,6 +43,19 @@ type InputWebFileLocation struct {
 // InputWebFileLocationTypeID is TL type id of InputWebFileLocation.
 const InputWebFileLocationTypeID = 0xc239d686
 
+// construct implements constructor of InputWebFileLocationClass.
+func (i InputWebFileLocation) construct() InputWebFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputWebFileLocation.
+var (
+	_ bin.Encoder     = &InputWebFileLocation{}
+	_ bin.Decoder     = &InputWebFileLocation{}
+	_ bin.BareEncoder = &InputWebFileLocation{}
+	_ bin.BareDecoder = &InputWebFileLocation{}
+
+	_ InputWebFileLocationClass = &InputWebFileLocation{}
+)
+
 func (i *InputWebFileLocation) Zero() bool {
 	if i == nil {
 		return true
@@ -129,16 +142,6 @@ func (i *InputWebFileLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetURL returns value of URL field.
-func (i *InputWebFileLocation) GetURL() (value string) {
-	return i.URL
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputWebFileLocation) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputWebFileLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -172,18 +175,15 @@ func (i *InputWebFileLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputWebFileLocationClass.
-func (i InputWebFileLocation) construct() InputWebFileLocationClass { return &i }
+// GetURL returns value of URL field.
+func (i *InputWebFileLocation) GetURL() (value string) {
+	return i.URL
+}
 
-// Ensuring interfaces in compile-time for InputWebFileLocation.
-var (
-	_ bin.Encoder     = &InputWebFileLocation{}
-	_ bin.Decoder     = &InputWebFileLocation{}
-	_ bin.BareEncoder = &InputWebFileLocation{}
-	_ bin.BareDecoder = &InputWebFileLocation{}
-
-	_ InputWebFileLocationClass = &InputWebFileLocation{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputWebFileLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputWebFileGeoPointLocation represents TL type `inputWebFileGeoPointLocation#9f2221c9`.
 // Geolocation
@@ -206,6 +206,19 @@ type InputWebFileGeoPointLocation struct {
 
 // InputWebFileGeoPointLocationTypeID is TL type id of InputWebFileGeoPointLocation.
 const InputWebFileGeoPointLocationTypeID = 0x9f2221c9
+
+// construct implements constructor of InputWebFileLocationClass.
+func (i InputWebFileGeoPointLocation) construct() InputWebFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputWebFileGeoPointLocation.
+var (
+	_ bin.Encoder     = &InputWebFileGeoPointLocation{}
+	_ bin.Decoder     = &InputWebFileGeoPointLocation{}
+	_ bin.BareEncoder = &InputWebFileGeoPointLocation{}
+	_ bin.BareDecoder = &InputWebFileGeoPointLocation{}
+
+	_ InputWebFileLocationClass = &InputWebFileGeoPointLocation{}
+)
 
 func (i *InputWebFileGeoPointLocation) Zero() bool {
 	if i == nil {
@@ -338,36 +351,6 @@ func (i *InputWebFileGeoPointLocation) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetGeoPoint returns value of GeoPoint field.
-func (i *InputWebFileGeoPointLocation) GetGeoPoint() (value InputGeoPointClass) {
-	return i.GeoPoint
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputWebFileGeoPointLocation) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
-// GetW returns value of W field.
-func (i *InputWebFileGeoPointLocation) GetW() (value int) {
-	return i.W
-}
-
-// GetH returns value of H field.
-func (i *InputWebFileGeoPointLocation) GetH() (value int) {
-	return i.H
-}
-
-// GetZoom returns value of Zoom field.
-func (i *InputWebFileGeoPointLocation) GetZoom() (value int) {
-	return i.Zoom
-}
-
-// GetScale returns value of Scale field.
-func (i *InputWebFileGeoPointLocation) GetScale() (value int) {
-	return i.Scale
-}
-
 // Decode implements bin.Decoder.
 func (i *InputWebFileGeoPointLocation) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -429,18 +412,35 @@ func (i *InputWebFileGeoPointLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputWebFileLocationClass.
-func (i InputWebFileGeoPointLocation) construct() InputWebFileLocationClass { return &i }
+// GetGeoPoint returns value of GeoPoint field.
+func (i *InputWebFileGeoPointLocation) GetGeoPoint() (value InputGeoPointClass) {
+	return i.GeoPoint
+}
 
-// Ensuring interfaces in compile-time for InputWebFileGeoPointLocation.
-var (
-	_ bin.Encoder     = &InputWebFileGeoPointLocation{}
-	_ bin.Decoder     = &InputWebFileGeoPointLocation{}
-	_ bin.BareEncoder = &InputWebFileGeoPointLocation{}
-	_ bin.BareDecoder = &InputWebFileGeoPointLocation{}
+// GetAccessHash returns value of AccessHash field.
+func (i *InputWebFileGeoPointLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
-	_ InputWebFileLocationClass = &InputWebFileGeoPointLocation{}
-)
+// GetW returns value of W field.
+func (i *InputWebFileGeoPointLocation) GetW() (value int) {
+	return i.W
+}
+
+// GetH returns value of H field.
+func (i *InputWebFileGeoPointLocation) GetH() (value int) {
+	return i.H
+}
+
+// GetZoom returns value of Zoom field.
+func (i *InputWebFileGeoPointLocation) GetZoom() (value int) {
+	return i.Zoom
+}
+
+// GetScale returns value of Scale field.
+func (i *InputWebFileGeoPointLocation) GetScale() (value int) {
+	return i.Scale
+}
 
 // InputWebFileLocationClass represents InputWebFileLocation generic type.
 //
@@ -528,276 +528,4 @@ func (b *InputWebFileLocationBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputWebFileLocationClass as nil")
 	}
 	return b.InputWebFileLocation.Encode(buf)
-}
-
-// InputWebFileLocationClassArray is adapter for slice of InputWebFileLocationClass.
-type InputWebFileLocationClassArray []InputWebFileLocationClass
-
-// Sort sorts slice of InputWebFileLocationClass.
-func (s InputWebFileLocationClassArray) Sort(less func(a, b InputWebFileLocationClass) bool) InputWebFileLocationClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputWebFileLocationClass.
-func (s InputWebFileLocationClassArray) SortStable(less func(a, b InputWebFileLocationClass) bool) InputWebFileLocationClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputWebFileLocationClass.
-func (s InputWebFileLocationClassArray) Retain(keep func(x InputWebFileLocationClass) bool) InputWebFileLocationClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputWebFileLocationClassArray) First() (v InputWebFileLocationClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputWebFileLocationClassArray) Last() (v InputWebFileLocationClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputWebFileLocationClassArray) PopFirst() (v InputWebFileLocationClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputWebFileLocationClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputWebFileLocationClassArray) Pop() (v InputWebFileLocationClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsInputWebFileLocation returns copy with only InputWebFileLocation constructors.
-func (s InputWebFileLocationClassArray) AsInputWebFileLocation() (to InputWebFileLocationArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputWebFileLocation)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputWebFileGeoPointLocation returns copy with only InputWebFileGeoPointLocation constructors.
-func (s InputWebFileLocationClassArray) AsInputWebFileGeoPointLocation() (to InputWebFileGeoPointLocationArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputWebFileGeoPointLocation)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// InputWebFileLocationArray is adapter for slice of InputWebFileLocation.
-type InputWebFileLocationArray []InputWebFileLocation
-
-// Sort sorts slice of InputWebFileLocation.
-func (s InputWebFileLocationArray) Sort(less func(a, b InputWebFileLocation) bool) InputWebFileLocationArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputWebFileLocation.
-func (s InputWebFileLocationArray) SortStable(less func(a, b InputWebFileLocation) bool) InputWebFileLocationArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputWebFileLocation.
-func (s InputWebFileLocationArray) Retain(keep func(x InputWebFileLocation) bool) InputWebFileLocationArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputWebFileLocationArray) First() (v InputWebFileLocation, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputWebFileLocationArray) Last() (v InputWebFileLocation, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputWebFileLocationArray) PopFirst() (v InputWebFileLocation, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputWebFileLocation
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputWebFileLocationArray) Pop() (v InputWebFileLocation, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputWebFileGeoPointLocationArray is adapter for slice of InputWebFileGeoPointLocation.
-type InputWebFileGeoPointLocationArray []InputWebFileGeoPointLocation
-
-// Sort sorts slice of InputWebFileGeoPointLocation.
-func (s InputWebFileGeoPointLocationArray) Sort(less func(a, b InputWebFileGeoPointLocation) bool) InputWebFileGeoPointLocationArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputWebFileGeoPointLocation.
-func (s InputWebFileGeoPointLocationArray) SortStable(less func(a, b InputWebFileGeoPointLocation) bool) InputWebFileGeoPointLocationArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputWebFileGeoPointLocation.
-func (s InputWebFileGeoPointLocationArray) Retain(keep func(x InputWebFileGeoPointLocation) bool) InputWebFileGeoPointLocationArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputWebFileGeoPointLocationArray) First() (v InputWebFileGeoPointLocation, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputWebFileGeoPointLocationArray) Last() (v InputWebFileGeoPointLocation, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputWebFileGeoPointLocationArray) PopFirst() (v InputWebFileGeoPointLocation, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputWebFileGeoPointLocation
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputWebFileGeoPointLocationArray) Pop() (v InputWebFileGeoPointLocation, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

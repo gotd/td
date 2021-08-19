@@ -44,6 +44,19 @@ type MsgDetailedInfo struct {
 // MsgDetailedInfoTypeID is TL type id of MsgDetailedInfo.
 const MsgDetailedInfoTypeID = 0x276d3ec6
 
+// construct implements constructor of MsgDetailedInfoClass.
+func (m MsgDetailedInfo) construct() MsgDetailedInfoClass { return &m }
+
+// Ensuring interfaces in compile-time for MsgDetailedInfo.
+var (
+	_ bin.Encoder     = &MsgDetailedInfo{}
+	_ bin.Decoder     = &MsgDetailedInfo{}
+	_ bin.BareEncoder = &MsgDetailedInfo{}
+	_ bin.BareDecoder = &MsgDetailedInfo{}
+
+	_ MsgDetailedInfoClass = &MsgDetailedInfo{}
+)
+
 func (m *MsgDetailedInfo) Zero() bool {
 	if m == nil {
 		return true
@@ -71,19 +84,6 @@ func (m *MsgDetailedInfo) String() string {
 	}
 	type Alias MsgDetailedInfo
 	return fmt.Sprintf("MsgDetailedInfo%+v", Alias(*m))
-}
-
-// FillFrom fills MsgDetailedInfo from given interface.
-func (m *MsgDetailedInfo) FillFrom(from interface {
-	GetMsgID() (value int64)
-	GetAnswerMsgID() (value int64)
-	GetBytes() (value int)
-	GetStatus() (value int)
-}) {
-	m.MsgID = from.GetMsgID()
-	m.AnswerMsgID = from.GetAnswerMsgID()
-	m.Bytes = from.GetBytes()
-	m.Status = from.GetStatus()
 }
 
 // TypeID returns type id in TL schema.
@@ -150,26 +150,6 @@ func (m *MsgDetailedInfo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMsgID returns value of MsgID field.
-func (m *MsgDetailedInfo) GetMsgID() (value int64) {
-	return m.MsgID
-}
-
-// GetAnswerMsgID returns value of AnswerMsgID field.
-func (m *MsgDetailedInfo) GetAnswerMsgID() (value int64) {
-	return m.AnswerMsgID
-}
-
-// GetBytes returns value of Bytes field.
-func (m *MsgDetailedInfo) GetBytes() (value int) {
-	return m.Bytes
-}
-
-// GetStatus returns value of Status field.
-func (m *MsgDetailedInfo) GetStatus() (value int) {
-	return m.Status
-}
-
 // Decode implements bin.Decoder.
 func (m *MsgDetailedInfo) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -217,18 +197,25 @@ func (m *MsgDetailedInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MsgDetailedInfoClass.
-func (m MsgDetailedInfo) construct() MsgDetailedInfoClass { return &m }
+// GetMsgID returns value of MsgID field.
+func (m *MsgDetailedInfo) GetMsgID() (value int64) {
+	return m.MsgID
+}
 
-// Ensuring interfaces in compile-time for MsgDetailedInfo.
-var (
-	_ bin.Encoder     = &MsgDetailedInfo{}
-	_ bin.Decoder     = &MsgDetailedInfo{}
-	_ bin.BareEncoder = &MsgDetailedInfo{}
-	_ bin.BareDecoder = &MsgDetailedInfo{}
+// GetAnswerMsgID returns value of AnswerMsgID field.
+func (m *MsgDetailedInfo) GetAnswerMsgID() (value int64) {
+	return m.AnswerMsgID
+}
 
-	_ MsgDetailedInfoClass = &MsgDetailedInfo{}
-)
+// GetBytes returns value of Bytes field.
+func (m *MsgDetailedInfo) GetBytes() (value int) {
+	return m.Bytes
+}
+
+// GetStatus returns value of Status field.
+func (m *MsgDetailedInfo) GetStatus() (value int) {
+	return m.Status
+}
 
 // MsgNewDetailedInfo represents TL type `msg_new_detailed_info#809db6df`.
 type MsgNewDetailedInfo struct {
@@ -242,6 +229,19 @@ type MsgNewDetailedInfo struct {
 
 // MsgNewDetailedInfoTypeID is TL type id of MsgNewDetailedInfo.
 const MsgNewDetailedInfoTypeID = 0x809db6df
+
+// construct implements constructor of MsgDetailedInfoClass.
+func (m MsgNewDetailedInfo) construct() MsgDetailedInfoClass { return &m }
+
+// Ensuring interfaces in compile-time for MsgNewDetailedInfo.
+var (
+	_ bin.Encoder     = &MsgNewDetailedInfo{}
+	_ bin.Decoder     = &MsgNewDetailedInfo{}
+	_ bin.BareEncoder = &MsgNewDetailedInfo{}
+	_ bin.BareDecoder = &MsgNewDetailedInfo{}
+
+	_ MsgDetailedInfoClass = &MsgNewDetailedInfo{}
+)
 
 func (m *MsgNewDetailedInfo) Zero() bool {
 	if m == nil {
@@ -267,17 +267,6 @@ func (m *MsgNewDetailedInfo) String() string {
 	}
 	type Alias MsgNewDetailedInfo
 	return fmt.Sprintf("MsgNewDetailedInfo%+v", Alias(*m))
-}
-
-// FillFrom fills MsgNewDetailedInfo from given interface.
-func (m *MsgNewDetailedInfo) FillFrom(from interface {
-	GetAnswerMsgID() (value int64)
-	GetBytes() (value int)
-	GetStatus() (value int)
-}) {
-	m.AnswerMsgID = from.GetAnswerMsgID()
-	m.Bytes = from.GetBytes()
-	m.Status = from.GetStatus()
 }
 
 // TypeID returns type id in TL schema.
@@ -339,21 +328,6 @@ func (m *MsgNewDetailedInfo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAnswerMsgID returns value of AnswerMsgID field.
-func (m *MsgNewDetailedInfo) GetAnswerMsgID() (value int64) {
-	return m.AnswerMsgID
-}
-
-// GetBytes returns value of Bytes field.
-func (m *MsgNewDetailedInfo) GetBytes() (value int) {
-	return m.Bytes
-}
-
-// GetStatus returns value of Status field.
-func (m *MsgNewDetailedInfo) GetStatus() (value int) {
-	return m.Status
-}
-
 // Decode implements bin.Decoder.
 func (m *MsgNewDetailedInfo) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -394,18 +368,20 @@ func (m *MsgNewDetailedInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MsgDetailedInfoClass.
-func (m MsgNewDetailedInfo) construct() MsgDetailedInfoClass { return &m }
+// GetAnswerMsgID returns value of AnswerMsgID field.
+func (m *MsgNewDetailedInfo) GetAnswerMsgID() (value int64) {
+	return m.AnswerMsgID
+}
 
-// Ensuring interfaces in compile-time for MsgNewDetailedInfo.
-var (
-	_ bin.Encoder     = &MsgNewDetailedInfo{}
-	_ bin.Decoder     = &MsgNewDetailedInfo{}
-	_ bin.BareEncoder = &MsgNewDetailedInfo{}
-	_ bin.BareDecoder = &MsgNewDetailedInfo{}
+// GetBytes returns value of Bytes field.
+func (m *MsgNewDetailedInfo) GetBytes() (value int) {
+	return m.Bytes
+}
 
-	_ MsgDetailedInfoClass = &MsgNewDetailedInfo{}
-)
+// GetStatus returns value of Status field.
+func (m *MsgNewDetailedInfo) GetStatus() (value int) {
+	return m.Status
+}
 
 // MsgDetailedInfoClass represents MsgDetailedInfo generic type.
 //
@@ -439,10 +415,8 @@ type MsgDetailedInfoClass interface {
 
 	// AnswerMsgID field of MsgDetailedInfo.
 	GetAnswerMsgID() (value int64)
-
 	// Bytes field of MsgDetailedInfo.
 	GetBytes() (value int)
-
 	// Status field of MsgDetailedInfo.
 	GetStatus() (value int)
 }
@@ -497,276 +471,4 @@ func (b *MsgDetailedInfoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MsgDetailedInfoClass as nil")
 	}
 	return b.MsgDetailedInfo.Encode(buf)
-}
-
-// MsgDetailedInfoClassArray is adapter for slice of MsgDetailedInfoClass.
-type MsgDetailedInfoClassArray []MsgDetailedInfoClass
-
-// Sort sorts slice of MsgDetailedInfoClass.
-func (s MsgDetailedInfoClassArray) Sort(less func(a, b MsgDetailedInfoClass) bool) MsgDetailedInfoClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MsgDetailedInfoClass.
-func (s MsgDetailedInfoClassArray) SortStable(less func(a, b MsgDetailedInfoClass) bool) MsgDetailedInfoClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MsgDetailedInfoClass.
-func (s MsgDetailedInfoClassArray) Retain(keep func(x MsgDetailedInfoClass) bool) MsgDetailedInfoClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MsgDetailedInfoClassArray) First() (v MsgDetailedInfoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MsgDetailedInfoClassArray) Last() (v MsgDetailedInfoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MsgDetailedInfoClassArray) PopFirst() (v MsgDetailedInfoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MsgDetailedInfoClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MsgDetailedInfoClassArray) Pop() (v MsgDetailedInfoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsMsgDetailedInfo returns copy with only MsgDetailedInfo constructors.
-func (s MsgDetailedInfoClassArray) AsMsgDetailedInfo() (to MsgDetailedInfoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MsgDetailedInfo)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMsgNewDetailedInfo returns copy with only MsgNewDetailedInfo constructors.
-func (s MsgDetailedInfoClassArray) AsMsgNewDetailedInfo() (to MsgNewDetailedInfoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MsgNewDetailedInfo)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// MsgDetailedInfoArray is adapter for slice of MsgDetailedInfo.
-type MsgDetailedInfoArray []MsgDetailedInfo
-
-// Sort sorts slice of MsgDetailedInfo.
-func (s MsgDetailedInfoArray) Sort(less func(a, b MsgDetailedInfo) bool) MsgDetailedInfoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MsgDetailedInfo.
-func (s MsgDetailedInfoArray) SortStable(less func(a, b MsgDetailedInfo) bool) MsgDetailedInfoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MsgDetailedInfo.
-func (s MsgDetailedInfoArray) Retain(keep func(x MsgDetailedInfo) bool) MsgDetailedInfoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MsgDetailedInfoArray) First() (v MsgDetailedInfo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MsgDetailedInfoArray) Last() (v MsgDetailedInfo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MsgDetailedInfoArray) PopFirst() (v MsgDetailedInfo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MsgDetailedInfo
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MsgDetailedInfoArray) Pop() (v MsgDetailedInfo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MsgNewDetailedInfoArray is adapter for slice of MsgNewDetailedInfo.
-type MsgNewDetailedInfoArray []MsgNewDetailedInfo
-
-// Sort sorts slice of MsgNewDetailedInfo.
-func (s MsgNewDetailedInfoArray) Sort(less func(a, b MsgNewDetailedInfo) bool) MsgNewDetailedInfoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MsgNewDetailedInfo.
-func (s MsgNewDetailedInfoArray) SortStable(less func(a, b MsgNewDetailedInfo) bool) MsgNewDetailedInfoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MsgNewDetailedInfo.
-func (s MsgNewDetailedInfoArray) Retain(keep func(x MsgNewDetailedInfo) bool) MsgNewDetailedInfoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MsgNewDetailedInfoArray) First() (v MsgNewDetailedInfo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MsgNewDetailedInfoArray) Last() (v MsgNewDetailedInfo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MsgNewDetailedInfoArray) PopFirst() (v MsgNewDetailedInfo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MsgNewDetailedInfo
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MsgNewDetailedInfoArray) Pop() (v MsgNewDetailedInfo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

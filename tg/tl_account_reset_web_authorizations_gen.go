@@ -42,6 +42,14 @@ type AccountResetWebAuthorizationsRequest struct {
 // AccountResetWebAuthorizationsRequestTypeID is TL type id of AccountResetWebAuthorizationsRequest.
 const AccountResetWebAuthorizationsRequestTypeID = 0x682d2594
 
+// Ensuring interfaces in compile-time for AccountResetWebAuthorizationsRequest.
+var (
+	_ bin.Encoder     = &AccountResetWebAuthorizationsRequest{}
+	_ bin.Decoder     = &AccountResetWebAuthorizationsRequest{}
+	_ bin.BareEncoder = &AccountResetWebAuthorizationsRequest{}
+	_ bin.BareDecoder = &AccountResetWebAuthorizationsRequest{}
+)
+
 func (r *AccountResetWebAuthorizationsRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -120,14 +128,6 @@ func (r *AccountResetWebAuthorizationsRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountResetWebAuthorizationsRequest.
-var (
-	_ bin.Encoder     = &AccountResetWebAuthorizationsRequest{}
-	_ bin.Decoder     = &AccountResetWebAuthorizationsRequest{}
-	_ bin.BareEncoder = &AccountResetWebAuthorizationsRequest{}
-	_ bin.BareDecoder = &AccountResetWebAuthorizationsRequest{}
-)
 
 // AccountResetWebAuthorizations invokes method account.resetWebAuthorizations#682d2594 returning error if any.
 // Reset all active web telegram login¹ sessions

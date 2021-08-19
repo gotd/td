@@ -47,6 +47,14 @@ type CDNConfig struct {
 // CDNConfigTypeID is TL type id of CDNConfig.
 const CDNConfigTypeID = 0x5725e40a
 
+// Ensuring interfaces in compile-time for CDNConfig.
+var (
+	_ bin.Encoder     = &CDNConfig{}
+	_ bin.Decoder     = &CDNConfig{}
+	_ bin.BareEncoder = &CDNConfig{}
+	_ bin.BareDecoder = &CDNConfig{}
+)
+
 func (c *CDNConfig) Zero() bool {
 	if c == nil {
 		return true
@@ -128,11 +136,6 @@ func (c *CDNConfig) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPublicKeys returns value of PublicKeys field.
-func (c *CDNConfig) GetPublicKeys() (value []CDNPublicKey) {
-	return c.PublicKeys
-}
-
 // Decode implements bin.Decoder.
 func (c *CDNConfig) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -169,10 +172,7 @@ func (c *CDNConfig) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for CDNConfig.
-var (
-	_ bin.Encoder     = &CDNConfig{}
-	_ bin.Decoder     = &CDNConfig{}
-	_ bin.BareEncoder = &CDNConfig{}
-	_ bin.BareDecoder = &CDNConfig{}
-)
+// GetPublicKeys returns value of PublicKeys field.
+func (c *CDNConfig) GetPublicKeys() (value []CDNPublicKey) {
+	return c.PublicKeys
+}

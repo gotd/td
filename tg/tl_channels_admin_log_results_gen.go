@@ -45,6 +45,14 @@ type ChannelsAdminLogResults struct {
 // ChannelsAdminLogResultsTypeID is TL type id of ChannelsAdminLogResults.
 const ChannelsAdminLogResultsTypeID = 0xed8af74d
 
+// Ensuring interfaces in compile-time for ChannelsAdminLogResults.
+var (
+	_ bin.Encoder     = &ChannelsAdminLogResults{}
+	_ bin.Decoder     = &ChannelsAdminLogResults{}
+	_ bin.BareEncoder = &ChannelsAdminLogResults{}
+	_ bin.BareDecoder = &ChannelsAdminLogResults{}
+)
+
 func (a *ChannelsAdminLogResults) Zero() bool {
 	if a == nil {
 		return true
@@ -162,31 +170,6 @@ func (a *ChannelsAdminLogResults) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetEvents returns value of Events field.
-func (a *ChannelsAdminLogResults) GetEvents() (value []ChannelAdminLogEvent) {
-	return a.Events
-}
-
-// GetChats returns value of Chats field.
-func (a *ChannelsAdminLogResults) GetChats() (value []ChatClass) {
-	return a.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (a *ChannelsAdminLogResults) MapChats() (value ChatClassArray) {
-	return ChatClassArray(a.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (a *ChannelsAdminLogResults) GetUsers() (value []UserClass) {
-	return a.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (a *ChannelsAdminLogResults) MapUsers() (value UserClassArray) {
-	return UserClassArray(a.Users)
-}
-
 // Decode implements bin.Decoder.
 func (a *ChannelsAdminLogResults) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -257,10 +240,27 @@ func (a *ChannelsAdminLogResults) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsAdminLogResults.
-var (
-	_ bin.Encoder     = &ChannelsAdminLogResults{}
-	_ bin.Decoder     = &ChannelsAdminLogResults{}
-	_ bin.BareEncoder = &ChannelsAdminLogResults{}
-	_ bin.BareDecoder = &ChannelsAdminLogResults{}
-)
+// GetEvents returns value of Events field.
+func (a *ChannelsAdminLogResults) GetEvents() (value []ChannelAdminLogEvent) {
+	return a.Events
+}
+
+// GetChats returns value of Chats field.
+func (a *ChannelsAdminLogResults) GetChats() (value []ChatClass) {
+	return a.Chats
+}
+
+// GetUsers returns value of Users field.
+func (a *ChannelsAdminLogResults) GetUsers() (value []UserClass) {
+	return a.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (a *ChannelsAdminLogResults) MapChats() (value ChatClassArray) {
+	return ChatClassArray(a.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (a *ChannelsAdminLogResults) MapUsers() (value UserClassArray) {
+	return UserClassArray(a.Users)
+}

@@ -38,6 +38,19 @@ type InlineQueryPeerTypeSameBotPM struct {
 // InlineQueryPeerTypeSameBotPMTypeID is TL type id of InlineQueryPeerTypeSameBotPM.
 const InlineQueryPeerTypeSameBotPMTypeID = 0x3081ed9d
 
+// construct implements constructor of InlineQueryPeerTypeClass.
+func (i InlineQueryPeerTypeSameBotPM) construct() InlineQueryPeerTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InlineQueryPeerTypeSameBotPM.
+var (
+	_ bin.Encoder     = &InlineQueryPeerTypeSameBotPM{}
+	_ bin.Decoder     = &InlineQueryPeerTypeSameBotPM{}
+	_ bin.BareEncoder = &InlineQueryPeerTypeSameBotPM{}
+	_ bin.BareDecoder = &InlineQueryPeerTypeSameBotPM{}
+
+	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypeSameBotPM{}
+)
+
 func (i *InlineQueryPeerTypeSameBotPM) Zero() bool {
 	if i == nil {
 		return true
@@ -117,19 +130,6 @@ func (i *InlineQueryPeerTypeSameBotPM) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InlineQueryPeerTypeClass.
-func (i InlineQueryPeerTypeSameBotPM) construct() InlineQueryPeerTypeClass { return &i }
-
-// Ensuring interfaces in compile-time for InlineQueryPeerTypeSameBotPM.
-var (
-	_ bin.Encoder     = &InlineQueryPeerTypeSameBotPM{}
-	_ bin.Decoder     = &InlineQueryPeerTypeSameBotPM{}
-	_ bin.BareEncoder = &InlineQueryPeerTypeSameBotPM{}
-	_ bin.BareDecoder = &InlineQueryPeerTypeSameBotPM{}
-
-	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypeSameBotPM{}
-)
-
 // InlineQueryPeerTypePM represents TL type `inlineQueryPeerTypePM#833c0fac`.
 //
 // See https://core.telegram.org/constructor/inlineQueryPeerTypePM for reference.
@@ -138,6 +138,19 @@ type InlineQueryPeerTypePM struct {
 
 // InlineQueryPeerTypePMTypeID is TL type id of InlineQueryPeerTypePM.
 const InlineQueryPeerTypePMTypeID = 0x833c0fac
+
+// construct implements constructor of InlineQueryPeerTypeClass.
+func (i InlineQueryPeerTypePM) construct() InlineQueryPeerTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InlineQueryPeerTypePM.
+var (
+	_ bin.Encoder     = &InlineQueryPeerTypePM{}
+	_ bin.Decoder     = &InlineQueryPeerTypePM{}
+	_ bin.BareEncoder = &InlineQueryPeerTypePM{}
+	_ bin.BareDecoder = &InlineQueryPeerTypePM{}
+
+	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypePM{}
+)
 
 func (i *InlineQueryPeerTypePM) Zero() bool {
 	if i == nil {
@@ -218,19 +231,6 @@ func (i *InlineQueryPeerTypePM) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InlineQueryPeerTypeClass.
-func (i InlineQueryPeerTypePM) construct() InlineQueryPeerTypeClass { return &i }
-
-// Ensuring interfaces in compile-time for InlineQueryPeerTypePM.
-var (
-	_ bin.Encoder     = &InlineQueryPeerTypePM{}
-	_ bin.Decoder     = &InlineQueryPeerTypePM{}
-	_ bin.BareEncoder = &InlineQueryPeerTypePM{}
-	_ bin.BareDecoder = &InlineQueryPeerTypePM{}
-
-	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypePM{}
-)
-
 // InlineQueryPeerTypeChat represents TL type `inlineQueryPeerTypeChat#d766c50a`.
 //
 // See https://core.telegram.org/constructor/inlineQueryPeerTypeChat for reference.
@@ -239,6 +239,19 @@ type InlineQueryPeerTypeChat struct {
 
 // InlineQueryPeerTypeChatTypeID is TL type id of InlineQueryPeerTypeChat.
 const InlineQueryPeerTypeChatTypeID = 0xd766c50a
+
+// construct implements constructor of InlineQueryPeerTypeClass.
+func (i InlineQueryPeerTypeChat) construct() InlineQueryPeerTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InlineQueryPeerTypeChat.
+var (
+	_ bin.Encoder     = &InlineQueryPeerTypeChat{}
+	_ bin.Decoder     = &InlineQueryPeerTypeChat{}
+	_ bin.BareEncoder = &InlineQueryPeerTypeChat{}
+	_ bin.BareDecoder = &InlineQueryPeerTypeChat{}
+
+	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypeChat{}
+)
 
 func (i *InlineQueryPeerTypeChat) Zero() bool {
 	if i == nil {
@@ -319,19 +332,6 @@ func (i *InlineQueryPeerTypeChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InlineQueryPeerTypeClass.
-func (i InlineQueryPeerTypeChat) construct() InlineQueryPeerTypeClass { return &i }
-
-// Ensuring interfaces in compile-time for InlineQueryPeerTypeChat.
-var (
-	_ bin.Encoder     = &InlineQueryPeerTypeChat{}
-	_ bin.Decoder     = &InlineQueryPeerTypeChat{}
-	_ bin.BareEncoder = &InlineQueryPeerTypeChat{}
-	_ bin.BareDecoder = &InlineQueryPeerTypeChat{}
-
-	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypeChat{}
-)
-
 // InlineQueryPeerTypeMegagroup represents TL type `inlineQueryPeerTypeMegagroup#5ec4be43`.
 //
 // See https://core.telegram.org/constructor/inlineQueryPeerTypeMegagroup for reference.
@@ -340,6 +340,19 @@ type InlineQueryPeerTypeMegagroup struct {
 
 // InlineQueryPeerTypeMegagroupTypeID is TL type id of InlineQueryPeerTypeMegagroup.
 const InlineQueryPeerTypeMegagroupTypeID = 0x5ec4be43
+
+// construct implements constructor of InlineQueryPeerTypeClass.
+func (i InlineQueryPeerTypeMegagroup) construct() InlineQueryPeerTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InlineQueryPeerTypeMegagroup.
+var (
+	_ bin.Encoder     = &InlineQueryPeerTypeMegagroup{}
+	_ bin.Decoder     = &InlineQueryPeerTypeMegagroup{}
+	_ bin.BareEncoder = &InlineQueryPeerTypeMegagroup{}
+	_ bin.BareDecoder = &InlineQueryPeerTypeMegagroup{}
+
+	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypeMegagroup{}
+)
 
 func (i *InlineQueryPeerTypeMegagroup) Zero() bool {
 	if i == nil {
@@ -420,19 +433,6 @@ func (i *InlineQueryPeerTypeMegagroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InlineQueryPeerTypeClass.
-func (i InlineQueryPeerTypeMegagroup) construct() InlineQueryPeerTypeClass { return &i }
-
-// Ensuring interfaces in compile-time for InlineQueryPeerTypeMegagroup.
-var (
-	_ bin.Encoder     = &InlineQueryPeerTypeMegagroup{}
-	_ bin.Decoder     = &InlineQueryPeerTypeMegagroup{}
-	_ bin.BareEncoder = &InlineQueryPeerTypeMegagroup{}
-	_ bin.BareDecoder = &InlineQueryPeerTypeMegagroup{}
-
-	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypeMegagroup{}
-)
-
 // InlineQueryPeerTypeBroadcast represents TL type `inlineQueryPeerTypeBroadcast#6334ee9a`.
 //
 // See https://core.telegram.org/constructor/inlineQueryPeerTypeBroadcast for reference.
@@ -441,6 +441,19 @@ type InlineQueryPeerTypeBroadcast struct {
 
 // InlineQueryPeerTypeBroadcastTypeID is TL type id of InlineQueryPeerTypeBroadcast.
 const InlineQueryPeerTypeBroadcastTypeID = 0x6334ee9a
+
+// construct implements constructor of InlineQueryPeerTypeClass.
+func (i InlineQueryPeerTypeBroadcast) construct() InlineQueryPeerTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InlineQueryPeerTypeBroadcast.
+var (
+	_ bin.Encoder     = &InlineQueryPeerTypeBroadcast{}
+	_ bin.Decoder     = &InlineQueryPeerTypeBroadcast{}
+	_ bin.BareEncoder = &InlineQueryPeerTypeBroadcast{}
+	_ bin.BareDecoder = &InlineQueryPeerTypeBroadcast{}
+
+	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypeBroadcast{}
+)
 
 func (i *InlineQueryPeerTypeBroadcast) Zero() bool {
 	if i == nil {
@@ -520,19 +533,6 @@ func (i *InlineQueryPeerTypeBroadcast) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of InlineQueryPeerTypeClass.
-func (i InlineQueryPeerTypeBroadcast) construct() InlineQueryPeerTypeClass { return &i }
-
-// Ensuring interfaces in compile-time for InlineQueryPeerTypeBroadcast.
-var (
-	_ bin.Encoder     = &InlineQueryPeerTypeBroadcast{}
-	_ bin.Decoder     = &InlineQueryPeerTypeBroadcast{}
-	_ bin.BareEncoder = &InlineQueryPeerTypeBroadcast{}
-	_ bin.BareDecoder = &InlineQueryPeerTypeBroadcast{}
-
-	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypeBroadcast{}
-)
 
 // InlineQueryPeerTypeClass represents InlineQueryPeerType generic type.
 //
@@ -641,86 +641,4 @@ func (b *InlineQueryPeerTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InlineQueryPeerTypeClass as nil")
 	}
 	return b.InlineQueryPeerType.Encode(buf)
-}
-
-// InlineQueryPeerTypeClassArray is adapter for slice of InlineQueryPeerTypeClass.
-type InlineQueryPeerTypeClassArray []InlineQueryPeerTypeClass
-
-// Sort sorts slice of InlineQueryPeerTypeClass.
-func (s InlineQueryPeerTypeClassArray) Sort(less func(a, b InlineQueryPeerTypeClass) bool) InlineQueryPeerTypeClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InlineQueryPeerTypeClass.
-func (s InlineQueryPeerTypeClassArray) SortStable(less func(a, b InlineQueryPeerTypeClass) bool) InlineQueryPeerTypeClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InlineQueryPeerTypeClass.
-func (s InlineQueryPeerTypeClassArray) Retain(keep func(x InlineQueryPeerTypeClass) bool) InlineQueryPeerTypeClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InlineQueryPeerTypeClassArray) First() (v InlineQueryPeerTypeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InlineQueryPeerTypeClassArray) Last() (v InlineQueryPeerTypeClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InlineQueryPeerTypeClassArray) PopFirst() (v InlineQueryPeerTypeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InlineQueryPeerTypeClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InlineQueryPeerTypeClassArray) Pop() (v InlineQueryPeerTypeClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

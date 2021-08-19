@@ -41,6 +41,14 @@ type PhotosDeletePhotosRequest struct {
 // PhotosDeletePhotosRequestTypeID is TL type id of PhotosDeletePhotosRequest.
 const PhotosDeletePhotosRequestTypeID = 0x87cf7f2f
 
+// Ensuring interfaces in compile-time for PhotosDeletePhotosRequest.
+var (
+	_ bin.Encoder     = &PhotosDeletePhotosRequest{}
+	_ bin.Decoder     = &PhotosDeletePhotosRequest{}
+	_ bin.BareEncoder = &PhotosDeletePhotosRequest{}
+	_ bin.BareDecoder = &PhotosDeletePhotosRequest{}
+)
+
 func (d *PhotosDeletePhotosRequest) Zero() bool {
 	if d == nil {
 		return true
@@ -125,16 +133,6 @@ func (d *PhotosDeletePhotosRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (d *PhotosDeletePhotosRequest) GetID() (value []InputPhotoClass) {
-	return d.ID
-}
-
-// MapID returns field ID wrapped in InputPhotoClassArray helper.
-func (d *PhotosDeletePhotosRequest) MapID() (value InputPhotoClassArray) {
-	return InputPhotoClassArray(d.ID)
-}
-
 // Decode implements bin.Decoder.
 func (d *PhotosDeletePhotosRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -171,13 +169,15 @@ func (d *PhotosDeletePhotosRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhotosDeletePhotosRequest.
-var (
-	_ bin.Encoder     = &PhotosDeletePhotosRequest{}
-	_ bin.Decoder     = &PhotosDeletePhotosRequest{}
-	_ bin.BareEncoder = &PhotosDeletePhotosRequest{}
-	_ bin.BareDecoder = &PhotosDeletePhotosRequest{}
-)
+// GetID returns value of ID field.
+func (d *PhotosDeletePhotosRequest) GetID() (value []InputPhotoClass) {
+	return d.ID
+}
+
+// MapID returns field ID wrapped in InputPhotoClassArray helper.
+func (d *PhotosDeletePhotosRequest) MapID() (value InputPhotoClassArray) {
+	return InputPhotoClassArray(d.ID)
+}
 
 // PhotosDeletePhotos invokes method photos.deletePhotos#87cf7f2f returning error if any.
 // Deletes profile photos.

@@ -38,6 +38,14 @@ type LangPackLanguageVector struct {
 // LangPackLanguageVectorTypeID is TL type id of LangPackLanguageVector.
 const LangPackLanguageVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for LangPackLanguageVector.
+var (
+	_ bin.Encoder     = &LangPackLanguageVector{}
+	_ bin.Decoder     = &LangPackLanguageVector{}
+	_ bin.BareEncoder = &LangPackLanguageVector{}
+	_ bin.BareDecoder = &LangPackLanguageVector{}
+)
+
 func (vec *LangPackLanguageVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -119,11 +127,6 @@ func (vec *LangPackLanguageVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *LangPackLanguageVector) GetElems() (value []LangPackLanguage) {
-	return vec.Elems
-}
-
 // Decode implements bin.Decoder.
 func (vec *LangPackLanguageVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -158,10 +161,7 @@ func (vec *LangPackLanguageVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for LangPackLanguageVector.
-var (
-	_ bin.Encoder     = &LangPackLanguageVector{}
-	_ bin.Decoder     = &LangPackLanguageVector{}
-	_ bin.BareEncoder = &LangPackLanguageVector{}
-	_ bin.BareDecoder = &LangPackLanguageVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *LangPackLanguageVector) GetElems() (value []LangPackLanguage) {
+	return vec.Elems
+}

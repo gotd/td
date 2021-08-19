@@ -39,6 +39,14 @@ type AccountResetWallPapersRequest struct {
 // AccountResetWallPapersRequestTypeID is TL type id of AccountResetWallPapersRequest.
 const AccountResetWallPapersRequestTypeID = 0xbb3b9804
 
+// Ensuring interfaces in compile-time for AccountResetWallPapersRequest.
+var (
+	_ bin.Encoder     = &AccountResetWallPapersRequest{}
+	_ bin.Decoder     = &AccountResetWallPapersRequest{}
+	_ bin.BareEncoder = &AccountResetWallPapersRequest{}
+	_ bin.BareDecoder = &AccountResetWallPapersRequest{}
+)
+
 func (r *AccountResetWallPapersRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -117,14 +125,6 @@ func (r *AccountResetWallPapersRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountResetWallPapersRequest.
-var (
-	_ bin.Encoder     = &AccountResetWallPapersRequest{}
-	_ bin.Decoder     = &AccountResetWallPapersRequest{}
-	_ bin.BareEncoder = &AccountResetWallPapersRequest{}
-	_ bin.BareDecoder = &AccountResetWallPapersRequest{}
-)
 
 // AccountResetWallPapers invokes method account.resetWallPapers#bb3b9804 returning error if any.
 // Delete installed wallpapers

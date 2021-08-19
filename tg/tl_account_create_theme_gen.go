@@ -56,6 +56,14 @@ type AccountCreateThemeRequest struct {
 // AccountCreateThemeRequestTypeID is TL type id of AccountCreateThemeRequest.
 const AccountCreateThemeRequestTypeID = 0x8432c21f
 
+// Ensuring interfaces in compile-time for AccountCreateThemeRequest.
+var (
+	_ bin.Encoder     = &AccountCreateThemeRequest{}
+	_ bin.Decoder     = &AccountCreateThemeRequest{}
+	_ bin.BareEncoder = &AccountCreateThemeRequest{}
+	_ bin.BareDecoder = &AccountCreateThemeRequest{}
+)
+
 func (c *AccountCreateThemeRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -193,55 +201,6 @@ func (c *AccountCreateThemeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSlug returns value of Slug field.
-func (c *AccountCreateThemeRequest) GetSlug() (value string) {
-	return c.Slug
-}
-
-// GetTitle returns value of Title field.
-func (c *AccountCreateThemeRequest) GetTitle() (value string) {
-	return c.Title
-}
-
-// SetDocument sets value of Document conditional field.
-func (c *AccountCreateThemeRequest) SetDocument(value InputDocumentClass) {
-	c.Flags.Set(2)
-	c.Document = value
-}
-
-// GetDocument returns value of Document conditional field and
-// boolean which is true if field was set.
-func (c *AccountCreateThemeRequest) GetDocument() (value InputDocumentClass, ok bool) {
-	if !c.Flags.Has(2) {
-		return value, false
-	}
-	return c.Document, true
-}
-
-// GetDocumentAsNotEmpty returns mapped value of Document conditional field and
-// boolean which is true if field was set.
-func (c *AccountCreateThemeRequest) GetDocumentAsNotEmpty() (*InputDocument, bool) {
-	if value, ok := c.GetDocument(); ok {
-		return value.AsNotEmpty()
-	}
-	return nil, false
-}
-
-// SetSettings sets value of Settings conditional field.
-func (c *AccountCreateThemeRequest) SetSettings(value InputThemeSettings) {
-	c.Flags.Set(3)
-	c.Settings = value
-}
-
-// GetSettings returns value of Settings conditional field and
-// boolean which is true if field was set.
-func (c *AccountCreateThemeRequest) GetSettings() (value InputThemeSettings, ok bool) {
-	if !c.Flags.Has(3) {
-		return value, false
-	}
-	return c.Settings, true
-}
-
 // Decode implements bin.Decoder.
 func (c *AccountCreateThemeRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -292,13 +251,54 @@ func (c *AccountCreateThemeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountCreateThemeRequest.
-var (
-	_ bin.Encoder     = &AccountCreateThemeRequest{}
-	_ bin.Decoder     = &AccountCreateThemeRequest{}
-	_ bin.BareEncoder = &AccountCreateThemeRequest{}
-	_ bin.BareDecoder = &AccountCreateThemeRequest{}
-)
+// GetSlug returns value of Slug field.
+func (c *AccountCreateThemeRequest) GetSlug() (value string) {
+	return c.Slug
+}
+
+// GetTitle returns value of Title field.
+func (c *AccountCreateThemeRequest) GetTitle() (value string) {
+	return c.Title
+}
+
+// SetDocument sets value of Document conditional field.
+func (c *AccountCreateThemeRequest) SetDocument(value InputDocumentClass) {
+	c.Flags.Set(2)
+	c.Document = value
+}
+
+// GetDocument returns value of Document conditional field and
+// boolean which is true if field was set.
+func (c *AccountCreateThemeRequest) GetDocument() (value InputDocumentClass, ok bool) {
+	if !c.Flags.Has(2) {
+		return value, false
+	}
+	return c.Document, true
+}
+
+// SetSettings sets value of Settings conditional field.
+func (c *AccountCreateThemeRequest) SetSettings(value InputThemeSettings) {
+	c.Flags.Set(3)
+	c.Settings = value
+}
+
+// GetSettings returns value of Settings conditional field and
+// boolean which is true if field was set.
+func (c *AccountCreateThemeRequest) GetSettings() (value InputThemeSettings, ok bool) {
+	if !c.Flags.Has(3) {
+		return value, false
+	}
+	return c.Settings, true
+}
+
+// GetDocumentAsNotEmpty returns mapped value of Document conditional field and
+// boolean which is true if field was set.
+func (c *AccountCreateThemeRequest) GetDocumentAsNotEmpty() (*InputDocument, bool) {
+	if value, ok := c.GetDocument(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}
 
 // AccountCreateTheme invokes method account.createTheme#8432c21f returning error if any.
 // Create a theme

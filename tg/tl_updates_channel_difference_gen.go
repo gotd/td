@@ -56,6 +56,19 @@ type UpdatesChannelDifferenceEmpty struct {
 // UpdatesChannelDifferenceEmptyTypeID is TL type id of UpdatesChannelDifferenceEmpty.
 const UpdatesChannelDifferenceEmptyTypeID = 0x3e11affb
 
+// construct implements constructor of UpdatesChannelDifferenceClass.
+func (c UpdatesChannelDifferenceEmpty) construct() UpdatesChannelDifferenceClass { return &c }
+
+// Ensuring interfaces in compile-time for UpdatesChannelDifferenceEmpty.
+var (
+	_ bin.Encoder     = &UpdatesChannelDifferenceEmpty{}
+	_ bin.Decoder     = &UpdatesChannelDifferenceEmpty{}
+	_ bin.BareEncoder = &UpdatesChannelDifferenceEmpty{}
+	_ bin.BareDecoder = &UpdatesChannelDifferenceEmpty{}
+
+	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifferenceEmpty{}
+)
+
 func (c *UpdatesChannelDifferenceEmpty) Zero() bool {
 	if c == nil {
 		return true
@@ -170,42 +183,6 @@ func (c *UpdatesChannelDifferenceEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFinal sets value of Final conditional field.
-func (c *UpdatesChannelDifferenceEmpty) SetFinal(value bool) {
-	if value {
-		c.Flags.Set(0)
-		c.Final = true
-	} else {
-		c.Flags.Unset(0)
-		c.Final = false
-	}
-}
-
-// GetFinal returns value of Final conditional field.
-func (c *UpdatesChannelDifferenceEmpty) GetFinal() (value bool) {
-	return c.Flags.Has(0)
-}
-
-// GetPts returns value of Pts field.
-func (c *UpdatesChannelDifferenceEmpty) GetPts() (value int) {
-	return c.Pts
-}
-
-// SetTimeout sets value of Timeout conditional field.
-func (c *UpdatesChannelDifferenceEmpty) SetTimeout(value int) {
-	c.Flags.Set(1)
-	c.Timeout = value
-}
-
-// GetTimeout returns value of Timeout conditional field and
-// boolean which is true if field was set.
-func (c *UpdatesChannelDifferenceEmpty) GetTimeout() (value int, ok bool) {
-	if !c.Flags.Has(1) {
-		return value, false
-	}
-	return c.Timeout, true
-}
-
 // Decode implements bin.Decoder.
 func (c *UpdatesChannelDifferenceEmpty) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -245,18 +222,41 @@ func (c *UpdatesChannelDifferenceEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesChannelDifferenceClass.
-func (c UpdatesChannelDifferenceEmpty) construct() UpdatesChannelDifferenceClass { return &c }
+// SetFinal sets value of Final conditional field.
+func (c *UpdatesChannelDifferenceEmpty) SetFinal(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.Final = true
+	} else {
+		c.Flags.Unset(0)
+		c.Final = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdatesChannelDifferenceEmpty.
-var (
-	_ bin.Encoder     = &UpdatesChannelDifferenceEmpty{}
-	_ bin.Decoder     = &UpdatesChannelDifferenceEmpty{}
-	_ bin.BareEncoder = &UpdatesChannelDifferenceEmpty{}
-	_ bin.BareDecoder = &UpdatesChannelDifferenceEmpty{}
+// GetFinal returns value of Final conditional field.
+func (c *UpdatesChannelDifferenceEmpty) GetFinal() (value bool) {
+	return c.Flags.Has(0)
+}
 
-	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifferenceEmpty{}
-)
+// GetPts returns value of Pts field.
+func (c *UpdatesChannelDifferenceEmpty) GetPts() (value int) {
+	return c.Pts
+}
+
+// SetTimeout sets value of Timeout conditional field.
+func (c *UpdatesChannelDifferenceEmpty) SetTimeout(value int) {
+	c.Flags.Set(1)
+	c.Timeout = value
+}
+
+// GetTimeout returns value of Timeout conditional field and
+// boolean which is true if field was set.
+func (c *UpdatesChannelDifferenceEmpty) GetTimeout() (value int, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.Timeout, true
+}
 
 // UpdatesChannelDifferenceTooLong represents TL type `updates.channelDifferenceTooLong#a4bcc6fe`.
 // The provided pts + limit < remote pts. Simply, there are too many updates to be
@@ -292,6 +292,19 @@ type UpdatesChannelDifferenceTooLong struct {
 
 // UpdatesChannelDifferenceTooLongTypeID is TL type id of UpdatesChannelDifferenceTooLong.
 const UpdatesChannelDifferenceTooLongTypeID = 0xa4bcc6fe
+
+// construct implements constructor of UpdatesChannelDifferenceClass.
+func (c UpdatesChannelDifferenceTooLong) construct() UpdatesChannelDifferenceClass { return &c }
+
+// Ensuring interfaces in compile-time for UpdatesChannelDifferenceTooLong.
+var (
+	_ bin.Encoder     = &UpdatesChannelDifferenceTooLong{}
+	_ bin.Decoder     = &UpdatesChannelDifferenceTooLong{}
+	_ bin.BareEncoder = &UpdatesChannelDifferenceTooLong{}
+	_ bin.BareDecoder = &UpdatesChannelDifferenceTooLong{}
+
+	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifferenceTooLong{}
+)
 
 func (c *UpdatesChannelDifferenceTooLong) Zero() bool {
 	if c == nil {
@@ -466,72 +479,6 @@ func (c *UpdatesChannelDifferenceTooLong) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFinal sets value of Final conditional field.
-func (c *UpdatesChannelDifferenceTooLong) SetFinal(value bool) {
-	if value {
-		c.Flags.Set(0)
-		c.Final = true
-	} else {
-		c.Flags.Unset(0)
-		c.Final = false
-	}
-}
-
-// GetFinal returns value of Final conditional field.
-func (c *UpdatesChannelDifferenceTooLong) GetFinal() (value bool) {
-	return c.Flags.Has(0)
-}
-
-// SetTimeout sets value of Timeout conditional field.
-func (c *UpdatesChannelDifferenceTooLong) SetTimeout(value int) {
-	c.Flags.Set(1)
-	c.Timeout = value
-}
-
-// GetTimeout returns value of Timeout conditional field and
-// boolean which is true if field was set.
-func (c *UpdatesChannelDifferenceTooLong) GetTimeout() (value int, ok bool) {
-	if !c.Flags.Has(1) {
-		return value, false
-	}
-	return c.Timeout, true
-}
-
-// GetDialog returns value of Dialog field.
-func (c *UpdatesChannelDifferenceTooLong) GetDialog() (value DialogClass) {
-	return c.Dialog
-}
-
-// GetMessages returns value of Messages field.
-func (c *UpdatesChannelDifferenceTooLong) GetMessages() (value []MessageClass) {
-	return c.Messages
-}
-
-// MapMessages returns field Messages wrapped in MessageClassArray helper.
-func (c *UpdatesChannelDifferenceTooLong) MapMessages() (value MessageClassArray) {
-	return MessageClassArray(c.Messages)
-}
-
-// GetChats returns value of Chats field.
-func (c *UpdatesChannelDifferenceTooLong) GetChats() (value []ChatClass) {
-	return c.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (c *UpdatesChannelDifferenceTooLong) MapChats() (value ChatClassArray) {
-	return ChatClassArray(c.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (c *UpdatesChannelDifferenceTooLong) GetUsers() (value []UserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (c *UpdatesChannelDifferenceTooLong) MapUsers() (value UserClassArray) {
-	return UserClassArray(c.Users)
-}
-
 // Decode implements bin.Decoder.
 func (c *UpdatesChannelDifferenceTooLong) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -622,18 +569,71 @@ func (c *UpdatesChannelDifferenceTooLong) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesChannelDifferenceClass.
-func (c UpdatesChannelDifferenceTooLong) construct() UpdatesChannelDifferenceClass { return &c }
+// SetFinal sets value of Final conditional field.
+func (c *UpdatesChannelDifferenceTooLong) SetFinal(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.Final = true
+	} else {
+		c.Flags.Unset(0)
+		c.Final = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdatesChannelDifferenceTooLong.
-var (
-	_ bin.Encoder     = &UpdatesChannelDifferenceTooLong{}
-	_ bin.Decoder     = &UpdatesChannelDifferenceTooLong{}
-	_ bin.BareEncoder = &UpdatesChannelDifferenceTooLong{}
-	_ bin.BareDecoder = &UpdatesChannelDifferenceTooLong{}
+// GetFinal returns value of Final conditional field.
+func (c *UpdatesChannelDifferenceTooLong) GetFinal() (value bool) {
+	return c.Flags.Has(0)
+}
 
-	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifferenceTooLong{}
-)
+// SetTimeout sets value of Timeout conditional field.
+func (c *UpdatesChannelDifferenceTooLong) SetTimeout(value int) {
+	c.Flags.Set(1)
+	c.Timeout = value
+}
+
+// GetTimeout returns value of Timeout conditional field and
+// boolean which is true if field was set.
+func (c *UpdatesChannelDifferenceTooLong) GetTimeout() (value int, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.Timeout, true
+}
+
+// GetDialog returns value of Dialog field.
+func (c *UpdatesChannelDifferenceTooLong) GetDialog() (value DialogClass) {
+	return c.Dialog
+}
+
+// GetMessages returns value of Messages field.
+func (c *UpdatesChannelDifferenceTooLong) GetMessages() (value []MessageClass) {
+	return c.Messages
+}
+
+// GetChats returns value of Chats field.
+func (c *UpdatesChannelDifferenceTooLong) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// GetUsers returns value of Users field.
+func (c *UpdatesChannelDifferenceTooLong) GetUsers() (value []UserClass) {
+	return c.Users
+}
+
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (c *UpdatesChannelDifferenceTooLong) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(c.Messages)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *UpdatesChannelDifferenceTooLong) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *UpdatesChannelDifferenceTooLong) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
+}
 
 // UpdatesChannelDifference represents TL type `updates.channelDifference#2064674e`.
 // The new updates
@@ -670,6 +670,19 @@ type UpdatesChannelDifference struct {
 
 // UpdatesChannelDifferenceTypeID is TL type id of UpdatesChannelDifference.
 const UpdatesChannelDifferenceTypeID = 0x2064674e
+
+// construct implements constructor of UpdatesChannelDifferenceClass.
+func (c UpdatesChannelDifference) construct() UpdatesChannelDifferenceClass { return &c }
+
+// Ensuring interfaces in compile-time for UpdatesChannelDifference.
+var (
+	_ bin.Encoder     = &UpdatesChannelDifference{}
+	_ bin.Decoder     = &UpdatesChannelDifference{}
+	_ bin.BareEncoder = &UpdatesChannelDifference{}
+	_ bin.BareDecoder = &UpdatesChannelDifference{}
+
+	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifference{}
+)
 
 func (c *UpdatesChannelDifference) Zero() bool {
 	if c == nil {
@@ -857,82 +870,6 @@ func (c *UpdatesChannelDifference) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFinal sets value of Final conditional field.
-func (c *UpdatesChannelDifference) SetFinal(value bool) {
-	if value {
-		c.Flags.Set(0)
-		c.Final = true
-	} else {
-		c.Flags.Unset(0)
-		c.Final = false
-	}
-}
-
-// GetFinal returns value of Final conditional field.
-func (c *UpdatesChannelDifference) GetFinal() (value bool) {
-	return c.Flags.Has(0)
-}
-
-// GetPts returns value of Pts field.
-func (c *UpdatesChannelDifference) GetPts() (value int) {
-	return c.Pts
-}
-
-// SetTimeout sets value of Timeout conditional field.
-func (c *UpdatesChannelDifference) SetTimeout(value int) {
-	c.Flags.Set(1)
-	c.Timeout = value
-}
-
-// GetTimeout returns value of Timeout conditional field and
-// boolean which is true if field was set.
-func (c *UpdatesChannelDifference) GetTimeout() (value int, ok bool) {
-	if !c.Flags.Has(1) {
-		return value, false
-	}
-	return c.Timeout, true
-}
-
-// GetNewMessages returns value of NewMessages field.
-func (c *UpdatesChannelDifference) GetNewMessages() (value []MessageClass) {
-	return c.NewMessages
-}
-
-// MapNewMessages returns field NewMessages wrapped in MessageClassArray helper.
-func (c *UpdatesChannelDifference) MapNewMessages() (value MessageClassArray) {
-	return MessageClassArray(c.NewMessages)
-}
-
-// GetOtherUpdates returns value of OtherUpdates field.
-func (c *UpdatesChannelDifference) GetOtherUpdates() (value []UpdateClass) {
-	return c.OtherUpdates
-}
-
-// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassArray helper.
-func (c *UpdatesChannelDifference) MapOtherUpdates() (value UpdateClassArray) {
-	return UpdateClassArray(c.OtherUpdates)
-}
-
-// GetChats returns value of Chats field.
-func (c *UpdatesChannelDifference) GetChats() (value []ChatClass) {
-	return c.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (c *UpdatesChannelDifference) MapChats() (value ChatClassArray) {
-	return ChatClassArray(c.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (c *UpdatesChannelDifference) GetUsers() (value []UserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (c *UpdatesChannelDifference) MapUsers() (value UserClassArray) {
-	return UserClassArray(c.Users)
-}
-
 // Decode implements bin.Decoder.
 func (c *UpdatesChannelDifference) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -1040,18 +977,81 @@ func (c *UpdatesChannelDifference) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesChannelDifferenceClass.
-func (c UpdatesChannelDifference) construct() UpdatesChannelDifferenceClass { return &c }
+// SetFinal sets value of Final conditional field.
+func (c *UpdatesChannelDifference) SetFinal(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.Final = true
+	} else {
+		c.Flags.Unset(0)
+		c.Final = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdatesChannelDifference.
-var (
-	_ bin.Encoder     = &UpdatesChannelDifference{}
-	_ bin.Decoder     = &UpdatesChannelDifference{}
-	_ bin.BareEncoder = &UpdatesChannelDifference{}
-	_ bin.BareDecoder = &UpdatesChannelDifference{}
+// GetFinal returns value of Final conditional field.
+func (c *UpdatesChannelDifference) GetFinal() (value bool) {
+	return c.Flags.Has(0)
+}
 
-	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifference{}
-)
+// GetPts returns value of Pts field.
+func (c *UpdatesChannelDifference) GetPts() (value int) {
+	return c.Pts
+}
+
+// SetTimeout sets value of Timeout conditional field.
+func (c *UpdatesChannelDifference) SetTimeout(value int) {
+	c.Flags.Set(1)
+	c.Timeout = value
+}
+
+// GetTimeout returns value of Timeout conditional field and
+// boolean which is true if field was set.
+func (c *UpdatesChannelDifference) GetTimeout() (value int, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.Timeout, true
+}
+
+// GetNewMessages returns value of NewMessages field.
+func (c *UpdatesChannelDifference) GetNewMessages() (value []MessageClass) {
+	return c.NewMessages
+}
+
+// GetOtherUpdates returns value of OtherUpdates field.
+func (c *UpdatesChannelDifference) GetOtherUpdates() (value []UpdateClass) {
+	return c.OtherUpdates
+}
+
+// GetChats returns value of Chats field.
+func (c *UpdatesChannelDifference) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// GetUsers returns value of Users field.
+func (c *UpdatesChannelDifference) GetUsers() (value []UserClass) {
+	return c.Users
+}
+
+// MapNewMessages returns field NewMessages wrapped in MessageClassArray helper.
+func (c *UpdatesChannelDifference) MapNewMessages() (value MessageClassArray) {
+	return MessageClassArray(c.NewMessages)
+}
+
+// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassArray helper.
+func (c *UpdatesChannelDifference) MapOtherUpdates() (value UpdateClassArray) {
+	return UpdateClassArray(c.OtherUpdates)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *UpdatesChannelDifference) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *UpdatesChannelDifference) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
+}
 
 // UpdatesChannelDifferenceClass represents updates.ChannelDifference generic type.
 //
@@ -1205,426 +1205,4 @@ func (b *UpdatesChannelDifferenceBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UpdatesChannelDifferenceClass as nil")
 	}
 	return b.ChannelDifference.Encode(buf)
-}
-
-// UpdatesChannelDifferenceClassArray is adapter for slice of UpdatesChannelDifferenceClass.
-type UpdatesChannelDifferenceClassArray []UpdatesChannelDifferenceClass
-
-// Sort sorts slice of UpdatesChannelDifferenceClass.
-func (s UpdatesChannelDifferenceClassArray) Sort(less func(a, b UpdatesChannelDifferenceClass) bool) UpdatesChannelDifferenceClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatesChannelDifferenceClass.
-func (s UpdatesChannelDifferenceClassArray) SortStable(less func(a, b UpdatesChannelDifferenceClass) bool) UpdatesChannelDifferenceClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatesChannelDifferenceClass.
-func (s UpdatesChannelDifferenceClassArray) Retain(keep func(x UpdatesChannelDifferenceClass) bool) UpdatesChannelDifferenceClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatesChannelDifferenceClassArray) First() (v UpdatesChannelDifferenceClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatesChannelDifferenceClassArray) Last() (v UpdatesChannelDifferenceClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatesChannelDifferenceClassArray) PopFirst() (v UpdatesChannelDifferenceClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatesChannelDifferenceClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatesChannelDifferenceClassArray) Pop() (v UpdatesChannelDifferenceClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsUpdatesChannelDifferenceEmpty returns copy with only UpdatesChannelDifferenceEmpty constructors.
-func (s UpdatesChannelDifferenceClassArray) AsUpdatesChannelDifferenceEmpty() (to UpdatesChannelDifferenceEmptyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatesChannelDifferenceEmpty)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdatesChannelDifferenceTooLong returns copy with only UpdatesChannelDifferenceTooLong constructors.
-func (s UpdatesChannelDifferenceClassArray) AsUpdatesChannelDifferenceTooLong() (to UpdatesChannelDifferenceTooLongArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatesChannelDifferenceTooLong)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdatesChannelDifference returns copy with only UpdatesChannelDifference constructors.
-func (s UpdatesChannelDifferenceClassArray) AsUpdatesChannelDifference() (to UpdatesChannelDifferenceArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatesChannelDifference)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s UpdatesChannelDifferenceClassArray) AppendOnlyNotEmpty(to []NotEmptyUpdatesChannelDifference) []NotEmptyUpdatesChannelDifference {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s UpdatesChannelDifferenceClassArray) AsNotEmpty() (to []NotEmptyUpdatesChannelDifference) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s UpdatesChannelDifferenceClassArray) FirstAsNotEmpty() (v NotEmptyUpdatesChannelDifference, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s UpdatesChannelDifferenceClassArray) LastAsNotEmpty() (v NotEmptyUpdatesChannelDifference, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *UpdatesChannelDifferenceClassArray) PopFirstAsNotEmpty() (v NotEmptyUpdatesChannelDifference, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *UpdatesChannelDifferenceClassArray) PopAsNotEmpty() (v NotEmptyUpdatesChannelDifference, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// UpdatesChannelDifferenceEmptyArray is adapter for slice of UpdatesChannelDifferenceEmpty.
-type UpdatesChannelDifferenceEmptyArray []UpdatesChannelDifferenceEmpty
-
-// Sort sorts slice of UpdatesChannelDifferenceEmpty.
-func (s UpdatesChannelDifferenceEmptyArray) Sort(less func(a, b UpdatesChannelDifferenceEmpty) bool) UpdatesChannelDifferenceEmptyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatesChannelDifferenceEmpty.
-func (s UpdatesChannelDifferenceEmptyArray) SortStable(less func(a, b UpdatesChannelDifferenceEmpty) bool) UpdatesChannelDifferenceEmptyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatesChannelDifferenceEmpty.
-func (s UpdatesChannelDifferenceEmptyArray) Retain(keep func(x UpdatesChannelDifferenceEmpty) bool) UpdatesChannelDifferenceEmptyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatesChannelDifferenceEmptyArray) First() (v UpdatesChannelDifferenceEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatesChannelDifferenceEmptyArray) Last() (v UpdatesChannelDifferenceEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatesChannelDifferenceEmptyArray) PopFirst() (v UpdatesChannelDifferenceEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatesChannelDifferenceEmpty
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatesChannelDifferenceEmptyArray) Pop() (v UpdatesChannelDifferenceEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdatesChannelDifferenceTooLongArray is adapter for slice of UpdatesChannelDifferenceTooLong.
-type UpdatesChannelDifferenceTooLongArray []UpdatesChannelDifferenceTooLong
-
-// Sort sorts slice of UpdatesChannelDifferenceTooLong.
-func (s UpdatesChannelDifferenceTooLongArray) Sort(less func(a, b UpdatesChannelDifferenceTooLong) bool) UpdatesChannelDifferenceTooLongArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatesChannelDifferenceTooLong.
-func (s UpdatesChannelDifferenceTooLongArray) SortStable(less func(a, b UpdatesChannelDifferenceTooLong) bool) UpdatesChannelDifferenceTooLongArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatesChannelDifferenceTooLong.
-func (s UpdatesChannelDifferenceTooLongArray) Retain(keep func(x UpdatesChannelDifferenceTooLong) bool) UpdatesChannelDifferenceTooLongArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatesChannelDifferenceTooLongArray) First() (v UpdatesChannelDifferenceTooLong, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatesChannelDifferenceTooLongArray) Last() (v UpdatesChannelDifferenceTooLong, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatesChannelDifferenceTooLongArray) PopFirst() (v UpdatesChannelDifferenceTooLong, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatesChannelDifferenceTooLong
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatesChannelDifferenceTooLongArray) Pop() (v UpdatesChannelDifferenceTooLong, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdatesChannelDifferenceArray is adapter for slice of UpdatesChannelDifference.
-type UpdatesChannelDifferenceArray []UpdatesChannelDifference
-
-// Sort sorts slice of UpdatesChannelDifference.
-func (s UpdatesChannelDifferenceArray) Sort(less func(a, b UpdatesChannelDifference) bool) UpdatesChannelDifferenceArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatesChannelDifference.
-func (s UpdatesChannelDifferenceArray) SortStable(less func(a, b UpdatesChannelDifference) bool) UpdatesChannelDifferenceArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatesChannelDifference.
-func (s UpdatesChannelDifferenceArray) Retain(keep func(x UpdatesChannelDifference) bool) UpdatesChannelDifferenceArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatesChannelDifferenceArray) First() (v UpdatesChannelDifference, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatesChannelDifferenceArray) Last() (v UpdatesChannelDifference, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatesChannelDifferenceArray) PopFirst() (v UpdatesChannelDifference, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatesChannelDifference
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatesChannelDifferenceArray) Pop() (v UpdatesChannelDifference, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

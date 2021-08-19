@@ -38,6 +38,14 @@ type MessageRangeVector struct {
 // MessageRangeVectorTypeID is TL type id of MessageRangeVector.
 const MessageRangeVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for MessageRangeVector.
+var (
+	_ bin.Encoder     = &MessageRangeVector{}
+	_ bin.Decoder     = &MessageRangeVector{}
+	_ bin.BareEncoder = &MessageRangeVector{}
+	_ bin.BareDecoder = &MessageRangeVector{}
+)
+
 func (vec *MessageRangeVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -119,11 +127,6 @@ func (vec *MessageRangeVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *MessageRangeVector) GetElems() (value []MessageRange) {
-	return vec.Elems
-}
-
 // Decode implements bin.Decoder.
 func (vec *MessageRangeVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -158,10 +161,7 @@ func (vec *MessageRangeVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessageRangeVector.
-var (
-	_ bin.Encoder     = &MessageRangeVector{}
-	_ bin.Decoder     = &MessageRangeVector{}
-	_ bin.BareEncoder = &MessageRangeVector{}
-	_ bin.BareDecoder = &MessageRangeVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *MessageRangeVector) GetElems() (value []MessageRange) {
+	return vec.Elems
+}

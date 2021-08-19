@@ -52,6 +52,14 @@ type UsersSetSecureValueErrorsRequest struct {
 // UsersSetSecureValueErrorsRequestTypeID is TL type id of UsersSetSecureValueErrorsRequest.
 const UsersSetSecureValueErrorsRequestTypeID = 0x90c894b5
 
+// Ensuring interfaces in compile-time for UsersSetSecureValueErrorsRequest.
+var (
+	_ bin.Encoder     = &UsersSetSecureValueErrorsRequest{}
+	_ bin.Decoder     = &UsersSetSecureValueErrorsRequest{}
+	_ bin.BareEncoder = &UsersSetSecureValueErrorsRequest{}
+	_ bin.BareDecoder = &UsersSetSecureValueErrorsRequest{}
+)
+
 func (s *UsersSetSecureValueErrorsRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -151,21 +159,6 @@ func (s *UsersSetSecureValueErrorsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (s *UsersSetSecureValueErrorsRequest) GetID() (value InputUserClass) {
-	return s.ID
-}
-
-// GetErrors returns value of Errors field.
-func (s *UsersSetSecureValueErrorsRequest) GetErrors() (value []SecureValueErrorClass) {
-	return s.Errors
-}
-
-// MapErrors returns field Errors wrapped in SecureValueErrorClassArray helper.
-func (s *UsersSetSecureValueErrorsRequest) MapErrors() (value SecureValueErrorClassArray) {
-	return SecureValueErrorClassArray(s.Errors)
-}
-
 // Decode implements bin.Decoder.
 func (s *UsersSetSecureValueErrorsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -209,13 +202,20 @@ func (s *UsersSetSecureValueErrorsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UsersSetSecureValueErrorsRequest.
-var (
-	_ bin.Encoder     = &UsersSetSecureValueErrorsRequest{}
-	_ bin.Decoder     = &UsersSetSecureValueErrorsRequest{}
-	_ bin.BareEncoder = &UsersSetSecureValueErrorsRequest{}
-	_ bin.BareDecoder = &UsersSetSecureValueErrorsRequest{}
-)
+// GetID returns value of ID field.
+func (s *UsersSetSecureValueErrorsRequest) GetID() (value InputUserClass) {
+	return s.ID
+}
+
+// GetErrors returns value of Errors field.
+func (s *UsersSetSecureValueErrorsRequest) GetErrors() (value []SecureValueErrorClass) {
+	return s.Errors
+}
+
+// MapErrors returns field Errors wrapped in SecureValueErrorClassArray helper.
+func (s *UsersSetSecureValueErrorsRequest) MapErrors() (value SecureValueErrorClassArray) {
+	return SecureValueErrorClassArray(s.Errors)
+}
 
 // UsersSetSecureValueErrors invokes method users.setSecureValueErrors#90c894b5 returning error if any.
 // Notify the user that the sent passport¹ data contains some errors The user will not

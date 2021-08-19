@@ -46,6 +46,14 @@ type ChannelsGetMessagesRequest struct {
 // ChannelsGetMessagesRequestTypeID is TL type id of ChannelsGetMessagesRequest.
 const ChannelsGetMessagesRequestTypeID = 0xad8c9a23
 
+// Ensuring interfaces in compile-time for ChannelsGetMessagesRequest.
+var (
+	_ bin.Encoder     = &ChannelsGetMessagesRequest{}
+	_ bin.Decoder     = &ChannelsGetMessagesRequest{}
+	_ bin.BareEncoder = &ChannelsGetMessagesRequest{}
+	_ bin.BareDecoder = &ChannelsGetMessagesRequest{}
+)
+
 func (g *ChannelsGetMessagesRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -145,26 +153,6 @@ func (g *ChannelsGetMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (g *ChannelsGetMessagesRequest) GetChannel() (value InputChannelClass) {
-	return g.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (g *ChannelsGetMessagesRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return g.Channel.AsNotEmpty()
-}
-
-// GetID returns value of ID field.
-func (g *ChannelsGetMessagesRequest) GetID() (value []InputMessageClass) {
-	return g.ID
-}
-
-// MapID returns field ID wrapped in InputMessageClassArray helper.
-func (g *ChannelsGetMessagesRequest) MapID() (value InputMessageClassArray) {
-	return InputMessageClassArray(g.ID)
-}
-
 // Decode implements bin.Decoder.
 func (g *ChannelsGetMessagesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -208,13 +196,25 @@ func (g *ChannelsGetMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsGetMessagesRequest.
-var (
-	_ bin.Encoder     = &ChannelsGetMessagesRequest{}
-	_ bin.Decoder     = &ChannelsGetMessagesRequest{}
-	_ bin.BareEncoder = &ChannelsGetMessagesRequest{}
-	_ bin.BareDecoder = &ChannelsGetMessagesRequest{}
-)
+// GetChannel returns value of Channel field.
+func (g *ChannelsGetMessagesRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
+}
+
+// GetID returns value of ID field.
+func (g *ChannelsGetMessagesRequest) GetID() (value []InputMessageClass) {
+	return g.ID
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *ChannelsGetMessagesRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
+}
+
+// MapID returns field ID wrapped in InputMessageClassArray helper.
+func (g *ChannelsGetMessagesRequest) MapID() (value InputMessageClassArray) {
+	return InputMessageClassArray(g.ID)
+}
 
 // ChannelsGetMessages invokes method channels.getMessages#ad8c9a23 returning error if any.
 // Get channel/supergroup¹ messages

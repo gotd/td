@@ -41,6 +41,14 @@ type MessagesGetFullChatRequest struct {
 // MessagesGetFullChatRequestTypeID is TL type id of MessagesGetFullChatRequest.
 const MessagesGetFullChatRequestTypeID = 0x3b831c66
 
+// Ensuring interfaces in compile-time for MessagesGetFullChatRequest.
+var (
+	_ bin.Encoder     = &MessagesGetFullChatRequest{}
+	_ bin.Decoder     = &MessagesGetFullChatRequest{}
+	_ bin.BareEncoder = &MessagesGetFullChatRequest{}
+	_ bin.BareDecoder = &MessagesGetFullChatRequest{}
+)
+
 func (g *MessagesGetFullChatRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,11 +125,6 @@ func (g *MessagesGetFullChatRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (g *MessagesGetFullChatRequest) GetChatID() (value int) {
-	return g.ChatID
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetFullChatRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -148,13 +151,10 @@ func (g *MessagesGetFullChatRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetFullChatRequest.
-var (
-	_ bin.Encoder     = &MessagesGetFullChatRequest{}
-	_ bin.Decoder     = &MessagesGetFullChatRequest{}
-	_ bin.BareEncoder = &MessagesGetFullChatRequest{}
-	_ bin.BareDecoder = &MessagesGetFullChatRequest{}
-)
+// GetChatID returns value of ChatID field.
+func (g *MessagesGetFullChatRequest) GetChatID() (value int) {
+	return g.ChatID
+}
 
 // MessagesGetFullChat invokes method messages.getFullChat#3b831c66 returning error if any.
 // Returns full chat info according to its ID.

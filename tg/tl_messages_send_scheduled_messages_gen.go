@@ -43,6 +43,14 @@ type MessagesSendScheduledMessagesRequest struct {
 // MessagesSendScheduledMessagesRequestTypeID is TL type id of MessagesSendScheduledMessagesRequest.
 const MessagesSendScheduledMessagesRequestTypeID = 0xbd38850a
 
+// Ensuring interfaces in compile-time for MessagesSendScheduledMessagesRequest.
+var (
+	_ bin.Encoder     = &MessagesSendScheduledMessagesRequest{}
+	_ bin.Decoder     = &MessagesSendScheduledMessagesRequest{}
+	_ bin.BareEncoder = &MessagesSendScheduledMessagesRequest{}
+	_ bin.BareDecoder = &MessagesSendScheduledMessagesRequest{}
+)
+
 func (s *MessagesSendScheduledMessagesRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -137,16 +145,6 @@ func (s *MessagesSendScheduledMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (s *MessagesSendScheduledMessagesRequest) GetPeer() (value InputPeerClass) {
-	return s.Peer
-}
-
-// GetID returns value of ID field.
-func (s *MessagesSendScheduledMessagesRequest) GetID() (value []int) {
-	return s.ID
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSendScheduledMessagesRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -190,13 +188,15 @@ func (s *MessagesSendScheduledMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSendScheduledMessagesRequest.
-var (
-	_ bin.Encoder     = &MessagesSendScheduledMessagesRequest{}
-	_ bin.Decoder     = &MessagesSendScheduledMessagesRequest{}
-	_ bin.BareEncoder = &MessagesSendScheduledMessagesRequest{}
-	_ bin.BareDecoder = &MessagesSendScheduledMessagesRequest{}
-)
+// GetPeer returns value of Peer field.
+func (s *MessagesSendScheduledMessagesRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetID returns value of ID field.
+func (s *MessagesSendScheduledMessagesRequest) GetID() (value []int) {
+	return s.ID
+}
 
 // MessagesSendScheduledMessages invokes method messages.sendScheduledMessages#bd38850a returning error if any.
 // Send scheduled messages right away

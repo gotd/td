@@ -39,6 +39,19 @@ type InputCheckPasswordEmpty struct {
 // InputCheckPasswordEmptyTypeID is TL type id of InputCheckPasswordEmpty.
 const InputCheckPasswordEmptyTypeID = 0x9880f658
 
+// construct implements constructor of InputCheckPasswordSRPClass.
+func (i InputCheckPasswordEmpty) construct() InputCheckPasswordSRPClass { return &i }
+
+// Ensuring interfaces in compile-time for InputCheckPasswordEmpty.
+var (
+	_ bin.Encoder     = &InputCheckPasswordEmpty{}
+	_ bin.Decoder     = &InputCheckPasswordEmpty{}
+	_ bin.BareEncoder = &InputCheckPasswordEmpty{}
+	_ bin.BareDecoder = &InputCheckPasswordEmpty{}
+
+	_ InputCheckPasswordSRPClass = &InputCheckPasswordEmpty{}
+)
+
 func (i *InputCheckPasswordEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputCheckPasswordEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputCheckPasswordSRPClass.
-func (i InputCheckPasswordEmpty) construct() InputCheckPasswordSRPClass { return &i }
-
-// Ensuring interfaces in compile-time for InputCheckPasswordEmpty.
-var (
-	_ bin.Encoder     = &InputCheckPasswordEmpty{}
-	_ bin.Decoder     = &InputCheckPasswordEmpty{}
-	_ bin.BareEncoder = &InputCheckPasswordEmpty{}
-	_ bin.BareDecoder = &InputCheckPasswordEmpty{}
-
-	_ InputCheckPasswordSRPClass = &InputCheckPasswordEmpty{}
-)
-
 // InputCheckPasswordSRP represents TL type `inputCheckPasswordSRP#d27ff082`.
 // Constructor for checking the validity of a 2FA SRP password (see SRP¹)
 //
@@ -158,6 +158,19 @@ type InputCheckPasswordSRP struct {
 
 // InputCheckPasswordSRPTypeID is TL type id of InputCheckPasswordSRP.
 const InputCheckPasswordSRPTypeID = 0xd27ff082
+
+// construct implements constructor of InputCheckPasswordSRPClass.
+func (i InputCheckPasswordSRP) construct() InputCheckPasswordSRPClass { return &i }
+
+// Ensuring interfaces in compile-time for InputCheckPasswordSRP.
+var (
+	_ bin.Encoder     = &InputCheckPasswordSRP{}
+	_ bin.Decoder     = &InputCheckPasswordSRP{}
+	_ bin.BareEncoder = &InputCheckPasswordSRP{}
+	_ bin.BareDecoder = &InputCheckPasswordSRP{}
+
+	_ InputCheckPasswordSRPClass = &InputCheckPasswordSRP{}
+)
 
 func (i *InputCheckPasswordSRP) Zero() bool {
 	if i == nil {
@@ -255,21 +268,6 @@ func (i *InputCheckPasswordSRP) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetSRPID returns value of SRPID field.
-func (i *InputCheckPasswordSRP) GetSRPID() (value int64) {
-	return i.SRPID
-}
-
-// GetA returns value of A field.
-func (i *InputCheckPasswordSRP) GetA() (value []byte) {
-	return i.A
-}
-
-// GetM1 returns value of M1 field.
-func (i *InputCheckPasswordSRP) GetM1() (value []byte) {
-	return i.M1
-}
-
 // Decode implements bin.Decoder.
 func (i *InputCheckPasswordSRP) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -310,18 +308,20 @@ func (i *InputCheckPasswordSRP) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputCheckPasswordSRPClass.
-func (i InputCheckPasswordSRP) construct() InputCheckPasswordSRPClass { return &i }
+// GetSRPID returns value of SRPID field.
+func (i *InputCheckPasswordSRP) GetSRPID() (value int64) {
+	return i.SRPID
+}
 
-// Ensuring interfaces in compile-time for InputCheckPasswordSRP.
-var (
-	_ bin.Encoder     = &InputCheckPasswordSRP{}
-	_ bin.Decoder     = &InputCheckPasswordSRP{}
-	_ bin.BareEncoder = &InputCheckPasswordSRP{}
-	_ bin.BareDecoder = &InputCheckPasswordSRP{}
+// GetA returns value of A field.
+func (i *InputCheckPasswordSRP) GetA() (value []byte) {
+	return i.A
+}
 
-	_ InputCheckPasswordSRPClass = &InputCheckPasswordSRP{}
-)
+// GetM1 returns value of M1 field.
+func (i *InputCheckPasswordSRP) GetM1() (value []byte) {
+	return i.M1
+}
 
 // InputCheckPasswordSRPClass represents InputCheckPasswordSRP generic type.
 //
@@ -419,236 +419,4 @@ func (b *InputCheckPasswordSRPBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputCheckPasswordSRPClass as nil")
 	}
 	return b.InputCheckPasswordSRP.Encode(buf)
-}
-
-// InputCheckPasswordSRPClassArray is adapter for slice of InputCheckPasswordSRPClass.
-type InputCheckPasswordSRPClassArray []InputCheckPasswordSRPClass
-
-// Sort sorts slice of InputCheckPasswordSRPClass.
-func (s InputCheckPasswordSRPClassArray) Sort(less func(a, b InputCheckPasswordSRPClass) bool) InputCheckPasswordSRPClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputCheckPasswordSRPClass.
-func (s InputCheckPasswordSRPClassArray) SortStable(less func(a, b InputCheckPasswordSRPClass) bool) InputCheckPasswordSRPClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputCheckPasswordSRPClass.
-func (s InputCheckPasswordSRPClassArray) Retain(keep func(x InputCheckPasswordSRPClass) bool) InputCheckPasswordSRPClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputCheckPasswordSRPClassArray) First() (v InputCheckPasswordSRPClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputCheckPasswordSRPClassArray) Last() (v InputCheckPasswordSRPClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputCheckPasswordSRPClassArray) PopFirst() (v InputCheckPasswordSRPClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputCheckPasswordSRPClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputCheckPasswordSRPClassArray) Pop() (v InputCheckPasswordSRPClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsInputCheckPasswordSRP returns copy with only InputCheckPasswordSRP constructors.
-func (s InputCheckPasswordSRPClassArray) AsInputCheckPasswordSRP() (to InputCheckPasswordSRPArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputCheckPasswordSRP)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s InputCheckPasswordSRPClassArray) AppendOnlyNotEmpty(to []*InputCheckPasswordSRP) []*InputCheckPasswordSRP {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s InputCheckPasswordSRPClassArray) AsNotEmpty() (to []*InputCheckPasswordSRP) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s InputCheckPasswordSRPClassArray) FirstAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s InputCheckPasswordSRPClassArray) LastAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *InputCheckPasswordSRPClassArray) PopFirstAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *InputCheckPasswordSRPClassArray) PopAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// InputCheckPasswordSRPArray is adapter for slice of InputCheckPasswordSRP.
-type InputCheckPasswordSRPArray []InputCheckPasswordSRP
-
-// Sort sorts slice of InputCheckPasswordSRP.
-func (s InputCheckPasswordSRPArray) Sort(less func(a, b InputCheckPasswordSRP) bool) InputCheckPasswordSRPArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputCheckPasswordSRP.
-func (s InputCheckPasswordSRPArray) SortStable(less func(a, b InputCheckPasswordSRP) bool) InputCheckPasswordSRPArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputCheckPasswordSRP.
-func (s InputCheckPasswordSRPArray) Retain(keep func(x InputCheckPasswordSRP) bool) InputCheckPasswordSRPArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputCheckPasswordSRPArray) First() (v InputCheckPasswordSRP, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputCheckPasswordSRPArray) Last() (v InputCheckPasswordSRP, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputCheckPasswordSRPArray) PopFirst() (v InputCheckPasswordSRP, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputCheckPasswordSRP
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputCheckPasswordSRPArray) Pop() (v InputCheckPasswordSRP, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

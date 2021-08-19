@@ -38,6 +38,14 @@ type MsgContainer struct {
 // MsgContainerTypeID is TL type id of MsgContainer.
 const MsgContainerTypeID = 0x73f1f8dc
 
+// Ensuring interfaces in compile-time for MsgContainer.
+var (
+	_ bin.Encoder     = &MsgContainer{}
+	_ bin.Decoder     = &MsgContainer{}
+	_ bin.BareEncoder = &MsgContainer{}
+	_ bin.BareDecoder = &MsgContainer{}
+)
+
 func (m *MsgContainer) Zero() bool {
 	if m == nil {
 		return true
@@ -56,13 +64,6 @@ func (m *MsgContainer) String() string {
 	}
 	type Alias MsgContainer
 	return fmt.Sprintf("MsgContainer%+v", Alias(*m))
-}
-
-// FillFrom fills MsgContainer from given interface.
-func (m *MsgContainer) FillFrom(from interface {
-	GetMessages() (value []Message)
-}) {
-	m.Messages = from.GetMessages()
 }
 
 // TypeID returns type id in TL schema.
@@ -119,11 +120,6 @@ func (m *MsgContainer) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessages returns value of Messages field.
-func (m *MsgContainer) GetMessages() (value []Message) {
-	return m.Messages
-}
-
 // Decode implements bin.Decoder.
 func (m *MsgContainer) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -160,10 +156,7 @@ func (m *MsgContainer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MsgContainer.
-var (
-	_ bin.Encoder     = &MsgContainer{}
-	_ bin.Decoder     = &MsgContainer{}
-	_ bin.BareEncoder = &MsgContainer{}
-	_ bin.BareDecoder = &MsgContainer{}
-)
+// GetMessages returns value of Messages field.
+func (m *MsgContainer) GetMessages() (value []Message) {
+	return m.Messages
+}

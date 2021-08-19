@@ -43,6 +43,14 @@ type StickersSetStickerSetThumbRequest struct {
 // StickersSetStickerSetThumbRequestTypeID is TL type id of StickersSetStickerSetThumbRequest.
 const StickersSetStickerSetThumbRequestTypeID = 0x9a364e30
 
+// Ensuring interfaces in compile-time for StickersSetStickerSetThumbRequest.
+var (
+	_ bin.Encoder     = &StickersSetStickerSetThumbRequest{}
+	_ bin.Decoder     = &StickersSetStickerSetThumbRequest{}
+	_ bin.BareEncoder = &StickersSetStickerSetThumbRequest{}
+	_ bin.BareDecoder = &StickersSetStickerSetThumbRequest{}
+)
+
 func (s *StickersSetStickerSetThumbRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -139,21 +147,6 @@ func (s *StickersSetStickerSetThumbRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetStickerset returns value of Stickerset field.
-func (s *StickersSetStickerSetThumbRequest) GetStickerset() (value InputStickerSetClass) {
-	return s.Stickerset
-}
-
-// GetThumb returns value of Thumb field.
-func (s *StickersSetStickerSetThumbRequest) GetThumb() (value InputDocumentClass) {
-	return s.Thumb
-}
-
-// GetThumbAsNotEmpty returns mapped value of Thumb field.
-func (s *StickersSetStickerSetThumbRequest) GetThumbAsNotEmpty() (*InputDocument, bool) {
-	return s.Thumb.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (s *StickersSetStickerSetThumbRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -187,13 +180,20 @@ func (s *StickersSetStickerSetThumbRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StickersSetStickerSetThumbRequest.
-var (
-	_ bin.Encoder     = &StickersSetStickerSetThumbRequest{}
-	_ bin.Decoder     = &StickersSetStickerSetThumbRequest{}
-	_ bin.BareEncoder = &StickersSetStickerSetThumbRequest{}
-	_ bin.BareDecoder = &StickersSetStickerSetThumbRequest{}
-)
+// GetStickerset returns value of Stickerset field.
+func (s *StickersSetStickerSetThumbRequest) GetStickerset() (value InputStickerSetClass) {
+	return s.Stickerset
+}
+
+// GetThumb returns value of Thumb field.
+func (s *StickersSetStickerSetThumbRequest) GetThumb() (value InputDocumentClass) {
+	return s.Thumb
+}
+
+// GetThumbAsNotEmpty returns mapped value of Thumb field.
+func (s *StickersSetStickerSetThumbRequest) GetThumbAsNotEmpty() (*InputDocument, bool) {
+	return s.Thumb.AsNotEmpty()
+}
 
 // StickersSetStickerSetThumb invokes method stickers.setStickerSetThumb#9a364e30 returning error if any.
 // Set stickerset thumbnail

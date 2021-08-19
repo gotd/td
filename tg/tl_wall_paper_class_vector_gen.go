@@ -38,6 +38,14 @@ type WallPaperClassVector struct {
 // WallPaperClassVectorTypeID is TL type id of WallPaperClassVector.
 const WallPaperClassVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for WallPaperClassVector.
+var (
+	_ bin.Encoder     = &WallPaperClassVector{}
+	_ bin.Decoder     = &WallPaperClassVector{}
+	_ bin.BareEncoder = &WallPaperClassVector{}
+	_ bin.BareDecoder = &WallPaperClassVector{}
+)
+
 func (vec *WallPaperClassVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -122,16 +130,6 @@ func (vec *WallPaperClassVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *WallPaperClassVector) GetElems() (value []WallPaperClass) {
-	return vec.Elems
-}
-
-// MapElems returns field Elems wrapped in WallPaperClassArray helper.
-func (vec *WallPaperClassVector) MapElems() (value WallPaperClassArray) {
-	return WallPaperClassArray(vec.Elems)
-}
-
 // Decode implements bin.Decoder.
 func (vec *WallPaperClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -166,10 +164,12 @@ func (vec *WallPaperClassVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for WallPaperClassVector.
-var (
-	_ bin.Encoder     = &WallPaperClassVector{}
-	_ bin.Decoder     = &WallPaperClassVector{}
-	_ bin.BareEncoder = &WallPaperClassVector{}
-	_ bin.BareDecoder = &WallPaperClassVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *WallPaperClassVector) GetElems() (value []WallPaperClass) {
+	return vec.Elems
+}
+
+// MapElems returns field Elems wrapped in WallPaperClassArray helper.
+func (vec *WallPaperClassVector) MapElems() (value WallPaperClassArray) {
+	return WallPaperClassArray(vec.Elems)
+}

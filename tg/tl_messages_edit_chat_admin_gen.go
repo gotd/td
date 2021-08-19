@@ -48,6 +48,14 @@ type MessagesEditChatAdminRequest struct {
 // MessagesEditChatAdminRequestTypeID is TL type id of MessagesEditChatAdminRequest.
 const MessagesEditChatAdminRequestTypeID = 0xa9e69f2e
 
+// Ensuring interfaces in compile-time for MessagesEditChatAdminRequest.
+var (
+	_ bin.Encoder     = &MessagesEditChatAdminRequest{}
+	_ bin.Decoder     = &MessagesEditChatAdminRequest{}
+	_ bin.BareEncoder = &MessagesEditChatAdminRequest{}
+	_ bin.BareDecoder = &MessagesEditChatAdminRequest{}
+)
+
 func (e *MessagesEditChatAdminRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -149,21 +157,6 @@ func (e *MessagesEditChatAdminRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (e *MessagesEditChatAdminRequest) GetChatID() (value int) {
-	return e.ChatID
-}
-
-// GetUserID returns value of UserID field.
-func (e *MessagesEditChatAdminRequest) GetUserID() (value InputUserClass) {
-	return e.UserID
-}
-
-// GetIsAdmin returns value of IsAdmin field.
-func (e *MessagesEditChatAdminRequest) GetIsAdmin() (value bool) {
-	return e.IsAdmin
-}
-
 // Decode implements bin.Decoder.
 func (e *MessagesEditChatAdminRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -204,13 +197,20 @@ func (e *MessagesEditChatAdminRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesEditChatAdminRequest.
-var (
-	_ bin.Encoder     = &MessagesEditChatAdminRequest{}
-	_ bin.Decoder     = &MessagesEditChatAdminRequest{}
-	_ bin.BareEncoder = &MessagesEditChatAdminRequest{}
-	_ bin.BareDecoder = &MessagesEditChatAdminRequest{}
-)
+// GetChatID returns value of ChatID field.
+func (e *MessagesEditChatAdminRequest) GetChatID() (value int) {
+	return e.ChatID
+}
+
+// GetUserID returns value of UserID field.
+func (e *MessagesEditChatAdminRequest) GetUserID() (value InputUserClass) {
+	return e.UserID
+}
+
+// GetIsAdmin returns value of IsAdmin field.
+func (e *MessagesEditChatAdminRequest) GetIsAdmin() (value bool) {
+	return e.IsAdmin
+}
 
 // MessagesEditChatAdmin invokes method messages.editChatAdmin#a9e69f2e returning error if any.
 // Make a user admin in a legacy group¹.

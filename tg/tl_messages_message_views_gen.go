@@ -45,6 +45,14 @@ type MessagesMessageViews struct {
 // MessagesMessageViewsTypeID is TL type id of MessagesMessageViews.
 const MessagesMessageViewsTypeID = 0xb6c4f543
 
+// Ensuring interfaces in compile-time for MessagesMessageViews.
+var (
+	_ bin.Encoder     = &MessagesMessageViews{}
+	_ bin.Decoder     = &MessagesMessageViews{}
+	_ bin.BareEncoder = &MessagesMessageViews{}
+	_ bin.BareDecoder = &MessagesMessageViews{}
+)
+
 func (m *MessagesMessageViews) Zero() bool {
 	if m == nil {
 		return true
@@ -162,31 +170,6 @@ func (m *MessagesMessageViews) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetViews returns value of Views field.
-func (m *MessagesMessageViews) GetViews() (value []MessageViews) {
-	return m.Views
-}
-
-// GetChats returns value of Chats field.
-func (m *MessagesMessageViews) GetChats() (value []ChatClass) {
-	return m.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (m *MessagesMessageViews) MapChats() (value ChatClassArray) {
-	return ChatClassArray(m.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (m *MessagesMessageViews) GetUsers() (value []UserClass) {
-	return m.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (m *MessagesMessageViews) MapUsers() (value UserClassArray) {
-	return UserClassArray(m.Users)
-}
-
 // Decode implements bin.Decoder.
 func (m *MessagesMessageViews) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -257,10 +240,27 @@ func (m *MessagesMessageViews) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesMessageViews.
-var (
-	_ bin.Encoder     = &MessagesMessageViews{}
-	_ bin.Decoder     = &MessagesMessageViews{}
-	_ bin.BareEncoder = &MessagesMessageViews{}
-	_ bin.BareDecoder = &MessagesMessageViews{}
-)
+// GetViews returns value of Views field.
+func (m *MessagesMessageViews) GetViews() (value []MessageViews) {
+	return m.Views
+}
+
+// GetChats returns value of Chats field.
+func (m *MessagesMessageViews) GetChats() (value []ChatClass) {
+	return m.Chats
+}
+
+// GetUsers returns value of Users field.
+func (m *MessagesMessageViews) GetUsers() (value []UserClass) {
+	return m.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (m *MessagesMessageViews) MapChats() (value ChatClassArray) {
+	return ChatClassArray(m.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (m *MessagesMessageViews) MapUsers() (value UserClassArray) {
+	return UserClassArray(m.Users)
+}

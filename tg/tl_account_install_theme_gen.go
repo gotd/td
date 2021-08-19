@@ -54,6 +54,14 @@ type AccountInstallThemeRequest struct {
 // AccountInstallThemeRequestTypeID is TL type id of AccountInstallThemeRequest.
 const AccountInstallThemeRequestTypeID = 0x7ae43737
 
+// Ensuring interfaces in compile-time for AccountInstallThemeRequest.
+var (
+	_ bin.Encoder     = &AccountInstallThemeRequest{}
+	_ bin.Decoder     = &AccountInstallThemeRequest{}
+	_ bin.BareEncoder = &AccountInstallThemeRequest{}
+	_ bin.BareDecoder = &AccountInstallThemeRequest{}
+)
+
 func (i *AccountInstallThemeRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -182,6 +190,45 @@ func (i *AccountInstallThemeRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (i *AccountInstallThemeRequest) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode account.installTheme#7ae43737 to nil")
+	}
+	if err := b.ConsumeID(AccountInstallThemeRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode account.installTheme#7ae43737: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *AccountInstallThemeRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode account.installTheme#7ae43737 to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field flags: %w", err)
+		}
+	}
+	i.Dark = i.Flags.Has(0)
+	if i.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field format: %w", err)
+		}
+		i.Format = value
+	}
+	if i.Flags.Has(1) {
+		value, err := DecodeInputTheme(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field theme: %w", err)
+		}
+		i.Theme = value
+	}
+	return nil
+}
+
 // SetDark sets value of Dark conditional field.
 func (i *AccountInstallThemeRequest) SetDark(value bool) {
 	if value {
@@ -227,53 +274,6 @@ func (i *AccountInstallThemeRequest) GetTheme() (value InputThemeClass, ok bool)
 	}
 	return i.Theme, true
 }
-
-// Decode implements bin.Decoder.
-func (i *AccountInstallThemeRequest) Decode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode account.installTheme#7ae43737 to nil")
-	}
-	if err := b.ConsumeID(AccountInstallThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.installTheme#7ae43737: %w", err)
-	}
-	return i.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (i *AccountInstallThemeRequest) DecodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode account.installTheme#7ae43737 to nil")
-	}
-	{
-		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field flags: %w", err)
-		}
-	}
-	i.Dark = i.Flags.Has(0)
-	if i.Flags.Has(1) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field format: %w", err)
-		}
-		i.Format = value
-	}
-	if i.Flags.Has(1) {
-		value, err := DecodeInputTheme(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field theme: %w", err)
-		}
-		i.Theme = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for AccountInstallThemeRequest.
-var (
-	_ bin.Encoder     = &AccountInstallThemeRequest{}
-	_ bin.Decoder     = &AccountInstallThemeRequest{}
-	_ bin.BareEncoder = &AccountInstallThemeRequest{}
-	_ bin.BareDecoder = &AccountInstallThemeRequest{}
-)
 
 // AccountInstallTheme invokes method account.installTheme#7ae43737 returning error if any.
 // Install a theme

@@ -39,6 +39,19 @@ type MessageMediaEmpty struct {
 // MessageMediaEmptyTypeID is TL type id of MessageMediaEmpty.
 const MessageMediaEmptyTypeID = 0x3ded6320
 
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaEmpty) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaEmpty.
+var (
+	_ bin.Encoder     = &MessageMediaEmpty{}
+	_ bin.Decoder     = &MessageMediaEmpty{}
+	_ bin.BareEncoder = &MessageMediaEmpty{}
+	_ bin.BareDecoder = &MessageMediaEmpty{}
+
+	_ MessageMediaClass = &MessageMediaEmpty{}
+)
+
 func (m *MessageMediaEmpty) Zero() bool {
 	if m == nil {
 		return true
@@ -118,19 +131,6 @@ func (m *MessageMediaEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageMediaClass.
-func (m MessageMediaEmpty) construct() MessageMediaClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageMediaEmpty.
-var (
-	_ bin.Encoder     = &MessageMediaEmpty{}
-	_ bin.Decoder     = &MessageMediaEmpty{}
-	_ bin.BareEncoder = &MessageMediaEmpty{}
-	_ bin.BareDecoder = &MessageMediaEmpty{}
-
-	_ MessageMediaClass = &MessageMediaEmpty{}
-)
-
 // MessageMediaPhoto represents TL type `messageMediaPhoto#695150d7`.
 // Attached photo.
 //
@@ -153,6 +153,19 @@ type MessageMediaPhoto struct {
 
 // MessageMediaPhotoTypeID is TL type id of MessageMediaPhoto.
 const MessageMediaPhotoTypeID = 0x695150d7
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaPhoto) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaPhoto.
+var (
+	_ bin.Encoder     = &MessageMediaPhoto{}
+	_ bin.Decoder     = &MessageMediaPhoto{}
+	_ bin.BareEncoder = &MessageMediaPhoto{}
+	_ bin.BareDecoder = &MessageMediaPhoto{}
+
+	_ MessageMediaClass = &MessageMediaPhoto{}
+)
 
 func (m *MessageMediaPhoto) Zero() bool {
 	if m == nil {
@@ -269,36 +282,6 @@ func (m *MessageMediaPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetPhoto sets value of Photo conditional field.
-func (m *MessageMediaPhoto) SetPhoto(value PhotoClass) {
-	m.Flags.Set(0)
-	m.Photo = value
-}
-
-// GetPhoto returns value of Photo conditional field and
-// boolean which is true if field was set.
-func (m *MessageMediaPhoto) GetPhoto() (value PhotoClass, ok bool) {
-	if !m.Flags.Has(0) {
-		return value, false
-	}
-	return m.Photo, true
-}
-
-// SetTTLSeconds sets value of TTLSeconds conditional field.
-func (m *MessageMediaPhoto) SetTTLSeconds(value int) {
-	m.Flags.Set(2)
-	m.TTLSeconds = value
-}
-
-// GetTTLSeconds returns value of TTLSeconds conditional field and
-// boolean which is true if field was set.
-func (m *MessageMediaPhoto) GetTTLSeconds() (value int, ok bool) {
-	if !m.Flags.Has(2) {
-		return value, false
-	}
-	return m.TTLSeconds, true
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageMediaPhoto) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -337,18 +320,35 @@ func (m *MessageMediaPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageMediaClass.
-func (m MessageMediaPhoto) construct() MessageMediaClass { return &m }
+// SetPhoto sets value of Photo conditional field.
+func (m *MessageMediaPhoto) SetPhoto(value PhotoClass) {
+	m.Flags.Set(0)
+	m.Photo = value
+}
 
-// Ensuring interfaces in compile-time for MessageMediaPhoto.
-var (
-	_ bin.Encoder     = &MessageMediaPhoto{}
-	_ bin.Decoder     = &MessageMediaPhoto{}
-	_ bin.BareEncoder = &MessageMediaPhoto{}
-	_ bin.BareDecoder = &MessageMediaPhoto{}
+// GetPhoto returns value of Photo conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaPhoto) GetPhoto() (value PhotoClass, ok bool) {
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.Photo, true
+}
 
-	_ MessageMediaClass = &MessageMediaPhoto{}
-)
+// SetTTLSeconds sets value of TTLSeconds conditional field.
+func (m *MessageMediaPhoto) SetTTLSeconds(value int) {
+	m.Flags.Set(2)
+	m.TTLSeconds = value
+}
+
+// GetTTLSeconds returns value of TTLSeconds conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaPhoto) GetTTLSeconds() (value int, ok bool) {
+	if !m.Flags.Has(2) {
+		return value, false
+	}
+	return m.TTLSeconds, true
+}
 
 // MessageMediaGeo represents TL type `messageMediaGeo#56e0d474`.
 // Attached map.
@@ -361,6 +361,19 @@ type MessageMediaGeo struct {
 
 // MessageMediaGeoTypeID is TL type id of MessageMediaGeo.
 const MessageMediaGeoTypeID = 0x56e0d474
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaGeo) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaGeo.
+var (
+	_ bin.Encoder     = &MessageMediaGeo{}
+	_ bin.Decoder     = &MessageMediaGeo{}
+	_ bin.BareEncoder = &MessageMediaGeo{}
+	_ bin.BareDecoder = &MessageMediaGeo{}
+
+	_ MessageMediaClass = &MessageMediaGeo{}
+)
 
 func (m *MessageMediaGeo) Zero() bool {
 	if m == nil {
@@ -443,11 +456,6 @@ func (m *MessageMediaGeo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetGeo returns value of Geo field.
-func (m *MessageMediaGeo) GetGeo() (value GeoPointClass) {
-	return m.Geo
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageMediaGeo) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -474,18 +482,10 @@ func (m *MessageMediaGeo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageMediaClass.
-func (m MessageMediaGeo) construct() MessageMediaClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageMediaGeo.
-var (
-	_ bin.Encoder     = &MessageMediaGeo{}
-	_ bin.Decoder     = &MessageMediaGeo{}
-	_ bin.BareEncoder = &MessageMediaGeo{}
-	_ bin.BareDecoder = &MessageMediaGeo{}
-
-	_ MessageMediaClass = &MessageMediaGeo{}
-)
+// GetGeo returns value of Geo field.
+func (m *MessageMediaGeo) GetGeo() (value GeoPointClass) {
+	return m.Geo
+}
 
 // MessageMediaContact represents TL type `messageMediaContact#cbf24940`.
 // Attached contact.
@@ -506,6 +506,19 @@ type MessageMediaContact struct {
 
 // MessageMediaContactTypeID is TL type id of MessageMediaContact.
 const MessageMediaContactTypeID = 0xcbf24940
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaContact) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaContact.
+var (
+	_ bin.Encoder     = &MessageMediaContact{}
+	_ bin.Decoder     = &MessageMediaContact{}
+	_ bin.BareEncoder = &MessageMediaContact{}
+	_ bin.BareDecoder = &MessageMediaContact{}
+
+	_ MessageMediaClass = &MessageMediaContact{}
+)
 
 func (m *MessageMediaContact) Zero() bool {
 	if m == nil {
@@ -623,31 +636,6 @@ func (m *MessageMediaContact) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneNumber returns value of PhoneNumber field.
-func (m *MessageMediaContact) GetPhoneNumber() (value string) {
-	return m.PhoneNumber
-}
-
-// GetFirstName returns value of FirstName field.
-func (m *MessageMediaContact) GetFirstName() (value string) {
-	return m.FirstName
-}
-
-// GetLastName returns value of LastName field.
-func (m *MessageMediaContact) GetLastName() (value string) {
-	return m.LastName
-}
-
-// GetVcard returns value of Vcard field.
-func (m *MessageMediaContact) GetVcard() (value string) {
-	return m.Vcard
-}
-
-// GetUserID returns value of UserID field.
-func (m *MessageMediaContact) GetUserID() (value int) {
-	return m.UserID
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageMediaContact) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -702,18 +690,30 @@ func (m *MessageMediaContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageMediaClass.
-func (m MessageMediaContact) construct() MessageMediaClass { return &m }
+// GetPhoneNumber returns value of PhoneNumber field.
+func (m *MessageMediaContact) GetPhoneNumber() (value string) {
+	return m.PhoneNumber
+}
 
-// Ensuring interfaces in compile-time for MessageMediaContact.
-var (
-	_ bin.Encoder     = &MessageMediaContact{}
-	_ bin.Decoder     = &MessageMediaContact{}
-	_ bin.BareEncoder = &MessageMediaContact{}
-	_ bin.BareDecoder = &MessageMediaContact{}
+// GetFirstName returns value of FirstName field.
+func (m *MessageMediaContact) GetFirstName() (value string) {
+	return m.FirstName
+}
 
-	_ MessageMediaClass = &MessageMediaContact{}
-)
+// GetLastName returns value of LastName field.
+func (m *MessageMediaContact) GetLastName() (value string) {
+	return m.LastName
+}
+
+// GetVcard returns value of Vcard field.
+func (m *MessageMediaContact) GetVcard() (value string) {
+	return m.Vcard
+}
+
+// GetUserID returns value of UserID field.
+func (m *MessageMediaContact) GetUserID() (value int) {
+	return m.UserID
+}
 
 // MessageMediaUnsupported represents TL type `messageMediaUnsupported#9f84f49e`.
 // Current version of the client does not support this media type.
@@ -724,6 +724,19 @@ type MessageMediaUnsupported struct {
 
 // MessageMediaUnsupportedTypeID is TL type id of MessageMediaUnsupported.
 const MessageMediaUnsupportedTypeID = 0x9f84f49e
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaUnsupported) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaUnsupported.
+var (
+	_ bin.Encoder     = &MessageMediaUnsupported{}
+	_ bin.Decoder     = &MessageMediaUnsupported{}
+	_ bin.BareEncoder = &MessageMediaUnsupported{}
+	_ bin.BareDecoder = &MessageMediaUnsupported{}
+
+	_ MessageMediaClass = &MessageMediaUnsupported{}
+)
 
 func (m *MessageMediaUnsupported) Zero() bool {
 	if m == nil {
@@ -804,19 +817,6 @@ func (m *MessageMediaUnsupported) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageMediaClass.
-func (m MessageMediaUnsupported) construct() MessageMediaClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageMediaUnsupported.
-var (
-	_ bin.Encoder     = &MessageMediaUnsupported{}
-	_ bin.Decoder     = &MessageMediaUnsupported{}
-	_ bin.BareEncoder = &MessageMediaUnsupported{}
-	_ bin.BareDecoder = &MessageMediaUnsupported{}
-
-	_ MessageMediaClass = &MessageMediaUnsupported{}
-)
-
 // MessageMediaDocument represents TL type `messageMediaDocument#9cb070d7`.
 // Document (video, audio, voice, sticker, any media type except photo)
 //
@@ -839,6 +839,19 @@ type MessageMediaDocument struct {
 
 // MessageMediaDocumentTypeID is TL type id of MessageMediaDocument.
 const MessageMediaDocumentTypeID = 0x9cb070d7
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaDocument) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaDocument.
+var (
+	_ bin.Encoder     = &MessageMediaDocument{}
+	_ bin.Decoder     = &MessageMediaDocument{}
+	_ bin.BareEncoder = &MessageMediaDocument{}
+	_ bin.BareDecoder = &MessageMediaDocument{}
+
+	_ MessageMediaClass = &MessageMediaDocument{}
+)
 
 func (m *MessageMediaDocument) Zero() bool {
 	if m == nil {
@@ -955,36 +968,6 @@ func (m *MessageMediaDocument) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetDocument sets value of Document conditional field.
-func (m *MessageMediaDocument) SetDocument(value DocumentClass) {
-	m.Flags.Set(0)
-	m.Document = value
-}
-
-// GetDocument returns value of Document conditional field and
-// boolean which is true if field was set.
-func (m *MessageMediaDocument) GetDocument() (value DocumentClass, ok bool) {
-	if !m.Flags.Has(0) {
-		return value, false
-	}
-	return m.Document, true
-}
-
-// SetTTLSeconds sets value of TTLSeconds conditional field.
-func (m *MessageMediaDocument) SetTTLSeconds(value int) {
-	m.Flags.Set(2)
-	m.TTLSeconds = value
-}
-
-// GetTTLSeconds returns value of TTLSeconds conditional field and
-// boolean which is true if field was set.
-func (m *MessageMediaDocument) GetTTLSeconds() (value int, ok bool) {
-	if !m.Flags.Has(2) {
-		return value, false
-	}
-	return m.TTLSeconds, true
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageMediaDocument) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1023,18 +1006,35 @@ func (m *MessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageMediaClass.
-func (m MessageMediaDocument) construct() MessageMediaClass { return &m }
+// SetDocument sets value of Document conditional field.
+func (m *MessageMediaDocument) SetDocument(value DocumentClass) {
+	m.Flags.Set(0)
+	m.Document = value
+}
 
-// Ensuring interfaces in compile-time for MessageMediaDocument.
-var (
-	_ bin.Encoder     = &MessageMediaDocument{}
-	_ bin.Decoder     = &MessageMediaDocument{}
-	_ bin.BareEncoder = &MessageMediaDocument{}
-	_ bin.BareDecoder = &MessageMediaDocument{}
+// GetDocument returns value of Document conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaDocument) GetDocument() (value DocumentClass, ok bool) {
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.Document, true
+}
 
-	_ MessageMediaClass = &MessageMediaDocument{}
-)
+// SetTTLSeconds sets value of TTLSeconds conditional field.
+func (m *MessageMediaDocument) SetTTLSeconds(value int) {
+	m.Flags.Set(2)
+	m.TTLSeconds = value
+}
+
+// GetTTLSeconds returns value of TTLSeconds conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaDocument) GetTTLSeconds() (value int, ok bool) {
+	if !m.Flags.Has(2) {
+		return value, false
+	}
+	return m.TTLSeconds, true
+}
 
 // MessageMediaWebPage represents TL type `messageMediaWebPage#a32dd600`.
 // Preview of webpage
@@ -1047,6 +1047,19 @@ type MessageMediaWebPage struct {
 
 // MessageMediaWebPageTypeID is TL type id of MessageMediaWebPage.
 const MessageMediaWebPageTypeID = 0xa32dd600
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaWebPage) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaWebPage.
+var (
+	_ bin.Encoder     = &MessageMediaWebPage{}
+	_ bin.Decoder     = &MessageMediaWebPage{}
+	_ bin.BareEncoder = &MessageMediaWebPage{}
+	_ bin.BareDecoder = &MessageMediaWebPage{}
+
+	_ MessageMediaClass = &MessageMediaWebPage{}
+)
 
 func (m *MessageMediaWebPage) Zero() bool {
 	if m == nil {
@@ -1129,11 +1142,6 @@ func (m *MessageMediaWebPage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetWebpage returns value of Webpage field.
-func (m *MessageMediaWebPage) GetWebpage() (value WebPageClass) {
-	return m.Webpage
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageMediaWebPage) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1160,18 +1168,10 @@ func (m *MessageMediaWebPage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageMediaClass.
-func (m MessageMediaWebPage) construct() MessageMediaClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageMediaWebPage.
-var (
-	_ bin.Encoder     = &MessageMediaWebPage{}
-	_ bin.Decoder     = &MessageMediaWebPage{}
-	_ bin.BareEncoder = &MessageMediaWebPage{}
-	_ bin.BareDecoder = &MessageMediaWebPage{}
-
-	_ MessageMediaClass = &MessageMediaWebPage{}
-)
+// GetWebpage returns value of Webpage field.
+func (m *MessageMediaWebPage) GetWebpage() (value WebPageClass) {
+	return m.Webpage
+}
 
 // MessageMediaVenue represents TL type `messageMediaVenue#2ec0533f`.
 // Venue
@@ -1194,6 +1194,19 @@ type MessageMediaVenue struct {
 
 // MessageMediaVenueTypeID is TL type id of MessageMediaVenue.
 const MessageMediaVenueTypeID = 0x2ec0533f
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaVenue) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaVenue.
+var (
+	_ bin.Encoder     = &MessageMediaVenue{}
+	_ bin.Decoder     = &MessageMediaVenue{}
+	_ bin.BareEncoder = &MessageMediaVenue{}
+	_ bin.BareDecoder = &MessageMediaVenue{}
+
+	_ MessageMediaClass = &MessageMediaVenue{}
+)
 
 func (m *MessageMediaVenue) Zero() bool {
 	if m == nil {
@@ -1326,36 +1339,6 @@ func (m *MessageMediaVenue) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetGeo returns value of Geo field.
-func (m *MessageMediaVenue) GetGeo() (value GeoPointClass) {
-	return m.Geo
-}
-
-// GetTitle returns value of Title field.
-func (m *MessageMediaVenue) GetTitle() (value string) {
-	return m.Title
-}
-
-// GetAddress returns value of Address field.
-func (m *MessageMediaVenue) GetAddress() (value string) {
-	return m.Address
-}
-
-// GetProvider returns value of Provider field.
-func (m *MessageMediaVenue) GetProvider() (value string) {
-	return m.Provider
-}
-
-// GetVenueID returns value of VenueID field.
-func (m *MessageMediaVenue) GetVenueID() (value string) {
-	return m.VenueID
-}
-
-// GetVenueType returns value of VenueType field.
-func (m *MessageMediaVenue) GetVenueType() (value string) {
-	return m.VenueType
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageMediaVenue) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1417,18 +1400,35 @@ func (m *MessageMediaVenue) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageMediaClass.
-func (m MessageMediaVenue) construct() MessageMediaClass { return &m }
+// GetGeo returns value of Geo field.
+func (m *MessageMediaVenue) GetGeo() (value GeoPointClass) {
+	return m.Geo
+}
 
-// Ensuring interfaces in compile-time for MessageMediaVenue.
-var (
-	_ bin.Encoder     = &MessageMediaVenue{}
-	_ bin.Decoder     = &MessageMediaVenue{}
-	_ bin.BareEncoder = &MessageMediaVenue{}
-	_ bin.BareDecoder = &MessageMediaVenue{}
+// GetTitle returns value of Title field.
+func (m *MessageMediaVenue) GetTitle() (value string) {
+	return m.Title
+}
 
-	_ MessageMediaClass = &MessageMediaVenue{}
-)
+// GetAddress returns value of Address field.
+func (m *MessageMediaVenue) GetAddress() (value string) {
+	return m.Address
+}
+
+// GetProvider returns value of Provider field.
+func (m *MessageMediaVenue) GetProvider() (value string) {
+	return m.Provider
+}
+
+// GetVenueID returns value of VenueID field.
+func (m *MessageMediaVenue) GetVenueID() (value string) {
+	return m.VenueID
+}
+
+// GetVenueType returns value of VenueType field.
+func (m *MessageMediaVenue) GetVenueType() (value string) {
+	return m.VenueType
+}
 
 // MessageMediaGame represents TL type `messageMediaGame#fdb19008`.
 // Telegram game
@@ -1441,6 +1441,19 @@ type MessageMediaGame struct {
 
 // MessageMediaGameTypeID is TL type id of MessageMediaGame.
 const MessageMediaGameTypeID = 0xfdb19008
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaGame) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaGame.
+var (
+	_ bin.Encoder     = &MessageMediaGame{}
+	_ bin.Decoder     = &MessageMediaGame{}
+	_ bin.BareEncoder = &MessageMediaGame{}
+	_ bin.BareDecoder = &MessageMediaGame{}
+
+	_ MessageMediaClass = &MessageMediaGame{}
+)
 
 func (m *MessageMediaGame) Zero() bool {
 	if m == nil {
@@ -1520,11 +1533,6 @@ func (m *MessageMediaGame) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetGame returns value of Game field.
-func (m *MessageMediaGame) GetGame() (value Game) {
-	return m.Game
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageMediaGame) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1549,18 +1557,10 @@ func (m *MessageMediaGame) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageMediaClass.
-func (m MessageMediaGame) construct() MessageMediaClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageMediaGame.
-var (
-	_ bin.Encoder     = &MessageMediaGame{}
-	_ bin.Decoder     = &MessageMediaGame{}
-	_ bin.BareEncoder = &MessageMediaGame{}
-	_ bin.BareDecoder = &MessageMediaGame{}
-
-	_ MessageMediaClass = &MessageMediaGame{}
-)
+// GetGame returns value of Game field.
+func (m *MessageMediaGame) GetGame() (value Game) {
+	return m.Game
+}
 
 // MessageMediaInvoice represents TL type `messageMediaInvoice#84551347`.
 // Invoice
@@ -1614,6 +1614,19 @@ type MessageMediaInvoice struct {
 
 // MessageMediaInvoiceTypeID is TL type id of MessageMediaInvoice.
 const MessageMediaInvoiceTypeID = 0x84551347
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaInvoice) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaInvoice.
+var (
+	_ bin.Encoder     = &MessageMediaInvoice{}
+	_ bin.Decoder     = &MessageMediaInvoice{}
+	_ bin.BareEncoder = &MessageMediaInvoice{}
+	_ bin.BareDecoder = &MessageMediaInvoice{}
+
+	_ MessageMediaClass = &MessageMediaInvoice{}
+)
 
 func (m *MessageMediaInvoice) Zero() bool {
 	if m == nil {
@@ -1806,6 +1819,81 @@ func (m *MessageMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (m *MessageMediaInvoice) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaInvoice#84551347 to nil")
+	}
+	if err := b.ConsumeID(MessageMediaInvoiceTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageMediaInvoice#84551347: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaInvoice) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaInvoice#84551347 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field flags: %w", err)
+		}
+	}
+	m.ShippingAddressRequested = m.Flags.Has(1)
+	m.Test = m.Flags.Has(3)
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field title: %w", err)
+		}
+		m.Title = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field description: %w", err)
+		}
+		m.Description = value
+	}
+	if m.Flags.Has(0) {
+		value, err := DecodeWebDocument(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field photo: %w", err)
+		}
+		m.Photo = value
+	}
+	if m.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field receipt_msg_id: %w", err)
+		}
+		m.ReceiptMsgID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field currency: %w", err)
+		}
+		m.Currency = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field total_amount: %w", err)
+		}
+		m.TotalAmount = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field start_param: %w", err)
+		}
+		m.StartParam = value
+	}
+	return nil
+}
+
 // SetShippingAddressRequested sets value of ShippingAddressRequested conditional field.
 func (m *MessageMediaInvoice) SetShippingAddressRequested(value bool) {
 	if value {
@@ -1893,94 +1981,6 @@ func (m *MessageMediaInvoice) GetStartParam() (value string) {
 	return m.StartParam
 }
 
-// Decode implements bin.Decoder.
-func (m *MessageMediaInvoice) Decode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageMediaInvoice#84551347 to nil")
-	}
-	if err := b.ConsumeID(MessageMediaInvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageMediaInvoice#84551347: %w", err)
-	}
-	return m.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (m *MessageMediaInvoice) DecodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageMediaInvoice#84551347 to nil")
-	}
-	{
-		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field flags: %w", err)
-		}
-	}
-	m.ShippingAddressRequested = m.Flags.Has(1)
-	m.Test = m.Flags.Has(3)
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field title: %w", err)
-		}
-		m.Title = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field description: %w", err)
-		}
-		m.Description = value
-	}
-	if m.Flags.Has(0) {
-		value, err := DecodeWebDocument(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field photo: %w", err)
-		}
-		m.Photo = value
-	}
-	if m.Flags.Has(2) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field receipt_msg_id: %w", err)
-		}
-		m.ReceiptMsgID = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field currency: %w", err)
-		}
-		m.Currency = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field total_amount: %w", err)
-		}
-		m.TotalAmount = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field start_param: %w", err)
-		}
-		m.StartParam = value
-	}
-	return nil
-}
-
-// construct implements constructor of MessageMediaClass.
-func (m MessageMediaInvoice) construct() MessageMediaClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageMediaInvoice.
-var (
-	_ bin.Encoder     = &MessageMediaInvoice{}
-	_ bin.Decoder     = &MessageMediaInvoice{}
-	_ bin.BareEncoder = &MessageMediaInvoice{}
-	_ bin.BareDecoder = &MessageMediaInvoice{}
-
-	_ MessageMediaClass = &MessageMediaInvoice{}
-)
-
 // MessageMediaGeoLive represents TL type `messageMediaGeoLive#b940c666`.
 // Indicates a live geolocation¹
 //
@@ -2017,6 +2017,19 @@ type MessageMediaGeoLive struct {
 
 // MessageMediaGeoLiveTypeID is TL type id of MessageMediaGeoLive.
 const MessageMediaGeoLiveTypeID = 0xb940c666
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaGeoLive) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaGeoLive.
+var (
+	_ bin.Encoder     = &MessageMediaGeoLive{}
+	_ bin.Decoder     = &MessageMediaGeoLive{}
+	_ bin.BareEncoder = &MessageMediaGeoLive{}
+	_ bin.BareDecoder = &MessageMediaGeoLive{}
+
+	_ MessageMediaClass = &MessageMediaGeoLive{}
+)
 
 func (m *MessageMediaGeoLive) Zero() bool {
 	if m == nil {
@@ -2153,46 +2166,6 @@ func (m *MessageMediaGeoLive) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetGeo returns value of Geo field.
-func (m *MessageMediaGeoLive) GetGeo() (value GeoPointClass) {
-	return m.Geo
-}
-
-// SetHeading sets value of Heading conditional field.
-func (m *MessageMediaGeoLive) SetHeading(value int) {
-	m.Flags.Set(0)
-	m.Heading = value
-}
-
-// GetHeading returns value of Heading conditional field and
-// boolean which is true if field was set.
-func (m *MessageMediaGeoLive) GetHeading() (value int, ok bool) {
-	if !m.Flags.Has(0) {
-		return value, false
-	}
-	return m.Heading, true
-}
-
-// GetPeriod returns value of Period field.
-func (m *MessageMediaGeoLive) GetPeriod() (value int) {
-	return m.Period
-}
-
-// SetProximityNotificationRadius sets value of ProximityNotificationRadius conditional field.
-func (m *MessageMediaGeoLive) SetProximityNotificationRadius(value int) {
-	m.Flags.Set(1)
-	m.ProximityNotificationRadius = value
-}
-
-// GetProximityNotificationRadius returns value of ProximityNotificationRadius conditional field and
-// boolean which is true if field was set.
-func (m *MessageMediaGeoLive) GetProximityNotificationRadius() (value int, ok bool) {
-	if !m.Flags.Has(1) {
-		return value, false
-	}
-	return m.ProximityNotificationRadius, true
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageMediaGeoLive) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2245,18 +2218,45 @@ func (m *MessageMediaGeoLive) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageMediaClass.
-func (m MessageMediaGeoLive) construct() MessageMediaClass { return &m }
+// GetGeo returns value of Geo field.
+func (m *MessageMediaGeoLive) GetGeo() (value GeoPointClass) {
+	return m.Geo
+}
 
-// Ensuring interfaces in compile-time for MessageMediaGeoLive.
-var (
-	_ bin.Encoder     = &MessageMediaGeoLive{}
-	_ bin.Decoder     = &MessageMediaGeoLive{}
-	_ bin.BareEncoder = &MessageMediaGeoLive{}
-	_ bin.BareDecoder = &MessageMediaGeoLive{}
+// SetHeading sets value of Heading conditional field.
+func (m *MessageMediaGeoLive) SetHeading(value int) {
+	m.Flags.Set(0)
+	m.Heading = value
+}
 
-	_ MessageMediaClass = &MessageMediaGeoLive{}
-)
+// GetHeading returns value of Heading conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaGeoLive) GetHeading() (value int, ok bool) {
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.Heading, true
+}
+
+// GetPeriod returns value of Period field.
+func (m *MessageMediaGeoLive) GetPeriod() (value int) {
+	return m.Period
+}
+
+// SetProximityNotificationRadius sets value of ProximityNotificationRadius conditional field.
+func (m *MessageMediaGeoLive) SetProximityNotificationRadius(value int) {
+	m.Flags.Set(1)
+	m.ProximityNotificationRadius = value
+}
+
+// GetProximityNotificationRadius returns value of ProximityNotificationRadius conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaGeoLive) GetProximityNotificationRadius() (value int, ok bool) {
+	if !m.Flags.Has(1) {
+		return value, false
+	}
+	return m.ProximityNotificationRadius, true
+}
 
 // MessageMediaPoll represents TL type `messageMediaPoll#4bd6e798`.
 // Poll
@@ -2271,6 +2271,19 @@ type MessageMediaPoll struct {
 
 // MessageMediaPollTypeID is TL type id of MessageMediaPoll.
 const MessageMediaPollTypeID = 0x4bd6e798
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaPoll) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaPoll.
+var (
+	_ bin.Encoder     = &MessageMediaPoll{}
+	_ bin.Decoder     = &MessageMediaPoll{}
+	_ bin.BareEncoder = &MessageMediaPoll{}
+	_ bin.BareDecoder = &MessageMediaPoll{}
+
+	_ MessageMediaClass = &MessageMediaPoll{}
+)
 
 func (m *MessageMediaPoll) Zero() bool {
 	if m == nil {
@@ -2362,16 +2375,6 @@ func (m *MessageMediaPoll) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPoll returns value of Poll field.
-func (m *MessageMediaPoll) GetPoll() (value Poll) {
-	return m.Poll
-}
-
-// GetResults returns value of Results field.
-func (m *MessageMediaPoll) GetResults() (value PollResults) {
-	return m.Results
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageMediaPoll) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2401,18 +2404,15 @@ func (m *MessageMediaPoll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageMediaClass.
-func (m MessageMediaPoll) construct() MessageMediaClass { return &m }
+// GetPoll returns value of Poll field.
+func (m *MessageMediaPoll) GetPoll() (value Poll) {
+	return m.Poll
+}
 
-// Ensuring interfaces in compile-time for MessageMediaPoll.
-var (
-	_ bin.Encoder     = &MessageMediaPoll{}
-	_ bin.Decoder     = &MessageMediaPoll{}
-	_ bin.BareEncoder = &MessageMediaPoll{}
-	_ bin.BareDecoder = &MessageMediaPoll{}
-
-	_ MessageMediaClass = &MessageMediaPoll{}
-)
+// GetResults returns value of Results field.
+func (m *MessageMediaPoll) GetResults() (value PollResults) {
+	return m.Results
+}
 
 // MessageMediaDice represents TL type `messageMediaDice#3f7ee58b`.
 // Dice-based animated sticker¹
@@ -2433,6 +2433,19 @@ type MessageMediaDice struct {
 
 // MessageMediaDiceTypeID is TL type id of MessageMediaDice.
 const MessageMediaDiceTypeID = 0x3f7ee58b
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaDice) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaDice.
+var (
+	_ bin.Encoder     = &MessageMediaDice{}
+	_ bin.Decoder     = &MessageMediaDice{}
+	_ bin.BareEncoder = &MessageMediaDice{}
+	_ bin.BareDecoder = &MessageMediaDice{}
+
+	_ MessageMediaClass = &MessageMediaDice{}
+)
 
 func (m *MessageMediaDice) Zero() bool {
 	if m == nil {
@@ -2520,16 +2533,6 @@ func (m *MessageMediaDice) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetValue returns value of Value field.
-func (m *MessageMediaDice) GetValue() (value int) {
-	return m.Value
-}
-
-// GetEmoticon returns value of Emoticon field.
-func (m *MessageMediaDice) GetEmoticon() (value string) {
-	return m.Emoticon
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageMediaDice) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2563,18 +2566,15 @@ func (m *MessageMediaDice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageMediaClass.
-func (m MessageMediaDice) construct() MessageMediaClass { return &m }
+// GetValue returns value of Value field.
+func (m *MessageMediaDice) GetValue() (value int) {
+	return m.Value
+}
 
-// Ensuring interfaces in compile-time for MessageMediaDice.
-var (
-	_ bin.Encoder     = &MessageMediaDice{}
-	_ bin.Decoder     = &MessageMediaDice{}
-	_ bin.BareEncoder = &MessageMediaDice{}
-	_ bin.BareDecoder = &MessageMediaDice{}
-
-	_ MessageMediaClass = &MessageMediaDice{}
-)
+// GetEmoticon returns value of Emoticon field.
+func (m *MessageMediaDice) GetEmoticon() (value string) {
+	return m.Emoticon
+}
 
 // MessageMediaClass represents MessageMedia generic type.
 //
@@ -2747,1131 +2747,4 @@ func (b *MessageMediaBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessageMediaClass as nil")
 	}
 	return b.MessageMedia.Encode(buf)
-}
-
-// MessageMediaClassArray is adapter for slice of MessageMediaClass.
-type MessageMediaClassArray []MessageMediaClass
-
-// Sort sorts slice of MessageMediaClass.
-func (s MessageMediaClassArray) Sort(less func(a, b MessageMediaClass) bool) MessageMediaClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageMediaClass.
-func (s MessageMediaClassArray) SortStable(less func(a, b MessageMediaClass) bool) MessageMediaClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageMediaClass.
-func (s MessageMediaClassArray) Retain(keep func(x MessageMediaClass) bool) MessageMediaClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageMediaClassArray) First() (v MessageMediaClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageMediaClassArray) Last() (v MessageMediaClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageMediaClassArray) PopFirst() (v MessageMediaClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageMediaClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageMediaClassArray) Pop() (v MessageMediaClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsMessageMediaPhoto returns copy with only MessageMediaPhoto constructors.
-func (s MessageMediaClassArray) AsMessageMediaPhoto() (to MessageMediaPhotoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageMediaPhoto)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageMediaGeo returns copy with only MessageMediaGeo constructors.
-func (s MessageMediaClassArray) AsMessageMediaGeo() (to MessageMediaGeoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageMediaGeo)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageMediaContact returns copy with only MessageMediaContact constructors.
-func (s MessageMediaClassArray) AsMessageMediaContact() (to MessageMediaContactArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageMediaContact)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageMediaDocument returns copy with only MessageMediaDocument constructors.
-func (s MessageMediaClassArray) AsMessageMediaDocument() (to MessageMediaDocumentArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageMediaDocument)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageMediaWebPage returns copy with only MessageMediaWebPage constructors.
-func (s MessageMediaClassArray) AsMessageMediaWebPage() (to MessageMediaWebPageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageMediaWebPage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageMediaVenue returns copy with only MessageMediaVenue constructors.
-func (s MessageMediaClassArray) AsMessageMediaVenue() (to MessageMediaVenueArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageMediaVenue)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageMediaGame returns copy with only MessageMediaGame constructors.
-func (s MessageMediaClassArray) AsMessageMediaGame() (to MessageMediaGameArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageMediaGame)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageMediaInvoice returns copy with only MessageMediaInvoice constructors.
-func (s MessageMediaClassArray) AsMessageMediaInvoice() (to MessageMediaInvoiceArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageMediaInvoice)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageMediaGeoLive returns copy with only MessageMediaGeoLive constructors.
-func (s MessageMediaClassArray) AsMessageMediaGeoLive() (to MessageMediaGeoLiveArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageMediaGeoLive)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageMediaPoll returns copy with only MessageMediaPoll constructors.
-func (s MessageMediaClassArray) AsMessageMediaPoll() (to MessageMediaPollArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageMediaPoll)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageMediaDice returns copy with only MessageMediaDice constructors.
-func (s MessageMediaClassArray) AsMessageMediaDice() (to MessageMediaDiceArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageMediaDice)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// MessageMediaPhotoArray is adapter for slice of MessageMediaPhoto.
-type MessageMediaPhotoArray []MessageMediaPhoto
-
-// Sort sorts slice of MessageMediaPhoto.
-func (s MessageMediaPhotoArray) Sort(less func(a, b MessageMediaPhoto) bool) MessageMediaPhotoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageMediaPhoto.
-func (s MessageMediaPhotoArray) SortStable(less func(a, b MessageMediaPhoto) bool) MessageMediaPhotoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageMediaPhoto.
-func (s MessageMediaPhotoArray) Retain(keep func(x MessageMediaPhoto) bool) MessageMediaPhotoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageMediaPhotoArray) First() (v MessageMediaPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageMediaPhotoArray) Last() (v MessageMediaPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageMediaPhotoArray) PopFirst() (v MessageMediaPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageMediaPhoto
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageMediaPhotoArray) Pop() (v MessageMediaPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageMediaGeoArray is adapter for slice of MessageMediaGeo.
-type MessageMediaGeoArray []MessageMediaGeo
-
-// Sort sorts slice of MessageMediaGeo.
-func (s MessageMediaGeoArray) Sort(less func(a, b MessageMediaGeo) bool) MessageMediaGeoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageMediaGeo.
-func (s MessageMediaGeoArray) SortStable(less func(a, b MessageMediaGeo) bool) MessageMediaGeoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageMediaGeo.
-func (s MessageMediaGeoArray) Retain(keep func(x MessageMediaGeo) bool) MessageMediaGeoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageMediaGeoArray) First() (v MessageMediaGeo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageMediaGeoArray) Last() (v MessageMediaGeo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageMediaGeoArray) PopFirst() (v MessageMediaGeo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageMediaGeo
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageMediaGeoArray) Pop() (v MessageMediaGeo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageMediaContactArray is adapter for slice of MessageMediaContact.
-type MessageMediaContactArray []MessageMediaContact
-
-// Sort sorts slice of MessageMediaContact.
-func (s MessageMediaContactArray) Sort(less func(a, b MessageMediaContact) bool) MessageMediaContactArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageMediaContact.
-func (s MessageMediaContactArray) SortStable(less func(a, b MessageMediaContact) bool) MessageMediaContactArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageMediaContact.
-func (s MessageMediaContactArray) Retain(keep func(x MessageMediaContact) bool) MessageMediaContactArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageMediaContactArray) First() (v MessageMediaContact, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageMediaContactArray) Last() (v MessageMediaContact, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageMediaContactArray) PopFirst() (v MessageMediaContact, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageMediaContact
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageMediaContactArray) Pop() (v MessageMediaContact, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageMediaDocumentArray is adapter for slice of MessageMediaDocument.
-type MessageMediaDocumentArray []MessageMediaDocument
-
-// Sort sorts slice of MessageMediaDocument.
-func (s MessageMediaDocumentArray) Sort(less func(a, b MessageMediaDocument) bool) MessageMediaDocumentArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageMediaDocument.
-func (s MessageMediaDocumentArray) SortStable(less func(a, b MessageMediaDocument) bool) MessageMediaDocumentArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageMediaDocument.
-func (s MessageMediaDocumentArray) Retain(keep func(x MessageMediaDocument) bool) MessageMediaDocumentArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageMediaDocumentArray) First() (v MessageMediaDocument, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageMediaDocumentArray) Last() (v MessageMediaDocument, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageMediaDocumentArray) PopFirst() (v MessageMediaDocument, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageMediaDocument
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageMediaDocumentArray) Pop() (v MessageMediaDocument, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageMediaWebPageArray is adapter for slice of MessageMediaWebPage.
-type MessageMediaWebPageArray []MessageMediaWebPage
-
-// Sort sorts slice of MessageMediaWebPage.
-func (s MessageMediaWebPageArray) Sort(less func(a, b MessageMediaWebPage) bool) MessageMediaWebPageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageMediaWebPage.
-func (s MessageMediaWebPageArray) SortStable(less func(a, b MessageMediaWebPage) bool) MessageMediaWebPageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageMediaWebPage.
-func (s MessageMediaWebPageArray) Retain(keep func(x MessageMediaWebPage) bool) MessageMediaWebPageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageMediaWebPageArray) First() (v MessageMediaWebPage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageMediaWebPageArray) Last() (v MessageMediaWebPage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageMediaWebPageArray) PopFirst() (v MessageMediaWebPage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageMediaWebPage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageMediaWebPageArray) Pop() (v MessageMediaWebPage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageMediaVenueArray is adapter for slice of MessageMediaVenue.
-type MessageMediaVenueArray []MessageMediaVenue
-
-// Sort sorts slice of MessageMediaVenue.
-func (s MessageMediaVenueArray) Sort(less func(a, b MessageMediaVenue) bool) MessageMediaVenueArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageMediaVenue.
-func (s MessageMediaVenueArray) SortStable(less func(a, b MessageMediaVenue) bool) MessageMediaVenueArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageMediaVenue.
-func (s MessageMediaVenueArray) Retain(keep func(x MessageMediaVenue) bool) MessageMediaVenueArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageMediaVenueArray) First() (v MessageMediaVenue, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageMediaVenueArray) Last() (v MessageMediaVenue, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageMediaVenueArray) PopFirst() (v MessageMediaVenue, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageMediaVenue
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageMediaVenueArray) Pop() (v MessageMediaVenue, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageMediaGameArray is adapter for slice of MessageMediaGame.
-type MessageMediaGameArray []MessageMediaGame
-
-// Sort sorts slice of MessageMediaGame.
-func (s MessageMediaGameArray) Sort(less func(a, b MessageMediaGame) bool) MessageMediaGameArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageMediaGame.
-func (s MessageMediaGameArray) SortStable(less func(a, b MessageMediaGame) bool) MessageMediaGameArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageMediaGame.
-func (s MessageMediaGameArray) Retain(keep func(x MessageMediaGame) bool) MessageMediaGameArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageMediaGameArray) First() (v MessageMediaGame, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageMediaGameArray) Last() (v MessageMediaGame, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageMediaGameArray) PopFirst() (v MessageMediaGame, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageMediaGame
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageMediaGameArray) Pop() (v MessageMediaGame, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageMediaInvoiceArray is adapter for slice of MessageMediaInvoice.
-type MessageMediaInvoiceArray []MessageMediaInvoice
-
-// Sort sorts slice of MessageMediaInvoice.
-func (s MessageMediaInvoiceArray) Sort(less func(a, b MessageMediaInvoice) bool) MessageMediaInvoiceArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageMediaInvoice.
-func (s MessageMediaInvoiceArray) SortStable(less func(a, b MessageMediaInvoice) bool) MessageMediaInvoiceArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageMediaInvoice.
-func (s MessageMediaInvoiceArray) Retain(keep func(x MessageMediaInvoice) bool) MessageMediaInvoiceArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageMediaInvoiceArray) First() (v MessageMediaInvoice, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageMediaInvoiceArray) Last() (v MessageMediaInvoice, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageMediaInvoiceArray) PopFirst() (v MessageMediaInvoice, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageMediaInvoice
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageMediaInvoiceArray) Pop() (v MessageMediaInvoice, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageMediaGeoLiveArray is adapter for slice of MessageMediaGeoLive.
-type MessageMediaGeoLiveArray []MessageMediaGeoLive
-
-// Sort sorts slice of MessageMediaGeoLive.
-func (s MessageMediaGeoLiveArray) Sort(less func(a, b MessageMediaGeoLive) bool) MessageMediaGeoLiveArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageMediaGeoLive.
-func (s MessageMediaGeoLiveArray) SortStable(less func(a, b MessageMediaGeoLive) bool) MessageMediaGeoLiveArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageMediaGeoLive.
-func (s MessageMediaGeoLiveArray) Retain(keep func(x MessageMediaGeoLive) bool) MessageMediaGeoLiveArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageMediaGeoLiveArray) First() (v MessageMediaGeoLive, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageMediaGeoLiveArray) Last() (v MessageMediaGeoLive, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageMediaGeoLiveArray) PopFirst() (v MessageMediaGeoLive, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageMediaGeoLive
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageMediaGeoLiveArray) Pop() (v MessageMediaGeoLive, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageMediaPollArray is adapter for slice of MessageMediaPoll.
-type MessageMediaPollArray []MessageMediaPoll
-
-// Sort sorts slice of MessageMediaPoll.
-func (s MessageMediaPollArray) Sort(less func(a, b MessageMediaPoll) bool) MessageMediaPollArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageMediaPoll.
-func (s MessageMediaPollArray) SortStable(less func(a, b MessageMediaPoll) bool) MessageMediaPollArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageMediaPoll.
-func (s MessageMediaPollArray) Retain(keep func(x MessageMediaPoll) bool) MessageMediaPollArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageMediaPollArray) First() (v MessageMediaPoll, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageMediaPollArray) Last() (v MessageMediaPoll, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageMediaPollArray) PopFirst() (v MessageMediaPoll, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageMediaPoll
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageMediaPollArray) Pop() (v MessageMediaPoll, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageMediaDiceArray is adapter for slice of MessageMediaDice.
-type MessageMediaDiceArray []MessageMediaDice
-
-// Sort sorts slice of MessageMediaDice.
-func (s MessageMediaDiceArray) Sort(less func(a, b MessageMediaDice) bool) MessageMediaDiceArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageMediaDice.
-func (s MessageMediaDiceArray) SortStable(less func(a, b MessageMediaDice) bool) MessageMediaDiceArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageMediaDice.
-func (s MessageMediaDiceArray) Retain(keep func(x MessageMediaDice) bool) MessageMediaDiceArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageMediaDiceArray) First() (v MessageMediaDice, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageMediaDiceArray) Last() (v MessageMediaDice, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageMediaDiceArray) PopFirst() (v MessageMediaDice, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageMediaDice
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageMediaDiceArray) Pop() (v MessageMediaDice, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

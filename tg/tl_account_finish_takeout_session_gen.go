@@ -46,6 +46,14 @@ type AccountFinishTakeoutSessionRequest struct {
 // AccountFinishTakeoutSessionRequestTypeID is TL type id of AccountFinishTakeoutSessionRequest.
 const AccountFinishTakeoutSessionRequestTypeID = 0x1d2652ee
 
+// Ensuring interfaces in compile-time for AccountFinishTakeoutSessionRequest.
+var (
+	_ bin.Encoder     = &AccountFinishTakeoutSessionRequest{}
+	_ bin.Decoder     = &AccountFinishTakeoutSessionRequest{}
+	_ bin.BareEncoder = &AccountFinishTakeoutSessionRequest{}
+	_ bin.BareDecoder = &AccountFinishTakeoutSessionRequest{}
+)
+
 func (f *AccountFinishTakeoutSessionRequest) Zero() bool {
 	if f == nil {
 		return true
@@ -131,22 +139,6 @@ func (f *AccountFinishTakeoutSessionRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetSuccess sets value of Success conditional field.
-func (f *AccountFinishTakeoutSessionRequest) SetSuccess(value bool) {
-	if value {
-		f.Flags.Set(0)
-		f.Success = true
-	} else {
-		f.Flags.Unset(0)
-		f.Success = false
-	}
-}
-
-// GetSuccess returns value of Success conditional field.
-func (f *AccountFinishTakeoutSessionRequest) GetSuccess() (value bool) {
-	return f.Flags.Has(0)
-}
-
 // Decode implements bin.Decoder.
 func (f *AccountFinishTakeoutSessionRequest) Decode(b *bin.Buffer) error {
 	if f == nil {
@@ -172,13 +164,21 @@ func (f *AccountFinishTakeoutSessionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountFinishTakeoutSessionRequest.
-var (
-	_ bin.Encoder     = &AccountFinishTakeoutSessionRequest{}
-	_ bin.Decoder     = &AccountFinishTakeoutSessionRequest{}
-	_ bin.BareEncoder = &AccountFinishTakeoutSessionRequest{}
-	_ bin.BareDecoder = &AccountFinishTakeoutSessionRequest{}
-)
+// SetSuccess sets value of Success conditional field.
+func (f *AccountFinishTakeoutSessionRequest) SetSuccess(value bool) {
+	if value {
+		f.Flags.Set(0)
+		f.Success = true
+	} else {
+		f.Flags.Unset(0)
+		f.Success = false
+	}
+}
+
+// GetSuccess returns value of Success conditional field.
+func (f *AccountFinishTakeoutSessionRequest) GetSuccess() (value bool) {
+	return f.Flags.Has(0)
+}
 
 // AccountFinishTakeoutSession invokes method account.finishTakeoutSession#1d2652ee returning error if any.
 // Finish account takeout session

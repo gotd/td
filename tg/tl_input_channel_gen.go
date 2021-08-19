@@ -39,6 +39,19 @@ type InputChannelEmpty struct {
 // InputChannelEmptyTypeID is TL type id of InputChannelEmpty.
 const InputChannelEmptyTypeID = 0xee8c1e86
 
+// construct implements constructor of InputChannelClass.
+func (i InputChannelEmpty) construct() InputChannelClass { return &i }
+
+// Ensuring interfaces in compile-time for InputChannelEmpty.
+var (
+	_ bin.Encoder     = &InputChannelEmpty{}
+	_ bin.Decoder     = &InputChannelEmpty{}
+	_ bin.BareEncoder = &InputChannelEmpty{}
+	_ bin.BareDecoder = &InputChannelEmpty{}
+
+	_ InputChannelClass = &InputChannelEmpty{}
+)
+
 func (i *InputChannelEmpty) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputChannelEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputChannelClass.
-func (i InputChannelEmpty) construct() InputChannelClass { return &i }
-
-// Ensuring interfaces in compile-time for InputChannelEmpty.
-var (
-	_ bin.Encoder     = &InputChannelEmpty{}
-	_ bin.Decoder     = &InputChannelEmpty{}
-	_ bin.BareEncoder = &InputChannelEmpty{}
-	_ bin.BareDecoder = &InputChannelEmpty{}
-
-	_ InputChannelClass = &InputChannelEmpty{}
-)
-
 // InputChannel represents TL type `inputChannel#afeb712e`.
 // Represents a channel
 //
@@ -147,6 +147,19 @@ type InputChannel struct {
 
 // InputChannelTypeID is TL type id of InputChannel.
 const InputChannelTypeID = 0xafeb712e
+
+// construct implements constructor of InputChannelClass.
+func (i InputChannel) construct() InputChannelClass { return &i }
+
+// Ensuring interfaces in compile-time for InputChannel.
+var (
+	_ bin.Encoder     = &InputChannel{}
+	_ bin.Decoder     = &InputChannel{}
+	_ bin.BareEncoder = &InputChannel{}
+	_ bin.BareDecoder = &InputChannel{}
+
+	_ InputChannelClass = &InputChannel{}
+)
 
 func (i *InputChannel) Zero() bool {
 	if i == nil {
@@ -234,16 +247,6 @@ func (i *InputChannel) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (i *InputChannel) GetChannelID() (value int) {
-	return i.ChannelID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (i *InputChannel) GetAccessHash() (value int64) {
-	return i.AccessHash
-}
-
 // Decode implements bin.Decoder.
 func (i *InputChannel) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -277,18 +280,15 @@ func (i *InputChannel) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputChannelClass.
-func (i InputChannel) construct() InputChannelClass { return &i }
+// GetChannelID returns value of ChannelID field.
+func (i *InputChannel) GetChannelID() (value int) {
+	return i.ChannelID
+}
 
-// Ensuring interfaces in compile-time for InputChannel.
-var (
-	_ bin.Encoder     = &InputChannel{}
-	_ bin.Decoder     = &InputChannel{}
-	_ bin.BareEncoder = &InputChannel{}
-	_ bin.BareDecoder = &InputChannel{}
-
-	_ InputChannelClass = &InputChannel{}
-)
+// GetAccessHash returns value of AccessHash field.
+func (i *InputChannel) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
 
 // InputChannelFromMessage represents TL type `inputChannelFromMessage#2a286531`.
 // Defines a min¹ channel that was seen in a certain message of a certain chat.
@@ -308,6 +308,19 @@ type InputChannelFromMessage struct {
 
 // InputChannelFromMessageTypeID is TL type id of InputChannelFromMessage.
 const InputChannelFromMessageTypeID = 0x2a286531
+
+// construct implements constructor of InputChannelClass.
+func (i InputChannelFromMessage) construct() InputChannelClass { return &i }
+
+// Ensuring interfaces in compile-time for InputChannelFromMessage.
+var (
+	_ bin.Encoder     = &InputChannelFromMessage{}
+	_ bin.Decoder     = &InputChannelFromMessage{}
+	_ bin.BareEncoder = &InputChannelFromMessage{}
+	_ bin.BareDecoder = &InputChannelFromMessage{}
+
+	_ InputChannelClass = &InputChannelFromMessage{}
+)
 
 func (i *InputChannelFromMessage) Zero() bool {
 	if i == nil {
@@ -410,21 +423,6 @@ func (i *InputChannelFromMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (i *InputChannelFromMessage) GetPeer() (value InputPeerClass) {
-	return i.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (i *InputChannelFromMessage) GetMsgID() (value int) {
-	return i.MsgID
-}
-
-// GetChannelID returns value of ChannelID field.
-func (i *InputChannelFromMessage) GetChannelID() (value int) {
-	return i.ChannelID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputChannelFromMessage) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -465,18 +463,20 @@ func (i *InputChannelFromMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of InputChannelClass.
-func (i InputChannelFromMessage) construct() InputChannelClass { return &i }
+// GetPeer returns value of Peer field.
+func (i *InputChannelFromMessage) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
 
-// Ensuring interfaces in compile-time for InputChannelFromMessage.
-var (
-	_ bin.Encoder     = &InputChannelFromMessage{}
-	_ bin.Decoder     = &InputChannelFromMessage{}
-	_ bin.BareEncoder = &InputChannelFromMessage{}
-	_ bin.BareDecoder = &InputChannelFromMessage{}
+// GetMsgID returns value of MsgID field.
+func (i *InputChannelFromMessage) GetMsgID() (value int) {
+	return i.MsgID
+}
 
-	_ InputChannelClass = &InputChannelFromMessage{}
-)
+// GetChannelID returns value of ChannelID field.
+func (i *InputChannelFromMessage) GetChannelID() (value int) {
+	return i.ChannelID
+}
 
 // InputChannelClass represents InputChannel generic type.
 //
@@ -613,331 +613,4 @@ func (b *InputChannelBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputChannelClass as nil")
 	}
 	return b.InputChannel.Encode(buf)
-}
-
-// InputChannelClassArray is adapter for slice of InputChannelClass.
-type InputChannelClassArray []InputChannelClass
-
-// Sort sorts slice of InputChannelClass.
-func (s InputChannelClassArray) Sort(less func(a, b InputChannelClass) bool) InputChannelClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputChannelClass.
-func (s InputChannelClassArray) SortStable(less func(a, b InputChannelClass) bool) InputChannelClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputChannelClass.
-func (s InputChannelClassArray) Retain(keep func(x InputChannelClass) bool) InputChannelClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputChannelClassArray) First() (v InputChannelClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputChannelClassArray) Last() (v InputChannelClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputChannelClassArray) PopFirst() (v InputChannelClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputChannelClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputChannelClassArray) Pop() (v InputChannelClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsInputChannel returns copy with only InputChannel constructors.
-func (s InputChannelClassArray) AsInputChannel() (to InputChannelArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputChannel)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputChannelFromMessage returns copy with only InputChannelFromMessage constructors.
-func (s InputChannelClassArray) AsInputChannelFromMessage() (to InputChannelFromMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputChannelFromMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s InputChannelClassArray) AppendOnlyNotEmpty(to []NotEmptyInputChannel) []NotEmptyInputChannel {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s InputChannelClassArray) AsNotEmpty() (to []NotEmptyInputChannel) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s InputChannelClassArray) FirstAsNotEmpty() (v NotEmptyInputChannel, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s InputChannelClassArray) LastAsNotEmpty() (v NotEmptyInputChannel, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *InputChannelClassArray) PopFirstAsNotEmpty() (v NotEmptyInputChannel, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *InputChannelClassArray) PopAsNotEmpty() (v NotEmptyInputChannel, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// InputChannelArray is adapter for slice of InputChannel.
-type InputChannelArray []InputChannel
-
-// Sort sorts slice of InputChannel.
-func (s InputChannelArray) Sort(less func(a, b InputChannel) bool) InputChannelArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputChannel.
-func (s InputChannelArray) SortStable(less func(a, b InputChannel) bool) InputChannelArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputChannel.
-func (s InputChannelArray) Retain(keep func(x InputChannel) bool) InputChannelArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputChannelArray) First() (v InputChannel, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputChannelArray) Last() (v InputChannel, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputChannelArray) PopFirst() (v InputChannel, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputChannel
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputChannelArray) Pop() (v InputChannel, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputChannelFromMessageArray is adapter for slice of InputChannelFromMessage.
-type InputChannelFromMessageArray []InputChannelFromMessage
-
-// Sort sorts slice of InputChannelFromMessage.
-func (s InputChannelFromMessageArray) Sort(less func(a, b InputChannelFromMessage) bool) InputChannelFromMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputChannelFromMessage.
-func (s InputChannelFromMessageArray) SortStable(less func(a, b InputChannelFromMessage) bool) InputChannelFromMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputChannelFromMessage.
-func (s InputChannelFromMessageArray) Retain(keep func(x InputChannelFromMessage) bool) InputChannelFromMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputChannelFromMessageArray) First() (v InputChannelFromMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputChannelFromMessageArray) Last() (v InputChannelFromMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputChannelFromMessageArray) PopFirst() (v InputChannelFromMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputChannelFromMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputChannelFromMessageArray) Pop() (v InputChannelFromMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

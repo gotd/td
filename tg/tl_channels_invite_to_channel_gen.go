@@ -43,6 +43,14 @@ type ChannelsInviteToChannelRequest struct {
 // ChannelsInviteToChannelRequestTypeID is TL type id of ChannelsInviteToChannelRequest.
 const ChannelsInviteToChannelRequestTypeID = 0x199f3a6c
 
+// Ensuring interfaces in compile-time for ChannelsInviteToChannelRequest.
+var (
+	_ bin.Encoder     = &ChannelsInviteToChannelRequest{}
+	_ bin.Decoder     = &ChannelsInviteToChannelRequest{}
+	_ bin.BareEncoder = &ChannelsInviteToChannelRequest{}
+	_ bin.BareDecoder = &ChannelsInviteToChannelRequest{}
+)
+
 func (i *ChannelsInviteToChannelRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -142,26 +150,6 @@ func (i *ChannelsInviteToChannelRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (i *ChannelsInviteToChannelRequest) GetChannel() (value InputChannelClass) {
-	return i.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (i *ChannelsInviteToChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return i.Channel.AsNotEmpty()
-}
-
-// GetUsers returns value of Users field.
-func (i *ChannelsInviteToChannelRequest) GetUsers() (value []InputUserClass) {
-	return i.Users
-}
-
-// MapUsers returns field Users wrapped in InputUserClassArray helper.
-func (i *ChannelsInviteToChannelRequest) MapUsers() (value InputUserClassArray) {
-	return InputUserClassArray(i.Users)
-}
-
 // Decode implements bin.Decoder.
 func (i *ChannelsInviteToChannelRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -205,13 +193,25 @@ func (i *ChannelsInviteToChannelRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsInviteToChannelRequest.
-var (
-	_ bin.Encoder     = &ChannelsInviteToChannelRequest{}
-	_ bin.Decoder     = &ChannelsInviteToChannelRequest{}
-	_ bin.BareEncoder = &ChannelsInviteToChannelRequest{}
-	_ bin.BareDecoder = &ChannelsInviteToChannelRequest{}
-)
+// GetChannel returns value of Channel field.
+func (i *ChannelsInviteToChannelRequest) GetChannel() (value InputChannelClass) {
+	return i.Channel
+}
+
+// GetUsers returns value of Users field.
+func (i *ChannelsInviteToChannelRequest) GetUsers() (value []InputUserClass) {
+	return i.Users
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (i *ChannelsInviteToChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return i.Channel.AsNotEmpty()
+}
+
+// MapUsers returns field Users wrapped in InputUserClassArray helper.
+func (i *ChannelsInviteToChannelRequest) MapUsers() (value InputUserClassArray) {
+	return InputUserClassArray(i.Users)
+}
 
 // ChannelsInviteToChannel invokes method channels.inviteToChannel#199f3a6c returning error if any.
 // Invite users to a channel/supergroup

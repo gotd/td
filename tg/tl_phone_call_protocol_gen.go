@@ -63,6 +63,14 @@ type PhoneCallProtocol struct {
 // PhoneCallProtocolTypeID is TL type id of PhoneCallProtocol.
 const PhoneCallProtocolTypeID = 0xfc878fc8
 
+// Ensuring interfaces in compile-time for PhoneCallProtocol.
+var (
+	_ bin.Encoder     = &PhoneCallProtocol{}
+	_ bin.Decoder     = &PhoneCallProtocol{}
+	_ bin.BareEncoder = &PhoneCallProtocol{}
+	_ bin.BareDecoder = &PhoneCallProtocol{}
+)
+
 func (p *PhoneCallProtocol) Zero() bool {
 	if p == nil {
 		return true
@@ -194,53 +202,6 @@ func (p *PhoneCallProtocol) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetUDPP2P sets value of UDPP2P conditional field.
-func (p *PhoneCallProtocol) SetUDPP2P(value bool) {
-	if value {
-		p.Flags.Set(0)
-		p.UDPP2P = true
-	} else {
-		p.Flags.Unset(0)
-		p.UDPP2P = false
-	}
-}
-
-// GetUDPP2P returns value of UDPP2P conditional field.
-func (p *PhoneCallProtocol) GetUDPP2P() (value bool) {
-	return p.Flags.Has(0)
-}
-
-// SetUDPReflector sets value of UDPReflector conditional field.
-func (p *PhoneCallProtocol) SetUDPReflector(value bool) {
-	if value {
-		p.Flags.Set(1)
-		p.UDPReflector = true
-	} else {
-		p.Flags.Unset(1)
-		p.UDPReflector = false
-	}
-}
-
-// GetUDPReflector returns value of UDPReflector conditional field.
-func (p *PhoneCallProtocol) GetUDPReflector() (value bool) {
-	return p.Flags.Has(1)
-}
-
-// GetMinLayer returns value of MinLayer field.
-func (p *PhoneCallProtocol) GetMinLayer() (value int) {
-	return p.MinLayer
-}
-
-// GetMaxLayer returns value of MaxLayer field.
-func (p *PhoneCallProtocol) GetMaxLayer() (value int) {
-	return p.MaxLayer
-}
-
-// GetLibraryVersions returns value of LibraryVersions field.
-func (p *PhoneCallProtocol) GetLibraryVersions() (value []string) {
-	return p.LibraryVersions
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneCallProtocol) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -298,10 +259,49 @@ func (p *PhoneCallProtocol) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneCallProtocol.
-var (
-	_ bin.Encoder     = &PhoneCallProtocol{}
-	_ bin.Decoder     = &PhoneCallProtocol{}
-	_ bin.BareEncoder = &PhoneCallProtocol{}
-	_ bin.BareDecoder = &PhoneCallProtocol{}
-)
+// SetUDPP2P sets value of UDPP2P conditional field.
+func (p *PhoneCallProtocol) SetUDPP2P(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.UDPP2P = true
+	} else {
+		p.Flags.Unset(0)
+		p.UDPP2P = false
+	}
+}
+
+// GetUDPP2P returns value of UDPP2P conditional field.
+func (p *PhoneCallProtocol) GetUDPP2P() (value bool) {
+	return p.Flags.Has(0)
+}
+
+// SetUDPReflector sets value of UDPReflector conditional field.
+func (p *PhoneCallProtocol) SetUDPReflector(value bool) {
+	if value {
+		p.Flags.Set(1)
+		p.UDPReflector = true
+	} else {
+		p.Flags.Unset(1)
+		p.UDPReflector = false
+	}
+}
+
+// GetUDPReflector returns value of UDPReflector conditional field.
+func (p *PhoneCallProtocol) GetUDPReflector() (value bool) {
+	return p.Flags.Has(1)
+}
+
+// GetMinLayer returns value of MinLayer field.
+func (p *PhoneCallProtocol) GetMinLayer() (value int) {
+	return p.MinLayer
+}
+
+// GetMaxLayer returns value of MaxLayer field.
+func (p *PhoneCallProtocol) GetMaxLayer() (value int) {
+	return p.MaxLayer
+}
+
+// GetLibraryVersions returns value of LibraryVersions field.
+func (p *PhoneCallProtocol) GetLibraryVersions() (value []string) {
+	return p.LibraryVersions
+}

@@ -57,6 +57,14 @@ type MessagesSetInlineGameScoreRequest struct {
 // MessagesSetInlineGameScoreRequestTypeID is TL type id of MessagesSetInlineGameScoreRequest.
 const MessagesSetInlineGameScoreRequestTypeID = 0x15ad9f64
 
+// Ensuring interfaces in compile-time for MessagesSetInlineGameScoreRequest.
+var (
+	_ bin.Encoder     = &MessagesSetInlineGameScoreRequest{}
+	_ bin.Decoder     = &MessagesSetInlineGameScoreRequest{}
+	_ bin.BareEncoder = &MessagesSetInlineGameScoreRequest{}
+	_ bin.BareDecoder = &MessagesSetInlineGameScoreRequest{}
+)
+
 func (s *MessagesSetInlineGameScoreRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -192,6 +200,51 @@ func (s *MessagesSetInlineGameScoreRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (s *MessagesSetInlineGameScoreRequest) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.setInlineGameScore#15ad9f64 to nil")
+	}
+	if err := b.ConsumeID(MessagesSetInlineGameScoreRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSetInlineGameScoreRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.setInlineGameScore#15ad9f64 to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: field flags: %w", err)
+		}
+	}
+	s.EditMessage = s.Flags.Has(0)
+	s.Force = s.Flags.Has(1)
+	{
+		if err := s.ID.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: field id: %w", err)
+		}
+	}
+	{
+		value, err := DecodeInputUser(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: field user_id: %w", err)
+		}
+		s.UserID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: field score: %w", err)
+		}
+		s.Score = value
+	}
+	return nil
+}
+
 // SetEditMessage sets value of EditMessage conditional field.
 func (s *MessagesSetInlineGameScoreRequest) SetEditMessage(value bool) {
 	if value {
@@ -238,59 +291,6 @@ func (s *MessagesSetInlineGameScoreRequest) GetUserID() (value InputUserClass) {
 func (s *MessagesSetInlineGameScoreRequest) GetScore() (value int) {
 	return s.Score
 }
-
-// Decode implements bin.Decoder.
-func (s *MessagesSetInlineGameScoreRequest) Decode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode messages.setInlineGameScore#15ad9f64 to nil")
-	}
-	if err := b.ConsumeID(MessagesSetInlineGameScoreRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: %w", err)
-	}
-	return s.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (s *MessagesSetInlineGameScoreRequest) DecodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode messages.setInlineGameScore#15ad9f64 to nil")
-	}
-	{
-		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: field flags: %w", err)
-		}
-	}
-	s.EditMessage = s.Flags.Has(0)
-	s.Force = s.Flags.Has(1)
-	{
-		if err := s.ID.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: field id: %w", err)
-		}
-	}
-	{
-		value, err := DecodeInputUser(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: field user_id: %w", err)
-		}
-		s.UserID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: field score: %w", err)
-		}
-		s.Score = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for MessagesSetInlineGameScoreRequest.
-var (
-	_ bin.Encoder     = &MessagesSetInlineGameScoreRequest{}
-	_ bin.Decoder     = &MessagesSetInlineGameScoreRequest{}
-	_ bin.BareEncoder = &MessagesSetInlineGameScoreRequest{}
-	_ bin.BareDecoder = &MessagesSetInlineGameScoreRequest{}
-)
 
 // MessagesSetInlineGameScore invokes method messages.setInlineGameScore#15ad9f64 returning error if any.
 // Use this method to set the score of the specified user in a game sent as an inline

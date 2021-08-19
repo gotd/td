@@ -42,6 +42,14 @@ type HTTPWaitRequest struct {
 // HTTPWaitRequestTypeID is TL type id of HTTPWaitRequest.
 const HTTPWaitRequestTypeID = 0x9299359f
 
+// Ensuring interfaces in compile-time for HTTPWaitRequest.
+var (
+	_ bin.Encoder     = &HTTPWaitRequest{}
+	_ bin.Decoder     = &HTTPWaitRequest{}
+	_ bin.BareEncoder = &HTTPWaitRequest{}
+	_ bin.BareDecoder = &HTTPWaitRequest{}
+)
+
 func (h *HTTPWaitRequest) Zero() bool {
 	if h == nil {
 		return true
@@ -66,17 +74,6 @@ func (h *HTTPWaitRequest) String() string {
 	}
 	type Alias HTTPWaitRequest
 	return fmt.Sprintf("HTTPWaitRequest%+v", Alias(*h))
-}
-
-// FillFrom fills HTTPWaitRequest from given interface.
-func (h *HTTPWaitRequest) FillFrom(from interface {
-	GetMaxDelay() (value int)
-	GetWaitAfter() (value int)
-	GetMaxWait() (value int)
-}) {
-	h.MaxDelay = from.GetMaxDelay()
-	h.WaitAfter = from.GetWaitAfter()
-	h.MaxWait = from.GetMaxWait()
 }
 
 // TypeID returns type id in TL schema.
@@ -138,21 +135,6 @@ func (h *HTTPWaitRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMaxDelay returns value of MaxDelay field.
-func (h *HTTPWaitRequest) GetMaxDelay() (value int) {
-	return h.MaxDelay
-}
-
-// GetWaitAfter returns value of WaitAfter field.
-func (h *HTTPWaitRequest) GetWaitAfter() (value int) {
-	return h.WaitAfter
-}
-
-// GetMaxWait returns value of MaxWait field.
-func (h *HTTPWaitRequest) GetMaxWait() (value int) {
-	return h.MaxWait
-}
-
 // Decode implements bin.Decoder.
 func (h *HTTPWaitRequest) Decode(b *bin.Buffer) error {
 	if h == nil {
@@ -193,10 +175,17 @@ func (h *HTTPWaitRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HTTPWaitRequest.
-var (
-	_ bin.Encoder     = &HTTPWaitRequest{}
-	_ bin.Decoder     = &HTTPWaitRequest{}
-	_ bin.BareEncoder = &HTTPWaitRequest{}
-	_ bin.BareDecoder = &HTTPWaitRequest{}
-)
+// GetMaxDelay returns value of MaxDelay field.
+func (h *HTTPWaitRequest) GetMaxDelay() (value int) {
+	return h.MaxDelay
+}
+
+// GetWaitAfter returns value of WaitAfter field.
+func (h *HTTPWaitRequest) GetWaitAfter() (value int) {
+	return h.WaitAfter
+}
+
+// GetMaxWait returns value of MaxWait field.
+func (h *HTTPWaitRequest) GetMaxWait() (value int) {
+	return h.MaxWait
+}

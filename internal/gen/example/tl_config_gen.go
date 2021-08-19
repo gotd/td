@@ -160,6 +160,14 @@ type Config struct {
 // ConfigTypeID is TL type id of Config.
 const ConfigTypeID = 0x330b4067
 
+// Ensuring interfaces in compile-time for Config.
+var (
+	_ bin.Encoder     = &Config{}
+	_ bin.Decoder     = &Config{}
+	_ bin.BareEncoder = &Config{}
+	_ bin.BareDecoder = &Config{}
+)
+
 func (c *Config) Zero() bool {
 	if c == nil {
 		return true
@@ -331,140 +339,6 @@ func (c *Config) String() string {
 	}
 	type Alias Config
 	return fmt.Sprintf("Config%+v", Alias(*c))
-}
-
-// FillFrom fills Config from given interface.
-func (c *Config) FillFrom(from interface {
-	GetPhonecallsEnabled() (value bool)
-	GetDefaultP2PContacts() (value bool)
-	GetPreloadFeaturedStickers() (value bool)
-	GetIgnorePhoneEntities() (value bool)
-	GetRevokePmInbox() (value bool)
-	GetBlockedMode() (value bool)
-	GetPFSEnabled() (value bool)
-	GetDate() (value int)
-	GetExpires() (value int)
-	GetTestMode() (value bool)
-	GetThisDC() (value int)
-	GetDCOptions() (value []DCOption)
-	GetDCTxtDomainName() (value string)
-	GetChatSizeMax() (value int)
-	GetMegagroupSizeMax() (value int)
-	GetForwardedCountMax() (value int)
-	GetOnlineUpdatePeriodMs() (value int)
-	GetOfflineBlurTimeoutMs() (value int)
-	GetOfflineIdleTimeoutMs() (value int)
-	GetOnlineCloudTimeoutMs() (value int)
-	GetNotifyCloudDelayMs() (value int)
-	GetNotifyDefaultDelayMs() (value int)
-	GetPushChatPeriodMs() (value int)
-	GetPushChatLimit() (value int)
-	GetSavedGifsLimit() (value int)
-	GetEditTimeLimit() (value int)
-	GetRevokeTimeLimit() (value int)
-	GetRevokePmTimeLimit() (value int)
-	GetRatingEDecay() (value int)
-	GetStickersRecentLimit() (value int)
-	GetStickersFavedLimit() (value int)
-	GetChannelsReadMediaPeriod() (value int)
-	GetTmpSessions() (value int, ok bool)
-	GetPinnedDialogsCountMax() (value int)
-	GetPinnedInfolderCountMax() (value int)
-	GetCallReceiveTimeoutMs() (value int)
-	GetCallRingTimeoutMs() (value int)
-	GetCallConnectTimeoutMs() (value int)
-	GetCallPacketTimeoutMs() (value int)
-	GetMeURLPrefix() (value string)
-	GetAutoupdateURLPrefix() (value string, ok bool)
-	GetGifSearchUsername() (value string, ok bool)
-	GetVenueSearchUsername() (value string, ok bool)
-	GetImgSearchUsername() (value string, ok bool)
-	GetStaticMapsProvider() (value string, ok bool)
-	GetCaptionLengthMax() (value int)
-	GetMessageLengthMax() (value int)
-	GetWebfileDCID() (value int)
-	GetSuggestedLangCode() (value string, ok bool)
-	GetLangPackVersion() (value int, ok bool)
-	GetBaseLangPackVersion() (value int, ok bool)
-}) {
-	c.PhonecallsEnabled = from.GetPhonecallsEnabled()
-	c.DefaultP2PContacts = from.GetDefaultP2PContacts()
-	c.PreloadFeaturedStickers = from.GetPreloadFeaturedStickers()
-	c.IgnorePhoneEntities = from.GetIgnorePhoneEntities()
-	c.RevokePmInbox = from.GetRevokePmInbox()
-	c.BlockedMode = from.GetBlockedMode()
-	c.PFSEnabled = from.GetPFSEnabled()
-	c.Date = from.GetDate()
-	c.Expires = from.GetExpires()
-	c.TestMode = from.GetTestMode()
-	c.ThisDC = from.GetThisDC()
-	c.DCOptions = from.GetDCOptions()
-	c.DCTxtDomainName = from.GetDCTxtDomainName()
-	c.ChatSizeMax = from.GetChatSizeMax()
-	c.MegagroupSizeMax = from.GetMegagroupSizeMax()
-	c.ForwardedCountMax = from.GetForwardedCountMax()
-	c.OnlineUpdatePeriodMs = from.GetOnlineUpdatePeriodMs()
-	c.OfflineBlurTimeoutMs = from.GetOfflineBlurTimeoutMs()
-	c.OfflineIdleTimeoutMs = from.GetOfflineIdleTimeoutMs()
-	c.OnlineCloudTimeoutMs = from.GetOnlineCloudTimeoutMs()
-	c.NotifyCloudDelayMs = from.GetNotifyCloudDelayMs()
-	c.NotifyDefaultDelayMs = from.GetNotifyDefaultDelayMs()
-	c.PushChatPeriodMs = from.GetPushChatPeriodMs()
-	c.PushChatLimit = from.GetPushChatLimit()
-	c.SavedGifsLimit = from.GetSavedGifsLimit()
-	c.EditTimeLimit = from.GetEditTimeLimit()
-	c.RevokeTimeLimit = from.GetRevokeTimeLimit()
-	c.RevokePmTimeLimit = from.GetRevokePmTimeLimit()
-	c.RatingEDecay = from.GetRatingEDecay()
-	c.StickersRecentLimit = from.GetStickersRecentLimit()
-	c.StickersFavedLimit = from.GetStickersFavedLimit()
-	c.ChannelsReadMediaPeriod = from.GetChannelsReadMediaPeriod()
-	if val, ok := from.GetTmpSessions(); ok {
-		c.TmpSessions = val
-	}
-
-	c.PinnedDialogsCountMax = from.GetPinnedDialogsCountMax()
-	c.PinnedInfolderCountMax = from.GetPinnedInfolderCountMax()
-	c.CallReceiveTimeoutMs = from.GetCallReceiveTimeoutMs()
-	c.CallRingTimeoutMs = from.GetCallRingTimeoutMs()
-	c.CallConnectTimeoutMs = from.GetCallConnectTimeoutMs()
-	c.CallPacketTimeoutMs = from.GetCallPacketTimeoutMs()
-	c.MeURLPrefix = from.GetMeURLPrefix()
-	if val, ok := from.GetAutoupdateURLPrefix(); ok {
-		c.AutoupdateURLPrefix = val
-	}
-
-	if val, ok := from.GetGifSearchUsername(); ok {
-		c.GifSearchUsername = val
-	}
-
-	if val, ok := from.GetVenueSearchUsername(); ok {
-		c.VenueSearchUsername = val
-	}
-
-	if val, ok := from.GetImgSearchUsername(); ok {
-		c.ImgSearchUsername = val
-	}
-
-	if val, ok := from.GetStaticMapsProvider(); ok {
-		c.StaticMapsProvider = val
-	}
-
-	c.CaptionLengthMax = from.GetCaptionLengthMax()
-	c.MessageLengthMax = from.GetMessageLengthMax()
-	c.WebfileDCID = from.GetWebfileDCID()
-	if val, ok := from.GetSuggestedLangCode(); ok {
-		c.SuggestedLangCode = val
-	}
-
-	if val, ok := from.GetLangPackVersion(); ok {
-		c.LangPackVersion = val
-	}
-
-	if val, ok := from.GetBaseLangPackVersion(); ok {
-		c.BaseLangPackVersion = val
-	}
-
 }
 
 // TypeID returns type id in TL schema.
@@ -845,6 +719,355 @@ func (c *Config) EncodeBare(b *bin.Buffer) error {
 	}
 	if c.Flags.Has(2) {
 		b.PutInt(c.BaseLangPackVersion)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *Config) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode config#330b4067 to nil")
+	}
+	if err := b.ConsumeID(ConfigTypeID); err != nil {
+		return fmt.Errorf("unable to decode config#330b4067: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *Config) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode config#330b4067 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field flags: %w", err)
+		}
+	}
+	c.PhonecallsEnabled = c.Flags.Has(1)
+	c.DefaultP2PContacts = c.Flags.Has(3)
+	c.PreloadFeaturedStickers = c.Flags.Has(4)
+	c.IgnorePhoneEntities = c.Flags.Has(5)
+	c.RevokePmInbox = c.Flags.Has(6)
+	c.BlockedMode = c.Flags.Has(8)
+	c.PFSEnabled = c.Flags.Has(13)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field date: %w", err)
+		}
+		c.Date = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field expires: %w", err)
+		}
+		c.Expires = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field test_mode: %w", err)
+		}
+		c.TestMode = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field this_dc: %w", err)
+		}
+		c.ThisDC = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field dc_options: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.DCOptions = make([]DCOption, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value DCOption
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode config#330b4067: field dc_options: %w", err)
+			}
+			c.DCOptions = append(c.DCOptions, value)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field dc_txt_domain_name: %w", err)
+		}
+		c.DCTxtDomainName = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field chat_size_max: %w", err)
+		}
+		c.ChatSizeMax = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field megagroup_size_max: %w", err)
+		}
+		c.MegagroupSizeMax = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field forwarded_count_max: %w", err)
+		}
+		c.ForwardedCountMax = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field online_update_period_ms: %w", err)
+		}
+		c.OnlineUpdatePeriodMs = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field offline_blur_timeout_ms: %w", err)
+		}
+		c.OfflineBlurTimeoutMs = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field offline_idle_timeout_ms: %w", err)
+		}
+		c.OfflineIdleTimeoutMs = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field online_cloud_timeout_ms: %w", err)
+		}
+		c.OnlineCloudTimeoutMs = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field notify_cloud_delay_ms: %w", err)
+		}
+		c.NotifyCloudDelayMs = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field notify_default_delay_ms: %w", err)
+		}
+		c.NotifyDefaultDelayMs = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field push_chat_period_ms: %w", err)
+		}
+		c.PushChatPeriodMs = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field push_chat_limit: %w", err)
+		}
+		c.PushChatLimit = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field saved_gifs_limit: %w", err)
+		}
+		c.SavedGifsLimit = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field edit_time_limit: %w", err)
+		}
+		c.EditTimeLimit = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field revoke_time_limit: %w", err)
+		}
+		c.RevokeTimeLimit = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field revoke_pm_time_limit: %w", err)
+		}
+		c.RevokePmTimeLimit = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field rating_e_decay: %w", err)
+		}
+		c.RatingEDecay = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field stickers_recent_limit: %w", err)
+		}
+		c.StickersRecentLimit = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field stickers_faved_limit: %w", err)
+		}
+		c.StickersFavedLimit = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field channels_read_media_period: %w", err)
+		}
+		c.ChannelsReadMediaPeriod = value
+	}
+	if c.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field tmp_sessions: %w", err)
+		}
+		c.TmpSessions = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field pinned_dialogs_count_max: %w", err)
+		}
+		c.PinnedDialogsCountMax = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field pinned_infolder_count_max: %w", err)
+		}
+		c.PinnedInfolderCountMax = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field call_receive_timeout_ms: %w", err)
+		}
+		c.CallReceiveTimeoutMs = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field call_ring_timeout_ms: %w", err)
+		}
+		c.CallRingTimeoutMs = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field call_connect_timeout_ms: %w", err)
+		}
+		c.CallConnectTimeoutMs = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field call_packet_timeout_ms: %w", err)
+		}
+		c.CallPacketTimeoutMs = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field me_url_prefix: %w", err)
+		}
+		c.MeURLPrefix = value
+	}
+	if c.Flags.Has(7) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field autoupdate_url_prefix: %w", err)
+		}
+		c.AutoupdateURLPrefix = value
+	}
+	if c.Flags.Has(9) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field gif_search_username: %w", err)
+		}
+		c.GifSearchUsername = value
+	}
+	if c.Flags.Has(10) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field venue_search_username: %w", err)
+		}
+		c.VenueSearchUsername = value
+	}
+	if c.Flags.Has(11) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field img_search_username: %w", err)
+		}
+		c.ImgSearchUsername = value
+	}
+	if c.Flags.Has(12) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field static_maps_provider: %w", err)
+		}
+		c.StaticMapsProvider = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field caption_length_max: %w", err)
+		}
+		c.CaptionLengthMax = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field message_length_max: %w", err)
+		}
+		c.MessageLengthMax = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field webfile_dc_id: %w", err)
+		}
+		c.WebfileDCID = value
+	}
+	if c.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field suggested_lang_code: %w", err)
+		}
+		c.SuggestedLangCode = value
+	}
+	if c.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field lang_pack_version: %w", err)
+		}
+		c.LangPackVersion = value
+	}
+	if c.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#330b4067: field base_lang_pack_version: %w", err)
+		}
+		c.BaseLangPackVersion = value
 	}
 	return nil
 }
@@ -1270,360 +1493,3 @@ func (c *Config) GetBaseLangPackVersion() (value int, ok bool) {
 	}
 	return c.BaseLangPackVersion, true
 }
-
-// Decode implements bin.Decoder.
-func (c *Config) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode config#330b4067 to nil")
-	}
-	if err := b.ConsumeID(ConfigTypeID); err != nil {
-		return fmt.Errorf("unable to decode config#330b4067: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *Config) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode config#330b4067 to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field flags: %w", err)
-		}
-	}
-	c.PhonecallsEnabled = c.Flags.Has(1)
-	c.DefaultP2PContacts = c.Flags.Has(3)
-	c.PreloadFeaturedStickers = c.Flags.Has(4)
-	c.IgnorePhoneEntities = c.Flags.Has(5)
-	c.RevokePmInbox = c.Flags.Has(6)
-	c.BlockedMode = c.Flags.Has(8)
-	c.PFSEnabled = c.Flags.Has(13)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field date: %w", err)
-		}
-		c.Date = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field expires: %w", err)
-		}
-		c.Expires = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field test_mode: %w", err)
-		}
-		c.TestMode = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field this_dc: %w", err)
-		}
-		c.ThisDC = value
-	}
-	{
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field dc_options: %w", err)
-		}
-
-		if headerLen > 0 {
-			c.DCOptions = make([]DCOption, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value DCOption
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode config#330b4067: field dc_options: %w", err)
-			}
-			c.DCOptions = append(c.DCOptions, value)
-		}
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field dc_txt_domain_name: %w", err)
-		}
-		c.DCTxtDomainName = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field chat_size_max: %w", err)
-		}
-		c.ChatSizeMax = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field megagroup_size_max: %w", err)
-		}
-		c.MegagroupSizeMax = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field forwarded_count_max: %w", err)
-		}
-		c.ForwardedCountMax = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field online_update_period_ms: %w", err)
-		}
-		c.OnlineUpdatePeriodMs = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field offline_blur_timeout_ms: %w", err)
-		}
-		c.OfflineBlurTimeoutMs = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field offline_idle_timeout_ms: %w", err)
-		}
-		c.OfflineIdleTimeoutMs = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field online_cloud_timeout_ms: %w", err)
-		}
-		c.OnlineCloudTimeoutMs = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field notify_cloud_delay_ms: %w", err)
-		}
-		c.NotifyCloudDelayMs = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field notify_default_delay_ms: %w", err)
-		}
-		c.NotifyDefaultDelayMs = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field push_chat_period_ms: %w", err)
-		}
-		c.PushChatPeriodMs = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field push_chat_limit: %w", err)
-		}
-		c.PushChatLimit = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field saved_gifs_limit: %w", err)
-		}
-		c.SavedGifsLimit = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field edit_time_limit: %w", err)
-		}
-		c.EditTimeLimit = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field revoke_time_limit: %w", err)
-		}
-		c.RevokeTimeLimit = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field revoke_pm_time_limit: %w", err)
-		}
-		c.RevokePmTimeLimit = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field rating_e_decay: %w", err)
-		}
-		c.RatingEDecay = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field stickers_recent_limit: %w", err)
-		}
-		c.StickersRecentLimit = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field stickers_faved_limit: %w", err)
-		}
-		c.StickersFavedLimit = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field channels_read_media_period: %w", err)
-		}
-		c.ChannelsReadMediaPeriod = value
-	}
-	if c.Flags.Has(0) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field tmp_sessions: %w", err)
-		}
-		c.TmpSessions = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field pinned_dialogs_count_max: %w", err)
-		}
-		c.PinnedDialogsCountMax = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field pinned_infolder_count_max: %w", err)
-		}
-		c.PinnedInfolderCountMax = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field call_receive_timeout_ms: %w", err)
-		}
-		c.CallReceiveTimeoutMs = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field call_ring_timeout_ms: %w", err)
-		}
-		c.CallRingTimeoutMs = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field call_connect_timeout_ms: %w", err)
-		}
-		c.CallConnectTimeoutMs = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field call_packet_timeout_ms: %w", err)
-		}
-		c.CallPacketTimeoutMs = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field me_url_prefix: %w", err)
-		}
-		c.MeURLPrefix = value
-	}
-	if c.Flags.Has(7) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field autoupdate_url_prefix: %w", err)
-		}
-		c.AutoupdateURLPrefix = value
-	}
-	if c.Flags.Has(9) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field gif_search_username: %w", err)
-		}
-		c.GifSearchUsername = value
-	}
-	if c.Flags.Has(10) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field venue_search_username: %w", err)
-		}
-		c.VenueSearchUsername = value
-	}
-	if c.Flags.Has(11) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field img_search_username: %w", err)
-		}
-		c.ImgSearchUsername = value
-	}
-	if c.Flags.Has(12) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field static_maps_provider: %w", err)
-		}
-		c.StaticMapsProvider = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field caption_length_max: %w", err)
-		}
-		c.CaptionLengthMax = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field message_length_max: %w", err)
-		}
-		c.MessageLengthMax = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field webfile_dc_id: %w", err)
-		}
-		c.WebfileDCID = value
-	}
-	if c.Flags.Has(2) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field suggested_lang_code: %w", err)
-		}
-		c.SuggestedLangCode = value
-	}
-	if c.Flags.Has(2) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field lang_pack_version: %w", err)
-		}
-		c.LangPackVersion = value
-	}
-	if c.Flags.Has(2) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field base_lang_pack_version: %w", err)
-		}
-		c.BaseLangPackVersion = value
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for Config.
-var (
-	_ bin.Encoder     = &Config{}
-	_ bin.Decoder     = &Config{}
-	_ bin.BareEncoder = &Config{}
-	_ bin.BareDecoder = &Config{}
-)

@@ -41,6 +41,19 @@ type ChatInviteAlready struct {
 // ChatInviteAlreadyTypeID is TL type id of ChatInviteAlready.
 const ChatInviteAlreadyTypeID = 0x5a686d7c
 
+// construct implements constructor of ChatInviteClass.
+func (c ChatInviteAlready) construct() ChatInviteClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatInviteAlready.
+var (
+	_ bin.Encoder     = &ChatInviteAlready{}
+	_ bin.Decoder     = &ChatInviteAlready{}
+	_ bin.BareEncoder = &ChatInviteAlready{}
+	_ bin.BareDecoder = &ChatInviteAlready{}
+
+	_ ChatInviteClass = &ChatInviteAlready{}
+)
+
 func (c *ChatInviteAlready) Zero() bool {
 	if c == nil {
 		return true
@@ -122,11 +135,6 @@ func (c *ChatInviteAlready) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChat returns value of Chat field.
-func (c *ChatInviteAlready) GetChat() (value ChatClass) {
-	return c.Chat
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatInviteAlready) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -153,18 +161,10 @@ func (c *ChatInviteAlready) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatInviteClass.
-func (c ChatInviteAlready) construct() ChatInviteClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatInviteAlready.
-var (
-	_ bin.Encoder     = &ChatInviteAlready{}
-	_ bin.Decoder     = &ChatInviteAlready{}
-	_ bin.BareEncoder = &ChatInviteAlready{}
-	_ bin.BareDecoder = &ChatInviteAlready{}
-
-	_ ChatInviteClass = &ChatInviteAlready{}
-)
+// GetChat returns value of Chat field.
+func (c *ChatInviteAlready) GetChat() (value ChatClass) {
+	return c.Chat
+}
 
 // ChatInvite represents TL type `chatInvite#dfc2f58e`.
 // Chat invite info
@@ -211,6 +211,19 @@ type ChatInvite struct {
 
 // ChatInviteTypeID is TL type id of ChatInvite.
 const ChatInviteTypeID = 0xdfc2f58e
+
+// construct implements constructor of ChatInviteClass.
+func (c ChatInvite) construct() ChatInviteClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatInvite.
+var (
+	_ bin.Encoder     = &ChatInvite{}
+	_ bin.Decoder     = &ChatInvite{}
+	_ bin.BareEncoder = &ChatInvite{}
+	_ bin.BareDecoder = &ChatInvite{}
+
+	_ ChatInviteClass = &ChatInvite{}
+)
 
 func (c *ChatInvite) Zero() bool {
 	if c == nil {
@@ -398,6 +411,72 @@ func (c *ChatInvite) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (c *ChatInvite) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatInvite#dfc2f58e to nil")
+	}
+	if err := b.ConsumeID(ChatInviteTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatInvite#dfc2f58e: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatInvite) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatInvite#dfc2f58e to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field flags: %w", err)
+		}
+	}
+	c.Channel = c.Flags.Has(0)
+	c.Broadcast = c.Flags.Has(1)
+	c.Public = c.Flags.Has(2)
+	c.Megagroup = c.Flags.Has(3)
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field title: %w", err)
+		}
+		c.Title = value
+	}
+	{
+		value, err := DecodePhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field photo: %w", err)
+		}
+		c.Photo = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field participants_count: %w", err)
+		}
+		c.ParticipantsCount = value
+	}
+	if c.Flags.Has(4) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field participants: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.Participants = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeUser(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field participants: %w", err)
+			}
+			c.Participants = append(c.Participants, value)
+		}
+	}
+	return nil
+}
+
 // SetChannel sets value of Channel conditional field.
 func (c *ChatInvite) SetChannel(value bool) {
 	if value {
@@ -500,85 +579,6 @@ func (c *ChatInvite) MapParticipants() (value UserClassArray, ok bool) {
 	return UserClassArray(c.Participants), true
 }
 
-// Decode implements bin.Decoder.
-func (c *ChatInvite) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatInvite#dfc2f58e to nil")
-	}
-	if err := b.ConsumeID(ChatInviteTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatInvite#dfc2f58e: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatInvite) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatInvite#dfc2f58e to nil")
-	}
-	{
-		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field flags: %w", err)
-		}
-	}
-	c.Channel = c.Flags.Has(0)
-	c.Broadcast = c.Flags.Has(1)
-	c.Public = c.Flags.Has(2)
-	c.Megagroup = c.Flags.Has(3)
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field title: %w", err)
-		}
-		c.Title = value
-	}
-	{
-		value, err := DecodePhoto(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field photo: %w", err)
-		}
-		c.Photo = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field participants_count: %w", err)
-		}
-		c.ParticipantsCount = value
-	}
-	if c.Flags.Has(4) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field participants: %w", err)
-		}
-
-		if headerLen > 0 {
-			c.Participants = make([]UserClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeUser(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field participants: %w", err)
-			}
-			c.Participants = append(c.Participants, value)
-		}
-	}
-	return nil
-}
-
-// construct implements constructor of ChatInviteClass.
-func (c ChatInvite) construct() ChatInviteClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatInvite.
-var (
-	_ bin.Encoder     = &ChatInvite{}
-	_ bin.Decoder     = &ChatInvite{}
-	_ bin.BareEncoder = &ChatInvite{}
-	_ bin.BareDecoder = &ChatInvite{}
-
-	_ ChatInviteClass = &ChatInvite{}
-)
-
 // ChatInvitePeek represents TL type `chatInvitePeek#61695cb0`.
 // A chat invitation that also allows peeking into the group to read messages without
 // joining it.
@@ -593,6 +593,19 @@ type ChatInvitePeek struct {
 
 // ChatInvitePeekTypeID is TL type id of ChatInvitePeek.
 const ChatInvitePeekTypeID = 0x61695cb0
+
+// construct implements constructor of ChatInviteClass.
+func (c ChatInvitePeek) construct() ChatInviteClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatInvitePeek.
+var (
+	_ bin.Encoder     = &ChatInvitePeek{}
+	_ bin.Decoder     = &ChatInvitePeek{}
+	_ bin.BareEncoder = &ChatInvitePeek{}
+	_ bin.BareDecoder = &ChatInvitePeek{}
+
+	_ ChatInviteClass = &ChatInvitePeek{}
+)
 
 func (c *ChatInvitePeek) Zero() bool {
 	if c == nil {
@@ -685,16 +698,6 @@ func (c *ChatInvitePeek) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChat returns value of Chat field.
-func (c *ChatInvitePeek) GetChat() (value ChatClass) {
-	return c.Chat
-}
-
-// GetExpires returns value of Expires field.
-func (c *ChatInvitePeek) GetExpires() (value int) {
-	return c.Expires
-}
-
 // Decode implements bin.Decoder.
 func (c *ChatInvitePeek) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -728,18 +731,15 @@ func (c *ChatInvitePeek) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ChatInviteClass.
-func (c ChatInvitePeek) construct() ChatInviteClass { return &c }
+// GetChat returns value of Chat field.
+func (c *ChatInvitePeek) GetChat() (value ChatClass) {
+	return c.Chat
+}
 
-// Ensuring interfaces in compile-time for ChatInvitePeek.
-var (
-	_ bin.Encoder     = &ChatInvitePeek{}
-	_ bin.Decoder     = &ChatInvitePeek{}
-	_ bin.BareEncoder = &ChatInvitePeek{}
-	_ bin.BareDecoder = &ChatInvitePeek{}
-
-	_ ChatInviteClass = &ChatInvitePeek{}
-)
+// GetExpires returns value of Expires field.
+func (c *ChatInvitePeek) GetExpires() (value int) {
+	return c.Expires
+}
 
 // ChatInviteClass represents ChatInvite generic type.
 //
@@ -832,371 +832,4 @@ func (b *ChatInviteBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChatInviteClass as nil")
 	}
 	return b.ChatInvite.Encode(buf)
-}
-
-// ChatInviteClassArray is adapter for slice of ChatInviteClass.
-type ChatInviteClassArray []ChatInviteClass
-
-// Sort sorts slice of ChatInviteClass.
-func (s ChatInviteClassArray) Sort(less func(a, b ChatInviteClass) bool) ChatInviteClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChatInviteClass.
-func (s ChatInviteClassArray) SortStable(less func(a, b ChatInviteClass) bool) ChatInviteClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChatInviteClass.
-func (s ChatInviteClassArray) Retain(keep func(x ChatInviteClass) bool) ChatInviteClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChatInviteClassArray) First() (v ChatInviteClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChatInviteClassArray) Last() (v ChatInviteClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChatInviteClassArray) PopFirst() (v ChatInviteClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChatInviteClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChatInviteClassArray) Pop() (v ChatInviteClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsChatInviteAlready returns copy with only ChatInviteAlready constructors.
-func (s ChatInviteClassArray) AsChatInviteAlready() (to ChatInviteAlreadyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChatInviteAlready)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsChatInvite returns copy with only ChatInvite constructors.
-func (s ChatInviteClassArray) AsChatInvite() (to ChatInviteArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChatInvite)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsChatInvitePeek returns copy with only ChatInvitePeek constructors.
-func (s ChatInviteClassArray) AsChatInvitePeek() (to ChatInvitePeekArray) {
-	for _, elem := range s {
-		value, ok := elem.(*ChatInvitePeek)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// ChatInviteAlreadyArray is adapter for slice of ChatInviteAlready.
-type ChatInviteAlreadyArray []ChatInviteAlready
-
-// Sort sorts slice of ChatInviteAlready.
-func (s ChatInviteAlreadyArray) Sort(less func(a, b ChatInviteAlready) bool) ChatInviteAlreadyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChatInviteAlready.
-func (s ChatInviteAlreadyArray) SortStable(less func(a, b ChatInviteAlready) bool) ChatInviteAlreadyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChatInviteAlready.
-func (s ChatInviteAlreadyArray) Retain(keep func(x ChatInviteAlready) bool) ChatInviteAlreadyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChatInviteAlreadyArray) First() (v ChatInviteAlready, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChatInviteAlreadyArray) Last() (v ChatInviteAlready, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChatInviteAlreadyArray) PopFirst() (v ChatInviteAlready, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChatInviteAlready
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChatInviteAlreadyArray) Pop() (v ChatInviteAlready, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// ChatInviteArray is adapter for slice of ChatInvite.
-type ChatInviteArray []ChatInvite
-
-// Sort sorts slice of ChatInvite.
-func (s ChatInviteArray) Sort(less func(a, b ChatInvite) bool) ChatInviteArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChatInvite.
-func (s ChatInviteArray) SortStable(less func(a, b ChatInvite) bool) ChatInviteArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChatInvite.
-func (s ChatInviteArray) Retain(keep func(x ChatInvite) bool) ChatInviteArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChatInviteArray) First() (v ChatInvite, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChatInviteArray) Last() (v ChatInvite, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChatInviteArray) PopFirst() (v ChatInvite, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChatInvite
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChatInviteArray) Pop() (v ChatInvite, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// ChatInvitePeekArray is adapter for slice of ChatInvitePeek.
-type ChatInvitePeekArray []ChatInvitePeek
-
-// Sort sorts slice of ChatInvitePeek.
-func (s ChatInvitePeekArray) Sort(less func(a, b ChatInvitePeek) bool) ChatInvitePeekArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ChatInvitePeek.
-func (s ChatInvitePeekArray) SortStable(less func(a, b ChatInvitePeek) bool) ChatInvitePeekArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ChatInvitePeek.
-func (s ChatInvitePeekArray) Retain(keep func(x ChatInvitePeek) bool) ChatInvitePeekArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ChatInvitePeekArray) First() (v ChatInvitePeek, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ChatInvitePeekArray) Last() (v ChatInvitePeek, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChatInvitePeekArray) PopFirst() (v ChatInvitePeek, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ChatInvitePeek
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ChatInvitePeekArray) Pop() (v ChatInvitePeek, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

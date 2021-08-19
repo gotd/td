@@ -49,6 +49,14 @@ type ChannelsReadMessageContentsRequest struct {
 // ChannelsReadMessageContentsRequestTypeID is TL type id of ChannelsReadMessageContentsRequest.
 const ChannelsReadMessageContentsRequestTypeID = 0xeab5dc38
 
+// Ensuring interfaces in compile-time for ChannelsReadMessageContentsRequest.
+var (
+	_ bin.Encoder     = &ChannelsReadMessageContentsRequest{}
+	_ bin.Decoder     = &ChannelsReadMessageContentsRequest{}
+	_ bin.BareEncoder = &ChannelsReadMessageContentsRequest{}
+	_ bin.BareDecoder = &ChannelsReadMessageContentsRequest{}
+)
+
 func (r *ChannelsReadMessageContentsRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -143,21 +151,6 @@ func (r *ChannelsReadMessageContentsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (r *ChannelsReadMessageContentsRequest) GetChannel() (value InputChannelClass) {
-	return r.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (r *ChannelsReadMessageContentsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return r.Channel.AsNotEmpty()
-}
-
-// GetID returns value of ID field.
-func (r *ChannelsReadMessageContentsRequest) GetID() (value []int) {
-	return r.ID
-}
-
 // Decode implements bin.Decoder.
 func (r *ChannelsReadMessageContentsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -201,13 +194,20 @@ func (r *ChannelsReadMessageContentsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsReadMessageContentsRequest.
-var (
-	_ bin.Encoder     = &ChannelsReadMessageContentsRequest{}
-	_ bin.Decoder     = &ChannelsReadMessageContentsRequest{}
-	_ bin.BareEncoder = &ChannelsReadMessageContentsRequest{}
-	_ bin.BareDecoder = &ChannelsReadMessageContentsRequest{}
-)
+// GetChannel returns value of Channel field.
+func (r *ChannelsReadMessageContentsRequest) GetChannel() (value InputChannelClass) {
+	return r.Channel
+}
+
+// GetID returns value of ID field.
+func (r *ChannelsReadMessageContentsRequest) GetID() (value []int) {
+	return r.ID
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (r *ChannelsReadMessageContentsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return r.Channel.AsNotEmpty()
+}
 
 // ChannelsReadMessageContents invokes method channels.readMessageContents#eab5dc38 returning error if any.
 // Mark channel/supergroup¹ message contents as read

@@ -42,6 +42,14 @@ type MessagesSetHistoryTTLRequest struct {
 // MessagesSetHistoryTTLRequestTypeID is TL type id of MessagesSetHistoryTTLRequest.
 const MessagesSetHistoryTTLRequestTypeID = 0xb80e5fe4
 
+// Ensuring interfaces in compile-time for MessagesSetHistoryTTLRequest.
+var (
+	_ bin.Encoder     = &MessagesSetHistoryTTLRequest{}
+	_ bin.Decoder     = &MessagesSetHistoryTTLRequest{}
+	_ bin.BareEncoder = &MessagesSetHistoryTTLRequest{}
+	_ bin.BareDecoder = &MessagesSetHistoryTTLRequest{}
+)
+
 func (s *MessagesSetHistoryTTLRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -133,16 +141,6 @@ func (s *MessagesSetHistoryTTLRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (s *MessagesSetHistoryTTLRequest) GetPeer() (value InputPeerClass) {
-	return s.Peer
-}
-
-// GetPeriod returns value of Period field.
-func (s *MessagesSetHistoryTTLRequest) GetPeriod() (value int) {
-	return s.Period
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSetHistoryTTLRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -176,13 +174,15 @@ func (s *MessagesSetHistoryTTLRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSetHistoryTTLRequest.
-var (
-	_ bin.Encoder     = &MessagesSetHistoryTTLRequest{}
-	_ bin.Decoder     = &MessagesSetHistoryTTLRequest{}
-	_ bin.BareEncoder = &MessagesSetHistoryTTLRequest{}
-	_ bin.BareDecoder = &MessagesSetHistoryTTLRequest{}
-)
+// GetPeer returns value of Peer field.
+func (s *MessagesSetHistoryTTLRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetPeriod returns value of Period field.
+func (s *MessagesSetHistoryTTLRequest) GetPeriod() (value int) {
+	return s.Period
+}
 
 // MessagesSetHistoryTTL invokes method messages.setHistoryTTL#b80e5fe4 returning error if any.
 //

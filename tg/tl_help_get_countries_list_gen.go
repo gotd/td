@@ -46,6 +46,14 @@ type HelpGetCountriesListRequest struct {
 // HelpGetCountriesListRequestTypeID is TL type id of HelpGetCountriesListRequest.
 const HelpGetCountriesListRequestTypeID = 0x735787a8
 
+// Ensuring interfaces in compile-time for HelpGetCountriesListRequest.
+var (
+	_ bin.Encoder     = &HelpGetCountriesListRequest{}
+	_ bin.Decoder     = &HelpGetCountriesListRequest{}
+	_ bin.BareEncoder = &HelpGetCountriesListRequest{}
+	_ bin.BareDecoder = &HelpGetCountriesListRequest{}
+)
+
 func (g *HelpGetCountriesListRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -132,16 +140,6 @@ func (g *HelpGetCountriesListRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLangCode returns value of LangCode field.
-func (g *HelpGetCountriesListRequest) GetLangCode() (value string) {
-	return g.LangCode
-}
-
-// GetHash returns value of Hash field.
-func (g *HelpGetCountriesListRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *HelpGetCountriesListRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -175,13 +173,15 @@ func (g *HelpGetCountriesListRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpGetCountriesListRequest.
-var (
-	_ bin.Encoder     = &HelpGetCountriesListRequest{}
-	_ bin.Decoder     = &HelpGetCountriesListRequest{}
-	_ bin.BareEncoder = &HelpGetCountriesListRequest{}
-	_ bin.BareDecoder = &HelpGetCountriesListRequest{}
-)
+// GetLangCode returns value of LangCode field.
+func (g *HelpGetCountriesListRequest) GetLangCode() (value string) {
+	return g.LangCode
+}
+
+// GetHash returns value of Hash field.
+func (g *HelpGetCountriesListRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // HelpGetCountriesList invokes method help.getCountriesList#735787a8 returning error if any.
 // Get name, ISO code, localized name and phone codes/patterns of all available countries

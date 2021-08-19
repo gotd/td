@@ -48,6 +48,19 @@ type UpdateNewMessage struct {
 // UpdateNewMessageTypeID is TL type id of UpdateNewMessage.
 const UpdateNewMessageTypeID = 0x1f2b0afd
 
+// construct implements constructor of UpdateClass.
+func (u UpdateNewMessage) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateNewMessage.
+var (
+	_ bin.Encoder     = &UpdateNewMessage{}
+	_ bin.Decoder     = &UpdateNewMessage{}
+	_ bin.BareEncoder = &UpdateNewMessage{}
+	_ bin.BareDecoder = &UpdateNewMessage{}
+
+	_ UpdateClass = &UpdateNewMessage{}
+)
+
 func (u *UpdateNewMessage) Zero() bool {
 	if u == nil {
 		return true
@@ -149,21 +162,6 @@ func (u *UpdateNewMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (u *UpdateNewMessage) GetMessage() (value MessageClass) {
-	return u.Message
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateNewMessage) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdateNewMessage) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateNewMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -204,18 +202,20 @@ func (u *UpdateNewMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateNewMessage) construct() UpdateClass { return &u }
+// GetMessage returns value of Message field.
+func (u *UpdateNewMessage) GetMessage() (value MessageClass) {
+	return u.Message
+}
 
-// Ensuring interfaces in compile-time for UpdateNewMessage.
-var (
-	_ bin.Encoder     = &UpdateNewMessage{}
-	_ bin.Decoder     = &UpdateNewMessage{}
-	_ bin.BareEncoder = &UpdateNewMessage{}
-	_ bin.BareDecoder = &UpdateNewMessage{}
+// GetPts returns value of Pts field.
+func (u *UpdateNewMessage) GetPts() (value int) {
+	return u.Pts
+}
 
-	_ UpdateClass = &UpdateNewMessage{}
-)
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateNewMessage) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdateMessageID represents TL type `updateMessageID#4e90bfd6`.
 // Sent message with random_id client identifier was assigned an identifier.
@@ -233,6 +233,19 @@ type UpdateMessageID struct {
 
 // UpdateMessageIDTypeID is TL type id of UpdateMessageID.
 const UpdateMessageIDTypeID = 0x4e90bfd6
+
+// construct implements constructor of UpdateClass.
+func (u UpdateMessageID) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateMessageID.
+var (
+	_ bin.Encoder     = &UpdateMessageID{}
+	_ bin.Decoder     = &UpdateMessageID{}
+	_ bin.BareEncoder = &UpdateMessageID{}
+	_ bin.BareDecoder = &UpdateMessageID{}
+
+	_ UpdateClass = &UpdateMessageID{}
+)
 
 func (u *UpdateMessageID) Zero() bool {
 	if u == nil {
@@ -320,16 +333,6 @@ func (u *UpdateMessageID) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (u *UpdateMessageID) GetID() (value int) {
-	return u.ID
-}
-
-// GetRandomID returns value of RandomID field.
-func (u *UpdateMessageID) GetRandomID() (value int64) {
-	return u.RandomID
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateMessageID) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -363,18 +366,15 @@ func (u *UpdateMessageID) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateMessageID) construct() UpdateClass { return &u }
+// GetID returns value of ID field.
+func (u *UpdateMessageID) GetID() (value int) {
+	return u.ID
+}
 
-// Ensuring interfaces in compile-time for UpdateMessageID.
-var (
-	_ bin.Encoder     = &UpdateMessageID{}
-	_ bin.Decoder     = &UpdateMessageID{}
-	_ bin.BareEncoder = &UpdateMessageID{}
-	_ bin.BareDecoder = &UpdateMessageID{}
-
-	_ UpdateClass = &UpdateMessageID{}
-)
+// GetRandomID returns value of RandomID field.
+func (u *UpdateMessageID) GetRandomID() (value int64) {
+	return u.RandomID
+}
 
 // UpdateDeleteMessages represents TL type `updateDeleteMessages#a20db0e5`.
 // Messages were deleted.
@@ -394,6 +394,19 @@ type UpdateDeleteMessages struct {
 
 // UpdateDeleteMessagesTypeID is TL type id of UpdateDeleteMessages.
 const UpdateDeleteMessagesTypeID = 0xa20db0e5
+
+// construct implements constructor of UpdateClass.
+func (u UpdateDeleteMessages) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateDeleteMessages.
+var (
+	_ bin.Encoder     = &UpdateDeleteMessages{}
+	_ bin.Decoder     = &UpdateDeleteMessages{}
+	_ bin.BareEncoder = &UpdateDeleteMessages{}
+	_ bin.BareDecoder = &UpdateDeleteMessages{}
+
+	_ UpdateClass = &UpdateDeleteMessages{}
+)
 
 func (u *UpdateDeleteMessages) Zero() bool {
 	if u == nil {
@@ -494,21 +507,6 @@ func (u *UpdateDeleteMessages) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessages returns value of Messages field.
-func (u *UpdateDeleteMessages) GetMessages() (value []int) {
-	return u.Messages
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateDeleteMessages) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdateDeleteMessages) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateDeleteMessages) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -559,18 +557,20 @@ func (u *UpdateDeleteMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateDeleteMessages) construct() UpdateClass { return &u }
+// GetMessages returns value of Messages field.
+func (u *UpdateDeleteMessages) GetMessages() (value []int) {
+	return u.Messages
+}
 
-// Ensuring interfaces in compile-time for UpdateDeleteMessages.
-var (
-	_ bin.Encoder     = &UpdateDeleteMessages{}
-	_ bin.Decoder     = &UpdateDeleteMessages{}
-	_ bin.BareEncoder = &UpdateDeleteMessages{}
-	_ bin.BareDecoder = &UpdateDeleteMessages{}
+// GetPts returns value of Pts field.
+func (u *UpdateDeleteMessages) GetPts() (value int) {
+	return u.Pts
+}
 
-	_ UpdateClass = &UpdateDeleteMessages{}
-)
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateDeleteMessages) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdateUserTyping represents TL type `updateUserTyping#5c486927`.
 // The user is preparing a message; typing, recording, uploading, etc. This update is
@@ -590,6 +590,19 @@ type UpdateUserTyping struct {
 
 // UpdateUserTypingTypeID is TL type id of UpdateUserTyping.
 const UpdateUserTypingTypeID = 0x5c486927
+
+// construct implements constructor of UpdateClass.
+func (u UpdateUserTyping) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateUserTyping.
+var (
+	_ bin.Encoder     = &UpdateUserTyping{}
+	_ bin.Decoder     = &UpdateUserTyping{}
+	_ bin.BareEncoder = &UpdateUserTyping{}
+	_ bin.BareDecoder = &UpdateUserTyping{}
+
+	_ UpdateClass = &UpdateUserTyping{}
+)
 
 func (u *UpdateUserTyping) Zero() bool {
 	if u == nil {
@@ -682,16 +695,6 @@ func (u *UpdateUserTyping) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (u *UpdateUserTyping) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetAction returns value of Action field.
-func (u *UpdateUserTyping) GetAction() (value SendMessageActionClass) {
-	return u.Action
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateUserTyping) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -725,18 +728,15 @@ func (u *UpdateUserTyping) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateUserTyping) construct() UpdateClass { return &u }
+// GetUserID returns value of UserID field.
+func (u *UpdateUserTyping) GetUserID() (value int) {
+	return u.UserID
+}
 
-// Ensuring interfaces in compile-time for UpdateUserTyping.
-var (
-	_ bin.Encoder     = &UpdateUserTyping{}
-	_ bin.Decoder     = &UpdateUserTyping{}
-	_ bin.BareEncoder = &UpdateUserTyping{}
-	_ bin.BareDecoder = &UpdateUserTyping{}
-
-	_ UpdateClass = &UpdateUserTyping{}
-)
+// GetAction returns value of Action field.
+func (u *UpdateUserTyping) GetAction() (value SendMessageActionClass) {
+	return u.Action
+}
 
 // UpdateChatUserTyping represents TL type `updateChatUserTyping#86cadb6c`.
 // The user is preparing a message in a group; typing, recording, uploading, etc. This
@@ -758,6 +758,19 @@ type UpdateChatUserTyping struct {
 
 // UpdateChatUserTypingTypeID is TL type id of UpdateChatUserTyping.
 const UpdateChatUserTypingTypeID = 0x86cadb6c
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatUserTyping) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatUserTyping.
+var (
+	_ bin.Encoder     = &UpdateChatUserTyping{}
+	_ bin.Decoder     = &UpdateChatUserTyping{}
+	_ bin.BareEncoder = &UpdateChatUserTyping{}
+	_ bin.BareDecoder = &UpdateChatUserTyping{}
+
+	_ UpdateClass = &UpdateChatUserTyping{}
+)
 
 func (u *UpdateChatUserTyping) Zero() bool {
 	if u == nil {
@@ -865,21 +878,6 @@ func (u *UpdateChatUserTyping) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatUserTyping) GetChatID() (value int) {
-	return u.ChatID
-}
-
-// GetFromID returns value of FromID field.
-func (u *UpdateChatUserTyping) GetFromID() (value PeerClass) {
-	return u.FromID
-}
-
-// GetAction returns value of Action field.
-func (u *UpdateChatUserTyping) GetAction() (value SendMessageActionClass) {
-	return u.Action
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChatUserTyping) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -920,18 +918,20 @@ func (u *UpdateChatUserTyping) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChatUserTyping) construct() UpdateClass { return &u }
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatUserTyping) GetChatID() (value int) {
+	return u.ChatID
+}
 
-// Ensuring interfaces in compile-time for UpdateChatUserTyping.
-var (
-	_ bin.Encoder     = &UpdateChatUserTyping{}
-	_ bin.Decoder     = &UpdateChatUserTyping{}
-	_ bin.BareEncoder = &UpdateChatUserTyping{}
-	_ bin.BareDecoder = &UpdateChatUserTyping{}
+// GetFromID returns value of FromID field.
+func (u *UpdateChatUserTyping) GetFromID() (value PeerClass) {
+	return u.FromID
+}
 
-	_ UpdateClass = &UpdateChatUserTyping{}
-)
+// GetAction returns value of Action field.
+func (u *UpdateChatUserTyping) GetAction() (value SendMessageActionClass) {
+	return u.Action
+}
 
 // UpdateChatParticipants represents TL type `updateChatParticipants#7761198`.
 // Composition of chat participants changed.
@@ -944,6 +944,19 @@ type UpdateChatParticipants struct {
 
 // UpdateChatParticipantsTypeID is TL type id of UpdateChatParticipants.
 const UpdateChatParticipantsTypeID = 0x7761198
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatParticipants) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatParticipants.
+var (
+	_ bin.Encoder     = &UpdateChatParticipants{}
+	_ bin.Decoder     = &UpdateChatParticipants{}
+	_ bin.BareEncoder = &UpdateChatParticipants{}
+	_ bin.BareDecoder = &UpdateChatParticipants{}
+
+	_ UpdateClass = &UpdateChatParticipants{}
+)
 
 func (u *UpdateChatParticipants) Zero() bool {
 	if u == nil {
@@ -1026,11 +1039,6 @@ func (u *UpdateChatParticipants) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetParticipants returns value of Participants field.
-func (u *UpdateChatParticipants) GetParticipants() (value ChatParticipantsClass) {
-	return u.Participants
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChatParticipants) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -1057,18 +1065,10 @@ func (u *UpdateChatParticipants) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChatParticipants) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChatParticipants.
-var (
-	_ bin.Encoder     = &UpdateChatParticipants{}
-	_ bin.Decoder     = &UpdateChatParticipants{}
-	_ bin.BareEncoder = &UpdateChatParticipants{}
-	_ bin.BareDecoder = &UpdateChatParticipants{}
-
-	_ UpdateClass = &UpdateChatParticipants{}
-)
+// GetParticipants returns value of Participants field.
+func (u *UpdateChatParticipants) GetParticipants() (value ChatParticipantsClass) {
+	return u.Participants
+}
 
 // UpdateUserStatus represents TL type `updateUserStatus#1bfbd823`.
 // Contact status update.
@@ -1083,6 +1083,19 @@ type UpdateUserStatus struct {
 
 // UpdateUserStatusTypeID is TL type id of UpdateUserStatus.
 const UpdateUserStatusTypeID = 0x1bfbd823
+
+// construct implements constructor of UpdateClass.
+func (u UpdateUserStatus) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateUserStatus.
+var (
+	_ bin.Encoder     = &UpdateUserStatus{}
+	_ bin.Decoder     = &UpdateUserStatus{}
+	_ bin.BareEncoder = &UpdateUserStatus{}
+	_ bin.BareDecoder = &UpdateUserStatus{}
+
+	_ UpdateClass = &UpdateUserStatus{}
+)
 
 func (u *UpdateUserStatus) Zero() bool {
 	if u == nil {
@@ -1175,16 +1188,6 @@ func (u *UpdateUserStatus) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (u *UpdateUserStatus) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetStatus returns value of Status field.
-func (u *UpdateUserStatus) GetStatus() (value UserStatusClass) {
-	return u.Status
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateUserStatus) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -1218,18 +1221,15 @@ func (u *UpdateUserStatus) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateUserStatus) construct() UpdateClass { return &u }
+// GetUserID returns value of UserID field.
+func (u *UpdateUserStatus) GetUserID() (value int) {
+	return u.UserID
+}
 
-// Ensuring interfaces in compile-time for UpdateUserStatus.
-var (
-	_ bin.Encoder     = &UpdateUserStatus{}
-	_ bin.Decoder     = &UpdateUserStatus{}
-	_ bin.BareEncoder = &UpdateUserStatus{}
-	_ bin.BareDecoder = &UpdateUserStatus{}
-
-	_ UpdateClass = &UpdateUserStatus{}
-)
+// GetStatus returns value of Status field.
+func (u *UpdateUserStatus) GetStatus() (value UserStatusClass) {
+	return u.Status
+}
 
 // UpdateUserName represents TL type `updateUserName#a7332b73`.
 // Changes the user's first name, last name and username.
@@ -1259,6 +1259,19 @@ type UpdateUserName struct {
 
 // UpdateUserNameTypeID is TL type id of UpdateUserName.
 const UpdateUserNameTypeID = 0xa7332b73
+
+// construct implements constructor of UpdateClass.
+func (u UpdateUserName) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateUserName.
+var (
+	_ bin.Encoder     = &UpdateUserName{}
+	_ bin.Decoder     = &UpdateUserName{}
+	_ bin.BareEncoder = &UpdateUserName{}
+	_ bin.BareDecoder = &UpdateUserName{}
+
+	_ UpdateClass = &UpdateUserName{}
+)
 
 func (u *UpdateUserName) Zero() bool {
 	if u == nil {
@@ -1366,26 +1379,6 @@ func (u *UpdateUserName) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (u *UpdateUserName) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetFirstName returns value of FirstName field.
-func (u *UpdateUserName) GetFirstName() (value string) {
-	return u.FirstName
-}
-
-// GetLastName returns value of LastName field.
-func (u *UpdateUserName) GetLastName() (value string) {
-	return u.LastName
-}
-
-// GetUsername returns value of Username field.
-func (u *UpdateUserName) GetUsername() (value string) {
-	return u.Username
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateUserName) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -1433,18 +1426,25 @@ func (u *UpdateUserName) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateUserName) construct() UpdateClass { return &u }
+// GetUserID returns value of UserID field.
+func (u *UpdateUserName) GetUserID() (value int) {
+	return u.UserID
+}
 
-// Ensuring interfaces in compile-time for UpdateUserName.
-var (
-	_ bin.Encoder     = &UpdateUserName{}
-	_ bin.Decoder     = &UpdateUserName{}
-	_ bin.BareEncoder = &UpdateUserName{}
-	_ bin.BareDecoder = &UpdateUserName{}
+// GetFirstName returns value of FirstName field.
+func (u *UpdateUserName) GetFirstName() (value string) {
+	return u.FirstName
+}
 
-	_ UpdateClass = &UpdateUserName{}
-)
+// GetLastName returns value of LastName field.
+func (u *UpdateUserName) GetLastName() (value string) {
+	return u.LastName
+}
+
+// GetUsername returns value of Username field.
+func (u *UpdateUserName) GetUsername() (value string) {
+	return u.Username
+}
 
 // UpdateUserPhoto represents TL type `updateUserPhoto#95313b0c`.
 // Change of contact's profile photo.
@@ -1466,6 +1466,19 @@ type UpdateUserPhoto struct {
 
 // UpdateUserPhotoTypeID is TL type id of UpdateUserPhoto.
 const UpdateUserPhotoTypeID = 0x95313b0c
+
+// construct implements constructor of UpdateClass.
+func (u UpdateUserPhoto) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateUserPhoto.
+var (
+	_ bin.Encoder     = &UpdateUserPhoto{}
+	_ bin.Decoder     = &UpdateUserPhoto{}
+	_ bin.BareEncoder = &UpdateUserPhoto{}
+	_ bin.BareDecoder = &UpdateUserPhoto{}
+
+	_ UpdateClass = &UpdateUserPhoto{}
+)
 
 func (u *UpdateUserPhoto) Zero() bool {
 	if u == nil {
@@ -1578,26 +1591,6 @@ func (u *UpdateUserPhoto) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (u *UpdateUserPhoto) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetDate returns value of Date field.
-func (u *UpdateUserPhoto) GetDate() (value int) {
-	return u.Date
-}
-
-// GetPhoto returns value of Photo field.
-func (u *UpdateUserPhoto) GetPhoto() (value UserProfilePhotoClass) {
-	return u.Photo
-}
-
-// GetPrevious returns value of Previous field.
-func (u *UpdateUserPhoto) GetPrevious() (value bool) {
-	return u.Previous
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateUserPhoto) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -1645,18 +1638,25 @@ func (u *UpdateUserPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateUserPhoto) construct() UpdateClass { return &u }
+// GetUserID returns value of UserID field.
+func (u *UpdateUserPhoto) GetUserID() (value int) {
+	return u.UserID
+}
 
-// Ensuring interfaces in compile-time for UpdateUserPhoto.
-var (
-	_ bin.Encoder     = &UpdateUserPhoto{}
-	_ bin.Decoder     = &UpdateUserPhoto{}
-	_ bin.BareEncoder = &UpdateUserPhoto{}
-	_ bin.BareDecoder = &UpdateUserPhoto{}
+// GetDate returns value of Date field.
+func (u *UpdateUserPhoto) GetDate() (value int) {
+	return u.Date
+}
 
-	_ UpdateClass = &UpdateUserPhoto{}
-)
+// GetPhoto returns value of Photo field.
+func (u *UpdateUserPhoto) GetPhoto() (value UserProfilePhotoClass) {
+	return u.Photo
+}
+
+// GetPrevious returns value of Previous field.
+func (u *UpdateUserPhoto) GetPrevious() (value bool) {
+	return u.Previous
+}
 
 // UpdateNewEncryptedMessage represents TL type `updateNewEncryptedMessage#12bcbd9a`.
 // New encrypted message.
@@ -1671,6 +1671,19 @@ type UpdateNewEncryptedMessage struct {
 
 // UpdateNewEncryptedMessageTypeID is TL type id of UpdateNewEncryptedMessage.
 const UpdateNewEncryptedMessageTypeID = 0x12bcbd9a
+
+// construct implements constructor of UpdateClass.
+func (u UpdateNewEncryptedMessage) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateNewEncryptedMessage.
+var (
+	_ bin.Encoder     = &UpdateNewEncryptedMessage{}
+	_ bin.Decoder     = &UpdateNewEncryptedMessage{}
+	_ bin.BareEncoder = &UpdateNewEncryptedMessage{}
+	_ bin.BareDecoder = &UpdateNewEncryptedMessage{}
+
+	_ UpdateClass = &UpdateNewEncryptedMessage{}
+)
 
 func (u *UpdateNewEncryptedMessage) Zero() bool {
 	if u == nil {
@@ -1763,16 +1776,6 @@ func (u *UpdateNewEncryptedMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (u *UpdateNewEncryptedMessage) GetMessage() (value EncryptedMessageClass) {
-	return u.Message
-}
-
-// GetQts returns value of Qts field.
-func (u *UpdateNewEncryptedMessage) GetQts() (value int) {
-	return u.Qts
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateNewEncryptedMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -1806,18 +1809,15 @@ func (u *UpdateNewEncryptedMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateNewEncryptedMessage) construct() UpdateClass { return &u }
+// GetMessage returns value of Message field.
+func (u *UpdateNewEncryptedMessage) GetMessage() (value EncryptedMessageClass) {
+	return u.Message
+}
 
-// Ensuring interfaces in compile-time for UpdateNewEncryptedMessage.
-var (
-	_ bin.Encoder     = &UpdateNewEncryptedMessage{}
-	_ bin.Decoder     = &UpdateNewEncryptedMessage{}
-	_ bin.BareEncoder = &UpdateNewEncryptedMessage{}
-	_ bin.BareDecoder = &UpdateNewEncryptedMessage{}
-
-	_ UpdateClass = &UpdateNewEncryptedMessage{}
-)
+// GetQts returns value of Qts field.
+func (u *UpdateNewEncryptedMessage) GetQts() (value int) {
+	return u.Qts
+}
 
 // UpdateEncryptedChatTyping represents TL type `updateEncryptedChatTyping#1710f156`.
 // Interlocutor is typing a message in an encrypted chat. Update period is 6 second. If
@@ -1832,6 +1832,19 @@ type UpdateEncryptedChatTyping struct {
 
 // UpdateEncryptedChatTypingTypeID is TL type id of UpdateEncryptedChatTyping.
 const UpdateEncryptedChatTypingTypeID = 0x1710f156
+
+// construct implements constructor of UpdateClass.
+func (u UpdateEncryptedChatTyping) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateEncryptedChatTyping.
+var (
+	_ bin.Encoder     = &UpdateEncryptedChatTyping{}
+	_ bin.Decoder     = &UpdateEncryptedChatTyping{}
+	_ bin.BareEncoder = &UpdateEncryptedChatTyping{}
+	_ bin.BareDecoder = &UpdateEncryptedChatTyping{}
+
+	_ UpdateClass = &UpdateEncryptedChatTyping{}
+)
 
 func (u *UpdateEncryptedChatTyping) Zero() bool {
 	if u == nil {
@@ -1909,11 +1922,6 @@ func (u *UpdateEncryptedChatTyping) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (u *UpdateEncryptedChatTyping) GetChatID() (value int) {
-	return u.ChatID
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateEncryptedChatTyping) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -1940,18 +1948,10 @@ func (u *UpdateEncryptedChatTyping) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateEncryptedChatTyping) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateEncryptedChatTyping.
-var (
-	_ bin.Encoder     = &UpdateEncryptedChatTyping{}
-	_ bin.Decoder     = &UpdateEncryptedChatTyping{}
-	_ bin.BareEncoder = &UpdateEncryptedChatTyping{}
-	_ bin.BareDecoder = &UpdateEncryptedChatTyping{}
-
-	_ UpdateClass = &UpdateEncryptedChatTyping{}
-)
+// GetChatID returns value of ChatID field.
+func (u *UpdateEncryptedChatTyping) GetChatID() (value int) {
+	return u.ChatID
+}
 
 // UpdateEncryption represents TL type `updateEncryption#b4a2e88d`.
 // Change of state in an encrypted chat.
@@ -1966,6 +1966,19 @@ type UpdateEncryption struct {
 
 // UpdateEncryptionTypeID is TL type id of UpdateEncryption.
 const UpdateEncryptionTypeID = 0xb4a2e88d
+
+// construct implements constructor of UpdateClass.
+func (u UpdateEncryption) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateEncryption.
+var (
+	_ bin.Encoder     = &UpdateEncryption{}
+	_ bin.Decoder     = &UpdateEncryption{}
+	_ bin.BareEncoder = &UpdateEncryption{}
+	_ bin.BareDecoder = &UpdateEncryption{}
+
+	_ UpdateClass = &UpdateEncryption{}
+)
 
 func (u *UpdateEncryption) Zero() bool {
 	if u == nil {
@@ -2058,16 +2071,6 @@ func (u *UpdateEncryption) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChat returns value of Chat field.
-func (u *UpdateEncryption) GetChat() (value EncryptedChatClass) {
-	return u.Chat
-}
-
-// GetDate returns value of Date field.
-func (u *UpdateEncryption) GetDate() (value int) {
-	return u.Date
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateEncryption) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -2101,18 +2104,15 @@ func (u *UpdateEncryption) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateEncryption) construct() UpdateClass { return &u }
+// GetChat returns value of Chat field.
+func (u *UpdateEncryption) GetChat() (value EncryptedChatClass) {
+	return u.Chat
+}
 
-// Ensuring interfaces in compile-time for UpdateEncryption.
-var (
-	_ bin.Encoder     = &UpdateEncryption{}
-	_ bin.Decoder     = &UpdateEncryption{}
-	_ bin.BareEncoder = &UpdateEncryption{}
-	_ bin.BareDecoder = &UpdateEncryption{}
-
-	_ UpdateClass = &UpdateEncryption{}
-)
+// GetDate returns value of Date field.
+func (u *UpdateEncryption) GetDate() (value int) {
+	return u.Date
+}
 
 // UpdateEncryptedMessagesRead represents TL type `updateEncryptedMessagesRead#38fe25b7`.
 // Communication history in an encrypted chat was marked as read.
@@ -2129,6 +2129,19 @@ type UpdateEncryptedMessagesRead struct {
 
 // UpdateEncryptedMessagesReadTypeID is TL type id of UpdateEncryptedMessagesRead.
 const UpdateEncryptedMessagesReadTypeID = 0x38fe25b7
+
+// construct implements constructor of UpdateClass.
+func (u UpdateEncryptedMessagesRead) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateEncryptedMessagesRead.
+var (
+	_ bin.Encoder     = &UpdateEncryptedMessagesRead{}
+	_ bin.Decoder     = &UpdateEncryptedMessagesRead{}
+	_ bin.BareEncoder = &UpdateEncryptedMessagesRead{}
+	_ bin.BareDecoder = &UpdateEncryptedMessagesRead{}
+
+	_ UpdateClass = &UpdateEncryptedMessagesRead{}
+)
 
 func (u *UpdateEncryptedMessagesRead) Zero() bool {
 	if u == nil {
@@ -2226,21 +2239,6 @@ func (u *UpdateEncryptedMessagesRead) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (u *UpdateEncryptedMessagesRead) GetChatID() (value int) {
-	return u.ChatID
-}
-
-// GetMaxDate returns value of MaxDate field.
-func (u *UpdateEncryptedMessagesRead) GetMaxDate() (value int) {
-	return u.MaxDate
-}
-
-// GetDate returns value of Date field.
-func (u *UpdateEncryptedMessagesRead) GetDate() (value int) {
-	return u.Date
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateEncryptedMessagesRead) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -2281,18 +2279,20 @@ func (u *UpdateEncryptedMessagesRead) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateEncryptedMessagesRead) construct() UpdateClass { return &u }
+// GetChatID returns value of ChatID field.
+func (u *UpdateEncryptedMessagesRead) GetChatID() (value int) {
+	return u.ChatID
+}
 
-// Ensuring interfaces in compile-time for UpdateEncryptedMessagesRead.
-var (
-	_ bin.Encoder     = &UpdateEncryptedMessagesRead{}
-	_ bin.Decoder     = &UpdateEncryptedMessagesRead{}
-	_ bin.BareEncoder = &UpdateEncryptedMessagesRead{}
-	_ bin.BareDecoder = &UpdateEncryptedMessagesRead{}
+// GetMaxDate returns value of MaxDate field.
+func (u *UpdateEncryptedMessagesRead) GetMaxDate() (value int) {
+	return u.MaxDate
+}
 
-	_ UpdateClass = &UpdateEncryptedMessagesRead{}
-)
+// GetDate returns value of Date field.
+func (u *UpdateEncryptedMessagesRead) GetDate() (value int) {
+	return u.Date
+}
 
 // UpdateChatParticipantAdd represents TL type `updateChatParticipantAdd#ea4b0e5c`.
 // New group member.
@@ -2313,6 +2313,19 @@ type UpdateChatParticipantAdd struct {
 
 // UpdateChatParticipantAddTypeID is TL type id of UpdateChatParticipantAdd.
 const UpdateChatParticipantAddTypeID = 0xea4b0e5c
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatParticipantAdd) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatParticipantAdd.
+var (
+	_ bin.Encoder     = &UpdateChatParticipantAdd{}
+	_ bin.Decoder     = &UpdateChatParticipantAdd{}
+	_ bin.BareEncoder = &UpdateChatParticipantAdd{}
+	_ bin.BareDecoder = &UpdateChatParticipantAdd{}
+
+	_ UpdateClass = &UpdateChatParticipantAdd{}
+)
 
 func (u *UpdateChatParticipantAdd) Zero() bool {
 	if u == nil {
@@ -2430,31 +2443,6 @@ func (u *UpdateChatParticipantAdd) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatParticipantAdd) GetChatID() (value int) {
-	return u.ChatID
-}
-
-// GetUserID returns value of UserID field.
-func (u *UpdateChatParticipantAdd) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetInviterID returns value of InviterID field.
-func (u *UpdateChatParticipantAdd) GetInviterID() (value int) {
-	return u.InviterID
-}
-
-// GetDate returns value of Date field.
-func (u *UpdateChatParticipantAdd) GetDate() (value int) {
-	return u.Date
-}
-
-// GetVersion returns value of Version field.
-func (u *UpdateChatParticipantAdd) GetVersion() (value int) {
-	return u.Version
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChatParticipantAdd) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -2509,18 +2497,30 @@ func (u *UpdateChatParticipantAdd) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChatParticipantAdd) construct() UpdateClass { return &u }
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatParticipantAdd) GetChatID() (value int) {
+	return u.ChatID
+}
 
-// Ensuring interfaces in compile-time for UpdateChatParticipantAdd.
-var (
-	_ bin.Encoder     = &UpdateChatParticipantAdd{}
-	_ bin.Decoder     = &UpdateChatParticipantAdd{}
-	_ bin.BareEncoder = &UpdateChatParticipantAdd{}
-	_ bin.BareDecoder = &UpdateChatParticipantAdd{}
+// GetUserID returns value of UserID field.
+func (u *UpdateChatParticipantAdd) GetUserID() (value int) {
+	return u.UserID
+}
 
-	_ UpdateClass = &UpdateChatParticipantAdd{}
-)
+// GetInviterID returns value of InviterID field.
+func (u *UpdateChatParticipantAdd) GetInviterID() (value int) {
+	return u.InviterID
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateChatParticipantAdd) GetDate() (value int) {
+	return u.Date
+}
+
+// GetVersion returns value of Version field.
+func (u *UpdateChatParticipantAdd) GetVersion() (value int) {
+	return u.Version
+}
 
 // UpdateChatParticipantDelete represents TL type `updateChatParticipantDelete#6e5f8c22`.
 // A member has left the group.
@@ -2537,6 +2537,19 @@ type UpdateChatParticipantDelete struct {
 
 // UpdateChatParticipantDeleteTypeID is TL type id of UpdateChatParticipantDelete.
 const UpdateChatParticipantDeleteTypeID = 0x6e5f8c22
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatParticipantDelete) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatParticipantDelete.
+var (
+	_ bin.Encoder     = &UpdateChatParticipantDelete{}
+	_ bin.Decoder     = &UpdateChatParticipantDelete{}
+	_ bin.BareEncoder = &UpdateChatParticipantDelete{}
+	_ bin.BareDecoder = &UpdateChatParticipantDelete{}
+
+	_ UpdateClass = &UpdateChatParticipantDelete{}
+)
 
 func (u *UpdateChatParticipantDelete) Zero() bool {
 	if u == nil {
@@ -2634,21 +2647,6 @@ func (u *UpdateChatParticipantDelete) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatParticipantDelete) GetChatID() (value int) {
-	return u.ChatID
-}
-
-// GetUserID returns value of UserID field.
-func (u *UpdateChatParticipantDelete) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetVersion returns value of Version field.
-func (u *UpdateChatParticipantDelete) GetVersion() (value int) {
-	return u.Version
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChatParticipantDelete) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -2689,18 +2687,20 @@ func (u *UpdateChatParticipantDelete) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChatParticipantDelete) construct() UpdateClass { return &u }
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatParticipantDelete) GetChatID() (value int) {
+	return u.ChatID
+}
 
-// Ensuring interfaces in compile-time for UpdateChatParticipantDelete.
-var (
-	_ bin.Encoder     = &UpdateChatParticipantDelete{}
-	_ bin.Decoder     = &UpdateChatParticipantDelete{}
-	_ bin.BareEncoder = &UpdateChatParticipantDelete{}
-	_ bin.BareDecoder = &UpdateChatParticipantDelete{}
+// GetUserID returns value of UserID field.
+func (u *UpdateChatParticipantDelete) GetUserID() (value int) {
+	return u.UserID
+}
 
-	_ UpdateClass = &UpdateChatParticipantDelete{}
-)
+// GetVersion returns value of Version field.
+func (u *UpdateChatParticipantDelete) GetVersion() (value int) {
+	return u.Version
+}
 
 // UpdateDCOptions represents TL type `updateDcOptions#8e5e9873`.
 // Changes in the data center configuration options.
@@ -2713,6 +2713,19 @@ type UpdateDCOptions struct {
 
 // UpdateDCOptionsTypeID is TL type id of UpdateDCOptions.
 const UpdateDCOptionsTypeID = 0x8e5e9873
+
+// construct implements constructor of UpdateClass.
+func (u UpdateDCOptions) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateDCOptions.
+var (
+	_ bin.Encoder     = &UpdateDCOptions{}
+	_ bin.Decoder     = &UpdateDCOptions{}
+	_ bin.BareEncoder = &UpdateDCOptions{}
+	_ bin.BareDecoder = &UpdateDCOptions{}
+
+	_ UpdateClass = &UpdateDCOptions{}
+)
 
 func (u *UpdateDCOptions) Zero() bool {
 	if u == nil {
@@ -2795,11 +2808,6 @@ func (u *UpdateDCOptions) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDCOptions returns value of DCOptions field.
-func (u *UpdateDCOptions) GetDCOptions() (value []DCOption) {
-	return u.DCOptions
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateDCOptions) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -2836,18 +2844,10 @@ func (u *UpdateDCOptions) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateDCOptions) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateDCOptions.
-var (
-	_ bin.Encoder     = &UpdateDCOptions{}
-	_ bin.Decoder     = &UpdateDCOptions{}
-	_ bin.BareEncoder = &UpdateDCOptions{}
-	_ bin.BareDecoder = &UpdateDCOptions{}
-
-	_ UpdateClass = &UpdateDCOptions{}
-)
+// GetDCOptions returns value of DCOptions field.
+func (u *UpdateDCOptions) GetDCOptions() (value []DCOption) {
+	return u.DCOptions
+}
 
 // UpdateNotifySettings represents TL type `updateNotifySettings#bec268ef`.
 // Changes in notification settings.
@@ -2862,6 +2862,19 @@ type UpdateNotifySettings struct {
 
 // UpdateNotifySettingsTypeID is TL type id of UpdateNotifySettings.
 const UpdateNotifySettingsTypeID = 0xbec268ef
+
+// construct implements constructor of UpdateClass.
+func (u UpdateNotifySettings) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateNotifySettings.
+var (
+	_ bin.Encoder     = &UpdateNotifySettings{}
+	_ bin.Decoder     = &UpdateNotifySettings{}
+	_ bin.BareEncoder = &UpdateNotifySettings{}
+	_ bin.BareDecoder = &UpdateNotifySettings{}
+
+	_ UpdateClass = &UpdateNotifySettings{}
+)
 
 func (u *UpdateNotifySettings) Zero() bool {
 	if u == nil {
@@ -2956,16 +2969,6 @@ func (u *UpdateNotifySettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *UpdateNotifySettings) GetPeer() (value NotifyPeerClass) {
-	return u.Peer
-}
-
-// GetNotifySettings returns value of NotifySettings field.
-func (u *UpdateNotifySettings) GetNotifySettings() (value PeerNotifySettings) {
-	return u.NotifySettings
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateNotifySettings) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -2997,18 +3000,15 @@ func (u *UpdateNotifySettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateNotifySettings) construct() UpdateClass { return &u }
+// GetPeer returns value of Peer field.
+func (u *UpdateNotifySettings) GetPeer() (value NotifyPeerClass) {
+	return u.Peer
+}
 
-// Ensuring interfaces in compile-time for UpdateNotifySettings.
-var (
-	_ bin.Encoder     = &UpdateNotifySettings{}
-	_ bin.Decoder     = &UpdateNotifySettings{}
-	_ bin.BareEncoder = &UpdateNotifySettings{}
-	_ bin.BareDecoder = &UpdateNotifySettings{}
-
-	_ UpdateClass = &UpdateNotifySettings{}
-)
+// GetNotifySettings returns value of NotifySettings field.
+func (u *UpdateNotifySettings) GetNotifySettings() (value PeerNotifySettings) {
+	return u.NotifySettings
+}
 
 // UpdateServiceNotification represents TL type `updateServiceNotification#ebe46819`.
 // A service message for the user.
@@ -3053,6 +3053,19 @@ type UpdateServiceNotification struct {
 
 // UpdateServiceNotificationTypeID is TL type id of UpdateServiceNotification.
 const UpdateServiceNotificationTypeID = 0xebe46819
+
+// construct implements constructor of UpdateClass.
+func (u UpdateServiceNotification) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateServiceNotification.
+var (
+	_ bin.Encoder     = &UpdateServiceNotification{}
+	_ bin.Decoder     = &UpdateServiceNotification{}
+	_ bin.BareEncoder = &UpdateServiceNotification{}
+	_ bin.BareDecoder = &UpdateServiceNotification{}
+
+	_ UpdateClass = &UpdateServiceNotification{}
+)
 
 func (u *UpdateServiceNotification) Zero() bool {
 	if u == nil {
@@ -3211,62 +3224,6 @@ func (u *UpdateServiceNotification) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetPopup sets value of Popup conditional field.
-func (u *UpdateServiceNotification) SetPopup(value bool) {
-	if value {
-		u.Flags.Set(0)
-		u.Popup = true
-	} else {
-		u.Flags.Unset(0)
-		u.Popup = false
-	}
-}
-
-// GetPopup returns value of Popup conditional field.
-func (u *UpdateServiceNotification) GetPopup() (value bool) {
-	return u.Flags.Has(0)
-}
-
-// SetInboxDate sets value of InboxDate conditional field.
-func (u *UpdateServiceNotification) SetInboxDate(value int) {
-	u.Flags.Set(1)
-	u.InboxDate = value
-}
-
-// GetInboxDate returns value of InboxDate conditional field and
-// boolean which is true if field was set.
-func (u *UpdateServiceNotification) GetInboxDate() (value int, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.InboxDate, true
-}
-
-// GetType returns value of Type field.
-func (u *UpdateServiceNotification) GetType() (value string) {
-	return u.Type
-}
-
-// GetMessage returns value of Message field.
-func (u *UpdateServiceNotification) GetMessage() (value string) {
-	return u.Message
-}
-
-// GetMedia returns value of Media field.
-func (u *UpdateServiceNotification) GetMedia() (value MessageMediaClass) {
-	return u.Media
-}
-
-// GetEntities returns value of Entities field.
-func (u *UpdateServiceNotification) GetEntities() (value []MessageEntityClass) {
-	return u.Entities
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (u *UpdateServiceNotification) MapEntities() (value MessageEntityClassArray) {
-	return MessageEntityClassArray(u.Entities)
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateServiceNotification) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -3337,18 +3294,61 @@ func (u *UpdateServiceNotification) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateServiceNotification) construct() UpdateClass { return &u }
+// SetPopup sets value of Popup conditional field.
+func (u *UpdateServiceNotification) SetPopup(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Popup = true
+	} else {
+		u.Flags.Unset(0)
+		u.Popup = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdateServiceNotification.
-var (
-	_ bin.Encoder     = &UpdateServiceNotification{}
-	_ bin.Decoder     = &UpdateServiceNotification{}
-	_ bin.BareEncoder = &UpdateServiceNotification{}
-	_ bin.BareDecoder = &UpdateServiceNotification{}
+// GetPopup returns value of Popup conditional field.
+func (u *UpdateServiceNotification) GetPopup() (value bool) {
+	return u.Flags.Has(0)
+}
 
-	_ UpdateClass = &UpdateServiceNotification{}
-)
+// SetInboxDate sets value of InboxDate conditional field.
+func (u *UpdateServiceNotification) SetInboxDate(value int) {
+	u.Flags.Set(1)
+	u.InboxDate = value
+}
+
+// GetInboxDate returns value of InboxDate conditional field and
+// boolean which is true if field was set.
+func (u *UpdateServiceNotification) GetInboxDate() (value int, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.InboxDate, true
+}
+
+// GetType returns value of Type field.
+func (u *UpdateServiceNotification) GetType() (value string) {
+	return u.Type
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateServiceNotification) GetMessage() (value string) {
+	return u.Message
+}
+
+// GetMedia returns value of Media field.
+func (u *UpdateServiceNotification) GetMedia() (value MessageMediaClass) {
+	return u.Media
+}
+
+// GetEntities returns value of Entities field.
+func (u *UpdateServiceNotification) GetEntities() (value []MessageEntityClass) {
+	return u.Entities
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (u *UpdateServiceNotification) MapEntities() (value MessageEntityClassArray) {
+	return MessageEntityClassArray(u.Entities)
+}
 
 // UpdatePrivacy represents TL type `updatePrivacy#ee3b272a`.
 // Privacy rules were changed
@@ -3363,6 +3363,19 @@ type UpdatePrivacy struct {
 
 // UpdatePrivacyTypeID is TL type id of UpdatePrivacy.
 const UpdatePrivacyTypeID = 0xee3b272a
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePrivacy) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePrivacy.
+var (
+	_ bin.Encoder     = &UpdatePrivacy{}
+	_ bin.Decoder     = &UpdatePrivacy{}
+	_ bin.BareEncoder = &UpdatePrivacy{}
+	_ bin.BareDecoder = &UpdatePrivacy{}
+
+	_ UpdateClass = &UpdatePrivacy{}
+)
 
 func (u *UpdatePrivacy) Zero() bool {
 	if u == nil {
@@ -3463,21 +3476,6 @@ func (u *UpdatePrivacy) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetKey returns value of Key field.
-func (u *UpdatePrivacy) GetKey() (value PrivacyKeyClass) {
-	return u.Key
-}
-
-// GetRules returns value of Rules field.
-func (u *UpdatePrivacy) GetRules() (value []PrivacyRuleClass) {
-	return u.Rules
-}
-
-// MapRules returns field Rules wrapped in PrivacyRuleClassArray helper.
-func (u *UpdatePrivacy) MapRules() (value PrivacyRuleClassArray) {
-	return PrivacyRuleClassArray(u.Rules)
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdatePrivacy) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -3521,18 +3519,20 @@ func (u *UpdatePrivacy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdatePrivacy) construct() UpdateClass { return &u }
+// GetKey returns value of Key field.
+func (u *UpdatePrivacy) GetKey() (value PrivacyKeyClass) {
+	return u.Key
+}
 
-// Ensuring interfaces in compile-time for UpdatePrivacy.
-var (
-	_ bin.Encoder     = &UpdatePrivacy{}
-	_ bin.Decoder     = &UpdatePrivacy{}
-	_ bin.BareEncoder = &UpdatePrivacy{}
-	_ bin.BareDecoder = &UpdatePrivacy{}
+// GetRules returns value of Rules field.
+func (u *UpdatePrivacy) GetRules() (value []PrivacyRuleClass) {
+	return u.Rules
+}
 
-	_ UpdateClass = &UpdatePrivacy{}
-)
+// MapRules returns field Rules wrapped in PrivacyRuleClassArray helper.
+func (u *UpdatePrivacy) MapRules() (value PrivacyRuleClassArray) {
+	return PrivacyRuleClassArray(u.Rules)
+}
 
 // UpdateUserPhone represents TL type `updateUserPhone#12b9417b`.
 // A user's phone number was changed
@@ -3547,6 +3547,19 @@ type UpdateUserPhone struct {
 
 // UpdateUserPhoneTypeID is TL type id of UpdateUserPhone.
 const UpdateUserPhoneTypeID = 0x12b9417b
+
+// construct implements constructor of UpdateClass.
+func (u UpdateUserPhone) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateUserPhone.
+var (
+	_ bin.Encoder     = &UpdateUserPhone{}
+	_ bin.Decoder     = &UpdateUserPhone{}
+	_ bin.BareEncoder = &UpdateUserPhone{}
+	_ bin.BareDecoder = &UpdateUserPhone{}
+
+	_ UpdateClass = &UpdateUserPhone{}
+)
 
 func (u *UpdateUserPhone) Zero() bool {
 	if u == nil {
@@ -3634,16 +3647,6 @@ func (u *UpdateUserPhone) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (u *UpdateUserPhone) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetPhone returns value of Phone field.
-func (u *UpdateUserPhone) GetPhone() (value string) {
-	return u.Phone
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateUserPhone) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -3677,18 +3680,15 @@ func (u *UpdateUserPhone) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateUserPhone) construct() UpdateClass { return &u }
+// GetUserID returns value of UserID field.
+func (u *UpdateUserPhone) GetUserID() (value int) {
+	return u.UserID
+}
 
-// Ensuring interfaces in compile-time for UpdateUserPhone.
-var (
-	_ bin.Encoder     = &UpdateUserPhone{}
-	_ bin.Decoder     = &UpdateUserPhone{}
-	_ bin.BareEncoder = &UpdateUserPhone{}
-	_ bin.BareDecoder = &UpdateUserPhone{}
-
-	_ UpdateClass = &UpdateUserPhone{}
-)
+// GetPhone returns value of Phone field.
+func (u *UpdateUserPhone) GetPhone() (value string) {
+	return u.Phone
+}
 
 // UpdateReadHistoryInbox represents TL type `updateReadHistoryInbox#9c974fdf`.
 // Incoming messages were read
@@ -3727,6 +3727,19 @@ type UpdateReadHistoryInbox struct {
 
 // UpdateReadHistoryInboxTypeID is TL type id of UpdateReadHistoryInbox.
 const UpdateReadHistoryInboxTypeID = 0x9c974fdf
+
+// construct implements constructor of UpdateClass.
+func (u UpdateReadHistoryInbox) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateReadHistoryInbox.
+var (
+	_ bin.Encoder     = &UpdateReadHistoryInbox{}
+	_ bin.Decoder     = &UpdateReadHistoryInbox{}
+	_ bin.BareEncoder = &UpdateReadHistoryInbox{}
+	_ bin.BareDecoder = &UpdateReadHistoryInbox{}
+
+	_ UpdateClass = &UpdateReadHistoryInbox{}
+)
 
 func (u *UpdateReadHistoryInbox) Zero() bool {
 	if u == nil {
@@ -3874,46 +3887,6 @@ func (u *UpdateReadHistoryInbox) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFolderID sets value of FolderID conditional field.
-func (u *UpdateReadHistoryInbox) SetFolderID(value int) {
-	u.Flags.Set(0)
-	u.FolderID = value
-}
-
-// GetFolderID returns value of FolderID conditional field and
-// boolean which is true if field was set.
-func (u *UpdateReadHistoryInbox) GetFolderID() (value int, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.FolderID, true
-}
-
-// GetPeer returns value of Peer field.
-func (u *UpdateReadHistoryInbox) GetPeer() (value PeerClass) {
-	return u.Peer
-}
-
-// GetMaxID returns value of MaxID field.
-func (u *UpdateReadHistoryInbox) GetMaxID() (value int) {
-	return u.MaxID
-}
-
-// GetStillUnreadCount returns value of StillUnreadCount field.
-func (u *UpdateReadHistoryInbox) GetStillUnreadCount() (value int) {
-	return u.StillUnreadCount
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateReadHistoryInbox) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdateReadHistoryInbox) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateReadHistoryInbox) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -3980,18 +3953,45 @@ func (u *UpdateReadHistoryInbox) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateReadHistoryInbox) construct() UpdateClass { return &u }
+// SetFolderID sets value of FolderID conditional field.
+func (u *UpdateReadHistoryInbox) SetFolderID(value int) {
+	u.Flags.Set(0)
+	u.FolderID = value
+}
 
-// Ensuring interfaces in compile-time for UpdateReadHistoryInbox.
-var (
-	_ bin.Encoder     = &UpdateReadHistoryInbox{}
-	_ bin.Decoder     = &UpdateReadHistoryInbox{}
-	_ bin.BareEncoder = &UpdateReadHistoryInbox{}
-	_ bin.BareDecoder = &UpdateReadHistoryInbox{}
+// GetFolderID returns value of FolderID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateReadHistoryInbox) GetFolderID() (value int, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.FolderID, true
+}
 
-	_ UpdateClass = &UpdateReadHistoryInbox{}
-)
+// GetPeer returns value of Peer field.
+func (u *UpdateReadHistoryInbox) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetMaxID returns value of MaxID field.
+func (u *UpdateReadHistoryInbox) GetMaxID() (value int) {
+	return u.MaxID
+}
+
+// GetStillUnreadCount returns value of StillUnreadCount field.
+func (u *UpdateReadHistoryInbox) GetStillUnreadCount() (value int) {
+	return u.StillUnreadCount
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateReadHistoryInbox) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateReadHistoryInbox) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdateReadHistoryOutbox represents TL type `updateReadHistoryOutbox#2f2f21bf`.
 // Outgoing messages were read
@@ -4016,6 +4016,19 @@ type UpdateReadHistoryOutbox struct {
 
 // UpdateReadHistoryOutboxTypeID is TL type id of UpdateReadHistoryOutbox.
 const UpdateReadHistoryOutboxTypeID = 0x2f2f21bf
+
+// construct implements constructor of UpdateClass.
+func (u UpdateReadHistoryOutbox) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateReadHistoryOutbox.
+var (
+	_ bin.Encoder     = &UpdateReadHistoryOutbox{}
+	_ bin.Decoder     = &UpdateReadHistoryOutbox{}
+	_ bin.BareEncoder = &UpdateReadHistoryOutbox{}
+	_ bin.BareDecoder = &UpdateReadHistoryOutbox{}
+
+	_ UpdateClass = &UpdateReadHistoryOutbox{}
+)
 
 func (u *UpdateReadHistoryOutbox) Zero() bool {
 	if u == nil {
@@ -4128,26 +4141,6 @@ func (u *UpdateReadHistoryOutbox) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *UpdateReadHistoryOutbox) GetPeer() (value PeerClass) {
-	return u.Peer
-}
-
-// GetMaxID returns value of MaxID field.
-func (u *UpdateReadHistoryOutbox) GetMaxID() (value int) {
-	return u.MaxID
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateReadHistoryOutbox) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdateReadHistoryOutbox) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateReadHistoryOutbox) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -4195,18 +4188,25 @@ func (u *UpdateReadHistoryOutbox) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateReadHistoryOutbox) construct() UpdateClass { return &u }
+// GetPeer returns value of Peer field.
+func (u *UpdateReadHistoryOutbox) GetPeer() (value PeerClass) {
+	return u.Peer
+}
 
-// Ensuring interfaces in compile-time for UpdateReadHistoryOutbox.
-var (
-	_ bin.Encoder     = &UpdateReadHistoryOutbox{}
-	_ bin.Decoder     = &UpdateReadHistoryOutbox{}
-	_ bin.BareEncoder = &UpdateReadHistoryOutbox{}
-	_ bin.BareDecoder = &UpdateReadHistoryOutbox{}
+// GetMaxID returns value of MaxID field.
+func (u *UpdateReadHistoryOutbox) GetMaxID() (value int) {
+	return u.MaxID
+}
 
-	_ UpdateClass = &UpdateReadHistoryOutbox{}
-)
+// GetPts returns value of Pts field.
+func (u *UpdateReadHistoryOutbox) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateReadHistoryOutbox) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdateWebPage represents TL type `updateWebPage#7f891213`.
 // An instant view¹ webpage preview was generated
@@ -4232,6 +4232,19 @@ type UpdateWebPage struct {
 
 // UpdateWebPageTypeID is TL type id of UpdateWebPage.
 const UpdateWebPageTypeID = 0x7f891213
+
+// construct implements constructor of UpdateClass.
+func (u UpdateWebPage) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateWebPage.
+var (
+	_ bin.Encoder     = &UpdateWebPage{}
+	_ bin.Decoder     = &UpdateWebPage{}
+	_ bin.BareEncoder = &UpdateWebPage{}
+	_ bin.BareDecoder = &UpdateWebPage{}
+
+	_ UpdateClass = &UpdateWebPage{}
+)
 
 func (u *UpdateWebPage) Zero() bool {
 	if u == nil {
@@ -4334,21 +4347,6 @@ func (u *UpdateWebPage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetWebpage returns value of Webpage field.
-func (u *UpdateWebPage) GetWebpage() (value WebPageClass) {
-	return u.Webpage
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateWebPage) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdateWebPage) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateWebPage) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -4389,18 +4387,20 @@ func (u *UpdateWebPage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateWebPage) construct() UpdateClass { return &u }
+// GetWebpage returns value of Webpage field.
+func (u *UpdateWebPage) GetWebpage() (value WebPageClass) {
+	return u.Webpage
+}
 
-// Ensuring interfaces in compile-time for UpdateWebPage.
-var (
-	_ bin.Encoder     = &UpdateWebPage{}
-	_ bin.Decoder     = &UpdateWebPage{}
-	_ bin.BareEncoder = &UpdateWebPage{}
-	_ bin.BareDecoder = &UpdateWebPage{}
+// GetPts returns value of Pts field.
+func (u *UpdateWebPage) GetPts() (value int) {
+	return u.Pts
+}
 
-	_ UpdateClass = &UpdateWebPage{}
-)
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateWebPage) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdateReadMessagesContents represents TL type `updateReadMessagesContents#68c13933`.
 // Contents of messages in the common message box¹ were read
@@ -4426,6 +4426,19 @@ type UpdateReadMessagesContents struct {
 
 // UpdateReadMessagesContentsTypeID is TL type id of UpdateReadMessagesContents.
 const UpdateReadMessagesContentsTypeID = 0x68c13933
+
+// construct implements constructor of UpdateClass.
+func (u UpdateReadMessagesContents) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateReadMessagesContents.
+var (
+	_ bin.Encoder     = &UpdateReadMessagesContents{}
+	_ bin.Decoder     = &UpdateReadMessagesContents{}
+	_ bin.BareEncoder = &UpdateReadMessagesContents{}
+	_ bin.BareDecoder = &UpdateReadMessagesContents{}
+
+	_ UpdateClass = &UpdateReadMessagesContents{}
+)
 
 func (u *UpdateReadMessagesContents) Zero() bool {
 	if u == nil {
@@ -4526,21 +4539,6 @@ func (u *UpdateReadMessagesContents) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessages returns value of Messages field.
-func (u *UpdateReadMessagesContents) GetMessages() (value []int) {
-	return u.Messages
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateReadMessagesContents) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdateReadMessagesContents) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateReadMessagesContents) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -4591,18 +4589,20 @@ func (u *UpdateReadMessagesContents) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateReadMessagesContents) construct() UpdateClass { return &u }
+// GetMessages returns value of Messages field.
+func (u *UpdateReadMessagesContents) GetMessages() (value []int) {
+	return u.Messages
+}
 
-// Ensuring interfaces in compile-time for UpdateReadMessagesContents.
-var (
-	_ bin.Encoder     = &UpdateReadMessagesContents{}
-	_ bin.Decoder     = &UpdateReadMessagesContents{}
-	_ bin.BareEncoder = &UpdateReadMessagesContents{}
-	_ bin.BareDecoder = &UpdateReadMessagesContents{}
+// GetPts returns value of Pts field.
+func (u *UpdateReadMessagesContents) GetPts() (value int) {
+	return u.Pts
+}
 
-	_ UpdateClass = &UpdateReadMessagesContents{}
-)
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateReadMessagesContents) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdateChannelTooLong represents TL type `updateChannelTooLong#eb0467fb`.
 // There are new updates in the specified channel, the client must fetch them.
@@ -4629,6 +4629,19 @@ type UpdateChannelTooLong struct {
 
 // UpdateChannelTooLongTypeID is TL type id of UpdateChannelTooLong.
 const UpdateChannelTooLongTypeID = 0xeb0467fb
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChannelTooLong) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChannelTooLong.
+var (
+	_ bin.Encoder     = &UpdateChannelTooLong{}
+	_ bin.Decoder     = &UpdateChannelTooLong{}
+	_ bin.BareEncoder = &UpdateChannelTooLong{}
+	_ bin.BareDecoder = &UpdateChannelTooLong{}
+
+	_ UpdateClass = &UpdateChannelTooLong{}
+)
 
 func (u *UpdateChannelTooLong) Zero() bool {
 	if u == nil {
@@ -4731,26 +4744,6 @@ func (u *UpdateChannelTooLong) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateChannelTooLong) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// SetPts sets value of Pts conditional field.
-func (u *UpdateChannelTooLong) SetPts(value int) {
-	u.Flags.Set(0)
-	u.Pts = value
-}
-
-// GetPts returns value of Pts conditional field and
-// boolean which is true if field was set.
-func (u *UpdateChannelTooLong) GetPts() (value int, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.Pts, true
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChannelTooLong) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -4789,18 +4782,25 @@ func (u *UpdateChannelTooLong) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChannelTooLong) construct() UpdateClass { return &u }
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelTooLong) GetChannelID() (value int) {
+	return u.ChannelID
+}
 
-// Ensuring interfaces in compile-time for UpdateChannelTooLong.
-var (
-	_ bin.Encoder     = &UpdateChannelTooLong{}
-	_ bin.Decoder     = &UpdateChannelTooLong{}
-	_ bin.BareEncoder = &UpdateChannelTooLong{}
-	_ bin.BareDecoder = &UpdateChannelTooLong{}
+// SetPts sets value of Pts conditional field.
+func (u *UpdateChannelTooLong) SetPts(value int) {
+	u.Flags.Set(0)
+	u.Pts = value
+}
 
-	_ UpdateClass = &UpdateChannelTooLong{}
-)
+// GetPts returns value of Pts conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChannelTooLong) GetPts() (value int, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Pts, true
+}
 
 // UpdateChannel represents TL type `updateChannel#b6d45656`.
 // A new channel is available
@@ -4813,6 +4813,19 @@ type UpdateChannel struct {
 
 // UpdateChannelTypeID is TL type id of UpdateChannel.
 const UpdateChannelTypeID = 0xb6d45656
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChannel) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChannel.
+var (
+	_ bin.Encoder     = &UpdateChannel{}
+	_ bin.Decoder     = &UpdateChannel{}
+	_ bin.BareEncoder = &UpdateChannel{}
+	_ bin.BareDecoder = &UpdateChannel{}
+
+	_ UpdateClass = &UpdateChannel{}
+)
 
 func (u *UpdateChannel) Zero() bool {
 	if u == nil {
@@ -4890,11 +4903,6 @@ func (u *UpdateChannel) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateChannel) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChannel) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -4921,18 +4929,10 @@ func (u *UpdateChannel) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChannel) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChannel.
-var (
-	_ bin.Encoder     = &UpdateChannel{}
-	_ bin.Decoder     = &UpdateChannel{}
-	_ bin.BareEncoder = &UpdateChannel{}
-	_ bin.BareDecoder = &UpdateChannel{}
-
-	_ UpdateClass = &UpdateChannel{}
-)
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannel) GetChannelID() (value int) {
+	return u.ChannelID
+}
 
 // UpdateNewChannelMessage represents TL type `updateNewChannelMessage#62ba04d9`.
 // A new message was sent in a channel/supergroup¹
@@ -4958,6 +4958,19 @@ type UpdateNewChannelMessage struct {
 
 // UpdateNewChannelMessageTypeID is TL type id of UpdateNewChannelMessage.
 const UpdateNewChannelMessageTypeID = 0x62ba04d9
+
+// construct implements constructor of UpdateClass.
+func (u UpdateNewChannelMessage) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateNewChannelMessage.
+var (
+	_ bin.Encoder     = &UpdateNewChannelMessage{}
+	_ bin.Decoder     = &UpdateNewChannelMessage{}
+	_ bin.BareEncoder = &UpdateNewChannelMessage{}
+	_ bin.BareDecoder = &UpdateNewChannelMessage{}
+
+	_ UpdateClass = &UpdateNewChannelMessage{}
+)
 
 func (u *UpdateNewChannelMessage) Zero() bool {
 	if u == nil {
@@ -5060,21 +5073,6 @@ func (u *UpdateNewChannelMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (u *UpdateNewChannelMessage) GetMessage() (value MessageClass) {
-	return u.Message
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateNewChannelMessage) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdateNewChannelMessage) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateNewChannelMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -5115,18 +5113,20 @@ func (u *UpdateNewChannelMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateNewChannelMessage) construct() UpdateClass { return &u }
+// GetMessage returns value of Message field.
+func (u *UpdateNewChannelMessage) GetMessage() (value MessageClass) {
+	return u.Message
+}
 
-// Ensuring interfaces in compile-time for UpdateNewChannelMessage.
-var (
-	_ bin.Encoder     = &UpdateNewChannelMessage{}
-	_ bin.Decoder     = &UpdateNewChannelMessage{}
-	_ bin.BareEncoder = &UpdateNewChannelMessage{}
-	_ bin.BareDecoder = &UpdateNewChannelMessage{}
+// GetPts returns value of Pts field.
+func (u *UpdateNewChannelMessage) GetPts() (value int) {
+	return u.Pts
+}
 
-	_ UpdateClass = &UpdateNewChannelMessage{}
-)
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateNewChannelMessage) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdateReadChannelInbox represents TL type `updateReadChannelInbox#330b5424`.
 // Incoming messages in a channel/supergroup¹ were read
@@ -5163,6 +5163,19 @@ type UpdateReadChannelInbox struct {
 
 // UpdateReadChannelInboxTypeID is TL type id of UpdateReadChannelInbox.
 const UpdateReadChannelInboxTypeID = 0x330b5424
+
+// construct implements constructor of UpdateClass.
+func (u UpdateReadChannelInbox) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateReadChannelInbox.
+var (
+	_ bin.Encoder     = &UpdateReadChannelInbox{}
+	_ bin.Decoder     = &UpdateReadChannelInbox{}
+	_ bin.BareEncoder = &UpdateReadChannelInbox{}
+	_ bin.BareDecoder = &UpdateReadChannelInbox{}
+
+	_ UpdateClass = &UpdateReadChannelInbox{}
+)
 
 func (u *UpdateReadChannelInbox) Zero() bool {
 	if u == nil {
@@ -5295,41 +5308,6 @@ func (u *UpdateReadChannelInbox) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFolderID sets value of FolderID conditional field.
-func (u *UpdateReadChannelInbox) SetFolderID(value int) {
-	u.Flags.Set(0)
-	u.FolderID = value
-}
-
-// GetFolderID returns value of FolderID conditional field and
-// boolean which is true if field was set.
-func (u *UpdateReadChannelInbox) GetFolderID() (value int, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.FolderID, true
-}
-
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateReadChannelInbox) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// GetMaxID returns value of MaxID field.
-func (u *UpdateReadChannelInbox) GetMaxID() (value int) {
-	return u.MaxID
-}
-
-// GetStillUnreadCount returns value of StillUnreadCount field.
-func (u *UpdateReadChannelInbox) GetStillUnreadCount() (value int) {
-	return u.StillUnreadCount
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateReadChannelInbox) GetPts() (value int) {
-	return u.Pts
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateReadChannelInbox) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -5389,18 +5367,40 @@ func (u *UpdateReadChannelInbox) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateReadChannelInbox) construct() UpdateClass { return &u }
+// SetFolderID sets value of FolderID conditional field.
+func (u *UpdateReadChannelInbox) SetFolderID(value int) {
+	u.Flags.Set(0)
+	u.FolderID = value
+}
 
-// Ensuring interfaces in compile-time for UpdateReadChannelInbox.
-var (
-	_ bin.Encoder     = &UpdateReadChannelInbox{}
-	_ bin.Decoder     = &UpdateReadChannelInbox{}
-	_ bin.BareEncoder = &UpdateReadChannelInbox{}
-	_ bin.BareDecoder = &UpdateReadChannelInbox{}
+// GetFolderID returns value of FolderID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateReadChannelInbox) GetFolderID() (value int, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.FolderID, true
+}
 
-	_ UpdateClass = &UpdateReadChannelInbox{}
-)
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateReadChannelInbox) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetMaxID returns value of MaxID field.
+func (u *UpdateReadChannelInbox) GetMaxID() (value int) {
+	return u.MaxID
+}
+
+// GetStillUnreadCount returns value of StillUnreadCount field.
+func (u *UpdateReadChannelInbox) GetStillUnreadCount() (value int) {
+	return u.StillUnreadCount
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateReadChannelInbox) GetPts() (value int) {
+	return u.Pts
+}
 
 // UpdateDeleteChannelMessages represents TL type `updateDeleteChannelMessages#c37521c9`.
 // Some messages in a supergroup/channel¹ were deleted
@@ -5428,6 +5428,19 @@ type UpdateDeleteChannelMessages struct {
 
 // UpdateDeleteChannelMessagesTypeID is TL type id of UpdateDeleteChannelMessages.
 const UpdateDeleteChannelMessagesTypeID = 0xc37521c9
+
+// construct implements constructor of UpdateClass.
+func (u UpdateDeleteChannelMessages) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateDeleteChannelMessages.
+var (
+	_ bin.Encoder     = &UpdateDeleteChannelMessages{}
+	_ bin.Decoder     = &UpdateDeleteChannelMessages{}
+	_ bin.BareEncoder = &UpdateDeleteChannelMessages{}
+	_ bin.BareDecoder = &UpdateDeleteChannelMessages{}
+
+	_ UpdateClass = &UpdateDeleteChannelMessages{}
+)
 
 func (u *UpdateDeleteChannelMessages) Zero() bool {
 	if u == nil {
@@ -5538,26 +5551,6 @@ func (u *UpdateDeleteChannelMessages) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateDeleteChannelMessages) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// GetMessages returns value of Messages field.
-func (u *UpdateDeleteChannelMessages) GetMessages() (value []int) {
-	return u.Messages
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateDeleteChannelMessages) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdateDeleteChannelMessages) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateDeleteChannelMessages) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -5615,18 +5608,25 @@ func (u *UpdateDeleteChannelMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateDeleteChannelMessages) construct() UpdateClass { return &u }
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateDeleteChannelMessages) GetChannelID() (value int) {
+	return u.ChannelID
+}
 
-// Ensuring interfaces in compile-time for UpdateDeleteChannelMessages.
-var (
-	_ bin.Encoder     = &UpdateDeleteChannelMessages{}
-	_ bin.Decoder     = &UpdateDeleteChannelMessages{}
-	_ bin.BareEncoder = &UpdateDeleteChannelMessages{}
-	_ bin.BareDecoder = &UpdateDeleteChannelMessages{}
+// GetMessages returns value of Messages field.
+func (u *UpdateDeleteChannelMessages) GetMessages() (value []int) {
+	return u.Messages
+}
 
-	_ UpdateClass = &UpdateDeleteChannelMessages{}
-)
+// GetPts returns value of Pts field.
+func (u *UpdateDeleteChannelMessages) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateDeleteChannelMessages) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdateChannelMessageViews represents TL type `updateChannelMessageViews#98a12b4b`.
 // The view counter of a message in a channel has changed
@@ -5643,6 +5643,19 @@ type UpdateChannelMessageViews struct {
 
 // UpdateChannelMessageViewsTypeID is TL type id of UpdateChannelMessageViews.
 const UpdateChannelMessageViewsTypeID = 0x98a12b4b
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChannelMessageViews) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChannelMessageViews.
+var (
+	_ bin.Encoder     = &UpdateChannelMessageViews{}
+	_ bin.Decoder     = &UpdateChannelMessageViews{}
+	_ bin.BareEncoder = &UpdateChannelMessageViews{}
+	_ bin.BareDecoder = &UpdateChannelMessageViews{}
+
+	_ UpdateClass = &UpdateChannelMessageViews{}
+)
 
 func (u *UpdateChannelMessageViews) Zero() bool {
 	if u == nil {
@@ -5740,21 +5753,6 @@ func (u *UpdateChannelMessageViews) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateChannelMessageViews) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// GetID returns value of ID field.
-func (u *UpdateChannelMessageViews) GetID() (value int) {
-	return u.ID
-}
-
-// GetViews returns value of Views field.
-func (u *UpdateChannelMessageViews) GetViews() (value int) {
-	return u.Views
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChannelMessageViews) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -5795,18 +5793,20 @@ func (u *UpdateChannelMessageViews) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChannelMessageViews) construct() UpdateClass { return &u }
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelMessageViews) GetChannelID() (value int) {
+	return u.ChannelID
+}
 
-// Ensuring interfaces in compile-time for UpdateChannelMessageViews.
-var (
-	_ bin.Encoder     = &UpdateChannelMessageViews{}
-	_ bin.Decoder     = &UpdateChannelMessageViews{}
-	_ bin.BareEncoder = &UpdateChannelMessageViews{}
-	_ bin.BareDecoder = &UpdateChannelMessageViews{}
+// GetID returns value of ID field.
+func (u *UpdateChannelMessageViews) GetID() (value int) {
+	return u.ID
+}
 
-	_ UpdateClass = &UpdateChannelMessageViews{}
-)
+// GetViews returns value of Views field.
+func (u *UpdateChannelMessageViews) GetViews() (value int) {
+	return u.Views
+}
 
 // UpdateChatParticipantAdmin represents TL type `updateChatParticipantAdmin#b6901959`.
 // Admin permissions of a user in a legacy group¹ were changed
@@ -5828,6 +5828,19 @@ type UpdateChatParticipantAdmin struct {
 
 // UpdateChatParticipantAdminTypeID is TL type id of UpdateChatParticipantAdmin.
 const UpdateChatParticipantAdminTypeID = 0xb6901959
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatParticipantAdmin) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatParticipantAdmin.
+var (
+	_ bin.Encoder     = &UpdateChatParticipantAdmin{}
+	_ bin.Decoder     = &UpdateChatParticipantAdmin{}
+	_ bin.BareEncoder = &UpdateChatParticipantAdmin{}
+	_ bin.BareDecoder = &UpdateChatParticipantAdmin{}
+
+	_ UpdateClass = &UpdateChatParticipantAdmin{}
+)
 
 func (u *UpdateChatParticipantAdmin) Zero() bool {
 	if u == nil {
@@ -5935,26 +5948,6 @@ func (u *UpdateChatParticipantAdmin) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatParticipantAdmin) GetChatID() (value int) {
-	return u.ChatID
-}
-
-// GetUserID returns value of UserID field.
-func (u *UpdateChatParticipantAdmin) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetIsAdmin returns value of IsAdmin field.
-func (u *UpdateChatParticipantAdmin) GetIsAdmin() (value bool) {
-	return u.IsAdmin
-}
-
-// GetVersion returns value of Version field.
-func (u *UpdateChatParticipantAdmin) GetVersion() (value int) {
-	return u.Version
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChatParticipantAdmin) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -6002,18 +5995,25 @@ func (u *UpdateChatParticipantAdmin) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChatParticipantAdmin) construct() UpdateClass { return &u }
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatParticipantAdmin) GetChatID() (value int) {
+	return u.ChatID
+}
 
-// Ensuring interfaces in compile-time for UpdateChatParticipantAdmin.
-var (
-	_ bin.Encoder     = &UpdateChatParticipantAdmin{}
-	_ bin.Decoder     = &UpdateChatParticipantAdmin{}
-	_ bin.BareEncoder = &UpdateChatParticipantAdmin{}
-	_ bin.BareDecoder = &UpdateChatParticipantAdmin{}
+// GetUserID returns value of UserID field.
+func (u *UpdateChatParticipantAdmin) GetUserID() (value int) {
+	return u.UserID
+}
 
-	_ UpdateClass = &UpdateChatParticipantAdmin{}
-)
+// GetIsAdmin returns value of IsAdmin field.
+func (u *UpdateChatParticipantAdmin) GetIsAdmin() (value bool) {
+	return u.IsAdmin
+}
+
+// GetVersion returns value of Version field.
+func (u *UpdateChatParticipantAdmin) GetVersion() (value int) {
+	return u.Version
+}
 
 // UpdateNewStickerSet represents TL type `updateNewStickerSet#688a30aa`.
 // A new stickerset was installed
@@ -6026,6 +6026,19 @@ type UpdateNewStickerSet struct {
 
 // UpdateNewStickerSetTypeID is TL type id of UpdateNewStickerSet.
 const UpdateNewStickerSetTypeID = 0x688a30aa
+
+// construct implements constructor of UpdateClass.
+func (u UpdateNewStickerSet) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateNewStickerSet.
+var (
+	_ bin.Encoder     = &UpdateNewStickerSet{}
+	_ bin.Decoder     = &UpdateNewStickerSet{}
+	_ bin.BareEncoder = &UpdateNewStickerSet{}
+	_ bin.BareDecoder = &UpdateNewStickerSet{}
+
+	_ UpdateClass = &UpdateNewStickerSet{}
+)
 
 func (u *UpdateNewStickerSet) Zero() bool {
 	if u == nil {
@@ -6105,11 +6118,6 @@ func (u *UpdateNewStickerSet) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetStickerset returns value of Stickerset field.
-func (u *UpdateNewStickerSet) GetStickerset() (value MessagesStickerSet) {
-	return u.Stickerset
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateNewStickerSet) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -6134,18 +6142,10 @@ func (u *UpdateNewStickerSet) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateNewStickerSet) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateNewStickerSet.
-var (
-	_ bin.Encoder     = &UpdateNewStickerSet{}
-	_ bin.Decoder     = &UpdateNewStickerSet{}
-	_ bin.BareEncoder = &UpdateNewStickerSet{}
-	_ bin.BareDecoder = &UpdateNewStickerSet{}
-
-	_ UpdateClass = &UpdateNewStickerSet{}
-)
+// GetStickerset returns value of Stickerset field.
+func (u *UpdateNewStickerSet) GetStickerset() (value MessagesStickerSet) {
+	return u.Stickerset
+}
 
 // UpdateStickerSetsOrder represents TL type `updateStickerSetsOrder#bb2d201`.
 // The order of stickersets was changed
@@ -6165,6 +6165,19 @@ type UpdateStickerSetsOrder struct {
 
 // UpdateStickerSetsOrderTypeID is TL type id of UpdateStickerSetsOrder.
 const UpdateStickerSetsOrderTypeID = 0xbb2d201
+
+// construct implements constructor of UpdateClass.
+func (u UpdateStickerSetsOrder) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateStickerSetsOrder.
+var (
+	_ bin.Encoder     = &UpdateStickerSetsOrder{}
+	_ bin.Decoder     = &UpdateStickerSetsOrder{}
+	_ bin.BareEncoder = &UpdateStickerSetsOrder{}
+	_ bin.BareDecoder = &UpdateStickerSetsOrder{}
+
+	_ UpdateClass = &UpdateStickerSetsOrder{}
+)
 
 func (u *UpdateStickerSetsOrder) Zero() bool {
 	if u == nil {
@@ -6264,27 +6277,6 @@ func (u *UpdateStickerSetsOrder) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetMasks sets value of Masks conditional field.
-func (u *UpdateStickerSetsOrder) SetMasks(value bool) {
-	if value {
-		u.Flags.Set(0)
-		u.Masks = true
-	} else {
-		u.Flags.Unset(0)
-		u.Masks = false
-	}
-}
-
-// GetMasks returns value of Masks conditional field.
-func (u *UpdateStickerSetsOrder) GetMasks() (value bool) {
-	return u.Flags.Has(0)
-}
-
-// GetOrder returns value of Order field.
-func (u *UpdateStickerSetsOrder) GetOrder() (value []int64) {
-	return u.Order
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateStickerSetsOrder) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -6327,18 +6319,26 @@ func (u *UpdateStickerSetsOrder) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateStickerSetsOrder) construct() UpdateClass { return &u }
+// SetMasks sets value of Masks conditional field.
+func (u *UpdateStickerSetsOrder) SetMasks(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Masks = true
+	} else {
+		u.Flags.Unset(0)
+		u.Masks = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdateStickerSetsOrder.
-var (
-	_ bin.Encoder     = &UpdateStickerSetsOrder{}
-	_ bin.Decoder     = &UpdateStickerSetsOrder{}
-	_ bin.BareEncoder = &UpdateStickerSetsOrder{}
-	_ bin.BareDecoder = &UpdateStickerSetsOrder{}
+// GetMasks returns value of Masks conditional field.
+func (u *UpdateStickerSetsOrder) GetMasks() (value bool) {
+	return u.Flags.Has(0)
+}
 
-	_ UpdateClass = &UpdateStickerSetsOrder{}
-)
+// GetOrder returns value of Order field.
+func (u *UpdateStickerSetsOrder) GetOrder() (value []int64) {
+	return u.Order
+}
 
 // UpdateStickerSets represents TL type `updateStickerSets#43ae3dec`.
 // Installed stickersets have changed, the client should refetch them using messages
@@ -6353,6 +6353,19 @@ type UpdateStickerSets struct {
 
 // UpdateStickerSetsTypeID is TL type id of UpdateStickerSets.
 const UpdateStickerSetsTypeID = 0x43ae3dec
+
+// construct implements constructor of UpdateClass.
+func (u UpdateStickerSets) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateStickerSets.
+var (
+	_ bin.Encoder     = &UpdateStickerSets{}
+	_ bin.Decoder     = &UpdateStickerSets{}
+	_ bin.BareEncoder = &UpdateStickerSets{}
+	_ bin.BareDecoder = &UpdateStickerSets{}
+
+	_ UpdateClass = &UpdateStickerSets{}
+)
 
 func (u *UpdateStickerSets) Zero() bool {
 	if u == nil {
@@ -6433,19 +6446,6 @@ func (u *UpdateStickerSets) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateStickerSets) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateStickerSets.
-var (
-	_ bin.Encoder     = &UpdateStickerSets{}
-	_ bin.Decoder     = &UpdateStickerSets{}
-	_ bin.BareEncoder = &UpdateStickerSets{}
-	_ bin.BareDecoder = &UpdateStickerSets{}
-
-	_ UpdateClass = &UpdateStickerSets{}
-)
-
 // UpdateSavedGifs represents TL type `updateSavedGifs#9375341e`.
 // The saved gif list has changed, the client should refetch it using messages
 // getSavedGifs¹
@@ -6459,6 +6459,19 @@ type UpdateSavedGifs struct {
 
 // UpdateSavedGifsTypeID is TL type id of UpdateSavedGifs.
 const UpdateSavedGifsTypeID = 0x9375341e
+
+// construct implements constructor of UpdateClass.
+func (u UpdateSavedGifs) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateSavedGifs.
+var (
+	_ bin.Encoder     = &UpdateSavedGifs{}
+	_ bin.Decoder     = &UpdateSavedGifs{}
+	_ bin.BareEncoder = &UpdateSavedGifs{}
+	_ bin.BareDecoder = &UpdateSavedGifs{}
+
+	_ UpdateClass = &UpdateSavedGifs{}
+)
 
 func (u *UpdateSavedGifs) Zero() bool {
 	if u == nil {
@@ -6539,19 +6552,6 @@ func (u *UpdateSavedGifs) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateSavedGifs) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateSavedGifs.
-var (
-	_ bin.Encoder     = &UpdateSavedGifs{}
-	_ bin.Decoder     = &UpdateSavedGifs{}
-	_ bin.BareEncoder = &UpdateSavedGifs{}
-	_ bin.BareDecoder = &UpdateSavedGifs{}
-
-	_ UpdateClass = &UpdateSavedGifs{}
-)
-
 // UpdateBotInlineQuery represents TL type `updateBotInlineQuery#3f2038db`.
 // An incoming inline query
 //
@@ -6582,6 +6582,19 @@ type UpdateBotInlineQuery struct {
 
 // UpdateBotInlineQueryTypeID is TL type id of UpdateBotInlineQuery.
 const UpdateBotInlineQueryTypeID = 0x3f2038db
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotInlineQuery) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotInlineQuery.
+var (
+	_ bin.Encoder     = &UpdateBotInlineQuery{}
+	_ bin.Decoder     = &UpdateBotInlineQuery{}
+	_ bin.BareEncoder = &UpdateBotInlineQuery{}
+	_ bin.BareDecoder = &UpdateBotInlineQuery{}
+
+	_ UpdateClass = &UpdateBotInlineQuery{}
+)
 
 func (u *UpdateBotInlineQuery) Zero() bool {
 	if u == nil {
@@ -6743,56 +6756,6 @@ func (u *UpdateBotInlineQuery) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQueryID returns value of QueryID field.
-func (u *UpdateBotInlineQuery) GetQueryID() (value int64) {
-	return u.QueryID
-}
-
-// GetUserID returns value of UserID field.
-func (u *UpdateBotInlineQuery) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetQuery returns value of Query field.
-func (u *UpdateBotInlineQuery) GetQuery() (value string) {
-	return u.Query
-}
-
-// SetGeo sets value of Geo conditional field.
-func (u *UpdateBotInlineQuery) SetGeo(value GeoPointClass) {
-	u.Flags.Set(0)
-	u.Geo = value
-}
-
-// GetGeo returns value of Geo conditional field and
-// boolean which is true if field was set.
-func (u *UpdateBotInlineQuery) GetGeo() (value GeoPointClass, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.Geo, true
-}
-
-// SetPeerType sets value of PeerType conditional field.
-func (u *UpdateBotInlineQuery) SetPeerType(value InlineQueryPeerTypeClass) {
-	u.Flags.Set(1)
-	u.PeerType = value
-}
-
-// GetPeerType returns value of PeerType conditional field and
-// boolean which is true if field was set.
-func (u *UpdateBotInlineQuery) GetPeerType() (value InlineQueryPeerTypeClass, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.PeerType, true
-}
-
-// GetOffset returns value of Offset field.
-func (u *UpdateBotInlineQuery) GetOffset() (value string) {
-	return u.Offset
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateBotInlineQuery) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -6859,18 +6822,55 @@ func (u *UpdateBotInlineQuery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateBotInlineQuery) construct() UpdateClass { return &u }
+// GetQueryID returns value of QueryID field.
+func (u *UpdateBotInlineQuery) GetQueryID() (value int64) {
+	return u.QueryID
+}
 
-// Ensuring interfaces in compile-time for UpdateBotInlineQuery.
-var (
-	_ bin.Encoder     = &UpdateBotInlineQuery{}
-	_ bin.Decoder     = &UpdateBotInlineQuery{}
-	_ bin.BareEncoder = &UpdateBotInlineQuery{}
-	_ bin.BareDecoder = &UpdateBotInlineQuery{}
+// GetUserID returns value of UserID field.
+func (u *UpdateBotInlineQuery) GetUserID() (value int) {
+	return u.UserID
+}
 
-	_ UpdateClass = &UpdateBotInlineQuery{}
-)
+// GetQuery returns value of Query field.
+func (u *UpdateBotInlineQuery) GetQuery() (value string) {
+	return u.Query
+}
+
+// SetGeo sets value of Geo conditional field.
+func (u *UpdateBotInlineQuery) SetGeo(value GeoPointClass) {
+	u.Flags.Set(0)
+	u.Geo = value
+}
+
+// GetGeo returns value of Geo conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotInlineQuery) GetGeo() (value GeoPointClass, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Geo, true
+}
+
+// SetPeerType sets value of PeerType conditional field.
+func (u *UpdateBotInlineQuery) SetPeerType(value InlineQueryPeerTypeClass) {
+	u.Flags.Set(1)
+	u.PeerType = value
+}
+
+// GetPeerType returns value of PeerType conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotInlineQuery) GetPeerType() (value InlineQueryPeerTypeClass, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.PeerType, true
+}
+
+// GetOffset returns value of Offset field.
+func (u *UpdateBotInlineQuery) GetOffset() (value string) {
+	return u.Offset
+}
 
 // UpdateBotInlineSend represents TL type `updateBotInlineSend#e48f964`.
 // The result of an inline query that was chosen by a user and sent to their chat partner
@@ -6907,6 +6907,19 @@ type UpdateBotInlineSend struct {
 
 // UpdateBotInlineSendTypeID is TL type id of UpdateBotInlineSend.
 const UpdateBotInlineSendTypeID = 0xe48f964
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotInlineSend) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotInlineSend.
+var (
+	_ bin.Encoder     = &UpdateBotInlineSend{}
+	_ bin.Decoder     = &UpdateBotInlineSend{}
+	_ bin.BareEncoder = &UpdateBotInlineSend{}
+	_ bin.BareDecoder = &UpdateBotInlineSend{}
+
+	_ UpdateClass = &UpdateBotInlineSend{}
+)
 
 func (u *UpdateBotInlineSend) Zero() bool {
 	if u == nil {
@@ -7055,51 +7068,6 @@ func (u *UpdateBotInlineSend) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (u *UpdateBotInlineSend) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetQuery returns value of Query field.
-func (u *UpdateBotInlineSend) GetQuery() (value string) {
-	return u.Query
-}
-
-// SetGeo sets value of Geo conditional field.
-func (u *UpdateBotInlineSend) SetGeo(value GeoPointClass) {
-	u.Flags.Set(0)
-	u.Geo = value
-}
-
-// GetGeo returns value of Geo conditional field and
-// boolean which is true if field was set.
-func (u *UpdateBotInlineSend) GetGeo() (value GeoPointClass, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.Geo, true
-}
-
-// GetID returns value of ID field.
-func (u *UpdateBotInlineSend) GetID() (value string) {
-	return u.ID
-}
-
-// SetMsgID sets value of MsgID conditional field.
-func (u *UpdateBotInlineSend) SetMsgID(value InputBotInlineMessageID) {
-	u.Flags.Set(1)
-	u.MsgID = value
-}
-
-// GetMsgID returns value of MsgID conditional field and
-// boolean which is true if field was set.
-func (u *UpdateBotInlineSend) GetMsgID() (value InputBotInlineMessageID, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.MsgID, true
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateBotInlineSend) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -7157,18 +7125,50 @@ func (u *UpdateBotInlineSend) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateBotInlineSend) construct() UpdateClass { return &u }
+// GetUserID returns value of UserID field.
+func (u *UpdateBotInlineSend) GetUserID() (value int) {
+	return u.UserID
+}
 
-// Ensuring interfaces in compile-time for UpdateBotInlineSend.
-var (
-	_ bin.Encoder     = &UpdateBotInlineSend{}
-	_ bin.Decoder     = &UpdateBotInlineSend{}
-	_ bin.BareEncoder = &UpdateBotInlineSend{}
-	_ bin.BareDecoder = &UpdateBotInlineSend{}
+// GetQuery returns value of Query field.
+func (u *UpdateBotInlineSend) GetQuery() (value string) {
+	return u.Query
+}
 
-	_ UpdateClass = &UpdateBotInlineSend{}
-)
+// SetGeo sets value of Geo conditional field.
+func (u *UpdateBotInlineSend) SetGeo(value GeoPointClass) {
+	u.Flags.Set(0)
+	u.Geo = value
+}
+
+// GetGeo returns value of Geo conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotInlineSend) GetGeo() (value GeoPointClass, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Geo, true
+}
+
+// GetID returns value of ID field.
+func (u *UpdateBotInlineSend) GetID() (value string) {
+	return u.ID
+}
+
+// SetMsgID sets value of MsgID conditional field.
+func (u *UpdateBotInlineSend) SetMsgID(value InputBotInlineMessageID) {
+	u.Flags.Set(1)
+	u.MsgID = value
+}
+
+// GetMsgID returns value of MsgID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotInlineSend) GetMsgID() (value InputBotInlineMessageID, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.MsgID, true
+}
 
 // UpdateEditChannelMessage represents TL type `updateEditChannelMessage#1b3f4df7`.
 // A message was edited in a channel/supergroup¹
@@ -7194,6 +7194,19 @@ type UpdateEditChannelMessage struct {
 
 // UpdateEditChannelMessageTypeID is TL type id of UpdateEditChannelMessage.
 const UpdateEditChannelMessageTypeID = 0x1b3f4df7
+
+// construct implements constructor of UpdateClass.
+func (u UpdateEditChannelMessage) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateEditChannelMessage.
+var (
+	_ bin.Encoder     = &UpdateEditChannelMessage{}
+	_ bin.Decoder     = &UpdateEditChannelMessage{}
+	_ bin.BareEncoder = &UpdateEditChannelMessage{}
+	_ bin.BareDecoder = &UpdateEditChannelMessage{}
+
+	_ UpdateClass = &UpdateEditChannelMessage{}
+)
 
 func (u *UpdateEditChannelMessage) Zero() bool {
 	if u == nil {
@@ -7296,21 +7309,6 @@ func (u *UpdateEditChannelMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (u *UpdateEditChannelMessage) GetMessage() (value MessageClass) {
-	return u.Message
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateEditChannelMessage) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdateEditChannelMessage) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateEditChannelMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -7351,18 +7349,20 @@ func (u *UpdateEditChannelMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateEditChannelMessage) construct() UpdateClass { return &u }
+// GetMessage returns value of Message field.
+func (u *UpdateEditChannelMessage) GetMessage() (value MessageClass) {
+	return u.Message
+}
 
-// Ensuring interfaces in compile-time for UpdateEditChannelMessage.
-var (
-	_ bin.Encoder     = &UpdateEditChannelMessage{}
-	_ bin.Decoder     = &UpdateEditChannelMessage{}
-	_ bin.BareEncoder = &UpdateEditChannelMessage{}
-	_ bin.BareDecoder = &UpdateEditChannelMessage{}
+// GetPts returns value of Pts field.
+func (u *UpdateEditChannelMessage) GetPts() (value int) {
+	return u.Pts
+}
 
-	_ UpdateClass = &UpdateEditChannelMessage{}
-)
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateEditChannelMessage) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdateBotCallbackQuery represents TL type `updateBotCallbackQuery#e73547e1`.
 // A callback button was pressed, and the button data was sent to the bot that created
@@ -7398,6 +7398,19 @@ type UpdateBotCallbackQuery struct {
 
 // UpdateBotCallbackQueryTypeID is TL type id of UpdateBotCallbackQuery.
 const UpdateBotCallbackQueryTypeID = 0xe73547e1
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotCallbackQuery) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotCallbackQuery.
+var (
+	_ bin.Encoder     = &UpdateBotCallbackQuery{}
+	_ bin.Decoder     = &UpdateBotCallbackQuery{}
+	_ bin.BareEncoder = &UpdateBotCallbackQuery{}
+	_ bin.BareDecoder = &UpdateBotCallbackQuery{}
+
+	_ UpdateClass = &UpdateBotCallbackQuery{}
+)
 
 func (u *UpdateBotCallbackQuery) Zero() bool {
 	if u == nil {
@@ -7564,61 +7577,6 @@ func (u *UpdateBotCallbackQuery) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQueryID returns value of QueryID field.
-func (u *UpdateBotCallbackQuery) GetQueryID() (value int64) {
-	return u.QueryID
-}
-
-// GetUserID returns value of UserID field.
-func (u *UpdateBotCallbackQuery) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetPeer returns value of Peer field.
-func (u *UpdateBotCallbackQuery) GetPeer() (value PeerClass) {
-	return u.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (u *UpdateBotCallbackQuery) GetMsgID() (value int) {
-	return u.MsgID
-}
-
-// GetChatInstance returns value of ChatInstance field.
-func (u *UpdateBotCallbackQuery) GetChatInstance() (value int64) {
-	return u.ChatInstance
-}
-
-// SetData sets value of Data conditional field.
-func (u *UpdateBotCallbackQuery) SetData(value []byte) {
-	u.Flags.Set(0)
-	u.Data = value
-}
-
-// GetData returns value of Data conditional field and
-// boolean which is true if field was set.
-func (u *UpdateBotCallbackQuery) GetData() (value []byte, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.Data, true
-}
-
-// SetGameShortName sets value of GameShortName conditional field.
-func (u *UpdateBotCallbackQuery) SetGameShortName(value string) {
-	u.Flags.Set(1)
-	u.GameShortName = value
-}
-
-// GetGameShortName returns value of GameShortName conditional field and
-// boolean which is true if field was set.
-func (u *UpdateBotCallbackQuery) GetGameShortName() (value string, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.GameShortName, true
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateBotCallbackQuery) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -7692,18 +7650,60 @@ func (u *UpdateBotCallbackQuery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateBotCallbackQuery) construct() UpdateClass { return &u }
+// GetQueryID returns value of QueryID field.
+func (u *UpdateBotCallbackQuery) GetQueryID() (value int64) {
+	return u.QueryID
+}
 
-// Ensuring interfaces in compile-time for UpdateBotCallbackQuery.
-var (
-	_ bin.Encoder     = &UpdateBotCallbackQuery{}
-	_ bin.Decoder     = &UpdateBotCallbackQuery{}
-	_ bin.BareEncoder = &UpdateBotCallbackQuery{}
-	_ bin.BareDecoder = &UpdateBotCallbackQuery{}
+// GetUserID returns value of UserID field.
+func (u *UpdateBotCallbackQuery) GetUserID() (value int) {
+	return u.UserID
+}
 
-	_ UpdateClass = &UpdateBotCallbackQuery{}
-)
+// GetPeer returns value of Peer field.
+func (u *UpdateBotCallbackQuery) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (u *UpdateBotCallbackQuery) GetMsgID() (value int) {
+	return u.MsgID
+}
+
+// GetChatInstance returns value of ChatInstance field.
+func (u *UpdateBotCallbackQuery) GetChatInstance() (value int64) {
+	return u.ChatInstance
+}
+
+// SetData sets value of Data conditional field.
+func (u *UpdateBotCallbackQuery) SetData(value []byte) {
+	u.Flags.Set(0)
+	u.Data = value
+}
+
+// GetData returns value of Data conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotCallbackQuery) GetData() (value []byte, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Data, true
+}
+
+// SetGameShortName sets value of GameShortName conditional field.
+func (u *UpdateBotCallbackQuery) SetGameShortName(value string) {
+	u.Flags.Set(1)
+	u.GameShortName = value
+}
+
+// GetGameShortName returns value of GameShortName conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotCallbackQuery) GetGameShortName() (value string, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.GameShortName, true
+}
 
 // UpdateEditMessage represents TL type `updateEditMessage#e40370a3`.
 // A message was edited
@@ -7726,6 +7726,19 @@ type UpdateEditMessage struct {
 
 // UpdateEditMessageTypeID is TL type id of UpdateEditMessage.
 const UpdateEditMessageTypeID = 0xe40370a3
+
+// construct implements constructor of UpdateClass.
+func (u UpdateEditMessage) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateEditMessage.
+var (
+	_ bin.Encoder     = &UpdateEditMessage{}
+	_ bin.Decoder     = &UpdateEditMessage{}
+	_ bin.BareEncoder = &UpdateEditMessage{}
+	_ bin.BareDecoder = &UpdateEditMessage{}
+
+	_ UpdateClass = &UpdateEditMessage{}
+)
 
 func (u *UpdateEditMessage) Zero() bool {
 	if u == nil {
@@ -7828,21 +7841,6 @@ func (u *UpdateEditMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (u *UpdateEditMessage) GetMessage() (value MessageClass) {
-	return u.Message
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateEditMessage) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdateEditMessage) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateEditMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -7883,18 +7881,20 @@ func (u *UpdateEditMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateEditMessage) construct() UpdateClass { return &u }
+// GetMessage returns value of Message field.
+func (u *UpdateEditMessage) GetMessage() (value MessageClass) {
+	return u.Message
+}
 
-// Ensuring interfaces in compile-time for UpdateEditMessage.
-var (
-	_ bin.Encoder     = &UpdateEditMessage{}
-	_ bin.Decoder     = &UpdateEditMessage{}
-	_ bin.BareEncoder = &UpdateEditMessage{}
-	_ bin.BareDecoder = &UpdateEditMessage{}
+// GetPts returns value of Pts field.
+func (u *UpdateEditMessage) GetPts() (value int) {
+	return u.Pts
+}
 
-	_ UpdateClass = &UpdateEditMessage{}
-)
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateEditMessage) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdateInlineBotCallbackQuery represents TL type `updateInlineBotCallbackQuery#f9d27a5a`.
 // This notification is received by bots when a button is pressed
@@ -7928,6 +7928,19 @@ type UpdateInlineBotCallbackQuery struct {
 
 // UpdateInlineBotCallbackQueryTypeID is TL type id of UpdateInlineBotCallbackQuery.
 const UpdateInlineBotCallbackQueryTypeID = 0xf9d27a5a
+
+// construct implements constructor of UpdateClass.
+func (u UpdateInlineBotCallbackQuery) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateInlineBotCallbackQuery.
+var (
+	_ bin.Encoder     = &UpdateInlineBotCallbackQuery{}
+	_ bin.Decoder     = &UpdateInlineBotCallbackQuery{}
+	_ bin.BareEncoder = &UpdateInlineBotCallbackQuery{}
+	_ bin.BareDecoder = &UpdateInlineBotCallbackQuery{}
+
+	_ UpdateClass = &UpdateInlineBotCallbackQuery{}
+)
 
 func (u *UpdateInlineBotCallbackQuery) Zero() bool {
 	if u == nil {
@@ -8081,56 +8094,6 @@ func (u *UpdateInlineBotCallbackQuery) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQueryID returns value of QueryID field.
-func (u *UpdateInlineBotCallbackQuery) GetQueryID() (value int64) {
-	return u.QueryID
-}
-
-// GetUserID returns value of UserID field.
-func (u *UpdateInlineBotCallbackQuery) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetMsgID returns value of MsgID field.
-func (u *UpdateInlineBotCallbackQuery) GetMsgID() (value InputBotInlineMessageID) {
-	return u.MsgID
-}
-
-// GetChatInstance returns value of ChatInstance field.
-func (u *UpdateInlineBotCallbackQuery) GetChatInstance() (value int64) {
-	return u.ChatInstance
-}
-
-// SetData sets value of Data conditional field.
-func (u *UpdateInlineBotCallbackQuery) SetData(value []byte) {
-	u.Flags.Set(0)
-	u.Data = value
-}
-
-// GetData returns value of Data conditional field and
-// boolean which is true if field was set.
-func (u *UpdateInlineBotCallbackQuery) GetData() (value []byte, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.Data, true
-}
-
-// SetGameShortName sets value of GameShortName conditional field.
-func (u *UpdateInlineBotCallbackQuery) SetGameShortName(value string) {
-	u.Flags.Set(1)
-	u.GameShortName = value
-}
-
-// GetGameShortName returns value of GameShortName conditional field and
-// boolean which is true if field was set.
-func (u *UpdateInlineBotCallbackQuery) GetGameShortName() (value string, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.GameShortName, true
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateInlineBotCallbackQuery) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -8195,18 +8158,55 @@ func (u *UpdateInlineBotCallbackQuery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateInlineBotCallbackQuery) construct() UpdateClass { return &u }
+// GetQueryID returns value of QueryID field.
+func (u *UpdateInlineBotCallbackQuery) GetQueryID() (value int64) {
+	return u.QueryID
+}
 
-// Ensuring interfaces in compile-time for UpdateInlineBotCallbackQuery.
-var (
-	_ bin.Encoder     = &UpdateInlineBotCallbackQuery{}
-	_ bin.Decoder     = &UpdateInlineBotCallbackQuery{}
-	_ bin.BareEncoder = &UpdateInlineBotCallbackQuery{}
-	_ bin.BareDecoder = &UpdateInlineBotCallbackQuery{}
+// GetUserID returns value of UserID field.
+func (u *UpdateInlineBotCallbackQuery) GetUserID() (value int) {
+	return u.UserID
+}
 
-	_ UpdateClass = &UpdateInlineBotCallbackQuery{}
-)
+// GetMsgID returns value of MsgID field.
+func (u *UpdateInlineBotCallbackQuery) GetMsgID() (value InputBotInlineMessageID) {
+	return u.MsgID
+}
+
+// GetChatInstance returns value of ChatInstance field.
+func (u *UpdateInlineBotCallbackQuery) GetChatInstance() (value int64) {
+	return u.ChatInstance
+}
+
+// SetData sets value of Data conditional field.
+func (u *UpdateInlineBotCallbackQuery) SetData(value []byte) {
+	u.Flags.Set(0)
+	u.Data = value
+}
+
+// GetData returns value of Data conditional field and
+// boolean which is true if field was set.
+func (u *UpdateInlineBotCallbackQuery) GetData() (value []byte, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Data, true
+}
+
+// SetGameShortName sets value of GameShortName conditional field.
+func (u *UpdateInlineBotCallbackQuery) SetGameShortName(value string) {
+	u.Flags.Set(1)
+	u.GameShortName = value
+}
+
+// GetGameShortName returns value of GameShortName conditional field and
+// boolean which is true if field was set.
+func (u *UpdateInlineBotCallbackQuery) GetGameShortName() (value string, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.GameShortName, true
+}
 
 // UpdateReadChannelOutbox represents TL type `updateReadChannelOutbox#25d6c9c7`.
 // Outgoing messages in a channel/supergroup¹ were read
@@ -8224,6 +8224,19 @@ type UpdateReadChannelOutbox struct {
 
 // UpdateReadChannelOutboxTypeID is TL type id of UpdateReadChannelOutbox.
 const UpdateReadChannelOutboxTypeID = 0x25d6c9c7
+
+// construct implements constructor of UpdateClass.
+func (u UpdateReadChannelOutbox) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateReadChannelOutbox.
+var (
+	_ bin.Encoder     = &UpdateReadChannelOutbox{}
+	_ bin.Decoder     = &UpdateReadChannelOutbox{}
+	_ bin.BareEncoder = &UpdateReadChannelOutbox{}
+	_ bin.BareDecoder = &UpdateReadChannelOutbox{}
+
+	_ UpdateClass = &UpdateReadChannelOutbox{}
+)
 
 func (u *UpdateReadChannelOutbox) Zero() bool {
 	if u == nil {
@@ -8311,16 +8324,6 @@ func (u *UpdateReadChannelOutbox) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateReadChannelOutbox) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// GetMaxID returns value of MaxID field.
-func (u *UpdateReadChannelOutbox) GetMaxID() (value int) {
-	return u.MaxID
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateReadChannelOutbox) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -8354,18 +8357,15 @@ func (u *UpdateReadChannelOutbox) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateReadChannelOutbox) construct() UpdateClass { return &u }
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateReadChannelOutbox) GetChannelID() (value int) {
+	return u.ChannelID
+}
 
-// Ensuring interfaces in compile-time for UpdateReadChannelOutbox.
-var (
-	_ bin.Encoder     = &UpdateReadChannelOutbox{}
-	_ bin.Decoder     = &UpdateReadChannelOutbox{}
-	_ bin.BareEncoder = &UpdateReadChannelOutbox{}
-	_ bin.BareDecoder = &UpdateReadChannelOutbox{}
-
-	_ UpdateClass = &UpdateReadChannelOutbox{}
-)
+// GetMaxID returns value of MaxID field.
+func (u *UpdateReadChannelOutbox) GetMaxID() (value int) {
+	return u.MaxID
+}
 
 // UpdateDraftMessage represents TL type `updateDraftMessage#ee2bb969`.
 // Notifies a change of a message draft¹.
@@ -8383,6 +8383,19 @@ type UpdateDraftMessage struct {
 
 // UpdateDraftMessageTypeID is TL type id of UpdateDraftMessage.
 const UpdateDraftMessageTypeID = 0xee2bb969
+
+// construct implements constructor of UpdateClass.
+func (u UpdateDraftMessage) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateDraftMessage.
+var (
+	_ bin.Encoder     = &UpdateDraftMessage{}
+	_ bin.Decoder     = &UpdateDraftMessage{}
+	_ bin.BareEncoder = &UpdateDraftMessage{}
+	_ bin.BareDecoder = &UpdateDraftMessage{}
+
+	_ UpdateClass = &UpdateDraftMessage{}
+)
 
 func (u *UpdateDraftMessage) Zero() bool {
 	if u == nil {
@@ -8480,16 +8493,6 @@ func (u *UpdateDraftMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *UpdateDraftMessage) GetPeer() (value PeerClass) {
-	return u.Peer
-}
-
-// GetDraft returns value of Draft field.
-func (u *UpdateDraftMessage) GetDraft() (value DraftMessageClass) {
-	return u.Draft
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateDraftMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -8523,18 +8526,15 @@ func (u *UpdateDraftMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateDraftMessage) construct() UpdateClass { return &u }
+// GetPeer returns value of Peer field.
+func (u *UpdateDraftMessage) GetPeer() (value PeerClass) {
+	return u.Peer
+}
 
-// Ensuring interfaces in compile-time for UpdateDraftMessage.
-var (
-	_ bin.Encoder     = &UpdateDraftMessage{}
-	_ bin.Decoder     = &UpdateDraftMessage{}
-	_ bin.BareEncoder = &UpdateDraftMessage{}
-	_ bin.BareDecoder = &UpdateDraftMessage{}
-
-	_ UpdateClass = &UpdateDraftMessage{}
-)
+// GetDraft returns value of Draft field.
+func (u *UpdateDraftMessage) GetDraft() (value DraftMessageClass) {
+	return u.Draft
+}
 
 // UpdateReadFeaturedStickers represents TL type `updateReadFeaturedStickers#571d2742`.
 // Some featured stickers were marked as read
@@ -8545,6 +8545,19 @@ type UpdateReadFeaturedStickers struct {
 
 // UpdateReadFeaturedStickersTypeID is TL type id of UpdateReadFeaturedStickers.
 const UpdateReadFeaturedStickersTypeID = 0x571d2742
+
+// construct implements constructor of UpdateClass.
+func (u UpdateReadFeaturedStickers) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateReadFeaturedStickers.
+var (
+	_ bin.Encoder     = &UpdateReadFeaturedStickers{}
+	_ bin.Decoder     = &UpdateReadFeaturedStickers{}
+	_ bin.BareEncoder = &UpdateReadFeaturedStickers{}
+	_ bin.BareDecoder = &UpdateReadFeaturedStickers{}
+
+	_ UpdateClass = &UpdateReadFeaturedStickers{}
+)
 
 func (u *UpdateReadFeaturedStickers) Zero() bool {
 	if u == nil {
@@ -8625,19 +8638,6 @@ func (u *UpdateReadFeaturedStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateReadFeaturedStickers) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateReadFeaturedStickers.
-var (
-	_ bin.Encoder     = &UpdateReadFeaturedStickers{}
-	_ bin.Decoder     = &UpdateReadFeaturedStickers{}
-	_ bin.BareEncoder = &UpdateReadFeaturedStickers{}
-	_ bin.BareDecoder = &UpdateReadFeaturedStickers{}
-
-	_ UpdateClass = &UpdateReadFeaturedStickers{}
-)
-
 // UpdateRecentStickers represents TL type `updateRecentStickers#9a422c20`.
 // The recent sticker list was updated
 //
@@ -8647,6 +8647,19 @@ type UpdateRecentStickers struct {
 
 // UpdateRecentStickersTypeID is TL type id of UpdateRecentStickers.
 const UpdateRecentStickersTypeID = 0x9a422c20
+
+// construct implements constructor of UpdateClass.
+func (u UpdateRecentStickers) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateRecentStickers.
+var (
+	_ bin.Encoder     = &UpdateRecentStickers{}
+	_ bin.Decoder     = &UpdateRecentStickers{}
+	_ bin.BareEncoder = &UpdateRecentStickers{}
+	_ bin.BareDecoder = &UpdateRecentStickers{}
+
+	_ UpdateClass = &UpdateRecentStickers{}
+)
 
 func (u *UpdateRecentStickers) Zero() bool {
 	if u == nil {
@@ -8727,19 +8740,6 @@ func (u *UpdateRecentStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateRecentStickers) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateRecentStickers.
-var (
-	_ bin.Encoder     = &UpdateRecentStickers{}
-	_ bin.Decoder     = &UpdateRecentStickers{}
-	_ bin.BareEncoder = &UpdateRecentStickers{}
-	_ bin.BareDecoder = &UpdateRecentStickers{}
-
-	_ UpdateClass = &UpdateRecentStickers{}
-)
-
 // UpdateConfig represents TL type `updateConfig#a229dd06`.
 // The server-side configuration has changed; the client should re-fetch the config using
 // help.getConfig¹
@@ -8753,6 +8753,19 @@ type UpdateConfig struct {
 
 // UpdateConfigTypeID is TL type id of UpdateConfig.
 const UpdateConfigTypeID = 0xa229dd06
+
+// construct implements constructor of UpdateClass.
+func (u UpdateConfig) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateConfig.
+var (
+	_ bin.Encoder     = &UpdateConfig{}
+	_ bin.Decoder     = &UpdateConfig{}
+	_ bin.BareEncoder = &UpdateConfig{}
+	_ bin.BareDecoder = &UpdateConfig{}
+
+	_ UpdateClass = &UpdateConfig{}
+)
 
 func (u *UpdateConfig) Zero() bool {
 	if u == nil {
@@ -8833,19 +8846,6 @@ func (u *UpdateConfig) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateConfig) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateConfig.
-var (
-	_ bin.Encoder     = &UpdateConfig{}
-	_ bin.Decoder     = &UpdateConfig{}
-	_ bin.BareEncoder = &UpdateConfig{}
-	_ bin.BareDecoder = &UpdateConfig{}
-
-	_ UpdateClass = &UpdateConfig{}
-)
-
 // UpdatePtsChanged represents TL type `updatePtsChanged#3354678f`.
 // Common message box sequence PTS¹ has changed, state has to be refetched using updates
 // getState²
@@ -8860,6 +8860,19 @@ type UpdatePtsChanged struct {
 
 // UpdatePtsChangedTypeID is TL type id of UpdatePtsChanged.
 const UpdatePtsChangedTypeID = 0x3354678f
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePtsChanged) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePtsChanged.
+var (
+	_ bin.Encoder     = &UpdatePtsChanged{}
+	_ bin.Decoder     = &UpdatePtsChanged{}
+	_ bin.BareEncoder = &UpdatePtsChanged{}
+	_ bin.BareDecoder = &UpdatePtsChanged{}
+
+	_ UpdateClass = &UpdatePtsChanged{}
+)
 
 func (u *UpdatePtsChanged) Zero() bool {
 	if u == nil {
@@ -8940,19 +8953,6 @@ func (u *UpdatePtsChanged) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdatePtsChanged) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdatePtsChanged.
-var (
-	_ bin.Encoder     = &UpdatePtsChanged{}
-	_ bin.Decoder     = &UpdatePtsChanged{}
-	_ bin.BareEncoder = &UpdatePtsChanged{}
-	_ bin.BareDecoder = &UpdatePtsChanged{}
-
-	_ UpdateClass = &UpdatePtsChanged{}
-)
-
 // UpdateChannelWebPage represents TL type `updateChannelWebPage#40771900`.
 // A webpage preview of a link in a channel/supergroup¹ message was generated
 //
@@ -8982,6 +8982,19 @@ type UpdateChannelWebPage struct {
 
 // UpdateChannelWebPageTypeID is TL type id of UpdateChannelWebPage.
 const UpdateChannelWebPageTypeID = 0x40771900
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChannelWebPage) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChannelWebPage.
+var (
+	_ bin.Encoder     = &UpdateChannelWebPage{}
+	_ bin.Decoder     = &UpdateChannelWebPage{}
+	_ bin.BareEncoder = &UpdateChannelWebPage{}
+	_ bin.BareDecoder = &UpdateChannelWebPage{}
+
+	_ UpdateClass = &UpdateChannelWebPage{}
+)
 
 func (u *UpdateChannelWebPage) Zero() bool {
 	if u == nil {
@@ -9094,26 +9107,6 @@ func (u *UpdateChannelWebPage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateChannelWebPage) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// GetWebpage returns value of Webpage field.
-func (u *UpdateChannelWebPage) GetWebpage() (value WebPageClass) {
-	return u.Webpage
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateChannelWebPage) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdateChannelWebPage) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChannelWebPage) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -9161,18 +9154,25 @@ func (u *UpdateChannelWebPage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChannelWebPage) construct() UpdateClass { return &u }
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelWebPage) GetChannelID() (value int) {
+	return u.ChannelID
+}
 
-// Ensuring interfaces in compile-time for UpdateChannelWebPage.
-var (
-	_ bin.Encoder     = &UpdateChannelWebPage{}
-	_ bin.Decoder     = &UpdateChannelWebPage{}
-	_ bin.BareEncoder = &UpdateChannelWebPage{}
-	_ bin.BareDecoder = &UpdateChannelWebPage{}
+// GetWebpage returns value of Webpage field.
+func (u *UpdateChannelWebPage) GetWebpage() (value WebPageClass) {
+	return u.Webpage
+}
 
-	_ UpdateClass = &UpdateChannelWebPage{}
-)
+// GetPts returns value of Pts field.
+func (u *UpdateChannelWebPage) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateChannelWebPage) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdateDialogPinned represents TL type `updateDialogPinned#6e6fe51c`.
 // A dialog was pinned/unpinned
@@ -9199,6 +9199,19 @@ type UpdateDialogPinned struct {
 
 // UpdateDialogPinnedTypeID is TL type id of UpdateDialogPinned.
 const UpdateDialogPinnedTypeID = 0x6e6fe51c
+
+// construct implements constructor of UpdateClass.
+func (u UpdateDialogPinned) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateDialogPinned.
+var (
+	_ bin.Encoder     = &UpdateDialogPinned{}
+	_ bin.Decoder     = &UpdateDialogPinned{}
+	_ bin.BareEncoder = &UpdateDialogPinned{}
+	_ bin.BareDecoder = &UpdateDialogPinned{}
+
+	_ UpdateClass = &UpdateDialogPinned{}
+)
 
 func (u *UpdateDialogPinned) Zero() bool {
 	if u == nil {
@@ -9319,42 +9332,6 @@ func (u *UpdateDialogPinned) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetPinned sets value of Pinned conditional field.
-func (u *UpdateDialogPinned) SetPinned(value bool) {
-	if value {
-		u.Flags.Set(0)
-		u.Pinned = true
-	} else {
-		u.Flags.Unset(0)
-		u.Pinned = false
-	}
-}
-
-// GetPinned returns value of Pinned conditional field.
-func (u *UpdateDialogPinned) GetPinned() (value bool) {
-	return u.Flags.Has(0)
-}
-
-// SetFolderID sets value of FolderID conditional field.
-func (u *UpdateDialogPinned) SetFolderID(value int) {
-	u.Flags.Set(1)
-	u.FolderID = value
-}
-
-// GetFolderID returns value of FolderID conditional field and
-// boolean which is true if field was set.
-func (u *UpdateDialogPinned) GetFolderID() (value int, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.FolderID, true
-}
-
-// GetPeer returns value of Peer field.
-func (u *UpdateDialogPinned) GetPeer() (value DialogPeerClass) {
-	return u.Peer
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateDialogPinned) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -9394,18 +9371,41 @@ func (u *UpdateDialogPinned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateDialogPinned) construct() UpdateClass { return &u }
+// SetPinned sets value of Pinned conditional field.
+func (u *UpdateDialogPinned) SetPinned(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Pinned = true
+	} else {
+		u.Flags.Unset(0)
+		u.Pinned = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdateDialogPinned.
-var (
-	_ bin.Encoder     = &UpdateDialogPinned{}
-	_ bin.Decoder     = &UpdateDialogPinned{}
-	_ bin.BareEncoder = &UpdateDialogPinned{}
-	_ bin.BareDecoder = &UpdateDialogPinned{}
+// GetPinned returns value of Pinned conditional field.
+func (u *UpdateDialogPinned) GetPinned() (value bool) {
+	return u.Flags.Has(0)
+}
 
-	_ UpdateClass = &UpdateDialogPinned{}
-)
+// SetFolderID sets value of FolderID conditional field.
+func (u *UpdateDialogPinned) SetFolderID(value int) {
+	u.Flags.Set(1)
+	u.FolderID = value
+}
+
+// GetFolderID returns value of FolderID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateDialogPinned) GetFolderID() (value int, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.FolderID, true
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateDialogPinned) GetPeer() (value DialogPeerClass) {
+	return u.Peer
+}
 
 // UpdatePinnedDialogs represents TL type `updatePinnedDialogs#fa0f3ca2`.
 // Pinned dialogs were updated
@@ -9432,6 +9432,19 @@ type UpdatePinnedDialogs struct {
 
 // UpdatePinnedDialogsTypeID is TL type id of UpdatePinnedDialogs.
 const UpdatePinnedDialogsTypeID = 0xfa0f3ca2
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePinnedDialogs) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePinnedDialogs.
+var (
+	_ bin.Encoder     = &UpdatePinnedDialogs{}
+	_ bin.Decoder     = &UpdatePinnedDialogs{}
+	_ bin.BareEncoder = &UpdatePinnedDialogs{}
+	_ bin.BareDecoder = &UpdatePinnedDialogs{}
+
+	_ UpdateClass = &UpdatePinnedDialogs{}
+)
 
 func (u *UpdatePinnedDialogs) Zero() bool {
 	if u == nil {
@@ -9551,44 +9564,6 @@ func (u *UpdatePinnedDialogs) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetFolderID sets value of FolderID conditional field.
-func (u *UpdatePinnedDialogs) SetFolderID(value int) {
-	u.Flags.Set(1)
-	u.FolderID = value
-}
-
-// GetFolderID returns value of FolderID conditional field and
-// boolean which is true if field was set.
-func (u *UpdatePinnedDialogs) GetFolderID() (value int, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.FolderID, true
-}
-
-// SetOrder sets value of Order conditional field.
-func (u *UpdatePinnedDialogs) SetOrder(value []DialogPeerClass) {
-	u.Flags.Set(0)
-	u.Order = value
-}
-
-// GetOrder returns value of Order conditional field and
-// boolean which is true if field was set.
-func (u *UpdatePinnedDialogs) GetOrder() (value []DialogPeerClass, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.Order, true
-}
-
-// MapOrder returns field Order wrapped in DialogPeerClassArray helper.
-func (u *UpdatePinnedDialogs) MapOrder() (value DialogPeerClassArray, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return DialogPeerClassArray(u.Order), true
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdatePinnedDialogs) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -9637,18 +9612,43 @@ func (u *UpdatePinnedDialogs) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdatePinnedDialogs) construct() UpdateClass { return &u }
+// SetFolderID sets value of FolderID conditional field.
+func (u *UpdatePinnedDialogs) SetFolderID(value int) {
+	u.Flags.Set(1)
+	u.FolderID = value
+}
 
-// Ensuring interfaces in compile-time for UpdatePinnedDialogs.
-var (
-	_ bin.Encoder     = &UpdatePinnedDialogs{}
-	_ bin.Decoder     = &UpdatePinnedDialogs{}
-	_ bin.BareEncoder = &UpdatePinnedDialogs{}
-	_ bin.BareDecoder = &UpdatePinnedDialogs{}
+// GetFolderID returns value of FolderID conditional field and
+// boolean which is true if field was set.
+func (u *UpdatePinnedDialogs) GetFolderID() (value int, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.FolderID, true
+}
 
-	_ UpdateClass = &UpdatePinnedDialogs{}
-)
+// SetOrder sets value of Order conditional field.
+func (u *UpdatePinnedDialogs) SetOrder(value []DialogPeerClass) {
+	u.Flags.Set(0)
+	u.Order = value
+}
+
+// GetOrder returns value of Order conditional field and
+// boolean which is true if field was set.
+func (u *UpdatePinnedDialogs) GetOrder() (value []DialogPeerClass, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Order, true
+}
+
+// MapOrder returns field Order wrapped in DialogPeerClassArray helper.
+func (u *UpdatePinnedDialogs) MapOrder() (value DialogPeerClassArray, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return DialogPeerClassArray(u.Order), true
+}
 
 // UpdateBotWebhookJSON represents TL type `updateBotWebhookJSON#8317c0c3`.
 // A new incoming event; for bots only
@@ -9661,6 +9661,19 @@ type UpdateBotWebhookJSON struct {
 
 // UpdateBotWebhookJSONTypeID is TL type id of UpdateBotWebhookJSON.
 const UpdateBotWebhookJSONTypeID = 0x8317c0c3
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotWebhookJSON) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotWebhookJSON.
+var (
+	_ bin.Encoder     = &UpdateBotWebhookJSON{}
+	_ bin.Decoder     = &UpdateBotWebhookJSON{}
+	_ bin.BareEncoder = &UpdateBotWebhookJSON{}
+	_ bin.BareDecoder = &UpdateBotWebhookJSON{}
+
+	_ UpdateClass = &UpdateBotWebhookJSON{}
+)
 
 func (u *UpdateBotWebhookJSON) Zero() bool {
 	if u == nil {
@@ -9740,11 +9753,6 @@ func (u *UpdateBotWebhookJSON) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetData returns value of Data field.
-func (u *UpdateBotWebhookJSON) GetData() (value DataJSON) {
-	return u.Data
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateBotWebhookJSON) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -9769,18 +9777,10 @@ func (u *UpdateBotWebhookJSON) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateBotWebhookJSON) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateBotWebhookJSON.
-var (
-	_ bin.Encoder     = &UpdateBotWebhookJSON{}
-	_ bin.Decoder     = &UpdateBotWebhookJSON{}
-	_ bin.BareEncoder = &UpdateBotWebhookJSON{}
-	_ bin.BareDecoder = &UpdateBotWebhookJSON{}
-
-	_ UpdateClass = &UpdateBotWebhookJSON{}
-)
+// GetData returns value of Data field.
+func (u *UpdateBotWebhookJSON) GetData() (value DataJSON) {
+	return u.Data
+}
 
 // UpdateBotWebhookJSONQuery represents TL type `updateBotWebhookJSONQuery#9b9240a6`.
 // A new incoming query; for bots only
@@ -9797,6 +9797,19 @@ type UpdateBotWebhookJSONQuery struct {
 
 // UpdateBotWebhookJSONQueryTypeID is TL type id of UpdateBotWebhookJSONQuery.
 const UpdateBotWebhookJSONQueryTypeID = 0x9b9240a6
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotWebhookJSONQuery) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotWebhookJSONQuery.
+var (
+	_ bin.Encoder     = &UpdateBotWebhookJSONQuery{}
+	_ bin.Decoder     = &UpdateBotWebhookJSONQuery{}
+	_ bin.BareEncoder = &UpdateBotWebhookJSONQuery{}
+	_ bin.BareDecoder = &UpdateBotWebhookJSONQuery{}
+
+	_ UpdateClass = &UpdateBotWebhookJSONQuery{}
+)
 
 func (u *UpdateBotWebhookJSONQuery) Zero() bool {
 	if u == nil {
@@ -9896,21 +9909,6 @@ func (u *UpdateBotWebhookJSONQuery) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQueryID returns value of QueryID field.
-func (u *UpdateBotWebhookJSONQuery) GetQueryID() (value int64) {
-	return u.QueryID
-}
-
-// GetData returns value of Data field.
-func (u *UpdateBotWebhookJSONQuery) GetData() (value DataJSON) {
-	return u.Data
-}
-
-// GetTimeout returns value of Timeout field.
-func (u *UpdateBotWebhookJSONQuery) GetTimeout() (value int) {
-	return u.Timeout
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateBotWebhookJSONQuery) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -9949,18 +9947,20 @@ func (u *UpdateBotWebhookJSONQuery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateBotWebhookJSONQuery) construct() UpdateClass { return &u }
+// GetQueryID returns value of QueryID field.
+func (u *UpdateBotWebhookJSONQuery) GetQueryID() (value int64) {
+	return u.QueryID
+}
 
-// Ensuring interfaces in compile-time for UpdateBotWebhookJSONQuery.
-var (
-	_ bin.Encoder     = &UpdateBotWebhookJSONQuery{}
-	_ bin.Decoder     = &UpdateBotWebhookJSONQuery{}
-	_ bin.BareEncoder = &UpdateBotWebhookJSONQuery{}
-	_ bin.BareDecoder = &UpdateBotWebhookJSONQuery{}
+// GetData returns value of Data field.
+func (u *UpdateBotWebhookJSONQuery) GetData() (value DataJSON) {
+	return u.Data
+}
 
-	_ UpdateClass = &UpdateBotWebhookJSONQuery{}
-)
+// GetTimeout returns value of Timeout field.
+func (u *UpdateBotWebhookJSONQuery) GetTimeout() (value int) {
+	return u.Timeout
+}
 
 // UpdateBotShippingQuery represents TL type `updateBotShippingQuery#e0cdc940`.
 // This object contains information about an incoming shipping query.
@@ -9979,6 +9979,19 @@ type UpdateBotShippingQuery struct {
 
 // UpdateBotShippingQueryTypeID is TL type id of UpdateBotShippingQuery.
 const UpdateBotShippingQueryTypeID = 0xe0cdc940
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotShippingQuery) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotShippingQuery.
+var (
+	_ bin.Encoder     = &UpdateBotShippingQuery{}
+	_ bin.Decoder     = &UpdateBotShippingQuery{}
+	_ bin.BareEncoder = &UpdateBotShippingQuery{}
+	_ bin.BareDecoder = &UpdateBotShippingQuery{}
+
+	_ UpdateClass = &UpdateBotShippingQuery{}
+)
 
 func (u *UpdateBotShippingQuery) Zero() bool {
 	if u == nil {
@@ -10088,26 +10101,6 @@ func (u *UpdateBotShippingQuery) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQueryID returns value of QueryID field.
-func (u *UpdateBotShippingQuery) GetQueryID() (value int64) {
-	return u.QueryID
-}
-
-// GetUserID returns value of UserID field.
-func (u *UpdateBotShippingQuery) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetPayload returns value of Payload field.
-func (u *UpdateBotShippingQuery) GetPayload() (value []byte) {
-	return u.Payload
-}
-
-// GetShippingAddress returns value of ShippingAddress field.
-func (u *UpdateBotShippingQuery) GetShippingAddress() (value PostAddress) {
-	return u.ShippingAddress
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateBotShippingQuery) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -10153,18 +10146,25 @@ func (u *UpdateBotShippingQuery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateBotShippingQuery) construct() UpdateClass { return &u }
+// GetQueryID returns value of QueryID field.
+func (u *UpdateBotShippingQuery) GetQueryID() (value int64) {
+	return u.QueryID
+}
 
-// Ensuring interfaces in compile-time for UpdateBotShippingQuery.
-var (
-	_ bin.Encoder     = &UpdateBotShippingQuery{}
-	_ bin.Decoder     = &UpdateBotShippingQuery{}
-	_ bin.BareEncoder = &UpdateBotShippingQuery{}
-	_ bin.BareDecoder = &UpdateBotShippingQuery{}
+// GetUserID returns value of UserID field.
+func (u *UpdateBotShippingQuery) GetUserID() (value int) {
+	return u.UserID
+}
 
-	_ UpdateClass = &UpdateBotShippingQuery{}
-)
+// GetPayload returns value of Payload field.
+func (u *UpdateBotShippingQuery) GetPayload() (value []byte) {
+	return u.Payload
+}
+
+// GetShippingAddress returns value of ShippingAddress field.
+func (u *UpdateBotShippingQuery) GetShippingAddress() (value PostAddress) {
+	return u.ShippingAddress
+}
 
 // UpdateBotPrecheckoutQuery represents TL type `updateBotPrecheckoutQuery#5d2f3aa9`.
 // This object contains information about an incoming pre-checkout query.
@@ -10207,6 +10207,19 @@ type UpdateBotPrecheckoutQuery struct {
 
 // UpdateBotPrecheckoutQueryTypeID is TL type id of UpdateBotPrecheckoutQuery.
 const UpdateBotPrecheckoutQueryTypeID = 0x5d2f3aa9
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotPrecheckoutQuery) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotPrecheckoutQuery.
+var (
+	_ bin.Encoder     = &UpdateBotPrecheckoutQuery{}
+	_ bin.Decoder     = &UpdateBotPrecheckoutQuery{}
+	_ bin.BareEncoder = &UpdateBotPrecheckoutQuery{}
+	_ bin.BareDecoder = &UpdateBotPrecheckoutQuery{}
+
+	_ UpdateClass = &UpdateBotPrecheckoutQuery{}
+)
 
 func (u *UpdateBotPrecheckoutQuery) Zero() bool {
 	if u == nil {
@@ -10370,61 +10383,6 @@ func (u *UpdateBotPrecheckoutQuery) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQueryID returns value of QueryID field.
-func (u *UpdateBotPrecheckoutQuery) GetQueryID() (value int64) {
-	return u.QueryID
-}
-
-// GetUserID returns value of UserID field.
-func (u *UpdateBotPrecheckoutQuery) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetPayload returns value of Payload field.
-func (u *UpdateBotPrecheckoutQuery) GetPayload() (value []byte) {
-	return u.Payload
-}
-
-// SetInfo sets value of Info conditional field.
-func (u *UpdateBotPrecheckoutQuery) SetInfo(value PaymentRequestedInfo) {
-	u.Flags.Set(0)
-	u.Info = value
-}
-
-// GetInfo returns value of Info conditional field and
-// boolean which is true if field was set.
-func (u *UpdateBotPrecheckoutQuery) GetInfo() (value PaymentRequestedInfo, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.Info, true
-}
-
-// SetShippingOptionID sets value of ShippingOptionID conditional field.
-func (u *UpdateBotPrecheckoutQuery) SetShippingOptionID(value string) {
-	u.Flags.Set(1)
-	u.ShippingOptionID = value
-}
-
-// GetShippingOptionID returns value of ShippingOptionID conditional field and
-// boolean which is true if field was set.
-func (u *UpdateBotPrecheckoutQuery) GetShippingOptionID() (value string, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.ShippingOptionID, true
-}
-
-// GetCurrency returns value of Currency field.
-func (u *UpdateBotPrecheckoutQuery) GetCurrency() (value string) {
-	return u.Currency
-}
-
-// GetTotalAmount returns value of TotalAmount field.
-func (u *UpdateBotPrecheckoutQuery) GetTotalAmount() (value int64) {
-	return u.TotalAmount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateBotPrecheckoutQuery) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -10496,18 +10454,60 @@ func (u *UpdateBotPrecheckoutQuery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateBotPrecheckoutQuery) construct() UpdateClass { return &u }
+// GetQueryID returns value of QueryID field.
+func (u *UpdateBotPrecheckoutQuery) GetQueryID() (value int64) {
+	return u.QueryID
+}
 
-// Ensuring interfaces in compile-time for UpdateBotPrecheckoutQuery.
-var (
-	_ bin.Encoder     = &UpdateBotPrecheckoutQuery{}
-	_ bin.Decoder     = &UpdateBotPrecheckoutQuery{}
-	_ bin.BareEncoder = &UpdateBotPrecheckoutQuery{}
-	_ bin.BareDecoder = &UpdateBotPrecheckoutQuery{}
+// GetUserID returns value of UserID field.
+func (u *UpdateBotPrecheckoutQuery) GetUserID() (value int) {
+	return u.UserID
+}
 
-	_ UpdateClass = &UpdateBotPrecheckoutQuery{}
-)
+// GetPayload returns value of Payload field.
+func (u *UpdateBotPrecheckoutQuery) GetPayload() (value []byte) {
+	return u.Payload
+}
+
+// SetInfo sets value of Info conditional field.
+func (u *UpdateBotPrecheckoutQuery) SetInfo(value PaymentRequestedInfo) {
+	u.Flags.Set(0)
+	u.Info = value
+}
+
+// GetInfo returns value of Info conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotPrecheckoutQuery) GetInfo() (value PaymentRequestedInfo, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Info, true
+}
+
+// SetShippingOptionID sets value of ShippingOptionID conditional field.
+func (u *UpdateBotPrecheckoutQuery) SetShippingOptionID(value string) {
+	u.Flags.Set(1)
+	u.ShippingOptionID = value
+}
+
+// GetShippingOptionID returns value of ShippingOptionID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotPrecheckoutQuery) GetShippingOptionID() (value string, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.ShippingOptionID, true
+}
+
+// GetCurrency returns value of Currency field.
+func (u *UpdateBotPrecheckoutQuery) GetCurrency() (value string) {
+	return u.Currency
+}
+
+// GetTotalAmount returns value of TotalAmount field.
+func (u *UpdateBotPrecheckoutQuery) GetTotalAmount() (value int64) {
+	return u.TotalAmount
+}
 
 // UpdatePhoneCall represents TL type `updatePhoneCall#ab0f6b1e`.
 // An incoming phone call
@@ -10520,6 +10520,19 @@ type UpdatePhoneCall struct {
 
 // UpdatePhoneCallTypeID is TL type id of UpdatePhoneCall.
 const UpdatePhoneCallTypeID = 0xab0f6b1e
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePhoneCall) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePhoneCall.
+var (
+	_ bin.Encoder     = &UpdatePhoneCall{}
+	_ bin.Decoder     = &UpdatePhoneCall{}
+	_ bin.BareEncoder = &UpdatePhoneCall{}
+	_ bin.BareDecoder = &UpdatePhoneCall{}
+
+	_ UpdateClass = &UpdatePhoneCall{}
+)
 
 func (u *UpdatePhoneCall) Zero() bool {
 	if u == nil {
@@ -10602,11 +10615,6 @@ func (u *UpdatePhoneCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneCall returns value of PhoneCall field.
-func (u *UpdatePhoneCall) GetPhoneCall() (value PhoneCallClass) {
-	return u.PhoneCall
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdatePhoneCall) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -10633,18 +10641,10 @@ func (u *UpdatePhoneCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdatePhoneCall) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdatePhoneCall.
-var (
-	_ bin.Encoder     = &UpdatePhoneCall{}
-	_ bin.Decoder     = &UpdatePhoneCall{}
-	_ bin.BareEncoder = &UpdatePhoneCall{}
-	_ bin.BareDecoder = &UpdatePhoneCall{}
-
-	_ UpdateClass = &UpdatePhoneCall{}
-)
+// GetPhoneCall returns value of PhoneCall field.
+func (u *UpdatePhoneCall) GetPhoneCall() (value PhoneCallClass) {
+	return u.PhoneCall
+}
 
 // UpdateLangPackTooLong represents TL type `updateLangPackTooLong#46560264`.
 // A language pack has changed, the client should manually fetch the changed strings
@@ -10661,6 +10661,19 @@ type UpdateLangPackTooLong struct {
 
 // UpdateLangPackTooLongTypeID is TL type id of UpdateLangPackTooLong.
 const UpdateLangPackTooLongTypeID = 0x46560264
+
+// construct implements constructor of UpdateClass.
+func (u UpdateLangPackTooLong) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateLangPackTooLong.
+var (
+	_ bin.Encoder     = &UpdateLangPackTooLong{}
+	_ bin.Decoder     = &UpdateLangPackTooLong{}
+	_ bin.BareEncoder = &UpdateLangPackTooLong{}
+	_ bin.BareDecoder = &UpdateLangPackTooLong{}
+
+	_ UpdateClass = &UpdateLangPackTooLong{}
+)
 
 func (u *UpdateLangPackTooLong) Zero() bool {
 	if u == nil {
@@ -10738,11 +10751,6 @@ func (u *UpdateLangPackTooLong) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLangCode returns value of LangCode field.
-func (u *UpdateLangPackTooLong) GetLangCode() (value string) {
-	return u.LangCode
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateLangPackTooLong) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -10769,18 +10777,10 @@ func (u *UpdateLangPackTooLong) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateLangPackTooLong) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateLangPackTooLong.
-var (
-	_ bin.Encoder     = &UpdateLangPackTooLong{}
-	_ bin.Decoder     = &UpdateLangPackTooLong{}
-	_ bin.BareEncoder = &UpdateLangPackTooLong{}
-	_ bin.BareDecoder = &UpdateLangPackTooLong{}
-
-	_ UpdateClass = &UpdateLangPackTooLong{}
-)
+// GetLangCode returns value of LangCode field.
+func (u *UpdateLangPackTooLong) GetLangCode() (value string) {
+	return u.LangCode
+}
 
 // UpdateLangPack represents TL type `updateLangPack#56022f4d`.
 // Language pack updated
@@ -10793,6 +10793,19 @@ type UpdateLangPack struct {
 
 // UpdateLangPackTypeID is TL type id of UpdateLangPack.
 const UpdateLangPackTypeID = 0x56022f4d
+
+// construct implements constructor of UpdateClass.
+func (u UpdateLangPack) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateLangPack.
+var (
+	_ bin.Encoder     = &UpdateLangPack{}
+	_ bin.Decoder     = &UpdateLangPack{}
+	_ bin.BareEncoder = &UpdateLangPack{}
+	_ bin.BareDecoder = &UpdateLangPack{}
+
+	_ UpdateClass = &UpdateLangPack{}
+)
 
 func (u *UpdateLangPack) Zero() bool {
 	if u == nil {
@@ -10872,11 +10885,6 @@ func (u *UpdateLangPack) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDifference returns value of Difference field.
-func (u *UpdateLangPack) GetDifference() (value LangPackDifference) {
-	return u.Difference
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateLangPack) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -10901,18 +10909,10 @@ func (u *UpdateLangPack) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateLangPack) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateLangPack.
-var (
-	_ bin.Encoder     = &UpdateLangPack{}
-	_ bin.Decoder     = &UpdateLangPack{}
-	_ bin.BareEncoder = &UpdateLangPack{}
-	_ bin.BareDecoder = &UpdateLangPack{}
-
-	_ UpdateClass = &UpdateLangPack{}
-)
+// GetDifference returns value of Difference field.
+func (u *UpdateLangPack) GetDifference() (value LangPackDifference) {
+	return u.Difference
+}
 
 // UpdateFavedStickers represents TL type `updateFavedStickers#e511996d`.
 // The list of favorited stickers was changed, the client should call messages
@@ -10927,6 +10927,19 @@ type UpdateFavedStickers struct {
 
 // UpdateFavedStickersTypeID is TL type id of UpdateFavedStickers.
 const UpdateFavedStickersTypeID = 0xe511996d
+
+// construct implements constructor of UpdateClass.
+func (u UpdateFavedStickers) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateFavedStickers.
+var (
+	_ bin.Encoder     = &UpdateFavedStickers{}
+	_ bin.Decoder     = &UpdateFavedStickers{}
+	_ bin.BareEncoder = &UpdateFavedStickers{}
+	_ bin.BareDecoder = &UpdateFavedStickers{}
+
+	_ UpdateClass = &UpdateFavedStickers{}
+)
 
 func (u *UpdateFavedStickers) Zero() bool {
 	if u == nil {
@@ -11007,19 +11020,6 @@ func (u *UpdateFavedStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateFavedStickers) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateFavedStickers.
-var (
-	_ bin.Encoder     = &UpdateFavedStickers{}
-	_ bin.Decoder     = &UpdateFavedStickers{}
-	_ bin.BareEncoder = &UpdateFavedStickers{}
-	_ bin.BareDecoder = &UpdateFavedStickers{}
-
-	_ UpdateClass = &UpdateFavedStickers{}
-)
-
 // UpdateChannelReadMessagesContents represents TL type `updateChannelReadMessagesContents#89893b45`.
 // The specified channel/supergroup¹ messages were read
 //
@@ -11039,6 +11039,19 @@ type UpdateChannelReadMessagesContents struct {
 
 // UpdateChannelReadMessagesContentsTypeID is TL type id of UpdateChannelReadMessagesContents.
 const UpdateChannelReadMessagesContentsTypeID = 0x89893b45
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChannelReadMessagesContents) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChannelReadMessagesContents.
+var (
+	_ bin.Encoder     = &UpdateChannelReadMessagesContents{}
+	_ bin.Decoder     = &UpdateChannelReadMessagesContents{}
+	_ bin.BareEncoder = &UpdateChannelReadMessagesContents{}
+	_ bin.BareDecoder = &UpdateChannelReadMessagesContents{}
+
+	_ UpdateClass = &UpdateChannelReadMessagesContents{}
+)
 
 func (u *UpdateChannelReadMessagesContents) Zero() bool {
 	if u == nil {
@@ -11129,16 +11142,6 @@ func (u *UpdateChannelReadMessagesContents) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateChannelReadMessagesContents) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// GetMessages returns value of Messages field.
-func (u *UpdateChannelReadMessagesContents) GetMessages() (value []int) {
-	return u.Messages
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChannelReadMessagesContents) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -11182,18 +11185,15 @@ func (u *UpdateChannelReadMessagesContents) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChannelReadMessagesContents) construct() UpdateClass { return &u }
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelReadMessagesContents) GetChannelID() (value int) {
+	return u.ChannelID
+}
 
-// Ensuring interfaces in compile-time for UpdateChannelReadMessagesContents.
-var (
-	_ bin.Encoder     = &UpdateChannelReadMessagesContents{}
-	_ bin.Decoder     = &UpdateChannelReadMessagesContents{}
-	_ bin.BareEncoder = &UpdateChannelReadMessagesContents{}
-	_ bin.BareDecoder = &UpdateChannelReadMessagesContents{}
-
-	_ UpdateClass = &UpdateChannelReadMessagesContents{}
-)
+// GetMessages returns value of Messages field.
+func (u *UpdateChannelReadMessagesContents) GetMessages() (value []int) {
+	return u.Messages
+}
 
 // UpdateContactsReset represents TL type `updateContactsReset#7084a7be`.
 // All contacts were deleted
@@ -11204,6 +11204,19 @@ type UpdateContactsReset struct {
 
 // UpdateContactsResetTypeID is TL type id of UpdateContactsReset.
 const UpdateContactsResetTypeID = 0x7084a7be
+
+// construct implements constructor of UpdateClass.
+func (u UpdateContactsReset) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateContactsReset.
+var (
+	_ bin.Encoder     = &UpdateContactsReset{}
+	_ bin.Decoder     = &UpdateContactsReset{}
+	_ bin.BareEncoder = &UpdateContactsReset{}
+	_ bin.BareDecoder = &UpdateContactsReset{}
+
+	_ UpdateClass = &UpdateContactsReset{}
+)
 
 func (u *UpdateContactsReset) Zero() bool {
 	if u == nil {
@@ -11284,19 +11297,6 @@ func (u *UpdateContactsReset) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateContactsReset) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateContactsReset.
-var (
-	_ bin.Encoder     = &UpdateContactsReset{}
-	_ bin.Decoder     = &UpdateContactsReset{}
-	_ bin.BareEncoder = &UpdateContactsReset{}
-	_ bin.BareDecoder = &UpdateContactsReset{}
-
-	_ UpdateClass = &UpdateContactsReset{}
-)
-
 // UpdateChannelAvailableMessages represents TL type `updateChannelAvailableMessages#70db6837`.
 // The history of a channel/supergroup¹ was hidden.
 //
@@ -11313,6 +11313,19 @@ type UpdateChannelAvailableMessages struct {
 
 // UpdateChannelAvailableMessagesTypeID is TL type id of UpdateChannelAvailableMessages.
 const UpdateChannelAvailableMessagesTypeID = 0x70db6837
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChannelAvailableMessages) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChannelAvailableMessages.
+var (
+	_ bin.Encoder     = &UpdateChannelAvailableMessages{}
+	_ bin.Decoder     = &UpdateChannelAvailableMessages{}
+	_ bin.BareEncoder = &UpdateChannelAvailableMessages{}
+	_ bin.BareDecoder = &UpdateChannelAvailableMessages{}
+
+	_ UpdateClass = &UpdateChannelAvailableMessages{}
+)
 
 func (u *UpdateChannelAvailableMessages) Zero() bool {
 	if u == nil {
@@ -11400,16 +11413,6 @@ func (u *UpdateChannelAvailableMessages) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateChannelAvailableMessages) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// GetAvailableMinID returns value of AvailableMinID field.
-func (u *UpdateChannelAvailableMessages) GetAvailableMinID() (value int) {
-	return u.AvailableMinID
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChannelAvailableMessages) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -11443,18 +11446,15 @@ func (u *UpdateChannelAvailableMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChannelAvailableMessages) construct() UpdateClass { return &u }
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelAvailableMessages) GetChannelID() (value int) {
+	return u.ChannelID
+}
 
-// Ensuring interfaces in compile-time for UpdateChannelAvailableMessages.
-var (
-	_ bin.Encoder     = &UpdateChannelAvailableMessages{}
-	_ bin.Decoder     = &UpdateChannelAvailableMessages{}
-	_ bin.BareEncoder = &UpdateChannelAvailableMessages{}
-	_ bin.BareDecoder = &UpdateChannelAvailableMessages{}
-
-	_ UpdateClass = &UpdateChannelAvailableMessages{}
-)
+// GetAvailableMinID returns value of AvailableMinID field.
+func (u *UpdateChannelAvailableMessages) GetAvailableMinID() (value int) {
+	return u.AvailableMinID
+}
 
 // UpdateDialogUnreadMark represents TL type `updateDialogUnreadMark#e16459c3`.
 // The manual unread mark of a chat was changed
@@ -11474,6 +11474,19 @@ type UpdateDialogUnreadMark struct {
 
 // UpdateDialogUnreadMarkTypeID is TL type id of UpdateDialogUnreadMark.
 const UpdateDialogUnreadMarkTypeID = 0xe16459c3
+
+// construct implements constructor of UpdateClass.
+func (u UpdateDialogUnreadMark) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateDialogUnreadMark.
+var (
+	_ bin.Encoder     = &UpdateDialogUnreadMark{}
+	_ bin.Decoder     = &UpdateDialogUnreadMark{}
+	_ bin.BareEncoder = &UpdateDialogUnreadMark{}
+	_ bin.BareDecoder = &UpdateDialogUnreadMark{}
+
+	_ UpdateClass = &UpdateDialogUnreadMark{}
+)
 
 func (u *UpdateDialogUnreadMark) Zero() bool {
 	if u == nil {
@@ -11575,27 +11588,6 @@ func (u *UpdateDialogUnreadMark) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetUnread sets value of Unread conditional field.
-func (u *UpdateDialogUnreadMark) SetUnread(value bool) {
-	if value {
-		u.Flags.Set(0)
-		u.Unread = true
-	} else {
-		u.Flags.Unset(0)
-		u.Unread = false
-	}
-}
-
-// GetUnread returns value of Unread conditional field.
-func (u *UpdateDialogUnreadMark) GetUnread() (value bool) {
-	return u.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (u *UpdateDialogUnreadMark) GetPeer() (value DialogPeerClass) {
-	return u.Peer
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateDialogUnreadMark) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -11628,18 +11620,26 @@ func (u *UpdateDialogUnreadMark) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateDialogUnreadMark) construct() UpdateClass { return &u }
+// SetUnread sets value of Unread conditional field.
+func (u *UpdateDialogUnreadMark) SetUnread(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Unread = true
+	} else {
+		u.Flags.Unset(0)
+		u.Unread = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdateDialogUnreadMark.
-var (
-	_ bin.Encoder     = &UpdateDialogUnreadMark{}
-	_ bin.Decoder     = &UpdateDialogUnreadMark{}
-	_ bin.BareEncoder = &UpdateDialogUnreadMark{}
-	_ bin.BareDecoder = &UpdateDialogUnreadMark{}
+// GetUnread returns value of Unread conditional field.
+func (u *UpdateDialogUnreadMark) GetUnread() (value bool) {
+	return u.Flags.Has(0)
+}
 
-	_ UpdateClass = &UpdateDialogUnreadMark{}
-)
+// GetPeer returns value of Peer field.
+func (u *UpdateDialogUnreadMark) GetPeer() (value DialogPeerClass) {
+	return u.Peer
+}
 
 // UpdateMessagePoll represents TL type `updateMessagePoll#aca1657b`.
 // The results of a poll have changed
@@ -11663,6 +11663,19 @@ type UpdateMessagePoll struct {
 
 // UpdateMessagePollTypeID is TL type id of UpdateMessagePoll.
 const UpdateMessagePollTypeID = 0xaca1657b
+
+// construct implements constructor of UpdateClass.
+func (u UpdateMessagePoll) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateMessagePoll.
+var (
+	_ bin.Encoder     = &UpdateMessagePoll{}
+	_ bin.Decoder     = &UpdateMessagePoll{}
+	_ bin.BareEncoder = &UpdateMessagePoll{}
+	_ bin.BareDecoder = &UpdateMessagePoll{}
+
+	_ UpdateClass = &UpdateMessagePoll{}
+)
 
 func (u *UpdateMessagePoll) Zero() bool {
 	if u == nil {
@@ -11779,31 +11792,6 @@ func (u *UpdateMessagePoll) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPollID returns value of PollID field.
-func (u *UpdateMessagePoll) GetPollID() (value int64) {
-	return u.PollID
-}
-
-// SetPoll sets value of Poll conditional field.
-func (u *UpdateMessagePoll) SetPoll(value Poll) {
-	u.Flags.Set(0)
-	u.Poll = value
-}
-
-// GetPoll returns value of Poll conditional field and
-// boolean which is true if field was set.
-func (u *UpdateMessagePoll) GetPoll() (value Poll, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.Poll, true
-}
-
-// GetResults returns value of Results field.
-func (u *UpdateMessagePoll) GetResults() (value PollResults) {
-	return u.Results
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateMessagePoll) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -11845,18 +11833,30 @@ func (u *UpdateMessagePoll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateMessagePoll) construct() UpdateClass { return &u }
+// GetPollID returns value of PollID field.
+func (u *UpdateMessagePoll) GetPollID() (value int64) {
+	return u.PollID
+}
 
-// Ensuring interfaces in compile-time for UpdateMessagePoll.
-var (
-	_ bin.Encoder     = &UpdateMessagePoll{}
-	_ bin.Decoder     = &UpdateMessagePoll{}
-	_ bin.BareEncoder = &UpdateMessagePoll{}
-	_ bin.BareDecoder = &UpdateMessagePoll{}
+// SetPoll sets value of Poll conditional field.
+func (u *UpdateMessagePoll) SetPoll(value Poll) {
+	u.Flags.Set(0)
+	u.Poll = value
+}
 
-	_ UpdateClass = &UpdateMessagePoll{}
-)
+// GetPoll returns value of Poll conditional field and
+// boolean which is true if field was set.
+func (u *UpdateMessagePoll) GetPoll() (value Poll, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Poll, true
+}
+
+// GetResults returns value of Results field.
+func (u *UpdateMessagePoll) GetResults() (value PollResults) {
+	return u.Results
+}
 
 // UpdateChatDefaultBannedRights represents TL type `updateChatDefaultBannedRights#54c01850`.
 // Default banned rights in a normal chat¹ were updated
@@ -11876,6 +11876,19 @@ type UpdateChatDefaultBannedRights struct {
 
 // UpdateChatDefaultBannedRightsTypeID is TL type id of UpdateChatDefaultBannedRights.
 const UpdateChatDefaultBannedRightsTypeID = 0x54c01850
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatDefaultBannedRights) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatDefaultBannedRights.
+var (
+	_ bin.Encoder     = &UpdateChatDefaultBannedRights{}
+	_ bin.Decoder     = &UpdateChatDefaultBannedRights{}
+	_ bin.BareEncoder = &UpdateChatDefaultBannedRights{}
+	_ bin.BareDecoder = &UpdateChatDefaultBannedRights{}
+
+	_ UpdateClass = &UpdateChatDefaultBannedRights{}
+)
 
 func (u *UpdateChatDefaultBannedRights) Zero() bool {
 	if u == nil {
@@ -11980,21 +11993,6 @@ func (u *UpdateChatDefaultBannedRights) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *UpdateChatDefaultBannedRights) GetPeer() (value PeerClass) {
-	return u.Peer
-}
-
-// GetDefaultBannedRights returns value of DefaultBannedRights field.
-func (u *UpdateChatDefaultBannedRights) GetDefaultBannedRights() (value ChatBannedRights) {
-	return u.DefaultBannedRights
-}
-
-// GetVersion returns value of Version field.
-func (u *UpdateChatDefaultBannedRights) GetVersion() (value int) {
-	return u.Version
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChatDefaultBannedRights) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -12033,18 +12031,20 @@ func (u *UpdateChatDefaultBannedRights) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChatDefaultBannedRights) construct() UpdateClass { return &u }
+// GetPeer returns value of Peer field.
+func (u *UpdateChatDefaultBannedRights) GetPeer() (value PeerClass) {
+	return u.Peer
+}
 
-// Ensuring interfaces in compile-time for UpdateChatDefaultBannedRights.
-var (
-	_ bin.Encoder     = &UpdateChatDefaultBannedRights{}
-	_ bin.Decoder     = &UpdateChatDefaultBannedRights{}
-	_ bin.BareEncoder = &UpdateChatDefaultBannedRights{}
-	_ bin.BareDecoder = &UpdateChatDefaultBannedRights{}
+// GetDefaultBannedRights returns value of DefaultBannedRights field.
+func (u *UpdateChatDefaultBannedRights) GetDefaultBannedRights() (value ChatBannedRights) {
+	return u.DefaultBannedRights
+}
 
-	_ UpdateClass = &UpdateChatDefaultBannedRights{}
-)
+// GetVersion returns value of Version field.
+func (u *UpdateChatDefaultBannedRights) GetVersion() (value int) {
+	return u.Version
+}
 
 // UpdateFolderPeers represents TL type `updateFolderPeers#19360dc0`.
 // The peer list of a peer folder¹ was updated
@@ -12070,6 +12070,19 @@ type UpdateFolderPeers struct {
 
 // UpdateFolderPeersTypeID is TL type id of UpdateFolderPeers.
 const UpdateFolderPeersTypeID = 0x19360dc0
+
+// construct implements constructor of UpdateClass.
+func (u UpdateFolderPeers) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateFolderPeers.
+var (
+	_ bin.Encoder     = &UpdateFolderPeers{}
+	_ bin.Decoder     = &UpdateFolderPeers{}
+	_ bin.BareEncoder = &UpdateFolderPeers{}
+	_ bin.BareDecoder = &UpdateFolderPeers{}
+
+	_ UpdateClass = &UpdateFolderPeers{}
+)
 
 func (u *UpdateFolderPeers) Zero() bool {
 	if u == nil {
@@ -12172,21 +12185,6 @@ func (u *UpdateFolderPeers) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFolderPeers returns value of FolderPeers field.
-func (u *UpdateFolderPeers) GetFolderPeers() (value []FolderPeer) {
-	return u.FolderPeers
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateFolderPeers) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdateFolderPeers) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateFolderPeers) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -12237,18 +12235,20 @@ func (u *UpdateFolderPeers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateFolderPeers) construct() UpdateClass { return &u }
+// GetFolderPeers returns value of FolderPeers field.
+func (u *UpdateFolderPeers) GetFolderPeers() (value []FolderPeer) {
+	return u.FolderPeers
+}
 
-// Ensuring interfaces in compile-time for UpdateFolderPeers.
-var (
-	_ bin.Encoder     = &UpdateFolderPeers{}
-	_ bin.Decoder     = &UpdateFolderPeers{}
-	_ bin.BareEncoder = &UpdateFolderPeers{}
-	_ bin.BareDecoder = &UpdateFolderPeers{}
+// GetPts returns value of Pts field.
+func (u *UpdateFolderPeers) GetPts() (value int) {
+	return u.Pts
+}
 
-	_ UpdateClass = &UpdateFolderPeers{}
-)
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateFolderPeers) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdatePeerSettings represents TL type `updatePeerSettings#6a7e7366`.
 // Settings of a certain peer have changed
@@ -12263,6 +12263,19 @@ type UpdatePeerSettings struct {
 
 // UpdatePeerSettingsTypeID is TL type id of UpdatePeerSettings.
 const UpdatePeerSettingsTypeID = 0x6a7e7366
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePeerSettings) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePeerSettings.
+var (
+	_ bin.Encoder     = &UpdatePeerSettings{}
+	_ bin.Decoder     = &UpdatePeerSettings{}
+	_ bin.BareEncoder = &UpdatePeerSettings{}
+	_ bin.BareDecoder = &UpdatePeerSettings{}
+
+	_ UpdateClass = &UpdatePeerSettings{}
+)
 
 func (u *UpdatePeerSettings) Zero() bool {
 	if u == nil {
@@ -12357,16 +12370,6 @@ func (u *UpdatePeerSettings) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *UpdatePeerSettings) GetPeer() (value PeerClass) {
-	return u.Peer
-}
-
-// GetSettings returns value of Settings field.
-func (u *UpdatePeerSettings) GetSettings() (value PeerSettings) {
-	return u.Settings
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdatePeerSettings) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -12398,18 +12401,15 @@ func (u *UpdatePeerSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdatePeerSettings) construct() UpdateClass { return &u }
+// GetPeer returns value of Peer field.
+func (u *UpdatePeerSettings) GetPeer() (value PeerClass) {
+	return u.Peer
+}
 
-// Ensuring interfaces in compile-time for UpdatePeerSettings.
-var (
-	_ bin.Encoder     = &UpdatePeerSettings{}
-	_ bin.Decoder     = &UpdatePeerSettings{}
-	_ bin.BareEncoder = &UpdatePeerSettings{}
-	_ bin.BareDecoder = &UpdatePeerSettings{}
-
-	_ UpdateClass = &UpdatePeerSettings{}
-)
+// GetSettings returns value of Settings field.
+func (u *UpdatePeerSettings) GetSettings() (value PeerSettings) {
+	return u.Settings
+}
 
 // UpdatePeerLocated represents TL type `updatePeerLocated#b4afcfb0`.
 // List of peers near you was updated
@@ -12422,6 +12422,19 @@ type UpdatePeerLocated struct {
 
 // UpdatePeerLocatedTypeID is TL type id of UpdatePeerLocated.
 const UpdatePeerLocatedTypeID = 0xb4afcfb0
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePeerLocated) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePeerLocated.
+var (
+	_ bin.Encoder     = &UpdatePeerLocated{}
+	_ bin.Decoder     = &UpdatePeerLocated{}
+	_ bin.BareEncoder = &UpdatePeerLocated{}
+	_ bin.BareDecoder = &UpdatePeerLocated{}
+
+	_ UpdateClass = &UpdatePeerLocated{}
+)
 
 func (u *UpdatePeerLocated) Zero() bool {
 	if u == nil {
@@ -12507,16 +12520,6 @@ func (u *UpdatePeerLocated) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeers returns value of Peers field.
-func (u *UpdatePeerLocated) GetPeers() (value []PeerLocatedClass) {
-	return u.Peers
-}
-
-// MapPeers returns field Peers wrapped in PeerLocatedClassArray helper.
-func (u *UpdatePeerLocated) MapPeers() (value PeerLocatedClassArray) {
-	return PeerLocatedClassArray(u.Peers)
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdatePeerLocated) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -12553,18 +12556,15 @@ func (u *UpdatePeerLocated) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdatePeerLocated) construct() UpdateClass { return &u }
+// GetPeers returns value of Peers field.
+func (u *UpdatePeerLocated) GetPeers() (value []PeerLocatedClass) {
+	return u.Peers
+}
 
-// Ensuring interfaces in compile-time for UpdatePeerLocated.
-var (
-	_ bin.Encoder     = &UpdatePeerLocated{}
-	_ bin.Decoder     = &UpdatePeerLocated{}
-	_ bin.BareEncoder = &UpdatePeerLocated{}
-	_ bin.BareDecoder = &UpdatePeerLocated{}
-
-	_ UpdateClass = &UpdatePeerLocated{}
-)
+// MapPeers returns field Peers wrapped in PeerLocatedClassArray helper.
+func (u *UpdatePeerLocated) MapPeers() (value PeerLocatedClassArray) {
+	return PeerLocatedClassArray(u.Peers)
+}
 
 // UpdateNewScheduledMessage represents TL type `updateNewScheduledMessage#39a51dfb`.
 // A message was added to the schedule queue of a chat¹
@@ -12580,6 +12580,19 @@ type UpdateNewScheduledMessage struct {
 
 // UpdateNewScheduledMessageTypeID is TL type id of UpdateNewScheduledMessage.
 const UpdateNewScheduledMessageTypeID = 0x39a51dfb
+
+// construct implements constructor of UpdateClass.
+func (u UpdateNewScheduledMessage) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateNewScheduledMessage.
+var (
+	_ bin.Encoder     = &UpdateNewScheduledMessage{}
+	_ bin.Decoder     = &UpdateNewScheduledMessage{}
+	_ bin.BareEncoder = &UpdateNewScheduledMessage{}
+	_ bin.BareDecoder = &UpdateNewScheduledMessage{}
+
+	_ UpdateClass = &UpdateNewScheduledMessage{}
+)
 
 func (u *UpdateNewScheduledMessage) Zero() bool {
 	if u == nil {
@@ -12662,11 +12675,6 @@ func (u *UpdateNewScheduledMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (u *UpdateNewScheduledMessage) GetMessage() (value MessageClass) {
-	return u.Message
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateNewScheduledMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -12693,18 +12701,10 @@ func (u *UpdateNewScheduledMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateNewScheduledMessage) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateNewScheduledMessage.
-var (
-	_ bin.Encoder     = &UpdateNewScheduledMessage{}
-	_ bin.Decoder     = &UpdateNewScheduledMessage{}
-	_ bin.BareEncoder = &UpdateNewScheduledMessage{}
-	_ bin.BareDecoder = &UpdateNewScheduledMessage{}
-
-	_ UpdateClass = &UpdateNewScheduledMessage{}
-)
+// GetMessage returns value of Message field.
+func (u *UpdateNewScheduledMessage) GetMessage() (value MessageClass) {
+	return u.Message
+}
 
 // UpdateDeleteScheduledMessages represents TL type `updateDeleteScheduledMessages#90866cee`.
 // Some scheduled messages¹ were deleted from the schedule queue of a chat
@@ -12722,6 +12722,19 @@ type UpdateDeleteScheduledMessages struct {
 
 // UpdateDeleteScheduledMessagesTypeID is TL type id of UpdateDeleteScheduledMessages.
 const UpdateDeleteScheduledMessagesTypeID = 0x90866cee
+
+// construct implements constructor of UpdateClass.
+func (u UpdateDeleteScheduledMessages) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateDeleteScheduledMessages.
+var (
+	_ bin.Encoder     = &UpdateDeleteScheduledMessages{}
+	_ bin.Decoder     = &UpdateDeleteScheduledMessages{}
+	_ bin.BareEncoder = &UpdateDeleteScheduledMessages{}
+	_ bin.BareDecoder = &UpdateDeleteScheduledMessages{}
+
+	_ UpdateClass = &UpdateDeleteScheduledMessages{}
+)
 
 func (u *UpdateDeleteScheduledMessages) Zero() bool {
 	if u == nil {
@@ -12817,16 +12830,6 @@ func (u *UpdateDeleteScheduledMessages) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *UpdateDeleteScheduledMessages) GetPeer() (value PeerClass) {
-	return u.Peer
-}
-
-// GetMessages returns value of Messages field.
-func (u *UpdateDeleteScheduledMessages) GetMessages() (value []int) {
-	return u.Messages
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateDeleteScheduledMessages) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -12870,18 +12873,15 @@ func (u *UpdateDeleteScheduledMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateDeleteScheduledMessages) construct() UpdateClass { return &u }
+// GetPeer returns value of Peer field.
+func (u *UpdateDeleteScheduledMessages) GetPeer() (value PeerClass) {
+	return u.Peer
+}
 
-// Ensuring interfaces in compile-time for UpdateDeleteScheduledMessages.
-var (
-	_ bin.Encoder     = &UpdateDeleteScheduledMessages{}
-	_ bin.Decoder     = &UpdateDeleteScheduledMessages{}
-	_ bin.BareEncoder = &UpdateDeleteScheduledMessages{}
-	_ bin.BareDecoder = &UpdateDeleteScheduledMessages{}
-
-	_ UpdateClass = &UpdateDeleteScheduledMessages{}
-)
+// GetMessages returns value of Messages field.
+func (u *UpdateDeleteScheduledMessages) GetMessages() (value []int) {
+	return u.Messages
+}
 
 // UpdateTheme represents TL type `updateTheme#8216fba3`.
 // A cloud theme was updated
@@ -12894,6 +12894,19 @@ type UpdateTheme struct {
 
 // UpdateThemeTypeID is TL type id of UpdateTheme.
 const UpdateThemeTypeID = 0x8216fba3
+
+// construct implements constructor of UpdateClass.
+func (u UpdateTheme) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateTheme.
+var (
+	_ bin.Encoder     = &UpdateTheme{}
+	_ bin.Decoder     = &UpdateTheme{}
+	_ bin.BareEncoder = &UpdateTheme{}
+	_ bin.BareDecoder = &UpdateTheme{}
+
+	_ UpdateClass = &UpdateTheme{}
+)
 
 func (u *UpdateTheme) Zero() bool {
 	if u == nil {
@@ -12973,11 +12986,6 @@ func (u *UpdateTheme) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTheme returns value of Theme field.
-func (u *UpdateTheme) GetTheme() (value Theme) {
-	return u.Theme
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateTheme) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -13002,18 +13010,10 @@ func (u *UpdateTheme) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateTheme) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateTheme.
-var (
-	_ bin.Encoder     = &UpdateTheme{}
-	_ bin.Decoder     = &UpdateTheme{}
-	_ bin.BareEncoder = &UpdateTheme{}
-	_ bin.BareDecoder = &UpdateTheme{}
-
-	_ UpdateClass = &UpdateTheme{}
-)
+// GetTheme returns value of Theme field.
+func (u *UpdateTheme) GetTheme() (value Theme) {
+	return u.Theme
+}
 
 // UpdateGeoLiveViewed represents TL type `updateGeoLiveViewed#871fb939`.
 // Live geoposition message was viewed
@@ -13028,6 +13028,19 @@ type UpdateGeoLiveViewed struct {
 
 // UpdateGeoLiveViewedTypeID is TL type id of UpdateGeoLiveViewed.
 const UpdateGeoLiveViewedTypeID = 0x871fb939
+
+// construct implements constructor of UpdateClass.
+func (u UpdateGeoLiveViewed) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateGeoLiveViewed.
+var (
+	_ bin.Encoder     = &UpdateGeoLiveViewed{}
+	_ bin.Decoder     = &UpdateGeoLiveViewed{}
+	_ bin.BareEncoder = &UpdateGeoLiveViewed{}
+	_ bin.BareDecoder = &UpdateGeoLiveViewed{}
+
+	_ UpdateClass = &UpdateGeoLiveViewed{}
+)
 
 func (u *UpdateGeoLiveViewed) Zero() bool {
 	if u == nil {
@@ -13120,16 +13133,6 @@ func (u *UpdateGeoLiveViewed) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *UpdateGeoLiveViewed) GetPeer() (value PeerClass) {
-	return u.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (u *UpdateGeoLiveViewed) GetMsgID() (value int) {
-	return u.MsgID
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateGeoLiveViewed) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -13163,18 +13166,15 @@ func (u *UpdateGeoLiveViewed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateGeoLiveViewed) construct() UpdateClass { return &u }
+// GetPeer returns value of Peer field.
+func (u *UpdateGeoLiveViewed) GetPeer() (value PeerClass) {
+	return u.Peer
+}
 
-// Ensuring interfaces in compile-time for UpdateGeoLiveViewed.
-var (
-	_ bin.Encoder     = &UpdateGeoLiveViewed{}
-	_ bin.Decoder     = &UpdateGeoLiveViewed{}
-	_ bin.BareEncoder = &UpdateGeoLiveViewed{}
-	_ bin.BareDecoder = &UpdateGeoLiveViewed{}
-
-	_ UpdateClass = &UpdateGeoLiveViewed{}
-)
+// GetMsgID returns value of MsgID field.
+func (u *UpdateGeoLiveViewed) GetMsgID() (value int) {
+	return u.MsgID
+}
 
 // UpdateLoginToken represents TL type `updateLoginToken#564fe691`.
 // A login token (for login via QR code) was accepted.
@@ -13185,6 +13185,19 @@ type UpdateLoginToken struct {
 
 // UpdateLoginTokenTypeID is TL type id of UpdateLoginToken.
 const UpdateLoginTokenTypeID = 0x564fe691
+
+// construct implements constructor of UpdateClass.
+func (u UpdateLoginToken) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateLoginToken.
+var (
+	_ bin.Encoder     = &UpdateLoginToken{}
+	_ bin.Decoder     = &UpdateLoginToken{}
+	_ bin.BareEncoder = &UpdateLoginToken{}
+	_ bin.BareDecoder = &UpdateLoginToken{}
+
+	_ UpdateClass = &UpdateLoginToken{}
+)
 
 func (u *UpdateLoginToken) Zero() bool {
 	if u == nil {
@@ -13265,19 +13278,6 @@ func (u *UpdateLoginToken) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateLoginToken) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateLoginToken.
-var (
-	_ bin.Encoder     = &UpdateLoginToken{}
-	_ bin.Decoder     = &UpdateLoginToken{}
-	_ bin.BareEncoder = &UpdateLoginToken{}
-	_ bin.BareDecoder = &UpdateLoginToken{}
-
-	_ UpdateClass = &UpdateLoginToken{}
-)
-
 // UpdateMessagePollVote represents TL type `updateMessagePollVote#37f69f0b`.
 // A specific user has voted in a poll
 //
@@ -13295,6 +13295,19 @@ type UpdateMessagePollVote struct {
 
 // UpdateMessagePollVoteTypeID is TL type id of UpdateMessagePollVote.
 const UpdateMessagePollVoteTypeID = 0x37f69f0b
+
+// construct implements constructor of UpdateClass.
+func (u UpdateMessagePollVote) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateMessagePollVote.
+var (
+	_ bin.Encoder     = &UpdateMessagePollVote{}
+	_ bin.Decoder     = &UpdateMessagePollVote{}
+	_ bin.BareEncoder = &UpdateMessagePollVote{}
+	_ bin.BareDecoder = &UpdateMessagePollVote{}
+
+	_ UpdateClass = &UpdateMessagePollVote{}
+)
 
 func (u *UpdateMessagePollVote) Zero() bool {
 	if u == nil {
@@ -13405,26 +13418,6 @@ func (u *UpdateMessagePollVote) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPollID returns value of PollID field.
-func (u *UpdateMessagePollVote) GetPollID() (value int64) {
-	return u.PollID
-}
-
-// GetUserID returns value of UserID field.
-func (u *UpdateMessagePollVote) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetOptions returns value of Options field.
-func (u *UpdateMessagePollVote) GetOptions() (value [][]byte) {
-	return u.Options
-}
-
-// GetQts returns value of Qts field.
-func (u *UpdateMessagePollVote) GetQts() (value int) {
-	return u.Qts
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateMessagePollVote) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -13482,18 +13475,25 @@ func (u *UpdateMessagePollVote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateMessagePollVote) construct() UpdateClass { return &u }
+// GetPollID returns value of PollID field.
+func (u *UpdateMessagePollVote) GetPollID() (value int64) {
+	return u.PollID
+}
 
-// Ensuring interfaces in compile-time for UpdateMessagePollVote.
-var (
-	_ bin.Encoder     = &UpdateMessagePollVote{}
-	_ bin.Decoder     = &UpdateMessagePollVote{}
-	_ bin.BareEncoder = &UpdateMessagePollVote{}
-	_ bin.BareDecoder = &UpdateMessagePollVote{}
+// GetUserID returns value of UserID field.
+func (u *UpdateMessagePollVote) GetUserID() (value int) {
+	return u.UserID
+}
 
-	_ UpdateClass = &UpdateMessagePollVote{}
-)
+// GetOptions returns value of Options field.
+func (u *UpdateMessagePollVote) GetOptions() (value [][]byte) {
+	return u.Options
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateMessagePollVote) GetQts() (value int) {
+	return u.Qts
+}
 
 // UpdateDialogFilter represents TL type `updateDialogFilter#26ffde7d`.
 // A new folder¹ was added
@@ -13524,6 +13524,19 @@ type UpdateDialogFilter struct {
 
 // UpdateDialogFilterTypeID is TL type id of UpdateDialogFilter.
 const UpdateDialogFilterTypeID = 0x26ffde7d
+
+// construct implements constructor of UpdateClass.
+func (u UpdateDialogFilter) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateDialogFilter.
+var (
+	_ bin.Encoder     = &UpdateDialogFilter{}
+	_ bin.Decoder     = &UpdateDialogFilter{}
+	_ bin.BareEncoder = &UpdateDialogFilter{}
+	_ bin.BareDecoder = &UpdateDialogFilter{}
+
+	_ UpdateClass = &UpdateDialogFilter{}
+)
 
 func (u *UpdateDialogFilter) Zero() bool {
 	if u == nil {
@@ -13628,26 +13641,6 @@ func (u *UpdateDialogFilter) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (u *UpdateDialogFilter) GetID() (value int) {
-	return u.ID
-}
-
-// SetFilter sets value of Filter conditional field.
-func (u *UpdateDialogFilter) SetFilter(value DialogFilter) {
-	u.Flags.Set(0)
-	u.Filter = value
-}
-
-// GetFilter returns value of Filter conditional field and
-// boolean which is true if field was set.
-func (u *UpdateDialogFilter) GetFilter() (value DialogFilter, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.Filter, true
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateDialogFilter) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -13684,18 +13677,25 @@ func (u *UpdateDialogFilter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateDialogFilter) construct() UpdateClass { return &u }
+// GetID returns value of ID field.
+func (u *UpdateDialogFilter) GetID() (value int) {
+	return u.ID
+}
 
-// Ensuring interfaces in compile-time for UpdateDialogFilter.
-var (
-	_ bin.Encoder     = &UpdateDialogFilter{}
-	_ bin.Decoder     = &UpdateDialogFilter{}
-	_ bin.BareEncoder = &UpdateDialogFilter{}
-	_ bin.BareDecoder = &UpdateDialogFilter{}
+// SetFilter sets value of Filter conditional field.
+func (u *UpdateDialogFilter) SetFilter(value DialogFilter) {
+	u.Flags.Set(0)
+	u.Filter = value
+}
 
-	_ UpdateClass = &UpdateDialogFilter{}
-)
+// GetFilter returns value of Filter conditional field and
+// boolean which is true if field was set.
+func (u *UpdateDialogFilter) GetFilter() (value DialogFilter, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Filter, true
+}
 
 // UpdateDialogFilterOrder represents TL type `updateDialogFilterOrder#a5d72105`.
 // New folder¹ order
@@ -13714,6 +13714,19 @@ type UpdateDialogFilterOrder struct {
 
 // UpdateDialogFilterOrderTypeID is TL type id of UpdateDialogFilterOrder.
 const UpdateDialogFilterOrderTypeID = 0xa5d72105
+
+// construct implements constructor of UpdateClass.
+func (u UpdateDialogFilterOrder) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateDialogFilterOrder.
+var (
+	_ bin.Encoder     = &UpdateDialogFilterOrder{}
+	_ bin.Decoder     = &UpdateDialogFilterOrder{}
+	_ bin.BareEncoder = &UpdateDialogFilterOrder{}
+	_ bin.BareDecoder = &UpdateDialogFilterOrder{}
+
+	_ UpdateClass = &UpdateDialogFilterOrder{}
+)
 
 func (u *UpdateDialogFilterOrder) Zero() bool {
 	if u == nil {
@@ -13794,11 +13807,6 @@ func (u *UpdateDialogFilterOrder) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOrder returns value of Order field.
-func (u *UpdateDialogFilterOrder) GetOrder() (value []int) {
-	return u.Order
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateDialogFilterOrder) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -13835,18 +13843,10 @@ func (u *UpdateDialogFilterOrder) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateDialogFilterOrder) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateDialogFilterOrder.
-var (
-	_ bin.Encoder     = &UpdateDialogFilterOrder{}
-	_ bin.Decoder     = &UpdateDialogFilterOrder{}
-	_ bin.BareEncoder = &UpdateDialogFilterOrder{}
-	_ bin.BareDecoder = &UpdateDialogFilterOrder{}
-
-	_ UpdateClass = &UpdateDialogFilterOrder{}
-)
+// GetOrder returns value of Order field.
+func (u *UpdateDialogFilterOrder) GetOrder() (value []int) {
+	return u.Order
+}
 
 // UpdateDialogFilters represents TL type `updateDialogFilters#3504914f`.
 // Clients should update folder¹ info
@@ -13860,6 +13860,19 @@ type UpdateDialogFilters struct {
 
 // UpdateDialogFiltersTypeID is TL type id of UpdateDialogFilters.
 const UpdateDialogFiltersTypeID = 0x3504914f
+
+// construct implements constructor of UpdateClass.
+func (u UpdateDialogFilters) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateDialogFilters.
+var (
+	_ bin.Encoder     = &UpdateDialogFilters{}
+	_ bin.Decoder     = &UpdateDialogFilters{}
+	_ bin.BareEncoder = &UpdateDialogFilters{}
+	_ bin.BareDecoder = &UpdateDialogFilters{}
+
+	_ UpdateClass = &UpdateDialogFilters{}
+)
 
 func (u *UpdateDialogFilters) Zero() bool {
 	if u == nil {
@@ -13940,19 +13953,6 @@ func (u *UpdateDialogFilters) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateDialogFilters) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateDialogFilters.
-var (
-	_ bin.Encoder     = &UpdateDialogFilters{}
-	_ bin.Decoder     = &UpdateDialogFilters{}
-	_ bin.BareEncoder = &UpdateDialogFilters{}
-	_ bin.BareDecoder = &UpdateDialogFilters{}
-
-	_ UpdateClass = &UpdateDialogFilters{}
-)
-
 // UpdatePhoneCallSignalingData represents TL type `updatePhoneCallSignalingData#2661bf09`.
 // Incoming phone call signaling payload
 //
@@ -13966,6 +13966,19 @@ type UpdatePhoneCallSignalingData struct {
 
 // UpdatePhoneCallSignalingDataTypeID is TL type id of UpdatePhoneCallSignalingData.
 const UpdatePhoneCallSignalingDataTypeID = 0x2661bf09
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePhoneCallSignalingData) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePhoneCallSignalingData.
+var (
+	_ bin.Encoder     = &UpdatePhoneCallSignalingData{}
+	_ bin.Decoder     = &UpdatePhoneCallSignalingData{}
+	_ bin.BareEncoder = &UpdatePhoneCallSignalingData{}
+	_ bin.BareDecoder = &UpdatePhoneCallSignalingData{}
+
+	_ UpdateClass = &UpdatePhoneCallSignalingData{}
+)
 
 func (u *UpdatePhoneCallSignalingData) Zero() bool {
 	if u == nil {
@@ -14053,16 +14066,6 @@ func (u *UpdatePhoneCallSignalingData) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPhoneCallID returns value of PhoneCallID field.
-func (u *UpdatePhoneCallSignalingData) GetPhoneCallID() (value int64) {
-	return u.PhoneCallID
-}
-
-// GetData returns value of Data field.
-func (u *UpdatePhoneCallSignalingData) GetData() (value []byte) {
-	return u.Data
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdatePhoneCallSignalingData) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -14096,18 +14099,15 @@ func (u *UpdatePhoneCallSignalingData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdatePhoneCallSignalingData) construct() UpdateClass { return &u }
+// GetPhoneCallID returns value of PhoneCallID field.
+func (u *UpdatePhoneCallSignalingData) GetPhoneCallID() (value int64) {
+	return u.PhoneCallID
+}
 
-// Ensuring interfaces in compile-time for UpdatePhoneCallSignalingData.
-var (
-	_ bin.Encoder     = &UpdatePhoneCallSignalingData{}
-	_ bin.Decoder     = &UpdatePhoneCallSignalingData{}
-	_ bin.BareEncoder = &UpdatePhoneCallSignalingData{}
-	_ bin.BareDecoder = &UpdatePhoneCallSignalingData{}
-
-	_ UpdateClass = &UpdatePhoneCallSignalingData{}
-)
+// GetData returns value of Data field.
+func (u *UpdatePhoneCallSignalingData) GetData() (value []byte) {
+	return u.Data
+}
 
 // UpdateChannelMessageForwards represents TL type `updateChannelMessageForwards#6e8a84df`.
 // The forward counter of a message in a channel has changed
@@ -14124,6 +14124,19 @@ type UpdateChannelMessageForwards struct {
 
 // UpdateChannelMessageForwardsTypeID is TL type id of UpdateChannelMessageForwards.
 const UpdateChannelMessageForwardsTypeID = 0x6e8a84df
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChannelMessageForwards) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChannelMessageForwards.
+var (
+	_ bin.Encoder     = &UpdateChannelMessageForwards{}
+	_ bin.Decoder     = &UpdateChannelMessageForwards{}
+	_ bin.BareEncoder = &UpdateChannelMessageForwards{}
+	_ bin.BareDecoder = &UpdateChannelMessageForwards{}
+
+	_ UpdateClass = &UpdateChannelMessageForwards{}
+)
 
 func (u *UpdateChannelMessageForwards) Zero() bool {
 	if u == nil {
@@ -14221,21 +14234,6 @@ func (u *UpdateChannelMessageForwards) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateChannelMessageForwards) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// GetID returns value of ID field.
-func (u *UpdateChannelMessageForwards) GetID() (value int) {
-	return u.ID
-}
-
-// GetForwards returns value of Forwards field.
-func (u *UpdateChannelMessageForwards) GetForwards() (value int) {
-	return u.Forwards
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChannelMessageForwards) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -14276,18 +14274,20 @@ func (u *UpdateChannelMessageForwards) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChannelMessageForwards) construct() UpdateClass { return &u }
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelMessageForwards) GetChannelID() (value int) {
+	return u.ChannelID
+}
 
-// Ensuring interfaces in compile-time for UpdateChannelMessageForwards.
-var (
-	_ bin.Encoder     = &UpdateChannelMessageForwards{}
-	_ bin.Decoder     = &UpdateChannelMessageForwards{}
-	_ bin.BareEncoder = &UpdateChannelMessageForwards{}
-	_ bin.BareDecoder = &UpdateChannelMessageForwards{}
+// GetID returns value of ID field.
+func (u *UpdateChannelMessageForwards) GetID() (value int) {
+	return u.ID
+}
 
-	_ UpdateClass = &UpdateChannelMessageForwards{}
-)
+// GetForwards returns value of Forwards field.
+func (u *UpdateChannelMessageForwards) GetForwards() (value int) {
+	return u.Forwards
+}
 
 // UpdateReadChannelDiscussionInbox represents TL type `updateReadChannelDiscussionInbox#1cc7de54`.
 // Incoming comments in a discussion thread¹ were marked as read
@@ -14337,6 +14337,19 @@ type UpdateReadChannelDiscussionInbox struct {
 
 // UpdateReadChannelDiscussionInboxTypeID is TL type id of UpdateReadChannelDiscussionInbox.
 const UpdateReadChannelDiscussionInboxTypeID = 0x1cc7de54
+
+// construct implements constructor of UpdateClass.
+func (u UpdateReadChannelDiscussionInbox) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateReadChannelDiscussionInbox.
+var (
+	_ bin.Encoder     = &UpdateReadChannelDiscussionInbox{}
+	_ bin.Decoder     = &UpdateReadChannelDiscussionInbox{}
+	_ bin.BareEncoder = &UpdateReadChannelDiscussionInbox{}
+	_ bin.BareDecoder = &UpdateReadChannelDiscussionInbox{}
+
+	_ UpdateClass = &UpdateReadChannelDiscussionInbox{}
+)
 
 func (u *UpdateReadChannelDiscussionInbox) Zero() bool {
 	if u == nil {
@@ -14478,51 +14491,6 @@ func (u *UpdateReadChannelDiscussionInbox) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateReadChannelDiscussionInbox) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// GetTopMsgID returns value of TopMsgID field.
-func (u *UpdateReadChannelDiscussionInbox) GetTopMsgID() (value int) {
-	return u.TopMsgID
-}
-
-// GetReadMaxID returns value of ReadMaxID field.
-func (u *UpdateReadChannelDiscussionInbox) GetReadMaxID() (value int) {
-	return u.ReadMaxID
-}
-
-// SetBroadcastID sets value of BroadcastID conditional field.
-func (u *UpdateReadChannelDiscussionInbox) SetBroadcastID(value int) {
-	u.Flags.Set(0)
-	u.BroadcastID = value
-}
-
-// GetBroadcastID returns value of BroadcastID conditional field and
-// boolean which is true if field was set.
-func (u *UpdateReadChannelDiscussionInbox) GetBroadcastID() (value int, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.BroadcastID, true
-}
-
-// SetBroadcastPost sets value of BroadcastPost conditional field.
-func (u *UpdateReadChannelDiscussionInbox) SetBroadcastPost(value int) {
-	u.Flags.Set(0)
-	u.BroadcastPost = value
-}
-
-// GetBroadcastPost returns value of BroadcastPost conditional field and
-// boolean which is true if field was set.
-func (u *UpdateReadChannelDiscussionInbox) GetBroadcastPost() (value int, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.BroadcastPost, true
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateReadChannelDiscussionInbox) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -14582,18 +14550,50 @@ func (u *UpdateReadChannelDiscussionInbox) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateReadChannelDiscussionInbox) construct() UpdateClass { return &u }
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateReadChannelDiscussionInbox) GetChannelID() (value int) {
+	return u.ChannelID
+}
 
-// Ensuring interfaces in compile-time for UpdateReadChannelDiscussionInbox.
-var (
-	_ bin.Encoder     = &UpdateReadChannelDiscussionInbox{}
-	_ bin.Decoder     = &UpdateReadChannelDiscussionInbox{}
-	_ bin.BareEncoder = &UpdateReadChannelDiscussionInbox{}
-	_ bin.BareDecoder = &UpdateReadChannelDiscussionInbox{}
+// GetTopMsgID returns value of TopMsgID field.
+func (u *UpdateReadChannelDiscussionInbox) GetTopMsgID() (value int) {
+	return u.TopMsgID
+}
 
-	_ UpdateClass = &UpdateReadChannelDiscussionInbox{}
-)
+// GetReadMaxID returns value of ReadMaxID field.
+func (u *UpdateReadChannelDiscussionInbox) GetReadMaxID() (value int) {
+	return u.ReadMaxID
+}
+
+// SetBroadcastID sets value of BroadcastID conditional field.
+func (u *UpdateReadChannelDiscussionInbox) SetBroadcastID(value int) {
+	u.Flags.Set(0)
+	u.BroadcastID = value
+}
+
+// GetBroadcastID returns value of BroadcastID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateReadChannelDiscussionInbox) GetBroadcastID() (value int, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.BroadcastID, true
+}
+
+// SetBroadcastPost sets value of BroadcastPost conditional field.
+func (u *UpdateReadChannelDiscussionInbox) SetBroadcastPost(value int) {
+	u.Flags.Set(0)
+	u.BroadcastPost = value
+}
+
+// GetBroadcastPost returns value of BroadcastPost conditional field and
+// boolean which is true if field was set.
+func (u *UpdateReadChannelDiscussionInbox) GetBroadcastPost() (value int, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.BroadcastPost, true
+}
 
 // UpdateReadChannelDiscussionOutbox represents TL type `updateReadChannelDiscussionOutbox#4638a26c`.
 // Outgoing comments in a discussion thread¹ were marked as read
@@ -14622,6 +14622,19 @@ type UpdateReadChannelDiscussionOutbox struct {
 
 // UpdateReadChannelDiscussionOutboxTypeID is TL type id of UpdateReadChannelDiscussionOutbox.
 const UpdateReadChannelDiscussionOutboxTypeID = 0x4638a26c
+
+// construct implements constructor of UpdateClass.
+func (u UpdateReadChannelDiscussionOutbox) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateReadChannelDiscussionOutbox.
+var (
+	_ bin.Encoder     = &UpdateReadChannelDiscussionOutbox{}
+	_ bin.Decoder     = &UpdateReadChannelDiscussionOutbox{}
+	_ bin.BareEncoder = &UpdateReadChannelDiscussionOutbox{}
+	_ bin.BareDecoder = &UpdateReadChannelDiscussionOutbox{}
+
+	_ UpdateClass = &UpdateReadChannelDiscussionOutbox{}
+)
 
 func (u *UpdateReadChannelDiscussionOutbox) Zero() bool {
 	if u == nil {
@@ -14719,21 +14732,6 @@ func (u *UpdateReadChannelDiscussionOutbox) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateReadChannelDiscussionOutbox) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// GetTopMsgID returns value of TopMsgID field.
-func (u *UpdateReadChannelDiscussionOutbox) GetTopMsgID() (value int) {
-	return u.TopMsgID
-}
-
-// GetReadMaxID returns value of ReadMaxID field.
-func (u *UpdateReadChannelDiscussionOutbox) GetReadMaxID() (value int) {
-	return u.ReadMaxID
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateReadChannelDiscussionOutbox) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -14774,18 +14772,20 @@ func (u *UpdateReadChannelDiscussionOutbox) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateReadChannelDiscussionOutbox) construct() UpdateClass { return &u }
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateReadChannelDiscussionOutbox) GetChannelID() (value int) {
+	return u.ChannelID
+}
 
-// Ensuring interfaces in compile-time for UpdateReadChannelDiscussionOutbox.
-var (
-	_ bin.Encoder     = &UpdateReadChannelDiscussionOutbox{}
-	_ bin.Decoder     = &UpdateReadChannelDiscussionOutbox{}
-	_ bin.BareEncoder = &UpdateReadChannelDiscussionOutbox{}
-	_ bin.BareDecoder = &UpdateReadChannelDiscussionOutbox{}
+// GetTopMsgID returns value of TopMsgID field.
+func (u *UpdateReadChannelDiscussionOutbox) GetTopMsgID() (value int) {
+	return u.TopMsgID
+}
 
-	_ UpdateClass = &UpdateReadChannelDiscussionOutbox{}
-)
+// GetReadMaxID returns value of ReadMaxID field.
+func (u *UpdateReadChannelDiscussionOutbox) GetReadMaxID() (value int) {
+	return u.ReadMaxID
+}
 
 // UpdatePeerBlocked represents TL type `updatePeerBlocked#246a4b22`.
 // A peer was blocked
@@ -14800,6 +14800,19 @@ type UpdatePeerBlocked struct {
 
 // UpdatePeerBlockedTypeID is TL type id of UpdatePeerBlocked.
 const UpdatePeerBlockedTypeID = 0x246a4b22
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePeerBlocked) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePeerBlocked.
+var (
+	_ bin.Encoder     = &UpdatePeerBlocked{}
+	_ bin.Decoder     = &UpdatePeerBlocked{}
+	_ bin.BareEncoder = &UpdatePeerBlocked{}
+	_ bin.BareDecoder = &UpdatePeerBlocked{}
+
+	_ UpdateClass = &UpdatePeerBlocked{}
+)
 
 func (u *UpdatePeerBlocked) Zero() bool {
 	if u == nil {
@@ -14892,16 +14905,6 @@ func (u *UpdatePeerBlocked) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeerID returns value of PeerID field.
-func (u *UpdatePeerBlocked) GetPeerID() (value PeerClass) {
-	return u.PeerID
-}
-
-// GetBlocked returns value of Blocked field.
-func (u *UpdatePeerBlocked) GetBlocked() (value bool) {
-	return u.Blocked
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdatePeerBlocked) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -14935,18 +14938,15 @@ func (u *UpdatePeerBlocked) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdatePeerBlocked) construct() UpdateClass { return &u }
+// GetPeerID returns value of PeerID field.
+func (u *UpdatePeerBlocked) GetPeerID() (value PeerClass) {
+	return u.PeerID
+}
 
-// Ensuring interfaces in compile-time for UpdatePeerBlocked.
-var (
-	_ bin.Encoder     = &UpdatePeerBlocked{}
-	_ bin.Decoder     = &UpdatePeerBlocked{}
-	_ bin.BareEncoder = &UpdatePeerBlocked{}
-	_ bin.BareDecoder = &UpdatePeerBlocked{}
-
-	_ UpdateClass = &UpdatePeerBlocked{}
-)
+// GetBlocked returns value of Blocked field.
+func (u *UpdatePeerBlocked) GetBlocked() (value bool) {
+	return u.Blocked
+}
 
 // UpdateChannelUserTyping represents TL type `updateChannelUserTyping#6b171718`.
 // A user is typing in a supergroup, channel¹ or message thread²
@@ -14979,6 +14979,19 @@ type UpdateChannelUserTyping struct {
 
 // UpdateChannelUserTypingTypeID is TL type id of UpdateChannelUserTyping.
 const UpdateChannelUserTypingTypeID = 0x6b171718
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChannelUserTyping) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChannelUserTyping.
+var (
+	_ bin.Encoder     = &UpdateChannelUserTyping{}
+	_ bin.Decoder     = &UpdateChannelUserTyping{}
+	_ bin.BareEncoder = &UpdateChannelUserTyping{}
+	_ bin.BareDecoder = &UpdateChannelUserTyping{}
+
+	_ UpdateClass = &UpdateChannelUserTyping{}
+)
 
 func (u *UpdateChannelUserTyping) Zero() bool {
 	if u == nil {
@@ -15111,36 +15124,6 @@ func (u *UpdateChannelUserTyping) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateChannelUserTyping) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// SetTopMsgID sets value of TopMsgID conditional field.
-func (u *UpdateChannelUserTyping) SetTopMsgID(value int) {
-	u.Flags.Set(0)
-	u.TopMsgID = value
-}
-
-// GetTopMsgID returns value of TopMsgID conditional field and
-// boolean which is true if field was set.
-func (u *UpdateChannelUserTyping) GetTopMsgID() (value int, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.TopMsgID, true
-}
-
-// GetFromID returns value of FromID field.
-func (u *UpdateChannelUserTyping) GetFromID() (value PeerClass) {
-	return u.FromID
-}
-
-// GetAction returns value of Action field.
-func (u *UpdateChannelUserTyping) GetAction() (value SendMessageActionClass) {
-	return u.Action
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChannelUserTyping) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -15193,18 +15176,35 @@ func (u *UpdateChannelUserTyping) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChannelUserTyping) construct() UpdateClass { return &u }
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelUserTyping) GetChannelID() (value int) {
+	return u.ChannelID
+}
 
-// Ensuring interfaces in compile-time for UpdateChannelUserTyping.
-var (
-	_ bin.Encoder     = &UpdateChannelUserTyping{}
-	_ bin.Decoder     = &UpdateChannelUserTyping{}
-	_ bin.BareEncoder = &UpdateChannelUserTyping{}
-	_ bin.BareDecoder = &UpdateChannelUserTyping{}
+// SetTopMsgID sets value of TopMsgID conditional field.
+func (u *UpdateChannelUserTyping) SetTopMsgID(value int) {
+	u.Flags.Set(0)
+	u.TopMsgID = value
+}
 
-	_ UpdateClass = &UpdateChannelUserTyping{}
-)
+// GetTopMsgID returns value of TopMsgID conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChannelUserTyping) GetTopMsgID() (value int, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.TopMsgID, true
+}
+
+// GetFromID returns value of FromID field.
+func (u *UpdateChannelUserTyping) GetFromID() (value PeerClass) {
+	return u.FromID
+}
+
+// GetAction returns value of Action field.
+func (u *UpdateChannelUserTyping) GetAction() (value SendMessageActionClass) {
+	return u.Action
+}
 
 // UpdatePinnedMessages represents TL type `updatePinnedMessages#ed85eab5`.
 // Some messages were pinned in a chat
@@ -15236,6 +15236,19 @@ type UpdatePinnedMessages struct {
 
 // UpdatePinnedMessagesTypeID is TL type id of UpdatePinnedMessages.
 const UpdatePinnedMessagesTypeID = 0xed85eab5
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePinnedMessages) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePinnedMessages.
+var (
+	_ bin.Encoder     = &UpdatePinnedMessages{}
+	_ bin.Decoder     = &UpdatePinnedMessages{}
+	_ bin.BareEncoder = &UpdatePinnedMessages{}
+	_ bin.BareDecoder = &UpdatePinnedMessages{}
+
+	_ UpdateClass = &UpdatePinnedMessages{}
+)
 
 func (u *UpdatePinnedMessages) Zero() bool {
 	if u == nil {
@@ -15370,42 +15383,6 @@ func (u *UpdatePinnedMessages) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetPinned sets value of Pinned conditional field.
-func (u *UpdatePinnedMessages) SetPinned(value bool) {
-	if value {
-		u.Flags.Set(0)
-		u.Pinned = true
-	} else {
-		u.Flags.Unset(0)
-		u.Pinned = false
-	}
-}
-
-// GetPinned returns value of Pinned conditional field.
-func (u *UpdatePinnedMessages) GetPinned() (value bool) {
-	return u.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (u *UpdatePinnedMessages) GetPeer() (value PeerClass) {
-	return u.Peer
-}
-
-// GetMessages returns value of Messages field.
-func (u *UpdatePinnedMessages) GetMessages() (value []int) {
-	return u.Messages
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdatePinnedMessages) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdatePinnedMessages) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdatePinnedMessages) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -15469,18 +15446,41 @@ func (u *UpdatePinnedMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdatePinnedMessages) construct() UpdateClass { return &u }
+// SetPinned sets value of Pinned conditional field.
+func (u *UpdatePinnedMessages) SetPinned(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Pinned = true
+	} else {
+		u.Flags.Unset(0)
+		u.Pinned = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdatePinnedMessages.
-var (
-	_ bin.Encoder     = &UpdatePinnedMessages{}
-	_ bin.Decoder     = &UpdatePinnedMessages{}
-	_ bin.BareEncoder = &UpdatePinnedMessages{}
-	_ bin.BareDecoder = &UpdatePinnedMessages{}
+// GetPinned returns value of Pinned conditional field.
+func (u *UpdatePinnedMessages) GetPinned() (value bool) {
+	return u.Flags.Has(0)
+}
 
-	_ UpdateClass = &UpdatePinnedMessages{}
-)
+// GetPeer returns value of Peer field.
+func (u *UpdatePinnedMessages) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetMessages returns value of Messages field.
+func (u *UpdatePinnedMessages) GetMessages() (value []int) {
+	return u.Messages
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdatePinnedMessages) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdatePinnedMessages) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdatePinnedChannelMessages represents TL type `updatePinnedChannelMessages#8588878b`.
 // Messages were pinned/unpinned in a channel/supergroup¹
@@ -15515,6 +15515,19 @@ type UpdatePinnedChannelMessages struct {
 
 // UpdatePinnedChannelMessagesTypeID is TL type id of UpdatePinnedChannelMessages.
 const UpdatePinnedChannelMessagesTypeID = 0x8588878b
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePinnedChannelMessages) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePinnedChannelMessages.
+var (
+	_ bin.Encoder     = &UpdatePinnedChannelMessages{}
+	_ bin.Decoder     = &UpdatePinnedChannelMessages{}
+	_ bin.BareEncoder = &UpdatePinnedChannelMessages{}
+	_ bin.BareDecoder = &UpdatePinnedChannelMessages{}
+
+	_ UpdateClass = &UpdatePinnedChannelMessages{}
+)
 
 func (u *UpdatePinnedChannelMessages) Zero() bool {
 	if u == nil {
@@ -15644,42 +15657,6 @@ func (u *UpdatePinnedChannelMessages) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetPinned sets value of Pinned conditional field.
-func (u *UpdatePinnedChannelMessages) SetPinned(value bool) {
-	if value {
-		u.Flags.Set(0)
-		u.Pinned = true
-	} else {
-		u.Flags.Unset(0)
-		u.Pinned = false
-	}
-}
-
-// GetPinned returns value of Pinned conditional field.
-func (u *UpdatePinnedChannelMessages) GetPinned() (value bool) {
-	return u.Flags.Has(0)
-}
-
-// GetChannelID returns value of ChannelID field.
-func (u *UpdatePinnedChannelMessages) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// GetMessages returns value of Messages field.
-func (u *UpdatePinnedChannelMessages) GetMessages() (value []int) {
-	return u.Messages
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdatePinnedChannelMessages) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdatePinnedChannelMessages) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdatePinnedChannelMessages) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -15743,18 +15720,41 @@ func (u *UpdatePinnedChannelMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdatePinnedChannelMessages) construct() UpdateClass { return &u }
+// SetPinned sets value of Pinned conditional field.
+func (u *UpdatePinnedChannelMessages) SetPinned(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Pinned = true
+	} else {
+		u.Flags.Unset(0)
+		u.Pinned = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdatePinnedChannelMessages.
-var (
-	_ bin.Encoder     = &UpdatePinnedChannelMessages{}
-	_ bin.Decoder     = &UpdatePinnedChannelMessages{}
-	_ bin.BareEncoder = &UpdatePinnedChannelMessages{}
-	_ bin.BareDecoder = &UpdatePinnedChannelMessages{}
+// GetPinned returns value of Pinned conditional field.
+func (u *UpdatePinnedChannelMessages) GetPinned() (value bool) {
+	return u.Flags.Has(0)
+}
 
-	_ UpdateClass = &UpdatePinnedChannelMessages{}
-)
+// GetChannelID returns value of ChannelID field.
+func (u *UpdatePinnedChannelMessages) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetMessages returns value of Messages field.
+func (u *UpdatePinnedChannelMessages) GetMessages() (value []int) {
+	return u.Messages
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdatePinnedChannelMessages) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdatePinnedChannelMessages) GetPtsCount() (value int) {
+	return u.PtsCount
+}
 
 // UpdateChat represents TL type `updateChat#1330a196`.
 //
@@ -15766,6 +15766,19 @@ type UpdateChat struct {
 
 // UpdateChatTypeID is TL type id of UpdateChat.
 const UpdateChatTypeID = 0x1330a196
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChat) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChat.
+var (
+	_ bin.Encoder     = &UpdateChat{}
+	_ bin.Decoder     = &UpdateChat{}
+	_ bin.BareEncoder = &UpdateChat{}
+	_ bin.BareDecoder = &UpdateChat{}
+
+	_ UpdateClass = &UpdateChat{}
+)
 
 func (u *UpdateChat) Zero() bool {
 	if u == nil {
@@ -15843,11 +15856,6 @@ func (u *UpdateChat) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (u *UpdateChat) GetChatID() (value int) {
-	return u.ChatID
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChat) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -15874,18 +15882,10 @@ func (u *UpdateChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChat) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChat.
-var (
-	_ bin.Encoder     = &UpdateChat{}
-	_ bin.Decoder     = &UpdateChat{}
-	_ bin.BareEncoder = &UpdateChat{}
-	_ bin.BareDecoder = &UpdateChat{}
-
-	_ UpdateClass = &UpdateChat{}
-)
+// GetChatID returns value of ChatID field.
+func (u *UpdateChat) GetChatID() (value int) {
+	return u.ChatID
+}
 
 // UpdateGroupCallParticipants represents TL type `updateGroupCallParticipants#f2ebdb4e`.
 //
@@ -15901,6 +15901,19 @@ type UpdateGroupCallParticipants struct {
 
 // UpdateGroupCallParticipantsTypeID is TL type id of UpdateGroupCallParticipants.
 const UpdateGroupCallParticipantsTypeID = 0xf2ebdb4e
+
+// construct implements constructor of UpdateClass.
+func (u UpdateGroupCallParticipants) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateGroupCallParticipants.
+var (
+	_ bin.Encoder     = &UpdateGroupCallParticipants{}
+	_ bin.Decoder     = &UpdateGroupCallParticipants{}
+	_ bin.BareEncoder = &UpdateGroupCallParticipants{}
+	_ bin.BareDecoder = &UpdateGroupCallParticipants{}
+
+	_ UpdateClass = &UpdateGroupCallParticipants{}
+)
 
 func (u *UpdateGroupCallParticipants) Zero() bool {
 	if u == nil {
@@ -16005,21 +16018,6 @@ func (u *UpdateGroupCallParticipants) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (u *UpdateGroupCallParticipants) GetCall() (value InputGroupCall) {
-	return u.Call
-}
-
-// GetParticipants returns value of Participants field.
-func (u *UpdateGroupCallParticipants) GetParticipants() (value []GroupCallParticipant) {
-	return u.Participants
-}
-
-// GetVersion returns value of Version field.
-func (u *UpdateGroupCallParticipants) GetVersion() (value int) {
-	return u.Version
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateGroupCallParticipants) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -16068,18 +16066,20 @@ func (u *UpdateGroupCallParticipants) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateGroupCallParticipants) construct() UpdateClass { return &u }
+// GetCall returns value of Call field.
+func (u *UpdateGroupCallParticipants) GetCall() (value InputGroupCall) {
+	return u.Call
+}
 
-// Ensuring interfaces in compile-time for UpdateGroupCallParticipants.
-var (
-	_ bin.Encoder     = &UpdateGroupCallParticipants{}
-	_ bin.Decoder     = &UpdateGroupCallParticipants{}
-	_ bin.BareEncoder = &UpdateGroupCallParticipants{}
-	_ bin.BareDecoder = &UpdateGroupCallParticipants{}
+// GetParticipants returns value of Participants field.
+func (u *UpdateGroupCallParticipants) GetParticipants() (value []GroupCallParticipant) {
+	return u.Participants
+}
 
-	_ UpdateClass = &UpdateGroupCallParticipants{}
-)
+// GetVersion returns value of Version field.
+func (u *UpdateGroupCallParticipants) GetVersion() (value int) {
+	return u.Version
+}
 
 // UpdateGroupCall represents TL type `updateGroupCall#a45eb99b`.
 //
@@ -16093,6 +16093,19 @@ type UpdateGroupCall struct {
 
 // UpdateGroupCallTypeID is TL type id of UpdateGroupCall.
 const UpdateGroupCallTypeID = 0xa45eb99b
+
+// construct implements constructor of UpdateClass.
+func (u UpdateGroupCall) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateGroupCall.
+var (
+	_ bin.Encoder     = &UpdateGroupCall{}
+	_ bin.Decoder     = &UpdateGroupCall{}
+	_ bin.BareEncoder = &UpdateGroupCall{}
+	_ bin.BareDecoder = &UpdateGroupCall{}
+
+	_ UpdateClass = &UpdateGroupCall{}
+)
 
 func (u *UpdateGroupCall) Zero() bool {
 	if u == nil {
@@ -16185,16 +16198,6 @@ func (u *UpdateGroupCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (u *UpdateGroupCall) GetChatID() (value int) {
-	return u.ChatID
-}
-
-// GetCall returns value of Call field.
-func (u *UpdateGroupCall) GetCall() (value GroupCallClass) {
-	return u.Call
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateGroupCall) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -16228,18 +16231,15 @@ func (u *UpdateGroupCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateGroupCall) construct() UpdateClass { return &u }
+// GetChatID returns value of ChatID field.
+func (u *UpdateGroupCall) GetChatID() (value int) {
+	return u.ChatID
+}
 
-// Ensuring interfaces in compile-time for UpdateGroupCall.
-var (
-	_ bin.Encoder     = &UpdateGroupCall{}
-	_ bin.Decoder     = &UpdateGroupCall{}
-	_ bin.BareEncoder = &UpdateGroupCall{}
-	_ bin.BareDecoder = &UpdateGroupCall{}
-
-	_ UpdateClass = &UpdateGroupCall{}
-)
+// GetCall returns value of Call field.
+func (u *UpdateGroupCall) GetCall() (value GroupCallClass) {
+	return u.Call
+}
 
 // UpdatePeerHistoryTTL represents TL type `updatePeerHistoryTTL#bb9bb9a5`.
 //
@@ -16257,6 +16257,19 @@ type UpdatePeerHistoryTTL struct {
 
 // UpdatePeerHistoryTTLTypeID is TL type id of UpdatePeerHistoryTTL.
 const UpdatePeerHistoryTTLTypeID = 0xbb9bb9a5
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePeerHistoryTTL) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePeerHistoryTTL.
+var (
+	_ bin.Encoder     = &UpdatePeerHistoryTTL{}
+	_ bin.Decoder     = &UpdatePeerHistoryTTL{}
+	_ bin.BareEncoder = &UpdatePeerHistoryTTL{}
+	_ bin.BareDecoder = &UpdatePeerHistoryTTL{}
+
+	_ UpdateClass = &UpdatePeerHistoryTTL{}
+)
 
 func (u *UpdatePeerHistoryTTL) Zero() bool {
 	if u == nil {
@@ -16364,26 +16377,6 @@ func (u *UpdatePeerHistoryTTL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *UpdatePeerHistoryTTL) GetPeer() (value PeerClass) {
-	return u.Peer
-}
-
-// SetTTLPeriod sets value of TTLPeriod conditional field.
-func (u *UpdatePeerHistoryTTL) SetTTLPeriod(value int) {
-	u.Flags.Set(0)
-	u.TTLPeriod = value
-}
-
-// GetTTLPeriod returns value of TTLPeriod conditional field and
-// boolean which is true if field was set.
-func (u *UpdatePeerHistoryTTL) GetTTLPeriod() (value int, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.TTLPeriod, true
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdatePeerHistoryTTL) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -16422,18 +16415,25 @@ func (u *UpdatePeerHistoryTTL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdatePeerHistoryTTL) construct() UpdateClass { return &u }
+// GetPeer returns value of Peer field.
+func (u *UpdatePeerHistoryTTL) GetPeer() (value PeerClass) {
+	return u.Peer
+}
 
-// Ensuring interfaces in compile-time for UpdatePeerHistoryTTL.
-var (
-	_ bin.Encoder     = &UpdatePeerHistoryTTL{}
-	_ bin.Decoder     = &UpdatePeerHistoryTTL{}
-	_ bin.BareEncoder = &UpdatePeerHistoryTTL{}
-	_ bin.BareDecoder = &UpdatePeerHistoryTTL{}
+// SetTTLPeriod sets value of TTLPeriod conditional field.
+func (u *UpdatePeerHistoryTTL) SetTTLPeriod(value int) {
+	u.Flags.Set(0)
+	u.TTLPeriod = value
+}
 
-	_ UpdateClass = &UpdatePeerHistoryTTL{}
-)
+// GetTTLPeriod returns value of TTLPeriod conditional field and
+// boolean which is true if field was set.
+func (u *UpdatePeerHistoryTTL) GetTTLPeriod() (value int, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.TTLPeriod, true
+}
 
 // UpdateChatParticipant represents TL type `updateChatParticipant#f3b3781f`.
 //
@@ -16467,6 +16467,19 @@ type UpdateChatParticipant struct {
 
 // UpdateChatParticipantTypeID is TL type id of UpdateChatParticipant.
 const UpdateChatParticipantTypeID = 0xf3b3781f
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatParticipant) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatParticipant.
+var (
+	_ bin.Encoder     = &UpdateChatParticipant{}
+	_ bin.Decoder     = &UpdateChatParticipant{}
+	_ bin.BareEncoder = &UpdateChatParticipant{}
+	_ bin.BareDecoder = &UpdateChatParticipant{}
+
+	_ UpdateClass = &UpdateChatParticipant{}
+)
 
 func (u *UpdateChatParticipant) Zero() bool {
 	if u == nil {
@@ -16659,76 +16672,6 @@ func (u *UpdateChatParticipant) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatParticipant) GetChatID() (value int) {
-	return u.ChatID
-}
-
-// GetDate returns value of Date field.
-func (u *UpdateChatParticipant) GetDate() (value int) {
-	return u.Date
-}
-
-// GetActorID returns value of ActorID field.
-func (u *UpdateChatParticipant) GetActorID() (value int) {
-	return u.ActorID
-}
-
-// GetUserID returns value of UserID field.
-func (u *UpdateChatParticipant) GetUserID() (value int) {
-	return u.UserID
-}
-
-// SetPrevParticipant sets value of PrevParticipant conditional field.
-func (u *UpdateChatParticipant) SetPrevParticipant(value ChatParticipantClass) {
-	u.Flags.Set(0)
-	u.PrevParticipant = value
-}
-
-// GetPrevParticipant returns value of PrevParticipant conditional field and
-// boolean which is true if field was set.
-func (u *UpdateChatParticipant) GetPrevParticipant() (value ChatParticipantClass, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.PrevParticipant, true
-}
-
-// SetNewParticipant sets value of NewParticipant conditional field.
-func (u *UpdateChatParticipant) SetNewParticipant(value ChatParticipantClass) {
-	u.Flags.Set(1)
-	u.NewParticipant = value
-}
-
-// GetNewParticipant returns value of NewParticipant conditional field and
-// boolean which is true if field was set.
-func (u *UpdateChatParticipant) GetNewParticipant() (value ChatParticipantClass, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.NewParticipant, true
-}
-
-// SetInvite sets value of Invite conditional field.
-func (u *UpdateChatParticipant) SetInvite(value ChatInviteExported) {
-	u.Flags.Set(2)
-	u.Invite = value
-}
-
-// GetInvite returns value of Invite conditional field and
-// boolean which is true if field was set.
-func (u *UpdateChatParticipant) GetInvite() (value ChatInviteExported, ok bool) {
-	if !u.Flags.Has(2) {
-		return value, false
-	}
-	return u.Invite, true
-}
-
-// GetQts returns value of Qts field.
-func (u *UpdateChatParticipant) GetQts() (value int) {
-	return u.Qts
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChatParticipant) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -16807,18 +16750,75 @@ func (u *UpdateChatParticipant) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChatParticipant) construct() UpdateClass { return &u }
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatParticipant) GetChatID() (value int) {
+	return u.ChatID
+}
 
-// Ensuring interfaces in compile-time for UpdateChatParticipant.
-var (
-	_ bin.Encoder     = &UpdateChatParticipant{}
-	_ bin.Decoder     = &UpdateChatParticipant{}
-	_ bin.BareEncoder = &UpdateChatParticipant{}
-	_ bin.BareDecoder = &UpdateChatParticipant{}
+// GetDate returns value of Date field.
+func (u *UpdateChatParticipant) GetDate() (value int) {
+	return u.Date
+}
 
-	_ UpdateClass = &UpdateChatParticipant{}
-)
+// GetActorID returns value of ActorID field.
+func (u *UpdateChatParticipant) GetActorID() (value int) {
+	return u.ActorID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateChatParticipant) GetUserID() (value int) {
+	return u.UserID
+}
+
+// SetPrevParticipant sets value of PrevParticipant conditional field.
+func (u *UpdateChatParticipant) SetPrevParticipant(value ChatParticipantClass) {
+	u.Flags.Set(0)
+	u.PrevParticipant = value
+}
+
+// GetPrevParticipant returns value of PrevParticipant conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChatParticipant) GetPrevParticipant() (value ChatParticipantClass, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.PrevParticipant, true
+}
+
+// SetNewParticipant sets value of NewParticipant conditional field.
+func (u *UpdateChatParticipant) SetNewParticipant(value ChatParticipantClass) {
+	u.Flags.Set(1)
+	u.NewParticipant = value
+}
+
+// GetNewParticipant returns value of NewParticipant conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChatParticipant) GetNewParticipant() (value ChatParticipantClass, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.NewParticipant, true
+}
+
+// SetInvite sets value of Invite conditional field.
+func (u *UpdateChatParticipant) SetInvite(value ChatInviteExported) {
+	u.Flags.Set(2)
+	u.Invite = value
+}
+
+// GetInvite returns value of Invite conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChatParticipant) GetInvite() (value ChatInviteExported, ok bool) {
+	if !u.Flags.Has(2) {
+		return value, false
+	}
+	return u.Invite, true
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateChatParticipant) GetQts() (value int) {
+	return u.Qts
+}
 
 // UpdateChannelParticipant represents TL type `updateChannelParticipant#7fecb1ec`.
 // A participant has left, joined, was banned or admined in a channel or supergroup¹.
@@ -16862,6 +16862,19 @@ type UpdateChannelParticipant struct {
 
 // UpdateChannelParticipantTypeID is TL type id of UpdateChannelParticipant.
 const UpdateChannelParticipantTypeID = 0x7fecb1ec
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChannelParticipant) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChannelParticipant.
+var (
+	_ bin.Encoder     = &UpdateChannelParticipant{}
+	_ bin.Decoder     = &UpdateChannelParticipant{}
+	_ bin.BareEncoder = &UpdateChannelParticipant{}
+	_ bin.BareDecoder = &UpdateChannelParticipant{}
+
+	_ UpdateClass = &UpdateChannelParticipant{}
+)
 
 func (u *UpdateChannelParticipant) Zero() bool {
 	if u == nil {
@@ -17054,76 +17067,6 @@ func (u *UpdateChannelParticipant) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateChannelParticipant) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// GetDate returns value of Date field.
-func (u *UpdateChannelParticipant) GetDate() (value int) {
-	return u.Date
-}
-
-// GetActorID returns value of ActorID field.
-func (u *UpdateChannelParticipant) GetActorID() (value int) {
-	return u.ActorID
-}
-
-// GetUserID returns value of UserID field.
-func (u *UpdateChannelParticipant) GetUserID() (value int) {
-	return u.UserID
-}
-
-// SetPrevParticipant sets value of PrevParticipant conditional field.
-func (u *UpdateChannelParticipant) SetPrevParticipant(value ChannelParticipantClass) {
-	u.Flags.Set(0)
-	u.PrevParticipant = value
-}
-
-// GetPrevParticipant returns value of PrevParticipant conditional field and
-// boolean which is true if field was set.
-func (u *UpdateChannelParticipant) GetPrevParticipant() (value ChannelParticipantClass, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.PrevParticipant, true
-}
-
-// SetNewParticipant sets value of NewParticipant conditional field.
-func (u *UpdateChannelParticipant) SetNewParticipant(value ChannelParticipantClass) {
-	u.Flags.Set(1)
-	u.NewParticipant = value
-}
-
-// GetNewParticipant returns value of NewParticipant conditional field and
-// boolean which is true if field was set.
-func (u *UpdateChannelParticipant) GetNewParticipant() (value ChannelParticipantClass, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.NewParticipant, true
-}
-
-// SetInvite sets value of Invite conditional field.
-func (u *UpdateChannelParticipant) SetInvite(value ChatInviteExported) {
-	u.Flags.Set(2)
-	u.Invite = value
-}
-
-// GetInvite returns value of Invite conditional field and
-// boolean which is true if field was set.
-func (u *UpdateChannelParticipant) GetInvite() (value ChatInviteExported, ok bool) {
-	if !u.Flags.Has(2) {
-		return value, false
-	}
-	return u.Invite, true
-}
-
-// GetQts returns value of Qts field.
-func (u *UpdateChannelParticipant) GetQts() (value int) {
-	return u.Qts
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateChannelParticipant) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -17202,18 +17145,75 @@ func (u *UpdateChannelParticipant) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateChannelParticipant) construct() UpdateClass { return &u }
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelParticipant) GetChannelID() (value int) {
+	return u.ChannelID
+}
 
-// Ensuring interfaces in compile-time for UpdateChannelParticipant.
-var (
-	_ bin.Encoder     = &UpdateChannelParticipant{}
-	_ bin.Decoder     = &UpdateChannelParticipant{}
-	_ bin.BareEncoder = &UpdateChannelParticipant{}
-	_ bin.BareDecoder = &UpdateChannelParticipant{}
+// GetDate returns value of Date field.
+func (u *UpdateChannelParticipant) GetDate() (value int) {
+	return u.Date
+}
 
-	_ UpdateClass = &UpdateChannelParticipant{}
-)
+// GetActorID returns value of ActorID field.
+func (u *UpdateChannelParticipant) GetActorID() (value int) {
+	return u.ActorID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateChannelParticipant) GetUserID() (value int) {
+	return u.UserID
+}
+
+// SetPrevParticipant sets value of PrevParticipant conditional field.
+func (u *UpdateChannelParticipant) SetPrevParticipant(value ChannelParticipantClass) {
+	u.Flags.Set(0)
+	u.PrevParticipant = value
+}
+
+// GetPrevParticipant returns value of PrevParticipant conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChannelParticipant) GetPrevParticipant() (value ChannelParticipantClass, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.PrevParticipant, true
+}
+
+// SetNewParticipant sets value of NewParticipant conditional field.
+func (u *UpdateChannelParticipant) SetNewParticipant(value ChannelParticipantClass) {
+	u.Flags.Set(1)
+	u.NewParticipant = value
+}
+
+// GetNewParticipant returns value of NewParticipant conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChannelParticipant) GetNewParticipant() (value ChannelParticipantClass, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.NewParticipant, true
+}
+
+// SetInvite sets value of Invite conditional field.
+func (u *UpdateChannelParticipant) SetInvite(value ChatInviteExported) {
+	u.Flags.Set(2)
+	u.Invite = value
+}
+
+// GetInvite returns value of Invite conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChannelParticipant) GetInvite() (value ChatInviteExported, ok bool) {
+	if !u.Flags.Has(2) {
+		return value, false
+	}
+	return u.Invite, true
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateChannelParticipant) GetQts() (value int) {
+	return u.Qts
+}
 
 // UpdateBotStopped represents TL type `updateBotStopped#7f9488a`.
 //
@@ -17231,6 +17231,19 @@ type UpdateBotStopped struct {
 
 // UpdateBotStoppedTypeID is TL type id of UpdateBotStopped.
 const UpdateBotStoppedTypeID = 0x7f9488a
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotStopped) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotStopped.
+var (
+	_ bin.Encoder     = &UpdateBotStopped{}
+	_ bin.Decoder     = &UpdateBotStopped{}
+	_ bin.BareEncoder = &UpdateBotStopped{}
+	_ bin.BareDecoder = &UpdateBotStopped{}
+
+	_ UpdateClass = &UpdateBotStopped{}
+)
 
 func (u *UpdateBotStopped) Zero() bool {
 	if u == nil {
@@ -17338,26 +17351,6 @@ func (u *UpdateBotStopped) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (u *UpdateBotStopped) GetUserID() (value int) {
-	return u.UserID
-}
-
-// GetDate returns value of Date field.
-func (u *UpdateBotStopped) GetDate() (value int) {
-	return u.Date
-}
-
-// GetStopped returns value of Stopped field.
-func (u *UpdateBotStopped) GetStopped() (value bool) {
-	return u.Stopped
-}
-
-// GetQts returns value of Qts field.
-func (u *UpdateBotStopped) GetQts() (value int) {
-	return u.Qts
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateBotStopped) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -17405,18 +17398,25 @@ func (u *UpdateBotStopped) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateBotStopped) construct() UpdateClass { return &u }
+// GetUserID returns value of UserID field.
+func (u *UpdateBotStopped) GetUserID() (value int) {
+	return u.UserID
+}
 
-// Ensuring interfaces in compile-time for UpdateBotStopped.
-var (
-	_ bin.Encoder     = &UpdateBotStopped{}
-	_ bin.Decoder     = &UpdateBotStopped{}
-	_ bin.BareEncoder = &UpdateBotStopped{}
-	_ bin.BareDecoder = &UpdateBotStopped{}
+// GetDate returns value of Date field.
+func (u *UpdateBotStopped) GetDate() (value int) {
+	return u.Date
+}
 
-	_ UpdateClass = &UpdateBotStopped{}
-)
+// GetStopped returns value of Stopped field.
+func (u *UpdateBotStopped) GetStopped() (value bool) {
+	return u.Stopped
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateBotStopped) GetQts() (value int) {
+	return u.Qts
+}
 
 // UpdateGroupCallConnection represents TL type `updateGroupCallConnection#b783982`.
 //
@@ -17432,6 +17432,19 @@ type UpdateGroupCallConnection struct {
 
 // UpdateGroupCallConnectionTypeID is TL type id of UpdateGroupCallConnection.
 const UpdateGroupCallConnectionTypeID = 0xb783982
+
+// construct implements constructor of UpdateClass.
+func (u UpdateGroupCallConnection) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateGroupCallConnection.
+var (
+	_ bin.Encoder     = &UpdateGroupCallConnection{}
+	_ bin.Decoder     = &UpdateGroupCallConnection{}
+	_ bin.BareEncoder = &UpdateGroupCallConnection{}
+	_ bin.BareDecoder = &UpdateGroupCallConnection{}
+
+	_ UpdateClass = &UpdateGroupCallConnection{}
+)
 
 func (u *UpdateGroupCallConnection) Zero() bool {
 	if u == nil {
@@ -17530,27 +17543,6 @@ func (u *UpdateGroupCallConnection) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetPresentation sets value of Presentation conditional field.
-func (u *UpdateGroupCallConnection) SetPresentation(value bool) {
-	if value {
-		u.Flags.Set(0)
-		u.Presentation = true
-	} else {
-		u.Flags.Unset(0)
-		u.Presentation = false
-	}
-}
-
-// GetPresentation returns value of Presentation conditional field.
-func (u *UpdateGroupCallConnection) GetPresentation() (value bool) {
-	return u.Flags.Has(0)
-}
-
-// GetParams returns value of Params field.
-func (u *UpdateGroupCallConnection) GetParams() (value DataJSON) {
-	return u.Params
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateGroupCallConnection) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -17581,18 +17573,26 @@ func (u *UpdateGroupCallConnection) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateGroupCallConnection) construct() UpdateClass { return &u }
+// SetPresentation sets value of Presentation conditional field.
+func (u *UpdateGroupCallConnection) SetPresentation(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Presentation = true
+	} else {
+		u.Flags.Unset(0)
+		u.Presentation = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdateGroupCallConnection.
-var (
-	_ bin.Encoder     = &UpdateGroupCallConnection{}
-	_ bin.Decoder     = &UpdateGroupCallConnection{}
-	_ bin.BareEncoder = &UpdateGroupCallConnection{}
-	_ bin.BareDecoder = &UpdateGroupCallConnection{}
+// GetPresentation returns value of Presentation conditional field.
+func (u *UpdateGroupCallConnection) GetPresentation() (value bool) {
+	return u.Flags.Has(0)
+}
 
-	_ UpdateClass = &UpdateGroupCallConnection{}
-)
+// GetParams returns value of Params field.
+func (u *UpdateGroupCallConnection) GetParams() (value DataJSON) {
+	return u.Params
+}
 
 // UpdateBotCommands represents TL type `updateBotCommands#cf7e0873`.
 //
@@ -17608,6 +17608,19 @@ type UpdateBotCommands struct {
 
 // UpdateBotCommandsTypeID is TL type id of UpdateBotCommands.
 const UpdateBotCommandsTypeID = 0xcf7e0873
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotCommands) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotCommands.
+var (
+	_ bin.Encoder     = &UpdateBotCommands{}
+	_ bin.Decoder     = &UpdateBotCommands{}
+	_ bin.BareEncoder = &UpdateBotCommands{}
+	_ bin.BareDecoder = &UpdateBotCommands{}
+
+	_ UpdateClass = &UpdateBotCommands{}
+)
 
 func (u *UpdateBotCommands) Zero() bool {
 	if u == nil {
@@ -17715,21 +17728,6 @@ func (u *UpdateBotCommands) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (u *UpdateBotCommands) GetPeer() (value PeerClass) {
-	return u.Peer
-}
-
-// GetBotID returns value of BotID field.
-func (u *UpdateBotCommands) GetBotID() (value int) {
-	return u.BotID
-}
-
-// GetCommands returns value of Commands field.
-func (u *UpdateBotCommands) GetCommands() (value []BotCommand) {
-	return u.Commands
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateBotCommands) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -17780,18 +17778,20 @@ func (u *UpdateBotCommands) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdateClass.
-func (u UpdateBotCommands) construct() UpdateClass { return &u }
+// GetPeer returns value of Peer field.
+func (u *UpdateBotCommands) GetPeer() (value PeerClass) {
+	return u.Peer
+}
 
-// Ensuring interfaces in compile-time for UpdateBotCommands.
-var (
-	_ bin.Encoder     = &UpdateBotCommands{}
-	_ bin.Decoder     = &UpdateBotCommands{}
-	_ bin.BareEncoder = &UpdateBotCommands{}
-	_ bin.BareDecoder = &UpdateBotCommands{}
+// GetBotID returns value of BotID field.
+func (u *UpdateBotCommands) GetBotID() (value int) {
+	return u.BotID
+}
 
-	_ UpdateClass = &UpdateBotCommands{}
-)
+// GetCommands returns value of Commands field.
+func (u *UpdateBotCommands) GetCommands() (value []BotCommand) {
+	return u.Commands
+}
 
 // UpdateClass represents Update generic type.
 //
@@ -18604,8181 +18604,4 @@ func (b *UpdateBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UpdateClass as nil")
 	}
 	return b.Update.Encode(buf)
-}
-
-// UpdateClassArray is adapter for slice of UpdateClass.
-type UpdateClassArray []UpdateClass
-
-// Sort sorts slice of UpdateClass.
-func (s UpdateClassArray) Sort(less func(a, b UpdateClass) bool) UpdateClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateClass.
-func (s UpdateClassArray) SortStable(less func(a, b UpdateClass) bool) UpdateClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateClass.
-func (s UpdateClassArray) Retain(keep func(x UpdateClass) bool) UpdateClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateClassArray) First() (v UpdateClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateClassArray) Last() (v UpdateClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateClassArray) PopFirst() (v UpdateClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateClassArray) Pop() (v UpdateClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsUpdateNewMessage returns copy with only UpdateNewMessage constructors.
-func (s UpdateClassArray) AsUpdateNewMessage() (to UpdateNewMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateNewMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateMessageID returns copy with only UpdateMessageID constructors.
-func (s UpdateClassArray) AsUpdateMessageID() (to UpdateMessageIDArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateMessageID)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateDeleteMessages returns copy with only UpdateDeleteMessages constructors.
-func (s UpdateClassArray) AsUpdateDeleteMessages() (to UpdateDeleteMessagesArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateDeleteMessages)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateUserTyping returns copy with only UpdateUserTyping constructors.
-func (s UpdateClassArray) AsUpdateUserTyping() (to UpdateUserTypingArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateUserTyping)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChatUserTyping returns copy with only UpdateChatUserTyping constructors.
-func (s UpdateClassArray) AsUpdateChatUserTyping() (to UpdateChatUserTypingArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChatUserTyping)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChatParticipants returns copy with only UpdateChatParticipants constructors.
-func (s UpdateClassArray) AsUpdateChatParticipants() (to UpdateChatParticipantsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChatParticipants)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateUserStatus returns copy with only UpdateUserStatus constructors.
-func (s UpdateClassArray) AsUpdateUserStatus() (to UpdateUserStatusArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateUserStatus)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateUserName returns copy with only UpdateUserName constructors.
-func (s UpdateClassArray) AsUpdateUserName() (to UpdateUserNameArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateUserName)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateUserPhoto returns copy with only UpdateUserPhoto constructors.
-func (s UpdateClassArray) AsUpdateUserPhoto() (to UpdateUserPhotoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateUserPhoto)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateNewEncryptedMessage returns copy with only UpdateNewEncryptedMessage constructors.
-func (s UpdateClassArray) AsUpdateNewEncryptedMessage() (to UpdateNewEncryptedMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateNewEncryptedMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateEncryptedChatTyping returns copy with only UpdateEncryptedChatTyping constructors.
-func (s UpdateClassArray) AsUpdateEncryptedChatTyping() (to UpdateEncryptedChatTypingArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateEncryptedChatTyping)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateEncryption returns copy with only UpdateEncryption constructors.
-func (s UpdateClassArray) AsUpdateEncryption() (to UpdateEncryptionArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateEncryption)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateEncryptedMessagesRead returns copy with only UpdateEncryptedMessagesRead constructors.
-func (s UpdateClassArray) AsUpdateEncryptedMessagesRead() (to UpdateEncryptedMessagesReadArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateEncryptedMessagesRead)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChatParticipantAdd returns copy with only UpdateChatParticipantAdd constructors.
-func (s UpdateClassArray) AsUpdateChatParticipantAdd() (to UpdateChatParticipantAddArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChatParticipantAdd)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChatParticipantDelete returns copy with only UpdateChatParticipantDelete constructors.
-func (s UpdateClassArray) AsUpdateChatParticipantDelete() (to UpdateChatParticipantDeleteArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChatParticipantDelete)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateDCOptions returns copy with only UpdateDCOptions constructors.
-func (s UpdateClassArray) AsUpdateDCOptions() (to UpdateDCOptionsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateDCOptions)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateNotifySettings returns copy with only UpdateNotifySettings constructors.
-func (s UpdateClassArray) AsUpdateNotifySettings() (to UpdateNotifySettingsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateNotifySettings)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateServiceNotification returns copy with only UpdateServiceNotification constructors.
-func (s UpdateClassArray) AsUpdateServiceNotification() (to UpdateServiceNotificationArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateServiceNotification)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdatePrivacy returns copy with only UpdatePrivacy constructors.
-func (s UpdateClassArray) AsUpdatePrivacy() (to UpdatePrivacyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatePrivacy)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateUserPhone returns copy with only UpdateUserPhone constructors.
-func (s UpdateClassArray) AsUpdateUserPhone() (to UpdateUserPhoneArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateUserPhone)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateReadHistoryInbox returns copy with only UpdateReadHistoryInbox constructors.
-func (s UpdateClassArray) AsUpdateReadHistoryInbox() (to UpdateReadHistoryInboxArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateReadHistoryInbox)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateReadHistoryOutbox returns copy with only UpdateReadHistoryOutbox constructors.
-func (s UpdateClassArray) AsUpdateReadHistoryOutbox() (to UpdateReadHistoryOutboxArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateReadHistoryOutbox)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateWebPage returns copy with only UpdateWebPage constructors.
-func (s UpdateClassArray) AsUpdateWebPage() (to UpdateWebPageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateWebPage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateReadMessagesContents returns copy with only UpdateReadMessagesContents constructors.
-func (s UpdateClassArray) AsUpdateReadMessagesContents() (to UpdateReadMessagesContentsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateReadMessagesContents)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChannelTooLong returns copy with only UpdateChannelTooLong constructors.
-func (s UpdateClassArray) AsUpdateChannelTooLong() (to UpdateChannelTooLongArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChannelTooLong)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChannel returns copy with only UpdateChannel constructors.
-func (s UpdateClassArray) AsUpdateChannel() (to UpdateChannelArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChannel)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateNewChannelMessage returns copy with only UpdateNewChannelMessage constructors.
-func (s UpdateClassArray) AsUpdateNewChannelMessage() (to UpdateNewChannelMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateNewChannelMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateReadChannelInbox returns copy with only UpdateReadChannelInbox constructors.
-func (s UpdateClassArray) AsUpdateReadChannelInbox() (to UpdateReadChannelInboxArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateReadChannelInbox)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateDeleteChannelMessages returns copy with only UpdateDeleteChannelMessages constructors.
-func (s UpdateClassArray) AsUpdateDeleteChannelMessages() (to UpdateDeleteChannelMessagesArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateDeleteChannelMessages)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChannelMessageViews returns copy with only UpdateChannelMessageViews constructors.
-func (s UpdateClassArray) AsUpdateChannelMessageViews() (to UpdateChannelMessageViewsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChannelMessageViews)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChatParticipantAdmin returns copy with only UpdateChatParticipantAdmin constructors.
-func (s UpdateClassArray) AsUpdateChatParticipantAdmin() (to UpdateChatParticipantAdminArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChatParticipantAdmin)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateNewStickerSet returns copy with only UpdateNewStickerSet constructors.
-func (s UpdateClassArray) AsUpdateNewStickerSet() (to UpdateNewStickerSetArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateNewStickerSet)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateStickerSetsOrder returns copy with only UpdateStickerSetsOrder constructors.
-func (s UpdateClassArray) AsUpdateStickerSetsOrder() (to UpdateStickerSetsOrderArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateStickerSetsOrder)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateBotInlineQuery returns copy with only UpdateBotInlineQuery constructors.
-func (s UpdateClassArray) AsUpdateBotInlineQuery() (to UpdateBotInlineQueryArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateBotInlineQuery)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateBotInlineSend returns copy with only UpdateBotInlineSend constructors.
-func (s UpdateClassArray) AsUpdateBotInlineSend() (to UpdateBotInlineSendArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateBotInlineSend)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateEditChannelMessage returns copy with only UpdateEditChannelMessage constructors.
-func (s UpdateClassArray) AsUpdateEditChannelMessage() (to UpdateEditChannelMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateEditChannelMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateBotCallbackQuery returns copy with only UpdateBotCallbackQuery constructors.
-func (s UpdateClassArray) AsUpdateBotCallbackQuery() (to UpdateBotCallbackQueryArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateBotCallbackQuery)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateEditMessage returns copy with only UpdateEditMessage constructors.
-func (s UpdateClassArray) AsUpdateEditMessage() (to UpdateEditMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateEditMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateInlineBotCallbackQuery returns copy with only UpdateInlineBotCallbackQuery constructors.
-func (s UpdateClassArray) AsUpdateInlineBotCallbackQuery() (to UpdateInlineBotCallbackQueryArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateInlineBotCallbackQuery)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateReadChannelOutbox returns copy with only UpdateReadChannelOutbox constructors.
-func (s UpdateClassArray) AsUpdateReadChannelOutbox() (to UpdateReadChannelOutboxArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateReadChannelOutbox)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateDraftMessage returns copy with only UpdateDraftMessage constructors.
-func (s UpdateClassArray) AsUpdateDraftMessage() (to UpdateDraftMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateDraftMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChannelWebPage returns copy with only UpdateChannelWebPage constructors.
-func (s UpdateClassArray) AsUpdateChannelWebPage() (to UpdateChannelWebPageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChannelWebPage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateDialogPinned returns copy with only UpdateDialogPinned constructors.
-func (s UpdateClassArray) AsUpdateDialogPinned() (to UpdateDialogPinnedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateDialogPinned)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdatePinnedDialogs returns copy with only UpdatePinnedDialogs constructors.
-func (s UpdateClassArray) AsUpdatePinnedDialogs() (to UpdatePinnedDialogsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatePinnedDialogs)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateBotWebhookJSON returns copy with only UpdateBotWebhookJSON constructors.
-func (s UpdateClassArray) AsUpdateBotWebhookJSON() (to UpdateBotWebhookJSONArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateBotWebhookJSON)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateBotWebhookJSONQuery returns copy with only UpdateBotWebhookJSONQuery constructors.
-func (s UpdateClassArray) AsUpdateBotWebhookJSONQuery() (to UpdateBotWebhookJSONQueryArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateBotWebhookJSONQuery)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateBotShippingQuery returns copy with only UpdateBotShippingQuery constructors.
-func (s UpdateClassArray) AsUpdateBotShippingQuery() (to UpdateBotShippingQueryArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateBotShippingQuery)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateBotPrecheckoutQuery returns copy with only UpdateBotPrecheckoutQuery constructors.
-func (s UpdateClassArray) AsUpdateBotPrecheckoutQuery() (to UpdateBotPrecheckoutQueryArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateBotPrecheckoutQuery)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdatePhoneCall returns copy with only UpdatePhoneCall constructors.
-func (s UpdateClassArray) AsUpdatePhoneCall() (to UpdatePhoneCallArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatePhoneCall)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateLangPackTooLong returns copy with only UpdateLangPackTooLong constructors.
-func (s UpdateClassArray) AsUpdateLangPackTooLong() (to UpdateLangPackTooLongArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateLangPackTooLong)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateLangPack returns copy with only UpdateLangPack constructors.
-func (s UpdateClassArray) AsUpdateLangPack() (to UpdateLangPackArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateLangPack)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChannelReadMessagesContents returns copy with only UpdateChannelReadMessagesContents constructors.
-func (s UpdateClassArray) AsUpdateChannelReadMessagesContents() (to UpdateChannelReadMessagesContentsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChannelReadMessagesContents)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChannelAvailableMessages returns copy with only UpdateChannelAvailableMessages constructors.
-func (s UpdateClassArray) AsUpdateChannelAvailableMessages() (to UpdateChannelAvailableMessagesArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChannelAvailableMessages)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateDialogUnreadMark returns copy with only UpdateDialogUnreadMark constructors.
-func (s UpdateClassArray) AsUpdateDialogUnreadMark() (to UpdateDialogUnreadMarkArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateDialogUnreadMark)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateMessagePoll returns copy with only UpdateMessagePoll constructors.
-func (s UpdateClassArray) AsUpdateMessagePoll() (to UpdateMessagePollArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateMessagePoll)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChatDefaultBannedRights returns copy with only UpdateChatDefaultBannedRights constructors.
-func (s UpdateClassArray) AsUpdateChatDefaultBannedRights() (to UpdateChatDefaultBannedRightsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChatDefaultBannedRights)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateFolderPeers returns copy with only UpdateFolderPeers constructors.
-func (s UpdateClassArray) AsUpdateFolderPeers() (to UpdateFolderPeersArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateFolderPeers)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdatePeerSettings returns copy with only UpdatePeerSettings constructors.
-func (s UpdateClassArray) AsUpdatePeerSettings() (to UpdatePeerSettingsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatePeerSettings)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdatePeerLocated returns copy with only UpdatePeerLocated constructors.
-func (s UpdateClassArray) AsUpdatePeerLocated() (to UpdatePeerLocatedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatePeerLocated)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateNewScheduledMessage returns copy with only UpdateNewScheduledMessage constructors.
-func (s UpdateClassArray) AsUpdateNewScheduledMessage() (to UpdateNewScheduledMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateNewScheduledMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateDeleteScheduledMessages returns copy with only UpdateDeleteScheduledMessages constructors.
-func (s UpdateClassArray) AsUpdateDeleteScheduledMessages() (to UpdateDeleteScheduledMessagesArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateDeleteScheduledMessages)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateTheme returns copy with only UpdateTheme constructors.
-func (s UpdateClassArray) AsUpdateTheme() (to UpdateThemeArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateTheme)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateGeoLiveViewed returns copy with only UpdateGeoLiveViewed constructors.
-func (s UpdateClassArray) AsUpdateGeoLiveViewed() (to UpdateGeoLiveViewedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateGeoLiveViewed)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateMessagePollVote returns copy with only UpdateMessagePollVote constructors.
-func (s UpdateClassArray) AsUpdateMessagePollVote() (to UpdateMessagePollVoteArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateMessagePollVote)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateDialogFilter returns copy with only UpdateDialogFilter constructors.
-func (s UpdateClassArray) AsUpdateDialogFilter() (to UpdateDialogFilterArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateDialogFilter)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateDialogFilterOrder returns copy with only UpdateDialogFilterOrder constructors.
-func (s UpdateClassArray) AsUpdateDialogFilterOrder() (to UpdateDialogFilterOrderArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateDialogFilterOrder)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdatePhoneCallSignalingData returns copy with only UpdatePhoneCallSignalingData constructors.
-func (s UpdateClassArray) AsUpdatePhoneCallSignalingData() (to UpdatePhoneCallSignalingDataArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatePhoneCallSignalingData)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChannelMessageForwards returns copy with only UpdateChannelMessageForwards constructors.
-func (s UpdateClassArray) AsUpdateChannelMessageForwards() (to UpdateChannelMessageForwardsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChannelMessageForwards)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateReadChannelDiscussionInbox returns copy with only UpdateReadChannelDiscussionInbox constructors.
-func (s UpdateClassArray) AsUpdateReadChannelDiscussionInbox() (to UpdateReadChannelDiscussionInboxArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateReadChannelDiscussionInbox)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateReadChannelDiscussionOutbox returns copy with only UpdateReadChannelDiscussionOutbox constructors.
-func (s UpdateClassArray) AsUpdateReadChannelDiscussionOutbox() (to UpdateReadChannelDiscussionOutboxArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateReadChannelDiscussionOutbox)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdatePeerBlocked returns copy with only UpdatePeerBlocked constructors.
-func (s UpdateClassArray) AsUpdatePeerBlocked() (to UpdatePeerBlockedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatePeerBlocked)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChannelUserTyping returns copy with only UpdateChannelUserTyping constructors.
-func (s UpdateClassArray) AsUpdateChannelUserTyping() (to UpdateChannelUserTypingArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChannelUserTyping)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdatePinnedMessages returns copy with only UpdatePinnedMessages constructors.
-func (s UpdateClassArray) AsUpdatePinnedMessages() (to UpdatePinnedMessagesArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatePinnedMessages)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdatePinnedChannelMessages returns copy with only UpdatePinnedChannelMessages constructors.
-func (s UpdateClassArray) AsUpdatePinnedChannelMessages() (to UpdatePinnedChannelMessagesArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatePinnedChannelMessages)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChat returns copy with only UpdateChat constructors.
-func (s UpdateClassArray) AsUpdateChat() (to UpdateChatArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChat)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateGroupCallParticipants returns copy with only UpdateGroupCallParticipants constructors.
-func (s UpdateClassArray) AsUpdateGroupCallParticipants() (to UpdateGroupCallParticipantsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateGroupCallParticipants)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateGroupCall returns copy with only UpdateGroupCall constructors.
-func (s UpdateClassArray) AsUpdateGroupCall() (to UpdateGroupCallArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateGroupCall)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdatePeerHistoryTTL returns copy with only UpdatePeerHistoryTTL constructors.
-func (s UpdateClassArray) AsUpdatePeerHistoryTTL() (to UpdatePeerHistoryTTLArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatePeerHistoryTTL)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChatParticipant returns copy with only UpdateChatParticipant constructors.
-func (s UpdateClassArray) AsUpdateChatParticipant() (to UpdateChatParticipantArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChatParticipant)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateChannelParticipant returns copy with only UpdateChannelParticipant constructors.
-func (s UpdateClassArray) AsUpdateChannelParticipant() (to UpdateChannelParticipantArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateChannelParticipant)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateBotStopped returns copy with only UpdateBotStopped constructors.
-func (s UpdateClassArray) AsUpdateBotStopped() (to UpdateBotStoppedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateBotStopped)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateGroupCallConnection returns copy with only UpdateGroupCallConnection constructors.
-func (s UpdateClassArray) AsUpdateGroupCallConnection() (to UpdateGroupCallConnectionArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateGroupCallConnection)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateBotCommands returns copy with only UpdateBotCommands constructors.
-func (s UpdateClassArray) AsUpdateBotCommands() (to UpdateBotCommandsArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateBotCommands)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
-type UpdateNewMessageArray []UpdateNewMessage
-
-// Sort sorts slice of UpdateNewMessage.
-func (s UpdateNewMessageArray) Sort(less func(a, b UpdateNewMessage) bool) UpdateNewMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateNewMessage.
-func (s UpdateNewMessageArray) SortStable(less func(a, b UpdateNewMessage) bool) UpdateNewMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateNewMessage.
-func (s UpdateNewMessageArray) Retain(keep func(x UpdateNewMessage) bool) UpdateNewMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateNewMessageArray) First() (v UpdateNewMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateNewMessageArray) Last() (v UpdateNewMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateNewMessageArray) PopFirst() (v UpdateNewMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateNewMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateNewMessageArray) Pop() (v UpdateNewMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateMessageIDArray is adapter for slice of UpdateMessageID.
-type UpdateMessageIDArray []UpdateMessageID
-
-// Sort sorts slice of UpdateMessageID.
-func (s UpdateMessageIDArray) Sort(less func(a, b UpdateMessageID) bool) UpdateMessageIDArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateMessageID.
-func (s UpdateMessageIDArray) SortStable(less func(a, b UpdateMessageID) bool) UpdateMessageIDArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateMessageID.
-func (s UpdateMessageIDArray) Retain(keep func(x UpdateMessageID) bool) UpdateMessageIDArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateMessageIDArray) First() (v UpdateMessageID, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateMessageIDArray) Last() (v UpdateMessageID, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateMessageIDArray) PopFirst() (v UpdateMessageID, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateMessageID
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateMessageIDArray) Pop() (v UpdateMessageID, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of UpdateMessageID by ID.
-func (s UpdateMessageIDArray) SortByID() UpdateMessageIDArray {
-	return s.Sort(func(a, b UpdateMessageID) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of UpdateMessageID by ID.
-func (s UpdateMessageIDArray) SortStableByID() UpdateMessageIDArray {
-	return s.SortStable(func(a, b UpdateMessageID) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s UpdateMessageIDArray) FillMap(to map[int]UpdateMessageID) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s UpdateMessageIDArray) ToMap() map[int]UpdateMessageID {
-	r := make(map[int]UpdateMessageID, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// UpdateDeleteMessagesArray is adapter for slice of UpdateDeleteMessages.
-type UpdateDeleteMessagesArray []UpdateDeleteMessages
-
-// Sort sorts slice of UpdateDeleteMessages.
-func (s UpdateDeleteMessagesArray) Sort(less func(a, b UpdateDeleteMessages) bool) UpdateDeleteMessagesArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateDeleteMessages.
-func (s UpdateDeleteMessagesArray) SortStable(less func(a, b UpdateDeleteMessages) bool) UpdateDeleteMessagesArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateDeleteMessages.
-func (s UpdateDeleteMessagesArray) Retain(keep func(x UpdateDeleteMessages) bool) UpdateDeleteMessagesArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateDeleteMessagesArray) First() (v UpdateDeleteMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateDeleteMessagesArray) Last() (v UpdateDeleteMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateDeleteMessagesArray) PopFirst() (v UpdateDeleteMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateDeleteMessages
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateDeleteMessagesArray) Pop() (v UpdateDeleteMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateUserTypingArray is adapter for slice of UpdateUserTyping.
-type UpdateUserTypingArray []UpdateUserTyping
-
-// Sort sorts slice of UpdateUserTyping.
-func (s UpdateUserTypingArray) Sort(less func(a, b UpdateUserTyping) bool) UpdateUserTypingArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateUserTyping.
-func (s UpdateUserTypingArray) SortStable(less func(a, b UpdateUserTyping) bool) UpdateUserTypingArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateUserTyping.
-func (s UpdateUserTypingArray) Retain(keep func(x UpdateUserTyping) bool) UpdateUserTypingArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateUserTypingArray) First() (v UpdateUserTyping, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateUserTypingArray) Last() (v UpdateUserTyping, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateUserTypingArray) PopFirst() (v UpdateUserTyping, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateUserTyping
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateUserTypingArray) Pop() (v UpdateUserTyping, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateChatUserTypingArray is adapter for slice of UpdateChatUserTyping.
-type UpdateChatUserTypingArray []UpdateChatUserTyping
-
-// Sort sorts slice of UpdateChatUserTyping.
-func (s UpdateChatUserTypingArray) Sort(less func(a, b UpdateChatUserTyping) bool) UpdateChatUserTypingArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChatUserTyping.
-func (s UpdateChatUserTypingArray) SortStable(less func(a, b UpdateChatUserTyping) bool) UpdateChatUserTypingArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChatUserTyping.
-func (s UpdateChatUserTypingArray) Retain(keep func(x UpdateChatUserTyping) bool) UpdateChatUserTypingArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChatUserTypingArray) First() (v UpdateChatUserTyping, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChatUserTypingArray) Last() (v UpdateChatUserTyping, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChatUserTypingArray) PopFirst() (v UpdateChatUserTyping, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChatUserTyping
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChatUserTypingArray) Pop() (v UpdateChatUserTyping, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateChatParticipantsArray is adapter for slice of UpdateChatParticipants.
-type UpdateChatParticipantsArray []UpdateChatParticipants
-
-// Sort sorts slice of UpdateChatParticipants.
-func (s UpdateChatParticipantsArray) Sort(less func(a, b UpdateChatParticipants) bool) UpdateChatParticipantsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChatParticipants.
-func (s UpdateChatParticipantsArray) SortStable(less func(a, b UpdateChatParticipants) bool) UpdateChatParticipantsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChatParticipants.
-func (s UpdateChatParticipantsArray) Retain(keep func(x UpdateChatParticipants) bool) UpdateChatParticipantsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChatParticipantsArray) First() (v UpdateChatParticipants, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChatParticipantsArray) Last() (v UpdateChatParticipants, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChatParticipantsArray) PopFirst() (v UpdateChatParticipants, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChatParticipants
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChatParticipantsArray) Pop() (v UpdateChatParticipants, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateUserStatusArray is adapter for slice of UpdateUserStatus.
-type UpdateUserStatusArray []UpdateUserStatus
-
-// Sort sorts slice of UpdateUserStatus.
-func (s UpdateUserStatusArray) Sort(less func(a, b UpdateUserStatus) bool) UpdateUserStatusArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateUserStatus.
-func (s UpdateUserStatusArray) SortStable(less func(a, b UpdateUserStatus) bool) UpdateUserStatusArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateUserStatus.
-func (s UpdateUserStatusArray) Retain(keep func(x UpdateUserStatus) bool) UpdateUserStatusArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateUserStatusArray) First() (v UpdateUserStatus, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateUserStatusArray) Last() (v UpdateUserStatus, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateUserStatusArray) PopFirst() (v UpdateUserStatus, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateUserStatus
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateUserStatusArray) Pop() (v UpdateUserStatus, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateUserNameArray is adapter for slice of UpdateUserName.
-type UpdateUserNameArray []UpdateUserName
-
-// Sort sorts slice of UpdateUserName.
-func (s UpdateUserNameArray) Sort(less func(a, b UpdateUserName) bool) UpdateUserNameArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateUserName.
-func (s UpdateUserNameArray) SortStable(less func(a, b UpdateUserName) bool) UpdateUserNameArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateUserName.
-func (s UpdateUserNameArray) Retain(keep func(x UpdateUserName) bool) UpdateUserNameArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateUserNameArray) First() (v UpdateUserName, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateUserNameArray) Last() (v UpdateUserName, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateUserNameArray) PopFirst() (v UpdateUserName, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateUserName
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateUserNameArray) Pop() (v UpdateUserName, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateUserPhotoArray is adapter for slice of UpdateUserPhoto.
-type UpdateUserPhotoArray []UpdateUserPhoto
-
-// Sort sorts slice of UpdateUserPhoto.
-func (s UpdateUserPhotoArray) Sort(less func(a, b UpdateUserPhoto) bool) UpdateUserPhotoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateUserPhoto.
-func (s UpdateUserPhotoArray) SortStable(less func(a, b UpdateUserPhoto) bool) UpdateUserPhotoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateUserPhoto.
-func (s UpdateUserPhotoArray) Retain(keep func(x UpdateUserPhoto) bool) UpdateUserPhotoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateUserPhotoArray) First() (v UpdateUserPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateUserPhotoArray) Last() (v UpdateUserPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateUserPhotoArray) PopFirst() (v UpdateUserPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateUserPhoto
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateUserPhotoArray) Pop() (v UpdateUserPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of UpdateUserPhoto by Date.
-func (s UpdateUserPhotoArray) SortByDate() UpdateUserPhotoArray {
-	return s.Sort(func(a, b UpdateUserPhoto) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of UpdateUserPhoto by Date.
-func (s UpdateUserPhotoArray) SortStableByDate() UpdateUserPhotoArray {
-	return s.SortStable(func(a, b UpdateUserPhoto) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// UpdateNewEncryptedMessageArray is adapter for slice of UpdateNewEncryptedMessage.
-type UpdateNewEncryptedMessageArray []UpdateNewEncryptedMessage
-
-// Sort sorts slice of UpdateNewEncryptedMessage.
-func (s UpdateNewEncryptedMessageArray) Sort(less func(a, b UpdateNewEncryptedMessage) bool) UpdateNewEncryptedMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateNewEncryptedMessage.
-func (s UpdateNewEncryptedMessageArray) SortStable(less func(a, b UpdateNewEncryptedMessage) bool) UpdateNewEncryptedMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateNewEncryptedMessage.
-func (s UpdateNewEncryptedMessageArray) Retain(keep func(x UpdateNewEncryptedMessage) bool) UpdateNewEncryptedMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateNewEncryptedMessageArray) First() (v UpdateNewEncryptedMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateNewEncryptedMessageArray) Last() (v UpdateNewEncryptedMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateNewEncryptedMessageArray) PopFirst() (v UpdateNewEncryptedMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateNewEncryptedMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateNewEncryptedMessageArray) Pop() (v UpdateNewEncryptedMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateEncryptedChatTypingArray is adapter for slice of UpdateEncryptedChatTyping.
-type UpdateEncryptedChatTypingArray []UpdateEncryptedChatTyping
-
-// Sort sorts slice of UpdateEncryptedChatTyping.
-func (s UpdateEncryptedChatTypingArray) Sort(less func(a, b UpdateEncryptedChatTyping) bool) UpdateEncryptedChatTypingArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateEncryptedChatTyping.
-func (s UpdateEncryptedChatTypingArray) SortStable(less func(a, b UpdateEncryptedChatTyping) bool) UpdateEncryptedChatTypingArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateEncryptedChatTyping.
-func (s UpdateEncryptedChatTypingArray) Retain(keep func(x UpdateEncryptedChatTyping) bool) UpdateEncryptedChatTypingArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateEncryptedChatTypingArray) First() (v UpdateEncryptedChatTyping, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateEncryptedChatTypingArray) Last() (v UpdateEncryptedChatTyping, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateEncryptedChatTypingArray) PopFirst() (v UpdateEncryptedChatTyping, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateEncryptedChatTyping
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateEncryptedChatTypingArray) Pop() (v UpdateEncryptedChatTyping, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateEncryptionArray is adapter for slice of UpdateEncryption.
-type UpdateEncryptionArray []UpdateEncryption
-
-// Sort sorts slice of UpdateEncryption.
-func (s UpdateEncryptionArray) Sort(less func(a, b UpdateEncryption) bool) UpdateEncryptionArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateEncryption.
-func (s UpdateEncryptionArray) SortStable(less func(a, b UpdateEncryption) bool) UpdateEncryptionArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateEncryption.
-func (s UpdateEncryptionArray) Retain(keep func(x UpdateEncryption) bool) UpdateEncryptionArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateEncryptionArray) First() (v UpdateEncryption, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateEncryptionArray) Last() (v UpdateEncryption, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateEncryptionArray) PopFirst() (v UpdateEncryption, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateEncryption
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateEncryptionArray) Pop() (v UpdateEncryption, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of UpdateEncryption by Date.
-func (s UpdateEncryptionArray) SortByDate() UpdateEncryptionArray {
-	return s.Sort(func(a, b UpdateEncryption) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of UpdateEncryption by Date.
-func (s UpdateEncryptionArray) SortStableByDate() UpdateEncryptionArray {
-	return s.SortStable(func(a, b UpdateEncryption) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// UpdateEncryptedMessagesReadArray is adapter for slice of UpdateEncryptedMessagesRead.
-type UpdateEncryptedMessagesReadArray []UpdateEncryptedMessagesRead
-
-// Sort sorts slice of UpdateEncryptedMessagesRead.
-func (s UpdateEncryptedMessagesReadArray) Sort(less func(a, b UpdateEncryptedMessagesRead) bool) UpdateEncryptedMessagesReadArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateEncryptedMessagesRead.
-func (s UpdateEncryptedMessagesReadArray) SortStable(less func(a, b UpdateEncryptedMessagesRead) bool) UpdateEncryptedMessagesReadArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateEncryptedMessagesRead.
-func (s UpdateEncryptedMessagesReadArray) Retain(keep func(x UpdateEncryptedMessagesRead) bool) UpdateEncryptedMessagesReadArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateEncryptedMessagesReadArray) First() (v UpdateEncryptedMessagesRead, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateEncryptedMessagesReadArray) Last() (v UpdateEncryptedMessagesRead, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateEncryptedMessagesReadArray) PopFirst() (v UpdateEncryptedMessagesRead, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateEncryptedMessagesRead
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateEncryptedMessagesReadArray) Pop() (v UpdateEncryptedMessagesRead, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of UpdateEncryptedMessagesRead by Date.
-func (s UpdateEncryptedMessagesReadArray) SortByDate() UpdateEncryptedMessagesReadArray {
-	return s.Sort(func(a, b UpdateEncryptedMessagesRead) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of UpdateEncryptedMessagesRead by Date.
-func (s UpdateEncryptedMessagesReadArray) SortStableByDate() UpdateEncryptedMessagesReadArray {
-	return s.SortStable(func(a, b UpdateEncryptedMessagesRead) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// UpdateChatParticipantAddArray is adapter for slice of UpdateChatParticipantAdd.
-type UpdateChatParticipantAddArray []UpdateChatParticipantAdd
-
-// Sort sorts slice of UpdateChatParticipantAdd.
-func (s UpdateChatParticipantAddArray) Sort(less func(a, b UpdateChatParticipantAdd) bool) UpdateChatParticipantAddArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChatParticipantAdd.
-func (s UpdateChatParticipantAddArray) SortStable(less func(a, b UpdateChatParticipantAdd) bool) UpdateChatParticipantAddArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChatParticipantAdd.
-func (s UpdateChatParticipantAddArray) Retain(keep func(x UpdateChatParticipantAdd) bool) UpdateChatParticipantAddArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChatParticipantAddArray) First() (v UpdateChatParticipantAdd, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChatParticipantAddArray) Last() (v UpdateChatParticipantAdd, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChatParticipantAddArray) PopFirst() (v UpdateChatParticipantAdd, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChatParticipantAdd
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChatParticipantAddArray) Pop() (v UpdateChatParticipantAdd, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of UpdateChatParticipantAdd by Date.
-func (s UpdateChatParticipantAddArray) SortByDate() UpdateChatParticipantAddArray {
-	return s.Sort(func(a, b UpdateChatParticipantAdd) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of UpdateChatParticipantAdd by Date.
-func (s UpdateChatParticipantAddArray) SortStableByDate() UpdateChatParticipantAddArray {
-	return s.SortStable(func(a, b UpdateChatParticipantAdd) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// UpdateChatParticipantDeleteArray is adapter for slice of UpdateChatParticipantDelete.
-type UpdateChatParticipantDeleteArray []UpdateChatParticipantDelete
-
-// Sort sorts slice of UpdateChatParticipantDelete.
-func (s UpdateChatParticipantDeleteArray) Sort(less func(a, b UpdateChatParticipantDelete) bool) UpdateChatParticipantDeleteArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChatParticipantDelete.
-func (s UpdateChatParticipantDeleteArray) SortStable(less func(a, b UpdateChatParticipantDelete) bool) UpdateChatParticipantDeleteArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChatParticipantDelete.
-func (s UpdateChatParticipantDeleteArray) Retain(keep func(x UpdateChatParticipantDelete) bool) UpdateChatParticipantDeleteArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChatParticipantDeleteArray) First() (v UpdateChatParticipantDelete, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChatParticipantDeleteArray) Last() (v UpdateChatParticipantDelete, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChatParticipantDeleteArray) PopFirst() (v UpdateChatParticipantDelete, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChatParticipantDelete
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChatParticipantDeleteArray) Pop() (v UpdateChatParticipantDelete, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateDCOptionsArray is adapter for slice of UpdateDCOptions.
-type UpdateDCOptionsArray []UpdateDCOptions
-
-// Sort sorts slice of UpdateDCOptions.
-func (s UpdateDCOptionsArray) Sort(less func(a, b UpdateDCOptions) bool) UpdateDCOptionsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateDCOptions.
-func (s UpdateDCOptionsArray) SortStable(less func(a, b UpdateDCOptions) bool) UpdateDCOptionsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateDCOptions.
-func (s UpdateDCOptionsArray) Retain(keep func(x UpdateDCOptions) bool) UpdateDCOptionsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateDCOptionsArray) First() (v UpdateDCOptions, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateDCOptionsArray) Last() (v UpdateDCOptions, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateDCOptionsArray) PopFirst() (v UpdateDCOptions, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateDCOptions
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateDCOptionsArray) Pop() (v UpdateDCOptions, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateNotifySettingsArray is adapter for slice of UpdateNotifySettings.
-type UpdateNotifySettingsArray []UpdateNotifySettings
-
-// Sort sorts slice of UpdateNotifySettings.
-func (s UpdateNotifySettingsArray) Sort(less func(a, b UpdateNotifySettings) bool) UpdateNotifySettingsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateNotifySettings.
-func (s UpdateNotifySettingsArray) SortStable(less func(a, b UpdateNotifySettings) bool) UpdateNotifySettingsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateNotifySettings.
-func (s UpdateNotifySettingsArray) Retain(keep func(x UpdateNotifySettings) bool) UpdateNotifySettingsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateNotifySettingsArray) First() (v UpdateNotifySettings, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateNotifySettingsArray) Last() (v UpdateNotifySettings, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateNotifySettingsArray) PopFirst() (v UpdateNotifySettings, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateNotifySettings
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateNotifySettingsArray) Pop() (v UpdateNotifySettings, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateServiceNotificationArray is adapter for slice of UpdateServiceNotification.
-type UpdateServiceNotificationArray []UpdateServiceNotification
-
-// Sort sorts slice of UpdateServiceNotification.
-func (s UpdateServiceNotificationArray) Sort(less func(a, b UpdateServiceNotification) bool) UpdateServiceNotificationArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateServiceNotification.
-func (s UpdateServiceNotificationArray) SortStable(less func(a, b UpdateServiceNotification) bool) UpdateServiceNotificationArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateServiceNotification.
-func (s UpdateServiceNotificationArray) Retain(keep func(x UpdateServiceNotification) bool) UpdateServiceNotificationArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateServiceNotificationArray) First() (v UpdateServiceNotification, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateServiceNotificationArray) Last() (v UpdateServiceNotification, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateServiceNotificationArray) PopFirst() (v UpdateServiceNotification, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateServiceNotification
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateServiceNotificationArray) Pop() (v UpdateServiceNotification, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdatePrivacyArray is adapter for slice of UpdatePrivacy.
-type UpdatePrivacyArray []UpdatePrivacy
-
-// Sort sorts slice of UpdatePrivacy.
-func (s UpdatePrivacyArray) Sort(less func(a, b UpdatePrivacy) bool) UpdatePrivacyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatePrivacy.
-func (s UpdatePrivacyArray) SortStable(less func(a, b UpdatePrivacy) bool) UpdatePrivacyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatePrivacy.
-func (s UpdatePrivacyArray) Retain(keep func(x UpdatePrivacy) bool) UpdatePrivacyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatePrivacyArray) First() (v UpdatePrivacy, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatePrivacyArray) Last() (v UpdatePrivacy, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatePrivacyArray) PopFirst() (v UpdatePrivacy, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatePrivacy
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatePrivacyArray) Pop() (v UpdatePrivacy, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateUserPhoneArray is adapter for slice of UpdateUserPhone.
-type UpdateUserPhoneArray []UpdateUserPhone
-
-// Sort sorts slice of UpdateUserPhone.
-func (s UpdateUserPhoneArray) Sort(less func(a, b UpdateUserPhone) bool) UpdateUserPhoneArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateUserPhone.
-func (s UpdateUserPhoneArray) SortStable(less func(a, b UpdateUserPhone) bool) UpdateUserPhoneArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateUserPhone.
-func (s UpdateUserPhoneArray) Retain(keep func(x UpdateUserPhone) bool) UpdateUserPhoneArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateUserPhoneArray) First() (v UpdateUserPhone, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateUserPhoneArray) Last() (v UpdateUserPhone, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateUserPhoneArray) PopFirst() (v UpdateUserPhone, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateUserPhone
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateUserPhoneArray) Pop() (v UpdateUserPhone, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateReadHistoryInboxArray is adapter for slice of UpdateReadHistoryInbox.
-type UpdateReadHistoryInboxArray []UpdateReadHistoryInbox
-
-// Sort sorts slice of UpdateReadHistoryInbox.
-func (s UpdateReadHistoryInboxArray) Sort(less func(a, b UpdateReadHistoryInbox) bool) UpdateReadHistoryInboxArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateReadHistoryInbox.
-func (s UpdateReadHistoryInboxArray) SortStable(less func(a, b UpdateReadHistoryInbox) bool) UpdateReadHistoryInboxArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateReadHistoryInbox.
-func (s UpdateReadHistoryInboxArray) Retain(keep func(x UpdateReadHistoryInbox) bool) UpdateReadHistoryInboxArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateReadHistoryInboxArray) First() (v UpdateReadHistoryInbox, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateReadHistoryInboxArray) Last() (v UpdateReadHistoryInbox, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateReadHistoryInboxArray) PopFirst() (v UpdateReadHistoryInbox, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateReadHistoryInbox
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateReadHistoryInboxArray) Pop() (v UpdateReadHistoryInbox, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateReadHistoryOutboxArray is adapter for slice of UpdateReadHistoryOutbox.
-type UpdateReadHistoryOutboxArray []UpdateReadHistoryOutbox
-
-// Sort sorts slice of UpdateReadHistoryOutbox.
-func (s UpdateReadHistoryOutboxArray) Sort(less func(a, b UpdateReadHistoryOutbox) bool) UpdateReadHistoryOutboxArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateReadHistoryOutbox.
-func (s UpdateReadHistoryOutboxArray) SortStable(less func(a, b UpdateReadHistoryOutbox) bool) UpdateReadHistoryOutboxArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateReadHistoryOutbox.
-func (s UpdateReadHistoryOutboxArray) Retain(keep func(x UpdateReadHistoryOutbox) bool) UpdateReadHistoryOutboxArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateReadHistoryOutboxArray) First() (v UpdateReadHistoryOutbox, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateReadHistoryOutboxArray) Last() (v UpdateReadHistoryOutbox, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateReadHistoryOutboxArray) PopFirst() (v UpdateReadHistoryOutbox, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateReadHistoryOutbox
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateReadHistoryOutboxArray) Pop() (v UpdateReadHistoryOutbox, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateWebPageArray is adapter for slice of UpdateWebPage.
-type UpdateWebPageArray []UpdateWebPage
-
-// Sort sorts slice of UpdateWebPage.
-func (s UpdateWebPageArray) Sort(less func(a, b UpdateWebPage) bool) UpdateWebPageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateWebPage.
-func (s UpdateWebPageArray) SortStable(less func(a, b UpdateWebPage) bool) UpdateWebPageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateWebPage.
-func (s UpdateWebPageArray) Retain(keep func(x UpdateWebPage) bool) UpdateWebPageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateWebPageArray) First() (v UpdateWebPage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateWebPageArray) Last() (v UpdateWebPage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateWebPageArray) PopFirst() (v UpdateWebPage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateWebPage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateWebPageArray) Pop() (v UpdateWebPage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateReadMessagesContentsArray is adapter for slice of UpdateReadMessagesContents.
-type UpdateReadMessagesContentsArray []UpdateReadMessagesContents
-
-// Sort sorts slice of UpdateReadMessagesContents.
-func (s UpdateReadMessagesContentsArray) Sort(less func(a, b UpdateReadMessagesContents) bool) UpdateReadMessagesContentsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateReadMessagesContents.
-func (s UpdateReadMessagesContentsArray) SortStable(less func(a, b UpdateReadMessagesContents) bool) UpdateReadMessagesContentsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateReadMessagesContents.
-func (s UpdateReadMessagesContentsArray) Retain(keep func(x UpdateReadMessagesContents) bool) UpdateReadMessagesContentsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateReadMessagesContentsArray) First() (v UpdateReadMessagesContents, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateReadMessagesContentsArray) Last() (v UpdateReadMessagesContents, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateReadMessagesContentsArray) PopFirst() (v UpdateReadMessagesContents, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateReadMessagesContents
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateReadMessagesContentsArray) Pop() (v UpdateReadMessagesContents, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateChannelTooLongArray is adapter for slice of UpdateChannelTooLong.
-type UpdateChannelTooLongArray []UpdateChannelTooLong
-
-// Sort sorts slice of UpdateChannelTooLong.
-func (s UpdateChannelTooLongArray) Sort(less func(a, b UpdateChannelTooLong) bool) UpdateChannelTooLongArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChannelTooLong.
-func (s UpdateChannelTooLongArray) SortStable(less func(a, b UpdateChannelTooLong) bool) UpdateChannelTooLongArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChannelTooLong.
-func (s UpdateChannelTooLongArray) Retain(keep func(x UpdateChannelTooLong) bool) UpdateChannelTooLongArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChannelTooLongArray) First() (v UpdateChannelTooLong, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChannelTooLongArray) Last() (v UpdateChannelTooLong, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChannelTooLongArray) PopFirst() (v UpdateChannelTooLong, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChannelTooLong
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChannelTooLongArray) Pop() (v UpdateChannelTooLong, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateChannelArray is adapter for slice of UpdateChannel.
-type UpdateChannelArray []UpdateChannel
-
-// Sort sorts slice of UpdateChannel.
-func (s UpdateChannelArray) Sort(less func(a, b UpdateChannel) bool) UpdateChannelArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChannel.
-func (s UpdateChannelArray) SortStable(less func(a, b UpdateChannel) bool) UpdateChannelArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChannel.
-func (s UpdateChannelArray) Retain(keep func(x UpdateChannel) bool) UpdateChannelArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChannelArray) First() (v UpdateChannel, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChannelArray) Last() (v UpdateChannel, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChannelArray) PopFirst() (v UpdateChannel, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChannel
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChannelArray) Pop() (v UpdateChannel, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateNewChannelMessageArray is adapter for slice of UpdateNewChannelMessage.
-type UpdateNewChannelMessageArray []UpdateNewChannelMessage
-
-// Sort sorts slice of UpdateNewChannelMessage.
-func (s UpdateNewChannelMessageArray) Sort(less func(a, b UpdateNewChannelMessage) bool) UpdateNewChannelMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateNewChannelMessage.
-func (s UpdateNewChannelMessageArray) SortStable(less func(a, b UpdateNewChannelMessage) bool) UpdateNewChannelMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateNewChannelMessage.
-func (s UpdateNewChannelMessageArray) Retain(keep func(x UpdateNewChannelMessage) bool) UpdateNewChannelMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateNewChannelMessageArray) First() (v UpdateNewChannelMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateNewChannelMessageArray) Last() (v UpdateNewChannelMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateNewChannelMessageArray) PopFirst() (v UpdateNewChannelMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateNewChannelMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateNewChannelMessageArray) Pop() (v UpdateNewChannelMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateReadChannelInboxArray is adapter for slice of UpdateReadChannelInbox.
-type UpdateReadChannelInboxArray []UpdateReadChannelInbox
-
-// Sort sorts slice of UpdateReadChannelInbox.
-func (s UpdateReadChannelInboxArray) Sort(less func(a, b UpdateReadChannelInbox) bool) UpdateReadChannelInboxArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateReadChannelInbox.
-func (s UpdateReadChannelInboxArray) SortStable(less func(a, b UpdateReadChannelInbox) bool) UpdateReadChannelInboxArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateReadChannelInbox.
-func (s UpdateReadChannelInboxArray) Retain(keep func(x UpdateReadChannelInbox) bool) UpdateReadChannelInboxArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateReadChannelInboxArray) First() (v UpdateReadChannelInbox, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateReadChannelInboxArray) Last() (v UpdateReadChannelInbox, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateReadChannelInboxArray) PopFirst() (v UpdateReadChannelInbox, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateReadChannelInbox
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateReadChannelInboxArray) Pop() (v UpdateReadChannelInbox, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateDeleteChannelMessagesArray is adapter for slice of UpdateDeleteChannelMessages.
-type UpdateDeleteChannelMessagesArray []UpdateDeleteChannelMessages
-
-// Sort sorts slice of UpdateDeleteChannelMessages.
-func (s UpdateDeleteChannelMessagesArray) Sort(less func(a, b UpdateDeleteChannelMessages) bool) UpdateDeleteChannelMessagesArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateDeleteChannelMessages.
-func (s UpdateDeleteChannelMessagesArray) SortStable(less func(a, b UpdateDeleteChannelMessages) bool) UpdateDeleteChannelMessagesArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateDeleteChannelMessages.
-func (s UpdateDeleteChannelMessagesArray) Retain(keep func(x UpdateDeleteChannelMessages) bool) UpdateDeleteChannelMessagesArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateDeleteChannelMessagesArray) First() (v UpdateDeleteChannelMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateDeleteChannelMessagesArray) Last() (v UpdateDeleteChannelMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateDeleteChannelMessagesArray) PopFirst() (v UpdateDeleteChannelMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateDeleteChannelMessages
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateDeleteChannelMessagesArray) Pop() (v UpdateDeleteChannelMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateChannelMessageViewsArray is adapter for slice of UpdateChannelMessageViews.
-type UpdateChannelMessageViewsArray []UpdateChannelMessageViews
-
-// Sort sorts slice of UpdateChannelMessageViews.
-func (s UpdateChannelMessageViewsArray) Sort(less func(a, b UpdateChannelMessageViews) bool) UpdateChannelMessageViewsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChannelMessageViews.
-func (s UpdateChannelMessageViewsArray) SortStable(less func(a, b UpdateChannelMessageViews) bool) UpdateChannelMessageViewsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChannelMessageViews.
-func (s UpdateChannelMessageViewsArray) Retain(keep func(x UpdateChannelMessageViews) bool) UpdateChannelMessageViewsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChannelMessageViewsArray) First() (v UpdateChannelMessageViews, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChannelMessageViewsArray) Last() (v UpdateChannelMessageViews, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChannelMessageViewsArray) PopFirst() (v UpdateChannelMessageViews, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChannelMessageViews
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChannelMessageViewsArray) Pop() (v UpdateChannelMessageViews, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of UpdateChannelMessageViews by ID.
-func (s UpdateChannelMessageViewsArray) SortByID() UpdateChannelMessageViewsArray {
-	return s.Sort(func(a, b UpdateChannelMessageViews) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of UpdateChannelMessageViews by ID.
-func (s UpdateChannelMessageViewsArray) SortStableByID() UpdateChannelMessageViewsArray {
-	return s.SortStable(func(a, b UpdateChannelMessageViews) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s UpdateChannelMessageViewsArray) FillMap(to map[int]UpdateChannelMessageViews) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s UpdateChannelMessageViewsArray) ToMap() map[int]UpdateChannelMessageViews {
-	r := make(map[int]UpdateChannelMessageViews, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// UpdateChatParticipantAdminArray is adapter for slice of UpdateChatParticipantAdmin.
-type UpdateChatParticipantAdminArray []UpdateChatParticipantAdmin
-
-// Sort sorts slice of UpdateChatParticipantAdmin.
-func (s UpdateChatParticipantAdminArray) Sort(less func(a, b UpdateChatParticipantAdmin) bool) UpdateChatParticipantAdminArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChatParticipantAdmin.
-func (s UpdateChatParticipantAdminArray) SortStable(less func(a, b UpdateChatParticipantAdmin) bool) UpdateChatParticipantAdminArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChatParticipantAdmin.
-func (s UpdateChatParticipantAdminArray) Retain(keep func(x UpdateChatParticipantAdmin) bool) UpdateChatParticipantAdminArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChatParticipantAdminArray) First() (v UpdateChatParticipantAdmin, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChatParticipantAdminArray) Last() (v UpdateChatParticipantAdmin, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChatParticipantAdminArray) PopFirst() (v UpdateChatParticipantAdmin, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChatParticipantAdmin
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChatParticipantAdminArray) Pop() (v UpdateChatParticipantAdmin, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateNewStickerSetArray is adapter for slice of UpdateNewStickerSet.
-type UpdateNewStickerSetArray []UpdateNewStickerSet
-
-// Sort sorts slice of UpdateNewStickerSet.
-func (s UpdateNewStickerSetArray) Sort(less func(a, b UpdateNewStickerSet) bool) UpdateNewStickerSetArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateNewStickerSet.
-func (s UpdateNewStickerSetArray) SortStable(less func(a, b UpdateNewStickerSet) bool) UpdateNewStickerSetArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateNewStickerSet.
-func (s UpdateNewStickerSetArray) Retain(keep func(x UpdateNewStickerSet) bool) UpdateNewStickerSetArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateNewStickerSetArray) First() (v UpdateNewStickerSet, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateNewStickerSetArray) Last() (v UpdateNewStickerSet, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateNewStickerSetArray) PopFirst() (v UpdateNewStickerSet, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateNewStickerSet
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateNewStickerSetArray) Pop() (v UpdateNewStickerSet, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateStickerSetsOrderArray is adapter for slice of UpdateStickerSetsOrder.
-type UpdateStickerSetsOrderArray []UpdateStickerSetsOrder
-
-// Sort sorts slice of UpdateStickerSetsOrder.
-func (s UpdateStickerSetsOrderArray) Sort(less func(a, b UpdateStickerSetsOrder) bool) UpdateStickerSetsOrderArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateStickerSetsOrder.
-func (s UpdateStickerSetsOrderArray) SortStable(less func(a, b UpdateStickerSetsOrder) bool) UpdateStickerSetsOrderArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateStickerSetsOrder.
-func (s UpdateStickerSetsOrderArray) Retain(keep func(x UpdateStickerSetsOrder) bool) UpdateStickerSetsOrderArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateStickerSetsOrderArray) First() (v UpdateStickerSetsOrder, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateStickerSetsOrderArray) Last() (v UpdateStickerSetsOrder, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateStickerSetsOrderArray) PopFirst() (v UpdateStickerSetsOrder, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateStickerSetsOrder
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateStickerSetsOrderArray) Pop() (v UpdateStickerSetsOrder, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateBotInlineQueryArray is adapter for slice of UpdateBotInlineQuery.
-type UpdateBotInlineQueryArray []UpdateBotInlineQuery
-
-// Sort sorts slice of UpdateBotInlineQuery.
-func (s UpdateBotInlineQueryArray) Sort(less func(a, b UpdateBotInlineQuery) bool) UpdateBotInlineQueryArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateBotInlineQuery.
-func (s UpdateBotInlineQueryArray) SortStable(less func(a, b UpdateBotInlineQuery) bool) UpdateBotInlineQueryArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateBotInlineQuery.
-func (s UpdateBotInlineQueryArray) Retain(keep func(x UpdateBotInlineQuery) bool) UpdateBotInlineQueryArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateBotInlineQueryArray) First() (v UpdateBotInlineQuery, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateBotInlineQueryArray) Last() (v UpdateBotInlineQuery, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateBotInlineQueryArray) PopFirst() (v UpdateBotInlineQuery, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateBotInlineQuery
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateBotInlineQueryArray) Pop() (v UpdateBotInlineQuery, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateBotInlineSendArray is adapter for slice of UpdateBotInlineSend.
-type UpdateBotInlineSendArray []UpdateBotInlineSend
-
-// Sort sorts slice of UpdateBotInlineSend.
-func (s UpdateBotInlineSendArray) Sort(less func(a, b UpdateBotInlineSend) bool) UpdateBotInlineSendArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateBotInlineSend.
-func (s UpdateBotInlineSendArray) SortStable(less func(a, b UpdateBotInlineSend) bool) UpdateBotInlineSendArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateBotInlineSend.
-func (s UpdateBotInlineSendArray) Retain(keep func(x UpdateBotInlineSend) bool) UpdateBotInlineSendArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateBotInlineSendArray) First() (v UpdateBotInlineSend, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateBotInlineSendArray) Last() (v UpdateBotInlineSend, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateBotInlineSendArray) PopFirst() (v UpdateBotInlineSend, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateBotInlineSend
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateBotInlineSendArray) Pop() (v UpdateBotInlineSend, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateEditChannelMessageArray is adapter for slice of UpdateEditChannelMessage.
-type UpdateEditChannelMessageArray []UpdateEditChannelMessage
-
-// Sort sorts slice of UpdateEditChannelMessage.
-func (s UpdateEditChannelMessageArray) Sort(less func(a, b UpdateEditChannelMessage) bool) UpdateEditChannelMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateEditChannelMessage.
-func (s UpdateEditChannelMessageArray) SortStable(less func(a, b UpdateEditChannelMessage) bool) UpdateEditChannelMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateEditChannelMessage.
-func (s UpdateEditChannelMessageArray) Retain(keep func(x UpdateEditChannelMessage) bool) UpdateEditChannelMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateEditChannelMessageArray) First() (v UpdateEditChannelMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateEditChannelMessageArray) Last() (v UpdateEditChannelMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateEditChannelMessageArray) PopFirst() (v UpdateEditChannelMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateEditChannelMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateEditChannelMessageArray) Pop() (v UpdateEditChannelMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateBotCallbackQueryArray is adapter for slice of UpdateBotCallbackQuery.
-type UpdateBotCallbackQueryArray []UpdateBotCallbackQuery
-
-// Sort sorts slice of UpdateBotCallbackQuery.
-func (s UpdateBotCallbackQueryArray) Sort(less func(a, b UpdateBotCallbackQuery) bool) UpdateBotCallbackQueryArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateBotCallbackQuery.
-func (s UpdateBotCallbackQueryArray) SortStable(less func(a, b UpdateBotCallbackQuery) bool) UpdateBotCallbackQueryArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateBotCallbackQuery.
-func (s UpdateBotCallbackQueryArray) Retain(keep func(x UpdateBotCallbackQuery) bool) UpdateBotCallbackQueryArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateBotCallbackQueryArray) First() (v UpdateBotCallbackQuery, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateBotCallbackQueryArray) Last() (v UpdateBotCallbackQuery, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateBotCallbackQueryArray) PopFirst() (v UpdateBotCallbackQuery, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateBotCallbackQuery
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateBotCallbackQueryArray) Pop() (v UpdateBotCallbackQuery, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateEditMessageArray is adapter for slice of UpdateEditMessage.
-type UpdateEditMessageArray []UpdateEditMessage
-
-// Sort sorts slice of UpdateEditMessage.
-func (s UpdateEditMessageArray) Sort(less func(a, b UpdateEditMessage) bool) UpdateEditMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateEditMessage.
-func (s UpdateEditMessageArray) SortStable(less func(a, b UpdateEditMessage) bool) UpdateEditMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateEditMessage.
-func (s UpdateEditMessageArray) Retain(keep func(x UpdateEditMessage) bool) UpdateEditMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateEditMessageArray) First() (v UpdateEditMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateEditMessageArray) Last() (v UpdateEditMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateEditMessageArray) PopFirst() (v UpdateEditMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateEditMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateEditMessageArray) Pop() (v UpdateEditMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateInlineBotCallbackQueryArray is adapter for slice of UpdateInlineBotCallbackQuery.
-type UpdateInlineBotCallbackQueryArray []UpdateInlineBotCallbackQuery
-
-// Sort sorts slice of UpdateInlineBotCallbackQuery.
-func (s UpdateInlineBotCallbackQueryArray) Sort(less func(a, b UpdateInlineBotCallbackQuery) bool) UpdateInlineBotCallbackQueryArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateInlineBotCallbackQuery.
-func (s UpdateInlineBotCallbackQueryArray) SortStable(less func(a, b UpdateInlineBotCallbackQuery) bool) UpdateInlineBotCallbackQueryArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateInlineBotCallbackQuery.
-func (s UpdateInlineBotCallbackQueryArray) Retain(keep func(x UpdateInlineBotCallbackQuery) bool) UpdateInlineBotCallbackQueryArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateInlineBotCallbackQueryArray) First() (v UpdateInlineBotCallbackQuery, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateInlineBotCallbackQueryArray) Last() (v UpdateInlineBotCallbackQuery, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateInlineBotCallbackQueryArray) PopFirst() (v UpdateInlineBotCallbackQuery, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateInlineBotCallbackQuery
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateInlineBotCallbackQueryArray) Pop() (v UpdateInlineBotCallbackQuery, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateReadChannelOutboxArray is adapter for slice of UpdateReadChannelOutbox.
-type UpdateReadChannelOutboxArray []UpdateReadChannelOutbox
-
-// Sort sorts slice of UpdateReadChannelOutbox.
-func (s UpdateReadChannelOutboxArray) Sort(less func(a, b UpdateReadChannelOutbox) bool) UpdateReadChannelOutboxArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateReadChannelOutbox.
-func (s UpdateReadChannelOutboxArray) SortStable(less func(a, b UpdateReadChannelOutbox) bool) UpdateReadChannelOutboxArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateReadChannelOutbox.
-func (s UpdateReadChannelOutboxArray) Retain(keep func(x UpdateReadChannelOutbox) bool) UpdateReadChannelOutboxArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateReadChannelOutboxArray) First() (v UpdateReadChannelOutbox, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateReadChannelOutboxArray) Last() (v UpdateReadChannelOutbox, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateReadChannelOutboxArray) PopFirst() (v UpdateReadChannelOutbox, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateReadChannelOutbox
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateReadChannelOutboxArray) Pop() (v UpdateReadChannelOutbox, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateDraftMessageArray is adapter for slice of UpdateDraftMessage.
-type UpdateDraftMessageArray []UpdateDraftMessage
-
-// Sort sorts slice of UpdateDraftMessage.
-func (s UpdateDraftMessageArray) Sort(less func(a, b UpdateDraftMessage) bool) UpdateDraftMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateDraftMessage.
-func (s UpdateDraftMessageArray) SortStable(less func(a, b UpdateDraftMessage) bool) UpdateDraftMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateDraftMessage.
-func (s UpdateDraftMessageArray) Retain(keep func(x UpdateDraftMessage) bool) UpdateDraftMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateDraftMessageArray) First() (v UpdateDraftMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateDraftMessageArray) Last() (v UpdateDraftMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateDraftMessageArray) PopFirst() (v UpdateDraftMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateDraftMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateDraftMessageArray) Pop() (v UpdateDraftMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateChannelWebPageArray is adapter for slice of UpdateChannelWebPage.
-type UpdateChannelWebPageArray []UpdateChannelWebPage
-
-// Sort sorts slice of UpdateChannelWebPage.
-func (s UpdateChannelWebPageArray) Sort(less func(a, b UpdateChannelWebPage) bool) UpdateChannelWebPageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChannelWebPage.
-func (s UpdateChannelWebPageArray) SortStable(less func(a, b UpdateChannelWebPage) bool) UpdateChannelWebPageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChannelWebPage.
-func (s UpdateChannelWebPageArray) Retain(keep func(x UpdateChannelWebPage) bool) UpdateChannelWebPageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChannelWebPageArray) First() (v UpdateChannelWebPage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChannelWebPageArray) Last() (v UpdateChannelWebPage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChannelWebPageArray) PopFirst() (v UpdateChannelWebPage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChannelWebPage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChannelWebPageArray) Pop() (v UpdateChannelWebPage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateDialogPinnedArray is adapter for slice of UpdateDialogPinned.
-type UpdateDialogPinnedArray []UpdateDialogPinned
-
-// Sort sorts slice of UpdateDialogPinned.
-func (s UpdateDialogPinnedArray) Sort(less func(a, b UpdateDialogPinned) bool) UpdateDialogPinnedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateDialogPinned.
-func (s UpdateDialogPinnedArray) SortStable(less func(a, b UpdateDialogPinned) bool) UpdateDialogPinnedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateDialogPinned.
-func (s UpdateDialogPinnedArray) Retain(keep func(x UpdateDialogPinned) bool) UpdateDialogPinnedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateDialogPinnedArray) First() (v UpdateDialogPinned, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateDialogPinnedArray) Last() (v UpdateDialogPinned, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateDialogPinnedArray) PopFirst() (v UpdateDialogPinned, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateDialogPinned
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateDialogPinnedArray) Pop() (v UpdateDialogPinned, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdatePinnedDialogsArray is adapter for slice of UpdatePinnedDialogs.
-type UpdatePinnedDialogsArray []UpdatePinnedDialogs
-
-// Sort sorts slice of UpdatePinnedDialogs.
-func (s UpdatePinnedDialogsArray) Sort(less func(a, b UpdatePinnedDialogs) bool) UpdatePinnedDialogsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatePinnedDialogs.
-func (s UpdatePinnedDialogsArray) SortStable(less func(a, b UpdatePinnedDialogs) bool) UpdatePinnedDialogsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatePinnedDialogs.
-func (s UpdatePinnedDialogsArray) Retain(keep func(x UpdatePinnedDialogs) bool) UpdatePinnedDialogsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatePinnedDialogsArray) First() (v UpdatePinnedDialogs, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatePinnedDialogsArray) Last() (v UpdatePinnedDialogs, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatePinnedDialogsArray) PopFirst() (v UpdatePinnedDialogs, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatePinnedDialogs
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatePinnedDialogsArray) Pop() (v UpdatePinnedDialogs, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateBotWebhookJSONArray is adapter for slice of UpdateBotWebhookJSON.
-type UpdateBotWebhookJSONArray []UpdateBotWebhookJSON
-
-// Sort sorts slice of UpdateBotWebhookJSON.
-func (s UpdateBotWebhookJSONArray) Sort(less func(a, b UpdateBotWebhookJSON) bool) UpdateBotWebhookJSONArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateBotWebhookJSON.
-func (s UpdateBotWebhookJSONArray) SortStable(less func(a, b UpdateBotWebhookJSON) bool) UpdateBotWebhookJSONArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateBotWebhookJSON.
-func (s UpdateBotWebhookJSONArray) Retain(keep func(x UpdateBotWebhookJSON) bool) UpdateBotWebhookJSONArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateBotWebhookJSONArray) First() (v UpdateBotWebhookJSON, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateBotWebhookJSONArray) Last() (v UpdateBotWebhookJSON, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateBotWebhookJSONArray) PopFirst() (v UpdateBotWebhookJSON, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateBotWebhookJSON
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateBotWebhookJSONArray) Pop() (v UpdateBotWebhookJSON, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateBotWebhookJSONQueryArray is adapter for slice of UpdateBotWebhookJSONQuery.
-type UpdateBotWebhookJSONQueryArray []UpdateBotWebhookJSONQuery
-
-// Sort sorts slice of UpdateBotWebhookJSONQuery.
-func (s UpdateBotWebhookJSONQueryArray) Sort(less func(a, b UpdateBotWebhookJSONQuery) bool) UpdateBotWebhookJSONQueryArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateBotWebhookJSONQuery.
-func (s UpdateBotWebhookJSONQueryArray) SortStable(less func(a, b UpdateBotWebhookJSONQuery) bool) UpdateBotWebhookJSONQueryArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateBotWebhookJSONQuery.
-func (s UpdateBotWebhookJSONQueryArray) Retain(keep func(x UpdateBotWebhookJSONQuery) bool) UpdateBotWebhookJSONQueryArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateBotWebhookJSONQueryArray) First() (v UpdateBotWebhookJSONQuery, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateBotWebhookJSONQueryArray) Last() (v UpdateBotWebhookJSONQuery, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateBotWebhookJSONQueryArray) PopFirst() (v UpdateBotWebhookJSONQuery, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateBotWebhookJSONQuery
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateBotWebhookJSONQueryArray) Pop() (v UpdateBotWebhookJSONQuery, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateBotShippingQueryArray is adapter for slice of UpdateBotShippingQuery.
-type UpdateBotShippingQueryArray []UpdateBotShippingQuery
-
-// Sort sorts slice of UpdateBotShippingQuery.
-func (s UpdateBotShippingQueryArray) Sort(less func(a, b UpdateBotShippingQuery) bool) UpdateBotShippingQueryArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateBotShippingQuery.
-func (s UpdateBotShippingQueryArray) SortStable(less func(a, b UpdateBotShippingQuery) bool) UpdateBotShippingQueryArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateBotShippingQuery.
-func (s UpdateBotShippingQueryArray) Retain(keep func(x UpdateBotShippingQuery) bool) UpdateBotShippingQueryArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateBotShippingQueryArray) First() (v UpdateBotShippingQuery, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateBotShippingQueryArray) Last() (v UpdateBotShippingQuery, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateBotShippingQueryArray) PopFirst() (v UpdateBotShippingQuery, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateBotShippingQuery
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateBotShippingQueryArray) Pop() (v UpdateBotShippingQuery, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateBotPrecheckoutQueryArray is adapter for slice of UpdateBotPrecheckoutQuery.
-type UpdateBotPrecheckoutQueryArray []UpdateBotPrecheckoutQuery
-
-// Sort sorts slice of UpdateBotPrecheckoutQuery.
-func (s UpdateBotPrecheckoutQueryArray) Sort(less func(a, b UpdateBotPrecheckoutQuery) bool) UpdateBotPrecheckoutQueryArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateBotPrecheckoutQuery.
-func (s UpdateBotPrecheckoutQueryArray) SortStable(less func(a, b UpdateBotPrecheckoutQuery) bool) UpdateBotPrecheckoutQueryArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateBotPrecheckoutQuery.
-func (s UpdateBotPrecheckoutQueryArray) Retain(keep func(x UpdateBotPrecheckoutQuery) bool) UpdateBotPrecheckoutQueryArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateBotPrecheckoutQueryArray) First() (v UpdateBotPrecheckoutQuery, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateBotPrecheckoutQueryArray) Last() (v UpdateBotPrecheckoutQuery, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateBotPrecheckoutQueryArray) PopFirst() (v UpdateBotPrecheckoutQuery, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateBotPrecheckoutQuery
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateBotPrecheckoutQueryArray) Pop() (v UpdateBotPrecheckoutQuery, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdatePhoneCallArray is adapter for slice of UpdatePhoneCall.
-type UpdatePhoneCallArray []UpdatePhoneCall
-
-// Sort sorts slice of UpdatePhoneCall.
-func (s UpdatePhoneCallArray) Sort(less func(a, b UpdatePhoneCall) bool) UpdatePhoneCallArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatePhoneCall.
-func (s UpdatePhoneCallArray) SortStable(less func(a, b UpdatePhoneCall) bool) UpdatePhoneCallArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatePhoneCall.
-func (s UpdatePhoneCallArray) Retain(keep func(x UpdatePhoneCall) bool) UpdatePhoneCallArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatePhoneCallArray) First() (v UpdatePhoneCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatePhoneCallArray) Last() (v UpdatePhoneCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatePhoneCallArray) PopFirst() (v UpdatePhoneCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatePhoneCall
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatePhoneCallArray) Pop() (v UpdatePhoneCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateLangPackTooLongArray is adapter for slice of UpdateLangPackTooLong.
-type UpdateLangPackTooLongArray []UpdateLangPackTooLong
-
-// Sort sorts slice of UpdateLangPackTooLong.
-func (s UpdateLangPackTooLongArray) Sort(less func(a, b UpdateLangPackTooLong) bool) UpdateLangPackTooLongArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateLangPackTooLong.
-func (s UpdateLangPackTooLongArray) SortStable(less func(a, b UpdateLangPackTooLong) bool) UpdateLangPackTooLongArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateLangPackTooLong.
-func (s UpdateLangPackTooLongArray) Retain(keep func(x UpdateLangPackTooLong) bool) UpdateLangPackTooLongArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateLangPackTooLongArray) First() (v UpdateLangPackTooLong, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateLangPackTooLongArray) Last() (v UpdateLangPackTooLong, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateLangPackTooLongArray) PopFirst() (v UpdateLangPackTooLong, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateLangPackTooLong
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateLangPackTooLongArray) Pop() (v UpdateLangPackTooLong, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateLangPackArray is adapter for slice of UpdateLangPack.
-type UpdateLangPackArray []UpdateLangPack
-
-// Sort sorts slice of UpdateLangPack.
-func (s UpdateLangPackArray) Sort(less func(a, b UpdateLangPack) bool) UpdateLangPackArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateLangPack.
-func (s UpdateLangPackArray) SortStable(less func(a, b UpdateLangPack) bool) UpdateLangPackArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateLangPack.
-func (s UpdateLangPackArray) Retain(keep func(x UpdateLangPack) bool) UpdateLangPackArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateLangPackArray) First() (v UpdateLangPack, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateLangPackArray) Last() (v UpdateLangPack, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateLangPackArray) PopFirst() (v UpdateLangPack, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateLangPack
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateLangPackArray) Pop() (v UpdateLangPack, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateChannelReadMessagesContentsArray is adapter for slice of UpdateChannelReadMessagesContents.
-type UpdateChannelReadMessagesContentsArray []UpdateChannelReadMessagesContents
-
-// Sort sorts slice of UpdateChannelReadMessagesContents.
-func (s UpdateChannelReadMessagesContentsArray) Sort(less func(a, b UpdateChannelReadMessagesContents) bool) UpdateChannelReadMessagesContentsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChannelReadMessagesContents.
-func (s UpdateChannelReadMessagesContentsArray) SortStable(less func(a, b UpdateChannelReadMessagesContents) bool) UpdateChannelReadMessagesContentsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChannelReadMessagesContents.
-func (s UpdateChannelReadMessagesContentsArray) Retain(keep func(x UpdateChannelReadMessagesContents) bool) UpdateChannelReadMessagesContentsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChannelReadMessagesContentsArray) First() (v UpdateChannelReadMessagesContents, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChannelReadMessagesContentsArray) Last() (v UpdateChannelReadMessagesContents, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChannelReadMessagesContentsArray) PopFirst() (v UpdateChannelReadMessagesContents, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChannelReadMessagesContents
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChannelReadMessagesContentsArray) Pop() (v UpdateChannelReadMessagesContents, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateChannelAvailableMessagesArray is adapter for slice of UpdateChannelAvailableMessages.
-type UpdateChannelAvailableMessagesArray []UpdateChannelAvailableMessages
-
-// Sort sorts slice of UpdateChannelAvailableMessages.
-func (s UpdateChannelAvailableMessagesArray) Sort(less func(a, b UpdateChannelAvailableMessages) bool) UpdateChannelAvailableMessagesArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChannelAvailableMessages.
-func (s UpdateChannelAvailableMessagesArray) SortStable(less func(a, b UpdateChannelAvailableMessages) bool) UpdateChannelAvailableMessagesArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChannelAvailableMessages.
-func (s UpdateChannelAvailableMessagesArray) Retain(keep func(x UpdateChannelAvailableMessages) bool) UpdateChannelAvailableMessagesArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChannelAvailableMessagesArray) First() (v UpdateChannelAvailableMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChannelAvailableMessagesArray) Last() (v UpdateChannelAvailableMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChannelAvailableMessagesArray) PopFirst() (v UpdateChannelAvailableMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChannelAvailableMessages
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChannelAvailableMessagesArray) Pop() (v UpdateChannelAvailableMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateDialogUnreadMarkArray is adapter for slice of UpdateDialogUnreadMark.
-type UpdateDialogUnreadMarkArray []UpdateDialogUnreadMark
-
-// Sort sorts slice of UpdateDialogUnreadMark.
-func (s UpdateDialogUnreadMarkArray) Sort(less func(a, b UpdateDialogUnreadMark) bool) UpdateDialogUnreadMarkArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateDialogUnreadMark.
-func (s UpdateDialogUnreadMarkArray) SortStable(less func(a, b UpdateDialogUnreadMark) bool) UpdateDialogUnreadMarkArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateDialogUnreadMark.
-func (s UpdateDialogUnreadMarkArray) Retain(keep func(x UpdateDialogUnreadMark) bool) UpdateDialogUnreadMarkArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateDialogUnreadMarkArray) First() (v UpdateDialogUnreadMark, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateDialogUnreadMarkArray) Last() (v UpdateDialogUnreadMark, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateDialogUnreadMarkArray) PopFirst() (v UpdateDialogUnreadMark, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateDialogUnreadMark
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateDialogUnreadMarkArray) Pop() (v UpdateDialogUnreadMark, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateMessagePollArray is adapter for slice of UpdateMessagePoll.
-type UpdateMessagePollArray []UpdateMessagePoll
-
-// Sort sorts slice of UpdateMessagePoll.
-func (s UpdateMessagePollArray) Sort(less func(a, b UpdateMessagePoll) bool) UpdateMessagePollArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateMessagePoll.
-func (s UpdateMessagePollArray) SortStable(less func(a, b UpdateMessagePoll) bool) UpdateMessagePollArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateMessagePoll.
-func (s UpdateMessagePollArray) Retain(keep func(x UpdateMessagePoll) bool) UpdateMessagePollArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateMessagePollArray) First() (v UpdateMessagePoll, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateMessagePollArray) Last() (v UpdateMessagePoll, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateMessagePollArray) PopFirst() (v UpdateMessagePoll, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateMessagePoll
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateMessagePollArray) Pop() (v UpdateMessagePoll, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateChatDefaultBannedRightsArray is adapter for slice of UpdateChatDefaultBannedRights.
-type UpdateChatDefaultBannedRightsArray []UpdateChatDefaultBannedRights
-
-// Sort sorts slice of UpdateChatDefaultBannedRights.
-func (s UpdateChatDefaultBannedRightsArray) Sort(less func(a, b UpdateChatDefaultBannedRights) bool) UpdateChatDefaultBannedRightsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChatDefaultBannedRights.
-func (s UpdateChatDefaultBannedRightsArray) SortStable(less func(a, b UpdateChatDefaultBannedRights) bool) UpdateChatDefaultBannedRightsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChatDefaultBannedRights.
-func (s UpdateChatDefaultBannedRightsArray) Retain(keep func(x UpdateChatDefaultBannedRights) bool) UpdateChatDefaultBannedRightsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChatDefaultBannedRightsArray) First() (v UpdateChatDefaultBannedRights, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChatDefaultBannedRightsArray) Last() (v UpdateChatDefaultBannedRights, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChatDefaultBannedRightsArray) PopFirst() (v UpdateChatDefaultBannedRights, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChatDefaultBannedRights
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChatDefaultBannedRightsArray) Pop() (v UpdateChatDefaultBannedRights, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateFolderPeersArray is adapter for slice of UpdateFolderPeers.
-type UpdateFolderPeersArray []UpdateFolderPeers
-
-// Sort sorts slice of UpdateFolderPeers.
-func (s UpdateFolderPeersArray) Sort(less func(a, b UpdateFolderPeers) bool) UpdateFolderPeersArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateFolderPeers.
-func (s UpdateFolderPeersArray) SortStable(less func(a, b UpdateFolderPeers) bool) UpdateFolderPeersArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateFolderPeers.
-func (s UpdateFolderPeersArray) Retain(keep func(x UpdateFolderPeers) bool) UpdateFolderPeersArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateFolderPeersArray) First() (v UpdateFolderPeers, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateFolderPeersArray) Last() (v UpdateFolderPeers, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateFolderPeersArray) PopFirst() (v UpdateFolderPeers, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateFolderPeers
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateFolderPeersArray) Pop() (v UpdateFolderPeers, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdatePeerSettingsArray is adapter for slice of UpdatePeerSettings.
-type UpdatePeerSettingsArray []UpdatePeerSettings
-
-// Sort sorts slice of UpdatePeerSettings.
-func (s UpdatePeerSettingsArray) Sort(less func(a, b UpdatePeerSettings) bool) UpdatePeerSettingsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatePeerSettings.
-func (s UpdatePeerSettingsArray) SortStable(less func(a, b UpdatePeerSettings) bool) UpdatePeerSettingsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatePeerSettings.
-func (s UpdatePeerSettingsArray) Retain(keep func(x UpdatePeerSettings) bool) UpdatePeerSettingsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatePeerSettingsArray) First() (v UpdatePeerSettings, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatePeerSettingsArray) Last() (v UpdatePeerSettings, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatePeerSettingsArray) PopFirst() (v UpdatePeerSettings, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatePeerSettings
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatePeerSettingsArray) Pop() (v UpdatePeerSettings, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdatePeerLocatedArray is adapter for slice of UpdatePeerLocated.
-type UpdatePeerLocatedArray []UpdatePeerLocated
-
-// Sort sorts slice of UpdatePeerLocated.
-func (s UpdatePeerLocatedArray) Sort(less func(a, b UpdatePeerLocated) bool) UpdatePeerLocatedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatePeerLocated.
-func (s UpdatePeerLocatedArray) SortStable(less func(a, b UpdatePeerLocated) bool) UpdatePeerLocatedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatePeerLocated.
-func (s UpdatePeerLocatedArray) Retain(keep func(x UpdatePeerLocated) bool) UpdatePeerLocatedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatePeerLocatedArray) First() (v UpdatePeerLocated, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatePeerLocatedArray) Last() (v UpdatePeerLocated, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatePeerLocatedArray) PopFirst() (v UpdatePeerLocated, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatePeerLocated
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatePeerLocatedArray) Pop() (v UpdatePeerLocated, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateNewScheduledMessageArray is adapter for slice of UpdateNewScheduledMessage.
-type UpdateNewScheduledMessageArray []UpdateNewScheduledMessage
-
-// Sort sorts slice of UpdateNewScheduledMessage.
-func (s UpdateNewScheduledMessageArray) Sort(less func(a, b UpdateNewScheduledMessage) bool) UpdateNewScheduledMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateNewScheduledMessage.
-func (s UpdateNewScheduledMessageArray) SortStable(less func(a, b UpdateNewScheduledMessage) bool) UpdateNewScheduledMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateNewScheduledMessage.
-func (s UpdateNewScheduledMessageArray) Retain(keep func(x UpdateNewScheduledMessage) bool) UpdateNewScheduledMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateNewScheduledMessageArray) First() (v UpdateNewScheduledMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateNewScheduledMessageArray) Last() (v UpdateNewScheduledMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateNewScheduledMessageArray) PopFirst() (v UpdateNewScheduledMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateNewScheduledMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateNewScheduledMessageArray) Pop() (v UpdateNewScheduledMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateDeleteScheduledMessagesArray is adapter for slice of UpdateDeleteScheduledMessages.
-type UpdateDeleteScheduledMessagesArray []UpdateDeleteScheduledMessages
-
-// Sort sorts slice of UpdateDeleteScheduledMessages.
-func (s UpdateDeleteScheduledMessagesArray) Sort(less func(a, b UpdateDeleteScheduledMessages) bool) UpdateDeleteScheduledMessagesArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateDeleteScheduledMessages.
-func (s UpdateDeleteScheduledMessagesArray) SortStable(less func(a, b UpdateDeleteScheduledMessages) bool) UpdateDeleteScheduledMessagesArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateDeleteScheduledMessages.
-func (s UpdateDeleteScheduledMessagesArray) Retain(keep func(x UpdateDeleteScheduledMessages) bool) UpdateDeleteScheduledMessagesArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateDeleteScheduledMessagesArray) First() (v UpdateDeleteScheduledMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateDeleteScheduledMessagesArray) Last() (v UpdateDeleteScheduledMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateDeleteScheduledMessagesArray) PopFirst() (v UpdateDeleteScheduledMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateDeleteScheduledMessages
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateDeleteScheduledMessagesArray) Pop() (v UpdateDeleteScheduledMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateThemeArray is adapter for slice of UpdateTheme.
-type UpdateThemeArray []UpdateTheme
-
-// Sort sorts slice of UpdateTheme.
-func (s UpdateThemeArray) Sort(less func(a, b UpdateTheme) bool) UpdateThemeArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateTheme.
-func (s UpdateThemeArray) SortStable(less func(a, b UpdateTheme) bool) UpdateThemeArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateTheme.
-func (s UpdateThemeArray) Retain(keep func(x UpdateTheme) bool) UpdateThemeArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateThemeArray) First() (v UpdateTheme, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateThemeArray) Last() (v UpdateTheme, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateThemeArray) PopFirst() (v UpdateTheme, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateTheme
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateThemeArray) Pop() (v UpdateTheme, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateGeoLiveViewedArray is adapter for slice of UpdateGeoLiveViewed.
-type UpdateGeoLiveViewedArray []UpdateGeoLiveViewed
-
-// Sort sorts slice of UpdateGeoLiveViewed.
-func (s UpdateGeoLiveViewedArray) Sort(less func(a, b UpdateGeoLiveViewed) bool) UpdateGeoLiveViewedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateGeoLiveViewed.
-func (s UpdateGeoLiveViewedArray) SortStable(less func(a, b UpdateGeoLiveViewed) bool) UpdateGeoLiveViewedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateGeoLiveViewed.
-func (s UpdateGeoLiveViewedArray) Retain(keep func(x UpdateGeoLiveViewed) bool) UpdateGeoLiveViewedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateGeoLiveViewedArray) First() (v UpdateGeoLiveViewed, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateGeoLiveViewedArray) Last() (v UpdateGeoLiveViewed, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateGeoLiveViewedArray) PopFirst() (v UpdateGeoLiveViewed, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateGeoLiveViewed
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateGeoLiveViewedArray) Pop() (v UpdateGeoLiveViewed, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateMessagePollVoteArray is adapter for slice of UpdateMessagePollVote.
-type UpdateMessagePollVoteArray []UpdateMessagePollVote
-
-// Sort sorts slice of UpdateMessagePollVote.
-func (s UpdateMessagePollVoteArray) Sort(less func(a, b UpdateMessagePollVote) bool) UpdateMessagePollVoteArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateMessagePollVote.
-func (s UpdateMessagePollVoteArray) SortStable(less func(a, b UpdateMessagePollVote) bool) UpdateMessagePollVoteArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateMessagePollVote.
-func (s UpdateMessagePollVoteArray) Retain(keep func(x UpdateMessagePollVote) bool) UpdateMessagePollVoteArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateMessagePollVoteArray) First() (v UpdateMessagePollVote, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateMessagePollVoteArray) Last() (v UpdateMessagePollVote, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateMessagePollVoteArray) PopFirst() (v UpdateMessagePollVote, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateMessagePollVote
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateMessagePollVoteArray) Pop() (v UpdateMessagePollVote, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateDialogFilterArray is adapter for slice of UpdateDialogFilter.
-type UpdateDialogFilterArray []UpdateDialogFilter
-
-// Sort sorts slice of UpdateDialogFilter.
-func (s UpdateDialogFilterArray) Sort(less func(a, b UpdateDialogFilter) bool) UpdateDialogFilterArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateDialogFilter.
-func (s UpdateDialogFilterArray) SortStable(less func(a, b UpdateDialogFilter) bool) UpdateDialogFilterArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateDialogFilter.
-func (s UpdateDialogFilterArray) Retain(keep func(x UpdateDialogFilter) bool) UpdateDialogFilterArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateDialogFilterArray) First() (v UpdateDialogFilter, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateDialogFilterArray) Last() (v UpdateDialogFilter, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateDialogFilterArray) PopFirst() (v UpdateDialogFilter, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateDialogFilter
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateDialogFilterArray) Pop() (v UpdateDialogFilter, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of UpdateDialogFilter by ID.
-func (s UpdateDialogFilterArray) SortByID() UpdateDialogFilterArray {
-	return s.Sort(func(a, b UpdateDialogFilter) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of UpdateDialogFilter by ID.
-func (s UpdateDialogFilterArray) SortStableByID() UpdateDialogFilterArray {
-	return s.SortStable(func(a, b UpdateDialogFilter) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s UpdateDialogFilterArray) FillMap(to map[int]UpdateDialogFilter) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s UpdateDialogFilterArray) ToMap() map[int]UpdateDialogFilter {
-	r := make(map[int]UpdateDialogFilter, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// UpdateDialogFilterOrderArray is adapter for slice of UpdateDialogFilterOrder.
-type UpdateDialogFilterOrderArray []UpdateDialogFilterOrder
-
-// Sort sorts slice of UpdateDialogFilterOrder.
-func (s UpdateDialogFilterOrderArray) Sort(less func(a, b UpdateDialogFilterOrder) bool) UpdateDialogFilterOrderArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateDialogFilterOrder.
-func (s UpdateDialogFilterOrderArray) SortStable(less func(a, b UpdateDialogFilterOrder) bool) UpdateDialogFilterOrderArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateDialogFilterOrder.
-func (s UpdateDialogFilterOrderArray) Retain(keep func(x UpdateDialogFilterOrder) bool) UpdateDialogFilterOrderArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateDialogFilterOrderArray) First() (v UpdateDialogFilterOrder, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateDialogFilterOrderArray) Last() (v UpdateDialogFilterOrder, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateDialogFilterOrderArray) PopFirst() (v UpdateDialogFilterOrder, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateDialogFilterOrder
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateDialogFilterOrderArray) Pop() (v UpdateDialogFilterOrder, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdatePhoneCallSignalingDataArray is adapter for slice of UpdatePhoneCallSignalingData.
-type UpdatePhoneCallSignalingDataArray []UpdatePhoneCallSignalingData
-
-// Sort sorts slice of UpdatePhoneCallSignalingData.
-func (s UpdatePhoneCallSignalingDataArray) Sort(less func(a, b UpdatePhoneCallSignalingData) bool) UpdatePhoneCallSignalingDataArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatePhoneCallSignalingData.
-func (s UpdatePhoneCallSignalingDataArray) SortStable(less func(a, b UpdatePhoneCallSignalingData) bool) UpdatePhoneCallSignalingDataArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatePhoneCallSignalingData.
-func (s UpdatePhoneCallSignalingDataArray) Retain(keep func(x UpdatePhoneCallSignalingData) bool) UpdatePhoneCallSignalingDataArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatePhoneCallSignalingDataArray) First() (v UpdatePhoneCallSignalingData, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatePhoneCallSignalingDataArray) Last() (v UpdatePhoneCallSignalingData, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatePhoneCallSignalingDataArray) PopFirst() (v UpdatePhoneCallSignalingData, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatePhoneCallSignalingData
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatePhoneCallSignalingDataArray) Pop() (v UpdatePhoneCallSignalingData, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateChannelMessageForwardsArray is adapter for slice of UpdateChannelMessageForwards.
-type UpdateChannelMessageForwardsArray []UpdateChannelMessageForwards
-
-// Sort sorts slice of UpdateChannelMessageForwards.
-func (s UpdateChannelMessageForwardsArray) Sort(less func(a, b UpdateChannelMessageForwards) bool) UpdateChannelMessageForwardsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChannelMessageForwards.
-func (s UpdateChannelMessageForwardsArray) SortStable(less func(a, b UpdateChannelMessageForwards) bool) UpdateChannelMessageForwardsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChannelMessageForwards.
-func (s UpdateChannelMessageForwardsArray) Retain(keep func(x UpdateChannelMessageForwards) bool) UpdateChannelMessageForwardsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChannelMessageForwardsArray) First() (v UpdateChannelMessageForwards, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChannelMessageForwardsArray) Last() (v UpdateChannelMessageForwards, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChannelMessageForwardsArray) PopFirst() (v UpdateChannelMessageForwards, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChannelMessageForwards
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChannelMessageForwardsArray) Pop() (v UpdateChannelMessageForwards, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of UpdateChannelMessageForwards by ID.
-func (s UpdateChannelMessageForwardsArray) SortByID() UpdateChannelMessageForwardsArray {
-	return s.Sort(func(a, b UpdateChannelMessageForwards) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of UpdateChannelMessageForwards by ID.
-func (s UpdateChannelMessageForwardsArray) SortStableByID() UpdateChannelMessageForwardsArray {
-	return s.SortStable(func(a, b UpdateChannelMessageForwards) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s UpdateChannelMessageForwardsArray) FillMap(to map[int]UpdateChannelMessageForwards) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s UpdateChannelMessageForwardsArray) ToMap() map[int]UpdateChannelMessageForwards {
-	r := make(map[int]UpdateChannelMessageForwards, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// UpdateReadChannelDiscussionInboxArray is adapter for slice of UpdateReadChannelDiscussionInbox.
-type UpdateReadChannelDiscussionInboxArray []UpdateReadChannelDiscussionInbox
-
-// Sort sorts slice of UpdateReadChannelDiscussionInbox.
-func (s UpdateReadChannelDiscussionInboxArray) Sort(less func(a, b UpdateReadChannelDiscussionInbox) bool) UpdateReadChannelDiscussionInboxArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateReadChannelDiscussionInbox.
-func (s UpdateReadChannelDiscussionInboxArray) SortStable(less func(a, b UpdateReadChannelDiscussionInbox) bool) UpdateReadChannelDiscussionInboxArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateReadChannelDiscussionInbox.
-func (s UpdateReadChannelDiscussionInboxArray) Retain(keep func(x UpdateReadChannelDiscussionInbox) bool) UpdateReadChannelDiscussionInboxArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateReadChannelDiscussionInboxArray) First() (v UpdateReadChannelDiscussionInbox, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateReadChannelDiscussionInboxArray) Last() (v UpdateReadChannelDiscussionInbox, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateReadChannelDiscussionInboxArray) PopFirst() (v UpdateReadChannelDiscussionInbox, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateReadChannelDiscussionInbox
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateReadChannelDiscussionInboxArray) Pop() (v UpdateReadChannelDiscussionInbox, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateReadChannelDiscussionOutboxArray is adapter for slice of UpdateReadChannelDiscussionOutbox.
-type UpdateReadChannelDiscussionOutboxArray []UpdateReadChannelDiscussionOutbox
-
-// Sort sorts slice of UpdateReadChannelDiscussionOutbox.
-func (s UpdateReadChannelDiscussionOutboxArray) Sort(less func(a, b UpdateReadChannelDiscussionOutbox) bool) UpdateReadChannelDiscussionOutboxArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateReadChannelDiscussionOutbox.
-func (s UpdateReadChannelDiscussionOutboxArray) SortStable(less func(a, b UpdateReadChannelDiscussionOutbox) bool) UpdateReadChannelDiscussionOutboxArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateReadChannelDiscussionOutbox.
-func (s UpdateReadChannelDiscussionOutboxArray) Retain(keep func(x UpdateReadChannelDiscussionOutbox) bool) UpdateReadChannelDiscussionOutboxArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateReadChannelDiscussionOutboxArray) First() (v UpdateReadChannelDiscussionOutbox, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateReadChannelDiscussionOutboxArray) Last() (v UpdateReadChannelDiscussionOutbox, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateReadChannelDiscussionOutboxArray) PopFirst() (v UpdateReadChannelDiscussionOutbox, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateReadChannelDiscussionOutbox
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateReadChannelDiscussionOutboxArray) Pop() (v UpdateReadChannelDiscussionOutbox, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdatePeerBlockedArray is adapter for slice of UpdatePeerBlocked.
-type UpdatePeerBlockedArray []UpdatePeerBlocked
-
-// Sort sorts slice of UpdatePeerBlocked.
-func (s UpdatePeerBlockedArray) Sort(less func(a, b UpdatePeerBlocked) bool) UpdatePeerBlockedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatePeerBlocked.
-func (s UpdatePeerBlockedArray) SortStable(less func(a, b UpdatePeerBlocked) bool) UpdatePeerBlockedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatePeerBlocked.
-func (s UpdatePeerBlockedArray) Retain(keep func(x UpdatePeerBlocked) bool) UpdatePeerBlockedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatePeerBlockedArray) First() (v UpdatePeerBlocked, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatePeerBlockedArray) Last() (v UpdatePeerBlocked, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatePeerBlockedArray) PopFirst() (v UpdatePeerBlocked, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatePeerBlocked
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatePeerBlockedArray) Pop() (v UpdatePeerBlocked, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateChannelUserTypingArray is adapter for slice of UpdateChannelUserTyping.
-type UpdateChannelUserTypingArray []UpdateChannelUserTyping
-
-// Sort sorts slice of UpdateChannelUserTyping.
-func (s UpdateChannelUserTypingArray) Sort(less func(a, b UpdateChannelUserTyping) bool) UpdateChannelUserTypingArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChannelUserTyping.
-func (s UpdateChannelUserTypingArray) SortStable(less func(a, b UpdateChannelUserTyping) bool) UpdateChannelUserTypingArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChannelUserTyping.
-func (s UpdateChannelUserTypingArray) Retain(keep func(x UpdateChannelUserTyping) bool) UpdateChannelUserTypingArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChannelUserTypingArray) First() (v UpdateChannelUserTyping, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChannelUserTypingArray) Last() (v UpdateChannelUserTyping, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChannelUserTypingArray) PopFirst() (v UpdateChannelUserTyping, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChannelUserTyping
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChannelUserTypingArray) Pop() (v UpdateChannelUserTyping, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdatePinnedMessagesArray is adapter for slice of UpdatePinnedMessages.
-type UpdatePinnedMessagesArray []UpdatePinnedMessages
-
-// Sort sorts slice of UpdatePinnedMessages.
-func (s UpdatePinnedMessagesArray) Sort(less func(a, b UpdatePinnedMessages) bool) UpdatePinnedMessagesArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatePinnedMessages.
-func (s UpdatePinnedMessagesArray) SortStable(less func(a, b UpdatePinnedMessages) bool) UpdatePinnedMessagesArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatePinnedMessages.
-func (s UpdatePinnedMessagesArray) Retain(keep func(x UpdatePinnedMessages) bool) UpdatePinnedMessagesArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatePinnedMessagesArray) First() (v UpdatePinnedMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatePinnedMessagesArray) Last() (v UpdatePinnedMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatePinnedMessagesArray) PopFirst() (v UpdatePinnedMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatePinnedMessages
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatePinnedMessagesArray) Pop() (v UpdatePinnedMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdatePinnedChannelMessagesArray is adapter for slice of UpdatePinnedChannelMessages.
-type UpdatePinnedChannelMessagesArray []UpdatePinnedChannelMessages
-
-// Sort sorts slice of UpdatePinnedChannelMessages.
-func (s UpdatePinnedChannelMessagesArray) Sort(less func(a, b UpdatePinnedChannelMessages) bool) UpdatePinnedChannelMessagesArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatePinnedChannelMessages.
-func (s UpdatePinnedChannelMessagesArray) SortStable(less func(a, b UpdatePinnedChannelMessages) bool) UpdatePinnedChannelMessagesArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatePinnedChannelMessages.
-func (s UpdatePinnedChannelMessagesArray) Retain(keep func(x UpdatePinnedChannelMessages) bool) UpdatePinnedChannelMessagesArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatePinnedChannelMessagesArray) First() (v UpdatePinnedChannelMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatePinnedChannelMessagesArray) Last() (v UpdatePinnedChannelMessages, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatePinnedChannelMessagesArray) PopFirst() (v UpdatePinnedChannelMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatePinnedChannelMessages
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatePinnedChannelMessagesArray) Pop() (v UpdatePinnedChannelMessages, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateChatArray is adapter for slice of UpdateChat.
-type UpdateChatArray []UpdateChat
-
-// Sort sorts slice of UpdateChat.
-func (s UpdateChatArray) Sort(less func(a, b UpdateChat) bool) UpdateChatArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChat.
-func (s UpdateChatArray) SortStable(less func(a, b UpdateChat) bool) UpdateChatArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChat.
-func (s UpdateChatArray) Retain(keep func(x UpdateChat) bool) UpdateChatArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChatArray) First() (v UpdateChat, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChatArray) Last() (v UpdateChat, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChatArray) PopFirst() (v UpdateChat, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChat
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChatArray) Pop() (v UpdateChat, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateGroupCallParticipantsArray is adapter for slice of UpdateGroupCallParticipants.
-type UpdateGroupCallParticipantsArray []UpdateGroupCallParticipants
-
-// Sort sorts slice of UpdateGroupCallParticipants.
-func (s UpdateGroupCallParticipantsArray) Sort(less func(a, b UpdateGroupCallParticipants) bool) UpdateGroupCallParticipantsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateGroupCallParticipants.
-func (s UpdateGroupCallParticipantsArray) SortStable(less func(a, b UpdateGroupCallParticipants) bool) UpdateGroupCallParticipantsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateGroupCallParticipants.
-func (s UpdateGroupCallParticipantsArray) Retain(keep func(x UpdateGroupCallParticipants) bool) UpdateGroupCallParticipantsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateGroupCallParticipantsArray) First() (v UpdateGroupCallParticipants, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateGroupCallParticipantsArray) Last() (v UpdateGroupCallParticipants, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateGroupCallParticipantsArray) PopFirst() (v UpdateGroupCallParticipants, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateGroupCallParticipants
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateGroupCallParticipantsArray) Pop() (v UpdateGroupCallParticipants, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateGroupCallArray is adapter for slice of UpdateGroupCall.
-type UpdateGroupCallArray []UpdateGroupCall
-
-// Sort sorts slice of UpdateGroupCall.
-func (s UpdateGroupCallArray) Sort(less func(a, b UpdateGroupCall) bool) UpdateGroupCallArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateGroupCall.
-func (s UpdateGroupCallArray) SortStable(less func(a, b UpdateGroupCall) bool) UpdateGroupCallArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateGroupCall.
-func (s UpdateGroupCallArray) Retain(keep func(x UpdateGroupCall) bool) UpdateGroupCallArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateGroupCallArray) First() (v UpdateGroupCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateGroupCallArray) Last() (v UpdateGroupCall, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateGroupCallArray) PopFirst() (v UpdateGroupCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateGroupCall
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateGroupCallArray) Pop() (v UpdateGroupCall, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdatePeerHistoryTTLArray is adapter for slice of UpdatePeerHistoryTTL.
-type UpdatePeerHistoryTTLArray []UpdatePeerHistoryTTL
-
-// Sort sorts slice of UpdatePeerHistoryTTL.
-func (s UpdatePeerHistoryTTLArray) Sort(less func(a, b UpdatePeerHistoryTTL) bool) UpdatePeerHistoryTTLArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatePeerHistoryTTL.
-func (s UpdatePeerHistoryTTLArray) SortStable(less func(a, b UpdatePeerHistoryTTL) bool) UpdatePeerHistoryTTLArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatePeerHistoryTTL.
-func (s UpdatePeerHistoryTTLArray) Retain(keep func(x UpdatePeerHistoryTTL) bool) UpdatePeerHistoryTTLArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatePeerHistoryTTLArray) First() (v UpdatePeerHistoryTTL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatePeerHistoryTTLArray) Last() (v UpdatePeerHistoryTTL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatePeerHistoryTTLArray) PopFirst() (v UpdatePeerHistoryTTL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatePeerHistoryTTL
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatePeerHistoryTTLArray) Pop() (v UpdatePeerHistoryTTL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateChatParticipantArray is adapter for slice of UpdateChatParticipant.
-type UpdateChatParticipantArray []UpdateChatParticipant
-
-// Sort sorts slice of UpdateChatParticipant.
-func (s UpdateChatParticipantArray) Sort(less func(a, b UpdateChatParticipant) bool) UpdateChatParticipantArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChatParticipant.
-func (s UpdateChatParticipantArray) SortStable(less func(a, b UpdateChatParticipant) bool) UpdateChatParticipantArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChatParticipant.
-func (s UpdateChatParticipantArray) Retain(keep func(x UpdateChatParticipant) bool) UpdateChatParticipantArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChatParticipantArray) First() (v UpdateChatParticipant, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChatParticipantArray) Last() (v UpdateChatParticipant, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChatParticipantArray) PopFirst() (v UpdateChatParticipant, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChatParticipant
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChatParticipantArray) Pop() (v UpdateChatParticipant, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of UpdateChatParticipant by Date.
-func (s UpdateChatParticipantArray) SortByDate() UpdateChatParticipantArray {
-	return s.Sort(func(a, b UpdateChatParticipant) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of UpdateChatParticipant by Date.
-func (s UpdateChatParticipantArray) SortStableByDate() UpdateChatParticipantArray {
-	return s.SortStable(func(a, b UpdateChatParticipant) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// UpdateChannelParticipantArray is adapter for slice of UpdateChannelParticipant.
-type UpdateChannelParticipantArray []UpdateChannelParticipant
-
-// Sort sorts slice of UpdateChannelParticipant.
-func (s UpdateChannelParticipantArray) Sort(less func(a, b UpdateChannelParticipant) bool) UpdateChannelParticipantArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateChannelParticipant.
-func (s UpdateChannelParticipantArray) SortStable(less func(a, b UpdateChannelParticipant) bool) UpdateChannelParticipantArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateChannelParticipant.
-func (s UpdateChannelParticipantArray) Retain(keep func(x UpdateChannelParticipant) bool) UpdateChannelParticipantArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateChannelParticipantArray) First() (v UpdateChannelParticipant, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateChannelParticipantArray) Last() (v UpdateChannelParticipant, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateChannelParticipantArray) PopFirst() (v UpdateChannelParticipant, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateChannelParticipant
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateChannelParticipantArray) Pop() (v UpdateChannelParticipant, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of UpdateChannelParticipant by Date.
-func (s UpdateChannelParticipantArray) SortByDate() UpdateChannelParticipantArray {
-	return s.Sort(func(a, b UpdateChannelParticipant) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of UpdateChannelParticipant by Date.
-func (s UpdateChannelParticipantArray) SortStableByDate() UpdateChannelParticipantArray {
-	return s.SortStable(func(a, b UpdateChannelParticipant) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// UpdateBotStoppedArray is adapter for slice of UpdateBotStopped.
-type UpdateBotStoppedArray []UpdateBotStopped
-
-// Sort sorts slice of UpdateBotStopped.
-func (s UpdateBotStoppedArray) Sort(less func(a, b UpdateBotStopped) bool) UpdateBotStoppedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateBotStopped.
-func (s UpdateBotStoppedArray) SortStable(less func(a, b UpdateBotStopped) bool) UpdateBotStoppedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateBotStopped.
-func (s UpdateBotStoppedArray) Retain(keep func(x UpdateBotStopped) bool) UpdateBotStoppedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateBotStoppedArray) First() (v UpdateBotStopped, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateBotStoppedArray) Last() (v UpdateBotStopped, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateBotStoppedArray) PopFirst() (v UpdateBotStopped, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateBotStopped
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateBotStoppedArray) Pop() (v UpdateBotStopped, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of UpdateBotStopped by Date.
-func (s UpdateBotStoppedArray) SortByDate() UpdateBotStoppedArray {
-	return s.Sort(func(a, b UpdateBotStopped) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of UpdateBotStopped by Date.
-func (s UpdateBotStoppedArray) SortStableByDate() UpdateBotStoppedArray {
-	return s.SortStable(func(a, b UpdateBotStopped) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// UpdateGroupCallConnectionArray is adapter for slice of UpdateGroupCallConnection.
-type UpdateGroupCallConnectionArray []UpdateGroupCallConnection
-
-// Sort sorts slice of UpdateGroupCallConnection.
-func (s UpdateGroupCallConnectionArray) Sort(less func(a, b UpdateGroupCallConnection) bool) UpdateGroupCallConnectionArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateGroupCallConnection.
-func (s UpdateGroupCallConnectionArray) SortStable(less func(a, b UpdateGroupCallConnection) bool) UpdateGroupCallConnectionArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateGroupCallConnection.
-func (s UpdateGroupCallConnectionArray) Retain(keep func(x UpdateGroupCallConnection) bool) UpdateGroupCallConnectionArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateGroupCallConnectionArray) First() (v UpdateGroupCallConnection, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateGroupCallConnectionArray) Last() (v UpdateGroupCallConnection, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateGroupCallConnectionArray) PopFirst() (v UpdateGroupCallConnection, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateGroupCallConnection
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateGroupCallConnectionArray) Pop() (v UpdateGroupCallConnection, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UpdateBotCommandsArray is adapter for slice of UpdateBotCommands.
-type UpdateBotCommandsArray []UpdateBotCommands
-
-// Sort sorts slice of UpdateBotCommands.
-func (s UpdateBotCommandsArray) Sort(less func(a, b UpdateBotCommands) bool) UpdateBotCommandsArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateBotCommands.
-func (s UpdateBotCommandsArray) SortStable(less func(a, b UpdateBotCommands) bool) UpdateBotCommandsArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateBotCommands.
-func (s UpdateBotCommandsArray) Retain(keep func(x UpdateBotCommands) bool) UpdateBotCommandsArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateBotCommandsArray) First() (v UpdateBotCommands, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateBotCommandsArray) Last() (v UpdateBotCommands, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateBotCommandsArray) PopFirst() (v UpdateBotCommands, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateBotCommands
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateBotCommandsArray) Pop() (v UpdateBotCommands, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

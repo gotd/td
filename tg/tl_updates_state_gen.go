@@ -54,6 +54,14 @@ type UpdatesState struct {
 // UpdatesStateTypeID is TL type id of UpdatesState.
 const UpdatesStateTypeID = 0xa56c2a3e
 
+// Ensuring interfaces in compile-time for UpdatesState.
+var (
+	_ bin.Encoder     = &UpdatesState{}
+	_ bin.Decoder     = &UpdatesState{}
+	_ bin.BareEncoder = &UpdatesState{}
+	_ bin.BareDecoder = &UpdatesState{}
+)
+
 func (s *UpdatesState) Zero() bool {
 	if s == nil {
 		return true
@@ -170,31 +178,6 @@ func (s *UpdatesState) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPts returns value of Pts field.
-func (s *UpdatesState) GetPts() (value int) {
-	return s.Pts
-}
-
-// GetQts returns value of Qts field.
-func (s *UpdatesState) GetQts() (value int) {
-	return s.Qts
-}
-
-// GetDate returns value of Date field.
-func (s *UpdatesState) GetDate() (value int) {
-	return s.Date
-}
-
-// GetSeq returns value of Seq field.
-func (s *UpdatesState) GetSeq() (value int) {
-	return s.Seq
-}
-
-// GetUnreadCount returns value of UnreadCount field.
-func (s *UpdatesState) GetUnreadCount() (value int) {
-	return s.UnreadCount
-}
-
 // Decode implements bin.Decoder.
 func (s *UpdatesState) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -249,10 +232,27 @@ func (s *UpdatesState) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UpdatesState.
-var (
-	_ bin.Encoder     = &UpdatesState{}
-	_ bin.Decoder     = &UpdatesState{}
-	_ bin.BareEncoder = &UpdatesState{}
-	_ bin.BareDecoder = &UpdatesState{}
-)
+// GetPts returns value of Pts field.
+func (s *UpdatesState) GetPts() (value int) {
+	return s.Pts
+}
+
+// GetQts returns value of Qts field.
+func (s *UpdatesState) GetQts() (value int) {
+	return s.Qts
+}
+
+// GetDate returns value of Date field.
+func (s *UpdatesState) GetDate() (value int) {
+	return s.Date
+}
+
+// GetSeq returns value of Seq field.
+func (s *UpdatesState) GetSeq() (value int) {
+	return s.Seq
+}
+
+// GetUnreadCount returns value of UnreadCount field.
+func (s *UpdatesState) GetUnreadCount() (value int) {
+	return s.UnreadCount
+}

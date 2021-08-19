@@ -43,6 +43,14 @@ type MessagesHighScores struct {
 // MessagesHighScoresTypeID is TL type id of MessagesHighScores.
 const MessagesHighScoresTypeID = 0x9a3bfd99
 
+// Ensuring interfaces in compile-time for MessagesHighScores.
+var (
+	_ bin.Encoder     = &MessagesHighScores{}
+	_ bin.Decoder     = &MessagesHighScores{}
+	_ bin.BareEncoder = &MessagesHighScores{}
+	_ bin.BareDecoder = &MessagesHighScores{}
+)
+
 func (h *MessagesHighScores) Zero() bool {
 	if h == nil {
 		return true
@@ -142,21 +150,6 @@ func (h *MessagesHighScores) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetScores returns value of Scores field.
-func (h *MessagesHighScores) GetScores() (value []HighScore) {
-	return h.Scores
-}
-
-// GetUsers returns value of Users field.
-func (h *MessagesHighScores) GetUsers() (value []UserClass) {
-	return h.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (h *MessagesHighScores) MapUsers() (value UserClassArray) {
-	return UserClassArray(h.Users)
-}
-
 // Decode implements bin.Decoder.
 func (h *MessagesHighScores) Decode(b *bin.Buffer) error {
 	if h == nil {
@@ -210,10 +203,17 @@ func (h *MessagesHighScores) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesHighScores.
-var (
-	_ bin.Encoder     = &MessagesHighScores{}
-	_ bin.Decoder     = &MessagesHighScores{}
-	_ bin.BareEncoder = &MessagesHighScores{}
-	_ bin.BareDecoder = &MessagesHighScores{}
-)
+// GetScores returns value of Scores field.
+func (h *MessagesHighScores) GetScores() (value []HighScore) {
+	return h.Scores
+}
+
+// GetUsers returns value of Users field.
+func (h *MessagesHighScores) GetUsers() (value []UserClass) {
+	return h.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (h *MessagesHighScores) MapUsers() (value UserClassArray) {
+	return UserClassArray(h.Users)
+}

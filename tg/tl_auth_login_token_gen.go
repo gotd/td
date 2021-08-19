@@ -46,6 +46,19 @@ type AuthLoginToken struct {
 // AuthLoginTokenTypeID is TL type id of AuthLoginToken.
 const AuthLoginTokenTypeID = 0x629f1980
 
+// construct implements constructor of AuthLoginTokenClass.
+func (l AuthLoginToken) construct() AuthLoginTokenClass { return &l }
+
+// Ensuring interfaces in compile-time for AuthLoginToken.
+var (
+	_ bin.Encoder     = &AuthLoginToken{}
+	_ bin.Decoder     = &AuthLoginToken{}
+	_ bin.BareEncoder = &AuthLoginToken{}
+	_ bin.BareDecoder = &AuthLoginToken{}
+
+	_ AuthLoginTokenClass = &AuthLoginToken{}
+)
+
 func (l *AuthLoginToken) Zero() bool {
 	if l == nil {
 		return true
@@ -132,16 +145,6 @@ func (l *AuthLoginToken) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExpires returns value of Expires field.
-func (l *AuthLoginToken) GetExpires() (value int) {
-	return l.Expires
-}
-
-// GetToken returns value of Token field.
-func (l *AuthLoginToken) GetToken() (value []byte) {
-	return l.Token
-}
-
 // Decode implements bin.Decoder.
 func (l *AuthLoginToken) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -175,18 +178,15 @@ func (l *AuthLoginToken) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthLoginTokenClass.
-func (l AuthLoginToken) construct() AuthLoginTokenClass { return &l }
+// GetExpires returns value of Expires field.
+func (l *AuthLoginToken) GetExpires() (value int) {
+	return l.Expires
+}
 
-// Ensuring interfaces in compile-time for AuthLoginToken.
-var (
-	_ bin.Encoder     = &AuthLoginToken{}
-	_ bin.Decoder     = &AuthLoginToken{}
-	_ bin.BareEncoder = &AuthLoginToken{}
-	_ bin.BareDecoder = &AuthLoginToken{}
-
-	_ AuthLoginTokenClass = &AuthLoginToken{}
-)
+// GetToken returns value of Token field.
+func (l *AuthLoginToken) GetToken() (value []byte) {
+	return l.Token
+}
 
 // AuthLoginTokenMigrateTo represents TL type `auth.loginTokenMigrateTo#68e9916`.
 // Repeat the query to the specified DC
@@ -201,6 +201,19 @@ type AuthLoginTokenMigrateTo struct {
 
 // AuthLoginTokenMigrateToTypeID is TL type id of AuthLoginTokenMigrateTo.
 const AuthLoginTokenMigrateToTypeID = 0x68e9916
+
+// construct implements constructor of AuthLoginTokenClass.
+func (l AuthLoginTokenMigrateTo) construct() AuthLoginTokenClass { return &l }
+
+// Ensuring interfaces in compile-time for AuthLoginTokenMigrateTo.
+var (
+	_ bin.Encoder     = &AuthLoginTokenMigrateTo{}
+	_ bin.Decoder     = &AuthLoginTokenMigrateTo{}
+	_ bin.BareEncoder = &AuthLoginTokenMigrateTo{}
+	_ bin.BareDecoder = &AuthLoginTokenMigrateTo{}
+
+	_ AuthLoginTokenClass = &AuthLoginTokenMigrateTo{}
+)
 
 func (l *AuthLoginTokenMigrateTo) Zero() bool {
 	if l == nil {
@@ -288,16 +301,6 @@ func (l *AuthLoginTokenMigrateTo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetDCID returns value of DCID field.
-func (l *AuthLoginTokenMigrateTo) GetDCID() (value int) {
-	return l.DCID
-}
-
-// GetToken returns value of Token field.
-func (l *AuthLoginTokenMigrateTo) GetToken() (value []byte) {
-	return l.Token
-}
-
 // Decode implements bin.Decoder.
 func (l *AuthLoginTokenMigrateTo) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -331,18 +334,15 @@ func (l *AuthLoginTokenMigrateTo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthLoginTokenClass.
-func (l AuthLoginTokenMigrateTo) construct() AuthLoginTokenClass { return &l }
+// GetDCID returns value of DCID field.
+func (l *AuthLoginTokenMigrateTo) GetDCID() (value int) {
+	return l.DCID
+}
 
-// Ensuring interfaces in compile-time for AuthLoginTokenMigrateTo.
-var (
-	_ bin.Encoder     = &AuthLoginTokenMigrateTo{}
-	_ bin.Decoder     = &AuthLoginTokenMigrateTo{}
-	_ bin.BareEncoder = &AuthLoginTokenMigrateTo{}
-	_ bin.BareDecoder = &AuthLoginTokenMigrateTo{}
-
-	_ AuthLoginTokenClass = &AuthLoginTokenMigrateTo{}
-)
+// GetToken returns value of Token field.
+func (l *AuthLoginTokenMigrateTo) GetToken() (value []byte) {
+	return l.Token
+}
 
 // AuthLoginTokenSuccess represents TL type `auth.loginTokenSuccess#390d5c5e`.
 // Login via token (QR code) succeded!
@@ -355,6 +355,19 @@ type AuthLoginTokenSuccess struct {
 
 // AuthLoginTokenSuccessTypeID is TL type id of AuthLoginTokenSuccess.
 const AuthLoginTokenSuccessTypeID = 0x390d5c5e
+
+// construct implements constructor of AuthLoginTokenClass.
+func (l AuthLoginTokenSuccess) construct() AuthLoginTokenClass { return &l }
+
+// Ensuring interfaces in compile-time for AuthLoginTokenSuccess.
+var (
+	_ bin.Encoder     = &AuthLoginTokenSuccess{}
+	_ bin.Decoder     = &AuthLoginTokenSuccess{}
+	_ bin.BareEncoder = &AuthLoginTokenSuccess{}
+	_ bin.BareDecoder = &AuthLoginTokenSuccess{}
+
+	_ AuthLoginTokenClass = &AuthLoginTokenSuccess{}
+)
 
 func (l *AuthLoginTokenSuccess) Zero() bool {
 	if l == nil {
@@ -437,11 +450,6 @@ func (l *AuthLoginTokenSuccess) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetAuthorization returns value of Authorization field.
-func (l *AuthLoginTokenSuccess) GetAuthorization() (value AuthAuthorizationClass) {
-	return l.Authorization
-}
-
 // Decode implements bin.Decoder.
 func (l *AuthLoginTokenSuccess) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -468,18 +476,10 @@ func (l *AuthLoginTokenSuccess) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of AuthLoginTokenClass.
-func (l AuthLoginTokenSuccess) construct() AuthLoginTokenClass { return &l }
-
-// Ensuring interfaces in compile-time for AuthLoginTokenSuccess.
-var (
-	_ bin.Encoder     = &AuthLoginTokenSuccess{}
-	_ bin.Decoder     = &AuthLoginTokenSuccess{}
-	_ bin.BareEncoder = &AuthLoginTokenSuccess{}
-	_ bin.BareDecoder = &AuthLoginTokenSuccess{}
-
-	_ AuthLoginTokenClass = &AuthLoginTokenSuccess{}
-)
+// GetAuthorization returns value of Authorization field.
+func (l *AuthLoginTokenSuccess) GetAuthorization() (value AuthAuthorizationClass) {
+	return l.Authorization
+}
 
 // AuthLoginTokenClass represents auth.LoginToken generic type.
 //
@@ -572,371 +572,4 @@ func (b *AuthLoginTokenBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode AuthLoginTokenClass as nil")
 	}
 	return b.LoginToken.Encode(buf)
-}
-
-// AuthLoginTokenClassArray is adapter for slice of AuthLoginTokenClass.
-type AuthLoginTokenClassArray []AuthLoginTokenClass
-
-// Sort sorts slice of AuthLoginTokenClass.
-func (s AuthLoginTokenClassArray) Sort(less func(a, b AuthLoginTokenClass) bool) AuthLoginTokenClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AuthLoginTokenClass.
-func (s AuthLoginTokenClassArray) SortStable(less func(a, b AuthLoginTokenClass) bool) AuthLoginTokenClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AuthLoginTokenClass.
-func (s AuthLoginTokenClassArray) Retain(keep func(x AuthLoginTokenClass) bool) AuthLoginTokenClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AuthLoginTokenClassArray) First() (v AuthLoginTokenClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AuthLoginTokenClassArray) Last() (v AuthLoginTokenClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthLoginTokenClassArray) PopFirst() (v AuthLoginTokenClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AuthLoginTokenClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthLoginTokenClassArray) Pop() (v AuthLoginTokenClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsAuthLoginToken returns copy with only AuthLoginToken constructors.
-func (s AuthLoginTokenClassArray) AsAuthLoginToken() (to AuthLoginTokenArray) {
-	for _, elem := range s {
-		value, ok := elem.(*AuthLoginToken)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsAuthLoginTokenMigrateTo returns copy with only AuthLoginTokenMigrateTo constructors.
-func (s AuthLoginTokenClassArray) AsAuthLoginTokenMigrateTo() (to AuthLoginTokenMigrateToArray) {
-	for _, elem := range s {
-		value, ok := elem.(*AuthLoginTokenMigrateTo)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsAuthLoginTokenSuccess returns copy with only AuthLoginTokenSuccess constructors.
-func (s AuthLoginTokenClassArray) AsAuthLoginTokenSuccess() (to AuthLoginTokenSuccessArray) {
-	for _, elem := range s {
-		value, ok := elem.(*AuthLoginTokenSuccess)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AuthLoginTokenArray is adapter for slice of AuthLoginToken.
-type AuthLoginTokenArray []AuthLoginToken
-
-// Sort sorts slice of AuthLoginToken.
-func (s AuthLoginTokenArray) Sort(less func(a, b AuthLoginToken) bool) AuthLoginTokenArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AuthLoginToken.
-func (s AuthLoginTokenArray) SortStable(less func(a, b AuthLoginToken) bool) AuthLoginTokenArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AuthLoginToken.
-func (s AuthLoginTokenArray) Retain(keep func(x AuthLoginToken) bool) AuthLoginTokenArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AuthLoginTokenArray) First() (v AuthLoginToken, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AuthLoginTokenArray) Last() (v AuthLoginToken, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthLoginTokenArray) PopFirst() (v AuthLoginToken, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AuthLoginToken
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthLoginTokenArray) Pop() (v AuthLoginToken, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AuthLoginTokenMigrateToArray is adapter for slice of AuthLoginTokenMigrateTo.
-type AuthLoginTokenMigrateToArray []AuthLoginTokenMigrateTo
-
-// Sort sorts slice of AuthLoginTokenMigrateTo.
-func (s AuthLoginTokenMigrateToArray) Sort(less func(a, b AuthLoginTokenMigrateTo) bool) AuthLoginTokenMigrateToArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AuthLoginTokenMigrateTo.
-func (s AuthLoginTokenMigrateToArray) SortStable(less func(a, b AuthLoginTokenMigrateTo) bool) AuthLoginTokenMigrateToArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AuthLoginTokenMigrateTo.
-func (s AuthLoginTokenMigrateToArray) Retain(keep func(x AuthLoginTokenMigrateTo) bool) AuthLoginTokenMigrateToArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AuthLoginTokenMigrateToArray) First() (v AuthLoginTokenMigrateTo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AuthLoginTokenMigrateToArray) Last() (v AuthLoginTokenMigrateTo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthLoginTokenMigrateToArray) PopFirst() (v AuthLoginTokenMigrateTo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AuthLoginTokenMigrateTo
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthLoginTokenMigrateToArray) Pop() (v AuthLoginTokenMigrateTo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AuthLoginTokenSuccessArray is adapter for slice of AuthLoginTokenSuccess.
-type AuthLoginTokenSuccessArray []AuthLoginTokenSuccess
-
-// Sort sorts slice of AuthLoginTokenSuccess.
-func (s AuthLoginTokenSuccessArray) Sort(less func(a, b AuthLoginTokenSuccess) bool) AuthLoginTokenSuccessArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of AuthLoginTokenSuccess.
-func (s AuthLoginTokenSuccessArray) SortStable(less func(a, b AuthLoginTokenSuccess) bool) AuthLoginTokenSuccessArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of AuthLoginTokenSuccess.
-func (s AuthLoginTokenSuccessArray) Retain(keep func(x AuthLoginTokenSuccess) bool) AuthLoginTokenSuccessArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s AuthLoginTokenSuccessArray) First() (v AuthLoginTokenSuccess, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s AuthLoginTokenSuccessArray) Last() (v AuthLoginTokenSuccess, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthLoginTokenSuccessArray) PopFirst() (v AuthLoginTokenSuccess, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero AuthLoginTokenSuccess
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthLoginTokenSuccessArray) Pop() (v AuthLoginTokenSuccess, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

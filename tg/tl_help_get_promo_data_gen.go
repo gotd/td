@@ -39,6 +39,14 @@ type HelpGetPromoDataRequest struct {
 // HelpGetPromoDataRequestTypeID is TL type id of HelpGetPromoDataRequest.
 const HelpGetPromoDataRequestTypeID = 0xc0977421
 
+// Ensuring interfaces in compile-time for HelpGetPromoDataRequest.
+var (
+	_ bin.Encoder     = &HelpGetPromoDataRequest{}
+	_ bin.Decoder     = &HelpGetPromoDataRequest{}
+	_ bin.BareEncoder = &HelpGetPromoDataRequest{}
+	_ bin.BareDecoder = &HelpGetPromoDataRequest{}
+)
+
 func (g *HelpGetPromoDataRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *HelpGetPromoDataRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for HelpGetPromoDataRequest.
-var (
-	_ bin.Encoder     = &HelpGetPromoDataRequest{}
-	_ bin.Decoder     = &HelpGetPromoDataRequest{}
-	_ bin.BareEncoder = &HelpGetPromoDataRequest{}
-	_ bin.BareDecoder = &HelpGetPromoDataRequest{}
-)
 
 // HelpGetPromoData invokes method help.getPromoData#c0977421 returning error if any.
 // Get MTProxy/Public Service Announcement information

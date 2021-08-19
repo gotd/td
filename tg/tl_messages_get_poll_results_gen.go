@@ -43,6 +43,14 @@ type MessagesGetPollResultsRequest struct {
 // MessagesGetPollResultsRequestTypeID is TL type id of MessagesGetPollResultsRequest.
 const MessagesGetPollResultsRequestTypeID = 0x73bb643b
 
+// Ensuring interfaces in compile-time for MessagesGetPollResultsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetPollResultsRequest{}
+	_ bin.Decoder     = &MessagesGetPollResultsRequest{}
+	_ bin.BareEncoder = &MessagesGetPollResultsRequest{}
+	_ bin.BareDecoder = &MessagesGetPollResultsRequest{}
+)
+
 func (g *MessagesGetPollResultsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -134,16 +142,6 @@ func (g *MessagesGetPollResultsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *MessagesGetPollResultsRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (g *MessagesGetPollResultsRequest) GetMsgID() (value int) {
-	return g.MsgID
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetPollResultsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -177,13 +175,15 @@ func (g *MessagesGetPollResultsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetPollResultsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetPollResultsRequest{}
-	_ bin.Decoder     = &MessagesGetPollResultsRequest{}
-	_ bin.BareEncoder = &MessagesGetPollResultsRequest{}
-	_ bin.BareDecoder = &MessagesGetPollResultsRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *MessagesGetPollResultsRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (g *MessagesGetPollResultsRequest) GetMsgID() (value int) {
+	return g.MsgID
+}
 
 // MessagesGetPollResults invokes method messages.getPollResults#73bb643b returning error if any.
 // Get poll results

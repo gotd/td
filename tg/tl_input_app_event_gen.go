@@ -48,6 +48,14 @@ type InputAppEvent struct {
 // InputAppEventTypeID is TL type id of InputAppEvent.
 const InputAppEventTypeID = 0x1d1b1245
 
+// Ensuring interfaces in compile-time for InputAppEvent.
+var (
+	_ bin.Encoder     = &InputAppEvent{}
+	_ bin.Decoder     = &InputAppEvent{}
+	_ bin.BareEncoder = &InputAppEvent{}
+	_ bin.BareDecoder = &InputAppEvent{}
+)
+
 func (i *InputAppEvent) Zero() bool {
 	if i == nil {
 		return true
@@ -159,26 +167,6 @@ func (i *InputAppEvent) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetTime returns value of Time field.
-func (i *InputAppEvent) GetTime() (value float64) {
-	return i.Time
-}
-
-// GetType returns value of Type field.
-func (i *InputAppEvent) GetType() (value string) {
-	return i.Type
-}
-
-// GetPeer returns value of Peer field.
-func (i *InputAppEvent) GetPeer() (value int64) {
-	return i.Peer
-}
-
-// GetData returns value of Data field.
-func (i *InputAppEvent) GetData() (value JSONValueClass) {
-	return i.Data
-}
-
 // Decode implements bin.Decoder.
 func (i *InputAppEvent) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -226,10 +214,22 @@ func (i *InputAppEvent) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InputAppEvent.
-var (
-	_ bin.Encoder     = &InputAppEvent{}
-	_ bin.Decoder     = &InputAppEvent{}
-	_ bin.BareEncoder = &InputAppEvent{}
-	_ bin.BareDecoder = &InputAppEvent{}
-)
+// GetTime returns value of Time field.
+func (i *InputAppEvent) GetTime() (value float64) {
+	return i.Time
+}
+
+// GetType returns value of Type field.
+func (i *InputAppEvent) GetType() (value string) {
+	return i.Type
+}
+
+// GetPeer returns value of Peer field.
+func (i *InputAppEvent) GetPeer() (value int64) {
+	return i.Peer
+}
+
+// GetData returns value of Data field.
+func (i *InputAppEvent) GetData() (value JSONValueClass) {
+	return i.Data
+}

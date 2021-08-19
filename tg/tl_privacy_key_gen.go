@@ -39,6 +39,19 @@ type PrivacyKeyStatusTimestamp struct {
 // PrivacyKeyStatusTimestampTypeID is TL type id of PrivacyKeyStatusTimestamp.
 const PrivacyKeyStatusTimestampTypeID = 0xbc2eab30
 
+// construct implements constructor of PrivacyKeyClass.
+func (p PrivacyKeyStatusTimestamp) construct() PrivacyKeyClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyKeyStatusTimestamp.
+var (
+	_ bin.Encoder     = &PrivacyKeyStatusTimestamp{}
+	_ bin.Decoder     = &PrivacyKeyStatusTimestamp{}
+	_ bin.BareEncoder = &PrivacyKeyStatusTimestamp{}
+	_ bin.BareDecoder = &PrivacyKeyStatusTimestamp{}
+
+	_ PrivacyKeyClass = &PrivacyKeyStatusTimestamp{}
+)
+
 func (p *PrivacyKeyStatusTimestamp) Zero() bool {
 	if p == nil {
 		return true
@@ -118,19 +131,6 @@ func (p *PrivacyKeyStatusTimestamp) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyKeyClass.
-func (p PrivacyKeyStatusTimestamp) construct() PrivacyKeyClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyKeyStatusTimestamp.
-var (
-	_ bin.Encoder     = &PrivacyKeyStatusTimestamp{}
-	_ bin.Decoder     = &PrivacyKeyStatusTimestamp{}
-	_ bin.BareEncoder = &PrivacyKeyStatusTimestamp{}
-	_ bin.BareDecoder = &PrivacyKeyStatusTimestamp{}
-
-	_ PrivacyKeyClass = &PrivacyKeyStatusTimestamp{}
-)
-
 // PrivacyKeyChatInvite represents TL type `privacyKeyChatInvite#500e6dfa`.
 // Whether the user can be invited to chats
 //
@@ -140,6 +140,19 @@ type PrivacyKeyChatInvite struct {
 
 // PrivacyKeyChatInviteTypeID is TL type id of PrivacyKeyChatInvite.
 const PrivacyKeyChatInviteTypeID = 0x500e6dfa
+
+// construct implements constructor of PrivacyKeyClass.
+func (p PrivacyKeyChatInvite) construct() PrivacyKeyClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyKeyChatInvite.
+var (
+	_ bin.Encoder     = &PrivacyKeyChatInvite{}
+	_ bin.Decoder     = &PrivacyKeyChatInvite{}
+	_ bin.BareEncoder = &PrivacyKeyChatInvite{}
+	_ bin.BareDecoder = &PrivacyKeyChatInvite{}
+
+	_ PrivacyKeyClass = &PrivacyKeyChatInvite{}
+)
 
 func (p *PrivacyKeyChatInvite) Zero() bool {
 	if p == nil {
@@ -220,19 +233,6 @@ func (p *PrivacyKeyChatInvite) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyKeyClass.
-func (p PrivacyKeyChatInvite) construct() PrivacyKeyClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyKeyChatInvite.
-var (
-	_ bin.Encoder     = &PrivacyKeyChatInvite{}
-	_ bin.Decoder     = &PrivacyKeyChatInvite{}
-	_ bin.BareEncoder = &PrivacyKeyChatInvite{}
-	_ bin.BareDecoder = &PrivacyKeyChatInvite{}
-
-	_ PrivacyKeyClass = &PrivacyKeyChatInvite{}
-)
-
 // PrivacyKeyPhoneCall represents TL type `privacyKeyPhoneCall#3d662b7b`.
 // Whether the user accepts phone calls
 //
@@ -242,6 +242,19 @@ type PrivacyKeyPhoneCall struct {
 
 // PrivacyKeyPhoneCallTypeID is TL type id of PrivacyKeyPhoneCall.
 const PrivacyKeyPhoneCallTypeID = 0x3d662b7b
+
+// construct implements constructor of PrivacyKeyClass.
+func (p PrivacyKeyPhoneCall) construct() PrivacyKeyClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyKeyPhoneCall.
+var (
+	_ bin.Encoder     = &PrivacyKeyPhoneCall{}
+	_ bin.Decoder     = &PrivacyKeyPhoneCall{}
+	_ bin.BareEncoder = &PrivacyKeyPhoneCall{}
+	_ bin.BareDecoder = &PrivacyKeyPhoneCall{}
+
+	_ PrivacyKeyClass = &PrivacyKeyPhoneCall{}
+)
 
 func (p *PrivacyKeyPhoneCall) Zero() bool {
 	if p == nil {
@@ -322,19 +335,6 @@ func (p *PrivacyKeyPhoneCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyKeyClass.
-func (p PrivacyKeyPhoneCall) construct() PrivacyKeyClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyKeyPhoneCall.
-var (
-	_ bin.Encoder     = &PrivacyKeyPhoneCall{}
-	_ bin.Decoder     = &PrivacyKeyPhoneCall{}
-	_ bin.BareEncoder = &PrivacyKeyPhoneCall{}
-	_ bin.BareDecoder = &PrivacyKeyPhoneCall{}
-
-	_ PrivacyKeyClass = &PrivacyKeyPhoneCall{}
-)
-
 // PrivacyKeyPhoneP2P represents TL type `privacyKeyPhoneP2P#39491cc8`.
 // Whether P2P connections in phone calls are allowed
 //
@@ -344,6 +344,19 @@ type PrivacyKeyPhoneP2P struct {
 
 // PrivacyKeyPhoneP2PTypeID is TL type id of PrivacyKeyPhoneP2P.
 const PrivacyKeyPhoneP2PTypeID = 0x39491cc8
+
+// construct implements constructor of PrivacyKeyClass.
+func (p PrivacyKeyPhoneP2P) construct() PrivacyKeyClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyKeyPhoneP2P.
+var (
+	_ bin.Encoder     = &PrivacyKeyPhoneP2P{}
+	_ bin.Decoder     = &PrivacyKeyPhoneP2P{}
+	_ bin.BareEncoder = &PrivacyKeyPhoneP2P{}
+	_ bin.BareDecoder = &PrivacyKeyPhoneP2P{}
+
+	_ PrivacyKeyClass = &PrivacyKeyPhoneP2P{}
+)
 
 func (p *PrivacyKeyPhoneP2P) Zero() bool {
 	if p == nil {
@@ -424,19 +437,6 @@ func (p *PrivacyKeyPhoneP2P) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyKeyClass.
-func (p PrivacyKeyPhoneP2P) construct() PrivacyKeyClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyKeyPhoneP2P.
-var (
-	_ bin.Encoder     = &PrivacyKeyPhoneP2P{}
-	_ bin.Decoder     = &PrivacyKeyPhoneP2P{}
-	_ bin.BareEncoder = &PrivacyKeyPhoneP2P{}
-	_ bin.BareDecoder = &PrivacyKeyPhoneP2P{}
-
-	_ PrivacyKeyClass = &PrivacyKeyPhoneP2P{}
-)
-
 // PrivacyKeyForwards represents TL type `privacyKeyForwards#69ec56a3`.
 // Whether messages forwarded from the user will be anonymously forwarded¹
 //
@@ -449,6 +449,19 @@ type PrivacyKeyForwards struct {
 
 // PrivacyKeyForwardsTypeID is TL type id of PrivacyKeyForwards.
 const PrivacyKeyForwardsTypeID = 0x69ec56a3
+
+// construct implements constructor of PrivacyKeyClass.
+func (p PrivacyKeyForwards) construct() PrivacyKeyClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyKeyForwards.
+var (
+	_ bin.Encoder     = &PrivacyKeyForwards{}
+	_ bin.Decoder     = &PrivacyKeyForwards{}
+	_ bin.BareEncoder = &PrivacyKeyForwards{}
+	_ bin.BareDecoder = &PrivacyKeyForwards{}
+
+	_ PrivacyKeyClass = &PrivacyKeyForwards{}
+)
 
 func (p *PrivacyKeyForwards) Zero() bool {
 	if p == nil {
@@ -529,19 +542,6 @@ func (p *PrivacyKeyForwards) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyKeyClass.
-func (p PrivacyKeyForwards) construct() PrivacyKeyClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyKeyForwards.
-var (
-	_ bin.Encoder     = &PrivacyKeyForwards{}
-	_ bin.Decoder     = &PrivacyKeyForwards{}
-	_ bin.BareEncoder = &PrivacyKeyForwards{}
-	_ bin.BareDecoder = &PrivacyKeyForwards{}
-
-	_ PrivacyKeyClass = &PrivacyKeyForwards{}
-)
-
 // PrivacyKeyProfilePhoto represents TL type `privacyKeyProfilePhoto#96151fed`.
 // Whether the profile picture of the user is visible
 //
@@ -551,6 +551,19 @@ type PrivacyKeyProfilePhoto struct {
 
 // PrivacyKeyProfilePhotoTypeID is TL type id of PrivacyKeyProfilePhoto.
 const PrivacyKeyProfilePhotoTypeID = 0x96151fed
+
+// construct implements constructor of PrivacyKeyClass.
+func (p PrivacyKeyProfilePhoto) construct() PrivacyKeyClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyKeyProfilePhoto.
+var (
+	_ bin.Encoder     = &PrivacyKeyProfilePhoto{}
+	_ bin.Decoder     = &PrivacyKeyProfilePhoto{}
+	_ bin.BareEncoder = &PrivacyKeyProfilePhoto{}
+	_ bin.BareDecoder = &PrivacyKeyProfilePhoto{}
+
+	_ PrivacyKeyClass = &PrivacyKeyProfilePhoto{}
+)
 
 func (p *PrivacyKeyProfilePhoto) Zero() bool {
 	if p == nil {
@@ -631,19 +644,6 @@ func (p *PrivacyKeyProfilePhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyKeyClass.
-func (p PrivacyKeyProfilePhoto) construct() PrivacyKeyClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyKeyProfilePhoto.
-var (
-	_ bin.Encoder     = &PrivacyKeyProfilePhoto{}
-	_ bin.Decoder     = &PrivacyKeyProfilePhoto{}
-	_ bin.BareEncoder = &PrivacyKeyProfilePhoto{}
-	_ bin.BareDecoder = &PrivacyKeyProfilePhoto{}
-
-	_ PrivacyKeyClass = &PrivacyKeyProfilePhoto{}
-)
-
 // PrivacyKeyPhoneNumber represents TL type `privacyKeyPhoneNumber#d19ae46d`.
 // Whether the user allows us to see his phone number
 //
@@ -653,6 +653,19 @@ type PrivacyKeyPhoneNumber struct {
 
 // PrivacyKeyPhoneNumberTypeID is TL type id of PrivacyKeyPhoneNumber.
 const PrivacyKeyPhoneNumberTypeID = 0xd19ae46d
+
+// construct implements constructor of PrivacyKeyClass.
+func (p PrivacyKeyPhoneNumber) construct() PrivacyKeyClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyKeyPhoneNumber.
+var (
+	_ bin.Encoder     = &PrivacyKeyPhoneNumber{}
+	_ bin.Decoder     = &PrivacyKeyPhoneNumber{}
+	_ bin.BareEncoder = &PrivacyKeyPhoneNumber{}
+	_ bin.BareDecoder = &PrivacyKeyPhoneNumber{}
+
+	_ PrivacyKeyClass = &PrivacyKeyPhoneNumber{}
+)
 
 func (p *PrivacyKeyPhoneNumber) Zero() bool {
 	if p == nil {
@@ -733,19 +746,6 @@ func (p *PrivacyKeyPhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PrivacyKeyClass.
-func (p PrivacyKeyPhoneNumber) construct() PrivacyKeyClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyKeyPhoneNumber.
-var (
-	_ bin.Encoder     = &PrivacyKeyPhoneNumber{}
-	_ bin.Decoder     = &PrivacyKeyPhoneNumber{}
-	_ bin.BareEncoder = &PrivacyKeyPhoneNumber{}
-	_ bin.BareDecoder = &PrivacyKeyPhoneNumber{}
-
-	_ PrivacyKeyClass = &PrivacyKeyPhoneNumber{}
-)
-
 // PrivacyKeyAddedByPhone represents TL type `privacyKeyAddedByPhone#42ffd42b`.
 // Whether people can add you to their contact list by your phone number
 //
@@ -755,6 +755,19 @@ type PrivacyKeyAddedByPhone struct {
 
 // PrivacyKeyAddedByPhoneTypeID is TL type id of PrivacyKeyAddedByPhone.
 const PrivacyKeyAddedByPhoneTypeID = 0x42ffd42b
+
+// construct implements constructor of PrivacyKeyClass.
+func (p PrivacyKeyAddedByPhone) construct() PrivacyKeyClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyKeyAddedByPhone.
+var (
+	_ bin.Encoder     = &PrivacyKeyAddedByPhone{}
+	_ bin.Decoder     = &PrivacyKeyAddedByPhone{}
+	_ bin.BareEncoder = &PrivacyKeyAddedByPhone{}
+	_ bin.BareDecoder = &PrivacyKeyAddedByPhone{}
+
+	_ PrivacyKeyClass = &PrivacyKeyAddedByPhone{}
+)
 
 func (p *PrivacyKeyAddedByPhone) Zero() bool {
 	if p == nil {
@@ -834,19 +847,6 @@ func (p *PrivacyKeyAddedByPhone) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of PrivacyKeyClass.
-func (p PrivacyKeyAddedByPhone) construct() PrivacyKeyClass { return &p }
-
-// Ensuring interfaces in compile-time for PrivacyKeyAddedByPhone.
-var (
-	_ bin.Encoder     = &PrivacyKeyAddedByPhone{}
-	_ bin.Decoder     = &PrivacyKeyAddedByPhone{}
-	_ bin.BareEncoder = &PrivacyKeyAddedByPhone{}
-	_ bin.BareDecoder = &PrivacyKeyAddedByPhone{}
-
-	_ PrivacyKeyClass = &PrivacyKeyAddedByPhone{}
-)
 
 // PrivacyKeyClass represents PrivacyKey generic type.
 //
@@ -979,86 +979,4 @@ func (b *PrivacyKeyBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PrivacyKeyClass as nil")
 	}
 	return b.PrivacyKey.Encode(buf)
-}
-
-// PrivacyKeyClassArray is adapter for slice of PrivacyKeyClass.
-type PrivacyKeyClassArray []PrivacyKeyClass
-
-// Sort sorts slice of PrivacyKeyClass.
-func (s PrivacyKeyClassArray) Sort(less func(a, b PrivacyKeyClass) bool) PrivacyKeyClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PrivacyKeyClass.
-func (s PrivacyKeyClassArray) SortStable(less func(a, b PrivacyKeyClass) bool) PrivacyKeyClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PrivacyKeyClass.
-func (s PrivacyKeyClassArray) Retain(keep func(x PrivacyKeyClass) bool) PrivacyKeyClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PrivacyKeyClassArray) First() (v PrivacyKeyClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PrivacyKeyClassArray) Last() (v PrivacyKeyClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PrivacyKeyClassArray) PopFirst() (v PrivacyKeyClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PrivacyKeyClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PrivacyKeyClassArray) Pop() (v PrivacyKeyClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

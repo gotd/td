@@ -59,6 +59,19 @@ type SecureValueErrorData struct {
 // SecureValueErrorDataTypeID is TL type id of SecureValueErrorData.
 const SecureValueErrorDataTypeID = 0xe8a40bd9
 
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorData) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorData.
+var (
+	_ bin.Encoder     = &SecureValueErrorData{}
+	_ bin.Decoder     = &SecureValueErrorData{}
+	_ bin.BareEncoder = &SecureValueErrorData{}
+	_ bin.BareDecoder = &SecureValueErrorData{}
+
+	_ SecureValueErrorClass = &SecureValueErrorData{}
+)
+
 func (s *SecureValueErrorData) Zero() bool {
 	if s == nil {
 		return true
@@ -170,26 +183,6 @@ func (s *SecureValueErrorData) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorData) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetDataHash returns value of DataHash field.
-func (s *SecureValueErrorData) GetDataHash() (value []byte) {
-	return s.DataHash
-}
-
-// GetField returns value of Field field.
-func (s *SecureValueErrorData) GetField() (value string) {
-	return s.Field
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorData) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorData) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -237,18 +230,25 @@ func (s *SecureValueErrorData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorData) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorData) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorData.
-var (
-	_ bin.Encoder     = &SecureValueErrorData{}
-	_ bin.Decoder     = &SecureValueErrorData{}
-	_ bin.BareEncoder = &SecureValueErrorData{}
-	_ bin.BareDecoder = &SecureValueErrorData{}
+// GetDataHash returns value of DataHash field.
+func (s *SecureValueErrorData) GetDataHash() (value []byte) {
+	return s.DataHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorData{}
-)
+// GetField returns value of Field field.
+func (s *SecureValueErrorData) GetField() (value string) {
+	return s.Field
+}
+
+// GetText returns value of Text field.
+func (s *SecureValueErrorData) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorFrontSide represents TL type `secureValueErrorFrontSide#be3dfa`.
 // Represents an issue with the front side of a document. The error is considered
@@ -273,6 +273,19 @@ type SecureValueErrorFrontSide struct {
 
 // SecureValueErrorFrontSideTypeID is TL type id of SecureValueErrorFrontSide.
 const SecureValueErrorFrontSideTypeID = 0xbe3dfa
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorFrontSide) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorFrontSide.
+var (
+	_ bin.Encoder     = &SecureValueErrorFrontSide{}
+	_ bin.Decoder     = &SecureValueErrorFrontSide{}
+	_ bin.BareEncoder = &SecureValueErrorFrontSide{}
+	_ bin.BareDecoder = &SecureValueErrorFrontSide{}
+
+	_ SecureValueErrorClass = &SecureValueErrorFrontSide{}
+)
 
 func (s *SecureValueErrorFrontSide) Zero() bool {
 	if s == nil {
@@ -375,21 +388,6 @@ func (s *SecureValueErrorFrontSide) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorFrontSide) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorFrontSide) GetFileHash() (value []byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorFrontSide) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorFrontSide) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -430,18 +428,20 @@ func (s *SecureValueErrorFrontSide) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorFrontSide) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorFrontSide) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorFrontSide.
-var (
-	_ bin.Encoder     = &SecureValueErrorFrontSide{}
-	_ bin.Decoder     = &SecureValueErrorFrontSide{}
-	_ bin.BareEncoder = &SecureValueErrorFrontSide{}
-	_ bin.BareDecoder = &SecureValueErrorFrontSide{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorFrontSide) GetFileHash() (value []byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorFrontSide{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorFrontSide) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorReverseSide represents TL type `secureValueErrorReverseSide#868a2aa5`.
 // Represents an issue with the reverse side of a document. The error is considered
@@ -463,6 +463,19 @@ type SecureValueErrorReverseSide struct {
 
 // SecureValueErrorReverseSideTypeID is TL type id of SecureValueErrorReverseSide.
 const SecureValueErrorReverseSideTypeID = 0x868a2aa5
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorReverseSide) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorReverseSide.
+var (
+	_ bin.Encoder     = &SecureValueErrorReverseSide{}
+	_ bin.Decoder     = &SecureValueErrorReverseSide{}
+	_ bin.BareEncoder = &SecureValueErrorReverseSide{}
+	_ bin.BareDecoder = &SecureValueErrorReverseSide{}
+
+	_ SecureValueErrorClass = &SecureValueErrorReverseSide{}
+)
 
 func (s *SecureValueErrorReverseSide) Zero() bool {
 	if s == nil {
@@ -565,21 +578,6 @@ func (s *SecureValueErrorReverseSide) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorReverseSide) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorReverseSide) GetFileHash() (value []byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorReverseSide) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorReverseSide) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -620,18 +618,20 @@ func (s *SecureValueErrorReverseSide) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorReverseSide) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorReverseSide) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorReverseSide.
-var (
-	_ bin.Encoder     = &SecureValueErrorReverseSide{}
-	_ bin.Decoder     = &SecureValueErrorReverseSide{}
-	_ bin.BareEncoder = &SecureValueErrorReverseSide{}
-	_ bin.BareDecoder = &SecureValueErrorReverseSide{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorReverseSide) GetFileHash() (value []byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorReverseSide{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorReverseSide) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorSelfie represents TL type `secureValueErrorSelfie#e537ced6`.
 // Represents an issue with the selfie with a document. The error is considered resolved
@@ -656,6 +656,19 @@ type SecureValueErrorSelfie struct {
 
 // SecureValueErrorSelfieTypeID is TL type id of SecureValueErrorSelfie.
 const SecureValueErrorSelfieTypeID = 0xe537ced6
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorSelfie) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorSelfie.
+var (
+	_ bin.Encoder     = &SecureValueErrorSelfie{}
+	_ bin.Decoder     = &SecureValueErrorSelfie{}
+	_ bin.BareEncoder = &SecureValueErrorSelfie{}
+	_ bin.BareDecoder = &SecureValueErrorSelfie{}
+
+	_ SecureValueErrorClass = &SecureValueErrorSelfie{}
+)
 
 func (s *SecureValueErrorSelfie) Zero() bool {
 	if s == nil {
@@ -758,21 +771,6 @@ func (s *SecureValueErrorSelfie) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorSelfie) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorSelfie) GetFileHash() (value []byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorSelfie) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorSelfie) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -813,18 +811,20 @@ func (s *SecureValueErrorSelfie) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorSelfie) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorSelfie) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorSelfie.
-var (
-	_ bin.Encoder     = &SecureValueErrorSelfie{}
-	_ bin.Decoder     = &SecureValueErrorSelfie{}
-	_ bin.BareEncoder = &SecureValueErrorSelfie{}
-	_ bin.BareDecoder = &SecureValueErrorSelfie{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorSelfie) GetFileHash() (value []byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorSelfie{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorSelfie) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorFile represents TL type `secureValueErrorFile#7a700873`.
 // Represents an issue with a document scan. The error is considered resolved when the
@@ -851,6 +851,19 @@ type SecureValueErrorFile struct {
 
 // SecureValueErrorFileTypeID is TL type id of SecureValueErrorFile.
 const SecureValueErrorFileTypeID = 0x7a700873
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorFile) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorFile.
+var (
+	_ bin.Encoder     = &SecureValueErrorFile{}
+	_ bin.Decoder     = &SecureValueErrorFile{}
+	_ bin.BareEncoder = &SecureValueErrorFile{}
+	_ bin.BareDecoder = &SecureValueErrorFile{}
+
+	_ SecureValueErrorClass = &SecureValueErrorFile{}
+)
 
 func (s *SecureValueErrorFile) Zero() bool {
 	if s == nil {
@@ -953,21 +966,6 @@ func (s *SecureValueErrorFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorFile) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorFile) GetFileHash() (value []byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorFile) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorFile) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -1008,18 +1006,20 @@ func (s *SecureValueErrorFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorFile) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorFile) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorFile.
-var (
-	_ bin.Encoder     = &SecureValueErrorFile{}
-	_ bin.Decoder     = &SecureValueErrorFile{}
-	_ bin.BareEncoder = &SecureValueErrorFile{}
-	_ bin.BareDecoder = &SecureValueErrorFile{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorFile) GetFileHash() (value []byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorFile{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorFile) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorFiles represents TL type `secureValueErrorFiles#666220e9`.
 // Represents an issue with a list of scans. The error is considered resolved when the
@@ -1046,6 +1046,19 @@ type SecureValueErrorFiles struct {
 
 // SecureValueErrorFilesTypeID is TL type id of SecureValueErrorFiles.
 const SecureValueErrorFilesTypeID = 0x666220e9
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorFiles) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorFiles.
+var (
+	_ bin.Encoder     = &SecureValueErrorFiles{}
+	_ bin.Decoder     = &SecureValueErrorFiles{}
+	_ bin.BareEncoder = &SecureValueErrorFiles{}
+	_ bin.BareDecoder = &SecureValueErrorFiles{}
+
+	_ SecureValueErrorClass = &SecureValueErrorFiles{}
+)
 
 func (s *SecureValueErrorFiles) Zero() bool {
 	if s == nil {
@@ -1151,21 +1164,6 @@ func (s *SecureValueErrorFiles) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorFiles) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorFiles) GetFileHash() (value [][]byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorFiles) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorFiles) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -1216,18 +1214,20 @@ func (s *SecureValueErrorFiles) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorFiles) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorFiles) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorFiles.
-var (
-	_ bin.Encoder     = &SecureValueErrorFiles{}
-	_ bin.Decoder     = &SecureValueErrorFiles{}
-	_ bin.BareEncoder = &SecureValueErrorFiles{}
-	_ bin.BareDecoder = &SecureValueErrorFiles{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorFiles) GetFileHash() (value [][]byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorFiles{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorFiles) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueError represents TL type `secureValueError#869d758f`.
 // Secure value error
@@ -1244,6 +1244,19 @@ type SecureValueError struct {
 
 // SecureValueErrorTypeID is TL type id of SecureValueError.
 const SecureValueErrorTypeID = 0x869d758f
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueError) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueError.
+var (
+	_ bin.Encoder     = &SecureValueError{}
+	_ bin.Decoder     = &SecureValueError{}
+	_ bin.BareEncoder = &SecureValueError{}
+	_ bin.BareDecoder = &SecureValueError{}
+
+	_ SecureValueErrorClass = &SecureValueError{}
+)
 
 func (s *SecureValueError) Zero() bool {
 	if s == nil {
@@ -1346,21 +1359,6 @@ func (s *SecureValueError) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueError) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetHash returns value of Hash field.
-func (s *SecureValueError) GetHash() (value []byte) {
-	return s.Hash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueError) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueError) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -1401,18 +1399,20 @@ func (s *SecureValueError) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueError) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueError) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueError.
-var (
-	_ bin.Encoder     = &SecureValueError{}
-	_ bin.Decoder     = &SecureValueError{}
-	_ bin.BareEncoder = &SecureValueError{}
-	_ bin.BareDecoder = &SecureValueError{}
+// GetHash returns value of Hash field.
+func (s *SecureValueError) GetHash() (value []byte) {
+	return s.Hash
+}
 
-	_ SecureValueErrorClass = &SecureValueError{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueError) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorTranslationFile represents TL type `secureValueErrorTranslationFile#a1144770`.
 // Represents an issue with one of the files that constitute the translation of a
@@ -1446,6 +1446,19 @@ type SecureValueErrorTranslationFile struct {
 
 // SecureValueErrorTranslationFileTypeID is TL type id of SecureValueErrorTranslationFile.
 const SecureValueErrorTranslationFileTypeID = 0xa1144770
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorTranslationFile) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorTranslationFile.
+var (
+	_ bin.Encoder     = &SecureValueErrorTranslationFile{}
+	_ bin.Decoder     = &SecureValueErrorTranslationFile{}
+	_ bin.BareEncoder = &SecureValueErrorTranslationFile{}
+	_ bin.BareDecoder = &SecureValueErrorTranslationFile{}
+
+	_ SecureValueErrorClass = &SecureValueErrorTranslationFile{}
+)
 
 func (s *SecureValueErrorTranslationFile) Zero() bool {
 	if s == nil {
@@ -1548,21 +1561,6 @@ func (s *SecureValueErrorTranslationFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorTranslationFile) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorTranslationFile) GetFileHash() (value []byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorTranslationFile) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorTranslationFile) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -1603,18 +1601,20 @@ func (s *SecureValueErrorTranslationFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorTranslationFile) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorTranslationFile) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorTranslationFile.
-var (
-	_ bin.Encoder     = &SecureValueErrorTranslationFile{}
-	_ bin.Decoder     = &SecureValueErrorTranslationFile{}
-	_ bin.BareEncoder = &SecureValueErrorTranslationFile{}
-	_ bin.BareDecoder = &SecureValueErrorTranslationFile{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorTranslationFile) GetFileHash() (value []byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorTranslationFile{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorTranslationFile) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorTranslationFiles represents TL type `secureValueErrorTranslationFiles#34636dd8`.
 // Represents an issue with the translated version of a document. The error is considered
@@ -1648,6 +1648,19 @@ type SecureValueErrorTranslationFiles struct {
 
 // SecureValueErrorTranslationFilesTypeID is TL type id of SecureValueErrorTranslationFiles.
 const SecureValueErrorTranslationFilesTypeID = 0x34636dd8
+
+// construct implements constructor of SecureValueErrorClass.
+func (s SecureValueErrorTranslationFiles) construct() SecureValueErrorClass { return &s }
+
+// Ensuring interfaces in compile-time for SecureValueErrorTranslationFiles.
+var (
+	_ bin.Encoder     = &SecureValueErrorTranslationFiles{}
+	_ bin.Decoder     = &SecureValueErrorTranslationFiles{}
+	_ bin.BareEncoder = &SecureValueErrorTranslationFiles{}
+	_ bin.BareDecoder = &SecureValueErrorTranslationFiles{}
+
+	_ SecureValueErrorClass = &SecureValueErrorTranslationFiles{}
+)
 
 func (s *SecureValueErrorTranslationFiles) Zero() bool {
 	if s == nil {
@@ -1753,21 +1766,6 @@ func (s *SecureValueErrorTranslationFiles) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetType returns value of Type field.
-func (s *SecureValueErrorTranslationFiles) GetType() (value SecureValueTypeClass) {
-	return s.Type
-}
-
-// GetFileHash returns value of FileHash field.
-func (s *SecureValueErrorTranslationFiles) GetFileHash() (value [][]byte) {
-	return s.FileHash
-}
-
-// GetText returns value of Text field.
-func (s *SecureValueErrorTranslationFiles) GetText() (value string) {
-	return s.Text
-}
-
 // Decode implements bin.Decoder.
 func (s *SecureValueErrorTranslationFiles) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -1818,18 +1816,20 @@ func (s *SecureValueErrorTranslationFiles) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SecureValueErrorClass.
-func (s SecureValueErrorTranslationFiles) construct() SecureValueErrorClass { return &s }
+// GetType returns value of Type field.
+func (s *SecureValueErrorTranslationFiles) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
 
-// Ensuring interfaces in compile-time for SecureValueErrorTranslationFiles.
-var (
-	_ bin.Encoder     = &SecureValueErrorTranslationFiles{}
-	_ bin.Decoder     = &SecureValueErrorTranslationFiles{}
-	_ bin.BareEncoder = &SecureValueErrorTranslationFiles{}
-	_ bin.BareDecoder = &SecureValueErrorTranslationFiles{}
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorTranslationFiles) GetFileHash() (value [][]byte) {
+	return s.FileHash
+}
 
-	_ SecureValueErrorClass = &SecureValueErrorTranslationFiles{}
-)
+// GetText returns value of Text field.
+func (s *SecureValueErrorTranslationFiles) GetText() (value string) {
+	return s.Text
+}
 
 // SecureValueErrorClass represents SecureValueError generic type.
 //
@@ -1987,941 +1987,4 @@ func (b *SecureValueErrorBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SecureValueErrorClass as nil")
 	}
 	return b.SecureValueError.Encode(buf)
-}
-
-// SecureValueErrorClassArray is adapter for slice of SecureValueErrorClass.
-type SecureValueErrorClassArray []SecureValueErrorClass
-
-// Sort sorts slice of SecureValueErrorClass.
-func (s SecureValueErrorClassArray) Sort(less func(a, b SecureValueErrorClass) bool) SecureValueErrorClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecureValueErrorClass.
-func (s SecureValueErrorClassArray) SortStable(less func(a, b SecureValueErrorClass) bool) SecureValueErrorClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecureValueErrorClass.
-func (s SecureValueErrorClassArray) Retain(keep func(x SecureValueErrorClass) bool) SecureValueErrorClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecureValueErrorClassArray) First() (v SecureValueErrorClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecureValueErrorClassArray) Last() (v SecureValueErrorClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureValueErrorClassArray) PopFirst() (v SecureValueErrorClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecureValueErrorClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureValueErrorClassArray) Pop() (v SecureValueErrorClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsSecureValueErrorData returns copy with only SecureValueErrorData constructors.
-func (s SecureValueErrorClassArray) AsSecureValueErrorData() (to SecureValueErrorDataArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SecureValueErrorData)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSecureValueErrorFrontSide returns copy with only SecureValueErrorFrontSide constructors.
-func (s SecureValueErrorClassArray) AsSecureValueErrorFrontSide() (to SecureValueErrorFrontSideArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SecureValueErrorFrontSide)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSecureValueErrorReverseSide returns copy with only SecureValueErrorReverseSide constructors.
-func (s SecureValueErrorClassArray) AsSecureValueErrorReverseSide() (to SecureValueErrorReverseSideArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SecureValueErrorReverseSide)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSecureValueErrorSelfie returns copy with only SecureValueErrorSelfie constructors.
-func (s SecureValueErrorClassArray) AsSecureValueErrorSelfie() (to SecureValueErrorSelfieArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SecureValueErrorSelfie)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSecureValueErrorFile returns copy with only SecureValueErrorFile constructors.
-func (s SecureValueErrorClassArray) AsSecureValueErrorFile() (to SecureValueErrorFileArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SecureValueErrorFile)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSecureValueErrorFiles returns copy with only SecureValueErrorFiles constructors.
-func (s SecureValueErrorClassArray) AsSecureValueErrorFiles() (to SecureValueErrorFilesArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SecureValueErrorFiles)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSecureValueError returns copy with only SecureValueError constructors.
-func (s SecureValueErrorClassArray) AsSecureValueError() (to SecureValueErrorArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SecureValueError)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSecureValueErrorTranslationFile returns copy with only SecureValueErrorTranslationFile constructors.
-func (s SecureValueErrorClassArray) AsSecureValueErrorTranslationFile() (to SecureValueErrorTranslationFileArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SecureValueErrorTranslationFile)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSecureValueErrorTranslationFiles returns copy with only SecureValueErrorTranslationFiles constructors.
-func (s SecureValueErrorClassArray) AsSecureValueErrorTranslationFiles() (to SecureValueErrorTranslationFilesArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SecureValueErrorTranslationFiles)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// SecureValueErrorDataArray is adapter for slice of SecureValueErrorData.
-type SecureValueErrorDataArray []SecureValueErrorData
-
-// Sort sorts slice of SecureValueErrorData.
-func (s SecureValueErrorDataArray) Sort(less func(a, b SecureValueErrorData) bool) SecureValueErrorDataArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecureValueErrorData.
-func (s SecureValueErrorDataArray) SortStable(less func(a, b SecureValueErrorData) bool) SecureValueErrorDataArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecureValueErrorData.
-func (s SecureValueErrorDataArray) Retain(keep func(x SecureValueErrorData) bool) SecureValueErrorDataArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecureValueErrorDataArray) First() (v SecureValueErrorData, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecureValueErrorDataArray) Last() (v SecureValueErrorData, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureValueErrorDataArray) PopFirst() (v SecureValueErrorData, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecureValueErrorData
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureValueErrorDataArray) Pop() (v SecureValueErrorData, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SecureValueErrorFrontSideArray is adapter for slice of SecureValueErrorFrontSide.
-type SecureValueErrorFrontSideArray []SecureValueErrorFrontSide
-
-// Sort sorts slice of SecureValueErrorFrontSide.
-func (s SecureValueErrorFrontSideArray) Sort(less func(a, b SecureValueErrorFrontSide) bool) SecureValueErrorFrontSideArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecureValueErrorFrontSide.
-func (s SecureValueErrorFrontSideArray) SortStable(less func(a, b SecureValueErrorFrontSide) bool) SecureValueErrorFrontSideArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecureValueErrorFrontSide.
-func (s SecureValueErrorFrontSideArray) Retain(keep func(x SecureValueErrorFrontSide) bool) SecureValueErrorFrontSideArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecureValueErrorFrontSideArray) First() (v SecureValueErrorFrontSide, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecureValueErrorFrontSideArray) Last() (v SecureValueErrorFrontSide, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureValueErrorFrontSideArray) PopFirst() (v SecureValueErrorFrontSide, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecureValueErrorFrontSide
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureValueErrorFrontSideArray) Pop() (v SecureValueErrorFrontSide, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SecureValueErrorReverseSideArray is adapter for slice of SecureValueErrorReverseSide.
-type SecureValueErrorReverseSideArray []SecureValueErrorReverseSide
-
-// Sort sorts slice of SecureValueErrorReverseSide.
-func (s SecureValueErrorReverseSideArray) Sort(less func(a, b SecureValueErrorReverseSide) bool) SecureValueErrorReverseSideArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecureValueErrorReverseSide.
-func (s SecureValueErrorReverseSideArray) SortStable(less func(a, b SecureValueErrorReverseSide) bool) SecureValueErrorReverseSideArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecureValueErrorReverseSide.
-func (s SecureValueErrorReverseSideArray) Retain(keep func(x SecureValueErrorReverseSide) bool) SecureValueErrorReverseSideArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecureValueErrorReverseSideArray) First() (v SecureValueErrorReverseSide, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecureValueErrorReverseSideArray) Last() (v SecureValueErrorReverseSide, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureValueErrorReverseSideArray) PopFirst() (v SecureValueErrorReverseSide, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecureValueErrorReverseSide
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureValueErrorReverseSideArray) Pop() (v SecureValueErrorReverseSide, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SecureValueErrorSelfieArray is adapter for slice of SecureValueErrorSelfie.
-type SecureValueErrorSelfieArray []SecureValueErrorSelfie
-
-// Sort sorts slice of SecureValueErrorSelfie.
-func (s SecureValueErrorSelfieArray) Sort(less func(a, b SecureValueErrorSelfie) bool) SecureValueErrorSelfieArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecureValueErrorSelfie.
-func (s SecureValueErrorSelfieArray) SortStable(less func(a, b SecureValueErrorSelfie) bool) SecureValueErrorSelfieArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecureValueErrorSelfie.
-func (s SecureValueErrorSelfieArray) Retain(keep func(x SecureValueErrorSelfie) bool) SecureValueErrorSelfieArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecureValueErrorSelfieArray) First() (v SecureValueErrorSelfie, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecureValueErrorSelfieArray) Last() (v SecureValueErrorSelfie, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureValueErrorSelfieArray) PopFirst() (v SecureValueErrorSelfie, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecureValueErrorSelfie
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureValueErrorSelfieArray) Pop() (v SecureValueErrorSelfie, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SecureValueErrorFileArray is adapter for slice of SecureValueErrorFile.
-type SecureValueErrorFileArray []SecureValueErrorFile
-
-// Sort sorts slice of SecureValueErrorFile.
-func (s SecureValueErrorFileArray) Sort(less func(a, b SecureValueErrorFile) bool) SecureValueErrorFileArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecureValueErrorFile.
-func (s SecureValueErrorFileArray) SortStable(less func(a, b SecureValueErrorFile) bool) SecureValueErrorFileArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecureValueErrorFile.
-func (s SecureValueErrorFileArray) Retain(keep func(x SecureValueErrorFile) bool) SecureValueErrorFileArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecureValueErrorFileArray) First() (v SecureValueErrorFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecureValueErrorFileArray) Last() (v SecureValueErrorFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureValueErrorFileArray) PopFirst() (v SecureValueErrorFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecureValueErrorFile
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureValueErrorFileArray) Pop() (v SecureValueErrorFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SecureValueErrorFilesArray is adapter for slice of SecureValueErrorFiles.
-type SecureValueErrorFilesArray []SecureValueErrorFiles
-
-// Sort sorts slice of SecureValueErrorFiles.
-func (s SecureValueErrorFilesArray) Sort(less func(a, b SecureValueErrorFiles) bool) SecureValueErrorFilesArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecureValueErrorFiles.
-func (s SecureValueErrorFilesArray) SortStable(less func(a, b SecureValueErrorFiles) bool) SecureValueErrorFilesArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecureValueErrorFiles.
-func (s SecureValueErrorFilesArray) Retain(keep func(x SecureValueErrorFiles) bool) SecureValueErrorFilesArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecureValueErrorFilesArray) First() (v SecureValueErrorFiles, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecureValueErrorFilesArray) Last() (v SecureValueErrorFiles, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureValueErrorFilesArray) PopFirst() (v SecureValueErrorFiles, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecureValueErrorFiles
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureValueErrorFilesArray) Pop() (v SecureValueErrorFiles, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SecureValueErrorArray is adapter for slice of SecureValueError.
-type SecureValueErrorArray []SecureValueError
-
-// Sort sorts slice of SecureValueError.
-func (s SecureValueErrorArray) Sort(less func(a, b SecureValueError) bool) SecureValueErrorArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecureValueError.
-func (s SecureValueErrorArray) SortStable(less func(a, b SecureValueError) bool) SecureValueErrorArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecureValueError.
-func (s SecureValueErrorArray) Retain(keep func(x SecureValueError) bool) SecureValueErrorArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecureValueErrorArray) First() (v SecureValueError, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecureValueErrorArray) Last() (v SecureValueError, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureValueErrorArray) PopFirst() (v SecureValueError, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecureValueError
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureValueErrorArray) Pop() (v SecureValueError, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SecureValueErrorTranslationFileArray is adapter for slice of SecureValueErrorTranslationFile.
-type SecureValueErrorTranslationFileArray []SecureValueErrorTranslationFile
-
-// Sort sorts slice of SecureValueErrorTranslationFile.
-func (s SecureValueErrorTranslationFileArray) Sort(less func(a, b SecureValueErrorTranslationFile) bool) SecureValueErrorTranslationFileArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecureValueErrorTranslationFile.
-func (s SecureValueErrorTranslationFileArray) SortStable(less func(a, b SecureValueErrorTranslationFile) bool) SecureValueErrorTranslationFileArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecureValueErrorTranslationFile.
-func (s SecureValueErrorTranslationFileArray) Retain(keep func(x SecureValueErrorTranslationFile) bool) SecureValueErrorTranslationFileArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecureValueErrorTranslationFileArray) First() (v SecureValueErrorTranslationFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecureValueErrorTranslationFileArray) Last() (v SecureValueErrorTranslationFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureValueErrorTranslationFileArray) PopFirst() (v SecureValueErrorTranslationFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecureValueErrorTranslationFile
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureValueErrorTranslationFileArray) Pop() (v SecureValueErrorTranslationFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SecureValueErrorTranslationFilesArray is adapter for slice of SecureValueErrorTranslationFiles.
-type SecureValueErrorTranslationFilesArray []SecureValueErrorTranslationFiles
-
-// Sort sorts slice of SecureValueErrorTranslationFiles.
-func (s SecureValueErrorTranslationFilesArray) Sort(less func(a, b SecureValueErrorTranslationFiles) bool) SecureValueErrorTranslationFilesArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SecureValueErrorTranslationFiles.
-func (s SecureValueErrorTranslationFilesArray) SortStable(less func(a, b SecureValueErrorTranslationFiles) bool) SecureValueErrorTranslationFilesArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SecureValueErrorTranslationFiles.
-func (s SecureValueErrorTranslationFilesArray) Retain(keep func(x SecureValueErrorTranslationFiles) bool) SecureValueErrorTranslationFilesArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SecureValueErrorTranslationFilesArray) First() (v SecureValueErrorTranslationFiles, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SecureValueErrorTranslationFilesArray) Last() (v SecureValueErrorTranslationFiles, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureValueErrorTranslationFilesArray) PopFirst() (v SecureValueErrorTranslationFiles, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SecureValueErrorTranslationFiles
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureValueErrorTranslationFilesArray) Pop() (v SecureValueErrorTranslationFiles, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

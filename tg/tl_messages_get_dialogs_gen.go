@@ -75,6 +75,14 @@ type MessagesGetDialogsRequest struct {
 // MessagesGetDialogsRequestTypeID is TL type id of MessagesGetDialogsRequest.
 const MessagesGetDialogsRequestTypeID = 0xa0ee3b73
 
+// Ensuring interfaces in compile-time for MessagesGetDialogsRequest.
+var (
+	_ bin.Encoder     = &MessagesGetDialogsRequest{}
+	_ bin.Decoder     = &MessagesGetDialogsRequest{}
+	_ bin.BareEncoder = &MessagesGetDialogsRequest{}
+	_ bin.BareDecoder = &MessagesGetDialogsRequest{}
+)
+
 func (g *MessagesGetDialogsRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -234,62 +242,6 @@ func (g *MessagesGetDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetExcludePinned sets value of ExcludePinned conditional field.
-func (g *MessagesGetDialogsRequest) SetExcludePinned(value bool) {
-	if value {
-		g.Flags.Set(0)
-		g.ExcludePinned = true
-	} else {
-		g.Flags.Unset(0)
-		g.ExcludePinned = false
-	}
-}
-
-// GetExcludePinned returns value of ExcludePinned conditional field.
-func (g *MessagesGetDialogsRequest) GetExcludePinned() (value bool) {
-	return g.Flags.Has(0)
-}
-
-// SetFolderID sets value of FolderID conditional field.
-func (g *MessagesGetDialogsRequest) SetFolderID(value int) {
-	g.Flags.Set(1)
-	g.FolderID = value
-}
-
-// GetFolderID returns value of FolderID conditional field and
-// boolean which is true if field was set.
-func (g *MessagesGetDialogsRequest) GetFolderID() (value int, ok bool) {
-	if !g.Flags.Has(1) {
-		return value, false
-	}
-	return g.FolderID, true
-}
-
-// GetOffsetDate returns value of OffsetDate field.
-func (g *MessagesGetDialogsRequest) GetOffsetDate() (value int) {
-	return g.OffsetDate
-}
-
-// GetOffsetID returns value of OffsetID field.
-func (g *MessagesGetDialogsRequest) GetOffsetID() (value int) {
-	return g.OffsetID
-}
-
-// GetOffsetPeer returns value of OffsetPeer field.
-func (g *MessagesGetDialogsRequest) GetOffsetPeer() (value InputPeerClass) {
-	return g.OffsetPeer
-}
-
-// GetLimit returns value of Limit field.
-func (g *MessagesGetDialogsRequest) GetLimit() (value int) {
-	return g.Limit
-}
-
-// GetHash returns value of Hash field.
-func (g *MessagesGetDialogsRequest) GetHash() (value int) {
-	return g.Hash
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetDialogsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -357,13 +309,61 @@ func (g *MessagesGetDialogsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetDialogsRequest.
-var (
-	_ bin.Encoder     = &MessagesGetDialogsRequest{}
-	_ bin.Decoder     = &MessagesGetDialogsRequest{}
-	_ bin.BareEncoder = &MessagesGetDialogsRequest{}
-	_ bin.BareDecoder = &MessagesGetDialogsRequest{}
-)
+// SetExcludePinned sets value of ExcludePinned conditional field.
+func (g *MessagesGetDialogsRequest) SetExcludePinned(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.ExcludePinned = true
+	} else {
+		g.Flags.Unset(0)
+		g.ExcludePinned = false
+	}
+}
+
+// GetExcludePinned returns value of ExcludePinned conditional field.
+func (g *MessagesGetDialogsRequest) GetExcludePinned() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// SetFolderID sets value of FolderID conditional field.
+func (g *MessagesGetDialogsRequest) SetFolderID(value int) {
+	g.Flags.Set(1)
+	g.FolderID = value
+}
+
+// GetFolderID returns value of FolderID conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetDialogsRequest) GetFolderID() (value int, ok bool) {
+	if !g.Flags.Has(1) {
+		return value, false
+	}
+	return g.FolderID, true
+}
+
+// GetOffsetDate returns value of OffsetDate field.
+func (g *MessagesGetDialogsRequest) GetOffsetDate() (value int) {
+	return g.OffsetDate
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (g *MessagesGetDialogsRequest) GetOffsetID() (value int) {
+	return g.OffsetID
+}
+
+// GetOffsetPeer returns value of OffsetPeer field.
+func (g *MessagesGetDialogsRequest) GetOffsetPeer() (value InputPeerClass) {
+	return g.OffsetPeer
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetDialogsRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetDialogsRequest) GetHash() (value int) {
+	return g.Hash
+}
 
 // MessagesGetDialogs invokes method messages.getDialogs#a0ee3b73 returning error if any.
 // Returns the current user dialog list.

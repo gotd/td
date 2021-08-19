@@ -38,6 +38,14 @@ type ReqPqRequest struct {
 // ReqPqRequestTypeID is TL type id of ReqPqRequest.
 const ReqPqRequestTypeID = 0x60469778
 
+// Ensuring interfaces in compile-time for ReqPqRequest.
+var (
+	_ bin.Encoder     = &ReqPqRequest{}
+	_ bin.Decoder     = &ReqPqRequest{}
+	_ bin.BareEncoder = &ReqPqRequest{}
+	_ bin.BareDecoder = &ReqPqRequest{}
+)
+
 func (r *ReqPqRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -56,13 +64,6 @@ func (r *ReqPqRequest) String() string {
 	}
 	type Alias ReqPqRequest
 	return fmt.Sprintf("ReqPqRequest%+v", Alias(*r))
-}
-
-// FillFrom fills ReqPqRequest from given interface.
-func (r *ReqPqRequest) FillFrom(from interface {
-	GetNonce() (value bin.Int128)
-}) {
-	r.Nonce = from.GetNonce()
 }
 
 // TypeID returns type id in TL schema.
@@ -114,11 +115,6 @@ func (r *ReqPqRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNonce returns value of Nonce field.
-func (r *ReqPqRequest) GetNonce() (value bin.Int128) {
-	return r.Nonce
-}
-
 // Decode implements bin.Decoder.
 func (r *ReqPqRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -145,10 +141,7 @@ func (r *ReqPqRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ReqPqRequest.
-var (
-	_ bin.Encoder     = &ReqPqRequest{}
-	_ bin.Decoder     = &ReqPqRequest{}
-	_ bin.BareEncoder = &ReqPqRequest{}
-	_ bin.BareDecoder = &ReqPqRequest{}
-)
+// GetNonce returns value of Nonce field.
+func (r *ReqPqRequest) GetNonce() (value bin.Int128) {
+	return r.Nonce
+}

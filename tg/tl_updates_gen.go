@@ -42,6 +42,19 @@ type UpdatesTooLong struct {
 // UpdatesTooLongTypeID is TL type id of UpdatesTooLong.
 const UpdatesTooLongTypeID = 0xe317af7e
 
+// construct implements constructor of UpdatesClass.
+func (u UpdatesTooLong) construct() UpdatesClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatesTooLong.
+var (
+	_ bin.Encoder     = &UpdatesTooLong{}
+	_ bin.Decoder     = &UpdatesTooLong{}
+	_ bin.BareEncoder = &UpdatesTooLong{}
+	_ bin.BareDecoder = &UpdatesTooLong{}
+
+	_ UpdatesClass = &UpdatesTooLong{}
+)
+
 func (u *UpdatesTooLong) Zero() bool {
 	if u == nil {
 		return true
@@ -121,19 +134,6 @@ func (u *UpdatesTooLong) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesClass.
-func (u UpdatesTooLong) construct() UpdatesClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdatesTooLong.
-var (
-	_ bin.Encoder     = &UpdatesTooLong{}
-	_ bin.Decoder     = &UpdatesTooLong{}
-	_ bin.BareEncoder = &UpdatesTooLong{}
-	_ bin.BareDecoder = &UpdatesTooLong{}
-
-	_ UpdatesClass = &UpdatesTooLong{}
-)
-
 // UpdateShortMessage represents TL type `updateShortMessage#faeff833`.
 // Info about a message sent to (received from) another user
 //
@@ -203,6 +203,19 @@ type UpdateShortMessage struct {
 
 // UpdateShortMessageTypeID is TL type id of UpdateShortMessage.
 const UpdateShortMessageTypeID = 0xfaeff833
+
+// construct implements constructor of UpdatesClass.
+func (u UpdateShortMessage) construct() UpdatesClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateShortMessage.
+var (
+	_ bin.Encoder     = &UpdateShortMessage{}
+	_ bin.Decoder     = &UpdateShortMessage{}
+	_ bin.BareEncoder = &UpdateShortMessage{}
+	_ bin.BareDecoder = &UpdateShortMessage{}
+
+	_ UpdatesClass = &UpdateShortMessage{}
+)
 
 func (u *UpdateShortMessage) Zero() bool {
 	if u == nil {
@@ -495,6 +508,117 @@ func (u *UpdateShortMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (u *UpdateShortMessage) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateShortMessage#faeff833 to nil")
+	}
+	if err := b.ConsumeID(UpdateShortMessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateShortMessage#faeff833: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateShortMessage) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateShortMessage#faeff833 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field flags: %w", err)
+		}
+	}
+	u.Out = u.Flags.Has(1)
+	u.Mentioned = u.Flags.Has(4)
+	u.MediaUnread = u.Flags.Has(5)
+	u.Silent = u.Flags.Has(13)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field id: %w", err)
+		}
+		u.ID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field message: %w", err)
+		}
+		u.Message = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field pts: %w", err)
+		}
+		u.Pts = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field pts_count: %w", err)
+		}
+		u.PtsCount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field date: %w", err)
+		}
+		u.Date = value
+	}
+	if u.Flags.Has(2) {
+		if err := u.FwdFrom.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field fwd_from: %w", err)
+		}
+	}
+	if u.Flags.Has(11) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field via_bot_id: %w", err)
+		}
+		u.ViaBotID = value
+	}
+	if u.Flags.Has(3) {
+		if err := u.ReplyTo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field reply_to: %w", err)
+		}
+	}
+	if u.Flags.Has(7) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field entities: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMessageEntity(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateShortMessage#faeff833: field entities: %w", err)
+			}
+			u.Entities = append(u.Entities, value)
+		}
+	}
+	if u.Flags.Has(25) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field ttl_period: %w", err)
+		}
+		u.TTLPeriod = value
+	}
+	return nil
+}
+
 // SetOut sets value of Out conditional field.
 func (u *UpdateShortMessage) SetOut(value bool) {
 	if value {
@@ -649,14 +773,6 @@ func (u *UpdateShortMessage) GetEntities() (value []MessageEntityClass, ok bool)
 	return u.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (u *UpdateShortMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !u.Flags.Has(7) {
-		return value, false
-	}
-	return MessageEntityClassArray(u.Entities), true
-}
-
 // SetTTLPeriod sets value of TTLPeriod conditional field.
 func (u *UpdateShortMessage) SetTTLPeriod(value int) {
 	u.Flags.Set(25)
@@ -672,129 +788,13 @@ func (u *UpdateShortMessage) GetTTLPeriod() (value int, ok bool) {
 	return u.TTLPeriod, true
 }
 
-// Decode implements bin.Decoder.
-func (u *UpdateShortMessage) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateShortMessage#faeff833 to nil")
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (u *UpdateShortMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !u.Flags.Has(7) {
+		return value, false
 	}
-	if err := b.ConsumeID(UpdateShortMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateShortMessage#faeff833: %w", err)
-	}
-	return u.DecodeBare(b)
+	return MessageEntityClassArray(u.Entities), true
 }
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateShortMessage) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateShortMessage#faeff833 to nil")
-	}
-	{
-		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field flags: %w", err)
-		}
-	}
-	u.Out = u.Flags.Has(1)
-	u.Mentioned = u.Flags.Has(4)
-	u.MediaUnread = u.Flags.Has(5)
-	u.Silent = u.Flags.Has(13)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field id: %w", err)
-		}
-		u.ID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field user_id: %w", err)
-		}
-		u.UserID = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field message: %w", err)
-		}
-		u.Message = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field pts: %w", err)
-		}
-		u.Pts = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field pts_count: %w", err)
-		}
-		u.PtsCount = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field date: %w", err)
-		}
-		u.Date = value
-	}
-	if u.Flags.Has(2) {
-		if err := u.FwdFrom.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field fwd_from: %w", err)
-		}
-	}
-	if u.Flags.Has(11) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field via_bot_id: %w", err)
-		}
-		u.ViaBotID = value
-	}
-	if u.Flags.Has(3) {
-		if err := u.ReplyTo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field reply_to: %w", err)
-		}
-	}
-	if u.Flags.Has(7) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field entities: %w", err)
-		}
-
-		if headerLen > 0 {
-			u.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeMessageEntity(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode updateShortMessage#faeff833: field entities: %w", err)
-			}
-			u.Entities = append(u.Entities, value)
-		}
-	}
-	if u.Flags.Has(25) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field ttl_period: %w", err)
-		}
-		u.TTLPeriod = value
-	}
-	return nil
-}
-
-// construct implements constructor of UpdatesClass.
-func (u UpdateShortMessage) construct() UpdatesClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateShortMessage.
-var (
-	_ bin.Encoder     = &UpdateShortMessage{}
-	_ bin.Decoder     = &UpdateShortMessage{}
-	_ bin.BareEncoder = &UpdateShortMessage{}
-	_ bin.BareDecoder = &UpdateShortMessage{}
-
-	_ UpdatesClass = &UpdateShortMessage{}
-)
 
 // UpdateShortChatMessage represents TL type `updateShortChatMessage#1157b858`.
 // Shortened constructor containing info on one new incoming text message from a chat
@@ -864,6 +864,19 @@ type UpdateShortChatMessage struct {
 
 // UpdateShortChatMessageTypeID is TL type id of UpdateShortChatMessage.
 const UpdateShortChatMessageTypeID = 0x1157b858
+
+// construct implements constructor of UpdatesClass.
+func (u UpdateShortChatMessage) construct() UpdatesClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateShortChatMessage.
+var (
+	_ bin.Encoder     = &UpdateShortChatMessage{}
+	_ bin.Decoder     = &UpdateShortChatMessage{}
+	_ bin.BareEncoder = &UpdateShortChatMessage{}
+	_ bin.BareDecoder = &UpdateShortChatMessage{}
+
+	_ UpdatesClass = &UpdateShortChatMessage{}
+)
 
 func (u *UpdateShortChatMessage) Zero() bool {
 	if u == nil {
@@ -1166,6 +1179,124 @@ func (u *UpdateShortChatMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (u *UpdateShortChatMessage) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateShortChatMessage#1157b858 to nil")
+	}
+	if err := b.ConsumeID(UpdateShortChatMessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateShortChatMessage) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateShortChatMessage#1157b858 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field flags: %w", err)
+		}
+	}
+	u.Out = u.Flags.Has(1)
+	u.Mentioned = u.Flags.Has(4)
+	u.MediaUnread = u.Flags.Has(5)
+	u.Silent = u.Flags.Has(13)
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field id: %w", err)
+		}
+		u.ID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field from_id: %w", err)
+		}
+		u.FromID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field message: %w", err)
+		}
+		u.Message = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field pts: %w", err)
+		}
+		u.Pts = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field pts_count: %w", err)
+		}
+		u.PtsCount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field date: %w", err)
+		}
+		u.Date = value
+	}
+	if u.Flags.Has(2) {
+		if err := u.FwdFrom.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field fwd_from: %w", err)
+		}
+	}
+	if u.Flags.Has(11) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field via_bot_id: %w", err)
+		}
+		u.ViaBotID = value
+	}
+	if u.Flags.Has(3) {
+		if err := u.ReplyTo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field reply_to: %w", err)
+		}
+	}
+	if u.Flags.Has(7) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field entities: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMessageEntity(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field entities: %w", err)
+			}
+			u.Entities = append(u.Entities, value)
+		}
+	}
+	if u.Flags.Has(25) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field ttl_period: %w", err)
+		}
+		u.TTLPeriod = value
+	}
+	return nil
+}
+
 // SetOut sets value of Out conditional field.
 func (u *UpdateShortChatMessage) SetOut(value bool) {
 	if value {
@@ -1325,14 +1456,6 @@ func (u *UpdateShortChatMessage) GetEntities() (value []MessageEntityClass, ok b
 	return u.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (u *UpdateShortChatMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !u.Flags.Has(7) {
-		return value, false
-	}
-	return MessageEntityClassArray(u.Entities), true
-}
-
 // SetTTLPeriod sets value of TTLPeriod conditional field.
 func (u *UpdateShortChatMessage) SetTTLPeriod(value int) {
 	u.Flags.Set(25)
@@ -1348,136 +1471,13 @@ func (u *UpdateShortChatMessage) GetTTLPeriod() (value int, ok bool) {
 	return u.TTLPeriod, true
 }
 
-// Decode implements bin.Decoder.
-func (u *UpdateShortChatMessage) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateShortChatMessage#1157b858 to nil")
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (u *UpdateShortChatMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !u.Flags.Has(7) {
+		return value, false
 	}
-	if err := b.ConsumeID(UpdateShortChatMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: %w", err)
-	}
-	return u.DecodeBare(b)
+	return MessageEntityClassArray(u.Entities), true
 }
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateShortChatMessage) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateShortChatMessage#1157b858 to nil")
-	}
-	{
-		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field flags: %w", err)
-		}
-	}
-	u.Out = u.Flags.Has(1)
-	u.Mentioned = u.Flags.Has(4)
-	u.MediaUnread = u.Flags.Has(5)
-	u.Silent = u.Flags.Has(13)
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field id: %w", err)
-		}
-		u.ID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field from_id: %w", err)
-		}
-		u.FromID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field chat_id: %w", err)
-		}
-		u.ChatID = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field message: %w", err)
-		}
-		u.Message = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field pts: %w", err)
-		}
-		u.Pts = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field pts_count: %w", err)
-		}
-		u.PtsCount = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field date: %w", err)
-		}
-		u.Date = value
-	}
-	if u.Flags.Has(2) {
-		if err := u.FwdFrom.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field fwd_from: %w", err)
-		}
-	}
-	if u.Flags.Has(11) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field via_bot_id: %w", err)
-		}
-		u.ViaBotID = value
-	}
-	if u.Flags.Has(3) {
-		if err := u.ReplyTo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field reply_to: %w", err)
-		}
-	}
-	if u.Flags.Has(7) {
-		headerLen, err := b.VectorHeader()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field entities: %w", err)
-		}
-
-		if headerLen > 0 {
-			u.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeMessageEntity(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field entities: %w", err)
-			}
-			u.Entities = append(u.Entities, value)
-		}
-	}
-	if u.Flags.Has(25) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field ttl_period: %w", err)
-		}
-		u.TTLPeriod = value
-	}
-	return nil
-}
-
-// construct implements constructor of UpdatesClass.
-func (u UpdateShortChatMessage) construct() UpdatesClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateShortChatMessage.
-var (
-	_ bin.Encoder     = &UpdateShortChatMessage{}
-	_ bin.Decoder     = &UpdateShortChatMessage{}
-	_ bin.BareEncoder = &UpdateShortChatMessage{}
-	_ bin.BareDecoder = &UpdateShortChatMessage{}
-
-	_ UpdatesClass = &UpdateShortChatMessage{}
-)
 
 // UpdateShort represents TL type `updateShort#78d4dec1`.
 // Shortened constructor containing info on one update not requiring auxiliary data
@@ -1492,6 +1492,19 @@ type UpdateShort struct {
 
 // UpdateShortTypeID is TL type id of UpdateShort.
 const UpdateShortTypeID = 0x78d4dec1
+
+// construct implements constructor of UpdatesClass.
+func (u UpdateShort) construct() UpdatesClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateShort.
+var (
+	_ bin.Encoder     = &UpdateShort{}
+	_ bin.Decoder     = &UpdateShort{}
+	_ bin.BareEncoder = &UpdateShort{}
+	_ bin.BareDecoder = &UpdateShort{}
+
+	_ UpdatesClass = &UpdateShort{}
+)
 
 func (u *UpdateShort) Zero() bool {
 	if u == nil {
@@ -1584,16 +1597,6 @@ func (u *UpdateShort) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUpdate returns value of Update field.
-func (u *UpdateShort) GetUpdate() (value UpdateClass) {
-	return u.Update
-}
-
-// GetDate returns value of Date field.
-func (u *UpdateShort) GetDate() (value int) {
-	return u.Date
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateShort) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -1627,18 +1630,15 @@ func (u *UpdateShort) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesClass.
-func (u UpdateShort) construct() UpdatesClass { return &u }
+// GetUpdate returns value of Update field.
+func (u *UpdateShort) GetUpdate() (value UpdateClass) {
+	return u.Update
+}
 
-// Ensuring interfaces in compile-time for UpdateShort.
-var (
-	_ bin.Encoder     = &UpdateShort{}
-	_ bin.Decoder     = &UpdateShort{}
-	_ bin.BareEncoder = &UpdateShort{}
-	_ bin.BareDecoder = &UpdateShort{}
-
-	_ UpdatesClass = &UpdateShort{}
-)
+// GetDate returns value of Date field.
+func (u *UpdateShort) GetDate() (value int) {
+	return u.Date
+}
 
 // UpdatesCombined represents TL type `updatesCombined#725b04c3`.
 // Constructor for a group of updates.
@@ -1661,6 +1661,19 @@ type UpdatesCombined struct {
 
 // UpdatesCombinedTypeID is TL type id of UpdatesCombined.
 const UpdatesCombinedTypeID = 0x725b04c3
+
+// construct implements constructor of UpdatesClass.
+func (u UpdatesCombined) construct() UpdatesClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatesCombined.
+var (
+	_ bin.Encoder     = &UpdatesCombined{}
+	_ bin.Decoder     = &UpdatesCombined{}
+	_ bin.BareEncoder = &UpdatesCombined{}
+	_ bin.BareDecoder = &UpdatesCombined{}
+
+	_ UpdatesClass = &UpdatesCombined{}
+)
 
 func (u *UpdatesCombined) Zero() bool {
 	if u == nil {
@@ -1812,51 +1825,6 @@ func (u *UpdatesCombined) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUpdates returns value of Updates field.
-func (u *UpdatesCombined) GetUpdates() (value []UpdateClass) {
-	return u.Updates
-}
-
-// MapUpdates returns field Updates wrapped in UpdateClassArray helper.
-func (u *UpdatesCombined) MapUpdates() (value UpdateClassArray) {
-	return UpdateClassArray(u.Updates)
-}
-
-// GetUsers returns value of Users field.
-func (u *UpdatesCombined) GetUsers() (value []UserClass) {
-	return u.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (u *UpdatesCombined) MapUsers() (value UserClassArray) {
-	return UserClassArray(u.Users)
-}
-
-// GetChats returns value of Chats field.
-func (u *UpdatesCombined) GetChats() (value []ChatClass) {
-	return u.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (u *UpdatesCombined) MapChats() (value ChatClassArray) {
-	return ChatClassArray(u.Chats)
-}
-
-// GetDate returns value of Date field.
-func (u *UpdatesCombined) GetDate() (value int) {
-	return u.Date
-}
-
-// GetSeqStart returns value of SeqStart field.
-func (u *UpdatesCombined) GetSeqStart() (value int) {
-	return u.SeqStart
-}
-
-// GetSeq returns value of Seq field.
-func (u *UpdatesCombined) GetSeq() (value int) {
-	return u.Seq
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdatesCombined) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -1948,18 +1916,50 @@ func (u *UpdatesCombined) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesClass.
-func (u UpdatesCombined) construct() UpdatesClass { return &u }
+// GetUpdates returns value of Updates field.
+func (u *UpdatesCombined) GetUpdates() (value []UpdateClass) {
+	return u.Updates
+}
 
-// Ensuring interfaces in compile-time for UpdatesCombined.
-var (
-	_ bin.Encoder     = &UpdatesCombined{}
-	_ bin.Decoder     = &UpdatesCombined{}
-	_ bin.BareEncoder = &UpdatesCombined{}
-	_ bin.BareDecoder = &UpdatesCombined{}
+// GetUsers returns value of Users field.
+func (u *UpdatesCombined) GetUsers() (value []UserClass) {
+	return u.Users
+}
 
-	_ UpdatesClass = &UpdatesCombined{}
-)
+// GetChats returns value of Chats field.
+func (u *UpdatesCombined) GetChats() (value []ChatClass) {
+	return u.Chats
+}
+
+// GetDate returns value of Date field.
+func (u *UpdatesCombined) GetDate() (value int) {
+	return u.Date
+}
+
+// GetSeqStart returns value of SeqStart field.
+func (u *UpdatesCombined) GetSeqStart() (value int) {
+	return u.SeqStart
+}
+
+// GetSeq returns value of Seq field.
+func (u *UpdatesCombined) GetSeq() (value int) {
+	return u.Seq
+}
+
+// MapUpdates returns field Updates wrapped in UpdateClassArray helper.
+func (u *UpdatesCombined) MapUpdates() (value UpdateClassArray) {
+	return UpdateClassArray(u.Updates)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (u *UpdatesCombined) MapUsers() (value UserClassArray) {
+	return UserClassArray(u.Users)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (u *UpdatesCombined) MapChats() (value ChatClassArray) {
+	return ChatClassArray(u.Chats)
+}
 
 // Updates represents TL type `updates#74ae4240`.
 //
@@ -1979,6 +1979,19 @@ type Updates struct {
 
 // UpdatesTypeID is TL type id of Updates.
 const UpdatesTypeID = 0x74ae4240
+
+// construct implements constructor of UpdatesClass.
+func (u Updates) construct() UpdatesClass { return &u }
+
+// Ensuring interfaces in compile-time for Updates.
+var (
+	_ bin.Encoder     = &Updates{}
+	_ bin.Decoder     = &Updates{}
+	_ bin.BareEncoder = &Updates{}
+	_ bin.BareDecoder = &Updates{}
+
+	_ UpdatesClass = &Updates{}
+)
 
 func (u *Updates) Zero() bool {
 	if u == nil {
@@ -2120,46 +2133,6 @@ func (u *Updates) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUpdates returns value of Updates field.
-func (u *Updates) GetUpdates() (value []UpdateClass) {
-	return u.Updates
-}
-
-// MapUpdates returns field Updates wrapped in UpdateClassArray helper.
-func (u *Updates) MapUpdates() (value UpdateClassArray) {
-	return UpdateClassArray(u.Updates)
-}
-
-// GetUsers returns value of Users field.
-func (u *Updates) GetUsers() (value []UserClass) {
-	return u.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (u *Updates) MapUsers() (value UserClassArray) {
-	return UserClassArray(u.Users)
-}
-
-// GetChats returns value of Chats field.
-func (u *Updates) GetChats() (value []ChatClass) {
-	return u.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (u *Updates) MapChats() (value ChatClassArray) {
-	return ChatClassArray(u.Chats)
-}
-
-// GetDate returns value of Date field.
-func (u *Updates) GetDate() (value int) {
-	return u.Date
-}
-
-// GetSeq returns value of Seq field.
-func (u *Updates) GetSeq() (value int) {
-	return u.Seq
-}
-
 // Decode implements bin.Decoder.
 func (u *Updates) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -2244,18 +2217,45 @@ func (u *Updates) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesClass.
-func (u Updates) construct() UpdatesClass { return &u }
+// GetUpdates returns value of Updates field.
+func (u *Updates) GetUpdates() (value []UpdateClass) {
+	return u.Updates
+}
 
-// Ensuring interfaces in compile-time for Updates.
-var (
-	_ bin.Encoder     = &Updates{}
-	_ bin.Decoder     = &Updates{}
-	_ bin.BareEncoder = &Updates{}
-	_ bin.BareDecoder = &Updates{}
+// GetUsers returns value of Users field.
+func (u *Updates) GetUsers() (value []UserClass) {
+	return u.Users
+}
 
-	_ UpdatesClass = &Updates{}
-)
+// GetChats returns value of Chats field.
+func (u *Updates) GetChats() (value []ChatClass) {
+	return u.Chats
+}
+
+// GetDate returns value of Date field.
+func (u *Updates) GetDate() (value int) {
+	return u.Date
+}
+
+// GetSeq returns value of Seq field.
+func (u *Updates) GetSeq() (value int) {
+	return u.Seq
+}
+
+// MapUpdates returns field Updates wrapped in UpdateClassArray helper.
+func (u *Updates) MapUpdates() (value UpdateClassArray) {
+	return UpdateClassArray(u.Updates)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (u *Updates) MapUsers() (value UserClassArray) {
+	return UserClassArray(u.Users)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (u *Updates) MapChats() (value ChatClassArray) {
+	return ChatClassArray(u.Chats)
+}
 
 // UpdateShortSentMessage represents TL type `updateShortSentMessage#9015e101`.
 // Shortened constructor containing info on one outgoing message to a contact (the
@@ -2306,6 +2306,19 @@ type UpdateShortSentMessage struct {
 
 // UpdateShortSentMessageTypeID is TL type id of UpdateShortSentMessage.
 const UpdateShortSentMessageTypeID = 0x9015e101
+
+// construct implements constructor of UpdatesClass.
+func (u UpdateShortSentMessage) construct() UpdatesClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateShortSentMessage.
+var (
+	_ bin.Encoder     = &UpdateShortSentMessage{}
+	_ bin.Decoder     = &UpdateShortSentMessage{}
+	_ bin.BareEncoder = &UpdateShortSentMessage{}
+	_ bin.BareDecoder = &UpdateShortSentMessage{}
+
+	_ UpdatesClass = &UpdateShortSentMessage{}
+)
 
 func (u *UpdateShortSentMessage) Zero() bool {
 	if u == nil {
@@ -2502,95 +2515,6 @@ func (u *UpdateShortSentMessage) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetOut sets value of Out conditional field.
-func (u *UpdateShortSentMessage) SetOut(value bool) {
-	if value {
-		u.Flags.Set(1)
-		u.Out = true
-	} else {
-		u.Flags.Unset(1)
-		u.Out = false
-	}
-}
-
-// GetOut returns value of Out conditional field.
-func (u *UpdateShortSentMessage) GetOut() (value bool) {
-	return u.Flags.Has(1)
-}
-
-// GetID returns value of ID field.
-func (u *UpdateShortSentMessage) GetID() (value int) {
-	return u.ID
-}
-
-// GetPts returns value of Pts field.
-func (u *UpdateShortSentMessage) GetPts() (value int) {
-	return u.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (u *UpdateShortSentMessage) GetPtsCount() (value int) {
-	return u.PtsCount
-}
-
-// GetDate returns value of Date field.
-func (u *UpdateShortSentMessage) GetDate() (value int) {
-	return u.Date
-}
-
-// SetMedia sets value of Media conditional field.
-func (u *UpdateShortSentMessage) SetMedia(value MessageMediaClass) {
-	u.Flags.Set(9)
-	u.Media = value
-}
-
-// GetMedia returns value of Media conditional field and
-// boolean which is true if field was set.
-func (u *UpdateShortSentMessage) GetMedia() (value MessageMediaClass, ok bool) {
-	if !u.Flags.Has(9) {
-		return value, false
-	}
-	return u.Media, true
-}
-
-// SetEntities sets value of Entities conditional field.
-func (u *UpdateShortSentMessage) SetEntities(value []MessageEntityClass) {
-	u.Flags.Set(7)
-	u.Entities = value
-}
-
-// GetEntities returns value of Entities conditional field and
-// boolean which is true if field was set.
-func (u *UpdateShortSentMessage) GetEntities() (value []MessageEntityClass, ok bool) {
-	if !u.Flags.Has(7) {
-		return value, false
-	}
-	return u.Entities, true
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (u *UpdateShortSentMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !u.Flags.Has(7) {
-		return value, false
-	}
-	return MessageEntityClassArray(u.Entities), true
-}
-
-// SetTTLPeriod sets value of TTLPeriod conditional field.
-func (u *UpdateShortSentMessage) SetTTLPeriod(value int) {
-	u.Flags.Set(25)
-	u.TTLPeriod = value
-}
-
-// GetTTLPeriod returns value of TTLPeriod conditional field and
-// boolean which is true if field was set.
-func (u *UpdateShortSentMessage) GetTTLPeriod() (value int, ok bool) {
-	if !u.Flags.Has(25) {
-		return value, false
-	}
-	return u.TTLPeriod, true
-}
-
 // Decode implements bin.Decoder.
 func (u *UpdateShortSentMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -2675,18 +2599,94 @@ func (u *UpdateShortSentMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UpdatesClass.
-func (u UpdateShortSentMessage) construct() UpdatesClass { return &u }
+// SetOut sets value of Out conditional field.
+func (u *UpdateShortSentMessage) SetOut(value bool) {
+	if value {
+		u.Flags.Set(1)
+		u.Out = true
+	} else {
+		u.Flags.Unset(1)
+		u.Out = false
+	}
+}
 
-// Ensuring interfaces in compile-time for UpdateShortSentMessage.
-var (
-	_ bin.Encoder     = &UpdateShortSentMessage{}
-	_ bin.Decoder     = &UpdateShortSentMessage{}
-	_ bin.BareEncoder = &UpdateShortSentMessage{}
-	_ bin.BareDecoder = &UpdateShortSentMessage{}
+// GetOut returns value of Out conditional field.
+func (u *UpdateShortSentMessage) GetOut() (value bool) {
+	return u.Flags.Has(1)
+}
 
-	_ UpdatesClass = &UpdateShortSentMessage{}
-)
+// GetID returns value of ID field.
+func (u *UpdateShortSentMessage) GetID() (value int) {
+	return u.ID
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateShortSentMessage) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateShortSentMessage) GetPtsCount() (value int) {
+	return u.PtsCount
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateShortSentMessage) GetDate() (value int) {
+	return u.Date
+}
+
+// SetMedia sets value of Media conditional field.
+func (u *UpdateShortSentMessage) SetMedia(value MessageMediaClass) {
+	u.Flags.Set(9)
+	u.Media = value
+}
+
+// GetMedia returns value of Media conditional field and
+// boolean which is true if field was set.
+func (u *UpdateShortSentMessage) GetMedia() (value MessageMediaClass, ok bool) {
+	if !u.Flags.Has(9) {
+		return value, false
+	}
+	return u.Media, true
+}
+
+// SetEntities sets value of Entities conditional field.
+func (u *UpdateShortSentMessage) SetEntities(value []MessageEntityClass) {
+	u.Flags.Set(7)
+	u.Entities = value
+}
+
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (u *UpdateShortSentMessage) GetEntities() (value []MessageEntityClass, ok bool) {
+	if !u.Flags.Has(7) {
+		return value, false
+	}
+	return u.Entities, true
+}
+
+// SetTTLPeriod sets value of TTLPeriod conditional field.
+func (u *UpdateShortSentMessage) SetTTLPeriod(value int) {
+	u.Flags.Set(25)
+	u.TTLPeriod = value
+}
+
+// GetTTLPeriod returns value of TTLPeriod conditional field and
+// boolean which is true if field was set.
+func (u *UpdateShortSentMessage) GetTTLPeriod() (value int, ok bool) {
+	if !u.Flags.Has(25) {
+		return value, false
+	}
+	return u.TTLPeriod, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (u *UpdateShortSentMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !u.Flags.Has(7) {
+		return value, false
+	}
+	return MessageEntityClassArray(u.Entities), true
+}
 
 // UpdatesClass represents Updates generic type.
 //
@@ -2811,824 +2811,4 @@ func (b *UpdatesBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UpdatesClass as nil")
 	}
 	return b.Updates.Encode(buf)
-}
-
-// UpdatesClassArray is adapter for slice of UpdatesClass.
-type UpdatesClassArray []UpdatesClass
-
-// Sort sorts slice of UpdatesClass.
-func (s UpdatesClassArray) Sort(less func(a, b UpdatesClass) bool) UpdatesClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatesClass.
-func (s UpdatesClassArray) SortStable(less func(a, b UpdatesClass) bool) UpdatesClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatesClass.
-func (s UpdatesClassArray) Retain(keep func(x UpdatesClass) bool) UpdatesClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatesClassArray) First() (v UpdatesClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatesClassArray) Last() (v UpdatesClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatesClassArray) PopFirst() (v UpdatesClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatesClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatesClassArray) Pop() (v UpdatesClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsUpdateShortMessage returns copy with only UpdateShortMessage constructors.
-func (s UpdatesClassArray) AsUpdateShortMessage() (to UpdateShortMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateShortMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateShortChatMessage returns copy with only UpdateShortChatMessage constructors.
-func (s UpdatesClassArray) AsUpdateShortChatMessage() (to UpdateShortChatMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateShortChatMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateShort returns copy with only UpdateShort constructors.
-func (s UpdatesClassArray) AsUpdateShort() (to UpdateShortArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateShort)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdatesCombined returns copy with only UpdatesCombined constructors.
-func (s UpdatesClassArray) AsUpdatesCombined() (to UpdatesCombinedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdatesCombined)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdates returns copy with only Updates constructors.
-func (s UpdatesClassArray) AsUpdates() (to UpdatesArray) {
-	for _, elem := range s {
-		value, ok := elem.(*Updates)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUpdateShortSentMessage returns copy with only UpdateShortSentMessage constructors.
-func (s UpdatesClassArray) AsUpdateShortSentMessage() (to UpdateShortSentMessageArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateShortSentMessage)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// UpdateShortMessageArray is adapter for slice of UpdateShortMessage.
-type UpdateShortMessageArray []UpdateShortMessage
-
-// Sort sorts slice of UpdateShortMessage.
-func (s UpdateShortMessageArray) Sort(less func(a, b UpdateShortMessage) bool) UpdateShortMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateShortMessage.
-func (s UpdateShortMessageArray) SortStable(less func(a, b UpdateShortMessage) bool) UpdateShortMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateShortMessage.
-func (s UpdateShortMessageArray) Retain(keep func(x UpdateShortMessage) bool) UpdateShortMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateShortMessageArray) First() (v UpdateShortMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateShortMessageArray) Last() (v UpdateShortMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateShortMessageArray) PopFirst() (v UpdateShortMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateShortMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateShortMessageArray) Pop() (v UpdateShortMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of UpdateShortMessage by ID.
-func (s UpdateShortMessageArray) SortByID() UpdateShortMessageArray {
-	return s.Sort(func(a, b UpdateShortMessage) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of UpdateShortMessage by ID.
-func (s UpdateShortMessageArray) SortStableByID() UpdateShortMessageArray {
-	return s.SortStable(func(a, b UpdateShortMessage) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortByDate sorts slice of UpdateShortMessage by Date.
-func (s UpdateShortMessageArray) SortByDate() UpdateShortMessageArray {
-	return s.Sort(func(a, b UpdateShortMessage) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of UpdateShortMessage by Date.
-func (s UpdateShortMessageArray) SortStableByDate() UpdateShortMessageArray {
-	return s.SortStable(func(a, b UpdateShortMessage) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s UpdateShortMessageArray) FillMap(to map[int]UpdateShortMessage) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s UpdateShortMessageArray) ToMap() map[int]UpdateShortMessage {
-	r := make(map[int]UpdateShortMessage, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// UpdateShortChatMessageArray is adapter for slice of UpdateShortChatMessage.
-type UpdateShortChatMessageArray []UpdateShortChatMessage
-
-// Sort sorts slice of UpdateShortChatMessage.
-func (s UpdateShortChatMessageArray) Sort(less func(a, b UpdateShortChatMessage) bool) UpdateShortChatMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateShortChatMessage.
-func (s UpdateShortChatMessageArray) SortStable(less func(a, b UpdateShortChatMessage) bool) UpdateShortChatMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateShortChatMessage.
-func (s UpdateShortChatMessageArray) Retain(keep func(x UpdateShortChatMessage) bool) UpdateShortChatMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateShortChatMessageArray) First() (v UpdateShortChatMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateShortChatMessageArray) Last() (v UpdateShortChatMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateShortChatMessageArray) PopFirst() (v UpdateShortChatMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateShortChatMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateShortChatMessageArray) Pop() (v UpdateShortChatMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of UpdateShortChatMessage by ID.
-func (s UpdateShortChatMessageArray) SortByID() UpdateShortChatMessageArray {
-	return s.Sort(func(a, b UpdateShortChatMessage) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of UpdateShortChatMessage by ID.
-func (s UpdateShortChatMessageArray) SortStableByID() UpdateShortChatMessageArray {
-	return s.SortStable(func(a, b UpdateShortChatMessage) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortByDate sorts slice of UpdateShortChatMessage by Date.
-func (s UpdateShortChatMessageArray) SortByDate() UpdateShortChatMessageArray {
-	return s.Sort(func(a, b UpdateShortChatMessage) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of UpdateShortChatMessage by Date.
-func (s UpdateShortChatMessageArray) SortStableByDate() UpdateShortChatMessageArray {
-	return s.SortStable(func(a, b UpdateShortChatMessage) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s UpdateShortChatMessageArray) FillMap(to map[int]UpdateShortChatMessage) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s UpdateShortChatMessageArray) ToMap() map[int]UpdateShortChatMessage {
-	r := make(map[int]UpdateShortChatMessage, len(s))
-	s.FillMap(r)
-	return r
-}
-
-// UpdateShortArray is adapter for slice of UpdateShort.
-type UpdateShortArray []UpdateShort
-
-// Sort sorts slice of UpdateShort.
-func (s UpdateShortArray) Sort(less func(a, b UpdateShort) bool) UpdateShortArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateShort.
-func (s UpdateShortArray) SortStable(less func(a, b UpdateShort) bool) UpdateShortArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateShort.
-func (s UpdateShortArray) Retain(keep func(x UpdateShort) bool) UpdateShortArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateShortArray) First() (v UpdateShort, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateShortArray) Last() (v UpdateShort, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateShortArray) PopFirst() (v UpdateShort, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateShort
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateShortArray) Pop() (v UpdateShort, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of UpdateShort by Date.
-func (s UpdateShortArray) SortByDate() UpdateShortArray {
-	return s.Sort(func(a, b UpdateShort) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of UpdateShort by Date.
-func (s UpdateShortArray) SortStableByDate() UpdateShortArray {
-	return s.SortStable(func(a, b UpdateShort) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// UpdatesCombinedArray is adapter for slice of UpdatesCombined.
-type UpdatesCombinedArray []UpdatesCombined
-
-// Sort sorts slice of UpdatesCombined.
-func (s UpdatesCombinedArray) Sort(less func(a, b UpdatesCombined) bool) UpdatesCombinedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdatesCombined.
-func (s UpdatesCombinedArray) SortStable(less func(a, b UpdatesCombined) bool) UpdatesCombinedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdatesCombined.
-func (s UpdatesCombinedArray) Retain(keep func(x UpdatesCombined) bool) UpdatesCombinedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatesCombinedArray) First() (v UpdatesCombined, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatesCombinedArray) Last() (v UpdatesCombined, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatesCombinedArray) PopFirst() (v UpdatesCombined, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdatesCombined
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatesCombinedArray) Pop() (v UpdatesCombined, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of UpdatesCombined by Date.
-func (s UpdatesCombinedArray) SortByDate() UpdatesCombinedArray {
-	return s.Sort(func(a, b UpdatesCombined) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of UpdatesCombined by Date.
-func (s UpdatesCombinedArray) SortStableByDate() UpdatesCombinedArray {
-	return s.SortStable(func(a, b UpdatesCombined) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// UpdatesArray is adapter for slice of Updates.
-type UpdatesArray []Updates
-
-// Sort sorts slice of Updates.
-func (s UpdatesArray) Sort(less func(a, b Updates) bool) UpdatesArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of Updates.
-func (s UpdatesArray) SortStable(less func(a, b Updates) bool) UpdatesArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of Updates.
-func (s UpdatesArray) Retain(keep func(x Updates) bool) UpdatesArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdatesArray) First() (v Updates, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdatesArray) Last() (v Updates, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatesArray) PopFirst() (v Updates, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero Updates
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatesArray) Pop() (v Updates, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of Updates by Date.
-func (s UpdatesArray) SortByDate() UpdatesArray {
-	return s.Sort(func(a, b Updates) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of Updates by Date.
-func (s UpdatesArray) SortStableByDate() UpdatesArray {
-	return s.SortStable(func(a, b Updates) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// UpdateShortSentMessageArray is adapter for slice of UpdateShortSentMessage.
-type UpdateShortSentMessageArray []UpdateShortSentMessage
-
-// Sort sorts slice of UpdateShortSentMessage.
-func (s UpdateShortSentMessageArray) Sort(less func(a, b UpdateShortSentMessage) bool) UpdateShortSentMessageArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateShortSentMessage.
-func (s UpdateShortSentMessageArray) SortStable(less func(a, b UpdateShortSentMessage) bool) UpdateShortSentMessageArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateShortSentMessage.
-func (s UpdateShortSentMessageArray) Retain(keep func(x UpdateShortSentMessage) bool) UpdateShortSentMessageArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateShortSentMessageArray) First() (v UpdateShortSentMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateShortSentMessageArray) Last() (v UpdateShortSentMessage, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateShortSentMessageArray) PopFirst() (v UpdateShortSentMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateShortSentMessage
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateShortSentMessageArray) Pop() (v UpdateShortSentMessage, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByID sorts slice of UpdateShortSentMessage by ID.
-func (s UpdateShortSentMessageArray) SortByID() UpdateShortSentMessageArray {
-	return s.Sort(func(a, b UpdateShortSentMessage) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortStableByID sorts slice of UpdateShortSentMessage by ID.
-func (s UpdateShortSentMessageArray) SortStableByID() UpdateShortSentMessageArray {
-	return s.SortStable(func(a, b UpdateShortSentMessage) bool {
-		return a.GetID() < b.GetID()
-	})
-}
-
-// SortByDate sorts slice of UpdateShortSentMessage by Date.
-func (s UpdateShortSentMessageArray) SortByDate() UpdateShortSentMessageArray {
-	return s.Sort(func(a, b UpdateShortSentMessage) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of UpdateShortSentMessage by Date.
-func (s UpdateShortSentMessageArray) SortStableByDate() UpdateShortSentMessageArray {
-	return s.SortStable(func(a, b UpdateShortSentMessage) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// FillMap fills constructors to given map.
-func (s UpdateShortSentMessageArray) FillMap(to map[int]UpdateShortSentMessage) {
-	for _, value := range s {
-		to[value.GetID()] = value
-	}
-}
-
-// ToMap collects constructors to map.
-func (s UpdateShortSentMessageArray) ToMap() map[int]UpdateShortSentMessage {
-	r := make(map[int]UpdateShortSentMessage, len(s))
-	s.FillMap(r)
-	return r
 }

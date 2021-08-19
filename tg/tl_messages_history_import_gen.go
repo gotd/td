@@ -40,6 +40,14 @@ type MessagesHistoryImport struct {
 // MessagesHistoryImportTypeID is TL type id of MessagesHistoryImport.
 const MessagesHistoryImportTypeID = 0x1662af0b
 
+// Ensuring interfaces in compile-time for MessagesHistoryImport.
+var (
+	_ bin.Encoder     = &MessagesHistoryImport{}
+	_ bin.Decoder     = &MessagesHistoryImport{}
+	_ bin.BareEncoder = &MessagesHistoryImport{}
+	_ bin.BareDecoder = &MessagesHistoryImport{}
+)
+
 func (h *MessagesHistoryImport) Zero() bool {
 	if h == nil {
 		return true
@@ -116,11 +124,6 @@ func (h *MessagesHistoryImport) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (h *MessagesHistoryImport) GetID() (value int64) {
-	return h.ID
-}
-
 // Decode implements bin.Decoder.
 func (h *MessagesHistoryImport) Decode(b *bin.Buffer) error {
 	if h == nil {
@@ -147,10 +150,7 @@ func (h *MessagesHistoryImport) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesHistoryImport.
-var (
-	_ bin.Encoder     = &MessagesHistoryImport{}
-	_ bin.Decoder     = &MessagesHistoryImport{}
-	_ bin.BareEncoder = &MessagesHistoryImport{}
-	_ bin.BareDecoder = &MessagesHistoryImport{}
-)
+// GetID returns value of ID field.
+func (h *MessagesHistoryImport) GetID() (value int64) {
+	return h.ID
+}

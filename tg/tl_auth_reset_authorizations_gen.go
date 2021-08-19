@@ -44,6 +44,14 @@ type AuthResetAuthorizationsRequest struct {
 // AuthResetAuthorizationsRequestTypeID is TL type id of AuthResetAuthorizationsRequest.
 const AuthResetAuthorizationsRequestTypeID = 0x9fab0d1a
 
+// Ensuring interfaces in compile-time for AuthResetAuthorizationsRequest.
+var (
+	_ bin.Encoder     = &AuthResetAuthorizationsRequest{}
+	_ bin.Decoder     = &AuthResetAuthorizationsRequest{}
+	_ bin.BareEncoder = &AuthResetAuthorizationsRequest{}
+	_ bin.BareDecoder = &AuthResetAuthorizationsRequest{}
+)
+
 func (r *AuthResetAuthorizationsRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -122,14 +130,6 @@ func (r *AuthResetAuthorizationsRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AuthResetAuthorizationsRequest.
-var (
-	_ bin.Encoder     = &AuthResetAuthorizationsRequest{}
-	_ bin.Decoder     = &AuthResetAuthorizationsRequest{}
-	_ bin.BareEncoder = &AuthResetAuthorizationsRequest{}
-	_ bin.BareDecoder = &AuthResetAuthorizationsRequest{}
-)
 
 // AuthResetAuthorizations invokes method auth.resetAuthorizations#9fab0d1a returning error if any.
 // Terminates all user's authorized sessions except for the current one.

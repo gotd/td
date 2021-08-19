@@ -56,6 +56,14 @@ type StatsLoadAsyncGraphRequest struct {
 // StatsLoadAsyncGraphRequestTypeID is TL type id of StatsLoadAsyncGraphRequest.
 const StatsLoadAsyncGraphRequestTypeID = 0x621d5fa0
 
+// Ensuring interfaces in compile-time for StatsLoadAsyncGraphRequest.
+var (
+	_ bin.Encoder     = &StatsLoadAsyncGraphRequest{}
+	_ bin.Decoder     = &StatsLoadAsyncGraphRequest{}
+	_ bin.BareEncoder = &StatsLoadAsyncGraphRequest{}
+	_ bin.BareDecoder = &StatsLoadAsyncGraphRequest{}
+)
+
 func (l *StatsLoadAsyncGraphRequest) Zero() bool {
 	if l == nil {
 		return true
@@ -157,26 +165,6 @@ func (l *StatsLoadAsyncGraphRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetToken returns value of Token field.
-func (l *StatsLoadAsyncGraphRequest) GetToken() (value string) {
-	return l.Token
-}
-
-// SetX sets value of X conditional field.
-func (l *StatsLoadAsyncGraphRequest) SetX(value int64) {
-	l.Flags.Set(0)
-	l.X = value
-}
-
-// GetX returns value of X conditional field and
-// boolean which is true if field was set.
-func (l *StatsLoadAsyncGraphRequest) GetX() (value int64, ok bool) {
-	if !l.Flags.Has(0) {
-		return value, false
-	}
-	return l.X, true
-}
-
 // Decode implements bin.Decoder.
 func (l *StatsLoadAsyncGraphRequest) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -215,13 +203,25 @@ func (l *StatsLoadAsyncGraphRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StatsLoadAsyncGraphRequest.
-var (
-	_ bin.Encoder     = &StatsLoadAsyncGraphRequest{}
-	_ bin.Decoder     = &StatsLoadAsyncGraphRequest{}
-	_ bin.BareEncoder = &StatsLoadAsyncGraphRequest{}
-	_ bin.BareDecoder = &StatsLoadAsyncGraphRequest{}
-)
+// GetToken returns value of Token field.
+func (l *StatsLoadAsyncGraphRequest) GetToken() (value string) {
+	return l.Token
+}
+
+// SetX sets value of X conditional field.
+func (l *StatsLoadAsyncGraphRequest) SetX(value int64) {
+	l.Flags.Set(0)
+	l.X = value
+}
+
+// GetX returns value of X conditional field and
+// boolean which is true if field was set.
+func (l *StatsLoadAsyncGraphRequest) GetX() (value int64, ok bool) {
+	if !l.Flags.Has(0) {
+		return value, false
+	}
+	return l.X, true
+}
 
 // StatsLoadAsyncGraph invokes method stats.loadAsyncGraph#621d5fa0 returning error if any.
 // Load channel statistics graph¹ asynchronously

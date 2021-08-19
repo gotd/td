@@ -38,6 +38,14 @@ type ContactStatusVector struct {
 // ContactStatusVectorTypeID is TL type id of ContactStatusVector.
 const ContactStatusVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for ContactStatusVector.
+var (
+	_ bin.Encoder     = &ContactStatusVector{}
+	_ bin.Decoder     = &ContactStatusVector{}
+	_ bin.BareEncoder = &ContactStatusVector{}
+	_ bin.BareDecoder = &ContactStatusVector{}
+)
+
 func (vec *ContactStatusVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -119,11 +127,6 @@ func (vec *ContactStatusVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *ContactStatusVector) GetElems() (value []ContactStatus) {
-	return vec.Elems
-}
-
 // Decode implements bin.Decoder.
 func (vec *ContactStatusVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -158,10 +161,7 @@ func (vec *ContactStatusVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactStatusVector.
-var (
-	_ bin.Encoder     = &ContactStatusVector{}
-	_ bin.Decoder     = &ContactStatusVector{}
-	_ bin.BareEncoder = &ContactStatusVector{}
-	_ bin.BareDecoder = &ContactStatusVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *ContactStatusVector) GetElems() (value []ContactStatus) {
+	return vec.Elems
+}

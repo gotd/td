@@ -41,6 +41,14 @@ type MessagesReportEncryptedSpamRequest struct {
 // MessagesReportEncryptedSpamRequestTypeID is TL type id of MessagesReportEncryptedSpamRequest.
 const MessagesReportEncryptedSpamRequestTypeID = 0x4b0c8c0f
 
+// Ensuring interfaces in compile-time for MessagesReportEncryptedSpamRequest.
+var (
+	_ bin.Encoder     = &MessagesReportEncryptedSpamRequest{}
+	_ bin.Decoder     = &MessagesReportEncryptedSpamRequest{}
+	_ bin.BareEncoder = &MessagesReportEncryptedSpamRequest{}
+	_ bin.BareDecoder = &MessagesReportEncryptedSpamRequest{}
+)
+
 func (r *MessagesReportEncryptedSpamRequest) Zero() bool {
 	if r == nil {
 		return true
@@ -119,11 +127,6 @@ func (r *MessagesReportEncryptedSpamRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (r *MessagesReportEncryptedSpamRequest) GetPeer() (value InputEncryptedChat) {
-	return r.Peer
-}
-
 // Decode implements bin.Decoder.
 func (r *MessagesReportEncryptedSpamRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -148,13 +151,10 @@ func (r *MessagesReportEncryptedSpamRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesReportEncryptedSpamRequest.
-var (
-	_ bin.Encoder     = &MessagesReportEncryptedSpamRequest{}
-	_ bin.Decoder     = &MessagesReportEncryptedSpamRequest{}
-	_ bin.BareEncoder = &MessagesReportEncryptedSpamRequest{}
-	_ bin.BareDecoder = &MessagesReportEncryptedSpamRequest{}
-)
+// GetPeer returns value of Peer field.
+func (r *MessagesReportEncryptedSpamRequest) GetPeer() (value InputEncryptedChat) {
+	return r.Peer
+}
 
 // MessagesReportEncryptedSpam invokes method messages.reportEncryptedSpam#4b0c8c0f returning error if any.
 // Report a secret chat for spam

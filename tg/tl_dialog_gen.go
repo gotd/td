@@ -83,6 +83,19 @@ type Dialog struct {
 // DialogTypeID is TL type id of Dialog.
 const DialogTypeID = 0x2c171f72
 
+// construct implements constructor of DialogClass.
+func (d Dialog) construct() DialogClass { return &d }
+
+// Ensuring interfaces in compile-time for Dialog.
+var (
+	_ bin.Encoder     = &Dialog{}
+	_ bin.Decoder     = &Dialog{}
+	_ bin.BareEncoder = &Dialog{}
+	_ bin.BareDecoder = &Dialog{}
+
+	_ DialogClass = &Dialog{}
+)
+
 func (d *Dialog) Zero() bool {
 	if d == nil {
 		return true
@@ -320,6 +333,100 @@ func (d *Dialog) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (d *Dialog) Decode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialog#2c171f72 to nil")
+	}
+	if err := b.ConsumeID(DialogTypeID); err != nil {
+		return fmt.Errorf("unable to decode dialog#2c171f72: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *Dialog) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialog#2c171f72 to nil")
+	}
+	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field flags: %w", err)
+		}
+	}
+	d.Pinned = d.Flags.Has(2)
+	d.UnreadMark = d.Flags.Has(3)
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field peer: %w", err)
+		}
+		d.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field top_message: %w", err)
+		}
+		d.TopMessage = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field read_inbox_max_id: %w", err)
+		}
+		d.ReadInboxMaxID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field read_outbox_max_id: %w", err)
+		}
+		d.ReadOutboxMaxID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field unread_count: %w", err)
+		}
+		d.UnreadCount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field unread_mentions_count: %w", err)
+		}
+		d.UnreadMentionsCount = value
+	}
+	{
+		if err := d.NotifySettings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field notify_settings: %w", err)
+		}
+	}
+	if d.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field pts: %w", err)
+		}
+		d.Pts = value
+	}
+	if d.Flags.Has(1) {
+		value, err := DecodeDraftMessage(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field draft: %w", err)
+		}
+		d.Draft = value
+	}
+	if d.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#2c171f72: field folder_id: %w", err)
+		}
+		d.FolderID = value
+	}
+	return nil
+}
+
 // SetPinned sets value of Pinned conditional field.
 func (d *Dialog) SetPinned(value bool) {
 	if value {
@@ -432,113 +539,6 @@ func (d *Dialog) GetFolderID() (value int, ok bool) {
 	return d.FolderID, true
 }
 
-// Decode implements bin.Decoder.
-func (d *Dialog) Decode(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't decode dialog#2c171f72 to nil")
-	}
-	if err := b.ConsumeID(DialogTypeID); err != nil {
-		return fmt.Errorf("unable to decode dialog#2c171f72: %w", err)
-	}
-	return d.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (d *Dialog) DecodeBare(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't decode dialog#2c171f72 to nil")
-	}
-	{
-		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field flags: %w", err)
-		}
-	}
-	d.Pinned = d.Flags.Has(2)
-	d.UnreadMark = d.Flags.Has(3)
-	{
-		value, err := DecodePeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field peer: %w", err)
-		}
-		d.Peer = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field top_message: %w", err)
-		}
-		d.TopMessage = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field read_inbox_max_id: %w", err)
-		}
-		d.ReadInboxMaxID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field read_outbox_max_id: %w", err)
-		}
-		d.ReadOutboxMaxID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field unread_count: %w", err)
-		}
-		d.UnreadCount = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field unread_mentions_count: %w", err)
-		}
-		d.UnreadMentionsCount = value
-	}
-	{
-		if err := d.NotifySettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field notify_settings: %w", err)
-		}
-	}
-	if d.Flags.Has(0) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field pts: %w", err)
-		}
-		d.Pts = value
-	}
-	if d.Flags.Has(1) {
-		value, err := DecodeDraftMessage(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field draft: %w", err)
-		}
-		d.Draft = value
-	}
-	if d.Flags.Has(4) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode dialog#2c171f72: field folder_id: %w", err)
-		}
-		d.FolderID = value
-	}
-	return nil
-}
-
-// construct implements constructor of DialogClass.
-func (d Dialog) construct() DialogClass { return &d }
-
-// Ensuring interfaces in compile-time for Dialog.
-var (
-	_ bin.Encoder     = &Dialog{}
-	_ bin.Decoder     = &Dialog{}
-	_ bin.BareEncoder = &Dialog{}
-	_ bin.BareDecoder = &Dialog{}
-
-	_ DialogClass = &Dialog{}
-)
-
 // DialogFolder represents TL type `dialogFolder#71bd134c`.
 // Dialog in folder
 //
@@ -569,6 +569,19 @@ type DialogFolder struct {
 
 // DialogFolderTypeID is TL type id of DialogFolder.
 const DialogFolderTypeID = 0x71bd134c
+
+// construct implements constructor of DialogClass.
+func (d DialogFolder) construct() DialogClass { return &d }
+
+// Ensuring interfaces in compile-time for DialogFolder.
+var (
+	_ bin.Encoder     = &DialogFolder{}
+	_ bin.Decoder     = &DialogFolder{}
+	_ bin.BareEncoder = &DialogFolder{}
+	_ bin.BareDecoder = &DialogFolder{}
+
+	_ DialogClass = &DialogFolder{}
+)
 
 func (d *DialogFolder) Zero() bool {
 	if d == nil {
@@ -732,57 +745,6 @@ func (d *DialogFolder) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetPinned sets value of Pinned conditional field.
-func (d *DialogFolder) SetPinned(value bool) {
-	if value {
-		d.Flags.Set(2)
-		d.Pinned = true
-	} else {
-		d.Flags.Unset(2)
-		d.Pinned = false
-	}
-}
-
-// GetPinned returns value of Pinned conditional field.
-func (d *DialogFolder) GetPinned() (value bool) {
-	return d.Flags.Has(2)
-}
-
-// GetFolder returns value of Folder field.
-func (d *DialogFolder) GetFolder() (value Folder) {
-	return d.Folder
-}
-
-// GetPeer returns value of Peer field.
-func (d *DialogFolder) GetPeer() (value PeerClass) {
-	return d.Peer
-}
-
-// GetTopMessage returns value of TopMessage field.
-func (d *DialogFolder) GetTopMessage() (value int) {
-	return d.TopMessage
-}
-
-// GetUnreadMutedPeersCount returns value of UnreadMutedPeersCount field.
-func (d *DialogFolder) GetUnreadMutedPeersCount() (value int) {
-	return d.UnreadMutedPeersCount
-}
-
-// GetUnreadUnmutedPeersCount returns value of UnreadUnmutedPeersCount field.
-func (d *DialogFolder) GetUnreadUnmutedPeersCount() (value int) {
-	return d.UnreadUnmutedPeersCount
-}
-
-// GetUnreadMutedMessagesCount returns value of UnreadMutedMessagesCount field.
-func (d *DialogFolder) GetUnreadMutedMessagesCount() (value int) {
-	return d.UnreadMutedMessagesCount
-}
-
-// GetUnreadUnmutedMessagesCount returns value of UnreadUnmutedMessagesCount field.
-func (d *DialogFolder) GetUnreadUnmutedMessagesCount() (value int) {
-	return d.UnreadUnmutedMessagesCount
-}
-
 // Decode implements bin.Decoder.
 func (d *DialogFolder) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -855,18 +817,56 @@ func (d *DialogFolder) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DialogClass.
-func (d DialogFolder) construct() DialogClass { return &d }
+// SetPinned sets value of Pinned conditional field.
+func (d *DialogFolder) SetPinned(value bool) {
+	if value {
+		d.Flags.Set(2)
+		d.Pinned = true
+	} else {
+		d.Flags.Unset(2)
+		d.Pinned = false
+	}
+}
 
-// Ensuring interfaces in compile-time for DialogFolder.
-var (
-	_ bin.Encoder     = &DialogFolder{}
-	_ bin.Decoder     = &DialogFolder{}
-	_ bin.BareEncoder = &DialogFolder{}
-	_ bin.BareDecoder = &DialogFolder{}
+// GetPinned returns value of Pinned conditional field.
+func (d *DialogFolder) GetPinned() (value bool) {
+	return d.Flags.Has(2)
+}
 
-	_ DialogClass = &DialogFolder{}
-)
+// GetFolder returns value of Folder field.
+func (d *DialogFolder) GetFolder() (value Folder) {
+	return d.Folder
+}
+
+// GetPeer returns value of Peer field.
+func (d *DialogFolder) GetPeer() (value PeerClass) {
+	return d.Peer
+}
+
+// GetTopMessage returns value of TopMessage field.
+func (d *DialogFolder) GetTopMessage() (value int) {
+	return d.TopMessage
+}
+
+// GetUnreadMutedPeersCount returns value of UnreadMutedPeersCount field.
+func (d *DialogFolder) GetUnreadMutedPeersCount() (value int) {
+	return d.UnreadMutedPeersCount
+}
+
+// GetUnreadUnmutedPeersCount returns value of UnreadUnmutedPeersCount field.
+func (d *DialogFolder) GetUnreadUnmutedPeersCount() (value int) {
+	return d.UnreadUnmutedPeersCount
+}
+
+// GetUnreadMutedMessagesCount returns value of UnreadMutedMessagesCount field.
+func (d *DialogFolder) GetUnreadMutedMessagesCount() (value int) {
+	return d.UnreadMutedMessagesCount
+}
+
+// GetUnreadUnmutedMessagesCount returns value of UnreadUnmutedMessagesCount field.
+func (d *DialogFolder) GetUnreadUnmutedMessagesCount() (value int) {
+	return d.UnreadUnmutedMessagesCount
+}
 
 // DialogClass represents Dialog generic type.
 //
@@ -970,276 +970,4 @@ func (b *DialogBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DialogClass as nil")
 	}
 	return b.Dialog.Encode(buf)
-}
-
-// DialogClassArray is adapter for slice of DialogClass.
-type DialogClassArray []DialogClass
-
-// Sort sorts slice of DialogClass.
-func (s DialogClassArray) Sort(less func(a, b DialogClass) bool) DialogClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DialogClass.
-func (s DialogClassArray) SortStable(less func(a, b DialogClass) bool) DialogClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DialogClass.
-func (s DialogClassArray) Retain(keep func(x DialogClass) bool) DialogClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DialogClassArray) First() (v DialogClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DialogClassArray) Last() (v DialogClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DialogClassArray) PopFirst() (v DialogClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DialogClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DialogClassArray) Pop() (v DialogClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsDialog returns copy with only Dialog constructors.
-func (s DialogClassArray) AsDialog() (to DialogArray) {
-	for _, elem := range s {
-		value, ok := elem.(*Dialog)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDialogFolder returns copy with only DialogFolder constructors.
-func (s DialogClassArray) AsDialogFolder() (to DialogFolderArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DialogFolder)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// DialogArray is adapter for slice of Dialog.
-type DialogArray []Dialog
-
-// Sort sorts slice of Dialog.
-func (s DialogArray) Sort(less func(a, b Dialog) bool) DialogArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of Dialog.
-func (s DialogArray) SortStable(less func(a, b Dialog) bool) DialogArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of Dialog.
-func (s DialogArray) Retain(keep func(x Dialog) bool) DialogArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DialogArray) First() (v Dialog, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DialogArray) Last() (v Dialog, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DialogArray) PopFirst() (v Dialog, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero Dialog
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DialogArray) Pop() (v Dialog, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DialogFolderArray is adapter for slice of DialogFolder.
-type DialogFolderArray []DialogFolder
-
-// Sort sorts slice of DialogFolder.
-func (s DialogFolderArray) Sort(less func(a, b DialogFolder) bool) DialogFolderArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DialogFolder.
-func (s DialogFolderArray) SortStable(less func(a, b DialogFolder) bool) DialogFolderArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DialogFolder.
-func (s DialogFolderArray) Retain(keep func(x DialogFolder) bool) DialogFolderArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DialogFolderArray) First() (v DialogFolder, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DialogFolderArray) Last() (v DialogFolder, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DialogFolderArray) PopFirst() (v DialogFolder, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DialogFolder
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DialogFolderArray) Pop() (v DialogFolder, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

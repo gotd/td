@@ -39,6 +39,19 @@ type InputReportReasonSpam struct {
 // InputReportReasonSpamTypeID is TL type id of InputReportReasonSpam.
 const InputReportReasonSpamTypeID = 0x58dbcab8
 
+// construct implements constructor of ReportReasonClass.
+func (i InputReportReasonSpam) construct() ReportReasonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputReportReasonSpam.
+var (
+	_ bin.Encoder     = &InputReportReasonSpam{}
+	_ bin.Decoder     = &InputReportReasonSpam{}
+	_ bin.BareEncoder = &InputReportReasonSpam{}
+	_ bin.BareDecoder = &InputReportReasonSpam{}
+
+	_ ReportReasonClass = &InputReportReasonSpam{}
+)
+
 func (i *InputReportReasonSpam) Zero() bool {
 	if i == nil {
 		return true
@@ -118,19 +131,6 @@ func (i *InputReportReasonSpam) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ReportReasonClass.
-func (i InputReportReasonSpam) construct() ReportReasonClass { return &i }
-
-// Ensuring interfaces in compile-time for InputReportReasonSpam.
-var (
-	_ bin.Encoder     = &InputReportReasonSpam{}
-	_ bin.Decoder     = &InputReportReasonSpam{}
-	_ bin.BareEncoder = &InputReportReasonSpam{}
-	_ bin.BareDecoder = &InputReportReasonSpam{}
-
-	_ ReportReasonClass = &InputReportReasonSpam{}
-)
-
 // InputReportReasonViolence represents TL type `inputReportReasonViolence#1e22c78d`.
 // Report for violence
 //
@@ -140,6 +140,19 @@ type InputReportReasonViolence struct {
 
 // InputReportReasonViolenceTypeID is TL type id of InputReportReasonViolence.
 const InputReportReasonViolenceTypeID = 0x1e22c78d
+
+// construct implements constructor of ReportReasonClass.
+func (i InputReportReasonViolence) construct() ReportReasonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputReportReasonViolence.
+var (
+	_ bin.Encoder     = &InputReportReasonViolence{}
+	_ bin.Decoder     = &InputReportReasonViolence{}
+	_ bin.BareEncoder = &InputReportReasonViolence{}
+	_ bin.BareDecoder = &InputReportReasonViolence{}
+
+	_ ReportReasonClass = &InputReportReasonViolence{}
+)
 
 func (i *InputReportReasonViolence) Zero() bool {
 	if i == nil {
@@ -220,19 +233,6 @@ func (i *InputReportReasonViolence) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ReportReasonClass.
-func (i InputReportReasonViolence) construct() ReportReasonClass { return &i }
-
-// Ensuring interfaces in compile-time for InputReportReasonViolence.
-var (
-	_ bin.Encoder     = &InputReportReasonViolence{}
-	_ bin.Decoder     = &InputReportReasonViolence{}
-	_ bin.BareEncoder = &InputReportReasonViolence{}
-	_ bin.BareDecoder = &InputReportReasonViolence{}
-
-	_ ReportReasonClass = &InputReportReasonViolence{}
-)
-
 // InputReportReasonPornography represents TL type `inputReportReasonPornography#2e59d922`.
 // Report for pornography
 //
@@ -242,6 +242,19 @@ type InputReportReasonPornography struct {
 
 // InputReportReasonPornographyTypeID is TL type id of InputReportReasonPornography.
 const InputReportReasonPornographyTypeID = 0x2e59d922
+
+// construct implements constructor of ReportReasonClass.
+func (i InputReportReasonPornography) construct() ReportReasonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputReportReasonPornography.
+var (
+	_ bin.Encoder     = &InputReportReasonPornography{}
+	_ bin.Decoder     = &InputReportReasonPornography{}
+	_ bin.BareEncoder = &InputReportReasonPornography{}
+	_ bin.BareDecoder = &InputReportReasonPornography{}
+
+	_ ReportReasonClass = &InputReportReasonPornography{}
+)
 
 func (i *InputReportReasonPornography) Zero() bool {
 	if i == nil {
@@ -322,19 +335,6 @@ func (i *InputReportReasonPornography) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ReportReasonClass.
-func (i InputReportReasonPornography) construct() ReportReasonClass { return &i }
-
-// Ensuring interfaces in compile-time for InputReportReasonPornography.
-var (
-	_ bin.Encoder     = &InputReportReasonPornography{}
-	_ bin.Decoder     = &InputReportReasonPornography{}
-	_ bin.BareEncoder = &InputReportReasonPornography{}
-	_ bin.BareDecoder = &InputReportReasonPornography{}
-
-	_ ReportReasonClass = &InputReportReasonPornography{}
-)
-
 // InputReportReasonChildAbuse represents TL type `inputReportReasonChildAbuse#adf44ee3`.
 // Report for child abuse
 //
@@ -344,6 +344,19 @@ type InputReportReasonChildAbuse struct {
 
 // InputReportReasonChildAbuseTypeID is TL type id of InputReportReasonChildAbuse.
 const InputReportReasonChildAbuseTypeID = 0xadf44ee3
+
+// construct implements constructor of ReportReasonClass.
+func (i InputReportReasonChildAbuse) construct() ReportReasonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputReportReasonChildAbuse.
+var (
+	_ bin.Encoder     = &InputReportReasonChildAbuse{}
+	_ bin.Decoder     = &InputReportReasonChildAbuse{}
+	_ bin.BareEncoder = &InputReportReasonChildAbuse{}
+	_ bin.BareDecoder = &InputReportReasonChildAbuse{}
+
+	_ ReportReasonClass = &InputReportReasonChildAbuse{}
+)
 
 func (i *InputReportReasonChildAbuse) Zero() bool {
 	if i == nil {
@@ -424,19 +437,6 @@ func (i *InputReportReasonChildAbuse) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ReportReasonClass.
-func (i InputReportReasonChildAbuse) construct() ReportReasonClass { return &i }
-
-// Ensuring interfaces in compile-time for InputReportReasonChildAbuse.
-var (
-	_ bin.Encoder     = &InputReportReasonChildAbuse{}
-	_ bin.Decoder     = &InputReportReasonChildAbuse{}
-	_ bin.BareEncoder = &InputReportReasonChildAbuse{}
-	_ bin.BareDecoder = &InputReportReasonChildAbuse{}
-
-	_ ReportReasonClass = &InputReportReasonChildAbuse{}
-)
-
 // InputReportReasonOther represents TL type `inputReportReasonOther#c1e4a2b1`.
 // Other
 //
@@ -446,6 +446,19 @@ type InputReportReasonOther struct {
 
 // InputReportReasonOtherTypeID is TL type id of InputReportReasonOther.
 const InputReportReasonOtherTypeID = 0xc1e4a2b1
+
+// construct implements constructor of ReportReasonClass.
+func (i InputReportReasonOther) construct() ReportReasonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputReportReasonOther.
+var (
+	_ bin.Encoder     = &InputReportReasonOther{}
+	_ bin.Decoder     = &InputReportReasonOther{}
+	_ bin.BareEncoder = &InputReportReasonOther{}
+	_ bin.BareDecoder = &InputReportReasonOther{}
+
+	_ ReportReasonClass = &InputReportReasonOther{}
+)
 
 func (i *InputReportReasonOther) Zero() bool {
 	if i == nil {
@@ -526,19 +539,6 @@ func (i *InputReportReasonOther) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ReportReasonClass.
-func (i InputReportReasonOther) construct() ReportReasonClass { return &i }
-
-// Ensuring interfaces in compile-time for InputReportReasonOther.
-var (
-	_ bin.Encoder     = &InputReportReasonOther{}
-	_ bin.Decoder     = &InputReportReasonOther{}
-	_ bin.BareEncoder = &InputReportReasonOther{}
-	_ bin.BareDecoder = &InputReportReasonOther{}
-
-	_ ReportReasonClass = &InputReportReasonOther{}
-)
-
 // InputReportReasonCopyright represents TL type `inputReportReasonCopyright#9b89f93a`.
 // Report for copyrighted content
 //
@@ -548,6 +548,19 @@ type InputReportReasonCopyright struct {
 
 // InputReportReasonCopyrightTypeID is TL type id of InputReportReasonCopyright.
 const InputReportReasonCopyrightTypeID = 0x9b89f93a
+
+// construct implements constructor of ReportReasonClass.
+func (i InputReportReasonCopyright) construct() ReportReasonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputReportReasonCopyright.
+var (
+	_ bin.Encoder     = &InputReportReasonCopyright{}
+	_ bin.Decoder     = &InputReportReasonCopyright{}
+	_ bin.BareEncoder = &InputReportReasonCopyright{}
+	_ bin.BareDecoder = &InputReportReasonCopyright{}
+
+	_ ReportReasonClass = &InputReportReasonCopyright{}
+)
 
 func (i *InputReportReasonCopyright) Zero() bool {
 	if i == nil {
@@ -628,19 +641,6 @@ func (i *InputReportReasonCopyright) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ReportReasonClass.
-func (i InputReportReasonCopyright) construct() ReportReasonClass { return &i }
-
-// Ensuring interfaces in compile-time for InputReportReasonCopyright.
-var (
-	_ bin.Encoder     = &InputReportReasonCopyright{}
-	_ bin.Decoder     = &InputReportReasonCopyright{}
-	_ bin.BareEncoder = &InputReportReasonCopyright{}
-	_ bin.BareDecoder = &InputReportReasonCopyright{}
-
-	_ ReportReasonClass = &InputReportReasonCopyright{}
-)
-
 // InputReportReasonGeoIrrelevant represents TL type `inputReportReasonGeoIrrelevant#dbd4feed`.
 // Report an irrelevant geogroup
 //
@@ -650,6 +650,19 @@ type InputReportReasonGeoIrrelevant struct {
 
 // InputReportReasonGeoIrrelevantTypeID is TL type id of InputReportReasonGeoIrrelevant.
 const InputReportReasonGeoIrrelevantTypeID = 0xdbd4feed
+
+// construct implements constructor of ReportReasonClass.
+func (i InputReportReasonGeoIrrelevant) construct() ReportReasonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputReportReasonGeoIrrelevant.
+var (
+	_ bin.Encoder     = &InputReportReasonGeoIrrelevant{}
+	_ bin.Decoder     = &InputReportReasonGeoIrrelevant{}
+	_ bin.BareEncoder = &InputReportReasonGeoIrrelevant{}
+	_ bin.BareDecoder = &InputReportReasonGeoIrrelevant{}
+
+	_ ReportReasonClass = &InputReportReasonGeoIrrelevant{}
+)
 
 func (i *InputReportReasonGeoIrrelevant) Zero() bool {
 	if i == nil {
@@ -730,19 +743,6 @@ func (i *InputReportReasonGeoIrrelevant) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of ReportReasonClass.
-func (i InputReportReasonGeoIrrelevant) construct() ReportReasonClass { return &i }
-
-// Ensuring interfaces in compile-time for InputReportReasonGeoIrrelevant.
-var (
-	_ bin.Encoder     = &InputReportReasonGeoIrrelevant{}
-	_ bin.Decoder     = &InputReportReasonGeoIrrelevant{}
-	_ bin.BareEncoder = &InputReportReasonGeoIrrelevant{}
-	_ bin.BareDecoder = &InputReportReasonGeoIrrelevant{}
-
-	_ ReportReasonClass = &InputReportReasonGeoIrrelevant{}
-)
-
 // InputReportReasonFake represents TL type `inputReportReasonFake#f5ddd6e7`.
 //
 // See https://core.telegram.org/constructor/inputReportReasonFake for reference.
@@ -751,6 +751,19 @@ type InputReportReasonFake struct {
 
 // InputReportReasonFakeTypeID is TL type id of InputReportReasonFake.
 const InputReportReasonFakeTypeID = 0xf5ddd6e7
+
+// construct implements constructor of ReportReasonClass.
+func (i InputReportReasonFake) construct() ReportReasonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputReportReasonFake.
+var (
+	_ bin.Encoder     = &InputReportReasonFake{}
+	_ bin.Decoder     = &InputReportReasonFake{}
+	_ bin.BareEncoder = &InputReportReasonFake{}
+	_ bin.BareDecoder = &InputReportReasonFake{}
+
+	_ ReportReasonClass = &InputReportReasonFake{}
+)
 
 func (i *InputReportReasonFake) Zero() bool {
 	if i == nil {
@@ -830,19 +843,6 @@ func (i *InputReportReasonFake) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of ReportReasonClass.
-func (i InputReportReasonFake) construct() ReportReasonClass { return &i }
-
-// Ensuring interfaces in compile-time for InputReportReasonFake.
-var (
-	_ bin.Encoder     = &InputReportReasonFake{}
-	_ bin.Decoder     = &InputReportReasonFake{}
-	_ bin.BareEncoder = &InputReportReasonFake{}
-	_ bin.BareDecoder = &InputReportReasonFake{}
-
-	_ ReportReasonClass = &InputReportReasonFake{}
-)
 
 // ReportReasonClass represents ReportReason generic type.
 //
@@ -975,86 +975,4 @@ func (b *ReportReasonBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ReportReasonClass as nil")
 	}
 	return b.ReportReason.Encode(buf)
-}
-
-// ReportReasonClassArray is adapter for slice of ReportReasonClass.
-type ReportReasonClassArray []ReportReasonClass
-
-// Sort sorts slice of ReportReasonClass.
-func (s ReportReasonClassArray) Sort(less func(a, b ReportReasonClass) bool) ReportReasonClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of ReportReasonClass.
-func (s ReportReasonClassArray) SortStable(less func(a, b ReportReasonClass) bool) ReportReasonClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of ReportReasonClass.
-func (s ReportReasonClassArray) Retain(keep func(x ReportReasonClass) bool) ReportReasonClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s ReportReasonClassArray) First() (v ReportReasonClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s ReportReasonClassArray) Last() (v ReportReasonClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ReportReasonClassArray) PopFirst() (v ReportReasonClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero ReportReasonClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *ReportReasonClassArray) Pop() (v ReportReasonClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

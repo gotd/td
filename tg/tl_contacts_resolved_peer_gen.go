@@ -45,6 +45,14 @@ type ContactsResolvedPeer struct {
 // ContactsResolvedPeerTypeID is TL type id of ContactsResolvedPeer.
 const ContactsResolvedPeerTypeID = 0x7f077ad9
 
+// Ensuring interfaces in compile-time for ContactsResolvedPeer.
+var (
+	_ bin.Encoder     = &ContactsResolvedPeer{}
+	_ bin.Decoder     = &ContactsResolvedPeer{}
+	_ bin.BareEncoder = &ContactsResolvedPeer{}
+	_ bin.BareDecoder = &ContactsResolvedPeer{}
+)
+
 func (r *ContactsResolvedPeer) Zero() bool {
 	if r == nil {
 		return true
@@ -162,31 +170,6 @@ func (r *ContactsResolvedPeer) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (r *ContactsResolvedPeer) GetPeer() (value PeerClass) {
-	return r.Peer
-}
-
-// GetChats returns value of Chats field.
-func (r *ContactsResolvedPeer) GetChats() (value []ChatClass) {
-	return r.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (r *ContactsResolvedPeer) MapChats() (value ChatClassArray) {
-	return ChatClassArray(r.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (r *ContactsResolvedPeer) GetUsers() (value []UserClass) {
-	return r.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (r *ContactsResolvedPeer) MapUsers() (value UserClassArray) {
-	return UserClassArray(r.Users)
-}
-
 // Decode implements bin.Decoder.
 func (r *ContactsResolvedPeer) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -247,10 +230,27 @@ func (r *ContactsResolvedPeer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsResolvedPeer.
-var (
-	_ bin.Encoder     = &ContactsResolvedPeer{}
-	_ bin.Decoder     = &ContactsResolvedPeer{}
-	_ bin.BareEncoder = &ContactsResolvedPeer{}
-	_ bin.BareDecoder = &ContactsResolvedPeer{}
-)
+// GetPeer returns value of Peer field.
+func (r *ContactsResolvedPeer) GetPeer() (value PeerClass) {
+	return r.Peer
+}
+
+// GetChats returns value of Chats field.
+func (r *ContactsResolvedPeer) GetChats() (value []ChatClass) {
+	return r.Chats
+}
+
+// GetUsers returns value of Users field.
+func (r *ContactsResolvedPeer) GetUsers() (value []UserClass) {
+	return r.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (r *ContactsResolvedPeer) MapChats() (value ChatClassArray) {
+	return ChatClassArray(r.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (r *ContactsResolvedPeer) MapUsers() (value UserClassArray) {
+	return UserClassArray(r.Users)
+}

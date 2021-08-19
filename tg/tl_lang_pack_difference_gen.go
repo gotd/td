@@ -47,6 +47,14 @@ type LangPackDifference struct {
 // LangPackDifferenceTypeID is TL type id of LangPackDifference.
 const LangPackDifferenceTypeID = 0xf385c1f6
 
+// Ensuring interfaces in compile-time for LangPackDifference.
+var (
+	_ bin.Encoder     = &LangPackDifference{}
+	_ bin.Decoder     = &LangPackDifference{}
+	_ bin.BareEncoder = &LangPackDifference{}
+	_ bin.BareDecoder = &LangPackDifference{}
+)
+
 func (l *LangPackDifference) Zero() bool {
 	if l == nil {
 		return true
@@ -161,31 +169,6 @@ func (l *LangPackDifference) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetLangCode returns value of LangCode field.
-func (l *LangPackDifference) GetLangCode() (value string) {
-	return l.LangCode
-}
-
-// GetFromVersion returns value of FromVersion field.
-func (l *LangPackDifference) GetFromVersion() (value int) {
-	return l.FromVersion
-}
-
-// GetVersion returns value of Version field.
-func (l *LangPackDifference) GetVersion() (value int) {
-	return l.Version
-}
-
-// GetStrings returns value of Strings field.
-func (l *LangPackDifference) GetStrings() (value []LangPackStringClass) {
-	return l.Strings
-}
-
-// MapStrings returns field Strings wrapped in LangPackStringClassArray helper.
-func (l *LangPackDifference) MapStrings() (value LangPackStringClassArray) {
-	return LangPackStringClassArray(l.Strings)
-}
-
 // Decode implements bin.Decoder.
 func (l *LangPackDifference) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -243,10 +226,27 @@ func (l *LangPackDifference) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for LangPackDifference.
-var (
-	_ bin.Encoder     = &LangPackDifference{}
-	_ bin.Decoder     = &LangPackDifference{}
-	_ bin.BareEncoder = &LangPackDifference{}
-	_ bin.BareDecoder = &LangPackDifference{}
-)
+// GetLangCode returns value of LangCode field.
+func (l *LangPackDifference) GetLangCode() (value string) {
+	return l.LangCode
+}
+
+// GetFromVersion returns value of FromVersion field.
+func (l *LangPackDifference) GetFromVersion() (value int) {
+	return l.FromVersion
+}
+
+// GetVersion returns value of Version field.
+func (l *LangPackDifference) GetVersion() (value int) {
+	return l.Version
+}
+
+// GetStrings returns value of Strings field.
+func (l *LangPackDifference) GetStrings() (value []LangPackStringClass) {
+	return l.Strings
+}
+
+// MapStrings returns field Strings wrapped in LangPackStringClassArray helper.
+func (l *LangPackDifference) MapStrings() (value LangPackStringClassArray) {
+	return LangPackStringClassArray(l.Strings)
+}

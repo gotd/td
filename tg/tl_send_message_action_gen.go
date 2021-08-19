@@ -39,6 +39,19 @@ type SendMessageTypingAction struct {
 // SendMessageTypingActionTypeID is TL type id of SendMessageTypingAction.
 const SendMessageTypingActionTypeID = 0x16bf744e
 
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageTypingAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageTypingAction.
+var (
+	_ bin.Encoder     = &SendMessageTypingAction{}
+	_ bin.Decoder     = &SendMessageTypingAction{}
+	_ bin.BareEncoder = &SendMessageTypingAction{}
+	_ bin.BareDecoder = &SendMessageTypingAction{}
+
+	_ SendMessageActionClass = &SendMessageTypingAction{}
+)
+
 func (s *SendMessageTypingAction) Zero() bool {
 	if s == nil {
 		return true
@@ -118,19 +131,6 @@ func (s *SendMessageTypingAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageTypingAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageTypingAction.
-var (
-	_ bin.Encoder     = &SendMessageTypingAction{}
-	_ bin.Decoder     = &SendMessageTypingAction{}
-	_ bin.BareEncoder = &SendMessageTypingAction{}
-	_ bin.BareDecoder = &SendMessageTypingAction{}
-
-	_ SendMessageActionClass = &SendMessageTypingAction{}
-)
-
 // SendMessageCancelAction represents TL type `sendMessageCancelAction#fd5ec8f5`.
 // Invalidate all previous action updates. E.g. when user deletes entered text or aborts
 // a video upload.
@@ -141,6 +141,19 @@ type SendMessageCancelAction struct {
 
 // SendMessageCancelActionTypeID is TL type id of SendMessageCancelAction.
 const SendMessageCancelActionTypeID = 0xfd5ec8f5
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageCancelAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageCancelAction.
+var (
+	_ bin.Encoder     = &SendMessageCancelAction{}
+	_ bin.Decoder     = &SendMessageCancelAction{}
+	_ bin.BareEncoder = &SendMessageCancelAction{}
+	_ bin.BareDecoder = &SendMessageCancelAction{}
+
+	_ SendMessageActionClass = &SendMessageCancelAction{}
+)
 
 func (s *SendMessageCancelAction) Zero() bool {
 	if s == nil {
@@ -221,19 +234,6 @@ func (s *SendMessageCancelAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageCancelAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageCancelAction.
-var (
-	_ bin.Encoder     = &SendMessageCancelAction{}
-	_ bin.Decoder     = &SendMessageCancelAction{}
-	_ bin.BareEncoder = &SendMessageCancelAction{}
-	_ bin.BareDecoder = &SendMessageCancelAction{}
-
-	_ SendMessageActionClass = &SendMessageCancelAction{}
-)
-
 // SendMessageRecordVideoAction represents TL type `sendMessageRecordVideoAction#a187d66f`.
 // User is recording a video.
 //
@@ -243,6 +243,19 @@ type SendMessageRecordVideoAction struct {
 
 // SendMessageRecordVideoActionTypeID is TL type id of SendMessageRecordVideoAction.
 const SendMessageRecordVideoActionTypeID = 0xa187d66f
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageRecordVideoAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageRecordVideoAction.
+var (
+	_ bin.Encoder     = &SendMessageRecordVideoAction{}
+	_ bin.Decoder     = &SendMessageRecordVideoAction{}
+	_ bin.BareEncoder = &SendMessageRecordVideoAction{}
+	_ bin.BareDecoder = &SendMessageRecordVideoAction{}
+
+	_ SendMessageActionClass = &SendMessageRecordVideoAction{}
+)
 
 func (s *SendMessageRecordVideoAction) Zero() bool {
 	if s == nil {
@@ -323,19 +336,6 @@ func (s *SendMessageRecordVideoAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageRecordVideoAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageRecordVideoAction.
-var (
-	_ bin.Encoder     = &SendMessageRecordVideoAction{}
-	_ bin.Decoder     = &SendMessageRecordVideoAction{}
-	_ bin.BareEncoder = &SendMessageRecordVideoAction{}
-	_ bin.BareDecoder = &SendMessageRecordVideoAction{}
-
-	_ SendMessageActionClass = &SendMessageRecordVideoAction{}
-)
-
 // SendMessageUploadVideoAction represents TL type `sendMessageUploadVideoAction#e9763aec`.
 // User is uploading a video.
 //
@@ -347,6 +347,19 @@ type SendMessageUploadVideoAction struct {
 
 // SendMessageUploadVideoActionTypeID is TL type id of SendMessageUploadVideoAction.
 const SendMessageUploadVideoActionTypeID = 0xe9763aec
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageUploadVideoAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageUploadVideoAction.
+var (
+	_ bin.Encoder     = &SendMessageUploadVideoAction{}
+	_ bin.Decoder     = &SendMessageUploadVideoAction{}
+	_ bin.BareEncoder = &SendMessageUploadVideoAction{}
+	_ bin.BareDecoder = &SendMessageUploadVideoAction{}
+
+	_ SendMessageActionClass = &SendMessageUploadVideoAction{}
+)
 
 func (s *SendMessageUploadVideoAction) Zero() bool {
 	if s == nil {
@@ -424,11 +437,6 @@ func (s *SendMessageUploadVideoAction) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetProgress returns value of Progress field.
-func (s *SendMessageUploadVideoAction) GetProgress() (value int) {
-	return s.Progress
-}
-
 // Decode implements bin.Decoder.
 func (s *SendMessageUploadVideoAction) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -455,18 +463,10 @@ func (s *SendMessageUploadVideoAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageUploadVideoAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageUploadVideoAction.
-var (
-	_ bin.Encoder     = &SendMessageUploadVideoAction{}
-	_ bin.Decoder     = &SendMessageUploadVideoAction{}
-	_ bin.BareEncoder = &SendMessageUploadVideoAction{}
-	_ bin.BareDecoder = &SendMessageUploadVideoAction{}
-
-	_ SendMessageActionClass = &SendMessageUploadVideoAction{}
-)
+// GetProgress returns value of Progress field.
+func (s *SendMessageUploadVideoAction) GetProgress() (value int) {
+	return s.Progress
+}
 
 // SendMessageRecordAudioAction represents TL type `sendMessageRecordAudioAction#d52f73f7`.
 // User is recording a voice message.
@@ -477,6 +477,19 @@ type SendMessageRecordAudioAction struct {
 
 // SendMessageRecordAudioActionTypeID is TL type id of SendMessageRecordAudioAction.
 const SendMessageRecordAudioActionTypeID = 0xd52f73f7
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageRecordAudioAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageRecordAudioAction.
+var (
+	_ bin.Encoder     = &SendMessageRecordAudioAction{}
+	_ bin.Decoder     = &SendMessageRecordAudioAction{}
+	_ bin.BareEncoder = &SendMessageRecordAudioAction{}
+	_ bin.BareDecoder = &SendMessageRecordAudioAction{}
+
+	_ SendMessageActionClass = &SendMessageRecordAudioAction{}
+)
 
 func (s *SendMessageRecordAudioAction) Zero() bool {
 	if s == nil {
@@ -557,19 +570,6 @@ func (s *SendMessageRecordAudioAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageRecordAudioAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageRecordAudioAction.
-var (
-	_ bin.Encoder     = &SendMessageRecordAudioAction{}
-	_ bin.Decoder     = &SendMessageRecordAudioAction{}
-	_ bin.BareEncoder = &SendMessageRecordAudioAction{}
-	_ bin.BareDecoder = &SendMessageRecordAudioAction{}
-
-	_ SendMessageActionClass = &SendMessageRecordAudioAction{}
-)
-
 // SendMessageUploadAudioAction represents TL type `sendMessageUploadAudioAction#f351d7ab`.
 // User is uploading a voice message.
 //
@@ -581,6 +581,19 @@ type SendMessageUploadAudioAction struct {
 
 // SendMessageUploadAudioActionTypeID is TL type id of SendMessageUploadAudioAction.
 const SendMessageUploadAudioActionTypeID = 0xf351d7ab
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageUploadAudioAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageUploadAudioAction.
+var (
+	_ bin.Encoder     = &SendMessageUploadAudioAction{}
+	_ bin.Decoder     = &SendMessageUploadAudioAction{}
+	_ bin.BareEncoder = &SendMessageUploadAudioAction{}
+	_ bin.BareDecoder = &SendMessageUploadAudioAction{}
+
+	_ SendMessageActionClass = &SendMessageUploadAudioAction{}
+)
 
 func (s *SendMessageUploadAudioAction) Zero() bool {
 	if s == nil {
@@ -658,11 +671,6 @@ func (s *SendMessageUploadAudioAction) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetProgress returns value of Progress field.
-func (s *SendMessageUploadAudioAction) GetProgress() (value int) {
-	return s.Progress
-}
-
 // Decode implements bin.Decoder.
 func (s *SendMessageUploadAudioAction) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -689,18 +697,10 @@ func (s *SendMessageUploadAudioAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageUploadAudioAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageUploadAudioAction.
-var (
-	_ bin.Encoder     = &SendMessageUploadAudioAction{}
-	_ bin.Decoder     = &SendMessageUploadAudioAction{}
-	_ bin.BareEncoder = &SendMessageUploadAudioAction{}
-	_ bin.BareDecoder = &SendMessageUploadAudioAction{}
-
-	_ SendMessageActionClass = &SendMessageUploadAudioAction{}
-)
+// GetProgress returns value of Progress field.
+func (s *SendMessageUploadAudioAction) GetProgress() (value int) {
+	return s.Progress
+}
 
 // SendMessageUploadPhotoAction represents TL type `sendMessageUploadPhotoAction#d1d34a26`.
 // User is uploading a photo.
@@ -713,6 +713,19 @@ type SendMessageUploadPhotoAction struct {
 
 // SendMessageUploadPhotoActionTypeID is TL type id of SendMessageUploadPhotoAction.
 const SendMessageUploadPhotoActionTypeID = 0xd1d34a26
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageUploadPhotoAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageUploadPhotoAction.
+var (
+	_ bin.Encoder     = &SendMessageUploadPhotoAction{}
+	_ bin.Decoder     = &SendMessageUploadPhotoAction{}
+	_ bin.BareEncoder = &SendMessageUploadPhotoAction{}
+	_ bin.BareDecoder = &SendMessageUploadPhotoAction{}
+
+	_ SendMessageActionClass = &SendMessageUploadPhotoAction{}
+)
 
 func (s *SendMessageUploadPhotoAction) Zero() bool {
 	if s == nil {
@@ -790,11 +803,6 @@ func (s *SendMessageUploadPhotoAction) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetProgress returns value of Progress field.
-func (s *SendMessageUploadPhotoAction) GetProgress() (value int) {
-	return s.Progress
-}
-
 // Decode implements bin.Decoder.
 func (s *SendMessageUploadPhotoAction) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -821,18 +829,10 @@ func (s *SendMessageUploadPhotoAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageUploadPhotoAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageUploadPhotoAction.
-var (
-	_ bin.Encoder     = &SendMessageUploadPhotoAction{}
-	_ bin.Decoder     = &SendMessageUploadPhotoAction{}
-	_ bin.BareEncoder = &SendMessageUploadPhotoAction{}
-	_ bin.BareDecoder = &SendMessageUploadPhotoAction{}
-
-	_ SendMessageActionClass = &SendMessageUploadPhotoAction{}
-)
+// GetProgress returns value of Progress field.
+func (s *SendMessageUploadPhotoAction) GetProgress() (value int) {
+	return s.Progress
+}
 
 // SendMessageUploadDocumentAction represents TL type `sendMessageUploadDocumentAction#aa0cd9e4`.
 // User is uploading a file.
@@ -845,6 +845,19 @@ type SendMessageUploadDocumentAction struct {
 
 // SendMessageUploadDocumentActionTypeID is TL type id of SendMessageUploadDocumentAction.
 const SendMessageUploadDocumentActionTypeID = 0xaa0cd9e4
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageUploadDocumentAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageUploadDocumentAction.
+var (
+	_ bin.Encoder     = &SendMessageUploadDocumentAction{}
+	_ bin.Decoder     = &SendMessageUploadDocumentAction{}
+	_ bin.BareEncoder = &SendMessageUploadDocumentAction{}
+	_ bin.BareDecoder = &SendMessageUploadDocumentAction{}
+
+	_ SendMessageActionClass = &SendMessageUploadDocumentAction{}
+)
 
 func (s *SendMessageUploadDocumentAction) Zero() bool {
 	if s == nil {
@@ -922,11 +935,6 @@ func (s *SendMessageUploadDocumentAction) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetProgress returns value of Progress field.
-func (s *SendMessageUploadDocumentAction) GetProgress() (value int) {
-	return s.Progress
-}
-
 // Decode implements bin.Decoder.
 func (s *SendMessageUploadDocumentAction) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -953,18 +961,10 @@ func (s *SendMessageUploadDocumentAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageUploadDocumentAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageUploadDocumentAction.
-var (
-	_ bin.Encoder     = &SendMessageUploadDocumentAction{}
-	_ bin.Decoder     = &SendMessageUploadDocumentAction{}
-	_ bin.BareEncoder = &SendMessageUploadDocumentAction{}
-	_ bin.BareDecoder = &SendMessageUploadDocumentAction{}
-
-	_ SendMessageActionClass = &SendMessageUploadDocumentAction{}
-)
+// GetProgress returns value of Progress field.
+func (s *SendMessageUploadDocumentAction) GetProgress() (value int) {
+	return s.Progress
+}
 
 // SendMessageGeoLocationAction represents TL type `sendMessageGeoLocationAction#176f8ba1`.
 // User is selecting a location to share.
@@ -975,6 +975,19 @@ type SendMessageGeoLocationAction struct {
 
 // SendMessageGeoLocationActionTypeID is TL type id of SendMessageGeoLocationAction.
 const SendMessageGeoLocationActionTypeID = 0x176f8ba1
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageGeoLocationAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageGeoLocationAction.
+var (
+	_ bin.Encoder     = &SendMessageGeoLocationAction{}
+	_ bin.Decoder     = &SendMessageGeoLocationAction{}
+	_ bin.BareEncoder = &SendMessageGeoLocationAction{}
+	_ bin.BareDecoder = &SendMessageGeoLocationAction{}
+
+	_ SendMessageActionClass = &SendMessageGeoLocationAction{}
+)
 
 func (s *SendMessageGeoLocationAction) Zero() bool {
 	if s == nil {
@@ -1055,19 +1068,6 @@ func (s *SendMessageGeoLocationAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageGeoLocationAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageGeoLocationAction.
-var (
-	_ bin.Encoder     = &SendMessageGeoLocationAction{}
-	_ bin.Decoder     = &SendMessageGeoLocationAction{}
-	_ bin.BareEncoder = &SendMessageGeoLocationAction{}
-	_ bin.BareDecoder = &SendMessageGeoLocationAction{}
-
-	_ SendMessageActionClass = &SendMessageGeoLocationAction{}
-)
-
 // SendMessageChooseContactAction represents TL type `sendMessageChooseContactAction#628cbc6f`.
 // User is selecting a contact to share.
 //
@@ -1077,6 +1077,19 @@ type SendMessageChooseContactAction struct {
 
 // SendMessageChooseContactActionTypeID is TL type id of SendMessageChooseContactAction.
 const SendMessageChooseContactActionTypeID = 0x628cbc6f
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageChooseContactAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageChooseContactAction.
+var (
+	_ bin.Encoder     = &SendMessageChooseContactAction{}
+	_ bin.Decoder     = &SendMessageChooseContactAction{}
+	_ bin.BareEncoder = &SendMessageChooseContactAction{}
+	_ bin.BareDecoder = &SendMessageChooseContactAction{}
+
+	_ SendMessageActionClass = &SendMessageChooseContactAction{}
+)
 
 func (s *SendMessageChooseContactAction) Zero() bool {
 	if s == nil {
@@ -1157,19 +1170,6 @@ func (s *SendMessageChooseContactAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageChooseContactAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageChooseContactAction.
-var (
-	_ bin.Encoder     = &SendMessageChooseContactAction{}
-	_ bin.Decoder     = &SendMessageChooseContactAction{}
-	_ bin.BareEncoder = &SendMessageChooseContactAction{}
-	_ bin.BareDecoder = &SendMessageChooseContactAction{}
-
-	_ SendMessageActionClass = &SendMessageChooseContactAction{}
-)
-
 // SendMessageGamePlayAction represents TL type `sendMessageGamePlayAction#dd6a8f48`.
 // User is playing a game
 //
@@ -1179,6 +1179,19 @@ type SendMessageGamePlayAction struct {
 
 // SendMessageGamePlayActionTypeID is TL type id of SendMessageGamePlayAction.
 const SendMessageGamePlayActionTypeID = 0xdd6a8f48
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageGamePlayAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageGamePlayAction.
+var (
+	_ bin.Encoder     = &SendMessageGamePlayAction{}
+	_ bin.Decoder     = &SendMessageGamePlayAction{}
+	_ bin.BareEncoder = &SendMessageGamePlayAction{}
+	_ bin.BareDecoder = &SendMessageGamePlayAction{}
+
+	_ SendMessageActionClass = &SendMessageGamePlayAction{}
+)
 
 func (s *SendMessageGamePlayAction) Zero() bool {
 	if s == nil {
@@ -1259,19 +1272,6 @@ func (s *SendMessageGamePlayAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageGamePlayAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageGamePlayAction.
-var (
-	_ bin.Encoder     = &SendMessageGamePlayAction{}
-	_ bin.Decoder     = &SendMessageGamePlayAction{}
-	_ bin.BareEncoder = &SendMessageGamePlayAction{}
-	_ bin.BareDecoder = &SendMessageGamePlayAction{}
-
-	_ SendMessageActionClass = &SendMessageGamePlayAction{}
-)
-
 // SendMessageRecordRoundAction represents TL type `sendMessageRecordRoundAction#88f27fbc`.
 // User is recording a round video to share
 //
@@ -1281,6 +1281,19 @@ type SendMessageRecordRoundAction struct {
 
 // SendMessageRecordRoundActionTypeID is TL type id of SendMessageRecordRoundAction.
 const SendMessageRecordRoundActionTypeID = 0x88f27fbc
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageRecordRoundAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageRecordRoundAction.
+var (
+	_ bin.Encoder     = &SendMessageRecordRoundAction{}
+	_ bin.Decoder     = &SendMessageRecordRoundAction{}
+	_ bin.BareEncoder = &SendMessageRecordRoundAction{}
+	_ bin.BareDecoder = &SendMessageRecordRoundAction{}
+
+	_ SendMessageActionClass = &SendMessageRecordRoundAction{}
+)
 
 func (s *SendMessageRecordRoundAction) Zero() bool {
 	if s == nil {
@@ -1361,19 +1374,6 @@ func (s *SendMessageRecordRoundAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageRecordRoundAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageRecordRoundAction.
-var (
-	_ bin.Encoder     = &SendMessageRecordRoundAction{}
-	_ bin.Decoder     = &SendMessageRecordRoundAction{}
-	_ bin.BareEncoder = &SendMessageRecordRoundAction{}
-	_ bin.BareDecoder = &SendMessageRecordRoundAction{}
-
-	_ SendMessageActionClass = &SendMessageRecordRoundAction{}
-)
-
 // SendMessageUploadRoundAction represents TL type `sendMessageUploadRoundAction#243e1c66`.
 // User is uploading a round video
 //
@@ -1385,6 +1385,19 @@ type SendMessageUploadRoundAction struct {
 
 // SendMessageUploadRoundActionTypeID is TL type id of SendMessageUploadRoundAction.
 const SendMessageUploadRoundActionTypeID = 0x243e1c66
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageUploadRoundAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageUploadRoundAction.
+var (
+	_ bin.Encoder     = &SendMessageUploadRoundAction{}
+	_ bin.Decoder     = &SendMessageUploadRoundAction{}
+	_ bin.BareEncoder = &SendMessageUploadRoundAction{}
+	_ bin.BareDecoder = &SendMessageUploadRoundAction{}
+
+	_ SendMessageActionClass = &SendMessageUploadRoundAction{}
+)
 
 func (s *SendMessageUploadRoundAction) Zero() bool {
 	if s == nil {
@@ -1462,11 +1475,6 @@ func (s *SendMessageUploadRoundAction) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetProgress returns value of Progress field.
-func (s *SendMessageUploadRoundAction) GetProgress() (value int) {
-	return s.Progress
-}
-
 // Decode implements bin.Decoder.
 func (s *SendMessageUploadRoundAction) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -1493,18 +1501,10 @@ func (s *SendMessageUploadRoundAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageUploadRoundAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageUploadRoundAction.
-var (
-	_ bin.Encoder     = &SendMessageUploadRoundAction{}
-	_ bin.Decoder     = &SendMessageUploadRoundAction{}
-	_ bin.BareEncoder = &SendMessageUploadRoundAction{}
-	_ bin.BareDecoder = &SendMessageUploadRoundAction{}
-
-	_ SendMessageActionClass = &SendMessageUploadRoundAction{}
-)
+// GetProgress returns value of Progress field.
+func (s *SendMessageUploadRoundAction) GetProgress() (value int) {
+	return s.Progress
+}
 
 // SpeakingInGroupCallAction represents TL type `speakingInGroupCallAction#d92c2285`.
 //
@@ -1514,6 +1514,19 @@ type SpeakingInGroupCallAction struct {
 
 // SpeakingInGroupCallActionTypeID is TL type id of SpeakingInGroupCallAction.
 const SpeakingInGroupCallActionTypeID = 0xd92c2285
+
+// construct implements constructor of SendMessageActionClass.
+func (s SpeakingInGroupCallAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SpeakingInGroupCallAction.
+var (
+	_ bin.Encoder     = &SpeakingInGroupCallAction{}
+	_ bin.Decoder     = &SpeakingInGroupCallAction{}
+	_ bin.BareEncoder = &SpeakingInGroupCallAction{}
+	_ bin.BareDecoder = &SpeakingInGroupCallAction{}
+
+	_ SendMessageActionClass = &SpeakingInGroupCallAction{}
+)
 
 func (s *SpeakingInGroupCallAction) Zero() bool {
 	if s == nil {
@@ -1594,19 +1607,6 @@ func (s *SpeakingInGroupCallAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SpeakingInGroupCallAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SpeakingInGroupCallAction.
-var (
-	_ bin.Encoder     = &SpeakingInGroupCallAction{}
-	_ bin.Decoder     = &SpeakingInGroupCallAction{}
-	_ bin.BareEncoder = &SpeakingInGroupCallAction{}
-	_ bin.BareDecoder = &SpeakingInGroupCallAction{}
-
-	_ SendMessageActionClass = &SpeakingInGroupCallAction{}
-)
-
 // SendMessageHistoryImportAction represents TL type `sendMessageHistoryImportAction#dbda9246`.
 //
 // See https://core.telegram.org/constructor/sendMessageHistoryImportAction for reference.
@@ -1617,6 +1617,19 @@ type SendMessageHistoryImportAction struct {
 
 // SendMessageHistoryImportActionTypeID is TL type id of SendMessageHistoryImportAction.
 const SendMessageHistoryImportActionTypeID = 0xdbda9246
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageHistoryImportAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageHistoryImportAction.
+var (
+	_ bin.Encoder     = &SendMessageHistoryImportAction{}
+	_ bin.Decoder     = &SendMessageHistoryImportAction{}
+	_ bin.BareEncoder = &SendMessageHistoryImportAction{}
+	_ bin.BareDecoder = &SendMessageHistoryImportAction{}
+
+	_ SendMessageActionClass = &SendMessageHistoryImportAction{}
+)
 
 func (s *SendMessageHistoryImportAction) Zero() bool {
 	if s == nil {
@@ -1694,11 +1707,6 @@ func (s *SendMessageHistoryImportAction) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetProgress returns value of Progress field.
-func (s *SendMessageHistoryImportAction) GetProgress() (value int) {
-	return s.Progress
-}
-
 // Decode implements bin.Decoder.
 func (s *SendMessageHistoryImportAction) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -1725,18 +1733,10 @@ func (s *SendMessageHistoryImportAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of SendMessageActionClass.
-func (s SendMessageHistoryImportAction) construct() SendMessageActionClass { return &s }
-
-// Ensuring interfaces in compile-time for SendMessageHistoryImportAction.
-var (
-	_ bin.Encoder     = &SendMessageHistoryImportAction{}
-	_ bin.Decoder     = &SendMessageHistoryImportAction{}
-	_ bin.BareEncoder = &SendMessageHistoryImportAction{}
-	_ bin.BareDecoder = &SendMessageHistoryImportAction{}
-
-	_ SendMessageActionClass = &SendMessageHistoryImportAction{}
-)
+// GetProgress returns value of Progress field.
+func (s *SendMessageHistoryImportAction) GetProgress() (value int) {
+	return s.Progress
+}
 
 // SendMessageActionClass represents SendMessageAction generic type.
 //
@@ -1925,656 +1925,4 @@ func (b *SendMessageActionBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SendMessageActionClass as nil")
 	}
 	return b.SendMessageAction.Encode(buf)
-}
-
-// SendMessageActionClassArray is adapter for slice of SendMessageActionClass.
-type SendMessageActionClassArray []SendMessageActionClass
-
-// Sort sorts slice of SendMessageActionClass.
-func (s SendMessageActionClassArray) Sort(less func(a, b SendMessageActionClass) bool) SendMessageActionClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SendMessageActionClass.
-func (s SendMessageActionClassArray) SortStable(less func(a, b SendMessageActionClass) bool) SendMessageActionClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SendMessageActionClass.
-func (s SendMessageActionClassArray) Retain(keep func(x SendMessageActionClass) bool) SendMessageActionClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SendMessageActionClassArray) First() (v SendMessageActionClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SendMessageActionClassArray) Last() (v SendMessageActionClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SendMessageActionClassArray) PopFirst() (v SendMessageActionClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SendMessageActionClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SendMessageActionClassArray) Pop() (v SendMessageActionClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsSendMessageUploadVideoAction returns copy with only SendMessageUploadVideoAction constructors.
-func (s SendMessageActionClassArray) AsSendMessageUploadVideoAction() (to SendMessageUploadVideoActionArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SendMessageUploadVideoAction)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSendMessageUploadAudioAction returns copy with only SendMessageUploadAudioAction constructors.
-func (s SendMessageActionClassArray) AsSendMessageUploadAudioAction() (to SendMessageUploadAudioActionArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SendMessageUploadAudioAction)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSendMessageUploadPhotoAction returns copy with only SendMessageUploadPhotoAction constructors.
-func (s SendMessageActionClassArray) AsSendMessageUploadPhotoAction() (to SendMessageUploadPhotoActionArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SendMessageUploadPhotoAction)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSendMessageUploadDocumentAction returns copy with only SendMessageUploadDocumentAction constructors.
-func (s SendMessageActionClassArray) AsSendMessageUploadDocumentAction() (to SendMessageUploadDocumentActionArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SendMessageUploadDocumentAction)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSendMessageUploadRoundAction returns copy with only SendMessageUploadRoundAction constructors.
-func (s SendMessageActionClassArray) AsSendMessageUploadRoundAction() (to SendMessageUploadRoundActionArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SendMessageUploadRoundAction)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsSendMessageHistoryImportAction returns copy with only SendMessageHistoryImportAction constructors.
-func (s SendMessageActionClassArray) AsSendMessageHistoryImportAction() (to SendMessageHistoryImportActionArray) {
-	for _, elem := range s {
-		value, ok := elem.(*SendMessageHistoryImportAction)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// SendMessageUploadVideoActionArray is adapter for slice of SendMessageUploadVideoAction.
-type SendMessageUploadVideoActionArray []SendMessageUploadVideoAction
-
-// Sort sorts slice of SendMessageUploadVideoAction.
-func (s SendMessageUploadVideoActionArray) Sort(less func(a, b SendMessageUploadVideoAction) bool) SendMessageUploadVideoActionArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SendMessageUploadVideoAction.
-func (s SendMessageUploadVideoActionArray) SortStable(less func(a, b SendMessageUploadVideoAction) bool) SendMessageUploadVideoActionArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SendMessageUploadVideoAction.
-func (s SendMessageUploadVideoActionArray) Retain(keep func(x SendMessageUploadVideoAction) bool) SendMessageUploadVideoActionArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SendMessageUploadVideoActionArray) First() (v SendMessageUploadVideoAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SendMessageUploadVideoActionArray) Last() (v SendMessageUploadVideoAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SendMessageUploadVideoActionArray) PopFirst() (v SendMessageUploadVideoAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SendMessageUploadVideoAction
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SendMessageUploadVideoActionArray) Pop() (v SendMessageUploadVideoAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SendMessageUploadAudioActionArray is adapter for slice of SendMessageUploadAudioAction.
-type SendMessageUploadAudioActionArray []SendMessageUploadAudioAction
-
-// Sort sorts slice of SendMessageUploadAudioAction.
-func (s SendMessageUploadAudioActionArray) Sort(less func(a, b SendMessageUploadAudioAction) bool) SendMessageUploadAudioActionArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SendMessageUploadAudioAction.
-func (s SendMessageUploadAudioActionArray) SortStable(less func(a, b SendMessageUploadAudioAction) bool) SendMessageUploadAudioActionArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SendMessageUploadAudioAction.
-func (s SendMessageUploadAudioActionArray) Retain(keep func(x SendMessageUploadAudioAction) bool) SendMessageUploadAudioActionArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SendMessageUploadAudioActionArray) First() (v SendMessageUploadAudioAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SendMessageUploadAudioActionArray) Last() (v SendMessageUploadAudioAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SendMessageUploadAudioActionArray) PopFirst() (v SendMessageUploadAudioAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SendMessageUploadAudioAction
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SendMessageUploadAudioActionArray) Pop() (v SendMessageUploadAudioAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SendMessageUploadPhotoActionArray is adapter for slice of SendMessageUploadPhotoAction.
-type SendMessageUploadPhotoActionArray []SendMessageUploadPhotoAction
-
-// Sort sorts slice of SendMessageUploadPhotoAction.
-func (s SendMessageUploadPhotoActionArray) Sort(less func(a, b SendMessageUploadPhotoAction) bool) SendMessageUploadPhotoActionArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SendMessageUploadPhotoAction.
-func (s SendMessageUploadPhotoActionArray) SortStable(less func(a, b SendMessageUploadPhotoAction) bool) SendMessageUploadPhotoActionArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SendMessageUploadPhotoAction.
-func (s SendMessageUploadPhotoActionArray) Retain(keep func(x SendMessageUploadPhotoAction) bool) SendMessageUploadPhotoActionArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SendMessageUploadPhotoActionArray) First() (v SendMessageUploadPhotoAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SendMessageUploadPhotoActionArray) Last() (v SendMessageUploadPhotoAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SendMessageUploadPhotoActionArray) PopFirst() (v SendMessageUploadPhotoAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SendMessageUploadPhotoAction
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SendMessageUploadPhotoActionArray) Pop() (v SendMessageUploadPhotoAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SendMessageUploadDocumentActionArray is adapter for slice of SendMessageUploadDocumentAction.
-type SendMessageUploadDocumentActionArray []SendMessageUploadDocumentAction
-
-// Sort sorts slice of SendMessageUploadDocumentAction.
-func (s SendMessageUploadDocumentActionArray) Sort(less func(a, b SendMessageUploadDocumentAction) bool) SendMessageUploadDocumentActionArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SendMessageUploadDocumentAction.
-func (s SendMessageUploadDocumentActionArray) SortStable(less func(a, b SendMessageUploadDocumentAction) bool) SendMessageUploadDocumentActionArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SendMessageUploadDocumentAction.
-func (s SendMessageUploadDocumentActionArray) Retain(keep func(x SendMessageUploadDocumentAction) bool) SendMessageUploadDocumentActionArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SendMessageUploadDocumentActionArray) First() (v SendMessageUploadDocumentAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SendMessageUploadDocumentActionArray) Last() (v SendMessageUploadDocumentAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SendMessageUploadDocumentActionArray) PopFirst() (v SendMessageUploadDocumentAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SendMessageUploadDocumentAction
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SendMessageUploadDocumentActionArray) Pop() (v SendMessageUploadDocumentAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SendMessageUploadRoundActionArray is adapter for slice of SendMessageUploadRoundAction.
-type SendMessageUploadRoundActionArray []SendMessageUploadRoundAction
-
-// Sort sorts slice of SendMessageUploadRoundAction.
-func (s SendMessageUploadRoundActionArray) Sort(less func(a, b SendMessageUploadRoundAction) bool) SendMessageUploadRoundActionArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SendMessageUploadRoundAction.
-func (s SendMessageUploadRoundActionArray) SortStable(less func(a, b SendMessageUploadRoundAction) bool) SendMessageUploadRoundActionArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SendMessageUploadRoundAction.
-func (s SendMessageUploadRoundActionArray) Retain(keep func(x SendMessageUploadRoundAction) bool) SendMessageUploadRoundActionArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SendMessageUploadRoundActionArray) First() (v SendMessageUploadRoundAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SendMessageUploadRoundActionArray) Last() (v SendMessageUploadRoundAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SendMessageUploadRoundActionArray) PopFirst() (v SendMessageUploadRoundAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SendMessageUploadRoundAction
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SendMessageUploadRoundActionArray) Pop() (v SendMessageUploadRoundAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SendMessageHistoryImportActionArray is adapter for slice of SendMessageHistoryImportAction.
-type SendMessageHistoryImportActionArray []SendMessageHistoryImportAction
-
-// Sort sorts slice of SendMessageHistoryImportAction.
-func (s SendMessageHistoryImportActionArray) Sort(less func(a, b SendMessageHistoryImportAction) bool) SendMessageHistoryImportActionArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of SendMessageHistoryImportAction.
-func (s SendMessageHistoryImportActionArray) SortStable(less func(a, b SendMessageHistoryImportAction) bool) SendMessageHistoryImportActionArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of SendMessageHistoryImportAction.
-func (s SendMessageHistoryImportActionArray) Retain(keep func(x SendMessageHistoryImportAction) bool) SendMessageHistoryImportActionArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s SendMessageHistoryImportActionArray) First() (v SendMessageHistoryImportAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s SendMessageHistoryImportActionArray) Last() (v SendMessageHistoryImportAction, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SendMessageHistoryImportActionArray) PopFirst() (v SendMessageHistoryImportAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero SendMessageHistoryImportAction
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *SendMessageHistoryImportActionArray) Pop() (v SendMessageHistoryImportAction, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

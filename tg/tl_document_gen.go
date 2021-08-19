@@ -41,6 +41,19 @@ type DocumentEmpty struct {
 // DocumentEmptyTypeID is TL type id of DocumentEmpty.
 const DocumentEmptyTypeID = 0x36f8c871
 
+// construct implements constructor of DocumentClass.
+func (d DocumentEmpty) construct() DocumentClass { return &d }
+
+// Ensuring interfaces in compile-time for DocumentEmpty.
+var (
+	_ bin.Encoder     = &DocumentEmpty{}
+	_ bin.Decoder     = &DocumentEmpty{}
+	_ bin.BareEncoder = &DocumentEmpty{}
+	_ bin.BareDecoder = &DocumentEmpty{}
+
+	_ DocumentClass = &DocumentEmpty{}
+)
+
 func (d *DocumentEmpty) Zero() bool {
 	if d == nil {
 		return true
@@ -117,11 +130,6 @@ func (d *DocumentEmpty) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (d *DocumentEmpty) GetID() (value int64) {
-	return d.ID
-}
-
 // Decode implements bin.Decoder.
 func (d *DocumentEmpty) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -148,18 +156,10 @@ func (d *DocumentEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DocumentClass.
-func (d DocumentEmpty) construct() DocumentClass { return &d }
-
-// Ensuring interfaces in compile-time for DocumentEmpty.
-var (
-	_ bin.Encoder     = &DocumentEmpty{}
-	_ bin.Decoder     = &DocumentEmpty{}
-	_ bin.BareEncoder = &DocumentEmpty{}
-	_ bin.BareDecoder = &DocumentEmpty{}
-
-	_ DocumentClass = &DocumentEmpty{}
-)
+// GetID returns value of ID field.
+func (d *DocumentEmpty) GetID() (value int64) {
+	return d.ID
+}
 
 // Document represents TL type `document#1e87342b`.
 // Document
@@ -202,6 +202,19 @@ type Document struct {
 
 // DocumentTypeID is TL type id of Document.
 const DocumentTypeID = 0x1e87342b
+
+// construct implements constructor of DocumentClass.
+func (d Document) construct() DocumentClass { return &d }
+
+// Ensuring interfaces in compile-time for Document.
+var (
+	_ bin.Encoder     = &Document{}
+	_ bin.Decoder     = &Document{}
+	_ bin.BareEncoder = &Document{}
+	_ bin.BareDecoder = &Document{}
+
+	_ DocumentClass = &Document{}
+)
 
 func (d *Document) Zero() bool {
 	if d == nil {
@@ -414,89 +427,6 @@ func (d *Document) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (d *Document) GetID() (value int64) {
-	return d.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (d *Document) GetAccessHash() (value int64) {
-	return d.AccessHash
-}
-
-// GetFileReference returns value of FileReference field.
-func (d *Document) GetFileReference() (value []byte) {
-	return d.FileReference
-}
-
-// GetDate returns value of Date field.
-func (d *Document) GetDate() (value int) {
-	return d.Date
-}
-
-// GetMimeType returns value of MimeType field.
-func (d *Document) GetMimeType() (value string) {
-	return d.MimeType
-}
-
-// GetSize returns value of Size field.
-func (d *Document) GetSize() (value int) {
-	return d.Size
-}
-
-// SetThumbs sets value of Thumbs conditional field.
-func (d *Document) SetThumbs(value []PhotoSizeClass) {
-	d.Flags.Set(0)
-	d.Thumbs = value
-}
-
-// GetThumbs returns value of Thumbs conditional field and
-// boolean which is true if field was set.
-func (d *Document) GetThumbs() (value []PhotoSizeClass, ok bool) {
-	if !d.Flags.Has(0) {
-		return value, false
-	}
-	return d.Thumbs, true
-}
-
-// MapThumbs returns field Thumbs wrapped in PhotoSizeClassArray helper.
-func (d *Document) MapThumbs() (value PhotoSizeClassArray, ok bool) {
-	if !d.Flags.Has(0) {
-		return value, false
-	}
-	return PhotoSizeClassArray(d.Thumbs), true
-}
-
-// SetVideoThumbs sets value of VideoThumbs conditional field.
-func (d *Document) SetVideoThumbs(value []VideoSize) {
-	d.Flags.Set(1)
-	d.VideoThumbs = value
-}
-
-// GetVideoThumbs returns value of VideoThumbs conditional field and
-// boolean which is true if field was set.
-func (d *Document) GetVideoThumbs() (value []VideoSize, ok bool) {
-	if !d.Flags.Has(1) {
-		return value, false
-	}
-	return d.VideoThumbs, true
-}
-
-// GetDCID returns value of DCID field.
-func (d *Document) GetDCID() (value int) {
-	return d.DCID
-}
-
-// GetAttributes returns value of Attributes field.
-func (d *Document) GetAttributes() (value []DocumentAttributeClass) {
-	return d.Attributes
-}
-
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
-func (d *Document) MapAttributes() (value DocumentAttributeClassArray) {
-	return DocumentAttributeClassArray(d.Attributes)
-}
-
 // Decode implements bin.Decoder.
 func (d *Document) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -621,18 +551,88 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of DocumentClass.
-func (d Document) construct() DocumentClass { return &d }
+// GetID returns value of ID field.
+func (d *Document) GetID() (value int64) {
+	return d.ID
+}
 
-// Ensuring interfaces in compile-time for Document.
-var (
-	_ bin.Encoder     = &Document{}
-	_ bin.Decoder     = &Document{}
-	_ bin.BareEncoder = &Document{}
-	_ bin.BareDecoder = &Document{}
+// GetAccessHash returns value of AccessHash field.
+func (d *Document) GetAccessHash() (value int64) {
+	return d.AccessHash
+}
 
-	_ DocumentClass = &Document{}
-)
+// GetFileReference returns value of FileReference field.
+func (d *Document) GetFileReference() (value []byte) {
+	return d.FileReference
+}
+
+// GetDate returns value of Date field.
+func (d *Document) GetDate() (value int) {
+	return d.Date
+}
+
+// GetMimeType returns value of MimeType field.
+func (d *Document) GetMimeType() (value string) {
+	return d.MimeType
+}
+
+// GetSize returns value of Size field.
+func (d *Document) GetSize() (value int) {
+	return d.Size
+}
+
+// SetThumbs sets value of Thumbs conditional field.
+func (d *Document) SetThumbs(value []PhotoSizeClass) {
+	d.Flags.Set(0)
+	d.Thumbs = value
+}
+
+// GetThumbs returns value of Thumbs conditional field and
+// boolean which is true if field was set.
+func (d *Document) GetThumbs() (value []PhotoSizeClass, ok bool) {
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return d.Thumbs, true
+}
+
+// SetVideoThumbs sets value of VideoThumbs conditional field.
+func (d *Document) SetVideoThumbs(value []VideoSize) {
+	d.Flags.Set(1)
+	d.VideoThumbs = value
+}
+
+// GetVideoThumbs returns value of VideoThumbs conditional field and
+// boolean which is true if field was set.
+func (d *Document) GetVideoThumbs() (value []VideoSize, ok bool) {
+	if !d.Flags.Has(1) {
+		return value, false
+	}
+	return d.VideoThumbs, true
+}
+
+// GetDCID returns value of DCID field.
+func (d *Document) GetDCID() (value int) {
+	return d.DCID
+}
+
+// GetAttributes returns value of Attributes field.
+func (d *Document) GetAttributes() (value []DocumentAttributeClass) {
+	return d.Attributes
+}
+
+// MapThumbs returns field Thumbs wrapped in PhotoSizeClassArray helper.
+func (d *Document) MapThumbs() (value PhotoSizeClassArray, ok bool) {
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return PhotoSizeClassArray(d.Thumbs), true
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
+func (d *Document) MapAttributes() (value DocumentAttributeClassArray) {
+	return DocumentAttributeClassArray(d.Attributes)
+}
 
 // DocumentClass represents Document generic type.
 //
@@ -753,345 +753,4 @@ func (b *DocumentBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DocumentClass as nil")
 	}
 	return b.Document.Encode(buf)
-}
-
-// DocumentClassArray is adapter for slice of DocumentClass.
-type DocumentClassArray []DocumentClass
-
-// Sort sorts slice of DocumentClass.
-func (s DocumentClassArray) Sort(less func(a, b DocumentClass) bool) DocumentClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DocumentClass.
-func (s DocumentClassArray) SortStable(less func(a, b DocumentClass) bool) DocumentClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DocumentClass.
-func (s DocumentClassArray) Retain(keep func(x DocumentClass) bool) DocumentClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DocumentClassArray) First() (v DocumentClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DocumentClassArray) Last() (v DocumentClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DocumentClassArray) PopFirst() (v DocumentClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DocumentClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DocumentClassArray) Pop() (v DocumentClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsDocumentEmpty returns copy with only DocumentEmpty constructors.
-func (s DocumentClassArray) AsDocumentEmpty() (to DocumentEmptyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*DocumentEmpty)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsDocument returns copy with only Document constructors.
-func (s DocumentClassArray) AsDocument() (to DocumentArray) {
-	for _, elem := range s {
-		value, ok := elem.(*Document)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s DocumentClassArray) AppendOnlyNotEmpty(to []*Document) []*Document {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s DocumentClassArray) AsNotEmpty() (to []*Document) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s DocumentClassArray) FirstAsNotEmpty() (v *Document, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s DocumentClassArray) LastAsNotEmpty() (v *Document, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *DocumentClassArray) PopFirstAsNotEmpty() (v *Document, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *DocumentClassArray) PopAsNotEmpty() (v *Document, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// DocumentEmptyArray is adapter for slice of DocumentEmpty.
-type DocumentEmptyArray []DocumentEmpty
-
-// Sort sorts slice of DocumentEmpty.
-func (s DocumentEmptyArray) Sort(less func(a, b DocumentEmpty) bool) DocumentEmptyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of DocumentEmpty.
-func (s DocumentEmptyArray) SortStable(less func(a, b DocumentEmpty) bool) DocumentEmptyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of DocumentEmpty.
-func (s DocumentEmptyArray) Retain(keep func(x DocumentEmpty) bool) DocumentEmptyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DocumentEmptyArray) First() (v DocumentEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DocumentEmptyArray) Last() (v DocumentEmpty, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DocumentEmptyArray) PopFirst() (v DocumentEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero DocumentEmpty
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DocumentEmptyArray) Pop() (v DocumentEmpty, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// DocumentArray is adapter for slice of Document.
-type DocumentArray []Document
-
-// Sort sorts slice of Document.
-func (s DocumentArray) Sort(less func(a, b Document) bool) DocumentArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of Document.
-func (s DocumentArray) SortStable(less func(a, b Document) bool) DocumentArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of Document.
-func (s DocumentArray) Retain(keep func(x Document) bool) DocumentArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s DocumentArray) First() (v Document, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s DocumentArray) Last() (v Document, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DocumentArray) PopFirst() (v Document, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero Document
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *DocumentArray) Pop() (v Document, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of Document by Date.
-func (s DocumentArray) SortByDate() DocumentArray {
-	return s.Sort(func(a, b Document) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of Document by Date.
-func (s DocumentArray) SortStableByDate() DocumentArray {
-	return s.SortStable(func(a, b Document) bool {
-		return a.GetDate() < b.GetDate()
-	})
 }

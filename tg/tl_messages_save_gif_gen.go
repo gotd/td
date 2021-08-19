@@ -43,6 +43,14 @@ type MessagesSaveGifRequest struct {
 // MessagesSaveGifRequestTypeID is TL type id of MessagesSaveGifRequest.
 const MessagesSaveGifRequestTypeID = 0x327a30cb
 
+// Ensuring interfaces in compile-time for MessagesSaveGifRequest.
+var (
+	_ bin.Encoder     = &MessagesSaveGifRequest{}
+	_ bin.Decoder     = &MessagesSaveGifRequest{}
+	_ bin.BareEncoder = &MessagesSaveGifRequest{}
+	_ bin.BareDecoder = &MessagesSaveGifRequest{}
+)
+
 func (s *MessagesSaveGifRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -134,21 +142,6 @@ func (s *MessagesSaveGifRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (s *MessagesSaveGifRequest) GetID() (value InputDocumentClass) {
-	return s.ID
-}
-
-// GetIDAsNotEmpty returns mapped value of ID field.
-func (s *MessagesSaveGifRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
-	return s.ID.AsNotEmpty()
-}
-
-// GetUnsave returns value of Unsave field.
-func (s *MessagesSaveGifRequest) GetUnsave() (value bool) {
-	return s.Unsave
-}
-
 // Decode implements bin.Decoder.
 func (s *MessagesSaveGifRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -182,13 +175,20 @@ func (s *MessagesSaveGifRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesSaveGifRequest.
-var (
-	_ bin.Encoder     = &MessagesSaveGifRequest{}
-	_ bin.Decoder     = &MessagesSaveGifRequest{}
-	_ bin.BareEncoder = &MessagesSaveGifRequest{}
-	_ bin.BareDecoder = &MessagesSaveGifRequest{}
-)
+// GetID returns value of ID field.
+func (s *MessagesSaveGifRequest) GetID() (value InputDocumentClass) {
+	return s.ID
+}
+
+// GetUnsave returns value of Unsave field.
+func (s *MessagesSaveGifRequest) GetUnsave() (value bool) {
+	return s.Unsave
+}
+
+// GetIDAsNotEmpty returns mapped value of ID field.
+func (s *MessagesSaveGifRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
+	return s.ID.AsNotEmpty()
+}
 
 // MessagesSaveGif invokes method messages.saveGif#327a30cb returning error if any.
 // Add GIF to saved gifs list

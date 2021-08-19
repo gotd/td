@@ -46,6 +46,14 @@ type MessagesAffectedFoundMessages struct {
 // MessagesAffectedFoundMessagesTypeID is TL type id of MessagesAffectedFoundMessages.
 const MessagesAffectedFoundMessagesTypeID = 0xef8d3e6c
 
+// Ensuring interfaces in compile-time for MessagesAffectedFoundMessages.
+var (
+	_ bin.Encoder     = &MessagesAffectedFoundMessages{}
+	_ bin.Decoder     = &MessagesAffectedFoundMessages{}
+	_ bin.BareEncoder = &MessagesAffectedFoundMessages{}
+	_ bin.BareDecoder = &MessagesAffectedFoundMessages{}
+)
+
 func (a *MessagesAffectedFoundMessages) Zero() bool {
 	if a == nil {
 		return true
@@ -155,26 +163,6 @@ func (a *MessagesAffectedFoundMessages) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPts returns value of Pts field.
-func (a *MessagesAffectedFoundMessages) GetPts() (value int) {
-	return a.Pts
-}
-
-// GetPtsCount returns value of PtsCount field.
-func (a *MessagesAffectedFoundMessages) GetPtsCount() (value int) {
-	return a.PtsCount
-}
-
-// GetOffset returns value of Offset field.
-func (a *MessagesAffectedFoundMessages) GetOffset() (value int) {
-	return a.Offset
-}
-
-// GetMessages returns value of Messages field.
-func (a *MessagesAffectedFoundMessages) GetMessages() (value []int) {
-	return a.Messages
-}
-
 // Decode implements bin.Decoder.
 func (a *MessagesAffectedFoundMessages) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -232,10 +220,22 @@ func (a *MessagesAffectedFoundMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesAffectedFoundMessages.
-var (
-	_ bin.Encoder     = &MessagesAffectedFoundMessages{}
-	_ bin.Decoder     = &MessagesAffectedFoundMessages{}
-	_ bin.BareEncoder = &MessagesAffectedFoundMessages{}
-	_ bin.BareDecoder = &MessagesAffectedFoundMessages{}
-)
+// GetPts returns value of Pts field.
+func (a *MessagesAffectedFoundMessages) GetPts() (value int) {
+	return a.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (a *MessagesAffectedFoundMessages) GetPtsCount() (value int) {
+	return a.PtsCount
+}
+
+// GetOffset returns value of Offset field.
+func (a *MessagesAffectedFoundMessages) GetOffset() (value int) {
+	return a.Offset
+}
+
+// GetMessages returns value of Messages field.
+func (a *MessagesAffectedFoundMessages) GetMessages() (value []int) {
+	return a.Messages
+}

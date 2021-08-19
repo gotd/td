@@ -51,6 +51,14 @@ type ContactsImportedContacts struct {
 // ContactsImportedContactsTypeID is TL type id of ContactsImportedContacts.
 const ContactsImportedContactsTypeID = 0x77d01c3b
 
+// Ensuring interfaces in compile-time for ContactsImportedContacts.
+var (
+	_ bin.Encoder     = &ContactsImportedContacts{}
+	_ bin.Decoder     = &ContactsImportedContacts{}
+	_ bin.BareEncoder = &ContactsImportedContacts{}
+	_ bin.BareDecoder = &ContactsImportedContacts{}
+)
+
 func (i *ContactsImportedContacts) Zero() bool {
 	if i == nil {
 		return true
@@ -178,31 +186,6 @@ func (i *ContactsImportedContacts) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetImported returns value of Imported field.
-func (i *ContactsImportedContacts) GetImported() (value []ImportedContact) {
-	return i.Imported
-}
-
-// GetPopularInvites returns value of PopularInvites field.
-func (i *ContactsImportedContacts) GetPopularInvites() (value []PopularContact) {
-	return i.PopularInvites
-}
-
-// GetRetryContacts returns value of RetryContacts field.
-func (i *ContactsImportedContacts) GetRetryContacts() (value []int64) {
-	return i.RetryContacts
-}
-
-// GetUsers returns value of Users field.
-func (i *ContactsImportedContacts) GetUsers() (value []UserClass) {
-	return i.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (i *ContactsImportedContacts) MapUsers() (value UserClassArray) {
-	return UserClassArray(i.Users)
-}
-
 // Decode implements bin.Decoder.
 func (i *ContactsImportedContacts) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -290,10 +273,27 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsImportedContacts.
-var (
-	_ bin.Encoder     = &ContactsImportedContacts{}
-	_ bin.Decoder     = &ContactsImportedContacts{}
-	_ bin.BareEncoder = &ContactsImportedContacts{}
-	_ bin.BareDecoder = &ContactsImportedContacts{}
-)
+// GetImported returns value of Imported field.
+func (i *ContactsImportedContacts) GetImported() (value []ImportedContact) {
+	return i.Imported
+}
+
+// GetPopularInvites returns value of PopularInvites field.
+func (i *ContactsImportedContacts) GetPopularInvites() (value []PopularContact) {
+	return i.PopularInvites
+}
+
+// GetRetryContacts returns value of RetryContacts field.
+func (i *ContactsImportedContacts) GetRetryContacts() (value []int64) {
+	return i.RetryContacts
+}
+
+// GetUsers returns value of Users field.
+func (i *ContactsImportedContacts) GetUsers() (value []UserClass) {
+	return i.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (i *ContactsImportedContacts) MapUsers() (value UserClassArray) {
+	return UserClassArray(i.Users)
+}

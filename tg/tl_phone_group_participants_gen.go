@@ -50,6 +50,14 @@ type PhoneGroupParticipants struct {
 // PhoneGroupParticipantsTypeID is TL type id of PhoneGroupParticipants.
 const PhoneGroupParticipantsTypeID = 0xf47751b6
 
+// Ensuring interfaces in compile-time for PhoneGroupParticipants.
+var (
+	_ bin.Encoder     = &PhoneGroupParticipants{}
+	_ bin.Decoder     = &PhoneGroupParticipants{}
+	_ bin.BareEncoder = &PhoneGroupParticipants{}
+	_ bin.BareDecoder = &PhoneGroupParticipants{}
+)
+
 func (g *PhoneGroupParticipants) Zero() bool {
 	if g == nil {
 		return true
@@ -197,46 +205,6 @@ func (g *PhoneGroupParticipants) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (g *PhoneGroupParticipants) GetCount() (value int) {
-	return g.Count
-}
-
-// GetParticipants returns value of Participants field.
-func (g *PhoneGroupParticipants) GetParticipants() (value []GroupCallParticipant) {
-	return g.Participants
-}
-
-// GetNextOffset returns value of NextOffset field.
-func (g *PhoneGroupParticipants) GetNextOffset() (value string) {
-	return g.NextOffset
-}
-
-// GetChats returns value of Chats field.
-func (g *PhoneGroupParticipants) GetChats() (value []ChatClass) {
-	return g.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (g *PhoneGroupParticipants) MapChats() (value ChatClassArray) {
-	return ChatClassArray(g.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (g *PhoneGroupParticipants) GetUsers() (value []UserClass) {
-	return g.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (g *PhoneGroupParticipants) MapUsers() (value UserClassArray) {
-	return UserClassArray(g.Users)
-}
-
-// GetVersion returns value of Version field.
-func (g *PhoneGroupParticipants) GetVersion() (value int) {
-	return g.Version
-}
-
 // Decode implements bin.Decoder.
 func (g *PhoneGroupParticipants) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -328,10 +296,42 @@ func (g *PhoneGroupParticipants) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneGroupParticipants.
-var (
-	_ bin.Encoder     = &PhoneGroupParticipants{}
-	_ bin.Decoder     = &PhoneGroupParticipants{}
-	_ bin.BareEncoder = &PhoneGroupParticipants{}
-	_ bin.BareDecoder = &PhoneGroupParticipants{}
-)
+// GetCount returns value of Count field.
+func (g *PhoneGroupParticipants) GetCount() (value int) {
+	return g.Count
+}
+
+// GetParticipants returns value of Participants field.
+func (g *PhoneGroupParticipants) GetParticipants() (value []GroupCallParticipant) {
+	return g.Participants
+}
+
+// GetNextOffset returns value of NextOffset field.
+func (g *PhoneGroupParticipants) GetNextOffset() (value string) {
+	return g.NextOffset
+}
+
+// GetChats returns value of Chats field.
+func (g *PhoneGroupParticipants) GetChats() (value []ChatClass) {
+	return g.Chats
+}
+
+// GetUsers returns value of Users field.
+func (g *PhoneGroupParticipants) GetUsers() (value []UserClass) {
+	return g.Users
+}
+
+// GetVersion returns value of Version field.
+func (g *PhoneGroupParticipants) GetVersion() (value int) {
+	return g.Version
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (g *PhoneGroupParticipants) MapChats() (value ChatClassArray) {
+	return ChatClassArray(g.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (g *PhoneGroupParticipants) MapUsers() (value UserClassArray) {
+	return UserClassArray(g.Users)
+}

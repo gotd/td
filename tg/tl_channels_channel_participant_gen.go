@@ -45,6 +45,14 @@ type ChannelsChannelParticipant struct {
 // ChannelsChannelParticipantTypeID is TL type id of ChannelsChannelParticipant.
 const ChannelsChannelParticipantTypeID = 0xdfb80317
 
+// Ensuring interfaces in compile-time for ChannelsChannelParticipant.
+var (
+	_ bin.Encoder     = &ChannelsChannelParticipant{}
+	_ bin.Decoder     = &ChannelsChannelParticipant{}
+	_ bin.BareEncoder = &ChannelsChannelParticipant{}
+	_ bin.BareDecoder = &ChannelsChannelParticipant{}
+)
+
 func (c *ChannelsChannelParticipant) Zero() bool {
 	if c == nil {
 		return true
@@ -162,31 +170,6 @@ func (c *ChannelsChannelParticipant) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetParticipant returns value of Participant field.
-func (c *ChannelsChannelParticipant) GetParticipant() (value ChannelParticipantClass) {
-	return c.Participant
-}
-
-// GetChats returns value of Chats field.
-func (c *ChannelsChannelParticipant) GetChats() (value []ChatClass) {
-	return c.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (c *ChannelsChannelParticipant) MapChats() (value ChatClassArray) {
-	return ChatClassArray(c.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (c *ChannelsChannelParticipant) GetUsers() (value []UserClass) {
-	return c.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (c *ChannelsChannelParticipant) MapUsers() (value UserClassArray) {
-	return UserClassArray(c.Users)
-}
-
 // Decode implements bin.Decoder.
 func (c *ChannelsChannelParticipant) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -247,10 +230,27 @@ func (c *ChannelsChannelParticipant) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsChannelParticipant.
-var (
-	_ bin.Encoder     = &ChannelsChannelParticipant{}
-	_ bin.Decoder     = &ChannelsChannelParticipant{}
-	_ bin.BareEncoder = &ChannelsChannelParticipant{}
-	_ bin.BareDecoder = &ChannelsChannelParticipant{}
-)
+// GetParticipant returns value of Participant field.
+func (c *ChannelsChannelParticipant) GetParticipant() (value ChannelParticipantClass) {
+	return c.Participant
+}
+
+// GetChats returns value of Chats field.
+func (c *ChannelsChannelParticipant) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// GetUsers returns value of Users field.
+func (c *ChannelsChannelParticipant) GetUsers() (value []UserClass) {
+	return c.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *ChannelsChannelParticipant) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *ChannelsChannelParticipant) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
+}

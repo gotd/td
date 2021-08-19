@@ -41,6 +41,14 @@ type MessagesImportChatInviteRequest struct {
 // MessagesImportChatInviteRequestTypeID is TL type id of MessagesImportChatInviteRequest.
 const MessagesImportChatInviteRequestTypeID = 0x6c50051c
 
+// Ensuring interfaces in compile-time for MessagesImportChatInviteRequest.
+var (
+	_ bin.Encoder     = &MessagesImportChatInviteRequest{}
+	_ bin.Decoder     = &MessagesImportChatInviteRequest{}
+	_ bin.BareEncoder = &MessagesImportChatInviteRequest{}
+	_ bin.BareDecoder = &MessagesImportChatInviteRequest{}
+)
+
 func (i *MessagesImportChatInviteRequest) Zero() bool {
 	if i == nil {
 		return true
@@ -117,11 +125,6 @@ func (i *MessagesImportChatInviteRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetHash returns value of Hash field.
-func (i *MessagesImportChatInviteRequest) GetHash() (value string) {
-	return i.Hash
-}
-
 // Decode implements bin.Decoder.
 func (i *MessagesImportChatInviteRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -148,13 +151,10 @@ func (i *MessagesImportChatInviteRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesImportChatInviteRequest.
-var (
-	_ bin.Encoder     = &MessagesImportChatInviteRequest{}
-	_ bin.Decoder     = &MessagesImportChatInviteRequest{}
-	_ bin.BareEncoder = &MessagesImportChatInviteRequest{}
-	_ bin.BareDecoder = &MessagesImportChatInviteRequest{}
-)
+// GetHash returns value of Hash field.
+func (i *MessagesImportChatInviteRequest) GetHash() (value string) {
+	return i.Hash
+}
 
 // MessagesImportChatInvite invokes method messages.importChatInvite#6c50051c returning error if any.
 // Import a chat invite and join a private chat/supergroup/channel

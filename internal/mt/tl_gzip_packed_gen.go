@@ -38,6 +38,14 @@ type GzipPacked struct {
 // GzipPackedTypeID is TL type id of GzipPacked.
 const GzipPackedTypeID = 0x3072cfa1
 
+// Ensuring interfaces in compile-time for GzipPacked.
+var (
+	_ bin.Encoder     = &GzipPacked{}
+	_ bin.Decoder     = &GzipPacked{}
+	_ bin.BareEncoder = &GzipPacked{}
+	_ bin.BareDecoder = &GzipPacked{}
+)
+
 func (g *GzipPacked) Zero() bool {
 	if g == nil {
 		return true
@@ -56,13 +64,6 @@ func (g *GzipPacked) String() string {
 	}
 	type Alias GzipPacked
 	return fmt.Sprintf("GzipPacked%+v", Alias(*g))
-}
-
-// FillFrom fills GzipPacked from given interface.
-func (g *GzipPacked) FillFrom(from interface {
-	GetPackedData() (value []byte)
-}) {
-	g.PackedData = from.GetPackedData()
 }
 
 // TypeID returns type id in TL schema.
@@ -114,11 +115,6 @@ func (g *GzipPacked) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPackedData returns value of PackedData field.
-func (g *GzipPacked) GetPackedData() (value []byte) {
-	return g.PackedData
-}
-
 // Decode implements bin.Decoder.
 func (g *GzipPacked) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -145,10 +141,7 @@ func (g *GzipPacked) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for GzipPacked.
-var (
-	_ bin.Encoder     = &GzipPacked{}
-	_ bin.Decoder     = &GzipPacked{}
-	_ bin.BareEncoder = &GzipPacked{}
-	_ bin.BareDecoder = &GzipPacked{}
-)
+// GetPackedData returns value of PackedData field.
+func (g *GzipPacked) GetPackedData() (value []byte) {
+	return g.PackedData
+}

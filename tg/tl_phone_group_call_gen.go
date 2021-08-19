@@ -48,6 +48,14 @@ type PhoneGroupCall struct {
 // PhoneGroupCallTypeID is TL type id of PhoneGroupCall.
 const PhoneGroupCallTypeID = 0x9e727aad
 
+// Ensuring interfaces in compile-time for PhoneGroupCall.
+var (
+	_ bin.Encoder     = &PhoneGroupCall{}
+	_ bin.Decoder     = &PhoneGroupCall{}
+	_ bin.BareEncoder = &PhoneGroupCall{}
+	_ bin.BareDecoder = &PhoneGroupCall{}
+)
+
 func (g *PhoneGroupCall) Zero() bool {
 	if g == nil {
 		return true
@@ -190,41 +198,6 @@ func (g *PhoneGroupCall) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCall returns value of Call field.
-func (g *PhoneGroupCall) GetCall() (value GroupCallClass) {
-	return g.Call
-}
-
-// GetParticipants returns value of Participants field.
-func (g *PhoneGroupCall) GetParticipants() (value []GroupCallParticipant) {
-	return g.Participants
-}
-
-// GetParticipantsNextOffset returns value of ParticipantsNextOffset field.
-func (g *PhoneGroupCall) GetParticipantsNextOffset() (value string) {
-	return g.ParticipantsNextOffset
-}
-
-// GetChats returns value of Chats field.
-func (g *PhoneGroupCall) GetChats() (value []ChatClass) {
-	return g.Chats
-}
-
-// MapChats returns field Chats wrapped in ChatClassArray helper.
-func (g *PhoneGroupCall) MapChats() (value ChatClassArray) {
-	return ChatClassArray(g.Chats)
-}
-
-// GetUsers returns value of Users field.
-func (g *PhoneGroupCall) GetUsers() (value []UserClass) {
-	return g.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (g *PhoneGroupCall) MapUsers() (value UserClassArray) {
-	return UserClassArray(g.Users)
-}
-
 // Decode implements bin.Decoder.
 func (g *PhoneGroupCall) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -309,10 +282,37 @@ func (g *PhoneGroupCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneGroupCall.
-var (
-	_ bin.Encoder     = &PhoneGroupCall{}
-	_ bin.Decoder     = &PhoneGroupCall{}
-	_ bin.BareEncoder = &PhoneGroupCall{}
-	_ bin.BareDecoder = &PhoneGroupCall{}
-)
+// GetCall returns value of Call field.
+func (g *PhoneGroupCall) GetCall() (value GroupCallClass) {
+	return g.Call
+}
+
+// GetParticipants returns value of Participants field.
+func (g *PhoneGroupCall) GetParticipants() (value []GroupCallParticipant) {
+	return g.Participants
+}
+
+// GetParticipantsNextOffset returns value of ParticipantsNextOffset field.
+func (g *PhoneGroupCall) GetParticipantsNextOffset() (value string) {
+	return g.ParticipantsNextOffset
+}
+
+// GetChats returns value of Chats field.
+func (g *PhoneGroupCall) GetChats() (value []ChatClass) {
+	return g.Chats
+}
+
+// GetUsers returns value of Users field.
+func (g *PhoneGroupCall) GetUsers() (value []UserClass) {
+	return g.Users
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (g *PhoneGroupCall) MapChats() (value ChatClassArray) {
+	return ChatClassArray(g.Chats)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (g *PhoneGroupCall) MapUsers() (value UserClassArray) {
+	return UserClassArray(g.Users)
+}

@@ -39,6 +39,19 @@ type HelpCountriesListNotModified struct {
 // HelpCountriesListNotModifiedTypeID is TL type id of HelpCountriesListNotModified.
 const HelpCountriesListNotModifiedTypeID = 0x93cc1f32
 
+// construct implements constructor of HelpCountriesListClass.
+func (c HelpCountriesListNotModified) construct() HelpCountriesListClass { return &c }
+
+// Ensuring interfaces in compile-time for HelpCountriesListNotModified.
+var (
+	_ bin.Encoder     = &HelpCountriesListNotModified{}
+	_ bin.Decoder     = &HelpCountriesListNotModified{}
+	_ bin.BareEncoder = &HelpCountriesListNotModified{}
+	_ bin.BareDecoder = &HelpCountriesListNotModified{}
+
+	_ HelpCountriesListClass = &HelpCountriesListNotModified{}
+)
+
 func (c *HelpCountriesListNotModified) Zero() bool {
 	if c == nil {
 		return true
@@ -118,19 +131,6 @@ func (c *HelpCountriesListNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpCountriesListClass.
-func (c HelpCountriesListNotModified) construct() HelpCountriesListClass { return &c }
-
-// Ensuring interfaces in compile-time for HelpCountriesListNotModified.
-var (
-	_ bin.Encoder     = &HelpCountriesListNotModified{}
-	_ bin.Decoder     = &HelpCountriesListNotModified{}
-	_ bin.BareEncoder = &HelpCountriesListNotModified{}
-	_ bin.BareDecoder = &HelpCountriesListNotModified{}
-
-	_ HelpCountriesListClass = &HelpCountriesListNotModified{}
-)
-
 // HelpCountriesList represents TL type `help.countriesList#87d0759e`.
 // Name, ISO code, localized name and phone codes/patterns of all available countries
 //
@@ -147,6 +147,19 @@ type HelpCountriesList struct {
 
 // HelpCountriesListTypeID is TL type id of HelpCountriesList.
 const HelpCountriesListTypeID = 0x87d0759e
+
+// construct implements constructor of HelpCountriesListClass.
+func (c HelpCountriesList) construct() HelpCountriesListClass { return &c }
+
+// Ensuring interfaces in compile-time for HelpCountriesList.
+var (
+	_ bin.Encoder     = &HelpCountriesList{}
+	_ bin.Decoder     = &HelpCountriesList{}
+	_ bin.BareEncoder = &HelpCountriesList{}
+	_ bin.BareDecoder = &HelpCountriesList{}
+
+	_ HelpCountriesListClass = &HelpCountriesList{}
+)
 
 func (c *HelpCountriesList) Zero() bool {
 	if c == nil {
@@ -239,16 +252,6 @@ func (c *HelpCountriesList) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCountries returns value of Countries field.
-func (c *HelpCountriesList) GetCountries() (value []HelpCountry) {
-	return c.Countries
-}
-
-// GetHash returns value of Hash field.
-func (c *HelpCountriesList) GetHash() (value int) {
-	return c.Hash
-}
-
 // Decode implements bin.Decoder.
 func (c *HelpCountriesList) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -292,18 +295,15 @@ func (c *HelpCountriesList) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpCountriesListClass.
-func (c HelpCountriesList) construct() HelpCountriesListClass { return &c }
+// GetCountries returns value of Countries field.
+func (c *HelpCountriesList) GetCountries() (value []HelpCountry) {
+	return c.Countries
+}
 
-// Ensuring interfaces in compile-time for HelpCountriesList.
-var (
-	_ bin.Encoder     = &HelpCountriesList{}
-	_ bin.Decoder     = &HelpCountriesList{}
-	_ bin.BareEncoder = &HelpCountriesList{}
-	_ bin.BareDecoder = &HelpCountriesList{}
-
-	_ HelpCountriesListClass = &HelpCountriesList{}
-)
+// GetHash returns value of Hash field.
+func (c *HelpCountriesList) GetHash() (value int) {
+	return c.Hash
+}
 
 // HelpCountriesListClass represents help.CountriesList generic type.
 //
@@ -401,236 +401,4 @@ func (b *HelpCountriesListBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode HelpCountriesListClass as nil")
 	}
 	return b.CountriesList.Encode(buf)
-}
-
-// HelpCountriesListClassArray is adapter for slice of HelpCountriesListClass.
-type HelpCountriesListClassArray []HelpCountriesListClass
-
-// Sort sorts slice of HelpCountriesListClass.
-func (s HelpCountriesListClassArray) Sort(less func(a, b HelpCountriesListClass) bool) HelpCountriesListClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of HelpCountriesListClass.
-func (s HelpCountriesListClassArray) SortStable(less func(a, b HelpCountriesListClass) bool) HelpCountriesListClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of HelpCountriesListClass.
-func (s HelpCountriesListClassArray) Retain(keep func(x HelpCountriesListClass) bool) HelpCountriesListClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s HelpCountriesListClassArray) First() (v HelpCountriesListClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s HelpCountriesListClassArray) Last() (v HelpCountriesListClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpCountriesListClassArray) PopFirst() (v HelpCountriesListClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero HelpCountriesListClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpCountriesListClassArray) Pop() (v HelpCountriesListClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsHelpCountriesList returns copy with only HelpCountriesList constructors.
-func (s HelpCountriesListClassArray) AsHelpCountriesList() (to HelpCountriesListArray) {
-	for _, elem := range s {
-		value, ok := elem.(*HelpCountriesList)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyModified appends only Modified constructors to
-// given slice.
-func (s HelpCountriesListClassArray) AppendOnlyModified(to []*HelpCountriesList) []*HelpCountriesList {
-	for _, elem := range s {
-		value, ok := elem.AsModified()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsModified returns copy with only Modified constructors.
-func (s HelpCountriesListClassArray) AsModified() (to []*HelpCountriesList) {
-	return s.AppendOnlyModified(to)
-}
-
-// FirstAsModified returns first element of slice (if exists).
-func (s HelpCountriesListClassArray) FirstAsModified() (v *HelpCountriesList, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// LastAsModified returns last element of slice (if exists).
-func (s HelpCountriesListClassArray) LastAsModified() (v *HelpCountriesList, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// PopFirstAsModified returns element of slice (if exists).
-func (s *HelpCountriesListClassArray) PopFirstAsModified() (v *HelpCountriesList, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// PopAsModified returns element of slice (if exists).
-func (s *HelpCountriesListClassArray) PopAsModified() (v *HelpCountriesList, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// HelpCountriesListArray is adapter for slice of HelpCountriesList.
-type HelpCountriesListArray []HelpCountriesList
-
-// Sort sorts slice of HelpCountriesList.
-func (s HelpCountriesListArray) Sort(less func(a, b HelpCountriesList) bool) HelpCountriesListArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of HelpCountriesList.
-func (s HelpCountriesListArray) SortStable(less func(a, b HelpCountriesList) bool) HelpCountriesListArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of HelpCountriesList.
-func (s HelpCountriesListArray) Retain(keep func(x HelpCountriesList) bool) HelpCountriesListArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s HelpCountriesListArray) First() (v HelpCountriesList, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s HelpCountriesListArray) Last() (v HelpCountriesList, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpCountriesListArray) PopFirst() (v HelpCountriesList, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero HelpCountriesList
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpCountriesListArray) Pop() (v HelpCountriesList, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

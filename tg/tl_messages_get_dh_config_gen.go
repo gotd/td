@@ -47,6 +47,14 @@ type MessagesGetDhConfigRequest struct {
 // MessagesGetDhConfigRequestTypeID is TL type id of MessagesGetDhConfigRequest.
 const MessagesGetDhConfigRequestTypeID = 0x26cf8950
 
+// Ensuring interfaces in compile-time for MessagesGetDhConfigRequest.
+var (
+	_ bin.Encoder     = &MessagesGetDhConfigRequest{}
+	_ bin.Decoder     = &MessagesGetDhConfigRequest{}
+	_ bin.BareEncoder = &MessagesGetDhConfigRequest{}
+	_ bin.BareDecoder = &MessagesGetDhConfigRequest{}
+)
+
 func (g *MessagesGetDhConfigRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -133,16 +141,6 @@ func (g *MessagesGetDhConfigRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetVersion returns value of Version field.
-func (g *MessagesGetDhConfigRequest) GetVersion() (value int) {
-	return g.Version
-}
-
-// GetRandomLength returns value of RandomLength field.
-func (g *MessagesGetDhConfigRequest) GetRandomLength() (value int) {
-	return g.RandomLength
-}
-
 // Decode implements bin.Decoder.
 func (g *MessagesGetDhConfigRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -176,13 +174,15 @@ func (g *MessagesGetDhConfigRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesGetDhConfigRequest.
-var (
-	_ bin.Encoder     = &MessagesGetDhConfigRequest{}
-	_ bin.Decoder     = &MessagesGetDhConfigRequest{}
-	_ bin.BareEncoder = &MessagesGetDhConfigRequest{}
-	_ bin.BareDecoder = &MessagesGetDhConfigRequest{}
-)
+// GetVersion returns value of Version field.
+func (g *MessagesGetDhConfigRequest) GetVersion() (value int) {
+	return g.Version
+}
+
+// GetRandomLength returns value of RandomLength field.
+func (g *MessagesGetDhConfigRequest) GetRandomLength() (value int) {
+	return g.RandomLength
+}
 
 // MessagesGetDhConfig invokes method messages.getDhConfig#26cf8950 returning error if any.
 // Returns configuration parameters for Diffie-Hellman key generation. Can also return a

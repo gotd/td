@@ -53,6 +53,14 @@ type PhoneConfirmCallRequest struct {
 // PhoneConfirmCallRequestTypeID is TL type id of PhoneConfirmCallRequest.
 const PhoneConfirmCallRequestTypeID = 0x2efe1722
 
+// Ensuring interfaces in compile-time for PhoneConfirmCallRequest.
+var (
+	_ bin.Encoder     = &PhoneConfirmCallRequest{}
+	_ bin.Decoder     = &PhoneConfirmCallRequest{}
+	_ bin.BareEncoder = &PhoneConfirmCallRequest{}
+	_ bin.BareDecoder = &PhoneConfirmCallRequest{}
+)
+
 func (c *PhoneConfirmCallRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -163,26 +171,6 @@ func (c *PhoneConfirmCallRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (c *PhoneConfirmCallRequest) GetPeer() (value InputPhoneCall) {
-	return c.Peer
-}
-
-// GetGA returns value of GA field.
-func (c *PhoneConfirmCallRequest) GetGA() (value []byte) {
-	return c.GA
-}
-
-// GetKeyFingerprint returns value of KeyFingerprint field.
-func (c *PhoneConfirmCallRequest) GetKeyFingerprint() (value int64) {
-	return c.KeyFingerprint
-}
-
-// GetProtocol returns value of Protocol field.
-func (c *PhoneConfirmCallRequest) GetProtocol() (value PhoneCallProtocol) {
-	return c.Protocol
-}
-
 // Decode implements bin.Decoder.
 func (c *PhoneConfirmCallRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -226,13 +214,25 @@ func (c *PhoneConfirmCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PhoneConfirmCallRequest.
-var (
-	_ bin.Encoder     = &PhoneConfirmCallRequest{}
-	_ bin.Decoder     = &PhoneConfirmCallRequest{}
-	_ bin.BareEncoder = &PhoneConfirmCallRequest{}
-	_ bin.BareDecoder = &PhoneConfirmCallRequest{}
-)
+// GetPeer returns value of Peer field.
+func (c *PhoneConfirmCallRequest) GetPeer() (value InputPhoneCall) {
+	return c.Peer
+}
+
+// GetGA returns value of GA field.
+func (c *PhoneConfirmCallRequest) GetGA() (value []byte) {
+	return c.GA
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (c *PhoneConfirmCallRequest) GetKeyFingerprint() (value int64) {
+	return c.KeyFingerprint
+}
+
+// GetProtocol returns value of Protocol field.
+func (c *PhoneConfirmCallRequest) GetProtocol() (value PhoneCallProtocol) {
+	return c.Protocol
+}
 
 // PhoneConfirmCall invokes method phone.confirmCall#2efe1722 returning error if any.
 // Complete phone call E2E encryption key exchange »¹

@@ -48,6 +48,14 @@ type AccountUpdateDeviceLockedRequest struct {
 // AccountUpdateDeviceLockedRequestTypeID is TL type id of AccountUpdateDeviceLockedRequest.
 const AccountUpdateDeviceLockedRequestTypeID = 0x38df3532
 
+// Ensuring interfaces in compile-time for AccountUpdateDeviceLockedRequest.
+var (
+	_ bin.Encoder     = &AccountUpdateDeviceLockedRequest{}
+	_ bin.Decoder     = &AccountUpdateDeviceLockedRequest{}
+	_ bin.BareEncoder = &AccountUpdateDeviceLockedRequest{}
+	_ bin.BareDecoder = &AccountUpdateDeviceLockedRequest{}
+)
+
 func (u *AccountUpdateDeviceLockedRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -124,11 +132,6 @@ func (u *AccountUpdateDeviceLockedRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeriod returns value of Period field.
-func (u *AccountUpdateDeviceLockedRequest) GetPeriod() (value int) {
-	return u.Period
-}
-
 // Decode implements bin.Decoder.
 func (u *AccountUpdateDeviceLockedRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -155,13 +158,10 @@ func (u *AccountUpdateDeviceLockedRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountUpdateDeviceLockedRequest.
-var (
-	_ bin.Encoder     = &AccountUpdateDeviceLockedRequest{}
-	_ bin.Decoder     = &AccountUpdateDeviceLockedRequest{}
-	_ bin.BareEncoder = &AccountUpdateDeviceLockedRequest{}
-	_ bin.BareDecoder = &AccountUpdateDeviceLockedRequest{}
-)
+// GetPeriod returns value of Period field.
+func (u *AccountUpdateDeviceLockedRequest) GetPeriod() (value int) {
+	return u.Period
+}
 
 // AccountUpdateDeviceLocked invokes method account.updateDeviceLocked#38df3532 returning error if any.
 // When client-side passcode lock feature is enabled, will not show message texts in

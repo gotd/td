@@ -43,6 +43,14 @@ type PaymentsGetPaymentReceiptRequest struct {
 // PaymentsGetPaymentReceiptRequestTypeID is TL type id of PaymentsGetPaymentReceiptRequest.
 const PaymentsGetPaymentReceiptRequestTypeID = 0x2478d1cc
 
+// Ensuring interfaces in compile-time for PaymentsGetPaymentReceiptRequest.
+var (
+	_ bin.Encoder     = &PaymentsGetPaymentReceiptRequest{}
+	_ bin.Decoder     = &PaymentsGetPaymentReceiptRequest{}
+	_ bin.BareEncoder = &PaymentsGetPaymentReceiptRequest{}
+	_ bin.BareDecoder = &PaymentsGetPaymentReceiptRequest{}
+)
+
 func (g *PaymentsGetPaymentReceiptRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -134,16 +142,6 @@ func (g *PaymentsGetPaymentReceiptRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *PaymentsGetPaymentReceiptRequest) GetPeer() (value InputPeerClass) {
-	return g.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (g *PaymentsGetPaymentReceiptRequest) GetMsgID() (value int) {
-	return g.MsgID
-}
-
 // Decode implements bin.Decoder.
 func (g *PaymentsGetPaymentReceiptRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -177,13 +175,15 @@ func (g *PaymentsGetPaymentReceiptRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PaymentsGetPaymentReceiptRequest.
-var (
-	_ bin.Encoder     = &PaymentsGetPaymentReceiptRequest{}
-	_ bin.Decoder     = &PaymentsGetPaymentReceiptRequest{}
-	_ bin.BareEncoder = &PaymentsGetPaymentReceiptRequest{}
-	_ bin.BareDecoder = &PaymentsGetPaymentReceiptRequest{}
-)
+// GetPeer returns value of Peer field.
+func (g *PaymentsGetPaymentReceiptRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (g *PaymentsGetPaymentReceiptRequest) GetMsgID() (value int) {
+	return g.MsgID
+}
 
 // PaymentsGetPaymentReceipt invokes method payments.getPaymentReceipt#2478d1cc returning error if any.
 // Get payment receipt

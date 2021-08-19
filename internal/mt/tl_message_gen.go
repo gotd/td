@@ -44,6 +44,14 @@ type Message struct {
 // MessageTypeID is TL type id of Message.
 const MessageTypeID = 0x5bb8e511
 
+// Ensuring interfaces in compile-time for Message.
+var (
+	_ bin.Encoder     = &Message{}
+	_ bin.Decoder     = &Message{}
+	_ bin.BareEncoder = &Message{}
+	_ bin.BareDecoder = &Message{}
+)
+
 func (m *Message) Zero() bool {
 	if m == nil {
 		return true
@@ -71,19 +79,6 @@ func (m *Message) String() string {
 	}
 	type Alias Message
 	return fmt.Sprintf("Message%+v", Alias(*m))
-}
-
-// FillFrom fills Message from given interface.
-func (m *Message) FillFrom(from interface {
-	GetMsgID() (value int64)
-	GetSeqno() (value int)
-	GetBytes() (value int)
-	GetBody() (value GzipPacked)
-}) {
-	m.MsgID = from.GetMsgID()
-	m.Seqno = from.GetSeqno()
-	m.Bytes = from.GetBytes()
-	m.Body = from.GetBody()
 }
 
 // TypeID returns type id in TL schema.
@@ -152,26 +147,6 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMsgID returns value of MsgID field.
-func (m *Message) GetMsgID() (value int64) {
-	return m.MsgID
-}
-
-// GetSeqno returns value of Seqno field.
-func (m *Message) GetSeqno() (value int) {
-	return m.Seqno
-}
-
-// GetBytes returns value of Bytes field.
-func (m *Message) GetBytes() (value int) {
-	return m.Bytes
-}
-
-// GetBody returns value of Body field.
-func (m *Message) GetBody() (value GzipPacked) {
-	return m.Body
-}
-
 // Decode implements bin.Decoder.
 func (m *Message) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -217,10 +192,22 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for Message.
-var (
-	_ bin.Encoder     = &Message{}
-	_ bin.Decoder     = &Message{}
-	_ bin.BareEncoder = &Message{}
-	_ bin.BareDecoder = &Message{}
-)
+// GetMsgID returns value of MsgID field.
+func (m *Message) GetMsgID() (value int64) {
+	return m.MsgID
+}
+
+// GetSeqno returns value of Seqno field.
+func (m *Message) GetSeqno() (value int) {
+	return m.Seqno
+}
+
+// GetBytes returns value of Bytes field.
+func (m *Message) GetBytes() (value int) {
+	return m.Bytes
+}
+
+// GetBody returns value of Body field.
+func (m *Message) GetBody() (value GzipPacked) {
+	return m.Body
+}

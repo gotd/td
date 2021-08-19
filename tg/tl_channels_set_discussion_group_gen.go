@@ -49,6 +49,14 @@ type ChannelsSetDiscussionGroupRequest struct {
 // ChannelsSetDiscussionGroupRequestTypeID is TL type id of ChannelsSetDiscussionGroupRequest.
 const ChannelsSetDiscussionGroupRequestTypeID = 0x40582bb2
 
+// Ensuring interfaces in compile-time for ChannelsSetDiscussionGroupRequest.
+var (
+	_ bin.Encoder     = &ChannelsSetDiscussionGroupRequest{}
+	_ bin.Decoder     = &ChannelsSetDiscussionGroupRequest{}
+	_ bin.BareEncoder = &ChannelsSetDiscussionGroupRequest{}
+	_ bin.BareDecoder = &ChannelsSetDiscussionGroupRequest{}
+)
+
 func (s *ChannelsSetDiscussionGroupRequest) Zero() bool {
 	if s == nil {
 		return true
@@ -145,26 +153,6 @@ func (s *ChannelsSetDiscussionGroupRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetBroadcast returns value of Broadcast field.
-func (s *ChannelsSetDiscussionGroupRequest) GetBroadcast() (value InputChannelClass) {
-	return s.Broadcast
-}
-
-// GetBroadcastAsNotEmpty returns mapped value of Broadcast field.
-func (s *ChannelsSetDiscussionGroupRequest) GetBroadcastAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return s.Broadcast.AsNotEmpty()
-}
-
-// GetGroup returns value of Group field.
-func (s *ChannelsSetDiscussionGroupRequest) GetGroup() (value InputChannelClass) {
-	return s.Group
-}
-
-// GetGroupAsNotEmpty returns mapped value of Group field.
-func (s *ChannelsSetDiscussionGroupRequest) GetGroupAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return s.Group.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (s *ChannelsSetDiscussionGroupRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -198,13 +186,25 @@ func (s *ChannelsSetDiscussionGroupRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsSetDiscussionGroupRequest.
-var (
-	_ bin.Encoder     = &ChannelsSetDiscussionGroupRequest{}
-	_ bin.Decoder     = &ChannelsSetDiscussionGroupRequest{}
-	_ bin.BareEncoder = &ChannelsSetDiscussionGroupRequest{}
-	_ bin.BareDecoder = &ChannelsSetDiscussionGroupRequest{}
-)
+// GetBroadcast returns value of Broadcast field.
+func (s *ChannelsSetDiscussionGroupRequest) GetBroadcast() (value InputChannelClass) {
+	return s.Broadcast
+}
+
+// GetGroup returns value of Group field.
+func (s *ChannelsSetDiscussionGroupRequest) GetGroup() (value InputChannelClass) {
+	return s.Group
+}
+
+// GetBroadcastAsNotEmpty returns mapped value of Broadcast field.
+func (s *ChannelsSetDiscussionGroupRequest) GetBroadcastAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return s.Broadcast.AsNotEmpty()
+}
+
+// GetGroupAsNotEmpty returns mapped value of Group field.
+func (s *ChannelsSetDiscussionGroupRequest) GetGroupAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return s.Group.AsNotEmpty()
+}
 
 // ChannelsSetDiscussionGroup invokes method channels.setDiscussionGroup#40582bb2 returning error if any.
 // Associate a group to a channel as discussion group¹ for that channel

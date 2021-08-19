@@ -43,6 +43,19 @@ type MessageEntityUnknown struct {
 // MessageEntityUnknownTypeID is TL type id of MessageEntityUnknown.
 const MessageEntityUnknownTypeID = 0xbb92ba95
 
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityUnknown) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityUnknown.
+var (
+	_ bin.Encoder     = &MessageEntityUnknown{}
+	_ bin.Decoder     = &MessageEntityUnknown{}
+	_ bin.BareEncoder = &MessageEntityUnknown{}
+	_ bin.BareDecoder = &MessageEntityUnknown{}
+
+	_ MessageEntityClass = &MessageEntityUnknown{}
+)
+
 func (m *MessageEntityUnknown) Zero() bool {
 	if m == nil {
 		return true
@@ -129,16 +142,6 @@ func (m *MessageEntityUnknown) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityUnknown) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityUnknown) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityUnknown) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -172,18 +175,15 @@ func (m *MessageEntityUnknown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityUnknown) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityUnknown) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityUnknown.
-var (
-	_ bin.Encoder     = &MessageEntityUnknown{}
-	_ bin.Decoder     = &MessageEntityUnknown{}
-	_ bin.BareEncoder = &MessageEntityUnknown{}
-	_ bin.BareDecoder = &MessageEntityUnknown{}
-
-	_ MessageEntityClass = &MessageEntityUnknown{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityUnknown) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityMention represents TL type `messageEntityMention#fa04579d`.
 // Message entity mentioning¹ the current user
@@ -201,6 +201,19 @@ type MessageEntityMention struct {
 
 // MessageEntityMentionTypeID is TL type id of MessageEntityMention.
 const MessageEntityMentionTypeID = 0xfa04579d
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityMention) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityMention.
+var (
+	_ bin.Encoder     = &MessageEntityMention{}
+	_ bin.Decoder     = &MessageEntityMention{}
+	_ bin.BareEncoder = &MessageEntityMention{}
+	_ bin.BareDecoder = &MessageEntityMention{}
+
+	_ MessageEntityClass = &MessageEntityMention{}
+)
 
 func (m *MessageEntityMention) Zero() bool {
 	if m == nil {
@@ -288,16 +301,6 @@ func (m *MessageEntityMention) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityMention) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityMention) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityMention) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -331,18 +334,15 @@ func (m *MessageEntityMention) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityMention) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityMention) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityMention.
-var (
-	_ bin.Encoder     = &MessageEntityMention{}
-	_ bin.Decoder     = &MessageEntityMention{}
-	_ bin.BareEncoder = &MessageEntityMention{}
-	_ bin.BareDecoder = &MessageEntityMention{}
-
-	_ MessageEntityClass = &MessageEntityMention{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityMention) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityHashtag represents TL type `messageEntityHashtag#6f635b0d`.
 // #hashtag message entity
@@ -357,6 +357,19 @@ type MessageEntityHashtag struct {
 
 // MessageEntityHashtagTypeID is TL type id of MessageEntityHashtag.
 const MessageEntityHashtagTypeID = 0x6f635b0d
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityHashtag) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityHashtag.
+var (
+	_ bin.Encoder     = &MessageEntityHashtag{}
+	_ bin.Decoder     = &MessageEntityHashtag{}
+	_ bin.BareEncoder = &MessageEntityHashtag{}
+	_ bin.BareDecoder = &MessageEntityHashtag{}
+
+	_ MessageEntityClass = &MessageEntityHashtag{}
+)
 
 func (m *MessageEntityHashtag) Zero() bool {
 	if m == nil {
@@ -444,16 +457,6 @@ func (m *MessageEntityHashtag) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityHashtag) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityHashtag) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityHashtag) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -487,18 +490,15 @@ func (m *MessageEntityHashtag) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityHashtag) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityHashtag) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityHashtag.
-var (
-	_ bin.Encoder     = &MessageEntityHashtag{}
-	_ bin.Decoder     = &MessageEntityHashtag{}
-	_ bin.BareEncoder = &MessageEntityHashtag{}
-	_ bin.BareDecoder = &MessageEntityHashtag{}
-
-	_ MessageEntityClass = &MessageEntityHashtag{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityHashtag) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityBotCommand represents TL type `messageEntityBotCommand#6cef8ac7`.
 // Message entity representing a bot /command
@@ -513,6 +513,19 @@ type MessageEntityBotCommand struct {
 
 // MessageEntityBotCommandTypeID is TL type id of MessageEntityBotCommand.
 const MessageEntityBotCommandTypeID = 0x6cef8ac7
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityBotCommand) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityBotCommand.
+var (
+	_ bin.Encoder     = &MessageEntityBotCommand{}
+	_ bin.Decoder     = &MessageEntityBotCommand{}
+	_ bin.BareEncoder = &MessageEntityBotCommand{}
+	_ bin.BareDecoder = &MessageEntityBotCommand{}
+
+	_ MessageEntityClass = &MessageEntityBotCommand{}
+)
 
 func (m *MessageEntityBotCommand) Zero() bool {
 	if m == nil {
@@ -600,16 +613,6 @@ func (m *MessageEntityBotCommand) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityBotCommand) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityBotCommand) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityBotCommand) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -643,18 +646,15 @@ func (m *MessageEntityBotCommand) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityBotCommand) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityBotCommand) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityBotCommand.
-var (
-	_ bin.Encoder     = &MessageEntityBotCommand{}
-	_ bin.Decoder     = &MessageEntityBotCommand{}
-	_ bin.BareEncoder = &MessageEntityBotCommand{}
-	_ bin.BareDecoder = &MessageEntityBotCommand{}
-
-	_ MessageEntityClass = &MessageEntityBotCommand{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityBotCommand) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityURL represents TL type `messageEntityUrl#6ed02538`.
 // Message entity representing an in-text url: https://google.com¹; for text urls², use
@@ -675,6 +675,19 @@ type MessageEntityURL struct {
 
 // MessageEntityURLTypeID is TL type id of MessageEntityURL.
 const MessageEntityURLTypeID = 0x6ed02538
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityURL) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityURL.
+var (
+	_ bin.Encoder     = &MessageEntityURL{}
+	_ bin.Decoder     = &MessageEntityURL{}
+	_ bin.BareEncoder = &MessageEntityURL{}
+	_ bin.BareDecoder = &MessageEntityURL{}
+
+	_ MessageEntityClass = &MessageEntityURL{}
+)
 
 func (m *MessageEntityURL) Zero() bool {
 	if m == nil {
@@ -762,16 +775,6 @@ func (m *MessageEntityURL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityURL) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityURL) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityURL) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -805,18 +808,15 @@ func (m *MessageEntityURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityURL) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityURL) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityURL.
-var (
-	_ bin.Encoder     = &MessageEntityURL{}
-	_ bin.Decoder     = &MessageEntityURL{}
-	_ bin.BareEncoder = &MessageEntityURL{}
-	_ bin.BareDecoder = &MessageEntityURL{}
-
-	_ MessageEntityClass = &MessageEntityURL{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityURL) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityEmail represents TL type `messageEntityEmail#64e475c2`.
 // Message entity representing an email@example.com¹.
@@ -834,6 +834,19 @@ type MessageEntityEmail struct {
 
 // MessageEntityEmailTypeID is TL type id of MessageEntityEmail.
 const MessageEntityEmailTypeID = 0x64e475c2
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityEmail) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityEmail.
+var (
+	_ bin.Encoder     = &MessageEntityEmail{}
+	_ bin.Decoder     = &MessageEntityEmail{}
+	_ bin.BareEncoder = &MessageEntityEmail{}
+	_ bin.BareDecoder = &MessageEntityEmail{}
+
+	_ MessageEntityClass = &MessageEntityEmail{}
+)
 
 func (m *MessageEntityEmail) Zero() bool {
 	if m == nil {
@@ -921,16 +934,6 @@ func (m *MessageEntityEmail) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityEmail) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityEmail) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityEmail) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -964,18 +967,15 @@ func (m *MessageEntityEmail) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityEmail) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityEmail) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityEmail.
-var (
-	_ bin.Encoder     = &MessageEntityEmail{}
-	_ bin.Decoder     = &MessageEntityEmail{}
-	_ bin.BareEncoder = &MessageEntityEmail{}
-	_ bin.BareDecoder = &MessageEntityEmail{}
-
-	_ MessageEntityClass = &MessageEntityEmail{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityEmail) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityBold represents TL type `messageEntityBold#bd610bc9`.
 // Message entity representing bold text.
@@ -990,6 +990,19 @@ type MessageEntityBold struct {
 
 // MessageEntityBoldTypeID is TL type id of MessageEntityBold.
 const MessageEntityBoldTypeID = 0xbd610bc9
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityBold) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityBold.
+var (
+	_ bin.Encoder     = &MessageEntityBold{}
+	_ bin.Decoder     = &MessageEntityBold{}
+	_ bin.BareEncoder = &MessageEntityBold{}
+	_ bin.BareDecoder = &MessageEntityBold{}
+
+	_ MessageEntityClass = &MessageEntityBold{}
+)
 
 func (m *MessageEntityBold) Zero() bool {
 	if m == nil {
@@ -1077,16 +1090,6 @@ func (m *MessageEntityBold) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityBold) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityBold) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityBold) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1120,18 +1123,15 @@ func (m *MessageEntityBold) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityBold) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityBold) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityBold.
-var (
-	_ bin.Encoder     = &MessageEntityBold{}
-	_ bin.Decoder     = &MessageEntityBold{}
-	_ bin.BareEncoder = &MessageEntityBold{}
-	_ bin.BareDecoder = &MessageEntityBold{}
-
-	_ MessageEntityClass = &MessageEntityBold{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityBold) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityItalic represents TL type `messageEntityItalic#826f8b60`.
 // Message entity representing italic text.
@@ -1146,6 +1146,19 @@ type MessageEntityItalic struct {
 
 // MessageEntityItalicTypeID is TL type id of MessageEntityItalic.
 const MessageEntityItalicTypeID = 0x826f8b60
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityItalic) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityItalic.
+var (
+	_ bin.Encoder     = &MessageEntityItalic{}
+	_ bin.Decoder     = &MessageEntityItalic{}
+	_ bin.BareEncoder = &MessageEntityItalic{}
+	_ bin.BareDecoder = &MessageEntityItalic{}
+
+	_ MessageEntityClass = &MessageEntityItalic{}
+)
 
 func (m *MessageEntityItalic) Zero() bool {
 	if m == nil {
@@ -1233,16 +1246,6 @@ func (m *MessageEntityItalic) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityItalic) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityItalic) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityItalic) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1276,18 +1279,15 @@ func (m *MessageEntityItalic) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityItalic) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityItalic) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityItalic.
-var (
-	_ bin.Encoder     = &MessageEntityItalic{}
-	_ bin.Decoder     = &MessageEntityItalic{}
-	_ bin.BareEncoder = &MessageEntityItalic{}
-	_ bin.BareDecoder = &MessageEntityItalic{}
-
-	_ MessageEntityClass = &MessageEntityItalic{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityItalic) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityCode represents TL type `messageEntityCode#28a20571`.
 // Message entity representing a codeblock.
@@ -1302,6 +1302,19 @@ type MessageEntityCode struct {
 
 // MessageEntityCodeTypeID is TL type id of MessageEntityCode.
 const MessageEntityCodeTypeID = 0x28a20571
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityCode) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityCode.
+var (
+	_ bin.Encoder     = &MessageEntityCode{}
+	_ bin.Decoder     = &MessageEntityCode{}
+	_ bin.BareEncoder = &MessageEntityCode{}
+	_ bin.BareDecoder = &MessageEntityCode{}
+
+	_ MessageEntityClass = &MessageEntityCode{}
+)
 
 func (m *MessageEntityCode) Zero() bool {
 	if m == nil {
@@ -1389,16 +1402,6 @@ func (m *MessageEntityCode) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityCode) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityCode) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityCode) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1432,18 +1435,15 @@ func (m *MessageEntityCode) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityCode) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityCode) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityCode.
-var (
-	_ bin.Encoder     = &MessageEntityCode{}
-	_ bin.Decoder     = &MessageEntityCode{}
-	_ bin.BareEncoder = &MessageEntityCode{}
-	_ bin.BareDecoder = &MessageEntityCode{}
-
-	_ MessageEntityClass = &MessageEntityCode{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityCode) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityPre represents TL type `messageEntityPre#73924be0`.
 // Message entity representing a preformatted codeblock, allowing the user to specify a
@@ -1461,6 +1461,19 @@ type MessageEntityPre struct {
 
 // MessageEntityPreTypeID is TL type id of MessageEntityPre.
 const MessageEntityPreTypeID = 0x73924be0
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityPre) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityPre.
+var (
+	_ bin.Encoder     = &MessageEntityPre{}
+	_ bin.Decoder     = &MessageEntityPre{}
+	_ bin.BareEncoder = &MessageEntityPre{}
+	_ bin.BareDecoder = &MessageEntityPre{}
+
+	_ MessageEntityClass = &MessageEntityPre{}
+)
 
 func (m *MessageEntityPre) Zero() bool {
 	if m == nil {
@@ -1558,21 +1571,6 @@ func (m *MessageEntityPre) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityPre) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityPre) GetLength() (value int) {
-	return m.Length
-}
-
-// GetLanguage returns value of Language field.
-func (m *MessageEntityPre) GetLanguage() (value string) {
-	return m.Language
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityPre) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1613,18 +1611,20 @@ func (m *MessageEntityPre) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityPre) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityPre) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityPre.
-var (
-	_ bin.Encoder     = &MessageEntityPre{}
-	_ bin.Decoder     = &MessageEntityPre{}
-	_ bin.BareEncoder = &MessageEntityPre{}
-	_ bin.BareDecoder = &MessageEntityPre{}
+// GetLength returns value of Length field.
+func (m *MessageEntityPre) GetLength() (value int) {
+	return m.Length
+}
 
-	_ MessageEntityClass = &MessageEntityPre{}
-)
+// GetLanguage returns value of Language field.
+func (m *MessageEntityPre) GetLanguage() (value string) {
+	return m.Language
+}
 
 // MessageEntityTextURL represents TL type `messageEntityTextUrl#76a6d327`.
 // Message entity representing a text url¹: for in-text urls like https://google.com²
@@ -1647,6 +1647,19 @@ type MessageEntityTextURL struct {
 
 // MessageEntityTextURLTypeID is TL type id of MessageEntityTextURL.
 const MessageEntityTextURLTypeID = 0x76a6d327
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityTextURL) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityTextURL.
+var (
+	_ bin.Encoder     = &MessageEntityTextURL{}
+	_ bin.Decoder     = &MessageEntityTextURL{}
+	_ bin.BareEncoder = &MessageEntityTextURL{}
+	_ bin.BareDecoder = &MessageEntityTextURL{}
+
+	_ MessageEntityClass = &MessageEntityTextURL{}
+)
 
 func (m *MessageEntityTextURL) Zero() bool {
 	if m == nil {
@@ -1744,21 +1757,6 @@ func (m *MessageEntityTextURL) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityTextURL) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityTextURL) GetLength() (value int) {
-	return m.Length
-}
-
-// GetURL returns value of URL field.
-func (m *MessageEntityTextURL) GetURL() (value string) {
-	return m.URL
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityTextURL) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1799,18 +1797,20 @@ func (m *MessageEntityTextURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityTextURL) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityTextURL) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityTextURL.
-var (
-	_ bin.Encoder     = &MessageEntityTextURL{}
-	_ bin.Decoder     = &MessageEntityTextURL{}
-	_ bin.BareEncoder = &MessageEntityTextURL{}
-	_ bin.BareDecoder = &MessageEntityTextURL{}
+// GetLength returns value of Length field.
+func (m *MessageEntityTextURL) GetLength() (value int) {
+	return m.Length
+}
 
-	_ MessageEntityClass = &MessageEntityTextURL{}
-)
+// GetURL returns value of URL field.
+func (m *MessageEntityTextURL) GetURL() (value string) {
+	return m.URL
+}
 
 // MessageEntityMentionName represents TL type `messageEntityMentionName#352dca58`.
 // Message entity representing a user mention¹: for creating a mention use
@@ -1832,6 +1832,19 @@ type MessageEntityMentionName struct {
 
 // MessageEntityMentionNameTypeID is TL type id of MessageEntityMentionName.
 const MessageEntityMentionNameTypeID = 0x352dca58
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityMentionName) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityMentionName.
+var (
+	_ bin.Encoder     = &MessageEntityMentionName{}
+	_ bin.Decoder     = &MessageEntityMentionName{}
+	_ bin.BareEncoder = &MessageEntityMentionName{}
+	_ bin.BareDecoder = &MessageEntityMentionName{}
+
+	_ MessageEntityClass = &MessageEntityMentionName{}
+)
 
 func (m *MessageEntityMentionName) Zero() bool {
 	if m == nil {
@@ -1929,21 +1942,6 @@ func (m *MessageEntityMentionName) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityMentionName) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityMentionName) GetLength() (value int) {
-	return m.Length
-}
-
-// GetUserID returns value of UserID field.
-func (m *MessageEntityMentionName) GetUserID() (value int) {
-	return m.UserID
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityMentionName) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -1984,18 +1982,20 @@ func (m *MessageEntityMentionName) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityMentionName) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityMentionName) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityMentionName.
-var (
-	_ bin.Encoder     = &MessageEntityMentionName{}
-	_ bin.Decoder     = &MessageEntityMentionName{}
-	_ bin.BareEncoder = &MessageEntityMentionName{}
-	_ bin.BareDecoder = &MessageEntityMentionName{}
+// GetLength returns value of Length field.
+func (m *MessageEntityMentionName) GetLength() (value int) {
+	return m.Length
+}
 
-	_ MessageEntityClass = &MessageEntityMentionName{}
-)
+// GetUserID returns value of UserID field.
+func (m *MessageEntityMentionName) GetUserID() (value int) {
+	return m.UserID
+}
 
 // InputMessageEntityMentionName represents TL type `inputMessageEntityMentionName#208e68c9`.
 // Message entity that can be used to create a user user mention¹: received mentions use
@@ -2017,6 +2017,19 @@ type InputMessageEntityMentionName struct {
 
 // InputMessageEntityMentionNameTypeID is TL type id of InputMessageEntityMentionName.
 const InputMessageEntityMentionNameTypeID = 0x208e68c9
+
+// construct implements constructor of MessageEntityClass.
+func (i InputMessageEntityMentionName) construct() MessageEntityClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessageEntityMentionName.
+var (
+	_ bin.Encoder     = &InputMessageEntityMentionName{}
+	_ bin.Decoder     = &InputMessageEntityMentionName{}
+	_ bin.BareEncoder = &InputMessageEntityMentionName{}
+	_ bin.BareDecoder = &InputMessageEntityMentionName{}
+
+	_ MessageEntityClass = &InputMessageEntityMentionName{}
+)
 
 func (i *InputMessageEntityMentionName) Zero() bool {
 	if i == nil {
@@ -2119,21 +2132,6 @@ func (i *InputMessageEntityMentionName) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (i *InputMessageEntityMentionName) GetOffset() (value int) {
-	return i.Offset
-}
-
-// GetLength returns value of Length field.
-func (i *InputMessageEntityMentionName) GetLength() (value int) {
-	return i.Length
-}
-
-// GetUserID returns value of UserID field.
-func (i *InputMessageEntityMentionName) GetUserID() (value InputUserClass) {
-	return i.UserID
-}
-
 // Decode implements bin.Decoder.
 func (i *InputMessageEntityMentionName) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -2174,18 +2172,20 @@ func (i *InputMessageEntityMentionName) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (i InputMessageEntityMentionName) construct() MessageEntityClass { return &i }
+// GetOffset returns value of Offset field.
+func (i *InputMessageEntityMentionName) GetOffset() (value int) {
+	return i.Offset
+}
 
-// Ensuring interfaces in compile-time for InputMessageEntityMentionName.
-var (
-	_ bin.Encoder     = &InputMessageEntityMentionName{}
-	_ bin.Decoder     = &InputMessageEntityMentionName{}
-	_ bin.BareEncoder = &InputMessageEntityMentionName{}
-	_ bin.BareDecoder = &InputMessageEntityMentionName{}
+// GetLength returns value of Length field.
+func (i *InputMessageEntityMentionName) GetLength() (value int) {
+	return i.Length
+}
 
-	_ MessageEntityClass = &InputMessageEntityMentionName{}
-)
+// GetUserID returns value of UserID field.
+func (i *InputMessageEntityMentionName) GetUserID() (value InputUserClass) {
+	return i.UserID
+}
 
 // MessageEntityPhone represents TL type `messageEntityPhone#9b69e34b`.
 // Message entity representing a phone number.
@@ -2200,6 +2200,19 @@ type MessageEntityPhone struct {
 
 // MessageEntityPhoneTypeID is TL type id of MessageEntityPhone.
 const MessageEntityPhoneTypeID = 0x9b69e34b
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityPhone) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityPhone.
+var (
+	_ bin.Encoder     = &MessageEntityPhone{}
+	_ bin.Decoder     = &MessageEntityPhone{}
+	_ bin.BareEncoder = &MessageEntityPhone{}
+	_ bin.BareDecoder = &MessageEntityPhone{}
+
+	_ MessageEntityClass = &MessageEntityPhone{}
+)
 
 func (m *MessageEntityPhone) Zero() bool {
 	if m == nil {
@@ -2287,16 +2300,6 @@ func (m *MessageEntityPhone) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityPhone) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityPhone) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityPhone) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2330,18 +2333,15 @@ func (m *MessageEntityPhone) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityPhone) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityPhone) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityPhone.
-var (
-	_ bin.Encoder     = &MessageEntityPhone{}
-	_ bin.Decoder     = &MessageEntityPhone{}
-	_ bin.BareEncoder = &MessageEntityPhone{}
-	_ bin.BareDecoder = &MessageEntityPhone{}
-
-	_ MessageEntityClass = &MessageEntityPhone{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityPhone) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityCashtag represents TL type `messageEntityCashtag#4c4e743f`.
 // Message entity representing a $cashtag.
@@ -2356,6 +2356,19 @@ type MessageEntityCashtag struct {
 
 // MessageEntityCashtagTypeID is TL type id of MessageEntityCashtag.
 const MessageEntityCashtagTypeID = 0x4c4e743f
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityCashtag) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityCashtag.
+var (
+	_ bin.Encoder     = &MessageEntityCashtag{}
+	_ bin.Decoder     = &MessageEntityCashtag{}
+	_ bin.BareEncoder = &MessageEntityCashtag{}
+	_ bin.BareDecoder = &MessageEntityCashtag{}
+
+	_ MessageEntityClass = &MessageEntityCashtag{}
+)
 
 func (m *MessageEntityCashtag) Zero() bool {
 	if m == nil {
@@ -2443,16 +2456,6 @@ func (m *MessageEntityCashtag) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityCashtag) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityCashtag) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityCashtag) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2486,18 +2489,15 @@ func (m *MessageEntityCashtag) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityCashtag) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityCashtag) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityCashtag.
-var (
-	_ bin.Encoder     = &MessageEntityCashtag{}
-	_ bin.Decoder     = &MessageEntityCashtag{}
-	_ bin.BareEncoder = &MessageEntityCashtag{}
-	_ bin.BareDecoder = &MessageEntityCashtag{}
-
-	_ MessageEntityClass = &MessageEntityCashtag{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityCashtag) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityUnderline represents TL type `messageEntityUnderline#9c4e7e8b`.
 // Message entity representing underlined text.
@@ -2512,6 +2512,19 @@ type MessageEntityUnderline struct {
 
 // MessageEntityUnderlineTypeID is TL type id of MessageEntityUnderline.
 const MessageEntityUnderlineTypeID = 0x9c4e7e8b
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityUnderline) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityUnderline.
+var (
+	_ bin.Encoder     = &MessageEntityUnderline{}
+	_ bin.Decoder     = &MessageEntityUnderline{}
+	_ bin.BareEncoder = &MessageEntityUnderline{}
+	_ bin.BareDecoder = &MessageEntityUnderline{}
+
+	_ MessageEntityClass = &MessageEntityUnderline{}
+)
 
 func (m *MessageEntityUnderline) Zero() bool {
 	if m == nil {
@@ -2599,16 +2612,6 @@ func (m *MessageEntityUnderline) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityUnderline) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityUnderline) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityUnderline) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2642,18 +2645,15 @@ func (m *MessageEntityUnderline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityUnderline) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityUnderline) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityUnderline.
-var (
-	_ bin.Encoder     = &MessageEntityUnderline{}
-	_ bin.Decoder     = &MessageEntityUnderline{}
-	_ bin.BareEncoder = &MessageEntityUnderline{}
-	_ bin.BareDecoder = &MessageEntityUnderline{}
-
-	_ MessageEntityClass = &MessageEntityUnderline{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityUnderline) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityStrike represents TL type `messageEntityStrike#bf0693d4`.
 // Message entity representing strikethrough text.
@@ -2668,6 +2668,19 @@ type MessageEntityStrike struct {
 
 // MessageEntityStrikeTypeID is TL type id of MessageEntityStrike.
 const MessageEntityStrikeTypeID = 0xbf0693d4
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityStrike) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityStrike.
+var (
+	_ bin.Encoder     = &MessageEntityStrike{}
+	_ bin.Decoder     = &MessageEntityStrike{}
+	_ bin.BareEncoder = &MessageEntityStrike{}
+	_ bin.BareDecoder = &MessageEntityStrike{}
+
+	_ MessageEntityClass = &MessageEntityStrike{}
+)
 
 func (m *MessageEntityStrike) Zero() bool {
 	if m == nil {
@@ -2755,16 +2768,6 @@ func (m *MessageEntityStrike) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityStrike) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityStrike) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityStrike) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2798,18 +2801,15 @@ func (m *MessageEntityStrike) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityStrike) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityStrike) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityStrike.
-var (
-	_ bin.Encoder     = &MessageEntityStrike{}
-	_ bin.Decoder     = &MessageEntityStrike{}
-	_ bin.BareEncoder = &MessageEntityStrike{}
-	_ bin.BareDecoder = &MessageEntityStrike{}
-
-	_ MessageEntityClass = &MessageEntityStrike{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityStrike) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityBlockquote represents TL type `messageEntityBlockquote#20df5d0`.
 // Message entity representing a block quote.
@@ -2824,6 +2824,19 @@ type MessageEntityBlockquote struct {
 
 // MessageEntityBlockquoteTypeID is TL type id of MessageEntityBlockquote.
 const MessageEntityBlockquoteTypeID = 0x20df5d0
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityBlockquote) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityBlockquote.
+var (
+	_ bin.Encoder     = &MessageEntityBlockquote{}
+	_ bin.Decoder     = &MessageEntityBlockquote{}
+	_ bin.BareEncoder = &MessageEntityBlockquote{}
+	_ bin.BareDecoder = &MessageEntityBlockquote{}
+
+	_ MessageEntityClass = &MessageEntityBlockquote{}
+)
 
 func (m *MessageEntityBlockquote) Zero() bool {
 	if m == nil {
@@ -2911,16 +2924,6 @@ func (m *MessageEntityBlockquote) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityBlockquote) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityBlockquote) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityBlockquote) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -2954,18 +2957,15 @@ func (m *MessageEntityBlockquote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityBlockquote) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityBlockquote) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityBlockquote.
-var (
-	_ bin.Encoder     = &MessageEntityBlockquote{}
-	_ bin.Decoder     = &MessageEntityBlockquote{}
-	_ bin.BareEncoder = &MessageEntityBlockquote{}
-	_ bin.BareDecoder = &MessageEntityBlockquote{}
-
-	_ MessageEntityClass = &MessageEntityBlockquote{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityBlockquote) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityBankCard represents TL type `messageEntityBankCard#761e6af4`.
 // Indicates a credit card number
@@ -2980,6 +2980,19 @@ type MessageEntityBankCard struct {
 
 // MessageEntityBankCardTypeID is TL type id of MessageEntityBankCard.
 const MessageEntityBankCardTypeID = 0x761e6af4
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityBankCard) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityBankCard.
+var (
+	_ bin.Encoder     = &MessageEntityBankCard{}
+	_ bin.Decoder     = &MessageEntityBankCard{}
+	_ bin.BareEncoder = &MessageEntityBankCard{}
+	_ bin.BareDecoder = &MessageEntityBankCard{}
+
+	_ MessageEntityClass = &MessageEntityBankCard{}
+)
 
 func (m *MessageEntityBankCard) Zero() bool {
 	if m == nil {
@@ -3067,16 +3080,6 @@ func (m *MessageEntityBankCard) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetOffset returns value of Offset field.
-func (m *MessageEntityBankCard) GetOffset() (value int) {
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityBankCard) GetLength() (value int) {
-	return m.Length
-}
-
 // Decode implements bin.Decoder.
 func (m *MessageEntityBankCard) Decode(b *bin.Buffer) error {
 	if m == nil {
@@ -3110,18 +3113,15 @@ func (m *MessageEntityBankCard) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityBankCard) construct() MessageEntityClass { return &m }
+// GetOffset returns value of Offset field.
+func (m *MessageEntityBankCard) GetOffset() (value int) {
+	return m.Offset
+}
 
-// Ensuring interfaces in compile-time for MessageEntityBankCard.
-var (
-	_ bin.Encoder     = &MessageEntityBankCard{}
-	_ bin.Decoder     = &MessageEntityBankCard{}
-	_ bin.BareEncoder = &MessageEntityBankCard{}
-	_ bin.BareDecoder = &MessageEntityBankCard{}
-
-	_ MessageEntityClass = &MessageEntityBankCard{}
-)
+// GetLength returns value of Length field.
+func (m *MessageEntityBankCard) GetLength() (value int) {
+	return m.Length
+}
 
 // MessageEntityClass represents MessageEntity generic type.
 //
@@ -3348,1891 +3348,4 @@ func (b *MessageEntityBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessageEntityClass as nil")
 	}
 	return b.MessageEntity.Encode(buf)
-}
-
-// MessageEntityClassArray is adapter for slice of MessageEntityClass.
-type MessageEntityClassArray []MessageEntityClass
-
-// Sort sorts slice of MessageEntityClass.
-func (s MessageEntityClassArray) Sort(less func(a, b MessageEntityClass) bool) MessageEntityClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityClass.
-func (s MessageEntityClassArray) SortStable(less func(a, b MessageEntityClass) bool) MessageEntityClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityClass.
-func (s MessageEntityClassArray) Retain(keep func(x MessageEntityClass) bool) MessageEntityClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityClassArray) First() (v MessageEntityClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityClassArray) Last() (v MessageEntityClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityClassArray) PopFirst() (v MessageEntityClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityClassArray) Pop() (v MessageEntityClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsMessageEntityUnknown returns copy with only MessageEntityUnknown constructors.
-func (s MessageEntityClassArray) AsMessageEntityUnknown() (to MessageEntityUnknownArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityUnknown)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityMention returns copy with only MessageEntityMention constructors.
-func (s MessageEntityClassArray) AsMessageEntityMention() (to MessageEntityMentionArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityMention)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityHashtag returns copy with only MessageEntityHashtag constructors.
-func (s MessageEntityClassArray) AsMessageEntityHashtag() (to MessageEntityHashtagArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityHashtag)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityBotCommand returns copy with only MessageEntityBotCommand constructors.
-func (s MessageEntityClassArray) AsMessageEntityBotCommand() (to MessageEntityBotCommandArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityBotCommand)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityURL returns copy with only MessageEntityURL constructors.
-func (s MessageEntityClassArray) AsMessageEntityURL() (to MessageEntityURLArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityURL)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityEmail returns copy with only MessageEntityEmail constructors.
-func (s MessageEntityClassArray) AsMessageEntityEmail() (to MessageEntityEmailArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityEmail)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityBold returns copy with only MessageEntityBold constructors.
-func (s MessageEntityClassArray) AsMessageEntityBold() (to MessageEntityBoldArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityBold)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityItalic returns copy with only MessageEntityItalic constructors.
-func (s MessageEntityClassArray) AsMessageEntityItalic() (to MessageEntityItalicArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityItalic)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityCode returns copy with only MessageEntityCode constructors.
-func (s MessageEntityClassArray) AsMessageEntityCode() (to MessageEntityCodeArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityCode)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityPre returns copy with only MessageEntityPre constructors.
-func (s MessageEntityClassArray) AsMessageEntityPre() (to MessageEntityPreArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityPre)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityTextURL returns copy with only MessageEntityTextURL constructors.
-func (s MessageEntityClassArray) AsMessageEntityTextURL() (to MessageEntityTextURLArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityTextURL)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityMentionName returns copy with only MessageEntityMentionName constructors.
-func (s MessageEntityClassArray) AsMessageEntityMentionName() (to MessageEntityMentionNameArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityMentionName)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputMessageEntityMentionName returns copy with only InputMessageEntityMentionName constructors.
-func (s MessageEntityClassArray) AsInputMessageEntityMentionName() (to InputMessageEntityMentionNameArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputMessageEntityMentionName)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityPhone returns copy with only MessageEntityPhone constructors.
-func (s MessageEntityClassArray) AsMessageEntityPhone() (to MessageEntityPhoneArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityPhone)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityCashtag returns copy with only MessageEntityCashtag constructors.
-func (s MessageEntityClassArray) AsMessageEntityCashtag() (to MessageEntityCashtagArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityCashtag)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityUnderline returns copy with only MessageEntityUnderline constructors.
-func (s MessageEntityClassArray) AsMessageEntityUnderline() (to MessageEntityUnderlineArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityUnderline)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityStrike returns copy with only MessageEntityStrike constructors.
-func (s MessageEntityClassArray) AsMessageEntityStrike() (to MessageEntityStrikeArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityStrike)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityBlockquote returns copy with only MessageEntityBlockquote constructors.
-func (s MessageEntityClassArray) AsMessageEntityBlockquote() (to MessageEntityBlockquoteArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityBlockquote)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessageEntityBankCard returns copy with only MessageEntityBankCard constructors.
-func (s MessageEntityClassArray) AsMessageEntityBankCard() (to MessageEntityBankCardArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityBankCard)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// MessageEntityUnknownArray is adapter for slice of MessageEntityUnknown.
-type MessageEntityUnknownArray []MessageEntityUnknown
-
-// Sort sorts slice of MessageEntityUnknown.
-func (s MessageEntityUnknownArray) Sort(less func(a, b MessageEntityUnknown) bool) MessageEntityUnknownArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityUnknown.
-func (s MessageEntityUnknownArray) SortStable(less func(a, b MessageEntityUnknown) bool) MessageEntityUnknownArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityUnknown.
-func (s MessageEntityUnknownArray) Retain(keep func(x MessageEntityUnknown) bool) MessageEntityUnknownArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityUnknownArray) First() (v MessageEntityUnknown, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityUnknownArray) Last() (v MessageEntityUnknown, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityUnknownArray) PopFirst() (v MessageEntityUnknown, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityUnknown
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityUnknownArray) Pop() (v MessageEntityUnknown, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityMentionArray is adapter for slice of MessageEntityMention.
-type MessageEntityMentionArray []MessageEntityMention
-
-// Sort sorts slice of MessageEntityMention.
-func (s MessageEntityMentionArray) Sort(less func(a, b MessageEntityMention) bool) MessageEntityMentionArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityMention.
-func (s MessageEntityMentionArray) SortStable(less func(a, b MessageEntityMention) bool) MessageEntityMentionArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityMention.
-func (s MessageEntityMentionArray) Retain(keep func(x MessageEntityMention) bool) MessageEntityMentionArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityMentionArray) First() (v MessageEntityMention, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityMentionArray) Last() (v MessageEntityMention, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityMentionArray) PopFirst() (v MessageEntityMention, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityMention
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityMentionArray) Pop() (v MessageEntityMention, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityHashtagArray is adapter for slice of MessageEntityHashtag.
-type MessageEntityHashtagArray []MessageEntityHashtag
-
-// Sort sorts slice of MessageEntityHashtag.
-func (s MessageEntityHashtagArray) Sort(less func(a, b MessageEntityHashtag) bool) MessageEntityHashtagArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityHashtag.
-func (s MessageEntityHashtagArray) SortStable(less func(a, b MessageEntityHashtag) bool) MessageEntityHashtagArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityHashtag.
-func (s MessageEntityHashtagArray) Retain(keep func(x MessageEntityHashtag) bool) MessageEntityHashtagArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityHashtagArray) First() (v MessageEntityHashtag, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityHashtagArray) Last() (v MessageEntityHashtag, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityHashtagArray) PopFirst() (v MessageEntityHashtag, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityHashtag
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityHashtagArray) Pop() (v MessageEntityHashtag, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityBotCommandArray is adapter for slice of MessageEntityBotCommand.
-type MessageEntityBotCommandArray []MessageEntityBotCommand
-
-// Sort sorts slice of MessageEntityBotCommand.
-func (s MessageEntityBotCommandArray) Sort(less func(a, b MessageEntityBotCommand) bool) MessageEntityBotCommandArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityBotCommand.
-func (s MessageEntityBotCommandArray) SortStable(less func(a, b MessageEntityBotCommand) bool) MessageEntityBotCommandArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityBotCommand.
-func (s MessageEntityBotCommandArray) Retain(keep func(x MessageEntityBotCommand) bool) MessageEntityBotCommandArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityBotCommandArray) First() (v MessageEntityBotCommand, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityBotCommandArray) Last() (v MessageEntityBotCommand, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityBotCommandArray) PopFirst() (v MessageEntityBotCommand, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityBotCommand
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityBotCommandArray) Pop() (v MessageEntityBotCommand, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityURLArray is adapter for slice of MessageEntityURL.
-type MessageEntityURLArray []MessageEntityURL
-
-// Sort sorts slice of MessageEntityURL.
-func (s MessageEntityURLArray) Sort(less func(a, b MessageEntityURL) bool) MessageEntityURLArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityURL.
-func (s MessageEntityURLArray) SortStable(less func(a, b MessageEntityURL) bool) MessageEntityURLArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityURL.
-func (s MessageEntityURLArray) Retain(keep func(x MessageEntityURL) bool) MessageEntityURLArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityURLArray) First() (v MessageEntityURL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityURLArray) Last() (v MessageEntityURL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityURLArray) PopFirst() (v MessageEntityURL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityURL
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityURLArray) Pop() (v MessageEntityURL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityEmailArray is adapter for slice of MessageEntityEmail.
-type MessageEntityEmailArray []MessageEntityEmail
-
-// Sort sorts slice of MessageEntityEmail.
-func (s MessageEntityEmailArray) Sort(less func(a, b MessageEntityEmail) bool) MessageEntityEmailArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityEmail.
-func (s MessageEntityEmailArray) SortStable(less func(a, b MessageEntityEmail) bool) MessageEntityEmailArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityEmail.
-func (s MessageEntityEmailArray) Retain(keep func(x MessageEntityEmail) bool) MessageEntityEmailArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityEmailArray) First() (v MessageEntityEmail, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityEmailArray) Last() (v MessageEntityEmail, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityEmailArray) PopFirst() (v MessageEntityEmail, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityEmail
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityEmailArray) Pop() (v MessageEntityEmail, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityBoldArray is adapter for slice of MessageEntityBold.
-type MessageEntityBoldArray []MessageEntityBold
-
-// Sort sorts slice of MessageEntityBold.
-func (s MessageEntityBoldArray) Sort(less func(a, b MessageEntityBold) bool) MessageEntityBoldArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityBold.
-func (s MessageEntityBoldArray) SortStable(less func(a, b MessageEntityBold) bool) MessageEntityBoldArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityBold.
-func (s MessageEntityBoldArray) Retain(keep func(x MessageEntityBold) bool) MessageEntityBoldArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityBoldArray) First() (v MessageEntityBold, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityBoldArray) Last() (v MessageEntityBold, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityBoldArray) PopFirst() (v MessageEntityBold, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityBold
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityBoldArray) Pop() (v MessageEntityBold, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityItalicArray is adapter for slice of MessageEntityItalic.
-type MessageEntityItalicArray []MessageEntityItalic
-
-// Sort sorts slice of MessageEntityItalic.
-func (s MessageEntityItalicArray) Sort(less func(a, b MessageEntityItalic) bool) MessageEntityItalicArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityItalic.
-func (s MessageEntityItalicArray) SortStable(less func(a, b MessageEntityItalic) bool) MessageEntityItalicArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityItalic.
-func (s MessageEntityItalicArray) Retain(keep func(x MessageEntityItalic) bool) MessageEntityItalicArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityItalicArray) First() (v MessageEntityItalic, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityItalicArray) Last() (v MessageEntityItalic, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityItalicArray) PopFirst() (v MessageEntityItalic, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityItalic
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityItalicArray) Pop() (v MessageEntityItalic, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityCodeArray is adapter for slice of MessageEntityCode.
-type MessageEntityCodeArray []MessageEntityCode
-
-// Sort sorts slice of MessageEntityCode.
-func (s MessageEntityCodeArray) Sort(less func(a, b MessageEntityCode) bool) MessageEntityCodeArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityCode.
-func (s MessageEntityCodeArray) SortStable(less func(a, b MessageEntityCode) bool) MessageEntityCodeArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityCode.
-func (s MessageEntityCodeArray) Retain(keep func(x MessageEntityCode) bool) MessageEntityCodeArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityCodeArray) First() (v MessageEntityCode, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityCodeArray) Last() (v MessageEntityCode, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityCodeArray) PopFirst() (v MessageEntityCode, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityCode
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityCodeArray) Pop() (v MessageEntityCode, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityPreArray is adapter for slice of MessageEntityPre.
-type MessageEntityPreArray []MessageEntityPre
-
-// Sort sorts slice of MessageEntityPre.
-func (s MessageEntityPreArray) Sort(less func(a, b MessageEntityPre) bool) MessageEntityPreArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityPre.
-func (s MessageEntityPreArray) SortStable(less func(a, b MessageEntityPre) bool) MessageEntityPreArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityPre.
-func (s MessageEntityPreArray) Retain(keep func(x MessageEntityPre) bool) MessageEntityPreArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityPreArray) First() (v MessageEntityPre, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityPreArray) Last() (v MessageEntityPre, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityPreArray) PopFirst() (v MessageEntityPre, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityPre
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityPreArray) Pop() (v MessageEntityPre, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityTextURLArray is adapter for slice of MessageEntityTextURL.
-type MessageEntityTextURLArray []MessageEntityTextURL
-
-// Sort sorts slice of MessageEntityTextURL.
-func (s MessageEntityTextURLArray) Sort(less func(a, b MessageEntityTextURL) bool) MessageEntityTextURLArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityTextURL.
-func (s MessageEntityTextURLArray) SortStable(less func(a, b MessageEntityTextURL) bool) MessageEntityTextURLArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityTextURL.
-func (s MessageEntityTextURLArray) Retain(keep func(x MessageEntityTextURL) bool) MessageEntityTextURLArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityTextURLArray) First() (v MessageEntityTextURL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityTextURLArray) Last() (v MessageEntityTextURL, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityTextURLArray) PopFirst() (v MessageEntityTextURL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityTextURL
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityTextURLArray) Pop() (v MessageEntityTextURL, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityMentionNameArray is adapter for slice of MessageEntityMentionName.
-type MessageEntityMentionNameArray []MessageEntityMentionName
-
-// Sort sorts slice of MessageEntityMentionName.
-func (s MessageEntityMentionNameArray) Sort(less func(a, b MessageEntityMentionName) bool) MessageEntityMentionNameArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityMentionName.
-func (s MessageEntityMentionNameArray) SortStable(less func(a, b MessageEntityMentionName) bool) MessageEntityMentionNameArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityMentionName.
-func (s MessageEntityMentionNameArray) Retain(keep func(x MessageEntityMentionName) bool) MessageEntityMentionNameArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityMentionNameArray) First() (v MessageEntityMentionName, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityMentionNameArray) Last() (v MessageEntityMentionName, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityMentionNameArray) PopFirst() (v MessageEntityMentionName, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityMentionName
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityMentionNameArray) Pop() (v MessageEntityMentionName, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputMessageEntityMentionNameArray is adapter for slice of InputMessageEntityMentionName.
-type InputMessageEntityMentionNameArray []InputMessageEntityMentionName
-
-// Sort sorts slice of InputMessageEntityMentionName.
-func (s InputMessageEntityMentionNameArray) Sort(less func(a, b InputMessageEntityMentionName) bool) InputMessageEntityMentionNameArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputMessageEntityMentionName.
-func (s InputMessageEntityMentionNameArray) SortStable(less func(a, b InputMessageEntityMentionName) bool) InputMessageEntityMentionNameArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputMessageEntityMentionName.
-func (s InputMessageEntityMentionNameArray) Retain(keep func(x InputMessageEntityMentionName) bool) InputMessageEntityMentionNameArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputMessageEntityMentionNameArray) First() (v InputMessageEntityMentionName, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputMessageEntityMentionNameArray) Last() (v InputMessageEntityMentionName, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputMessageEntityMentionNameArray) PopFirst() (v InputMessageEntityMentionName, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputMessageEntityMentionName
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputMessageEntityMentionNameArray) Pop() (v InputMessageEntityMentionName, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityPhoneArray is adapter for slice of MessageEntityPhone.
-type MessageEntityPhoneArray []MessageEntityPhone
-
-// Sort sorts slice of MessageEntityPhone.
-func (s MessageEntityPhoneArray) Sort(less func(a, b MessageEntityPhone) bool) MessageEntityPhoneArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityPhone.
-func (s MessageEntityPhoneArray) SortStable(less func(a, b MessageEntityPhone) bool) MessageEntityPhoneArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityPhone.
-func (s MessageEntityPhoneArray) Retain(keep func(x MessageEntityPhone) bool) MessageEntityPhoneArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityPhoneArray) First() (v MessageEntityPhone, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityPhoneArray) Last() (v MessageEntityPhone, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityPhoneArray) PopFirst() (v MessageEntityPhone, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityPhone
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityPhoneArray) Pop() (v MessageEntityPhone, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityCashtagArray is adapter for slice of MessageEntityCashtag.
-type MessageEntityCashtagArray []MessageEntityCashtag
-
-// Sort sorts slice of MessageEntityCashtag.
-func (s MessageEntityCashtagArray) Sort(less func(a, b MessageEntityCashtag) bool) MessageEntityCashtagArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityCashtag.
-func (s MessageEntityCashtagArray) SortStable(less func(a, b MessageEntityCashtag) bool) MessageEntityCashtagArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityCashtag.
-func (s MessageEntityCashtagArray) Retain(keep func(x MessageEntityCashtag) bool) MessageEntityCashtagArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityCashtagArray) First() (v MessageEntityCashtag, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityCashtagArray) Last() (v MessageEntityCashtag, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityCashtagArray) PopFirst() (v MessageEntityCashtag, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityCashtag
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityCashtagArray) Pop() (v MessageEntityCashtag, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityUnderlineArray is adapter for slice of MessageEntityUnderline.
-type MessageEntityUnderlineArray []MessageEntityUnderline
-
-// Sort sorts slice of MessageEntityUnderline.
-func (s MessageEntityUnderlineArray) Sort(less func(a, b MessageEntityUnderline) bool) MessageEntityUnderlineArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityUnderline.
-func (s MessageEntityUnderlineArray) SortStable(less func(a, b MessageEntityUnderline) bool) MessageEntityUnderlineArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityUnderline.
-func (s MessageEntityUnderlineArray) Retain(keep func(x MessageEntityUnderline) bool) MessageEntityUnderlineArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityUnderlineArray) First() (v MessageEntityUnderline, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityUnderlineArray) Last() (v MessageEntityUnderline, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityUnderlineArray) PopFirst() (v MessageEntityUnderline, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityUnderline
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityUnderlineArray) Pop() (v MessageEntityUnderline, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityStrikeArray is adapter for slice of MessageEntityStrike.
-type MessageEntityStrikeArray []MessageEntityStrike
-
-// Sort sorts slice of MessageEntityStrike.
-func (s MessageEntityStrikeArray) Sort(less func(a, b MessageEntityStrike) bool) MessageEntityStrikeArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityStrike.
-func (s MessageEntityStrikeArray) SortStable(less func(a, b MessageEntityStrike) bool) MessageEntityStrikeArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityStrike.
-func (s MessageEntityStrikeArray) Retain(keep func(x MessageEntityStrike) bool) MessageEntityStrikeArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityStrikeArray) First() (v MessageEntityStrike, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityStrikeArray) Last() (v MessageEntityStrike, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityStrikeArray) PopFirst() (v MessageEntityStrike, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityStrike
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityStrikeArray) Pop() (v MessageEntityStrike, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityBlockquoteArray is adapter for slice of MessageEntityBlockquote.
-type MessageEntityBlockquoteArray []MessageEntityBlockquote
-
-// Sort sorts slice of MessageEntityBlockquote.
-func (s MessageEntityBlockquoteArray) Sort(less func(a, b MessageEntityBlockquote) bool) MessageEntityBlockquoteArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityBlockquote.
-func (s MessageEntityBlockquoteArray) SortStable(less func(a, b MessageEntityBlockquote) bool) MessageEntityBlockquoteArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityBlockquote.
-func (s MessageEntityBlockquoteArray) Retain(keep func(x MessageEntityBlockquote) bool) MessageEntityBlockquoteArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityBlockquoteArray) First() (v MessageEntityBlockquote, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityBlockquoteArray) Last() (v MessageEntityBlockquote, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityBlockquoteArray) PopFirst() (v MessageEntityBlockquote, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityBlockquote
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityBlockquoteArray) Pop() (v MessageEntityBlockquote, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessageEntityBankCardArray is adapter for slice of MessageEntityBankCard.
-type MessageEntityBankCardArray []MessageEntityBankCard
-
-// Sort sorts slice of MessageEntityBankCard.
-func (s MessageEntityBankCardArray) Sort(less func(a, b MessageEntityBankCard) bool) MessageEntityBankCardArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityBankCard.
-func (s MessageEntityBankCardArray) SortStable(less func(a, b MessageEntityBankCard) bool) MessageEntityBankCardArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityBankCard.
-func (s MessageEntityBankCardArray) Retain(keep func(x MessageEntityBankCard) bool) MessageEntityBankCardArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityBankCardArray) First() (v MessageEntityBankCard, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityBankCardArray) Last() (v MessageEntityBankCard, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityBankCardArray) PopFirst() (v MessageEntityBankCard, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityBankCard
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityBankCardArray) Pop() (v MessageEntityBankCard, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

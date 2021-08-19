@@ -39,6 +39,19 @@ type UserStatusEmpty struct {
 // UserStatusEmptyTypeID is TL type id of UserStatusEmpty.
 const UserStatusEmptyTypeID = 0x9d05049
 
+// construct implements constructor of UserStatusClass.
+func (u UserStatusEmpty) construct() UserStatusClass { return &u }
+
+// Ensuring interfaces in compile-time for UserStatusEmpty.
+var (
+	_ bin.Encoder     = &UserStatusEmpty{}
+	_ bin.Decoder     = &UserStatusEmpty{}
+	_ bin.BareEncoder = &UserStatusEmpty{}
+	_ bin.BareDecoder = &UserStatusEmpty{}
+
+	_ UserStatusClass = &UserStatusEmpty{}
+)
+
 func (u *UserStatusEmpty) Zero() bool {
 	if u == nil {
 		return true
@@ -118,19 +131,6 @@ func (u *UserStatusEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UserStatusClass.
-func (u UserStatusEmpty) construct() UserStatusClass { return &u }
-
-// Ensuring interfaces in compile-time for UserStatusEmpty.
-var (
-	_ bin.Encoder     = &UserStatusEmpty{}
-	_ bin.Decoder     = &UserStatusEmpty{}
-	_ bin.BareEncoder = &UserStatusEmpty{}
-	_ bin.BareDecoder = &UserStatusEmpty{}
-
-	_ UserStatusClass = &UserStatusEmpty{}
-)
-
 // UserStatusOnline represents TL type `userStatusOnline#edb93949`.
 // Online status of the user.
 //
@@ -142,6 +142,19 @@ type UserStatusOnline struct {
 
 // UserStatusOnlineTypeID is TL type id of UserStatusOnline.
 const UserStatusOnlineTypeID = 0xedb93949
+
+// construct implements constructor of UserStatusClass.
+func (u UserStatusOnline) construct() UserStatusClass { return &u }
+
+// Ensuring interfaces in compile-time for UserStatusOnline.
+var (
+	_ bin.Encoder     = &UserStatusOnline{}
+	_ bin.Decoder     = &UserStatusOnline{}
+	_ bin.BareEncoder = &UserStatusOnline{}
+	_ bin.BareDecoder = &UserStatusOnline{}
+
+	_ UserStatusClass = &UserStatusOnline{}
+)
 
 func (u *UserStatusOnline) Zero() bool {
 	if u == nil {
@@ -219,11 +232,6 @@ func (u *UserStatusOnline) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetExpires returns value of Expires field.
-func (u *UserStatusOnline) GetExpires() (value int) {
-	return u.Expires
-}
-
 // Decode implements bin.Decoder.
 func (u *UserStatusOnline) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -250,18 +258,10 @@ func (u *UserStatusOnline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UserStatusClass.
-func (u UserStatusOnline) construct() UserStatusClass { return &u }
-
-// Ensuring interfaces in compile-time for UserStatusOnline.
-var (
-	_ bin.Encoder     = &UserStatusOnline{}
-	_ bin.Decoder     = &UserStatusOnline{}
-	_ bin.BareEncoder = &UserStatusOnline{}
-	_ bin.BareDecoder = &UserStatusOnline{}
-
-	_ UserStatusClass = &UserStatusOnline{}
-)
+// GetExpires returns value of Expires field.
+func (u *UserStatusOnline) GetExpires() (value int) {
+	return u.Expires
+}
 
 // UserStatusOffline represents TL type `userStatusOffline#8c703f`.
 // The user's offline status.
@@ -274,6 +274,19 @@ type UserStatusOffline struct {
 
 // UserStatusOfflineTypeID is TL type id of UserStatusOffline.
 const UserStatusOfflineTypeID = 0x8c703f
+
+// construct implements constructor of UserStatusClass.
+func (u UserStatusOffline) construct() UserStatusClass { return &u }
+
+// Ensuring interfaces in compile-time for UserStatusOffline.
+var (
+	_ bin.Encoder     = &UserStatusOffline{}
+	_ bin.Decoder     = &UserStatusOffline{}
+	_ bin.BareEncoder = &UserStatusOffline{}
+	_ bin.BareDecoder = &UserStatusOffline{}
+
+	_ UserStatusClass = &UserStatusOffline{}
+)
 
 func (u *UserStatusOffline) Zero() bool {
 	if u == nil {
@@ -351,11 +364,6 @@ func (u *UserStatusOffline) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetWasOnline returns value of WasOnline field.
-func (u *UserStatusOffline) GetWasOnline() (value int) {
-	return u.WasOnline
-}
-
 // Decode implements bin.Decoder.
 func (u *UserStatusOffline) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -382,18 +390,10 @@ func (u *UserStatusOffline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UserStatusClass.
-func (u UserStatusOffline) construct() UserStatusClass { return &u }
-
-// Ensuring interfaces in compile-time for UserStatusOffline.
-var (
-	_ bin.Encoder     = &UserStatusOffline{}
-	_ bin.Decoder     = &UserStatusOffline{}
-	_ bin.BareEncoder = &UserStatusOffline{}
-	_ bin.BareDecoder = &UserStatusOffline{}
-
-	_ UserStatusClass = &UserStatusOffline{}
-)
+// GetWasOnline returns value of WasOnline field.
+func (u *UserStatusOffline) GetWasOnline() (value int) {
+	return u.WasOnline
+}
 
 // UserStatusRecently represents TL type `userStatusRecently#e26f42f1`.
 // Online status: last seen recently
@@ -404,6 +404,19 @@ type UserStatusRecently struct {
 
 // UserStatusRecentlyTypeID is TL type id of UserStatusRecently.
 const UserStatusRecentlyTypeID = 0xe26f42f1
+
+// construct implements constructor of UserStatusClass.
+func (u UserStatusRecently) construct() UserStatusClass { return &u }
+
+// Ensuring interfaces in compile-time for UserStatusRecently.
+var (
+	_ bin.Encoder     = &UserStatusRecently{}
+	_ bin.Decoder     = &UserStatusRecently{}
+	_ bin.BareEncoder = &UserStatusRecently{}
+	_ bin.BareDecoder = &UserStatusRecently{}
+
+	_ UserStatusClass = &UserStatusRecently{}
+)
 
 func (u *UserStatusRecently) Zero() bool {
 	if u == nil {
@@ -484,19 +497,6 @@ func (u *UserStatusRecently) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UserStatusClass.
-func (u UserStatusRecently) construct() UserStatusClass { return &u }
-
-// Ensuring interfaces in compile-time for UserStatusRecently.
-var (
-	_ bin.Encoder     = &UserStatusRecently{}
-	_ bin.Decoder     = &UserStatusRecently{}
-	_ bin.BareEncoder = &UserStatusRecently{}
-	_ bin.BareDecoder = &UserStatusRecently{}
-
-	_ UserStatusClass = &UserStatusRecently{}
-)
-
 // UserStatusLastWeek represents TL type `userStatusLastWeek#7bf09fc`.
 // Online status: last seen last week
 //
@@ -506,6 +506,19 @@ type UserStatusLastWeek struct {
 
 // UserStatusLastWeekTypeID is TL type id of UserStatusLastWeek.
 const UserStatusLastWeekTypeID = 0x7bf09fc
+
+// construct implements constructor of UserStatusClass.
+func (u UserStatusLastWeek) construct() UserStatusClass { return &u }
+
+// Ensuring interfaces in compile-time for UserStatusLastWeek.
+var (
+	_ bin.Encoder     = &UserStatusLastWeek{}
+	_ bin.Decoder     = &UserStatusLastWeek{}
+	_ bin.BareEncoder = &UserStatusLastWeek{}
+	_ bin.BareDecoder = &UserStatusLastWeek{}
+
+	_ UserStatusClass = &UserStatusLastWeek{}
+)
 
 func (u *UserStatusLastWeek) Zero() bool {
 	if u == nil {
@@ -586,19 +599,6 @@ func (u *UserStatusLastWeek) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UserStatusClass.
-func (u UserStatusLastWeek) construct() UserStatusClass { return &u }
-
-// Ensuring interfaces in compile-time for UserStatusLastWeek.
-var (
-	_ bin.Encoder     = &UserStatusLastWeek{}
-	_ bin.Decoder     = &UserStatusLastWeek{}
-	_ bin.BareEncoder = &UserStatusLastWeek{}
-	_ bin.BareDecoder = &UserStatusLastWeek{}
-
-	_ UserStatusClass = &UserStatusLastWeek{}
-)
-
 // UserStatusLastMonth represents TL type `userStatusLastMonth#77ebc742`.
 // Online status: last seen last month
 //
@@ -608,6 +608,19 @@ type UserStatusLastMonth struct {
 
 // UserStatusLastMonthTypeID is TL type id of UserStatusLastMonth.
 const UserStatusLastMonthTypeID = 0x77ebc742
+
+// construct implements constructor of UserStatusClass.
+func (u UserStatusLastMonth) construct() UserStatusClass { return &u }
+
+// Ensuring interfaces in compile-time for UserStatusLastMonth.
+var (
+	_ bin.Encoder     = &UserStatusLastMonth{}
+	_ bin.Decoder     = &UserStatusLastMonth{}
+	_ bin.BareEncoder = &UserStatusLastMonth{}
+	_ bin.BareDecoder = &UserStatusLastMonth{}
+
+	_ UserStatusClass = &UserStatusLastMonth{}
+)
 
 func (u *UserStatusLastMonth) Zero() bool {
 	if u == nil {
@@ -687,19 +700,6 @@ func (u *UserStatusLastMonth) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// construct implements constructor of UserStatusClass.
-func (u UserStatusLastMonth) construct() UserStatusClass { return &u }
-
-// Ensuring interfaces in compile-time for UserStatusLastMonth.
-var (
-	_ bin.Encoder     = &UserStatusLastMonth{}
-	_ bin.Decoder     = &UserStatusLastMonth{}
-	_ bin.BareEncoder = &UserStatusLastMonth{}
-	_ bin.BareDecoder = &UserStatusLastMonth{}
-
-	_ UserStatusClass = &UserStatusLastMonth{}
-)
 
 // UserStatusClass represents UserStatus generic type.
 //
@@ -816,276 +816,4 @@ func (b *UserStatusBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UserStatusClass as nil")
 	}
 	return b.UserStatus.Encode(buf)
-}
-
-// UserStatusClassArray is adapter for slice of UserStatusClass.
-type UserStatusClassArray []UserStatusClass
-
-// Sort sorts slice of UserStatusClass.
-func (s UserStatusClassArray) Sort(less func(a, b UserStatusClass) bool) UserStatusClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UserStatusClass.
-func (s UserStatusClassArray) SortStable(less func(a, b UserStatusClass) bool) UserStatusClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UserStatusClass.
-func (s UserStatusClassArray) Retain(keep func(x UserStatusClass) bool) UserStatusClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UserStatusClassArray) First() (v UserStatusClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UserStatusClassArray) Last() (v UserStatusClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UserStatusClassArray) PopFirst() (v UserStatusClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UserStatusClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UserStatusClassArray) Pop() (v UserStatusClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsUserStatusOnline returns copy with only UserStatusOnline constructors.
-func (s UserStatusClassArray) AsUserStatusOnline() (to UserStatusOnlineArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UserStatusOnline)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsUserStatusOffline returns copy with only UserStatusOffline constructors.
-func (s UserStatusClassArray) AsUserStatusOffline() (to UserStatusOfflineArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UserStatusOffline)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// UserStatusOnlineArray is adapter for slice of UserStatusOnline.
-type UserStatusOnlineArray []UserStatusOnline
-
-// Sort sorts slice of UserStatusOnline.
-func (s UserStatusOnlineArray) Sort(less func(a, b UserStatusOnline) bool) UserStatusOnlineArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UserStatusOnline.
-func (s UserStatusOnlineArray) SortStable(less func(a, b UserStatusOnline) bool) UserStatusOnlineArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UserStatusOnline.
-func (s UserStatusOnlineArray) Retain(keep func(x UserStatusOnline) bool) UserStatusOnlineArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UserStatusOnlineArray) First() (v UserStatusOnline, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UserStatusOnlineArray) Last() (v UserStatusOnline, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UserStatusOnlineArray) PopFirst() (v UserStatusOnline, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UserStatusOnline
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UserStatusOnlineArray) Pop() (v UserStatusOnline, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// UserStatusOfflineArray is adapter for slice of UserStatusOffline.
-type UserStatusOfflineArray []UserStatusOffline
-
-// Sort sorts slice of UserStatusOffline.
-func (s UserStatusOfflineArray) Sort(less func(a, b UserStatusOffline) bool) UserStatusOfflineArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UserStatusOffline.
-func (s UserStatusOfflineArray) SortStable(less func(a, b UserStatusOffline) bool) UserStatusOfflineArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UserStatusOffline.
-func (s UserStatusOfflineArray) Retain(keep func(x UserStatusOffline) bool) UserStatusOfflineArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UserStatusOfflineArray) First() (v UserStatusOffline, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UserStatusOfflineArray) Last() (v UserStatusOffline, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UserStatusOfflineArray) PopFirst() (v UserStatusOffline, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UserStatusOffline
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UserStatusOfflineArray) Pop() (v UserStatusOffline, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

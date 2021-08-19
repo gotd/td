@@ -47,6 +47,14 @@ type ChannelsLeaveChannelRequest struct {
 // ChannelsLeaveChannelRequestTypeID is TL type id of ChannelsLeaveChannelRequest.
 const ChannelsLeaveChannelRequestTypeID = 0xf836aa95
 
+// Ensuring interfaces in compile-time for ChannelsLeaveChannelRequest.
+var (
+	_ bin.Encoder     = &ChannelsLeaveChannelRequest{}
+	_ bin.Decoder     = &ChannelsLeaveChannelRequest{}
+	_ bin.BareEncoder = &ChannelsLeaveChannelRequest{}
+	_ bin.BareDecoder = &ChannelsLeaveChannelRequest{}
+)
+
 func (l *ChannelsLeaveChannelRequest) Zero() bool {
 	if l == nil {
 		return true
@@ -128,16 +136,6 @@ func (l *ChannelsLeaveChannelRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetChannel returns value of Channel field.
-func (l *ChannelsLeaveChannelRequest) GetChannel() (value InputChannelClass) {
-	return l.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (l *ChannelsLeaveChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return l.Channel.AsNotEmpty()
-}
-
 // Decode implements bin.Decoder.
 func (l *ChannelsLeaveChannelRequest) Decode(b *bin.Buffer) error {
 	if l == nil {
@@ -164,13 +162,15 @@ func (l *ChannelsLeaveChannelRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsLeaveChannelRequest.
-var (
-	_ bin.Encoder     = &ChannelsLeaveChannelRequest{}
-	_ bin.Decoder     = &ChannelsLeaveChannelRequest{}
-	_ bin.BareEncoder = &ChannelsLeaveChannelRequest{}
-	_ bin.BareDecoder = &ChannelsLeaveChannelRequest{}
-)
+// GetChannel returns value of Channel field.
+func (l *ChannelsLeaveChannelRequest) GetChannel() (value InputChannelClass) {
+	return l.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (l *ChannelsLeaveChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return l.Channel.AsNotEmpty()
+}
 
 // ChannelsLeaveChannel invokes method channels.leaveChannel#f836aa95 returning error if any.
 // Leave a channel/supergroup¹

@@ -90,6 +90,14 @@ type GroupCallParticipant struct {
 // GroupCallParticipantTypeID is TL type id of GroupCallParticipant.
 const GroupCallParticipantTypeID = 0xeba636fe
 
+// Ensuring interfaces in compile-time for GroupCallParticipant.
+var (
+	_ bin.Encoder     = &GroupCallParticipant{}
+	_ bin.Decoder     = &GroupCallParticipant{}
+	_ bin.BareEncoder = &GroupCallParticipant{}
+	_ bin.BareDecoder = &GroupCallParticipant{}
+)
+
 func (g *GroupCallParticipant) Zero() bool {
 	if g == nil {
 		return true
@@ -445,6 +453,99 @@ func (g *GroupCallParticipant) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (g *GroupCallParticipant) Decode(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode groupCallParticipant#eba636fe to nil")
+	}
+	if err := b.ConsumeID(GroupCallParticipantTypeID); err != nil {
+		return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: %w", err)
+	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *GroupCallParticipant) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode groupCallParticipant#eba636fe to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field flags: %w", err)
+		}
+	}
+	g.Muted = g.Flags.Has(0)
+	g.Left = g.Flags.Has(1)
+	g.CanSelfUnmute = g.Flags.Has(2)
+	g.JustJoined = g.Flags.Has(4)
+	g.Versioned = g.Flags.Has(5)
+	g.Min = g.Flags.Has(8)
+	g.MutedByYou = g.Flags.Has(9)
+	g.VolumeByAdmin = g.Flags.Has(10)
+	g.Self = g.Flags.Has(12)
+	g.VideoJoined = g.Flags.Has(15)
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field peer: %w", err)
+		}
+		g.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field date: %w", err)
+		}
+		g.Date = value
+	}
+	if g.Flags.Has(3) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field active_date: %w", err)
+		}
+		g.ActiveDate = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field source: %w", err)
+		}
+		g.Source = value
+	}
+	if g.Flags.Has(7) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field volume: %w", err)
+		}
+		g.Volume = value
+	}
+	if g.Flags.Has(11) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field about: %w", err)
+		}
+		g.About = value
+	}
+	if g.Flags.Has(13) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field raise_hand_rating: %w", err)
+		}
+		g.RaiseHandRating = value
+	}
+	if g.Flags.Has(6) {
+		if err := g.Video.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field video: %w", err)
+		}
+	}
+	if g.Flags.Has(14) {
+		if err := g.Presentation.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field presentation: %w", err)
+		}
+	}
+	return nil
+}
+
 // SetMuted sets value of Muted conditional field.
 func (g *GroupCallParticipant) SetMuted(value bool) {
 	if value {
@@ -709,104 +810,3 @@ func (g *GroupCallParticipant) GetPresentation() (value GroupCallParticipantVide
 	}
 	return g.Presentation, true
 }
-
-// Decode implements bin.Decoder.
-func (g *GroupCallParticipant) Decode(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't decode groupCallParticipant#eba636fe to nil")
-	}
-	if err := b.ConsumeID(GroupCallParticipantTypeID); err != nil {
-		return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: %w", err)
-	}
-	return g.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (g *GroupCallParticipant) DecodeBare(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't decode groupCallParticipant#eba636fe to nil")
-	}
-	{
-		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field flags: %w", err)
-		}
-	}
-	g.Muted = g.Flags.Has(0)
-	g.Left = g.Flags.Has(1)
-	g.CanSelfUnmute = g.Flags.Has(2)
-	g.JustJoined = g.Flags.Has(4)
-	g.Versioned = g.Flags.Has(5)
-	g.Min = g.Flags.Has(8)
-	g.MutedByYou = g.Flags.Has(9)
-	g.VolumeByAdmin = g.Flags.Has(10)
-	g.Self = g.Flags.Has(12)
-	g.VideoJoined = g.Flags.Has(15)
-	{
-		value, err := DecodePeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field peer: %w", err)
-		}
-		g.Peer = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field date: %w", err)
-		}
-		g.Date = value
-	}
-	if g.Flags.Has(3) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field active_date: %w", err)
-		}
-		g.ActiveDate = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field source: %w", err)
-		}
-		g.Source = value
-	}
-	if g.Flags.Has(7) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field volume: %w", err)
-		}
-		g.Volume = value
-	}
-	if g.Flags.Has(11) {
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field about: %w", err)
-		}
-		g.About = value
-	}
-	if g.Flags.Has(13) {
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field raise_hand_rating: %w", err)
-		}
-		g.RaiseHandRating = value
-	}
-	if g.Flags.Has(6) {
-		if err := g.Video.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field video: %w", err)
-		}
-	}
-	if g.Flags.Has(14) {
-		if err := g.Presentation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#eba636fe: field presentation: %w", err)
-		}
-	}
-	return nil
-}
-
-// Ensuring interfaces in compile-time for GroupCallParticipant.
-var (
-	_ bin.Encoder     = &GroupCallParticipant{}
-	_ bin.Decoder     = &GroupCallParticipant{}
-	_ bin.BareEncoder = &GroupCallParticipant{}
-	_ bin.BareDecoder = &GroupCallParticipant{}
-)

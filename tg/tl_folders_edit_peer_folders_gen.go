@@ -44,6 +44,14 @@ type FoldersEditPeerFoldersRequest struct {
 // FoldersEditPeerFoldersRequestTypeID is TL type id of FoldersEditPeerFoldersRequest.
 const FoldersEditPeerFoldersRequestTypeID = 0x6847d0ab
 
+// Ensuring interfaces in compile-time for FoldersEditPeerFoldersRequest.
+var (
+	_ bin.Encoder     = &FoldersEditPeerFoldersRequest{}
+	_ bin.Decoder     = &FoldersEditPeerFoldersRequest{}
+	_ bin.BareEncoder = &FoldersEditPeerFoldersRequest{}
+	_ bin.BareDecoder = &FoldersEditPeerFoldersRequest{}
+)
+
 func (e *FoldersEditPeerFoldersRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -125,11 +133,6 @@ func (e *FoldersEditPeerFoldersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFolderPeers returns value of FolderPeers field.
-func (e *FoldersEditPeerFoldersRequest) GetFolderPeers() (value []InputFolderPeer) {
-	return e.FolderPeers
-}
-
 // Decode implements bin.Decoder.
 func (e *FoldersEditPeerFoldersRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -166,13 +169,10 @@ func (e *FoldersEditPeerFoldersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for FoldersEditPeerFoldersRequest.
-var (
-	_ bin.Encoder     = &FoldersEditPeerFoldersRequest{}
-	_ bin.Decoder     = &FoldersEditPeerFoldersRequest{}
-	_ bin.BareEncoder = &FoldersEditPeerFoldersRequest{}
-	_ bin.BareDecoder = &FoldersEditPeerFoldersRequest{}
-)
+// GetFolderPeers returns value of FolderPeers field.
+func (e *FoldersEditPeerFoldersRequest) GetFolderPeers() (value []InputFolderPeer) {
+	return e.FolderPeers
+}
 
 // FoldersEditPeerFolders invokes method folders.editPeerFolders#6847d0ab returning error if any.
 // Edit peers in peer folder¹

@@ -49,6 +49,19 @@ type PhoneConnection struct {
 // PhoneConnectionTypeID is TL type id of PhoneConnection.
 const PhoneConnectionTypeID = 0x9d4c17c0
 
+// construct implements constructor of PhoneConnectionClass.
+func (p PhoneConnection) construct() PhoneConnectionClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneConnection.
+var (
+	_ bin.Encoder     = &PhoneConnection{}
+	_ bin.Decoder     = &PhoneConnection{}
+	_ bin.BareEncoder = &PhoneConnection{}
+	_ bin.BareDecoder = &PhoneConnection{}
+
+	_ PhoneConnectionClass = &PhoneConnection{}
+)
+
 func (p *PhoneConnection) Zero() bool {
 	if p == nil {
 		return true
@@ -165,31 +178,6 @@ func (p *PhoneConnection) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (p *PhoneConnection) GetID() (value int64) {
-	return p.ID
-}
-
-// GetIP returns value of IP field.
-func (p *PhoneConnection) GetIP() (value string) {
-	return p.IP
-}
-
-// GetIpv6 returns value of Ipv6 field.
-func (p *PhoneConnection) GetIpv6() (value string) {
-	return p.Ipv6
-}
-
-// GetPort returns value of Port field.
-func (p *PhoneConnection) GetPort() (value int) {
-	return p.Port
-}
-
-// GetPeerTag returns value of PeerTag field.
-func (p *PhoneConnection) GetPeerTag() (value []byte) {
-	return p.PeerTag
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneConnection) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -244,18 +232,30 @@ func (p *PhoneConnection) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneConnectionClass.
-func (p PhoneConnection) construct() PhoneConnectionClass { return &p }
+// GetID returns value of ID field.
+func (p *PhoneConnection) GetID() (value int64) {
+	return p.ID
+}
 
-// Ensuring interfaces in compile-time for PhoneConnection.
-var (
-	_ bin.Encoder     = &PhoneConnection{}
-	_ bin.Decoder     = &PhoneConnection{}
-	_ bin.BareEncoder = &PhoneConnection{}
-	_ bin.BareDecoder = &PhoneConnection{}
+// GetIP returns value of IP field.
+func (p *PhoneConnection) GetIP() (value string) {
+	return p.IP
+}
 
-	_ PhoneConnectionClass = &PhoneConnection{}
-)
+// GetIpv6 returns value of Ipv6 field.
+func (p *PhoneConnection) GetIpv6() (value string) {
+	return p.Ipv6
+}
+
+// GetPort returns value of Port field.
+func (p *PhoneConnection) GetPort() (value int) {
+	return p.Port
+}
+
+// GetPeerTag returns value of PeerTag field.
+func (p *PhoneConnection) GetPeerTag() (value []byte) {
+	return p.PeerTag
+}
 
 // PhoneConnectionWebrtc represents TL type `phoneConnectionWebrtc#635fe375`.
 // WebRTC connection parameters
@@ -287,6 +287,19 @@ type PhoneConnectionWebrtc struct {
 
 // PhoneConnectionWebrtcTypeID is TL type id of PhoneConnectionWebrtc.
 const PhoneConnectionWebrtcTypeID = 0x635fe375
+
+// construct implements constructor of PhoneConnectionClass.
+func (p PhoneConnectionWebrtc) construct() PhoneConnectionClass { return &p }
+
+// Ensuring interfaces in compile-time for PhoneConnectionWebrtc.
+var (
+	_ bin.Encoder     = &PhoneConnectionWebrtc{}
+	_ bin.Decoder     = &PhoneConnectionWebrtc{}
+	_ bin.BareEncoder = &PhoneConnectionWebrtc{}
+	_ bin.BareDecoder = &PhoneConnectionWebrtc{}
+
+	_ PhoneConnectionClass = &PhoneConnectionWebrtc{}
+)
 
 func (p *PhoneConnectionWebrtc) Zero() bool {
 	if p == nil {
@@ -446,68 +459,6 @@ func (p *PhoneConnectionWebrtc) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetTurn sets value of Turn conditional field.
-func (p *PhoneConnectionWebrtc) SetTurn(value bool) {
-	if value {
-		p.Flags.Set(0)
-		p.Turn = true
-	} else {
-		p.Flags.Unset(0)
-		p.Turn = false
-	}
-}
-
-// GetTurn returns value of Turn conditional field.
-func (p *PhoneConnectionWebrtc) GetTurn() (value bool) {
-	return p.Flags.Has(0)
-}
-
-// SetStun sets value of Stun conditional field.
-func (p *PhoneConnectionWebrtc) SetStun(value bool) {
-	if value {
-		p.Flags.Set(1)
-		p.Stun = true
-	} else {
-		p.Flags.Unset(1)
-		p.Stun = false
-	}
-}
-
-// GetStun returns value of Stun conditional field.
-func (p *PhoneConnectionWebrtc) GetStun() (value bool) {
-	return p.Flags.Has(1)
-}
-
-// GetID returns value of ID field.
-func (p *PhoneConnectionWebrtc) GetID() (value int64) {
-	return p.ID
-}
-
-// GetIP returns value of IP field.
-func (p *PhoneConnectionWebrtc) GetIP() (value string) {
-	return p.IP
-}
-
-// GetIpv6 returns value of Ipv6 field.
-func (p *PhoneConnectionWebrtc) GetIpv6() (value string) {
-	return p.Ipv6
-}
-
-// GetPort returns value of Port field.
-func (p *PhoneConnectionWebrtc) GetPort() (value int) {
-	return p.Port
-}
-
-// GetUsername returns value of Username field.
-func (p *PhoneConnectionWebrtc) GetUsername() (value string) {
-	return p.Username
-}
-
-// GetPassword returns value of Password field.
-func (p *PhoneConnectionWebrtc) GetPassword() (value string) {
-	return p.Password
-}
-
 // Decode implements bin.Decoder.
 func (p *PhoneConnectionWebrtc) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -576,18 +527,67 @@ func (p *PhoneConnectionWebrtc) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of PhoneConnectionClass.
-func (p PhoneConnectionWebrtc) construct() PhoneConnectionClass { return &p }
+// SetTurn sets value of Turn conditional field.
+func (p *PhoneConnectionWebrtc) SetTurn(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.Turn = true
+	} else {
+		p.Flags.Unset(0)
+		p.Turn = false
+	}
+}
 
-// Ensuring interfaces in compile-time for PhoneConnectionWebrtc.
-var (
-	_ bin.Encoder     = &PhoneConnectionWebrtc{}
-	_ bin.Decoder     = &PhoneConnectionWebrtc{}
-	_ bin.BareEncoder = &PhoneConnectionWebrtc{}
-	_ bin.BareDecoder = &PhoneConnectionWebrtc{}
+// GetTurn returns value of Turn conditional field.
+func (p *PhoneConnectionWebrtc) GetTurn() (value bool) {
+	return p.Flags.Has(0)
+}
 
-	_ PhoneConnectionClass = &PhoneConnectionWebrtc{}
-)
+// SetStun sets value of Stun conditional field.
+func (p *PhoneConnectionWebrtc) SetStun(value bool) {
+	if value {
+		p.Flags.Set(1)
+		p.Stun = true
+	} else {
+		p.Flags.Unset(1)
+		p.Stun = false
+	}
+}
+
+// GetStun returns value of Stun conditional field.
+func (p *PhoneConnectionWebrtc) GetStun() (value bool) {
+	return p.Flags.Has(1)
+}
+
+// GetID returns value of ID field.
+func (p *PhoneConnectionWebrtc) GetID() (value int64) {
+	return p.ID
+}
+
+// GetIP returns value of IP field.
+func (p *PhoneConnectionWebrtc) GetIP() (value string) {
+	return p.IP
+}
+
+// GetIpv6 returns value of Ipv6 field.
+func (p *PhoneConnectionWebrtc) GetIpv6() (value string) {
+	return p.Ipv6
+}
+
+// GetPort returns value of Port field.
+func (p *PhoneConnectionWebrtc) GetPort() (value int) {
+	return p.Port
+}
+
+// GetUsername returns value of Username field.
+func (p *PhoneConnectionWebrtc) GetUsername() (value string) {
+	return p.Username
+}
+
+// GetPassword returns value of Password field.
+func (p *PhoneConnectionWebrtc) GetPassword() (value string) {
+	return p.Password
+}
 
 // PhoneConnectionClass represents PhoneConnection generic type.
 //
@@ -684,276 +684,4 @@ func (b *PhoneConnectionBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PhoneConnectionClass as nil")
 	}
 	return b.PhoneConnection.Encode(buf)
-}
-
-// PhoneConnectionClassArray is adapter for slice of PhoneConnectionClass.
-type PhoneConnectionClassArray []PhoneConnectionClass
-
-// Sort sorts slice of PhoneConnectionClass.
-func (s PhoneConnectionClassArray) Sort(less func(a, b PhoneConnectionClass) bool) PhoneConnectionClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhoneConnectionClass.
-func (s PhoneConnectionClassArray) SortStable(less func(a, b PhoneConnectionClass) bool) PhoneConnectionClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhoneConnectionClass.
-func (s PhoneConnectionClassArray) Retain(keep func(x PhoneConnectionClass) bool) PhoneConnectionClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhoneConnectionClassArray) First() (v PhoneConnectionClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhoneConnectionClassArray) Last() (v PhoneConnectionClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneConnectionClassArray) PopFirst() (v PhoneConnectionClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhoneConnectionClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneConnectionClassArray) Pop() (v PhoneConnectionClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsPhoneConnection returns copy with only PhoneConnection constructors.
-func (s PhoneConnectionClassArray) AsPhoneConnection() (to PhoneConnectionArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PhoneConnection)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsPhoneConnectionWebrtc returns copy with only PhoneConnectionWebrtc constructors.
-func (s PhoneConnectionClassArray) AsPhoneConnectionWebrtc() (to PhoneConnectionWebrtcArray) {
-	for _, elem := range s {
-		value, ok := elem.(*PhoneConnectionWebrtc)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// PhoneConnectionArray is adapter for slice of PhoneConnection.
-type PhoneConnectionArray []PhoneConnection
-
-// Sort sorts slice of PhoneConnection.
-func (s PhoneConnectionArray) Sort(less func(a, b PhoneConnection) bool) PhoneConnectionArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhoneConnection.
-func (s PhoneConnectionArray) SortStable(less func(a, b PhoneConnection) bool) PhoneConnectionArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhoneConnection.
-func (s PhoneConnectionArray) Retain(keep func(x PhoneConnection) bool) PhoneConnectionArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhoneConnectionArray) First() (v PhoneConnection, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhoneConnectionArray) Last() (v PhoneConnection, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneConnectionArray) PopFirst() (v PhoneConnection, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhoneConnection
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneConnectionArray) Pop() (v PhoneConnection, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// PhoneConnectionWebrtcArray is adapter for slice of PhoneConnectionWebrtc.
-type PhoneConnectionWebrtcArray []PhoneConnectionWebrtc
-
-// Sort sorts slice of PhoneConnectionWebrtc.
-func (s PhoneConnectionWebrtcArray) Sort(less func(a, b PhoneConnectionWebrtc) bool) PhoneConnectionWebrtcArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of PhoneConnectionWebrtc.
-func (s PhoneConnectionWebrtcArray) SortStable(less func(a, b PhoneConnectionWebrtc) bool) PhoneConnectionWebrtcArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of PhoneConnectionWebrtc.
-func (s PhoneConnectionWebrtcArray) Retain(keep func(x PhoneConnectionWebrtc) bool) PhoneConnectionWebrtcArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s PhoneConnectionWebrtcArray) First() (v PhoneConnectionWebrtc, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s PhoneConnectionWebrtcArray) Last() (v PhoneConnectionWebrtc, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneConnectionWebrtcArray) PopFirst() (v PhoneConnectionWebrtc, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero PhoneConnectionWebrtc
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneConnectionWebrtcArray) Pop() (v PhoneConnectionWebrtc, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

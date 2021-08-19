@@ -39,6 +39,19 @@ type HelpUserInfoEmpty struct {
 // HelpUserInfoEmptyTypeID is TL type id of HelpUserInfoEmpty.
 const HelpUserInfoEmptyTypeID = 0xf3ae2eed
 
+// construct implements constructor of HelpUserInfoClass.
+func (u HelpUserInfoEmpty) construct() HelpUserInfoClass { return &u }
+
+// Ensuring interfaces in compile-time for HelpUserInfoEmpty.
+var (
+	_ bin.Encoder     = &HelpUserInfoEmpty{}
+	_ bin.Decoder     = &HelpUserInfoEmpty{}
+	_ bin.BareEncoder = &HelpUserInfoEmpty{}
+	_ bin.BareDecoder = &HelpUserInfoEmpty{}
+
+	_ HelpUserInfoClass = &HelpUserInfoEmpty{}
+)
+
 func (u *HelpUserInfoEmpty) Zero() bool {
 	if u == nil {
 		return true
@@ -118,19 +131,6 @@ func (u *HelpUserInfoEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpUserInfoClass.
-func (u HelpUserInfoEmpty) construct() HelpUserInfoClass { return &u }
-
-// Ensuring interfaces in compile-time for HelpUserInfoEmpty.
-var (
-	_ bin.Encoder     = &HelpUserInfoEmpty{}
-	_ bin.Decoder     = &HelpUserInfoEmpty{}
-	_ bin.BareEncoder = &HelpUserInfoEmpty{}
-	_ bin.BareDecoder = &HelpUserInfoEmpty{}
-
-	_ HelpUserInfoClass = &HelpUserInfoEmpty{}
-)
-
 // HelpUserInfo represents TL type `help.userInfo#1eb3758`.
 // Internal use
 //
@@ -151,6 +151,19 @@ type HelpUserInfo struct {
 
 // HelpUserInfoTypeID is TL type id of HelpUserInfo.
 const HelpUserInfoTypeID = 0x1eb3758
+
+// construct implements constructor of HelpUserInfoClass.
+func (u HelpUserInfo) construct() HelpUserInfoClass { return &u }
+
+// Ensuring interfaces in compile-time for HelpUserInfo.
+var (
+	_ bin.Encoder     = &HelpUserInfo{}
+	_ bin.Decoder     = &HelpUserInfo{}
+	_ bin.BareEncoder = &HelpUserInfo{}
+	_ bin.BareDecoder = &HelpUserInfo{}
+
+	_ HelpUserInfoClass = &HelpUserInfo{}
+)
 
 func (u *HelpUserInfo) Zero() bool {
 	if u == nil {
@@ -266,31 +279,6 @@ func (u *HelpUserInfo) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMessage returns value of Message field.
-func (u *HelpUserInfo) GetMessage() (value string) {
-	return u.Message
-}
-
-// GetEntities returns value of Entities field.
-func (u *HelpUserInfo) GetEntities() (value []MessageEntityClass) {
-	return u.Entities
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (u *HelpUserInfo) MapEntities() (value MessageEntityClassArray) {
-	return MessageEntityClassArray(u.Entities)
-}
-
-// GetAuthor returns value of Author field.
-func (u *HelpUserInfo) GetAuthor() (value string) {
-	return u.Author
-}
-
-// GetDate returns value of Date field.
-func (u *HelpUserInfo) GetDate() (value int) {
-	return u.Date
-}
-
 // Decode implements bin.Decoder.
 func (u *HelpUserInfo) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -348,18 +336,30 @@ func (u *HelpUserInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of HelpUserInfoClass.
-func (u HelpUserInfo) construct() HelpUserInfoClass { return &u }
+// GetMessage returns value of Message field.
+func (u *HelpUserInfo) GetMessage() (value string) {
+	return u.Message
+}
 
-// Ensuring interfaces in compile-time for HelpUserInfo.
-var (
-	_ bin.Encoder     = &HelpUserInfo{}
-	_ bin.Decoder     = &HelpUserInfo{}
-	_ bin.BareEncoder = &HelpUserInfo{}
-	_ bin.BareDecoder = &HelpUserInfo{}
+// GetEntities returns value of Entities field.
+func (u *HelpUserInfo) GetEntities() (value []MessageEntityClass) {
+	return u.Entities
+}
 
-	_ HelpUserInfoClass = &HelpUserInfo{}
-)
+// GetAuthor returns value of Author field.
+func (u *HelpUserInfo) GetAuthor() (value string) {
+	return u.Author
+}
+
+// GetDate returns value of Date field.
+func (u *HelpUserInfo) GetDate() (value int) {
+	return u.Date
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (u *HelpUserInfo) MapEntities() (value MessageEntityClassArray) {
+	return MessageEntityClassArray(u.Entities)
+}
 
 // HelpUserInfoClass represents help.UserInfo generic type.
 //
@@ -457,250 +457,4 @@ func (b *HelpUserInfoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode HelpUserInfoClass as nil")
 	}
 	return b.UserInfo.Encode(buf)
-}
-
-// HelpUserInfoClassArray is adapter for slice of HelpUserInfoClass.
-type HelpUserInfoClassArray []HelpUserInfoClass
-
-// Sort sorts slice of HelpUserInfoClass.
-func (s HelpUserInfoClassArray) Sort(less func(a, b HelpUserInfoClass) bool) HelpUserInfoClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of HelpUserInfoClass.
-func (s HelpUserInfoClassArray) SortStable(less func(a, b HelpUserInfoClass) bool) HelpUserInfoClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of HelpUserInfoClass.
-func (s HelpUserInfoClassArray) Retain(keep func(x HelpUserInfoClass) bool) HelpUserInfoClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s HelpUserInfoClassArray) First() (v HelpUserInfoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s HelpUserInfoClassArray) Last() (v HelpUserInfoClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpUserInfoClassArray) PopFirst() (v HelpUserInfoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero HelpUserInfoClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpUserInfoClassArray) Pop() (v HelpUserInfoClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsHelpUserInfo returns copy with only HelpUserInfo constructors.
-func (s HelpUserInfoClassArray) AsHelpUserInfo() (to HelpUserInfoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*HelpUserInfo)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s HelpUserInfoClassArray) AppendOnlyNotEmpty(to []*HelpUserInfo) []*HelpUserInfo {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s HelpUserInfoClassArray) AsNotEmpty() (to []*HelpUserInfo) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s HelpUserInfoClassArray) FirstAsNotEmpty() (v *HelpUserInfo, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s HelpUserInfoClassArray) LastAsNotEmpty() (v *HelpUserInfo, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *HelpUserInfoClassArray) PopFirstAsNotEmpty() (v *HelpUserInfo, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *HelpUserInfoClassArray) PopAsNotEmpty() (v *HelpUserInfo, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// HelpUserInfoArray is adapter for slice of HelpUserInfo.
-type HelpUserInfoArray []HelpUserInfo
-
-// Sort sorts slice of HelpUserInfo.
-func (s HelpUserInfoArray) Sort(less func(a, b HelpUserInfo) bool) HelpUserInfoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of HelpUserInfo.
-func (s HelpUserInfoArray) SortStable(less func(a, b HelpUserInfo) bool) HelpUserInfoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of HelpUserInfo.
-func (s HelpUserInfoArray) Retain(keep func(x HelpUserInfo) bool) HelpUserInfoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s HelpUserInfoArray) First() (v HelpUserInfo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s HelpUserInfoArray) Last() (v HelpUserInfo, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpUserInfoArray) PopFirst() (v HelpUserInfo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero HelpUserInfo
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpUserInfoArray) Pop() (v HelpUserInfo, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of HelpUserInfo by Date.
-func (s HelpUserInfoArray) SortByDate() HelpUserInfoArray {
-	return s.Sort(func(a, b HelpUserInfo) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of HelpUserInfo by Date.
-func (s HelpUserInfoArray) SortStableByDate() HelpUserInfoArray {
-	return s.SortStable(func(a, b HelpUserInfo) bool {
-		return a.GetDate() < b.GetDate()
-	})
 }

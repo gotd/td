@@ -39,6 +39,19 @@ type EncryptedFileEmpty struct {
 // EncryptedFileEmptyTypeID is TL type id of EncryptedFileEmpty.
 const EncryptedFileEmptyTypeID = 0xc21f497e
 
+// construct implements constructor of EncryptedFileClass.
+func (e EncryptedFileEmpty) construct() EncryptedFileClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedFileEmpty.
+var (
+	_ bin.Encoder     = &EncryptedFileEmpty{}
+	_ bin.Decoder     = &EncryptedFileEmpty{}
+	_ bin.BareEncoder = &EncryptedFileEmpty{}
+	_ bin.BareDecoder = &EncryptedFileEmpty{}
+
+	_ EncryptedFileClass = &EncryptedFileEmpty{}
+)
+
 func (e *EncryptedFileEmpty) Zero() bool {
 	if e == nil {
 		return true
@@ -118,19 +131,6 @@ func (e *EncryptedFileEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedFileClass.
-func (e EncryptedFileEmpty) construct() EncryptedFileClass { return &e }
-
-// Ensuring interfaces in compile-time for EncryptedFileEmpty.
-var (
-	_ bin.Encoder     = &EncryptedFileEmpty{}
-	_ bin.Decoder     = &EncryptedFileEmpty{}
-	_ bin.BareEncoder = &EncryptedFileEmpty{}
-	_ bin.BareDecoder = &EncryptedFileEmpty{}
-
-	_ EncryptedFileClass = &EncryptedFileEmpty{}
-)
-
 // EncryptedFile represents TL type `encryptedFile#4a70994c`.
 // Encrypted file.
 //
@@ -150,6 +150,19 @@ type EncryptedFile struct {
 
 // EncryptedFileTypeID is TL type id of EncryptedFile.
 const EncryptedFileTypeID = 0x4a70994c
+
+// construct implements constructor of EncryptedFileClass.
+func (e EncryptedFile) construct() EncryptedFileClass { return &e }
+
+// Ensuring interfaces in compile-time for EncryptedFile.
+var (
+	_ bin.Encoder     = &EncryptedFile{}
+	_ bin.Decoder     = &EncryptedFile{}
+	_ bin.BareEncoder = &EncryptedFile{}
+	_ bin.BareDecoder = &EncryptedFile{}
+
+	_ EncryptedFileClass = &EncryptedFile{}
+)
 
 func (e *EncryptedFile) Zero() bool {
 	if e == nil {
@@ -267,31 +280,6 @@ func (e *EncryptedFile) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (e *EncryptedFile) GetID() (value int64) {
-	return e.ID
-}
-
-// GetAccessHash returns value of AccessHash field.
-func (e *EncryptedFile) GetAccessHash() (value int64) {
-	return e.AccessHash
-}
-
-// GetSize returns value of Size field.
-func (e *EncryptedFile) GetSize() (value int) {
-	return e.Size
-}
-
-// GetDCID returns value of DCID field.
-func (e *EncryptedFile) GetDCID() (value int) {
-	return e.DCID
-}
-
-// GetKeyFingerprint returns value of KeyFingerprint field.
-func (e *EncryptedFile) GetKeyFingerprint() (value int) {
-	return e.KeyFingerprint
-}
-
 // Decode implements bin.Decoder.
 func (e *EncryptedFile) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -346,18 +334,30 @@ func (e *EncryptedFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of EncryptedFileClass.
-func (e EncryptedFile) construct() EncryptedFileClass { return &e }
+// GetID returns value of ID field.
+func (e *EncryptedFile) GetID() (value int64) {
+	return e.ID
+}
 
-// Ensuring interfaces in compile-time for EncryptedFile.
-var (
-	_ bin.Encoder     = &EncryptedFile{}
-	_ bin.Decoder     = &EncryptedFile{}
-	_ bin.BareEncoder = &EncryptedFile{}
-	_ bin.BareDecoder = &EncryptedFile{}
+// GetAccessHash returns value of AccessHash field.
+func (e *EncryptedFile) GetAccessHash() (value int64) {
+	return e.AccessHash
+}
 
-	_ EncryptedFileClass = &EncryptedFile{}
-)
+// GetSize returns value of Size field.
+func (e *EncryptedFile) GetSize() (value int) {
+	return e.Size
+}
+
+// GetDCID returns value of DCID field.
+func (e *EncryptedFile) GetDCID() (value int) {
+	return e.DCID
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (e *EncryptedFile) GetKeyFingerprint() (value int) {
+	return e.KeyFingerprint
+}
 
 // EncryptedFileClass represents EncryptedFile generic type.
 //
@@ -473,236 +473,4 @@ func (b *EncryptedFileBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode EncryptedFileClass as nil")
 	}
 	return b.EncryptedFile.Encode(buf)
-}
-
-// EncryptedFileClassArray is adapter for slice of EncryptedFileClass.
-type EncryptedFileClassArray []EncryptedFileClass
-
-// Sort sorts slice of EncryptedFileClass.
-func (s EncryptedFileClassArray) Sort(less func(a, b EncryptedFileClass) bool) EncryptedFileClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of EncryptedFileClass.
-func (s EncryptedFileClassArray) SortStable(less func(a, b EncryptedFileClass) bool) EncryptedFileClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of EncryptedFileClass.
-func (s EncryptedFileClassArray) Retain(keep func(x EncryptedFileClass) bool) EncryptedFileClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s EncryptedFileClassArray) First() (v EncryptedFileClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s EncryptedFileClassArray) Last() (v EncryptedFileClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedFileClassArray) PopFirst() (v EncryptedFileClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero EncryptedFileClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedFileClassArray) Pop() (v EncryptedFileClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsEncryptedFile returns copy with only EncryptedFile constructors.
-func (s EncryptedFileClassArray) AsEncryptedFile() (to EncryptedFileArray) {
-	for _, elem := range s {
-		value, ok := elem.(*EncryptedFile)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyNotEmpty appends only NotEmpty constructors to
-// given slice.
-func (s EncryptedFileClassArray) AppendOnlyNotEmpty(to []*EncryptedFile) []*EncryptedFile {
-	for _, elem := range s {
-		value, ok := elem.AsNotEmpty()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsNotEmpty returns copy with only NotEmpty constructors.
-func (s EncryptedFileClassArray) AsNotEmpty() (to []*EncryptedFile) {
-	return s.AppendOnlyNotEmpty(to)
-}
-
-// FirstAsNotEmpty returns first element of slice (if exists).
-func (s EncryptedFileClassArray) FirstAsNotEmpty() (v *EncryptedFile, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// LastAsNotEmpty returns last element of slice (if exists).
-func (s EncryptedFileClassArray) LastAsNotEmpty() (v *EncryptedFile, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *EncryptedFileClassArray) PopFirstAsNotEmpty() (v *EncryptedFile, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// PopAsNotEmpty returns element of slice (if exists).
-func (s *EncryptedFileClassArray) PopAsNotEmpty() (v *EncryptedFile, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsNotEmpty()
-}
-
-// EncryptedFileArray is adapter for slice of EncryptedFile.
-type EncryptedFileArray []EncryptedFile
-
-// Sort sorts slice of EncryptedFile.
-func (s EncryptedFileArray) Sort(less func(a, b EncryptedFile) bool) EncryptedFileArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of EncryptedFile.
-func (s EncryptedFileArray) SortStable(less func(a, b EncryptedFile) bool) EncryptedFileArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of EncryptedFile.
-func (s EncryptedFileArray) Retain(keep func(x EncryptedFile) bool) EncryptedFileArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s EncryptedFileArray) First() (v EncryptedFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s EncryptedFileArray) Last() (v EncryptedFile, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedFileArray) PopFirst() (v EncryptedFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero EncryptedFile
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedFileArray) Pop() (v EncryptedFile, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

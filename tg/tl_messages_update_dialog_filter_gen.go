@@ -59,6 +59,14 @@ type MessagesUpdateDialogFilterRequest struct {
 // MessagesUpdateDialogFilterRequestTypeID is TL type id of MessagesUpdateDialogFilterRequest.
 const MessagesUpdateDialogFilterRequestTypeID = 0x1ad4a04a
 
+// Ensuring interfaces in compile-time for MessagesUpdateDialogFilterRequest.
+var (
+	_ bin.Encoder     = &MessagesUpdateDialogFilterRequest{}
+	_ bin.Decoder     = &MessagesUpdateDialogFilterRequest{}
+	_ bin.BareEncoder = &MessagesUpdateDialogFilterRequest{}
+	_ bin.BareDecoder = &MessagesUpdateDialogFilterRequest{}
+)
+
 func (u *MessagesUpdateDialogFilterRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -162,26 +170,6 @@ func (u *MessagesUpdateDialogFilterRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (u *MessagesUpdateDialogFilterRequest) GetID() (value int) {
-	return u.ID
-}
-
-// SetFilter sets value of Filter conditional field.
-func (u *MessagesUpdateDialogFilterRequest) SetFilter(value DialogFilter) {
-	u.Flags.Set(0)
-	u.Filter = value
-}
-
-// GetFilter returns value of Filter conditional field and
-// boolean which is true if field was set.
-func (u *MessagesUpdateDialogFilterRequest) GetFilter() (value DialogFilter, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.Filter, true
-}
-
 // Decode implements bin.Decoder.
 func (u *MessagesUpdateDialogFilterRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -218,13 +206,25 @@ func (u *MessagesUpdateDialogFilterRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesUpdateDialogFilterRequest.
-var (
-	_ bin.Encoder     = &MessagesUpdateDialogFilterRequest{}
-	_ bin.Decoder     = &MessagesUpdateDialogFilterRequest{}
-	_ bin.BareEncoder = &MessagesUpdateDialogFilterRequest{}
-	_ bin.BareDecoder = &MessagesUpdateDialogFilterRequest{}
-)
+// GetID returns value of ID field.
+func (u *MessagesUpdateDialogFilterRequest) GetID() (value int) {
+	return u.ID
+}
+
+// SetFilter sets value of Filter conditional field.
+func (u *MessagesUpdateDialogFilterRequest) SetFilter(value DialogFilter) {
+	u.Flags.Set(0)
+	u.Filter = value
+}
+
+// GetFilter returns value of Filter conditional field and
+// boolean which is true if field was set.
+func (u *MessagesUpdateDialogFilterRequest) GetFilter() (value DialogFilter, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Filter, true
+}
 
 // MessagesUpdateDialogFilter invokes method messages.updateDialogFilter#1ad4a04a returning error if any.
 // Update folder¹

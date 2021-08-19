@@ -59,6 +59,14 @@ type ContactsAddContactRequest struct {
 // ContactsAddContactRequestTypeID is TL type id of ContactsAddContactRequest.
 const ContactsAddContactRequestTypeID = 0xe8f463d0
 
+// Ensuring interfaces in compile-time for ContactsAddContactRequest.
+var (
+	_ bin.Encoder     = &ContactsAddContactRequest{}
+	_ bin.Decoder     = &ContactsAddContactRequest{}
+	_ bin.BareEncoder = &ContactsAddContactRequest{}
+	_ bin.BareDecoder = &ContactsAddContactRequest{}
+)
+
 func (a *ContactsAddContactRequest) Zero() bool {
 	if a == nil {
 		return true
@@ -189,42 +197,6 @@ func (a *ContactsAddContactRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetAddPhonePrivacyException sets value of AddPhonePrivacyException conditional field.
-func (a *ContactsAddContactRequest) SetAddPhonePrivacyException(value bool) {
-	if value {
-		a.Flags.Set(0)
-		a.AddPhonePrivacyException = true
-	} else {
-		a.Flags.Unset(0)
-		a.AddPhonePrivacyException = false
-	}
-}
-
-// GetAddPhonePrivacyException returns value of AddPhonePrivacyException conditional field.
-func (a *ContactsAddContactRequest) GetAddPhonePrivacyException() (value bool) {
-	return a.Flags.Has(0)
-}
-
-// GetID returns value of ID field.
-func (a *ContactsAddContactRequest) GetID() (value InputUserClass) {
-	return a.ID
-}
-
-// GetFirstName returns value of FirstName field.
-func (a *ContactsAddContactRequest) GetFirstName() (value string) {
-	return a.FirstName
-}
-
-// GetLastName returns value of LastName field.
-func (a *ContactsAddContactRequest) GetLastName() (value string) {
-	return a.LastName
-}
-
-// GetPhone returns value of Phone field.
-func (a *ContactsAddContactRequest) GetPhone() (value string) {
-	return a.Phone
-}
-
 // Decode implements bin.Decoder.
 func (a *ContactsAddContactRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -278,13 +250,41 @@ func (a *ContactsAddContactRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsAddContactRequest.
-var (
-	_ bin.Encoder     = &ContactsAddContactRequest{}
-	_ bin.Decoder     = &ContactsAddContactRequest{}
-	_ bin.BareEncoder = &ContactsAddContactRequest{}
-	_ bin.BareDecoder = &ContactsAddContactRequest{}
-)
+// SetAddPhonePrivacyException sets value of AddPhonePrivacyException conditional field.
+func (a *ContactsAddContactRequest) SetAddPhonePrivacyException(value bool) {
+	if value {
+		a.Flags.Set(0)
+		a.AddPhonePrivacyException = true
+	} else {
+		a.Flags.Unset(0)
+		a.AddPhonePrivacyException = false
+	}
+}
+
+// GetAddPhonePrivacyException returns value of AddPhonePrivacyException conditional field.
+func (a *ContactsAddContactRequest) GetAddPhonePrivacyException() (value bool) {
+	return a.Flags.Has(0)
+}
+
+// GetID returns value of ID field.
+func (a *ContactsAddContactRequest) GetID() (value InputUserClass) {
+	return a.ID
+}
+
+// GetFirstName returns value of FirstName field.
+func (a *ContactsAddContactRequest) GetFirstName() (value string) {
+	return a.FirstName
+}
+
+// GetLastName returns value of LastName field.
+func (a *ContactsAddContactRequest) GetLastName() (value string) {
+	return a.LastName
+}
+
+// GetPhone returns value of Phone field.
+func (a *ContactsAddContactRequest) GetPhone() (value string) {
+	return a.Phone
+}
 
 // ContactsAddContact invokes method contacts.addContact#e8f463d0 returning error if any.
 // Add an existing telegram user as contact.

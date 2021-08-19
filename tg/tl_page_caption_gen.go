@@ -43,6 +43,14 @@ type PageCaption struct {
 // PageCaptionTypeID is TL type id of PageCaption.
 const PageCaptionTypeID = 0x6f747657
 
+// Ensuring interfaces in compile-time for PageCaption.
+var (
+	_ bin.Encoder     = &PageCaption{}
+	_ bin.Decoder     = &PageCaption{}
+	_ bin.BareEncoder = &PageCaption{}
+	_ bin.BareDecoder = &PageCaption{}
+)
+
 func (p *PageCaption) Zero() bool {
 	if p == nil {
 		return true
@@ -139,16 +147,6 @@ func (p *PageCaption) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetText returns value of Text field.
-func (p *PageCaption) GetText() (value RichTextClass) {
-	return p.Text
-}
-
-// GetCredit returns value of Credit field.
-func (p *PageCaption) GetCredit() (value RichTextClass) {
-	return p.Credit
-}
-
 // Decode implements bin.Decoder.
 func (p *PageCaption) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -182,10 +180,12 @@ func (p *PageCaption) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for PageCaption.
-var (
-	_ bin.Encoder     = &PageCaption{}
-	_ bin.Decoder     = &PageCaption{}
-	_ bin.BareEncoder = &PageCaption{}
-	_ bin.BareDecoder = &PageCaption{}
-)
+// GetText returns value of Text field.
+func (p *PageCaption) GetText() (value RichTextClass) {
+	return p.Text
+}
+
+// GetCredit returns value of Credit field.
+func (p *PageCaption) GetCredit() (value RichTextClass) {
+	return p.Credit
+}

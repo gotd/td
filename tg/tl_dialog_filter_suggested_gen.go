@@ -52,6 +52,14 @@ type DialogFilterSuggested struct {
 // DialogFilterSuggestedTypeID is TL type id of DialogFilterSuggested.
 const DialogFilterSuggestedTypeID = 0x77744d4a
 
+// Ensuring interfaces in compile-time for DialogFilterSuggested.
+var (
+	_ bin.Encoder     = &DialogFilterSuggested{}
+	_ bin.Decoder     = &DialogFilterSuggested{}
+	_ bin.BareEncoder = &DialogFilterSuggested{}
+	_ bin.BareDecoder = &DialogFilterSuggested{}
+)
+
 func (d *DialogFilterSuggested) Zero() bool {
 	if d == nil {
 		return true
@@ -140,16 +148,6 @@ func (d *DialogFilterSuggested) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetFilter returns value of Filter field.
-func (d *DialogFilterSuggested) GetFilter() (value DialogFilter) {
-	return d.Filter
-}
-
-// GetDescription returns value of Description field.
-func (d *DialogFilterSuggested) GetDescription() (value string) {
-	return d.Description
-}
-
 // Decode implements bin.Decoder.
 func (d *DialogFilterSuggested) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -181,10 +179,12 @@ func (d *DialogFilterSuggested) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for DialogFilterSuggested.
-var (
-	_ bin.Encoder     = &DialogFilterSuggested{}
-	_ bin.Decoder     = &DialogFilterSuggested{}
-	_ bin.BareEncoder = &DialogFilterSuggested{}
-	_ bin.BareDecoder = &DialogFilterSuggested{}
-)
+// GetFilter returns value of Filter field.
+func (d *DialogFilterSuggested) GetFilter() (value DialogFilter) {
+	return d.Filter
+}
+
+// GetDescription returns value of Description field.
+func (d *DialogFilterSuggested) GetDescription() (value string) {
+	return d.Description
+}

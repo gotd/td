@@ -62,6 +62,14 @@ type MessagesVotesList struct {
 // MessagesVotesListTypeID is TL type id of MessagesVotesList.
 const MessagesVotesListTypeID = 0x823f649
 
+// Ensuring interfaces in compile-time for MessagesVotesList.
+var (
+	_ bin.Encoder     = &MessagesVotesList{}
+	_ bin.Decoder     = &MessagesVotesList{}
+	_ bin.BareEncoder = &MessagesVotesList{}
+	_ bin.BareDecoder = &MessagesVotesList{}
+)
+
 func (v *MessagesVotesList) Zero() bool {
 	if v == nil {
 		return true
@@ -199,46 +207,6 @@ func (v *MessagesVotesList) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetCount returns value of Count field.
-func (v *MessagesVotesList) GetCount() (value int) {
-	return v.Count
-}
-
-// GetVotes returns value of Votes field.
-func (v *MessagesVotesList) GetVotes() (value []MessageUserVoteClass) {
-	return v.Votes
-}
-
-// MapVotes returns field Votes wrapped in MessageUserVoteClassArray helper.
-func (v *MessagesVotesList) MapVotes() (value MessageUserVoteClassArray) {
-	return MessageUserVoteClassArray(v.Votes)
-}
-
-// GetUsers returns value of Users field.
-func (v *MessagesVotesList) GetUsers() (value []UserClass) {
-	return v.Users
-}
-
-// MapUsers returns field Users wrapped in UserClassArray helper.
-func (v *MessagesVotesList) MapUsers() (value UserClassArray) {
-	return UserClassArray(v.Users)
-}
-
-// SetNextOffset sets value of NextOffset conditional field.
-func (v *MessagesVotesList) SetNextOffset(value string) {
-	v.Flags.Set(0)
-	v.NextOffset = value
-}
-
-// GetNextOffset returns value of NextOffset conditional field and
-// boolean which is true if field was set.
-func (v *MessagesVotesList) GetNextOffset() (value string, ok bool) {
-	if !v.Flags.Has(0) {
-		return value, false
-	}
-	return v.NextOffset, true
-}
-
 // Decode implements bin.Decoder.
 func (v *MessagesVotesList) Decode(b *bin.Buffer) error {
 	if v == nil {
@@ -311,10 +279,42 @@ func (v *MessagesVotesList) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesVotesList.
-var (
-	_ bin.Encoder     = &MessagesVotesList{}
-	_ bin.Decoder     = &MessagesVotesList{}
-	_ bin.BareEncoder = &MessagesVotesList{}
-	_ bin.BareDecoder = &MessagesVotesList{}
-)
+// GetCount returns value of Count field.
+func (v *MessagesVotesList) GetCount() (value int) {
+	return v.Count
+}
+
+// GetVotes returns value of Votes field.
+func (v *MessagesVotesList) GetVotes() (value []MessageUserVoteClass) {
+	return v.Votes
+}
+
+// GetUsers returns value of Users field.
+func (v *MessagesVotesList) GetUsers() (value []UserClass) {
+	return v.Users
+}
+
+// SetNextOffset sets value of NextOffset conditional field.
+func (v *MessagesVotesList) SetNextOffset(value string) {
+	v.Flags.Set(0)
+	v.NextOffset = value
+}
+
+// GetNextOffset returns value of NextOffset conditional field and
+// boolean which is true if field was set.
+func (v *MessagesVotesList) GetNextOffset() (value string, ok bool) {
+	if !v.Flags.Has(0) {
+		return value, false
+	}
+	return v.NextOffset, true
+}
+
+// MapVotes returns field Votes wrapped in MessageUserVoteClassArray helper.
+func (v *MessagesVotesList) MapVotes() (value MessageUserVoteClassArray) {
+	return MessageUserVoteClassArray(v.Votes)
+}
+
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (v *MessagesVotesList) MapUsers() (value UserClassArray) {
+	return UserClassArray(v.Users)
+}

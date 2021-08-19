@@ -41,6 +41,14 @@ type ContactsUnblockRequest struct {
 // ContactsUnblockRequestTypeID is TL type id of ContactsUnblockRequest.
 const ContactsUnblockRequestTypeID = 0xbea65d50
 
+// Ensuring interfaces in compile-time for ContactsUnblockRequest.
+var (
+	_ bin.Encoder     = &ContactsUnblockRequest{}
+	_ bin.Decoder     = &ContactsUnblockRequest{}
+	_ bin.BareEncoder = &ContactsUnblockRequest{}
+	_ bin.BareDecoder = &ContactsUnblockRequest{}
+)
+
 func (u *ContactsUnblockRequest) Zero() bool {
 	if u == nil {
 		return true
@@ -122,11 +130,6 @@ func (u *ContactsUnblockRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (u *ContactsUnblockRequest) GetID() (value InputPeerClass) {
-	return u.ID
-}
-
 // Decode implements bin.Decoder.
 func (u *ContactsUnblockRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -153,13 +156,10 @@ func (u *ContactsUnblockRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ContactsUnblockRequest.
-var (
-	_ bin.Encoder     = &ContactsUnblockRequest{}
-	_ bin.Decoder     = &ContactsUnblockRequest{}
-	_ bin.BareEncoder = &ContactsUnblockRequest{}
-	_ bin.BareDecoder = &ContactsUnblockRequest{}
-)
+// GetID returns value of ID field.
+func (u *ContactsUnblockRequest) GetID() (value InputPeerClass) {
+	return u.ID
+}
 
 // ContactsUnblock invokes method contacts.unblock#bea65d50 returning error if any.
 // Deletes the user from the blacklist.

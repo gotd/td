@@ -44,6 +44,14 @@ type ResPQ struct {
 // ResPQTypeID is TL type id of ResPQ.
 const ResPQTypeID = 0x5162463
 
+// Ensuring interfaces in compile-time for ResPQ.
+var (
+	_ bin.Encoder     = &ResPQ{}
+	_ bin.Decoder     = &ResPQ{}
+	_ bin.BareEncoder = &ResPQ{}
+	_ bin.BareDecoder = &ResPQ{}
+)
+
 func (r *ResPQ) Zero() bool {
 	if r == nil {
 		return true
@@ -71,19 +79,6 @@ func (r *ResPQ) String() string {
 	}
 	type Alias ResPQ
 	return fmt.Sprintf("ResPQ%+v", Alias(*r))
-}
-
-// FillFrom fills ResPQ from given interface.
-func (r *ResPQ) FillFrom(from interface {
-	GetNonce() (value bin.Int128)
-	GetServerNonce() (value bin.Int128)
-	GetPq() (value []byte)
-	GetServerPublicKeyFingerprints() (value []int64)
-}) {
-	r.Nonce = from.GetNonce()
-	r.ServerNonce = from.GetServerNonce()
-	r.Pq = from.GetPq()
-	r.ServerPublicKeyFingerprints = from.GetServerPublicKeyFingerprints()
 }
 
 // TypeID returns type id in TL schema.
@@ -153,26 +148,6 @@ func (r *ResPQ) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetNonce returns value of Nonce field.
-func (r *ResPQ) GetNonce() (value bin.Int128) {
-	return r.Nonce
-}
-
-// GetServerNonce returns value of ServerNonce field.
-func (r *ResPQ) GetServerNonce() (value bin.Int128) {
-	return r.ServerNonce
-}
-
-// GetPq returns value of Pq field.
-func (r *ResPQ) GetPq() (value []byte) {
-	return r.Pq
-}
-
-// GetServerPublicKeyFingerprints returns value of ServerPublicKeyFingerprints field.
-func (r *ResPQ) GetServerPublicKeyFingerprints() (value []int64) {
-	return r.ServerPublicKeyFingerprints
-}
-
 // Decode implements bin.Decoder.
 func (r *ResPQ) Decode(b *bin.Buffer) error {
 	if r == nil {
@@ -230,10 +205,22 @@ func (r *ResPQ) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ResPQ.
-var (
-	_ bin.Encoder     = &ResPQ{}
-	_ bin.Decoder     = &ResPQ{}
-	_ bin.BareEncoder = &ResPQ{}
-	_ bin.BareDecoder = &ResPQ{}
-)
+// GetNonce returns value of Nonce field.
+func (r *ResPQ) GetNonce() (value bin.Int128) {
+	return r.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (r *ResPQ) GetServerNonce() (value bin.Int128) {
+	return r.ServerNonce
+}
+
+// GetPq returns value of Pq field.
+func (r *ResPQ) GetPq() (value []byte) {
+	return r.Pq
+}
+
+// GetServerPublicKeyFingerprints returns value of ServerPublicKeyFingerprints field.
+func (r *ResPQ) GetServerPublicKeyFingerprints() (value []int64) {
+	return r.ServerPublicKeyFingerprints
+}

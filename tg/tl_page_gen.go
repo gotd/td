@@ -72,6 +72,14 @@ type Page struct {
 // PageTypeID is TL type id of Page.
 const PageTypeID = 0x98657f0d
 
+// Ensuring interfaces in compile-time for Page.
+var (
+	_ bin.Encoder     = &Page{}
+	_ bin.Decoder     = &Page{}
+	_ bin.BareEncoder = &Page{}
+	_ bin.BareDecoder = &Page{}
+)
+
 func (p *Page) Zero() bool {
 	if p == nil {
 		return true
@@ -266,104 +274,6 @@ func (p *Page) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetPart sets value of Part conditional field.
-func (p *Page) SetPart(value bool) {
-	if value {
-		p.Flags.Set(0)
-		p.Part = true
-	} else {
-		p.Flags.Unset(0)
-		p.Part = false
-	}
-}
-
-// GetPart returns value of Part conditional field.
-func (p *Page) GetPart() (value bool) {
-	return p.Flags.Has(0)
-}
-
-// SetRtl sets value of Rtl conditional field.
-func (p *Page) SetRtl(value bool) {
-	if value {
-		p.Flags.Set(1)
-		p.Rtl = true
-	} else {
-		p.Flags.Unset(1)
-		p.Rtl = false
-	}
-}
-
-// GetRtl returns value of Rtl conditional field.
-func (p *Page) GetRtl() (value bool) {
-	return p.Flags.Has(1)
-}
-
-// SetV2 sets value of V2 conditional field.
-func (p *Page) SetV2(value bool) {
-	if value {
-		p.Flags.Set(2)
-		p.V2 = true
-	} else {
-		p.Flags.Unset(2)
-		p.V2 = false
-	}
-}
-
-// GetV2 returns value of V2 conditional field.
-func (p *Page) GetV2() (value bool) {
-	return p.Flags.Has(2)
-}
-
-// GetURL returns value of URL field.
-func (p *Page) GetURL() (value string) {
-	return p.URL
-}
-
-// GetBlocks returns value of Blocks field.
-func (p *Page) GetBlocks() (value []PageBlockClass) {
-	return p.Blocks
-}
-
-// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
-func (p *Page) MapBlocks() (value PageBlockClassArray) {
-	return PageBlockClassArray(p.Blocks)
-}
-
-// GetPhotos returns value of Photos field.
-func (p *Page) GetPhotos() (value []PhotoClass) {
-	return p.Photos
-}
-
-// MapPhotos returns field Photos wrapped in PhotoClassArray helper.
-func (p *Page) MapPhotos() (value PhotoClassArray) {
-	return PhotoClassArray(p.Photos)
-}
-
-// GetDocuments returns value of Documents field.
-func (p *Page) GetDocuments() (value []DocumentClass) {
-	return p.Documents
-}
-
-// MapDocuments returns field Documents wrapped in DocumentClassArray helper.
-func (p *Page) MapDocuments() (value DocumentClassArray) {
-	return DocumentClassArray(p.Documents)
-}
-
-// SetViews sets value of Views conditional field.
-func (p *Page) SetViews(value int) {
-	p.Flags.Set(3)
-	p.Views = value
-}
-
-// GetViews returns value of Views conditional field and
-// boolean which is true if field was set.
-func (p *Page) GetViews() (value int, ok bool) {
-	if !p.Flags.Has(3) {
-		return value, false
-	}
-	return p.Views, true
-}
-
 // Decode implements bin.Decoder.
 func (p *Page) Decode(b *bin.Buffer) error {
 	if p == nil {
@@ -456,10 +366,100 @@ func (p *Page) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for Page.
-var (
-	_ bin.Encoder     = &Page{}
-	_ bin.Decoder     = &Page{}
-	_ bin.BareEncoder = &Page{}
-	_ bin.BareDecoder = &Page{}
-)
+// SetPart sets value of Part conditional field.
+func (p *Page) SetPart(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.Part = true
+	} else {
+		p.Flags.Unset(0)
+		p.Part = false
+	}
+}
+
+// GetPart returns value of Part conditional field.
+func (p *Page) GetPart() (value bool) {
+	return p.Flags.Has(0)
+}
+
+// SetRtl sets value of Rtl conditional field.
+func (p *Page) SetRtl(value bool) {
+	if value {
+		p.Flags.Set(1)
+		p.Rtl = true
+	} else {
+		p.Flags.Unset(1)
+		p.Rtl = false
+	}
+}
+
+// GetRtl returns value of Rtl conditional field.
+func (p *Page) GetRtl() (value bool) {
+	return p.Flags.Has(1)
+}
+
+// SetV2 sets value of V2 conditional field.
+func (p *Page) SetV2(value bool) {
+	if value {
+		p.Flags.Set(2)
+		p.V2 = true
+	} else {
+		p.Flags.Unset(2)
+		p.V2 = false
+	}
+}
+
+// GetV2 returns value of V2 conditional field.
+func (p *Page) GetV2() (value bool) {
+	return p.Flags.Has(2)
+}
+
+// GetURL returns value of URL field.
+func (p *Page) GetURL() (value string) {
+	return p.URL
+}
+
+// GetBlocks returns value of Blocks field.
+func (p *Page) GetBlocks() (value []PageBlockClass) {
+	return p.Blocks
+}
+
+// GetPhotos returns value of Photos field.
+func (p *Page) GetPhotos() (value []PhotoClass) {
+	return p.Photos
+}
+
+// GetDocuments returns value of Documents field.
+func (p *Page) GetDocuments() (value []DocumentClass) {
+	return p.Documents
+}
+
+// SetViews sets value of Views conditional field.
+func (p *Page) SetViews(value int) {
+	p.Flags.Set(3)
+	p.Views = value
+}
+
+// GetViews returns value of Views conditional field and
+// boolean which is true if field was set.
+func (p *Page) GetViews() (value int, ok bool) {
+	if !p.Flags.Has(3) {
+		return value, false
+	}
+	return p.Views, true
+}
+
+// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
+func (p *Page) MapBlocks() (value PageBlockClassArray) {
+	return PageBlockClassArray(p.Blocks)
+}
+
+// MapPhotos returns field Photos wrapped in PhotoClassArray helper.
+func (p *Page) MapPhotos() (value PhotoClassArray) {
+	return PhotoClassArray(p.Photos)
+}
+
+// MapDocuments returns field Documents wrapped in DocumentClassArray helper.
+func (p *Page) MapDocuments() (value DocumentClassArray) {
+	return DocumentClassArray(p.Documents)
+}

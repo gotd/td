@@ -41,6 +41,14 @@ type HelpSupportName struct {
 // HelpSupportNameTypeID is TL type id of HelpSupportName.
 const HelpSupportNameTypeID = 0x8c05f1c9
 
+// Ensuring interfaces in compile-time for HelpSupportName.
+var (
+	_ bin.Encoder     = &HelpSupportName{}
+	_ bin.Decoder     = &HelpSupportName{}
+	_ bin.BareEncoder = &HelpSupportName{}
+	_ bin.BareDecoder = &HelpSupportName{}
+)
+
 func (s *HelpSupportName) Zero() bool {
 	if s == nil {
 		return true
@@ -117,11 +125,6 @@ func (s *HelpSupportName) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetName returns value of Name field.
-func (s *HelpSupportName) GetName() (value string) {
-	return s.Name
-}
-
 // Decode implements bin.Decoder.
 func (s *HelpSupportName) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -148,10 +151,7 @@ func (s *HelpSupportName) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpSupportName.
-var (
-	_ bin.Encoder     = &HelpSupportName{}
-	_ bin.Decoder     = &HelpSupportName{}
-	_ bin.BareEncoder = &HelpSupportName{}
-	_ bin.BareDecoder = &HelpSupportName{}
-)
+// GetName returns value of Name field.
+func (s *HelpSupportName) GetName() (value string) {
+	return s.Name
+}

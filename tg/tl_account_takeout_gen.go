@@ -41,6 +41,14 @@ type AccountTakeout struct {
 // AccountTakeoutTypeID is TL type id of AccountTakeout.
 const AccountTakeoutTypeID = 0x4dba4501
 
+// Ensuring interfaces in compile-time for AccountTakeout.
+var (
+	_ bin.Encoder     = &AccountTakeout{}
+	_ bin.Decoder     = &AccountTakeout{}
+	_ bin.BareEncoder = &AccountTakeout{}
+	_ bin.BareDecoder = &AccountTakeout{}
+)
+
 func (t *AccountTakeout) Zero() bool {
 	if t == nil {
 		return true
@@ -117,11 +125,6 @@ func (t *AccountTakeout) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetID returns value of ID field.
-func (t *AccountTakeout) GetID() (value int64) {
-	return t.ID
-}
-
 // Decode implements bin.Decoder.
 func (t *AccountTakeout) Decode(b *bin.Buffer) error {
 	if t == nil {
@@ -148,10 +151,7 @@ func (t *AccountTakeout) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for AccountTakeout.
-var (
-	_ bin.Encoder     = &AccountTakeout{}
-	_ bin.Decoder     = &AccountTakeout{}
-	_ bin.BareEncoder = &AccountTakeout{}
-	_ bin.BareDecoder = &AccountTakeout{}
-)
+// GetID returns value of ID field.
+func (t *AccountTakeout) GetID() (value int64) {
+	return t.ID
+}

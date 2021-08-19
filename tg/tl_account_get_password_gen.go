@@ -39,6 +39,14 @@ type AccountGetPasswordRequest struct {
 // AccountGetPasswordRequestTypeID is TL type id of AccountGetPasswordRequest.
 const AccountGetPasswordRequestTypeID = 0x548a30f5
 
+// Ensuring interfaces in compile-time for AccountGetPasswordRequest.
+var (
+	_ bin.Encoder     = &AccountGetPasswordRequest{}
+	_ bin.Decoder     = &AccountGetPasswordRequest{}
+	_ bin.BareEncoder = &AccountGetPasswordRequest{}
+	_ bin.BareDecoder = &AccountGetPasswordRequest{}
+)
+
 func (g *AccountGetPasswordRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *AccountGetPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for AccountGetPasswordRequest.
-var (
-	_ bin.Encoder     = &AccountGetPasswordRequest{}
-	_ bin.Decoder     = &AccountGetPasswordRequest{}
-	_ bin.BareEncoder = &AccountGetPasswordRequest{}
-	_ bin.BareDecoder = &AccountGetPasswordRequest{}
-)
 
 // AccountGetPassword invokes method account.getPassword#548a30f5 returning error if any.
 // Obtain configuration for two-factor authorization with password

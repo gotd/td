@@ -38,6 +38,14 @@ type LongVector struct {
 // LongVectorTypeID is TL type id of LongVector.
 const LongVectorTypeID = bin.TypeVector
 
+// Ensuring interfaces in compile-time for LongVector.
+var (
+	_ bin.Encoder     = &LongVector{}
+	_ bin.Decoder     = &LongVector{}
+	_ bin.BareEncoder = &LongVector{}
+	_ bin.BareDecoder = &LongVector{}
+)
+
 func (vec *LongVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -117,11 +125,6 @@ func (vec *LongVector) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetElems returns value of Elems field.
-func (vec *LongVector) GetElems() (value []int64) {
-	return vec.Elems
-}
-
 // Decode implements bin.Decoder.
 func (vec *LongVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
@@ -156,10 +159,7 @@ func (vec *LongVector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for LongVector.
-var (
-	_ bin.Encoder     = &LongVector{}
-	_ bin.Decoder     = &LongVector{}
-	_ bin.BareEncoder = &LongVector{}
-	_ bin.BareDecoder = &LongVector{}
-)
+// GetElems returns value of Elems field.
+func (vec *LongVector) GetElems() (value []int64) {
+	return vec.Elems
+}

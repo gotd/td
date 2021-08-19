@@ -46,6 +46,14 @@ type MessagesClearRecentStickersRequest struct {
 // MessagesClearRecentStickersRequestTypeID is TL type id of MessagesClearRecentStickersRequest.
 const MessagesClearRecentStickersRequestTypeID = 0x8999602d
 
+// Ensuring interfaces in compile-time for MessagesClearRecentStickersRequest.
+var (
+	_ bin.Encoder     = &MessagesClearRecentStickersRequest{}
+	_ bin.Decoder     = &MessagesClearRecentStickersRequest{}
+	_ bin.BareEncoder = &MessagesClearRecentStickersRequest{}
+	_ bin.BareDecoder = &MessagesClearRecentStickersRequest{}
+)
+
 func (c *MessagesClearRecentStickersRequest) Zero() bool {
 	if c == nil {
 		return true
@@ -131,22 +139,6 @@ func (c *MessagesClearRecentStickersRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetAttached sets value of Attached conditional field.
-func (c *MessagesClearRecentStickersRequest) SetAttached(value bool) {
-	if value {
-		c.Flags.Set(0)
-		c.Attached = true
-	} else {
-		c.Flags.Unset(0)
-		c.Attached = false
-	}
-}
-
-// GetAttached returns value of Attached conditional field.
-func (c *MessagesClearRecentStickersRequest) GetAttached() (value bool) {
-	return c.Flags.Has(0)
-}
-
 // Decode implements bin.Decoder.
 func (c *MessagesClearRecentStickersRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -172,13 +164,21 @@ func (c *MessagesClearRecentStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesClearRecentStickersRequest.
-var (
-	_ bin.Encoder     = &MessagesClearRecentStickersRequest{}
-	_ bin.Decoder     = &MessagesClearRecentStickersRequest{}
-	_ bin.BareEncoder = &MessagesClearRecentStickersRequest{}
-	_ bin.BareDecoder = &MessagesClearRecentStickersRequest{}
-)
+// SetAttached sets value of Attached conditional field.
+func (c *MessagesClearRecentStickersRequest) SetAttached(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.Attached = true
+	} else {
+		c.Flags.Unset(0)
+		c.Attached = false
+	}
+}
+
+// GetAttached returns value of Attached conditional field.
+func (c *MessagesClearRecentStickersRequest) GetAttached() (value bool) {
+	return c.Flags.Has(0)
+}
 
 // MessagesClearRecentStickers invokes method messages.clearRecentStickers#8999602d returning error if any.
 // Clear recent stickers

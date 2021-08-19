@@ -55,6 +55,14 @@ type ChannelsExportMessageLinkRequest struct {
 // ChannelsExportMessageLinkRequestTypeID is TL type id of ChannelsExportMessageLinkRequest.
 const ChannelsExportMessageLinkRequestTypeID = 0xe63fadeb
 
+// Ensuring interfaces in compile-time for ChannelsExportMessageLinkRequest.
+var (
+	_ bin.Encoder     = &ChannelsExportMessageLinkRequest{}
+	_ bin.Decoder     = &ChannelsExportMessageLinkRequest{}
+	_ bin.BareEncoder = &ChannelsExportMessageLinkRequest{}
+	_ bin.BareDecoder = &ChannelsExportMessageLinkRequest{}
+)
+
 func (e *ChannelsExportMessageLinkRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -178,53 +186,6 @@ func (e *ChannelsExportMessageLinkRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetGrouped sets value of Grouped conditional field.
-func (e *ChannelsExportMessageLinkRequest) SetGrouped(value bool) {
-	if value {
-		e.Flags.Set(0)
-		e.Grouped = true
-	} else {
-		e.Flags.Unset(0)
-		e.Grouped = false
-	}
-}
-
-// GetGrouped returns value of Grouped conditional field.
-func (e *ChannelsExportMessageLinkRequest) GetGrouped() (value bool) {
-	return e.Flags.Has(0)
-}
-
-// SetThread sets value of Thread conditional field.
-func (e *ChannelsExportMessageLinkRequest) SetThread(value bool) {
-	if value {
-		e.Flags.Set(1)
-		e.Thread = true
-	} else {
-		e.Flags.Unset(1)
-		e.Thread = false
-	}
-}
-
-// GetThread returns value of Thread conditional field.
-func (e *ChannelsExportMessageLinkRequest) GetThread() (value bool) {
-	return e.Flags.Has(1)
-}
-
-// GetChannel returns value of Channel field.
-func (e *ChannelsExportMessageLinkRequest) GetChannel() (value InputChannelClass) {
-	return e.Channel
-}
-
-// GetChannelAsNotEmpty returns mapped value of Channel field.
-func (e *ChannelsExportMessageLinkRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
-	return e.Channel.AsNotEmpty()
-}
-
-// GetID returns value of ID field.
-func (e *ChannelsExportMessageLinkRequest) GetID() (value int) {
-	return e.ID
-}
-
 // Decode implements bin.Decoder.
 func (e *ChannelsExportMessageLinkRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -265,13 +226,52 @@ func (e *ChannelsExportMessageLinkRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ChannelsExportMessageLinkRequest.
-var (
-	_ bin.Encoder     = &ChannelsExportMessageLinkRequest{}
-	_ bin.Decoder     = &ChannelsExportMessageLinkRequest{}
-	_ bin.BareEncoder = &ChannelsExportMessageLinkRequest{}
-	_ bin.BareDecoder = &ChannelsExportMessageLinkRequest{}
-)
+// SetGrouped sets value of Grouped conditional field.
+func (e *ChannelsExportMessageLinkRequest) SetGrouped(value bool) {
+	if value {
+		e.Flags.Set(0)
+		e.Grouped = true
+	} else {
+		e.Flags.Unset(0)
+		e.Grouped = false
+	}
+}
+
+// GetGrouped returns value of Grouped conditional field.
+func (e *ChannelsExportMessageLinkRequest) GetGrouped() (value bool) {
+	return e.Flags.Has(0)
+}
+
+// SetThread sets value of Thread conditional field.
+func (e *ChannelsExportMessageLinkRequest) SetThread(value bool) {
+	if value {
+		e.Flags.Set(1)
+		e.Thread = true
+	} else {
+		e.Flags.Unset(1)
+		e.Thread = false
+	}
+}
+
+// GetThread returns value of Thread conditional field.
+func (e *ChannelsExportMessageLinkRequest) GetThread() (value bool) {
+	return e.Flags.Has(1)
+}
+
+// GetChannel returns value of Channel field.
+func (e *ChannelsExportMessageLinkRequest) GetChannel() (value InputChannelClass) {
+	return e.Channel
+}
+
+// GetID returns value of ID field.
+func (e *ChannelsExportMessageLinkRequest) GetID() (value int) {
+	return e.ID
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsExportMessageLinkRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
+}
 
 // ChannelsExportMessageLink invokes method channels.exportMessageLink#e63fadeb returning error if any.
 // Get link and embed info of a message in a channel/supergroup¹

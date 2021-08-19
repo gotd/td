@@ -61,6 +61,14 @@ type InputSingleMedia struct {
 // InputSingleMediaTypeID is TL type id of InputSingleMedia.
 const InputSingleMediaTypeID = 0x1cc6e91f
 
+// Ensuring interfaces in compile-time for InputSingleMedia.
+var (
+	_ bin.Encoder     = &InputSingleMedia{}
+	_ bin.Decoder     = &InputSingleMedia{}
+	_ bin.BareEncoder = &InputSingleMedia{}
+	_ bin.BareDecoder = &InputSingleMedia{}
+)
+
 func (i *InputSingleMedia) Zero() bool {
 	if i == nil {
 		return true
@@ -195,44 +203,6 @@ func (i *InputSingleMedia) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMedia returns value of Media field.
-func (i *InputSingleMedia) GetMedia() (value InputMediaClass) {
-	return i.Media
-}
-
-// GetRandomID returns value of RandomID field.
-func (i *InputSingleMedia) GetRandomID() (value int64) {
-	return i.RandomID
-}
-
-// GetMessage returns value of Message field.
-func (i *InputSingleMedia) GetMessage() (value string) {
-	return i.Message
-}
-
-// SetEntities sets value of Entities conditional field.
-func (i *InputSingleMedia) SetEntities(value []MessageEntityClass) {
-	i.Flags.Set(0)
-	i.Entities = value
-}
-
-// GetEntities returns value of Entities conditional field and
-// boolean which is true if field was set.
-func (i *InputSingleMedia) GetEntities() (value []MessageEntityClass, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return i.Entities, true
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (i *InputSingleMedia) MapEntities() (value MessageEntityClassArray, ok bool) {
-	if !i.Flags.Has(0) {
-		return value, false
-	}
-	return MessageEntityClassArray(i.Entities), true
-}
-
 // Decode implements bin.Decoder.
 func (i *InputSingleMedia) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -295,10 +265,40 @@ func (i *InputSingleMedia) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for InputSingleMedia.
-var (
-	_ bin.Encoder     = &InputSingleMedia{}
-	_ bin.Decoder     = &InputSingleMedia{}
-	_ bin.BareEncoder = &InputSingleMedia{}
-	_ bin.BareDecoder = &InputSingleMedia{}
-)
+// GetMedia returns value of Media field.
+func (i *InputSingleMedia) GetMedia() (value InputMediaClass) {
+	return i.Media
+}
+
+// GetRandomID returns value of RandomID field.
+func (i *InputSingleMedia) GetRandomID() (value int64) {
+	return i.RandomID
+}
+
+// GetMessage returns value of Message field.
+func (i *InputSingleMedia) GetMessage() (value string) {
+	return i.Message
+}
+
+// SetEntities sets value of Entities conditional field.
+func (i *InputSingleMedia) SetEntities(value []MessageEntityClass) {
+	i.Flags.Set(0)
+	i.Entities = value
+}
+
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (i *InputSingleMedia) GetEntities() (value []MessageEntityClass, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (i *InputSingleMedia) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return MessageEntityClassArray(i.Entities), true
+}

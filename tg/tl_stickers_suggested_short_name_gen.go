@@ -40,6 +40,14 @@ type StickersSuggestedShortName struct {
 // StickersSuggestedShortNameTypeID is TL type id of StickersSuggestedShortName.
 const StickersSuggestedShortNameTypeID = 0x85fea03f
 
+// Ensuring interfaces in compile-time for StickersSuggestedShortName.
+var (
+	_ bin.Encoder     = &StickersSuggestedShortName{}
+	_ bin.Decoder     = &StickersSuggestedShortName{}
+	_ bin.BareEncoder = &StickersSuggestedShortName{}
+	_ bin.BareDecoder = &StickersSuggestedShortName{}
+)
+
 func (s *StickersSuggestedShortName) Zero() bool {
 	if s == nil {
 		return true
@@ -116,11 +124,6 @@ func (s *StickersSuggestedShortName) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetShortName returns value of ShortName field.
-func (s *StickersSuggestedShortName) GetShortName() (value string) {
-	return s.ShortName
-}
-
 // Decode implements bin.Decoder.
 func (s *StickersSuggestedShortName) Decode(b *bin.Buffer) error {
 	if s == nil {
@@ -147,10 +150,7 @@ func (s *StickersSuggestedShortName) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for StickersSuggestedShortName.
-var (
-	_ bin.Encoder     = &StickersSuggestedShortName{}
-	_ bin.Decoder     = &StickersSuggestedShortName{}
-	_ bin.BareEncoder = &StickersSuggestedShortName{}
-	_ bin.BareDecoder = &StickersSuggestedShortName{}
-)
+// GetShortName returns value of ShortName field.
+func (s *StickersSuggestedShortName) GetShortName() (value string) {
+	return s.ShortName
+}

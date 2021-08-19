@@ -41,6 +41,19 @@ type MessagesDhConfigNotModified struct {
 // MessagesDhConfigNotModifiedTypeID is TL type id of MessagesDhConfigNotModified.
 const MessagesDhConfigNotModifiedTypeID = 0xc0e24635
 
+// construct implements constructor of MessagesDhConfigClass.
+func (d MessagesDhConfigNotModified) construct() MessagesDhConfigClass { return &d }
+
+// Ensuring interfaces in compile-time for MessagesDhConfigNotModified.
+var (
+	_ bin.Encoder     = &MessagesDhConfigNotModified{}
+	_ bin.Decoder     = &MessagesDhConfigNotModified{}
+	_ bin.BareEncoder = &MessagesDhConfigNotModified{}
+	_ bin.BareDecoder = &MessagesDhConfigNotModified{}
+
+	_ MessagesDhConfigClass = &MessagesDhConfigNotModified{}
+)
+
 func (d *MessagesDhConfigNotModified) Zero() bool {
 	if d == nil {
 		return true
@@ -117,11 +130,6 @@ func (d *MessagesDhConfigNotModified) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetRandom returns value of Random field.
-func (d *MessagesDhConfigNotModified) GetRandom() (value []byte) {
-	return d.Random
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDhConfigNotModified) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -148,18 +156,10 @@ func (d *MessagesDhConfigNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesDhConfigClass.
-func (d MessagesDhConfigNotModified) construct() MessagesDhConfigClass { return &d }
-
-// Ensuring interfaces in compile-time for MessagesDhConfigNotModified.
-var (
-	_ bin.Encoder     = &MessagesDhConfigNotModified{}
-	_ bin.Decoder     = &MessagesDhConfigNotModified{}
-	_ bin.BareEncoder = &MessagesDhConfigNotModified{}
-	_ bin.BareDecoder = &MessagesDhConfigNotModified{}
-
-	_ MessagesDhConfigClass = &MessagesDhConfigNotModified{}
-)
+// GetRandom returns value of Random field.
+func (d *MessagesDhConfigNotModified) GetRandom() (value []byte) {
+	return d.Random
+}
 
 // MessagesDhConfig represents TL type `messages.dhConfig#2c221edd`.
 // New set of configuring parameters.
@@ -184,6 +184,19 @@ type MessagesDhConfig struct {
 
 // MessagesDhConfigTypeID is TL type id of MessagesDhConfig.
 const MessagesDhConfigTypeID = 0x2c221edd
+
+// construct implements constructor of MessagesDhConfigClass.
+func (d MessagesDhConfig) construct() MessagesDhConfigClass { return &d }
+
+// Ensuring interfaces in compile-time for MessagesDhConfig.
+var (
+	_ bin.Encoder     = &MessagesDhConfig{}
+	_ bin.Decoder     = &MessagesDhConfig{}
+	_ bin.BareEncoder = &MessagesDhConfig{}
+	_ bin.BareDecoder = &MessagesDhConfig{}
+
+	_ MessagesDhConfigClass = &MessagesDhConfig{}
+)
 
 func (d *MessagesDhConfig) Zero() bool {
 	if d == nil {
@@ -291,26 +304,6 @@ func (d *MessagesDhConfig) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetG returns value of G field.
-func (d *MessagesDhConfig) GetG() (value int) {
-	return d.G
-}
-
-// GetP returns value of P field.
-func (d *MessagesDhConfig) GetP() (value []byte) {
-	return d.P
-}
-
-// GetVersion returns value of Version field.
-func (d *MessagesDhConfig) GetVersion() (value int) {
-	return d.Version
-}
-
-// GetRandom returns value of Random field.
-func (d *MessagesDhConfig) GetRandom() (value []byte) {
-	return d.Random
-}
-
 // Decode implements bin.Decoder.
 func (d *MessagesDhConfig) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -358,18 +351,25 @@ func (d *MessagesDhConfig) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of MessagesDhConfigClass.
-func (d MessagesDhConfig) construct() MessagesDhConfigClass { return &d }
+// GetG returns value of G field.
+func (d *MessagesDhConfig) GetG() (value int) {
+	return d.G
+}
 
-// Ensuring interfaces in compile-time for MessagesDhConfig.
-var (
-	_ bin.Encoder     = &MessagesDhConfig{}
-	_ bin.Decoder     = &MessagesDhConfig{}
-	_ bin.BareEncoder = &MessagesDhConfig{}
-	_ bin.BareDecoder = &MessagesDhConfig{}
+// GetP returns value of P field.
+func (d *MessagesDhConfig) GetP() (value []byte) {
+	return d.P
+}
 
-	_ MessagesDhConfigClass = &MessagesDhConfig{}
-)
+// GetVersion returns value of Version field.
+func (d *MessagesDhConfig) GetVersion() (value int) {
+	return d.Version
+}
+
+// GetRandom returns value of Random field.
+func (d *MessagesDhConfig) GetRandom() (value []byte) {
+	return d.Random
+}
 
 // MessagesDhConfigClass represents messages.DhConfig generic type.
 //
@@ -469,331 +469,4 @@ func (b *MessagesDhConfigBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesDhConfigClass as nil")
 	}
 	return b.DhConfig.Encode(buf)
-}
-
-// MessagesDhConfigClassArray is adapter for slice of MessagesDhConfigClass.
-type MessagesDhConfigClassArray []MessagesDhConfigClass
-
-// Sort sorts slice of MessagesDhConfigClass.
-func (s MessagesDhConfigClassArray) Sort(less func(a, b MessagesDhConfigClass) bool) MessagesDhConfigClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesDhConfigClass.
-func (s MessagesDhConfigClassArray) SortStable(less func(a, b MessagesDhConfigClass) bool) MessagesDhConfigClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesDhConfigClass.
-func (s MessagesDhConfigClassArray) Retain(keep func(x MessagesDhConfigClass) bool) MessagesDhConfigClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesDhConfigClassArray) First() (v MessagesDhConfigClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesDhConfigClassArray) Last() (v MessagesDhConfigClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesDhConfigClassArray) PopFirst() (v MessagesDhConfigClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesDhConfigClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesDhConfigClassArray) Pop() (v MessagesDhConfigClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsMessagesDhConfigNotModified returns copy with only MessagesDhConfigNotModified constructors.
-func (s MessagesDhConfigClassArray) AsMessagesDhConfigNotModified() (to MessagesDhConfigNotModifiedArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessagesDhConfigNotModified)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsMessagesDhConfig returns copy with only MessagesDhConfig constructors.
-func (s MessagesDhConfigClassArray) AsMessagesDhConfig() (to MessagesDhConfigArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessagesDhConfig)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AppendOnlyModified appends only Modified constructors to
-// given slice.
-func (s MessagesDhConfigClassArray) AppendOnlyModified(to []*MessagesDhConfig) []*MessagesDhConfig {
-	for _, elem := range s {
-		value, ok := elem.AsModified()
-		if !ok {
-			continue
-		}
-		to = append(to, value)
-	}
-
-	return to
-}
-
-// AsModified returns copy with only Modified constructors.
-func (s MessagesDhConfigClassArray) AsModified() (to []*MessagesDhConfig) {
-	return s.AppendOnlyModified(to)
-}
-
-// FirstAsModified returns first element of slice (if exists).
-func (s MessagesDhConfigClassArray) FirstAsModified() (v *MessagesDhConfig, ok bool) {
-	value, ok := s.First()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// LastAsModified returns last element of slice (if exists).
-func (s MessagesDhConfigClassArray) LastAsModified() (v *MessagesDhConfig, ok bool) {
-	value, ok := s.Last()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// PopFirstAsModified returns element of slice (if exists).
-func (s *MessagesDhConfigClassArray) PopFirstAsModified() (v *MessagesDhConfig, ok bool) {
-	value, ok := s.PopFirst()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// PopAsModified returns element of slice (if exists).
-func (s *MessagesDhConfigClassArray) PopAsModified() (v *MessagesDhConfig, ok bool) {
-	value, ok := s.Pop()
-	if !ok {
-		return
-	}
-	return value.AsModified()
-}
-
-// MessagesDhConfigNotModifiedArray is adapter for slice of MessagesDhConfigNotModified.
-type MessagesDhConfigNotModifiedArray []MessagesDhConfigNotModified
-
-// Sort sorts slice of MessagesDhConfigNotModified.
-func (s MessagesDhConfigNotModifiedArray) Sort(less func(a, b MessagesDhConfigNotModified) bool) MessagesDhConfigNotModifiedArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesDhConfigNotModified.
-func (s MessagesDhConfigNotModifiedArray) SortStable(less func(a, b MessagesDhConfigNotModified) bool) MessagesDhConfigNotModifiedArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesDhConfigNotModified.
-func (s MessagesDhConfigNotModifiedArray) Retain(keep func(x MessagesDhConfigNotModified) bool) MessagesDhConfigNotModifiedArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesDhConfigNotModifiedArray) First() (v MessagesDhConfigNotModified, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesDhConfigNotModifiedArray) Last() (v MessagesDhConfigNotModified, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesDhConfigNotModifiedArray) PopFirst() (v MessagesDhConfigNotModified, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesDhConfigNotModified
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesDhConfigNotModifiedArray) Pop() (v MessagesDhConfigNotModified, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// MessagesDhConfigArray is adapter for slice of MessagesDhConfig.
-type MessagesDhConfigArray []MessagesDhConfig
-
-// Sort sorts slice of MessagesDhConfig.
-func (s MessagesDhConfigArray) Sort(less func(a, b MessagesDhConfig) bool) MessagesDhConfigArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessagesDhConfig.
-func (s MessagesDhConfigArray) SortStable(less func(a, b MessagesDhConfig) bool) MessagesDhConfigArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessagesDhConfig.
-func (s MessagesDhConfigArray) Retain(keep func(x MessagesDhConfig) bool) MessagesDhConfigArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessagesDhConfigArray) First() (v MessagesDhConfig, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessagesDhConfigArray) Last() (v MessagesDhConfig, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesDhConfigArray) PopFirst() (v MessagesDhConfig, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessagesDhConfig
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesDhConfigArray) Pop() (v MessagesDhConfig, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

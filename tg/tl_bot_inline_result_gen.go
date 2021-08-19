@@ -73,6 +73,19 @@ type BotInlineResult struct {
 // BotInlineResultTypeID is TL type id of BotInlineResult.
 const BotInlineResultTypeID = 0x11965f3a
 
+// construct implements constructor of BotInlineResultClass.
+func (b BotInlineResult) construct() BotInlineResultClass { return &b }
+
+// Ensuring interfaces in compile-time for BotInlineResult.
+var (
+	_ bin.Encoder     = &BotInlineResult{}
+	_ bin.Decoder     = &BotInlineResult{}
+	_ bin.BareEncoder = &BotInlineResult{}
+	_ bin.BareDecoder = &BotInlineResult{}
+
+	_ BotInlineResultClass = &BotInlineResult{}
+)
+
 func (b *BotInlineResult) Zero() bool {
 	if b == nil {
 		return true
@@ -285,6 +298,86 @@ func (b *BotInlineResult) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (b *BotInlineResult) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineResult#11965f3a to nil")
+	}
+	if err := buf.ConsumeID(BotInlineResultTypeID); err != nil {
+		return fmt.Errorf("unable to decode botInlineResult#11965f3a: %w", err)
+	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotInlineResult) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineResult#11965f3a to nil")
+	}
+	{
+		if err := b.Flags.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field flags: %w", err)
+		}
+	}
+	{
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field id: %w", err)
+		}
+		b.ID = value
+	}
+	{
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field type: %w", err)
+		}
+		b.Type = value
+	}
+	if b.Flags.Has(1) {
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field title: %w", err)
+		}
+		b.Title = value
+	}
+	if b.Flags.Has(2) {
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field description: %w", err)
+		}
+		b.Description = value
+	}
+	if b.Flags.Has(3) {
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field url: %w", err)
+		}
+		b.URL = value
+	}
+	if b.Flags.Has(4) {
+		value, err := DecodeWebDocument(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field thumb: %w", err)
+		}
+		b.Thumb = value
+	}
+	if b.Flags.Has(5) {
+		value, err := DecodeWebDocument(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field content: %w", err)
+		}
+		b.Content = value
+	}
+	{
+		value, err := DecodeBotInlineMessage(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field send_message: %w", err)
+		}
+		b.SendMessage = value
+	}
+	return nil
+}
+
 // GetID returns value of ID field.
 func (b *BotInlineResult) GetID() (value string) {
 	return b.ID
@@ -375,99 +468,6 @@ func (b *BotInlineResult) GetSendMessage() (value BotInlineMessageClass) {
 	return b.SendMessage
 }
 
-// Decode implements bin.Decoder.
-func (b *BotInlineResult) Decode(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't decode botInlineResult#11965f3a to nil")
-	}
-	if err := buf.ConsumeID(BotInlineResultTypeID); err != nil {
-		return fmt.Errorf("unable to decode botInlineResult#11965f3a: %w", err)
-	}
-	return b.DecodeBare(buf)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (b *BotInlineResult) DecodeBare(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't decode botInlineResult#11965f3a to nil")
-	}
-	{
-		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field flags: %w", err)
-		}
-	}
-	{
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field id: %w", err)
-		}
-		b.ID = value
-	}
-	{
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field type: %w", err)
-		}
-		b.Type = value
-	}
-	if b.Flags.Has(1) {
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field title: %w", err)
-		}
-		b.Title = value
-	}
-	if b.Flags.Has(2) {
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field description: %w", err)
-		}
-		b.Description = value
-	}
-	if b.Flags.Has(3) {
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field url: %w", err)
-		}
-		b.URL = value
-	}
-	if b.Flags.Has(4) {
-		value, err := DecodeWebDocument(buf)
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field thumb: %w", err)
-		}
-		b.Thumb = value
-	}
-	if b.Flags.Has(5) {
-		value, err := DecodeWebDocument(buf)
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field content: %w", err)
-		}
-		b.Content = value
-	}
-	{
-		value, err := DecodeBotInlineMessage(buf)
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field send_message: %w", err)
-		}
-		b.SendMessage = value
-	}
-	return nil
-}
-
-// construct implements constructor of BotInlineResultClass.
-func (b BotInlineResult) construct() BotInlineResultClass { return &b }
-
-// Ensuring interfaces in compile-time for BotInlineResult.
-var (
-	_ bin.Encoder     = &BotInlineResult{}
-	_ bin.Decoder     = &BotInlineResult{}
-	_ bin.BareEncoder = &BotInlineResult{}
-	_ bin.BareDecoder = &BotInlineResult{}
-
-	_ BotInlineResultClass = &BotInlineResult{}
-)
-
 // BotInlineMediaResult represents TL type `botInlineMediaResult#17db940b`.
 // Media result
 //
@@ -511,6 +511,19 @@ type BotInlineMediaResult struct {
 
 // BotInlineMediaResultTypeID is TL type id of BotInlineMediaResult.
 const BotInlineMediaResultTypeID = 0x17db940b
+
+// construct implements constructor of BotInlineResultClass.
+func (b BotInlineMediaResult) construct() BotInlineResultClass { return &b }
+
+// Ensuring interfaces in compile-time for BotInlineMediaResult.
+var (
+	_ bin.Encoder     = &BotInlineMediaResult{}
+	_ bin.Decoder     = &BotInlineMediaResult{}
+	_ bin.BareEncoder = &BotInlineMediaResult{}
+	_ bin.BareDecoder = &BotInlineMediaResult{}
+
+	_ BotInlineResultClass = &BotInlineMediaResult{}
+)
 
 func (b *BotInlineMediaResult) Zero() bool {
 	if b == nil {
@@ -705,6 +718,79 @@ func (b *BotInlineMediaResult) EncodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// Decode implements bin.Decoder.
+func (b *BotInlineMediaResult) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMediaResult#17db940b to nil")
+	}
+	if err := buf.ConsumeID(BotInlineMediaResultTypeID); err != nil {
+		return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: %w", err)
+	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotInlineMediaResult) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMediaResult#17db940b to nil")
+	}
+	{
+		if err := b.Flags.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field flags: %w", err)
+		}
+	}
+	{
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field id: %w", err)
+		}
+		b.ID = value
+	}
+	{
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field type: %w", err)
+		}
+		b.Type = value
+	}
+	if b.Flags.Has(0) {
+		value, err := DecodePhoto(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field photo: %w", err)
+		}
+		b.Photo = value
+	}
+	if b.Flags.Has(1) {
+		value, err := DecodeDocument(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field document: %w", err)
+		}
+		b.Document = value
+	}
+	if b.Flags.Has(2) {
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field title: %w", err)
+		}
+		b.Title = value
+	}
+	if b.Flags.Has(3) {
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field description: %w", err)
+		}
+		b.Description = value
+	}
+	{
+		value, err := DecodeBotInlineMessage(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field send_message: %w", err)
+		}
+		b.SendMessage = value
+	}
+	return nil
+}
+
 // GetID returns value of ID field.
 func (b *BotInlineMediaResult) GetID() (value string) {
 	return b.ID
@@ -779,92 +865,6 @@ func (b *BotInlineMediaResult) GetDescription() (value string, ok bool) {
 func (b *BotInlineMediaResult) GetSendMessage() (value BotInlineMessageClass) {
 	return b.SendMessage
 }
-
-// Decode implements bin.Decoder.
-func (b *BotInlineMediaResult) Decode(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't decode botInlineMediaResult#17db940b to nil")
-	}
-	if err := buf.ConsumeID(BotInlineMediaResultTypeID); err != nil {
-		return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: %w", err)
-	}
-	return b.DecodeBare(buf)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (b *BotInlineMediaResult) DecodeBare(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't decode botInlineMediaResult#17db940b to nil")
-	}
-	{
-		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field flags: %w", err)
-		}
-	}
-	{
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field id: %w", err)
-		}
-		b.ID = value
-	}
-	{
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field type: %w", err)
-		}
-		b.Type = value
-	}
-	if b.Flags.Has(0) {
-		value, err := DecodePhoto(buf)
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field photo: %w", err)
-		}
-		b.Photo = value
-	}
-	if b.Flags.Has(1) {
-		value, err := DecodeDocument(buf)
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field document: %w", err)
-		}
-		b.Document = value
-	}
-	if b.Flags.Has(2) {
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field title: %w", err)
-		}
-		b.Title = value
-	}
-	if b.Flags.Has(3) {
-		value, err := buf.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field description: %w", err)
-		}
-		b.Description = value
-	}
-	{
-		value, err := DecodeBotInlineMessage(buf)
-		if err != nil {
-			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field send_message: %w", err)
-		}
-		b.SendMessage = value
-	}
-	return nil
-}
-
-// construct implements constructor of BotInlineResultClass.
-func (b BotInlineMediaResult) construct() BotInlineResultClass { return &b }
-
-// Ensuring interfaces in compile-time for BotInlineMediaResult.
-var (
-	_ bin.Encoder     = &BotInlineMediaResult{}
-	_ bin.Decoder     = &BotInlineMediaResult{}
-	_ bin.BareEncoder = &BotInlineMediaResult{}
-	_ bin.BareDecoder = &BotInlineMediaResult{}
-
-	_ BotInlineResultClass = &BotInlineMediaResult{}
-)
 
 // BotInlineResultClass represents BotInlineResult generic type.
 //
@@ -967,276 +967,4 @@ func (b *BotInlineResultBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode BotInlineResultClass as nil")
 	}
 	return b.BotInlineResult.Encode(buf)
-}
-
-// BotInlineResultClassArray is adapter for slice of BotInlineResultClass.
-type BotInlineResultClassArray []BotInlineResultClass
-
-// Sort sorts slice of BotInlineResultClass.
-func (s BotInlineResultClassArray) Sort(less func(a, b BotInlineResultClass) bool) BotInlineResultClassArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BotInlineResultClass.
-func (s BotInlineResultClassArray) SortStable(less func(a, b BotInlineResultClass) bool) BotInlineResultClassArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BotInlineResultClass.
-func (s BotInlineResultClassArray) Retain(keep func(x BotInlineResultClass) bool) BotInlineResultClassArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BotInlineResultClassArray) First() (v BotInlineResultClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BotInlineResultClassArray) Last() (v BotInlineResultClass, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BotInlineResultClassArray) PopFirst() (v BotInlineResultClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BotInlineResultClass
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BotInlineResultClassArray) Pop() (v BotInlineResultClass, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// AsBotInlineResult returns copy with only BotInlineResult constructors.
-func (s BotInlineResultClassArray) AsBotInlineResult() (to BotInlineResultArray) {
-	for _, elem := range s {
-		value, ok := elem.(*BotInlineResult)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsBotInlineMediaResult returns copy with only BotInlineMediaResult constructors.
-func (s BotInlineResultClassArray) AsBotInlineMediaResult() (to BotInlineMediaResultArray) {
-	for _, elem := range s {
-		value, ok := elem.(*BotInlineMediaResult)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// BotInlineResultArray is adapter for slice of BotInlineResult.
-type BotInlineResultArray []BotInlineResult
-
-// Sort sorts slice of BotInlineResult.
-func (s BotInlineResultArray) Sort(less func(a, b BotInlineResult) bool) BotInlineResultArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BotInlineResult.
-func (s BotInlineResultArray) SortStable(less func(a, b BotInlineResult) bool) BotInlineResultArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BotInlineResult.
-func (s BotInlineResultArray) Retain(keep func(x BotInlineResult) bool) BotInlineResultArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BotInlineResultArray) First() (v BotInlineResult, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BotInlineResultArray) Last() (v BotInlineResult, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BotInlineResultArray) PopFirst() (v BotInlineResult, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BotInlineResult
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BotInlineResultArray) Pop() (v BotInlineResult, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// BotInlineMediaResultArray is adapter for slice of BotInlineMediaResult.
-type BotInlineMediaResultArray []BotInlineMediaResult
-
-// Sort sorts slice of BotInlineMediaResult.
-func (s BotInlineMediaResultArray) Sort(less func(a, b BotInlineMediaResult) bool) BotInlineMediaResultArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of BotInlineMediaResult.
-func (s BotInlineMediaResultArray) SortStable(less func(a, b BotInlineMediaResult) bool) BotInlineMediaResultArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of BotInlineMediaResult.
-func (s BotInlineMediaResultArray) Retain(keep func(x BotInlineMediaResult) bool) BotInlineMediaResultArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s BotInlineMediaResultArray) First() (v BotInlineMediaResult, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s BotInlineMediaResultArray) Last() (v BotInlineMediaResult, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BotInlineMediaResultArray) PopFirst() (v BotInlineMediaResult, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero BotInlineMediaResult
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *BotInlineMediaResultArray) Pop() (v BotInlineMediaResult, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
 }

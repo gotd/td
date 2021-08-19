@@ -39,6 +39,14 @@ type PaymentsGetSavedInfoRequest struct {
 // PaymentsGetSavedInfoRequestTypeID is TL type id of PaymentsGetSavedInfoRequest.
 const PaymentsGetSavedInfoRequestTypeID = 0x227d824b
 
+// Ensuring interfaces in compile-time for PaymentsGetSavedInfoRequest.
+var (
+	_ bin.Encoder     = &PaymentsGetSavedInfoRequest{}
+	_ bin.Decoder     = &PaymentsGetSavedInfoRequest{}
+	_ bin.BareEncoder = &PaymentsGetSavedInfoRequest{}
+	_ bin.BareDecoder = &PaymentsGetSavedInfoRequest{}
+)
+
 func (g *PaymentsGetSavedInfoRequest) Zero() bool {
 	if g == nil {
 		return true
@@ -117,14 +125,6 @@ func (g *PaymentsGetSavedInfoRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	return nil
 }
-
-// Ensuring interfaces in compile-time for PaymentsGetSavedInfoRequest.
-var (
-	_ bin.Encoder     = &PaymentsGetSavedInfoRequest{}
-	_ bin.Decoder     = &PaymentsGetSavedInfoRequest{}
-	_ bin.BareEncoder = &PaymentsGetSavedInfoRequest{}
-	_ bin.BareDecoder = &PaymentsGetSavedInfoRequest{}
-)
 
 // PaymentsGetSavedInfo invokes method payments.getSavedInfo#227d824b returning error if any.
 // Get saved payment information

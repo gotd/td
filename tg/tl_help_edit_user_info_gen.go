@@ -48,6 +48,14 @@ type HelpEditUserInfoRequest struct {
 // HelpEditUserInfoRequestTypeID is TL type id of HelpEditUserInfoRequest.
 const HelpEditUserInfoRequestTypeID = 0x66b91b70
 
+// Ensuring interfaces in compile-time for HelpEditUserInfoRequest.
+var (
+	_ bin.Encoder     = &HelpEditUserInfoRequest{}
+	_ bin.Decoder     = &HelpEditUserInfoRequest{}
+	_ bin.BareEncoder = &HelpEditUserInfoRequest{}
+	_ bin.BareDecoder = &HelpEditUserInfoRequest{}
+)
+
 func (e *HelpEditUserInfoRequest) Zero() bool {
 	if e == nil {
 		return true
@@ -157,26 +165,6 @@ func (e *HelpEditUserInfoRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (e *HelpEditUserInfoRequest) GetUserID() (value InputUserClass) {
-	return e.UserID
-}
-
-// GetMessage returns value of Message field.
-func (e *HelpEditUserInfoRequest) GetMessage() (value string) {
-	return e.Message
-}
-
-// GetEntities returns value of Entities field.
-func (e *HelpEditUserInfoRequest) GetEntities() (value []MessageEntityClass) {
-	return e.Entities
-}
-
-// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
-func (e *HelpEditUserInfoRequest) MapEntities() (value MessageEntityClassArray) {
-	return MessageEntityClassArray(e.Entities)
-}
-
 // Decode implements bin.Decoder.
 func (e *HelpEditUserInfoRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
@@ -227,13 +215,25 @@ func (e *HelpEditUserInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpEditUserInfoRequest.
-var (
-	_ bin.Encoder     = &HelpEditUserInfoRequest{}
-	_ bin.Decoder     = &HelpEditUserInfoRequest{}
-	_ bin.BareEncoder = &HelpEditUserInfoRequest{}
-	_ bin.BareDecoder = &HelpEditUserInfoRequest{}
-)
+// GetUserID returns value of UserID field.
+func (e *HelpEditUserInfoRequest) GetUserID() (value InputUserClass) {
+	return e.UserID
+}
+
+// GetMessage returns value of Message field.
+func (e *HelpEditUserInfoRequest) GetMessage() (value string) {
+	return e.Message
+}
+
+// GetEntities returns value of Entities field.
+func (e *HelpEditUserInfoRequest) GetEntities() (value []MessageEntityClass) {
+	return e.Entities
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (e *HelpEditUserInfoRequest) MapEntities() (value MessageEntityClassArray) {
+	return MessageEntityClassArray(e.Entities)
+}
 
 // HelpEditUserInfo invokes method help.editUserInfo#66b91b70 returning error if any.
 // Internal use

@@ -43,6 +43,14 @@ type BotsAnswerWebhookJSONQueryRequest struct {
 // BotsAnswerWebhookJSONQueryRequestTypeID is TL type id of BotsAnswerWebhookJSONQueryRequest.
 const BotsAnswerWebhookJSONQueryRequestTypeID = 0xe6213f4d
 
+// Ensuring interfaces in compile-time for BotsAnswerWebhookJSONQueryRequest.
+var (
+	_ bin.Encoder     = &BotsAnswerWebhookJSONQueryRequest{}
+	_ bin.Decoder     = &BotsAnswerWebhookJSONQueryRequest{}
+	_ bin.BareEncoder = &BotsAnswerWebhookJSONQueryRequest{}
+	_ bin.BareDecoder = &BotsAnswerWebhookJSONQueryRequest{}
+)
+
 func (a *BotsAnswerWebhookJSONQueryRequest) Zero() bool {
 	if a == nil {
 		return true
@@ -131,16 +139,6 @@ func (a *BotsAnswerWebhookJSONQueryRequest) EncodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// GetQueryID returns value of QueryID field.
-func (a *BotsAnswerWebhookJSONQueryRequest) GetQueryID() (value int64) {
-	return a.QueryID
-}
-
-// GetData returns value of Data field.
-func (a *BotsAnswerWebhookJSONQueryRequest) GetData() (value DataJSON) {
-	return a.Data
-}
-
 // Decode implements bin.Decoder.
 func (a *BotsAnswerWebhookJSONQueryRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
@@ -172,13 +170,15 @@ func (a *BotsAnswerWebhookJSONQueryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for BotsAnswerWebhookJSONQueryRequest.
-var (
-	_ bin.Encoder     = &BotsAnswerWebhookJSONQueryRequest{}
-	_ bin.Decoder     = &BotsAnswerWebhookJSONQueryRequest{}
-	_ bin.BareEncoder = &BotsAnswerWebhookJSONQueryRequest{}
-	_ bin.BareDecoder = &BotsAnswerWebhookJSONQueryRequest{}
-)
+// GetQueryID returns value of QueryID field.
+func (a *BotsAnswerWebhookJSONQueryRequest) GetQueryID() (value int64) {
+	return a.QueryID
+}
+
+// GetData returns value of Data field.
+func (a *BotsAnswerWebhookJSONQueryRequest) GetData() (value DataJSON) {
+	return a.Data
+}
 
 // BotsAnswerWebhookJSONQuery invokes method bots.answerWebhookJSONQuery#e6213f4d returning error if any.
 // Answers a custom query; for bots only
