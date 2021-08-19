@@ -82,6 +82,10 @@ func Funcs() template.FuncMap {
 			}
 			return lower
 		},
+
+		// Argument constructors
+		"newStructConfig": newStructConfig,
+		"newInterfaceConfig": newInterfaceConfig,
 	}
 }
 
