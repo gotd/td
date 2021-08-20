@@ -40,14 +40,14 @@ func get(ctx context.Context, u string) (_ io.ReadCloser, rErr error) {
 	return res.Body, nil
 }
 
-type Key struct {
+type telegramKey struct {
 	Public      *rsa.PublicKey
 	Fingerprint int64
 }
 
-type Keys []Key
+type telegramKeys []telegramKey
 
-func (k Keys) Print(w io.Writer) error {
+func (k telegramKeys) Print(w io.Writer) error {
 	sort.Stable(k)
 
 	for _, key := range k {
@@ -63,39 +63,39 @@ func (k Keys) Print(w io.Writer) error {
 	return nil
 }
 
-func (k *Keys) Add(key *rsa.PublicKey) {
-	*k = append(*k, Key{
+func (k *telegramKeys) Add(key *rsa.PublicKey) {
+	*k = append(*k, telegramKey{
 		Public:      key,
 		Fingerprint: crypto.RSAFingerprint(key),
 	})
 }
 
-func (k Keys) Find(f int64) (Key, bool) {
+func (k telegramKeys) Find(f int64) (telegramKey, bool) {
 	l := k.Len()
 	idx := sort.Search(l, func(idx int) bool {
 		return k[idx].Fingerprint <= f
 	})
 
 	if idx < 0 || idx >= l {
-		return Key{}, false
+		return telegramKey{}, false
 	}
 
 	return k[idx], true
 }
 
-func (k Keys) Len() int {
+func (k telegramKeys) Len() int {
 	return len(k)
 }
 
-func (k Keys) Less(i, j int) bool {
+func (k telegramKeys) Less(i, j int) bool {
 	return k[i].Fingerprint < k[j].Fingerprint
 }
 
-func (k Keys) Swap(i, j int) {
+func (k telegramKeys) Swap(i, j int) {
 	k[i], k[j] = k[j], k[i]
 }
 
-func extractKeys(ctx context.Context, u *url.URL) (_ Keys, rErr error) {
+func extractKeys(ctx context.Context, u *url.URL) (_ telegramKeys, rErr error) {
 	res, err := get(ctx, u.String())
 	if err != nil {
 		return nil, xerrors.Errorf("get: %w", err)
@@ -112,7 +112,7 @@ func extractKeys(ctx context.Context, u *url.URL) (_ Keys, rErr error) {
 		return nil, xerrors.Errorf("parse: %w", err)
 	}
 
-	r := make(Keys, 0, len(keys))
+	r := make(telegramKeys, 0, len(keys))
 	for _, key := range keys {
 		r.Add(key)
 	}

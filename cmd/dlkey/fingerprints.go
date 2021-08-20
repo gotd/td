@@ -34,8 +34,8 @@ func dial(ctx context.Context, addr string) (_ transport.Conn, rErr error) {
 	return transportConn, nil
 }
 
-func getAvailable(ctx context.Context, keys Keys) (Keys, error) {
-	available := Keys{}
+func getAvailable(ctx context.Context, keys telegramKeys) (telegramKeys, error) {
+	available := telegramKeys{}
 	dedup := map[int64]struct{}{}
 
 	for listName, list := range map[string]dcs.List{
