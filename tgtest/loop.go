@@ -68,7 +68,7 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) error {
 			}
 
 			s.log.Debug("Starting key exchange")
-			key, err := s.exchange(ctx, c)
+			key, err := s.exchange(ctx, exchangeConn{Conn: c})
 			if err != nil {
 				return xerrors.Errorf("key exchange failed: %w", err)
 			}

@@ -52,13 +52,19 @@ func (w unencryptedWriter) tryRead(ctx context.Context, b *bin.Buffer) error {
 	return nil
 }
 
+func (w unencryptedWriter) isClient() bool {
+	return w.output == proto.MessageFromClient
+}
+
 func (w unencryptedWriter) readUnencrypted(ctx context.Context, b *bin.Buffer, data bin.Decoder) error {
 	b.Reset()
 
 	for {
 		if err := w.tryRead(ctx, b); err != nil {
 			var protocolErr *codec.ProtocolErr
-			if xerrors.As(err, &protocolErr) && protocolErr.Code == codec.CodeAuthKeyNotFound {
+			if w.isClient() &&
+				xerrors.As(err, &protocolErr) &&
+				protocolErr.Code == codec.CodeAuthKeyNotFound {
 				continue
 			}
 			return err

@@ -3,10 +3,44 @@ package tgtest
 import (
 	"context"
 
+	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/exchange"
+	"github.com/gotd/td/internal/proto/codec"
 	"github.com/gotd/td/transport"
 )
+
+type exchangeConn struct {
+	transport.Conn
+}
+
+func (e exchangeConn) Recv(ctx context.Context, b *bin.Buffer) error {
+	for {
+		if err := e.Conn.Recv(ctx, b); err != nil {
+			return err
+		}
+
+		var authKeyID [8]byte
+		if err := b.PeekN(authKeyID[:], len(authKeyID)); err != nil {
+			return xerrors.Errorf("peek id: %w", err)
+		}
+		if authKeyID != [8]byte{} {
+			// TODO(tdakkota): what if client send registered auth key during key exchange?
+			buf := bin.Buffer{}
+			buf.PutInt32(-codec.CodeAuthKeyNotFound)
+
+			if err := e.Conn.Send(ctx, &buf); err != nil {
+				return xerrors.Errorf("send: %w", err)
+			}
+
+			continue
+		}
+
+		return nil
+	}
+}
 
 // exchange starts MTProto key exchange.
 func (s *Server) exchange(ctx context.Context, conn transport.Conn) (crypto.AuthKey, error) {

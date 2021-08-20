@@ -5,14 +5,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/transport"
 )
 
 func TestBufferedConn(t *testing.T) {
-	a := require.New(t)
+	a := assert.New(t)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
