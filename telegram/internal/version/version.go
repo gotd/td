@@ -1,4 +1,5 @@
-package telegram
+// Package version contains gotd module version getter.
+package version
 
 import (
 	"runtime/debug"
@@ -11,10 +12,10 @@ var versionOnce struct {
 	sync.Once
 }
 
-// getVersion optimistically gets current client version.
+// GetVersion optimistically gets current client version.
 //
 // Does not handle replace directives.
-func getVersion() string {
+func GetVersion() string {
 	versionOnce.Do(func() {
 		info, ok := debug.ReadBuildInfo()
 		if !ok {
