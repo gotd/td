@@ -31,6 +31,6 @@ func (cfg *Options) setDefaults() {
 		cfg.Clock = clock.System
 	}
 	if cfg.DropHandler == nil {
-		cfg.DropHandler = func(req Request) error { return nil }
+		cfg.DropHandler = NopDrop
 	}
 }

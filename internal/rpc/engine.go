@@ -36,15 +36,6 @@ type Engine struct {
 	closed uint32
 }
 
-// Send is a function that sends requests to the server.
-type Send func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error
-
-// NopSend does nothing.
-func NopSend(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error { return nil }
-
-// DropHandler handles drop rpc requests.
-type DropHandler func(req Request) error
-
 // New creates new rpc Engine.
 func New(send Send, cfg Options) *Engine {
 	cfg.setDefaults()
