@@ -1,6 +1,7 @@
 package rpc
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -11,5 +12,5 @@ func TestNopDrop(t *testing.T) {
 }
 
 func TestNopSend(t *testing.T) {
-	require.NoError(t, NopSend(nil, 0, 0, nil))
+	require.NoError(t, NopSend(context.TODO(), 0, 0, nil))
 }
