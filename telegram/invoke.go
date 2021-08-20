@@ -7,8 +7,14 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 )
+
+// API returns *tg.Client for calling raw MTProto methods.
+func (c *Client) API() *tg.Client {
+	return c.tg
+}
 
 // Invoke invokes raw MTProto RPC method. It sends input and decodes result
 // into output.

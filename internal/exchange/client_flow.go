@@ -53,7 +53,7 @@ Loop:
 		}
 	}
 	if selectedPubKey == nil {
-		return ClientExchangeResult{}, xerrors.New("unable to select public key")
+		return ClientExchangeResult{}, ErrKeyFingerprintNotFound
 	}
 
 	// The pq is a representation of a natural number (in binary big endian format).

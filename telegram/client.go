@@ -2,27 +2,19 @@ package telegram
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"io"
 	"sync"
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/atomic"
-	"go.uber.org/multierr"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/pool"
-	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/manager"
@@ -123,30 +115,6 @@ type Client struct {
 	noUpdatesMode bool // immutable
 }
 
-// API returns *tg.Client for calling raw MTProto methods.
-func (c *Client) API() *tg.Client {
-	return c.tg
-}
-
-// Port is default port used by telegram.
-const Port = 443
-
-var (
-	typesMap  *tmap.Map
-	typesOnce sync.Once
-)
-
-func getTypesMapping() *tmap.Map {
-	typesOnce.Do(func() {
-		typesMap = tmap.New(
-			tg.TypesMap(),
-			mt.TypesMap(),
-			proto.TypesMap(),
-		)
-	})
-	return typesMap
-}
-
 // NewClient creates new unstarted client.
 func NewClient(appID int, appHash string, opt Options) *Client {
 	opt.setDefaults()
@@ -224,253 +192,4 @@ func (c *Client) init() {
 	c.subConns = map[int]CloseInvoker{}
 	c.invoker = chainMiddlewares(InvokeFunc(c.invokeDirect), c.mw...)
 	c.tg = tg.NewClient(c.invoker)
-}
-
-func (c *Client) restoreConnection(ctx context.Context) error {
-	if c.storage == nil {
-		return nil
-	}
-
-	data, err := c.storage.Load(ctx)
-	if errors.Is(err, session.ErrNotFound) {
-		return nil
-	}
-	if err != nil {
-		return xerrors.Errorf("load: %w", err)
-	}
-
-	// If file does not contain DC ID, so we use DC from options.
-	prev := c.session.Load()
-	if data.DC == 0 {
-		data.DC = prev.DC
-	}
-
-	// Restoring persisted auth key.
-	var key crypto.AuthKey
-	copy(key.Value[:], data.AuthKey)
-	copy(key.ID[:], data.AuthKeyID)
-
-	if key.Value.ID() != key.ID {
-		return xerrors.New("corrupted key")
-	}
-
-	// Re-initializing connection from persisted state.
-	c.log.Info("Connection restored from state",
-		zap.String("addr", data.Addr),
-		zap.String("key_id", fmt.Sprintf("%x", data.AuthKeyID)),
-	)
-
-	c.connMux.Lock()
-	c.session.Store(pool.Session{
-		DC:      data.DC,
-		AuthKey: key,
-		Salt:    data.Salt,
-	})
-	c.conn = c.createPrimaryConn(nil)
-	c.connMux.Unlock()
-
-	return nil
-}
-
-func (c *Client) runUntilRestart(ctx context.Context) error {
-	g := tdsync.NewCancellableGroup(ctx)
-	g.Go(c.conn.Run)
-
-	// If don't need updates, so there is no reason to subscribe for it.
-	if !c.noUpdatesMode {
-		g.Go(func(ctx context.Context) error {
-			// Call method which requires authorization, to subscribe for updates.
-			// See https://core.telegram.org/api/updates#subscribing-to-updates.
-			self, err := c.Self(ctx)
-			if err != nil {
-				// Ignore unauthorized errors.
-				if !unauthorized(err) {
-					c.log.Warn("Got error on self", zap.Error(err))
-				}
-				return nil
-			}
-
-			c.log.Info("Got self", zap.String("username", self.Username))
-			return nil
-		})
-	}
-
-	g.Go(func(ctx context.Context) error {
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		case <-c.restart:
-			c.log.Debug("Restart triggered")
-			// Should call cancel() to cancel group.
-			g.Cancel()
-
-			return nil
-		}
-	})
-
-	return g.Wait()
-}
-
-func (c *Client) reconnectUntilClosed(ctx context.Context) error {
-	// Note that we currently have no timeout on connection, so this is
-	// potentially eternal.
-	b := tdsync.SyncBackoff(backoff.WithContext(c.connBackoff(), ctx))
-
-	return backoff.RetryNotify(func() error {
-		return c.runUntilRestart(ctx)
-	}, b, func(err error, timeout time.Duration) {
-		c.log.Info("Restarting connection", zap.Error(err), zap.Duration("backoff", timeout))
-
-		c.connMux.Lock()
-		c.conn = c.createPrimaryConn(nil)
-		c.connMux.Unlock()
-	})
-}
-
-func (c *Client) onReady() {
-	c.log.Debug("Ready")
-	c.ready.Signal()
-}
-
-func (c *Client) resetReady() {
-	c.ready.Reset()
-}
-
-// Run starts client session and blocks until connection close.
-// The f callback is called on successful session initialization and Run
-// will return on f() result.
-//
-// Context of callback will be canceled if fatal error is detected.
-// The ctx is used for background operations like updates handling or pools.
-//
-// See `examples/bg-run` and `contrib/gb` package for classic approach without
-// explicit callback, with Connect and defer close().
-func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (err error) {
-	if c.ctx != nil {
-		select {
-		case <-c.ctx.Done():
-			return xerrors.Errorf("client already closed: %w", c.ctx.Err())
-		default:
-		}
-	}
-
-	// Setting up client context for background operations like updates
-	// handling or pool creation.
-	c.ctx, c.cancel = context.WithCancel(ctx)
-
-	c.log.Info("Starting")
-	defer c.log.Info("Closed")
-	// Cancel client on exit.
-	defer c.cancel()
-	defer func() {
-		c.subConnsMux.Lock()
-		defer c.subConnsMux.Unlock()
-
-		for _, conn := range c.subConns {
-			if closeErr := conn.Close(); !xerrors.Is(closeErr, context.Canceled) {
-				multierr.AppendInto(&err, closeErr)
-			}
-		}
-	}()
-
-	c.resetReady()
-	if err := c.restoreConnection(ctx); err != nil {
-		return err
-	}
-
-	g := tdsync.NewCancellableGroup(ctx)
-	g.Go(c.reconnectUntilClosed)
-	g.Go(func(ctx context.Context) error {
-		select {
-		case <-ctx.Done():
-			c.cancel()
-			return ctx.Err()
-		case <-c.ctx.Done():
-			return c.ctx.Err()
-		}
-	})
-	g.Go(func(ctx context.Context) error {
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		case <-c.ready.Ready():
-			if err := f(ctx); err != nil {
-				return xerrors.Errorf("callback: %w", err)
-			}
-			// Should call cancel() to cancel ctx.
-			// This will terminate c.conn.Run().
-			c.log.Debug("Callback returned, stopping")
-			g.Cancel()
-			return nil
-		}
-	})
-	if err := g.Wait(); !xerrors.Is(err, context.Canceled) {
-		return err
-	}
-
-	return nil
-}
-
-func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
-	if c.storage == nil {
-		return nil
-	}
-
-	data, err := c.storage.Load(c.ctx)
-	if errors.Is(err, session.ErrNotFound) {
-		// Initializing new state.
-		err = nil
-		data = &session.Data{}
-	}
-	if err != nil {
-		return xerrors.Errorf("load: %w", err)
-	}
-
-	// Updating previous data.
-	data.Config = cfg
-	data.AuthKey = s.Key.Value[:]
-	data.AuthKeyID = s.Key.ID[:]
-	data.DC = cfg.ThisDC
-	data.Salt = s.Salt
-
-	if err := c.storage.Save(c.ctx, data); err != nil {
-		return xerrors.Errorf("save: %w", err)
-	}
-
-	c.log.Debug("Data saved",
-		zap.String("key_id", fmt.Sprintf("%x", data.AuthKeyID)),
-	)
-	return nil
-}
-
-func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
-	c.sessionsMux.Lock()
-	c.sessions[cfg.ThisDC] = pool.NewSyncSession(pool.Session{
-		DC:      cfg.ThisDC,
-		Salt:    s.Salt,
-		AuthKey: s.Key,
-	})
-	c.sessionsMux.Unlock()
-
-	primaryDC := c.session.Load().DC
-	// Do not save session for non-primary DC.
-	if cfg.ThisDC != 0 && primaryDC != 0 && primaryDC != cfg.ThisDC {
-		return nil
-	}
-
-	c.connMux.Lock()
-	c.session.Store(pool.Session{
-		DC:      cfg.ThisDC,
-		Salt:    s.Salt,
-		AuthKey: s.Key,
-	})
-	c.cfg.Store(cfg)
-	c.onReady()
-	c.connMux.Unlock()
-
-	if err := c.saveSession(cfg, s); err != nil {
-		return xerrors.Errorf("save: %w", err)
-	}
-
-	return nil
 }
