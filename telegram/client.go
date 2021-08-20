@@ -26,6 +26,7 @@ import (
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/manager"
+	"github.com/gotd/td/telegram/internal/version"
 	"github.com/gotd/td/tg"
 )
 
@@ -180,7 +181,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	client.init()
 
 	// Including version into client logger to help with debugging.
-	if v := getVersion(); v != "" {
+	if v := version.GetVersion(); v != "" {
 		client.log = client.log.With(zap.String("v", v))
 	}
 
