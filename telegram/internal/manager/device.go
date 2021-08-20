@@ -4,6 +4,7 @@ import (
 	"runtime"
 
 	"github.com/gotd/td/telegram/internal/version"
+	"github.com/gotd/td/tg"
 )
 
 // DeviceConfig is config which send when Telegram connection session created.
@@ -20,6 +21,11 @@ type DeviceConfig struct {
 	LangPack string
 	// Code for the language used on the client, ISO 639-1 standard.
 	LangCode string
+	// Info about an MTProto proxy.
+	Proxy tg.InputClientProxy
+	// Additional initConnection parameters. For now, only the tz_offset field is supported,
+	// for specifying timezone offset in seconds.
+	Params tg.JSONValueClass
 }
 
 // SetDefaults sets default values.
@@ -50,4 +56,6 @@ func (c *DeviceConfig) SetDefaults() {
 	if c.LangCode == "" {
 		c.LangCode = "en"
 	}
+	// It's okay to use zero value Proxy.
+	// It's okay to use zero value Params.
 }

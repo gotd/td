@@ -198,6 +198,8 @@ func (c *Conn) init(ctx context.Context) error {
 		SystemLangCode: c.device.SystemLangCode,
 		LangPack:       c.device.LangPack,
 		LangCode:       c.device.LangCode,
+		Proxy:          c.device.Proxy,
+		Params:         c.device.Params,
 		Query:          c.wrapRequest(&tg.HelpGetConfigRequest{}),
 	})
 	req := c.wrapRequest(&tg.InvokeWithLayerRequest{
