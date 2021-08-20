@@ -77,8 +77,6 @@ func TestSessionHandle(t *testing.T) {
 		a.NoError(err, "Must create new session")
 	})
 	t.Run("Unknown", func(t *testing.T) {
-		t.Skip("TODO: fix unknown auth key ID handling")
-
 		a := require.New(t)
 		loader := session.Loader{Storage: &session.StorageMemory{}}
 		ctx := context.Background()
