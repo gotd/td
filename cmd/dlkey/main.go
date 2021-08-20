@@ -2,18 +2,20 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"io"
-	"net/http"
 	"net/url"
 	"os"
+	"os/signal"
 	"path"
 
-	"github.com/gotd/td/internal/keyparser"
+	"go.uber.org/multierr"
+	"golang.org/x/xerrors"
 )
 
-func main() {
+func run(ctx context.Context) (rErr error) {
 	var (
 		name   = flag.String("f", "mtproto_dc_options.cpp", "file name to download")
 		base   = flag.String("base", "https://raw.githubusercontent.com/telegramdesktop/tdesktop", "base url")
@@ -25,35 +27,38 @@ func main() {
 
 	u, err := url.Parse(*base)
 	if err != nil {
-		panic(err)
+		return xerrors.Errorf("parse base: %w", err)
 	}
-
 	u.Path = path.Join(u.Path, *branch, *dir, *name)
 
-	res, err := http.Get(u.String())
+	keys, err := extractKeys(ctx, u)
 	if err != nil {
-		panic(err)
-	}
-	defer func() { _ = res.Body.Close() }()
-	if res.StatusCode/100 != 2 {
-		panic(fmt.Sprintf("status code %d", res.StatusCode))
+		return xerrors.Errorf("extract keys: %w", err)
 	}
 
-	var outWriter io.Writer = os.Stdout
-	if *out != "" {
-		w, err := os.Create(*out)
+	available, err := getAvailable(ctx, keys)
+	if err != nil {
+		return xerrors.Errorf("get fingerprints: %w", err)
+	}
+
+	var w io.Writer = os.Stdout
+	if p := *out; p != "" {
+		f, err := os.Create(p)
 		if err != nil {
-			panic(err)
+			return xerrors.Errorf("create: %w", err)
 		}
-		defer func() {
-			if err := w.Close(); err != nil {
-				panic(err)
-			}
-		}()
-		outWriter = w
+		defer multierr.AppendInvoke(&rErr, multierr.Close(f))
 	}
 
-	if err := keyparser.Extract(res.Body, outWriter); err != nil {
-		panic(err)
+	return available.Print(w)
+}
+
+func main() {
+	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
+	defer cancel()
+
+	if err := run(ctx); err != nil {
+		_, _ = fmt.Fprintf(os.Stderr, "%+v\n", err)
+		os.Exit(2)
 	}
 }
