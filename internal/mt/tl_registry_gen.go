@@ -34,6 +34,7 @@ func TypesMap() map[uint32]string {
 	return map[uint32]string{
 		0x5162463:  "resPQ#5162463",
 		0x83c95aec: "p_q_inner_data#83c95aec",
+		0xa9f55f95: "p_q_inner_data_dc#a9f55f95",
 		0x79cb045d: "server_DH_params_fail#79cb045d",
 		0xd0e8075c: "server_DH_params_ok#d0e8075c",
 		0xb5890dba: "server_DH_inner_data#b5890dba",
@@ -83,6 +84,7 @@ func NamesMap() map[string]uint32 {
 	return map[string]uint32{
 		"resPQ":                      0x5162463,
 		"p_q_inner_data":             0x83c95aec,
+		"p_q_inner_data_dc":          0xa9f55f95,
 		"server_DH_params_fail":      0x79cb045d,
 		"server_DH_params_ok":        0xd0e8075c,
 		"server_DH_inner_data":       0xb5890dba,
@@ -132,6 +134,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 	return map[uint32]func() bin.Object{
 		0x5162463:  func() bin.Object { return &ResPQ{} },
 		0x83c95aec: func() bin.Object { return &PQInnerData{} },
+		0xa9f55f95: func() bin.Object { return &PQInnerDataDC{} },
 		0x79cb045d: func() bin.Object { return &ServerDHParamsFail{} },
 		0xd0e8075c: func() bin.Object { return &ServerDHParamsOk{} },
 		0xb5890dba: func() bin.Object { return &ServerDHInnerData{} },
