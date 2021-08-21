@@ -1,5 +1,5 @@
-//go:build !gotd_new_exchange
-// +build !gotd_new_exchange
+//go:build gotd_new_exchange
+// +build gotd_new_exchange
 
 package exchange
 
@@ -87,21 +87,22 @@ Loop:
 	if err != nil {
 		return ClientExchangeResult{}, xerrors.Errorf("generate new nonce: %w", err)
 	}
-	pqInnerData := &mt.PQInnerData{
+	pqInnerData := &mt.PQInnerDataDC{
 		Pq:          res.Pq,
 		Nonce:       nonce,
 		NewNonce:    newNonce,
 		ServerNonce: serverNonce,
 		P:           pBytes,
 		Q:           qBytes,
+		DC:          2,
 	}
 	b.Reset()
 	if err := pqInnerData.Encode(b); err != nil {
 		return ClientExchangeResult{}, err
 	}
 
-	// `encrypted_data := RSA (data_with_hash, server_public_key);`
-	encryptedData, err := crypto.RSAEncryptHashed(b.Buf, selectedPubKey, c.rand)
+	// `encrypted_data := RSA_PAD(data, server_public_key); `
+	encryptedData, err := crypto.RSAPad(b.Buf, selectedPubKey, c.rand)
 	if err != nil {
 		return ClientExchangeResult{}, xerrors.Errorf("encrypted_data generation: %w", err)
 	}
