@@ -6,6 +6,10 @@
 
 Updated key exchange protocol should be implemented
 
+### Initial tracing
+
+Add basic OpenTelemetry spans
+
 ### Bot API Types
 
 All Bot API Types should be parsed
@@ -43,6 +47,10 @@ Client for `telegram-bot-api`.
 
 ### Documentation
 Create a static website for documentation for set of tools.
+
+### Observability
+* Advanced OpenTelemetry tracing
+* Prometheus metrics
 
 ### Goals
 * Implement ecosystem of tools for telegram in go
