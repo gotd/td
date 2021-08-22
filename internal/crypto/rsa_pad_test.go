@@ -5,6 +5,7 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"encoding/hex"
+	"io"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -42,12 +43,17 @@ t6N/byY9Nw9p21Og3AoXSL2q/2IJ1WRUhebgAdGVMlV1fkuOQoEzR7EdpqtQD9Cs
 
 func TestDecodeRSAPad(t *testing.T) {
 	a := require.New(t)
-	key, err := rsa.GenerateKey(rand.Reader, RSAKeyBits)
+	r := rand.Reader
+
+	key, err := rsa.GenerateKey(r, RSAKeyBits)
 	a.NoError(err)
 	size := 144
 
-	data := bytes.Repeat([]byte{'a'}, size)
-	encrypted, err := RSAPad(data, &key.PublicKey, Zero{})
+	data := make([]byte, size)
+	_, err = io.ReadFull(r, data)
+	a.NoError(err)
+
+	encrypted, err := RSAPad(data, &key.PublicKey, r)
 	a.NoError(err)
 	a.Len(encrypted, 256)
 
