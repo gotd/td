@@ -129,7 +129,7 @@ func DecodeRSAPad(data []byte, key *rsa.PrivateKey) ([]byte, error) {
 	tempKey := make([]byte, tempKeySize)
 	{
 		aesEncryptedHash := sha256.Sum256(aesEncrypted)
-		xor.Bytes(tempKeyXor, tempKey, aesEncryptedHash[:])
+		xor.Bytes(tempKey, tempKeyXor, aesEncryptedHash[:])
 	}
 
 	dataWithHash := make([]byte, len(aesEncrypted))
