@@ -1,15 +1,49 @@
 # Roadmap
 
-Please use [project](https://github.com/gotd/td/projects) as source of truth for
-features status.
+## Q3
 
-## Current focus: documentation
+### Update key exchange
 
-Epic: [#166](https://github.com/gotd/td/issues/166)
+Updated key exchange protocol should be implemented
 
-Add documentation for every helper
+### Bot API Types
 
-## Secondary focus: sugared client
+All Bot API Types should be parsed
+* Parser from docs
+* OpenAPI v3 generated spec from parsed types
+* Go structs generated from OpenAPI v3 spec
 
-Design an API for sugared client that will bundle helpers.
+## Q4
 
+### Sugared client
+
+The tdlib-like client should be implemented to help users that are struggling with
+raw API and a bunch of helpers.
+* Caching for entities
+  * Memory
+  * External, e.g. in PostgreSQL or MongoDB
+* Friendly wrappers for all objects
+  * Dialogs
+  * Users
+  * Files
+  * Photos
+
+### Bot API
+
+The `telegram-bot-api` compatible server should be implemented.
+
+### Server
+
+Embeddable Telegram server with limited functionality that can be used as a
+server for `telegram-bot-api`.
+
+### Bot API Client
+
+Client for `telegram-bot-api`.
+
+### Documentation
+Create a static website for documentation for set of tools.
+
+### Goals
+* Implement ecosystem of tools for telegram in go
+* Make it robust via extensive end-to-end testing
