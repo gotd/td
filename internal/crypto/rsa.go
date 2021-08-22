@@ -133,8 +133,8 @@ func RSAPad(data []byte, key *rsa.PublicKey, randomSource io.Reader) ([]byte, er
 		dataWithHash = append(dataWithHash, dataPadReversed...)
 		{
 			h := sha256.New()
-			h.Write(tempKey)
-			h.Write(dataWithPadding)
+			_, _ = h.Write(tempKey)
+			_, _ = h.Write(dataWithPadding)
 			dataWithHash = append(dataWithHash, h.Sum(nil)...)
 		}
 
@@ -177,7 +177,7 @@ func RSAPad(data []byte, key *rsa.PublicKey, randomSource io.Reader) ([]byte, er
 		// exactly 256 bytes (with leading zero bytes if required).
 		//
 		// Encrypting "key_aes_encrypted" with RSA.
-		res := rsaEncrypt(keyAESEncrypted[:], key)
+		res := rsaEncrypt(keyAESEncrypted, key)
 		return res, nil
 	}
 }

@@ -42,7 +42,7 @@ func TestExchangeTimeout(t *testing.T) {
 	})
 
 	err = g.Wait()
-	if err, ok := err.(net.Error); !ok || !err.Timeout() {
-		require.NoError(t, err)
-	}
+	var e net.Error
+	a.ErrorAs(err, &e)
+	a.True(e.Timeout())
 }
