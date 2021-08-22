@@ -34,7 +34,7 @@ raw API and a bunch of helpers.
 
 ### Bot API
 
-The `telegram-bot-api` compatible server should be implemented.
+Embeddable `telegram-bot-api` compatible server should be implemented.
 
 ### Server
 
