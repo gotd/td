@@ -8,9 +8,10 @@ import (
 	"io"
 	"math/big"
 
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/ige"
 	"github.com/gotd/xor"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 )

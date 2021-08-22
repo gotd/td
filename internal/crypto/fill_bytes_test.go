@@ -23,7 +23,7 @@ func TestFillBytes(t *testing.T) {
 			b, err := rand.Prime(rand.Reader, tt.bitSize)
 			a.NoError(err)
 
-			var to [256/8]byte
+			var to [256 / 8]byte
 			a.Equal(tt.result, FillBytes(b, to[:]))
 		})
 	}

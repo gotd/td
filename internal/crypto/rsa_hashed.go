@@ -3,7 +3,7 @@ package crypto
 import (
 	"bytes"
 	"crypto/rsa"
-	"crypto/sha1"
+	"crypto/sha1" // #nosec G505
 	"io"
 
 	"golang.org/x/xerrors"
