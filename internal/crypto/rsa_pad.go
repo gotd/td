@@ -50,7 +50,8 @@ func RSAPad(data []byte, key *rsa.PublicKey, randomSource io.Reader) ([]byte, er
 	}
 
 	// Make a copy.
-	dataPadReversed := append([]byte(nil), dataWithPadding...)
+	dataPadReversed := make([]byte, dataWithPaddingLength)
+	copy(dataPadReversed, dataWithPadding)
 	// 2) data_pad_reversed := BYTE_REVERSE(data_with_padding);
 	reverseBytes(dataPadReversed)
 
@@ -69,7 +70,8 @@ func RSAPad(data []byte, key *rsa.PublicKey, randomSource io.Reader) ([]byte, er
 			h := sha256.New()
 			_, _ = h.Write(tempKey)
 			_, _ = h.Write(dataWithPadding)
-			dataWithHash = append(dataWithHash, h.Sum(nil)...)
+			dataWithHash = h.Sum(dataWithHash)
+			dataWithHash = dataWithHash[:dataWithHashLength]
 		}
 
 		// 5) aes_encrypted := AES256_IGE(data_with_hash, temp_key, 0); — AES256-IGE encryption with zero IV.
