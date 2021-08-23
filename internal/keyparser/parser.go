@@ -56,6 +56,8 @@ func Extract(r io.Reader, w io.Writer) error {
 		text := strings.TrimSuffix(
 			strings.TrimSpace(s.Text()), `\n\`,
 		)
+		text = strings.Trim(text, `"`)
+		text = strings.TrimSuffix(text, `\n`)
 
 		text = cleanHeader(text)
 
