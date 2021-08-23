@@ -13,6 +13,9 @@ var (
 	//go:embed _data/public_keys.pem
 	publicKeys []byte
 
+	//go:embed _data/public_keys_new.pem
+	publicKeysNew []byte
+
 	parsedKeys struct {
 		Keys []exchange.PublicKey
 		Once sync.Once
@@ -21,22 +24,33 @@ var (
 
 //nolint:gochecknoinits
 func init() {
-	parsedKeys.Once.Do(func() {
-		rsaKeys, err := crypto.ParseRSAPublicKeys(publicKeys)
+	makePublicKeys := func(data []byte, rsaPad bool) ([]exchange.PublicKey, error) {
+		rsaKeys, err := crypto.ParseRSAPublicKeys(data)
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
 
 		keys := make([]exchange.PublicKey, 0, len(rsaKeys))
 		for _, key := range rsaKeys {
-			// TODO(tdakkota): distinguish new and old keys via UseInnerDataDC.
 			keys = append(keys, exchange.PublicKey{
-				RSA:            key,
-				UseInnerDataDC: false,
+				RSA:       key,
+				UseRSAPad: rsaPad,
 			})
 		}
+		return keys, nil
+	}
+	parsedKeys.Once.Do(func() {
+		newKeys, err := makePublicKeys(publicKeysNew, true)
+		if err != nil {
+			panic(err)
+		}
+		parsedKeys.Keys = append(parsedKeys.Keys, newKeys...)
 
-		parsedKeys.Keys = keys
+		oldKeys, err := makePublicKeys(publicKeys, false)
+		if err != nil {
+			panic(err)
+		}
+		parsedKeys.Keys = append(parsedKeys.Keys, oldKeys...)
 	})
 }
 
