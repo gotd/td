@@ -9,6 +9,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+
+	"github.com/gotd/td/internal/testutil"
 )
 
 func TestRSAPad(t *testing.T) {
@@ -60,4 +62,23 @@ func TestDecodeRSAPad(t *testing.T) {
 	decrypted, err := DecodeRSAPad(encrypted, key)
 	a.NoError(err)
 	a.Equal(data, decrypted[:size])
+}
+
+func BenchmarkRSAPad(b *testing.B) {
+	key := testutil.RSAPrivateKey()
+
+	data := make([]byte, 144)
+	if _, err := io.ReadFull(rand.Reader, data); err != nil {
+		b.Fatal(err)
+	}
+
+	b.SetBytes(int64(len(data)))
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		if _, err := RSAPad(data, &key.PublicKey, rand.Reader); err != nil {
+			b.Fatal(err)
+		}
+	}
 }
