@@ -13,6 +13,11 @@ var (
 	//go:embed _data/public_keys.pem
 	publicKeys []byte
 
+	// publicKeysNew is byte blob of new keys added for PQInnerData encryption (key exchange).
+	//
+	// See https://github.com/telegramdesktop/tdesktop/commit/95a7ce4622dc24717dc5b95fc99599dddfd4ff6c.
+	//
+	// See https://github.com/tdlib/td/commit/e9e24282378fcdb3a3ce020bee4253b65ac98213.
 	//go:embed _data/public_keys_new.pem
 	publicKeysNew []byte
 
