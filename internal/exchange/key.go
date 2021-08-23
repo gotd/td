@@ -18,7 +18,7 @@ type PublicKey struct {
 
 // Zero denotes that current PublicKey is zero value.
 func (k PublicKey) Zero() bool {
-	return k.RSA == nil && k.UseInnerDataDC == false
+	return k.RSA == nil && k.UseInnerDataDC
 }
 
 // Fingerprint computes key fingerprint.
@@ -38,7 +38,7 @@ type PrivateKey struct {
 
 // Zero denotes that current PublicKey is zero value.
 func (k PrivateKey) Zero() bool {
-	return k.RSA == nil && k.UseInnerDataDC == false
+	return k.RSA == nil && k.UseInnerDataDC
 }
 
 // Fingerprint computes key fingerprint.

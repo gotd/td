@@ -18,6 +18,7 @@ import (
 )
 
 type (
+	// PublicKey is a Telegram server public key.
 	PublicKey = exchange.PublicKey
 )
 
