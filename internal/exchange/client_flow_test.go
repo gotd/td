@@ -32,11 +32,16 @@ func TestExchangeTimeout(t *testing.T) {
 
 	g := tdsync.NewCancellableGroup(ctx)
 	g.Go(func(ctx context.Context) error {
-		_, err := NewExchanger(client).
+		_, err := NewExchanger(client, 2).
 			WithLogger(log.Named("client")).
 			WithRand(reader).
 			WithTimeout(1 * time.Second).
-			Client([]*rsa.PublicKey{&key.PublicKey}).
+			Client([]PublicKey{
+				{
+					RSA:            &key.PublicKey,
+					UseInnerDataDC: false,
+				},
+			}).
 			Run(ctx)
 		return err
 	})

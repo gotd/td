@@ -1,12 +1,8 @@
-//go:build !gotd_new_exchange
-// +build !gotd_new_exchange
-
 package exchange
 
 import (
 	"context"
 	"crypto/rand"
-	"crypto/rsa"
 	"math/big"
 
 	"go.uber.org/zap"
@@ -45,17 +41,19 @@ func (c ClientExchange) Run(ctx context.Context) (ClientExchangeResult, error) {
 	serverNonce := res.ServerNonce
 
 	// Selecting first public key that match fingerprint.
-	var selectedPubKey *rsa.PublicKey
+	var selectedPubKey PublicKey
 Loop:
-	for _, fingerprint := range res.ServerPublicKeyFingerprints {
-		for _, key := range c.keys {
-			if fingerprint == crypto.RSAFingerprint(key) {
+	for _, key := range c.keys {
+		f := key.Fingerprint()
+
+		for _, fingerprint := range res.ServerPublicKeyFingerprints {
+			if fingerprint == f {
 				selectedPubKey = key
 				break Loop
 			}
 		}
 	}
-	if selectedPubKey == nil {
+	if selectedPubKey.Zero() {
 		return ClientExchangeResult{}, ErrKeyFingerprintNotFound
 	}
 
@@ -87,30 +85,59 @@ Loop:
 	if err != nil {
 		return ClientExchangeResult{}, xerrors.Errorf("generate new nonce: %w", err)
 	}
-	pqInnerData := &mt.PQInnerData{
-		Pq:          res.Pq,
-		Nonce:       nonce,
-		NewNonce:    newNonce,
-		ServerNonce: serverNonce,
-		P:           pBytes,
-		Q:           qBytes,
-	}
-	b.Reset()
-	if err := pqInnerData.Encode(b); err != nil {
-		return ClientExchangeResult{}, err
+
+	var encryptedData []byte
+	if !selectedPubKey.UseInnerDataDC {
+		pqInnerData := &mt.PQInnerData{
+			Pq:          res.Pq,
+			Nonce:       nonce,
+			NewNonce:    newNonce,
+			ServerNonce: serverNonce,
+			P:           pBytes,
+			Q:           qBytes,
+		}
+		b.Reset()
+		if err := pqInnerData.Encode(b); err != nil {
+			return ClientExchangeResult{}, err
+		}
+
+		// `encrypted_data := RSA (data_with_hash, server_public_key);`
+		data, err := crypto.RSAEncryptHashed(b.Buf, selectedPubKey.RSA, c.rand)
+		if err != nil {
+			return ClientExchangeResult{}, xerrors.Errorf("encrypted_data generation: %w", err)
+		}
+
+		encryptedData = data
+	} else {
+		pqInnerData := &mt.PQInnerDataDC{
+			Pq:          res.Pq,
+			Nonce:       nonce,
+			NewNonce:    newNonce,
+			ServerNonce: serverNonce,
+			P:           pBytes,
+			Q:           qBytes,
+			DC:          c.dc,
+		}
+		b.Reset()
+		if err := pqInnerData.Encode(b); err != nil {
+			return ClientExchangeResult{}, err
+		}
+
+		// `encrypted_data := RSA_PAD(data, server_public_key);`
+		data, err := crypto.RSAPad(b.Buf, selectedPubKey.RSA, c.rand)
+		if err != nil {
+			return ClientExchangeResult{}, xerrors.Errorf("encrypted_data generation: %w", err)
+		}
+
+		encryptedData = data
 	}
 
-	// `encrypted_data := RSA (data_with_hash, server_public_key);`
-	encryptedData, err := crypto.RSAEncryptHashed(b.Buf, selectedPubKey, c.rand)
-	if err != nil {
-		return ClientExchangeResult{}, xerrors.Errorf("encrypted_data generation: %w", err)
-	}
 	reqDHParams := &mt.ReqDHParamsRequest{
 		Nonce:                nonce,
 		ServerNonce:          serverNonce,
 		P:                    pBytes,
 		Q:                    qBytes,
-		PublicKeyFingerprint: crypto.RSAFingerprint(selectedPubKey),
+		PublicKeyFingerprint: selectedPubKey.Fingerprint(),
 		EncryptedData:        encryptedData,
 	}
 	c.log.Debug("Sending ReqDHParamsRequest")
