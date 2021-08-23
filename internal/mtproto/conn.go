@@ -119,6 +119,8 @@ func New(dialer Dialer, opt Options) *Conn {
 	opt.setDefaults()
 
 	conn := &Conn{
+		dcID: opt.DC,
+
 		dialer:       dialer,
 		clock:        opt.Clock,
 		rand:         opt.Random,

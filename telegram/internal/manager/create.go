@@ -18,6 +18,7 @@ type SetupCallback = func(ctx context.Context, invoker tg.Invoker) error
 // ConnOptions is a Telegram client connection options.
 type ConnOptions struct {
 	DC      int
+	Test    bool
 	Device  DeviceConfig
 	Handler Handler
 	Setup   SetupCallback
@@ -39,6 +40,7 @@ func (c *ConnOptions) setDefaults(connClock clock.Clock) {
 	if c.DC == 0 {
 		c.DC = 2
 	}
+	// It's okay to use zero value Test.
 	c.Device.SetDefaults()
 	if c.Handler == nil {
 		c.Handler = NoopHandler{}
@@ -71,6 +73,12 @@ func CreateConn(
 	}
 
 	conn.log = opts.Logger
+	opts.DC = connOpts.DC
+	if connOpts.Test {
+		// New key exchange algorithm requires DC ID and uses mapping like MTProxy.
+		// +10000 for test DC, *-1 for media-only.
+		opts.DC += 10000
+	}
 	opts.Handler = conn
 	opts.Logger = conn.log.Named("mtproto")
 	conn.proto = mtproto.New(create, opts)

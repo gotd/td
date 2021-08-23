@@ -30,7 +30,7 @@ type Options struct {
 }
 
 func (opt *Options) setDefaults() {
-	// Ignore opt.Web, it's okay to use zero value.
+	// It's okay to use zero value Web.
 	if opt.Random == nil {
 		opt.Random = crypto.DefaultRand()
 	}
@@ -40,6 +40,6 @@ func (opt *Options) setDefaults() {
 	if opt.Protocol == nil {
 		opt.Protocol = transport.Intermediate
 	}
-	// Ignore opt.Config, it's okay to use zero value.
-	// Ignore opt.CDNConfig, it's okay to use zero value.
+	// It's okay to use zero value Config.
+	// It's okay to use zero value CDNConfig.
 }

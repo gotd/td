@@ -17,6 +17,9 @@ import (
 
 // Options of Conn.
 type Options struct {
+	// DC is datacenter ID for key exchange.
+	// Defaults to 2.
+	DC int
 	// PublicKeys of telegram.
 	//
 	// If not provided, embedded public keys will be used.
@@ -82,6 +85,9 @@ func (opt *Options) setDefaultPublicKeys() {
 }
 
 func (opt *Options) setDefaults() {
+	if opt.DC == 0 {
+		opt.DC = 2
+	}
 	if opt.Random == nil {
 		opt.Random = crypto.DefaultRand()
 	}
