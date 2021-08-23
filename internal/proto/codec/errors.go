@@ -9,7 +9,12 @@ import (
 
 const (
 	// CodeAuthKeyNotFound means that specified auth key ID cannot be found by the DC.
+	// Also, may be returned during key exchange.
 	CodeAuthKeyNotFound = 404
+
+	// CodeWrongDC means that current DC is wrong.
+	// Usually returned by server when key exchange sends wrong DC ID.
+	CodeWrongDC = 444
 
 	// CodeTransportFlood means that too many transport connections are
 	// established to the same IP in a too short lapse of time, or if any
@@ -28,6 +33,8 @@ func (p ProtocolErr) Error() string {
 		return "auth key not found"
 	case CodeTransportFlood:
 		return "transport flood"
+	case CodeWrongDC:
+		return "wrong DC"
 	default:
 		return fmt.Sprintf("protocol error %d", p.Code)
 	}
@@ -36,6 +43,7 @@ func (p ProtocolErr) Error() string {
 // Can be bigger that 1mb.
 //
 // See https://github.com/gotd/td/issues/412
+//
 // See https://github.com/tdlib/td/blob/550ccc8d9bbbe9cff1dc618aef5764d2cbd2cd91/td/mtproto/TcpTransport.cpp#L53
 const maxMessageSize = 1 << 24 // 16 MB
 
