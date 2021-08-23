@@ -44,7 +44,7 @@ func (e exchangeConn) Recv(ctx context.Context, b *bin.Buffer) error {
 
 // exchange starts MTProto key exchange.
 func (s *Server) exchange(ctx context.Context, conn transport.Conn) (crypto.AuthKey, error) {
-	r, err := exchange.NewExchanger(conn).
+	r, err := exchange.NewExchanger(conn, s.dcID).
 		WithClock(s.clock).
 		WithLogger(s.log.Named("exchange")).
 		WithRand(s.cipher.Rand()).

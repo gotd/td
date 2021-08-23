@@ -2,7 +2,6 @@ package telegram
 
 import (
 	"context"
-	"crypto/rsa"
 	"io"
 	"time"
 
@@ -11,10 +10,15 @@ import (
 
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/exchange"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"
+)
+
+type (
+	PublicKey = exchange.PublicKey
 )
 
 // Options of Client.
@@ -22,7 +26,7 @@ type Options struct {
 	// PublicKeys of telegram.
 	//
 	// If not provided, embedded public keys will be used.
-	PublicKeys []*rsa.PublicKey
+	PublicKeys []PublicKey
 
 	// DC ID to connect.
 	//

@@ -6,6 +6,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/exchange"
 	"github.com/gotd/td/tgtest"
 	"github.com/gotd/td/tgtest/services"
 	"github.com/gotd/td/transport"
@@ -34,9 +35,14 @@ func (c *Cluster) DC(id int, name string) (*tgtest.Server, *tgtest.Dispatcher) {
 		// TODO(tdakkota): Return error instead.
 		panic(err)
 	}
+	// TODO(tdakkota): Generate new keys too.
+	privateKey := exchange.PrivateKey{
+		RSA:            key,
+		UseInnerDataDC: false,
+	}
 
 	d := tgtest.NewDispatcher()
-	server := tgtest.NewServer(key, tgtest.UnpackInvoke(d), tgtest.ServerOptions{
+	server := tgtest.NewServer(privateKey, tgtest.UnpackInvoke(d), tgtest.ServerOptions{
 		DC:     id,
 		Logger: c.log.Named(name).With(zap.Int("dc_id", id)),
 		Codec:  c.getCodec(),

@@ -1,12 +1,12 @@
 package mtproto
 
 import (
-	"crypto/rsa"
 	// For embedding public keys.
 	_ "embed"
 	"sync"
 
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/exchange"
 )
 
 var (
@@ -14,7 +14,7 @@ var (
 	publicKeys []byte
 
 	parsedKeys struct {
-		Keys []*rsa.PublicKey
+		Keys []exchange.PublicKey
 		Once sync.Once
 	}
 )
@@ -22,10 +22,20 @@ var (
 //nolint:gochecknoinits
 func init() {
 	parsedKeys.Once.Do(func() {
-		keys, err := crypto.ParseRSAPublicKeys(publicKeys)
+		rsaKeys, err := crypto.ParseRSAPublicKeys(publicKeys)
 		if err != nil {
 			panic(err)
 		}
+
+		keys := make([]exchange.PublicKey, 0, len(rsaKeys))
+		for _, key := range rsaKeys {
+			// TODO(tdakkota): distinguish new and old keys via UseInnerDataDC.
+			keys = append(keys, exchange.PublicKey{
+				RSA:            key,
+				UseInnerDataDC: false,
+			})
+		}
+
 		parsedKeys.Keys = keys
 	})
 }
@@ -34,6 +44,6 @@ func init() {
 // PEM-encoded public RSA keys.
 //
 // Most recent key list can be found on https://my.telegram.org/apps.
-func vendoredKeys() []*rsa.PublicKey {
+func vendoredKeys() []exchange.PublicKey {
 	return parsedKeys.Keys
 }

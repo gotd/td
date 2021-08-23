@@ -62,7 +62,7 @@ func (c *Conn) createAuthKey(ctx context.Context) error {
 	c.exchangeLock.Lock()
 	defer c.exchangeLock.Unlock()
 
-	r, err := exchange.NewExchanger(c.conn).
+	r, err := exchange.NewExchanger(c.conn, c.dcID).
 		WithClock(c.clock).
 		WithLogger(c.log.Named("exchange")).
 		WithTimeout(c.exchangeTimeout).

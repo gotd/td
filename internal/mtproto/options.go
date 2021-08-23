@@ -1,7 +1,6 @@
 package mtproto
 
 import (
-	"crypto/rsa"
 	"io"
 	"time"
 
@@ -21,7 +20,7 @@ type Options struct {
 	// PublicKeys of telegram.
 	//
 	// If not provided, embedded public keys will be used.
-	PublicKeys []*rsa.PublicKey
+	PublicKeys []exchange.PublicKey
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
 	// Logger is instance of zap.Logger. No logs by default.

@@ -2,7 +2,6 @@ package tgtest
 
 import (
 	"context"
-	"crypto/rsa"
 	"io"
 	"net"
 	"time"
@@ -13,6 +12,7 @@ import (
 
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/exchange"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
@@ -24,7 +24,7 @@ type Server struct {
 	// DC ID of this server.
 	dcID int
 	// Key pair of this server.
-	key *rsa.PrivateKey // immutable
+	key exchange.PrivateKey // immutable
 
 	// Codec constructor. May be nil.
 	codec func() transport.Codec // immutable,nilable
@@ -50,7 +50,7 @@ type Server struct {
 }
 
 // NewServer creates new Server.
-func NewServer(key *rsa.PrivateKey, handler Handler, opts ServerOptions) *Server {
+func NewServer(key exchange.PrivateKey, handler Handler, opts ServerOptions) *Server {
 	opts.setDefaults()
 
 	s := &Server{
@@ -71,8 +71,8 @@ func NewServer(key *rsa.PrivateKey, handler Handler, opts ServerOptions) *Server
 }
 
 // Key returns public key of this server.
-func (s *Server) Key() *rsa.PublicKey {
-	return &s.key.PublicKey
+func (s *Server) Key() exchange.PublicKey {
+	return s.key.Public()
 }
 
 // Serve runs server loop using given listener.
