@@ -63,7 +63,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 
 	var innerData mt.PQInnerData
 	{
-		if !s.key.UseInnerDataDC {
+		if !s.key.UseRSAPad {
 			r, err := crypto.RSADecryptHashed(dhParams.EncryptedData, s.key.RSA)
 			if err != nil {
 				return ServerExchangeResult{}, err

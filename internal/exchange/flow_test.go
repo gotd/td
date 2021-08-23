@@ -18,7 +18,7 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-func testExchange(useInnerDataDC bool) func(t *testing.T) {
+func testExchange(rsaPad bool) func(t *testing.T) {
 	return func(t *testing.T) {
 		a := require.New(t)
 		log := zaptest.NewLogger(t)
@@ -28,8 +28,8 @@ func testExchange(useInnerDataDC bool) func(t *testing.T) {
 		key, err := rsa.GenerateKey(reader, crypto.RSAKeyBits)
 		a.NoError(err)
 		privateKey := PrivateKey{
-			RSA:            key,
-			UseInnerDataDC: useInnerDataDC,
+			RSA:       key,
+			UseRSAPad: rsaPad,
 		}
 
 		i := transport.Intermediate
@@ -68,8 +68,8 @@ func TestExchange(t *testing.T) {
 
 func TestExchangeCorpus(t *testing.T) {
 	privateKey := PrivateKey{
-		RSA:            testutil.RSAPrivateKey(),
-		UseInnerDataDC: false,
+		RSA:       testutil.RSAPrivateKey(),
+		UseRSAPad: false,
 	}
 
 	for i, seed := range []string{

@@ -87,7 +87,7 @@ Loop:
 	}
 
 	var encryptedData []byte
-	if !selectedPubKey.UseInnerDataDC {
+	if !selectedPubKey.UseRSAPad {
 		pqInnerData := &mt.PQInnerData{
 			Pq:          res.Pq,
 			Nonce:       nonce,

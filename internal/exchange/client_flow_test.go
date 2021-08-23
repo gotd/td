@@ -38,8 +38,8 @@ func TestExchangeTimeout(t *testing.T) {
 			WithTimeout(1 * time.Second).
 			Client([]PublicKey{
 				{
-					RSA:            &key.PublicKey,
-					UseInnerDataDC: false,
+					RSA:       &key.PublicKey,
+					UseRSAPad: false,
 				},
 			}).
 			Run(ctx)

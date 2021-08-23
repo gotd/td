@@ -10,15 +10,15 @@ import (
 type PublicKey struct {
 	// RSA public key.
 	RSA *rsa.PublicKey
-	// UseInnerDataDC denotes to use crypto.RSAPad instead of crypto.RSAEncryptHashed.
+	// UseRSAPad denotes to use crypto.RSAPad instead of crypto.RSAEncryptHashed.
 	//
 	// See https://github.com/tdlib/td/commit/e9e24282378fcdb3a3ce020bee4253b65ac98213.
-	UseInnerDataDC bool
+	UseRSAPad bool
 }
 
 // Zero denotes that current PublicKey is zero value.
 func (k PublicKey) Zero() bool {
-	return k.RSA == nil && !k.UseInnerDataDC
+	return k.RSA == nil && !k.UseRSAPad
 }
 
 // Fingerprint computes key fingerprint.
@@ -30,15 +30,15 @@ func (k PublicKey) Fingerprint() int64 {
 type PrivateKey struct {
 	// RSA private key.
 	RSA *rsa.PrivateKey
-	// UseInnerDataDC denotes to use crypto.RSAPad instead of crypto.RSAEncryptHashed.
+	// UseRSAPad denotes to use crypto.RSAPad instead of crypto.RSAEncryptHashed.
 	//
 	// See https://github.com/tdlib/td/commit/e9e24282378fcdb3a3ce020bee4253b65ac98213.
-	UseInnerDataDC bool
+	UseRSAPad bool
 }
 
 // Zero denotes that current PublicKey is zero value.
 func (k PrivateKey) Zero() bool {
-	return k.RSA == nil && !k.UseInnerDataDC
+	return k.RSA == nil && !k.UseRSAPad
 }
 
 // Fingerprint computes key fingerprint.
@@ -49,7 +49,7 @@ func (k PrivateKey) Fingerprint() int64 {
 // Public returns PublicKey of this PrivateKey pair.
 func (k PrivateKey) Public() PublicKey {
 	return PublicKey{
-		RSA:            &k.RSA.PublicKey,
-		UseInnerDataDC: k.UseInnerDataDC,
+		RSA:       &k.RSA.PublicKey,
+		UseRSAPad: k.UseRSAPad,
 	}
 }
