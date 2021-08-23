@@ -63,8 +63,12 @@ type Client struct {
 
 	// MTProto options.
 	opts mtproto.Options // immutable
+
+	// DCList state.
 	// Domain list (for websocket)
-	domains map[int]string
+	domains map[int]string // immutable
+	// Denotes to use Test DCs.
+	testDC bool // immutable
 
 	// Connection state. Guarded by connMux.
 	session *pool.SyncSession
@@ -133,6 +137,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 			DC: opt.DC,
 		}),
 		domains: opt.DCList.Domains,
+		testDC:  opt.DCList.Test,
 		cfg: manager.NewAtomicConfig(tg.Config{
 			DCOptions: opt.DCList.Options,
 		}),

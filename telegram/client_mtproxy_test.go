@@ -112,6 +112,7 @@ func testMTProxy(secretType string, m mtg, storage session.Storage) func(t *test
 				Resolver:       resolver,
 				Logger:         logger,
 				SessionStorage: storage,
+				DCList:         dcs.Staging(),
 			})
 		})
 

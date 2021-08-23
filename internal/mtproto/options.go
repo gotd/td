@@ -1,7 +1,6 @@
 package mtproto
 
 import (
-	"crypto/rsa"
 	"io"
 	"time"
 
@@ -18,10 +17,13 @@ import (
 
 // Options of Conn.
 type Options struct {
+	// DC is datacenter ID for key exchange.
+	// Defaults to 2.
+	DC int
 	// PublicKeys of telegram.
 	//
 	// If not provided, embedded public keys will be used.
-	PublicKeys []*rsa.PublicKey
+	PublicKeys []exchange.PublicKey
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
 	// Logger is instance of zap.Logger. No logs by default.
@@ -83,6 +85,9 @@ func (opt *Options) setDefaultPublicKeys() {
 }
 
 func (opt *Options) setDefaults() {
+	if opt.DC == 0 {
+		opt.DC = 2
+	}
 	if opt.Random == nil {
 		opt.Random = crypto.DefaultRand()
 	}

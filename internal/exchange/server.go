@@ -1,7 +1,6 @@
 package exchange
 
 import (
-	"crypto/rsa"
 	"io"
 
 	"go.uber.org/zap"
@@ -16,7 +15,8 @@ type ServerExchange struct {
 	log  *zap.Logger
 
 	rng ServerRNG
-	key *rsa.PrivateKey
+	key PrivateKey
+	dc  int
 }
 
 // ServerExchangeResult contains server part of key exchange result.

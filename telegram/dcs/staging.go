@@ -47,5 +47,6 @@ func Staging() List {
 			4: "wss://vesta.web.telegram.org/apiws_test",
 			5: "wss://flora.web.telegram.org/apiws_test",
 		},
+		Test: true,
 	}
 }

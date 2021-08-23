@@ -57,6 +57,7 @@ func (c *Client) dcList() dcs.List {
 	return dcs.List{
 		Options: cfg.DCOptions,
 		Domains: c.domains,
+		Test:    c.testDC,
 	}
 }
 
@@ -80,10 +81,12 @@ func (c *Client) createConn(
 		zap.Int64("conn_id", id),
 		zap.Int("dc_id", s.DC),
 	)
+
 	return c.create(
 		c.primaryDC(s.DC), mode, c.appID,
 		opts, manager.ConnOptions{
 			DC:      s.DC,
+			Test:    c.testDC,
 			Device:  c.device,
 			Handler: c.asHandler(),
 			Setup:   setup,

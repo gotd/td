@@ -1,7 +1,6 @@
 package exchange
 
 import (
-	"crypto/rsa"
 	"io"
 
 	"go.uber.org/zap"
@@ -15,7 +14,8 @@ type ClientExchange struct {
 	rand io.Reader
 	log  *zap.Logger
 
-	keys []*rsa.PublicKey
+	keys []PublicKey
+	dc   int
 }
 
 // ClientExchangeResult contains client part of key exchange result.

@@ -2,7 +2,6 @@ package mtproto
 
 import (
 	"context"
-	"crypto/rsa"
 	"io"
 	"sync"
 	"time"
@@ -14,6 +13,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/exchange"
 	"github.com/gotd/td/internal/mtproto/salts"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/rpc"
@@ -49,11 +49,13 @@ type Dialer func(ctx context.Context) (transport.Conn, error)
 
 // Conn represents a MTProto client to Telegram.
 type Conn struct {
+	dcID int
+
 	dialer        Dialer
 	conn          transport.Conn
 	handler       Handler
 	rpc           *rpc.Engine
-	rsaPublicKeys []*rsa.PublicKey
+	rsaPublicKeys []exchange.PublicKey
 	types         *tmap.Map
 
 	// Wrappers for external world, like current time, logs or PRNG.
@@ -117,6 +119,8 @@ func New(dialer Dialer, opt Options) *Conn {
 	opt.setDefaults()
 
 	conn := &Conn{
+		dcID: opt.DC,
+
 		dialer:       dialer,
 		clock:        opt.Clock,
 		rand:         opt.Random,

@@ -9,8 +9,9 @@ import (
 	"golang.org/x/crypto/pbkdf2"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/xor"
+
+	"github.com/gotd/td/internal/crypto"
 )
 
 // SRP is client implementation of Secure Remote Password protocol.
@@ -58,13 +59,19 @@ func (s SRP) Hash(password, srpB, random []byte, i Input) (Answer, error) {
 
 	p := s.bigFromBytes(i.P)
 	g := big.NewInt(int64(i.G))
-	gBytes := s.paddedFromBig(g)
+	gBytes, ok := s.paddedFromBig(g)
+	if !ok {
+		return Answer{}, xerrors.Errorf("invalid g (%d)", i.G)
+	}
 
 	// random 2048-bit number a
 	a := s.bigFromBytes(random)
 
 	// `g_a = pow(g, a) mod p`
-	ga := s.paddedFromBig(s.bigExp(g, a, p))
+	ga, ok := s.paddedFromBig(s.bigExp(g, a, p))
+	if !ok {
+		return Answer{}, xerrors.New("g_a is too big")
+	}
 
 	// `g_b = srp_B`
 	gb := s.pad256(srpB)
@@ -91,7 +98,10 @@ func (s SRP) Hash(password, srpB, random []byte, i Input) (Answer, error) {
 	}
 
 	// `s_a = pow(t, a + u * x) mod p`
-	sa := s.paddedFromBig(s.bigExp(t, u.Mul(u, x).Add(u, a), p))
+	sa, ok := s.paddedFromBig(s.bigExp(t, u.Mul(u, x).Add(u, a), p))
+	if !ok {
+		return Answer{}, xerrors.New("s_a is too big")
+	}
 
 	// `k_a = H(s_a)`
 	ka := s.hash(sa)
@@ -112,11 +122,10 @@ func (s SRP) Hash(password, srpB, random []byte, i Input) (Answer, error) {
 	}, nil
 }
 
-func (s SRP) paddedFromBig(i *big.Int) (r []byte) {
-	var b [256]byte
-	r = b[:]
-	i.FillBytes(r)
-	return
+func (s SRP) paddedFromBig(i *big.Int) ([]byte, bool) {
+	b := make([]byte, 256)
+	r := crypto.FillBytes(i, b)
+	return b, r
 }
 
 func (s SRP) pad256(b []byte) []byte {

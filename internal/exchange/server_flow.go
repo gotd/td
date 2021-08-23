@@ -45,7 +45,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 		Nonce:       pqReq.Nonce,
 		ServerNonce: serverNonce,
 		ServerPublicKeyFingerprints: []int64{
-			crypto.RSAFingerprint(&s.key.PublicKey),
+			s.key.Fingerprint(),
 		},
 	}); err != nil {
 		return ServerExchangeResult{}, err
@@ -61,16 +61,42 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	}
 	s.log.Debug("Received client ReqDHParamsRequest")
 
-	r, err := crypto.RSADecryptHashed(dhParams.EncryptedData, s.key)
-	if err != nil {
-		return ServerExchangeResult{}, err
-	}
-	b.ResetTo(r)
-
 	var innerData mt.PQInnerData
-	err = innerData.Decode(b)
-	if err != nil {
-		return ServerExchangeResult{}, err
+	{
+		if !s.key.UseRSAPad {
+			r, err := crypto.RSADecryptHashed(dhParams.EncryptedData, s.key.RSA)
+			if err != nil {
+				return ServerExchangeResult{}, err
+			}
+			b.ResetTo(r)
+		} else {
+			r, err := crypto.DecodeRSAPad(dhParams.EncryptedData, s.key.RSA)
+			if err != nil {
+				return ServerExchangeResult{}, err
+			}
+			b.ResetTo(r)
+		}
+
+		d, err := mt.DecodePQInnerData(b)
+		if err != nil {
+			return ServerExchangeResult{}, err
+		}
+
+		if innerDataDC, ok := d.(*mt.PQInnerDataDC); ok && innerDataDC.DC != s.dc {
+			return ServerExchangeResult{}, xerrors.Errorf(
+				"wrong DC ID, want %d, got %d",
+				s.dc, innerDataDC.DC,
+			)
+		}
+
+		innerData = mt.PQInnerData{
+			Pq:          d.GetPq(),
+			P:           d.GetP(),
+			Q:           d.GetQ(),
+			Nonce:       d.GetNonce(),
+			ServerNonce: d.GetServerNonce(),
+			NewNonce:    d.GetNewNonce(),
+		}
 	}
 
 	dhPrime, err := s.rng.DhPrime()

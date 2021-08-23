@@ -3,7 +3,6 @@
 package exchange
 
 import (
-	"crypto/rsa"
 	"io"
 	"time"
 
@@ -26,6 +25,7 @@ type Exchanger struct {
 	rand    io.Reader
 	log     *zap.Logger
 	timeout time.Duration
+	dc      int
 }
 
 // WithClock sets exchange flow clock.
@@ -53,7 +53,7 @@ func (e Exchanger) WithTimeout(timeout time.Duration) Exchanger {
 }
 
 // NewExchanger creates new Exchanger.
-func NewExchanger(conn transport.Conn) Exchanger {
+func NewExchanger(conn transport.Conn, dc int) Exchanger {
 	return Exchanger{
 		conn: conn,
 
@@ -61,6 +61,7 @@ func NewExchanger(conn transport.Conn) Exchanger {
 		rand:    crypto.DefaultRand(),
 		log:     zap.NewNop(),
 		timeout: DefaultTimeout,
+		dc:      dc,
 	}
 }
 
@@ -75,7 +76,7 @@ func (e Exchanger) unencryptedWriter(input, output proto.MessageType) unencrypte
 }
 
 // Client creates new ClientExchange using parameters from Exchanger.
-func (e Exchanger) Client(keys []*rsa.PublicKey) ClientExchange {
+func (e Exchanger) Client(keys []PublicKey) ClientExchange {
 	return ClientExchange{
 		unencryptedWriter: e.unencryptedWriter(
 			proto.MessageServerResponse,
@@ -84,11 +85,12 @@ func (e Exchanger) Client(keys []*rsa.PublicKey) ClientExchange {
 		rand: e.rand,
 		log:  e.log,
 		keys: keys,
+		dc:   e.dc,
 	}
 }
 
 // Server creates new ServerExchange using parameters from Exchanger.
-func (e Exchanger) Server(key *rsa.PrivateKey) ServerExchange {
+func (e Exchanger) Server(key PrivateKey) ServerExchange {
 	return ServerExchange{
 		unencryptedWriter: e.unencryptedWriter(
 			proto.MessageFromClient,
@@ -98,5 +100,6 @@ func (e Exchanger) Server(key *rsa.PrivateKey) ServerExchange {
 		log:  e.log,
 		rng:  TestServerRNG{rand: e.rand},
 		key:  key,
+		dc:   e.dc,
 	}
 }

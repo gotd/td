@@ -2,11 +2,11 @@
 package cluster
 
 import (
-	"crypto/rsa"
 	"io"
 
 	"go.uber.org/zap"
 
+	"github.com/gotd/td/internal/exchange"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"
@@ -25,7 +25,7 @@ type Cluster struct {
 	web bool
 
 	setups map[int]setup
-	keys   []*rsa.PublicKey
+	keys   []exchange.PublicKey
 
 	// DCs config state.
 	cfg     tg.Config
@@ -86,7 +86,7 @@ func (c *Cluster) Resolver() dcs.Resolver {
 }
 
 // Keys returns all servers public keys.
-func (c *Cluster) Keys() []*rsa.PublicKey {
+func (c *Cluster) Keys() []exchange.PublicKey {
 	return c.keys
 }
 
