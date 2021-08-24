@@ -1,13 +1,14 @@
 # Contributing
 
-See [architecture](ARCHITECTURE.md) for general architecture description.
+See [architecture page](ARCHITECTURE.md) for understanding gotd.
 
-This project uses [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
+This project follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
-Before creating pull request, please read [coding guidelines](https://github.com/uber-go/guide/blob/master/style.md) and
+Before creating pull requests, please read the [coding guidelines](https://github.com/uber-go/guide/blob/master/style.md) and
 follow some existing [pull requests](https://github.com/gotd/td/pulls).
 
 General tradeoffs:
+
 * Less is more
 * Maintainability > feature bloat
 * Simplicity > speed
@@ -15,75 +16,75 @@ General tradeoffs:
 
 ## Testing
 
-Use **staging server**! Don't test on production!
+Use a **test server**! Don't test on production servers!
 
-Each phone number is limited to only a certain amount of logins per day (e.g. 5, but this is subject to change)
-after which the API will return a FLOOD error until the next day.
+Each phone number is limited to only a certain amount of logins per day (e.g. 5, but this is subject to change) after which the API will return a flood error until the next day.
 This might not be enough for testing the implementation of User Authorization
 flows in client applications.
 
-### Staging server
+### Test servers
 
-You can use `AddrTest` with `TestAppID` and `TestAppHash` to connect to Telegram
-staging server.
+You can use `AddrTest` with `TestAppID` and `TestAppHash` to connect to test servers.
 
-It is also possible to use [test phone numbers](https://core.telegram.org/api/auth#test-phone-numbers) on staging directly or
+It is also possible to use [test phone numbers](https://core.telegram.org/api/auth#test-phone-numbers) directly when connecting or
 via `TestAuth` helper.
 
-### Testing group
+### Our testing group
 
 The [@gotd_test](https://t.me/gotd_test) group can be used to test clients
-on production, it should be relatively safe to test updates handling (i.e. passive)
-functions like that.
+on production servers, it should be relatively safe to test updates handling (i.e. passive) functions like that.
 
-Please, use staging instead.
+As always, we recommend test servers instead.
 
 ## Optimizations
 
 Please provide [benchcmp](https://godoc.org/golang.org/x/tools/cmd/benchcmp) output if your PR
 tries to optimize something.
 
-Note that in most cases readability is more important than speed.
-
+Note that in most cases, readability is more important than speed.
 
 ## Features
 
-Please check [projects](https://github.com/gotd/td/projects) page for features that
-are on roadmap. If you have idea for new feature, please open feature request first.
+Please check the [projects](https://github.com/gotd/td/projects) page for features that
+are on the roadmap. If you have an idea for a new feature, please open a feature request first.
 
-Also, it will be great to [contact](.github/SUPPORT.md) developers to discuss implementation
+Also, it will be great to [contact](.github/SUPPORT.md) the developers to discuss implementation
 details.
 
-## Schema update
+## Updating schema
 
-If new layer is released in [tdesktop](https://github.com/telegramdesktop/tdesktop) repo, one can
-use it to update to latest schema:
+If a new layer is released in [tdesktop](https://github.com/telegramdesktop/tdesktop) repo, you can do this to update it:
 
 ```console
 $ make download_schema generate
 ```
 
 Please don't do it too early, because it is possible to have multiple versions of
-layer.
+layers.
 
 ## Fuzzing
 
 This project uses fuzzing to increase overall stability and decrease
 possibility of DOS attacks.
 
-To prepare fuzzing binary, use following:
+To prepare the fuzzing binary, do this:
+
 ```console
 $ make fuzz_telegram_build
 ```
-Now you can start fuzzer locally:
+
+Now you can start the fuzzer locally:
+
 ```console
 $ make fuzz_telegram
 ```
+
 Please refer to [dvyukov/go-fuzz](https://github.com/dvyukov/go-fuzz) for advanced usage.
 
 ## Testing allocations
 
 Please test that hot paths are not allocating too much.
+
 ```go
 func TestBuffer_ResetN(t *testing.T) {
     var b Buffer
@@ -107,7 +108,7 @@ Please read [Uber code style](https://github.com/uber-go/guide/blob/master/style
 
 ### Newlines
 
-Don't move first argument to next line if it is not grouped
+Don't move the first argument to next line if it is not grouped
 with other arguments.
 
 <table>

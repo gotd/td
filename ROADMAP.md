@@ -4,28 +4,29 @@
 
 ### Update key exchange
 
-Updated key exchange protocol should be implemented
+An updated key exchange protocol should be implemented.
 
 ### Initial tracing
 
-Add basic OpenTelemetry spans
+Add basic OpenTelemetry spans.
 
 ### Bot API Types
 
-All Bot API Types should be parsed
-* Parser from docs
-* OpenAPI v3 generated spec from parsed types
-* Go structs generated from OpenAPI v3 spec
+All Bot API Types should be parsed:
+
+* Parser from docs.
+* OpenAPI v3 generated spec from parsed types.
+* Go structs generated from OpenAPI v3 spec.
 
 ## Q4
 
 ### Sugared client
 
-The tdlib-like client should be implemented to help users that are struggling with
-raw API and a bunch of helpers.
-* Caching for entities
-  * Memory
-  * External, e.g. in PostgreSQL or MongoDB
+Make the client simple for everyone with things like:
+
+* Entity caching
+  * In memory
+  * External storage, for example in SQLite, PostgreSQL or MongoDB
 * Friendly wrappers for all objects
   * Dialogs
   * Users
@@ -34,24 +35,27 @@ raw API and a bunch of helpers.
 
 ### Bot API
 
-Embeddable `telegram-bot-api` compatible server should be implemented.
+An embeddable `telegram-bot-api` compatible server should be implemented.
 
 ### Server
 
-Embeddable Telegram server with limited functionality that can be used as a
+An embeddable Telegram server with limited functionality that can be used as a
 server for `telegram-bot-api`.
 
 ### Bot API Client
 
-Client for `telegram-bot-api`.
+A client for `telegram-bot-api`.
 
 ### Documentation
-Create a static website for documentation for set of tools.
+
+Generate a static websites for documentations.
 
 ### Observability
-* Advanced OpenTelemetry tracing
-* Prometheus metrics
+
+* Advanced OpenTelemetry tracing.
+* Prometheus metrics.
 
 ### Goals
-* Implement ecosystem of tools for telegram in go
-* Make it robust via extensive end-to-end testing
+
+* Implement ecosystem of tools for Telegram in Go.
+* Make it robust via extensive end-to-end testing.

@@ -9,20 +9,20 @@ labels: bug
 
 ### What version of gotd are you using?
 
-<pre>
+```bash
 $ go list -m github.com/gotd/td
+```
 
-</pre>
-
-### Does this issue reproduce with the latest release?
+### Can this issue be reproduced with the latest version?
 
 <!-- Yes/no -->
 
 ### What did you do?
 
 <!--
-If possible, provide a recipe for reproducing the error.
-Small code snippet is good. A complete runnable program is best.
+Write the steps of reproducing the bug.
+
+Simple, small and runnable pieces of code are recommended.
 -->
 
 ### What did you expect to see?
@@ -35,12 +35,14 @@ Small code snippet is good. A complete runnable program is best.
 
 ### What Go version and environment are you using?
 
-<pre>
+```bash
 $ go version
+```
 
-</pre>
-
-<details><summary><code>go env</code> Output</summary><br><pre>
-$ go env
-
-</pre></details>
+<details>
+    <summary>
+        <code>go env</code> Output
+    </summary>
+    <br />
+    <pre>$ go env</pre>
+</details>
