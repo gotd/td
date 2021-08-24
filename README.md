@@ -1,6 +1,6 @@
 # td [![Go Reference](https://pkg.go.dev/badge/github.com/gotd/td.svg)](https://pkg.go.dev/github.com/gotd/td/telegram) [![codecov](https://codecov.io/gh/gotd/td/branch/main/graph/badge.svg?token=shR5PXG7Ds)](https://codecov.io/gh/gotd/td)
 
-Fast Telegram client fully in go.
+A fast Telegram client in pure Go.
 
 * [Examples](examples)
 * [Security policy](.github/SECURITY.md)
@@ -9,7 +9,7 @@ Fast Telegram client fully in go.
 * [Contributing](CONTRIBUTING.md)
 * [Architecture](ARCHITECTURE.md)
 
-Before using this library, read [How Not To Get Banned](.github/SUPPORT.md#how-not-to-get-banned) guide.
+Before using this library, read [How Not To Get Banned](.github/SUPPORT.md#how-to-not-get-banned) guide.
 
 ## Usage
 
@@ -31,14 +31,14 @@ func main() {
 	err := client.Run(context.Background(), func(ctx context.Context) error {
 		api := tg.NewClient(client)
 
-		// Now you can invoke MTProto RPC requests by calling api.
+		// Now you can invoke MTProto RPC requests by calling the API.
 		// ...
 
 		// Return to close client connection and free up resources.
 		return nil
 	})
 	if err != nil {
-		panic(err) 
+		panic(err)
 	}
 }
 ```
@@ -50,13 +50,13 @@ See [examples](examples) for more info.
 Work is still in progress (mostly helpers and convenience wrappers), but basic functionality were tested in production and works fine.
 Only go1.16 is supported and no backward compatibility is provided for now.
 
-Goal of this project is to implement stable, performant and safe client for Telegram in go while
-providing simple and convenient API, including feature parity with TDLib.
+The goal of this project is to implement a stable, performant and safe client for Telegram in pure Go while
+having a simple and convenient API and a feature parity with TDLib.
 
 This project is fully non-commercial and not affiliated with any commercial organization
 (including Telegram LLC).
 
-Also see [comparison](#difference-to-other-projects) with other Go Telegram clients.
+Also, see the [comparison](#difference-to-other-projects) with other Go Telegram clients.
 
 ## Features
 
@@ -67,7 +67,7 @@ Also see [comparison](#difference-to-other-projects) with other Go Telegram clie
 * Vendored Telegram public keys that are kept up-to-date
 * Rigorously tested
   * End-to-end with real Telegram server in CI
-  * End-to-end with gotd Telegram server (in go)
+  * End-to-end with gotd Telegram server (in pure Go)
   * Lots of unit testing
   * Fuzzing
   * 24/7 canary bot in production that tests reconnects, update handling, memory leaks and performance
@@ -77,7 +77,7 @@ Also see [comparison](#difference-to-other-projects) with other Go Telegram clie
   * Replay attack protection
 * 2FA support
 * MTProxy support
-* Multiple helpers that hide complexity of raw Telegram API
+* Various helpers that lighten the complexity of the Telegram API
   * [uploads](https://pkg.go.dev/github.com/gotd/td/telegram/uploader) for big and small files with multiple streams for single file and progress reporting
   * [downloads](https://pkg.go.dev/github.com/gotd/td/telegram/downloader) with CDN support, also multiple streams
   * [messages](https://pkg.go.dev/github.com/gotd/td/telegram/message) with various convenience builders and text styling support
@@ -93,6 +93,7 @@ Also see [comparison](#difference-to-other-projects) with other Go Telegram clie
 See [examples](examples) directory.
 
 Also take a look at
+
 * [gotd/bot](https://github.com/gotd/bot) with updates recovery enabled, used as canary for stability testing
 * [gotd/cli](https://github.com/gotd/cli), command line interface for subset of telegram methods.
 
@@ -100,7 +101,7 @@ Also take a look at
 
 #### User
 
-You can use `td/telegram/auth.Flow` to simplify user authentication flow.
+You can use `td/telegram/auth.Flow` to simplify user authentications.
 
 ```go
 codePrompt := func(ctx context.Context, sentCode *tg.AuthSentCode) (string, error) {
@@ -122,6 +123,7 @@ if err := auth.NewFlow(
     panic(err)
 }
 ```
+
 #### Bot
 
 Use bot token from [@BotFather](https://telegram.me/BotFather).
@@ -134,7 +136,7 @@ if err := client.Auth().Bot(ctx, "token:12345"); err != nil {
 
 ### Calling MTProto directly
 
-You can use generated `tg.Client` that allows calling any MTProto methods
+You can use the generated `tg.Client` that allows calling any MTProto method
 directly.
 
 ```go
@@ -158,7 +160,7 @@ client.Run(ctx, func(ctx context.Context) error) {
 
 ### Generated code
 
-Code output of `gotdgen` contains references to TL types, examples, URL to
+The code output of `gotdgen` contains references to TL types, examples, URL to
 official documentation and [extracted](https://github.com/gotd/getdoc) comments from it.
 
 For example, the [auth.Authorization](https://core.telegram.org/type/auth.Authorization) type in `tg/tl_auth_authorization_gen.go`:
@@ -184,7 +186,9 @@ type AuthAuthorizationClass interface {
 	construct() AuthAuthorizationClass
 }
 ```
+
 Also, the corresponding [auth.signIn](https://core.telegram.org/method/auth.signIn) method:
+
 ```go
 // AuthSignIn invokes method auth.signIn#bcd51581 returning error if any.
 // Signs in a user with a validated phone number.
@@ -194,6 +198,7 @@ func (c *Client) AuthSignIn(ctx context.Context, request *AuthSignInRequest) (Au
 ```
 
 The generated constructors contain detailed official documentation, including links:
+
 ```go
 // FoldersDeleteFolderRequest represents TL type `folders.deleteFolder#1c295881`.
 // Delete a peer folder¹
@@ -213,30 +218,32 @@ type FoldersDeleteFolderRequest struct {
 
 ## Contributions
 
-Huge thanks to every contributor, dealing with a project of such scale is impossible alone.
+Huge thanks to all contributors. Dealing with a project of this scale alone is impossible.
 
 Special thanks:
+
 * [tdakkota](https://github.com/tdakkota)
-    * Two-factor authentication (SRP)
-    * Proxy support
-    * Update dispatcher
-    * Complete transport support (abridged, padded intermediate and full)
-    * Telegram server for end-to-end testing
-    * Multiple major refactorings, including critical cryptographical scope reduction
-    * Code generation improvements (vector support, multiple modes for pretty-print)
-    * And many other cool things and performance improvements
+  * Two-factor authentication (SRP)
+  * Proxy support
+  * Update dispatcher
+  * Complete transport support (abridged, padded intermediate and full)
+  * Telegram server for end-to-end testing
+  * Multiple major refactorings, including critical cryptographical scope reduction
+  * Code generation improvements (vector support, multiple modes for pretty-print)
+  * And many other cool things and performance improvements
 * [zweihander](https://github.com/zweihander)
-    * Background pings
-    * Links in generated documentation
-    * Message acknowledgements
-    * Retries
-    * RPC Engine
+  * Background pings
+  * Links in generated documentation
+  * Message acknowledgements
+  * Retries
+  * RPC Engine
 
 ## Reference
 
 The MTProto protocol description is [hosted](https://core.telegram.org/mtproto#general-description) by Telegram.
 
 Most important parts for client implementations:
+
 * [Security guidelines](https://core.telegram.org/mtproto/security_guidelines) for client software developers
 
 Current implementation [mostly conforms](https://github.com/gotd/td/issues/155) to security guidelines, but no
@@ -245,7 +252,7 @@ formal security audit were performed.
 ## Prior art
 
 * [Lonami/grammers](https://github.com/Lonami/grammers) (Great Telegram client in Rust, many test vectors were used as reference)
-* [sdidyk/mtproto](https://github.com/sdidyk/mtproto), [cjongseok/mtproto](https://github.com/cjongseok/mtproto), [xelaj/mtproto](https://github.com/xelaj/mtproto)  (MTProto 1.0 in go)
+* [sdidyk/mtproto](https://github.com/sdidyk/mtproto), [cjongseok/mtproto](https://github.com/cjongseok/mtproto), [xelaj/mtproto](https://github.com/xelaj/mtproto) (MTProto 1.0 in go)
 
 ## Difference to other projects
 
@@ -278,7 +285,7 @@ Status by 11.07.2021
    <td colspan="2">Uses reflection in runtime</td>
   <tr>
    <td align="center">🧪<br>Stability</td>
-   <td colspan="2">Lots of unit tests (237 tests, 943 including subtests), end-to-end tests with self-made Telegram server in Go, end-to-end tests with real staging server, fuzzing</td>
+   <td colspan="2">Lots of unit tests (237 tests, 943 including subtests), end-to-end tests with self-made Telegram server in Go, end-to-end tests with real test servers, fuzzing</td>
    <td colspan="2">12 unit tests, 41 including sub-tests</td>
   <tr>
    <td align="center">⭐<br>GitHub Stargazers</td>
@@ -297,6 +304,7 @@ Status by 11.07.2021
 </table>
 
 ## License
+
 MIT License
 
 Created by Aleksandr (ernado) Razumov
