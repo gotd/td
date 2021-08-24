@@ -2,7 +2,6 @@ package telegram
 
 import (
 	"context"
-	"errors"
 	"fmt"
 
 	"go.uber.org/zap"
@@ -21,7 +20,7 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	}
 
 	data, err := c.storage.Load(ctx)
-	if errors.Is(err, session.ErrNotFound) {
+	if xerrors.Is(err, session.ErrNotFound) {
 		return nil
 	}
 	if err != nil {
@@ -67,7 +66,7 @@ func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
 	}
 
 	data, err := c.storage.Load(c.ctx)
-	if errors.Is(err, session.ErrNotFound) {
+	if xerrors.Is(err, session.ErrNotFound) {
 		// Initializing new state.
 		err = nil
 		data = &session.Data{}

@@ -76,7 +76,7 @@ func TestRPCError(t *testing.T) {
 		})
 
 		log.Info("Got pong response")
-		require.True(t, errors.Is(err, expectedErr), "expected error")
+		require.True(t, xerrors.Is(err, expectedErr), "expected error")
 
 		return nil
 	}

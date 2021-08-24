@@ -58,3 +58,17 @@ func UnnecessaryErrorFormat(m dsl.Matcher) {
 	m.Match("fmt.Errorf($msg)").Suggest("errors.New($msg)")
 	m.Match("xerrors.Errorf($msg)").Suggest("xerrors.New($msg)")
 }
+
+// PreferXerrors suggests replace expressions like
+//
+// 	errors.As
+//
+// to
+//
+// 	xerrors.As
+//
+func PreferXerrors(m dsl.Matcher) {
+	m.Match("errors.$method($*args)").Where(
+		m["method"].Text.Matches("Is|As"),
+	).Suggest("xerrors.$method($*args)")
+}

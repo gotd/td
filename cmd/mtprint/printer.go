@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 
@@ -98,7 +97,7 @@ func (p Printer) Print(output io.Writer) error {
 	for {
 		b.Reset()
 		if err := p.codec.Read(p.src, b); err != nil {
-			if errors.Is(err, io.EOF) {
+			if xerrors.Is(err, io.EOF) {
 				return nil
 			}
 

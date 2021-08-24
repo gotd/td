@@ -2,7 +2,6 @@ package rpc
 
 import (
 	"context"
-	"errors"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -131,7 +130,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 
 	// Start retrying.
 	sent, err := e.retryUntilAck(retryCtx, req)
-	if err != nil && !errors.Is(err, retryCtx.Err()) {
+	if err != nil && !xerrors.Is(err, retryCtx.Err()) {
 		// If the retryCtx was canceled, then one of two things happened:
 		//   1. User canceled the parent context.
 		//   2. The RPC result came and callback canceled retryCtx.
@@ -211,7 +210,7 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 
 				log.Debug("Acknowledge timed out, performing retry")
 				if err := e.send(ctx, req.MsgID, req.SeqNo, req.Input); err != nil {
-					if errors.Is(err, context.Canceled) {
+					if xerrors.Is(err, context.Canceled) {
 						return nil
 					}
 

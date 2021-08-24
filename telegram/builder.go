@@ -2,7 +2,6 @@ package telegram
 
 import (
 	"context"
-	"errors"
 	"io"
 	"os"
 	"path/filepath"
@@ -127,7 +126,7 @@ func retry(ctx context.Context, logger *zap.Logger, cb func(ctx context.Context)
 					return ctx.Err()
 				}
 			}
-			if errors.Is(err, io.EOF) || errors.Is(err, io.ErrUnexpectedEOF) {
+			if xerrors.Is(err, io.EOF) || xerrors.Is(err, io.ErrUnexpectedEOF) {
 				// Possibly server closed connection.
 				return err
 			}
