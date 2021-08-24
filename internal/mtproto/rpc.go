@@ -2,7 +2,6 @@ package mtproto
 
 import (
 	"context"
-	"errors"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -32,7 +31,7 @@ func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder
 
 	if err := c.rpc.Do(ctx, req); err != nil {
 		var badMsgErr *badMessageError
-		if errors.As(err, &badMsgErr) && badMsgErr.Code == codeIncorrectServerSalt {
+		if xerrors.As(err, &badMsgErr) && badMsgErr.Code == codeIncorrectServerSalt {
 			// Should retry with new salt.
 			c.log.Debug("Setting server salt")
 			// Store salt from server.

@@ -2,13 +2,13 @@ package tdsync
 
 import (
 	"context"
-	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/clock"
 )
@@ -33,7 +33,7 @@ func TestLogGroup(t *testing.T) {
 	})
 
 	grp.Cancel()
-	if err := grp.Wait(); !errors.Is(err, context.Canceled) {
+	if err := grp.Wait(); !xerrors.Is(err, context.Canceled) {
 		t.Error(err)
 	}
 }

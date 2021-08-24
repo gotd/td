@@ -73,7 +73,7 @@ func (c *Conn) decryptMessage(b *bin.Buffer) (*crypto.EncryptedMessageData, erro
 
 func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
 	msg, err := c.decryptMessage(buf)
-	if errors.Is(err, errRejected) {
+	if xerrors.Is(err, errRejected) {
 		c.log.Warn("Ignoring rejected message", zap.Error(err))
 		return nil
 	}
@@ -104,7 +104,7 @@ func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
 func (c *Conn) noUpdates(err error) bool {
 	// Checking for read timeout.
 	var syscall *net.OpError
-	if errors.As(err, &syscall) && syscall.Timeout() {
+	if xerrors.As(err, &syscall) && syscall.Timeout() {
 		// We call SetReadDeadline so such error is expected.
 		c.log.Debug("No updates")
 		return true
@@ -179,7 +179,7 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 			}
 
 			var protoErr *codec.ProtocolErr
-			if errors.As(err, &protoErr) && protoErr.Code == codec.CodeAuthKeyNotFound {
+			if xerrors.As(err, &protoErr) && protoErr.Code == codec.CodeAuthKeyNotFound {
 				if err := c.handleAuthKeyNotFound(ctx); err != nil {
 					return xerrors.Errorf("auth key not found: %w", err)
 				}

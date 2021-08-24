@@ -2,7 +2,6 @@ package updates
 
 import (
 	"context"
-	"errors"
 
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
@@ -108,7 +107,7 @@ func (e *Engine) getState(ctx context.Context) (State, error) {
 
 	state, err := e.storage.GetState()
 	if err != nil {
-		if errors.Is(err, ErrStateNotFound) {
+		if xerrors.Is(err, ErrStateNotFound) {
 			remote, err := e.raw.UpdatesGetState(ctx)
 			if err != nil {
 				return State{}, xerrors.Errorf("get remote state: %w", err)

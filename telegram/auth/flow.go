@@ -53,7 +53,7 @@ func (f Flow) Run(ctx context.Context, client FlowClient) error {
 
 	_, signInErr := client.SignIn(ctx, phone, code, hash)
 
-	if errors.Is(signInErr, ErrPasswordAuthNeeded) {
+	if xerrors.Is(signInErr, ErrPasswordAuthNeeded) {
 		password, err := f.Auth.Password(ctx)
 		if err != nil {
 			return xerrors.Errorf("get password: %w", err)
@@ -65,7 +65,7 @@ func (f Flow) Run(ctx context.Context, client FlowClient) error {
 	}
 
 	var signUpRequired *SignUpRequired
-	if errors.As(signInErr, &signUpRequired) {
+	if xerrors.As(signInErr, &signUpRequired) {
 		if err := f.Auth.AcceptTermsOfService(ctx, signUpRequired.TermsOfService); err != nil {
 			return xerrors.Errorf("confirm TOS: %w", err)
 		}

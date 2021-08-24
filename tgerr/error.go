@@ -2,10 +2,11 @@
 package tgerr
 
 import (
-	"errors"
 	"fmt"
 	"strconv"
 	"strings"
+
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/ascii"
 )
@@ -120,7 +121,7 @@ func (e *Error) Error() string {
 
 // AsType returns *Error from err if rpc error type is t.
 func AsType(err error, t string) (rpcErr *Error, ok bool) {
-	if errors.As(err, &rpcErr) && rpcErr.Type == t {
+	if xerrors.As(err, &rpcErr) && rpcErr.Type == t {
 		return rpcErr, true
 	}
 	return nil, false
@@ -128,7 +129,7 @@ func AsType(err error, t string) (rpcErr *Error, ok bool) {
 
 // As extracts *Error from err if possible.
 func As(err error) (rpcErr *Error, ok bool) {
-	if errors.As(err, &rpcErr) {
+	if xerrors.As(err, &rpcErr) {
 		return rpcErr, true
 	}
 	return nil, false
