@@ -9,7 +9,7 @@ A fast Telegram client in pure Go.
 * [Contributing](CONTRIBUTING.md)
 * [Architecture](ARCHITECTURE.md)
 
-Before using this library, read [How Not To Get Banned](.github/SUPPORT.md#how-to-not-get-banned) guide.
+Before using this library, read [How To Not Get Banned](.github/SUPPORT.md#how-to-not-get-banned) guide.
 
 ## Usage
 
