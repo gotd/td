@@ -234,12 +234,13 @@ Special thanks:
   * Multiple major refactorings, including critical cryptographical scope reduction
   * Code generation improvements (vector support, multiple modes for pretty-print)
   * And many other cool things and performance improvements
-* [zweihander](https://github.com/zweihander)
+* [xjem](https://github.com/xjem)
   * Background pings
   * Links in generated documentation
   * Message acknowledgements
   * Retries
   * RPC Engine
+  * Gap (Updates) engine
 
 ## Reference
 
