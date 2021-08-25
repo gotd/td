@@ -155,7 +155,7 @@ func readArray(reader io.Reader, order binary.ByteOrder) ([]byte, error) {
 
 func writeArray(writer io.Writer, data []byte, order binary.ByteOrder) error {
 	length := len(data)
-	if length > math.MaxUint32 {
+	if uint64(length) > uint64(math.MaxUint32) {
 		return xerrors.Errorf("data length too big (%d)", length)
 	}
 
