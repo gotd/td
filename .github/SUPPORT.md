@@ -47,7 +47,7 @@ Bad usages of the API can trigger Telegram's anti-abuse system and ban all your 
 
 ## What to do if I got banned?
 
-First of all, there's no reason to panic.The automated anti-abuse system makes incorrect bans often.
+First of all, there's no reason to panic. The automated anti-abuse system makes incorrect bans often.
 
 See [discussions](https://github.com/lonamiwebs/telethon/issues/824#issuecomment-432182634) in other Telegram API libraries
 for more context.
