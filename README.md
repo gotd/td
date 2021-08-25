@@ -27,6 +27,7 @@ import (
 )
 
 func main() {
+	// https://core.telegram.org/api/obtaining_api_id
 	client := telegram.NewClient(appID, appHash, telegram.Options{})
 	if err := client.Run(context.Background(), func(ctx context.Context) error {
 		// It is only valid to use client while this function is not returned
