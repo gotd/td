@@ -45,6 +45,9 @@ func createLocalKey(passcode, salt []byte) (r crypto.Key) {
 
 // See https://github.com/telegramdesktop/tdesktop/blob/v2.9.8/Telegram/SourceFiles/storage/details/storage_file_utilities.cpp#L584.
 func decryptLocal(encrypted []byte, localKey crypto.Key) ([]byte, error) {
+	if l := len(encrypted); l%aes.BlockSize != 0 {
+		return nil, xerrors.Errorf("invalid length %d, must be padded to 16", l)
+	}
 	// Get encryptedKey.
 	var msgKey bin.Int128
 	n := copy(msgKey[:], encrypted)
@@ -65,7 +68,11 @@ func decryptLocal(encrypted []byte, localKey crypto.Key) ([]byte, error) {
 	return decrypted, nil
 }
 
+// encryptLocal code may panic
 func encryptLocal(decrypted []byte, localKey crypto.Key) ([]byte, error) {
+	if l := len(decrypted); l%aes.BlockSize != 0 {
+		return nil, xerrors.Errorf("invalid length %d, must be padded to 16", l)
+	}
 	// Compute encryptedKey.
 	var msgKey bin.Int128
 	h := sha1.Sum(decrypted) // #nosec G401

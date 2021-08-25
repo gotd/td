@@ -16,7 +16,9 @@ func Test_tdesktopMD5(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
-			require.Equal(t, tt.output, tdesktopMD5(tt.input))
+			a := require.New(t)
+			a.Equal(tt.output, tdesktopMD5(tt.input))
+			a.Equal(tt.output[:16], fileKey(tt.input))
 		})
 	}
 }
