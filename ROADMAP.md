@@ -1,6 +1,6 @@
 # Roadmap
 
-## Q3
+## Q3 21
 
 ### ~~Update key exchange~~
 
@@ -18,7 +18,17 @@ All Bot API Types should be parsed:
 * OpenAPI v3 generated spec from parsed types.
 * Go structs generated from OpenAPI v3 spec.
 
-## Q4
+## Q4 21
+### Documentation
+
+Generate a static websites for documentations.
+
+### Observability
+
+* Advanced OpenTelemetry tracing.
+* Prometheus metrics.
+
+## Q1 22
 
 ### Sugared client
 
@@ -45,15 +55,6 @@ server for `telegram-bot-api`.
 ### Bot API Client
 
 A client for `telegram-bot-api`.
-
-### Documentation
-
-Generate a static websites for documentations.
-
-### Observability
-
-* Advanced OpenTelemetry tracing.
-* Prometheus metrics.
 
 ### Goals
 
