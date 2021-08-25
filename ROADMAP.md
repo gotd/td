@@ -2,9 +2,9 @@
 
 ## Q3
 
-### Update key exchange
+### ~~Update key exchange~~
 
-An updated key exchange protocol should be implemented.
+An updated key exchange protocol should be implemented. Done.
 
 ### Initial tracing
 
@@ -14,7 +14,7 @@ Add basic OpenTelemetry spans.
 
 All Bot API Types should be parsed:
 
-* Parser from docs.
+* ~~Parser from docs.~~
 * OpenAPI v3 generated spec from parsed types.
 * Go structs generated from OpenAPI v3 spec.
 
