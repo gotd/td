@@ -151,7 +151,7 @@ client.Run(ctx, func(ctx context.Context) error) {
   if err := client.Auth().Bot(ctx, "token:12345"); err != nil {
     return err
   }
-  state, err := tg.NewClient(client).UpdatesGetState(ctx)
+  state, err := client.API().UpdatesGetState(ctx)
   if err != nil {
     return err
   }
