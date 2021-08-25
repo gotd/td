@@ -28,6 +28,11 @@ Generate a static websites for documentations.
 * Advanced OpenTelemetry tracing.
 * Prometheus metrics.
 
+### Updates engine
+* Refactor gap engine
+* Simplify initialization
+* Add example and documentation
+
 ## Q1 22
 
 ### Sugared client
