@@ -139,7 +139,7 @@ func retry(ctx context.Context, logger *zap.Logger, cb func(ctx context.Context)
 }
 
 // TestClient creates and authenticates user telegram.Client
-// using Telegram staging server.
+// using Telegram test server.
 func TestClient(ctx context.Context, opts Options, cb func(ctx context.Context, client *Client) error) error {
 	if opts.DC == 0 {
 		opts.DC = 2
