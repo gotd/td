@@ -145,7 +145,7 @@ func TestClient(ctx context.Context, opts Options, cb func(ctx context.Context, 
 		opts.DC = 2
 	}
 	if opts.DCList.Zero() {
-		opts.DCList = dcs.Staging()
+		opts.DCList = dcs.Test()
 	}
 
 	logger := zap.NewNop()

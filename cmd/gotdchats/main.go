@@ -50,7 +50,7 @@ func run(ctx context.Context) error {
 		Logger:         logger,
 		SessionStorage: storage,
 		Resolver:       dcs.Plain(dcs.PlainOptions{Dial: proxy.Dial}),
-		DCList:         dcs.Staging(),
+		DCList:         dcs.Test(),
 	})
 
 	return client.Run(ctx, func(ctx context.Context) error {

@@ -43,7 +43,7 @@ func NewSuite(tb require.TestingT, config TestOptions) *Suite {
 func (s *Suite) Client(logger *zap.Logger, handler telegram.UpdateHandler) *telegram.Client {
 	return telegram.NewClient(s.appID, s.appHash, telegram.Options{
 		DC:            s.dc,
-		DCList:        dcs.Staging(),
+		DCList:        dcs.Test(),
 		Logger:        logger,
 		UpdateHandler: handler,
 	})

@@ -3,7 +3,14 @@ package dcs
 import "github.com/gotd/td/tg"
 
 // Staging returns staging DC list.
+//
+// Deprecated. Use Test().
 func Staging() List {
+	return Test()
+}
+
+// Test returns test DC list.
+func Test() List {
 	return List{
 		Options: []tg.DCOption{
 			{

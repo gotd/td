@@ -6,12 +6,12 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestStagingDCs(t *testing.T) {
+func TestTestDCs(t *testing.T) {
 	require.NotEmpty(t, Prod())
 
 	// Check copying.
-	a := Staging().Options
+	a := Test().Options
 	a[0].IPAddress = "10"
-	b := Staging().Options
+	b := Test().Options
 	require.NotEqual(t, "10", b[0].IPAddress)
 }
