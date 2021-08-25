@@ -1,7 +1,7 @@
 package crypto
 
 import (
-	"crypto/sha1"
+	"crypto/sha1" // #nosec G505
 
 	"github.com/gotd/td/bin"
 )
@@ -10,7 +10,7 @@ import (
 //
 // sha1_a = SHA1 (msg_key + substr (auth_key, x, 32));
 func sha1a(r []byte, authKey Key, msgKey bin.Int128, x int) []byte {
-	h := sha1.New()
+	h := sha1.New() // #nosec G401
 
 	_, _ = h.Write(msgKey[:])
 	_, _ = h.Write(authKey[x : x+32])
@@ -22,7 +22,7 @@ func sha1a(r []byte, authKey Key, msgKey bin.Int128, x int) []byte {
 //
 // sha1_b = SHA1 (substr (auth_key, 32+x, 16) + msg_key + substr (auth_key, 48+x, 16));
 func sha1b(r []byte, authKey Key, msgKey bin.Int128, x int) []byte {
-	h := sha1.New()
+	h := sha1.New() // #nosec G401
 
 	_, _ = h.Write(authKey[32+x : 32+x+16])
 	_, _ = h.Write(msgKey[:])
@@ -35,7 +35,7 @@ func sha1b(r []byte, authKey Key, msgKey bin.Int128, x int) []byte {
 //
 // sha1_c = SHA1 (substr (auth_key, 64+x, 32) + msg_key);
 func sha1c(r []byte, authKey Key, msgKey bin.Int128, x int) []byte {
-	h := sha1.New()
+	h := sha1.New() // #nosec G401
 
 	_, _ = h.Write(authKey[64+x : 64+x+32])
 	_, _ = h.Write(msgKey[:])
@@ -47,7 +47,7 @@ func sha1c(r []byte, authKey Key, msgKey bin.Int128, x int) []byte {
 //
 // sha1_d = SHA1 (msg_key + substr (auth_key, 96+x, 32));
 func sha1d(r []byte, authKey Key, msgKey bin.Int128, x int) []byte {
-	h := sha1.New()
+	h := sha1.New() // #nosec G401
 
 	_, _ = h.Write(msgKey[:])
 	_, _ = h.Write(authKey[96+x : 96+x+32])
@@ -75,7 +75,7 @@ func OldKeys(authKey Key, msgKey bin.Int128, mode Side) (key, iv bin.Int256) {
 		// aes_key = substr (sha1_a, 0, 8) + substr (sha1_b, 8, 12) + substr (sha1_c, 4, 12);
 		n := copy(v[:], sha1a[:8])
 		n += copy(v[n:], sha1b[8:8+12])
-		n += copy(v[n:], sha1c[4:4+12])
+		copy(v[n:], sha1c[4:4+12])
 		return v
 	}
 	aesIV := func(sha1a, sha1b, sha1c, sha1d []byte) (v bin.Int256) {
@@ -83,7 +83,7 @@ func OldKeys(authKey Key, msgKey bin.Int128, mode Side) (key, iv bin.Int256) {
 		n := copy(v[:], sha1a[8:8+12])
 		n += copy(v[n:], sha1b[:8])
 		n += copy(v[n:], sha1c[16:16+4])
-		n += copy(v[n:], sha1d[:8])
+		copy(v[n:], sha1d[:8])
 		return v
 	}
 

@@ -10,7 +10,6 @@ import (
 	"github.com/gotd/td/internal/crypto"
 )
 
-
 type reader struct {
 	buf bin.Buffer
 }

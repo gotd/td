@@ -3,6 +3,8 @@ package tdesktop
 
 import (
 	"fmt"
+	"io/fs"
+	"os"
 
 	"golang.org/x/xerrors"
 )
@@ -16,7 +18,16 @@ type Account struct {
 }
 
 // Read reads accounts info from given Telegram Desktop tdata root.
+// Shorthand for:
+//
+//	ReadFS(os.DirFS(root), passcode)
+//
 func Read(root string, passcode []byte) ([]Account, error) {
+	return ReadFS(os.DirFS(root), passcode)
+}
+
+// ReadFS reads Telegram Desktop accounts info from given FS root.
+func ReadFS(root fs.FS, passcode []byte) ([]Account, error) {
 	keyDataFile, err := open(root, "key_data")
 	if err != nil {
 		return nil, xerrors.Errorf("open key_data: %w", err)

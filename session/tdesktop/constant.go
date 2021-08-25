@@ -1,5 +1,6 @@
 package tdesktop
 
+//nolint:revive
 const (
 	localEncryptIterCount      = 4000 // key derivation iteration count
 	localEncryptNoPwdIterCount = 4    // key derivation iteration count without pwd (not secure anyway)

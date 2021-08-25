@@ -79,7 +79,7 @@ func (m *MTPAuthorization) deserialize(r *reader) error {
 		var key crypto.Key
 		dcID, err := readKey(r, &key)
 		if err != nil {
-			return xerrors.Errorf("read key %d: %w", err)
+			return xerrors.Errorf("read key %d: %w", i, err)
 		}
 		// FIXME(tdakkota): what if there is more than one session per DC?
 		m.Keys[int(dcID)] = key

@@ -3,7 +3,7 @@ package tdesktop
 import (
 	"bytes"
 	"crypto/aes"
-	"crypto/sha1"
+	"crypto/sha1" // #nosec G505
 	"crypto/sha512"
 
 	"golang.org/x/crypto/pbkdf2"
@@ -34,11 +34,9 @@ func createLocalKey(passcode, salt []byte) (r crypto.Key) {
 	}
 
 	h := sha512.New()
-	{
-		_, _ = h.Write(salt)
-		_, _ = h.Write(passcode)
-		_, _ = h.Write(salt)
-	}
+	_, _ = h.Write(salt)
+	_, _ = h.Write(passcode)
+	_, _ = h.Write(salt)
 
 	key := pbkdf2.Key(h.Sum(nil), salt, iters, len(r), sha512.New)
 	copy(r[:], key)
@@ -61,8 +59,27 @@ func decryptLocal(encrypted []byte, localKey crypto.Key) ([]byte, error) {
 	decrypted := make([]byte, len(encrypted))
 	ige.DecryptBlocks(cipher, aesIV[:], decrypted, encrypted)
 
-	if h := sha1.Sum(decrypted); !bytes.Equal(h[:16], msgKey[:]) {
+	if h := sha1.Sum(decrypted); !bytes.Equal(h[:16], msgKey[:]) /* #nosec G401 */ {
 		return nil, xerrors.New("msg_key mismatch")
 	}
 	return decrypted, nil
+}
+
+func encryptLocal(decrypted []byte, localKey crypto.Key) ([]byte, error) {
+	// Compute encryptedKey.
+	var msgKey bin.Int128
+	h := sha1.Sum(decrypted) // #nosec G401
+	copy(msgKey[:], h[:])
+
+	aesKey, aesIV := crypto.OldKeys(localKey, msgKey, crypto.Server)
+	cipher, err := aes.NewCipher(aesKey[:])
+	if err != nil {
+		return nil, xerrors.Errorf("create cipher: %w", err)
+	}
+
+	encrypted := make([]byte, 16+len(decrypted))
+	copy(encrypted, msgKey[:])
+	ige.EncryptBlocks(cipher, aesIV[:], encrypted[16:], decrypted)
+
+	return encrypted, nil
 }

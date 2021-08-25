@@ -2,7 +2,7 @@ package uploader
 
 import (
 	"context"
-	"crypto/md5" // nolint: gosec
+	"crypto/md5" // #nosec G501
 	"encoding/hex"
 
 	"golang.org/x/xerrors"
@@ -91,7 +91,7 @@ func (u *Uploader) Upload(ctx context.Context, upload *Upload) (tg.InputFileClas
 }
 
 func (u *Uploader) uploadSmall(ctx context.Context, upload *Upload) (tg.InputFileClass, error) {
-	h := md5.New() // nolint: gosec
+	h := md5.New() // #nosec G401
 	if err := u.smallLoop(ctx, h, upload); err != nil {
 		return nil, err
 	}

@@ -1,5 +1,6 @@
 package tdesktop
 
+//nolint:deadcode,unused,varcheck
 const (
 	dbiKey               = 0x00
 	dbiUser              = 0x01
