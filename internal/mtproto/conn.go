@@ -147,7 +147,7 @@ func New(dialer Dialer, opt Options) *Conn {
 		gotSession: tdsync.NewReady(),
 
 		rpc:               opt.engine,
-		compressThreshold: 1024, // 1 KB
+		compressThreshold: opt.CompressThreshold,
 		dialTimeout:       opt.DialTimeout,
 		exchangeTimeout:   opt.ExchangeTimeout,
 		saltFetchInterval: opt.SaltFetchInterval,

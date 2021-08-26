@@ -39,14 +39,17 @@ type Options struct {
 
 	// Resolver to use.
 	Resolver dcs.Resolver
+
 	// NoUpdates enables no updates mode.
 	//
 	// Enabled by default if no UpdateHandler is provided.
 	NoUpdates bool
+
 	// ReconnectionBackoff configures and returns reconnection backoff object.
 	ReconnectionBackoff func() backoff.BackOff
 	// MigrationTimeout configures migration timeout.
 	MigrationTimeout time.Duration
+
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
 	// Logger is instance of zap.Logger. No logs by default.
@@ -56,18 +59,26 @@ type Options struct {
 	SessionStorage SessionStorage
 	// UpdateHandler will be called on received update.
 	UpdateHandler UpdateHandler
-	// Middlewares list allows to wrap tg.Invoker. Can be useful for metrics,
+	// Middlewares list allows wrapping tg.Invoker. Can be useful for metrics,
 	// tracing, etc. Note that order is important, see ExampleMiddleware.
 	//
 	// Middlewares are called in order from first to last.
 	Middlewares []Middleware
 
-	// AckBatchSize is maximum ack-s to buffer.
+	// AckBatchSize is limit of MTProto ACK buffer size.
 	AckBatchSize int
-	// AckInterval is maximum time to buffer ack.
-	AckInterval   time.Duration
+	// AckInterval is maximum time to buffer MTProto ACK.
+	AckInterval time.Duration
+	// RetryInterval is duration between send retries.
 	RetryInterval time.Duration
-	MaxRetries    int
+	// MaxRetries is limit of send retries.
+	MaxRetries int
+
+	// CompressThreshold is a threshold in bytes to determine that message
+	// is large enough to be compressed using GZIP.
+	// If < 0, compression will be disabled.
+	// If == 0, default value will be used.
+	CompressThreshold int
 
 	// Device is device config.
 	// Will be sent with session creation request.
@@ -93,27 +104,20 @@ func (opt *Options) setDefaults() {
 	if opt.DCList.Zero() {
 		opt.DCList = dcs.Prod()
 	}
-	if opt.AckBatchSize == 0 {
-		opt.AckBatchSize = 20
-	}
-	if opt.AckInterval == 0 {
-		opt.AckInterval = time.Second * 15
-	}
-	if opt.RetryInterval == 0 {
-		opt.RetryInterval = time.Second * 5
-	}
-	if opt.MigrationTimeout == 0 {
-		opt.MigrationTimeout = time.Second * 15
-	}
-	if opt.MaxRetries == 0 {
-		opt.MaxRetries = 5
-	}
+	// It's okay to use zero value AckBatchSize, mtproto.Options will set defaults.
+	// It's okay to use zero value AckInterval, mtproto.Options will set defaults.
+	// It's okay to use zero value RetryInterval, mtproto.Options will set defaults.
+	// It's okay to use zero value MaxRetries, mtproto.Options will set defaults.
+	// It's okay to use zero value CompressThreshold, mtproto.Options will set defaults.
 	opt.Device.SetDefaults()
 	if opt.Clock == nil {
 		opt.Clock = clock.System
 	}
 	if opt.ReconnectionBackoff == nil {
 		opt.ReconnectionBackoff = defaultBackoff(opt.Clock)
+	}
+	if opt.MigrationTimeout == 0 {
+		opt.MigrationTimeout = time.Second * 15
 	}
 	if opt.MessageID == nil {
 		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now)
