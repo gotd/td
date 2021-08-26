@@ -3,7 +3,7 @@ module github.com/gotd/td/examples/gif-download
 go 1.16
 
 require (
-	github.com/gotd/contrib v0.10.0
+	github.com/gotd/contrib v0.11.0
 	github.com/gotd/td v0.50.0
 	go.uber.org/atomic v1.9.0
 	go.uber.org/zap v1.19.0
