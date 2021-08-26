@@ -20,22 +20,29 @@ type Options struct {
 	// DC is datacenter ID for key exchange.
 	// Defaults to 2.
 	DC int
+
 	// PublicKeys of telegram.
 	//
 	// If not provided, embedded public keys will be used.
 	PublicKeys []exchange.PublicKey
+
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
 	// Logger is instance of zap.Logger. No logs by default.
 	Logger *zap.Logger
 	// Handler will be called on received message.
 	Handler Handler
+
 	// AckBatchSize is maximum ack-s to buffer.
 	AckBatchSize int
 	// AckInterval is maximum time to buffer ack.
 	AckInterval time.Duration
+
 	// RetryInterval is duration between retries.
 	RetryInterval time.Duration
+	// MaxRetries is max retry count until rpc request failure.
+	MaxRetries int
+
 	// DialTimeout is timeout of creating connection.
 	DialTimeout time.Duration
 	// ExchangeTimeout is timeout of every key exchange request.
@@ -48,8 +55,12 @@ type Options struct {
 	PingInterval time.Duration
 	// RequestTimeout is function which returns request timeout for given type ID.
 	RequestTimeout func(req uint32) time.Duration
-	// MaxRetries is max retry count until rpc request failure.
-	MaxRetries int
+
+	// CompressThreshold is a threshold in bytes to determine that message
+	// is large enough to be compressed using GZIP.
+	// If < 0, compression will be disabled.
+	// If == 0, default value will be used.
+	CompressThreshold int
 	// MessageID is message id source. Share source between connection to
 	// reduce collision probability.
 	MessageID MessageIDSource
@@ -103,6 +114,9 @@ func (opt *Options) setDefaults() {
 	if opt.RetryInterval == 0 {
 		opt.RetryInterval = 5 * time.Second
 	}
+	if opt.MaxRetries == 0 {
+		opt.MaxRetries = 5
+	}
 	if opt.DialTimeout == 0 {
 		opt.DialTimeout = 15 * time.Second
 	}
@@ -123,8 +137,8 @@ func (opt *Options) setDefaults() {
 			return 15 * time.Second
 		}
 	}
-	if opt.MaxRetries == 0 {
-		opt.MaxRetries = 5
+	if opt.CompressThreshold == 0 {
+		opt.CompressThreshold = 1024
 	}
 	if opt.Clock == nil {
 		opt.Clock = clock.System
