@@ -35,7 +35,7 @@ func (s ServerHello) WelcomePacket(secret []byte) []byte {
 	}
 	recChangeCipher.WriteBytes(buf)
 
-	hostCert := make([]byte, 1024+mrand.Intn(3092)) // nolint: gosec
+	hostCert := make([]byte, 1024+mrand.Intn(3092)) // #nosec G401
 	rand.Read(hostCert)                             // nolint: errcheck
 
 	recData := Record{

@@ -49,17 +49,13 @@ YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWE=`
 	}
 
 	// Create client.
-	telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
+	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
 		SessionStorage: storage,
 	})
-
-	// Load saved gotd session.
-	saved, err := loader.Load(ctx)
-	if err != nil {
+	if err := client.Run(ctx, func(ctx context.Context) error {
+		// Use Telethon session.
+		return nil
+	}); err != nil {
 		panic(err)
 	}
-
-	fmt.Println(saved.DC, saved.Addr)
-	// Output:
-	// 2 192.168.0.1:443
 }

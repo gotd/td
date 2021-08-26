@@ -42,6 +42,17 @@ func (b *Buffer) Uint32() (uint32, error) {
 	return v, nil
 }
 
+// Uint64 decodes 64-bit unsigned integer from Buffer.
+func (b *Buffer) Uint64() (uint64, error) {
+	const size = Word * 2
+	if len(b.Buf) < size {
+		return 0, io.ErrUnexpectedEOF
+	}
+	v := binary.LittleEndian.Uint64(b.Buf)
+	b.Buf = b.Buf[size:]
+	return v, nil
+}
+
 // Int32 decodes signed 32-bit integer from Buffer.
 func (b *Buffer) Int32() (int32, error) {
 	v, err := b.Uint32()
@@ -162,12 +173,10 @@ func (b *Buffer) Double() (float64, error) {
 
 // Long decodes 64-bit signed integer from Buffer.
 func (b *Buffer) Long() (int64, error) {
-	const size = Word * 2
-	if len(b.Buf) < size {
-		return 0, io.ErrUnexpectedEOF
+	v, err := b.Uint64()
+	if err != nil {
+		return 0, err
 	}
-	v := binary.LittleEndian.Uint64(b.Buf)
-	b.Buf = b.Buf[size:]
 	return int64(v), nil
 }
 

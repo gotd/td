@@ -98,8 +98,7 @@ func aesIV(sha256a, sha256b []byte) bin.Int256 {
 
 // Keys returns (aes_key, aes_iv) pair for AES-IGE.
 //
-// Reference:
-// * https://core.telegram.org/mtproto/description#defining-aes-key-and-initialization-vector
+// See https://core.telegram.org/mtproto/description#defining-aes-key-and-initialization-vector
 //
 // Example:
 //	key, iv := crypto.Keys(authKey, messageKey, crypto.Client)
