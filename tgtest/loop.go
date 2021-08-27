@@ -6,6 +6,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/exchange"
 	"github.com/gotd/td/internal/proto/codec"
 	"github.com/gotd/td/transport"
 )
@@ -54,30 +55,38 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) error {
 		}
 
 		// TODO(tdakkota): dispatch by type ID instead?
-		if _, ok := s.users.getSession(authKeyID); !ok {
-			c := newBufferedConn(conn)
-			c.Push(b)
-
-			// If authKeyID not found and is not zero, so drop buffered message and send protocol error.
-			if authKeyID != [8]byte{} {
-				c.Pop()
-
-				if err := s.sendProtoError(ctx, c, codec.CodeAuthKeyNotFound); err != nil {
-					return xerrors.Errorf("send AuthKeyNotFound: %w", err)
-				}
+		if _, ok := s.users.getSession(authKeyID); ok {
+			if err := s.rpcHandle(ctx, conn, b); err != nil {
+				return xerrors.Errorf("handle: %w", err)
 			}
-
-			s.log.Debug("Starting key exchange")
-			key, err := s.exchange(ctx, exchangeConn{Conn: c})
-			if err != nil {
-				return xerrors.Errorf("key exchange failed: %w", err)
-			}
-			s.users.addSession(key)
 			continue
 		}
 
-		if err := s.rpcHandle(ctx, conn, b); err != nil {
-			return xerrors.Errorf("handle: %w", err)
+		// If authKeyID not found and is not zero, so send protocol error.
+		if authKeyID != [8]byte{} {
+			if err := s.sendProtoError(ctx, conn, codec.CodeAuthKeyNotFound); err != nil {
+				return xerrors.Errorf("send AuthKeyNotFound: %w", err)
+			}
+			continue
 		}
+
+		s.log.Debug("Starting key exchange")
+		c := newBufferedConn(conn)
+		c.Push(b)
+
+		key, err := s.exchange(ctx, exchangeConn{Conn: c})
+		if err != nil {
+			var exchangeErr *exchange.ServerExchangeError
+			if xerrors.As(err, &exchangeErr) {
+				code := exchangeErr.Code
+				if err := s.sendProtoError(ctx, c, code); err != nil {
+					return xerrors.Errorf("send proto error %v: %w", code, err)
+				}
+				return nil
+			}
+			return xerrors.Errorf("key exchange failed: %w", err)
+		}
+
+		s.users.addSession(key)
 	}
 }

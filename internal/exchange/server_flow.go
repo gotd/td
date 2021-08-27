@@ -10,12 +10,41 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/proto/codec"
 )
+
+// ServerExchangeError is returned when exchange fails due to
+// some security or validation checks.
+type ServerExchangeError struct {
+	Code int32
+	Err  error
+}
+
+// Error implements error.
+func (s *ServerExchangeError) Error() string {
+	return s.Err.Error()
+}
+
+// Unwrap implements error wrapper interface.
+func (s *ServerExchangeError) Unwrap() error {
+	return s.Err
+}
+
+func serverError(code int32, err error) error {
+	return &ServerExchangeError{
+		Code: code,
+		Err:  err,
+	}
+}
 
 // Run runs server-side flow.
 // If b parameter is not nil, it will be used as first read message.
 // Otherwise, it will be read from connection.
 func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
+	wrapKeyNotFound := func(err error) error {
+		return serverError(codec.CodeAuthKeyNotFound, err)
+	}
+
 	// 1. Client sends query to server
 	//
 	// req_pq_multi#be7e8ef1 nonce:int128 = ResPQ;
@@ -66,13 +95,13 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 		if !s.key.UseRSAPad {
 			r, err := crypto.RSADecryptHashed(dhParams.EncryptedData, s.key.RSA)
 			if err != nil {
-				return ServerExchangeResult{}, err
+				return ServerExchangeResult{}, wrapKeyNotFound(err)
 			}
 			b.ResetTo(r)
 		} else {
 			r, err := crypto.DecodeRSAPad(dhParams.EncryptedData, s.key.RSA)
 			if err != nil {
-				return ServerExchangeResult{}, err
+				return ServerExchangeResult{}, wrapKeyNotFound(err)
 			}
 			b.ResetTo(r)
 		}
@@ -83,10 +112,11 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 		}
 
 		if innerDataDC, ok := d.(*mt.PQInnerDataDC); ok && innerDataDC.DC != s.dc {
-			return ServerExchangeResult{}, xerrors.Errorf(
+			err := xerrors.Errorf(
 				"wrong DC ID, want %d, got %d",
 				s.dc, innerDataDC.DC,
 			)
+			return ServerExchangeResult{}, serverError(codec.CodeWrongDC, err)
 		}
 
 		innerData = mt.PQInnerData{
@@ -120,8 +150,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	}
 
 	b.Reset()
-	err = data.Encode(b)
-	if err != nil {
+	if err := data.Encode(b); err != nil {
 		return ServerExchangeResult{}, err
 	}
 
@@ -149,19 +178,22 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 
 	decrypted, err := crypto.DecryptExchangeAnswer(clientDhParams.EncryptedData, key, iv)
 	if err != nil {
-		return ServerExchangeResult{}, err
+		err = xerrors.Errorf("decrypt exchange answer: %w", err)
+		return ServerExchangeResult{}, wrapKeyNotFound(err)
 	}
 	b.ResetTo(decrypted)
 
 	var clientInnerData mt.ClientDHInnerData
-	err = clientInnerData.Decode(b)
-	if err != nil {
-		return ServerExchangeResult{}, err
+	if err := clientInnerData.Decode(b); err != nil {
+		return ServerExchangeResult{}, wrapKeyNotFound(err)
 	}
 
 	gB := big.NewInt(0).SetBytes(clientInnerData.GB)
 	var authKey crypto.Key
-	big.NewInt(0).Exp(gB, a, dhPrime).FillBytes(authKey[:])
+	if !crypto.FillBytes(big.NewInt(0).Exp(gB, a, dhPrime), authKey[:]) {
+		err := xerrors.New("auth_key is too big")
+		return ServerExchangeResult{}, wrapKeyNotFound(err)
+	}
 
 	// DH key exchange complete
 	// 8. Server responds in one of three ways:

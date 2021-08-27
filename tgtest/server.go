@@ -98,9 +98,7 @@ func (s *Server) serve(ctx context.Context, l transport.Listener) error {
 			}
 
 			grp.Go(func(ctx context.Context) error {
-				err := s.serveConn(ctx, conn)
-
-				if err != nil {
+				if err := s.serveConn(ctx, conn); err != nil {
 					// Client disconnected.
 					var syscallErr *net.OpError
 					switch {
@@ -117,7 +115,7 @@ func (s *Server) serve(ctx context.Context, l transport.Listener) error {
 
 					s.log.Info("Serving handler error", zap.Error(err))
 				}
-				return err
+				return nil
 			})
 		}
 	})
