@@ -118,6 +118,7 @@ func (s *state) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err er
 	return ptsChanged, nil
 }
 
+// nolint:dupl
 func (s *state) applyPts(state int, updates []update) error {
 	var (
 		converted []tg.UpdateClass
@@ -144,6 +145,7 @@ func (s *state) applyPts(state int, updates []update) error {
 	return nil
 }
 
+// nolint:dupl
 func (s *state) applyQts(state int, updates []update) error {
 	var (
 		converted []tg.UpdateClass

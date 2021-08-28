@@ -46,7 +46,7 @@ func (s *memStorage) SetPts(userID, pts int) error {
 
 	state, ok := s.states[userID]
 	if !ok {
-		return xerrors.Errorf("state not found")
+		return xerrors.New("state not found")
 	}
 
 	state.Pts = pts
@@ -60,7 +60,7 @@ func (s *memStorage) SetQts(userID, qts int) error {
 
 	state, ok := s.states[userID]
 	if !ok {
-		return xerrors.Errorf("state not found")
+		return xerrors.New("state not found")
 	}
 
 	state.Qts = qts
@@ -74,7 +74,7 @@ func (s *memStorage) SetDate(userID, date int) error {
 
 	state, ok := s.states[userID]
 	if !ok {
-		return xerrors.Errorf("state not found")
+		return xerrors.New("state not found")
 	}
 
 	state.Date = date
@@ -88,7 +88,7 @@ func (s *memStorage) SetSeq(userID, seq int) error {
 
 	state, ok := s.states[userID]
 	if !ok {
-		return xerrors.Errorf("state not found")
+		return xerrors.New("state not found")
 	}
 
 	state.Seq = seq
@@ -102,7 +102,7 @@ func (s *memStorage) SetDateSeq(userID, date, seq int) error {
 
 	state, ok := s.states[userID]
 	if !ok {
-		return xerrors.Errorf("state not found")
+		return xerrors.New("state not found")
 	}
 
 	state.Date = date
@@ -117,7 +117,7 @@ func (s *memStorage) SetChannelPts(userID, channelID, pts int) error {
 
 	channels, ok := s.channels[userID]
 	if !ok {
-		return xerrors.Errorf("user state does not exist")
+		return xerrors.New("user state does not exist")
 	}
 
 	channels[channelID] = pts
@@ -143,7 +143,7 @@ func (s *memStorage) ForEachChannels(userID int, f func(channelID, pts int) erro
 
 	cmap, ok := s.channels[userID]
 	if !ok {
-		return xerrors.Errorf("channels map does not exist")
+		return xerrors.New("channels map does not exist")
 	}
 
 	for id, pts := range cmap {

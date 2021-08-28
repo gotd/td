@@ -1,3 +1,4 @@
+// Package hook contains telegram update hook middleware.
 package hook
 
 import (

@@ -42,7 +42,7 @@ func (m *Manager) HandleUpdates(u tg.UpdatesClass) error {
 }
 
 // Auth notifies manager about user authentication on the telegram server.
-// 
+//
 // If forget is true, local state (if exist) will be overwritten
 // with remote state.
 func (m *Manager) Auth(client RawClient, userID int, isBot, forget bool) error {
@@ -142,7 +142,7 @@ func (m *Manager) Logout() error {
 	defer m.mux.Unlock()
 
 	if m.state == nil {
-		return xerrors.Errorf("not authorized, nothing to do")
+		return xerrors.New("not authorized, nothing to do")
 	}
 
 	m.state.Close()
