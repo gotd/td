@@ -1,3 +1,4 @@
+// Package e2e contains end-to-end updates processing test.
 package e2e
 
 import (
@@ -11,7 +12,7 @@ import (
 )
 
 // Server for testing gaps.
-type Server struct {
+type server struct {
 	date     int
 	peers    *peerDatabase
 	messages *messageDatabase
@@ -20,8 +21,8 @@ type Server struct {
 }
 
 // NewServer creates new test server.
-func NewServer() *Server {
-	return &Server{
+func newServer() *server {
+	return &server{
 		date: 1,
 		peers: &peerDatabase{
 			users:    make(map[int]*tg.User),
@@ -35,7 +36,7 @@ func NewServer() *Server {
 }
 
 // UpdatesGetState returns current remote state.
-func (s *Server) UpdatesGetState(ctx context.Context) (*tg.UpdatesState, error) {
+func (s *server) UpdatesGetState(ctx context.Context) (*tg.UpdatesState, error) {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -48,7 +49,7 @@ func (s *Server) UpdatesGetState(ctx context.Context) (*tg.UpdatesState, error) 
 }
 
 // UpdatesGetDifference returns difference between local and remote states.
-func (s *Server) UpdatesGetDifference(ctx context.Context, request *tg.UpdatesGetDifferenceRequest) (tg.UpdatesDifferenceClass, error) {
+func (s *server) UpdatesGetDifference(ctx context.Context, request *tg.UpdatesGetDifferenceRequest) (tg.UpdatesDifferenceClass, error) {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -101,7 +102,7 @@ func (s *Server) UpdatesGetDifference(ctx context.Context, request *tg.UpdatesGe
 }
 
 // UpdatesGetChannelDifference returns difference between local and remote channel states.
-func (s *Server) UpdatesGetChannelDifference(
+func (s *server) UpdatesGetChannelDifference(
 	ctx context.Context, request *tg.UpdatesGetChannelDifferenceRequest,
 ) (tg.UpdatesChannelDifferenceClass, error) {
 	s.mux.Lock()
@@ -149,7 +150,7 @@ func (s *Server) UpdatesGetChannelDifference(
 	}, nil
 }
 
-func (s *Server) fillMessageEnts(msg tg.MessageClass, ents *updates.Entities) {
+func (s *server) fillMessageEnts(msg tg.MessageClass, ents *updates.Entities) {
 	switch peer := msg.(*tg.Message).PeerID.(type) {
 	case *tg.PeerUser:
 		user, ok := s.peers.users[peer.UserID]

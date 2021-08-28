@@ -20,7 +20,6 @@ func TestSequenceBox(t *testing.T) {
 			updates = append(updates, u...)
 			return nil
 		},
-		OnGap:  func() {},
 		Logger: zaptest.NewLogger(t),
 	})
 
@@ -82,8 +81,7 @@ func TestSequenceBox(t *testing.T) {
 	<-box.gapTimeout.C
 
 	require.Equal(t, []gap{{6, 7}}, box.gaps.gaps)
-	box.EnableRecoverMode()
-	require.True(t, box.recovering)
+	box.gaps.Clear()
 	require.False(t, box.gaps.Has())
 }
 
@@ -157,7 +155,6 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 				applied = append(applied, u...)
 				return nil
 			},
-			OnGap:  func() {},
 			Logger: zaptest.NewLogger(t),
 		})
 

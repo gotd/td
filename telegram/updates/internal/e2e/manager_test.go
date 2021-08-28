@@ -16,7 +16,7 @@ import (
 )
 
 func TestE2E(t *testing.T) {
-	testEngine(t, func(s *Server, storage updates.Storage) chan *tg.Updates {
+	testManager(t, func(s *server, storage updates.StateStorage) chan *tg.Updates {
 		c := make(chan *tg.Updates, 10)
 
 		var (
@@ -26,13 +26,12 @@ func TestE2E(t *testing.T) {
 		)
 
 		var channels []*tg.PeerChannel
-		for i := 0; i < 30; i++ {
-			c := s.peers.createChannel(fmt.Sprintf("channel-%d", i))
-			require.NoError(t, storage.SetChannelPts(c.ChannelID, 0))
-			channels = append(channels, c)
-		}
-
-		require.NoError(t, storage.SetState(updates.State{}))
+		require.NoError(t, storage.ForEachChannels(123, func(channelID, pts int) error {
+			channels = append(channels, &tg.PeerChannel{
+				ChannelID: channelID,
+			})
+			return nil
+		}))
 
 		var wg sync.WaitGroup
 		wg.Add(2)
@@ -40,12 +39,12 @@ func TestE2E(t *testing.T) {
 		// Biba.
 		go func() {
 			defer wg.Done()
-			for i := 0; i < 20; i++ {
+			for i := 0; i < 30; i++ {
 				c <- s.CreateEvent(func(ev *EventBuilder) {
 					ev.SendMessage(biba, chat, fmt.Sprintf("biba-%d", i))
 
-					for _, c := range channels {
-						ev.SendMessage(biba, c, fmt.Sprintf("biba-channel-%d", i))
+					for mi, c := range channels {
+						ev.SendMessage(biba, c, fmt.Sprintf("biba-channel-%d-%d", i, mi))
 					}
 				})
 			}
@@ -54,7 +53,7 @@ func TestE2E(t *testing.T) {
 		// Boba.
 		go func() {
 			defer wg.Done()
-			for i := 0; i < 20; i++ {
+			for i := 0; i < 30; i++ {
 				c <- s.CreateEvent(func(ev *EventBuilder) {
 					ev.SendMessage(boba, chat, fmt.Sprintf("boba-%d", i))
 
@@ -73,30 +72,45 @@ func TestE2E(t *testing.T) {
 	})
 }
 
-func testEngine(t *testing.T, f func(s *Server, storage updates.Storage) chan *tg.Updates) {
+func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) chan *tg.Updates) {
 	t.Helper()
 
 	var (
 		log     = zaptest.NewLogger(t)
-		s       = NewServer()
-		h       = NewHandler()
-		storage = updates.NewMemStorage()
+		s       = newServer()
+		h       = newHandler()
+		storage = newMemStorage()
+		hasher  = newMemAccessHasher()
 	)
 
-	uchan := loss(f(s, storage))
+	require.NoError(t, storage.SetState(123, updates.State{
+		Pts:  0,
+		Qts:  0,
+		Date: 0,
+		Seq:  0,
+	}))
+
+	for i := 0; i < 1; i++ {
+		c := s.peers.createChannel(fmt.Sprintf("channel-%d", i))
+		require.NoError(t, storage.SetChannelPts(123, c.ChannelID, 0))
+		require.NoError(t, hasher.SetChannelAccessHash(123, c.ChannelID, int64(c.ChannelID*2)))
+	}
+
 	e := updates.New(updates.Config{
-		RawClient: s,
-		Handler:   h,
-		SelfID:    123,
-		Storage:   storage,
-		Logger:    log.Named("gaps"),
+		Handler:      h.HandleUpdates,
+		Logger:       log.Named("gaps"),
+		Storage:      storage,
+		AccessHasher: hasher,
 	})
+
+	require.NoError(t, e.Auth(s, 123, false, false))
+
+	uchan := loss(f(s, storage))
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	g, ctx := errgroup.WithContext(ctx)
-	g.Go(func() error { return e.Run(ctx) })
 	g.Go(func() error {
 		defer cancel()
 
@@ -125,8 +139,9 @@ func testEngine(t *testing.T, f func(s *Server, storage updates.Storage) chan *t
 		}
 
 		ups := []tg.UpdateClass{&tg.UpdatePtsChanged{}}
-		if err := storage.Channels(func(channelID, pts int) {
+		if err := storage.ForEachChannels(123, func(channelID, pts int) error {
 			ups = append(ups, &tg.UpdateChannelTooLong{ChannelID: channelID})
+			return nil
 		}); err != nil {
 			return err
 		}
@@ -136,7 +151,8 @@ func testEngine(t *testing.T, f func(s *Server, storage updates.Storage) chan *t
 		})
 	})
 
-	require.ErrorIs(t, g.Wait(), context.Canceled)
+	require.NoError(t, g.Wait())
+	require.NoError(t, e.Logout())
 
 	require.Equal(t, s.messages, h.messages)
 	require.Equal(t, s.peers.channels, h.ents.Channels)
