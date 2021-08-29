@@ -90,7 +90,7 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 		Seq:  0,
 	}))
 
-	for i := 0; i < 1; i++ {
+	for i := 0; i < 30; i++ {
 		c := s.peers.createChannel(fmt.Sprintf("channel-%d", i))
 		require.NoError(t, storage.SetChannelPts(123, c.ChannelID, 0))
 		require.NoError(t, hasher.SetChannelAccessHash(123, c.ChannelID, int64(c.ChannelID*2)))
