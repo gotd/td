@@ -12,7 +12,7 @@ type gapBuffer struct {
 
 func (b *gapBuffer) Has() bool { return len(b.gaps) > 0 }
 
-func (b *gapBuffer) Reset() { b.gaps = b.gaps[:0] }
+func (b *gapBuffer) Clear() { b.gaps = make([]gap, 0, 1) }
 
 func (b *gapBuffer) Enable(from, to int) {
 	if len(b.gaps) > 0 {

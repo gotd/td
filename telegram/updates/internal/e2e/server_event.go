@@ -9,7 +9,7 @@ import (
 type EventBuilder struct {
 	updates []tg.UpdateClass
 	ents    *updates.Entities
-	s       *Server
+	s       *server
 	date    int
 }
 
@@ -75,7 +75,7 @@ func (e *EventBuilder) SendMessage(from *tg.PeerUser, peer tg.PeerClass, text st
 }
 
 // CreateEvent creates new event.
-func (s *Server) CreateEvent(f func(ev *EventBuilder)) *tg.Updates {
+func (s *server) CreateEvent(f func(ev *EventBuilder)) *tg.Updates {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 

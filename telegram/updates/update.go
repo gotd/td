@@ -54,7 +54,8 @@ func (e *Entities) Merge(from *Entities) {
 	}
 }
 
-func (e *Entities) fromUpdates(u interface {
+// FromUpdates method.
+func (e *Entities) FromUpdates(u interface {
 	tg.UpdatesClass
 	MapUsers() tg.UserClassArray
 	MapChats() tg.ChatClassArray
