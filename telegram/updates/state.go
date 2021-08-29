@@ -21,11 +21,11 @@ const (
 
 type state struct {
 	// Updates channel.
-	uchan chan tg.UpdatesClass
+	externalQueue chan tg.UpdatesClass
 
 	// Updates from channel states
 	// during updates.getChannelDifference.
-	cchan chan tg.UpdatesClass
+	internalQueue chan tg.UpdatesClass
 
 	// Common state.
 	pts, qts, seq *sequenceBox
@@ -45,7 +45,9 @@ type state struct {
 	selfID    int
 	diffLim   int
 
-	done chan struct{}
+	ctx    context.Context
+	cancel context.CancelFunc
+	done   chan struct{}
 }
 
 type stateConfig struct {
@@ -65,9 +67,10 @@ type stateConfig struct {
 }
 
 func newState(cfg stateConfig) *state {
+	ctx, cancel := context.WithCancel(context.Background())
 	s := &state{
-		uchan: make(chan tg.UpdatesClass, 10),
-		cchan: make(chan tg.UpdatesClass, 10),
+		externalQueue: make(chan tg.UpdatesClass, 10),
+		internalQueue: make(chan tg.UpdatesClass, 10),
 
 		date:        cfg.State.Date,
 		idleTimeout: time.NewTimer(idleTimeout),
@@ -83,7 +86,9 @@ func newState(cfg stateConfig) *state {
 		selfID:    cfg.SelfID,
 		diffLim:   cfg.DiffLimit,
 
-		done: make(chan struct{}),
+		ctx:    ctx,
+		cancel: cancel,
+		done:   make(chan struct{}),
 	}
 
 	s.pts = newSequenceBox(sequenceConfig{
@@ -111,25 +116,10 @@ func newState(cfg stateConfig) *state {
 	return s
 }
 
-func (s *state) PushUpdates(u tg.UpdatesClass) { s.uchan <- u }
+func (s *state) PushUpdates(u tg.UpdatesClass) { s.externalQueue <- u }
 
 func (s *state) Run() {
 	defer func() {
-		// Channel workers may stuck at writing to cchan
-		// so we should handle all buffered updates before closing.
-	done:
-		for {
-			select {
-			case u := <-s.cchan:
-				if err := s.handleUpdates(u); err != nil {
-					s.log.Error("Handle updates error", zap.Error(err))
-				}
-			default:
-				close(s.cchan)
-				break done
-			}
-		}
-
 		for _, ch := range s.channels {
 			ch.Close()
 		}
@@ -138,17 +128,15 @@ func (s *state) Run() {
 
 	for {
 		select {
-		case u, ok := <-s.uchan:
+		case u, ok := <-s.externalQueue:
 			if !ok {
 				return
 			}
 
-			s.log.Debug("Got updates", zap.Any("u", u))
 			if err := s.handleUpdates(u); err != nil {
 				s.log.Error("Handle updates error", zap.Error(err))
 			}
-		case u := <-s.cchan:
-			s.log.Debug("Got updates from channel", zap.Any("u", u))
+		case u := <-s.internalQueue:
 			if err := s.handleUpdates(u); err != nil {
 				s.log.Error("Handle updates error", zap.Error(err))
 			}
@@ -300,7 +288,7 @@ func (s *state) handleChannel(channelID, date, pts, ptsCount int, u tg.UpdateCla
 
 func (s *state) newChannelState(channelID int, accessHash int64, initialPts int) *channelState {
 	return newChannelState(channelStateConfig{
-		Outchan:          s.cchan,
+		Outchan:          s.internalQueue,
 		InitialPts:       initialPts,
 		ChannelID:        channelID,
 		AccessHash:       accessHash,
@@ -333,7 +321,7 @@ func (s *state) getDifference() error {
 		s.date = state.Date
 	}
 
-	diff, err := s.client.UpdatesGetDifference(context.TODO(), &tg.UpdatesGetDifferenceRequest{
+	diff, err := s.client.UpdatesGetDifference(s.ctx, &tg.UpdatesGetDifferenceRequest{
 		Pts:  s.pts.State(),
 		Qts:  s.qts.State(),
 		Date: s.date,
@@ -436,6 +424,7 @@ func (s *state) resetIdleTimer() {
 }
 
 func (s *state) Close() {
-	close(s.uchan)
+	close(s.externalQueue)
+	s.cancel()
 	<-s.done
 }

@@ -1,8 +1,6 @@
 package updates
 
 import (
-	"context"
-
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/tg"
@@ -44,7 +42,7 @@ func (s *state) saveChannelHashes(chats []tg.ChatClass) {
 }
 
 func (s *state) restoreAccessHash(channelID, date int) (accessHash int64, ok bool) {
-	diff, err := s.client.UpdatesGetDifference(context.TODO(), &tg.UpdatesGetDifferenceRequest{
+	diff, err := s.client.UpdatesGetDifference(s.ctx, &tg.UpdatesGetDifferenceRequest{
 		Pts:  s.pts.State(),
 		Qts:  s.qts.State(),
 		Date: date,

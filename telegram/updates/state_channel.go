@@ -37,7 +37,9 @@ type channelState struct {
 	handle     func(tg.UpdatesClass) error
 	onTooLong  func(channelID int)
 
-	done chan struct{}
+	ctx    context.Context
+	cancel context.CancelFunc
+	done   chan struct{}
 }
 
 type channelStateConfig struct {
@@ -55,6 +57,7 @@ type channelStateConfig struct {
 }
 
 func newChannelState(cfg channelStateConfig) *channelState {
+	ctx, cancel := context.WithCancel(context.Background())
 	state := &channelState{
 		uchan:   make(chan channelUpdate, 10),
 		outchan: cfg.Outchan,
@@ -71,7 +74,9 @@ func newChannelState(cfg channelStateConfig) *channelState {
 		handle:     cfg.Handler,
 		onTooLong:  cfg.OnChannelTooLong,
 
-		done: make(chan struct{}),
+		ctx:    ctx,
+		cancel: cancel,
+		done:   make(chan struct{}),
 	}
 
 	state.pts = newSequenceBox(sequenceConfig{
@@ -100,7 +105,6 @@ func (s *channelState) Run() {
 				return
 			}
 
-			s.log.Debug("Got updates", zap.Any("u", u))
 			if err := s.handleUpdate(u.Update, u.Ents); err != nil {
 				s.log.Error("Handle update error", zap.Error(err))
 			}
@@ -196,10 +200,14 @@ func (s *channelState) getDifference() error {
 	if now := time.Now(); now.Before(s.diffTimeout) {
 		dur := s.diffTimeout.Sub(now)
 		s.log.Debug("GetChannelDifference timeout", zap.Duration("duration", dur))
-		time.Sleep(dur)
+		select {
+		case <-time.After(dur):
+		case <-s.ctx.Done():
+			return s.ctx.Err()
+		}
 	}
 
-	diff, err := s.client.UpdatesGetChannelDifference(context.TODO(), &tg.UpdatesGetChannelDifferenceRequest{
+	diff, err := s.client.UpdatesGetChannelDifference(s.ctx, &tg.UpdatesGetChannelDifferenceRequest{
 		Channel: &tg.InputChannel{
 			ChannelID:  s.channelID,
 			AccessHash: s.accessHash,
@@ -215,10 +223,14 @@ func (s *channelState) getDifference() error {
 	switch diff := diff.(type) {
 	case *tg.UpdatesChannelDifference:
 		if len(diff.OtherUpdates) > 0 {
-			s.outchan <- &tg.Updates{
+			select {
+			case s.outchan <- &tg.Updates{
 				Updates: diff.OtherUpdates,
 				Users:   diff.Users,
 				Chats:   diff.Chats,
+			}:
+			case <-s.ctx.Done():
+				return s.ctx.Err()
 			}
 		}
 
@@ -299,5 +311,6 @@ func (s *channelState) resetIdleTimer() {
 
 func (s *channelState) Close() {
 	close(s.uchan)
+	s.cancel()
 	<-s.done
 }
