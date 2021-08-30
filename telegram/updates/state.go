@@ -192,6 +192,8 @@ func (s *state) handleUpdates(ctx context.Context, u tg.UpdatesClass) error {
 		return s.handleUpdates(ctx, s.convertShortChatMessage(u))
 	case *tg.UpdateShortSentMessage:
 		return s.handleUpdates(ctx, s.convertShortSentMessage(u))
+	case *tg.UpdatesTooLong:
+		return s.getDifference()
 	default:
 		panic(fmt.Sprintf("unexpected update type: %T", u))
 	}
