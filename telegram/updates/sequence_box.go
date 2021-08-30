@@ -1,6 +1,7 @@
 package updates
 
 import (
+	"context"
 	"sort"
 	"time"
 
@@ -13,13 +14,13 @@ type sequenceBox struct {
 	gapTimeout *time.Timer
 	pending    []update
 
-	apply func(state int, updates []update) error
+	apply func(ctx context.Context, state int, updates []update) error
 	log   *zap.Logger
 }
 
 type sequenceConfig struct {
 	InitialState int
-	Apply        func(state int, updates []update) error
+	Apply        func(ctx context.Context, state int, updates []update) error
 	Logger       *zap.Logger
 }
 
@@ -63,7 +64,7 @@ func (s *sequenceBox) Handle(u update) error {
 		if !s.gaps.Has() {
 			_ = s.gapTimeout.Stop()
 			s.log.Debug("Gap was resolved by waiting")
-			return s.applyPending()
+			return s.applyPending(u.Ctx)
 		}
 
 		return nil
@@ -73,10 +74,10 @@ func (s *sequenceBox) Handle(u update) error {
 	case gapApply:
 		if len(s.pending) > 0 {
 			s.pending = append(s.pending, u)
-			return s.applyPending()
+			return s.applyPending(u.Ctx)
 		}
 
-		if err := s.apply(u.State, []update{u}); err != nil {
+		if err := s.apply(u.Ctx, u.State, []update{u}); err != nil {
 			return err
 		}
 
@@ -95,7 +96,7 @@ func (s *sequenceBox) Handle(u update) error {
 
 		if !s.gaps.Has() {
 			log.Debug("Gap was resolved by pending updates")
-			return s.applyPending()
+			return s.applyPending(u.Ctx)
 		}
 
 		_ = s.gapTimeout.Reset(fastgapTimeout)
@@ -107,7 +108,7 @@ func (s *sequenceBox) Handle(u update) error {
 	}
 }
 
-func (s *sequenceBox) applyPending() error {
+func (s *sequenceBox) applyPending(ctx context.Context) error {
 	sort.SliceStable(s.pending, func(i, j int) bool {
 		return s.pending[i].start() < s.pending[j].start()
 	})
@@ -150,7 +151,7 @@ loop:
 		return nil
 	}
 
-	if err := s.apply(state, accepted); err != nil {
+	if err := s.apply(ctx, state, accepted); err != nil {
 		return err
 	}
 

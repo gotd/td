@@ -6,8 +6,11 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 )
+
+var _ telegram.UpdateHandler = (*Manager)(nil)
 
 // Manager deals with gaps.
 type Manager struct {
@@ -23,21 +26,21 @@ func New(cfg Config) *Manager {
 	return &Manager{cfg: cfg}
 }
 
-// HandleUpdates handles updates.
+// Handle handles updates.
 //
 // Important:
 // If Auth method not called, all updates will be passed
 // to the provided handler as-is without any order verification
 // or short updates transformation.
-func (m *Manager) HandleUpdates(u tg.UpdatesClass) error {
+func (m *Manager) Handle(ctx context.Context, u tg.UpdatesClass) error {
 	m.mux.Lock()
 	defer m.mux.Unlock()
 
 	if m.state == nil {
-		return m.cfg.Handler(u)
+		return m.cfg.Handler.Handle(ctx, u)
 	}
 
-	m.state.PushUpdates(u)
+	m.state.PushUpdates(ctx, u)
 	return nil
 }
 
@@ -45,7 +48,7 @@ func (m *Manager) HandleUpdates(u tg.UpdatesClass) error {
 //
 // If forget is true, local state (if exist) will be overwritten
 // with remote state.
-func (m *Manager) Auth(client RawClient, userID int, isBot, forget bool) error {
+func (m *Manager) Auth(ctx context.Context, client RawClient, userID int, isBot, forget bool) error {
 	m.mux.Lock()
 	defer m.mux.Unlock()
 
@@ -86,7 +89,7 @@ func (m *Manager) Auth(client RawClient, userID int, isBot, forget bool) error {
 		diffLim = diffLimitBot
 	}
 
-	m.state = newState(stateConfig{
+	m.state = newState(ctx, stateConfig{
 		State:            state,
 		Channels:         channels,
 		RawClient:        client,

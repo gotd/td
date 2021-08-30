@@ -27,10 +27,10 @@ func run(ctx context.Context) error {
 	defer func() { _ = log.Sync() }()
 
 	gaps := updates.New(updates.Config{
-		Handler: func(u tg.UpdatesClass) error {
+		Handler: telegram.UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
 			log.Info("Updates", zap.Any("updates", u))
 			return nil
-		},
+		}),
 		Logger: log.Named("gaps"),
 	})
 
@@ -41,14 +41,10 @@ func run(ctx context.Context) error {
 	// 	SESSION_FILE:   path to session file
 	// 	SESSION_DIR:    path to session directory, if SESSION_FILE is not set
 	client, err := telegram.ClientFromEnvironment(telegram.Options{
-		Logger: log,
-		UpdateHandler: telegram.UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
-			return gaps.HandleUpdates(u)
-		}),
+		Logger:        log,
+		UpdateHandler: gaps,
 		Middlewares: []telegram.Middleware{
-			updhook.UpdateHook(telegram.UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
-				return gaps.HandleUpdates(u)
-			})),
+			updhook.UpdateHook(gaps.Handle),
 		},
 	})
 	if err != nil {
@@ -65,9 +61,10 @@ func run(ctx context.Context) error {
 		}
 
 		// Notify update manager about authentication.
-		if err := gaps.Auth(client.API(), user.ID, user.Bot, true); err != nil {
+		if err := gaps.Auth(ctx, client.API(), user.ID, user.Bot, true); err != nil {
 			return err
 		}
+		defer func() { _ = gaps.Logout() }()
 
 		<-ctx.Done()
 		return ctx.Err()

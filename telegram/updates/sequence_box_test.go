@@ -1,6 +1,7 @@
 package updates
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -15,7 +16,7 @@ func TestSequenceBox(t *testing.T) {
 
 	box := newSequenceBox(sequenceConfig{
 		InitialState: 3,
-		Apply: func(s int, u []update) error {
+		Apply: func(ctx context.Context, s int, u []update) error {
 			state = s
 			updates = append(updates, u...)
 			return nil
@@ -47,7 +48,7 @@ func TestSequenceBox(t *testing.T) {
 		Count: 1,
 	}))
 	require.Equal(t, 4, state)
-	require.Equal(t, []update{{1, 4, 1, nil}}, updates)
+	require.Equal(t, []update{{1, 4, 1, nil, nil}}, updates)
 	require.Empty(t, box.pending)
 	updates = nil
 
@@ -58,7 +59,7 @@ func TestSequenceBox(t *testing.T) {
 	}))
 	require.Equal(t, 4, state)
 	require.Empty(t, updates)
-	require.Equal(t, []update{{1, 6, 1, nil}}, box.pending)
+	require.Equal(t, []update{{1, 6, 1, nil, nil}}, box.pending)
 
 	require.Nil(t, box.Handle(update{
 		Value: 2,
@@ -66,7 +67,7 @@ func TestSequenceBox(t *testing.T) {
 		Count: 1,
 	}))
 	require.Equal(t, 6, state)
-	require.Equal(t, []update{{2, 5, 1, nil}, {1, 6, 1, nil}}, updates)
+	require.Equal(t, []update{{2, 5, 1, nil, nil}, {1, 6, 1, nil, nil}}, updates)
 	require.Empty(t, box.pending)
 	updates = nil
 
@@ -77,7 +78,7 @@ func TestSequenceBox(t *testing.T) {
 	}))
 	require.Equal(t, 6, state)
 	require.Empty(t, updates)
-	require.Equal(t, []update{{3, 8, 1, nil}}, box.pending)
+	require.Equal(t, []update{{3, 8, 1, nil, nil}}, box.pending)
 	<-box.gapTimeout.C
 
 	require.Equal(t, []gap{{6, 7}}, box.gaps.gaps)
@@ -95,9 +96,9 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 		{
 			InitialState: 5,
 			Pending: []update{
-				{1, 3, 1, nil},
-				{1, 4, 1, nil},
-				{1, 1, 1, nil},
+				{1, 3, 1, nil, nil},
+				{1, 4, 1, nil, nil},
+				{1, 1, 1, nil, nil},
 			},
 			PendingAfter: []update{},
 			Applied:      []update{},
@@ -105,44 +106,44 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 		{
 			InitialState: 5,
 			Pending: []update{
-				{1, 3, 1, nil},
-				{1, 8, 1, nil},
-				{1, 7, 1, nil},
-				{1, 4, 1, nil},
-				{1, 1, 1, nil},
+				{1, 3, 1, nil, nil},
+				{1, 8, 1, nil, nil},
+				{1, 7, 1, nil, nil},
+				{1, 4, 1, nil, nil},
+				{1, 1, 1, nil, nil},
 			},
 			PendingAfter: []update{
-				{1, 7, 1, nil},
-				{1, 8, 1, nil},
+				{1, 7, 1, nil, nil},
+				{1, 8, 1, nil, nil},
 			},
 			Applied: []update{},
 		},
 		{
 			InitialState: 5,
 			Pending: []update{
-				{1, 8, 1, nil},
-				{1, 7, 1, nil},
+				{1, 8, 1, nil, nil},
+				{1, 7, 1, nil, nil},
 			},
 			PendingAfter: []update{
-				{1, 7, 1, nil},
-				{1, 8, 1, nil},
+				{1, 7, 1, nil, nil},
+				{1, 8, 1, nil, nil},
 			},
 			Applied: []update{},
 		},
 		{
 			InitialState: 5,
 			Pending: []update{
-				{1, 3, 1, nil},
-				{1, 6, 1, nil},
-				{1, 8, 1, nil},
-				{1, 4, 1, nil},
-				{1, 1, 1, nil},
+				{1, 3, 1, nil, nil},
+				{1, 6, 1, nil, nil},
+				{1, 8, 1, nil, nil},
+				{1, 4, 1, nil, nil},
+				{1, 1, 1, nil, nil},
 			},
 			PendingAfter: []update{
-				{1, 8, 1, nil},
+				{1, 8, 1, nil, nil},
 			},
 			Applied: []update{
-				{1, 6, 1, nil},
+				{1, 6, 1, nil, nil},
 			},
 		},
 	}
@@ -151,7 +152,7 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 		applied := make([]update, 0)
 		box := newSequenceBox(sequenceConfig{
 			InitialState: test.InitialState,
-			Apply: func(s int, u []update) error {
+			Apply: func(_ context.Context, s int, u []update) error {
 				applied = append(applied, u...)
 				return nil
 			},
@@ -159,7 +160,7 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 		})
 
 		box.pending = test.Pending
-		require.NoError(t, box.applyPending())
+		require.NoError(t, box.applyPending(context.TODO()))
 		require.Equal(t, test.PendingAfter, box.pending)
 		require.Equal(t, test.Applied, applied)
 	}

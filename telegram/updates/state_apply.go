@@ -1,15 +1,17 @@
 package updates
 
 import (
+	"context"
+
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/tg"
 )
 
-func (s *state) applySeq(state int, updates []update) error {
+func (s *state) applySeq(ctx context.Context, state int, updates []update) error {
 	recoverState := false
 	for _, u := range updates {
-		ptsChanged, err := s.applyCombined(u.Value.(*tg.UpdatesCombined))
+		ptsChanged, err := s.applyCombined(ctx, u.Value.(*tg.UpdatesCombined))
 		if err != nil {
 			return err
 		}
@@ -30,7 +32,7 @@ func (s *state) applySeq(state int, updates []update) error {
 	return nil
 }
 
-func (s *state) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err error) {
+func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (ptsChanged bool, err error) {
 	var (
 		ents   = NewEntities().FromUpdates(comb)
 		others []tg.UpdateClass
@@ -44,11 +46,11 @@ func (s *state) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err er
 		case *tg.UpdateChannelTooLong:
 			channelState, ok := s.channels[u.ChannelID]
 			if !ok {
-				s.log.Warn("ChannelTooLong without state", zap.Int("channel_id", u.ChannelID))
+				s.log.Debug("ChannelTooLong for channel that is not in the state, update ignored", zap.Int("channel_id", u.ChannelID))
 				continue
 			}
 
-			channelState.PushUpdate(channelUpdate{u, ents})
+			channelState.PushUpdate(channelUpdate{u, ctx, ents})
 			continue
 		}
 
@@ -62,14 +64,15 @@ func (s *state) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err er
 
 		if channelID, pts, ptsCount, ok, err := isChannelPtsUpdate(u); ok {
 			if err != nil {
-				s.log.Warn("Invalid channel update", zap.Error(err))
+				s.log.Debug("Invalid channel update", zap.Error(err), zap.Any("update", u))
 				continue
 			}
 
-			if err := s.handleChannel(channelID, comb.Date, pts, ptsCount, u, ents); err != nil {
-				return false, err
-			}
-
+			s.handleChannel(channelID, comb.Date, pts, ptsCount, channelUpdate{
+				update: u,
+				ctx:    ctx,
+				ents:   ents,
+			})
 			continue
 		}
 
@@ -85,7 +88,7 @@ func (s *state) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err er
 	}
 
 	if len(others) > 0 {
-		if err := s.handle(&tg.Updates{
+		if err := s.handler.Handle(s.ctx, &tg.Updates{
 			Updates: others,
 			Users:   ents.AsUsers(),
 			Chats:   ents.AsChats(),
@@ -119,7 +122,7 @@ func (s *state) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err er
 }
 
 // nolint:dupl
-func (s *state) applyPts(state int, updates []update) error {
+func (s *state) applyPts(ctx context.Context, state int, updates []update) error {
 	var (
 		converted []tg.UpdateClass
 		ents      = NewEntities()
@@ -130,7 +133,7 @@ func (s *state) applyPts(state int, updates []update) error {
 		ents.Merge(update.Ents)
 	}
 
-	if err := s.handle(&tg.Updates{
+	if err := s.handler.Handle(s.ctx, &tg.Updates{
 		Updates: converted,
 		Users:   ents.AsUsers(),
 		Chats:   ents.AsChats(),
@@ -146,7 +149,7 @@ func (s *state) applyPts(state int, updates []update) error {
 }
 
 // nolint:dupl
-func (s *state) applyQts(state int, updates []update) error {
+func (s *state) applyQts(ctx context.Context, state int, updates []update) error {
 	var (
 		converted []tg.UpdateClass
 		ents      = NewEntities()
@@ -157,7 +160,7 @@ func (s *state) applyQts(state int, updates []update) error {
 		ents.Merge(update.Ents)
 	}
 
-	if err := s.handle(&tg.Updates{
+	if err := s.handler.Handle(ctx, &tg.Updates{
 		Updates: converted,
 		Users:   ents.AsUsers(),
 		Chats:   ents.AsChats(),

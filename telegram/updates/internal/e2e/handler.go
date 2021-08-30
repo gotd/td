@@ -1,6 +1,7 @@
 package e2e
 
 import (
+	"context"
 	"sync"
 
 	"github.com/gotd/td/telegram/updates"
@@ -23,7 +24,7 @@ func newHandler() *handler {
 	}
 }
 
-func (h *handler) HandleUpdates(u tg.UpdatesClass) error {
+func (h *handler) Handle(ctx context.Context, u tg.UpdatesClass) error {
 	switch u := u.(type) {
 	case *tg.Updates:
 		return h.handleUpdates(updates.NewEntities().FromUpdates(u), u.Updates)
