@@ -13,6 +13,15 @@ import (
 var _ telegram.UpdateHandler = (*Manager)(nil)
 
 // Manager deals with gaps.
+//
+// Important:
+// Updates produced by this manager may contain
+// negative Pts/Qts/Seq values in tg.UpdateClass/tg.UpdatesClass
+// (does not affects to the tg.MessageClass).
+//
+// This is because telegram server does not return these sequences
+// for getDifference/getChannelDifference results.
+// You SHOULD NOT use them in update handlers at all.
 type Manager struct {
 	state *state
 	mux   sync.Mutex
