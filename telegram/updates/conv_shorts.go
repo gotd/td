@@ -102,17 +102,18 @@ func (s *state) convertShortChatMessage(u *tg.UpdateShortChatMessage) *tg.Update
 }
 
 func (s *state) convertShortSentMessage(u *tg.UpdateShortSentMessage) *tg.UpdateShort {
-	msg := &tg.Message{
-		ID:   u.ID,
-		Date: u.Date,
-	}
-	msg.SetOut(u.Out)
-	msg.SetFromID(&tg.PeerUser{UserID: s.selfID})
-	convertOptional(msg, u)
-
+	// This update should be converted by the one who called the method
+	// that returned this update, because we do not have any context about
+	// it (message text, sender/recipient, etc.)
+	//
+	// In theory, this update should come only as a response to an RPC call,
+	// and we get it here because of the update hook.
+	// We use it to make sure there are no pts gaps.
 	return &tg.UpdateShort{
 		Update: &tg.UpdateNewMessage{
-			Message:  msg,
+			Message: &tg.MessageEmpty{
+				ID: u.ID,
+			},
 			Pts:      u.Pts,
 			PtsCount: u.PtsCount,
 		},
