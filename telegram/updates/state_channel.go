@@ -203,10 +203,27 @@ func (s *channelState) getDifference() error {
 	if now := time.Now(); now.Before(s.diffTimeout) {
 		dur := s.diffTimeout.Sub(now)
 		s.log.Debug("GetChannelDifference timeout", zap.Duration("duration", dur))
-		select {
-		case <-time.After(dur):
-		case <-s.ctx.Done():
-			return s.ctx.Err()
+		if err := func() error {
+			afterC := time.After(dur)
+			for {
+				select {
+				case <-afterC:
+					return nil
+				case u, ok := <-s.uchan:
+					if !ok {
+						continue
+					}
+
+					// Ignoring updates to prevent *state worker from blocking.
+					// All ignored updates should be restored by future getChannelDifference call.
+					// At least I hope so...
+					s.log.Debug("Ignoring update due to getChannelDifference timeout", zap.Any("update", u.update))
+				case <-s.ctx.Done():
+					return s.ctx.Err()
+				}
+			}
+		}(); err != nil {
+			return err
 		}
 	}
 
