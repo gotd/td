@@ -199,7 +199,8 @@ func (s *state) handleUpdates(ctx context.Context, u tg.UpdatesClass) error {
 
 func (s *state) handleSeq(ctx context.Context, u *tg.UpdatesCombined) error {
 	if err := validateSeq(u.Seq, u.SeqStart); err != nil {
-		return xerrors.Errorf("validate seq: %w", err)
+		s.log.Error("Seq validation failed", zap.Error(err), zap.Any("update", u))
+		return nil
 	}
 
 	// Special case.
@@ -225,7 +226,7 @@ func (s *state) handleSeq(ctx context.Context, u *tg.UpdatesCombined) error {
 
 func (s *state) handlePts(pts, ptsCount int, u tg.UpdateClass, ents *Entities) error {
 	if err := validatePts(pts, ptsCount); err != nil {
-		s.log.Warn("Pts validation failed", zap.Error(err))
+		s.log.Error("Pts validation failed", zap.Error(err), zap.Any("update", u))
 		return nil
 	}
 
@@ -239,7 +240,7 @@ func (s *state) handlePts(pts, ptsCount int, u tg.UpdateClass, ents *Entities) e
 
 func (s *state) handleQts(qts int, u tg.UpdateClass, ents *Entities) error {
 	if err := validateQts(qts); err != nil {
-		s.log.Warn("Qts validation failed", zap.Error(err))
+		s.log.Error("Qts validation failed", zap.Error(err), zap.Any("update", u))
 		return nil
 	}
 
@@ -251,10 +252,10 @@ func (s *state) handleQts(qts int, u tg.UpdateClass, ents *Entities) error {
 	})
 }
 
-func (s *state) handleChannel(channelID, date, pts, ptsCount int, cu channelUpdate) error {
+func (s *state) handleChannel(channelID, date, pts, ptsCount int, cu channelUpdate) {
 	if err := validatePts(pts, ptsCount); err != nil {
-		s.log.Warn("Pts validation failed", zap.Error(err))
-		return nil
+		s.log.Error("Pts validation failed", zap.Error(err), zap.Any("update", cu.update))
+		return
 	}
 
 	state, ok := s.channels[channelID]
@@ -266,9 +267,13 @@ func (s *state) handleChannel(channelID, date, pts, ptsCount int, cu channelUpda
 
 		if !found {
 			// Try to get access hash from updates.getDifference using update date.
-			accessHash, found = s.restoreAccessHash(channelID, date)
+			accessHash, found = s.restoreAccessHash(channelID, date-1)
 			if !found {
-				return xerrors.Errorf("channel update without access hash (channelID: %d)", channelID)
+				s.log.Debug("Failed to recover missing access hash, update ignored",
+					zap.Int("channel_id", channelID),
+					zap.Any("update", cu.update),
+				)
+				return
 			}
 		}
 
@@ -291,7 +296,6 @@ func (s *state) handleChannel(channelID, date, pts, ptsCount int, cu channelUpda
 	}
 
 	state.PushUpdate(cu)
-	return nil
 }
 
 func (s *state) newChannelState(channelID int, accessHash int64, initialPts int) *channelState {

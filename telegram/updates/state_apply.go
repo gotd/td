@@ -46,7 +46,7 @@ func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (pt
 		case *tg.UpdateChannelTooLong:
 			channelState, ok := s.channels[u.ChannelID]
 			if !ok {
-				s.log.Warn("ChannelTooLong without state", zap.Int("channel_id", u.ChannelID))
+				s.log.Debug("ChannelTooLong for channel that is not in the state, update ignored", zap.Int("channel_id", u.ChannelID))
 				continue
 			}
 
@@ -64,18 +64,15 @@ func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (pt
 
 		if channelID, pts, ptsCount, ok, err := isChannelPtsUpdate(u); ok {
 			if err != nil {
-				s.log.Warn("Invalid channel update", zap.Error(err))
+				s.log.Debug("Invalid channel update", zap.Error(err), zap.Any("update", u))
 				continue
 			}
 
-			if err := s.handleChannel(channelID, comb.Date, pts, ptsCount, channelUpdate{
+			s.handleChannel(channelID, comb.Date, pts, ptsCount, channelUpdate{
 				update: u,
 				ctx:    ctx,
 				ents:   ents,
-			}); err != nil {
-				return false, err
-			}
-
+			})
 			continue
 		}
 
