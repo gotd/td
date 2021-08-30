@@ -5,6 +5,7 @@ import (
 
 	"go.uber.org/zap"
 
+	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 )
 
@@ -19,7 +20,7 @@ type RawClient interface {
 // Config of the manager.
 type Config struct {
 	// Handler where updates will be passed.
-	Handler func(tg.UpdatesClass) error
+	Handler telegram.UpdateHandler
 	// Callback called if manager cannot
 	// recover channel gap (optional).
 	OnChannelTooLong func(channelID int)

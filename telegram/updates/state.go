@@ -8,6 +8,7 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 )
 
@@ -19,9 +20,14 @@ const (
 	diffLimitBot  = 100000
 )
 
+type updatesCtx struct {
+	updates tg.UpdatesClass
+	ctx     context.Context
+}
+
 type state struct {
 	// Updates channel.
-	externalQueue chan tg.UpdatesClass
+	externalQueue chan updatesCtx
 
 	// Updates from channel states
 	// during updates.getChannelDifference.
@@ -38,7 +44,7 @@ type state struct {
 	// Immutable fields.
 	client    RawClient
 	log       *zap.Logger
-	handle    func(tg.UpdatesClass) error
+	handler   telegram.UpdateHandler
 	onTooLong func(channelID int)
 	storage   StateStorage
 	hasher    ChannelAccessHasher
@@ -58,7 +64,7 @@ type stateConfig struct {
 	}
 	RawClient        RawClient
 	Logger           *zap.Logger
-	Handler          func(tg.UpdatesClass) error
+	Handler          telegram.UpdateHandler
 	OnChannelTooLong func(channelID int)
 	Storage          StateStorage
 	Hasher           ChannelAccessHasher
@@ -66,10 +72,10 @@ type stateConfig struct {
 	DiffLimit        int
 }
 
-func newState(cfg stateConfig) *state {
-	ctx, cancel := context.WithCancel(context.Background())
+func newState(ctx context.Context, cfg stateConfig) *state {
+	ctx, cancel := context.WithCancel(ctx)
 	s := &state{
-		externalQueue: make(chan tg.UpdatesClass, 10),
+		externalQueue: make(chan updatesCtx, 10),
 		internalQueue: make(chan tg.UpdatesClass, 10),
 
 		date:        cfg.State.Date,
@@ -79,7 +85,7 @@ func newState(cfg stateConfig) *state {
 
 		client:    cfg.RawClient,
 		log:       cfg.Logger,
-		handle:    cfg.Handler,
+		handler:   cfg.Handler,
 		onTooLong: cfg.OnChannelTooLong,
 		storage:   cfg.Storage,
 		hasher:    cfg.Hasher,
@@ -116,7 +122,9 @@ func newState(cfg stateConfig) *state {
 	return s
 }
 
-func (s *state) PushUpdates(u tg.UpdatesClass) { s.externalQueue <- u }
+func (s *state) PushUpdates(ctx context.Context, u tg.UpdatesClass) {
+	s.externalQueue <- updatesCtx{updates: u, ctx: ctx}
+}
 
 func (s *state) Run() {
 	defer func() {
@@ -133,11 +141,11 @@ func (s *state) Run() {
 				return
 			}
 
-			if err := s.handleUpdates(u); err != nil {
+			if err := s.handleUpdates(u.ctx, u.updates); err != nil {
 				s.log.Error("Handle updates error", zap.Error(err))
 			}
 		case u := <-s.internalQueue:
-			if err := s.handleUpdates(u); err != nil {
+			if err := s.handleUpdates(s.ctx, u); err != nil {
 				s.log.Error("Handle updates error", zap.Error(err))
 			}
 		case <-s.pts.gapTimeout.C:
@@ -156,13 +164,13 @@ func (s *state) Run() {
 	}
 }
 
-func (s *state) handleUpdates(u tg.UpdatesClass) error {
+func (s *state) handleUpdates(ctx context.Context, u tg.UpdatesClass) error {
 	s.resetIdleTimer()
 
 	switch u := u.(type) {
 	case *tg.Updates:
 		s.saveChannelHashes(u.Chats)
-		return s.handleSeq(&tg.UpdatesCombined{
+		return s.handleSeq(ctx, &tg.UpdatesCombined{
 			Updates:  u.Updates,
 			Users:    u.Users,
 			Chats:    u.Chats,
@@ -172,31 +180,31 @@ func (s *state) handleUpdates(u tg.UpdatesClass) error {
 		})
 	case *tg.UpdatesCombined:
 		s.saveChannelHashes(u.Chats)
-		return s.handleSeq(u)
+		return s.handleSeq(ctx, u)
 	case *tg.UpdateShort:
-		return s.handleUpdates(&tg.UpdatesCombined{
+		return s.handleUpdates(ctx, &tg.UpdatesCombined{
 			Updates: []tg.UpdateClass{u.Update},
 			Date:    u.Date,
 		})
 	case *tg.UpdateShortMessage:
-		return s.handleUpdates(s.convertShortMessage(u))
+		return s.handleUpdates(ctx, s.convertShortMessage(u))
 	case *tg.UpdateShortChatMessage:
-		return s.handleUpdates(s.convertShortChatMessage(u))
+		return s.handleUpdates(ctx, s.convertShortChatMessage(u))
 	case *tg.UpdateShortSentMessage:
-		return s.handleUpdates(s.convertShortSentMessage(u))
+		return s.handleUpdates(ctx, s.convertShortSentMessage(u))
 	default:
 		panic(fmt.Sprintf("unexpected update type: %T", u))
 	}
 }
 
-func (s *state) handleSeq(u *tg.UpdatesCombined) error {
+func (s *state) handleSeq(ctx context.Context, u *tg.UpdatesCombined) error {
 	if err := validateSeq(u.Seq, u.SeqStart); err != nil {
 		return xerrors.Errorf("validate seq: %w", err)
 	}
 
 	// Special case.
 	if u.Seq == 0 {
-		ptsChanged, err := s.applyCombined(u)
+		ptsChanged, err := s.applyCombined(ctx, u)
 		if err != nil {
 			return err
 		}
@@ -243,7 +251,7 @@ func (s *state) handleQts(qts int, u tg.UpdateClass, ents *Entities) error {
 	})
 }
 
-func (s *state) handleChannel(channelID, date, pts, ptsCount int, u tg.UpdateClass, ents *Entities) error {
+func (s *state) handleChannel(channelID, date, pts, ptsCount int, cu channelUpdate) error {
 	if err := validatePts(pts, ptsCount); err != nil {
 		s.log.Warn("Pts validation failed", zap.Error(err))
 		return nil
@@ -282,7 +290,7 @@ func (s *state) handleChannel(channelID, date, pts, ptsCount int, u tg.UpdateCla
 		go state.Run()
 	}
 
-	state.PushUpdate(channelUpdate{u, ents})
+	state.PushUpdate(cu)
 	return nil
 }
 
@@ -296,7 +304,7 @@ func (s *state) newChannelState(channelID int, accessHash int64, initialPts int)
 		Storage:          s.storage,
 		DiffLimit:        s.diffLim,
 		RawClient:        s.client,
-		Handler:          s.handle,
+		Handler:          s.handler,
 		OnChannelTooLong: s.onTooLong,
 		Logger:           s.log.Named("channel").With(zap.Int("channel_id", channelID)),
 	})
@@ -333,7 +341,7 @@ func (s *state) getDifference() error {
 	switch diff := diff.(type) {
 	case *tg.UpdatesDifference:
 		if len(diff.OtherUpdates) > 0 {
-			if err := s.handleUpdates(&tg.UpdatesCombined{
+			if err := s.handleUpdates(s.ctx, &tg.UpdatesCombined{
 				Updates: diff.OtherUpdates,
 				Users:   diff.Users,
 				Chats:   diff.Chats,
@@ -343,7 +351,7 @@ func (s *state) getDifference() error {
 		}
 
 		if len(diff.NewMessages) > 0 || len(diff.NewEncryptedMessages) > 0 {
-			if err := s.handle(&tg.Updates{
+			if err := s.handler.Handle(s.ctx, &tg.Updates{
 				Updates: append(
 					msgsToUpdates(diff.NewMessages),
 					encryptedMsgsToUpdates(diff.NewEncryptedMessages)...,
@@ -371,7 +379,7 @@ func (s *state) getDifference() error {
 	// Incomplete list of occurred events.
 	case *tg.UpdatesDifferenceSlice:
 		if len(diff.OtherUpdates) > 0 {
-			if err := s.handleUpdates(&tg.UpdatesCombined{
+			if err := s.handleUpdates(s.ctx, &tg.UpdatesCombined{
 				Updates: diff.OtherUpdates,
 				Users:   diff.Users,
 				Chats:   diff.Chats,
@@ -382,7 +390,7 @@ func (s *state) getDifference() error {
 		}
 
 		if len(diff.NewMessages) > 0 || len(diff.NewEncryptedMessages) > 0 {
-			if err := s.handle(&tg.Updates{
+			if err := s.handler.Handle(s.ctx, &tg.Updates{
 				Updates: append(
 					msgsToUpdates(diff.NewMessages),
 					encryptedMsgsToUpdates(diff.NewEncryptedMessages)...,

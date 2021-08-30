@@ -1,12 +1,17 @@
 package updates
 
-import "github.com/gotd/td/tg"
+import (
+	"context"
+
+	"github.com/gotd/td/tg"
+)
 
 type update struct {
 	Value interface{}
 	State int
 	Count int
 	Ents  *Entities
+	Ctx   context.Context
 }
 
 func (u update) start() int { return u.State - u.Count }

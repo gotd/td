@@ -97,13 +97,13 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 	}
 
 	e := updates.New(updates.Config{
-		Handler:      h.HandleUpdates,
+		Handler:      h,
 		Logger:       log.Named("gaps"),
 		Storage:      storage,
 		AccessHasher: hasher,
 	})
 
-	require.NoError(t, e.Auth(s, 123, false, false))
+	require.NoError(t, e.Auth(context.Background(), s, 123, false, false))
 
 	uchan := loss(f(s, storage))
 
@@ -126,7 +126,7 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 							return nil
 						}
 
-						if err := e.HandleUpdates(u); err != nil {
+						if err := e.Handle(ctx, u); err != nil {
 							return err
 						}
 					}
@@ -146,7 +146,7 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 			return err
 		}
 
-		return e.HandleUpdates(&tg.Updates{
+		return e.Handle(ctx, &tg.Updates{
 			Updates: ups,
 		})
 	})

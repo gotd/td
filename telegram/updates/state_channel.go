@@ -7,12 +7,14 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 )
 
 type channelUpdate struct {
-	Update tg.UpdateClass
-	Ents   *Entities
+	update tg.UpdateClass
+	ctx    context.Context
+	ents   *Entities
 }
 
 type channelState struct {
@@ -34,7 +36,7 @@ type channelState struct {
 	client     RawClient
 	storage    StateStorage
 	log        *zap.Logger
-	handle     func(tg.UpdatesClass) error
+	handler    telegram.UpdateHandler
 	onTooLong  func(channelID int)
 
 	ctx    context.Context
@@ -51,7 +53,7 @@ type channelStateConfig struct {
 	DiffLimit        int
 	RawClient        RawClient
 	Storage          StateStorage
-	Handler          func(tg.UpdatesClass) error
+	Handler          telegram.UpdateHandler
 	OnChannelTooLong func(channelID int)
 	Logger           *zap.Logger
 }
@@ -71,7 +73,7 @@ func newChannelState(cfg channelStateConfig) *channelState {
 		client:     cfg.RawClient,
 		storage:    cfg.Storage,
 		log:        cfg.Logger,
-		handle:     cfg.Handler,
+		handler:    cfg.Handler,
 		onTooLong:  cfg.OnChannelTooLong,
 
 		ctx:    ctx,
@@ -105,7 +107,7 @@ func (s *channelState) Run() {
 				return
 			}
 
-			if err := s.handleUpdate(u.Update, u.Ents); err != nil {
+			if err := s.handleUpdate(u.ctx, u.update, u.ents); err != nil {
 				s.log.Error("Handle update error", zap.Error(err))
 			}
 		case <-s.pts.gapTimeout.C:
@@ -119,7 +121,7 @@ func (s *channelState) Run() {
 	}
 }
 
-func (s *channelState) handleUpdate(u tg.UpdateClass, ents *Entities) error {
+func (s *channelState) handleUpdate(ctx context.Context, u tg.UpdateClass, ents *Entities) error {
 	s.resetIdleTimer()
 
 	if long, ok := u.(*tg.UpdateChannelTooLong); ok {
@@ -144,6 +146,7 @@ func (s *channelState) handleUpdate(u tg.UpdateClass, ents *Entities) error {
 		State: pts,
 		Count: ptsCount,
 		Ents:  ents,
+		Ctx:   ctx,
 	})
 }
 
@@ -164,7 +167,7 @@ func (s *channelState) handleTooLong(long *tg.UpdateChannelTooLong) error {
 	return s.getDifference()
 }
 
-func (s *channelState) applyPts(state int, updates []update) error {
+func (s *channelState) applyPts(ctx context.Context, state int, updates []update) error {
 	var (
 		converted []tg.UpdateClass
 		ents      = NewEntities()
@@ -175,7 +178,7 @@ func (s *channelState) applyPts(state int, updates []update) error {
 		ents.Merge(update.Ents)
 	}
 
-	if err := s.handle(&tg.Updates{
+	if err := s.handler.Handle(ctx, &tg.Updates{
 		Updates: converted,
 		Users:   ents.AsUsers(),
 		Chats:   ents.AsChats(),
@@ -235,7 +238,7 @@ func (s *channelState) getDifference() error {
 		}
 
 		if len(diff.NewMessages) > 0 {
-			if err := s.handle(&tg.Updates{
+			if err := s.handler.Handle(s.ctx, &tg.Updates{
 				Updates: msgsToUpdates(diff.NewMessages),
 				Users:   diff.Users,
 				Chats:   diff.Chats,

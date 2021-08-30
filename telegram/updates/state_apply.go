@@ -1,15 +1,17 @@
 package updates
 
 import (
+	"context"
+
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/tg"
 )
 
-func (s *state) applySeq(state int, updates []update) error {
+func (s *state) applySeq(ctx context.Context, state int, updates []update) error {
 	recoverState := false
 	for _, u := range updates {
-		ptsChanged, err := s.applyCombined(u.Value.(*tg.UpdatesCombined))
+		ptsChanged, err := s.applyCombined(ctx, u.Value.(*tg.UpdatesCombined))
 		if err != nil {
 			return err
 		}
@@ -30,7 +32,7 @@ func (s *state) applySeq(state int, updates []update) error {
 	return nil
 }
 
-func (s *state) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err error) {
+func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (ptsChanged bool, err error) {
 	var (
 		ents   = NewEntities().FromUpdates(comb)
 		others []tg.UpdateClass
@@ -48,7 +50,7 @@ func (s *state) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err er
 				continue
 			}
 
-			channelState.PushUpdate(channelUpdate{u, ents})
+			channelState.PushUpdate(channelUpdate{u, ctx, ents})
 			continue
 		}
 
@@ -66,7 +68,11 @@ func (s *state) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err er
 				continue
 			}
 
-			if err := s.handleChannel(channelID, comb.Date, pts, ptsCount, u, ents); err != nil {
+			if err := s.handleChannel(channelID, comb.Date, pts, ptsCount, channelUpdate{
+				update: u,
+				ctx:    ctx,
+				ents:   ents,
+			}); err != nil {
 				return false, err
 			}
 
@@ -85,7 +91,7 @@ func (s *state) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err er
 	}
 
 	if len(others) > 0 {
-		if err := s.handle(&tg.Updates{
+		if err := s.handler.Handle(s.ctx, &tg.Updates{
 			Updates: others,
 			Users:   ents.AsUsers(),
 			Chats:   ents.AsChats(),
@@ -119,7 +125,7 @@ func (s *state) applyCombined(comb *tg.UpdatesCombined) (ptsChanged bool, err er
 }
 
 // nolint:dupl
-func (s *state) applyPts(state int, updates []update) error {
+func (s *state) applyPts(ctx context.Context, state int, updates []update) error {
 	var (
 		converted []tg.UpdateClass
 		ents      = NewEntities()
@@ -130,7 +136,7 @@ func (s *state) applyPts(state int, updates []update) error {
 		ents.Merge(update.Ents)
 	}
 
-	if err := s.handle(&tg.Updates{
+	if err := s.handler.Handle(s.ctx, &tg.Updates{
 		Updates: converted,
 		Users:   ents.AsUsers(),
 		Chats:   ents.AsChats(),
@@ -146,7 +152,7 @@ func (s *state) applyPts(state int, updates []update) error {
 }
 
 // nolint:dupl
-func (s *state) applyQts(state int, updates []update) error {
+func (s *state) applyQts(ctx context.Context, state int, updates []update) error {
 	var (
 		converted []tg.UpdateClass
 		ents      = NewEntities()
@@ -157,7 +163,7 @@ func (s *state) applyQts(state int, updates []update) error {
 		ents.Merge(update.Ents)
 	}
 
-	if err := s.handle(&tg.Updates{
+	if err := s.handler.Handle(ctx, &tg.Updates{
 		Updates: converted,
 		Users:   ents.AsUsers(),
 		Chats:   ents.AsChats(),
