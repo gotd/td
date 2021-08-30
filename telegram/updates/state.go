@@ -266,8 +266,15 @@ func (s *state) handleChannel(channelID, date, pts, ptsCount int, cu channelUpda
 		}
 
 		if !found {
-			// Try to get access hash from updates.getDifference using update date.
-			accessHash, found = s.restoreAccessHash(channelID, date-1)
+			if date == 0 {
+				// Received update has no date field.
+				date = s.date - 30
+			} else {
+				date-- // 1 sec back
+			}
+
+			// Try to get access hash from updates.getDifference.
+			accessHash, found = s.restoreAccessHash(channelID, date)
 			if !found {
 				s.log.Debug("Failed to recover missing access hash, update ignored",
 					zap.Int("channel_id", channelID),
