@@ -13,7 +13,6 @@ ignore:
   - "gorules/**"
   # Ignore testing utilities
   - "telegram/internal/*test/*"
-  - "telegram/updates/**"
 
 coverage:
   status:
