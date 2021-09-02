@@ -1762,6 +1762,23 @@ func (s *ServerDispatcher) OnAccountDeclinePasswordReset(f func(ctx context.Cont
 	s.handlers[AccountDeclinePasswordResetRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnAccountGetChatThemes(f func(ctx context.Context, hash int) (AccountChatThemesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetChatThemesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &AccountChatThemesBox{ChatThemes: response}, nil
+	}
+
+	s.handlers[AccountGetChatThemesRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUsersGetUsers(f func(ctx context.Context, id []InputUserClass) ([]UserClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UsersGetUsersRequest
@@ -4739,6 +4756,23 @@ func (s *ServerDispatcher) OnMessagesCheckHistoryImportPeer(f func(ctx context.C
 	s.handlers[MessagesCheckHistoryImportPeerRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesSetChatTheme(f func(ctx context.Context, request *MessagesSetChatThemeRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSetChatThemeRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesSetChatThemeRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -6042,6 +6076,44 @@ func (s *ServerDispatcher) OnChannelsConvertToGigagroup(f func(ctx context.Conte
 	}
 
 	s.handlers[ChannelsConvertToGigagroupRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsViewSponsoredMessage(f func(ctx context.Context, request *ChannelsViewSponsoredMessageRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsViewSponsoredMessageRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[ChannelsViewSponsoredMessageRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsGetSponsoredMessages(f func(ctx context.Context, channel InputChannelClass) (*MessagesSponsoredMessages, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsGetSponsoredMessagesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Channel)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ChannelsGetSponsoredMessagesRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {

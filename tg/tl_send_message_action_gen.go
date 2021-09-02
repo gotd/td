@@ -1738,6 +1738,107 @@ func (s *SendMessageHistoryImportAction) GetProgress() (value int) {
 	return s.Progress
 }
 
+// SendMessageChooseStickerAction represents TL type `sendMessageChooseStickerAction#b05ac6b1`.
+//
+// See https://core.telegram.org/constructor/sendMessageChooseStickerAction for reference.
+type SendMessageChooseStickerAction struct {
+}
+
+// SendMessageChooseStickerActionTypeID is TL type id of SendMessageChooseStickerAction.
+const SendMessageChooseStickerActionTypeID = 0xb05ac6b1
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageChooseStickerAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageChooseStickerAction.
+var (
+	_ bin.Encoder     = &SendMessageChooseStickerAction{}
+	_ bin.Decoder     = &SendMessageChooseStickerAction{}
+	_ bin.BareEncoder = &SendMessageChooseStickerAction{}
+	_ bin.BareDecoder = &SendMessageChooseStickerAction{}
+
+	_ SendMessageActionClass = &SendMessageChooseStickerAction{}
+)
+
+func (s *SendMessageChooseStickerAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SendMessageChooseStickerAction) String() string {
+	if s == nil {
+		return "SendMessageChooseStickerAction(nil)"
+	}
+	type Alias SendMessageChooseStickerAction
+	return fmt.Sprintf("SendMessageChooseStickerAction%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SendMessageChooseStickerAction) TypeID() uint32 {
+	return SendMessageChooseStickerActionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SendMessageChooseStickerAction) TypeName() string {
+	return "sendMessageChooseStickerAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageChooseStickerAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageChooseStickerAction",
+		ID:   SendMessageChooseStickerActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SendMessageChooseStickerAction) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageChooseStickerAction#b05ac6b1 as nil")
+	}
+	b.PutID(SendMessageChooseStickerActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageChooseStickerAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageChooseStickerAction#b05ac6b1 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SendMessageChooseStickerAction) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageChooseStickerAction#b05ac6b1 to nil")
+	}
+	if err := b.ConsumeID(SendMessageChooseStickerActionTypeID); err != nil {
+		return fmt.Errorf("unable to decode sendMessageChooseStickerAction#b05ac6b1: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageChooseStickerAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageChooseStickerAction#b05ac6b1 to nil")
+	}
+	return nil
+}
+
 // SendMessageActionClass represents SendMessageAction generic type.
 //
 // See https://core.telegram.org/type/SendMessageAction for reference.
@@ -1763,6 +1864,7 @@ func (s *SendMessageHistoryImportAction) GetProgress() (value int) {
 //  case *tg.SendMessageUploadRoundAction: // sendMessageUploadRoundAction#243e1c66
 //  case *tg.SpeakingInGroupCallAction: // speakingInGroupCallAction#d92c2285
 //  case *tg.SendMessageHistoryImportAction: // sendMessageHistoryImportAction#dbda9246
+//  case *tg.SendMessageChooseStickerAction: // sendMessageChooseStickerAction#b05ac6b1
 //  default: panic(v)
 //  }
 type SendMessageActionClass interface {
@@ -1892,6 +1994,13 @@ func DecodeSendMessageAction(buf *bin.Buffer) (SendMessageActionClass, error) {
 	case SendMessageHistoryImportActionTypeID:
 		// Decoding sendMessageHistoryImportAction#dbda9246.
 		v := SendMessageHistoryImportAction{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+		}
+		return &v, nil
+	case SendMessageChooseStickerActionTypeID:
+		// Decoding sendMessageChooseStickerAction#b05ac6b1.
+		v := SendMessageChooseStickerAction{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
 		}

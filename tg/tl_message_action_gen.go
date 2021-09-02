@@ -4267,6 +4267,137 @@ func (m *MessageActionGroupCallScheduled) GetScheduleDate() (value int) {
 	return m.ScheduleDate
 }
 
+// MessageActionSetChatTheme represents TL type `messageActionSetChatTheme#aa786345`.
+//
+// See https://core.telegram.org/constructor/messageActionSetChatTheme for reference.
+type MessageActionSetChatTheme struct {
+	// Emoticon field of MessageActionSetChatTheme.
+	Emoticon string
+}
+
+// MessageActionSetChatThemeTypeID is TL type id of MessageActionSetChatTheme.
+const MessageActionSetChatThemeTypeID = 0xaa786345
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionSetChatTheme) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionSetChatTheme.
+var (
+	_ bin.Encoder     = &MessageActionSetChatTheme{}
+	_ bin.Decoder     = &MessageActionSetChatTheme{}
+	_ bin.BareEncoder = &MessageActionSetChatTheme{}
+	_ bin.BareDecoder = &MessageActionSetChatTheme{}
+
+	_ MessageActionClass = &MessageActionSetChatTheme{}
+)
+
+func (m *MessageActionSetChatTheme) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Emoticon == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionSetChatTheme) String() string {
+	if m == nil {
+		return "MessageActionSetChatTheme(nil)"
+	}
+	type Alias MessageActionSetChatTheme
+	return fmt.Sprintf("MessageActionSetChatTheme%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionSetChatTheme from given interface.
+func (m *MessageActionSetChatTheme) FillFrom(from interface {
+	GetEmoticon() (value string)
+}) {
+	m.Emoticon = from.GetEmoticon()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionSetChatTheme) TypeID() uint32 {
+	return MessageActionSetChatThemeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionSetChatTheme) TypeName() string {
+	return "messageActionSetChatTheme"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionSetChatTheme) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionSetChatTheme",
+		ID:   MessageActionSetChatThemeTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Emoticon",
+			SchemaName: "emoticon",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionSetChatTheme) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionSetChatTheme#aa786345 as nil")
+	}
+	b.PutID(MessageActionSetChatThemeTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionSetChatTheme) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionSetChatTheme#aa786345 as nil")
+	}
+	b.PutString(m.Emoticon)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionSetChatTheme) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionSetChatTheme#aa786345 to nil")
+	}
+	if err := b.ConsumeID(MessageActionSetChatThemeTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionSetChatTheme#aa786345: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionSetChatTheme) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionSetChatTheme#aa786345 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionSetChatTheme#aa786345: field emoticon: %w", err)
+		}
+		m.Emoticon = value
+	}
+	return nil
+}
+
+// GetEmoticon returns value of Emoticon field.
+func (m *MessageActionSetChatTheme) GetEmoticon() (value string) {
+	return m.Emoticon
+}
+
 // MessageActionClass represents MessageAction generic type.
 //
 // See https://core.telegram.org/type/MessageAction for reference.
@@ -4305,6 +4436,7 @@ func (m *MessageActionGroupCallScheduled) GetScheduleDate() (value int) {
 //  case *tg.MessageActionInviteToGroupCall: // messageActionInviteToGroupCall#76b9f11a
 //  case *tg.MessageActionSetMessagesTTL: // messageActionSetMessagesTTL#aa1afbfd
 //  case *tg.MessageActionGroupCallScheduled: // messageActionGroupCallScheduled#b3a07661
+//  case *tg.MessageActionSetChatTheme: // messageActionSetChatTheme#aa786345
 //  default: panic(v)
 //  }
 type MessageActionClass interface {
@@ -4525,6 +4657,13 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionGroupCallScheduledTypeID:
 		// Decoding messageActionGroupCallScheduled#b3a07661.
 		v := MessageActionGroupCallScheduled{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionSetChatThemeTypeID:
+		// Decoding messageActionSetChatTheme#aa786345.
+		v := MessageActionSetChatTheme{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}
