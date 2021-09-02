@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// UserFull represents TL type `userFull#139a9a77`.
+// UserFull represents TL type `userFull#d697ff05`.
 // Extended user info
 //
 // See https://core.telegram.org/constructor/userFull for reference.
@@ -93,10 +93,14 @@ type UserFull struct {
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int
+	// ThemeEmoticon field of UserFull.
+	//
+	// Use SetThemeEmoticon and GetThemeEmoticon helpers.
+	ThemeEmoticon string
 }
 
 // UserFullTypeID is TL type id of UserFull.
-const UserFullTypeID = 0x139a9a77
+const UserFullTypeID = 0xd697ff05
 
 // Ensuring interfaces in compile-time for UserFull.
 var (
@@ -161,6 +165,9 @@ func (u *UserFull) Zero() bool {
 	if !(u.TTLPeriod == 0) {
 		return false
 	}
+	if !(u.ThemeEmoticon == "") {
+		return false
+	}
 
 	return true
 }
@@ -192,6 +199,7 @@ func (u *UserFull) FillFrom(from interface {
 	GetCommonChatsCount() (value int)
 	GetFolderID() (value int, ok bool)
 	GetTTLPeriod() (value int, ok bool)
+	GetThemeEmoticon() (value string, ok bool)
 }) {
 	u.Blocked = from.GetBlocked()
 	u.PhoneCallsAvailable = from.GetPhoneCallsAvailable()
@@ -225,6 +233,10 @@ func (u *UserFull) FillFrom(from interface {
 
 	if val, ok := from.GetTTLPeriod(); ok {
 		u.TTLPeriod = val
+	}
+
+	if val, ok := from.GetThemeEmoticon(); ok {
+		u.ThemeEmoticon = val
 	}
 
 }
@@ -328,6 +340,11 @@ func (u *UserFull) TypeInfo() tdp.Type {
 			SchemaName: "ttl_period",
 			Null:       !u.Flags.Has(14),
 		},
+		{
+			Name:       "ThemeEmoticon",
+			SchemaName: "theme_emoticon",
+			Null:       !u.Flags.Has(15),
+		},
 	}
 	return typ
 }
@@ -335,7 +352,7 @@ func (u *UserFull) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserFull) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userFull#139a9a77 as nil")
+		return fmt.Errorf("can't encode userFull#d697ff05 as nil")
 	}
 	b.PutID(UserFullTypeID)
 	return u.EncodeBare(b)
@@ -344,7 +361,7 @@ func (u *UserFull) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserFull) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userFull#139a9a77 as nil")
+		return fmt.Errorf("can't encode userFull#d697ff05 as nil")
 	}
 	if !(u.Blocked == false) {
 		u.Flags.Set(0)
@@ -382,35 +399,38 @@ func (u *UserFull) EncodeBare(b *bin.Buffer) error {
 	if !(u.TTLPeriod == 0) {
 		u.Flags.Set(14)
 	}
+	if !(u.ThemeEmoticon == "") {
+		u.Flags.Set(15)
+	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#139a9a77: field flags: %w", err)
+		return fmt.Errorf("unable to encode userFull#d697ff05: field flags: %w", err)
 	}
 	if u.User == nil {
-		return fmt.Errorf("unable to encode userFull#139a9a77: field user is nil")
+		return fmt.Errorf("unable to encode userFull#d697ff05: field user is nil")
 	}
 	if err := u.User.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#139a9a77: field user: %w", err)
+		return fmt.Errorf("unable to encode userFull#d697ff05: field user: %w", err)
 	}
 	if u.Flags.Has(1) {
 		b.PutString(u.About)
 	}
 	if err := u.Settings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#139a9a77: field settings: %w", err)
+		return fmt.Errorf("unable to encode userFull#d697ff05: field settings: %w", err)
 	}
 	if u.Flags.Has(2) {
 		if u.ProfilePhoto == nil {
-			return fmt.Errorf("unable to encode userFull#139a9a77: field profile_photo is nil")
+			return fmt.Errorf("unable to encode userFull#d697ff05: field profile_photo is nil")
 		}
 		if err := u.ProfilePhoto.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#139a9a77: field profile_photo: %w", err)
+			return fmt.Errorf("unable to encode userFull#d697ff05: field profile_photo: %w", err)
 		}
 	}
 	if err := u.NotifySettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#139a9a77: field notify_settings: %w", err)
+		return fmt.Errorf("unable to encode userFull#d697ff05: field notify_settings: %w", err)
 	}
 	if u.Flags.Has(3) {
 		if err := u.BotInfo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#139a9a77: field bot_info: %w", err)
+			return fmt.Errorf("unable to encode userFull#d697ff05: field bot_info: %w", err)
 		}
 	}
 	if u.Flags.Has(6) {
@@ -423,16 +443,19 @@ func (u *UserFull) EncodeBare(b *bin.Buffer) error {
 	if u.Flags.Has(14) {
 		b.PutInt(u.TTLPeriod)
 	}
+	if u.Flags.Has(15) {
+		b.PutString(u.ThemeEmoticon)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UserFull) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userFull#139a9a77 to nil")
+		return fmt.Errorf("can't decode userFull#d697ff05 to nil")
 	}
 	if err := b.ConsumeID(UserFullTypeID); err != nil {
-		return fmt.Errorf("unable to decode userFull#139a9a77: %w", err)
+		return fmt.Errorf("unable to decode userFull#d697ff05: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -440,11 +463,11 @@ func (u *UserFull) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserFull) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userFull#139a9a77 to nil")
+		return fmt.Errorf("can't decode userFull#d697ff05 to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field flags: %w", err)
+			return fmt.Errorf("unable to decode userFull#d697ff05: field flags: %w", err)
 		}
 	}
 	u.Blocked = u.Flags.Has(0)
@@ -456,66 +479,73 @@ func (u *UserFull) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field user: %w", err)
+			return fmt.Errorf("unable to decode userFull#d697ff05: field user: %w", err)
 		}
 		u.User = value
 	}
 	if u.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field about: %w", err)
+			return fmt.Errorf("unable to decode userFull#d697ff05: field about: %w", err)
 		}
 		u.About = value
 	}
 	{
 		if err := u.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field settings: %w", err)
+			return fmt.Errorf("unable to decode userFull#d697ff05: field settings: %w", err)
 		}
 	}
 	if u.Flags.Has(2) {
 		value, err := DecodePhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field profile_photo: %w", err)
+			return fmt.Errorf("unable to decode userFull#d697ff05: field profile_photo: %w", err)
 		}
 		u.ProfilePhoto = value
 	}
 	{
 		if err := u.NotifySettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field notify_settings: %w", err)
+			return fmt.Errorf("unable to decode userFull#d697ff05: field notify_settings: %w", err)
 		}
 	}
 	if u.Flags.Has(3) {
 		if err := u.BotInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field bot_info: %w", err)
+			return fmt.Errorf("unable to decode userFull#d697ff05: field bot_info: %w", err)
 		}
 	}
 	if u.Flags.Has(6) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field pinned_msg_id: %w", err)
+			return fmt.Errorf("unable to decode userFull#d697ff05: field pinned_msg_id: %w", err)
 		}
 		u.PinnedMsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field common_chats_count: %w", err)
+			return fmt.Errorf("unable to decode userFull#d697ff05: field common_chats_count: %w", err)
 		}
 		u.CommonChatsCount = value
 	}
 	if u.Flags.Has(11) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field folder_id: %w", err)
+			return fmt.Errorf("unable to decode userFull#d697ff05: field folder_id: %w", err)
 		}
 		u.FolderID = value
 	}
 	if u.Flags.Has(14) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#139a9a77: field ttl_period: %w", err)
+			return fmt.Errorf("unable to decode userFull#d697ff05: field ttl_period: %w", err)
 		}
 		u.TTLPeriod = value
+	}
+	if u.Flags.Has(15) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode userFull#d697ff05: field theme_emoticon: %w", err)
+		}
+		u.ThemeEmoticon = value
 	}
 	return nil
 }
@@ -724,6 +754,21 @@ func (u *UserFull) GetTTLPeriod() (value int, ok bool) {
 		return value, false
 	}
 	return u.TTLPeriod, true
+}
+
+// SetThemeEmoticon sets value of ThemeEmoticon conditional field.
+func (u *UserFull) SetThemeEmoticon(value string) {
+	u.Flags.Set(15)
+	u.ThemeEmoticon = value
+}
+
+// GetThemeEmoticon returns value of ThemeEmoticon conditional field and
+// boolean which is true if field was set.
+func (u *UserFull) GetThemeEmoticon() (value string, ok bool) {
+	if !u.Flags.Has(15) {
+		return value, false
+	}
+	return u.ThemeEmoticon, true
 }
 
 // GetUserAsNotEmpty returns mapped value of User field.

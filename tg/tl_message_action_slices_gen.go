@@ -400,6 +400,19 @@ func (s MessageActionClassArray) AsMessageActionGroupCallScheduled() (to Message
 	return to
 }
 
+// AsMessageActionSetChatTheme returns copy with only MessageActionSetChatTheme constructors.
+func (s MessageActionClassArray) AsMessageActionSetChatTheme() (to MessageActionSetChatThemeArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionSetChatTheme)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -2192,6 +2205,88 @@ func (s *MessageActionGroupCallScheduledArray) PopFirst() (v MessageActionGroupC
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionGroupCallScheduledArray) Pop() (v MessageActionGroupCallScheduled, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionSetChatThemeArray is adapter for slice of MessageActionSetChatTheme.
+type MessageActionSetChatThemeArray []MessageActionSetChatTheme
+
+// Sort sorts slice of MessageActionSetChatTheme.
+func (s MessageActionSetChatThemeArray) Sort(less func(a, b MessageActionSetChatTheme) bool) MessageActionSetChatThemeArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionSetChatTheme.
+func (s MessageActionSetChatThemeArray) SortStable(less func(a, b MessageActionSetChatTheme) bool) MessageActionSetChatThemeArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionSetChatTheme.
+func (s MessageActionSetChatThemeArray) Retain(keep func(x MessageActionSetChatTheme) bool) MessageActionSetChatThemeArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionSetChatThemeArray) First() (v MessageActionSetChatTheme, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionSetChatThemeArray) Last() (v MessageActionSetChatTheme, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionSetChatThemeArray) PopFirst() (v MessageActionSetChatTheme, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionSetChatTheme
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionSetChatThemeArray) Pop() (v MessageActionSetChatTheme, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

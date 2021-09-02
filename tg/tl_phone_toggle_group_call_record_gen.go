@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// PhoneToggleGroupCallRecordRequest represents TL type `phone.toggleGroupCallRecord#c02a66d7`.
+// PhoneToggleGroupCallRecordRequest represents TL type `phone.toggleGroupCallRecord#f128c708`.
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallRecord for reference.
 type PhoneToggleGroupCallRecordRequest struct {
@@ -37,16 +37,22 @@ type PhoneToggleGroupCallRecordRequest struct {
 	Flags bin.Fields
 	// Start field of PhoneToggleGroupCallRecordRequest.
 	Start bool
+	// Video field of PhoneToggleGroupCallRecordRequest.
+	Video bool
 	// Call field of PhoneToggleGroupCallRecordRequest.
 	Call InputGroupCall
 	// Title field of PhoneToggleGroupCallRecordRequest.
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
+	// VideoPortrait field of PhoneToggleGroupCallRecordRequest.
+	//
+	// Use SetVideoPortrait and GetVideoPortrait helpers.
+	VideoPortrait bool
 }
 
 // PhoneToggleGroupCallRecordRequestTypeID is TL type id of PhoneToggleGroupCallRecordRequest.
-const PhoneToggleGroupCallRecordRequestTypeID = 0xc02a66d7
+const PhoneToggleGroupCallRecordRequestTypeID = 0xf128c708
 
 // Ensuring interfaces in compile-time for PhoneToggleGroupCallRecordRequest.
 var (
@@ -66,10 +72,16 @@ func (t *PhoneToggleGroupCallRecordRequest) Zero() bool {
 	if !(t.Start == false) {
 		return false
 	}
+	if !(t.Video == false) {
+		return false
+	}
 	if !(t.Call.Zero()) {
 		return false
 	}
 	if !(t.Title == "") {
+		return false
+	}
+	if !(t.VideoPortrait == false) {
 		return false
 	}
 
@@ -88,13 +100,20 @@ func (t *PhoneToggleGroupCallRecordRequest) String() string {
 // FillFrom fills PhoneToggleGroupCallRecordRequest from given interface.
 func (t *PhoneToggleGroupCallRecordRequest) FillFrom(from interface {
 	GetStart() (value bool)
+	GetVideo() (value bool)
 	GetCall() (value InputGroupCall)
 	GetTitle() (value string, ok bool)
+	GetVideoPortrait() (value bool, ok bool)
 }) {
 	t.Start = from.GetStart()
+	t.Video = from.GetVideo()
 	t.Call = from.GetCall()
 	if val, ok := from.GetTitle(); ok {
 		t.Title = val
+	}
+
+	if val, ok := from.GetVideoPortrait(); ok {
+		t.VideoPortrait = val
 	}
 
 }
@@ -128,6 +147,11 @@ func (t *PhoneToggleGroupCallRecordRequest) TypeInfo() tdp.Type {
 			Null:       !t.Flags.Has(0),
 		},
 		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !t.Flags.Has(2),
+		},
+		{
 			Name:       "Call",
 			SchemaName: "call",
 		},
@@ -136,6 +160,11 @@ func (t *PhoneToggleGroupCallRecordRequest) TypeInfo() tdp.Type {
 			SchemaName: "title",
 			Null:       !t.Flags.Has(1),
 		},
+		{
+			Name:       "VideoPortrait",
+			SchemaName: "video_portrait",
+			Null:       !t.Flags.Has(2),
+		},
 	}
 	return typ
 }
@@ -143,7 +172,7 @@ func (t *PhoneToggleGroupCallRecordRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *PhoneToggleGroupCallRecordRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode phone.toggleGroupCallRecord#c02a66d7 as nil")
+		return fmt.Errorf("can't encode phone.toggleGroupCallRecord#f128c708 as nil")
 	}
 	b.PutID(PhoneToggleGroupCallRecordRequestTypeID)
 	return t.EncodeBare(b)
@@ -152,22 +181,31 @@ func (t *PhoneToggleGroupCallRecordRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *PhoneToggleGroupCallRecordRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode phone.toggleGroupCallRecord#c02a66d7 as nil")
+		return fmt.Errorf("can't encode phone.toggleGroupCallRecord#f128c708 as nil")
 	}
 	if !(t.Start == false) {
 		t.Flags.Set(0)
 	}
+	if !(t.Video == false) {
+		t.Flags.Set(2)
+	}
 	if !(t.Title == "") {
 		t.Flags.Set(1)
 	}
+	if !(t.VideoPortrait == false) {
+		t.Flags.Set(2)
+	}
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.toggleGroupCallRecord#c02a66d7: field flags: %w", err)
+		return fmt.Errorf("unable to encode phone.toggleGroupCallRecord#f128c708: field flags: %w", err)
 	}
 	if err := t.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.toggleGroupCallRecord#c02a66d7: field call: %w", err)
+		return fmt.Errorf("unable to encode phone.toggleGroupCallRecord#f128c708: field call: %w", err)
 	}
 	if t.Flags.Has(1) {
 		b.PutString(t.Title)
+	}
+	if t.Flags.Has(2) {
+		b.PutBool(t.VideoPortrait)
 	}
 	return nil
 }
@@ -175,10 +213,10 @@ func (t *PhoneToggleGroupCallRecordRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *PhoneToggleGroupCallRecordRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode phone.toggleGroupCallRecord#c02a66d7 to nil")
+		return fmt.Errorf("can't decode phone.toggleGroupCallRecord#f128c708 to nil")
 	}
 	if err := b.ConsumeID(PhoneToggleGroupCallRecordRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#c02a66d7: %w", err)
+		return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#f128c708: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -186,25 +224,33 @@ func (t *PhoneToggleGroupCallRecordRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *PhoneToggleGroupCallRecordRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode phone.toggleGroupCallRecord#c02a66d7 to nil")
+		return fmt.Errorf("can't decode phone.toggleGroupCallRecord#f128c708 to nil")
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#c02a66d7: field flags: %w", err)
+			return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#f128c708: field flags: %w", err)
 		}
 	}
 	t.Start = t.Flags.Has(0)
+	t.Video = t.Flags.Has(2)
 	{
 		if err := t.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#c02a66d7: field call: %w", err)
+			return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#f128c708: field call: %w", err)
 		}
 	}
 	if t.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#c02a66d7: field title: %w", err)
+			return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#f128c708: field title: %w", err)
 		}
 		t.Title = value
+	}
+	if t.Flags.Has(2) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.toggleGroupCallRecord#f128c708: field video_portrait: %w", err)
+		}
+		t.VideoPortrait = value
 	}
 	return nil
 }
@@ -223,6 +269,22 @@ func (t *PhoneToggleGroupCallRecordRequest) SetStart(value bool) {
 // GetStart returns value of Start conditional field.
 func (t *PhoneToggleGroupCallRecordRequest) GetStart() (value bool) {
 	return t.Flags.Has(0)
+}
+
+// SetVideo sets value of Video conditional field.
+func (t *PhoneToggleGroupCallRecordRequest) SetVideo(value bool) {
+	if value {
+		t.Flags.Set(2)
+		t.Video = true
+	} else {
+		t.Flags.Unset(2)
+		t.Video = false
+	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (t *PhoneToggleGroupCallRecordRequest) GetVideo() (value bool) {
+	return t.Flags.Has(2)
 }
 
 // GetCall returns value of Call field.
@@ -245,7 +307,22 @@ func (t *PhoneToggleGroupCallRecordRequest) GetTitle() (value string, ok bool) {
 	return t.Title, true
 }
 
-// PhoneToggleGroupCallRecord invokes method phone.toggleGroupCallRecord#c02a66d7 returning error if any.
+// SetVideoPortrait sets value of VideoPortrait conditional field.
+func (t *PhoneToggleGroupCallRecordRequest) SetVideoPortrait(value bool) {
+	t.Flags.Set(2)
+	t.VideoPortrait = value
+}
+
+// GetVideoPortrait returns value of VideoPortrait conditional field and
+// boolean which is true if field was set.
+func (t *PhoneToggleGroupCallRecordRequest) GetVideoPortrait() (value bool, ok bool) {
+	if !t.Flags.Has(2) {
+		return value, false
+	}
+	return t.VideoPortrait, true
+}
+
+// PhoneToggleGroupCallRecord invokes method phone.toggleGroupCallRecord#f128c708 returning error if any.
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallRecord for reference.
 func (c *Client) PhoneToggleGroupCallRecord(ctx context.Context, request *PhoneToggleGroupCallRecordRequest) (UpdatesClass, error) {

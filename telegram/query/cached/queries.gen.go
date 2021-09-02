@@ -14,6 +14,90 @@ import (
 // No-op definition for keeping imports.
 var _ = context.Background()
 
+type innerAccountGetChatThemes struct {
+	// Last received hash.
+	hash int
+	// Last received result.
+	value *tg.AccountChatThemes
+}
+
+type AccountGetChatThemes struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewAccountGetChatThemes creates new AccountGetChatThemes.
+func NewAccountGetChatThemes(raw *tg.Client) *AccountGetChatThemes {
+	q := &AccountGetChatThemes{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *AccountGetChatThemes) store(v innerAccountGetChatThemes) {
+	s.last.Store(v)
+}
+
+func (s *AccountGetChatThemes) load() (innerAccountGetChatThemes, bool) {
+	v, ok := s.last.Load().(innerAccountGetChatThemes)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned AccountChatThemes must not be mutated.
+func (s *AccountGetChatThemes) Value() *tg.AccountChatThemes {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *AccountGetChatThemes) Hash() int {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *AccountGetChatThemes) Get(ctx context.Context) (*tg.AccountChatThemes, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *AccountGetChatThemes) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.AccountGetChatThemes(ctx, req)
+	if err != nil {
+		return false, xerrors.Errorf("execute AccountGetChatThemes: %w", err)
+	}
+
+	switch variant := result.(type) {
+	case *tg.AccountChatThemes:
+		hash := variant.Hash
+
+		s.store(innerAccountGetChatThemes{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.AccountChatThemesNotModified:
+		if lastHash == 0 {
+			return false, xerrors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, xerrors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerAccountGetThemes struct {
 	// Last received hash.
 	hash int

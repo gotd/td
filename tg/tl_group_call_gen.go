@@ -224,6 +224,8 @@ type GroupCall struct {
 	ScheduleStartSubscribed bool
 	// CanStartVideo field of GroupCall.
 	CanStartVideo bool
+	// RecordVideoActive field of GroupCall.
+	RecordVideoActive bool
 	// ID field of GroupCall.
 	ID int64
 	// AccessHash field of GroupCall.
@@ -294,6 +296,9 @@ func (g *GroupCall) Zero() bool {
 	if !(g.CanStartVideo == false) {
 		return false
 	}
+	if !(g.RecordVideoActive == false) {
+		return false
+	}
 	if !(g.ID == 0) {
 		return false
 	}
@@ -344,6 +349,7 @@ func (g *GroupCall) FillFrom(from interface {
 	GetJoinDateAsc() (value bool)
 	GetScheduleStartSubscribed() (value bool)
 	GetCanStartVideo() (value bool)
+	GetRecordVideoActive() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64)
 	GetParticipantsCount() (value int)
@@ -360,6 +366,7 @@ func (g *GroupCall) FillFrom(from interface {
 	g.JoinDateAsc = from.GetJoinDateAsc()
 	g.ScheduleStartSubscribed = from.GetScheduleStartSubscribed()
 	g.CanStartVideo = from.GetCanStartVideo()
+	g.RecordVideoActive = from.GetRecordVideoActive()
 	g.ID = from.GetID()
 	g.AccessHash = from.GetAccessHash()
 	g.ParticipantsCount = from.GetParticipantsCount()
@@ -434,6 +441,11 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 			Name:       "CanStartVideo",
 			SchemaName: "can_start_video",
 			Null:       !g.Flags.Has(9),
+		},
+		{
+			Name:       "RecordVideoActive",
+			SchemaName: "record_video_active",
+			Null:       !g.Flags.Has(11),
 		},
 		{
 			Name:       "ID",
@@ -513,6 +525,9 @@ func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
 	if !(g.CanStartVideo == false) {
 		g.Flags.Set(9)
 	}
+	if !(g.RecordVideoActive == false) {
+		g.Flags.Set(11)
+	}
 	if !(g.Title == "") {
 		g.Flags.Set(3)
 	}
@@ -580,6 +595,7 @@ func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 	g.JoinDateAsc = g.Flags.Has(6)
 	g.ScheduleStartSubscribed = g.Flags.Has(8)
 	g.CanStartVideo = g.Flags.Has(9)
+	g.RecordVideoActive = g.Flags.Has(11)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -731,6 +747,22 @@ func (g *GroupCall) SetCanStartVideo(value bool) {
 // GetCanStartVideo returns value of CanStartVideo conditional field.
 func (g *GroupCall) GetCanStartVideo() (value bool) {
 	return g.Flags.Has(9)
+}
+
+// SetRecordVideoActive sets value of RecordVideoActive conditional field.
+func (g *GroupCall) SetRecordVideoActive(value bool) {
+	if value {
+		g.Flags.Set(11)
+		g.RecordVideoActive = true
+	} else {
+		g.Flags.Unset(11)
+		g.RecordVideoActive = false
+	}
+}
+
+// GetRecordVideoActive returns value of RecordVideoActive conditional field.
+func (g *GroupCall) GetRecordVideoActive() (value bool) {
+	return g.Flags.Has(11)
 }
 
 // GetID returns value of ID field.

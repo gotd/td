@@ -2134,20 +2134,30 @@ func (i *InputStickerSetThumb) GetThumbVersion() (value int) {
 	return i.ThumbVersion
 }
 
-// InputGroupCallStream represents TL type `inputGroupCallStream#bba51639`.
+// InputGroupCallStream represents TL type `inputGroupCallStream#598a92a`.
 //
 // See https://core.telegram.org/constructor/inputGroupCallStream for reference.
 type InputGroupCallStream struct {
+	// Flags field of InputGroupCallStream.
+	Flags bin.Fields
 	// Call field of InputGroupCallStream.
 	Call InputGroupCall
 	// TimeMs field of InputGroupCallStream.
 	TimeMs int64
 	// Scale field of InputGroupCallStream.
 	Scale int
+	// VideoChannel field of InputGroupCallStream.
+	//
+	// Use SetVideoChannel and GetVideoChannel helpers.
+	VideoChannel int
+	// VideoQuality field of InputGroupCallStream.
+	//
+	// Use SetVideoQuality and GetVideoQuality helpers.
+	VideoQuality int
 }
 
 // InputGroupCallStreamTypeID is TL type id of InputGroupCallStream.
-const InputGroupCallStreamTypeID = 0xbba51639
+const InputGroupCallStreamTypeID = 0x598a92a
 
 // construct implements constructor of InputFileLocationClass.
 func (i InputGroupCallStream) construct() InputFileLocationClass { return &i }
@@ -2166,6 +2176,9 @@ func (i *InputGroupCallStream) Zero() bool {
 	if i == nil {
 		return true
 	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
 	if !(i.Call.Zero()) {
 		return false
 	}
@@ -2173,6 +2186,12 @@ func (i *InputGroupCallStream) Zero() bool {
 		return false
 	}
 	if !(i.Scale == 0) {
+		return false
+	}
+	if !(i.VideoChannel == 0) {
+		return false
+	}
+	if !(i.VideoQuality == 0) {
 		return false
 	}
 
@@ -2193,10 +2212,20 @@ func (i *InputGroupCallStream) FillFrom(from interface {
 	GetCall() (value InputGroupCall)
 	GetTimeMs() (value int64)
 	GetScale() (value int)
+	GetVideoChannel() (value int, ok bool)
+	GetVideoQuality() (value int, ok bool)
 }) {
 	i.Call = from.GetCall()
 	i.TimeMs = from.GetTimeMs()
 	i.Scale = from.GetScale()
+	if val, ok := from.GetVideoChannel(); ok {
+		i.VideoChannel = val
+	}
+
+	if val, ok := from.GetVideoQuality(); ok {
+		i.VideoQuality = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -2234,6 +2263,16 @@ func (i *InputGroupCallStream) TypeInfo() tdp.Type {
 			Name:       "Scale",
 			SchemaName: "scale",
 		},
+		{
+			Name:       "VideoChannel",
+			SchemaName: "video_channel",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "VideoQuality",
+			SchemaName: "video_quality",
+			Null:       !i.Flags.Has(0),
+		},
 	}
 	return typ
 }
@@ -2241,7 +2280,7 @@ func (i *InputGroupCallStream) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputGroupCallStream) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputGroupCallStream#bba51639 as nil")
+		return fmt.Errorf("can't encode inputGroupCallStream#598a92a as nil")
 	}
 	b.PutID(InputGroupCallStreamTypeID)
 	return i.EncodeBare(b)
@@ -2250,23 +2289,38 @@ func (i *InputGroupCallStream) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputGroupCallStream) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputGroupCallStream#bba51639 as nil")
+		return fmt.Errorf("can't encode inputGroupCallStream#598a92a as nil")
+	}
+	if !(i.VideoChannel == 0) {
+		i.Flags.Set(0)
+	}
+	if !(i.VideoQuality == 0) {
+		i.Flags.Set(0)
+	}
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputGroupCallStream#598a92a: field flags: %w", err)
 	}
 	if err := i.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputGroupCallStream#bba51639: field call: %w", err)
+		return fmt.Errorf("unable to encode inputGroupCallStream#598a92a: field call: %w", err)
 	}
 	b.PutLong(i.TimeMs)
 	b.PutInt(i.Scale)
+	if i.Flags.Has(0) {
+		b.PutInt(i.VideoChannel)
+	}
+	if i.Flags.Has(0) {
+		b.PutInt(i.VideoQuality)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InputGroupCallStream) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputGroupCallStream#bba51639 to nil")
+		return fmt.Errorf("can't decode inputGroupCallStream#598a92a to nil")
 	}
 	if err := b.ConsumeID(InputGroupCallStreamTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: %w", err)
+		return fmt.Errorf("unable to decode inputGroupCallStream#598a92a: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -2274,26 +2328,45 @@ func (i *InputGroupCallStream) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputGroupCallStream) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputGroupCallStream#bba51639 to nil")
+		return fmt.Errorf("can't decode inputGroupCallStream#598a92a to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputGroupCallStream#598a92a: field flags: %w", err)
+		}
 	}
 	{
 		if err := i.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: field call: %w", err)
+			return fmt.Errorf("unable to decode inputGroupCallStream#598a92a: field call: %w", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: field time_ms: %w", err)
+			return fmt.Errorf("unable to decode inputGroupCallStream#598a92a: field time_ms: %w", err)
 		}
 		i.TimeMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: field scale: %w", err)
+			return fmt.Errorf("unable to decode inputGroupCallStream#598a92a: field scale: %w", err)
 		}
 		i.Scale = value
+	}
+	if i.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputGroupCallStream#598a92a: field video_channel: %w", err)
+		}
+		i.VideoChannel = value
+	}
+	if i.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputGroupCallStream#598a92a: field video_quality: %w", err)
+		}
+		i.VideoQuality = value
 	}
 	return nil
 }
@@ -2311,6 +2384,36 @@ func (i *InputGroupCallStream) GetTimeMs() (value int64) {
 // GetScale returns value of Scale field.
 func (i *InputGroupCallStream) GetScale() (value int) {
 	return i.Scale
+}
+
+// SetVideoChannel sets value of VideoChannel conditional field.
+func (i *InputGroupCallStream) SetVideoChannel(value int) {
+	i.Flags.Set(0)
+	i.VideoChannel = value
+}
+
+// GetVideoChannel returns value of VideoChannel conditional field and
+// boolean which is true if field was set.
+func (i *InputGroupCallStream) GetVideoChannel() (value int, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.VideoChannel, true
+}
+
+// SetVideoQuality sets value of VideoQuality conditional field.
+func (i *InputGroupCallStream) SetVideoQuality(value int) {
+	i.Flags.Set(0)
+	i.VideoQuality = value
+}
+
+// GetVideoQuality returns value of VideoQuality conditional field and
+// boolean which is true if field was set.
+func (i *InputGroupCallStream) GetVideoQuality() (value int, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.VideoQuality, true
 }
 
 // InputFileLocationClass represents InputFileLocation generic type.
@@ -2334,7 +2437,7 @@ func (i *InputGroupCallStream) GetScale() (value int) {
 //  case *tg.InputPhotoLegacyFileLocation: // inputPhotoLegacyFileLocation#d83466f3
 //  case *tg.InputPeerPhotoFileLocation: // inputPeerPhotoFileLocation#37257e99
 //  case *tg.InputStickerSetThumb: // inputStickerSetThumb#9d84f3db
-//  case *tg.InputGroupCallStream: // inputGroupCallStream#bba51639
+//  case *tg.InputGroupCallStream: // inputGroupCallStream#598a92a
 //  default: panic(v)
 //  }
 type InputFileLocationClass interface {
@@ -2441,7 +2544,7 @@ func DecodeInputFileLocation(buf *bin.Buffer) (InputFileLocationClass, error) {
 		}
 		return &v, nil
 	case InputGroupCallStreamTypeID:
-		// Decoding inputGroupCallStream#bba51639.
+		// Decoding inputGroupCallStream#598a92a.
 		v := InputGroupCallStream{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)

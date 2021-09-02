@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// Theme represents TL type `theme#28f1114`.
+// Theme represents TL type `theme#e802b8dc`.
 // Theme
 //
 // See https://core.telegram.org/constructor/theme for reference.
@@ -43,6 +43,8 @@ type Theme struct {
 	Creator bool
 	// Whether this is the default theme
 	Default bool
+	// ForChat field of Theme.
+	ForChat bool
 	// Theme ID
 	ID int64
 	// Theme access hash
@@ -60,11 +62,13 @@ type Theme struct {
 	// Use SetSettings and GetSettings helpers.
 	Settings ThemeSettings
 	// Installation count
+	//
+	// Use SetInstallsCount and GetInstallsCount helpers.
 	InstallsCount int
 }
 
 // ThemeTypeID is TL type id of Theme.
-const ThemeTypeID = 0x28f1114
+const ThemeTypeID = 0xe802b8dc
 
 // Ensuring interfaces in compile-time for Theme.
 var (
@@ -85,6 +89,9 @@ func (t *Theme) Zero() bool {
 		return false
 	}
 	if !(t.Default == false) {
+		return false
+	}
+	if !(t.ForChat == false) {
 		return false
 	}
 	if !(t.ID == 0) {
@@ -125,16 +132,18 @@ func (t *Theme) String() string {
 func (t *Theme) FillFrom(from interface {
 	GetCreator() (value bool)
 	GetDefault() (value bool)
+	GetForChat() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64)
 	GetSlug() (value string)
 	GetTitle() (value string)
 	GetDocument() (value DocumentClass, ok bool)
 	GetSettings() (value ThemeSettings, ok bool)
-	GetInstallsCount() (value int)
+	GetInstallsCount() (value int, ok bool)
 }) {
 	t.Creator = from.GetCreator()
 	t.Default = from.GetDefault()
+	t.ForChat = from.GetForChat()
 	t.ID = from.GetID()
 	t.AccessHash = from.GetAccessHash()
 	t.Slug = from.GetSlug()
@@ -147,7 +156,10 @@ func (t *Theme) FillFrom(from interface {
 		t.Settings = val
 	}
 
-	t.InstallsCount = from.GetInstallsCount()
+	if val, ok := from.GetInstallsCount(); ok {
+		t.InstallsCount = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -184,6 +196,11 @@ func (t *Theme) TypeInfo() tdp.Type {
 			Null:       !t.Flags.Has(1),
 		},
 		{
+			Name:       "ForChat",
+			SchemaName: "for_chat",
+			Null:       !t.Flags.Has(5),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -212,6 +229,7 @@ func (t *Theme) TypeInfo() tdp.Type {
 		{
 			Name:       "InstallsCount",
 			SchemaName: "installs_count",
+			Null:       !t.Flags.Has(4),
 		},
 	}
 	return typ
@@ -220,7 +238,7 @@ func (t *Theme) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *Theme) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode theme#28f1114 as nil")
+		return fmt.Errorf("can't encode theme#e802b8dc as nil")
 	}
 	b.PutID(ThemeTypeID)
 	return t.EncodeBare(b)
@@ -229,7 +247,7 @@ func (t *Theme) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *Theme) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode theme#28f1114 as nil")
+		return fmt.Errorf("can't encode theme#e802b8dc as nil")
 	}
 	if !(t.Creator == false) {
 		t.Flags.Set(0)
@@ -237,14 +255,20 @@ func (t *Theme) EncodeBare(b *bin.Buffer) error {
 	if !(t.Default == false) {
 		t.Flags.Set(1)
 	}
+	if !(t.ForChat == false) {
+		t.Flags.Set(5)
+	}
 	if !(t.Document == nil) {
 		t.Flags.Set(2)
 	}
 	if !(t.Settings.Zero()) {
 		t.Flags.Set(3)
 	}
+	if !(t.InstallsCount == 0) {
+		t.Flags.Set(4)
+	}
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode theme#28f1114: field flags: %w", err)
+		return fmt.Errorf("unable to encode theme#e802b8dc: field flags: %w", err)
 	}
 	b.PutLong(t.ID)
 	b.PutLong(t.AccessHash)
@@ -252,28 +276,30 @@ func (t *Theme) EncodeBare(b *bin.Buffer) error {
 	b.PutString(t.Title)
 	if t.Flags.Has(2) {
 		if t.Document == nil {
-			return fmt.Errorf("unable to encode theme#28f1114: field document is nil")
+			return fmt.Errorf("unable to encode theme#e802b8dc: field document is nil")
 		}
 		if err := t.Document.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode theme#28f1114: field document: %w", err)
+			return fmt.Errorf("unable to encode theme#e802b8dc: field document: %w", err)
 		}
 	}
 	if t.Flags.Has(3) {
 		if err := t.Settings.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode theme#28f1114: field settings: %w", err)
+			return fmt.Errorf("unable to encode theme#e802b8dc: field settings: %w", err)
 		}
 	}
-	b.PutInt(t.InstallsCount)
+	if t.Flags.Has(4) {
+		b.PutInt(t.InstallsCount)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *Theme) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode theme#28f1114 to nil")
+		return fmt.Errorf("can't decode theme#e802b8dc to nil")
 	}
 	if err := b.ConsumeID(ThemeTypeID); err != nil {
-		return fmt.Errorf("unable to decode theme#28f1114: %w", err)
+		return fmt.Errorf("unable to decode theme#e802b8dc: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -281,59 +307,60 @@ func (t *Theme) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *Theme) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode theme#28f1114 to nil")
+		return fmt.Errorf("can't decode theme#e802b8dc to nil")
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field flags: %w", err)
+			return fmt.Errorf("unable to decode theme#e802b8dc: field flags: %w", err)
 		}
 	}
 	t.Creator = t.Flags.Has(0)
 	t.Default = t.Flags.Has(1)
+	t.ForChat = t.Flags.Has(5)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field id: %w", err)
+			return fmt.Errorf("unable to decode theme#e802b8dc: field id: %w", err)
 		}
 		t.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode theme#e802b8dc: field access_hash: %w", err)
 		}
 		t.AccessHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field slug: %w", err)
+			return fmt.Errorf("unable to decode theme#e802b8dc: field slug: %w", err)
 		}
 		t.Slug = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field title: %w", err)
+			return fmt.Errorf("unable to decode theme#e802b8dc: field title: %w", err)
 		}
 		t.Title = value
 	}
 	if t.Flags.Has(2) {
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field document: %w", err)
+			return fmt.Errorf("unable to decode theme#e802b8dc: field document: %w", err)
 		}
 		t.Document = value
 	}
 	if t.Flags.Has(3) {
 		if err := t.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field settings: %w", err)
+			return fmt.Errorf("unable to decode theme#e802b8dc: field settings: %w", err)
 		}
 	}
-	{
+	if t.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#28f1114: field installs_count: %w", err)
+			return fmt.Errorf("unable to decode theme#e802b8dc: field installs_count: %w", err)
 		}
 		t.InstallsCount = value
 	}
@@ -370,6 +397,22 @@ func (t *Theme) SetDefault(value bool) {
 // GetDefault returns value of Default conditional field.
 func (t *Theme) GetDefault() (value bool) {
 	return t.Flags.Has(1)
+}
+
+// SetForChat sets value of ForChat conditional field.
+func (t *Theme) SetForChat(value bool) {
+	if value {
+		t.Flags.Set(5)
+		t.ForChat = true
+	} else {
+		t.Flags.Unset(5)
+		t.ForChat = false
+	}
+}
+
+// GetForChat returns value of ForChat conditional field.
+func (t *Theme) GetForChat() (value bool) {
+	return t.Flags.Has(5)
 }
 
 // GetID returns value of ID field.
@@ -422,9 +465,19 @@ func (t *Theme) GetSettings() (value ThemeSettings, ok bool) {
 	return t.Settings, true
 }
 
-// GetInstallsCount returns value of InstallsCount field.
-func (t *Theme) GetInstallsCount() (value int) {
-	return t.InstallsCount
+// SetInstallsCount sets value of InstallsCount conditional field.
+func (t *Theme) SetInstallsCount(value int) {
+	t.Flags.Set(4)
+	t.InstallsCount = value
+}
+
+// GetInstallsCount returns value of InstallsCount conditional field and
+// boolean which is true if field was set.
+func (t *Theme) GetInstallsCount() (value int, ok bool) {
+	if !t.Flags.Has(4) {
+		return value, false
+	}
+	return t.InstallsCount, true
 }
 
 // GetDocumentAsNotEmpty returns mapped value of Document conditional field and

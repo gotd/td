@@ -46,6 +46,10 @@ type MessagesForwardMessagesRequest struct {
 	Background bool
 	// When forwarding games, whether to include your score in the game
 	WithMyScore bool
+	// DropAuthor field of MessagesForwardMessagesRequest.
+	DropAuthor bool
+	// DropMediaCaptions field of MessagesForwardMessagesRequest.
+	DropMediaCaptions bool
 	// Source of messages
 	FromPeer InputPeerClass
 	// IDs of messages
@@ -87,6 +91,12 @@ func (f *MessagesForwardMessagesRequest) Zero() bool {
 	if !(f.WithMyScore == false) {
 		return false
 	}
+	if !(f.DropAuthor == false) {
+		return false
+	}
+	if !(f.DropMediaCaptions == false) {
+		return false
+	}
 	if !(f.FromPeer == nil) {
 		return false
 	}
@@ -120,6 +130,8 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 	GetSilent() (value bool)
 	GetBackground() (value bool)
 	GetWithMyScore() (value bool)
+	GetDropAuthor() (value bool)
+	GetDropMediaCaptions() (value bool)
 	GetFromPeer() (value InputPeerClass)
 	GetID() (value []int)
 	GetRandomID() (value []int64)
@@ -129,6 +141,8 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 	f.Silent = from.GetSilent()
 	f.Background = from.GetBackground()
 	f.WithMyScore = from.GetWithMyScore()
+	f.DropAuthor = from.GetDropAuthor()
+	f.DropMediaCaptions = from.GetDropMediaCaptions()
 	f.FromPeer = from.GetFromPeer()
 	f.ID = from.GetID()
 	f.RandomID = from.GetRandomID()
@@ -178,6 +192,16 @@ func (f *MessagesForwardMessagesRequest) TypeInfo() tdp.Type {
 			Null:       !f.Flags.Has(8),
 		},
 		{
+			Name:       "DropAuthor",
+			SchemaName: "drop_author",
+			Null:       !f.Flags.Has(11),
+		},
+		{
+			Name:       "DropMediaCaptions",
+			SchemaName: "drop_media_captions",
+			Null:       !f.Flags.Has(12),
+		},
+		{
 			Name:       "FromPeer",
 			SchemaName: "from_peer",
 		},
@@ -224,6 +248,12 @@ func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if !(f.WithMyScore == false) {
 		f.Flags.Set(8)
+	}
+	if !(f.DropAuthor == false) {
+		f.Flags.Set(11)
+	}
+	if !(f.DropMediaCaptions == false) {
+		f.Flags.Set(12)
 	}
 	if !(f.ScheduleDate == 0) {
 		f.Flags.Set(10)
@@ -281,6 +311,8 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	f.Silent = f.Flags.Has(5)
 	f.Background = f.Flags.Has(6)
 	f.WithMyScore = f.Flags.Has(8)
+	f.DropAuthor = f.Flags.Has(11)
+	f.DropMediaCaptions = f.Flags.Has(12)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -385,6 +417,38 @@ func (f *MessagesForwardMessagesRequest) SetWithMyScore(value bool) {
 // GetWithMyScore returns value of WithMyScore conditional field.
 func (f *MessagesForwardMessagesRequest) GetWithMyScore() (value bool) {
 	return f.Flags.Has(8)
+}
+
+// SetDropAuthor sets value of DropAuthor conditional field.
+func (f *MessagesForwardMessagesRequest) SetDropAuthor(value bool) {
+	if value {
+		f.Flags.Set(11)
+		f.DropAuthor = true
+	} else {
+		f.Flags.Unset(11)
+		f.DropAuthor = false
+	}
+}
+
+// GetDropAuthor returns value of DropAuthor conditional field.
+func (f *MessagesForwardMessagesRequest) GetDropAuthor() (value bool) {
+	return f.Flags.Has(11)
+}
+
+// SetDropMediaCaptions sets value of DropMediaCaptions conditional field.
+func (f *MessagesForwardMessagesRequest) SetDropMediaCaptions(value bool) {
+	if value {
+		f.Flags.Set(12)
+		f.DropMediaCaptions = true
+	} else {
+		f.Flags.Unset(12)
+		f.DropMediaCaptions = false
+	}
+}
+
+// GetDropMediaCaptions returns value of DropMediaCaptions conditional field.
+func (f *MessagesForwardMessagesRequest) GetDropMediaCaptions() (value bool) {
+	return f.Flags.Has(12)
 }
 
 // GetFromPeer returns value of FromPeer field.
