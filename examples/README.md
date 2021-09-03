@@ -18,6 +18,7 @@ Please don't share `APP_ID` or `APP_HASH`, it can't be easily rotated.
 | [gif-download](gif-download/main.go)        | Saved gif backup (and restore) for user | Download, upload, middlewares with rate limit, unpack
 | [bg-run](bg-run/main.go)                    | Using client without Run | contrib/bg package
 | [pretty-print](pretty-print/main.go)        | Pretty-print requests, responses and updates | The tgp package, middleware and custom UpdateHandler for all updates
+| [updates-gap](updates-gap-recover/main.go)  | Updates engine (gap recover) example | The `updates` package that recovers missed updates
 
 ## Environment variables
 
