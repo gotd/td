@@ -1,7 +1,6 @@
 package tdesktop
 
 import (
-	"bytes"
 	"encoding/binary"
 
 	"github.com/ogen-go/errors"
@@ -15,7 +14,7 @@ type keyData struct {
 }
 
 // See https://github.com/telegramdesktop/tdesktop/blob/v2.9.8/Telegram/SourceFiles/storage/storage_domain.cpp#L119-L159.
-func readKeyData(tgf tdesktopFile, passcode []byte) (_ keyData, rErr error) {
+func readKeyData(tgf *tdesktopFile, passcode []byte) (_ keyData, rErr error) {
 	salt, err := tgf.readArray()
 	if err != nil {
 		return keyData{}, errors.Wrap(err, "read salt")
@@ -33,7 +32,7 @@ func readKeyData(tgf tdesktopFile, passcode []byte) (_ keyData, rErr error) {
 	if err != nil {
 		return keyData{}, errors.Wrap(err, "decrypt keyEncrypted")
 	}
-	key, err := readArray(bytes.NewReader(keyInnerData), binary.LittleEndian)
+	key, _, err := readArray(keyInnerData, binary.LittleEndian)
 	if err != nil {
 		return keyData{}, errors.Wrap(err, "read key")
 	}

@@ -30,7 +30,7 @@ func Test_mtpAuthorization_deserialize(t *testing.T) {
 	t.Run("OK", func(t *testing.T) {
 		a := require.New(t)
 		var m MTPAuthorization
-		a.NoError(m.deserialize(&reader{buf: bin.Buffer{Buf: testData}}))
+		a.NoError(m.deserialize(&dbiReader{buf: bin.Buffer{Buf: testData}}))
 		a.Equal(int64(309570373), m.UserID)
 		a.Equal(2, m.MainDC)
 		a.Len(m.Keys, 5)
@@ -41,14 +41,14 @@ func Test_mtpAuthorization_deserialize(t *testing.T) {
 	t.Run("WrongID", func(t *testing.T) {
 		a := require.New(t)
 		var m MTPAuthorization
-		a.Error(m.deserialize(&reader{buf: bin.Buffer{Buf: make([]byte, 4)}}))
+		a.Error(m.deserialize(&dbiReader{buf: bin.Buffer{Buf: make([]byte, 4)}}))
 	})
 
 	for i := 0; i < maxCut; i += 4 {
 		t.Run(fmt.Sprintf("EOFAfter%d", i), func(t *testing.T) {
 			a := require.New(t)
 			var m MTPAuthorization
-			a.Error(m.deserialize(&reader{buf: bin.Buffer{Buf: testData[:i]}}))
+			a.Error(m.deserialize(&dbiReader{buf: bin.Buffer{Buf: testData[:i]}}))
 		})
 	}
 }

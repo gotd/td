@@ -1,5 +1,12 @@
 package tdesktop
 
+import (
+	"io"
+	"math/bits"
+
+	"github.com/gotd/td/bin"
+)
+
 //nolint:deadcode,unused,varcheck
 const (
 	dbiKey               = 0x00
@@ -78,3 +85,29 @@ const (
 	dbiEncryptedWithSalt = 333
 	dbiEncrypted         = 444
 )
+
+type dbiReader struct {
+	buf bin.Buffer
+}
+
+func (r *dbiReader) readUint64() (uint64, error) {
+	u, err := r.buf.Uint64()
+	return bits.ReverseBytes64(u), err
+}
+
+func (r *dbiReader) readUint32() (uint32, error) {
+	u, err := r.buf.Uint32()
+	return bits.ReverseBytes32(u), err
+}
+
+func (r *dbiReader) consumeN(target []byte, n int) error {
+	return r.buf.ConsumeN(target, n)
+}
+
+func (r *dbiReader) skip(n int) error {
+	if r.buf.Len() < n {
+		return io.ErrUnexpectedEOF
+	}
+	r.buf.Skip(n)
+	return nil
+}

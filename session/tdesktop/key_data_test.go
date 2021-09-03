@@ -56,8 +56,8 @@ func Test_readKeyData(t *testing.T) {
 	t.Run("OK", func(t *testing.T) {
 		a := require.New(t)
 
-		kdata, err := readKeyData(tdesktopFile{
-			Reader: bytes.NewReader(fileData),
+		kdata, err := readKeyData(&tdesktopFile{
+			data: fileData,
 		}, passcode)
 		a.NoError(err)
 		a.Equal(localKey, kdata.localKey)
@@ -67,8 +67,8 @@ func Test_readKeyData(t *testing.T) {
 		t.Run(fmt.Sprintf("EOFAfter%d", cut), func(t *testing.T) {
 			a := require.New(t)
 
-			_, err := readKeyData(tdesktopFile{
-				Reader: bytes.NewReader(fileData[:cut]),
+			_, err := readKeyData(&tdesktopFile{
+				data: fileData[:cut],
 			}, passcode)
 			a.Error(err)
 		})

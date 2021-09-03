@@ -96,10 +96,7 @@ func Test_fromFile(t *testing.T) {
 				a.Error(err)
 			} else {
 				a.NoError(err)
-
-				data, err := io.ReadAll(r)
-				a.NoError(err)
-				a.Equal(testData, data)
+				a.Equal(testData, r.data)
 			}
 		})
 	}
@@ -137,10 +134,11 @@ func Test_readArray(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := require.New(t)
-			if data, err := readArray(bytes.NewReader(tt.data), tt.order); tt.wantErr {
+			if data, n, err := readArray(tt.data, tt.order); tt.wantErr {
 				a.Error(err)
 			} else {
 				a.NoError(err)
+				a.Equal(len(tt.expect)+4, n)
 				a.Equal(tt.expect, data)
 			}
 		})
