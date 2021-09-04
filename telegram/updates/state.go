@@ -134,10 +134,15 @@ func (s *state) Run() {
 		close(s.done)
 	}()
 
+	s.getDifferenceLogerr()
+
 	for {
 		select {
 		case u, ok := <-s.externalQueue:
 			if !ok {
+				if len(s.pts.pending) > 0 || len(s.qts.pending) > 0 || len(s.seq.pending) > 0 {
+					s.getDifferenceLogerr()
+				}
 				return
 			}
 

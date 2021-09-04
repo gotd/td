@@ -104,6 +104,9 @@ func (s *channelState) Run() {
 		select {
 		case u, ok := <-s.uchan:
 			if !ok {
+				if len(s.pts.pending) > 0 {
+					s.getDifferenceLogerr()
+				}
 				return
 			}
 
