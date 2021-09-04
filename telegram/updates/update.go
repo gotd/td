@@ -10,7 +10,7 @@ type update struct {
 	Value interface{}
 	State int
 	Count int
-	Ents  *Entities
+	Ents  entities
 	Ctx   context.Context
 }
 
@@ -19,79 +19,38 @@ func (u update) start() int { return u.State - u.Count }
 func (u update) end() int { return u.State }
 
 // Entities contains update entities.
-type Entities struct {
-	Users             map[int]*tg.User
-	Chats             map[int]*tg.Chat
-	Channels          map[int]*tg.Channel
-	ChannelsForbidden map[int]*tg.ChannelForbidden
-}
-
-// NewEntities creates new Entities.
-func NewEntities() *Entities {
-	return &Entities{
-		Users:             map[int]*tg.User{},
-		Chats:             map[int]*tg.Chat{},
-		Channels:          map[int]*tg.Channel{},
-		ChannelsForbidden: map[int]*tg.ChannelForbidden{},
-	}
+type entities struct {
+	Users []tg.UserClass
+	Chats []tg.ChatClass
 }
 
 // Merge merges entities.
-func (e *Entities) Merge(from *Entities) {
-	if from == nil {
-		return
+func (e *entities) Merge(from entities)  {
+	for userIDFrom, userFrom := range from.Users {
+		merge := true
+		for userIDExist := range e.Users {
+			if userIDExist == userIDFrom {
+				merge = false
+				break
+			}
+		}
+
+		if merge {
+			e.Users = append(e.Users, userFrom)
+		}
 	}
 
-	for userID, user := range from.Users {
-		e.Users[userID] = user
-	}
+	for chatIDFrom, chatFrom := range from.Chats {
+		merge := true
+		for chatIDExist := range e.Chats {
+			if chatIDExist == chatIDFrom {
+				merge = false
+				break
+			}
+		}
 
-	for chanID, chat := range from.Chats {
-		e.Chats[chanID] = chat
+		if merge {
+			e.Chats = append(e.Chats, chatFrom)
+		}
 	}
-
-	for channelID, channel := range from.Channels {
-		e.Channels[channelID] = channel
-	}
-
-	for channelID, channel := range from.ChannelsForbidden {
-		e.ChannelsForbidden[channelID] = channel
-	}
-}
-
-// FromUpdates method.
-func (e *Entities) FromUpdates(u interface {
-	tg.UpdatesClass
-	MapUsers() tg.UserClassArray
-	MapChats() tg.ChatClassArray
-}) *Entities {
-	u.MapChats().FillChatMap(e.Chats)
-	u.MapChats().FillChannelMap(e.Channels)
-	u.MapChats().FillChannelForbiddenMap(e.ChannelsForbidden)
-	u.MapUsers().FillUserMap(e.Users)
-	return e
-}
-
-// AsUsers returns users as tg.UserClass slice.
-func (e *Entities) AsUsers() []tg.UserClass {
-	var users []tg.UserClass
-	for _, u := range e.Users {
-		users = append(users, u)
-	}
-	return users
-}
-
-// AsChats returns chats as tg.ChatClass slice.
-func (e *Entities) AsChats() []tg.ChatClass {
-	var chats []tg.ChatClass
-	for _, c := range e.Chats {
-		chats = append(chats, c)
-	}
-	for _, c := range e.Channels {
-		chats = append(chats, c)
-	}
-	for _, c := range e.ChannelsForbidden {
-		chats = append(chats, c)
-	}
-	return chats
 }

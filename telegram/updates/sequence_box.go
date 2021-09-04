@@ -10,7 +10,7 @@ import (
 
 type sequenceBox struct {
 	state      int
-	gaps       *gapBuffer
+	gaps       gapBuffer
 	gapTimeout *time.Timer
 	pending    []update
 
@@ -38,11 +38,9 @@ func newSequenceBox(cfg sequenceConfig) *sequenceBox {
 	_ = t.Stop()
 	return &sequenceBox{
 		state:      cfg.InitialState,
-		gaps:       new(gapBuffer),
 		gapTimeout: t,
-
-		apply: cfg.Apply,
-		log:   cfg.Logger,
+		apply:      cfg.Apply,
+		log:        cfg.Logger,
 	}
 }
 

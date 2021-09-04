@@ -34,7 +34,10 @@ func (s *state) applySeq(ctx context.Context, state int, updates []update) error
 
 func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (ptsChanged bool, err error) {
 	var (
-		ents   = NewEntities().FromUpdates(comb)
+		ents = entities{
+			Users: comb.Users,
+			Chats: comb.Chats,
+		}
 		others []tg.UpdateClass
 	)
 
@@ -90,8 +93,8 @@ func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (pt
 	if len(others) > 0 {
 		if err := s.handler.Handle(s.ctx, &tg.Updates{
 			Updates: others,
-			Users:   ents.AsUsers(),
-			Chats:   ents.AsChats(),
+			Users:   ents.Users,
+			Chats:   ents.Chats,
 		}); err != nil {
 			s.log.Error("Handle updates error", zap.Error(err))
 		}
@@ -125,7 +128,7 @@ func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (pt
 func (s *state) applyPts(ctx context.Context, state int, updates []update) error {
 	var (
 		converted []tg.UpdateClass
-		ents      = NewEntities()
+		ents      entities
 	)
 
 	for _, update := range updates {
@@ -135,8 +138,8 @@ func (s *state) applyPts(ctx context.Context, state int, updates []update) error
 
 	if err := s.handler.Handle(s.ctx, &tg.Updates{
 		Updates: converted,
-		Users:   ents.AsUsers(),
-		Chats:   ents.AsChats(),
+		Users:   ents.Users,
+		Chats:   ents.Chats,
 	}); err != nil {
 		s.log.Error("Handle updates error", zap.Error(err))
 	}
@@ -152,7 +155,7 @@ func (s *state) applyPts(ctx context.Context, state int, updates []update) error
 func (s *state) applyQts(ctx context.Context, state int, updates []update) error {
 	var (
 		converted []tg.UpdateClass
-		ents      = NewEntities()
+		ents      entities
 	)
 
 	for _, update := range updates {
@@ -162,8 +165,8 @@ func (s *state) applyQts(ctx context.Context, state int, updates []update) error
 
 	if err := s.handler.Handle(ctx, &tg.Updates{
 		Updates: converted,
-		Users:   ents.AsUsers(),
-		Chats:   ents.AsChats(),
+		Users:   ents.Users,
+		Chats:   ents.Chats,
 	}); err != nil {
 		s.log.Error("Handle updates error", zap.Error(err))
 	}

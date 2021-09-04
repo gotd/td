@@ -10,7 +10,7 @@ type gapBuffer struct {
 	gaps []gap
 }
 
-func (b *gapBuffer) Has() bool { return len(b.gaps) > 0 }
+func (b gapBuffer) Has() bool { return len(b.gaps) > 0 }
 
 func (b *gapBuffer) Clear() { b.gaps = make([]gap, 0, 1) }
 
@@ -40,7 +40,7 @@ func (b *gapBuffer) Consume(u update) (accepted bool) {
 	return false
 }
 
-func (b *gapBuffer) MarshalLogArray(e zapcore.ArrayEncoder) error {
+func (b gapBuffer) MarshalLogArray(e zapcore.ArrayEncoder) error {
 	for _, g := range b.gaps {
 		if err := e.AppendObject(zapcore.ObjectMarshalerFunc(func(e zapcore.ObjectEncoder) error {
 			e.AddInt("from", g.from)

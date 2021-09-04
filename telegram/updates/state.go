@@ -226,7 +226,7 @@ func (s *state) handleSeq(ctx context.Context, u *tg.UpdatesCombined) error {
 	})
 }
 
-func (s *state) handlePts(pts, ptsCount int, u tg.UpdateClass, ents *Entities) error {
+func (s *state) handlePts(pts, ptsCount int, u tg.UpdateClass, ents entities) error {
 	if err := validatePts(pts, ptsCount); err != nil {
 		s.log.Error("Pts validation failed", zap.Error(err), zap.Any("update", u))
 		return nil
@@ -240,7 +240,7 @@ func (s *state) handlePts(pts, ptsCount int, u tg.UpdateClass, ents *Entities) e
 	})
 }
 
-func (s *state) handleQts(qts int, u tg.UpdateClass, ents *Entities) error {
+func (s *state) handleQts(qts int, u tg.UpdateClass, ents entities) error {
 	if err := validateQts(qts); err != nil {
 		s.log.Error("Qts validation failed", zap.Error(err), zap.Any("update", u))
 		return nil

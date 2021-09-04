@@ -7,7 +7,6 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/updates"
 	"github.com/gotd/td/tg"
 )
 
@@ -53,7 +52,7 @@ func (s *server) UpdatesGetDifference(ctx context.Context, request *tg.UpdatesGe
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
-	ents := updates.NewEntities()
+	ents := NewEntities()
 	var common []tg.MessageClass
 	for i := request.Pts + 1; i <= len(s.messages.common); i++ {
 		common = append(common, s.messages.common[i-1])
@@ -125,7 +124,7 @@ func (s *server) UpdatesGetChannelDifference(
 
 	var (
 		channelMsgs = s.messages.channels[channel.ChannelID]
-		ents        = updates.NewEntities()
+		ents        = NewEntities()
 		prepared    []tg.MessageClass
 	)
 
@@ -150,7 +149,7 @@ func (s *server) UpdatesGetChannelDifference(
 	}, nil
 }
 
-func (s *server) fillMessageEnts(msg tg.MessageClass, ents *updates.Entities) {
+func (s *server) fillMessageEnts(msg tg.MessageClass, ents *Entities) {
 	switch peer := msg.(*tg.Message).PeerID.(type) {
 	case *tg.PeerUser:
 		user, ok := s.peers.users[peer.UserID]

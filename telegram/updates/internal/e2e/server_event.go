@@ -1,14 +1,13 @@
 package e2e
 
 import (
-	"github.com/gotd/td/telegram/updates"
 	"github.com/gotd/td/tg"
 )
 
 // EventBuilder struct.
 type EventBuilder struct {
 	updates []tg.UpdateClass
-	ents    *updates.Entities
+	ents    *Entities
 	s       *server
 	date    int
 }
@@ -81,7 +80,7 @@ func (s *server) CreateEvent(f func(ev *EventBuilder)) *tg.Updates {
 
 	s.date++
 	ev := &EventBuilder{
-		ents: updates.NewEntities(),
+		ents: NewEntities(),
 		s:    s,
 		date: s.date,
 	}

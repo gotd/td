@@ -48,7 +48,7 @@ func TestSequenceBox(t *testing.T) {
 		Count: 1,
 	}))
 	require.Equal(t, 4, state)
-	require.Equal(t, []update{{1, 4, 1, nil, nil}}, updates)
+	require.Equal(t, []update{{1, 4, 1, entities{}, nil}}, updates)
 	require.Empty(t, box.pending)
 	updates = nil
 
@@ -59,7 +59,7 @@ func TestSequenceBox(t *testing.T) {
 	}))
 	require.Equal(t, 4, state)
 	require.Empty(t, updates)
-	require.Equal(t, []update{{1, 6, 1, nil, nil}}, box.pending)
+	require.Equal(t, []update{{1, 6, 1, entities{}, nil}}, box.pending)
 
 	require.Nil(t, box.Handle(update{
 		Value: 2,
@@ -67,7 +67,7 @@ func TestSequenceBox(t *testing.T) {
 		Count: 1,
 	}))
 	require.Equal(t, 6, state)
-	require.Equal(t, []update{{2, 5, 1, nil, nil}, {1, 6, 1, nil, nil}}, updates)
+	require.Equal(t, []update{{2, 5, 1, entities{}, nil}, {1, 6, 1, entities{}, nil}}, updates)
 	require.Empty(t, box.pending)
 	updates = nil
 
@@ -78,7 +78,7 @@ func TestSequenceBox(t *testing.T) {
 	}))
 	require.Equal(t, 6, state)
 	require.Empty(t, updates)
-	require.Equal(t, []update{{3, 8, 1, nil, nil}}, box.pending)
+	require.Equal(t, []update{{3, 8, 1, entities{}, nil}}, box.pending)
 	<-box.gapTimeout.C
 
 	require.Equal(t, []gap{{6, 7}}, box.gaps.gaps)
@@ -96,9 +96,9 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 		{
 			InitialState: 5,
 			Pending: []update{
-				{1, 3, 1, nil, nil},
-				{1, 4, 1, nil, nil},
-				{1, 1, 1, nil, nil},
+				{1, 3, 1, entities{}, nil},
+				{1, 4, 1, entities{}, nil},
+				{1, 1, 1, entities{}, nil},
 			},
 			PendingAfter: []update{},
 			Applied:      []update{},
@@ -106,44 +106,44 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 		{
 			InitialState: 5,
 			Pending: []update{
-				{1, 3, 1, nil, nil},
-				{1, 8, 1, nil, nil},
-				{1, 7, 1, nil, nil},
-				{1, 4, 1, nil, nil},
-				{1, 1, 1, nil, nil},
+				{1, 3, 1, entities{}, nil},
+				{1, 8, 1, entities{}, nil},
+				{1, 7, 1, entities{}, nil},
+				{1, 4, 1, entities{}, nil},
+				{1, 1, 1, entities{}, nil},
 			},
 			PendingAfter: []update{
-				{1, 7, 1, nil, nil},
-				{1, 8, 1, nil, nil},
+				{1, 7, 1, entities{}, nil},
+				{1, 8, 1, entities{}, nil},
 			},
 			Applied: []update{},
 		},
 		{
 			InitialState: 5,
 			Pending: []update{
-				{1, 8, 1, nil, nil},
-				{1, 7, 1, nil, nil},
+				{1, 8, 1, entities{}, nil},
+				{1, 7, 1, entities{}, nil},
 			},
 			PendingAfter: []update{
-				{1, 7, 1, nil, nil},
-				{1, 8, 1, nil, nil},
+				{1, 7, 1, entities{}, nil},
+				{1, 8, 1, entities{}, nil},
 			},
 			Applied: []update{},
 		},
 		{
 			InitialState: 5,
 			Pending: []update{
-				{1, 3, 1, nil, nil},
-				{1, 6, 1, nil, nil},
-				{1, 8, 1, nil, nil},
-				{1, 4, 1, nil, nil},
-				{1, 1, 1, nil, nil},
+				{1, 3, 1, entities{}, nil},
+				{1, 6, 1, entities{}, nil},
+				{1, 8, 1, entities{}, nil},
+				{1, 4, 1, entities{}, nil},
+				{1, 1, 1, entities{}, nil},
 			},
 			PendingAfter: []update{
-				{1, 8, 1, nil, nil},
+				{1, 8, 1, entities{}, nil},
 			},
 			Applied: []update{
-				{1, 6, 1, nil, nil},
+				{1, 6, 1, entities{}, nil},
 			},
 		},
 	}

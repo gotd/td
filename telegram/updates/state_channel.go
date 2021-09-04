@@ -14,7 +14,7 @@ import (
 type channelUpdate struct {
 	update tg.UpdateClass
 	ctx    context.Context
-	ents   *Entities
+	ents   entities
 }
 
 type channelState struct {
@@ -121,7 +121,7 @@ func (s *channelState) Run() {
 	}
 }
 
-func (s *channelState) handleUpdate(ctx context.Context, u tg.UpdateClass, ents *Entities) error {
+func (s *channelState) handleUpdate(ctx context.Context, u tg.UpdateClass, ents entities) error {
 	s.resetIdleTimer()
 
 	if long, ok := u.(*tg.UpdateChannelTooLong); ok {
@@ -170,7 +170,7 @@ func (s *channelState) handleTooLong(long *tg.UpdateChannelTooLong) error {
 func (s *channelState) applyPts(ctx context.Context, state int, updates []update) error {
 	var (
 		converted []tg.UpdateClass
-		ents      = NewEntities()
+		ents      entities
 	)
 
 	for _, update := range updates {
@@ -180,8 +180,8 @@ func (s *channelState) applyPts(ctx context.Context, state int, updates []update
 
 	if err := s.handler.Handle(ctx, &tg.Updates{
 		Updates: converted,
-		Users:   ents.AsUsers(),
-		Chats:   ents.AsChats(),
+		Users:   ents.Users,
+		Chats:   ents.Chats,
 	}); err != nil {
 		s.log.Error("Handle update error", zap.Error(err))
 		return nil

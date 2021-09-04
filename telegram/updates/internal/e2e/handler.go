@@ -4,14 +4,13 @@ import (
 	"context"
 	"sync"
 
-	"github.com/gotd/td/telegram/updates"
 	"github.com/gotd/td/tg"
 )
 
 // Handler handles updates.
 type handler struct {
 	messages *messageDatabase
-	ents     *updates.Entities
+	ents     *Entities
 	mux      sync.Mutex
 }
 
@@ -20,23 +19,23 @@ func newHandler() *handler {
 		messages: &messageDatabase{
 			channels: make(map[int][]tg.MessageClass),
 		},
-		ents: updates.NewEntities(),
+		ents: NewEntities(),
 	}
 }
 
 func (h *handler) Handle(ctx context.Context, u tg.UpdatesClass) error {
 	switch u := u.(type) {
 	case *tg.Updates:
-		return h.handleUpdates(updates.NewEntities().FromUpdates(u), u.Updates)
+		return h.handleUpdates(NewEntities().FromUpdates(u), u.Updates)
 	case *tg.UpdatesCombined:
-		return h.handleUpdates(updates.NewEntities().FromUpdates(u), u.Updates)
+		return h.handleUpdates(NewEntities().FromUpdates(u), u.Updates)
 	default:
 		panic(u)
 	}
 }
 
 // HandleUpdates handler.
-func (h *handler) handleUpdates(ents *updates.Entities, upds []tg.UpdateClass) error {
+func (h *handler) handleUpdates(ents *Entities, upds []tg.UpdateClass) error {
 	h.mux.Lock()
 	defer h.mux.Unlock()
 
