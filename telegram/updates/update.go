@@ -25,7 +25,7 @@ type entities struct {
 }
 
 // Merge merges entities.
-func (e *entities) Merge(from entities)  {
+func (e *entities) Merge(from entities) {
 	for userIDFrom, userFrom := range from.Users {
 		merge := true
 		for userIDExist := range e.Users {
