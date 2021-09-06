@@ -26,8 +26,10 @@ func findDCAddr(list []tg.DCOption, dcID int) string {
 }
 
 // TDesktopSession converts TDesktop's Account to Data.
-func TDesktopSession(a tdesktop.Account) (*Data, error) {
-	auth := a.Authorization
+func TDesktopSession(account tdesktop.Account) (*Data, error) {
+	auth := account.Authorization
+	cfg := account.Config
+	test := cfg.Environment.Test()
 	dc := auth.MainDC
 
 	key, ok := auth.Keys[dc]
@@ -36,8 +38,14 @@ func TDesktopSession(a tdesktop.Account) (*Data, error) {
 	}
 	keyID := key.ID()
 
-	// TODO(tdakkota): distinguish test and production accounts.
-	addr := findDCAddr(dcs.Prod().Options, dc)
+	var list dcs.List
+	if !test {
+		list = dcs.Prod()
+	} else {
+		list = dcs.Test()
+	}
+
+	addr := findDCAddr(list.Options, dc)
 	if addr == "" {
 		return nil, errors.Errorf("can't find address for DC %d", dc)
 	}
