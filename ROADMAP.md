@@ -29,9 +29,9 @@ Generate a static websites for documentations.
 * Prometheus metrics.
 
 ### Updates engine
-* Refactor gap engine
-* Simplify initialization
-* Add example and documentation
+* ~~Refactor gap engine~~
+* ~~Simplify initialization~~
+* ~~Add example~~ and documentation
 
 ## Q1 22
 
