@@ -8,6 +8,7 @@ import (
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/session/tdesktop"
 	"github.com/gotd/td/telegram/dcs"
+	"github.com/gotd/td/tg"
 )
 
 func TestTDesktopSession(t *testing.T) {
@@ -28,7 +29,10 @@ func TestTDesktopSession(t *testing.T) {
 				},
 			},
 		}, &Data{
-			DC:        2,
+			DC: 2,
+			Config: tg.Config{
+				ThisDC: 2,
+			},
 			Addr:      findDCAddr(dcs.Prod().Options, 2),
 			AuthKey:   key[:],
 			AuthKeyID: keyID[:],

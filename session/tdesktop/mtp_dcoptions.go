@@ -17,6 +17,31 @@ type MTPDCOption struct {
 	Secret []byte
 }
 
+// IPv6 denotes that the specified IP is an IPv6 address.
+func (m MTPDCOption) IPv6() bool {
+	return m.Flags.Has(0)
+}
+
+// MediaOnly denotes that this DC should only be used to download or upload files.
+func (m MTPDCOption) MediaOnly() bool {
+	return m.Flags.Has(1)
+}
+
+// TCPOOnly denotes that this DC only supports connection with transport obfuscation.
+func (m MTPDCOption) TCPOOnly() bool {
+	return m.Flags.Has(2)
+}
+
+// CDN denotes that this is a CDN DC.
+func (m MTPDCOption) CDN() bool {
+	return m.Flags.Has(3)
+}
+
+// Static denotes that this IP should be used when connecting through a proxy.
+func (m MTPDCOption) Static() bool {
+	return m.Flags.Has(4)
+}
+
 func (m *MTPDCOption) deserialize(r *qtReader, version int32) error {
 	id, err := r.readInt32()
 	if err != nil {
@@ -24,11 +49,11 @@ func (m *MTPDCOption) deserialize(r *qtReader, version int32) error {
 	}
 	m.ID = id
 
-	fields, err := r.readUint32()
+	flags, err := r.readUint32()
 	if err != nil {
 		return xerrors.Errorf("read flags: %w", err)
 	}
-	m.Flags = bin.Fields(fields)
+	m.Flags = bin.Fields(flags)
 
 	port, err := r.readInt32()
 	if err != nil {
