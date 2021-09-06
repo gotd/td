@@ -4,6 +4,8 @@ import (
 	"io"
 	"math/bits"
 
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/bin"
 )
 
@@ -86,25 +88,84 @@ const (
 	dbiEncrypted         = 444
 )
 
-type dbiReader struct {
+type qtReader struct {
 	buf bin.Buffer
 }
 
-func (r *dbiReader) readUint64() (uint64, error) {
+func (r *qtReader) subArray() (qtReader, error) {
+	length, err := r.readInt32()
+	if err != nil {
+		return qtReader{}, xerrors.Errorf("read length: %w", err)
+	}
+	sub := bin.Buffer{Buf: r.buf.Buf}
+	if err := r.skip(int(length)); err != nil {
+		return qtReader{}, io.ErrUnexpectedEOF
+	}
+
+	sub.Buf = sub.Buf[:length]
+	return qtReader{buf: sub}, err
+}
+
+func (r *qtReader) readUint64() (uint64, error) {
 	u, err := r.buf.Uint64()
 	return bits.ReverseBytes64(u), err
 }
 
-func (r *dbiReader) readUint32() (uint32, error) {
+func (r *qtReader) readUint32() (uint32, error) {
 	u, err := r.buf.Uint32()
 	return bits.ReverseBytes32(u), err
 }
 
-func (r *dbiReader) consumeN(target []byte, n int) error {
+func (r *qtReader) readInt32() (int32, error) {
+	v, err := r.readUint32()
+	return int32(v), err
+}
+
+func (r *qtReader) readString() (string, error) {
+	sz, err := r.readInt32()
+	if err != nil {
+		return "", err
+	}
+	size := int(sz)
+	switch {
+	case size < 0:
+		return "", &bin.InvalidLengthError{
+			Length: size,
+			Where:  "QString",
+		}
+	case size >= r.buf.Len():
+		return "", io.ErrUnexpectedEOF
+	}
+	s := string(r.buf.Buf[:size])
+	r.buf.Skip(size)
+	return s, nil
+}
+
+func (r *qtReader) readBytes() ([]byte, error) {
+	sz, err := r.readInt32()
+	if err != nil {
+		return nil, err
+	}
+	size := int(sz)
+	switch {
+	case size < 0:
+		return nil, &bin.InvalidLengthError{
+			Length: size,
+			Where:  "QString",
+		}
+	case size >= r.buf.Len():
+		return nil, io.ErrUnexpectedEOF
+	}
+	s := append([]byte(nil), r.buf.Buf[:size]...)
+	r.buf.Skip(size)
+	return s, nil
+}
+
+func (r *qtReader) consumeN(target []byte, n int) error {
 	return r.buf.ConsumeN(target, n)
 }
 
-func (r *dbiReader) skip(n int) error {
+func (r *qtReader) skip(n int) error {
 	if r.buf.Len() < n {
 		return io.ErrUnexpectedEOF
 	}

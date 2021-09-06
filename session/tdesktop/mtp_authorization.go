@@ -8,9 +8,11 @@ import (
 )
 
 // MTPAuthorization is a Telegram Desktop storage structure which stores MTProto session info.
+//
+// See https://github.com/telegramdesktop/tdesktop/blob/dev/Telegram/SourceFiles/main/main_account.cpp#L359.
 type MTPAuthorization struct {
 	// UserID is a Telegram user ID.
-	UserID int64
+	UserID uint64
 	// MainDC is a main DC ID of this user.
 	MainDC int
 	// Key is a map of keys per DC ID.
@@ -30,7 +32,7 @@ func readMTPData(tgf *tdesktopFile, localKey crypto.Key) (MTPAuthorization, erro
 	}
 	// Skip decrypted data length (uint32).
 	decrypted = decrypted[4:]
-	r := dbiReader{buf: bin.Buffer{Buf: decrypted}}
+	r := qtReader{buf: bin.Buffer{Buf: decrypted}}
 
 	// TODO(tdakkota): support other IDs.
 	var m MTPAuthorization
@@ -40,7 +42,7 @@ func readMTPData(tgf *tdesktopFile, localKey crypto.Key) (MTPAuthorization, erro
 	return m, err
 }
 
-func readKey(r *dbiReader, k *crypto.Key) (uint32, error) {
+func readKey(r *qtReader, k *crypto.Key) (uint32, error) {
 	dcID, err := r.readUint32()
 	if err != nil {
 		return 0, errors.Wrap(err, "read DC ID")
@@ -53,7 +55,7 @@ func readKey(r *dbiReader, k *crypto.Key) (uint32, error) {
 	return dcID, nil
 }
 
-func (m *MTPAuthorization) deserialize(r *dbiReader) error {
+func (m *MTPAuthorization) deserialize(r *qtReader) error {
 	id, err := r.readUint32()
 	if err != nil {
 		return errors.Wrap(err, "read dbi ID")
@@ -84,10 +86,10 @@ func (m *MTPAuthorization) deserialize(r *dbiReader) error {
 			return errors.Wrap(err, "read mainDcID")
 		}
 
-		m.UserID = int64(userID)
+		m.UserID = userID
 		m.MainDC = int(mainDC)
 	} else {
-		m.UserID = int64(legacyUserID)
+		m.UserID = uint64(legacyUserID)
 		m.MainDC = int(legacyMainDCID)
 	}
 

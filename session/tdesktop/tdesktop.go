@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
+	"path"
 
 	"github.com/ogen-go/errors"
 )
@@ -15,6 +16,8 @@ type Account struct {
 	IDx uint32
 	// Authorization contains Telegram user and MTProto sessions.
 	Authorization MTPAuthorization
+	// Config contains Telegram config.
+	Config MTPConfig
 }
 
 // Read reads accounts info from given Telegram Desktop tdata root.
@@ -48,6 +51,16 @@ func ReadFS(root fs.FS, passcode []byte) ([]Account, error) {
 			keyFile = fileKey(fmt.Sprintf("data#%d", account+1))
 		}
 
+		mtpConfigFile, err := open(root, path.Join(keyFile, "config"))
+		if err != nil {
+			return nil, errors.Wrap(err, "open mtp config")
+		}
+
+		mtpConfig, err := readMTPConfig(mtpConfigFile, kd.localKey)
+		if err != nil {
+			return nil, errors.Wrap(err, "read mtp config")
+		}
+
 		mtpDataFile, err := open(root, keyFile)
 		if err != nil {
 			return nil, errors.Wrap(err, "open key_data")
@@ -61,6 +74,7 @@ func ReadFS(root fs.FS, passcode []byte) ([]Account, error) {
 		r = append(r, Account{
 			IDx:           account,
 			Authorization: mtpData,
+			Config:        mtpConfig,
 		})
 	}
 
