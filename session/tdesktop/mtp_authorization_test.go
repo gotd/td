@@ -31,7 +31,7 @@ func Test_mtpAuthorization_deserialize(t *testing.T) {
 		a := require.New(t)
 		var m MTPAuthorization
 		a.NoError(m.deserialize(&qtReader{buf: bin.Buffer{Buf: testData}}))
-		a.Equal(int64(309570373), m.UserID)
+		a.Equal(uint64(309570373), m.UserID)
 		a.Equal(2, m.MainDC)
 		a.Len(m.Keys, 5)
 		for i := 0; i < 5; i++ {

@@ -153,7 +153,7 @@ func (r *qtReader) readBytes() ([]byte, error) {
 			Length: size,
 			Where:  "QString",
 		}
-	case size >= r.buf.Len():
+	case size > r.buf.Len():
 		return nil, io.ErrUnexpectedEOF
 	}
 	s := append([]byte(nil), r.buf.Buf[:size]...)

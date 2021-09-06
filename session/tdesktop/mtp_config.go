@@ -33,7 +33,7 @@ func (e MTPConfigEnvironment) Test() bool {
 
 // MTPConfig is a Telegram Desktop storage structure which stores MTProto config info.
 //
-// See https://github.com/telegramdesktop/tdesktop/blob/v2.9.8/Telegram/SourceFiles/mtproto/mtproto_config.h
+// See https://github.com/telegramdesktop/tdesktop/blob/v2.9.8/Telegram/SourceFiles/mtproto/mtproto_config.h.
 type MTPConfig struct {
 	Environment              MTPConfigEnvironment
 	DCOptions                MTPDCOptions
@@ -81,11 +81,16 @@ func readMTPConfig(tgf *tdesktopFile, localKey crypto.Key) (MTPConfig, error) {
 		return MTPConfig{}, xerrors.Errorf("decrypt data: %w", err)
 	}
 	// Skip decrypted data length (uint32).
-	decrypted = decrypted[8:]
-	r := qtReader{buf: bin.Buffer{Buf: decrypted}}
+	decrypted = decrypted[4:]
+	root := qtReader{buf: bin.Buffer{Buf: decrypted}}
+
+	cfgReader, err := root.subArray()
+	if err != nil {
+		return MTPConfig{}, xerrors.Errorf("read config array: %w", err)
+	}
 
 	var m MTPConfig
-	if err := m.deserialize(&r); err != nil {
+	if err := m.deserialize(&cfgReader); err != nil {
 		return MTPConfig{}, xerrors.Errorf("deserialize MTPConfig: %w", err)
 	}
 	return m, err
