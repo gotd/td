@@ -138,7 +138,7 @@ func run(ctx context.Context) error {
 			// ones.
 			//
 			// Hasher implements Telegram "pagination" hash calculation and
-			// allows us exhaust all gifs in "rm" mode.
+			// allows us to exhaust all gifs in "rm" mode.
 			h := hasher.Hasher{}
 			for {
 				result, err := api.MessagesGetSavedGifs(ctx, int(h.Sum()))
