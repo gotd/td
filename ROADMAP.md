@@ -33,6 +33,9 @@ Generate a static websites for documentations.
 * ~~Simplify initialization~~
 * ~~Add example~~ and documentation
 
+### Update to go1.17
+* Update go.mod to allow lazy load
+
 ## Q1 22
 
 ### Sugared client
