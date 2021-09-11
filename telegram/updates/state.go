@@ -33,8 +33,6 @@ type state struct {
 	// during updates.getChannelDifference.
 	internalQueue chan tg.UpdatesClass
 
-	stateModifier *executor
-
 	// Common state.
 	pts, qts, seq *sequenceBox
 	date          int
@@ -79,7 +77,6 @@ func newState(ctx context.Context, cfg stateConfig) *state {
 	s := &state{
 		externalQueue: make(chan updatesCtx, 10),
 		internalQueue: make(chan tg.UpdatesClass, 10),
-		stateModifier: newExecutor(cfg.Logger.Named("state_modifier")),
 
 		date:        cfg.State.Date,
 		idleTimeout: time.NewTimer(idleTimeout),
@@ -134,7 +131,6 @@ func (s *state) Run() {
 		for _, ch := range s.channels {
 			ch.Close()
 		}
-		s.stateModifier.Close()
 		close(s.done)
 	}()
 
@@ -341,6 +337,10 @@ func (s *state) getDifference() error {
 	s.log.Debug("Getting difference")
 
 	setState := func(state tg.UpdatesState) {
+		if err := s.storage.SetState(s.selfID, State{}.fromRemote(&state)); err != nil {
+			s.log.Warn("SetState error", zap.Error(err))
+		}
+
 		s.pts.SetState(state.Pts)
 		s.qts.SetState(state.Qts)
 		s.seq.SetState(state.Seq)
@@ -369,20 +369,16 @@ func (s *state) getDifference() error {
 		}
 
 		if len(diff.NewMessages) > 0 || len(diff.NewEncryptedMessages) > 0 {
-			s.stateModifier.EnqueueTask("Handle updates", func() error {
-				return s.handler.Handle(s.ctx, &tg.Updates{
-					Updates: append(
-						msgsToUpdates(diff.NewMessages),
-						encryptedMsgsToUpdates(diff.NewEncryptedMessages)...,
-					),
-					Users: diff.Users,
-					Chats: diff.Chats,
-				})
-			})
-
-			s.stateModifier.EnqueueTask("Save sequences to storage", func() error {
-				return s.storage.SetState(s.selfID, State{}.fromRemote(&diff.State))
-			})
+			if err := s.handler.Handle(s.ctx, &tg.Updates{
+				Updates: append(
+					msgsToUpdates(diff.NewMessages),
+					encryptedMsgsToUpdates(diff.NewEncryptedMessages)...,
+				),
+				Users: diff.Users,
+				Chats: diff.Chats,
+			}); err != nil {
+				s.log.Error("Handle updates error", zap.Error(err))
+			}
 		}
 
 		setState(diff.State)
@@ -412,20 +408,16 @@ func (s *state) getDifference() error {
 		}
 
 		if len(diff.NewMessages) > 0 || len(diff.NewEncryptedMessages) > 0 {
-			s.stateModifier.EnqueueTask("Handle updates", func() error {
-				return s.handler.Handle(s.ctx, &tg.Updates{
-					Updates: append(
-						msgsToUpdates(diff.NewMessages),
-						encryptedMsgsToUpdates(diff.NewEncryptedMessages)...,
-					),
-					Users: diff.Users,
-					Chats: diff.Chats,
-				})
-			})
-
-			s.stateModifier.EnqueueTask("Save sequences to storage", func() error {
-				return s.storage.SetState(s.selfID, State{}.fromRemote(&diff.IntermediateState))
-			})
+			if err := s.handler.Handle(s.ctx, &tg.Updates{
+				Updates: append(
+					msgsToUpdates(diff.NewMessages),
+					encryptedMsgsToUpdates(diff.NewEncryptedMessages)...,
+				),
+				Users: diff.Users,
+				Chats: diff.Chats,
+			}); err != nil {
+				s.log.Error("Handle updates error", zap.Error(err))
+			}
 		}
 
 		setState(diff.IntermediateState)
