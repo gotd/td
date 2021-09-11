@@ -91,33 +91,35 @@ func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (pt
 	}
 
 	if len(others) > 0 {
-		if err := s.handler.Handle(s.ctx, &tg.Updates{
-			Updates: others,
-			Users:   ents.Users,
-			Chats:   ents.Chats,
-		}); err != nil {
-			s.log.Error("Handle updates error", zap.Error(err))
-		}
+		s.stateModifier.EnqueueTask("Handle updates", func() error {
+			return s.handler.Handle(s.ctx, &tg.Updates{
+				Updates: others,
+				Users:   ents.Users,
+				Chats:   ents.Chats,
+			})
+		})
 	}
 
 	setDate, setSeq := comb.Date > s.date, comb.Seq > 0
 	switch {
 	case setDate && setSeq:
-		if err := s.storage.SetDateSeq(s.selfID, comb.Date, comb.Seq); err != nil {
-			s.log.Error("SetDateSeq error", zap.Error(err))
-		}
+		s.stateModifier.EnqueueTask("SetDateSeq", func() error {
+			return s.storage.SetDateSeq(s.selfID, comb.Date, comb.Seq)
+		})
 
 		s.date = comb.Date
 		s.seq.SetState(comb.Seq)
 	case setDate:
-		if err := s.storage.SetDate(s.selfID, comb.Date); err != nil {
-			s.log.Error("SetDate error", zap.Error(err))
-		}
+		s.stateModifier.EnqueueTask("SetDate", func() error {
+			return s.storage.SetDate(s.selfID, comb.Date)
+		})
+
 		s.date = comb.Date
 	case setSeq:
-		if err := s.storage.SetSeq(s.selfID, comb.Seq); err != nil {
-			s.log.Error("SetSeq error", zap.Error(err))
-		}
+		s.stateModifier.EnqueueTask("SetSeq", func() error {
+			return s.storage.SetSeq(s.selfID, comb.Seq)
+		})
+
 		s.seq.SetState(comb.Seq)
 	}
 
@@ -136,17 +138,17 @@ func (s *state) applyPts(ctx context.Context, state int, updates []update) error
 		ents.Merge(update.Ents)
 	}
 
-	if err := s.handler.Handle(s.ctx, &tg.Updates{
-		Updates: converted,
-		Users:   ents.Users,
-		Chats:   ents.Chats,
-	}); err != nil {
-		s.log.Error("Handle updates error", zap.Error(err))
-	}
+	s.stateModifier.EnqueueTask("Handle updates", func() error {
+		return s.handler.Handle(s.ctx, &tg.Updates{
+			Updates: converted,
+			Users:   ents.Users,
+			Chats:   ents.Chats,
+		})
+	})
 
-	if err := s.storage.SetPts(s.selfID, state); err != nil {
-		s.log.Error("SetPts error", zap.Error(err))
-	}
+	s.stateModifier.EnqueueTask("SetPts", func() error {
+		return s.storage.SetPts(s.selfID, state)
+	})
 
 	return nil
 }
@@ -163,17 +165,17 @@ func (s *state) applyQts(ctx context.Context, state int, updates []update) error
 		ents.Merge(update.Ents)
 	}
 
-	if err := s.handler.Handle(ctx, &tg.Updates{
-		Updates: converted,
-		Users:   ents.Users,
-		Chats:   ents.Chats,
-	}); err != nil {
-		s.log.Error("Handle updates error", zap.Error(err))
-	}
+	s.stateModifier.EnqueueTask("Handle updates", func() error {
+		return s.handler.Handle(s.ctx, &tg.Updates{
+			Updates: converted,
+			Users:   ents.Users,
+			Chats:   ents.Chats,
+		})
+	})
 
-	if err := s.storage.SetQts(s.selfID, state); err != nil {
-		s.log.Error("SetQts error", zap.Error(err))
-	}
+	s.stateModifier.EnqueueTask("SetQts", func() error {
+		return s.storage.SetQts(s.selfID, state)
+	})
 
 	return nil
 }

@@ -23,6 +23,8 @@ type channelState struct {
 	// Channel to pass diff.OtherUpdates into *state.
 	outchan chan<- tg.UpdatesClass
 
+	stateModifier *executor
+
 	// Channel state.
 	pts         *sequenceBox
 	idleTimeout *time.Timer
@@ -61,8 +63,9 @@ type channelStateConfig struct {
 func newChannelState(cfg channelStateConfig) *channelState {
 	ctx, cancel := context.WithCancel(context.Background())
 	state := &channelState{
-		uchan:   make(chan channelUpdate, 10),
-		outchan: cfg.Outchan,
+		uchan:         make(chan channelUpdate, 10),
+		outchan:       cfg.Outchan,
+		stateModifier: newExecutor(cfg.Logger.Named("state_modifier")),
 
 		idleTimeout: time.NewTimer(idleTimeout),
 
@@ -93,7 +96,10 @@ func newChannelState(cfg channelStateConfig) *channelState {
 func (s *channelState) PushUpdate(u channelUpdate) { s.uchan <- u }
 
 func (s *channelState) Run() {
-	defer close(s.done)
+	defer func() {
+		s.stateModifier.Close()
+		close(s.done)
+	}()
 
 	// Subscribe to channel updates.
 	if err := s.getDifference(); err != nil {
@@ -181,18 +187,17 @@ func (s *channelState) applyPts(ctx context.Context, state int, updates []update
 		ents.Merge(update.Ents)
 	}
 
-	if err := s.handler.Handle(ctx, &tg.Updates{
-		Updates: converted,
-		Users:   ents.Users,
-		Chats:   ents.Chats,
-	}); err != nil {
-		s.log.Error("Handle update error", zap.Error(err))
-		return nil
-	}
+	s.stateModifier.EnqueueTask("Handle updates", func() error {
+		return s.handler.Handle(ctx, &tg.Updates{
+			Updates: converted,
+			Users:   ents.Users,
+			Chats:   ents.Chats,
+		})
+	})
 
-	if err := s.storage.SetChannelPts(s.selfID, s.channelID, state); err != nil {
-		s.log.Error("SetChannelPts error", zap.Error(err))
-	}
+	s.stateModifier.EnqueueTask("SetChannelPts", func() error {
+		return s.storage.SetChannelPts(s.selfID, s.channelID, state)
+	})
 
 	return nil
 }
@@ -258,18 +263,18 @@ func (s *channelState) getDifference() error {
 		}
 
 		if len(diff.NewMessages) > 0 {
-			if err := s.handler.Handle(s.ctx, &tg.Updates{
-				Updates: msgsToUpdates(diff.NewMessages),
-				Users:   diff.Users,
-				Chats:   diff.Chats,
-			}); err != nil {
-				s.log.Error("Handle updates error", zap.Error(err))
-			}
+			s.stateModifier.EnqueueTask("Handle updates", func() error {
+				return s.handler.Handle(s.ctx, &tg.Updates{
+					Updates: msgsToUpdates(diff.NewMessages),
+					Users:   diff.Users,
+					Chats:   diff.Chats,
+				})
+			})
 		}
 
-		if err := s.storage.SetChannelPts(s.selfID, s.channelID, diff.Pts); err != nil {
-			s.log.Warn("SetChannelPts error", zap.Error(err))
-		}
+		s.stateModifier.EnqueueTask("SetChannelPts", func() error {
+			return s.storage.SetChannelPts(s.selfID, s.channelID, diff.Pts)
+		})
 
 		s.pts.SetState(diff.Pts)
 		if seconds, ok := diff.GetTimeout(); ok {
@@ -283,9 +288,9 @@ func (s *channelState) getDifference() error {
 		return nil
 
 	case *tg.UpdatesChannelDifferenceEmpty:
-		if err := s.storage.SetChannelPts(s.selfID, s.channelID, diff.Pts); err != nil {
-			s.log.Warn("SetChannelPts error", zap.Error(err))
-		}
+		s.stateModifier.EnqueueTask("SetChannelPts", func() error {
+			return s.storage.SetChannelPts(s.selfID, s.channelID, diff.Pts)
+		})
 
 		s.pts.SetState(diff.Pts)
 		if seconds, ok := diff.GetTimeout(); ok {
@@ -303,9 +308,9 @@ func (s *channelState) getDifference() error {
 		if err != nil {
 			s.log.Warn("UpdatesChannelDifferenceTooLong invalid Dialog", zap.Error(err))
 		} else {
-			if err := s.storage.SetChannelPts(s.selfID, s.channelID, remotePts); err != nil {
-				s.log.Warn("SetChannelPts error", zap.Error(err))
-			}
+			s.stateModifier.EnqueueTask("SetChannelPts", func() error {
+				return s.storage.SetChannelPts(s.selfID, s.channelID, remotePts)
+			})
 
 			s.pts.SetState(remotePts)
 		}
