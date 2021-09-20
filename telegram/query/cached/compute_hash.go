@@ -18,5 +18,5 @@ func (s *ContactsGetContacts) computeHash(v *tg.ContactsContacts) int64 {
 		h.Update(uint32(contact.UserID))
 	}
 
-	return int64(h.Sum())
+	return h.Sum()
 }

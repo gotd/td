@@ -41,7 +41,7 @@ func (p *peerDatabase) createChannel(username string) *tg.PeerChannel {
 		ID:       p.id,
 		Username: username,
 	}
-	p.channels[p.id].SetAccessHash(int64(p.id * 2))
+	p.channels[p.id].SetAccessHash(p.id * 2)
 
 	defer func() { p.id++ }()
 	return &tg.PeerChannel{ChannelID: p.id}

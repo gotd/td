@@ -312,7 +312,7 @@ func (s *state) handleChannel(channelID int64, date, pts, ptsCount int, cu chann
 	state.PushUpdate(cu)
 }
 
-func (s *state) newChannelState(channelID int64, accessHash int64, initialPts int) *channelState {
+func (s *state) newChannelState(channelID, accessHash int64, initialPts int) *channelState {
 	return newChannelState(channelStateConfig{
 		Outchan:          s.internalQueue,
 		InitialPts:       initialPts,
