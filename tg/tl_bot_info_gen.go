@@ -29,13 +29,13 @@ var (
 	_ = tgerr.Error{}
 )
 
-// BotInfo represents TL type `botInfo#98e81d3a`.
+// BotInfo represents TL type `botInfo#1b74b335`.
 // Info about bots (available bot commands, etc)
 //
 // See https://core.telegram.org/constructor/botInfo for reference.
 type BotInfo struct {
 	// ID of the bot
-	UserID int
+	UserID int64
 	// Description of the bot
 	Description string
 	// Bot commands that can be used in the chat
@@ -43,7 +43,7 @@ type BotInfo struct {
 }
 
 // BotInfoTypeID is TL type id of BotInfo.
-const BotInfoTypeID = 0x98e81d3a
+const BotInfoTypeID = 0x1b74b335
 
 // Ensuring interfaces in compile-time for BotInfo.
 var (
@@ -81,7 +81,7 @@ func (b *BotInfo) String() string {
 
 // FillFrom fills BotInfo from given interface.
 func (b *BotInfo) FillFrom(from interface {
-	GetUserID() (value int)
+	GetUserID() (value int64)
 	GetDescription() (value string)
 	GetCommands() (value []BotCommand)
 }) {
@@ -132,7 +132,7 @@ func (b *BotInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotInfo) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#98e81d3a as nil")
+		return fmt.Errorf("can't encode botInfo#1b74b335 as nil")
 	}
 	buf.PutID(BotInfoTypeID)
 	return b.EncodeBare(buf)
@@ -141,14 +141,14 @@ func (b *BotInfo) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#98e81d3a as nil")
+		return fmt.Errorf("can't encode botInfo#1b74b335 as nil")
 	}
-	buf.PutInt(b.UserID)
+	buf.PutLong(b.UserID)
 	buf.PutString(b.Description)
 	buf.PutVectorHeader(len(b.Commands))
 	for idx, v := range b.Commands {
 		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode botInfo#98e81d3a: field commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode botInfo#1b74b335: field commands element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -157,10 +157,10 @@ func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BotInfo) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#98e81d3a to nil")
+		return fmt.Errorf("can't decode botInfo#1b74b335 to nil")
 	}
 	if err := buf.ConsumeID(BotInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode botInfo#98e81d3a: %w", err)
+		return fmt.Errorf("unable to decode botInfo#1b74b335: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -168,26 +168,26 @@ func (b *BotInfo) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#98e81d3a to nil")
+		return fmt.Errorf("can't decode botInfo#1b74b335 to nil")
 	}
 	{
-		value, err := buf.Int()
+		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#98e81d3a: field user_id: %w", err)
+			return fmt.Errorf("unable to decode botInfo#1b74b335: field user_id: %w", err)
 		}
 		b.UserID = value
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#98e81d3a: field description: %w", err)
+			return fmt.Errorf("unable to decode botInfo#1b74b335: field description: %w", err)
 		}
 		b.Description = value
 	}
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#98e81d3a: field commands: %w", err)
+			return fmt.Errorf("unable to decode botInfo#1b74b335: field commands: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -196,7 +196,7 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand
 			if err := value.Decode(buf); err != nil {
-				return fmt.Errorf("unable to decode botInfo#98e81d3a: field commands: %w", err)
+				return fmt.Errorf("unable to decode botInfo#1b74b335: field commands: %w", err)
 			}
 			b.Commands = append(b.Commands, value)
 		}
@@ -205,7 +205,7 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 }
 
 // GetUserID returns value of UserID field.
-func (b *BotInfo) GetUserID() (value int) {
+func (b *BotInfo) GetUserID() (value int64) {
 	return b.UserID
 }
 

@@ -29,19 +29,19 @@ var (
 	_ = tgerr.Error{}
 )
 
-// ContactStatus represents TL type `contactStatus#d3680c61`.
+// ContactStatus represents TL type `contactStatus#16d9703b`.
 // Contact status: online / offline.
 //
 // See https://core.telegram.org/constructor/contactStatus for reference.
 type ContactStatus struct {
 	// User identifier
-	UserID int
+	UserID int64
 	// Online status
 	Status UserStatusClass
 }
 
 // ContactStatusTypeID is TL type id of ContactStatus.
-const ContactStatusTypeID = 0xd3680c61
+const ContactStatusTypeID = 0x16d9703b
 
 // Ensuring interfaces in compile-time for ContactStatus.
 var (
@@ -76,7 +76,7 @@ func (c *ContactStatus) String() string {
 
 // FillFrom fills ContactStatus from given interface.
 func (c *ContactStatus) FillFrom(from interface {
-	GetUserID() (value int)
+	GetUserID() (value int64)
 	GetStatus() (value UserStatusClass)
 }) {
 	c.UserID = from.GetUserID()
@@ -121,7 +121,7 @@ func (c *ContactStatus) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ContactStatus) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contactStatus#d3680c61 as nil")
+		return fmt.Errorf("can't encode contactStatus#16d9703b as nil")
 	}
 	b.PutID(ContactStatusTypeID)
 	return c.EncodeBare(b)
@@ -130,14 +130,14 @@ func (c *ContactStatus) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ContactStatus) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contactStatus#d3680c61 as nil")
+		return fmt.Errorf("can't encode contactStatus#16d9703b as nil")
 	}
-	b.PutInt(c.UserID)
+	b.PutLong(c.UserID)
 	if c.Status == nil {
-		return fmt.Errorf("unable to encode contactStatus#d3680c61: field status is nil")
+		return fmt.Errorf("unable to encode contactStatus#16d9703b: field status is nil")
 	}
 	if err := c.Status.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contactStatus#d3680c61: field status: %w", err)
+		return fmt.Errorf("unable to encode contactStatus#16d9703b: field status: %w", err)
 	}
 	return nil
 }
@@ -145,10 +145,10 @@ func (c *ContactStatus) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ContactStatus) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contactStatus#d3680c61 to nil")
+		return fmt.Errorf("can't decode contactStatus#16d9703b to nil")
 	}
 	if err := b.ConsumeID(ContactStatusTypeID); err != nil {
-		return fmt.Errorf("unable to decode contactStatus#d3680c61: %w", err)
+		return fmt.Errorf("unable to decode contactStatus#16d9703b: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -156,19 +156,19 @@ func (c *ContactStatus) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ContactStatus) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contactStatus#d3680c61 to nil")
+		return fmt.Errorf("can't decode contactStatus#16d9703b to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode contactStatus#d3680c61: field user_id: %w", err)
+			return fmt.Errorf("unable to decode contactStatus#16d9703b: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := DecodeUserStatus(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode contactStatus#d3680c61: field status: %w", err)
+			return fmt.Errorf("unable to decode contactStatus#16d9703b: field status: %w", err)
 		}
 		c.Status = value
 	}
@@ -176,7 +176,7 @@ func (c *ContactStatus) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetUserID returns value of UserID field.
-func (c *ContactStatus) GetUserID() (value int) {
+func (c *ContactStatus) GetUserID() (value int64) {
 	return c.UserID
 }
 

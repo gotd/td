@@ -29,19 +29,19 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesEditChatPhotoRequest represents TL type `messages.editChatPhoto#ca4c79d8`.
+// MessagesEditChatPhotoRequest represents TL type `messages.editChatPhoto#35ddd674`.
 // Changes chat photo and sends a service message on it
 //
 // See https://core.telegram.org/method/messages.editChatPhoto for reference.
 type MessagesEditChatPhotoRequest struct {
 	// Chat ID
-	ChatID int
+	ChatID int64
 	// Photo to be set
 	Photo InputChatPhotoClass
 }
 
 // MessagesEditChatPhotoRequestTypeID is TL type id of MessagesEditChatPhotoRequest.
-const MessagesEditChatPhotoRequestTypeID = 0xca4c79d8
+const MessagesEditChatPhotoRequestTypeID = 0x35ddd674
 
 // Ensuring interfaces in compile-time for MessagesEditChatPhotoRequest.
 var (
@@ -76,7 +76,7 @@ func (e *MessagesEditChatPhotoRequest) String() string {
 
 // FillFrom fills MessagesEditChatPhotoRequest from given interface.
 func (e *MessagesEditChatPhotoRequest) FillFrom(from interface {
-	GetChatID() (value int)
+	GetChatID() (value int64)
 	GetPhoto() (value InputChatPhotoClass)
 }) {
 	e.ChatID = from.GetChatID()
@@ -121,7 +121,7 @@ func (e *MessagesEditChatPhotoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatPhotoRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatPhoto#ca4c79d8 as nil")
+		return fmt.Errorf("can't encode messages.editChatPhoto#35ddd674 as nil")
 	}
 	b.PutID(MessagesEditChatPhotoRequestTypeID)
 	return e.EncodeBare(b)
@@ -130,14 +130,14 @@ func (e *MessagesEditChatPhotoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *MessagesEditChatPhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatPhoto#ca4c79d8 as nil")
+		return fmt.Errorf("can't encode messages.editChatPhoto#35ddd674 as nil")
 	}
-	b.PutInt(e.ChatID)
+	b.PutLong(e.ChatID)
 	if e.Photo == nil {
-		return fmt.Errorf("unable to encode messages.editChatPhoto#ca4c79d8: field photo is nil")
+		return fmt.Errorf("unable to encode messages.editChatPhoto#35ddd674: field photo is nil")
 	}
 	if err := e.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editChatPhoto#ca4c79d8: field photo: %w", err)
+		return fmt.Errorf("unable to encode messages.editChatPhoto#35ddd674: field photo: %w", err)
 	}
 	return nil
 }
@@ -145,10 +145,10 @@ func (e *MessagesEditChatPhotoRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *MessagesEditChatPhotoRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatPhoto#ca4c79d8 to nil")
+		return fmt.Errorf("can't decode messages.editChatPhoto#35ddd674 to nil")
 	}
 	if err := b.ConsumeID(MessagesEditChatPhotoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.editChatPhoto#ca4c79d8: %w", err)
+		return fmt.Errorf("unable to decode messages.editChatPhoto#35ddd674: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -156,19 +156,19 @@ func (e *MessagesEditChatPhotoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *MessagesEditChatPhotoRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatPhoto#ca4c79d8 to nil")
+		return fmt.Errorf("can't decode messages.editChatPhoto#35ddd674 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatPhoto#ca4c79d8: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode messages.editChatPhoto#35ddd674: field chat_id: %w", err)
 		}
 		e.ChatID = value
 	}
 	{
 		value, err := DecodeInputChatPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatPhoto#ca4c79d8: field photo: %w", err)
+			return fmt.Errorf("unable to decode messages.editChatPhoto#35ddd674: field photo: %w", err)
 		}
 		e.Photo = value
 	}
@@ -176,7 +176,7 @@ func (e *MessagesEditChatPhotoRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetChatID returns value of ChatID field.
-func (e *MessagesEditChatPhotoRequest) GetChatID() (value int) {
+func (e *MessagesEditChatPhotoRequest) GetChatID() (value int64) {
 	return e.ChatID
 }
 
@@ -185,7 +185,7 @@ func (e *MessagesEditChatPhotoRequest) GetPhoto() (value InputChatPhotoClass) {
 	return e.Photo
 }
 
-// MessagesEditChatPhoto invokes method messages.editChatPhoto#ca4c79d8 returning error if any.
+// MessagesEditChatPhoto invokes method messages.editChatPhoto#35ddd674 returning error if any.
 // Changes chat photo and sends a service message on it
 //
 // Possible errors:

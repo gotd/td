@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessageReplies represents TL type `messageReplies#4128faac`.
+// MessageReplies represents TL type `messageReplies#83d60fc2`.
 // Info about the comment section of a channel post, or a simple message thread¹
 //
 // Links:
@@ -67,7 +67,7 @@ type MessageReplies struct {
 	//  1) https://core.telegram.org/api/discussion
 	//
 	// Use SetChannelID and GetChannelID helpers.
-	ChannelID int
+	ChannelID int64
 	// ID of the latest message in this thread or comment section.
 	//
 	// Use SetMaxID and GetMaxID helpers.
@@ -79,7 +79,7 @@ type MessageReplies struct {
 }
 
 // MessageRepliesTypeID is TL type id of MessageReplies.
-const MessageRepliesTypeID = 0x4128faac
+const MessageRepliesTypeID = 0x83d60fc2
 
 // Ensuring interfaces in compile-time for MessageReplies.
 var (
@@ -136,7 +136,7 @@ func (m *MessageReplies) FillFrom(from interface {
 	GetReplies() (value int)
 	GetRepliesPts() (value int)
 	GetRecentRepliers() (value []PeerClass, ok bool)
-	GetChannelID() (value int, ok bool)
+	GetChannelID() (value int64, ok bool)
 	GetMaxID() (value int, ok bool)
 	GetReadMaxID() (value int, ok bool)
 }) {
@@ -224,7 +224,7 @@ func (m *MessageReplies) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageReplies) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReplies#4128faac as nil")
+		return fmt.Errorf("can't encode messageReplies#83d60fc2 as nil")
 	}
 	b.PutID(MessageRepliesTypeID)
 	return m.EncodeBare(b)
@@ -233,7 +233,7 @@ func (m *MessageReplies) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReplies#4128faac as nil")
+		return fmt.Errorf("can't encode messageReplies#83d60fc2 as nil")
 	}
 	if !(m.Comments == false) {
 		m.Flags.Set(0)
@@ -251,7 +251,7 @@ func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
 		m.Flags.Set(3)
 	}
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageReplies#4128faac: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageReplies#83d60fc2: field flags: %w", err)
 	}
 	b.PutInt(m.Replies)
 	b.PutInt(m.RepliesPts)
@@ -259,15 +259,15 @@ func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(m.RecentRepliers))
 		for idx, v := range m.RecentRepliers {
 			if v == nil {
-				return fmt.Errorf("unable to encode messageReplies#4128faac: field recent_repliers element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode messageReplies#83d60fc2: field recent_repliers element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messageReplies#4128faac: field recent_repliers element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode messageReplies#83d60fc2: field recent_repliers element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if m.Flags.Has(0) {
-		b.PutInt(m.ChannelID)
+		b.PutLong(m.ChannelID)
 	}
 	if m.Flags.Has(2) {
 		b.PutInt(m.MaxID)
@@ -281,10 +281,10 @@ func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageReplies) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReplies#4128faac to nil")
+		return fmt.Errorf("can't decode messageReplies#83d60fc2 to nil")
 	}
 	if err := b.ConsumeID(MessageRepliesTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageReplies#4128faac: %w", err)
+		return fmt.Errorf("unable to decode messageReplies#83d60fc2: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -292,32 +292,32 @@ func (m *MessageReplies) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageReplies) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReplies#4128faac to nil")
+		return fmt.Errorf("can't decode messageReplies#83d60fc2 to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageReplies#83d60fc2: field flags: %w", err)
 		}
 	}
 	m.Comments = m.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field replies: %w", err)
+			return fmt.Errorf("unable to decode messageReplies#83d60fc2: field replies: %w", err)
 		}
 		m.Replies = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field replies_pts: %w", err)
+			return fmt.Errorf("unable to decode messageReplies#83d60fc2: field replies_pts: %w", err)
 		}
 		m.RepliesPts = value
 	}
 	if m.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field recent_repliers: %w", err)
+			return fmt.Errorf("unable to decode messageReplies#83d60fc2: field recent_repliers: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -326,29 +326,29 @@ func (m *MessageReplies) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageReplies#4128faac: field recent_repliers: %w", err)
+				return fmt.Errorf("unable to decode messageReplies#83d60fc2: field recent_repliers: %w", err)
 			}
 			m.RecentRepliers = append(m.RecentRepliers, value)
 		}
 	}
 	if m.Flags.Has(0) {
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field channel_id: %w", err)
+			return fmt.Errorf("unable to decode messageReplies#83d60fc2: field channel_id: %w", err)
 		}
 		m.ChannelID = value
 	}
 	if m.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field max_id: %w", err)
+			return fmt.Errorf("unable to decode messageReplies#83d60fc2: field max_id: %w", err)
 		}
 		m.MaxID = value
 	}
 	if m.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReplies#4128faac: field read_max_id: %w", err)
+			return fmt.Errorf("unable to decode messageReplies#83d60fc2: field read_max_id: %w", err)
 		}
 		m.ReadMaxID = value
 	}
@@ -397,14 +397,14 @@ func (m *MessageReplies) GetRecentRepliers() (value []PeerClass, ok bool) {
 }
 
 // SetChannelID sets value of ChannelID conditional field.
-func (m *MessageReplies) SetChannelID(value int) {
+func (m *MessageReplies) SetChannelID(value int64) {
 	m.Flags.Set(0)
 	m.ChannelID = value
 }
 
 // GetChannelID returns value of ChannelID conditional field and
 // boolean which is true if field was set.
-func (m *MessageReplies) GetChannelID() (value int, ok bool) {
+func (m *MessageReplies) GetChannelID() (value int64, ok bool) {
 	if !m.Flags.Has(0) {
 		return value, false
 	}

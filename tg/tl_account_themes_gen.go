@@ -131,7 +131,7 @@ func (t *AccountThemesNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// AccountThemes represents TL type `account.themes#7f676421`.
+// AccountThemes represents TL type `account.themes#9a3d8c6d`.
 // Installed themes
 //
 // See https://core.telegram.org/constructor/account.themes for reference.
@@ -140,13 +140,13 @@ type AccountThemes struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 	// Themes
 	Themes []Theme
 }
 
 // AccountThemesTypeID is TL type id of AccountThemes.
-const AccountThemesTypeID = 0x7f676421
+const AccountThemesTypeID = 0x9a3d8c6d
 
 // construct implements constructor of AccountThemesClass.
 func (t AccountThemes) construct() AccountThemesClass { return &t }
@@ -186,7 +186,7 @@ func (t *AccountThemes) String() string {
 
 // FillFrom fills AccountThemes from given interface.
 func (t *AccountThemes) FillFrom(from interface {
-	GetHash() (value int)
+	GetHash() (value int64)
 	GetThemes() (value []Theme)
 }) {
 	t.Hash = from.GetHash()
@@ -231,7 +231,7 @@ func (t *AccountThemes) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *AccountThemes) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode account.themes#7f676421 as nil")
+		return fmt.Errorf("can't encode account.themes#9a3d8c6d as nil")
 	}
 	b.PutID(AccountThemesTypeID)
 	return t.EncodeBare(b)
@@ -240,13 +240,13 @@ func (t *AccountThemes) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *AccountThemes) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode account.themes#7f676421 as nil")
+		return fmt.Errorf("can't encode account.themes#9a3d8c6d as nil")
 	}
-	b.PutInt(t.Hash)
+	b.PutLong(t.Hash)
 	b.PutVectorHeader(len(t.Themes))
 	for idx, v := range t.Themes {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.themes#7f676421: field themes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode account.themes#9a3d8c6d: field themes element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -255,10 +255,10 @@ func (t *AccountThemes) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *AccountThemes) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode account.themes#7f676421 to nil")
+		return fmt.Errorf("can't decode account.themes#9a3d8c6d to nil")
 	}
 	if err := b.ConsumeID(AccountThemesTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.themes#7f676421: %w", err)
+		return fmt.Errorf("unable to decode account.themes#9a3d8c6d: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -266,19 +266,19 @@ func (t *AccountThemes) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *AccountThemes) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode account.themes#7f676421 to nil")
+		return fmt.Errorf("can't decode account.themes#9a3d8c6d to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.themes#7f676421: field hash: %w", err)
+			return fmt.Errorf("unable to decode account.themes#9a3d8c6d: field hash: %w", err)
 		}
 		t.Hash = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.themes#7f676421: field themes: %w", err)
+			return fmt.Errorf("unable to decode account.themes#9a3d8c6d: field themes: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -287,7 +287,7 @@ func (t *AccountThemes) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value Theme
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode account.themes#7f676421: field themes: %w", err)
+				return fmt.Errorf("unable to decode account.themes#9a3d8c6d: field themes: %w", err)
 			}
 			t.Themes = append(t.Themes, value)
 		}
@@ -296,7 +296,7 @@ func (t *AccountThemes) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetHash returns value of Hash field.
-func (t *AccountThemes) GetHash() (value int) {
+func (t *AccountThemes) GetHash() (value int64) {
 	return t.Hash
 }
 
@@ -316,7 +316,7 @@ func (t *AccountThemes) GetThemes() (value []Theme) {
 //  }
 //  switch v := g.(type) {
 //  case *tg.AccountThemesNotModified: // account.themesNotModified#f41eb622
-//  case *tg.AccountThemes: // account.themes#7f676421
+//  case *tg.AccountThemes: // account.themes#9a3d8c6d
 //  default: panic(v)
 //  }
 type AccountThemesClass interface {
@@ -366,7 +366,7 @@ func DecodeAccountThemes(buf *bin.Buffer) (AccountThemesClass, error) {
 		}
 		return &v, nil
 	case AccountThemesTypeID:
-		// Decoding account.themes#7f676421.
+		// Decoding account.themes#9a3d8c6d.
 		v := AccountThemes{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AccountThemesClass: %w", err)

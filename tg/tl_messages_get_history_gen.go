@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetHistoryRequest represents TL type `messages.getHistory#dcbb8260`.
+// MessagesGetHistoryRequest represents TL type `messages.getHistory#4423e6c5`.
 // Gets back the conversation history with one interlocutor / within a chat
 //
 // See https://core.telegram.org/method/messages.getHistory for reference.
@@ -54,11 +54,11 @@ type MessagesGetHistoryRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Hash int
+	Hash int64
 }
 
 // MessagesGetHistoryRequestTypeID is TL type id of MessagesGetHistoryRequest.
-const MessagesGetHistoryRequestTypeID = 0xdcbb8260
+const MessagesGetHistoryRequestTypeID = 0x4423e6c5
 
 // Ensuring interfaces in compile-time for MessagesGetHistoryRequest.
 var (
@@ -118,7 +118,7 @@ func (g *MessagesGetHistoryRequest) FillFrom(from interface {
 	GetLimit() (value int)
 	GetMaxID() (value int)
 	GetMinID() (value int)
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Peer = from.GetPeer()
 	g.OffsetID = from.GetOffsetID()
@@ -192,7 +192,7 @@ func (g *MessagesGetHistoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetHistoryRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getHistory#dcbb8260 as nil")
+		return fmt.Errorf("can't encode messages.getHistory#4423e6c5 as nil")
 	}
 	b.PutID(MessagesGetHistoryRequestTypeID)
 	return g.EncodeBare(b)
@@ -201,13 +201,13 @@ func (g *MessagesGetHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getHistory#dcbb8260 as nil")
+		return fmt.Errorf("can't encode messages.getHistory#4423e6c5 as nil")
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getHistory#dcbb8260: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getHistory#4423e6c5: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getHistory#dcbb8260: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getHistory#4423e6c5: field peer: %w", err)
 	}
 	b.PutInt(g.OffsetID)
 	b.PutInt(g.OffsetDate)
@@ -215,17 +215,17 @@ func (g *MessagesGetHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(g.Limit)
 	b.PutInt(g.MaxID)
 	b.PutInt(g.MinID)
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *MessagesGetHistoryRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getHistory#dcbb8260 to nil")
+		return fmt.Errorf("can't decode messages.getHistory#4423e6c5 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: %w", err)
+		return fmt.Errorf("unable to decode messages.getHistory#4423e6c5: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -233,61 +233,61 @@ func (g *MessagesGetHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getHistory#dcbb8260 to nil")
+		return fmt.Errorf("can't decode messages.getHistory#4423e6c5 to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getHistory#4423e6c5: field peer: %w", err)
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getHistory#4423e6c5: field offset_id: %w", err)
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field offset_date: %w", err)
+			return fmt.Errorf("unable to decode messages.getHistory#4423e6c5: field offset_date: %w", err)
 		}
 		g.OffsetDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field add_offset: %w", err)
+			return fmt.Errorf("unable to decode messages.getHistory#4423e6c5: field add_offset: %w", err)
 		}
 		g.AddOffset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.getHistory#4423e6c5: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field max_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getHistory#4423e6c5: field max_id: %w", err)
 		}
 		g.MaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field min_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getHistory#4423e6c5: field min_id: %w", err)
 		}
 		g.MinID = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getHistory#4423e6c5: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -330,11 +330,11 @@ func (g *MessagesGetHistoryRequest) GetMinID() (value int) {
 }
 
 // GetHash returns value of Hash field.
-func (g *MessagesGetHistoryRequest) GetHash() (value int) {
+func (g *MessagesGetHistoryRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetHistory invokes method messages.getHistory#dcbb8260 returning error if any.
+// MessagesGetHistory invokes method messages.getHistory#4423e6c5 returning error if any.
 // Gets back the conversation history with one interlocutor / within a chat
 //
 // Possible errors:

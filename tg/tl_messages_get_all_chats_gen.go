@@ -29,17 +29,17 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetAllChatsRequest represents TL type `messages.getAllChats#eba80ff0`.
+// MessagesGetAllChatsRequest represents TL type `messages.getAllChats#875f74be`.
 // Get all chats, channels and supergroups
 //
 // See https://core.telegram.org/method/messages.getAllChats for reference.
 type MessagesGetAllChatsRequest struct {
 	// Except these chats/channels/supergroups
-	ExceptIDs []int
+	ExceptIDs []int64
 }
 
 // MessagesGetAllChatsRequestTypeID is TL type id of MessagesGetAllChatsRequest.
-const MessagesGetAllChatsRequestTypeID = 0xeba80ff0
+const MessagesGetAllChatsRequestTypeID = 0x875f74be
 
 // Ensuring interfaces in compile-time for MessagesGetAllChatsRequest.
 var (
@@ -71,7 +71,7 @@ func (g *MessagesGetAllChatsRequest) String() string {
 
 // FillFrom fills MessagesGetAllChatsRequest from given interface.
 func (g *MessagesGetAllChatsRequest) FillFrom(from interface {
-	GetExceptIDs() (value []int)
+	GetExceptIDs() (value []int64)
 }) {
 	g.ExceptIDs = from.GetExceptIDs()
 }
@@ -110,7 +110,7 @@ func (g *MessagesGetAllChatsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetAllChatsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getAllChats#eba80ff0 as nil")
+		return fmt.Errorf("can't encode messages.getAllChats#875f74be as nil")
 	}
 	b.PutID(MessagesGetAllChatsRequestTypeID)
 	return g.EncodeBare(b)
@@ -119,11 +119,11 @@ func (g *MessagesGetAllChatsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetAllChatsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getAllChats#eba80ff0 as nil")
+		return fmt.Errorf("can't encode messages.getAllChats#875f74be as nil")
 	}
 	b.PutVectorHeader(len(g.ExceptIDs))
 	for _, v := range g.ExceptIDs {
-		b.PutInt(v)
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -131,10 +131,10 @@ func (g *MessagesGetAllChatsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetAllChatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getAllChats#eba80ff0 to nil")
+		return fmt.Errorf("can't decode messages.getAllChats#875f74be to nil")
 	}
 	if err := b.ConsumeID(MessagesGetAllChatsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getAllChats#eba80ff0: %w", err)
+		return fmt.Errorf("unable to decode messages.getAllChats#875f74be: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -142,21 +142,21 @@ func (g *MessagesGetAllChatsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetAllChatsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getAllChats#eba80ff0 to nil")
+		return fmt.Errorf("can't decode messages.getAllChats#875f74be to nil")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getAllChats#eba80ff0: field except_ids: %w", err)
+			return fmt.Errorf("unable to decode messages.getAllChats#875f74be: field except_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			g.ExceptIDs = make([]int, 0, headerLen%bin.PreallocateLimit)
+			g.ExceptIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.getAllChats#eba80ff0: field except_ids: %w", err)
+				return fmt.Errorf("unable to decode messages.getAllChats#875f74be: field except_ids: %w", err)
 			}
 			g.ExceptIDs = append(g.ExceptIDs, value)
 		}
@@ -165,15 +165,15 @@ func (g *MessagesGetAllChatsRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetExceptIDs returns value of ExceptIDs field.
-func (g *MessagesGetAllChatsRequest) GetExceptIDs() (value []int) {
+func (g *MessagesGetAllChatsRequest) GetExceptIDs() (value []int64) {
 	return g.ExceptIDs
 }
 
-// MessagesGetAllChats invokes method messages.getAllChats#eba80ff0 returning error if any.
+// MessagesGetAllChats invokes method messages.getAllChats#875f74be returning error if any.
 // Get all chats, channels and supergroups
 //
 // See https://core.telegram.org/method/messages.getAllChats for reference.
-func (c *Client) MessagesGetAllChats(ctx context.Context, exceptids []int) (MessagesChatsClass, error) {
+func (c *Client) MessagesGetAllChats(ctx context.Context, exceptids []int64) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
 
 	request := &MessagesGetAllChatsRequest{

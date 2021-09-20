@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetSavedGifsRequest represents TL type `messages.getSavedGifs#83bf3d52`.
+// MessagesGetSavedGifsRequest represents TL type `messages.getSavedGifs#5cf09635`.
 // Get saved GIFs
 //
 // See https://core.telegram.org/method/messages.getSavedGifs for reference.
@@ -38,11 +38,11 @@ type MessagesGetSavedGifsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // MessagesGetSavedGifsRequestTypeID is TL type id of MessagesGetSavedGifsRequest.
-const MessagesGetSavedGifsRequestTypeID = 0x83bf3d52
+const MessagesGetSavedGifsRequestTypeID = 0x5cf09635
 
 // Ensuring interfaces in compile-time for MessagesGetSavedGifsRequest.
 var (
@@ -74,7 +74,7 @@ func (g *MessagesGetSavedGifsRequest) String() string {
 
 // FillFrom fills MessagesGetSavedGifsRequest from given interface.
 func (g *MessagesGetSavedGifsRequest) FillFrom(from interface {
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Hash = from.GetHash()
 }
@@ -113,7 +113,7 @@ func (g *MessagesGetSavedGifsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetSavedGifsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSavedGifs#83bf3d52 as nil")
+		return fmt.Errorf("can't encode messages.getSavedGifs#5cf09635 as nil")
 	}
 	b.PutID(MessagesGetSavedGifsRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,19 +122,19 @@ func (g *MessagesGetSavedGifsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetSavedGifsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSavedGifs#83bf3d52 as nil")
+		return fmt.Errorf("can't encode messages.getSavedGifs#5cf09635 as nil")
 	}
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *MessagesGetSavedGifsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSavedGifs#83bf3d52 to nil")
+		return fmt.Errorf("can't decode messages.getSavedGifs#5cf09635 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetSavedGifsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getSavedGifs#83bf3d52: %w", err)
+		return fmt.Errorf("unable to decode messages.getSavedGifs#5cf09635: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (g *MessagesGetSavedGifsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetSavedGifsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSavedGifs#83bf3d52 to nil")
+		return fmt.Errorf("can't decode messages.getSavedGifs#5cf09635 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSavedGifs#83bf3d52: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getSavedGifs#5cf09635: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -155,15 +155,15 @@ func (g *MessagesGetSavedGifsRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetHash returns value of Hash field.
-func (g *MessagesGetSavedGifsRequest) GetHash() (value int) {
+func (g *MessagesGetSavedGifsRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetSavedGifs invokes method messages.getSavedGifs#83bf3d52 returning error if any.
+// MessagesGetSavedGifs invokes method messages.getSavedGifs#5cf09635 returning error if any.
 // Get saved GIFs
 //
 // See https://core.telegram.org/method/messages.getSavedGifs for reference.
-func (c *Client) MessagesGetSavedGifs(ctx context.Context, hash int) (MessagesSavedGifsClass, error) {
+func (c *Client) MessagesGetSavedGifs(ctx context.Context, hash int64) (MessagesSavedGifsClass, error) {
 	var result MessagesSavedGifsBox
 
 	request := &MessagesGetSavedGifsRequest{

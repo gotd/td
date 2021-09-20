@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// AccountUnregisterDeviceRequest represents TL type `account.unregisterDevice#3076c4bf`.
+// AccountUnregisterDeviceRequest represents TL type `account.unregisterDevice#6a0d3206`.
 // Deletes a device by its token, stops sending PUSH-notifications to it.
 //
 // See https://core.telegram.org/method/account.unregisterDevice for reference.
@@ -48,11 +48,11 @@ type AccountUnregisterDeviceRequest struct {
 	// Device token
 	Token string
 	// List of user identifiers of other users currently using the client
-	OtherUIDs []int
+	OtherUIDs []int64
 }
 
 // AccountUnregisterDeviceRequestTypeID is TL type id of AccountUnregisterDeviceRequest.
-const AccountUnregisterDeviceRequestTypeID = 0x3076c4bf
+const AccountUnregisterDeviceRequestTypeID = 0x6a0d3206
 
 // Ensuring interfaces in compile-time for AccountUnregisterDeviceRequest.
 var (
@@ -92,7 +92,7 @@ func (u *AccountUnregisterDeviceRequest) String() string {
 func (u *AccountUnregisterDeviceRequest) FillFrom(from interface {
 	GetTokenType() (value int)
 	GetToken() (value string)
-	GetOtherUIDs() (value []int)
+	GetOtherUIDs() (value []int64)
 }) {
 	u.TokenType = from.GetTokenType()
 	u.Token = from.GetToken()
@@ -141,7 +141,7 @@ func (u *AccountUnregisterDeviceRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *AccountUnregisterDeviceRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.unregisterDevice#3076c4bf as nil")
+		return fmt.Errorf("can't encode account.unregisterDevice#6a0d3206 as nil")
 	}
 	b.PutID(AccountUnregisterDeviceRequestTypeID)
 	return u.EncodeBare(b)
@@ -150,13 +150,13 @@ func (u *AccountUnregisterDeviceRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUnregisterDeviceRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.unregisterDevice#3076c4bf as nil")
+		return fmt.Errorf("can't encode account.unregisterDevice#6a0d3206 as nil")
 	}
 	b.PutInt(u.TokenType)
 	b.PutString(u.Token)
 	b.PutVectorHeader(len(u.OtherUIDs))
 	for _, v := range u.OtherUIDs {
-		b.PutInt(v)
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -164,10 +164,10 @@ func (u *AccountUnregisterDeviceRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *AccountUnregisterDeviceRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.unregisterDevice#3076c4bf to nil")
+		return fmt.Errorf("can't decode account.unregisterDevice#6a0d3206 to nil")
 	}
 	if err := b.ConsumeID(AccountUnregisterDeviceRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: %w", err)
+		return fmt.Errorf("unable to decode account.unregisterDevice#6a0d3206: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -175,35 +175,35 @@ func (u *AccountUnregisterDeviceRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUnregisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.unregisterDevice#3076c4bf to nil")
+		return fmt.Errorf("can't decode account.unregisterDevice#6a0d3206 to nil")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: field token_type: %w", err)
+			return fmt.Errorf("unable to decode account.unregisterDevice#6a0d3206: field token_type: %w", err)
 		}
 		u.TokenType = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: field token: %w", err)
+			return fmt.Errorf("unable to decode account.unregisterDevice#6a0d3206: field token: %w", err)
 		}
 		u.Token = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: field other_uids: %w", err)
+			return fmt.Errorf("unable to decode account.unregisterDevice#6a0d3206: field other_uids: %w", err)
 		}
 
 		if headerLen > 0 {
-			u.OtherUIDs = make([]int, 0, headerLen%bin.PreallocateLimit)
+			u.OtherUIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: field other_uids: %w", err)
+				return fmt.Errorf("unable to decode account.unregisterDevice#6a0d3206: field other_uids: %w", err)
 			}
 			u.OtherUIDs = append(u.OtherUIDs, value)
 		}
@@ -222,11 +222,11 @@ func (u *AccountUnregisterDeviceRequest) GetToken() (value string) {
 }
 
 // GetOtherUIDs returns value of OtherUIDs field.
-func (u *AccountUnregisterDeviceRequest) GetOtherUIDs() (value []int) {
+func (u *AccountUnregisterDeviceRequest) GetOtherUIDs() (value []int64) {
 	return u.OtherUIDs
 }
 
-// AccountUnregisterDevice invokes method account.unregisterDevice#3076c4bf returning error if any.
+// AccountUnregisterDevice invokes method account.unregisterDevice#6a0d3206 returning error if any.
 // Deletes a device by its token, stops sending PUSH-notifications to it.
 //
 // Possible errors:

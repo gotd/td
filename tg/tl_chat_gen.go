@@ -29,17 +29,17 @@ var (
 	_ = tgerr.Error{}
 )
 
-// ChatEmpty represents TL type `chatEmpty#9ba2d800`.
+// ChatEmpty represents TL type `chatEmpty#29562865`.
 // Empty constructor, group doesn't exist
 //
 // See https://core.telegram.org/constructor/chatEmpty for reference.
 type ChatEmpty struct {
 	// Group identifier
-	ID int
+	ID int64
 }
 
 // ChatEmptyTypeID is TL type id of ChatEmpty.
-const ChatEmptyTypeID = 0x9ba2d800
+const ChatEmptyTypeID = 0x29562865
 
 // construct implements constructor of ChatClass.
 func (c ChatEmpty) construct() ChatClass { return &c }
@@ -76,7 +76,7 @@ func (c *ChatEmpty) String() string {
 
 // FillFrom fills ChatEmpty from given interface.
 func (c *ChatEmpty) FillFrom(from interface {
-	GetID() (value int)
+	GetID() (value int64)
 }) {
 	c.ID = from.GetID()
 }
@@ -115,7 +115,7 @@ func (c *ChatEmpty) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEmpty#9ba2d800 as nil")
+		return fmt.Errorf("can't encode chatEmpty#29562865 as nil")
 	}
 	b.PutID(ChatEmptyTypeID)
 	return c.EncodeBare(b)
@@ -124,19 +124,19 @@ func (c *ChatEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatEmpty) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEmpty#9ba2d800 as nil")
+		return fmt.Errorf("can't encode chatEmpty#29562865 as nil")
 	}
-	b.PutInt(c.ID)
+	b.PutLong(c.ID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatEmpty) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEmpty#9ba2d800 to nil")
+		return fmt.Errorf("can't decode chatEmpty#29562865 to nil")
 	}
 	if err := b.ConsumeID(ChatEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEmpty#9ba2d800: %w", err)
+		return fmt.Errorf("unable to decode chatEmpty#29562865: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -144,12 +144,12 @@ func (c *ChatEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatEmpty) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEmpty#9ba2d800 to nil")
+		return fmt.Errorf("can't decode chatEmpty#29562865 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEmpty#9ba2d800: field id: %w", err)
+			return fmt.Errorf("unable to decode chatEmpty#29562865: field id: %w", err)
 		}
 		c.ID = value
 	}
@@ -157,11 +157,11 @@ func (c *ChatEmpty) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetID returns value of ID field.
-func (c *ChatEmpty) GetID() (value int) {
+func (c *ChatEmpty) GetID() (value int64) {
 	return c.ID
 }
 
-// Chat represents TL type `chat#3bda1bde`.
+// Chat represents TL type `chat#41cbf256`.
 // Info about a group
 //
 // See https://core.telegram.org/constructor/chat for reference.
@@ -187,7 +187,7 @@ type Chat struct {
 	// CallNotEmpty field of Chat.
 	CallNotEmpty bool
 	// ID of the group
-	ID int
+	ID int64
 	// Title
 	Title string
 	// Chat photo
@@ -222,7 +222,7 @@ type Chat struct {
 }
 
 // ChatTypeID is TL type id of Chat.
-const ChatTypeID = 0x3bda1bde
+const ChatTypeID = 0x41cbf256
 
 // construct implements constructor of ChatClass.
 func (c Chat) construct() ChatClass { return &c }
@@ -310,7 +310,7 @@ func (c *Chat) FillFrom(from interface {
 	GetDeactivated() (value bool)
 	GetCallActive() (value bool)
 	GetCallNotEmpty() (value bool)
-	GetID() (value int)
+	GetID() (value int64)
 	GetTitle() (value string)
 	GetPhoto() (value ChatPhotoClass)
 	GetParticipantsCount() (value int)
@@ -445,7 +445,7 @@ func (c *Chat) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *Chat) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chat#3bda1bde as nil")
+		return fmt.Errorf("can't encode chat#41cbf256 as nil")
 	}
 	b.PutID(ChatTypeID)
 	return c.EncodeBare(b)
@@ -454,7 +454,7 @@ func (c *Chat) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *Chat) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chat#3bda1bde as nil")
+		return fmt.Errorf("can't encode chat#41cbf256 as nil")
 	}
 	if !(c.Creator == false) {
 		c.Flags.Set(0)
@@ -484,35 +484,35 @@ func (c *Chat) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(18)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chat#3bda1bde: field flags: %w", err)
+		return fmt.Errorf("unable to encode chat#41cbf256: field flags: %w", err)
 	}
-	b.PutInt(c.ID)
+	b.PutLong(c.ID)
 	b.PutString(c.Title)
 	if c.Photo == nil {
-		return fmt.Errorf("unable to encode chat#3bda1bde: field photo is nil")
+		return fmt.Errorf("unable to encode chat#41cbf256: field photo is nil")
 	}
 	if err := c.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chat#3bda1bde: field photo: %w", err)
+		return fmt.Errorf("unable to encode chat#41cbf256: field photo: %w", err)
 	}
 	b.PutInt(c.ParticipantsCount)
 	b.PutInt(c.Date)
 	b.PutInt(c.Version)
 	if c.Flags.Has(6) {
 		if c.MigratedTo == nil {
-			return fmt.Errorf("unable to encode chat#3bda1bde: field migrated_to is nil")
+			return fmt.Errorf("unable to encode chat#41cbf256: field migrated_to is nil")
 		}
 		if err := c.MigratedTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode chat#3bda1bde: field migrated_to: %w", err)
+			return fmt.Errorf("unable to encode chat#41cbf256: field migrated_to: %w", err)
 		}
 	}
 	if c.Flags.Has(14) {
 		if err := c.AdminRights.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode chat#3bda1bde: field admin_rights: %w", err)
+			return fmt.Errorf("unable to encode chat#41cbf256: field admin_rights: %w", err)
 		}
 	}
 	if c.Flags.Has(18) {
 		if err := c.DefaultBannedRights.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode chat#3bda1bde: field default_banned_rights: %w", err)
+			return fmt.Errorf("unable to encode chat#41cbf256: field default_banned_rights: %w", err)
 		}
 	}
 	return nil
@@ -521,10 +521,10 @@ func (c *Chat) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *Chat) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chat#3bda1bde to nil")
+		return fmt.Errorf("can't decode chat#41cbf256 to nil")
 	}
 	if err := b.ConsumeID(ChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode chat#3bda1bde: %w", err)
+		return fmt.Errorf("unable to decode chat#41cbf256: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -532,11 +532,11 @@ func (c *Chat) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *Chat) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chat#3bda1bde to nil")
+		return fmt.Errorf("can't decode chat#41cbf256 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field flags: %w", err)
+			return fmt.Errorf("unable to decode chat#41cbf256: field flags: %w", err)
 		}
 	}
 	c.Creator = c.Flags.Has(0)
@@ -546,62 +546,62 @@ func (c *Chat) DecodeBare(b *bin.Buffer) error {
 	c.CallActive = c.Flags.Has(23)
 	c.CallNotEmpty = c.Flags.Has(24)
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field id: %w", err)
+			return fmt.Errorf("unable to decode chat#41cbf256: field id: %w", err)
 		}
 		c.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field title: %w", err)
+			return fmt.Errorf("unable to decode chat#41cbf256: field title: %w", err)
 		}
 		c.Title = value
 	}
 	{
 		value, err := DecodeChatPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field photo: %w", err)
+			return fmt.Errorf("unable to decode chat#41cbf256: field photo: %w", err)
 		}
 		c.Photo = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field participants_count: %w", err)
+			return fmt.Errorf("unable to decode chat#41cbf256: field participants_count: %w", err)
 		}
 		c.ParticipantsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field date: %w", err)
+			return fmt.Errorf("unable to decode chat#41cbf256: field date: %w", err)
 		}
 		c.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field version: %w", err)
+			return fmt.Errorf("unable to decode chat#41cbf256: field version: %w", err)
 		}
 		c.Version = value
 	}
 	if c.Flags.Has(6) {
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field migrated_to: %w", err)
+			return fmt.Errorf("unable to decode chat#41cbf256: field migrated_to: %w", err)
 		}
 		c.MigratedTo = value
 	}
 	if c.Flags.Has(14) {
 		if err := c.AdminRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field admin_rights: %w", err)
+			return fmt.Errorf("unable to decode chat#41cbf256: field admin_rights: %w", err)
 		}
 	}
 	if c.Flags.Has(18) {
 		if err := c.DefaultBannedRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#3bda1bde: field default_banned_rights: %w", err)
+			return fmt.Errorf("unable to decode chat#41cbf256: field default_banned_rights: %w", err)
 		}
 	}
 	return nil
@@ -704,7 +704,7 @@ func (c *Chat) GetCallNotEmpty() (value bool) {
 }
 
 // GetID returns value of ID field.
-func (c *Chat) GetID() (value int) {
+func (c *Chat) GetID() (value int64) {
 	return c.ID
 }
 
@@ -778,20 +778,20 @@ func (c *Chat) GetDefaultBannedRights() (value ChatBannedRights, ok bool) {
 	return c.DefaultBannedRights, true
 }
 
-// ChatForbidden represents TL type `chatForbidden#7328bdb`.
+// ChatForbidden represents TL type `chatForbidden#6592a1a7`.
 // A group to which the user has no access. E.g., because the user was kicked from the
 // group.
 //
 // See https://core.telegram.org/constructor/chatForbidden for reference.
 type ChatForbidden struct {
 	// User identifier
-	ID int
+	ID int64
 	// Group name
 	Title string
 }
 
 // ChatForbiddenTypeID is TL type id of ChatForbidden.
-const ChatForbiddenTypeID = 0x7328bdb
+const ChatForbiddenTypeID = 0x6592a1a7
 
 // construct implements constructor of ChatClass.
 func (c ChatForbidden) construct() ChatClass { return &c }
@@ -831,7 +831,7 @@ func (c *ChatForbidden) String() string {
 
 // FillFrom fills ChatForbidden from given interface.
 func (c *ChatForbidden) FillFrom(from interface {
-	GetID() (value int)
+	GetID() (value int64)
 	GetTitle() (value string)
 }) {
 	c.ID = from.GetID()
@@ -876,7 +876,7 @@ func (c *ChatForbidden) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatForbidden) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatForbidden#7328bdb as nil")
+		return fmt.Errorf("can't encode chatForbidden#6592a1a7 as nil")
 	}
 	b.PutID(ChatForbiddenTypeID)
 	return c.EncodeBare(b)
@@ -885,9 +885,9 @@ func (c *ChatForbidden) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatForbidden) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatForbidden#7328bdb as nil")
+		return fmt.Errorf("can't encode chatForbidden#6592a1a7 as nil")
 	}
-	b.PutInt(c.ID)
+	b.PutLong(c.ID)
 	b.PutString(c.Title)
 	return nil
 }
@@ -895,10 +895,10 @@ func (c *ChatForbidden) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatForbidden) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatForbidden#7328bdb to nil")
+		return fmt.Errorf("can't decode chatForbidden#6592a1a7 to nil")
 	}
 	if err := b.ConsumeID(ChatForbiddenTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatForbidden#7328bdb: %w", err)
+		return fmt.Errorf("unable to decode chatForbidden#6592a1a7: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -906,19 +906,19 @@ func (c *ChatForbidden) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatForbidden) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatForbidden#7328bdb to nil")
+		return fmt.Errorf("can't decode chatForbidden#6592a1a7 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatForbidden#7328bdb: field id: %w", err)
+			return fmt.Errorf("unable to decode chatForbidden#6592a1a7: field id: %w", err)
 		}
 		c.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatForbidden#7328bdb: field title: %w", err)
+			return fmt.Errorf("unable to decode chatForbidden#6592a1a7: field title: %w", err)
 		}
 		c.Title = value
 	}
@@ -926,7 +926,7 @@ func (c *ChatForbidden) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetID returns value of ID field.
-func (c *ChatForbidden) GetID() (value int) {
+func (c *ChatForbidden) GetID() (value int64) {
 	return c.ID
 }
 
@@ -935,7 +935,7 @@ func (c *ChatForbidden) GetTitle() (value string) {
 	return c.Title
 }
 
-// Channel represents TL type `channel#d31a961e`.
+// Channel represents TL type `channel#8261ac61`.
 // Channel/supergroup info
 //
 // See https://core.telegram.org/constructor/channel for reference.
@@ -981,7 +981,7 @@ type Channel struct {
 	// Gigagroup field of Channel.
 	Gigagroup bool
 	// ID of the channel
-	ID int
+	ID int64
 	// Access hash
 	//
 	// Use SetAccessHash and GetAccessHash helpers.
@@ -997,8 +997,6 @@ type Channel struct {
 	// Date when the user joined the supergroup/channel, or if the user isn't a member, its
 	// creation date
 	Date int
-	// Version of the channel (always 0)
-	Version int
 	// Contains the reason why access to this channel must be restricted.
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
@@ -1031,7 +1029,7 @@ type Channel struct {
 }
 
 // ChannelTypeID is TL type id of Channel.
-const ChannelTypeID = 0xd31a961e
+const ChannelTypeID = 0x8261ac61
 
 // construct implements constructor of ChatClass.
 func (c Channel) construct() ChatClass { return &c }
@@ -1119,9 +1117,6 @@ func (c *Channel) Zero() bool {
 	if !(c.Date == 0) {
 		return false
 	}
-	if !(c.Version == 0) {
-		return false
-	}
 	if !(c.RestrictionReason == nil) {
 		return false
 	}
@@ -1168,13 +1163,12 @@ func (c *Channel) FillFrom(from interface {
 	GetCallNotEmpty() (value bool)
 	GetFake() (value bool)
 	GetGigagroup() (value bool)
-	GetID() (value int)
+	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetTitle() (value string)
 	GetUsername() (value string, ok bool)
 	GetPhoto() (value ChatPhotoClass)
 	GetDate() (value int)
-	GetVersion() (value int)
 	GetRestrictionReason() (value []RestrictionReason, ok bool)
 	GetAdminRights() (value ChatAdminRights, ok bool)
 	GetBannedRights() (value ChatBannedRights, ok bool)
@@ -1209,7 +1203,6 @@ func (c *Channel) FillFrom(from interface {
 
 	c.Photo = from.GetPhoto()
 	c.Date = from.GetDate()
-	c.Version = from.GetVersion()
 	if val, ok := from.GetRestrictionReason(); ok {
 		c.RestrictionReason = val
 	}
@@ -1362,10 +1355,6 @@ func (c *Channel) TypeInfo() tdp.Type {
 			SchemaName: "date",
 		},
 		{
-			Name:       "Version",
-			SchemaName: "version",
-		},
-		{
 			Name:       "RestrictionReason",
 			SchemaName: "restriction_reason",
 			Null:       !c.Flags.Has(9),
@@ -1397,7 +1386,7 @@ func (c *Channel) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *Channel) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channel#d31a961e as nil")
+		return fmt.Errorf("can't encode channel#8261ac61 as nil")
 	}
 	b.PutID(ChannelTypeID)
 	return c.EncodeBare(b)
@@ -1406,7 +1395,7 @@ func (c *Channel) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *Channel) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channel#d31a961e as nil")
+		return fmt.Errorf("can't encode channel#8261ac61 as nil")
 	}
 	if !(c.Creator == false) {
 		c.Flags.Set(0)
@@ -1478,9 +1467,9 @@ func (c *Channel) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(17)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channel#d31a961e: field flags: %w", err)
+		return fmt.Errorf("unable to encode channel#8261ac61: field flags: %w", err)
 	}
-	b.PutInt(c.ID)
+	b.PutLong(c.ID)
 	if c.Flags.Has(13) {
 		b.PutLong(c.AccessHash)
 	}
@@ -1489,34 +1478,33 @@ func (c *Channel) EncodeBare(b *bin.Buffer) error {
 		b.PutString(c.Username)
 	}
 	if c.Photo == nil {
-		return fmt.Errorf("unable to encode channel#d31a961e: field photo is nil")
+		return fmt.Errorf("unable to encode channel#8261ac61: field photo is nil")
 	}
 	if err := c.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channel#d31a961e: field photo: %w", err)
+		return fmt.Errorf("unable to encode channel#8261ac61: field photo: %w", err)
 	}
 	b.PutInt(c.Date)
-	b.PutInt(c.Version)
 	if c.Flags.Has(9) {
 		b.PutVectorHeader(len(c.RestrictionReason))
 		for idx, v := range c.RestrictionReason {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode channel#d31a961e: field restriction_reason element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode channel#8261ac61: field restriction_reason element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if c.Flags.Has(14) {
 		if err := c.AdminRights.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channel#d31a961e: field admin_rights: %w", err)
+			return fmt.Errorf("unable to encode channel#8261ac61: field admin_rights: %w", err)
 		}
 	}
 	if c.Flags.Has(15) {
 		if err := c.BannedRights.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channel#d31a961e: field banned_rights: %w", err)
+			return fmt.Errorf("unable to encode channel#8261ac61: field banned_rights: %w", err)
 		}
 	}
 	if c.Flags.Has(18) {
 		if err := c.DefaultBannedRights.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channel#d31a961e: field default_banned_rights: %w", err)
+			return fmt.Errorf("unable to encode channel#8261ac61: field default_banned_rights: %w", err)
 		}
 	}
 	if c.Flags.Has(17) {
@@ -1528,10 +1516,10 @@ func (c *Channel) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *Channel) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channel#d31a961e to nil")
+		return fmt.Errorf("can't decode channel#8261ac61 to nil")
 	}
 	if err := b.ConsumeID(ChannelTypeID); err != nil {
-		return fmt.Errorf("unable to decode channel#d31a961e: %w", err)
+		return fmt.Errorf("unable to decode channel#8261ac61: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -1539,11 +1527,11 @@ func (c *Channel) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *Channel) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channel#d31a961e to nil")
+		return fmt.Errorf("can't decode channel#8261ac61 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field flags: %w", err)
+			return fmt.Errorf("unable to decode channel#8261ac61: field flags: %w", err)
 		}
 	}
 	c.Creator = c.Flags.Has(0)
@@ -1563,58 +1551,51 @@ func (c *Channel) DecodeBare(b *bin.Buffer) error {
 	c.Fake = c.Flags.Has(25)
 	c.Gigagroup = c.Flags.Has(26)
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field id: %w", err)
+			return fmt.Errorf("unable to decode channel#8261ac61: field id: %w", err)
 		}
 		c.ID = value
 	}
 	if c.Flags.Has(13) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode channel#8261ac61: field access_hash: %w", err)
 		}
 		c.AccessHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field title: %w", err)
+			return fmt.Errorf("unable to decode channel#8261ac61: field title: %w", err)
 		}
 		c.Title = value
 	}
 	if c.Flags.Has(6) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field username: %w", err)
+			return fmt.Errorf("unable to decode channel#8261ac61: field username: %w", err)
 		}
 		c.Username = value
 	}
 	{
 		value, err := DecodeChatPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field photo: %w", err)
+			return fmt.Errorf("unable to decode channel#8261ac61: field photo: %w", err)
 		}
 		c.Photo = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field date: %w", err)
+			return fmt.Errorf("unable to decode channel#8261ac61: field date: %w", err)
 		}
 		c.Date = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field version: %w", err)
-		}
-		c.Version = value
 	}
 	if c.Flags.Has(9) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field restriction_reason: %w", err)
+			return fmt.Errorf("unable to decode channel#8261ac61: field restriction_reason: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1623,30 +1604,30 @@ func (c *Channel) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value RestrictionReason
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode channel#d31a961e: field restriction_reason: %w", err)
+				return fmt.Errorf("unable to decode channel#8261ac61: field restriction_reason: %w", err)
 			}
 			c.RestrictionReason = append(c.RestrictionReason, value)
 		}
 	}
 	if c.Flags.Has(14) {
 		if err := c.AdminRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field admin_rights: %w", err)
+			return fmt.Errorf("unable to decode channel#8261ac61: field admin_rights: %w", err)
 		}
 	}
 	if c.Flags.Has(15) {
 		if err := c.BannedRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field banned_rights: %w", err)
+			return fmt.Errorf("unable to decode channel#8261ac61: field banned_rights: %w", err)
 		}
 	}
 	if c.Flags.Has(18) {
 		if err := c.DefaultBannedRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field default_banned_rights: %w", err)
+			return fmt.Errorf("unable to decode channel#8261ac61: field default_banned_rights: %w", err)
 		}
 	}
 	if c.Flags.Has(17) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channel#d31a961e: field participants_count: %w", err)
+			return fmt.Errorf("unable to decode channel#8261ac61: field participants_count: %w", err)
 		}
 		c.ParticipantsCount = value
 	}
@@ -1910,7 +1891,7 @@ func (c *Channel) GetGigagroup() (value bool) {
 }
 
 // GetID returns value of ID field.
-func (c *Channel) GetID() (value int) {
+func (c *Channel) GetID() (value int64) {
 	return c.ID
 }
 
@@ -1957,11 +1938,6 @@ func (c *Channel) GetPhoto() (value ChatPhotoClass) {
 // GetDate returns value of Date field.
 func (c *Channel) GetDate() (value int) {
 	return c.Date
-}
-
-// GetVersion returns value of Version field.
-func (c *Channel) GetVersion() (value int) {
-	return c.Version
 }
 
 // SetRestrictionReason sets value of RestrictionReason conditional field.
@@ -2039,7 +2015,7 @@ func (c *Channel) GetParticipantsCount() (value int, ok bool) {
 	return c.ParticipantsCount, true
 }
 
-// ChannelForbidden represents TL type `channelForbidden#289da732`.
+// ChannelForbidden represents TL type `channelForbidden#17d493d5`.
 // Indicates a channel/supergroup we can't access because we were banned, or for some
 // other reason.
 //
@@ -2055,7 +2031,7 @@ type ChannelForbidden struct {
 	// Is this a supergroup
 	Megagroup bool
 	// Channel ID
-	ID int
+	ID int64
 	// Access hash
 	AccessHash int64
 	// Title
@@ -2067,7 +2043,7 @@ type ChannelForbidden struct {
 }
 
 // ChannelForbiddenTypeID is TL type id of ChannelForbidden.
-const ChannelForbiddenTypeID = 0x289da732
+const ChannelForbiddenTypeID = 0x17d493d5
 
 // construct implements constructor of ChatClass.
 func (c ChannelForbidden) construct() ChatClass { return &c }
@@ -2124,7 +2100,7 @@ func (c *ChannelForbidden) String() string {
 func (c *ChannelForbidden) FillFrom(from interface {
 	GetBroadcast() (value bool)
 	GetMegagroup() (value bool)
-	GetID() (value int)
+	GetID() (value int64)
 	GetAccessHash() (value int64)
 	GetTitle() (value string)
 	GetUntilDate() (value int, ok bool)
@@ -2197,7 +2173,7 @@ func (c *ChannelForbidden) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelForbidden) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelForbidden#289da732 as nil")
+		return fmt.Errorf("can't encode channelForbidden#17d493d5 as nil")
 	}
 	b.PutID(ChannelForbiddenTypeID)
 	return c.EncodeBare(b)
@@ -2206,7 +2182,7 @@ func (c *ChannelForbidden) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelForbidden) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelForbidden#289da732 as nil")
+		return fmt.Errorf("can't encode channelForbidden#17d493d5 as nil")
 	}
 	if !(c.Broadcast == false) {
 		c.Flags.Set(5)
@@ -2218,9 +2194,9 @@ func (c *ChannelForbidden) EncodeBare(b *bin.Buffer) error {
 		c.Flags.Set(16)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channelForbidden#289da732: field flags: %w", err)
+		return fmt.Errorf("unable to encode channelForbidden#17d493d5: field flags: %w", err)
 	}
-	b.PutInt(c.ID)
+	b.PutLong(c.ID)
 	b.PutLong(c.AccessHash)
 	b.PutString(c.Title)
 	if c.Flags.Has(16) {
@@ -2232,10 +2208,10 @@ func (c *ChannelForbidden) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChannelForbidden) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelForbidden#289da732 to nil")
+		return fmt.Errorf("can't decode channelForbidden#17d493d5 to nil")
 	}
 	if err := b.ConsumeID(ChannelForbiddenTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelForbidden#289da732: %w", err)
+		return fmt.Errorf("unable to decode channelForbidden#17d493d5: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -2243,40 +2219,40 @@ func (c *ChannelForbidden) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelForbidden) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelForbidden#289da732 to nil")
+		return fmt.Errorf("can't decode channelForbidden#17d493d5 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field flags: %w", err)
+			return fmt.Errorf("unable to decode channelForbidden#17d493d5: field flags: %w", err)
 		}
 	}
 	c.Broadcast = c.Flags.Has(5)
 	c.Megagroup = c.Flags.Has(8)
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field id: %w", err)
+			return fmt.Errorf("unable to decode channelForbidden#17d493d5: field id: %w", err)
 		}
 		c.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode channelForbidden#17d493d5: field access_hash: %w", err)
 		}
 		c.AccessHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field title: %w", err)
+			return fmt.Errorf("unable to decode channelForbidden#17d493d5: field title: %w", err)
 		}
 		c.Title = value
 	}
 	if c.Flags.Has(16) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelForbidden#289da732: field until_date: %w", err)
+			return fmt.Errorf("unable to decode channelForbidden#17d493d5: field until_date: %w", err)
 		}
 		c.UntilDate = value
 	}
@@ -2316,7 +2292,7 @@ func (c *ChannelForbidden) GetMegagroup() (value bool) {
 }
 
 // GetID returns value of ID field.
-func (c *ChannelForbidden) GetID() (value int) {
+func (c *ChannelForbidden) GetID() (value int64) {
 	return c.ID
 }
 
@@ -2355,11 +2331,11 @@ func (c *ChannelForbidden) GetUntilDate() (value int, ok bool) {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tg.ChatEmpty: // chatEmpty#9ba2d800
-//  case *tg.Chat: // chat#3bda1bde
-//  case *tg.ChatForbidden: // chatForbidden#7328bdb
-//  case *tg.Channel: // channel#d31a961e
-//  case *tg.ChannelForbidden: // channelForbidden#289da732
+//  case *tg.ChatEmpty: // chatEmpty#29562865
+//  case *tg.Chat: // chat#41cbf256
+//  case *tg.ChatForbidden: // chatForbidden#6592a1a7
+//  case *tg.Channel: // channel#8261ac61
+//  case *tg.ChannelForbidden: // channelForbidden#17d493d5
 //  default: panic(v)
 //  }
 type ChatClass interface {
@@ -2381,7 +2357,7 @@ type ChatClass interface {
 	Zero() bool
 
 	// Group identifier
-	GetID() (value int)
+	GetID() (value int64)
 
 	// AsNotEmpty tries to map ChatClass to NotEmptyChat.
 	AsNotEmpty() (NotEmptyChat, bool)
@@ -2441,7 +2417,7 @@ type NotEmptyChat interface {
 	Zero() bool
 
 	// ID of the group
-	GetID() (value int)
+	GetID() (value int64)
 
 	// Title
 	GetTitle() (value string)
@@ -2497,7 +2473,7 @@ type NotForbiddenChat interface {
 	Zero() bool
 
 	// Group identifier
-	GetID() (value int)
+	GetID() (value int64)
 }
 
 // AsNotForbidden tries to map ChatEmpty to NotForbiddenChat.
@@ -2562,7 +2538,7 @@ type FullChat interface {
 	GetCallNotEmpty() (value bool)
 
 	// ID of the group
-	GetID() (value int)
+	GetID() (value int64)
 
 	// Title
 	GetTitle() (value string)
@@ -2572,9 +2548,6 @@ type FullChat interface {
 
 	// Date of creation of the group
 	GetDate() (value int)
-
-	// Used in basic groups to reorder updates and make sure that all of them were received.
-	GetVersion() (value int)
 
 	// Admin rights¹ of the user in the group
 	//
@@ -2627,35 +2600,35 @@ func DecodeChat(buf *bin.Buffer) (ChatClass, error) {
 	}
 	switch id {
 	case ChatEmptyTypeID:
-		// Decoding chatEmpty#9ba2d800.
+		// Decoding chatEmpty#29562865.
 		v := ChatEmpty{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatClass: %w", err)
 		}
 		return &v, nil
 	case ChatTypeID:
-		// Decoding chat#3bda1bde.
+		// Decoding chat#41cbf256.
 		v := Chat{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatClass: %w", err)
 		}
 		return &v, nil
 	case ChatForbiddenTypeID:
-		// Decoding chatForbidden#7328bdb.
+		// Decoding chatForbidden#6592a1a7.
 		v := ChatForbidden{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatClass: %w", err)
 		}
 		return &v, nil
 	case ChannelTypeID:
-		// Decoding channel#d31a961e.
+		// Decoding channel#8261ac61.
 		v := Channel{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatClass: %w", err)
 		}
 		return &v, nil
 	case ChannelForbiddenTypeID:
-		// Decoding channelForbidden#289da732.
+		// Decoding channelForbidden#17d493d5.
 		v := ChannelForbidden{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatClass: %w", err)

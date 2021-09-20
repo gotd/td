@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetMaskStickersRequest represents TL type `messages.getMaskStickers#65b8c79f`.
+// MessagesGetMaskStickersRequest represents TL type `messages.getMaskStickers#640f82b8`.
 // Get installed mask stickers
 //
 // See https://core.telegram.org/method/messages.getMaskStickers for reference.
@@ -38,11 +38,11 @@ type MessagesGetMaskStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // MessagesGetMaskStickersRequestTypeID is TL type id of MessagesGetMaskStickersRequest.
-const MessagesGetMaskStickersRequestTypeID = 0x65b8c79f
+const MessagesGetMaskStickersRequestTypeID = 0x640f82b8
 
 // Ensuring interfaces in compile-time for MessagesGetMaskStickersRequest.
 var (
@@ -74,7 +74,7 @@ func (g *MessagesGetMaskStickersRequest) String() string {
 
 // FillFrom fills MessagesGetMaskStickersRequest from given interface.
 func (g *MessagesGetMaskStickersRequest) FillFrom(from interface {
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Hash = from.GetHash()
 }
@@ -113,7 +113,7 @@ func (g *MessagesGetMaskStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetMaskStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getMaskStickers#65b8c79f as nil")
+		return fmt.Errorf("can't encode messages.getMaskStickers#640f82b8 as nil")
 	}
 	b.PutID(MessagesGetMaskStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,19 +122,19 @@ func (g *MessagesGetMaskStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetMaskStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getMaskStickers#65b8c79f as nil")
+		return fmt.Errorf("can't encode messages.getMaskStickers#640f82b8 as nil")
 	}
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *MessagesGetMaskStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getMaskStickers#65b8c79f to nil")
+		return fmt.Errorf("can't decode messages.getMaskStickers#640f82b8 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetMaskStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getMaskStickers#65b8c79f: %w", err)
+		return fmt.Errorf("unable to decode messages.getMaskStickers#640f82b8: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (g *MessagesGetMaskStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetMaskStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getMaskStickers#65b8c79f to nil")
+		return fmt.Errorf("can't decode messages.getMaskStickers#640f82b8 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getMaskStickers#65b8c79f: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getMaskStickers#640f82b8: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -155,15 +155,15 @@ func (g *MessagesGetMaskStickersRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetHash returns value of Hash field.
-func (g *MessagesGetMaskStickersRequest) GetHash() (value int) {
+func (g *MessagesGetMaskStickersRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetMaskStickers invokes method messages.getMaskStickers#65b8c79f returning error if any.
+// MessagesGetMaskStickers invokes method messages.getMaskStickers#640f82b8 returning error if any.
 // Get installed mask stickers
 //
 // See https://core.telegram.org/method/messages.getMaskStickers for reference.
-func (c *Client) MessagesGetMaskStickers(ctx context.Context, hash int) (MessagesAllStickersClass, error) {
+func (c *Client) MessagesGetMaskStickers(ctx context.Context, hash int64) (MessagesAllStickersClass, error) {
 	var result MessagesAllStickersBox
 
 	request := &MessagesGetMaskStickersRequest{

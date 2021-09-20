@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetScheduledHistoryRequest represents TL type `messages.getScheduledHistory#e2c2685b`.
+// MessagesGetScheduledHistoryRequest represents TL type `messages.getScheduledHistory#f516760b`.
 // Get scheduled messages
 //
 // See https://core.telegram.org/method/messages.getScheduledHistory for reference.
@@ -40,11 +40,11 @@ type MessagesGetScheduledHistoryRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // MessagesGetScheduledHistoryRequestTypeID is TL type id of MessagesGetScheduledHistoryRequest.
-const MessagesGetScheduledHistoryRequestTypeID = 0xe2c2685b
+const MessagesGetScheduledHistoryRequestTypeID = 0xf516760b
 
 // Ensuring interfaces in compile-time for MessagesGetScheduledHistoryRequest.
 var (
@@ -80,7 +80,7 @@ func (g *MessagesGetScheduledHistoryRequest) String() string {
 // FillFrom fills MessagesGetScheduledHistoryRequest from given interface.
 func (g *MessagesGetScheduledHistoryRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Peer = from.GetPeer()
 	g.Hash = from.GetHash()
@@ -124,7 +124,7 @@ func (g *MessagesGetScheduledHistoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetScheduledHistoryRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getScheduledHistory#e2c2685b as nil")
+		return fmt.Errorf("can't encode messages.getScheduledHistory#f516760b as nil")
 	}
 	b.PutID(MessagesGetScheduledHistoryRequestTypeID)
 	return g.EncodeBare(b)
@@ -133,25 +133,25 @@ func (g *MessagesGetScheduledHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetScheduledHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getScheduledHistory#e2c2685b as nil")
+		return fmt.Errorf("can't encode messages.getScheduledHistory#f516760b as nil")
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getScheduledHistory#e2c2685b: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getScheduledHistory#f516760b: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getScheduledHistory#e2c2685b: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getScheduledHistory#f516760b: field peer: %w", err)
 	}
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *MessagesGetScheduledHistoryRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getScheduledHistory#e2c2685b to nil")
+		return fmt.Errorf("can't decode messages.getScheduledHistory#f516760b to nil")
 	}
 	if err := b.ConsumeID(MessagesGetScheduledHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getScheduledHistory#e2c2685b: %w", err)
+		return fmt.Errorf("unable to decode messages.getScheduledHistory#f516760b: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -159,19 +159,19 @@ func (g *MessagesGetScheduledHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetScheduledHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getScheduledHistory#e2c2685b to nil")
+		return fmt.Errorf("can't decode messages.getScheduledHistory#f516760b to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getScheduledHistory#e2c2685b: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getScheduledHistory#f516760b: field peer: %w", err)
 		}
 		g.Peer = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getScheduledHistory#e2c2685b: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getScheduledHistory#f516760b: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -184,11 +184,11 @@ func (g *MessagesGetScheduledHistoryRequest) GetPeer() (value InputPeerClass) {
 }
 
 // GetHash returns value of Hash field.
-func (g *MessagesGetScheduledHistoryRequest) GetHash() (value int) {
+func (g *MessagesGetScheduledHistoryRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetScheduledHistory invokes method messages.getScheduledHistory#e2c2685b returning error if any.
+// MessagesGetScheduledHistory invokes method messages.getScheduledHistory#f516760b returning error if any.
 // Get scheduled messages
 //
 // Possible errors:

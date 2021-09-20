@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// HighScore represents TL type `highScore#58fffcd0`.
+// HighScore represents TL type `highScore#73a379eb`.
 // Game highscore
 //
 // See https://core.telegram.org/constructor/highScore for reference.
@@ -37,13 +37,13 @@ type HighScore struct {
 	// Position in highscore list
 	Pos int
 	// User ID
-	UserID int
+	UserID int64
 	// Score
 	Score int
 }
 
 // HighScoreTypeID is TL type id of HighScore.
-const HighScoreTypeID = 0x58fffcd0
+const HighScoreTypeID = 0x73a379eb
 
 // Ensuring interfaces in compile-time for HighScore.
 var (
@@ -82,7 +82,7 @@ func (h *HighScore) String() string {
 // FillFrom fills HighScore from given interface.
 func (h *HighScore) FillFrom(from interface {
 	GetPos() (value int)
-	GetUserID() (value int)
+	GetUserID() (value int64)
 	GetScore() (value int)
 }) {
 	h.Pos = from.GetPos()
@@ -132,7 +132,7 @@ func (h *HighScore) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (h *HighScore) Encode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode highScore#58fffcd0 as nil")
+		return fmt.Errorf("can't encode highScore#73a379eb as nil")
 	}
 	b.PutID(HighScoreTypeID)
 	return h.EncodeBare(b)
@@ -141,10 +141,10 @@ func (h *HighScore) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (h *HighScore) EncodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't encode highScore#58fffcd0 as nil")
+		return fmt.Errorf("can't encode highScore#73a379eb as nil")
 	}
 	b.PutInt(h.Pos)
-	b.PutInt(h.UserID)
+	b.PutLong(h.UserID)
 	b.PutInt(h.Score)
 	return nil
 }
@@ -152,10 +152,10 @@ func (h *HighScore) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (h *HighScore) Decode(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode highScore#58fffcd0 to nil")
+		return fmt.Errorf("can't decode highScore#73a379eb to nil")
 	}
 	if err := b.ConsumeID(HighScoreTypeID); err != nil {
-		return fmt.Errorf("unable to decode highScore#58fffcd0: %w", err)
+		return fmt.Errorf("unable to decode highScore#73a379eb: %w", err)
 	}
 	return h.DecodeBare(b)
 }
@@ -163,26 +163,26 @@ func (h *HighScore) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (h *HighScore) DecodeBare(b *bin.Buffer) error {
 	if h == nil {
-		return fmt.Errorf("can't decode highScore#58fffcd0 to nil")
+		return fmt.Errorf("can't decode highScore#73a379eb to nil")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode highScore#58fffcd0: field pos: %w", err)
+			return fmt.Errorf("unable to decode highScore#73a379eb: field pos: %w", err)
 		}
 		h.Pos = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode highScore#58fffcd0: field user_id: %w", err)
+			return fmt.Errorf("unable to decode highScore#73a379eb: field user_id: %w", err)
 		}
 		h.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode highScore#58fffcd0: field score: %w", err)
+			return fmt.Errorf("unable to decode highScore#73a379eb: field score: %w", err)
 		}
 		h.Score = value
 	}
@@ -195,7 +195,7 @@ func (h *HighScore) GetPos() (value int) {
 }
 
 // GetUserID returns value of UserID field.
-func (h *HighScore) GetUserID() (value int) {
+func (h *HighScore) GetUserID() (value int64) {
 	return h.UserID
 }
 

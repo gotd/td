@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetStickersRequest represents TL type `messages.getStickers#43d4f2c`.
+// MessagesGetStickersRequest represents TL type `messages.getStickers#d5a5d3a1`.
 // Get stickers by emoji
 //
 // See https://core.telegram.org/method/messages.getStickers for reference.
@@ -40,11 +40,11 @@ type MessagesGetStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // MessagesGetStickersRequestTypeID is TL type id of MessagesGetStickersRequest.
-const MessagesGetStickersRequestTypeID = 0x43d4f2c
+const MessagesGetStickersRequestTypeID = 0xd5a5d3a1
 
 // Ensuring interfaces in compile-time for MessagesGetStickersRequest.
 var (
@@ -80,7 +80,7 @@ func (g *MessagesGetStickersRequest) String() string {
 // FillFrom fills MessagesGetStickersRequest from given interface.
 func (g *MessagesGetStickersRequest) FillFrom(from interface {
 	GetEmoticon() (value string)
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Emoticon = from.GetEmoticon()
 	g.Hash = from.GetHash()
@@ -124,7 +124,7 @@ func (g *MessagesGetStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getStickers#43d4f2c as nil")
+		return fmt.Errorf("can't encode messages.getStickers#d5a5d3a1 as nil")
 	}
 	b.PutID(MessagesGetStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -133,20 +133,20 @@ func (g *MessagesGetStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getStickers#43d4f2c as nil")
+		return fmt.Errorf("can't encode messages.getStickers#d5a5d3a1 as nil")
 	}
 	b.PutString(g.Emoticon)
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *MessagesGetStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getStickers#43d4f2c to nil")
+		return fmt.Errorf("can't decode messages.getStickers#d5a5d3a1 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getStickers#43d4f2c: %w", err)
+		return fmt.Errorf("unable to decode messages.getStickers#d5a5d3a1: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -154,19 +154,19 @@ func (g *MessagesGetStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getStickers#43d4f2c to nil")
+		return fmt.Errorf("can't decode messages.getStickers#d5a5d3a1 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getStickers#43d4f2c: field emoticon: %w", err)
+			return fmt.Errorf("unable to decode messages.getStickers#d5a5d3a1: field emoticon: %w", err)
 		}
 		g.Emoticon = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getStickers#43d4f2c: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getStickers#d5a5d3a1: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -179,11 +179,11 @@ func (g *MessagesGetStickersRequest) GetEmoticon() (value string) {
 }
 
 // GetHash returns value of Hash field.
-func (g *MessagesGetStickersRequest) GetHash() (value int) {
+func (g *MessagesGetStickersRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetStickers invokes method messages.getStickers#43d4f2c returning error if any.
+// MessagesGetStickers invokes method messages.getStickers#d5a5d3a1 returning error if any.
 // Get stickers by emoji
 //
 // See https://core.telegram.org/method/messages.getStickers for reference.

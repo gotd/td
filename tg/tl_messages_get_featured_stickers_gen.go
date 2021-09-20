@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetFeaturedStickersRequest represents TL type `messages.getFeaturedStickers#2dacca4f`.
+// MessagesGetFeaturedStickersRequest represents TL type `messages.getFeaturedStickers#64780b14`.
 // Get featured stickers
 //
 // See https://core.telegram.org/method/messages.getFeaturedStickers for reference.
@@ -38,11 +38,11 @@ type MessagesGetFeaturedStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // MessagesGetFeaturedStickersRequestTypeID is TL type id of MessagesGetFeaturedStickersRequest.
-const MessagesGetFeaturedStickersRequestTypeID = 0x2dacca4f
+const MessagesGetFeaturedStickersRequestTypeID = 0x64780b14
 
 // Ensuring interfaces in compile-time for MessagesGetFeaturedStickersRequest.
 var (
@@ -74,7 +74,7 @@ func (g *MessagesGetFeaturedStickersRequest) String() string {
 
 // FillFrom fills MessagesGetFeaturedStickersRequest from given interface.
 func (g *MessagesGetFeaturedStickersRequest) FillFrom(from interface {
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Hash = from.GetHash()
 }
@@ -113,7 +113,7 @@ func (g *MessagesGetFeaturedStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetFeaturedStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getFeaturedStickers#2dacca4f as nil")
+		return fmt.Errorf("can't encode messages.getFeaturedStickers#64780b14 as nil")
 	}
 	b.PutID(MessagesGetFeaturedStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,19 +122,19 @@ func (g *MessagesGetFeaturedStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetFeaturedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getFeaturedStickers#2dacca4f as nil")
+		return fmt.Errorf("can't encode messages.getFeaturedStickers#64780b14 as nil")
 	}
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *MessagesGetFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getFeaturedStickers#2dacca4f to nil")
+		return fmt.Errorf("can't decode messages.getFeaturedStickers#64780b14 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetFeaturedStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getFeaturedStickers#2dacca4f: %w", err)
+		return fmt.Errorf("unable to decode messages.getFeaturedStickers#64780b14: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (g *MessagesGetFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getFeaturedStickers#2dacca4f to nil")
+		return fmt.Errorf("can't decode messages.getFeaturedStickers#64780b14 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getFeaturedStickers#2dacca4f: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getFeaturedStickers#64780b14: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -155,15 +155,15 @@ func (g *MessagesGetFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetHash returns value of Hash field.
-func (g *MessagesGetFeaturedStickersRequest) GetHash() (value int) {
+func (g *MessagesGetFeaturedStickersRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetFeaturedStickers invokes method messages.getFeaturedStickers#2dacca4f returning error if any.
+// MessagesGetFeaturedStickers invokes method messages.getFeaturedStickers#64780b14 returning error if any.
 // Get featured stickers
 //
 // See https://core.telegram.org/method/messages.getFeaturedStickers for reference.
-func (c *Client) MessagesGetFeaturedStickers(ctx context.Context, hash int) (MessagesFeaturedStickersClass, error) {
+func (c *Client) MessagesGetFeaturedStickers(ctx context.Context, hash int64) (MessagesFeaturedStickersClass, error) {
 	var result MessagesFeaturedStickersBox
 
 	request := &MessagesGetFeaturedStickersRequest{

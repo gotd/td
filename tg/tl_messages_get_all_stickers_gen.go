@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetAllStickersRequest represents TL type `messages.getAllStickers#1c9618b1`.
+// MessagesGetAllStickersRequest represents TL type `messages.getAllStickers#b8a0a1a8`.
 // Get all installed stickers
 //
 // See https://core.telegram.org/method/messages.getAllStickers for reference.
@@ -38,11 +38,11 @@ type MessagesGetAllStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // MessagesGetAllStickersRequestTypeID is TL type id of MessagesGetAllStickersRequest.
-const MessagesGetAllStickersRequestTypeID = 0x1c9618b1
+const MessagesGetAllStickersRequestTypeID = 0xb8a0a1a8
 
 // Ensuring interfaces in compile-time for MessagesGetAllStickersRequest.
 var (
@@ -74,7 +74,7 @@ func (g *MessagesGetAllStickersRequest) String() string {
 
 // FillFrom fills MessagesGetAllStickersRequest from given interface.
 func (g *MessagesGetAllStickersRequest) FillFrom(from interface {
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Hash = from.GetHash()
 }
@@ -113,7 +113,7 @@ func (g *MessagesGetAllStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetAllStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getAllStickers#1c9618b1 as nil")
+		return fmt.Errorf("can't encode messages.getAllStickers#b8a0a1a8 as nil")
 	}
 	b.PutID(MessagesGetAllStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,19 +122,19 @@ func (g *MessagesGetAllStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetAllStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getAllStickers#1c9618b1 as nil")
+		return fmt.Errorf("can't encode messages.getAllStickers#b8a0a1a8 as nil")
 	}
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *MessagesGetAllStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getAllStickers#1c9618b1 to nil")
+		return fmt.Errorf("can't decode messages.getAllStickers#b8a0a1a8 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetAllStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getAllStickers#1c9618b1: %w", err)
+		return fmt.Errorf("unable to decode messages.getAllStickers#b8a0a1a8: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (g *MessagesGetAllStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetAllStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getAllStickers#1c9618b1 to nil")
+		return fmt.Errorf("can't decode messages.getAllStickers#b8a0a1a8 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getAllStickers#1c9618b1: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getAllStickers#b8a0a1a8: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -155,15 +155,15 @@ func (g *MessagesGetAllStickersRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetHash returns value of Hash field.
-func (g *MessagesGetAllStickersRequest) GetHash() (value int) {
+func (g *MessagesGetAllStickersRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetAllStickers invokes method messages.getAllStickers#1c9618b1 returning error if any.
+// MessagesGetAllStickers invokes method messages.getAllStickers#b8a0a1a8 returning error if any.
 // Get all installed stickers
 //
 // See https://core.telegram.org/method/messages.getAllStickers for reference.
-func (c *Client) MessagesGetAllStickers(ctx context.Context, hash int) (MessagesAllStickersClass, error) {
+func (c *Client) MessagesGetAllStickers(ctx context.Context, hash int64) (MessagesAllStickersClass, error) {
 	var result MessagesAllStickersBox
 
 	request := &MessagesGetAllStickersRequest{

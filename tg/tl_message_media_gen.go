@@ -487,7 +487,7 @@ func (m *MessageMediaGeo) GetGeo() (value GeoPointClass) {
 	return m.Geo
 }
 
-// MessageMediaContact represents TL type `messageMediaContact#cbf24940`.
+// MessageMediaContact represents TL type `messageMediaContact#70322949`.
 // Attached contact.
 //
 // See https://core.telegram.org/constructor/messageMediaContact for reference.
@@ -501,11 +501,11 @@ type MessageMediaContact struct {
 	// VCARD of contact
 	Vcard string
 	// User identifier or 0, if the user with the given phone number is not registered
-	UserID int
+	UserID int64
 }
 
 // MessageMediaContactTypeID is TL type id of MessageMediaContact.
-const MessageMediaContactTypeID = 0xcbf24940
+const MessageMediaContactTypeID = 0x70322949
 
 // construct implements constructor of MessageMediaClass.
 func (m MessageMediaContact) construct() MessageMediaClass { return &m }
@@ -558,7 +558,7 @@ func (m *MessageMediaContact) FillFrom(from interface {
 	GetFirstName() (value string)
 	GetLastName() (value string)
 	GetVcard() (value string)
-	GetUserID() (value int)
+	GetUserID() (value int64)
 }) {
 	m.PhoneNumber = from.GetPhoneNumber()
 	m.FirstName = from.GetFirstName()
@@ -617,7 +617,7 @@ func (m *MessageMediaContact) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageMediaContact) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaContact#cbf24940 as nil")
+		return fmt.Errorf("can't encode messageMediaContact#70322949 as nil")
 	}
 	b.PutID(MessageMediaContactTypeID)
 	return m.EncodeBare(b)
@@ -626,23 +626,23 @@ func (m *MessageMediaContact) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageMediaContact) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaContact#cbf24940 as nil")
+		return fmt.Errorf("can't encode messageMediaContact#70322949 as nil")
 	}
 	b.PutString(m.PhoneNumber)
 	b.PutString(m.FirstName)
 	b.PutString(m.LastName)
 	b.PutString(m.Vcard)
-	b.PutInt(m.UserID)
+	b.PutLong(m.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageMediaContact) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaContact#cbf24940 to nil")
+		return fmt.Errorf("can't decode messageMediaContact#70322949 to nil")
 	}
 	if err := b.ConsumeID(MessageMediaContactTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageMediaContact#cbf24940: %w", err)
+		return fmt.Errorf("unable to decode messageMediaContact#70322949: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -650,40 +650,40 @@ func (m *MessageMediaContact) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageMediaContact) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaContact#cbf24940 to nil")
+		return fmt.Errorf("can't decode messageMediaContact#70322949 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaContact#cbf24940: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode messageMediaContact#70322949: field phone_number: %w", err)
 		}
 		m.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaContact#cbf24940: field first_name: %w", err)
+			return fmt.Errorf("unable to decode messageMediaContact#70322949: field first_name: %w", err)
 		}
 		m.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaContact#cbf24940: field last_name: %w", err)
+			return fmt.Errorf("unable to decode messageMediaContact#70322949: field last_name: %w", err)
 		}
 		m.LastName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaContact#cbf24940: field vcard: %w", err)
+			return fmt.Errorf("unable to decode messageMediaContact#70322949: field vcard: %w", err)
 		}
 		m.Vcard = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaContact#cbf24940: field user_id: %w", err)
+			return fmt.Errorf("unable to decode messageMediaContact#70322949: field user_id: %w", err)
 		}
 		m.UserID = value
 	}
@@ -711,7 +711,7 @@ func (m *MessageMediaContact) GetVcard() (value string) {
 }
 
 // GetUserID returns value of UserID field.
-func (m *MessageMediaContact) GetUserID() (value int) {
+func (m *MessageMediaContact) GetUserID() (value int64) {
 	return m.UserID
 }
 
@@ -2589,7 +2589,7 @@ func (m *MessageMediaDice) GetEmoticon() (value string) {
 //  case *tg.MessageMediaEmpty: // messageMediaEmpty#3ded6320
 //  case *tg.MessageMediaPhoto: // messageMediaPhoto#695150d7
 //  case *tg.MessageMediaGeo: // messageMediaGeo#56e0d474
-//  case *tg.MessageMediaContact: // messageMediaContact#cbf24940
+//  case *tg.MessageMediaContact: // messageMediaContact#70322949
 //  case *tg.MessageMediaUnsupported: // messageMediaUnsupported#9f84f49e
 //  case *tg.MessageMediaDocument: // messageMediaDocument#9cb070d7
 //  case *tg.MessageMediaWebPage: // messageMediaWebPage#a32dd600
@@ -2649,7 +2649,7 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 		}
 		return &v, nil
 	case MessageMediaContactTypeID:
-		// Decoding messageMediaContact#cbf24940.
+		// Decoding messageMediaContact#70322949.
 		v := MessageMediaContact{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)

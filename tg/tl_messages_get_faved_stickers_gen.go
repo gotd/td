@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetFavedStickersRequest represents TL type `messages.getFavedStickers#21ce0b0e`.
+// MessagesGetFavedStickersRequest represents TL type `messages.getFavedStickers#4f1aaa9`.
 // Get faved stickers
 //
 // See https://core.telegram.org/method/messages.getFavedStickers for reference.
@@ -38,11 +38,11 @@ type MessagesGetFavedStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // MessagesGetFavedStickersRequestTypeID is TL type id of MessagesGetFavedStickersRequest.
-const MessagesGetFavedStickersRequestTypeID = 0x21ce0b0e
+const MessagesGetFavedStickersRequestTypeID = 0x4f1aaa9
 
 // Ensuring interfaces in compile-time for MessagesGetFavedStickersRequest.
 var (
@@ -74,7 +74,7 @@ func (g *MessagesGetFavedStickersRequest) String() string {
 
 // FillFrom fills MessagesGetFavedStickersRequest from given interface.
 func (g *MessagesGetFavedStickersRequest) FillFrom(from interface {
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Hash = from.GetHash()
 }
@@ -113,7 +113,7 @@ func (g *MessagesGetFavedStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetFavedStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getFavedStickers#21ce0b0e as nil")
+		return fmt.Errorf("can't encode messages.getFavedStickers#4f1aaa9 as nil")
 	}
 	b.PutID(MessagesGetFavedStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,19 +122,19 @@ func (g *MessagesGetFavedStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetFavedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getFavedStickers#21ce0b0e as nil")
+		return fmt.Errorf("can't encode messages.getFavedStickers#4f1aaa9 as nil")
 	}
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *MessagesGetFavedStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getFavedStickers#21ce0b0e to nil")
+		return fmt.Errorf("can't decode messages.getFavedStickers#4f1aaa9 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetFavedStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getFavedStickers#21ce0b0e: %w", err)
+		return fmt.Errorf("unable to decode messages.getFavedStickers#4f1aaa9: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (g *MessagesGetFavedStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetFavedStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getFavedStickers#21ce0b0e to nil")
+		return fmt.Errorf("can't decode messages.getFavedStickers#4f1aaa9 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getFavedStickers#21ce0b0e: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getFavedStickers#4f1aaa9: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -155,15 +155,15 @@ func (g *MessagesGetFavedStickersRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetHash returns value of Hash field.
-func (g *MessagesGetFavedStickersRequest) GetHash() (value int) {
+func (g *MessagesGetFavedStickersRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetFavedStickers invokes method messages.getFavedStickers#21ce0b0e returning error if any.
+// MessagesGetFavedStickers invokes method messages.getFavedStickers#4f1aaa9 returning error if any.
 // Get faved stickers
 //
 // See https://core.telegram.org/method/messages.getFavedStickers for reference.
-func (c *Client) MessagesGetFavedStickers(ctx context.Context, hash int) (MessagesFavedStickersClass, error) {
+func (c *Client) MessagesGetFavedStickers(ctx context.Context, hash int64) (MessagesFavedStickersClass, error) {
 	var result MessagesFavedStickersBox
 
 	request := &MessagesGetFavedStickersRequest{

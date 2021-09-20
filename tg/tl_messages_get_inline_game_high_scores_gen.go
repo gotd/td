@@ -35,7 +35,7 @@ var (
 // See https://core.telegram.org/method/messages.getInlineGameHighScores for reference.
 type MessagesGetInlineGameHighScoresRequest struct {
 	// ID of inline message
-	ID InputBotInlineMessageID
+	ID InputBotInlineMessageIDClass
 	// Get high scores of a certain user
 	UserID InputUserClass
 }
@@ -55,7 +55,7 @@ func (g *MessagesGetInlineGameHighScoresRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.ID.Zero()) {
+	if !(g.ID == nil) {
 		return false
 	}
 	if !(g.UserID == nil) {
@@ -76,7 +76,7 @@ func (g *MessagesGetInlineGameHighScoresRequest) String() string {
 
 // FillFrom fills MessagesGetInlineGameHighScoresRequest from given interface.
 func (g *MessagesGetInlineGameHighScoresRequest) FillFrom(from interface {
-	GetID() (value InputBotInlineMessageID)
+	GetID() (value InputBotInlineMessageIDClass)
 	GetUserID() (value InputUserClass)
 }) {
 	g.ID = from.GetID()
@@ -132,6 +132,9 @@ func (g *MessagesGetInlineGameHighScoresRequest) EncodeBare(b *bin.Buffer) error
 	if g == nil {
 		return fmt.Errorf("can't encode messages.getInlineGameHighScores#f635e1b as nil")
 	}
+	if g.ID == nil {
+		return fmt.Errorf("unable to encode messages.getInlineGameHighScores#f635e1b: field id is nil")
+	}
 	if err := g.ID.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getInlineGameHighScores#f635e1b: field id: %w", err)
 	}
@@ -161,9 +164,11 @@ func (g *MessagesGetInlineGameHighScoresRequest) DecodeBare(b *bin.Buffer) error
 		return fmt.Errorf("can't decode messages.getInlineGameHighScores#f635e1b to nil")
 	}
 	{
-		if err := g.ID.Decode(b); err != nil {
+		value, err := DecodeInputBotInlineMessageID(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode messages.getInlineGameHighScores#f635e1b: field id: %w", err)
 		}
+		g.ID = value
 	}
 	{
 		value, err := DecodeInputUser(b)
@@ -176,7 +181,7 @@ func (g *MessagesGetInlineGameHighScoresRequest) DecodeBare(b *bin.Buffer) error
 }
 
 // GetID returns value of ID field.
-func (g *MessagesGetInlineGameHighScoresRequest) GetID() (value InputBotInlineMessageID) {
+func (g *MessagesGetInlineGameHighScoresRequest) GetID() (value InputBotInlineMessageIDClass) {
 	return g.ID
 }
 

@@ -575,7 +575,7 @@ func (s *ServerDispatcher) OnAccountUpdateStatus(f func(ctx context.Context, off
 	s.handlers[AccountUpdateStatusRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnAccountGetWallPapers(f func(ctx context.Context, hash int) (AccountWallPapersClass, error)) {
+func (s *ServerDispatcher) OnAccountGetWallPapers(f func(ctx context.Context, hash int64) (AccountWallPapersClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AccountGetWallPapersRequest
 		if err := request.Decode(b); err != nil {
@@ -1834,7 +1834,7 @@ func (s *ServerDispatcher) OnUsersSetSecureValueErrors(f func(ctx context.Contex
 	s.handlers[UsersSetSecureValueErrorsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnContactsGetContactIDs(f func(ctx context.Context, hash int) ([]int, error)) {
+func (s *ServerDispatcher) OnContactsGetContactIDs(f func(ctx context.Context, hash int64) ([]int, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ContactsGetContactIDsRequest
 		if err := request.Decode(b); err != nil {
@@ -1868,7 +1868,7 @@ func (s *ServerDispatcher) OnContactsGetStatuses(f func(ctx context.Context) ([]
 	s.handlers[ContactsGetStatusesRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnContactsGetContacts(f func(ctx context.Context, hash int) (ContactsContactsClass, error)) {
+func (s *ServerDispatcher) OnContactsGetContacts(f func(ctx context.Context, hash int64) (ContactsContactsClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ContactsGetContactsRequest
 		if err := request.Decode(b); err != nil {
@@ -2465,7 +2465,7 @@ func (s *ServerDispatcher) OnMessagesReport(f func(ctx context.Context, request 
 	s.handlers[MessagesReportRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetChats(f func(ctx context.Context, id []int) (MessagesChatsClass, error)) {
+func (s *ServerDispatcher) OnMessagesGetChats(f func(ctx context.Context, id []int64) (MessagesChatsClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetChatsRequest
 		if err := request.Decode(b); err != nil {
@@ -2482,7 +2482,7 @@ func (s *ServerDispatcher) OnMessagesGetChats(f func(ctx context.Context, id []i
 	s.handlers[MessagesGetChatsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetFullChat(f func(ctx context.Context, chatid int) (*MessagesChatFull, error)) {
+func (s *ServerDispatcher) OnMessagesGetFullChat(f func(ctx context.Context, chatid int64) (*MessagesChatFull, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetFullChatRequest
 		if err := request.Decode(b); err != nil {
@@ -2821,7 +2821,7 @@ func (s *ServerDispatcher) OnMessagesGetStickers(f func(ctx context.Context, req
 	s.handlers[MessagesGetStickersRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetAllStickers(f func(ctx context.Context, hash int) (MessagesAllStickersClass, error)) {
+func (s *ServerDispatcher) OnMessagesGetAllStickers(f func(ctx context.Context, hash int64) (MessagesAllStickersClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetAllStickersRequest
 		if err := request.Decode(b); err != nil {
@@ -3016,7 +3016,7 @@ func (s *ServerDispatcher) OnMessagesEditChatAdmin(f func(ctx context.Context, r
 	s.handlers[MessagesEditChatAdminRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesMigrateChat(f func(ctx context.Context, chatid int) (UpdatesClass, error)) {
+func (s *ServerDispatcher) OnMessagesMigrateChat(f func(ctx context.Context, chatid int64) (UpdatesClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesMigrateChatRequest
 		if err := request.Decode(b); err != nil {
@@ -3088,7 +3088,7 @@ func (s *ServerDispatcher) OnMessagesGetDocumentByHash(f func(ctx context.Contex
 	s.handlers[MessagesGetDocumentByHashRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetSavedGifs(f func(ctx context.Context, hash int) (MessagesSavedGifsClass, error)) {
+func (s *ServerDispatcher) OnMessagesGetSavedGifs(f func(ctx context.Context, hash int64) (MessagesSavedGifsClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetSavedGifsRequest
 		if err := request.Decode(b); err != nil {
@@ -3329,7 +3329,7 @@ func (s *ServerDispatcher) OnMessagesGetAllDrafts(f func(ctx context.Context) (U
 	s.handlers[MessagesGetAllDraftsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetFeaturedStickers(f func(ctx context.Context, hash int) (MessagesFeaturedStickersClass, error)) {
+func (s *ServerDispatcher) OnMessagesGetFeaturedStickers(f func(ctx context.Context, hash int64) (MessagesFeaturedStickersClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetFeaturedStickersRequest
 		if err := request.Decode(b); err != nil {
@@ -3443,7 +3443,7 @@ func (s *ServerDispatcher) OnMessagesGetArchivedStickers(f func(ctx context.Cont
 	s.handlers[MessagesGetArchivedStickersRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetMaskStickers(f func(ctx context.Context, hash int) (MessagesAllStickersClass, error)) {
+func (s *ServerDispatcher) OnMessagesGetMaskStickers(f func(ctx context.Context, hash int64) (MessagesAllStickersClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetMaskStickersRequest
 		if err := request.Decode(b); err != nil {
@@ -3566,7 +3566,7 @@ func (s *ServerDispatcher) OnMessagesGetCommonChats(f func(ctx context.Context, 
 	s.handlers[MessagesGetCommonChatsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetAllChats(f func(ctx context.Context, exceptids []int) (MessagesChatsClass, error)) {
+func (s *ServerDispatcher) OnMessagesGetAllChats(f func(ctx context.Context, exceptids []int64) (MessagesChatsClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetAllChatsRequest
 		if err := request.Decode(b); err != nil {
@@ -3735,7 +3735,7 @@ func (s *ServerDispatcher) OnMessagesSendScreenshotNotification(f func(ctx conte
 	s.handlers[MessagesSendScreenshotNotificationRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetFavedStickers(f func(ctx context.Context, hash int) (MessagesFavedStickersClass, error)) {
+func (s *ServerDispatcher) OnMessagesGetFavedStickers(f func(ctx context.Context, hash int64) (MessagesFavedStickersClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetFavedStickersRequest
 		if err := request.Decode(b); err != nil {
@@ -4485,7 +4485,7 @@ func (s *ServerDispatcher) OnMessagesUnpinAllMessages(f func(ctx context.Context
 	s.handlers[MessagesUnpinAllMessagesRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesDeleteChat(f func(ctx context.Context, chatid int) (bool, error)) {
+func (s *ServerDispatcher) OnMessagesDeleteChat(f func(ctx context.Context, chatid int64) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesDeleteChatRequest
 		if err := request.Decode(b); err != nil {
@@ -4771,6 +4771,23 @@ func (s *ServerDispatcher) OnMessagesSetChatTheme(f func(ctx context.Context, re
 	}
 
 	s.handlers[MessagesSetChatThemeRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetMessageReadParticipants(f func(ctx context.Context, request *MessagesGetMessageReadParticipantsRequest) ([]int64, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetMessageReadParticipantsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &LongVector{Elems: response}, nil
+	}
+
+	s.handlers[MessagesGetMessageReadParticipantsRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {

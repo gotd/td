@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// AuthExportLoginTokenRequest represents TL type `auth.exportLoginToken#b1b41517`.
+// AuthExportLoginTokenRequest represents TL type `auth.exportLoginToken#b7e085fe`.
 // Generate a login token, for login via QR code¹.
 // The generated login token should be encoded using base64url, then shown as a
 // tg://login?token=base64encodedtoken URL in the QR code.
@@ -52,11 +52,11 @@ type AuthExportLoginTokenRequest struct {
 	//  1) https://core.telegram.org/myapp
 	APIHash string
 	// List of already logged-in user IDs, to prevent logging in twice with the same user
-	ExceptIDs []int
+	ExceptIDs []int64
 }
 
 // AuthExportLoginTokenRequestTypeID is TL type id of AuthExportLoginTokenRequest.
-const AuthExportLoginTokenRequestTypeID = 0xb1b41517
+const AuthExportLoginTokenRequestTypeID = 0xb7e085fe
 
 // Ensuring interfaces in compile-time for AuthExportLoginTokenRequest.
 var (
@@ -96,7 +96,7 @@ func (e *AuthExportLoginTokenRequest) String() string {
 func (e *AuthExportLoginTokenRequest) FillFrom(from interface {
 	GetAPIID() (value int)
 	GetAPIHash() (value string)
-	GetExceptIDs() (value []int)
+	GetExceptIDs() (value []int64)
 }) {
 	e.APIID = from.GetAPIID()
 	e.APIHash = from.GetAPIHash()
@@ -145,7 +145,7 @@ func (e *AuthExportLoginTokenRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *AuthExportLoginTokenRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode auth.exportLoginToken#b1b41517 as nil")
+		return fmt.Errorf("can't encode auth.exportLoginToken#b7e085fe as nil")
 	}
 	b.PutID(AuthExportLoginTokenRequestTypeID)
 	return e.EncodeBare(b)
@@ -154,13 +154,13 @@ func (e *AuthExportLoginTokenRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *AuthExportLoginTokenRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode auth.exportLoginToken#b1b41517 as nil")
+		return fmt.Errorf("can't encode auth.exportLoginToken#b7e085fe as nil")
 	}
 	b.PutInt(e.APIID)
 	b.PutString(e.APIHash)
 	b.PutVectorHeader(len(e.ExceptIDs))
 	for _, v := range e.ExceptIDs {
-		b.PutInt(v)
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -168,10 +168,10 @@ func (e *AuthExportLoginTokenRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *AuthExportLoginTokenRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode auth.exportLoginToken#b1b41517 to nil")
+		return fmt.Errorf("can't decode auth.exportLoginToken#b7e085fe to nil")
 	}
 	if err := b.ConsumeID(AuthExportLoginTokenRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: %w", err)
+		return fmt.Errorf("unable to decode auth.exportLoginToken#b7e085fe: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -179,35 +179,35 @@ func (e *AuthExportLoginTokenRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *AuthExportLoginTokenRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode auth.exportLoginToken#b1b41517 to nil")
+		return fmt.Errorf("can't decode auth.exportLoginToken#b7e085fe to nil")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: field api_id: %w", err)
+			return fmt.Errorf("unable to decode auth.exportLoginToken#b7e085fe: field api_id: %w", err)
 		}
 		e.APIID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: field api_hash: %w", err)
+			return fmt.Errorf("unable to decode auth.exportLoginToken#b7e085fe: field api_hash: %w", err)
 		}
 		e.APIHash = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: field except_ids: %w", err)
+			return fmt.Errorf("unable to decode auth.exportLoginToken#b7e085fe: field except_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			e.ExceptIDs = make([]int, 0, headerLen%bin.PreallocateLimit)
+			e.ExceptIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: field except_ids: %w", err)
+				return fmt.Errorf("unable to decode auth.exportLoginToken#b7e085fe: field except_ids: %w", err)
 			}
 			e.ExceptIDs = append(e.ExceptIDs, value)
 		}
@@ -226,11 +226,11 @@ func (e *AuthExportLoginTokenRequest) GetAPIHash() (value string) {
 }
 
 // GetExceptIDs returns value of ExceptIDs field.
-func (e *AuthExportLoginTokenRequest) GetExceptIDs() (value []int) {
+func (e *AuthExportLoginTokenRequest) GetExceptIDs() (value []int64) {
 	return e.ExceptIDs
 }
 
-// AuthExportLoginToken invokes method auth.exportLoginToken#b1b41517 returning error if any.
+// AuthExportLoginToken invokes method auth.exportLoginToken#b7e085fe returning error if any.
 // Generate a login token, for login via QR code¹.
 // The generated login token should be encoded using base64url, then shown as a
 // tg://login?token=base64encodedtoken URL in the QR code.

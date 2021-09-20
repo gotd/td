@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// ChannelAdminLogEvent represents TL type `channelAdminLogEvent#3b5a3e40`.
+// ChannelAdminLogEvent represents TL type `channelAdminLogEvent#1fad68cd`.
 // Admin log event
 //
 // See https://core.telegram.org/constructor/channelAdminLogEvent for reference.
@@ -39,13 +39,13 @@ type ChannelAdminLogEvent struct {
 	// Date
 	Date int
 	// User ID
-	UserID int
+	UserID int64
 	// Action
 	Action ChannelAdminLogEventActionClass
 }
 
 // ChannelAdminLogEventTypeID is TL type id of ChannelAdminLogEvent.
-const ChannelAdminLogEventTypeID = 0x3b5a3e40
+const ChannelAdminLogEventTypeID = 0x1fad68cd
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEvent.
 var (
@@ -88,7 +88,7 @@ func (c *ChannelAdminLogEvent) String() string {
 func (c *ChannelAdminLogEvent) FillFrom(from interface {
 	GetID() (value int64)
 	GetDate() (value int)
-	GetUserID() (value int)
+	GetUserID() (value int64)
 	GetAction() (value ChannelAdminLogEventActionClass)
 }) {
 	c.ID = from.GetID()
@@ -143,7 +143,7 @@ func (c *ChannelAdminLogEvent) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEvent) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelAdminLogEvent#3b5a3e40 as nil")
+		return fmt.Errorf("can't encode channelAdminLogEvent#1fad68cd as nil")
 	}
 	b.PutID(ChannelAdminLogEventTypeID)
 	return c.EncodeBare(b)
@@ -152,16 +152,16 @@ func (c *ChannelAdminLogEvent) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelAdminLogEvent) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelAdminLogEvent#3b5a3e40 as nil")
+		return fmt.Errorf("can't encode channelAdminLogEvent#1fad68cd as nil")
 	}
 	b.PutLong(c.ID)
 	b.PutInt(c.Date)
-	b.PutInt(c.UserID)
+	b.PutLong(c.UserID)
 	if c.Action == nil {
-		return fmt.Errorf("unable to encode channelAdminLogEvent#3b5a3e40: field action is nil")
+		return fmt.Errorf("unable to encode channelAdminLogEvent#1fad68cd: field action is nil")
 	}
 	if err := c.Action.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channelAdminLogEvent#3b5a3e40: field action: %w", err)
+		return fmt.Errorf("unable to encode channelAdminLogEvent#1fad68cd: field action: %w", err)
 	}
 	return nil
 }
@@ -169,10 +169,10 @@ func (c *ChannelAdminLogEvent) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEvent) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelAdminLogEvent#3b5a3e40 to nil")
+		return fmt.Errorf("can't decode channelAdminLogEvent#1fad68cd to nil")
 	}
 	if err := b.ConsumeID(ChannelAdminLogEventTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelAdminLogEvent#3b5a3e40: %w", err)
+		return fmt.Errorf("unable to decode channelAdminLogEvent#1fad68cd: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -180,33 +180,33 @@ func (c *ChannelAdminLogEvent) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelAdminLogEvent) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelAdminLogEvent#3b5a3e40 to nil")
+		return fmt.Errorf("can't decode channelAdminLogEvent#1fad68cd to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelAdminLogEvent#3b5a3e40: field id: %w", err)
+			return fmt.Errorf("unable to decode channelAdminLogEvent#1fad68cd: field id: %w", err)
 		}
 		c.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelAdminLogEvent#3b5a3e40: field date: %w", err)
+			return fmt.Errorf("unable to decode channelAdminLogEvent#1fad68cd: field date: %w", err)
 		}
 		c.Date = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelAdminLogEvent#3b5a3e40: field user_id: %w", err)
+			return fmt.Errorf("unable to decode channelAdminLogEvent#1fad68cd: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := DecodeChannelAdminLogEventAction(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channelAdminLogEvent#3b5a3e40: field action: %w", err)
+			return fmt.Errorf("unable to decode channelAdminLogEvent#1fad68cd: field action: %w", err)
 		}
 		c.Action = value
 	}
@@ -224,7 +224,7 @@ func (c *ChannelAdminLogEvent) GetDate() (value int) {
 }
 
 // GetUserID returns value of UserID field.
-func (c *ChannelAdminLogEvent) GetUserID() (value int) {
+func (c *ChannelAdminLogEvent) GetUserID() (value int64) {
 	return c.UserID
 }
 

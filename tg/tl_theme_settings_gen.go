@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// ThemeSettings represents TL type `themeSettings#8db4e76c`.
+// ThemeSettings represents TL type `themeSettings#fa58b6d4`.
 // Theme settings
 //
 // See https://core.telegram.org/constructor/themeSettings for reference.
@@ -45,6 +45,10 @@ type ThemeSettings struct {
 	BaseTheme BaseThemeClass
 	// Accent color, RGB24 format
 	AccentColor int
+	// OutboxAccentColor field of ThemeSettings.
+	//
+	// Use SetOutboxAccentColor and GetOutboxAccentColor helpers.
+	OutboxAccentColor int
 	// MessageColors field of ThemeSettings.
 	//
 	// Use SetMessageColors and GetMessageColors helpers.
@@ -56,7 +60,7 @@ type ThemeSettings struct {
 }
 
 // ThemeSettingsTypeID is TL type id of ThemeSettings.
-const ThemeSettingsTypeID = 0x8db4e76c
+const ThemeSettingsTypeID = 0xfa58b6d4
 
 // Ensuring interfaces in compile-time for ThemeSettings.
 var (
@@ -80,6 +84,9 @@ func (t *ThemeSettings) Zero() bool {
 		return false
 	}
 	if !(t.AccentColor == 0) {
+		return false
+	}
+	if !(t.OutboxAccentColor == 0) {
 		return false
 	}
 	if !(t.MessageColors == nil) {
@@ -106,12 +113,17 @@ func (t *ThemeSettings) FillFrom(from interface {
 	GetMessageColorsAnimated() (value bool)
 	GetBaseTheme() (value BaseThemeClass)
 	GetAccentColor() (value int)
+	GetOutboxAccentColor() (value int, ok bool)
 	GetMessageColors() (value []int, ok bool)
 	GetWallpaper() (value WallPaperClass, ok bool)
 }) {
 	t.MessageColorsAnimated = from.GetMessageColorsAnimated()
 	t.BaseTheme = from.GetBaseTheme()
 	t.AccentColor = from.GetAccentColor()
+	if val, ok := from.GetOutboxAccentColor(); ok {
+		t.OutboxAccentColor = val
+	}
+
 	if val, ok := from.GetMessageColors(); ok {
 		t.MessageColors = val
 	}
@@ -159,6 +171,11 @@ func (t *ThemeSettings) TypeInfo() tdp.Type {
 			SchemaName: "accent_color",
 		},
 		{
+			Name:       "OutboxAccentColor",
+			SchemaName: "outbox_accent_color",
+			Null:       !t.Flags.Has(3),
+		},
+		{
 			Name:       "MessageColors",
 			SchemaName: "message_colors",
 			Null:       !t.Flags.Has(0),
@@ -175,7 +192,7 @@ func (t *ThemeSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ThemeSettings) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode themeSettings#8db4e76c as nil")
+		return fmt.Errorf("can't encode themeSettings#fa58b6d4 as nil")
 	}
 	b.PutID(ThemeSettingsTypeID)
 	return t.EncodeBare(b)
@@ -184,10 +201,13 @@ func (t *ThemeSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ThemeSettings) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode themeSettings#8db4e76c as nil")
+		return fmt.Errorf("can't encode themeSettings#fa58b6d4 as nil")
 	}
 	if !(t.MessageColorsAnimated == false) {
 		t.Flags.Set(2)
+	}
+	if !(t.OutboxAccentColor == 0) {
+		t.Flags.Set(3)
 	}
 	if !(t.MessageColors == nil) {
 		t.Flags.Set(0)
@@ -196,15 +216,18 @@ func (t *ThemeSettings) EncodeBare(b *bin.Buffer) error {
 		t.Flags.Set(1)
 	}
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode themeSettings#8db4e76c: field flags: %w", err)
+		return fmt.Errorf("unable to encode themeSettings#fa58b6d4: field flags: %w", err)
 	}
 	if t.BaseTheme == nil {
-		return fmt.Errorf("unable to encode themeSettings#8db4e76c: field base_theme is nil")
+		return fmt.Errorf("unable to encode themeSettings#fa58b6d4: field base_theme is nil")
 	}
 	if err := t.BaseTheme.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode themeSettings#8db4e76c: field base_theme: %w", err)
+		return fmt.Errorf("unable to encode themeSettings#fa58b6d4: field base_theme: %w", err)
 	}
 	b.PutInt(t.AccentColor)
+	if t.Flags.Has(3) {
+		b.PutInt(t.OutboxAccentColor)
+	}
 	if t.Flags.Has(0) {
 		b.PutVectorHeader(len(t.MessageColors))
 		for _, v := range t.MessageColors {
@@ -213,10 +236,10 @@ func (t *ThemeSettings) EncodeBare(b *bin.Buffer) error {
 	}
 	if t.Flags.Has(1) {
 		if t.Wallpaper == nil {
-			return fmt.Errorf("unable to encode themeSettings#8db4e76c: field wallpaper is nil")
+			return fmt.Errorf("unable to encode themeSettings#fa58b6d4: field wallpaper is nil")
 		}
 		if err := t.Wallpaper.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode themeSettings#8db4e76c: field wallpaper: %w", err)
+			return fmt.Errorf("unable to encode themeSettings#fa58b6d4: field wallpaper: %w", err)
 		}
 	}
 	return nil
@@ -225,10 +248,10 @@ func (t *ThemeSettings) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *ThemeSettings) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode themeSettings#8db4e76c to nil")
+		return fmt.Errorf("can't decode themeSettings#fa58b6d4 to nil")
 	}
 	if err := b.ConsumeID(ThemeSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode themeSettings#8db4e76c: %w", err)
+		return fmt.Errorf("unable to decode themeSettings#fa58b6d4: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -236,32 +259,39 @@ func (t *ThemeSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ThemeSettings) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode themeSettings#8db4e76c to nil")
+		return fmt.Errorf("can't decode themeSettings#fa58b6d4 to nil")
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode themeSettings#8db4e76c: field flags: %w", err)
+			return fmt.Errorf("unable to decode themeSettings#fa58b6d4: field flags: %w", err)
 		}
 	}
 	t.MessageColorsAnimated = t.Flags.Has(2)
 	{
 		value, err := DecodeBaseTheme(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode themeSettings#8db4e76c: field base_theme: %w", err)
+			return fmt.Errorf("unable to decode themeSettings#fa58b6d4: field base_theme: %w", err)
 		}
 		t.BaseTheme = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode themeSettings#8db4e76c: field accent_color: %w", err)
+			return fmt.Errorf("unable to decode themeSettings#fa58b6d4: field accent_color: %w", err)
 		}
 		t.AccentColor = value
+	}
+	if t.Flags.Has(3) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode themeSettings#fa58b6d4: field outbox_accent_color: %w", err)
+		}
+		t.OutboxAccentColor = value
 	}
 	if t.Flags.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode themeSettings#8db4e76c: field message_colors: %w", err)
+			return fmt.Errorf("unable to decode themeSettings#fa58b6d4: field message_colors: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -270,7 +300,7 @@ func (t *ThemeSettings) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode themeSettings#8db4e76c: field message_colors: %w", err)
+				return fmt.Errorf("unable to decode themeSettings#fa58b6d4: field message_colors: %w", err)
 			}
 			t.MessageColors = append(t.MessageColors, value)
 		}
@@ -278,7 +308,7 @@ func (t *ThemeSettings) DecodeBare(b *bin.Buffer) error {
 	if t.Flags.Has(1) {
 		value, err := DecodeWallPaper(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode themeSettings#8db4e76c: field wallpaper: %w", err)
+			return fmt.Errorf("unable to decode themeSettings#fa58b6d4: field wallpaper: %w", err)
 		}
 		t.Wallpaper = value
 	}
@@ -309,6 +339,21 @@ func (t *ThemeSettings) GetBaseTheme() (value BaseThemeClass) {
 // GetAccentColor returns value of AccentColor field.
 func (t *ThemeSettings) GetAccentColor() (value int) {
 	return t.AccentColor
+}
+
+// SetOutboxAccentColor sets value of OutboxAccentColor conditional field.
+func (t *ThemeSettings) SetOutboxAccentColor(value int) {
+	t.Flags.Set(3)
+	t.OutboxAccentColor = value
+}
+
+// GetOutboxAccentColor returns value of OutboxAccentColor conditional field and
+// boolean which is true if field was set.
+func (t *ThemeSettings) GetOutboxAccentColor() (value int, ok bool) {
+	if !t.Flags.Has(3) {
+		return value, false
+	}
+	return t.OutboxAccentColor, true
 }
 
 // SetMessageColors sets value of MessageColors conditional field.

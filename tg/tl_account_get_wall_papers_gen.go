@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// AccountGetWallPapersRequest represents TL type `account.getWallPapers#aabb1763`.
+// AccountGetWallPapersRequest represents TL type `account.getWallPapers#7967d36`.
 // Returns a list of available wallpapers.
 //
 // See https://core.telegram.org/method/account.getWallPapers for reference.
@@ -38,11 +38,11 @@ type AccountGetWallPapersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // AccountGetWallPapersRequestTypeID is TL type id of AccountGetWallPapersRequest.
-const AccountGetWallPapersRequestTypeID = 0xaabb1763
+const AccountGetWallPapersRequestTypeID = 0x7967d36
 
 // Ensuring interfaces in compile-time for AccountGetWallPapersRequest.
 var (
@@ -74,7 +74,7 @@ func (g *AccountGetWallPapersRequest) String() string {
 
 // FillFrom fills AccountGetWallPapersRequest from given interface.
 func (g *AccountGetWallPapersRequest) FillFrom(from interface {
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Hash = from.GetHash()
 }
@@ -113,7 +113,7 @@ func (g *AccountGetWallPapersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetWallPapersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getWallPapers#aabb1763 as nil")
+		return fmt.Errorf("can't encode account.getWallPapers#7967d36 as nil")
 	}
 	b.PutID(AccountGetWallPapersRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,19 +122,19 @@ func (g *AccountGetWallPapersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetWallPapersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getWallPapers#aabb1763 as nil")
+		return fmt.Errorf("can't encode account.getWallPapers#7967d36 as nil")
 	}
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *AccountGetWallPapersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getWallPapers#aabb1763 to nil")
+		return fmt.Errorf("can't decode account.getWallPapers#7967d36 to nil")
 	}
 	if err := b.ConsumeID(AccountGetWallPapersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getWallPapers#aabb1763: %w", err)
+		return fmt.Errorf("unable to decode account.getWallPapers#7967d36: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (g *AccountGetWallPapersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetWallPapersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getWallPapers#aabb1763 to nil")
+		return fmt.Errorf("can't decode account.getWallPapers#7967d36 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getWallPapers#aabb1763: field hash: %w", err)
+			return fmt.Errorf("unable to decode account.getWallPapers#7967d36: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -155,15 +155,15 @@ func (g *AccountGetWallPapersRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetHash returns value of Hash field.
-func (g *AccountGetWallPapersRequest) GetHash() (value int) {
+func (g *AccountGetWallPapersRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// AccountGetWallPapers invokes method account.getWallPapers#aabb1763 returning error if any.
+// AccountGetWallPapers invokes method account.getWallPapers#7967d36 returning error if any.
 // Returns a list of available wallpapers.
 //
 // See https://core.telegram.org/method/account.getWallPapers for reference.
-func (c *Client) AccountGetWallPapers(ctx context.Context, hash int) (AccountWallPapersClass, error) {
+func (c *Client) AccountGetWallPapers(ctx context.Context, hash int64) (AccountWallPapersClass, error) {
 	var result AccountWallPapersBox
 
 	request := &AccountGetWallPapersRequest{

@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// AccountGetThemesRequest represents TL type `account.getThemes#285946f8`.
+// AccountGetThemesRequest represents TL type `account.getThemes#7206e458`.
 // Get installed themes
 //
 // See https://core.telegram.org/method/account.getThemes for reference.
@@ -40,11 +40,11 @@ type AccountGetThemesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // AccountGetThemesRequestTypeID is TL type id of AccountGetThemesRequest.
-const AccountGetThemesRequestTypeID = 0x285946f8
+const AccountGetThemesRequestTypeID = 0x7206e458
 
 // Ensuring interfaces in compile-time for AccountGetThemesRequest.
 var (
@@ -80,7 +80,7 @@ func (g *AccountGetThemesRequest) String() string {
 // FillFrom fills AccountGetThemesRequest from given interface.
 func (g *AccountGetThemesRequest) FillFrom(from interface {
 	GetFormat() (value string)
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Format = from.GetFormat()
 	g.Hash = from.GetHash()
@@ -124,7 +124,7 @@ func (g *AccountGetThemesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetThemesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getThemes#285946f8 as nil")
+		return fmt.Errorf("can't encode account.getThemes#7206e458 as nil")
 	}
 	b.PutID(AccountGetThemesRequestTypeID)
 	return g.EncodeBare(b)
@@ -133,20 +133,20 @@ func (g *AccountGetThemesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetThemesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getThemes#285946f8 as nil")
+		return fmt.Errorf("can't encode account.getThemes#7206e458 as nil")
 	}
 	b.PutString(g.Format)
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *AccountGetThemesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getThemes#285946f8 to nil")
+		return fmt.Errorf("can't decode account.getThemes#7206e458 to nil")
 	}
 	if err := b.ConsumeID(AccountGetThemesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getThemes#285946f8: %w", err)
+		return fmt.Errorf("unable to decode account.getThemes#7206e458: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -154,19 +154,19 @@ func (g *AccountGetThemesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetThemesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getThemes#285946f8 to nil")
+		return fmt.Errorf("can't decode account.getThemes#7206e458 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getThemes#285946f8: field format: %w", err)
+			return fmt.Errorf("unable to decode account.getThemes#7206e458: field format: %w", err)
 		}
 		g.Format = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getThemes#285946f8: field hash: %w", err)
+			return fmt.Errorf("unable to decode account.getThemes#7206e458: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -179,11 +179,11 @@ func (g *AccountGetThemesRequest) GetFormat() (value string) {
 }
 
 // GetHash returns value of Hash field.
-func (g *AccountGetThemesRequest) GetHash() (value int) {
+func (g *AccountGetThemesRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// AccountGetThemes invokes method account.getThemes#285946f8 returning error if any.
+// AccountGetThemes invokes method account.getThemes#7206e458 returning error if any.
 // Get installed themes
 //
 // See https://core.telegram.org/method/account.getThemes for reference.

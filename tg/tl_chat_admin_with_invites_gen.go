@@ -29,12 +29,12 @@ var (
 	_ = tgerr.Error{}
 )
 
-// ChatAdminWithInvites represents TL type `chatAdminWithInvites#dfd2330f`.
+// ChatAdminWithInvites represents TL type `chatAdminWithInvites#f2ecef23`.
 //
 // See https://core.telegram.org/constructor/chatAdminWithInvites for reference.
 type ChatAdminWithInvites struct {
 	// AdminID field of ChatAdminWithInvites.
-	AdminID int
+	AdminID int64
 	// InvitesCount field of ChatAdminWithInvites.
 	InvitesCount int
 	// RevokedInvitesCount field of ChatAdminWithInvites.
@@ -42,7 +42,7 @@ type ChatAdminWithInvites struct {
 }
 
 // ChatAdminWithInvitesTypeID is TL type id of ChatAdminWithInvites.
-const ChatAdminWithInvitesTypeID = 0xdfd2330f
+const ChatAdminWithInvitesTypeID = 0xf2ecef23
 
 // Ensuring interfaces in compile-time for ChatAdminWithInvites.
 var (
@@ -80,7 +80,7 @@ func (c *ChatAdminWithInvites) String() string {
 
 // FillFrom fills ChatAdminWithInvites from given interface.
 func (c *ChatAdminWithInvites) FillFrom(from interface {
-	GetAdminID() (value int)
+	GetAdminID() (value int64)
 	GetInvitesCount() (value int)
 	GetRevokedInvitesCount() (value int)
 }) {
@@ -131,7 +131,7 @@ func (c *ChatAdminWithInvites) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatAdminWithInvites) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAdminWithInvites#dfd2330f as nil")
+		return fmt.Errorf("can't encode chatAdminWithInvites#f2ecef23 as nil")
 	}
 	b.PutID(ChatAdminWithInvitesTypeID)
 	return c.EncodeBare(b)
@@ -140,9 +140,9 @@ func (c *ChatAdminWithInvites) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatAdminWithInvites) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAdminWithInvites#dfd2330f as nil")
+		return fmt.Errorf("can't encode chatAdminWithInvites#f2ecef23 as nil")
 	}
-	b.PutInt(c.AdminID)
+	b.PutLong(c.AdminID)
 	b.PutInt(c.InvitesCount)
 	b.PutInt(c.RevokedInvitesCount)
 	return nil
@@ -151,10 +151,10 @@ func (c *ChatAdminWithInvites) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatAdminWithInvites) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAdminWithInvites#dfd2330f to nil")
+		return fmt.Errorf("can't decode chatAdminWithInvites#f2ecef23 to nil")
 	}
 	if err := b.ConsumeID(ChatAdminWithInvitesTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatAdminWithInvites#dfd2330f: %w", err)
+		return fmt.Errorf("unable to decode chatAdminWithInvites#f2ecef23: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -162,26 +162,26 @@ func (c *ChatAdminWithInvites) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatAdminWithInvites) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAdminWithInvites#dfd2330f to nil")
+		return fmt.Errorf("can't decode chatAdminWithInvites#f2ecef23 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdminWithInvites#dfd2330f: field admin_id: %w", err)
+			return fmt.Errorf("unable to decode chatAdminWithInvites#f2ecef23: field admin_id: %w", err)
 		}
 		c.AdminID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdminWithInvites#dfd2330f: field invites_count: %w", err)
+			return fmt.Errorf("unable to decode chatAdminWithInvites#f2ecef23: field invites_count: %w", err)
 		}
 		c.InvitesCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdminWithInvites#dfd2330f: field revoked_invites_count: %w", err)
+			return fmt.Errorf("unable to decode chatAdminWithInvites#f2ecef23: field revoked_invites_count: %w", err)
 		}
 		c.RevokedInvitesCount = value
 	}
@@ -189,7 +189,7 @@ func (c *ChatAdminWithInvites) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetAdminID returns value of AdminID field.
-func (c *ChatAdminWithInvites) GetAdminID() (value int) {
+func (c *ChatAdminWithInvites) GetAdminID() (value int64) {
 	return c.AdminID
 }
 

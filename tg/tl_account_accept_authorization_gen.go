@@ -29,14 +29,14 @@ var (
 	_ = tgerr.Error{}
 )
 
-// AccountAcceptAuthorizationRequest represents TL type `account.acceptAuthorization#e7027c94`.
+// AccountAcceptAuthorizationRequest represents TL type `account.acceptAuthorization#f3ed4c73`.
 // Sends a Telegram Passport authorization form, effectively sharing data with the
 // service
 //
 // See https://core.telegram.org/method/account.acceptAuthorization for reference.
 type AccountAcceptAuthorizationRequest struct {
 	// Bot ID
-	BotID int
+	BotID int64
 	// Telegram Passport element types requested by the service
 	Scope string
 	// Service's public key
@@ -48,7 +48,7 @@ type AccountAcceptAuthorizationRequest struct {
 }
 
 // AccountAcceptAuthorizationRequestTypeID is TL type id of AccountAcceptAuthorizationRequest.
-const AccountAcceptAuthorizationRequestTypeID = 0xe7027c94
+const AccountAcceptAuthorizationRequestTypeID = 0xf3ed4c73
 
 // Ensuring interfaces in compile-time for AccountAcceptAuthorizationRequest.
 var (
@@ -92,7 +92,7 @@ func (a *AccountAcceptAuthorizationRequest) String() string {
 
 // FillFrom fills AccountAcceptAuthorizationRequest from given interface.
 func (a *AccountAcceptAuthorizationRequest) FillFrom(from interface {
-	GetBotID() (value int)
+	GetBotID() (value int64)
 	GetScope() (value string)
 	GetPublicKey() (value string)
 	GetValueHashes() (value []SecureValueHash)
@@ -155,7 +155,7 @@ func (a *AccountAcceptAuthorizationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AccountAcceptAuthorizationRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode account.acceptAuthorization#e7027c94 as nil")
+		return fmt.Errorf("can't encode account.acceptAuthorization#f3ed4c73 as nil")
 	}
 	b.PutID(AccountAcceptAuthorizationRequestTypeID)
 	return a.EncodeBare(b)
@@ -164,19 +164,19 @@ func (a *AccountAcceptAuthorizationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AccountAcceptAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode account.acceptAuthorization#e7027c94 as nil")
+		return fmt.Errorf("can't encode account.acceptAuthorization#f3ed4c73 as nil")
 	}
-	b.PutInt(a.BotID)
+	b.PutLong(a.BotID)
 	b.PutString(a.Scope)
 	b.PutString(a.PublicKey)
 	b.PutVectorHeader(len(a.ValueHashes))
 	for idx, v := range a.ValueHashes {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.acceptAuthorization#e7027c94: field value_hashes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode account.acceptAuthorization#f3ed4c73: field value_hashes element with index %d: %w", idx, err)
 		}
 	}
 	if err := a.Credentials.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.acceptAuthorization#e7027c94: field credentials: %w", err)
+		return fmt.Errorf("unable to encode account.acceptAuthorization#f3ed4c73: field credentials: %w", err)
 	}
 	return nil
 }
@@ -184,10 +184,10 @@ func (a *AccountAcceptAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AccountAcceptAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode account.acceptAuthorization#e7027c94 to nil")
+		return fmt.Errorf("can't decode account.acceptAuthorization#f3ed4c73 to nil")
 	}
 	if err := b.ConsumeID(AccountAcceptAuthorizationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: %w", err)
+		return fmt.Errorf("unable to decode account.acceptAuthorization#f3ed4c73: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -195,33 +195,33 @@ func (a *AccountAcceptAuthorizationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AccountAcceptAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode account.acceptAuthorization#e7027c94 to nil")
+		return fmt.Errorf("can't decode account.acceptAuthorization#f3ed4c73 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: field bot_id: %w", err)
+			return fmt.Errorf("unable to decode account.acceptAuthorization#f3ed4c73: field bot_id: %w", err)
 		}
 		a.BotID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: field scope: %w", err)
+			return fmt.Errorf("unable to decode account.acceptAuthorization#f3ed4c73: field scope: %w", err)
 		}
 		a.Scope = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: field public_key: %w", err)
+			return fmt.Errorf("unable to decode account.acceptAuthorization#f3ed4c73: field public_key: %w", err)
 		}
 		a.PublicKey = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: field value_hashes: %w", err)
+			return fmt.Errorf("unable to decode account.acceptAuthorization#f3ed4c73: field value_hashes: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -230,21 +230,21 @@ func (a *AccountAcceptAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value SecureValueHash
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: field value_hashes: %w", err)
+				return fmt.Errorf("unable to decode account.acceptAuthorization#f3ed4c73: field value_hashes: %w", err)
 			}
 			a.ValueHashes = append(a.ValueHashes, value)
 		}
 	}
 	{
 		if err := a.Credentials.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: field credentials: %w", err)
+			return fmt.Errorf("unable to decode account.acceptAuthorization#f3ed4c73: field credentials: %w", err)
 		}
 	}
 	return nil
 }
 
 // GetBotID returns value of BotID field.
-func (a *AccountAcceptAuthorizationRequest) GetBotID() (value int) {
+func (a *AccountAcceptAuthorizationRequest) GetBotID() (value int64) {
 	return a.BotID
 }
 
@@ -268,7 +268,7 @@ func (a *AccountAcceptAuthorizationRequest) GetCredentials() (value SecureCreden
 	return a.Credentials
 }
 
-// AccountAcceptAuthorization invokes method account.acceptAuthorization#e7027c94 returning error if any.
+// AccountAcceptAuthorization invokes method account.acceptAuthorization#f3ed4c73 returning error if any.
 // Sends a Telegram Passport authorization form, effectively sharing data with the
 // service
 //

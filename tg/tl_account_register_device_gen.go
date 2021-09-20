@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// AccountRegisterDeviceRequest represents TL type `account.registerDevice#68976c6f`.
+// AccountRegisterDeviceRequest represents TL type `account.registerDevice#ec86017a`.
 // Register device to receive PUSH notifications¹
 //
 // Links:
@@ -66,11 +66,11 @@ type AccountRegisterDeviceRequest struct {
 	// For FCM and APNS VoIP, optional encryption key used to encrypt push notifications
 	Secret []byte
 	// List of user identifiers of other users currently using the client
-	OtherUIDs []int
+	OtherUIDs []int64
 }
 
 // AccountRegisterDeviceRequestTypeID is TL type id of AccountRegisterDeviceRequest.
-const AccountRegisterDeviceRequestTypeID = 0x68976c6f
+const AccountRegisterDeviceRequestTypeID = 0xec86017a
 
 // Ensuring interfaces in compile-time for AccountRegisterDeviceRequest.
 var (
@@ -125,7 +125,7 @@ func (r *AccountRegisterDeviceRequest) FillFrom(from interface {
 	GetToken() (value string)
 	GetAppSandbox() (value bool)
 	GetSecret() (value []byte)
-	GetOtherUIDs() (value []int)
+	GetOtherUIDs() (value []int64)
 }) {
 	r.NoMuted = from.GetNoMuted()
 	r.TokenType = from.GetTokenType()
@@ -190,7 +190,7 @@ func (r *AccountRegisterDeviceRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *AccountRegisterDeviceRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.registerDevice#68976c6f as nil")
+		return fmt.Errorf("can't encode account.registerDevice#ec86017a as nil")
 	}
 	b.PutID(AccountRegisterDeviceRequestTypeID)
 	return r.EncodeBare(b)
@@ -199,13 +199,13 @@ func (r *AccountRegisterDeviceRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *AccountRegisterDeviceRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.registerDevice#68976c6f as nil")
+		return fmt.Errorf("can't encode account.registerDevice#ec86017a as nil")
 	}
 	if !(r.NoMuted == false) {
 		r.Flags.Set(0)
 	}
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.registerDevice#68976c6f: field flags: %w", err)
+		return fmt.Errorf("unable to encode account.registerDevice#ec86017a: field flags: %w", err)
 	}
 	b.PutInt(r.TokenType)
 	b.PutString(r.Token)
@@ -213,7 +213,7 @@ func (r *AccountRegisterDeviceRequest) EncodeBare(b *bin.Buffer) error {
 	b.PutBytes(r.Secret)
 	b.PutVectorHeader(len(r.OtherUIDs))
 	for _, v := range r.OtherUIDs {
-		b.PutInt(v)
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -221,10 +221,10 @@ func (r *AccountRegisterDeviceRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *AccountRegisterDeviceRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.registerDevice#68976c6f to nil")
+		return fmt.Errorf("can't decode account.registerDevice#ec86017a to nil")
 	}
 	if err := b.ConsumeID(AccountRegisterDeviceRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.registerDevice#68976c6f: %w", err)
+		return fmt.Errorf("unable to decode account.registerDevice#ec86017a: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -232,55 +232,55 @@ func (r *AccountRegisterDeviceRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *AccountRegisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.registerDevice#68976c6f to nil")
+		return fmt.Errorf("can't decode account.registerDevice#ec86017a to nil")
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field flags: %w", err)
+			return fmt.Errorf("unable to decode account.registerDevice#ec86017a: field flags: %w", err)
 		}
 	}
 	r.NoMuted = r.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field token_type: %w", err)
+			return fmt.Errorf("unable to decode account.registerDevice#ec86017a: field token_type: %w", err)
 		}
 		r.TokenType = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field token: %w", err)
+			return fmt.Errorf("unable to decode account.registerDevice#ec86017a: field token: %w", err)
 		}
 		r.Token = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field app_sandbox: %w", err)
+			return fmt.Errorf("unable to decode account.registerDevice#ec86017a: field app_sandbox: %w", err)
 		}
 		r.AppSandbox = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field secret: %w", err)
+			return fmt.Errorf("unable to decode account.registerDevice#ec86017a: field secret: %w", err)
 		}
 		r.Secret = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field other_uids: %w", err)
+			return fmt.Errorf("unable to decode account.registerDevice#ec86017a: field other_uids: %w", err)
 		}
 
 		if headerLen > 0 {
-			r.OtherUIDs = make([]int, 0, headerLen%bin.PreallocateLimit)
+			r.OtherUIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field other_uids: %w", err)
+				return fmt.Errorf("unable to decode account.registerDevice#ec86017a: field other_uids: %w", err)
 			}
 			r.OtherUIDs = append(r.OtherUIDs, value)
 		}
@@ -325,11 +325,11 @@ func (r *AccountRegisterDeviceRequest) GetSecret() (value []byte) {
 }
 
 // GetOtherUIDs returns value of OtherUIDs field.
-func (r *AccountRegisterDeviceRequest) GetOtherUIDs() (value []int) {
+func (r *AccountRegisterDeviceRequest) GetOtherUIDs() (value []int64) {
 	return r.OtherUIDs
 }
 
-// AccountRegisterDevice invokes method account.registerDevice#68976c6f returning error if any.
+// AccountRegisterDevice invokes method account.registerDevice#ec86017a returning error if any.
 // Register device to receive PUSH notifications¹
 //
 // Links:

@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetCommonChatsRequest represents TL type `messages.getCommonChats#d0a48c4`.
+// MessagesGetCommonChatsRequest represents TL type `messages.getCommonChats#e40ca104`.
 // Get chats in common with a user
 //
 // See https://core.telegram.org/method/messages.getCommonChats for reference.
@@ -40,7 +40,7 @@ type MessagesGetCommonChatsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MaxID int
+	MaxID int64
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
@@ -49,7 +49,7 @@ type MessagesGetCommonChatsRequest struct {
 }
 
 // MessagesGetCommonChatsRequestTypeID is TL type id of MessagesGetCommonChatsRequest.
-const MessagesGetCommonChatsRequestTypeID = 0xd0a48c4
+const MessagesGetCommonChatsRequestTypeID = 0xe40ca104
 
 // Ensuring interfaces in compile-time for MessagesGetCommonChatsRequest.
 var (
@@ -88,7 +88,7 @@ func (g *MessagesGetCommonChatsRequest) String() string {
 // FillFrom fills MessagesGetCommonChatsRequest from given interface.
 func (g *MessagesGetCommonChatsRequest) FillFrom(from interface {
 	GetUserID() (value InputUserClass)
-	GetMaxID() (value int)
+	GetMaxID() (value int64)
 	GetLimit() (value int)
 }) {
 	g.UserID = from.GetUserID()
@@ -138,7 +138,7 @@ func (g *MessagesGetCommonChatsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetCommonChatsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getCommonChats#d0a48c4 as nil")
+		return fmt.Errorf("can't encode messages.getCommonChats#e40ca104 as nil")
 	}
 	b.PutID(MessagesGetCommonChatsRequestTypeID)
 	return g.EncodeBare(b)
@@ -147,15 +147,15 @@ func (g *MessagesGetCommonChatsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetCommonChatsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getCommonChats#d0a48c4 as nil")
+		return fmt.Errorf("can't encode messages.getCommonChats#e40ca104 as nil")
 	}
 	if g.UserID == nil {
-		return fmt.Errorf("unable to encode messages.getCommonChats#d0a48c4: field user_id is nil")
+		return fmt.Errorf("unable to encode messages.getCommonChats#e40ca104: field user_id is nil")
 	}
 	if err := g.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getCommonChats#d0a48c4: field user_id: %w", err)
+		return fmt.Errorf("unable to encode messages.getCommonChats#e40ca104: field user_id: %w", err)
 	}
-	b.PutInt(g.MaxID)
+	b.PutLong(g.MaxID)
 	b.PutInt(g.Limit)
 	return nil
 }
@@ -163,10 +163,10 @@ func (g *MessagesGetCommonChatsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetCommonChatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getCommonChats#d0a48c4 to nil")
+		return fmt.Errorf("can't decode messages.getCommonChats#e40ca104 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetCommonChatsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getCommonChats#d0a48c4: %w", err)
+		return fmt.Errorf("unable to decode messages.getCommonChats#e40ca104: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -174,26 +174,26 @@ func (g *MessagesGetCommonChatsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetCommonChatsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getCommonChats#d0a48c4 to nil")
+		return fmt.Errorf("can't decode messages.getCommonChats#e40ca104 to nil")
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getCommonChats#d0a48c4: field user_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getCommonChats#e40ca104: field user_id: %w", err)
 		}
 		g.UserID = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getCommonChats#d0a48c4: field max_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getCommonChats#e40ca104: field max_id: %w", err)
 		}
 		g.MaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getCommonChats#d0a48c4: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.getCommonChats#e40ca104: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -206,7 +206,7 @@ func (g *MessagesGetCommonChatsRequest) GetUserID() (value InputUserClass) {
 }
 
 // GetMaxID returns value of MaxID field.
-func (g *MessagesGetCommonChatsRequest) GetMaxID() (value int) {
+func (g *MessagesGetCommonChatsRequest) GetMaxID() (value int64) {
 	return g.MaxID
 }
 
@@ -215,7 +215,7 @@ func (g *MessagesGetCommonChatsRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// MessagesGetCommonChats invokes method messages.getCommonChats#d0a48c4 returning error if any.
+// MessagesGetCommonChats invokes method messages.getCommonChats#e40ca104 returning error if any.
 // Get chats in common with a user
 //
 // Possible errors:
