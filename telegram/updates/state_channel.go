@@ -29,15 +29,15 @@ type channelState struct {
 	diffTimeout time.Time
 
 	// Immutable fields.
-	channelID  int
+	channelID  int64
 	accessHash int64
-	selfID     int
+	selfID     int64
 	diffLim    int
 	client     RawClient
 	storage    StateStorage
 	log        *zap.Logger
 	handler    telegram.UpdateHandler
-	onTooLong  func(channelID int)
+	onTooLong  func(channelID int64)
 
 	ctx    context.Context
 	cancel context.CancelFunc
@@ -47,14 +47,14 @@ type channelState struct {
 type channelStateConfig struct {
 	Outchan          chan tg.UpdatesClass
 	InitialPts       int
-	ChannelID        int
+	ChannelID        int64
 	AccessHash       int64
-	SelfID           int
+	SelfID           int64
 	DiffLimit        int
 	RawClient        RawClient
 	Storage          StateStorage
 	Handler          telegram.UpdateHandler
-	OnChannelTooLong func(channelID int)
+	OnChannelTooLong func(channelID int64)
 	Logger           *zap.Logger
 }
 

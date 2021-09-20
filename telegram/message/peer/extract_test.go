@@ -37,13 +37,13 @@ func (m mockResult) MapChats() (r tg.ChatClassArray) {
 }
 
 func TestEntities(t *testing.T) {
-	users := map[int]*tg.User{
+	users := map[int64]*tg.User{
 		10: {ID: 10, AccessHash: 10},
 	}
-	chats := map[int]*tg.Chat{
+	chats := map[int64]*tg.Chat{
 		10: {ID: 10},
 	}
-	channels := map[int]*tg.Channel{
+	channels := map[int64]*tg.Channel{
 		10: {ID: 10, AccessHash: 10},
 	}
 	ent := NewEntities(users, chats, channels)
@@ -66,9 +66,9 @@ func TestEntities(t *testing.T) {
 		}},
 		{"FillFromResult", func() Entities {
 			e := NewEntities(
-				map[int]*tg.User{},
-				map[int]*tg.Chat{},
-				map[int]*tg.Channel{},
+				map[int64]*tg.User{},
+				map[int64]*tg.Chat{},
+				map[int64]*tg.Channel{},
 			)
 			e.FillFromResult(result)
 			return e
@@ -78,9 +78,9 @@ func TestEntities(t *testing.T) {
 		}},
 		{"FillFromUpdate", func() Entities {
 			e := NewEntities(
-				map[int]*tg.User{},
-				map[int]*tg.Chat{},
-				map[int]*tg.Channel{},
+				map[int64]*tg.User{},
+				map[int64]*tg.Chat{},
+				map[int64]*tg.Channel{},
 			)
 			e.FillFromUpdate(ctx)
 			return e

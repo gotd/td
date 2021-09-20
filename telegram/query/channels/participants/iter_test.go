@@ -15,7 +15,7 @@ func generateParticipants(count int) []tg.ChannelParticipantClass {
 
 	for i := 0; i < count; i++ {
 		r = append(r, &tg.ChannelParticipant{
-			UserID: i,
+			UserID: int64(i),
 			Date:   i,
 		})
 	}

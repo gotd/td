@@ -43,16 +43,16 @@ func NewUpdateDispatcher() UpdateDispatcher {
 
 type Entities struct {
 	Short    bool
-	Users    map[int]*User
-	Chats    map[int]*Chat
-	Channels map[int]*Channel
+	Users    map[int64]*User
+	Chats    map[int64]*Chat
+	Channels map[int64]*Channel
 }
 
 func (u *Entities) short() {
 	u.Short = true
-	u.Users = make(map[int]*User, 0)
-	u.Chats = make(map[int]*Chat, 0)
-	u.Channels = make(map[int]*Channel, 0)
+	u.Users = make(map[int64]*User, 0)
+	u.Chats = make(map[int64]*Chat, 0)
+	u.Channels = make(map[int64]*Channel, 0)
 }
 
 // Handle implements UpdateDispatcher.

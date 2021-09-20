@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesEditChatAdminRequest represents TL type `messages.editChatAdmin#a9e69f2e`.
+// MessagesEditChatAdminRequest represents TL type `messages.editChatAdmin#a85bd1c2`.
 // Make a user admin in a legacy group¹.
 //
 // Links:
@@ -38,7 +38,7 @@ var (
 // See https://core.telegram.org/method/messages.editChatAdmin for reference.
 type MessagesEditChatAdminRequest struct {
 	// The ID of the group
-	ChatID int
+	ChatID int64
 	// The user to make admin
 	UserID InputUserClass
 	// Whether to make him admin
@@ -46,7 +46,7 @@ type MessagesEditChatAdminRequest struct {
 }
 
 // MessagesEditChatAdminRequestTypeID is TL type id of MessagesEditChatAdminRequest.
-const MessagesEditChatAdminRequestTypeID = 0xa9e69f2e
+const MessagesEditChatAdminRequestTypeID = 0xa85bd1c2
 
 // Ensuring interfaces in compile-time for MessagesEditChatAdminRequest.
 var (
@@ -84,7 +84,7 @@ func (e *MessagesEditChatAdminRequest) String() string {
 
 // FillFrom fills MessagesEditChatAdminRequest from given interface.
 func (e *MessagesEditChatAdminRequest) FillFrom(from interface {
-	GetChatID() (value int)
+	GetChatID() (value int64)
 	GetUserID() (value InputUserClass)
 	GetIsAdmin() (value bool)
 }) {
@@ -135,7 +135,7 @@ func (e *MessagesEditChatAdminRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatAdminRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatAdmin#a9e69f2e as nil")
+		return fmt.Errorf("can't encode messages.editChatAdmin#a85bd1c2 as nil")
 	}
 	b.PutID(MessagesEditChatAdminRequestTypeID)
 	return e.EncodeBare(b)
@@ -144,14 +144,14 @@ func (e *MessagesEditChatAdminRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *MessagesEditChatAdminRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editChatAdmin#a9e69f2e as nil")
+		return fmt.Errorf("can't encode messages.editChatAdmin#a85bd1c2 as nil")
 	}
-	b.PutInt(e.ChatID)
+	b.PutLong(e.ChatID)
 	if e.UserID == nil {
-		return fmt.Errorf("unable to encode messages.editChatAdmin#a9e69f2e: field user_id is nil")
+		return fmt.Errorf("unable to encode messages.editChatAdmin#a85bd1c2: field user_id is nil")
 	}
 	if err := e.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editChatAdmin#a9e69f2e: field user_id: %w", err)
+		return fmt.Errorf("unable to encode messages.editChatAdmin#a85bd1c2: field user_id: %w", err)
 	}
 	b.PutBool(e.IsAdmin)
 	return nil
@@ -160,10 +160,10 @@ func (e *MessagesEditChatAdminRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *MessagesEditChatAdminRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatAdmin#a9e69f2e to nil")
+		return fmt.Errorf("can't decode messages.editChatAdmin#a85bd1c2 to nil")
 	}
 	if err := b.ConsumeID(MessagesEditChatAdminRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.editChatAdmin#a9e69f2e: %w", err)
+		return fmt.Errorf("unable to decode messages.editChatAdmin#a85bd1c2: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -171,26 +171,26 @@ func (e *MessagesEditChatAdminRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *MessagesEditChatAdminRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editChatAdmin#a9e69f2e to nil")
+		return fmt.Errorf("can't decode messages.editChatAdmin#a85bd1c2 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatAdmin#a9e69f2e: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode messages.editChatAdmin#a85bd1c2: field chat_id: %w", err)
 		}
 		e.ChatID = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatAdmin#a9e69f2e: field user_id: %w", err)
+			return fmt.Errorf("unable to decode messages.editChatAdmin#a85bd1c2: field user_id: %w", err)
 		}
 		e.UserID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editChatAdmin#a9e69f2e: field is_admin: %w", err)
+			return fmt.Errorf("unable to decode messages.editChatAdmin#a85bd1c2: field is_admin: %w", err)
 		}
 		e.IsAdmin = value
 	}
@@ -198,7 +198,7 @@ func (e *MessagesEditChatAdminRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetChatID returns value of ChatID field.
-func (e *MessagesEditChatAdminRequest) GetChatID() (value int) {
+func (e *MessagesEditChatAdminRequest) GetChatID() (value int64) {
 	return e.ChatID
 }
 
@@ -212,7 +212,7 @@ func (e *MessagesEditChatAdminRequest) GetIsAdmin() (value bool) {
 	return e.IsAdmin
 }
 
-// MessagesEditChatAdmin invokes method messages.editChatAdmin#a9e69f2e returning error if any.
+// MessagesEditChatAdmin invokes method messages.editChatAdmin#a85bd1c2 returning error if any.
 // Make a user admin in a legacy group¹.
 //
 // Links:

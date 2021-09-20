@@ -17,7 +17,7 @@ type handler struct {
 func newHandler() *handler {
 	return &handler{
 		messages: &messageDatabase{
-			channels: make(map[int][]tg.MessageClass),
+			channels: make(map[int64][]tg.MessageClass),
 		},
 		ents: NewEntities(),
 	}

@@ -114,6 +114,38 @@ func (s *PhoneConnectionClassArray) Pop() (v PhoneConnectionClass, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of PhoneConnectionClass by ID.
+func (s PhoneConnectionClassArray) SortByID() PhoneConnectionClassArray {
+	return s.Sort(func(a, b PhoneConnectionClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of PhoneConnectionClass by ID.
+func (s PhoneConnectionClassArray) SortStableByID() PhoneConnectionClassArray {
+	return s.SortStable(func(a, b PhoneConnectionClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillPhoneConnectionMap fills only PhoneConnection constructors to given map.
+func (s PhoneConnectionClassArray) FillPhoneConnectionMap(to map[int64]*PhoneConnection) {
+	for _, elem := range s {
+		value, ok := elem.(*PhoneConnection)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// PhoneConnectionToMap collects only PhoneConnection constructors to map.
+func (s PhoneConnectionClassArray) PhoneConnectionToMap() map[int64]*PhoneConnection {
+	r := make(map[int64]*PhoneConnection, len(s))
+	s.FillPhoneConnectionMap(r)
+	return r
+}
+
 // AsPhoneConnection returns copy with only PhoneConnection constructors.
 func (s PhoneConnectionClassArray) AsPhoneConnection() (to PhoneConnectionArray) {
 	for _, elem := range s {
@@ -125,6 +157,24 @@ func (s PhoneConnectionClassArray) AsPhoneConnection() (to PhoneConnectionArray)
 	}
 
 	return to
+}
+
+// FillPhoneConnectionWebrtcMap fills only PhoneConnectionWebrtc constructors to given map.
+func (s PhoneConnectionClassArray) FillPhoneConnectionWebrtcMap(to map[int64]*PhoneConnectionWebrtc) {
+	for _, elem := range s {
+		value, ok := elem.(*PhoneConnectionWebrtc)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// PhoneConnectionWebrtcToMap collects only PhoneConnectionWebrtc constructors to map.
+func (s PhoneConnectionClassArray) PhoneConnectionWebrtcToMap() map[int64]*PhoneConnectionWebrtc {
+	r := make(map[int64]*PhoneConnectionWebrtc, len(s))
+	s.FillPhoneConnectionWebrtcMap(r)
+	return r
 }
 
 // AsPhoneConnectionWebrtc returns copy with only PhoneConnectionWebrtc constructors.
@@ -222,6 +272,34 @@ func (s *PhoneConnectionArray) Pop() (v PhoneConnection, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of PhoneConnection by ID.
+func (s PhoneConnectionArray) SortByID() PhoneConnectionArray {
+	return s.Sort(func(a, b PhoneConnection) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of PhoneConnection by ID.
+func (s PhoneConnectionArray) SortStableByID() PhoneConnectionArray {
+	return s.SortStable(func(a, b PhoneConnection) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s PhoneConnectionArray) FillMap(to map[int64]PhoneConnection) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s PhoneConnectionArray) ToMap() map[int64]PhoneConnection {
+	r := make(map[int64]PhoneConnection, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // PhoneConnectionWebrtcArray is adapter for slice of PhoneConnectionWebrtc.
 type PhoneConnectionWebrtcArray []PhoneConnectionWebrtc
 
@@ -302,4 +380,32 @@ func (s *PhoneConnectionWebrtcArray) Pop() (v PhoneConnectionWebrtc, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of PhoneConnectionWebrtc by ID.
+func (s PhoneConnectionWebrtcArray) SortByID() PhoneConnectionWebrtcArray {
+	return s.Sort(func(a, b PhoneConnectionWebrtc) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of PhoneConnectionWebrtc by ID.
+func (s PhoneConnectionWebrtcArray) SortStableByID() PhoneConnectionWebrtcArray {
+	return s.SortStable(func(a, b PhoneConnectionWebrtc) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s PhoneConnectionWebrtcArray) FillMap(to map[int64]PhoneConnectionWebrtc) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s PhoneConnectionWebrtcArray) ToMap() map[int64]PhoneConnectionWebrtc {
+	r := make(map[int64]PhoneConnectionWebrtc, len(s))
+	s.FillMap(r)
+	return r
 }

@@ -129,7 +129,7 @@ func (s ChatClassArray) SortStableByID() ChatClassArray {
 }
 
 // FillChatEmptyMap fills only ChatEmpty constructors to given map.
-func (s ChatClassArray) FillChatEmptyMap(to map[int]*ChatEmpty) {
+func (s ChatClassArray) FillChatEmptyMap(to map[int64]*ChatEmpty) {
 	for _, elem := range s {
 		value, ok := elem.(*ChatEmpty)
 		if !ok {
@@ -140,8 +140,8 @@ func (s ChatClassArray) FillChatEmptyMap(to map[int]*ChatEmpty) {
 }
 
 // ChatEmptyToMap collects only ChatEmpty constructors to map.
-func (s ChatClassArray) ChatEmptyToMap() map[int]*ChatEmpty {
-	r := make(map[int]*ChatEmpty, len(s))
+func (s ChatClassArray) ChatEmptyToMap() map[int64]*ChatEmpty {
+	r := make(map[int64]*ChatEmpty, len(s))
 	s.FillChatEmptyMap(r)
 	return r
 }
@@ -160,7 +160,7 @@ func (s ChatClassArray) AsChatEmpty() (to ChatEmptyArray) {
 }
 
 // FillChatMap fills only Chat constructors to given map.
-func (s ChatClassArray) FillChatMap(to map[int]*Chat) {
+func (s ChatClassArray) FillChatMap(to map[int64]*Chat) {
 	for _, elem := range s {
 		value, ok := elem.(*Chat)
 		if !ok {
@@ -171,8 +171,8 @@ func (s ChatClassArray) FillChatMap(to map[int]*Chat) {
 }
 
 // ChatToMap collects only Chat constructors to map.
-func (s ChatClassArray) ChatToMap() map[int]*Chat {
-	r := make(map[int]*Chat, len(s))
+func (s ChatClassArray) ChatToMap() map[int64]*Chat {
+	r := make(map[int64]*Chat, len(s))
 	s.FillChatMap(r)
 	return r
 }
@@ -191,7 +191,7 @@ func (s ChatClassArray) AsChat() (to ChatArray) {
 }
 
 // FillChatForbiddenMap fills only ChatForbidden constructors to given map.
-func (s ChatClassArray) FillChatForbiddenMap(to map[int]*ChatForbidden) {
+func (s ChatClassArray) FillChatForbiddenMap(to map[int64]*ChatForbidden) {
 	for _, elem := range s {
 		value, ok := elem.(*ChatForbidden)
 		if !ok {
@@ -202,8 +202,8 @@ func (s ChatClassArray) FillChatForbiddenMap(to map[int]*ChatForbidden) {
 }
 
 // ChatForbiddenToMap collects only ChatForbidden constructors to map.
-func (s ChatClassArray) ChatForbiddenToMap() map[int]*ChatForbidden {
-	r := make(map[int]*ChatForbidden, len(s))
+func (s ChatClassArray) ChatForbiddenToMap() map[int64]*ChatForbidden {
+	r := make(map[int64]*ChatForbidden, len(s))
 	s.FillChatForbiddenMap(r)
 	return r
 }
@@ -222,7 +222,7 @@ func (s ChatClassArray) AsChatForbidden() (to ChatForbiddenArray) {
 }
 
 // FillChannelMap fills only Channel constructors to given map.
-func (s ChatClassArray) FillChannelMap(to map[int]*Channel) {
+func (s ChatClassArray) FillChannelMap(to map[int64]*Channel) {
 	for _, elem := range s {
 		value, ok := elem.(*Channel)
 		if !ok {
@@ -233,8 +233,8 @@ func (s ChatClassArray) FillChannelMap(to map[int]*Channel) {
 }
 
 // ChannelToMap collects only Channel constructors to map.
-func (s ChatClassArray) ChannelToMap() map[int]*Channel {
-	r := make(map[int]*Channel, len(s))
+func (s ChatClassArray) ChannelToMap() map[int64]*Channel {
+	r := make(map[int64]*Channel, len(s))
 	s.FillChannelMap(r)
 	return r
 }
@@ -253,7 +253,7 @@ func (s ChatClassArray) AsChannel() (to ChannelArray) {
 }
 
 // FillChannelForbiddenMap fills only ChannelForbidden constructors to given map.
-func (s ChatClassArray) FillChannelForbiddenMap(to map[int]*ChannelForbidden) {
+func (s ChatClassArray) FillChannelForbiddenMap(to map[int64]*ChannelForbidden) {
 	for _, elem := range s {
 		value, ok := elem.(*ChannelForbidden)
 		if !ok {
@@ -264,8 +264,8 @@ func (s ChatClassArray) FillChannelForbiddenMap(to map[int]*ChannelForbidden) {
 }
 
 // ChannelForbiddenToMap collects only ChannelForbidden constructors to map.
-func (s ChatClassArray) ChannelForbiddenToMap() map[int]*ChannelForbidden {
-	r := make(map[int]*ChannelForbidden, len(s))
+func (s ChatClassArray) ChannelForbiddenToMap() map[int64]*ChannelForbidden {
+	r := make(map[int64]*ChannelForbidden, len(s))
 	s.FillChannelForbiddenMap(r)
 	return r
 }
@@ -284,7 +284,7 @@ func (s ChatClassArray) AsChannelForbidden() (to ChannelForbiddenArray) {
 }
 
 // FillNotEmptyMap fills only NotEmpty constructors to given map.
-func (s ChatClassArray) FillNotEmptyMap(to map[int]NotEmptyChat) {
+func (s ChatClassArray) FillNotEmptyMap(to map[int64]NotEmptyChat) {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -295,8 +295,8 @@ func (s ChatClassArray) FillNotEmptyMap(to map[int]NotEmptyChat) {
 }
 
 // NotEmptyToMap collects only NotEmpty constructors to map.
-func (s ChatClassArray) NotEmptyToMap() map[int]NotEmptyChat {
-	r := make(map[int]NotEmptyChat, len(s))
+func (s ChatClassArray) NotEmptyToMap() map[int64]NotEmptyChat {
+	r := make(map[int64]NotEmptyChat, len(s))
 	s.FillNotEmptyMap(r)
 	return r
 }
@@ -357,7 +357,7 @@ func (s *ChatClassArray) PopAsNotEmpty() (v NotEmptyChat, ok bool) {
 }
 
 // FillNotForbiddenMap fills only NotForbidden constructors to given map.
-func (s ChatClassArray) FillNotForbiddenMap(to map[int]NotForbiddenChat) {
+func (s ChatClassArray) FillNotForbiddenMap(to map[int64]NotForbiddenChat) {
 	for _, elem := range s {
 		value, ok := elem.AsNotForbidden()
 		if !ok {
@@ -368,8 +368,8 @@ func (s ChatClassArray) FillNotForbiddenMap(to map[int]NotForbiddenChat) {
 }
 
 // NotForbiddenToMap collects only NotForbidden constructors to map.
-func (s ChatClassArray) NotForbiddenToMap() map[int]NotForbiddenChat {
-	r := make(map[int]NotForbiddenChat, len(s))
+func (s ChatClassArray) NotForbiddenToMap() map[int64]NotForbiddenChat {
+	r := make(map[int64]NotForbiddenChat, len(s))
 	s.FillNotForbiddenMap(r)
 	return r
 }
@@ -430,7 +430,7 @@ func (s *ChatClassArray) PopAsNotForbidden() (v NotForbiddenChat, ok bool) {
 }
 
 // FillFullMap fills only Full constructors to given map.
-func (s ChatClassArray) FillFullMap(to map[int]FullChat) {
+func (s ChatClassArray) FillFullMap(to map[int64]FullChat) {
 	for _, elem := range s {
 		value, ok := elem.AsFull()
 		if !ok {
@@ -441,8 +441,8 @@ func (s ChatClassArray) FillFullMap(to map[int]FullChat) {
 }
 
 // FullToMap collects only Full constructors to map.
-func (s ChatClassArray) FullToMap() map[int]FullChat {
-	r := make(map[int]FullChat, len(s))
+func (s ChatClassArray) FullToMap() map[int64]FullChat {
+	r := make(map[int64]FullChat, len(s))
 	s.FillFullMap(r)
 	return r
 }
@@ -599,15 +599,15 @@ func (s ChatEmptyArray) SortStableByID() ChatEmptyArray {
 }
 
 // FillMap fills constructors to given map.
-func (s ChatEmptyArray) FillMap(to map[int]ChatEmpty) {
+func (s ChatEmptyArray) FillMap(to map[int64]ChatEmpty) {
 	for _, value := range s {
 		to[value.GetID()] = value
 	}
 }
 
 // ToMap collects constructors to map.
-func (s ChatEmptyArray) ToMap() map[int]ChatEmpty {
-	r := make(map[int]ChatEmpty, len(s))
+func (s ChatEmptyArray) ToMap() map[int64]ChatEmpty {
+	r := make(map[int64]ChatEmpty, len(s))
 	s.FillMap(r)
 	return r
 }
@@ -723,15 +723,15 @@ func (s ChatArray) SortStableByDate() ChatArray {
 }
 
 // FillMap fills constructors to given map.
-func (s ChatArray) FillMap(to map[int]Chat) {
+func (s ChatArray) FillMap(to map[int64]Chat) {
 	for _, value := range s {
 		to[value.GetID()] = value
 	}
 }
 
 // ToMap collects constructors to map.
-func (s ChatArray) ToMap() map[int]Chat {
-	r := make(map[int]Chat, len(s))
+func (s ChatArray) ToMap() map[int64]Chat {
+	r := make(map[int64]Chat, len(s))
 	s.FillMap(r)
 	return r
 }
@@ -833,15 +833,15 @@ func (s ChatForbiddenArray) SortStableByID() ChatForbiddenArray {
 }
 
 // FillMap fills constructors to given map.
-func (s ChatForbiddenArray) FillMap(to map[int]ChatForbidden) {
+func (s ChatForbiddenArray) FillMap(to map[int64]ChatForbidden) {
 	for _, value := range s {
 		to[value.GetID()] = value
 	}
 }
 
 // ToMap collects constructors to map.
-func (s ChatForbiddenArray) ToMap() map[int]ChatForbidden {
-	r := make(map[int]ChatForbidden, len(s))
+func (s ChatForbiddenArray) ToMap() map[int64]ChatForbidden {
+	r := make(map[int64]ChatForbidden, len(s))
 	s.FillMap(r)
 	return r
 }
@@ -957,15 +957,15 @@ func (s ChannelArray) SortStableByDate() ChannelArray {
 }
 
 // FillMap fills constructors to given map.
-func (s ChannelArray) FillMap(to map[int]Channel) {
+func (s ChannelArray) FillMap(to map[int64]Channel) {
 	for _, value := range s {
 		to[value.GetID()] = value
 	}
 }
 
 // ToMap collects constructors to map.
-func (s ChannelArray) ToMap() map[int]Channel {
-	r := make(map[int]Channel, len(s))
+func (s ChannelArray) ToMap() map[int64]Channel {
+	r := make(map[int64]Channel, len(s))
 	s.FillMap(r)
 	return r
 }
@@ -1067,15 +1067,15 @@ func (s ChannelForbiddenArray) SortStableByID() ChannelForbiddenArray {
 }
 
 // FillMap fills constructors to given map.
-func (s ChannelForbiddenArray) FillMap(to map[int]ChannelForbidden) {
+func (s ChannelForbiddenArray) FillMap(to map[int64]ChannelForbidden) {
 	for _, value := range s {
 		to[value.GetID()] = value
 	}
 }
 
 // ToMap collects constructors to map.
-func (s ChannelForbiddenArray) ToMap() map[int]ChannelForbidden {
-	r := make(map[int]ChannelForbidden, len(s))
+func (s ChannelForbiddenArray) ToMap() map[int64]ChannelForbidden {
+	r := make(map[int64]ChannelForbidden, len(s))
 	s.FillMap(r)
 	return r
 }

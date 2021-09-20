@@ -153,6 +153,24 @@ func (s InputEncryptedFileClassArray) AsInputEncryptedFileBigUploaded() (to Inpu
 	return to
 }
 
+// FillNotEmptyMap fills only NotEmpty constructors to given map.
+func (s InputEncryptedFileClassArray) FillNotEmptyMap(to map[int64]NotEmptyInputEncryptedFile) {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// NotEmptyToMap collects only NotEmpty constructors to map.
+func (s InputEncryptedFileClassArray) NotEmptyToMap() map[int64]NotEmptyInputEncryptedFile {
+	r := make(map[int64]NotEmptyInputEncryptedFile, len(s))
+	s.FillNotEmptyMap(r)
+	return r
+}
+
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
 func (s InputEncryptedFileClassArray) AppendOnlyNotEmpty(to []NotEmptyInputEncryptedFile) []NotEmptyInputEncryptedFile {
@@ -290,6 +308,34 @@ func (s *InputEncryptedFileUploadedArray) Pop() (v InputEncryptedFileUploaded, o
 	return v, true
 }
 
+// SortByID sorts slice of InputEncryptedFileUploaded by ID.
+func (s InputEncryptedFileUploadedArray) SortByID() InputEncryptedFileUploadedArray {
+	return s.Sort(func(a, b InputEncryptedFileUploaded) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputEncryptedFileUploaded by ID.
+func (s InputEncryptedFileUploadedArray) SortStableByID() InputEncryptedFileUploadedArray {
+	return s.SortStable(func(a, b InputEncryptedFileUploaded) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputEncryptedFileUploadedArray) FillMap(to map[int64]InputEncryptedFileUploaded) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputEncryptedFileUploadedArray) ToMap() map[int64]InputEncryptedFileUploaded {
+	r := make(map[int64]InputEncryptedFileUploaded, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // InputEncryptedFileArray is adapter for slice of InputEncryptedFile.
 type InputEncryptedFileArray []InputEncryptedFile
 
@@ -372,6 +418,34 @@ func (s *InputEncryptedFileArray) Pop() (v InputEncryptedFile, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of InputEncryptedFile by ID.
+func (s InputEncryptedFileArray) SortByID() InputEncryptedFileArray {
+	return s.Sort(func(a, b InputEncryptedFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputEncryptedFile by ID.
+func (s InputEncryptedFileArray) SortStableByID() InputEncryptedFileArray {
+	return s.SortStable(func(a, b InputEncryptedFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputEncryptedFileArray) FillMap(to map[int64]InputEncryptedFile) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputEncryptedFileArray) ToMap() map[int64]InputEncryptedFile {
+	r := make(map[int64]InputEncryptedFile, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // InputEncryptedFileBigUploadedArray is adapter for slice of InputEncryptedFileBigUploaded.
 type InputEncryptedFileBigUploadedArray []InputEncryptedFileBigUploaded
 
@@ -452,4 +526,32 @@ func (s *InputEncryptedFileBigUploadedArray) Pop() (v InputEncryptedFileBigUploa
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of InputEncryptedFileBigUploaded by ID.
+func (s InputEncryptedFileBigUploadedArray) SortByID() InputEncryptedFileBigUploadedArray {
+	return s.Sort(func(a, b InputEncryptedFileBigUploaded) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputEncryptedFileBigUploaded by ID.
+func (s InputEncryptedFileBigUploadedArray) SortStableByID() InputEncryptedFileBigUploadedArray {
+	return s.SortStable(func(a, b InputEncryptedFileBigUploaded) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputEncryptedFileBigUploadedArray) FillMap(to map[int64]InputEncryptedFileBigUploaded) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputEncryptedFileBigUploadedArray) ToMap() map[int64]InputEncryptedFileBigUploaded {
+	r := make(map[int64]InputEncryptedFileBigUploaded, len(s))
+	s.FillMap(r)
+	return r
 }

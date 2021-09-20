@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesSearchStickerSetsRequest represents TL type `messages.searchStickerSets#c2b7d08b`.
+// MessagesSearchStickerSetsRequest represents TL type `messages.searchStickerSets#35705b8a`.
 // Search for stickersets
 //
 // See https://core.telegram.org/method/messages.searchStickerSets for reference.
@@ -47,11 +47,11 @@ type MessagesSearchStickerSetsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // MessagesSearchStickerSetsRequestTypeID is TL type id of MessagesSearchStickerSetsRequest.
-const MessagesSearchStickerSetsRequestTypeID = 0xc2b7d08b
+const MessagesSearchStickerSetsRequestTypeID = 0x35705b8a
 
 // Ensuring interfaces in compile-time for MessagesSearchStickerSetsRequest.
 var (
@@ -94,7 +94,7 @@ func (s *MessagesSearchStickerSetsRequest) String() string {
 func (s *MessagesSearchStickerSetsRequest) FillFrom(from interface {
 	GetExcludeFeatured() (value bool)
 	GetQ() (value string)
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	s.ExcludeFeatured = from.GetExcludeFeatured()
 	s.Q = from.GetQ()
@@ -144,7 +144,7 @@ func (s *MessagesSearchStickerSetsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSearchStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.searchStickerSets#c2b7d08b as nil")
+		return fmt.Errorf("can't encode messages.searchStickerSets#35705b8a as nil")
 	}
 	b.PutID(MessagesSearchStickerSetsRequestTypeID)
 	return s.EncodeBare(b)
@@ -153,26 +153,26 @@ func (s *MessagesSearchStickerSetsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSearchStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.searchStickerSets#c2b7d08b as nil")
+		return fmt.Errorf("can't encode messages.searchStickerSets#35705b8a as nil")
 	}
 	if !(s.ExcludeFeatured == false) {
 		s.Flags.Set(0)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.searchStickerSets#c2b7d08b: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.searchStickerSets#35705b8a: field flags: %w", err)
 	}
 	b.PutString(s.Q)
-	b.PutInt(s.Hash)
+	b.PutLong(s.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *MessagesSearchStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.searchStickerSets#c2b7d08b to nil")
+		return fmt.Errorf("can't decode messages.searchStickerSets#35705b8a to nil")
 	}
 	if err := b.ConsumeID(MessagesSearchStickerSetsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.searchStickerSets#c2b7d08b: %w", err)
+		return fmt.Errorf("unable to decode messages.searchStickerSets#35705b8a: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -180,25 +180,25 @@ func (s *MessagesSearchStickerSetsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSearchStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.searchStickerSets#c2b7d08b to nil")
+		return fmt.Errorf("can't decode messages.searchStickerSets#35705b8a to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.searchStickerSets#c2b7d08b: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.searchStickerSets#35705b8a: field flags: %w", err)
 		}
 	}
 	s.ExcludeFeatured = s.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchStickerSets#c2b7d08b: field q: %w", err)
+			return fmt.Errorf("unable to decode messages.searchStickerSets#35705b8a: field q: %w", err)
 		}
 		s.Q = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.searchStickerSets#c2b7d08b: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.searchStickerSets#35705b8a: field hash: %w", err)
 		}
 		s.Hash = value
 	}
@@ -227,11 +227,11 @@ func (s *MessagesSearchStickerSetsRequest) GetQ() (value string) {
 }
 
 // GetHash returns value of Hash field.
-func (s *MessagesSearchStickerSetsRequest) GetHash() (value int) {
+func (s *MessagesSearchStickerSetsRequest) GetHash() (value int64) {
 	return s.Hash
 }
 
-// MessagesSearchStickerSets invokes method messages.searchStickerSets#c2b7d08b returning error if any.
+// MessagesSearchStickerSets invokes method messages.searchStickerSets#35705b8a returning error if any.
 // Search for stickersets
 //
 // See https://core.telegram.org/method/messages.searchStickerSets for reference.

@@ -1812,7 +1812,7 @@ func (m *MessageEntityTextURL) GetURL() (value string) {
 	return m.URL
 }
 
-// MessageEntityMentionName represents TL type `messageEntityMentionName#352dca58`.
+// MessageEntityMentionName represents TL type `messageEntityMentionName#dc7b1140`.
 // Message entity representing a user mention¹: for creating a mention use
 // inputMessageEntityMentionName².
 //
@@ -1827,11 +1827,11 @@ type MessageEntityMentionName struct {
 	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 	// Identifier of the user that was mentioned
-	UserID int
+	UserID int64
 }
 
 // MessageEntityMentionNameTypeID is TL type id of MessageEntityMentionName.
-const MessageEntityMentionNameTypeID = 0x352dca58
+const MessageEntityMentionNameTypeID = 0xdc7b1140
 
 // construct implements constructor of MessageEntityClass.
 func (m MessageEntityMentionName) construct() MessageEntityClass { return &m }
@@ -1876,7 +1876,7 @@ func (m *MessageEntityMentionName) String() string {
 func (m *MessageEntityMentionName) FillFrom(from interface {
 	GetOffset() (value int)
 	GetLength() (value int)
-	GetUserID() (value int)
+	GetUserID() (value int64)
 }) {
 	m.Offset = from.GetOffset()
 	m.Length = from.GetLength()
@@ -1925,7 +1925,7 @@ func (m *MessageEntityMentionName) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageEntityMentionName) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityMentionName#352dca58 as nil")
+		return fmt.Errorf("can't encode messageEntityMentionName#dc7b1140 as nil")
 	}
 	b.PutID(MessageEntityMentionNameTypeID)
 	return m.EncodeBare(b)
@@ -1934,21 +1934,21 @@ func (m *MessageEntityMentionName) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageEntityMentionName) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEntityMentionName#352dca58 as nil")
+		return fmt.Errorf("can't encode messageEntityMentionName#dc7b1140 as nil")
 	}
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
-	b.PutInt(m.UserID)
+	b.PutLong(m.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageEntityMentionName) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityMentionName#352dca58 to nil")
+		return fmt.Errorf("can't decode messageEntityMentionName#dc7b1140 to nil")
 	}
 	if err := b.ConsumeID(MessageEntityMentionNameTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityMentionName#352dca58: %w", err)
+		return fmt.Errorf("unable to decode messageEntityMentionName#dc7b1140: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -1956,26 +1956,26 @@ func (m *MessageEntityMentionName) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageEntityMentionName) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEntityMentionName#352dca58 to nil")
+		return fmt.Errorf("can't decode messageEntityMentionName#dc7b1140 to nil")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityMentionName#352dca58: field offset: %w", err)
+			return fmt.Errorf("unable to decode messageEntityMentionName#dc7b1140: field offset: %w", err)
 		}
 		m.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityMentionName#352dca58: field length: %w", err)
+			return fmt.Errorf("unable to decode messageEntityMentionName#dc7b1140: field length: %w", err)
 		}
 		m.Length = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityMentionName#352dca58: field user_id: %w", err)
+			return fmt.Errorf("unable to decode messageEntityMentionName#dc7b1140: field user_id: %w", err)
 		}
 		m.UserID = value
 	}
@@ -1993,7 +1993,7 @@ func (m *MessageEntityMentionName) GetLength() (value int) {
 }
 
 // GetUserID returns value of UserID field.
-func (m *MessageEntityMentionName) GetUserID() (value int) {
+func (m *MessageEntityMentionName) GetUserID() (value int64) {
 	return m.UserID
 }
 
@@ -3144,7 +3144,7 @@ func (m *MessageEntityBankCard) GetLength() (value int) {
 //  case *tg.MessageEntityCode: // messageEntityCode#28a20571
 //  case *tg.MessageEntityPre: // messageEntityPre#73924be0
 //  case *tg.MessageEntityTextURL: // messageEntityTextUrl#76a6d327
-//  case *tg.MessageEntityMentionName: // messageEntityMentionName#352dca58
+//  case *tg.MessageEntityMentionName: // messageEntityMentionName#dc7b1140
 //  case *tg.InputMessageEntityMentionName: // inputMessageEntityMentionName#208e68c9
 //  case *tg.MessageEntityPhone: // messageEntityPhone#9b69e34b
 //  case *tg.MessageEntityCashtag: // messageEntityCashtag#4c4e743f
@@ -3264,7 +3264,7 @@ func DecodeMessageEntity(buf *bin.Buffer) (MessageEntityClass, error) {
 		}
 		return &v, nil
 	case MessageEntityMentionNameTypeID:
-		// Decoding messageEntityMentionName#352dca58.
+		// Decoding messageEntityMentionName#dc7b1140.
 		v := MessageEntityMentionName{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)

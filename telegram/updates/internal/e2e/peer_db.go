@@ -5,15 +5,15 @@ import "github.com/gotd/td/tg"
 type messageDatabase struct {
 	common   []tg.MessageClass
 	secret   []tg.EncryptedMessageClass
-	channels map[int][]tg.MessageClass
+	channels map[int64][]tg.MessageClass
 }
 
 type peerDatabase struct {
-	users    map[int]*tg.User
-	chats    map[int]*tg.Chat
-	channels map[int]*tg.Channel
+	users    map[int64]*tg.User
+	chats    map[int64]*tg.Chat
+	channels map[int64]*tg.Channel
 
-	id int
+	id int64
 }
 
 func (p *peerDatabase) createUser(username string) *tg.PeerUser {
@@ -41,7 +41,7 @@ func (p *peerDatabase) createChannel(username string) *tg.PeerChannel {
 		ID:       p.id,
 		Username: username,
 	}
-	p.channels[p.id].SetAccessHash(int64(p.id * 2))
+	p.channels[p.id].SetAccessHash(p.id * 2)
 
 	defer func() { p.id++ }()
 	return &tg.PeerChannel{ChannelID: p.id}

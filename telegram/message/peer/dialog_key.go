@@ -21,7 +21,7 @@ const (
 // DialogKey is a generic peer key.
 type DialogKey struct {
 	Kind       Kind
-	ID         int
+	ID         int64
 	AccessHash int64
 }
 

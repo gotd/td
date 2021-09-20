@@ -11,9 +11,9 @@ import (
 
 func TestElem(t *testing.T) {
 	entities := peer.NewEntities(
-		map[int]*tg.User{10: {}},
-		map[int]*tg.Chat{},
-		map[int]*tg.Channel{},
+		map[int64]*tg.User{10: {}},
+		map[int64]*tg.Chat{},
+		map[int64]*tg.Channel{},
 	)
 
 	type results struct {

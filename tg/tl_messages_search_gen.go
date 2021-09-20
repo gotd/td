@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesSearchRequest represents TL type `messages.search#c352eec`.
+// MessagesSearchRequest represents TL type `messages.search#a0fda762`.
 // Gets back found messages
 //
 // See https://core.telegram.org/method/messages.search for reference.
@@ -92,11 +92,11 @@ type MessagesSearchRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Hash int
+	Hash int64
 }
 
 // MessagesSearchRequestTypeID is TL type id of MessagesSearchRequest.
-const MessagesSearchRequestTypeID = 0xc352eec
+const MessagesSearchRequestTypeID = 0xa0fda762
 
 // Ensuring interfaces in compile-time for MessagesSearchRequest.
 var (
@@ -179,7 +179,7 @@ func (s *MessagesSearchRequest) FillFrom(from interface {
 	GetLimit() (value int)
 	GetMaxID() (value int)
 	GetMinID() (value int)
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	s.Peer = from.GetPeer()
 	s.Q = from.GetQ()
@@ -286,7 +286,7 @@ func (s *MessagesSearchRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSearchRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.search#c352eec as nil")
+		return fmt.Errorf("can't encode messages.search#a0fda762 as nil")
 	}
 	b.PutID(MessagesSearchRequestTypeID)
 	return s.EncodeBare(b)
@@ -295,7 +295,7 @@ func (s *MessagesSearchRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSearchRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.search#c352eec as nil")
+		return fmt.Errorf("can't encode messages.search#a0fda762 as nil")
 	}
 	if !(s.FromID == nil) {
 		s.Flags.Set(0)
@@ -304,31 +304,31 @@ func (s *MessagesSearchRequest) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(1)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.search#c352eec: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.search#a0fda762: field flags: %w", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.search#c352eec: field peer is nil")
+		return fmt.Errorf("unable to encode messages.search#a0fda762: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.search#c352eec: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.search#a0fda762: field peer: %w", err)
 	}
 	b.PutString(s.Q)
 	if s.Flags.Has(0) {
 		if s.FromID == nil {
-			return fmt.Errorf("unable to encode messages.search#c352eec: field from_id is nil")
+			return fmt.Errorf("unable to encode messages.search#a0fda762: field from_id is nil")
 		}
 		if err := s.FromID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.search#c352eec: field from_id: %w", err)
+			return fmt.Errorf("unable to encode messages.search#a0fda762: field from_id: %w", err)
 		}
 	}
 	if s.Flags.Has(1) {
 		b.PutInt(s.TopMsgID)
 	}
 	if s.Filter == nil {
-		return fmt.Errorf("unable to encode messages.search#c352eec: field filter is nil")
+		return fmt.Errorf("unable to encode messages.search#a0fda762: field filter is nil")
 	}
 	if err := s.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.search#c352eec: field filter: %w", err)
+		return fmt.Errorf("unable to encode messages.search#a0fda762: field filter: %w", err)
 	}
 	b.PutInt(s.MinDate)
 	b.PutInt(s.MaxDate)
@@ -337,17 +337,17 @@ func (s *MessagesSearchRequest) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(s.Limit)
 	b.PutInt(s.MaxID)
 	b.PutInt(s.MinID)
-	b.PutInt(s.Hash)
+	b.PutLong(s.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *MessagesSearchRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.search#c352eec to nil")
+		return fmt.Errorf("can't decode messages.search#a0fda762 to nil")
 	}
 	if err := b.ConsumeID(MessagesSearchRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.search#c352eec: %w", err)
+		return fmt.Errorf("unable to decode messages.search#a0fda762: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -355,101 +355,101 @@ func (s *MessagesSearchRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSearchRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.search#c352eec to nil")
+		return fmt.Errorf("can't decode messages.search#a0fda762 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field flags: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field q: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field q: %w", err)
 		}
 		s.Q = value
 	}
 	if s.Flags.Has(0) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field from_id: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field from_id: %w", err)
 		}
 		s.FromID = value
 	}
 	if s.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field top_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field top_msg_id: %w", err)
 		}
 		s.TopMsgID = value
 	}
 	{
 		value, err := DecodeMessagesFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field filter: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field filter: %w", err)
 		}
 		s.Filter = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field min_date: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field min_date: %w", err)
 		}
 		s.MinDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field max_date: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field max_date: %w", err)
 		}
 		s.MaxDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field offset_id: %w", err)
 		}
 		s.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field add_offset: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field add_offset: %w", err)
 		}
 		s.AddOffset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field limit: %w", err)
 		}
 		s.Limit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field max_id: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field max_id: %w", err)
 		}
 		s.MaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field min_id: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field min_id: %w", err)
 		}
 		s.MinID = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.search#c352eec: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.search#a0fda762: field hash: %w", err)
 		}
 		s.Hash = value
 	}
@@ -537,11 +537,11 @@ func (s *MessagesSearchRequest) GetMinID() (value int) {
 }
 
 // GetHash returns value of Hash field.
-func (s *MessagesSearchRequest) GetHash() (value int) {
+func (s *MessagesSearchRequest) GetHash() (value int64) {
 	return s.Hash
 }
 
-// MessagesSearch invokes method messages.search#c352eec returning error if any.
+// MessagesSearch invokes method messages.search#a0fda762 returning error if any.
 // Gets back found messages
 //
 // Possible errors:

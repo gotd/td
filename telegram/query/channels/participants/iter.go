@@ -64,7 +64,7 @@ func (m *Iterator) apply(r tg.ChannelsChannelParticipantsClass) error {
 	switch prts := r.(type) {
 	case *tg.ChannelsChannelParticipants: // channels.channelParticipants#f56ee2a8
 		participants = prts.Participants
-		entities = peer.NewEntities(prts.MapUsers().UserToMap(), map[int]*tg.Chat{}, map[int]*tg.Channel{})
+		entities = peer.NewEntities(prts.MapUsers().UserToMap(), map[int64]*tg.Chat{}, map[int64]*tg.Channel{})
 
 		m.count = prts.Count
 		m.lastBatch = len(participants) < m.limit

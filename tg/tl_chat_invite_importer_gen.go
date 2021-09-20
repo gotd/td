@@ -29,18 +29,18 @@ var (
 	_ = tgerr.Error{}
 )
 
-// ChatInviteImporter represents TL type `chatInviteImporter#1e3e6680`.
+// ChatInviteImporter represents TL type `chatInviteImporter#b5cd5f4`.
 //
 // See https://core.telegram.org/constructor/chatInviteImporter for reference.
 type ChatInviteImporter struct {
 	// UserID field of ChatInviteImporter.
-	UserID int
+	UserID int64
 	// Date field of ChatInviteImporter.
 	Date int
 }
 
 // ChatInviteImporterTypeID is TL type id of ChatInviteImporter.
-const ChatInviteImporterTypeID = 0x1e3e6680
+const ChatInviteImporterTypeID = 0xb5cd5f4
 
 // Ensuring interfaces in compile-time for ChatInviteImporter.
 var (
@@ -75,7 +75,7 @@ func (c *ChatInviteImporter) String() string {
 
 // FillFrom fills ChatInviteImporter from given interface.
 func (c *ChatInviteImporter) FillFrom(from interface {
-	GetUserID() (value int)
+	GetUserID() (value int64)
 	GetDate() (value int)
 }) {
 	c.UserID = from.GetUserID()
@@ -120,7 +120,7 @@ func (c *ChatInviteImporter) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatInviteImporter) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteImporter#1e3e6680 as nil")
+		return fmt.Errorf("can't encode chatInviteImporter#b5cd5f4 as nil")
 	}
 	b.PutID(ChatInviteImporterTypeID)
 	return c.EncodeBare(b)
@@ -129,9 +129,9 @@ func (c *ChatInviteImporter) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatInviteImporter) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteImporter#1e3e6680 as nil")
+		return fmt.Errorf("can't encode chatInviteImporter#b5cd5f4 as nil")
 	}
-	b.PutInt(c.UserID)
+	b.PutLong(c.UserID)
 	b.PutInt(c.Date)
 	return nil
 }
@@ -139,10 +139,10 @@ func (c *ChatInviteImporter) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatInviteImporter) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteImporter#1e3e6680 to nil")
+		return fmt.Errorf("can't decode chatInviteImporter#b5cd5f4 to nil")
 	}
 	if err := b.ConsumeID(ChatInviteImporterTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatInviteImporter#1e3e6680: %w", err)
+		return fmt.Errorf("unable to decode chatInviteImporter#b5cd5f4: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -150,19 +150,19 @@ func (c *ChatInviteImporter) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatInviteImporter) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteImporter#1e3e6680 to nil")
+		return fmt.Errorf("can't decode chatInviteImporter#b5cd5f4 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteImporter#1e3e6680: field user_id: %w", err)
+			return fmt.Errorf("unable to decode chatInviteImporter#b5cd5f4: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteImporter#1e3e6680: field date: %w", err)
+			return fmt.Errorf("unable to decode chatInviteImporter#b5cd5f4: field date: %w", err)
 		}
 		c.Date = value
 	}
@@ -170,7 +170,7 @@ func (c *ChatInviteImporter) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetUserID returns value of UserID field.
-func (c *ChatInviteImporter) GetUserID() (value int) {
+func (c *ChatInviteImporter) GetUserID() (value int64) {
 	return c.UserID
 }
 

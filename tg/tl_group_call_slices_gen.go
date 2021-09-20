@@ -114,6 +114,38 @@ func (s *GroupCallClassArray) Pop() (v GroupCallClass, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of GroupCallClass by ID.
+func (s GroupCallClassArray) SortByID() GroupCallClassArray {
+	return s.Sort(func(a, b GroupCallClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of GroupCallClass by ID.
+func (s GroupCallClassArray) SortStableByID() GroupCallClassArray {
+	return s.SortStable(func(a, b GroupCallClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillGroupCallDiscardedMap fills only GroupCallDiscarded constructors to given map.
+func (s GroupCallClassArray) FillGroupCallDiscardedMap(to map[int64]*GroupCallDiscarded) {
+	for _, elem := range s {
+		value, ok := elem.(*GroupCallDiscarded)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// GroupCallDiscardedToMap collects only GroupCallDiscarded constructors to map.
+func (s GroupCallClassArray) GroupCallDiscardedToMap() map[int64]*GroupCallDiscarded {
+	r := make(map[int64]*GroupCallDiscarded, len(s))
+	s.FillGroupCallDiscardedMap(r)
+	return r
+}
+
 // AsGroupCallDiscarded returns copy with only GroupCallDiscarded constructors.
 func (s GroupCallClassArray) AsGroupCallDiscarded() (to GroupCallDiscardedArray) {
 	for _, elem := range s {
@@ -125,6 +157,24 @@ func (s GroupCallClassArray) AsGroupCallDiscarded() (to GroupCallDiscardedArray)
 	}
 
 	return to
+}
+
+// FillGroupCallMap fills only GroupCall constructors to given map.
+func (s GroupCallClassArray) FillGroupCallMap(to map[int64]*GroupCall) {
+	for _, elem := range s {
+		value, ok := elem.(*GroupCall)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// GroupCallToMap collects only GroupCall constructors to map.
+func (s GroupCallClassArray) GroupCallToMap() map[int64]*GroupCall {
+	r := make(map[int64]*GroupCall, len(s))
+	s.FillGroupCallMap(r)
+	return r
 }
 
 // AsGroupCall returns copy with only GroupCall constructors.
@@ -222,6 +272,34 @@ func (s *GroupCallDiscardedArray) Pop() (v GroupCallDiscarded, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of GroupCallDiscarded by ID.
+func (s GroupCallDiscardedArray) SortByID() GroupCallDiscardedArray {
+	return s.Sort(func(a, b GroupCallDiscarded) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of GroupCallDiscarded by ID.
+func (s GroupCallDiscardedArray) SortStableByID() GroupCallDiscardedArray {
+	return s.SortStable(func(a, b GroupCallDiscarded) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s GroupCallDiscardedArray) FillMap(to map[int64]GroupCallDiscarded) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s GroupCallDiscardedArray) ToMap() map[int64]GroupCallDiscarded {
+	r := make(map[int64]GroupCallDiscarded, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // GroupCallArray is adapter for slice of GroupCall.
 type GroupCallArray []GroupCall
 
@@ -302,4 +380,32 @@ func (s *GroupCallArray) Pop() (v GroupCall, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of GroupCall by ID.
+func (s GroupCallArray) SortByID() GroupCallArray {
+	return s.Sort(func(a, b GroupCall) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of GroupCall by ID.
+func (s GroupCallArray) SortStableByID() GroupCallArray {
+	return s.SortStable(func(a, b GroupCall) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s GroupCallArray) FillMap(to map[int64]GroupCall) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s GroupCallArray) ToMap() map[int64]GroupCall {
+	r := make(map[int64]GroupCall, len(s))
+	s.FillMap(r)
+	return r
 }

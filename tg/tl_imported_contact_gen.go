@@ -29,13 +29,13 @@ var (
 	_ = tgerr.Error{}
 )
 
-// ImportedContact represents TL type `importedContact#d0028438`.
+// ImportedContact represents TL type `importedContact#c13e3c50`.
 // Successfully imported contact.
 //
 // See https://core.telegram.org/constructor/importedContact for reference.
 type ImportedContact struct {
 	// User identifier
-	UserID int
+	UserID int64
 	// The contact's client identifier (passed to one of the InputContact¹ constructors)
 	//
 	// Links:
@@ -44,7 +44,7 @@ type ImportedContact struct {
 }
 
 // ImportedContactTypeID is TL type id of ImportedContact.
-const ImportedContactTypeID = 0xd0028438
+const ImportedContactTypeID = 0xc13e3c50
 
 // Ensuring interfaces in compile-time for ImportedContact.
 var (
@@ -79,7 +79,7 @@ func (i *ImportedContact) String() string {
 
 // FillFrom fills ImportedContact from given interface.
 func (i *ImportedContact) FillFrom(from interface {
-	GetUserID() (value int)
+	GetUserID() (value int64)
 	GetClientID() (value int64)
 }) {
 	i.UserID = from.GetUserID()
@@ -124,7 +124,7 @@ func (i *ImportedContact) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *ImportedContact) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode importedContact#d0028438 as nil")
+		return fmt.Errorf("can't encode importedContact#c13e3c50 as nil")
 	}
 	b.PutID(ImportedContactTypeID)
 	return i.EncodeBare(b)
@@ -133,9 +133,9 @@ func (i *ImportedContact) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *ImportedContact) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode importedContact#d0028438 as nil")
+		return fmt.Errorf("can't encode importedContact#c13e3c50 as nil")
 	}
-	b.PutInt(i.UserID)
+	b.PutLong(i.UserID)
 	b.PutLong(i.ClientID)
 	return nil
 }
@@ -143,10 +143,10 @@ func (i *ImportedContact) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *ImportedContact) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode importedContact#d0028438 to nil")
+		return fmt.Errorf("can't decode importedContact#c13e3c50 to nil")
 	}
 	if err := b.ConsumeID(ImportedContactTypeID); err != nil {
-		return fmt.Errorf("unable to decode importedContact#d0028438: %w", err)
+		return fmt.Errorf("unable to decode importedContact#c13e3c50: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -154,19 +154,19 @@ func (i *ImportedContact) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *ImportedContact) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode importedContact#d0028438 to nil")
+		return fmt.Errorf("can't decode importedContact#c13e3c50 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode importedContact#d0028438: field user_id: %w", err)
+			return fmt.Errorf("unable to decode importedContact#c13e3c50: field user_id: %w", err)
 		}
 		i.UserID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode importedContact#d0028438: field client_id: %w", err)
+			return fmt.Errorf("unable to decode importedContact#c13e3c50: field client_id: %w", err)
 		}
 		i.ClientID = value
 	}
@@ -174,7 +174,7 @@ func (i *ImportedContact) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetUserID returns value of UserID field.
-func (i *ImportedContact) GetUserID() (value int) {
+func (i *ImportedContact) GetUserID() (value int64) {
 	return i.UserID
 }
 

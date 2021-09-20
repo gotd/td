@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// ContactsGetContactIDsRequest represents TL type `contacts.getContactIDs#2caa4a42`.
+// ContactsGetContactIDsRequest represents TL type `contacts.getContactIDs#7adc669d`.
 // Get contact by telegram IDs
 //
 // See https://core.telegram.org/method/contacts.getContactIDs for reference.
@@ -38,11 +38,11 @@ type ContactsGetContactIDsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // ContactsGetContactIDsRequestTypeID is TL type id of ContactsGetContactIDsRequest.
-const ContactsGetContactIDsRequestTypeID = 0x2caa4a42
+const ContactsGetContactIDsRequestTypeID = 0x7adc669d
 
 // Ensuring interfaces in compile-time for ContactsGetContactIDsRequest.
 var (
@@ -74,7 +74,7 @@ func (g *ContactsGetContactIDsRequest) String() string {
 
 // FillFrom fills ContactsGetContactIDsRequest from given interface.
 func (g *ContactsGetContactIDsRequest) FillFrom(from interface {
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Hash = from.GetHash()
 }
@@ -113,7 +113,7 @@ func (g *ContactsGetContactIDsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ContactsGetContactIDsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getContactIDs#2caa4a42 as nil")
+		return fmt.Errorf("can't encode contacts.getContactIDs#7adc669d as nil")
 	}
 	b.PutID(ContactsGetContactIDsRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,19 +122,19 @@ func (g *ContactsGetContactIDsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ContactsGetContactIDsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getContactIDs#2caa4a42 as nil")
+		return fmt.Errorf("can't encode contacts.getContactIDs#7adc669d as nil")
 	}
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *ContactsGetContactIDsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getContactIDs#2caa4a42 to nil")
+		return fmt.Errorf("can't decode contacts.getContactIDs#7adc669d to nil")
 	}
 	if err := b.ConsumeID(ContactsGetContactIDsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.getContactIDs#2caa4a42: %w", err)
+		return fmt.Errorf("unable to decode contacts.getContactIDs#7adc669d: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (g *ContactsGetContactIDsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ContactsGetContactIDsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getContactIDs#2caa4a42 to nil")
+		return fmt.Errorf("can't decode contacts.getContactIDs#7adc669d to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getContactIDs#2caa4a42: field hash: %w", err)
+			return fmt.Errorf("unable to decode contacts.getContactIDs#7adc669d: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -155,15 +155,15 @@ func (g *ContactsGetContactIDsRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetHash returns value of Hash field.
-func (g *ContactsGetContactIDsRequest) GetHash() (value int) {
+func (g *ContactsGetContactIDsRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// ContactsGetContactIDs invokes method contacts.getContactIDs#2caa4a42 returning error if any.
+// ContactsGetContactIDs invokes method contacts.getContactIDs#7adc669d returning error if any.
 // Get contact by telegram IDs
 //
 // See https://core.telegram.org/method/contacts.getContactIDs for reference.
-func (c *Client) ContactsGetContactIDs(ctx context.Context, hash int) ([]int, error) {
+func (c *Client) ContactsGetContactIDs(ctx context.Context, hash int64) ([]int, error) {
 	var result IntVector
 
 	request := &ContactsGetContactIDsRequest{

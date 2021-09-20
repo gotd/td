@@ -129,7 +129,7 @@ func (s UserClassArray) SortStableByID() UserClassArray {
 }
 
 // FillUserEmptyMap fills only UserEmpty constructors to given map.
-func (s UserClassArray) FillUserEmptyMap(to map[int]*UserEmpty) {
+func (s UserClassArray) FillUserEmptyMap(to map[int64]*UserEmpty) {
 	for _, elem := range s {
 		value, ok := elem.(*UserEmpty)
 		if !ok {
@@ -140,8 +140,8 @@ func (s UserClassArray) FillUserEmptyMap(to map[int]*UserEmpty) {
 }
 
 // UserEmptyToMap collects only UserEmpty constructors to map.
-func (s UserClassArray) UserEmptyToMap() map[int]*UserEmpty {
-	r := make(map[int]*UserEmpty, len(s))
+func (s UserClassArray) UserEmptyToMap() map[int64]*UserEmpty {
+	r := make(map[int64]*UserEmpty, len(s))
 	s.FillUserEmptyMap(r)
 	return r
 }
@@ -160,7 +160,7 @@ func (s UserClassArray) AsUserEmpty() (to UserEmptyArray) {
 }
 
 // FillUserMap fills only User constructors to given map.
-func (s UserClassArray) FillUserMap(to map[int]*User) {
+func (s UserClassArray) FillUserMap(to map[int64]*User) {
 	for _, elem := range s {
 		value, ok := elem.(*User)
 		if !ok {
@@ -171,8 +171,8 @@ func (s UserClassArray) FillUserMap(to map[int]*User) {
 }
 
 // UserToMap collects only User constructors to map.
-func (s UserClassArray) UserToMap() map[int]*User {
-	r := make(map[int]*User, len(s))
+func (s UserClassArray) UserToMap() map[int64]*User {
+	r := make(map[int64]*User, len(s))
 	s.FillUserMap(r)
 	return r
 }
@@ -191,7 +191,7 @@ func (s UserClassArray) AsUser() (to UserArray) {
 }
 
 // FillNotEmptyMap fills only NotEmpty constructors to given map.
-func (s UserClassArray) FillNotEmptyMap(to map[int]*User) {
+func (s UserClassArray) FillNotEmptyMap(to map[int64]*User) {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -202,8 +202,8 @@ func (s UserClassArray) FillNotEmptyMap(to map[int]*User) {
 }
 
 // NotEmptyToMap collects only NotEmpty constructors to map.
-func (s UserClassArray) NotEmptyToMap() map[int]*User {
-	r := make(map[int]*User, len(s))
+func (s UserClassArray) NotEmptyToMap() map[int64]*User {
+	r := make(map[int64]*User, len(s))
 	s.FillNotEmptyMap(r)
 	return r
 }
@@ -360,15 +360,15 @@ func (s UserEmptyArray) SortStableByID() UserEmptyArray {
 }
 
 // FillMap fills constructors to given map.
-func (s UserEmptyArray) FillMap(to map[int]UserEmpty) {
+func (s UserEmptyArray) FillMap(to map[int64]UserEmpty) {
 	for _, value := range s {
 		to[value.GetID()] = value
 	}
 }
 
 // ToMap collects constructors to map.
-func (s UserEmptyArray) ToMap() map[int]UserEmpty {
-	r := make(map[int]UserEmpty, len(s))
+func (s UserEmptyArray) ToMap() map[int64]UserEmpty {
+	r := make(map[int64]UserEmpty, len(s))
 	s.FillMap(r)
 	return r
 }
@@ -470,15 +470,15 @@ func (s UserArray) SortStableByID() UserArray {
 }
 
 // FillMap fills constructors to given map.
-func (s UserArray) FillMap(to map[int]User) {
+func (s UserArray) FillMap(to map[int64]User) {
 	for _, value := range s {
 		to[value.GetID()] = value
 	}
 }
 
 // ToMap collects constructors to map.
-func (s UserArray) ToMap() map[int]User {
-	r := make(map[int]User, len(s))
+func (s UserArray) ToMap() map[int64]User {
+	r := make(map[int64]User, len(s))
 	s.FillMap(r)
 	return r
 }

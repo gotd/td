@@ -10,7 +10,7 @@ func convertOptional(msg *tg.Message, i tg.UpdatesClass) {
 			msg.SetFwdFrom(v)
 		}
 	}
-	if u, ok := i.(interface{ GetViaBotID() (int, bool) }); ok {
+	if u, ok := i.(interface{ GetViaBotID() (int64, bool) }); ok {
 		if v, ok := u.GetViaBotID(); ok {
 			msg.SetViaBotID(v)
 		}

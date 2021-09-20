@@ -16,7 +16,7 @@ func isHashField(field *types.Var) bool {
 		return false
 	}
 
-	return basic.Kind() == types.Int && field.Name() == "Hash"
+	return basic.Kind() == types.Int64 && field.Name() == "Hash"
 }
 
 func hasHashField(st *types.Struct) bool {
@@ -67,7 +67,7 @@ func isCachedQuery(args *types.Tuple) (request, bool) {
 			params: sortParams(r),
 		}, hasHashField(st)
 	case *types.Basic:
-		if req.Kind() != types.Int || arg.Name() != "hash" {
+		if req.Kind() != types.Int64 || arg.Name() != "hash" {
 			return request{}, false
 		}
 		return request{}, true

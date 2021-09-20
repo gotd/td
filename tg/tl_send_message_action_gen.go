@@ -1839,6 +1839,316 @@ func (s *SendMessageChooseStickerAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// SendMessageEmojiInteraction represents TL type `sendMessageEmojiInteraction#25972bcb`.
+//
+// See https://core.telegram.org/constructor/sendMessageEmojiInteraction for reference.
+type SendMessageEmojiInteraction struct {
+	// Emoticon field of SendMessageEmojiInteraction.
+	Emoticon string
+	// MsgID field of SendMessageEmojiInteraction.
+	MsgID int
+	// Interaction field of SendMessageEmojiInteraction.
+	Interaction DataJSON
+}
+
+// SendMessageEmojiInteractionTypeID is TL type id of SendMessageEmojiInteraction.
+const SendMessageEmojiInteractionTypeID = 0x25972bcb
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageEmojiInteraction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageEmojiInteraction.
+var (
+	_ bin.Encoder     = &SendMessageEmojiInteraction{}
+	_ bin.Decoder     = &SendMessageEmojiInteraction{}
+	_ bin.BareEncoder = &SendMessageEmojiInteraction{}
+	_ bin.BareDecoder = &SendMessageEmojiInteraction{}
+
+	_ SendMessageActionClass = &SendMessageEmojiInteraction{}
+)
+
+func (s *SendMessageEmojiInteraction) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Emoticon == "") {
+		return false
+	}
+	if !(s.MsgID == 0) {
+		return false
+	}
+	if !(s.Interaction.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SendMessageEmojiInteraction) String() string {
+	if s == nil {
+		return "SendMessageEmojiInteraction(nil)"
+	}
+	type Alias SendMessageEmojiInteraction
+	return fmt.Sprintf("SendMessageEmojiInteraction%+v", Alias(*s))
+}
+
+// FillFrom fills SendMessageEmojiInteraction from given interface.
+func (s *SendMessageEmojiInteraction) FillFrom(from interface {
+	GetEmoticon() (value string)
+	GetMsgID() (value int)
+	GetInteraction() (value DataJSON)
+}) {
+	s.Emoticon = from.GetEmoticon()
+	s.MsgID = from.GetMsgID()
+	s.Interaction = from.GetInteraction()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SendMessageEmojiInteraction) TypeID() uint32 {
+	return SendMessageEmojiInteractionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SendMessageEmojiInteraction) TypeName() string {
+	return "sendMessageEmojiInteraction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageEmojiInteraction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageEmojiInteraction",
+		ID:   SendMessageEmojiInteractionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Emoticon",
+			SchemaName: "emoticon",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "Interaction",
+			SchemaName: "interaction",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SendMessageEmojiInteraction) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageEmojiInteraction#25972bcb as nil")
+	}
+	b.PutID(SendMessageEmojiInteractionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageEmojiInteraction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageEmojiInteraction#25972bcb as nil")
+	}
+	b.PutString(s.Emoticon)
+	b.PutInt(s.MsgID)
+	if err := s.Interaction.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode sendMessageEmojiInteraction#25972bcb: field interaction: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SendMessageEmojiInteraction) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageEmojiInteraction#25972bcb to nil")
+	}
+	if err := b.ConsumeID(SendMessageEmojiInteractionTypeID); err != nil {
+		return fmt.Errorf("unable to decode sendMessageEmojiInteraction#25972bcb: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageEmojiInteraction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageEmojiInteraction#25972bcb to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode sendMessageEmojiInteraction#25972bcb: field emoticon: %w", err)
+		}
+		s.Emoticon = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode sendMessageEmojiInteraction#25972bcb: field msg_id: %w", err)
+		}
+		s.MsgID = value
+	}
+	{
+		if err := s.Interaction.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode sendMessageEmojiInteraction#25972bcb: field interaction: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetEmoticon returns value of Emoticon field.
+func (s *SendMessageEmojiInteraction) GetEmoticon() (value string) {
+	return s.Emoticon
+}
+
+// GetMsgID returns value of MsgID field.
+func (s *SendMessageEmojiInteraction) GetMsgID() (value int) {
+	return s.MsgID
+}
+
+// GetInteraction returns value of Interaction field.
+func (s *SendMessageEmojiInteraction) GetInteraction() (value DataJSON) {
+	return s.Interaction
+}
+
+// SendMessageEmojiInteractionSeen represents TL type `sendMessageEmojiInteractionSeen#b665902e`.
+//
+// See https://core.telegram.org/constructor/sendMessageEmojiInteractionSeen for reference.
+type SendMessageEmojiInteractionSeen struct {
+	// Emoticon field of SendMessageEmojiInteractionSeen.
+	Emoticon string
+}
+
+// SendMessageEmojiInteractionSeenTypeID is TL type id of SendMessageEmojiInteractionSeen.
+const SendMessageEmojiInteractionSeenTypeID = 0xb665902e
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageEmojiInteractionSeen) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageEmojiInteractionSeen.
+var (
+	_ bin.Encoder     = &SendMessageEmojiInteractionSeen{}
+	_ bin.Decoder     = &SendMessageEmojiInteractionSeen{}
+	_ bin.BareEncoder = &SendMessageEmojiInteractionSeen{}
+	_ bin.BareDecoder = &SendMessageEmojiInteractionSeen{}
+
+	_ SendMessageActionClass = &SendMessageEmojiInteractionSeen{}
+)
+
+func (s *SendMessageEmojiInteractionSeen) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Emoticon == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SendMessageEmojiInteractionSeen) String() string {
+	if s == nil {
+		return "SendMessageEmojiInteractionSeen(nil)"
+	}
+	type Alias SendMessageEmojiInteractionSeen
+	return fmt.Sprintf("SendMessageEmojiInteractionSeen%+v", Alias(*s))
+}
+
+// FillFrom fills SendMessageEmojiInteractionSeen from given interface.
+func (s *SendMessageEmojiInteractionSeen) FillFrom(from interface {
+	GetEmoticon() (value string)
+}) {
+	s.Emoticon = from.GetEmoticon()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SendMessageEmojiInteractionSeen) TypeID() uint32 {
+	return SendMessageEmojiInteractionSeenTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SendMessageEmojiInteractionSeen) TypeName() string {
+	return "sendMessageEmojiInteractionSeen"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageEmojiInteractionSeen) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageEmojiInteractionSeen",
+		ID:   SendMessageEmojiInteractionSeenTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Emoticon",
+			SchemaName: "emoticon",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SendMessageEmojiInteractionSeen) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageEmojiInteractionSeen#b665902e as nil")
+	}
+	b.PutID(SendMessageEmojiInteractionSeenTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageEmojiInteractionSeen) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageEmojiInteractionSeen#b665902e as nil")
+	}
+	b.PutString(s.Emoticon)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SendMessageEmojiInteractionSeen) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageEmojiInteractionSeen#b665902e to nil")
+	}
+	if err := b.ConsumeID(SendMessageEmojiInteractionSeenTypeID); err != nil {
+		return fmt.Errorf("unable to decode sendMessageEmojiInteractionSeen#b665902e: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageEmojiInteractionSeen) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageEmojiInteractionSeen#b665902e to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode sendMessageEmojiInteractionSeen#b665902e: field emoticon: %w", err)
+		}
+		s.Emoticon = value
+	}
+	return nil
+}
+
+// GetEmoticon returns value of Emoticon field.
+func (s *SendMessageEmojiInteractionSeen) GetEmoticon() (value string) {
+	return s.Emoticon
+}
+
 // SendMessageActionClass represents SendMessageAction generic type.
 //
 // See https://core.telegram.org/type/SendMessageAction for reference.
@@ -1865,6 +2175,8 @@ func (s *SendMessageChooseStickerAction) DecodeBare(b *bin.Buffer) error {
 //  case *tg.SpeakingInGroupCallAction: // speakingInGroupCallAction#d92c2285
 //  case *tg.SendMessageHistoryImportAction: // sendMessageHistoryImportAction#dbda9246
 //  case *tg.SendMessageChooseStickerAction: // sendMessageChooseStickerAction#b05ac6b1
+//  case *tg.SendMessageEmojiInteraction: // sendMessageEmojiInteraction#25972bcb
+//  case *tg.SendMessageEmojiInteractionSeen: // sendMessageEmojiInteractionSeen#b665902e
 //  default: panic(v)
 //  }
 type SendMessageActionClass interface {
@@ -2001,6 +2313,20 @@ func DecodeSendMessageAction(buf *bin.Buffer) (SendMessageActionClass, error) {
 	case SendMessageChooseStickerActionTypeID:
 		// Decoding sendMessageChooseStickerAction#b05ac6b1.
 		v := SendMessageChooseStickerAction{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+		}
+		return &v, nil
+	case SendMessageEmojiInteractionTypeID:
+		// Decoding sendMessageEmojiInteraction#25972bcb.
+		v := SendMessageEmojiInteraction{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+		}
+		return &v, nil
+	case SendMessageEmojiInteractionSeenTypeID:
+		// Decoding sendMessageEmojiInteractionSeen#b665902e.
+		v := SendMessageEmojiInteractionSeen{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
 		}

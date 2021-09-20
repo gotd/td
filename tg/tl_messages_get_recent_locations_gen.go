@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetRecentLocationsRequest represents TL type `messages.getRecentLocations#bbc45b09`.
+// MessagesGetRecentLocationsRequest represents TL type `messages.getRecentLocations#702a40e0`.
 // Get live location history of a certain user
 //
 // See https://core.telegram.org/method/messages.getRecentLocations for reference.
@@ -45,11 +45,11 @@ type MessagesGetRecentLocationsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // MessagesGetRecentLocationsRequestTypeID is TL type id of MessagesGetRecentLocationsRequest.
-const MessagesGetRecentLocationsRequestTypeID = 0xbbc45b09
+const MessagesGetRecentLocationsRequestTypeID = 0x702a40e0
 
 // Ensuring interfaces in compile-time for MessagesGetRecentLocationsRequest.
 var (
@@ -89,7 +89,7 @@ func (g *MessagesGetRecentLocationsRequest) String() string {
 func (g *MessagesGetRecentLocationsRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetLimit() (value int)
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Peer = from.GetPeer()
 	g.Limit = from.GetLimit()
@@ -138,7 +138,7 @@ func (g *MessagesGetRecentLocationsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetRecentLocationsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getRecentLocations#bbc45b09 as nil")
+		return fmt.Errorf("can't encode messages.getRecentLocations#702a40e0 as nil")
 	}
 	b.PutID(MessagesGetRecentLocationsRequestTypeID)
 	return g.EncodeBare(b)
@@ -147,26 +147,26 @@ func (g *MessagesGetRecentLocationsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetRecentLocationsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getRecentLocations#bbc45b09 as nil")
+		return fmt.Errorf("can't encode messages.getRecentLocations#702a40e0 as nil")
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getRecentLocations#bbc45b09: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getRecentLocations#702a40e0: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getRecentLocations#bbc45b09: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getRecentLocations#702a40e0: field peer: %w", err)
 	}
 	b.PutInt(g.Limit)
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *MessagesGetRecentLocationsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getRecentLocations#bbc45b09 to nil")
+		return fmt.Errorf("can't decode messages.getRecentLocations#702a40e0 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetRecentLocationsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getRecentLocations#bbc45b09: %w", err)
+		return fmt.Errorf("unable to decode messages.getRecentLocations#702a40e0: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -174,26 +174,26 @@ func (g *MessagesGetRecentLocationsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetRecentLocationsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getRecentLocations#bbc45b09 to nil")
+		return fmt.Errorf("can't decode messages.getRecentLocations#702a40e0 to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getRecentLocations#bbc45b09: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getRecentLocations#702a40e0: field peer: %w", err)
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getRecentLocations#bbc45b09: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.getRecentLocations#702a40e0: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getRecentLocations#bbc45b09: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getRecentLocations#702a40e0: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -211,11 +211,11 @@ func (g *MessagesGetRecentLocationsRequest) GetLimit() (value int) {
 }
 
 // GetHash returns value of Hash field.
-func (g *MessagesGetRecentLocationsRequest) GetHash() (value int) {
+func (g *MessagesGetRecentLocationsRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetRecentLocations invokes method messages.getRecentLocations#bbc45b09 returning error if any.
+// MessagesGetRecentLocations invokes method messages.getRecentLocations#702a40e0 returning error if any.
 // Get live location history of a certain user
 //
 // See https://core.telegram.org/method/messages.getRecentLocations for reference.

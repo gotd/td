@@ -161,7 +161,7 @@ func (r *RecentMeURLUnknown) GetURL() (value string) {
 	return r.URL
 }
 
-// RecentMeURLUser represents TL type `recentMeUrlUser#8dbc3336`.
+// RecentMeURLUser represents TL type `recentMeUrlUser#b92c09e2`.
 // Recent t.me link to a user
 //
 // See https://core.telegram.org/constructor/recentMeUrlUser for reference.
@@ -169,11 +169,11 @@ type RecentMeURLUser struct {
 	// URL
 	URL string
 	// User ID
-	UserID int
+	UserID int64
 }
 
 // RecentMeURLUserTypeID is TL type id of RecentMeURLUser.
-const RecentMeURLUserTypeID = 0x8dbc3336
+const RecentMeURLUserTypeID = 0xb92c09e2
 
 // construct implements constructor of RecentMeURLClass.
 func (r RecentMeURLUser) construct() RecentMeURLClass { return &r }
@@ -214,7 +214,7 @@ func (r *RecentMeURLUser) String() string {
 // FillFrom fills RecentMeURLUser from given interface.
 func (r *RecentMeURLUser) FillFrom(from interface {
 	GetURL() (value string)
-	GetUserID() (value int)
+	GetUserID() (value int64)
 }) {
 	r.URL = from.GetURL()
 	r.UserID = from.GetUserID()
@@ -258,7 +258,7 @@ func (r *RecentMeURLUser) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RecentMeURLUser) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlUser#8dbc3336 as nil")
+		return fmt.Errorf("can't encode recentMeUrlUser#b92c09e2 as nil")
 	}
 	b.PutID(RecentMeURLUserTypeID)
 	return r.EncodeBare(b)
@@ -267,20 +267,20 @@ func (r *RecentMeURLUser) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RecentMeURLUser) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlUser#8dbc3336 as nil")
+		return fmt.Errorf("can't encode recentMeUrlUser#b92c09e2 as nil")
 	}
 	b.PutString(r.URL)
-	b.PutInt(r.UserID)
+	b.PutLong(r.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (r *RecentMeURLUser) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlUser#8dbc3336 to nil")
+		return fmt.Errorf("can't decode recentMeUrlUser#b92c09e2 to nil")
 	}
 	if err := b.ConsumeID(RecentMeURLUserTypeID); err != nil {
-		return fmt.Errorf("unable to decode recentMeUrlUser#8dbc3336: %w", err)
+		return fmt.Errorf("unable to decode recentMeUrlUser#b92c09e2: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -288,19 +288,19 @@ func (r *RecentMeURLUser) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RecentMeURLUser) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlUser#8dbc3336 to nil")
+		return fmt.Errorf("can't decode recentMeUrlUser#b92c09e2 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode recentMeUrlUser#8dbc3336: field url: %w", err)
+			return fmt.Errorf("unable to decode recentMeUrlUser#b92c09e2: field url: %w", err)
 		}
 		r.URL = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode recentMeUrlUser#8dbc3336: field user_id: %w", err)
+			return fmt.Errorf("unable to decode recentMeUrlUser#b92c09e2: field user_id: %w", err)
 		}
 		r.UserID = value
 	}
@@ -313,11 +313,11 @@ func (r *RecentMeURLUser) GetURL() (value string) {
 }
 
 // GetUserID returns value of UserID field.
-func (r *RecentMeURLUser) GetUserID() (value int) {
+func (r *RecentMeURLUser) GetUserID() (value int64) {
 	return r.UserID
 }
 
-// RecentMeURLChat represents TL type `recentMeUrlChat#a01b22f9`.
+// RecentMeURLChat represents TL type `recentMeUrlChat#b2da71d2`.
 // Recent t.me link to a chat
 //
 // See https://core.telegram.org/constructor/recentMeUrlChat for reference.
@@ -325,11 +325,11 @@ type RecentMeURLChat struct {
 	// t.me URL
 	URL string
 	// Chat ID
-	ChatID int
+	ChatID int64
 }
 
 // RecentMeURLChatTypeID is TL type id of RecentMeURLChat.
-const RecentMeURLChatTypeID = 0xa01b22f9
+const RecentMeURLChatTypeID = 0xb2da71d2
 
 // construct implements constructor of RecentMeURLClass.
 func (r RecentMeURLChat) construct() RecentMeURLClass { return &r }
@@ -370,7 +370,7 @@ func (r *RecentMeURLChat) String() string {
 // FillFrom fills RecentMeURLChat from given interface.
 func (r *RecentMeURLChat) FillFrom(from interface {
 	GetURL() (value string)
-	GetChatID() (value int)
+	GetChatID() (value int64)
 }) {
 	r.URL = from.GetURL()
 	r.ChatID = from.GetChatID()
@@ -414,7 +414,7 @@ func (r *RecentMeURLChat) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RecentMeURLChat) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlChat#a01b22f9 as nil")
+		return fmt.Errorf("can't encode recentMeUrlChat#b2da71d2 as nil")
 	}
 	b.PutID(RecentMeURLChatTypeID)
 	return r.EncodeBare(b)
@@ -423,20 +423,20 @@ func (r *RecentMeURLChat) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RecentMeURLChat) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode recentMeUrlChat#a01b22f9 as nil")
+		return fmt.Errorf("can't encode recentMeUrlChat#b2da71d2 as nil")
 	}
 	b.PutString(r.URL)
-	b.PutInt(r.ChatID)
+	b.PutLong(r.ChatID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (r *RecentMeURLChat) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlChat#a01b22f9 to nil")
+		return fmt.Errorf("can't decode recentMeUrlChat#b2da71d2 to nil")
 	}
 	if err := b.ConsumeID(RecentMeURLChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode recentMeUrlChat#a01b22f9: %w", err)
+		return fmt.Errorf("unable to decode recentMeUrlChat#b2da71d2: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -444,19 +444,19 @@ func (r *RecentMeURLChat) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RecentMeURLChat) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode recentMeUrlChat#a01b22f9 to nil")
+		return fmt.Errorf("can't decode recentMeUrlChat#b2da71d2 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode recentMeUrlChat#a01b22f9: field url: %w", err)
+			return fmt.Errorf("unable to decode recentMeUrlChat#b2da71d2: field url: %w", err)
 		}
 		r.URL = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode recentMeUrlChat#a01b22f9: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode recentMeUrlChat#b2da71d2: field chat_id: %w", err)
 		}
 		r.ChatID = value
 	}
@@ -469,7 +469,7 @@ func (r *RecentMeURLChat) GetURL() (value string) {
 }
 
 // GetChatID returns value of ChatID field.
-func (r *RecentMeURLChat) GetChatID() (value int) {
+func (r *RecentMeURLChat) GetChatID() (value int64) {
 	return r.ChatID
 }
 
@@ -806,8 +806,8 @@ func (r *RecentMeURLStickerSet) GetSet() (value StickerSetCoveredClass) {
 //  }
 //  switch v := g.(type) {
 //  case *tg.RecentMeURLUnknown: // recentMeUrlUnknown#46e1d13d
-//  case *tg.RecentMeURLUser: // recentMeUrlUser#8dbc3336
-//  case *tg.RecentMeURLChat: // recentMeUrlChat#a01b22f9
+//  case *tg.RecentMeURLUser: // recentMeUrlUser#b92c09e2
+//  case *tg.RecentMeURLChat: // recentMeUrlChat#b2da71d2
 //  case *tg.RecentMeURLChatInvite: // recentMeUrlChatInvite#eb49081d
 //  case *tg.RecentMeURLStickerSet: // recentMeUrlStickerSet#bc0a57dc
 //  default: panic(v)
@@ -849,14 +849,14 @@ func DecodeRecentMeURL(buf *bin.Buffer) (RecentMeURLClass, error) {
 		}
 		return &v, nil
 	case RecentMeURLUserTypeID:
-		// Decoding recentMeUrlUser#8dbc3336.
+		// Decoding recentMeUrlUser#b92c09e2.
 		v := RecentMeURLUser{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", err)
 		}
 		return &v, nil
 	case RecentMeURLChatTypeID:
-		// Decoding recentMeUrlChat#a01b22f9.
+		// Decoding recentMeUrlChat#b2da71d2.
 		v := RecentMeURLChat{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", err)

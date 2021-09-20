@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// ChannelsGetParticipantsRequest represents TL type `channels.getParticipants#123e05e9`.
+// ChannelsGetParticipantsRequest represents TL type `channels.getParticipants#77ced9d0`.
 // Get the participants of a supergroup/channel¹
 //
 // Links:
@@ -55,11 +55,11 @@ type ChannelsGetParticipantsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Hash int
+	Hash int64
 }
 
 // ChannelsGetParticipantsRequestTypeID is TL type id of ChannelsGetParticipantsRequest.
-const ChannelsGetParticipantsRequestTypeID = 0x123e05e9
+const ChannelsGetParticipantsRequestTypeID = 0x77ced9d0
 
 // Ensuring interfaces in compile-time for ChannelsGetParticipantsRequest.
 var (
@@ -107,7 +107,7 @@ func (g *ChannelsGetParticipantsRequest) FillFrom(from interface {
 	GetFilter() (value ChannelParticipantsFilterClass)
 	GetOffset() (value int)
 	GetLimit() (value int)
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Channel = from.GetChannel()
 	g.Filter = from.GetFilter()
@@ -166,7 +166,7 @@ func (g *ChannelsGetParticipantsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ChannelsGetParticipantsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getParticipants#123e05e9 as nil")
+		return fmt.Errorf("can't encode channels.getParticipants#77ced9d0 as nil")
 	}
 	b.PutID(ChannelsGetParticipantsRequestTypeID)
 	return g.EncodeBare(b)
@@ -175,33 +175,33 @@ func (g *ChannelsGetParticipantsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ChannelsGetParticipantsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getParticipants#123e05e9 as nil")
+		return fmt.Errorf("can't encode channels.getParticipants#77ced9d0 as nil")
 	}
 	if g.Channel == nil {
-		return fmt.Errorf("unable to encode channels.getParticipants#123e05e9: field channel is nil")
+		return fmt.Errorf("unable to encode channels.getParticipants#77ced9d0: field channel is nil")
 	}
 	if err := g.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.getParticipants#123e05e9: field channel: %w", err)
+		return fmt.Errorf("unable to encode channels.getParticipants#77ced9d0: field channel: %w", err)
 	}
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode channels.getParticipants#123e05e9: field filter is nil")
+		return fmt.Errorf("unable to encode channels.getParticipants#77ced9d0: field filter is nil")
 	}
 	if err := g.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.getParticipants#123e05e9: field filter: %w", err)
+		return fmt.Errorf("unable to encode channels.getParticipants#77ced9d0: field filter: %w", err)
 	}
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *ChannelsGetParticipantsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getParticipants#123e05e9 to nil")
+		return fmt.Errorf("can't decode channels.getParticipants#77ced9d0 to nil")
 	}
 	if err := b.ConsumeID(ChannelsGetParticipantsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.getParticipants#123e05e9: %w", err)
+		return fmt.Errorf("unable to decode channels.getParticipants#77ced9d0: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -209,40 +209,40 @@ func (g *ChannelsGetParticipantsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ChannelsGetParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getParticipants#123e05e9 to nil")
+		return fmt.Errorf("can't decode channels.getParticipants#77ced9d0 to nil")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getParticipants#123e05e9: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.getParticipants#77ced9d0: field channel: %w", err)
 		}
 		g.Channel = value
 	}
 	{
 		value, err := DecodeChannelParticipantsFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getParticipants#123e05e9: field filter: %w", err)
+			return fmt.Errorf("unable to decode channels.getParticipants#77ced9d0: field filter: %w", err)
 		}
 		g.Filter = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getParticipants#123e05e9: field offset: %w", err)
+			return fmt.Errorf("unable to decode channels.getParticipants#77ced9d0: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getParticipants#123e05e9: field limit: %w", err)
+			return fmt.Errorf("unable to decode channels.getParticipants#77ced9d0: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getParticipants#123e05e9: field hash: %w", err)
+			return fmt.Errorf("unable to decode channels.getParticipants#77ced9d0: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -270,7 +270,7 @@ func (g *ChannelsGetParticipantsRequest) GetLimit() (value int) {
 }
 
 // GetHash returns value of Hash field.
-func (g *ChannelsGetParticipantsRequest) GetHash() (value int) {
+func (g *ChannelsGetParticipantsRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
@@ -279,7 +279,7 @@ func (g *ChannelsGetParticipantsRequest) GetChannelAsNotEmpty() (NotEmptyInputCh
 	return g.Channel.AsNotEmpty()
 }
 
-// ChannelsGetParticipants invokes method channels.getParticipants#123e05e9 returning error if any.
+// ChannelsGetParticipants invokes method channels.getParticipants#77ced9d0 returning error if any.
 // Get the participants of a supergroup/channel¹
 //
 // Links:

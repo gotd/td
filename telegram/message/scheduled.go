@@ -74,7 +74,7 @@ func (m *ScheduledManager) Get(ctx context.Context, id int, ids ...int) (tg.Modi
 }
 
 // HistoryWithHash gets scheduled messages history.
-func (m *ScheduledManager) HistoryWithHash(ctx context.Context, hash int) (tg.ModifiedMessagesMessages, error) {
+func (m *ScheduledManager) HistoryWithHash(ctx context.Context, hash int64) (tg.ModifiedMessagesMessages, error) {
 	p, err := m.peer(ctx)
 	if err != nil {
 		return nil, xerrors.Errorf("peer: %w", err)

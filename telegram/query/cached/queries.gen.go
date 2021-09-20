@@ -14,93 +14,9 @@ import (
 // No-op definition for keeping imports.
 var _ = context.Background()
 
-type innerAccountGetChatThemes struct {
-	// Last received hash.
-	hash int
-	// Last received result.
-	value *tg.AccountChatThemes
-}
-
-type AccountGetChatThemes struct {
-	// Result state.
-	last atomic.Value
-
-	// Reference to RPC client to make requests.
-	raw *tg.Client
-}
-
-// NewAccountGetChatThemes creates new AccountGetChatThemes.
-func NewAccountGetChatThemes(raw *tg.Client) *AccountGetChatThemes {
-	q := &AccountGetChatThemes{
-		raw: raw,
-	}
-
-	return q
-}
-
-func (s *AccountGetChatThemes) store(v innerAccountGetChatThemes) {
-	s.last.Store(v)
-}
-
-func (s *AccountGetChatThemes) load() (innerAccountGetChatThemes, bool) {
-	v, ok := s.last.Load().(innerAccountGetChatThemes)
-	return v, ok
-}
-
-// Value returns last received result.
-// NB: May be nil. Returned AccountChatThemes must not be mutated.
-func (s *AccountGetChatThemes) Value() *tg.AccountChatThemes {
-	inner, _ := s.load()
-	return inner.value
-}
-
-// Hash returns last received hash.
-func (s *AccountGetChatThemes) Hash() int {
-	inner, _ := s.load()
-	return inner.hash
-}
-
-// Get updates data if needed and returns it.
-func (s *AccountGetChatThemes) Get(ctx context.Context) (*tg.AccountChatThemes, error) {
-	if _, err := s.Fetch(ctx); err != nil {
-		return nil, err
-	}
-
-	return s.Value(), nil
-}
-
-// Fetch updates data if needed and returns true if data was modified.
-func (s *AccountGetChatThemes) Fetch(ctx context.Context) (bool, error) {
-	lastHash := s.Hash()
-
-	req := lastHash
-	result, err := s.raw.AccountGetChatThemes(ctx, req)
-	if err != nil {
-		return false, xerrors.Errorf("execute AccountGetChatThemes: %w", err)
-	}
-
-	switch variant := result.(type) {
-	case *tg.AccountChatThemes:
-		hash := variant.Hash
-
-		s.store(innerAccountGetChatThemes{
-			hash:  hash,
-			value: variant,
-		})
-		return true, nil
-	case *tg.AccountChatThemesNotModified:
-		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
-		}
-		return false, nil
-	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
-	}
-}
-
 type innerAccountGetThemes struct {
 	// Last received hash.
-	hash int
+	hash int64
 	// Last received result.
 	value *tg.AccountThemes
 }
@@ -142,7 +58,7 @@ func (s *AccountGetThemes) Value() *tg.AccountThemes {
 }
 
 // Hash returns last received hash.
-func (s *AccountGetThemes) Hash() int {
+func (s *AccountGetThemes) Hash() int64 {
 	inner, _ := s.load()
 	return inner.hash
 }
@@ -188,7 +104,7 @@ func (s *AccountGetThemes) Fetch(ctx context.Context) (bool, error) {
 
 type innerAccountGetWallPapers struct {
 	// Last received hash.
-	hash int
+	hash int64
 	// Last received result.
 	value *tg.AccountWallPapers
 }
@@ -227,7 +143,7 @@ func (s *AccountGetWallPapers) Value() *tg.AccountWallPapers {
 }
 
 // Hash returns last received hash.
-func (s *AccountGetWallPapers) Hash() int {
+func (s *AccountGetWallPapers) Hash() int64 {
 	inner, _ := s.load()
 	return inner.hash
 }
@@ -272,7 +188,7 @@ func (s *AccountGetWallPapers) Fetch(ctx context.Context) (bool, error) {
 
 type innerContactsGetContacts struct {
 	// Last received hash.
-	hash int
+	hash int64
 	// Last received result.
 	value *tg.ContactsContacts
 }
@@ -311,7 +227,7 @@ func (s *ContactsGetContacts) Value() *tg.ContactsContacts {
 }
 
 // Hash returns last received hash.
-func (s *ContactsGetContacts) Hash() int {
+func (s *ContactsGetContacts) Hash() int64 {
 	inner, _ := s.load()
 	return inner.hash
 }
@@ -354,181 +270,9 @@ func (s *ContactsGetContacts) Fetch(ctx context.Context) (bool, error) {
 	}
 }
 
-type innerHelpGetCountriesList struct {
-	// Last received hash.
-	hash int
-	// Last received result.
-	value *tg.HelpCountriesList
-}
-
-type HelpGetCountriesList struct {
-	// Query to send.
-	req *tg.HelpGetCountriesListRequest
-	// Result state.
-	last atomic.Value
-
-	// Reference to RPC client to make requests.
-	raw *tg.Client
-}
-
-// NewHelpGetCountriesList creates new HelpGetCountriesList.
-func NewHelpGetCountriesList(raw *tg.Client, initial *tg.HelpGetCountriesListRequest) *HelpGetCountriesList {
-	q := &HelpGetCountriesList{
-		req: initial,
-		raw: raw,
-	}
-
-	return q
-}
-
-func (s *HelpGetCountriesList) store(v innerHelpGetCountriesList) {
-	s.last.Store(v)
-}
-
-func (s *HelpGetCountriesList) load() (innerHelpGetCountriesList, bool) {
-	v, ok := s.last.Load().(innerHelpGetCountriesList)
-	return v, ok
-}
-
-// Value returns last received result.
-// NB: May be nil. Returned HelpCountriesList must not be mutated.
-func (s *HelpGetCountriesList) Value() *tg.HelpCountriesList {
-	inner, _ := s.load()
-	return inner.value
-}
-
-// Hash returns last received hash.
-func (s *HelpGetCountriesList) Hash() int {
-	inner, _ := s.load()
-	return inner.hash
-}
-
-// Get updates data if needed and returns it.
-func (s *HelpGetCountriesList) Get(ctx context.Context) (*tg.HelpCountriesList, error) {
-	if _, err := s.Fetch(ctx); err != nil {
-		return nil, err
-	}
-
-	return s.Value(), nil
-}
-
-// Fetch updates data if needed and returns true if data was modified.
-func (s *HelpGetCountriesList) Fetch(ctx context.Context) (bool, error) {
-	lastHash := s.Hash()
-
-	req := s.req
-	req.Hash = lastHash
-	result, err := s.raw.HelpGetCountriesList(ctx, req)
-	if err != nil {
-		return false, xerrors.Errorf("execute HelpGetCountriesList: %w", err)
-	}
-
-	switch variant := result.(type) {
-	case *tg.HelpCountriesList:
-		hash := variant.Hash
-
-		s.store(innerHelpGetCountriesList{
-			hash:  hash,
-			value: variant,
-		})
-		return true, nil
-	case *tg.HelpCountriesListNotModified:
-		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
-		}
-		return false, nil
-	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
-	}
-}
-
-type innerHelpGetPassportConfig struct {
-	// Last received hash.
-	hash int
-	// Last received result.
-	value *tg.HelpPassportConfig
-}
-
-type HelpGetPassportConfig struct {
-	// Result state.
-	last atomic.Value
-
-	// Reference to RPC client to make requests.
-	raw *tg.Client
-}
-
-// NewHelpGetPassportConfig creates new HelpGetPassportConfig.
-func NewHelpGetPassportConfig(raw *tg.Client) *HelpGetPassportConfig {
-	q := &HelpGetPassportConfig{
-		raw: raw,
-	}
-
-	return q
-}
-
-func (s *HelpGetPassportConfig) store(v innerHelpGetPassportConfig) {
-	s.last.Store(v)
-}
-
-func (s *HelpGetPassportConfig) load() (innerHelpGetPassportConfig, bool) {
-	v, ok := s.last.Load().(innerHelpGetPassportConfig)
-	return v, ok
-}
-
-// Value returns last received result.
-// NB: May be nil. Returned HelpPassportConfig must not be mutated.
-func (s *HelpGetPassportConfig) Value() *tg.HelpPassportConfig {
-	inner, _ := s.load()
-	return inner.value
-}
-
-// Hash returns last received hash.
-func (s *HelpGetPassportConfig) Hash() int {
-	inner, _ := s.load()
-	return inner.hash
-}
-
-// Get updates data if needed and returns it.
-func (s *HelpGetPassportConfig) Get(ctx context.Context) (*tg.HelpPassportConfig, error) {
-	if _, err := s.Fetch(ctx); err != nil {
-		return nil, err
-	}
-
-	return s.Value(), nil
-}
-
-// Fetch updates data if needed and returns true if data was modified.
-func (s *HelpGetPassportConfig) Fetch(ctx context.Context) (bool, error) {
-	lastHash := s.Hash()
-
-	req := lastHash
-	result, err := s.raw.HelpGetPassportConfig(ctx, req)
-	if err != nil {
-		return false, xerrors.Errorf("execute HelpGetPassportConfig: %w", err)
-	}
-
-	switch variant := result.(type) {
-	case *tg.HelpPassportConfig:
-		hash := variant.Hash
-
-		s.store(innerHelpGetPassportConfig{
-			hash:  hash,
-			value: variant,
-		})
-		return true, nil
-	case *tg.HelpPassportConfigNotModified:
-		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
-		}
-		return false, nil
-	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
-	}
-}
-
 type innerMessagesGetAllStickers struct {
 	// Last received hash.
-	hash int
+	hash int64
 	// Last received result.
 	value *tg.MessagesAllStickers
 }
@@ -567,7 +311,7 @@ func (s *MessagesGetAllStickers) Value() *tg.MessagesAllStickers {
 }
 
 // Hash returns last received hash.
-func (s *MessagesGetAllStickers) Hash() int {
+func (s *MessagesGetAllStickers) Hash() int64 {
 	inner, _ := s.load()
 	return inner.hash
 }
@@ -612,7 +356,7 @@ func (s *MessagesGetAllStickers) Fetch(ctx context.Context) (bool, error) {
 
 type innerMessagesGetFavedStickers struct {
 	// Last received hash.
-	hash int
+	hash int64
 	// Last received result.
 	value *tg.MessagesFavedStickers
 }
@@ -651,7 +395,7 @@ func (s *MessagesGetFavedStickers) Value() *tg.MessagesFavedStickers {
 }
 
 // Hash returns last received hash.
-func (s *MessagesGetFavedStickers) Hash() int {
+func (s *MessagesGetFavedStickers) Hash() int64 {
 	inner, _ := s.load()
 	return inner.hash
 }
@@ -696,7 +440,7 @@ func (s *MessagesGetFavedStickers) Fetch(ctx context.Context) (bool, error) {
 
 type innerMessagesGetFeaturedStickers struct {
 	// Last received hash.
-	hash int
+	hash int64
 	// Last received result.
 	value *tg.MessagesFeaturedStickers
 }
@@ -735,7 +479,7 @@ func (s *MessagesGetFeaturedStickers) Value() *tg.MessagesFeaturedStickers {
 }
 
 // Hash returns last received hash.
-func (s *MessagesGetFeaturedStickers) Hash() int {
+func (s *MessagesGetFeaturedStickers) Hash() int64 {
 	inner, _ := s.load()
 	return inner.hash
 }
@@ -780,7 +524,7 @@ func (s *MessagesGetFeaturedStickers) Fetch(ctx context.Context) (bool, error) {
 
 type innerMessagesGetMaskStickers struct {
 	// Last received hash.
-	hash int
+	hash int64
 	// Last received result.
 	value *tg.MessagesAllStickers
 }
@@ -819,7 +563,7 @@ func (s *MessagesGetMaskStickers) Value() *tg.MessagesAllStickers {
 }
 
 // Hash returns last received hash.
-func (s *MessagesGetMaskStickers) Hash() int {
+func (s *MessagesGetMaskStickers) Hash() int64 {
 	inner, _ := s.load()
 	return inner.hash
 }
@@ -864,7 +608,7 @@ func (s *MessagesGetMaskStickers) Fetch(ctx context.Context) (bool, error) {
 
 type innerMessagesGetRecentStickers struct {
 	// Last received hash.
-	hash int
+	hash int64
 	// Last received result.
 	value *tg.MessagesRecentStickers
 }
@@ -906,7 +650,7 @@ func (s *MessagesGetRecentStickers) Value() *tg.MessagesRecentStickers {
 }
 
 // Hash returns last received hash.
-func (s *MessagesGetRecentStickers) Hash() int {
+func (s *MessagesGetRecentStickers) Hash() int64 {
 	inner, _ := s.load()
 	return inner.hash
 }
@@ -952,7 +696,7 @@ func (s *MessagesGetRecentStickers) Fetch(ctx context.Context) (bool, error) {
 
 type innerMessagesGetSavedGifs struct {
 	// Last received hash.
-	hash int
+	hash int64
 	// Last received result.
 	value *tg.MessagesSavedGifs
 }
@@ -991,7 +735,7 @@ func (s *MessagesGetSavedGifs) Value() *tg.MessagesSavedGifs {
 }
 
 // Hash returns last received hash.
-func (s *MessagesGetSavedGifs) Hash() int {
+func (s *MessagesGetSavedGifs) Hash() int64 {
 	inner, _ := s.load()
 	return inner.hash
 }
@@ -1036,7 +780,7 @@ func (s *MessagesGetSavedGifs) Fetch(ctx context.Context) (bool, error) {
 
 type innerMessagesGetStickers struct {
 	// Last received hash.
-	hash int
+	hash int64
 	// Last received result.
 	value *tg.MessagesStickers
 }
@@ -1078,7 +822,7 @@ func (s *MessagesGetStickers) Value() *tg.MessagesStickers {
 }
 
 // Hash returns last received hash.
-func (s *MessagesGetStickers) Hash() int {
+func (s *MessagesGetStickers) Hash() int64 {
 	inner, _ := s.load()
 	return inner.hash
 }
@@ -1124,7 +868,7 @@ func (s *MessagesGetStickers) Fetch(ctx context.Context) (bool, error) {
 
 type innerMessagesSearchStickerSets struct {
 	// Last received hash.
-	hash int
+	hash int64
 	// Last received result.
 	value *tg.MessagesFoundStickerSets
 }
@@ -1166,7 +910,7 @@ func (s *MessagesSearchStickerSets) Value() *tg.MessagesFoundStickerSets {
 }
 
 // Hash returns last received hash.
-func (s *MessagesSearchStickerSets) Hash() int {
+func (s *MessagesSearchStickerSets) Hash() int64 {
 	inner, _ := s.load()
 	return inner.hash
 }

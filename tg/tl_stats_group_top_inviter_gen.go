@@ -29,13 +29,13 @@ var (
 	_ = tgerr.Error{}
 )
 
-// StatsGroupTopInviter represents TL type `statsGroupTopInviter#31962a4c`.
+// StatsGroupTopInviter represents TL type `statsGroupTopInviter#535f779d`.
 // Information about an active supergroup inviter
 //
 // See https://core.telegram.org/constructor/statsGroupTopInviter for reference.
 type StatsGroupTopInviter struct {
 	// User ID
-	UserID int
+	UserID int64
 	// Number of invitations for statistics¹ period in consideration
 	//
 	// Links:
@@ -44,7 +44,7 @@ type StatsGroupTopInviter struct {
 }
 
 // StatsGroupTopInviterTypeID is TL type id of StatsGroupTopInviter.
-const StatsGroupTopInviterTypeID = 0x31962a4c
+const StatsGroupTopInviterTypeID = 0x535f779d
 
 // Ensuring interfaces in compile-time for StatsGroupTopInviter.
 var (
@@ -79,7 +79,7 @@ func (s *StatsGroupTopInviter) String() string {
 
 // FillFrom fills StatsGroupTopInviter from given interface.
 func (s *StatsGroupTopInviter) FillFrom(from interface {
-	GetUserID() (value int)
+	GetUserID() (value int64)
 	GetInvitations() (value int)
 }) {
 	s.UserID = from.GetUserID()
@@ -124,7 +124,7 @@ func (s *StatsGroupTopInviter) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StatsGroupTopInviter) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGroupTopInviter#31962a4c as nil")
+		return fmt.Errorf("can't encode statsGroupTopInviter#535f779d as nil")
 	}
 	b.PutID(StatsGroupTopInviterTypeID)
 	return s.EncodeBare(b)
@@ -133,9 +133,9 @@ func (s *StatsGroupTopInviter) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StatsGroupTopInviter) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGroupTopInviter#31962a4c as nil")
+		return fmt.Errorf("can't encode statsGroupTopInviter#535f779d as nil")
 	}
-	b.PutInt(s.UserID)
+	b.PutLong(s.UserID)
 	b.PutInt(s.Invitations)
 	return nil
 }
@@ -143,10 +143,10 @@ func (s *StatsGroupTopInviter) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StatsGroupTopInviter) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGroupTopInviter#31962a4c to nil")
+		return fmt.Errorf("can't decode statsGroupTopInviter#535f779d to nil")
 	}
 	if err := b.ConsumeID(StatsGroupTopInviterTypeID); err != nil {
-		return fmt.Errorf("unable to decode statsGroupTopInviter#31962a4c: %w", err)
+		return fmt.Errorf("unable to decode statsGroupTopInviter#535f779d: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -154,19 +154,19 @@ func (s *StatsGroupTopInviter) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StatsGroupTopInviter) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGroupTopInviter#31962a4c to nil")
+		return fmt.Errorf("can't decode statsGroupTopInviter#535f779d to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopInviter#31962a4c: field user_id: %w", err)
+			return fmt.Errorf("unable to decode statsGroupTopInviter#535f779d: field user_id: %w", err)
 		}
 		s.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopInviter#31962a4c: field invitations: %w", err)
+			return fmt.Errorf("unable to decode statsGroupTopInviter#535f779d: field invitations: %w", err)
 		}
 		s.Invitations = value
 	}
@@ -174,7 +174,7 @@ func (s *StatsGroupTopInviter) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetUserID returns value of UserID field.
-func (s *StatsGroupTopInviter) GetUserID() (value int) {
+func (s *StatsGroupTopInviter) GetUserID() (value int64) {
 	return s.UserID
 }
 

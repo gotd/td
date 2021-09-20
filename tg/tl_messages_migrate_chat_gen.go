@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesMigrateChatRequest represents TL type `messages.migrateChat#15a3b8e3`.
+// MessagesMigrateChatRequest represents TL type `messages.migrateChat#a2875319`.
 // Turn a legacy group into a supergroup¹
 //
 // Links:
@@ -38,11 +38,11 @@ var (
 // See https://core.telegram.org/method/messages.migrateChat for reference.
 type MessagesMigrateChatRequest struct {
 	// Legacy group to migrate
-	ChatID int
+	ChatID int64
 }
 
 // MessagesMigrateChatRequestTypeID is TL type id of MessagesMigrateChatRequest.
-const MessagesMigrateChatRequestTypeID = 0x15a3b8e3
+const MessagesMigrateChatRequestTypeID = 0xa2875319
 
 // Ensuring interfaces in compile-time for MessagesMigrateChatRequest.
 var (
@@ -74,7 +74,7 @@ func (m *MessagesMigrateChatRequest) String() string {
 
 // FillFrom fills MessagesMigrateChatRequest from given interface.
 func (m *MessagesMigrateChatRequest) FillFrom(from interface {
-	GetChatID() (value int)
+	GetChatID() (value int64)
 }) {
 	m.ChatID = from.GetChatID()
 }
@@ -113,7 +113,7 @@ func (m *MessagesMigrateChatRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessagesMigrateChatRequest) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messages.migrateChat#15a3b8e3 as nil")
+		return fmt.Errorf("can't encode messages.migrateChat#a2875319 as nil")
 	}
 	b.PutID(MessagesMigrateChatRequestTypeID)
 	return m.EncodeBare(b)
@@ -122,19 +122,19 @@ func (m *MessagesMigrateChatRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessagesMigrateChatRequest) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messages.migrateChat#15a3b8e3 as nil")
+		return fmt.Errorf("can't encode messages.migrateChat#a2875319 as nil")
 	}
-	b.PutInt(m.ChatID)
+	b.PutLong(m.ChatID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessagesMigrateChatRequest) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messages.migrateChat#15a3b8e3 to nil")
+		return fmt.Errorf("can't decode messages.migrateChat#a2875319 to nil")
 	}
 	if err := b.ConsumeID(MessagesMigrateChatRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.migrateChat#15a3b8e3: %w", err)
+		return fmt.Errorf("unable to decode messages.migrateChat#a2875319: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -142,12 +142,12 @@ func (m *MessagesMigrateChatRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessagesMigrateChatRequest) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messages.migrateChat#15a3b8e3 to nil")
+		return fmt.Errorf("can't decode messages.migrateChat#a2875319 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.migrateChat#15a3b8e3: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode messages.migrateChat#a2875319: field chat_id: %w", err)
 		}
 		m.ChatID = value
 	}
@@ -155,11 +155,11 @@ func (m *MessagesMigrateChatRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetChatID returns value of ChatID field.
-func (m *MessagesMigrateChatRequest) GetChatID() (value int) {
+func (m *MessagesMigrateChatRequest) GetChatID() (value int64) {
 	return m.ChatID
 }
 
-// MessagesMigrateChat invokes method messages.migrateChat#15a3b8e3 returning error if any.
+// MessagesMigrateChat invokes method messages.migrateChat#a2875319 returning error if any.
 // Turn a legacy group into a supergroup¹
 //
 // Links:
@@ -171,7 +171,7 @@ func (m *MessagesMigrateChatRequest) GetChatID() (value int) {
 //  400 PEER_ID_INVALID: The provided peer id is invalid
 //
 // See https://core.telegram.org/method/messages.migrateChat for reference.
-func (c *Client) MessagesMigrateChat(ctx context.Context, chatid int) (UpdatesClass, error) {
+func (c *Client) MessagesMigrateChat(ctx context.Context, chatid int64) (UpdatesClass, error) {
 	var result UpdatesBox
 
 	request := &MessagesMigrateChatRequest{

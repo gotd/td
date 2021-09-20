@@ -192,6 +192,32 @@ func (s SendMessageActionClassArray) AsSendMessageHistoryImportAction() (to Send
 	return to
 }
 
+// AsSendMessageEmojiInteraction returns copy with only SendMessageEmojiInteraction constructors.
+func (s SendMessageActionClassArray) AsSendMessageEmojiInteraction() (to SendMessageEmojiInteractionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*SendMessageEmojiInteraction)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsSendMessageEmojiInteractionSeen returns copy with only SendMessageEmojiInteractionSeen constructors.
+func (s SendMessageActionClassArray) AsSendMessageEmojiInteractionSeen() (to SendMessageEmojiInteractionSeenArray) {
+	for _, elem := range s {
+		value, ok := elem.(*SendMessageEmojiInteractionSeen)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // SendMessageUploadVideoActionArray is adapter for slice of SendMessageUploadVideoAction.
 type SendMessageUploadVideoActionArray []SendMessageUploadVideoAction
 
@@ -672,6 +698,170 @@ func (s *SendMessageHistoryImportActionArray) PopFirst() (v SendMessageHistoryIm
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *SendMessageHistoryImportActionArray) Pop() (v SendMessageHistoryImportAction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SendMessageEmojiInteractionArray is adapter for slice of SendMessageEmojiInteraction.
+type SendMessageEmojiInteractionArray []SendMessageEmojiInteraction
+
+// Sort sorts slice of SendMessageEmojiInteraction.
+func (s SendMessageEmojiInteractionArray) Sort(less func(a, b SendMessageEmojiInteraction) bool) SendMessageEmojiInteractionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SendMessageEmojiInteraction.
+func (s SendMessageEmojiInteractionArray) SortStable(less func(a, b SendMessageEmojiInteraction) bool) SendMessageEmojiInteractionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SendMessageEmojiInteraction.
+func (s SendMessageEmojiInteractionArray) Retain(keep func(x SendMessageEmojiInteraction) bool) SendMessageEmojiInteractionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s SendMessageEmojiInteractionArray) First() (v SendMessageEmojiInteraction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SendMessageEmojiInteractionArray) Last() (v SendMessageEmojiInteraction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SendMessageEmojiInteractionArray) PopFirst() (v SendMessageEmojiInteraction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero SendMessageEmojiInteraction
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SendMessageEmojiInteractionArray) Pop() (v SendMessageEmojiInteraction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SendMessageEmojiInteractionSeenArray is adapter for slice of SendMessageEmojiInteractionSeen.
+type SendMessageEmojiInteractionSeenArray []SendMessageEmojiInteractionSeen
+
+// Sort sorts slice of SendMessageEmojiInteractionSeen.
+func (s SendMessageEmojiInteractionSeenArray) Sort(less func(a, b SendMessageEmojiInteractionSeen) bool) SendMessageEmojiInteractionSeenArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SendMessageEmojiInteractionSeen.
+func (s SendMessageEmojiInteractionSeenArray) SortStable(less func(a, b SendMessageEmojiInteractionSeen) bool) SendMessageEmojiInteractionSeenArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SendMessageEmojiInteractionSeen.
+func (s SendMessageEmojiInteractionSeenArray) Retain(keep func(x SendMessageEmojiInteractionSeen) bool) SendMessageEmojiInteractionSeenArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s SendMessageEmojiInteractionSeenArray) First() (v SendMessageEmojiInteractionSeen, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SendMessageEmojiInteractionSeenArray) Last() (v SendMessageEmojiInteractionSeen, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SendMessageEmojiInteractionSeenArray) PopFirst() (v SendMessageEmojiInteractionSeen, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero SendMessageEmojiInteractionSeen
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SendMessageEmojiInteractionSeenArray) Pop() (v SendMessageEmojiInteractionSeen, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -33,13 +33,13 @@ func NewEchoBot(suite *Suite, auth chan<- *tg.User) EchoBot {
 }
 
 type users struct {
-	users map[int]*tg.User
+	users map[int64]*tg.User
 	lock  sync.RWMutex
 }
 
 func newUsers() *users {
 	return &users{
-		users: map[int]*tg.User{},
+		users: map[int64]*tg.User{},
 	}
 }
 
@@ -57,7 +57,7 @@ func (m *users) add(list ...tg.UserClass) {
 	tg.UserClassArray(list).FillNotEmptyMap(m.users)
 }
 
-func (m *users) get(id int) (r *tg.User) {
+func (m *users) get(id int64) (r *tg.User) {
 	m.lock.RLock()
 	r = m.users[id]
 	m.lock.RUnlock()
@@ -78,7 +78,7 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 		return nil, err
 	}
 
-	expectedUsername := "echobot" + strconv.Itoa(me.ID)
+	expectedUsername := "echobot" + strconv.FormatInt(me.ID, 10)
 	raw := tg.NewClient(waitInvoker{prev: client})
 	_, err := raw.AccountUpdateUsername(ctx, expectedUsername)
 	if err != nil {
@@ -149,7 +149,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 
 				b.logger.Info("Got message",
 					zap.String("text", m.Message),
-					zap.Int("user_id", user.ID),
+					zap.Int64("user_id", user.ID),
 					zap.String("user_first_name", user.FirstName),
 					zap.String("username", user.Username),
 				)
@@ -181,7 +181,7 @@ func (b EchoBot) Run(ctx context.Context) error {
 
 		b.logger.Info("Logged in",
 			zap.String("user", me.Username),
-			zap.Int("id", me.ID),
+			zap.Int64("id", me.ID),
 		)
 
 		select {

@@ -29,13 +29,13 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesAddChatUserRequest represents TL type `messages.addChatUser#f9a0aa09`.
+// MessagesAddChatUserRequest represents TL type `messages.addChatUser#f24753e3`.
 // Adds a user to a chat and sends a service message on it.
 //
 // See https://core.telegram.org/method/messages.addChatUser for reference.
 type MessagesAddChatUserRequest struct {
 	// Chat ID
-	ChatID int
+	ChatID int64
 	// User ID to be added
 	UserID InputUserClass
 	// Number of last messages to be forwarded
@@ -43,7 +43,7 @@ type MessagesAddChatUserRequest struct {
 }
 
 // MessagesAddChatUserRequestTypeID is TL type id of MessagesAddChatUserRequest.
-const MessagesAddChatUserRequestTypeID = 0xf9a0aa09
+const MessagesAddChatUserRequestTypeID = 0xf24753e3
 
 // Ensuring interfaces in compile-time for MessagesAddChatUserRequest.
 var (
@@ -81,7 +81,7 @@ func (a *MessagesAddChatUserRequest) String() string {
 
 // FillFrom fills MessagesAddChatUserRequest from given interface.
 func (a *MessagesAddChatUserRequest) FillFrom(from interface {
-	GetChatID() (value int)
+	GetChatID() (value int64)
 	GetUserID() (value InputUserClass)
 	GetFwdLimit() (value int)
 }) {
@@ -132,7 +132,7 @@ func (a *MessagesAddChatUserRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *MessagesAddChatUserRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.addChatUser#f9a0aa09 as nil")
+		return fmt.Errorf("can't encode messages.addChatUser#f24753e3 as nil")
 	}
 	b.PutID(MessagesAddChatUserRequestTypeID)
 	return a.EncodeBare(b)
@@ -141,14 +141,14 @@ func (a *MessagesAddChatUserRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *MessagesAddChatUserRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.addChatUser#f9a0aa09 as nil")
+		return fmt.Errorf("can't encode messages.addChatUser#f24753e3 as nil")
 	}
-	b.PutInt(a.ChatID)
+	b.PutLong(a.ChatID)
 	if a.UserID == nil {
-		return fmt.Errorf("unable to encode messages.addChatUser#f9a0aa09: field user_id is nil")
+		return fmt.Errorf("unable to encode messages.addChatUser#f24753e3: field user_id is nil")
 	}
 	if err := a.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.addChatUser#f9a0aa09: field user_id: %w", err)
+		return fmt.Errorf("unable to encode messages.addChatUser#f24753e3: field user_id: %w", err)
 	}
 	b.PutInt(a.FwdLimit)
 	return nil
@@ -157,10 +157,10 @@ func (a *MessagesAddChatUserRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *MessagesAddChatUserRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.addChatUser#f9a0aa09 to nil")
+		return fmt.Errorf("can't decode messages.addChatUser#f24753e3 to nil")
 	}
 	if err := b.ConsumeID(MessagesAddChatUserRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.addChatUser#f9a0aa09: %w", err)
+		return fmt.Errorf("unable to decode messages.addChatUser#f24753e3: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -168,26 +168,26 @@ func (a *MessagesAddChatUserRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *MessagesAddChatUserRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.addChatUser#f9a0aa09 to nil")
+		return fmt.Errorf("can't decode messages.addChatUser#f24753e3 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.addChatUser#f9a0aa09: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode messages.addChatUser#f24753e3: field chat_id: %w", err)
 		}
 		a.ChatID = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.addChatUser#f9a0aa09: field user_id: %w", err)
+			return fmt.Errorf("unable to decode messages.addChatUser#f24753e3: field user_id: %w", err)
 		}
 		a.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.addChatUser#f9a0aa09: field fwd_limit: %w", err)
+			return fmt.Errorf("unable to decode messages.addChatUser#f24753e3: field fwd_limit: %w", err)
 		}
 		a.FwdLimit = value
 	}
@@ -195,7 +195,7 @@ func (a *MessagesAddChatUserRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetChatID returns value of ChatID field.
-func (a *MessagesAddChatUserRequest) GetChatID() (value int) {
+func (a *MessagesAddChatUserRequest) GetChatID() (value int64) {
 	return a.ChatID
 }
 
@@ -209,7 +209,7 @@ func (a *MessagesAddChatUserRequest) GetFwdLimit() (value int) {
 	return a.FwdLimit
 }
 
-// MessagesAddChatUser invokes method messages.addChatUser#f9a0aa09 returning error if any.
+// MessagesAddChatUser invokes method messages.addChatUser#f24753e3 returning error if any.
 // Adds a user to a chat and sends a service message on it.
 //
 // Possible errors:

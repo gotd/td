@@ -57,7 +57,7 @@ func (m *Manager) Handle(ctx context.Context, u tg.UpdatesClass) error {
 //
 // If forget is true, local state (if exist) will be overwritten
 // with remote state.
-func (m *Manager) Auth(ctx context.Context, client RawClient, userID int, isBot, forget bool) error {
+func (m *Manager) Auth(ctx context.Context, client RawClient, userID int64, isBot, forget bool) error {
 	m.mux.Lock()
 	defer m.mux.Unlock()
 
@@ -70,11 +70,11 @@ func (m *Manager) Auth(ctx context.Context, client RawClient, userID int, isBot,
 		return xerrors.Errorf("load state: %w", err)
 	}
 
-	channels := make(map[int]struct {
+	channels := make(map[int64]struct {
 		Pts        int
 		AccessHash int64
 	})
-	if err := m.cfg.Storage.ForEachChannels(userID, func(channelID, pts int) error {
+	if err := m.cfg.Storage.ForEachChannels(userID, func(channelID int64, pts int) error {
 		hash, found, err := m.cfg.AccessHasher.GetChannelAccessHash(userID, channelID)
 		if err != nil {
 			return err
@@ -114,7 +114,7 @@ func (m *Manager) Auth(ctx context.Context, client RawClient, userID int, isBot,
 	return nil
 }
 
-func (m *Manager) loadState(client RawClient, userID int, forget bool) (State, error) {
+func (m *Manager) loadState(client RawClient, userID int64, forget bool) (State, error) {
 onNotFound:
 	var state State
 	if forget {

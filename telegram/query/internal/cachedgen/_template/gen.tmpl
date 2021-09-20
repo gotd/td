@@ -19,7 +19,7 @@ var _ = context.Background()
 
 type inner{{ $query.Name }} struct {
     // Last received hash.
-    hash  int
+    hash  int64
     // Last received result.
 	value *tg.{{ $query.ResultName }}
 }
@@ -63,7 +63,7 @@ func (s *{{ $query.Name }}) Value() *tg.{{ $query.ResultName }} {
 }
 
 // Hash returns last received hash.
-func (s *{{ $query.Name }}) Hash() int {
+func (s *{{ $query.Name }}) Hash() int64 {
     inner, _ := s.load()
     return inner.hash
 }

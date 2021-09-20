@@ -24,7 +24,7 @@ func TestLRU(t *testing.T) {
 	// State: [4 3 2 1]
 	for i := range [5]struct{}{} {
 		lru.put(strconv.Itoa(i), &tg.InputPeerChat{
-			ChatID: i,
+			ChatID: int64(i),
 		})
 	}
 

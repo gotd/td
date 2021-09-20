@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// ChatParticipantsForbidden represents TL type `chatParticipantsForbidden#fc900c2b`.
+// ChatParticipantsForbidden represents TL type `chatParticipantsForbidden#8763d3e1`.
 // Info on members is unavailable
 //
 // See https://core.telegram.org/constructor/chatParticipantsForbidden for reference.
@@ -40,7 +40,7 @@ type ChatParticipantsForbidden struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Group ID
-	ChatID int
+	ChatID int64
 	// Info about the group membership of the current user
 	//
 	// Use SetSelfParticipant and GetSelfParticipant helpers.
@@ -48,7 +48,7 @@ type ChatParticipantsForbidden struct {
 }
 
 // ChatParticipantsForbiddenTypeID is TL type id of ChatParticipantsForbidden.
-const ChatParticipantsForbiddenTypeID = 0xfc900c2b
+const ChatParticipantsForbiddenTypeID = 0x8763d3e1
 
 // construct implements constructor of ChatParticipantsClass.
 func (c ChatParticipantsForbidden) construct() ChatParticipantsClass { return &c }
@@ -91,7 +91,7 @@ func (c *ChatParticipantsForbidden) String() string {
 
 // FillFrom fills ChatParticipantsForbidden from given interface.
 func (c *ChatParticipantsForbidden) FillFrom(from interface {
-	GetChatID() (value int)
+	GetChatID() (value int64)
 	GetSelfParticipant() (value ChatParticipantClass, ok bool)
 }) {
 	c.ChatID = from.GetChatID()
@@ -140,7 +140,7 @@ func (c *ChatParticipantsForbidden) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatParticipantsForbidden) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatParticipantsForbidden#fc900c2b as nil")
+		return fmt.Errorf("can't encode chatParticipantsForbidden#8763d3e1 as nil")
 	}
 	b.PutID(ChatParticipantsForbiddenTypeID)
 	return c.EncodeBare(b)
@@ -149,21 +149,21 @@ func (c *ChatParticipantsForbidden) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatParticipantsForbidden) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatParticipantsForbidden#fc900c2b as nil")
+		return fmt.Errorf("can't encode chatParticipantsForbidden#8763d3e1 as nil")
 	}
 	if !(c.SelfParticipant == nil) {
 		c.Flags.Set(0)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatParticipantsForbidden#fc900c2b: field flags: %w", err)
+		return fmt.Errorf("unable to encode chatParticipantsForbidden#8763d3e1: field flags: %w", err)
 	}
-	b.PutInt(c.ChatID)
+	b.PutLong(c.ChatID)
 	if c.Flags.Has(0) {
 		if c.SelfParticipant == nil {
-			return fmt.Errorf("unable to encode chatParticipantsForbidden#fc900c2b: field self_participant is nil")
+			return fmt.Errorf("unable to encode chatParticipantsForbidden#8763d3e1: field self_participant is nil")
 		}
 		if err := c.SelfParticipant.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode chatParticipantsForbidden#fc900c2b: field self_participant: %w", err)
+			return fmt.Errorf("unable to encode chatParticipantsForbidden#8763d3e1: field self_participant: %w", err)
 		}
 	}
 	return nil
@@ -172,10 +172,10 @@ func (c *ChatParticipantsForbidden) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatParticipantsForbidden) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatParticipantsForbidden#fc900c2b to nil")
+		return fmt.Errorf("can't decode chatParticipantsForbidden#8763d3e1 to nil")
 	}
 	if err := b.ConsumeID(ChatParticipantsForbiddenTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatParticipantsForbidden#fc900c2b: %w", err)
+		return fmt.Errorf("unable to decode chatParticipantsForbidden#8763d3e1: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -183,24 +183,24 @@ func (c *ChatParticipantsForbidden) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatParticipantsForbidden) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatParticipantsForbidden#fc900c2b to nil")
+		return fmt.Errorf("can't decode chatParticipantsForbidden#8763d3e1 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatParticipantsForbidden#fc900c2b: field flags: %w", err)
+			return fmt.Errorf("unable to decode chatParticipantsForbidden#8763d3e1: field flags: %w", err)
 		}
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatParticipantsForbidden#fc900c2b: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode chatParticipantsForbidden#8763d3e1: field chat_id: %w", err)
 		}
 		c.ChatID = value
 	}
 	if c.Flags.Has(0) {
 		value, err := DecodeChatParticipant(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatParticipantsForbidden#fc900c2b: field self_participant: %w", err)
+			return fmt.Errorf("unable to decode chatParticipantsForbidden#8763d3e1: field self_participant: %w", err)
 		}
 		c.SelfParticipant = value
 	}
@@ -208,7 +208,7 @@ func (c *ChatParticipantsForbidden) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetChatID returns value of ChatID field.
-func (c *ChatParticipantsForbidden) GetChatID() (value int) {
+func (c *ChatParticipantsForbidden) GetChatID() (value int64) {
 	return c.ChatID
 }
 
@@ -227,13 +227,13 @@ func (c *ChatParticipantsForbidden) GetSelfParticipant() (value ChatParticipantC
 	return c.SelfParticipant, true
 }
 
-// ChatParticipants represents TL type `chatParticipants#3f460fed`.
+// ChatParticipants represents TL type `chatParticipants#3cbc93f8`.
 // Group members.
 //
 // See https://core.telegram.org/constructor/chatParticipants for reference.
 type ChatParticipants struct {
 	// Group identifier
-	ChatID int
+	ChatID int64
 	// List of group members
 	Participants []ChatParticipantClass
 	// Group version number
@@ -241,7 +241,7 @@ type ChatParticipants struct {
 }
 
 // ChatParticipantsTypeID is TL type id of ChatParticipants.
-const ChatParticipantsTypeID = 0x3f460fed
+const ChatParticipantsTypeID = 0x3cbc93f8
 
 // construct implements constructor of ChatParticipantsClass.
 func (c ChatParticipants) construct() ChatParticipantsClass { return &c }
@@ -284,7 +284,7 @@ func (c *ChatParticipants) String() string {
 
 // FillFrom fills ChatParticipants from given interface.
 func (c *ChatParticipants) FillFrom(from interface {
-	GetChatID() (value int)
+	GetChatID() (value int64)
 	GetParticipants() (value []ChatParticipantClass)
 	GetVersion() (value int)
 }) {
@@ -335,7 +335,7 @@ func (c *ChatParticipants) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatParticipants) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatParticipants#3f460fed as nil")
+		return fmt.Errorf("can't encode chatParticipants#3cbc93f8 as nil")
 	}
 	b.PutID(ChatParticipantsTypeID)
 	return c.EncodeBare(b)
@@ -344,16 +344,16 @@ func (c *ChatParticipants) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatParticipants) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatParticipants#3f460fed as nil")
+		return fmt.Errorf("can't encode chatParticipants#3cbc93f8 as nil")
 	}
-	b.PutInt(c.ChatID)
+	b.PutLong(c.ChatID)
 	b.PutVectorHeader(len(c.Participants))
 	for idx, v := range c.Participants {
 		if v == nil {
-			return fmt.Errorf("unable to encode chatParticipants#3f460fed: field participants element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode chatParticipants#3cbc93f8: field participants element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode chatParticipants#3f460fed: field participants element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode chatParticipants#3cbc93f8: field participants element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt(c.Version)
@@ -363,10 +363,10 @@ func (c *ChatParticipants) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatParticipants) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatParticipants#3f460fed to nil")
+		return fmt.Errorf("can't decode chatParticipants#3cbc93f8 to nil")
 	}
 	if err := b.ConsumeID(ChatParticipantsTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatParticipants#3f460fed: %w", err)
+		return fmt.Errorf("unable to decode chatParticipants#3cbc93f8: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -374,19 +374,19 @@ func (c *ChatParticipants) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatParticipants) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatParticipants#3f460fed to nil")
+		return fmt.Errorf("can't decode chatParticipants#3cbc93f8 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatParticipants#3f460fed: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode chatParticipants#3cbc93f8: field chat_id: %w", err)
 		}
 		c.ChatID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatParticipants#3f460fed: field participants: %w", err)
+			return fmt.Errorf("unable to decode chatParticipants#3cbc93f8: field participants: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -395,7 +395,7 @@ func (c *ChatParticipants) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChatParticipant(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatParticipants#3f460fed: field participants: %w", err)
+				return fmt.Errorf("unable to decode chatParticipants#3cbc93f8: field participants: %w", err)
 			}
 			c.Participants = append(c.Participants, value)
 		}
@@ -403,7 +403,7 @@ func (c *ChatParticipants) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatParticipants#3f460fed: field version: %w", err)
+			return fmt.Errorf("unable to decode chatParticipants#3cbc93f8: field version: %w", err)
 		}
 		c.Version = value
 	}
@@ -411,7 +411,7 @@ func (c *ChatParticipants) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetChatID returns value of ChatID field.
-func (c *ChatParticipants) GetChatID() (value int) {
+func (c *ChatParticipants) GetChatID() (value int64) {
 	return c.ChatID
 }
 
@@ -440,8 +440,8 @@ func (c *ChatParticipants) MapParticipants() (value ChatParticipantClassArray) {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tg.ChatParticipantsForbidden: // chatParticipantsForbidden#fc900c2b
-//  case *tg.ChatParticipants: // chatParticipants#3f460fed
+//  case *tg.ChatParticipantsForbidden: // chatParticipantsForbidden#8763d3e1
+//  case *tg.ChatParticipants: // chatParticipants#3cbc93f8
 //  default: panic(v)
 //  }
 type ChatParticipantsClass interface {
@@ -463,7 +463,7 @@ type ChatParticipantsClass interface {
 	Zero() bool
 
 	// Group ID
-	GetChatID() (value int)
+	GetChatID() (value int64)
 
 	// AsNotForbidden tries to map ChatParticipantsClass to ChatParticipants.
 	AsNotForbidden() (*ChatParticipants, bool)
@@ -487,14 +487,14 @@ func DecodeChatParticipants(buf *bin.Buffer) (ChatParticipantsClass, error) {
 	}
 	switch id {
 	case ChatParticipantsForbiddenTypeID:
-		// Decoding chatParticipantsForbidden#fc900c2b.
+		// Decoding chatParticipantsForbidden#8763d3e1.
 		v := ChatParticipantsForbidden{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatParticipantsClass: %w", err)
 		}
 		return &v, nil
 	case ChatParticipantsTypeID:
-		// Decoding chatParticipants#3f460fed.
+		// Decoding chatParticipants#3cbc93f8.
 		v := ChatParticipants{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatParticipantsClass: %w", err)

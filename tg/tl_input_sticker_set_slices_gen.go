@@ -235,6 +235,34 @@ func (s *InputStickerSetIDArray) Pop() (v InputStickerSetID, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of InputStickerSetID by ID.
+func (s InputStickerSetIDArray) SortByID() InputStickerSetIDArray {
+	return s.Sort(func(a, b InputStickerSetID) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputStickerSetID by ID.
+func (s InputStickerSetIDArray) SortStableByID() InputStickerSetIDArray {
+	return s.SortStable(func(a, b InputStickerSetID) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputStickerSetIDArray) FillMap(to map[int64]InputStickerSetID) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputStickerSetIDArray) ToMap() map[int64]InputStickerSetID {
+	r := make(map[int64]InputStickerSetID, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // InputStickerSetShortNameArray is adapter for slice of InputStickerSetShortName.
 type InputStickerSetShortNameArray []InputStickerSetShortName
 

@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetRecentStickersRequest represents TL type `messages.getRecentStickers#5ea192c9`.
+// MessagesGetRecentStickersRequest represents TL type `messages.getRecentStickers#9da9403b`.
 // Get recent stickers
 //
 // See https://core.telegram.org/method/messages.getRecentStickers for reference.
@@ -45,11 +45,11 @@ type MessagesGetRecentStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // MessagesGetRecentStickersRequestTypeID is TL type id of MessagesGetRecentStickersRequest.
-const MessagesGetRecentStickersRequestTypeID = 0x5ea192c9
+const MessagesGetRecentStickersRequestTypeID = 0x9da9403b
 
 // Ensuring interfaces in compile-time for MessagesGetRecentStickersRequest.
 var (
@@ -88,7 +88,7 @@ func (g *MessagesGetRecentStickersRequest) String() string {
 // FillFrom fills MessagesGetRecentStickersRequest from given interface.
 func (g *MessagesGetRecentStickersRequest) FillFrom(from interface {
 	GetAttached() (value bool)
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Attached = from.GetAttached()
 	g.Hash = from.GetHash()
@@ -133,7 +133,7 @@ func (g *MessagesGetRecentStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetRecentStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getRecentStickers#5ea192c9 as nil")
+		return fmt.Errorf("can't encode messages.getRecentStickers#9da9403b as nil")
 	}
 	b.PutID(MessagesGetRecentStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -142,25 +142,25 @@ func (g *MessagesGetRecentStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetRecentStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getRecentStickers#5ea192c9 as nil")
+		return fmt.Errorf("can't encode messages.getRecentStickers#9da9403b as nil")
 	}
 	if !(g.Attached == false) {
 		g.Flags.Set(0)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getRecentStickers#5ea192c9: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.getRecentStickers#9da9403b: field flags: %w", err)
 	}
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *MessagesGetRecentStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getRecentStickers#5ea192c9 to nil")
+		return fmt.Errorf("can't decode messages.getRecentStickers#9da9403b to nil")
 	}
 	if err := b.ConsumeID(MessagesGetRecentStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getRecentStickers#5ea192c9: %w", err)
+		return fmt.Errorf("unable to decode messages.getRecentStickers#9da9403b: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -168,18 +168,18 @@ func (g *MessagesGetRecentStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetRecentStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getRecentStickers#5ea192c9 to nil")
+		return fmt.Errorf("can't decode messages.getRecentStickers#9da9403b to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getRecentStickers#5ea192c9: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.getRecentStickers#9da9403b: field flags: %w", err)
 		}
 	}
 	g.Attached = g.Flags.Has(0)
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getRecentStickers#5ea192c9: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getRecentStickers#9da9403b: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -203,11 +203,11 @@ func (g *MessagesGetRecentStickersRequest) GetAttached() (value bool) {
 }
 
 // GetHash returns value of Hash field.
-func (g *MessagesGetRecentStickersRequest) GetHash() (value int) {
+func (g *MessagesGetRecentStickersRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetRecentStickers invokes method messages.getRecentStickers#5ea192c9 returning error if any.
+// MessagesGetRecentStickers invokes method messages.getRecentStickers#9da9403b returning error if any.
 // Get recent stickers
 //
 // See https://core.telegram.org/method/messages.getRecentStickers for reference.

@@ -131,7 +131,7 @@ func (a *MessagesAllStickersNotModified) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// MessagesAllStickers represents TL type `messages.allStickers#edfd405f`.
+// MessagesAllStickers represents TL type `messages.allStickers#cdbbcebb`.
 // Info about all installed stickers
 //
 // See https://core.telegram.org/constructor/messages.allStickers for reference.
@@ -140,13 +140,13 @@ type MessagesAllStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 	// All stickersets
 	Sets []StickerSet
 }
 
 // MessagesAllStickersTypeID is TL type id of MessagesAllStickers.
-const MessagesAllStickersTypeID = 0xedfd405f
+const MessagesAllStickersTypeID = 0xcdbbcebb
 
 // construct implements constructor of MessagesAllStickersClass.
 func (a MessagesAllStickers) construct() MessagesAllStickersClass { return &a }
@@ -186,7 +186,7 @@ func (a *MessagesAllStickers) String() string {
 
 // FillFrom fills MessagesAllStickers from given interface.
 func (a *MessagesAllStickers) FillFrom(from interface {
-	GetHash() (value int)
+	GetHash() (value int64)
 	GetSets() (value []StickerSet)
 }) {
 	a.Hash = from.GetHash()
@@ -231,7 +231,7 @@ func (a *MessagesAllStickers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *MessagesAllStickers) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.allStickers#edfd405f as nil")
+		return fmt.Errorf("can't encode messages.allStickers#cdbbcebb as nil")
 	}
 	b.PutID(MessagesAllStickersTypeID)
 	return a.EncodeBare(b)
@@ -240,13 +240,13 @@ func (a *MessagesAllStickers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *MessagesAllStickers) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode messages.allStickers#edfd405f as nil")
+		return fmt.Errorf("can't encode messages.allStickers#cdbbcebb as nil")
 	}
-	b.PutInt(a.Hash)
+	b.PutLong(a.Hash)
 	b.PutVectorHeader(len(a.Sets))
 	for idx, v := range a.Sets {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.allStickers#edfd405f: field sets element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.allStickers#cdbbcebb: field sets element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -255,10 +255,10 @@ func (a *MessagesAllStickers) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *MessagesAllStickers) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.allStickers#edfd405f to nil")
+		return fmt.Errorf("can't decode messages.allStickers#cdbbcebb to nil")
 	}
 	if err := b.ConsumeID(MessagesAllStickersTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.allStickers#edfd405f: %w", err)
+		return fmt.Errorf("unable to decode messages.allStickers#cdbbcebb: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -266,19 +266,19 @@ func (a *MessagesAllStickers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *MessagesAllStickers) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode messages.allStickers#edfd405f to nil")
+		return fmt.Errorf("can't decode messages.allStickers#cdbbcebb to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.allStickers#edfd405f: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.allStickers#cdbbcebb: field hash: %w", err)
 		}
 		a.Hash = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.allStickers#edfd405f: field sets: %w", err)
+			return fmt.Errorf("unable to decode messages.allStickers#cdbbcebb: field sets: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -287,7 +287,7 @@ func (a *MessagesAllStickers) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value StickerSet
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messages.allStickers#edfd405f: field sets: %w", err)
+				return fmt.Errorf("unable to decode messages.allStickers#cdbbcebb: field sets: %w", err)
 			}
 			a.Sets = append(a.Sets, value)
 		}
@@ -296,7 +296,7 @@ func (a *MessagesAllStickers) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetHash returns value of Hash field.
-func (a *MessagesAllStickers) GetHash() (value int) {
+func (a *MessagesAllStickers) GetHash() (value int64) {
 	return a.Hash
 }
 
@@ -316,7 +316,7 @@ func (a *MessagesAllStickers) GetSets() (value []StickerSet) {
 //  }
 //  switch v := g.(type) {
 //  case *tg.MessagesAllStickersNotModified: // messages.allStickersNotModified#e86602c3
-//  case *tg.MessagesAllStickers: // messages.allStickers#edfd405f
+//  case *tg.MessagesAllStickers: // messages.allStickers#cdbbcebb
 //  default: panic(v)
 //  }
 type MessagesAllStickersClass interface {
@@ -366,7 +366,7 @@ func DecodeMessagesAllStickers(buf *bin.Buffer) (MessagesAllStickersClass, error
 		}
 		return &v, nil
 	case MessagesAllStickersTypeID:
-		// Decoding messages.allStickers#edfd405f.
+		// Decoding messages.allStickers#cdbbcebb.
 		v := MessagesAllStickers{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessagesAllStickersClass: %w", err)

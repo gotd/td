@@ -656,6 +656,107 @@ func (i *InputStickerSetDice) GetEmoticon() (value string) {
 	return i.Emoticon
 }
 
+// InputStickerSetAnimatedEmojiAnimations represents TL type `inputStickerSetAnimatedEmojiAnimations#cde3739`.
+//
+// See https://core.telegram.org/constructor/inputStickerSetAnimatedEmojiAnimations for reference.
+type InputStickerSetAnimatedEmojiAnimations struct {
+}
+
+// InputStickerSetAnimatedEmojiAnimationsTypeID is TL type id of InputStickerSetAnimatedEmojiAnimations.
+const InputStickerSetAnimatedEmojiAnimationsTypeID = 0xcde3739
+
+// construct implements constructor of InputStickerSetClass.
+func (i InputStickerSetAnimatedEmojiAnimations) construct() InputStickerSetClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickerSetAnimatedEmojiAnimations.
+var (
+	_ bin.Encoder     = &InputStickerSetAnimatedEmojiAnimations{}
+	_ bin.Decoder     = &InputStickerSetAnimatedEmojiAnimations{}
+	_ bin.BareEncoder = &InputStickerSetAnimatedEmojiAnimations{}
+	_ bin.BareDecoder = &InputStickerSetAnimatedEmojiAnimations{}
+
+	_ InputStickerSetClass = &InputStickerSetAnimatedEmojiAnimations{}
+)
+
+func (i *InputStickerSetAnimatedEmojiAnimations) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputStickerSetAnimatedEmojiAnimations) String() string {
+	if i == nil {
+		return "InputStickerSetAnimatedEmojiAnimations(nil)"
+	}
+	type Alias InputStickerSetAnimatedEmojiAnimations
+	return fmt.Sprintf("InputStickerSetAnimatedEmojiAnimations%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputStickerSetAnimatedEmojiAnimations) TypeID() uint32 {
+	return InputStickerSetAnimatedEmojiAnimationsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputStickerSetAnimatedEmojiAnimations) TypeName() string {
+	return "inputStickerSetAnimatedEmojiAnimations"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickerSetAnimatedEmojiAnimations) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickerSetAnimatedEmojiAnimations",
+		ID:   InputStickerSetAnimatedEmojiAnimationsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputStickerSetAnimatedEmojiAnimations) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStickerSetAnimatedEmojiAnimations#cde3739 as nil")
+	}
+	b.PutID(InputStickerSetAnimatedEmojiAnimationsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputStickerSetAnimatedEmojiAnimations) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStickerSetAnimatedEmojiAnimations#cde3739 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputStickerSetAnimatedEmojiAnimations) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStickerSetAnimatedEmojiAnimations#cde3739 to nil")
+	}
+	if err := b.ConsumeID(InputStickerSetAnimatedEmojiAnimationsTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputStickerSetAnimatedEmojiAnimations#cde3739: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputStickerSetAnimatedEmojiAnimations) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStickerSetAnimatedEmojiAnimations#cde3739 to nil")
+	}
+	return nil
+}
+
 // InputStickerSetClass represents InputStickerSet generic type.
 //
 // See https://core.telegram.org/type/InputStickerSet for reference.
@@ -671,6 +772,7 @@ func (i *InputStickerSetDice) GetEmoticon() (value string) {
 //  case *tg.InputStickerSetShortName: // inputStickerSetShortName#861cc8a0
 //  case *tg.InputStickerSetAnimatedEmoji: // inputStickerSetAnimatedEmoji#28703c8
 //  case *tg.InputStickerSetDice: // inputStickerSetDice#e67f520e
+//  case *tg.InputStickerSetAnimatedEmojiAnimations: // inputStickerSetAnimatedEmojiAnimations#cde3739
 //  default: panic(v)
 //  }
 type InputStickerSetClass interface {
@@ -730,6 +832,13 @@ func DecodeInputStickerSet(buf *bin.Buffer) (InputStickerSetClass, error) {
 	case InputStickerSetDiceTypeID:
 		// Decoding inputStickerSetDice#e67f520e.
 		v := InputStickerSetDice{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputStickerSetClass: %w", err)
+		}
+		return &v, nil
+	case InputStickerSetAnimatedEmojiAnimationsTypeID:
+		// Decoding inputStickerSetAnimatedEmojiAnimations#cde3739.
+		v := InputStickerSetAnimatedEmojiAnimations{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputStickerSetClass: %w", err)
 		}

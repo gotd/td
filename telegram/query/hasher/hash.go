@@ -25,7 +25,6 @@ func (h *Hasher) Update64(value uint64) {
 }
 
 // Sum returns final sum.
-func (h *Hasher) Sum() int32 {
-	r := int32(h.state & 0x7FFFFFFF)
-	return r
+func (h *Hasher) Sum() int64 {
+	return int64(h.state & 0x7FFFFFFF)
 }

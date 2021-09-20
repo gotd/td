@@ -19,7 +19,7 @@ func (s *state) saveChannelHashes(chats []tg.ChatClass) {
 					continue
 				}
 				s.log.Debug("New channel access hash",
-					zap.Int("channel_id", c.ID),
+					zap.Int64("channel_id", c.ID),
 					zap.String("title", c.Title),
 				)
 				if err := s.hasher.SetChannelAccessHash(s.selfID, c.ID, hash); err != nil {
@@ -31,7 +31,7 @@ func (s *state) saveChannelHashes(chats []tg.ChatClass) {
 				continue
 			}
 			s.log.Debug("New channel access hash",
-				zap.Int("channel_id", c.ID),
+				zap.Int64("channel_id", c.ID),
 				zap.String("title", c.Title),
 			)
 			if err := s.hasher.SetChannelAccessHash(s.selfID, c.ID, c.AccessHash); err != nil {
@@ -41,7 +41,7 @@ func (s *state) saveChannelHashes(chats []tg.ChatClass) {
 	}
 }
 
-func (s *state) restoreAccessHash(channelID, date int) (accessHash int64, ok bool) {
+func (s *state) restoreAccessHash(channelID int64, date int) (accessHash int64, ok bool) {
 	diff, err := s.client.UpdatesGetDifference(s.ctx, &tg.UpdatesGetDifferenceRequest{
 		Pts:  s.pts.State(),
 		Qts:  s.qts.State(),

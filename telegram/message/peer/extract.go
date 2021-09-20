@@ -8,16 +8,16 @@ import (
 
 // Entities is simple peer entities storage.
 type Entities struct {
-	users    map[int]*tg.User
-	chats    map[int]*tg.Chat
-	channels map[int]*tg.Channel
+	users    map[int64]*tg.User
+	chats    map[int64]*tg.Chat
+	channels map[int64]*tg.Channel
 }
 
 // NewEntities creates new Entities struct.
 func NewEntities(
-	users map[int]*tg.User,
-	chats map[int]*tg.Chat,
-	channels map[int]*tg.Channel,
+	users map[int64]*tg.User,
+	chats map[int64]*tg.Chat,
+	channels map[int64]*tg.Channel,
 ) Entities {
 	return Entities{users: users, chats: chats, channels: channels}
 }
@@ -49,19 +49,19 @@ func EntitiesFromUpdate(uctx tg.Entities) Entities {
 
 // Users returns map of users.
 // Notice that returned map is not a copy.
-func (ent Entities) Users() map[int]*tg.User {
+func (ent Entities) Users() map[int64]*tg.User {
 	return ent.users
 }
 
 // Chats returns map of chats.
 // Notice that returned map is not a copy.
-func (ent Entities) Chats() map[int]*tg.Chat {
+func (ent Entities) Chats() map[int64]*tg.Chat {
 	return ent.chats
 }
 
 // Channels returns map of channels.
 // Notice that returned map is not a copy.
-func (ent Entities) Channels() map[int]*tg.Channel {
+func (ent Entities) Channels() map[int64]*tg.Channel {
 	return ent.channels
 }
 
@@ -83,9 +83,9 @@ func (ent Entities) FillFromUpdate(uctx tg.Entities) {
 
 // Fill adds and updates all entities from given maps.
 func (ent Entities) Fill(
-	users map[int]*tg.User,
-	chats map[int]*tg.Chat,
-	channels map[int]*tg.Channel,
+	users map[int64]*tg.User,
+	chats map[int64]*tg.Chat,
+	channels map[int64]*tg.Channel,
 ) {
 	for k, v := range users {
 		ent.users[k] = v
@@ -141,19 +141,19 @@ func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) 
 }
 
 // User finds user by given ID.
-func (ent Entities) User(id int) (*tg.User, bool) {
+func (ent Entities) User(id int64) (*tg.User, bool) {
 	v, ok := ent.users[id]
 	return v, ok
 }
 
 // Chat finds chat by given ID.
-func (ent Entities) Chat(id int) (*tg.Chat, bool) {
+func (ent Entities) Chat(id int64) (*tg.Chat, bool) {
 	v, ok := ent.chats[id]
 	return v, ok
 }
 
 // Channel finds channel by given ID.
-func (ent Entities) Channel(id int) (*tg.Channel, bool) {
+func (ent Entities) Channel(id int64) (*tg.Channel, bool) {
 	v, ok := ent.channels[id]
 	return v, ok
 }

@@ -222,6 +222,34 @@ func (s *InputGameIDArray) Pop() (v InputGameID, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of InputGameID by ID.
+func (s InputGameIDArray) SortByID() InputGameIDArray {
+	return s.Sort(func(a, b InputGameID) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputGameID by ID.
+func (s InputGameIDArray) SortStableByID() InputGameIDArray {
+	return s.SortStable(func(a, b InputGameID) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputGameIDArray) FillMap(to map[int64]InputGameID) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputGameIDArray) ToMap() map[int64]InputGameID {
+	r := make(map[int64]InputGameID, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // InputGameShortNameArray is adapter for slice of InputGameShortName.
 type InputGameShortNameArray []InputGameShortName
 

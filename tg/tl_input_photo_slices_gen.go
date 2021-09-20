@@ -127,6 +127,24 @@ func (s InputPhotoClassArray) AsInputPhoto() (to InputPhotoArray) {
 	return to
 }
 
+// FillNotEmptyMap fills only NotEmpty constructors to given map.
+func (s InputPhotoClassArray) FillNotEmptyMap(to map[int64]*InputPhoto) {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// NotEmptyToMap collects only NotEmpty constructors to map.
+func (s InputPhotoClassArray) NotEmptyToMap() map[int64]*InputPhoto {
+	r := make(map[int64]*InputPhoto, len(s))
+	s.FillNotEmptyMap(r)
+	return r
+}
+
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
 func (s InputPhotoClassArray) AppendOnlyNotEmpty(to []*InputPhoto) []*InputPhoto {
@@ -262,4 +280,32 @@ func (s *InputPhotoArray) Pop() (v InputPhoto, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of InputPhoto by ID.
+func (s InputPhotoArray) SortByID() InputPhotoArray {
+	return s.Sort(func(a, b InputPhoto) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputPhoto by ID.
+func (s InputPhotoArray) SortStableByID() InputPhotoArray {
+	return s.SortStable(func(a, b InputPhoto) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputPhotoArray) FillMap(to map[int64]InputPhoto) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputPhotoArray) ToMap() map[int64]InputPhoto {
+	r := make(map[int64]InputPhoto, len(s))
+	s.FillMap(r)
+	return r
 }

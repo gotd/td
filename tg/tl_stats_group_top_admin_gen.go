@@ -29,13 +29,13 @@ var (
 	_ = tgerr.Error{}
 )
 
-// StatsGroupTopAdmin represents TL type `statsGroupTopAdmin#6014f412`.
+// StatsGroupTopAdmin represents TL type `statsGroupTopAdmin#d7584c87`.
 // Information about an active admin in a supergroup
 //
 // See https://core.telegram.org/constructor/statsGroupTopAdmin for reference.
 type StatsGroupTopAdmin struct {
 	// User ID
-	UserID int
+	UserID int64
 	// Number of deleted messages for statistics¹ period in consideration
 	//
 	// Links:
@@ -54,7 +54,7 @@ type StatsGroupTopAdmin struct {
 }
 
 // StatsGroupTopAdminTypeID is TL type id of StatsGroupTopAdmin.
-const StatsGroupTopAdminTypeID = 0x6014f412
+const StatsGroupTopAdminTypeID = 0xd7584c87
 
 // Ensuring interfaces in compile-time for StatsGroupTopAdmin.
 var (
@@ -95,7 +95,7 @@ func (s *StatsGroupTopAdmin) String() string {
 
 // FillFrom fills StatsGroupTopAdmin from given interface.
 func (s *StatsGroupTopAdmin) FillFrom(from interface {
-	GetUserID() (value int)
+	GetUserID() (value int64)
 	GetDeleted() (value int)
 	GetKicked() (value int)
 	GetBanned() (value int)
@@ -152,7 +152,7 @@ func (s *StatsGroupTopAdmin) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StatsGroupTopAdmin) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGroupTopAdmin#6014f412 as nil")
+		return fmt.Errorf("can't encode statsGroupTopAdmin#d7584c87 as nil")
 	}
 	b.PutID(StatsGroupTopAdminTypeID)
 	return s.EncodeBare(b)
@@ -161,9 +161,9 @@ func (s *StatsGroupTopAdmin) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StatsGroupTopAdmin) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode statsGroupTopAdmin#6014f412 as nil")
+		return fmt.Errorf("can't encode statsGroupTopAdmin#d7584c87 as nil")
 	}
-	b.PutInt(s.UserID)
+	b.PutLong(s.UserID)
 	b.PutInt(s.Deleted)
 	b.PutInt(s.Kicked)
 	b.PutInt(s.Banned)
@@ -173,10 +173,10 @@ func (s *StatsGroupTopAdmin) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StatsGroupTopAdmin) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGroupTopAdmin#6014f412 to nil")
+		return fmt.Errorf("can't decode statsGroupTopAdmin#d7584c87 to nil")
 	}
 	if err := b.ConsumeID(StatsGroupTopAdminTypeID); err != nil {
-		return fmt.Errorf("unable to decode statsGroupTopAdmin#6014f412: %w", err)
+		return fmt.Errorf("unable to decode statsGroupTopAdmin#d7584c87: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -184,33 +184,33 @@ func (s *StatsGroupTopAdmin) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StatsGroupTopAdmin) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode statsGroupTopAdmin#6014f412 to nil")
+		return fmt.Errorf("can't decode statsGroupTopAdmin#d7584c87 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopAdmin#6014f412: field user_id: %w", err)
+			return fmt.Errorf("unable to decode statsGroupTopAdmin#d7584c87: field user_id: %w", err)
 		}
 		s.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopAdmin#6014f412: field deleted: %w", err)
+			return fmt.Errorf("unable to decode statsGroupTopAdmin#d7584c87: field deleted: %w", err)
 		}
 		s.Deleted = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopAdmin#6014f412: field kicked: %w", err)
+			return fmt.Errorf("unable to decode statsGroupTopAdmin#d7584c87: field kicked: %w", err)
 		}
 		s.Kicked = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode statsGroupTopAdmin#6014f412: field banned: %w", err)
+			return fmt.Errorf("unable to decode statsGroupTopAdmin#d7584c87: field banned: %w", err)
 		}
 		s.Banned = value
 	}
@@ -218,7 +218,7 @@ func (s *StatsGroupTopAdmin) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetUserID returns value of UserID field.
-func (s *StatsGroupTopAdmin) GetUserID() (value int) {
+func (s *StatsGroupTopAdmin) GetUserID() (value int64) {
 	return s.UserID
 }
 

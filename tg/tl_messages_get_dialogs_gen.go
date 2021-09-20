@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetDialogsRequest represents TL type `messages.getDialogs#a0ee3b73`.
+// MessagesGetDialogsRequest represents TL type `messages.getDialogs#a0f4cb4f`.
 // Returns the current user dialog list.
 //
 // See https://core.telegram.org/method/messages.getDialogs for reference.
@@ -69,11 +69,11 @@ type MessagesGetDialogsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int64
 }
 
 // MessagesGetDialogsRequestTypeID is TL type id of MessagesGetDialogsRequest.
-const MessagesGetDialogsRequestTypeID = 0xa0ee3b73
+const MessagesGetDialogsRequestTypeID = 0xa0f4cb4f
 
 // Ensuring interfaces in compile-time for MessagesGetDialogsRequest.
 var (
@@ -132,7 +132,7 @@ func (g *MessagesGetDialogsRequest) FillFrom(from interface {
 	GetOffsetID() (value int)
 	GetOffsetPeer() (value InputPeerClass)
 	GetLimit() (value int)
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.ExcludePinned = from.GetExcludePinned()
 	if val, ok := from.GetFolderID(); ok {
@@ -206,7 +206,7 @@ func (g *MessagesGetDialogsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetDialogsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDialogs#a0ee3b73 as nil")
+		return fmt.Errorf("can't encode messages.getDialogs#a0f4cb4f as nil")
 	}
 	b.PutID(MessagesGetDialogsRequestTypeID)
 	return g.EncodeBare(b)
@@ -215,7 +215,7 @@ func (g *MessagesGetDialogsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDialogs#a0ee3b73 as nil")
+		return fmt.Errorf("can't encode messages.getDialogs#a0f4cb4f as nil")
 	}
 	if !(g.ExcludePinned == false) {
 		g.Flags.Set(0)
@@ -224,7 +224,7 @@ func (g *MessagesGetDialogsRequest) EncodeBare(b *bin.Buffer) error {
 		g.Flags.Set(1)
 	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getDialogs#a0ee3b73: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.getDialogs#a0f4cb4f: field flags: %w", err)
 	}
 	if g.Flags.Has(1) {
 		b.PutInt(g.FolderID)
@@ -232,23 +232,23 @@ func (g *MessagesGetDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(g.OffsetDate)
 	b.PutInt(g.OffsetID)
 	if g.OffsetPeer == nil {
-		return fmt.Errorf("unable to encode messages.getDialogs#a0ee3b73: field offset_peer is nil")
+		return fmt.Errorf("unable to encode messages.getDialogs#a0f4cb4f: field offset_peer is nil")
 	}
 	if err := g.OffsetPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getDialogs#a0ee3b73: field offset_peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getDialogs#a0f4cb4f: field offset_peer: %w", err)
 	}
 	b.PutInt(g.Limit)
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *MessagesGetDialogsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDialogs#a0ee3b73 to nil")
+		return fmt.Errorf("can't decode messages.getDialogs#a0f4cb4f to nil")
 	}
 	if err := b.ConsumeID(MessagesGetDialogsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: %w", err)
+		return fmt.Errorf("unable to decode messages.getDialogs#a0f4cb4f: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -256,53 +256,53 @@ func (g *MessagesGetDialogsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetDialogsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDialogs#a0ee3b73 to nil")
+		return fmt.Errorf("can't decode messages.getDialogs#a0f4cb4f to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.getDialogs#a0f4cb4f: field flags: %w", err)
 		}
 	}
 	g.ExcludePinned = g.Flags.Has(0)
 	if g.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field folder_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getDialogs#a0f4cb4f: field folder_id: %w", err)
 		}
 		g.FolderID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field offset_date: %w", err)
+			return fmt.Errorf("unable to decode messages.getDialogs#a0f4cb4f: field offset_date: %w", err)
 		}
 		g.OffsetDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getDialogs#a0f4cb4f: field offset_id: %w", err)
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field offset_peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getDialogs#a0f4cb4f: field offset_peer: %w", err)
 		}
 		g.OffsetPeer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.getDialogs#a0f4cb4f: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getDialogs#a0f4cb4f: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -361,11 +361,11 @@ func (g *MessagesGetDialogsRequest) GetLimit() (value int) {
 }
 
 // GetHash returns value of Hash field.
-func (g *MessagesGetDialogsRequest) GetHash() (value int) {
+func (g *MessagesGetDialogsRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// MessagesGetDialogs invokes method messages.getDialogs#a0ee3b73 returning error if any.
+// MessagesGetDialogs invokes method messages.getDialogs#a0f4cb4f returning error if any.
 // Returns the current user dialog list.
 //
 // Possible errors:

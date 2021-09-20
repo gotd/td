@@ -127,6 +127,24 @@ func (s SecureFileClassArray) AsSecureFile() (to SecureFileArray) {
 	return to
 }
 
+// FillNotEmptyMap fills only NotEmpty constructors to given map.
+func (s SecureFileClassArray) FillNotEmptyMap(to map[int64]*SecureFile) {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// NotEmptyToMap collects only NotEmpty constructors to map.
+func (s SecureFileClassArray) NotEmptyToMap() map[int64]*SecureFile {
+	r := make(map[int64]*SecureFile, len(s))
+	s.FillNotEmptyMap(r)
+	return r
+}
+
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
 func (s SecureFileClassArray) AppendOnlyNotEmpty(to []*SecureFile) []*SecureFile {
@@ -264,6 +282,20 @@ func (s *SecureFileArray) Pop() (v SecureFile, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of SecureFile by ID.
+func (s SecureFileArray) SortByID() SecureFileArray {
+	return s.Sort(func(a, b SecureFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of SecureFile by ID.
+func (s SecureFileArray) SortStableByID() SecureFileArray {
+	return s.SortStable(func(a, b SecureFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
 // SortByDate sorts slice of SecureFile by Date.
 func (s SecureFileArray) SortByDate() SecureFileArray {
 	return s.Sort(func(a, b SecureFile) bool {
@@ -276,4 +308,18 @@ func (s SecureFileArray) SortStableByDate() SecureFileArray {
 	return s.SortStable(func(a, b SecureFile) bool {
 		return a.GetDate() < b.GetDate()
 	})
+}
+
+// FillMap fills constructors to given map.
+func (s SecureFileArray) FillMap(to map[int64]SecureFile) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s SecureFileArray) ToMap() map[int64]SecureFile {
+	r := make(map[int64]SecureFile, len(s))
+	s.FillMap(r)
+	return r
 }

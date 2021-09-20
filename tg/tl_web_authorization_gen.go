@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// WebAuthorization represents TL type `webAuthorization#cac943f2`.
+// WebAuthorization represents TL type `webAuthorization#a6f8f452`.
 // Represents a bot logged in using the Telegram login widget¹
 //
 // Links:
@@ -40,7 +40,7 @@ type WebAuthorization struct {
 	// Authorization hash
 	Hash int64
 	// Bot ID
-	BotID int
+	BotID int64
 	// The domain name of the website on which the user has logged in.
 	Domain string
 	// Browser user-agent
@@ -58,7 +58,7 @@ type WebAuthorization struct {
 }
 
 // WebAuthorizationTypeID is TL type id of WebAuthorization.
-const WebAuthorizationTypeID = 0xcac943f2
+const WebAuthorizationTypeID = 0xa6f8f452
 
 // Ensuring interfaces in compile-time for WebAuthorization.
 var (
@@ -115,7 +115,7 @@ func (w *WebAuthorization) String() string {
 // FillFrom fills WebAuthorization from given interface.
 func (w *WebAuthorization) FillFrom(from interface {
 	GetHash() (value int64)
-	GetBotID() (value int)
+	GetBotID() (value int64)
 	GetDomain() (value string)
 	GetBrowser() (value string)
 	GetPlatform() (value string)
@@ -201,7 +201,7 @@ func (w *WebAuthorization) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WebAuthorization) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webAuthorization#cac943f2 as nil")
+		return fmt.Errorf("can't encode webAuthorization#a6f8f452 as nil")
 	}
 	b.PutID(WebAuthorizationTypeID)
 	return w.EncodeBare(b)
@@ -210,10 +210,10 @@ func (w *WebAuthorization) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebAuthorization) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webAuthorization#cac943f2 as nil")
+		return fmt.Errorf("can't encode webAuthorization#a6f8f452 as nil")
 	}
 	b.PutLong(w.Hash)
-	b.PutInt(w.BotID)
+	b.PutLong(w.BotID)
 	b.PutString(w.Domain)
 	b.PutString(w.Browser)
 	b.PutString(w.Platform)
@@ -227,10 +227,10 @@ func (w *WebAuthorization) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (w *WebAuthorization) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webAuthorization#cac943f2 to nil")
+		return fmt.Errorf("can't decode webAuthorization#a6f8f452 to nil")
 	}
 	if err := b.ConsumeID(WebAuthorizationTypeID); err != nil {
-		return fmt.Errorf("unable to decode webAuthorization#cac943f2: %w", err)
+		return fmt.Errorf("unable to decode webAuthorization#a6f8f452: %w", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -238,68 +238,68 @@ func (w *WebAuthorization) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebAuthorization) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webAuthorization#cac943f2 to nil")
+		return fmt.Errorf("can't decode webAuthorization#a6f8f452 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field hash: %w", err)
+			return fmt.Errorf("unable to decode webAuthorization#a6f8f452: field hash: %w", err)
 		}
 		w.Hash = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field bot_id: %w", err)
+			return fmt.Errorf("unable to decode webAuthorization#a6f8f452: field bot_id: %w", err)
 		}
 		w.BotID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field domain: %w", err)
+			return fmt.Errorf("unable to decode webAuthorization#a6f8f452: field domain: %w", err)
 		}
 		w.Domain = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field browser: %w", err)
+			return fmt.Errorf("unable to decode webAuthorization#a6f8f452: field browser: %w", err)
 		}
 		w.Browser = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field platform: %w", err)
+			return fmt.Errorf("unable to decode webAuthorization#a6f8f452: field platform: %w", err)
 		}
 		w.Platform = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field date_created: %w", err)
+			return fmt.Errorf("unable to decode webAuthorization#a6f8f452: field date_created: %w", err)
 		}
 		w.DateCreated = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field date_active: %w", err)
+			return fmt.Errorf("unable to decode webAuthorization#a6f8f452: field date_active: %w", err)
 		}
 		w.DateActive = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field ip: %w", err)
+			return fmt.Errorf("unable to decode webAuthorization#a6f8f452: field ip: %w", err)
 		}
 		w.IP = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode webAuthorization#cac943f2: field region: %w", err)
+			return fmt.Errorf("unable to decode webAuthorization#a6f8f452: field region: %w", err)
 		}
 		w.Region = value
 	}
@@ -312,7 +312,7 @@ func (w *WebAuthorization) GetHash() (value int64) {
 }
 
 // GetBotID returns value of BotID field.
-func (w *WebAuthorization) GetBotID() (value int) {
+func (w *WebAuthorization) GetBotID() (value int64) {
 	return w.BotID
 }
 

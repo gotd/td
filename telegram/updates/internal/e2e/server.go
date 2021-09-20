@@ -24,12 +24,12 @@ func newServer() *server {
 	return &server{
 		date: 1,
 		peers: &peerDatabase{
-			users:    make(map[int]*tg.User),
-			chats:    make(map[int]*tg.Chat),
-			channels: make(map[int]*tg.Channel),
+			users:    make(map[int64]*tg.User),
+			chats:    make(map[int64]*tg.Chat),
+			channels: make(map[int64]*tg.Channel),
 		},
 		messages: &messageDatabase{
-			channels: make(map[int][]tg.MessageClass),
+			channels: make(map[int64][]tg.MessageClass),
 		},
 	}
 }

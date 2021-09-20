@@ -127,6 +127,24 @@ func (s InputDocumentClassArray) AsInputDocument() (to InputDocumentArray) {
 	return to
 }
 
+// FillNotEmptyMap fills only NotEmpty constructors to given map.
+func (s InputDocumentClassArray) FillNotEmptyMap(to map[int64]*InputDocument) {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// NotEmptyToMap collects only NotEmpty constructors to map.
+func (s InputDocumentClassArray) NotEmptyToMap() map[int64]*InputDocument {
+	r := make(map[int64]*InputDocument, len(s))
+	s.FillNotEmptyMap(r)
+	return r
+}
+
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
 func (s InputDocumentClassArray) AppendOnlyNotEmpty(to []*InputDocument) []*InputDocument {
@@ -262,4 +280,32 @@ func (s *InputDocumentArray) Pop() (v InputDocument, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of InputDocument by ID.
+func (s InputDocumentArray) SortByID() InputDocumentArray {
+	return s.Sort(func(a, b InputDocument) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputDocument by ID.
+func (s InputDocumentArray) SortStableByID() InputDocumentArray {
+	return s.SortStable(func(a, b InputDocument) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputDocumentArray) FillMap(to map[int64]InputDocument) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputDocumentArray) ToMap() map[int64]InputDocument {
+	r := make(map[int64]InputDocument, len(s))
+	s.FillMap(r)
+	return r
 }

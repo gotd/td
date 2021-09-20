@@ -2674,19 +2674,19 @@ func (c *ChannelAdminLogEventActionStopPoll) GetMessage() (value MessageClass) {
 	return c.Message
 }
 
-// ChannelAdminLogEventActionChangeLinkedChat represents TL type `channelAdminLogEventActionChangeLinkedChat#a26f881b`.
+// ChannelAdminLogEventActionChangeLinkedChat represents TL type `channelAdminLogEventActionChangeLinkedChat#50c7ac8`.
 // The linked chat was changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeLinkedChat for reference.
 type ChannelAdminLogEventActionChangeLinkedChat struct {
 	// Previous linked chat
-	PrevValue int
+	PrevValue int64
 	// New linked chat
-	NewValue int
+	NewValue int64
 }
 
 // ChannelAdminLogEventActionChangeLinkedChatTypeID is TL type id of ChannelAdminLogEventActionChangeLinkedChat.
-const ChannelAdminLogEventActionChangeLinkedChatTypeID = 0xa26f881b
+const ChannelAdminLogEventActionChangeLinkedChatTypeID = 0x50c7ac8
 
 // construct implements constructor of ChannelAdminLogEventActionClass.
 func (c ChannelAdminLogEventActionChangeLinkedChat) construct() ChannelAdminLogEventActionClass {
@@ -2728,8 +2728,8 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) String() string {
 
 // FillFrom fills ChannelAdminLogEventActionChangeLinkedChat from given interface.
 func (c *ChannelAdminLogEventActionChangeLinkedChat) FillFrom(from interface {
-	GetPrevValue() (value int)
-	GetNewValue() (value int)
+	GetPrevValue() (value int64)
+	GetNewValue() (value int64)
 }) {
 	c.PrevValue = from.GetPrevValue()
 	c.NewValue = from.GetNewValue()
@@ -2773,7 +2773,7 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangeLinkedChat) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelAdminLogEventActionChangeLinkedChat#a26f881b as nil")
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeLinkedChat#50c7ac8 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionChangeLinkedChatTypeID)
 	return c.EncodeBare(b)
@@ -2782,20 +2782,20 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) Encode(b *bin.Buffer) error
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelAdminLogEventActionChangeLinkedChat) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelAdminLogEventActionChangeLinkedChat#a26f881b as nil")
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeLinkedChat#50c7ac8 as nil")
 	}
-	b.PutInt(c.PrevValue)
-	b.PutInt(c.NewValue)
+	b.PutLong(c.PrevValue)
+	b.PutLong(c.NewValue)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionChangeLinkedChat) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelAdminLogEventActionChangeLinkedChat#a26f881b to nil")
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeLinkedChat#50c7ac8 to nil")
 	}
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeLinkedChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeLinkedChat#a26f881b: %w", err)
+		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeLinkedChat#50c7ac8: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -2803,19 +2803,19 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) Decode(b *bin.Buffer) error
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelAdminLogEventActionChangeLinkedChat) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelAdminLogEventActionChangeLinkedChat#a26f881b to nil")
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeLinkedChat#50c7ac8 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeLinkedChat#a26f881b: field prev_value: %w", err)
+			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeLinkedChat#50c7ac8: field prev_value: %w", err)
 		}
 		c.PrevValue = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeLinkedChat#a26f881b: field new_value: %w", err)
+			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeLinkedChat#50c7ac8: field new_value: %w", err)
 		}
 		c.NewValue = value
 	}
@@ -2823,12 +2823,12 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) DecodeBare(b *bin.Buffer) e
 }
 
 // GetPrevValue returns value of PrevValue field.
-func (c *ChannelAdminLogEventActionChangeLinkedChat) GetPrevValue() (value int) {
+func (c *ChannelAdminLogEventActionChangeLinkedChat) GetPrevValue() (value int64) {
 	return c.PrevValue
 }
 
 // GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionChangeLinkedChat) GetNewValue() (value int) {
+func (c *ChannelAdminLogEventActionChangeLinkedChat) GetNewValue() (value int64) {
 	return c.NewValue
 }
 
@@ -4672,161 +4672,6 @@ func (c *ChannelAdminLogEventActionChangeHistoryTTL) GetNewValue() (value int) {
 	return c.NewValue
 }
 
-// ChannelAdminLogEventActionChangeTheme represents TL type `channelAdminLogEventActionChangeTheme#fe69018d`.
-//
-// See https://core.telegram.org/constructor/channelAdminLogEventActionChangeTheme for reference.
-type ChannelAdminLogEventActionChangeTheme struct {
-	// PrevValue field of ChannelAdminLogEventActionChangeTheme.
-	PrevValue string
-	// NewValue field of ChannelAdminLogEventActionChangeTheme.
-	NewValue string
-}
-
-// ChannelAdminLogEventActionChangeThemeTypeID is TL type id of ChannelAdminLogEventActionChangeTheme.
-const ChannelAdminLogEventActionChangeThemeTypeID = 0xfe69018d
-
-// construct implements constructor of ChannelAdminLogEventActionClass.
-func (c ChannelAdminLogEventActionChangeTheme) construct() ChannelAdminLogEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeTheme.
-var (
-	_ bin.Encoder     = &ChannelAdminLogEventActionChangeTheme{}
-	_ bin.Decoder     = &ChannelAdminLogEventActionChangeTheme{}
-	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeTheme{}
-	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeTheme{}
-
-	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeTheme{}
-)
-
-func (c *ChannelAdminLogEventActionChangeTheme) Zero() bool {
-	if c == nil {
-		return true
-	}
-	if !(c.PrevValue == "") {
-		return false
-	}
-	if !(c.NewValue == "") {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (c *ChannelAdminLogEventActionChangeTheme) String() string {
-	if c == nil {
-		return "ChannelAdminLogEventActionChangeTheme(nil)"
-	}
-	type Alias ChannelAdminLogEventActionChangeTheme
-	return fmt.Sprintf("ChannelAdminLogEventActionChangeTheme%+v", Alias(*c))
-}
-
-// FillFrom fills ChannelAdminLogEventActionChangeTheme from given interface.
-func (c *ChannelAdminLogEventActionChangeTheme) FillFrom(from interface {
-	GetPrevValue() (value string)
-	GetNewValue() (value string)
-}) {
-	c.PrevValue = from.GetPrevValue()
-	c.NewValue = from.GetNewValue()
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChannelAdminLogEventActionChangeTheme) TypeID() uint32 {
-	return ChannelAdminLogEventActionChangeThemeTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*ChannelAdminLogEventActionChangeTheme) TypeName() string {
-	return "channelAdminLogEventActionChangeTheme"
-}
-
-// TypeInfo returns info about TL type.
-func (c *ChannelAdminLogEventActionChangeTheme) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "channelAdminLogEventActionChangeTheme",
-		ID:   ChannelAdminLogEventActionChangeThemeTypeID,
-	}
-	if c == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "PrevValue",
-			SchemaName: "prev_value",
-		},
-		{
-			Name:       "NewValue",
-			SchemaName: "new_value",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (c *ChannelAdminLogEventActionChangeTheme) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode channelAdminLogEventActionChangeTheme#fe69018d as nil")
-	}
-	b.PutID(ChannelAdminLogEventActionChangeThemeTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChannelAdminLogEventActionChangeTheme) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode channelAdminLogEventActionChangeTheme#fe69018d as nil")
-	}
-	b.PutString(c.PrevValue)
-	b.PutString(c.NewValue)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (c *ChannelAdminLogEventActionChangeTheme) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode channelAdminLogEventActionChangeTheme#fe69018d to nil")
-	}
-	if err := b.ConsumeID(ChannelAdminLogEventActionChangeThemeTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeTheme#fe69018d: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChannelAdminLogEventActionChangeTheme) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode channelAdminLogEventActionChangeTheme#fe69018d to nil")
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeTheme#fe69018d: field prev_value: %w", err)
-		}
-		c.PrevValue = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeTheme#fe69018d: field new_value: %w", err)
-		}
-		c.NewValue = value
-	}
-	return nil
-}
-
-// GetPrevValue returns value of PrevValue field.
-func (c *ChannelAdminLogEventActionChangeTheme) GetPrevValue() (value string) {
-	return c.PrevValue
-}
-
-// GetNewValue returns value of NewValue field.
-func (c *ChannelAdminLogEventActionChangeTheme) GetNewValue() (value string) {
-	return c.NewValue
-}
-
 // ChannelAdminLogEventActionClass represents ChannelAdminLogEventAction generic type.
 //
 // See https://core.telegram.org/type/ChannelAdminLogEventAction for reference.
@@ -4855,7 +4700,7 @@ func (c *ChannelAdminLogEventActionChangeTheme) GetNewValue() (value string) {
 //  case *tg.ChannelAdminLogEventActionTogglePreHistoryHidden: // channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1
 //  case *tg.ChannelAdminLogEventActionDefaultBannedRights: // channelAdminLogEventActionDefaultBannedRights#2df5fc0a
 //  case *tg.ChannelAdminLogEventActionStopPoll: // channelAdminLogEventActionStopPoll#8f079643
-//  case *tg.ChannelAdminLogEventActionChangeLinkedChat: // channelAdminLogEventActionChangeLinkedChat#a26f881b
+//  case *tg.ChannelAdminLogEventActionChangeLinkedChat: // channelAdminLogEventActionChangeLinkedChat#50c7ac8
 //  case *tg.ChannelAdminLogEventActionChangeLocation: // channelAdminLogEventActionChangeLocation#e6b76ae
 //  case *tg.ChannelAdminLogEventActionToggleSlowMode: // channelAdminLogEventActionToggleSlowMode#53909779
 //  case *tg.ChannelAdminLogEventActionStartGroupCall: // channelAdminLogEventActionStartGroupCall#23209745
@@ -4869,7 +4714,6 @@ func (c *ChannelAdminLogEventActionChangeTheme) GetNewValue() (value string) {
 //  case *tg.ChannelAdminLogEventActionExportedInviteEdit: // channelAdminLogEventActionExportedInviteEdit#e90ebb59
 //  case *tg.ChannelAdminLogEventActionParticipantVolume: // channelAdminLogEventActionParticipantVolume#3e7f6847
 //  case *tg.ChannelAdminLogEventActionChangeHistoryTTL: // channelAdminLogEventActionChangeHistoryTTL#6e941a38
-//  case *tg.ChannelAdminLogEventActionChangeTheme: // channelAdminLogEventActionChangeTheme#fe69018d
 //  default: panic(v)
 //  }
 type ChannelAdminLogEventActionClass interface {
@@ -5025,7 +4869,7 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 		}
 		return &v, nil
 	case ChannelAdminLogEventActionChangeLinkedChatTypeID:
-		// Decoding channelAdminLogEventActionChangeLinkedChat#a26f881b.
+		// Decoding channelAdminLogEventActionChangeLinkedChat#50c7ac8.
 		v := ChannelAdminLogEventActionChangeLinkedChat{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
@@ -5118,13 +4962,6 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 	case ChannelAdminLogEventActionChangeHistoryTTLTypeID:
 		// Decoding channelAdminLogEventActionChangeHistoryTTL#6e941a38.
 		v := ChannelAdminLogEventActionChangeHistoryTTL{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
-		}
-		return &v, nil
-	case ChannelAdminLogEventActionChangeThemeTypeID:
-		// Decoding channelAdminLogEventActionChangeTheme#fe69018d.
-		v := ChannelAdminLogEventActionChangeTheme{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
 		}

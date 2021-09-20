@@ -129,7 +129,7 @@ func (s ChatFullClassArray) SortStableByID() ChatFullClassArray {
 }
 
 // FillChatFullMap fills only ChatFull constructors to given map.
-func (s ChatFullClassArray) FillChatFullMap(to map[int]*ChatFull) {
+func (s ChatFullClassArray) FillChatFullMap(to map[int64]*ChatFull) {
 	for _, elem := range s {
 		value, ok := elem.(*ChatFull)
 		if !ok {
@@ -140,8 +140,8 @@ func (s ChatFullClassArray) FillChatFullMap(to map[int]*ChatFull) {
 }
 
 // ChatFullToMap collects only ChatFull constructors to map.
-func (s ChatFullClassArray) ChatFullToMap() map[int]*ChatFull {
-	r := make(map[int]*ChatFull, len(s))
+func (s ChatFullClassArray) ChatFullToMap() map[int64]*ChatFull {
+	r := make(map[int64]*ChatFull, len(s))
 	s.FillChatFullMap(r)
 	return r
 }
@@ -160,7 +160,7 @@ func (s ChatFullClassArray) AsChatFull() (to ChatFullArray) {
 }
 
 // FillChannelFullMap fills only ChannelFull constructors to given map.
-func (s ChatFullClassArray) FillChannelFullMap(to map[int]*ChannelFull) {
+func (s ChatFullClassArray) FillChannelFullMap(to map[int64]*ChannelFull) {
 	for _, elem := range s {
 		value, ok := elem.(*ChannelFull)
 		if !ok {
@@ -171,8 +171,8 @@ func (s ChatFullClassArray) FillChannelFullMap(to map[int]*ChannelFull) {
 }
 
 // ChannelFullToMap collects only ChannelFull constructors to map.
-func (s ChatFullClassArray) ChannelFullToMap() map[int]*ChannelFull {
-	r := make(map[int]*ChannelFull, len(s))
+func (s ChatFullClassArray) ChannelFullToMap() map[int64]*ChannelFull {
+	r := make(map[int64]*ChannelFull, len(s))
 	s.FillChannelFullMap(r)
 	return r
 }
@@ -287,15 +287,15 @@ func (s ChatFullArray) SortStableByID() ChatFullArray {
 }
 
 // FillMap fills constructors to given map.
-func (s ChatFullArray) FillMap(to map[int]ChatFull) {
+func (s ChatFullArray) FillMap(to map[int64]ChatFull) {
 	for _, value := range s {
 		to[value.GetID()] = value
 	}
 }
 
 // ToMap collects constructors to map.
-func (s ChatFullArray) ToMap() map[int]ChatFull {
-	r := make(map[int]ChatFull, len(s))
+func (s ChatFullArray) ToMap() map[int64]ChatFull {
+	r := make(map[int64]ChatFull, len(s))
 	s.FillMap(r)
 	return r
 }
@@ -397,15 +397,15 @@ func (s ChannelFullArray) SortStableByID() ChannelFullArray {
 }
 
 // FillMap fills constructors to given map.
-func (s ChannelFullArray) FillMap(to map[int]ChannelFull) {
+func (s ChannelFullArray) FillMap(to map[int64]ChannelFull) {
 	for _, value := range s {
 		to[value.GetID()] = value
 	}
 }
 
 // ToMap collects constructors to map.
-func (s ChannelFullArray) ToMap() map[int]ChannelFull {
-	r := make(map[int]ChannelFull, len(s))
+func (s ChannelFullArray) ToMap() map[int64]ChannelFull {
+	r := make(map[int64]ChannelFull, len(s))
 	s.FillMap(r)
 	return r
 }

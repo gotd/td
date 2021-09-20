@@ -26,7 +26,7 @@ func TestE2E(t *testing.T) {
 		)
 
 		var channels []*tg.PeerChannel
-		require.NoError(t, storage.ForEachChannels(123, func(channelID, pts int) error {
+		require.NoError(t, storage.ForEachChannels(123, func(channelID int64, pts int) error {
 			channels = append(channels, &tg.PeerChannel{
 				ChannelID: channelID,
 			})
@@ -93,7 +93,7 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 	for i := 0; i < 30; i++ {
 		c := s.peers.createChannel(fmt.Sprintf("channel-%d", i))
 		require.NoError(t, storage.SetChannelPts(123, c.ChannelID, 0))
-		require.NoError(t, hasher.SetChannelAccessHash(123, c.ChannelID, int64(c.ChannelID*2)))
+		require.NoError(t, hasher.SetChannelAccessHash(123, c.ChannelID, c.ChannelID*2))
 	}
 
 	e := updates.New(updates.Config{
@@ -139,7 +139,7 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 		}
 
 		ups := []tg.UpdateClass{&tg.UpdatePtsChanged{}}
-		if err := storage.ForEachChannels(123, func(channelID, pts int) error {
+		if err := storage.ForEachChannels(123, func(channelID int64, pts int) error {
 			ups = append(ups, &tg.UpdateChannelTooLong{ChannelID: channelID})
 			return nil
 		}); err != nil {

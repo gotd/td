@@ -14,5 +14,5 @@ func TestHasher(t *testing.T) {
 		hasher.Update(uint32(data[i]))
 	}
 
-	require.Equal(t, int32(611477280), hasher.Sum())
+	require.Equal(t, int64(611477280), hasher.Sum())
 }

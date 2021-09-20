@@ -16,7 +16,7 @@ func generateBlocked(count int) []tg.PeerBlocked {
 	for i := 0; i < count; i++ {
 		r = append(r, tg.PeerBlocked{
 			PeerID: &tg.PeerUser{
-				UserID: i + 1,
+				UserID: int64(i + 1),
 			},
 			Date: i,
 		})
