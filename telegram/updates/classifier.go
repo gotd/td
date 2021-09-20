@@ -44,7 +44,7 @@ func isCommonQtsUpdate(u tg.UpdateClass) (qts int, ok bool) {
 	return
 }
 
-func isChannelPtsUpdate(u tg.UpdateClass) (channelID, pts, ptsCount int, ok bool, err error) {
+func isChannelPtsUpdate(u tg.UpdateClass) (channelID int64, pts, ptsCount int, ok bool, err error) {
 	switch u := u.(type) {
 	case *tg.UpdateNewChannelMessage:
 		channelID, err = extractChannelID(u.Message)
@@ -68,7 +68,7 @@ func isChannelPtsUpdate(u tg.UpdateClass) (channelID, pts, ptsCount int, ok bool
 	return
 }
 
-func extractChannelID(msg tg.MessageClass) (int, error) {
+func extractChannelID(msg tg.MessageClass) (int64, error) {
 	switch msg := msg.(type) {
 	case *tg.Message:
 		if c, ok := msg.PeerID.(*tg.PeerChannel); ok {

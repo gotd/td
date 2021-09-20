@@ -222,6 +222,34 @@ func (s *InputBotInlineMessageIDArray) Pop() (v InputBotInlineMessageID, ok bool
 	return v, true
 }
 
+// SortByID sorts slice of InputBotInlineMessageID by ID.
+func (s InputBotInlineMessageIDArray) SortByID() InputBotInlineMessageIDArray {
+	return s.Sort(func(a, b InputBotInlineMessageID) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputBotInlineMessageID by ID.
+func (s InputBotInlineMessageIDArray) SortStableByID() InputBotInlineMessageIDArray {
+	return s.SortStable(func(a, b InputBotInlineMessageID) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputBotInlineMessageIDArray) FillMap(to map[int64]InputBotInlineMessageID) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputBotInlineMessageIDArray) ToMap() map[int64]InputBotInlineMessageID {
+	r := make(map[int64]InputBotInlineMessageID, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // InputBotInlineMessageID64Array is adapter for slice of InputBotInlineMessageID64.
 type InputBotInlineMessageID64Array []InputBotInlineMessageID64
 

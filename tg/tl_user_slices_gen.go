@@ -114,6 +114,38 @@ func (s *UserClassArray) Pop() (v UserClass, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of UserClass by ID.
+func (s UserClassArray) SortByID() UserClassArray {
+	return s.Sort(func(a, b UserClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of UserClass by ID.
+func (s UserClassArray) SortStableByID() UserClassArray {
+	return s.SortStable(func(a, b UserClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillUserEmptyMap fills only UserEmpty constructors to given map.
+func (s UserClassArray) FillUserEmptyMap(to map[int64]*UserEmpty) {
+	for _, elem := range s {
+		value, ok := elem.(*UserEmpty)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// UserEmptyToMap collects only UserEmpty constructors to map.
+func (s UserClassArray) UserEmptyToMap() map[int64]*UserEmpty {
+	r := make(map[int64]*UserEmpty, len(s))
+	s.FillUserEmptyMap(r)
+	return r
+}
+
 // AsUserEmpty returns copy with only UserEmpty constructors.
 func (s UserClassArray) AsUserEmpty() (to UserEmptyArray) {
 	for _, elem := range s {
@@ -127,6 +159,24 @@ func (s UserClassArray) AsUserEmpty() (to UserEmptyArray) {
 	return to
 }
 
+// FillUserMap fills only User constructors to given map.
+func (s UserClassArray) FillUserMap(to map[int64]*User) {
+	for _, elem := range s {
+		value, ok := elem.(*User)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// UserToMap collects only User constructors to map.
+func (s UserClassArray) UserToMap() map[int64]*User {
+	r := make(map[int64]*User, len(s))
+	s.FillUserMap(r)
+	return r
+}
+
 // AsUser returns copy with only User constructors.
 func (s UserClassArray) AsUser() (to UserArray) {
 	for _, elem := range s {
@@ -138,6 +188,24 @@ func (s UserClassArray) AsUser() (to UserArray) {
 	}
 
 	return to
+}
+
+// FillNotEmptyMap fills only NotEmpty constructors to given map.
+func (s UserClassArray) FillNotEmptyMap(to map[int64]*User) {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// NotEmptyToMap collects only NotEmpty constructors to map.
+func (s UserClassArray) NotEmptyToMap() map[int64]*User {
+	r := make(map[int64]*User, len(s))
+	s.FillNotEmptyMap(r)
+	return r
 }
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
@@ -277,6 +345,34 @@ func (s *UserEmptyArray) Pop() (v UserEmpty, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of UserEmpty by ID.
+func (s UserEmptyArray) SortByID() UserEmptyArray {
+	return s.Sort(func(a, b UserEmpty) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of UserEmpty by ID.
+func (s UserEmptyArray) SortStableByID() UserEmptyArray {
+	return s.SortStable(func(a, b UserEmpty) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s UserEmptyArray) FillMap(to map[int64]UserEmpty) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s UserEmptyArray) ToMap() map[int64]UserEmpty {
+	r := make(map[int64]UserEmpty, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // UserArray is adapter for slice of User.
 type UserArray []User
 
@@ -357,4 +453,32 @@ func (s *UserArray) Pop() (v User, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of User by ID.
+func (s UserArray) SortByID() UserArray {
+	return s.Sort(func(a, b User) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of User by ID.
+func (s UserArray) SortStableByID() UserArray {
+	return s.SortStable(func(a, b User) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s UserArray) FillMap(to map[int64]User) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s UserArray) ToMap() map[int64]User {
+	r := make(map[int64]User, len(s))
+	s.FillMap(r)
+	return r
 }

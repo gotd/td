@@ -39,16 +39,16 @@ type state struct {
 	idleTimeout   *time.Timer
 
 	// Channel states.
-	channels map[int]*channelState
+	channels map[int64]*channelState
 
 	// Immutable fields.
 	client    RawClient
 	log       *zap.Logger
 	handler   telegram.UpdateHandler
-	onTooLong func(channelID int)
+	onTooLong func(channelID int64)
 	storage   StateStorage
 	hasher    ChannelAccessHasher
-	selfID    int
+	selfID    int64
 	diffLim   int
 
 	ctx    context.Context
@@ -58,17 +58,17 @@ type state struct {
 
 type stateConfig struct {
 	State    State
-	Channels map[int]struct {
+	Channels map[int64]struct {
 		Pts        int
 		AccessHash int64
 	}
 	RawClient        RawClient
 	Logger           *zap.Logger
 	Handler          telegram.UpdateHandler
-	OnChannelTooLong func(channelID int)
+	OnChannelTooLong func(channelID int64)
 	Storage          StateStorage
 	Hasher           ChannelAccessHasher
-	SelfID           int
+	SelfID           int64
 	DiffLimit        int
 }
 
@@ -81,7 +81,7 @@ func newState(ctx context.Context, cfg stateConfig) *state {
 		date:        cfg.State.Date,
 		idleTimeout: time.NewTimer(idleTimeout),
 
-		channels: make(map[int]*channelState),
+		channels: make(map[int64]*channelState),
 
 		client:    cfg.RawClient,
 		log:       cfg.Logger,
@@ -259,7 +259,7 @@ func (s *state) handleQts(qts int, u tg.UpdateClass, ents entities) error {
 	})
 }
 
-func (s *state) handleChannel(channelID, date, pts, ptsCount int, cu channelUpdate) {
+func (s *state) handleChannel(channelID int64, date, pts, ptsCount int, cu channelUpdate) {
 	if err := validatePts(pts, ptsCount); err != nil {
 		s.log.Error("Pts validation failed", zap.Error(err), zap.Any("update", cu.update))
 		return
@@ -284,7 +284,7 @@ func (s *state) handleChannel(channelID, date, pts, ptsCount int, cu channelUpda
 			accessHash, found = s.restoreAccessHash(channelID, date)
 			if !found {
 				s.log.Debug("Failed to recover missing access hash, update ignored",
-					zap.Int("channel_id", channelID),
+					zap.Int64("channel_id", channelID),
 					zap.Any("update", cu.update),
 				)
 				return
@@ -312,7 +312,7 @@ func (s *state) handleChannel(channelID, date, pts, ptsCount int, cu channelUpda
 	state.PushUpdate(cu)
 }
 
-func (s *state) newChannelState(channelID int, accessHash int64, initialPts int) *channelState {
+func (s *state) newChannelState(channelID int64, accessHash int64, initialPts int) *channelState {
 	return newChannelState(channelStateConfig{
 		Outchan:          s.internalQueue,
 		InitialPts:       initialPts,
@@ -324,7 +324,7 @@ func (s *state) newChannelState(channelID int, accessHash int64, initialPts int)
 		RawClient:        s.client,
 		Handler:          s.handler,
 		OnChannelTooLong: s.onTooLong,
-		Logger:           s.log.Named("channel").With(zap.Int("channel_id", channelID)),
+		Logger:           s.log.Named("channel").With(zap.Int64("channel_id", channelID)),
 	})
 }
 

@@ -114,6 +114,38 @@ func (s *DocumentClassArray) Pop() (v DocumentClass, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of DocumentClass by ID.
+func (s DocumentClassArray) SortByID() DocumentClassArray {
+	return s.Sort(func(a, b DocumentClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of DocumentClass by ID.
+func (s DocumentClassArray) SortStableByID() DocumentClassArray {
+	return s.SortStable(func(a, b DocumentClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillDocumentEmptyMap fills only DocumentEmpty constructors to given map.
+func (s DocumentClassArray) FillDocumentEmptyMap(to map[int64]*DocumentEmpty) {
+	for _, elem := range s {
+		value, ok := elem.(*DocumentEmpty)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// DocumentEmptyToMap collects only DocumentEmpty constructors to map.
+func (s DocumentClassArray) DocumentEmptyToMap() map[int64]*DocumentEmpty {
+	r := make(map[int64]*DocumentEmpty, len(s))
+	s.FillDocumentEmptyMap(r)
+	return r
+}
+
 // AsDocumentEmpty returns copy with only DocumentEmpty constructors.
 func (s DocumentClassArray) AsDocumentEmpty() (to DocumentEmptyArray) {
 	for _, elem := range s {
@@ -127,6 +159,24 @@ func (s DocumentClassArray) AsDocumentEmpty() (to DocumentEmptyArray) {
 	return to
 }
 
+// FillDocumentMap fills only Document constructors to given map.
+func (s DocumentClassArray) FillDocumentMap(to map[int64]*Document) {
+	for _, elem := range s {
+		value, ok := elem.(*Document)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// DocumentToMap collects only Document constructors to map.
+func (s DocumentClassArray) DocumentToMap() map[int64]*Document {
+	r := make(map[int64]*Document, len(s))
+	s.FillDocumentMap(r)
+	return r
+}
+
 // AsDocument returns copy with only Document constructors.
 func (s DocumentClassArray) AsDocument() (to DocumentArray) {
 	for _, elem := range s {
@@ -138,6 +188,24 @@ func (s DocumentClassArray) AsDocument() (to DocumentArray) {
 	}
 
 	return to
+}
+
+// FillNotEmptyMap fills only NotEmpty constructors to given map.
+func (s DocumentClassArray) FillNotEmptyMap(to map[int64]*Document) {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// NotEmptyToMap collects only NotEmpty constructors to map.
+func (s DocumentClassArray) NotEmptyToMap() map[int64]*Document {
+	r := make(map[int64]*Document, len(s))
+	s.FillNotEmptyMap(r)
+	return r
 }
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
@@ -277,6 +345,34 @@ func (s *DocumentEmptyArray) Pop() (v DocumentEmpty, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of DocumentEmpty by ID.
+func (s DocumentEmptyArray) SortByID() DocumentEmptyArray {
+	return s.Sort(func(a, b DocumentEmpty) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of DocumentEmpty by ID.
+func (s DocumentEmptyArray) SortStableByID() DocumentEmptyArray {
+	return s.SortStable(func(a, b DocumentEmpty) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s DocumentEmptyArray) FillMap(to map[int64]DocumentEmpty) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s DocumentEmptyArray) ToMap() map[int64]DocumentEmpty {
+	r := make(map[int64]DocumentEmpty, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // DocumentArray is adapter for slice of Document.
 type DocumentArray []Document
 
@@ -359,6 +455,20 @@ func (s *DocumentArray) Pop() (v Document, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of Document by ID.
+func (s DocumentArray) SortByID() DocumentArray {
+	return s.Sort(func(a, b Document) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of Document by ID.
+func (s DocumentArray) SortStableByID() DocumentArray {
+	return s.SortStable(func(a, b Document) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
 // SortByDate sorts slice of Document by Date.
 func (s DocumentArray) SortByDate() DocumentArray {
 	return s.Sort(func(a, b Document) bool {
@@ -371,4 +481,18 @@ func (s DocumentArray) SortStableByDate() DocumentArray {
 	return s.SortStable(func(a, b Document) bool {
 		return a.GetDate() < b.GetDate()
 	})
+}
+
+// FillMap fills constructors to given map.
+func (s DocumentArray) FillMap(to map[int64]Document) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s DocumentArray) ToMap() map[int64]Document {
+	r := make(map[int64]Document, len(s))
+	s.FillMap(r)
+	return r
 }

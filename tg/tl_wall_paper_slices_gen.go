@@ -114,6 +114,38 @@ func (s *WallPaperClassArray) Pop() (v WallPaperClass, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of WallPaperClass by ID.
+func (s WallPaperClassArray) SortByID() WallPaperClassArray {
+	return s.Sort(func(a, b WallPaperClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of WallPaperClass by ID.
+func (s WallPaperClassArray) SortStableByID() WallPaperClassArray {
+	return s.SortStable(func(a, b WallPaperClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillWallPaperMap fills only WallPaper constructors to given map.
+func (s WallPaperClassArray) FillWallPaperMap(to map[int64]*WallPaper) {
+	for _, elem := range s {
+		value, ok := elem.(*WallPaper)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// WallPaperToMap collects only WallPaper constructors to map.
+func (s WallPaperClassArray) WallPaperToMap() map[int64]*WallPaper {
+	r := make(map[int64]*WallPaper, len(s))
+	s.FillWallPaperMap(r)
+	return r
+}
+
 // AsWallPaper returns copy with only WallPaper constructors.
 func (s WallPaperClassArray) AsWallPaper() (to WallPaperArray) {
 	for _, elem := range s {
@@ -125,6 +157,24 @@ func (s WallPaperClassArray) AsWallPaper() (to WallPaperArray) {
 	}
 
 	return to
+}
+
+// FillWallPaperNoFileMap fills only WallPaperNoFile constructors to given map.
+func (s WallPaperClassArray) FillWallPaperNoFileMap(to map[int64]*WallPaperNoFile) {
+	for _, elem := range s {
+		value, ok := elem.(*WallPaperNoFile)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// WallPaperNoFileToMap collects only WallPaperNoFile constructors to map.
+func (s WallPaperClassArray) WallPaperNoFileToMap() map[int64]*WallPaperNoFile {
+	r := make(map[int64]*WallPaperNoFile, len(s))
+	s.FillWallPaperNoFileMap(r)
+	return r
 }
 
 // AsWallPaperNoFile returns copy with only WallPaperNoFile constructors.
@@ -222,6 +272,34 @@ func (s *WallPaperArray) Pop() (v WallPaper, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of WallPaper by ID.
+func (s WallPaperArray) SortByID() WallPaperArray {
+	return s.Sort(func(a, b WallPaper) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of WallPaper by ID.
+func (s WallPaperArray) SortStableByID() WallPaperArray {
+	return s.SortStable(func(a, b WallPaper) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s WallPaperArray) FillMap(to map[int64]WallPaper) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s WallPaperArray) ToMap() map[int64]WallPaper {
+	r := make(map[int64]WallPaper, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // WallPaperNoFileArray is adapter for slice of WallPaperNoFile.
 type WallPaperNoFileArray []WallPaperNoFile
 
@@ -302,4 +380,32 @@ func (s *WallPaperNoFileArray) Pop() (v WallPaperNoFile, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of WallPaperNoFile by ID.
+func (s WallPaperNoFileArray) SortByID() WallPaperNoFileArray {
+	return s.Sort(func(a, b WallPaperNoFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of WallPaperNoFile by ID.
+func (s WallPaperNoFileArray) SortStableByID() WallPaperNoFileArray {
+	return s.SortStable(func(a, b WallPaperNoFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s WallPaperNoFileArray) FillMap(to map[int64]WallPaperNoFile) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s WallPaperNoFileArray) ToMap() map[int64]WallPaperNoFile {
+	r := make(map[int64]WallPaperNoFile, len(s))
+	s.FillMap(r)
+	return r
 }

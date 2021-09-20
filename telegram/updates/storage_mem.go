@@ -9,19 +9,19 @@ import (
 var _ StateStorage = (*memStorage)(nil)
 
 type memStorage struct {
-	states   map[int]State
-	channels map[int]map[int]int
+	states   map[int64]State
+	channels map[int64]map[int64]int
 	mux      sync.Mutex
 }
 
 func newMemStorage() *memStorage {
 	return &memStorage{
-		states:   map[int]State{},
-		channels: map[int]map[int]int{},
+		states:   map[int64]State{},
+		channels: map[int64]map[int64]int{},
 	}
 }
 
-func (s *memStorage) GetState(userID int) (state State, found bool, err error) {
+func (s *memStorage) GetState(userID int64) (state State, found bool, err error) {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -29,16 +29,16 @@ func (s *memStorage) GetState(userID int) (state State, found bool, err error) {
 	return
 }
 
-func (s *memStorage) SetState(userID int, state State) error {
+func (s *memStorage) SetState(userID int64, state State) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
 	s.states[userID] = state
-	s.channels[userID] = map[int]int{}
+	s.channels[userID] = map[int64]int{}
 	return nil
 }
 
-func (s *memStorage) SetPts(userID, pts int) error {
+func (s *memStorage) SetPts(userID int64, pts int) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -52,7 +52,7 @@ func (s *memStorage) SetPts(userID, pts int) error {
 	return nil
 }
 
-func (s *memStorage) SetQts(userID, qts int) error {
+func (s *memStorage) SetQts(userID int64, qts int) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -66,7 +66,7 @@ func (s *memStorage) SetQts(userID, qts int) error {
 	return nil
 }
 
-func (s *memStorage) SetDate(userID, date int) error {
+func (s *memStorage) SetDate(userID int64, date int) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -80,7 +80,7 @@ func (s *memStorage) SetDate(userID, date int) error {
 	return nil
 }
 
-func (s *memStorage) SetSeq(userID, seq int) error {
+func (s *memStorage) SetSeq(userID int64, seq int) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -94,7 +94,7 @@ func (s *memStorage) SetSeq(userID, seq int) error {
 	return nil
 }
 
-func (s *memStorage) SetDateSeq(userID, date, seq int) error {
+func (s *memStorage) SetDateSeq(userID int64, date, seq int) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -109,7 +109,7 @@ func (s *memStorage) SetDateSeq(userID, date, seq int) error {
 	return nil
 }
 
-func (s *memStorage) SetChannelPts(userID, channelID, pts int) error {
+func (s *memStorage) SetChannelPts(userID, channelID int64, pts int) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -122,7 +122,7 @@ func (s *memStorage) SetChannelPts(userID, channelID, pts int) error {
 	return nil
 }
 
-func (s *memStorage) GetChannelPts(userID, channelID int) (pts int, found bool, err error) {
+func (s *memStorage) GetChannelPts(userID, channelID int64) (pts int, found bool, err error) {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -135,7 +135,7 @@ func (s *memStorage) GetChannelPts(userID, channelID int) (pts int, found bool, 
 	return
 }
 
-func (s *memStorage) ForEachChannels(userID int, f func(channelID, pts int) error) error {
+func (s *memStorage) ForEachChannels(userID int64, f func(channelID int64, pts int) error) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -156,17 +156,17 @@ func (s *memStorage) ForEachChannels(userID int, f func(channelID, pts int) erro
 var _ ChannelAccessHasher = (*memAccessHasher)(nil)
 
 type memAccessHasher struct {
-	hashes map[int]map[int]int64
+	hashes map[int64]map[int64]int64
 	mux    sync.Mutex
 }
 
 func newMemAccessHasher() *memAccessHasher {
 	return &memAccessHasher{
-		hashes: map[int]map[int]int64{},
+		hashes: map[int64]map[int64]int64{},
 	}
 }
 
-func (m *memAccessHasher) GetChannelAccessHash(userID, channelID int) (hash int64, found bool, err error) {
+func (m *memAccessHasher) GetChannelAccessHash(userID, channelID int64) (hash int64, found bool, err error) {
 	m.mux.Lock()
 	defer m.mux.Unlock()
 
@@ -179,13 +179,13 @@ func (m *memAccessHasher) GetChannelAccessHash(userID, channelID int) (hash int6
 	return
 }
 
-func (m *memAccessHasher) SetChannelAccessHash(userID, channelID int, hash int64) error {
+func (m *memAccessHasher) SetChannelAccessHash(userID, channelID, hash int64) error {
 	m.mux.Lock()
 	defer m.mux.Unlock()
 
 	userHashes, ok := m.hashes[userID]
 	if !ok {
-		userHashes = map[int]int64{}
+		userHashes = map[int64]int64{}
 		m.hashes[userID] = userHashes
 	}
 

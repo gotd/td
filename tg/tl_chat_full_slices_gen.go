@@ -114,6 +114,38 @@ func (s *ChatFullClassArray) Pop() (v ChatFullClass, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of ChatFullClass by ID.
+func (s ChatFullClassArray) SortByID() ChatFullClassArray {
+	return s.Sort(func(a, b ChatFullClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of ChatFullClass by ID.
+func (s ChatFullClassArray) SortStableByID() ChatFullClassArray {
+	return s.SortStable(func(a, b ChatFullClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillChatFullMap fills only ChatFull constructors to given map.
+func (s ChatFullClassArray) FillChatFullMap(to map[int64]*ChatFull) {
+	for _, elem := range s {
+		value, ok := elem.(*ChatFull)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// ChatFullToMap collects only ChatFull constructors to map.
+func (s ChatFullClassArray) ChatFullToMap() map[int64]*ChatFull {
+	r := make(map[int64]*ChatFull, len(s))
+	s.FillChatFullMap(r)
+	return r
+}
+
 // AsChatFull returns copy with only ChatFull constructors.
 func (s ChatFullClassArray) AsChatFull() (to ChatFullArray) {
 	for _, elem := range s {
@@ -125,6 +157,24 @@ func (s ChatFullClassArray) AsChatFull() (to ChatFullArray) {
 	}
 
 	return to
+}
+
+// FillChannelFullMap fills only ChannelFull constructors to given map.
+func (s ChatFullClassArray) FillChannelFullMap(to map[int64]*ChannelFull) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelFull)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// ChannelFullToMap collects only ChannelFull constructors to map.
+func (s ChatFullClassArray) ChannelFullToMap() map[int64]*ChannelFull {
+	r := make(map[int64]*ChannelFull, len(s))
+	s.FillChannelFullMap(r)
+	return r
 }
 
 // AsChannelFull returns copy with only ChannelFull constructors.
@@ -222,6 +272,34 @@ func (s *ChatFullArray) Pop() (v ChatFull, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of ChatFull by ID.
+func (s ChatFullArray) SortByID() ChatFullArray {
+	return s.Sort(func(a, b ChatFull) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of ChatFull by ID.
+func (s ChatFullArray) SortStableByID() ChatFullArray {
+	return s.SortStable(func(a, b ChatFull) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s ChatFullArray) FillMap(to map[int64]ChatFull) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s ChatFullArray) ToMap() map[int64]ChatFull {
+	r := make(map[int64]ChatFull, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // ChannelFullArray is adapter for slice of ChannelFull.
 type ChannelFullArray []ChannelFull
 
@@ -302,4 +380,32 @@ func (s *ChannelFullArray) Pop() (v ChannelFull, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of ChannelFull by ID.
+func (s ChannelFullArray) SortByID() ChannelFullArray {
+	return s.Sort(func(a, b ChannelFull) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of ChannelFull by ID.
+func (s ChannelFullArray) SortStableByID() ChannelFullArray {
+	return s.SortStable(func(a, b ChannelFull) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s ChannelFullArray) FillMap(to map[int64]ChannelFull) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s ChannelFullArray) ToMap() map[int64]ChannelFull {
+	r := make(map[int64]ChannelFull, len(s))
+	s.FillMap(r)
+	return r
 }

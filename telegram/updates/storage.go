@@ -24,20 +24,20 @@ func (s State) fromRemote(remote *tg.UpdatesState) State {
 // SetPts, SetQts, SetDate, SetSeq, SetDateSeq
 // should return error if user state does not exist.
 type StateStorage interface {
-	GetState(userID int) (state State, found bool, err error)
-	SetState(userID int, state State) error
-	SetPts(userID, pts int) error
-	SetQts(userID, qts int) error
-	SetDate(userID, date int) error
-	SetSeq(userID, seq int) error
-	SetDateSeq(userID, date, seq int) error
-	GetChannelPts(userID, channelID int) (pts int, found bool, err error)
-	SetChannelPts(userID, channelID, pts int) error
-	ForEachChannels(userID int, f func(channelID, pts int) error) error
+	GetState(userID int64) (state State, found bool, err error)
+	SetState(userID int64, state State) error
+	SetPts(userID int64, pts int) error
+	SetQts(userID int64, qts int) error
+	SetDate(userID int64, date int) error
+	SetSeq(userID int64, seq int) error
+	SetDateSeq(userID int64, date, seq int) error
+	GetChannelPts(userID, channelID int64) (pts int, found bool, err error)
+	SetChannelPts(userID, channelID int64, pts int) error
+	ForEachChannels(userID int64, f func(channelID int64, pts int) error) error
 }
 
 // ChannelAccessHasher stores users channel access hashes.
 type ChannelAccessHasher interface {
-	SetChannelAccessHash(userID, channelID int, accessHash int64) error
-	GetChannelAccessHash(userID, channelID int) (accessHash int64, found bool, err error)
+	SetChannelAccessHash(userID, channelID, accessHash int64) error
+	GetChannelAccessHash(userID, channelID int64) (accessHash int64, found bool, err error)
 }

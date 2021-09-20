@@ -114,6 +114,38 @@ func (s *InputFileClassArray) Pop() (v InputFileClass, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of InputFileClass by ID.
+func (s InputFileClassArray) SortByID() InputFileClassArray {
+	return s.Sort(func(a, b InputFileClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputFileClass by ID.
+func (s InputFileClassArray) SortStableByID() InputFileClassArray {
+	return s.SortStable(func(a, b InputFileClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillInputFileMap fills only InputFile constructors to given map.
+func (s InputFileClassArray) FillInputFileMap(to map[int64]*InputFile) {
+	for _, elem := range s {
+		value, ok := elem.(*InputFile)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// InputFileToMap collects only InputFile constructors to map.
+func (s InputFileClassArray) InputFileToMap() map[int64]*InputFile {
+	r := make(map[int64]*InputFile, len(s))
+	s.FillInputFileMap(r)
+	return r
+}
+
 // AsInputFile returns copy with only InputFile constructors.
 func (s InputFileClassArray) AsInputFile() (to InputFileArray) {
 	for _, elem := range s {
@@ -125,6 +157,24 @@ func (s InputFileClassArray) AsInputFile() (to InputFileArray) {
 	}
 
 	return to
+}
+
+// FillInputFileBigMap fills only InputFileBig constructors to given map.
+func (s InputFileClassArray) FillInputFileBigMap(to map[int64]*InputFileBig) {
+	for _, elem := range s {
+		value, ok := elem.(*InputFileBig)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// InputFileBigToMap collects only InputFileBig constructors to map.
+func (s InputFileClassArray) InputFileBigToMap() map[int64]*InputFileBig {
+	r := make(map[int64]*InputFileBig, len(s))
+	s.FillInputFileBigMap(r)
+	return r
 }
 
 // AsInputFileBig returns copy with only InputFileBig constructors.
@@ -222,6 +272,34 @@ func (s *InputFileArray) Pop() (v InputFile, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of InputFile by ID.
+func (s InputFileArray) SortByID() InputFileArray {
+	return s.Sort(func(a, b InputFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputFile by ID.
+func (s InputFileArray) SortStableByID() InputFileArray {
+	return s.SortStable(func(a, b InputFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputFileArray) FillMap(to map[int64]InputFile) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputFileArray) ToMap() map[int64]InputFile {
+	r := make(map[int64]InputFile, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // InputFileBigArray is adapter for slice of InputFileBig.
 type InputFileBigArray []InputFileBig
 
@@ -302,4 +380,32 @@ func (s *InputFileBigArray) Pop() (v InputFileBig, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of InputFileBig by ID.
+func (s InputFileBigArray) SortByID() InputFileBigArray {
+	return s.Sort(func(a, b InputFileBig) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputFileBig by ID.
+func (s InputFileBigArray) SortStableByID() InputFileBigArray {
+	return s.SortStable(func(a, b InputFileBig) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputFileBigArray) FillMap(to map[int64]InputFileBig) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputFileBigArray) ToMap() map[int64]InputFileBig {
+	r := make(map[int64]InputFileBig, len(s))
+	s.FillMap(r)
+	return r
 }

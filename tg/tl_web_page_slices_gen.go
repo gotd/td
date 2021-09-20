@@ -166,6 +166,24 @@ func (s WebPageClassArray) AsWebPageNotModified() (to WebPageNotModifiedArray) {
 	return to
 }
 
+// FillModifiedMap fills only Modified constructors to given map.
+func (s WebPageClassArray) FillModifiedMap(to map[int64]ModifiedWebPage) {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// ModifiedToMap collects only Modified constructors to map.
+func (s WebPageClassArray) ModifiedToMap() map[int64]ModifiedWebPage {
+	r := make(map[int64]ModifiedWebPage, len(s))
+	s.FillModifiedMap(r)
+	return r
+}
+
 // AppendOnlyModified appends only Modified constructors to
 // given slice.
 func (s WebPageClassArray) AppendOnlyModified(to []ModifiedWebPage) []ModifiedWebPage {
@@ -303,6 +321,34 @@ func (s *WebPageEmptyArray) Pop() (v WebPageEmpty, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of WebPageEmpty by ID.
+func (s WebPageEmptyArray) SortByID() WebPageEmptyArray {
+	return s.Sort(func(a, b WebPageEmpty) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of WebPageEmpty by ID.
+func (s WebPageEmptyArray) SortStableByID() WebPageEmptyArray {
+	return s.SortStable(func(a, b WebPageEmpty) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s WebPageEmptyArray) FillMap(to map[int64]WebPageEmpty) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s WebPageEmptyArray) ToMap() map[int64]WebPageEmpty {
+	r := make(map[int64]WebPageEmpty, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // WebPagePendingArray is adapter for slice of WebPagePending.
 type WebPagePendingArray []WebPagePending
 
@@ -385,6 +431,20 @@ func (s *WebPagePendingArray) Pop() (v WebPagePending, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of WebPagePending by ID.
+func (s WebPagePendingArray) SortByID() WebPagePendingArray {
+	return s.Sort(func(a, b WebPagePending) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of WebPagePending by ID.
+func (s WebPagePendingArray) SortStableByID() WebPagePendingArray {
+	return s.SortStable(func(a, b WebPagePending) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
 // SortByDate sorts slice of WebPagePending by Date.
 func (s WebPagePendingArray) SortByDate() WebPagePendingArray {
 	return s.Sort(func(a, b WebPagePending) bool {
@@ -397,6 +457,20 @@ func (s WebPagePendingArray) SortStableByDate() WebPagePendingArray {
 	return s.SortStable(func(a, b WebPagePending) bool {
 		return a.GetDate() < b.GetDate()
 	})
+}
+
+// FillMap fills constructors to given map.
+func (s WebPagePendingArray) FillMap(to map[int64]WebPagePending) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s WebPagePendingArray) ToMap() map[int64]WebPagePending {
+	r := make(map[int64]WebPagePending, len(s))
+	s.FillMap(r)
+	return r
 }
 
 // WebPageArray is adapter for slice of WebPage.
@@ -479,6 +553,34 @@ func (s *WebPageArray) Pop() (v WebPage, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of WebPage by ID.
+func (s WebPageArray) SortByID() WebPageArray {
+	return s.Sort(func(a, b WebPage) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of WebPage by ID.
+func (s WebPageArray) SortStableByID() WebPageArray {
+	return s.SortStable(func(a, b WebPage) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s WebPageArray) FillMap(to map[int64]WebPage) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s WebPageArray) ToMap() map[int64]WebPage {
+	r := make(map[int64]WebPage, len(s))
+	s.FillMap(r)
+	return r
 }
 
 // WebPageNotModifiedArray is adapter for slice of WebPageNotModified.

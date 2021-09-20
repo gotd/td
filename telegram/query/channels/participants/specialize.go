@@ -17,7 +17,7 @@ func (e Elem) UserPhotos(raw *tg.Client) (*photos.GetUserPhotosQueryBuilder, boo
 // User tries to get participant user object.
 func (e Elem) User() (*tg.User, bool) {
 	switch part := e.Participant.(type) {
-	case interface{ GetUserID() int }:
+	case interface{ GetUserID() int64 }:
 		return e.Entities.User(part.GetUserID())
 	case interface{ GetPeer() tg.PeerClass }:
 		user, ok := part.GetPeer().(*tg.PeerUser)

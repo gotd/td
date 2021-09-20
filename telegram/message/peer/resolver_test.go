@@ -36,7 +36,7 @@ func Test_plainResolver_Resolve(t *testing.T) {
 
 	r, err := resolver.ResolveDomain(ctx, domain)
 	require.IsType(t, &tg.InputPeerUser{}, r)
-	require.Equal(t, 10, r.(*tg.InputPeerUser).UserID)
+	require.Equal(t, int64(10), r.(*tg.InputPeerUser).UserID)
 	require.NoError(t, err)
 
 	_, err = resolver.ResolveDomain(ctx, domain)
@@ -71,7 +71,7 @@ func Test_plainResolver_ResolvePhone(t *testing.T) {
 	r, err := resolver.ResolvePhone(ctx, phone)
 	require.NoError(t, err)
 	require.IsType(t, &tg.InputPeerUser{}, r)
-	require.Equal(t, 10, r.(*tg.InputPeerUser).UserID)
+	require.Equal(t, int64(10), r.(*tg.InputPeerUser).UserID)
 
 	_, err = resolver.ResolvePhone(ctx, phone)
 	require.Error(t, err)

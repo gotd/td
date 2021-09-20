@@ -15,7 +15,7 @@ func generateDialogs(count int) []tg.DialogClass {
 
 	for i := 0; i < count; i++ {
 		r = append(r, &tg.Dialog{
-			Peer: &tg.PeerChannel{ChannelID: i},
+			Peer: &tg.PeerChannel{ChannelID: int64(i)},
 		})
 	}
 

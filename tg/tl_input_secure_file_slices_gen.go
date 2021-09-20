@@ -114,6 +114,38 @@ func (s *InputSecureFileClassArray) Pop() (v InputSecureFileClass, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of InputSecureFileClass by ID.
+func (s InputSecureFileClassArray) SortByID() InputSecureFileClassArray {
+	return s.Sort(func(a, b InputSecureFileClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputSecureFileClass by ID.
+func (s InputSecureFileClassArray) SortStableByID() InputSecureFileClassArray {
+	return s.SortStable(func(a, b InputSecureFileClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillInputSecureFileUploadedMap fills only InputSecureFileUploaded constructors to given map.
+func (s InputSecureFileClassArray) FillInputSecureFileUploadedMap(to map[int64]*InputSecureFileUploaded) {
+	for _, elem := range s {
+		value, ok := elem.(*InputSecureFileUploaded)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// InputSecureFileUploadedToMap collects only InputSecureFileUploaded constructors to map.
+func (s InputSecureFileClassArray) InputSecureFileUploadedToMap() map[int64]*InputSecureFileUploaded {
+	r := make(map[int64]*InputSecureFileUploaded, len(s))
+	s.FillInputSecureFileUploadedMap(r)
+	return r
+}
+
 // AsInputSecureFileUploaded returns copy with only InputSecureFileUploaded constructors.
 func (s InputSecureFileClassArray) AsInputSecureFileUploaded() (to InputSecureFileUploadedArray) {
 	for _, elem := range s {
@@ -125,6 +157,24 @@ func (s InputSecureFileClassArray) AsInputSecureFileUploaded() (to InputSecureFi
 	}
 
 	return to
+}
+
+// FillInputSecureFileMap fills only InputSecureFile constructors to given map.
+func (s InputSecureFileClassArray) FillInputSecureFileMap(to map[int64]*InputSecureFile) {
+	for _, elem := range s {
+		value, ok := elem.(*InputSecureFile)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// InputSecureFileToMap collects only InputSecureFile constructors to map.
+func (s InputSecureFileClassArray) InputSecureFileToMap() map[int64]*InputSecureFile {
+	r := make(map[int64]*InputSecureFile, len(s))
+	s.FillInputSecureFileMap(r)
+	return r
 }
 
 // AsInputSecureFile returns copy with only InputSecureFile constructors.
@@ -222,6 +272,34 @@ func (s *InputSecureFileUploadedArray) Pop() (v InputSecureFileUploaded, ok bool
 	return v, true
 }
 
+// SortByID sorts slice of InputSecureFileUploaded by ID.
+func (s InputSecureFileUploadedArray) SortByID() InputSecureFileUploadedArray {
+	return s.Sort(func(a, b InputSecureFileUploaded) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputSecureFileUploaded by ID.
+func (s InputSecureFileUploadedArray) SortStableByID() InputSecureFileUploadedArray {
+	return s.SortStable(func(a, b InputSecureFileUploaded) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputSecureFileUploadedArray) FillMap(to map[int64]InputSecureFileUploaded) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputSecureFileUploadedArray) ToMap() map[int64]InputSecureFileUploaded {
+	r := make(map[int64]InputSecureFileUploaded, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // InputSecureFileArray is adapter for slice of InputSecureFile.
 type InputSecureFileArray []InputSecureFile
 
@@ -302,4 +380,32 @@ func (s *InputSecureFileArray) Pop() (v InputSecureFile, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of InputSecureFile by ID.
+func (s InputSecureFileArray) SortByID() InputSecureFileArray {
+	return s.Sort(func(a, b InputSecureFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputSecureFile by ID.
+func (s InputSecureFileArray) SortStableByID() InputSecureFileArray {
+	return s.SortStable(func(a, b InputSecureFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputSecureFileArray) FillMap(to map[int64]InputSecureFile) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputSecureFileArray) ToMap() map[int64]InputSecureFile {
+	r := make(map[int64]InputSecureFile, len(s))
+	s.FillMap(r)
+	return r
 }

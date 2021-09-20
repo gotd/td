@@ -222,6 +222,34 @@ func (s *InputThemeArray) Pop() (v InputTheme, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of InputTheme by ID.
+func (s InputThemeArray) SortByID() InputThemeArray {
+	return s.Sort(func(a, b InputTheme) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputTheme by ID.
+func (s InputThemeArray) SortStableByID() InputThemeArray {
+	return s.SortStable(func(a, b InputTheme) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputThemeArray) FillMap(to map[int64]InputTheme) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputThemeArray) ToMap() map[int64]InputTheme {
+	r := make(map[int64]InputTheme, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // InputThemeSlugArray is adapter for slice of InputThemeSlug.
 type InputThemeSlugArray []InputThemeSlug
 

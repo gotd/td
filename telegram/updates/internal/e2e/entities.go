@@ -4,19 +4,19 @@ import "github.com/gotd/td/tg"
 
 // Entities contains update entities.
 type Entities struct {
-	Users             map[int]*tg.User
-	Chats             map[int]*tg.Chat
-	Channels          map[int]*tg.Channel
-	ChannelsForbidden map[int]*tg.ChannelForbidden
+	Users             map[int64]*tg.User
+	Chats             map[int64]*tg.Chat
+	Channels          map[int64]*tg.Channel
+	ChannelsForbidden map[int64]*tg.ChannelForbidden
 }
 
 // NewEntities creates new Entities.
 func NewEntities() *Entities {
 	return &Entities{
-		Users:             map[int]*tg.User{},
-		Chats:             map[int]*tg.Chat{},
-		Channels:          map[int]*tg.Channel{},
-		ChannelsForbidden: map[int]*tg.ChannelForbidden{},
+		Users:             map[int64]*tg.User{},
+		Chats:             map[int64]*tg.Chat{},
+		Channels:          map[int64]*tg.Channel{},
+		ChannelsForbidden: map[int64]*tg.ChannelForbidden{},
 	}
 }
 

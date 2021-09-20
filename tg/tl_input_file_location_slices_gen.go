@@ -585,6 +585,34 @@ func (s *InputEncryptedFileLocationArray) Pop() (v InputEncryptedFileLocation, o
 	return v, true
 }
 
+// SortByID sorts slice of InputEncryptedFileLocation by ID.
+func (s InputEncryptedFileLocationArray) SortByID() InputEncryptedFileLocationArray {
+	return s.Sort(func(a, b InputEncryptedFileLocation) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputEncryptedFileLocation by ID.
+func (s InputEncryptedFileLocationArray) SortStableByID() InputEncryptedFileLocationArray {
+	return s.SortStable(func(a, b InputEncryptedFileLocation) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputEncryptedFileLocationArray) FillMap(to map[int64]InputEncryptedFileLocation) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputEncryptedFileLocationArray) ToMap() map[int64]InputEncryptedFileLocation {
+	r := make(map[int64]InputEncryptedFileLocation, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // InputDocumentFileLocationArray is adapter for slice of InputDocumentFileLocation.
 type InputDocumentFileLocationArray []InputDocumentFileLocation
 
@@ -665,6 +693,34 @@ func (s *InputDocumentFileLocationArray) Pop() (v InputDocumentFileLocation, ok 
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of InputDocumentFileLocation by ID.
+func (s InputDocumentFileLocationArray) SortByID() InputDocumentFileLocationArray {
+	return s.Sort(func(a, b InputDocumentFileLocation) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputDocumentFileLocation by ID.
+func (s InputDocumentFileLocationArray) SortStableByID() InputDocumentFileLocationArray {
+	return s.SortStable(func(a, b InputDocumentFileLocation) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputDocumentFileLocationArray) FillMap(to map[int64]InputDocumentFileLocation) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputDocumentFileLocationArray) ToMap() map[int64]InputDocumentFileLocation {
+	r := make(map[int64]InputDocumentFileLocation, len(s))
+	s.FillMap(r)
+	return r
 }
 
 // InputSecureFileLocationArray is adapter for slice of InputSecureFileLocation.
@@ -749,6 +805,34 @@ func (s *InputSecureFileLocationArray) Pop() (v InputSecureFileLocation, ok bool
 	return v, true
 }
 
+// SortByID sorts slice of InputSecureFileLocation by ID.
+func (s InputSecureFileLocationArray) SortByID() InputSecureFileLocationArray {
+	return s.Sort(func(a, b InputSecureFileLocation) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputSecureFileLocation by ID.
+func (s InputSecureFileLocationArray) SortStableByID() InputSecureFileLocationArray {
+	return s.SortStable(func(a, b InputSecureFileLocation) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputSecureFileLocationArray) FillMap(to map[int64]InputSecureFileLocation) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputSecureFileLocationArray) ToMap() map[int64]InputSecureFileLocation {
+	r := make(map[int64]InputSecureFileLocation, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // InputPhotoFileLocationArray is adapter for slice of InputPhotoFileLocation.
 type InputPhotoFileLocationArray []InputPhotoFileLocation
 
@@ -831,6 +915,34 @@ func (s *InputPhotoFileLocationArray) Pop() (v InputPhotoFileLocation, ok bool) 
 	return v, true
 }
 
+// SortByID sorts slice of InputPhotoFileLocation by ID.
+func (s InputPhotoFileLocationArray) SortByID() InputPhotoFileLocationArray {
+	return s.Sort(func(a, b InputPhotoFileLocation) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputPhotoFileLocation by ID.
+func (s InputPhotoFileLocationArray) SortStableByID() InputPhotoFileLocationArray {
+	return s.SortStable(func(a, b InputPhotoFileLocation) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputPhotoFileLocationArray) FillMap(to map[int64]InputPhotoFileLocation) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputPhotoFileLocationArray) ToMap() map[int64]InputPhotoFileLocation {
+	r := make(map[int64]InputPhotoFileLocation, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // InputPhotoLegacyFileLocationArray is adapter for slice of InputPhotoLegacyFileLocation.
 type InputPhotoLegacyFileLocationArray []InputPhotoLegacyFileLocation
 
@@ -911,6 +1023,34 @@ func (s *InputPhotoLegacyFileLocationArray) Pop() (v InputPhotoLegacyFileLocatio
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of InputPhotoLegacyFileLocation by ID.
+func (s InputPhotoLegacyFileLocationArray) SortByID() InputPhotoLegacyFileLocationArray {
+	return s.Sort(func(a, b InputPhotoLegacyFileLocation) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputPhotoLegacyFileLocation by ID.
+func (s InputPhotoLegacyFileLocationArray) SortStableByID() InputPhotoLegacyFileLocationArray {
+	return s.SortStable(func(a, b InputPhotoLegacyFileLocation) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputPhotoLegacyFileLocationArray) FillMap(to map[int64]InputPhotoLegacyFileLocation) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputPhotoLegacyFileLocationArray) ToMap() map[int64]InputPhotoLegacyFileLocation {
+	r := make(map[int64]InputPhotoLegacyFileLocation, len(s))
+	s.FillMap(r)
+	return r
 }
 
 // InputPeerPhotoFileLocationArray is adapter for slice of InputPeerPhotoFileLocation.

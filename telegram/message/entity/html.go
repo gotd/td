@@ -23,7 +23,7 @@ type htmlParser struct {
 	builder      *Builder
 	stack        []stackElem
 	attr         map[string]string
-	userResolver func(id int) (tg.InputUserClass, error)
+	userResolver func(id int64) (tg.InputUserClass, error)
 }
 
 func (p *htmlParser) fillAttrs() {
@@ -75,7 +75,7 @@ func (p *htmlParser) startTag() error {
 		}
 
 		if u.Scheme == "tg" && u.Host == "user" {
-			id, err := strconv.Atoi(u.Query().Get("id"))
+			id, err := strconv.ParseInt(u.Query().Get("id"), 10, 64)
 			if err != nil {
 				return xerrors.Errorf("invalid user ID %q: %w", id, err)
 			}
@@ -159,9 +159,9 @@ func (p *htmlParser) parse() error {
 // Notice that it's okay for bots, but not for users.
 //
 // See https://core.telegram.org/bots/api#html-style.
-func HTML(r io.Reader, b *Builder, userResolver func(id int) (tg.InputUserClass, error)) error {
+func HTML(r io.Reader, b *Builder, userResolver func(id int64) (tg.InputUserClass, error)) error {
 	if userResolver == nil {
-		userResolver = func(id int) (tg.InputUserClass, error) {
+		userResolver = func(id int64) (tg.InputUserClass, error) {
 			return &tg.InputUser{
 				UserID: id,
 			}, nil

@@ -64,13 +64,13 @@ func (m *Iterator) apply(r tg.PhotosPhotosClass) error {
 	switch phts := r.(type) {
 	case *tg.PhotosPhotos: // photos.photos#8dca6aa5
 		photos = phts.Photos
-		entities = peer.NewEntities(phts.MapUsers().UserToMap(), map[int]*tg.Chat{}, map[int]*tg.Channel{})
+		entities = peer.NewEntities(phts.MapUsers().UserToMap(), map[int64]*tg.Chat{}, map[int64]*tg.Channel{})
 
 		m.count = len(phts.Photos)
 		m.lastBatch = true
 	case *tg.PhotosPhotosSlice: // photos.photosSlice#15051f54
 		photos = phts.Photos
-		entities = peer.NewEntities(phts.MapUsers().UserToMap(), map[int]*tg.Chat{}, map[int]*tg.Channel{})
+		entities = peer.NewEntities(phts.MapUsers().UserToMap(), map[int64]*tg.Chat{}, map[int64]*tg.Channel{})
 
 		m.count = phts.Count
 		m.lastBatch = len(phts.Photos) < m.limit

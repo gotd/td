@@ -49,7 +49,7 @@ func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (pt
 		case *tg.UpdateChannelTooLong:
 			channelState, ok := s.channels[u.ChannelID]
 			if !ok {
-				s.log.Debug("ChannelTooLong for channel that is not in the state, update ignored", zap.Int("channel_id", u.ChannelID))
+				s.log.Debug("ChannelTooLong for channel that is not in the state, update ignored", zap.Int64("channel_id", u.ChannelID))
 				continue
 			}
 

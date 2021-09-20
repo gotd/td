@@ -7,7 +7,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func (s *ContactsGetContacts) computeHash(v *tg.ContactsContacts) int {
+func (s *ContactsGetContacts) computeHash(v *tg.ContactsContacts) int64 {
 	cts := v.Contacts
 
 	sort.SliceStable(cts, func(i, j int) bool {
@@ -18,5 +18,5 @@ func (s *ContactsGetContacts) computeHash(v *tg.ContactsContacts) int {
 		h.Update(uint32(contact.UserID))
 	}
 
-	return int(h.Sum())
+	return int64(h.Sum())
 }

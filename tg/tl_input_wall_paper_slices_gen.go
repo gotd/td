@@ -235,6 +235,34 @@ func (s *InputWallPaperArray) Pop() (v InputWallPaper, ok bool) {
 	return v, true
 }
 
+// SortByID sorts slice of InputWallPaper by ID.
+func (s InputWallPaperArray) SortByID() InputWallPaperArray {
+	return s.Sort(func(a, b InputWallPaper) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputWallPaper by ID.
+func (s InputWallPaperArray) SortStableByID() InputWallPaperArray {
+	return s.SortStable(func(a, b InputWallPaper) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputWallPaperArray) FillMap(to map[int64]InputWallPaper) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputWallPaperArray) ToMap() map[int64]InputWallPaper {
+	r := make(map[int64]InputWallPaper, len(s))
+	s.FillMap(r)
+	return r
+}
+
 // InputWallPaperSlugArray is adapter for slice of InputWallPaperSlug.
 type InputWallPaperSlugArray []InputWallPaperSlug
 
@@ -397,4 +425,32 @@ func (s *InputWallPaperNoFileArray) Pop() (v InputWallPaperNoFile, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of InputWallPaperNoFile by ID.
+func (s InputWallPaperNoFileArray) SortByID() InputWallPaperNoFileArray {
+	return s.Sort(func(a, b InputWallPaperNoFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of InputWallPaperNoFile by ID.
+func (s InputWallPaperNoFileArray) SortStableByID() InputWallPaperNoFileArray {
+	return s.SortStable(func(a, b InputWallPaperNoFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s InputWallPaperNoFileArray) FillMap(to map[int64]InputWallPaperNoFile) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s InputWallPaperNoFileArray) ToMap() map[int64]InputWallPaperNoFile {
+	r := make(map[int64]InputWallPaperNoFile, len(s))
+	s.FillMap(r)
+	return r
 }

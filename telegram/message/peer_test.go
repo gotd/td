@@ -41,7 +41,7 @@ func resolver(t *testing.T, expectedDomain string, expected tg.InputPeerClass) p
 
 type answerable struct {
 	ID     int
-	UserID int
+	UserID int64
 }
 
 func (a answerable) GetPeer() tg.PeerClass {
@@ -73,7 +73,7 @@ func TestResolve(t *testing.T) {
 	check(s.ResolveDomain("@durov"), expected)
 	check(s.ResolveDeeplink("https://t.me/durov"), expected)
 
-	uctx := tg.Entities{Users: map[int]*tg.User{
+	uctx := tg.Entities{Users: map[int64]*tg.User{
 		expected.UserID: {ID: expected.UserID, AccessHash: expected.AccessHash, Username: "durov"},
 	}}
 	ans := answerable{ID: 10, UserID: expected.UserID}

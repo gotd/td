@@ -28,12 +28,14 @@ func collectOnlyFields(fields []fieldDef, matchers ...simpleField) []fieldDef {
 func mapCollectableFields(fields []fieldDef) (r []fieldDef) {
 	return collectOnlyFields(fields,
 		simpleField{Name: "ID", Type: "int"},
+		simpleField{Name: "ID", Type: "int64"},
 	)
 }
 
 func sortableFields(fields []fieldDef) (r []fieldDef) {
 	return collectOnlyFields(fields,
 		simpleField{Name: "ID", Type: "int"},
+		simpleField{Name: "ID", Type: "int64"},
 		simpleField{Name: "Date", Type: "int"},
 	)
 }

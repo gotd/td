@@ -127,6 +127,24 @@ func (s EncryptedFileClassArray) AsEncryptedFile() (to EncryptedFileArray) {
 	return to
 }
 
+// FillNotEmptyMap fills only NotEmpty constructors to given map.
+func (s EncryptedFileClassArray) FillNotEmptyMap(to map[int64]*EncryptedFile) {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// NotEmptyToMap collects only NotEmpty constructors to map.
+func (s EncryptedFileClassArray) NotEmptyToMap() map[int64]*EncryptedFile {
+	r := make(map[int64]*EncryptedFile, len(s))
+	s.FillNotEmptyMap(r)
+	return r
+}
+
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
 func (s EncryptedFileClassArray) AppendOnlyNotEmpty(to []*EncryptedFile) []*EncryptedFile {
@@ -262,4 +280,32 @@ func (s *EncryptedFileArray) Pop() (v EncryptedFile, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of EncryptedFile by ID.
+func (s EncryptedFileArray) SortByID() EncryptedFileArray {
+	return s.Sort(func(a, b EncryptedFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of EncryptedFile by ID.
+func (s EncryptedFileArray) SortStableByID() EncryptedFileArray {
+	return s.SortStable(func(a, b EncryptedFile) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s EncryptedFileArray) FillMap(to map[int64]EncryptedFile) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s EncryptedFileArray) ToMap() map[int64]EncryptedFile {
+	r := make(map[int64]EncryptedFile, len(s))
+	s.FillMap(r)
+	return r
 }
