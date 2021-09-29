@@ -4019,23 +4019,6 @@ func (s *ServerDispatcher) OnMessagesGetOnlines(f func(ctx context.Context, peer
 	s.handlers[MessagesGetOnlinesRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetStatsURL(f func(ctx context.Context, request *MessagesGetStatsURLRequest) (*StatsURL, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request MessagesGetStatsURLRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, &request)
-		if err != nil {
-			return nil, err
-		}
-		return response, nil
-	}
-
-	s.handlers[MessagesGetStatsURLRequestTypeID] = handler
-}
-
 func (s *ServerDispatcher) OnMessagesEditChatAbout(f func(ctx context.Context, request *MessagesEditChatAboutRequest) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesEditChatAboutRequest

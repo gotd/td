@@ -2,7 +2,7 @@
 //
 // Source: https://raw.githubusercontent.com/tdlib/td/master/td/generate/scheme/telegram_api.tl
 // Layer:  133
-// SHA256: 5f10a084a6a53d532e13ceaaaacf6a91ecc049292c68edfc723da3fd6cbbdd22
+// SHA256: d9402924dd4b978c47474cb13c8cc2877fee5df23ac773252210a7268724f4a6
 
 int#a8509bda ? = Int;
 
@@ -2328,8 +2328,6 @@ messages.sendVote#10ea6184 peer:InputPeer msg_id:int options:Vector<bytes> = Upd
 messages.getPollResults#73bb643b peer:InputPeer msg_id:int = Updates;
 
 messages.getOnlines#6e2be050 peer:InputPeer = ChatOnlines;
-
-messages.getStatsURL#812c2ae6 flags:# dark:flags.0?true peer:InputPeer params:string = StatsURL;
 
 messages.editChatAbout#def60797 peer:InputPeer about:string = Bool;
 
