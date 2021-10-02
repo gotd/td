@@ -26,31 +26,31 @@ type entities struct {
 
 // Merge merges entities.
 func (e *entities) Merge(from entities) {
-	for userIDFrom, userFrom := range from.Users {
+	for _, candidate := range from.Users {
 		merge := true
-		for userIDExist := range e.Users {
-			if userIDExist == userIDFrom {
+		for _, exist := range e.Users {
+			if exist.GetID() == candidate.GetID() {
 				merge = false
 				break
 			}
 		}
 
 		if merge {
-			e.Users = append(e.Users, userFrom)
+			e.Users = append(e.Users, candidate)
 		}
 	}
 
-	for chatIDFrom, chatFrom := range from.Chats {
+	for _, candidate := range from.Chats {
 		merge := true
-		for chatIDExist := range e.Chats {
-			if chatIDExist == chatIDFrom {
+		for _, exist := range e.Chats {
+			if exist.GetID() == candidate.GetID() {
 				merge = false
 				break
 			}
 		}
 
 		if merge {
-			e.Chats = append(e.Chats, chatFrom)
+			e.Chats = append(e.Chats, candidate)
 		}
 	}
 }
