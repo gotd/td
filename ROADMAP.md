@@ -102,3 +102,4 @@ Features that have no milestone, but are likely to appear at some point.
 * Extreme performance
   * The [gnet](https://github.com/panjf2000/gnet) Event Loop for Server
   * Generated object pooling
+  * Zero allocation AES-IGE implementation
