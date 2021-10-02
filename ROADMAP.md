@@ -67,4 +67,38 @@ A client for `telegram-bot-api`.
 ### Goals
 
 * Implement ecosystem of tools for Telegram in Go.
-* Make it robust via extensive end-to-end testing.
+* Make it robust via extensive, extreme end-to-end testing, benchmarking and profiling.
+
+## No Milestone
+
+Features that have no milestone, but are likely to appear at some point.
+
+* Extreme End-to-End
+  * Components
+    * Telegram Server in Go
+    * Telegram Bot API in Go
+    * Telegram Client in Go
+    * Telegram Bot Client in Go
+  * Tracing support in every component, on all layers of abstraction
+    * MTProto level (withTraceID generic wrapper, like withoutUpdates)
+    * Application level (spans in Server, Bot, Client, Events, Hooks)
+    * Persistence level (spans in Database implementations of Client/Server persistence)
+    * Background tasks level
+    * Network level (eBPF)
+* Continuous (daily, hourly consistent runs)
+  * Profiling
+    * Go
+    * End-to-end
+  * Benchmarks
+    * Go
+    * End-to-End
+  * Fuzzing
+* GitHub Actions (checks for PR's)
+  * Benchmarks (Only significant changes)
+  * API Backward Compatibility check
+* Kubernetes integration
+  * Telegram Bot API
+  * Telegram Server
+* Extreme performance
+  * The [gnet](https://github.com/panjf2000/gnet) Event Loop for Server
+  * Generated object pooling
