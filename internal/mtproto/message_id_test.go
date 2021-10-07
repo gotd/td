@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/gotd/td/internal/proto"
+	"github.com/nnqq/td/internal/proto"
 )
 
 func TestClientNewMessageID(t *testing.T) {

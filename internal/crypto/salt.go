@@ -3,8 +3,8 @@ package crypto
 import (
 	"encoding/binary"
 
-	"github.com/gotd/td/bin"
 	"github.com/gotd/xor"
+	"github.com/nnqq/td/bin"
 )
 
 // ServerSalt computes server salt.

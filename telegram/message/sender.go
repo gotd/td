@@ -6,10 +6,10 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/telegram/message/peer"
-	"github.com/gotd/td/telegram/uploader"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/telegram/message/peer"
+	"github.com/nnqq/td/telegram/uploader"
+	"github.com/nnqq/td/tg"
 )
 
 // Sender is a message sending helper.

@@ -11,14 +11,14 @@ import (
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/session"
-	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgtest/cluster"
-	"github.com/gotd/td/tgtest/services"
-	"github.com/gotd/td/tgtest/services/config"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/session"
+	"github.com/nnqq/td/telegram"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/tgtest/cluster"
+	"github.com/nnqq/td/tgtest/services"
+	"github.com/nnqq/td/tgtest/services/config"
 )
 
 func TestSessionHandle(t *testing.T) {

@@ -10,10 +10,10 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/clock"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/transport"
 )
 
 type closeConn struct {

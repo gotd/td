@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gotd/td/internal/mt"
+	"github.com/nnqq/td/internal/mt"
 )
 
 // Salts is a simple struct store server salts.

@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 func TestEncrypt(t *testing.T) {

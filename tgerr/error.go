@@ -8,7 +8,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/ascii"
+	"github.com/nnqq/td/internal/ascii"
 )
 
 // Error represents RPC error returned as result to request.

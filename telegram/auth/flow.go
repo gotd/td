@@ -11,8 +11,8 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/tg"
 )
 
 // NewFlow initializes new authentication flow.

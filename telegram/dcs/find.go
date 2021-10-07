@@ -3,7 +3,7 @@ package dcs
 import (
 	"sort"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 // FindDCs searches DCs candidates from given config.

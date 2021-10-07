@@ -1,8 +1,8 @@
 package styling
 
 import (
-	"github.com/gotd/td/telegram/message/entity"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/telegram/message/entity"
+	"github.com/nnqq/td/tg"
 )
 
 // StyledTextOption is an option for styling text.

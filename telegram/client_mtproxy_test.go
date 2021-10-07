@@ -15,10 +15,10 @@ import (
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/session"
-	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/telegram/dcs"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/session"
+	"github.com/nnqq/td/telegram"
+	"github.com/nnqq/td/telegram/dcs"
 )
 
 type mtg struct {

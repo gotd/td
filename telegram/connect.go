@@ -9,8 +9,8 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/exchange"
-	"github.com/gotd/td/internal/tdsync"
+	"github.com/nnqq/td/internal/exchange"
+	"github.com/nnqq/td/internal/tdsync"
 )
 
 func (c *Client) runUntilRestart(ctx context.Context) error {

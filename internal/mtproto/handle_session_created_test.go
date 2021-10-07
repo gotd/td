@@ -10,10 +10,10 @@ import (
 	"go.uber.org/zap/zaptest/observer"
 
 	"github.com/gotd/neo"
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/proto"
-	"github.com/gotd/td/internal/tdsync"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/mt"
+	"github.com/nnqq/td/internal/proto"
+	"github.com/nnqq/td/internal/tdsync"
 )
 
 func TestConn_handleSessionCreated(t *testing.T) {

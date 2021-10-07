@@ -11,8 +11,8 @@ import (
 
 	"github.com/gotd/neo"
 
-	"github.com/gotd/td/internal/testutil"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/internal/testutil"
+	"github.com/nnqq/td/tg"
 )
 
 func TestLRU(t *testing.T) {

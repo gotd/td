@@ -3,9 +3,9 @@ package session
 import (
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/session/tdesktop"
-	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/session/tdesktop"
+	"github.com/nnqq/td/telegram/dcs"
+	"github.com/nnqq/td/tg"
 )
 
 func findDCAddr(list []tg.DCOption, dcID int) string {

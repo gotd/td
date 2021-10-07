@@ -16,10 +16,10 @@ import (
 	"go.uber.org/atomic"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/syncio"
-	"github.com/gotd/td/internal/testutil"
-	"github.com/gotd/td/telegram/uploader/source"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/internal/syncio"
+	"github.com/nnqq/td/internal/testutil"
+	"github.com/nnqq/td/telegram/uploader/source"
+	"github.com/nnqq/td/tg"
 )
 
 type mockClient struct {

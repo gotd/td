@@ -3,7 +3,7 @@ package uploader
 import (
 	"context"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 // Client represents Telegram RPC client.

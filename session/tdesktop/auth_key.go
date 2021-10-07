@@ -6,8 +6,8 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/crypto"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/crypto"
 )
 
 type reader struct {

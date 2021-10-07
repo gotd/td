@@ -6,8 +6,8 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/tg"
 )
 
 func (d *Downloader) stream(ctx context.Context, r *reader, w io.Writer) (tg.StorageFileTypeClass, error) {

@@ -9,9 +9,9 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/transport"
 )
 
 // Up runs all servers in a cluster.

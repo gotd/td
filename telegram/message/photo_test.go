@@ -7,7 +7,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 func TestPhoto(t *testing.T) {

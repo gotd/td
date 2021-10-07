@@ -1,6 +1,6 @@
 package inline
 
-import "github.com/gotd/td/tg"
+import "github.com/nnqq/td/tg"
 
 // DocumentResultBuilder is document result option builder.
 type DocumentResultBuilder struct {

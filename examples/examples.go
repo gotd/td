@@ -2,5 +2,5 @@
 package examples
 
 import (
-	_ "github.com/gotd/td"
+	_ "github.com/nnqq/td"
 )

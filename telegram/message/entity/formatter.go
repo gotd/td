@@ -1,6 +1,6 @@
 package entity
 
-import "github.com/gotd/td/tg"
+import "github.com/nnqq/td/tg"
 
 // Formatter is a message entity constructor.
 type Formatter func(offset, limit int) tg.MessageEntityClass

@@ -3,7 +3,7 @@ package tdesktop
 import (
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/crypto"
+	"github.com/nnqq/td/internal/crypto"
 )
 
 // MTPAuthorization is a Telegram Desktop storage structure which stores MTProto session info.

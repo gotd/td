@@ -3,7 +3,7 @@ package peer
 import (
 	"time"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 type nodeData struct {

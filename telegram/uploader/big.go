@@ -6,11 +6,11 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/syncio"
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgerr"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/syncio"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/tgerr"
 )
 
 type part struct {

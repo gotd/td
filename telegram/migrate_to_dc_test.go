@@ -12,16 +12,16 @@ import (
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/tgerr"
+	"github.com/nnqq/td/tgerr"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/mtproto"
-	"github.com/gotd/td/internal/pool"
-	"github.com/gotd/td/internal/rpc"
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/telegram/internal/manager"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/clock"
+	"github.com/nnqq/td/internal/mtproto"
+	"github.com/nnqq/td/internal/pool"
+	"github.com/nnqq/td/internal/rpc"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/telegram/internal/manager"
+	"github.com/nnqq/td/tg"
 )
 
 type migrationTestHandler func(id int64, dc int, body bin.Encoder) (bin.Encoder, error)

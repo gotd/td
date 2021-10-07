@@ -6,9 +6,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/gotd/td/session"
-	"github.com/gotd/td/session/tdesktop"
-	"github.com/gotd/td/telegram"
+	"github.com/nnqq/td/session"
+	"github.com/nnqq/td/session/tdesktop"
+	"github.com/nnqq/td/telegram"
 )
 
 func ExampleTDesktopSession() {

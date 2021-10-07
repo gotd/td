@@ -1,8 +1,8 @@
 package telegram
 
 import (
-	"github.com/gotd/td/session"
-	"github.com/gotd/td/tgerr"
+	"github.com/nnqq/td/session"
+	"github.com/nnqq/td/tgerr"
 )
 
 // SessionStorage is alias of mtproto.SessionStorage.

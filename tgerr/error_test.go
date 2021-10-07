@@ -6,9 +6,9 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/testutil"
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgerr"
+	"github.com/nnqq/td/internal/testutil"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/tgerr"
 )
 
 func TestError(t *testing.T) {

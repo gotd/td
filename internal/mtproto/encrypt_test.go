@@ -9,9 +9,9 @@ import (
 
 	"github.com/gotd/neo"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/testutil"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/internal/testutil"
 )
 
 func benchEncryption(b *testing.B, c *Conn, n int) {

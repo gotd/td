@@ -7,8 +7,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/tgerr"
+	"github.com/nnqq/td/telegram"
+	"github.com/nnqq/td/tgerr"
 )
 
 func TestAsFloodWait(t *testing.T) {

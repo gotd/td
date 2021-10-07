@@ -3,7 +3,7 @@ package auth
 import (
 	"crypto/rand"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 const (

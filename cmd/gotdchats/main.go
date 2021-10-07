@@ -14,10 +14,10 @@ import (
 	"golang.org/x/net/proxy"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/telegram/auth"
-	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/telegram"
+	"github.com/nnqq/td/telegram/auth"
+	"github.com/nnqq/td/telegram/dcs"
+	"github.com/nnqq/td/tg"
 )
 
 func run(ctx context.Context) error {

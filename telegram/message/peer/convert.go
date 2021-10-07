@@ -1,7 +1,7 @@
 package peer
 
 import (
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 // ToInputUser converts given peer to input user if possible.

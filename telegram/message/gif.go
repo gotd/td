@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 // GIF add attributes to create GIF attachment.

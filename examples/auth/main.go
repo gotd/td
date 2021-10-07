@@ -13,10 +13,10 @@ import (
 	"golang.org/x/crypto/ssh/terminal"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/examples"
-	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/telegram/auth"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/examples"
+	"github.com/nnqq/td/telegram"
+	"github.com/nnqq/td/telegram/auth"
+	"github.com/nnqq/td/tg"
 )
 
 // noSignUp can be embedded to prevent signing up.

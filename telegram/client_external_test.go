@@ -11,14 +11,14 @@ import (
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest"
 
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/internal/testutil"
-	"github.com/gotd/td/session"
-	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/telegram/internal/e2etest"
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/internal/testutil"
+	"github.com/nnqq/td/session"
+	"github.com/nnqq/td/telegram"
+	"github.com/nnqq/td/telegram/dcs"
+	"github.com/nnqq/td/telegram/internal/e2etest"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/transport"
 )
 
 func tryConnect(ctx context.Context, opts telegram.Options) error {

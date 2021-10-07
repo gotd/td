@@ -19,23 +19,23 @@
 {{- end }}
 
 {{ define "print_type" }}
-{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
+{{- /*gotype: github.com/nnqq/td/internal/gen.fieldDef*/ -}}
 {{- if $.DoubleSlice }}[][]{{ $.Type }}
 {{- else if $.Slice }}[]{{ $.Type }}
 {{- else }}{{ $.Type }}
 {{- end }}{{- end }}
 
-{{ define "getter_func_type" }}{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
+{{ define "getter_func_type" }}{{- /*gotype: github.com/nnqq/td/internal/gen.fieldDef*/ -}}
 Get{{$.Name}}() (value {{ template "print_type" $ }}{{ if and ($.Conditional) (not $.ConditionalBool) }}, ok bool{{ end }})
 {{- end }}
 
 {{ define "print_mapper_type" }}{{ $mapping := . -}}
-{{- /*gotype: github.com/gotd/td/internal/gen.constructorMapping*/ -}}
+{{- /*gotype: github.com/nnqq/td/internal/gen.constructorMapping*/ -}}
 {{- if not ($mapping.Concrete) }}{{ $mapping.Name }}{{- else }}*{{ $mapping.Name }}{{- end -}}
 {{ end }}
 
 {{ define "mapper_func_type" }}{{ $mapping := . -}}
-{{- /*gotype: github.com/gotd/td/internal/gen.constructorMapping*/ -}}
+{{- /*gotype: github.com/nnqq/td/internal/gen.constructorMapping*/ -}}
 {{- if $mapping.Fields }}As{{ $mapping.MapperName }}() {{ template "print_mapper_type" $mapping }}
 {{- else }}As{{ $mapping.MapperName }}() ({{ template "print_mapper_type" $mapping }}, bool)
 {{- end }}{{- end }}
@@ -63,7 +63,7 @@ Get{{$.Name}}() (value {{ template "print_type" $ }}{{ if and ($.Conditional) (n
 {{- end }}
 
 {{ define "class_interface_header" }}{{ $f := . }}
-{{- /*gotype: github.com/gotd/td/internal/gen.interfaceDef*/ -}}
+{{- /*gotype: github.com/nnqq/td/internal/gen.interfaceDef*/ -}}
     bin.Encoder
     bin.Decoder
     bin.BareEncoder
@@ -83,6 +83,6 @@ Get{{$.Name}}() (value {{ template "print_type" $ }}{{ if and ($.Conditional) (n
 {{- end }}
 
 
-{{ define "map_collector_name" }}{{ $field := . }}{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
+{{ define "map_collector_name" }}{{ $field := . }}{{- /*gotype: github.com/nnqq/td/internal/gen.fieldDef*/ -}}
 {{ if ne ($field.Name) ("ID") }}{{ $field.Name }}{{ end }}
 {{- end }}

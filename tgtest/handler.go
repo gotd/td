@@ -3,7 +3,7 @@ package tgtest
 import (
 	"context"
 
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 // Request represents MTProto RPC request structure.

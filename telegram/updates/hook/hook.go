@@ -6,9 +6,9 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/telegram"
+	"github.com/nnqq/td/tg"
 )
 
 // UpdateHook middleware is called on each tg.UpdatesClass method result.

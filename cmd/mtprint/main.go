@@ -6,7 +6,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/gotd/td/internal/proto/codec"
+	"github.com/nnqq/td/internal/proto/codec"
 )
 
 func main() {

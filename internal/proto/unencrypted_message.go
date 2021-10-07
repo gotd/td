@@ -3,7 +3,7 @@ package proto
 import (
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 // UnencryptedMessage is plaintext message.

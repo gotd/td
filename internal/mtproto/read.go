@@ -11,10 +11,10 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/proto"
-	"github.com/gotd/td/internal/proto/codec"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/internal/proto"
+	"github.com/nnqq/td/internal/proto/codec"
 )
 
 // https://core.telegram.org/mtproto/description#message-identifier-msg-id
@@ -115,7 +115,7 @@ func (c *Conn) noUpdates(err error) bool {
 func (c *Conn) handleAuthKeyNotFound(ctx context.Context) error {
 	if c.session().ID == 0 {
 		// The 404 error can also be caused by zero session id.
-		// See https://github.com/gotd/td/issues/107
+		// See https://github.com/nnqq/td/issues/107
 		//
 		// We should recover from this in createAuthKey, but in general
 		// this code branch should be unreachable.

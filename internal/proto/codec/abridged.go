@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 // AbridgedClientStart is starting bytes sent by client in Abridged mode.

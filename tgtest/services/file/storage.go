@@ -5,7 +5,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/gotd/td/internal/syncio"
+	"github.com/nnqq/td/internal/syncio"
 )
 
 // File represents Telegram file.

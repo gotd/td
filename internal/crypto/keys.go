@@ -3,7 +3,7 @@ package crypto
 import (
 	"crypto/sha256"
 
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 // Side on which encryption is performed.

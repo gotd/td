@@ -8,11 +8,11 @@ import (
 	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/mtproxy"
-	"github.com/gotd/td/internal/mtproxy/obfuscator"
-	"github.com/gotd/td/internal/proto/codec"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/internal/mtproxy"
+	"github.com/nnqq/td/internal/mtproxy/obfuscator"
+	"github.com/nnqq/td/internal/proto/codec"
+	"github.com/nnqq/td/transport"
 )
 
 var _ Resolver = mtProxy{}

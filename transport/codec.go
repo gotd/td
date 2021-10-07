@@ -3,7 +3,7 @@ package transport
 import (
 	"io"
 
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 // Codec is MTProto transport protocol encoding abstraction.

@@ -8,8 +8,8 @@ import (
 	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/transport"
 )
 
 var _ Resolver = plain{}

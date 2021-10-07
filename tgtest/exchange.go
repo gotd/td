@@ -5,11 +5,11 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/exchange"
-	"github.com/gotd/td/internal/proto/codec"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/internal/exchange"
+	"github.com/nnqq/td/internal/proto/codec"
+	"github.com/nnqq/td/transport"
 )
 
 type exchangeConn struct {

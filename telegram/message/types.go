@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 type multiMediaBuilder struct {

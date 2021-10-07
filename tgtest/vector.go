@@ -3,7 +3,7 @@ package tgtest
 import (
 	"fmt"
 
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 // genericVector is a simple helper to encode a vector of TL objects.

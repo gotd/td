@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/mtproxy"
+	"github.com/nnqq/td/internal/mtproxy"
 )
 
 // FakeTLS implements FakeTLS obfuscation protocol.

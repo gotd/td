@@ -10,8 +10,8 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/ige"
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/crypto"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/crypto"
 )
 
 // See https://github.com/telegramdesktop/tdesktop/blob/v2.9.8/Telegram/SourceFiles/storage/details/storage_file_utilities.cpp#L322.

@@ -6,9 +6,9 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/telegram/internal/upconv"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/telegram/internal/upconv"
+	"github.com/nnqq/td/tg"
 )
 
 func (c *Client) updateInterceptor(updates ...tg.UpdateClass) {

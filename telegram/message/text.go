@@ -5,9 +5,9 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/message/entity"
-	"github.com/gotd/td/telegram/message/styling"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/telegram/message/entity"
+	"github.com/nnqq/td/telegram/message/styling"
+	"github.com/nnqq/td/tg"
 )
 
 func (b *Builder) sendRequest(

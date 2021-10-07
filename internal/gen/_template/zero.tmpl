@@ -1,10 +1,10 @@
 {{ define "zero_derive" }}{{ $s := . }}
-{{- /*gotype: github.com/gotd/td/internal/gen.structDef*/ -}}
+{{- /*gotype: github.com/nnqq/td/internal/gen.structDef*/ -}}
 func ({{ $s.Receiver }} *{{ $s.Name }}) Zero() bool {
     if {{ $s.Receiver }} == nil {
         return true
     }
-{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
+{{- /*gotype: github.com/nnqq/td/internal/gen.fieldDef*/ -}}
 {{- range $f := $s.Fields }}{{- if ne ($f.Name) ($f.ConditionalField) }}
     if !({{ $s.Receiver }}.{{template "compare_zero" $f}}) {
         return false
@@ -16,7 +16,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Zero() bool {
 {{- end -}}
 
 {{ define "compare_zero" }}
-{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
+{{- /*gotype: github.com/nnqq/td/internal/gen.fieldDef*/ -}}
 {{- .Name -}}
 {{- if or (.Slice) (.DoubleSlice) -}} == nil
 {{- else if eq (.Type) ("bin.Int128") -}} == bin.Int128{}

@@ -3,7 +3,7 @@ package styling
 import (
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/message/entity"
+	"github.com/nnqq/td/telegram/message/entity"
 )
 
 type textBuilder struct {

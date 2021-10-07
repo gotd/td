@@ -4,9 +4,9 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/proto"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/mt"
+	"github.com/nnqq/td/internal/proto"
 )
 
 func (c *Conn) handleMessage(msgID int64, b *bin.Buffer) error {

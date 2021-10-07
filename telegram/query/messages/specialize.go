@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 // Document returns document object if message has a document attachment (video, voice, audio,

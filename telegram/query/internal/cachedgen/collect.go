@@ -7,7 +7,7 @@ import (
 
 	"golang.org/x/tools/go/packages"
 
-	"github.com/gotd/td/telegram/query/internal/genutil"
+	"github.com/nnqq/td/telegram/query/internal/genutil"
 )
 
 func isHashField(field *types.Var) bool {

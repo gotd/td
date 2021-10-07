@@ -7,10 +7,10 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/proto/codec"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/internal/mt"
+	"github.com/nnqq/td/internal/proto/codec"
 )
 
 // ServerExchangeError is returned when exchange fails due to

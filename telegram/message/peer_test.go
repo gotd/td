@@ -7,8 +7,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/message/peer"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/telegram/message/peer"
+	"github.com/nnqq/td/tg"
 )
 
 type testResolver struct {

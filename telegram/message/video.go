@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 // Video creates new VideoDocumentBuilder to create video attachment.

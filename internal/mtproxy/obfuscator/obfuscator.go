@@ -6,9 +6,9 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/mtproxy"
-	"github.com/gotd/td/internal/mtproxy/faketls"
-	"github.com/gotd/td/internal/mtproxy/obfuscated2"
+	"github.com/nnqq/td/internal/mtproxy"
+	"github.com/nnqq/td/internal/mtproxy/faketls"
+	"github.com/nnqq/td/internal/mtproxy/obfuscated2"
 )
 
 // Obfuscator represents MTProxy obfuscator.

@@ -10,7 +10,7 @@ import (
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/query/internal/genutil"
+	"github.com/nnqq/td/telegram/query/internal/genutil"
 )
 
 type method struct {

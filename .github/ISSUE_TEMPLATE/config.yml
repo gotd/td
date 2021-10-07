@@ -1,6 +1,6 @@
 contact_links:
   - name: My account got banned!
-    url: https://github.com/gotd/td/blob/main/.github/SUPPORT.md#how-not-to-get-banned
+    url: https://github.com/nnqq/td/blob/main/.github/SUPPORT.md#how-not-to-get-banned
     about: 'Use "How not to get banned" guide'
   - name: Ask on Telegram (Russian)
     url: https://t.me/gotd_ru
@@ -9,8 +9,8 @@ contact_links:
     url: https://t.me/gotd_en
     about: You can ask for help in English here!
   - name: Ask on GitHub
-    url: https://github.com/gotd/td/discussions/new?category=q-a
+    url: https://github.com/nnqq/td/discussions/new?category=q-a
     about: You can ask for help without using Telegram too!
   - name: Want to contribute to gotd?
-    url: https://github.com/gotd/td/blob/main/CONTRIBUTING.md
+    url: https://github.com/nnqq/td/blob/main/CONTRIBUTING.md
     about: Be sure to read contributing guidelines!

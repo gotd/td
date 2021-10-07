@@ -1,6 +1,6 @@
 package e2e
 
-import "github.com/gotd/td/tg"
+import "github.com/nnqq/td/tg"
 
 type messageDatabase struct {
 	common   []tg.MessageClass

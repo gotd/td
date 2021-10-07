@@ -1,6 +1,6 @@
 package message
 
-import "github.com/gotd/td/tg"
+import "github.com/nnqq/td/tg"
 
 // GeoPoint adds geo point attachment.
 // NB: parameter accuracy may be zero and will not be used.

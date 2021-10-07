@@ -11,8 +11,8 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/gotd/td/internal/testutil"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/internal/testutil"
+	"github.com/nnqq/td/transport"
 )
 
 func FuzzFlow(data []byte) int {

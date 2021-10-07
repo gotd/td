@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 func resolver(t *testing.T, expectedDomain string, expected tg.InputPeerClass) Resolver {

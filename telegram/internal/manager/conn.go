@@ -9,13 +9,13 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/mtproto"
-	"github.com/gotd/td/internal/pool"
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgerr"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/clock"
+	"github.com/nnqq/td/internal/mtproto"
+	"github.com/nnqq/td/internal/pool"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/tgerr"
 )
 
 type protoConn interface {
@@ -214,7 +214,7 @@ func (c *Conn) init(ctx context.Context) error {
 				// Server sometimes returns FLOOD_WAIT(0) if you create
 				// multiple connections in short period of time.
 				//
-				// See https://github.com/gotd/td/issues/388.
+				// See https://github.com/nnqq/td/issues/388.
 				return xerrors.Errorf("flood wait: %w", err)
 			}
 			// Not retrying other errors.

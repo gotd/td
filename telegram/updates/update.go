@@ -3,7 +3,7 @@ package updates
 import (
 	"context"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 type update struct {

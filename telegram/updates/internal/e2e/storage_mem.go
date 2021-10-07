@@ -5,7 +5,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/updates"
+	"github.com/nnqq/td/telegram/updates"
 )
 
 var _ updates.StateStorage = (*memStorage)(nil)

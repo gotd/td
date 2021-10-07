@@ -1,4 +1,4 @@
-{{- /*gotype: github.com/gotd/td/internal/gen.interfaceDef*/ -}}
+{{- /*gotype: github.com/nnqq/td/internal/gen.interfaceDef*/ -}}
 {{ define "box" }}{{ $f := . }}
 // Decode{{ $f.Func }} implements binary de-serialization for {{ $f.Name }}.
 func Decode{{ $f.Func }} (buf *bin.Buffer) ({{ $f.Name }}, error) {

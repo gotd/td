@@ -3,9 +3,9 @@ package mtproto
 import (
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/proto"
+	"github.com/nnqq/td/internal/proto"
 
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 func (c *Conn) handleContainer(msgID int64, b *bin.Buffer) error {

@@ -6,8 +6,8 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/mt"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/mt"
 )
 
 func (c *Conn) handleFutureSalts(b *bin.Buffer) error {

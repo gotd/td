@@ -6,8 +6,8 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgerr"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/tgerr"
 )
 
 func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) error {

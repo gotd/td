@@ -3,7 +3,7 @@ package mtproto
 import (
 	"context"
 
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 func (c *Conn) writeContentMessage(ctx context.Context, msgID int64, seqNo int32, message bin.Encoder) error {
@@ -46,7 +46,7 @@ func (c *Conn) nextMsgSeq(content bool) (msgID int64, seqNo int32) {
 	// Computing current sequence number (seqno).
 	// This should be serialized with new message id generation.
 	//
-	// See https://github.com/gotd/td/issues/245 for reference.
+	// See https://github.com/nnqq/td/issues/245 for reference.
 	seqNo = c.sentContentMessages * 2
 	if content {
 		seqNo++

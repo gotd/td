@@ -3,7 +3,7 @@ package thumbnail_test
 import (
 	"os"
 
-	"github.com/gotd/td/telegram/thumbnail"
+	"github.com/nnqq/td/telegram/thumbnail"
 )
 
 func ExampleDecodePath() {

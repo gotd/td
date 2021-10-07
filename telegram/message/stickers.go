@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 // UploadedSticker creates new UploadedStickerBuilder to create sticker attachment.

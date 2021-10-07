@@ -12,8 +12,8 @@ import (
 	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/uploader/source"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/telegram/uploader/source"
+	"github.com/nnqq/td/tg"
 )
 
 // File is file abstraction.

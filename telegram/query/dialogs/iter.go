@@ -6,8 +6,8 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/message/peer"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/telegram/message/peer"
+	"github.com/nnqq/td/tg"
 )
 
 // Elem is a dialog iterator element.

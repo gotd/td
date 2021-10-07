@@ -11,9 +11,9 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/transport"
 )
 
 func TestExchangeTimeout(t *testing.T) {

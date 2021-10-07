@@ -6,12 +6,12 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/internal/exchange"
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgtest"
-	"github.com/gotd/td/tgtest/services/config"
+	"github.com/nnqq/td/internal/exchange"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/telegram/dcs"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/tgtest"
+	"github.com/nnqq/td/tgtest/services/config"
 )
 
 type setup struct {

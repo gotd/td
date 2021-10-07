@@ -1,4 +1,4 @@
-# td [![Go Reference](https://pkg.go.dev/badge/github.com/gotd/td.svg)](https://pkg.go.dev/github.com/gotd/td/telegram) [![codecov](https://codecov.io/gh/gotd/td/branch/main/graph/badge.svg?token=shR5PXG7Ds)](https://codecov.io/gh/gotd/td)
+# td [![Go Reference](https://pkg.go.dev/badge/github.com/nnqq/td.svg)](https://pkg.go.dev/github.com/nnqq/td/telegram) [![codecov](https://codecov.io/gh/gotd/td/branch/main/graph/badge.svg?token=shR5PXG7Ds)](https://codecov.io/gh/gotd/td)
 
 A fast Telegram client in pure Go.
 
@@ -14,7 +14,7 @@ Before using this library, read [How To Not Get Banned](.github/SUPPORT.md#how-t
 ## Usage
 
 ```console
-go get github.com/gotd/td
+go get github.com/nnqq/td
 ```
 
 ```go
@@ -23,7 +23,7 @@ package main
 import (
 	"context"
 
-	"github.com/gotd/td/telegram"
+	"github.com/nnqq/td/telegram"
 )
 
 func main() {
@@ -76,17 +76,17 @@ Also, see the [comparison](#difference-to-other-projects) with other Go Telegram
   * Fuzzing
   * 24/7 canary bot in production that tests reconnects, update handling, memory leaks and performance
 * No runtime reflection overhead
-* [Conforms](https://github.com/gotd/td/issues/155) to [Security guidelines](https://core.telegram.org/mtproto/security_guidelines) for Telegram client software developers
+* [Conforms](https://github.com/nnqq/td/issues/155) to [Security guidelines](https://core.telegram.org/mtproto/security_guidelines) for Telegram client software developers
   * Secure PRNG used for crypto
   * Replay attack protection
 * 2FA support
 * MTProxy support
 * Various helpers that lighten the complexity of the Telegram API
-  * [uploads](https://pkg.go.dev/github.com/gotd/td/telegram/uploader) for big and small files with multiple streams for single file and progress reporting
-  * [downloads](https://pkg.go.dev/github.com/gotd/td/telegram/downloader) with CDN support, also multiple streams
-  * [messages](https://pkg.go.dev/github.com/gotd/td/telegram/message) with various convenience builders and text styling support
-  * [query](https://pkg.go.dev/github.com/gotd/td/telegram/query) with pagination helpers
-  * [middleware](https://pkg.go.dev/github.com/gotd/td/telegram#Middleware) for [rate limiting](https://pkg.go.dev/github.com/gotd/contrib/middleware/ratelimit) and [FLOOD_WAIT handling](https://pkg.go.dev/github.com/gotd/contrib/middleware/floodwait)
+  * [uploads](https://pkg.go.dev/github.com/nnqq/td/telegram/uploader) for big and small files with multiple streams for single file and progress reporting
+  * [downloads](https://pkg.go.dev/github.com/nnqq/td/telegram/downloader) with CDN support, also multiple streams
+  * [messages](https://pkg.go.dev/github.com/nnqq/td/telegram/message) with various convenience builders and text styling support
+  * [query](https://pkg.go.dev/github.com/nnqq/td/telegram/query) with pagination helpers
+  * [middleware](https://pkg.go.dev/github.com/nnqq/td/telegram#Middleware) for [rate limiting](https://pkg.go.dev/github.com/gotd/contrib/middleware/ratelimit) and [FLOOD_WAIT handling](https://pkg.go.dev/github.com/gotd/contrib/middleware/floodwait)
 * CDN support with connection pooling
 * Automatic datacenter migration and redirects handling
 * Graceful [request cancellation](https://core.telegram.org/mtproto/service_messages#cancellation-of-an-rpc-query) via context
@@ -251,7 +251,7 @@ Most important parts for client implementations:
 
 * [Security guidelines](https://core.telegram.org/mtproto/security_guidelines) for client software developers
 
-Current implementation [mostly conforms](https://github.com/gotd/td/issues/155) to security guidelines, but no
+Current implementation [mostly conforms](https://github.com/nnqq/td/issues/155) to security guidelines, but no
 formal security audit were performed.
 
 ## Prior art
@@ -270,11 +270,11 @@ Status by 11.07.2021
    <th colspan="2"><a href="https://github.com/xelaj/mtproto">xelaj/mtproto</a></th>
   <tr>
    <td align="center">🚧<br>Maintainers</td>
-   <td colspan="2">At least 3 core contributors, 1.7K commits, actively maintained, <a href="https://github.com/gotd/td/pull/409">automatically updated to latest layer</a></td>
+   <td colspan="2">At least 3 core contributors, 1.7K commits, actively maintained, <a href="https://github.com/nnqq/td/pull/409">automatically updated to latest layer</a></td>
    <td colspan="2">Single core contributor, 150 commits, effectively not maintaned from March 2021, <a href="https://github.com/xelaj/mtproto/issues/88">failed to update</a> to 129 layer</td>
   <tr>
    <td align="center">🔒️<br>Security</td>
-   <td colspan="2">MTProto v2, <a href="https://github.com/gotd/td/issues/155">conforms</a> to security guidelines</td>
+   <td colspan="2">MTProto v2, <a href="https://github.com/nnqq/td/issues/155">conforms</a> to security guidelines</td>
    <td colspan="2">MTProto v1 that is insecure and <a href="https://core.telegram.org/mtproto_v1">deprecated</a> since 2017 (SHA-1 <a href="https://github.com/xelaj/mtproto/blob/216789b95a5d644ebbdd1acb7eb46ff61647960a/internal/aes_ige/ige_cipher.go#L194-L197">is used</a> instead of SHA-256), code was probably copied from <a href="https://github.com/sdidyk/mtproto">sdidyk/mtproto</a> or <a href="https://github.com/cjongseok/mtproto">cjongseok/mtproto</a> with <a href="https://github.com/xelaj/mtproto/blob/216789b95a5d644ebbdd1acb7eb46ff61647960a/internal/aes_ige/ige_cipher.go#L160">little understanding</a></td>
   <tr>
    <td align="center">🚀<br>Features</td>

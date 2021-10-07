@@ -1,6 +1,6 @@
 package dcs
 
-import "github.com/gotd/td/tg"
+import "github.com/nnqq/td/tg"
 
 // List is a list of Telegram DC addresses and domains.
 type List struct {

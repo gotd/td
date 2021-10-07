@@ -3,8 +3,8 @@ package tgtest
 import (
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/tg"
 )
 
 // UnpackInvoke is a simple Handler middleware to unpack some Invoke*-like requests.

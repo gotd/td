@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/proto"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/proto"
 )
 
 func TestGzipDecode(t *testing.T) {

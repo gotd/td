@@ -6,9 +6,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgerr"
-	"github.com/gotd/td/tgmock"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/tgerr"
+	"github.com/nnqq/td/tgmock"
 )
 
 func TestElem(t *testing.T) {

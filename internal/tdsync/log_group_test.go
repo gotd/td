@@ -10,7 +10,7 @@ import (
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/clock"
+	"github.com/nnqq/td/clock"
 )
 
 func TestLogGroup(t *testing.T) {

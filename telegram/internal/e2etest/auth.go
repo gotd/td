@@ -6,7 +6,7 @@ import (
 	"github.com/cenkalti/backoff/v4"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/auth"
+	"github.com/nnqq/td/telegram/auth"
 )
 
 func (s *Suite) createFlow(ctx context.Context) (auth.Flow, error) {

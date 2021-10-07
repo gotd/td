@@ -6,12 +6,12 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/mtproto"
-	"github.com/gotd/td/internal/pool"
-	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/telegram/internal/manager"
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/internal/mtproto"
+	"github.com/nnqq/td/internal/pool"
+	"github.com/nnqq/td/telegram/dcs"
+	"github.com/nnqq/td/telegram/internal/manager"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/transport"
 )
 
 // CloseInvoker is a closeable tg.Invoker.

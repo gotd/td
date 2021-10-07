@@ -7,9 +7,9 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/syncio"
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/internal/syncio"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/tg"
 )
 
 // nolint:gocognit

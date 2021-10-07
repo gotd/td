@@ -1,6 +1,6 @@
 package entity
 
-import "github.com/gotd/td/tg"
+import "github.com/nnqq/td/tg"
 
 // Plain formats message as plain text.
 func (b *Builder) Plain(s string) *Builder {

@@ -1,7 +1,7 @@
 package inline
 
 import (
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 // GameResultBuilder is game result option builder.

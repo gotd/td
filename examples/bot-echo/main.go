@@ -6,10 +6,10 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/examples"
-	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/telegram/message"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/examples"
+	"github.com/nnqq/td/telegram"
+	"github.com/nnqq/td/telegram/message"
+	"github.com/nnqq/td/tg"
 )
 
 func main() {

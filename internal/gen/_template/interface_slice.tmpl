@@ -1,4 +1,4 @@
-{{- /*gotype: github.com/gotd/td/internal/gen.interfaceDef*/ -}}
+{{- /*gotype: github.com/nnqq/td/internal/gen.interfaceDef*/ -}}
 {{ define "interface_slice" }}{{ $f := . }}
 {{ template "slice" $f }}
 
@@ -28,7 +28,7 @@ func (s {{ template "slice_name" $f }}) As{{ $s.Name }}() (to {{ template "slice
 {{ range $mapping := $f.Mappings }}{{- if (not $mapping.Constructor) }}
 
 {{- range $field := mapCollectableFields (index ($f.SharedFields) ($mapping.MapperName)) }}
-{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
+{{- /*gotype: github.com/nnqq/td/internal/gen.fieldDef*/ -}}
 // Fill{{ $mapping.MapperName }}Map fills only {{ $mapping.MapperName }} constructors to given map.
 func (s {{ template "slice_name" $f }}) Fill{{ $mapping.MapperName }}{{ template "map_collector_name" $field }}Map(to map[{{ $field.Type }}]{{ template "print_mapper_type" $mapping }}) {
     for _, elem := range s {

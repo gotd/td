@@ -1,6 +1,6 @@
 package message
 
-import "github.com/gotd/td/tg"
+import "github.com/nnqq/td/tg"
 
 // Game adds a game attachment.
 func Game(id tg.InputGameClass, caption ...StyledTextOption) MediaOption {

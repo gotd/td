@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/internal/crypto"
+	"github.com/nnqq/td/internal/crypto"
 )
 
 func Test_createLegacyLocalKey(t *testing.T) {

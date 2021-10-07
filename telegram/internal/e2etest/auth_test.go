@@ -8,8 +8,8 @@ import (
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/auth"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/telegram/auth"
+	"github.com/nnqq/td/tg"
 )
 
 type mockFlow struct {

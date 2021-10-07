@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"math/rand"
 
-	"github.com/gotd/td/internal/testutil"
+	"github.com/nnqq/td/internal/testutil"
 )
 
 func FuzzRSA(data []byte) int {

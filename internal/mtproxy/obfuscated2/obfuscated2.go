@@ -5,7 +5,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/mtproxy"
+	"github.com/nnqq/td/internal/mtproxy"
 )
 
 // Obfuscated2 implements obfuscated2 obfuscation protocol.

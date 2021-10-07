@@ -14,13 +14,13 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/proto"
-	"github.com/gotd/td/internal/rpc"
-	"github.com/gotd/td/internal/tmap"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/internal/mt"
+	"github.com/nnqq/td/internal/proto"
+	"github.com/nnqq/td/internal/rpc"
+	"github.com/nnqq/td/internal/tmap"
+	"github.com/nnqq/td/tg"
 )
 
 type testHandler func(msgID int64, seqNo int32, body bin.Encoder) (bin.Encoder, error)

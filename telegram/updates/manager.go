@@ -6,8 +6,8 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/telegram"
+	"github.com/nnqq/td/tg"
 )
 
 var _ telegram.UpdateHandler = (*Manager)(nil)

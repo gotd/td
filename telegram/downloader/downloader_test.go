@@ -15,10 +15,10 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/syncio"
-	"github.com/gotd/td/internal/testutil"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/internal/syncio"
+	"github.com/nnqq/td/internal/testutil"
+	"github.com/nnqq/td/tg"
 )
 
 type mock struct {

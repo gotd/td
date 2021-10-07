@@ -9,7 +9,7 @@ import (
 
 	"github.com/gotd/ige"
 
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 // DecryptExchangeAnswer decrypts messages created during key exchange.

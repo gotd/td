@@ -5,7 +5,7 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 type testPayload struct {

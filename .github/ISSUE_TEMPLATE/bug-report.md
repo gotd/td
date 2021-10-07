@@ -10,7 +10,7 @@ labels: bug
 ### What version of gotd are you using?
 
 ```bash
-$ go list -m github.com/gotd/td
+$ go list -m github.com/nnqq/td
 ```
 
 ### Can this issue be reproduced with the latest version?

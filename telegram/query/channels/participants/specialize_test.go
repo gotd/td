@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/telegram/message/peer"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/telegram/message/peer"
+	"github.com/nnqq/td/tg"
 )
 
 func TestElem(t *testing.T) {

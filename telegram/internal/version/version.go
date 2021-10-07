@@ -23,7 +23,7 @@ func GetVersion() string {
 		}
 		// Hard-coded package name. Probably we can generate this via parsing
 		// the go.mod file.
-		const pkg = "github.com/gotd/td"
+		const pkg = "github.com/nnqq/td"
 		for _, d := range info.Deps {
 			if strings.HasPrefix(d.Path, pkg) {
 				versionOnce.version = d.Version

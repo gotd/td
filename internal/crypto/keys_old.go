@@ -3,7 +3,7 @@ package crypto
 import (
 	"crypto/sha1" // #nosec G505
 
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 // sha1a returns sha1_a value.

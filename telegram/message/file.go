@@ -1,6 +1,6 @@
 package message
 
-import "github.com/gotd/td/tg"
+import "github.com/nnqq/td/tg"
 
 // FileLocation is an abstraction of Telegram file location.
 type FileLocation interface {

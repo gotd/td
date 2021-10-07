@@ -1,6 +1,6 @@
 package markup
 
-import "github.com/gotd/td/tg"
+import "github.com/nnqq/td/tg"
 
 // Row creates keyboard row.
 func Row(buttons ...tg.KeyboardButtonClass) tg.KeyboardButtonRow {

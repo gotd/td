@@ -7,7 +7,7 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/exchange"
+	"github.com/nnqq/td/internal/exchange"
 )
 
 // connect establishes connection using configured transport, creating
@@ -45,7 +45,7 @@ func (c *Conn) connect(ctx context.Context) (rErr error) {
 	if session.ID == 0 {
 		// NB: Telegram can return 404 error if session id is zero.
 		//
-		// See https://github.com/gotd/td/issues/107.
+		// See https://github.com/nnqq/td/issues/107.
 		c.log.Debug("Generating new session id")
 		if err := c.newSessionID(); err != nil {
 			return err

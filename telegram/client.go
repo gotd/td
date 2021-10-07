@@ -10,16 +10,16 @@ import (
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/mtproto"
-	"github.com/gotd/td/internal/pool"
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/session"
-	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/telegram/internal/manager"
-	"github.com/gotd/td/telegram/internal/version"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/clock"
+	"github.com/nnqq/td/internal/mtproto"
+	"github.com/nnqq/td/internal/pool"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/session"
+	"github.com/nnqq/td/telegram/dcs"
+	"github.com/nnqq/td/telegram/internal/manager"
+	"github.com/nnqq/td/telegram/internal/version"
+	"github.com/nnqq/td/tg"
 )
 
 // UpdateHandler will be called on received updates from Telegram.

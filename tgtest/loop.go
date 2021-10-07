@@ -5,10 +5,10 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/exchange"
-	"github.com/gotd/td/internal/proto/codec"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/exchange"
+	"github.com/nnqq/td/internal/proto/codec"
+	"github.com/nnqq/td/transport"
 )
 
 func (s *Server) read(ctx context.Context, conn transport.Conn, b *bin.Buffer) error {

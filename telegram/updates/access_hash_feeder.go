@@ -3,7 +3,7 @@ package updates
 import (
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 func (s *state) saveChannelHashes(chats []tg.ChatClass) {

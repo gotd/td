@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/proto/codec"
+	"github.com/nnqq/td/internal/proto/codec"
 )
 
 func detectCodec(c io.Reader) (Codec, io.Reader, error) {

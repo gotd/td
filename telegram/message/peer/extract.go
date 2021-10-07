@@ -3,7 +3,7 @@ package peer
 import (
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 // Entities is simple peer entities storage.

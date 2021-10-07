@@ -1,4 +1,4 @@
-{{- /*gotype: github.com/gotd/td/internal/gen.structConfig*/ -}}
+{{- /*gotype: github.com/nnqq/td/internal/gen.structConfig*/ -}}
 {{ define "field_mapping" }}{{- $s := .Struct -}}
 
 {{- range $f := $s.Fields }}{{ if and (not $f.DoubleSlice) (ne ($f.Type) ("bin.Fields")) }}
@@ -6,7 +6,7 @@
 
 {{- $mappings := index ($.Config.Mappings) ($f.Type) -}}
 {{- range $mapping := $mappings }}{{- if (not $mapping.Constructor) }}
-{{- /*gotype: github.com/gotd/td/internal/gen.constructorMapping*/ -}}
+{{- /*gotype: github.com/nnqq/td/internal/gen.constructorMapping*/ -}}
 // Get{{ $f.Name }}As{{ $mapping.MapperName }} returns mapped value of {{ $f.Name }} {{ if $f.Conditional }}
 {{- if not ($f.ConditionalBool) }}conditional field and
 // boolean which is true if field was set.

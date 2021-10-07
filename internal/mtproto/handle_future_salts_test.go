@@ -7,8 +7,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/mt"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/mt"
 )
 
 func TestConn_handleFutureSalts(t *testing.T) {

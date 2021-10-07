@@ -5,7 +5,7 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/internal/crypto"
+	"github.com/nnqq/td/internal/crypto"
 )
 
 // ClientExchange is a client-side key exchange flow.

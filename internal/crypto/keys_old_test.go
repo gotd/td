@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/ige"
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 func TestOldKeys(t *testing.T) {

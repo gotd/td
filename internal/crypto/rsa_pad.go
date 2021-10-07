@@ -13,7 +13,7 @@ import (
 	"github.com/gotd/ige"
 	"github.com/gotd/xor"
 
-	"github.com/gotd/td/bin"
+	"github.com/nnqq/td/bin"
 )
 
 func reverseBytes(s []byte) {

@@ -9,7 +9,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/gotd/td/internal/crypto"
+	"github.com/nnqq/td/internal/crypto"
 )
 
 func TestFingerprintManyPK(t *testing.T) {

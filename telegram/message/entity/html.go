@@ -9,7 +9,7 @@ import (
 	"golang.org/x/net/html"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 type stackElem struct {

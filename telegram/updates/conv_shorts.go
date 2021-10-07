@@ -1,6 +1,6 @@
 package updates
 
-import "github.com/gotd/td/tg"
+import "github.com/nnqq/td/tg"
 
 func convertOptional(msg *tg.Message, i tg.UpdatesClass) {
 	if u, ok := i.(interface {

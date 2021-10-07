@@ -8,10 +8,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/proto/codec"
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/proto/codec"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/transport"
 )
 
 func Test_exchangeConn_Recv(t *testing.T) {

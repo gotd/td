@@ -3,7 +3,7 @@ package uploader
 import (
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/constant"
+	"github.com/nnqq/td/constant"
 )
 
 // https://core.telegram.org/api/files#uploading-files

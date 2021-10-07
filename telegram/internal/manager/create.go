@@ -6,10 +6,10 @@ import (
 
 	"github.com/cenkalti/backoff/v4"
 
-	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/mtproto"
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/clock"
+	"github.com/nnqq/td/internal/mtproto"
+	"github.com/nnqq/td/internal/tdsync"
+	"github.com/nnqq/td/tg"
 )
 
 // SetupCallback is an optional setup connection callback.

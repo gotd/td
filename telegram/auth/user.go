@@ -6,9 +6,9 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/crypto/srp"
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgerr"
+	"github.com/nnqq/td/internal/crypto/srp"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/tgerr"
 )
 
 // ErrPasswordInvalid means that password provided to Password is invalid.

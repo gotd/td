@@ -1,7 +1,7 @@
 package telegram
 
 import (
-	"github.com/gotd/td/telegram/auth"
+	"github.com/nnqq/td/telegram/auth"
 )
 
 // Auth returns auth client.

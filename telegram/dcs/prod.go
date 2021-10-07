@@ -1,6 +1,6 @@
 package dcs
 
-import "github.com/gotd/td/tg"
+import "github.com/nnqq/td/tg"
 
 // Prod returns production DC list.
 func Prod() List {

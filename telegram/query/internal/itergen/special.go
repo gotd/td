@@ -7,7 +7,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/query/internal/genutil"
+	"github.com/nnqq/td/telegram/query/internal/genutil"
 )
 
 func (c *collector) unpackClass(

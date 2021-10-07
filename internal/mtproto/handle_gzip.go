@@ -3,8 +3,8 @@ package mtproto
 import (
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/proto"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/proto"
 )
 
 func gzip(b *bin.Buffer) (*bin.Buffer, error) {

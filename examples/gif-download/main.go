@@ -22,11 +22,11 @@ import (
 
 	"github.com/gotd/contrib/middleware/ratelimit"
 
-	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/telegram/auth"
-	"github.com/gotd/td/telegram/downloader"
-	"github.com/gotd/td/telegram/query/hasher"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/telegram"
+	"github.com/nnqq/td/telegram/auth"
+	"github.com/nnqq/td/telegram/downloader"
+	"github.com/nnqq/td/telegram/query/hasher"
+	"github.com/nnqq/td/tg"
 )
 
 // terminalAuth implements auth.UserAuthenticator prompting the terminal for

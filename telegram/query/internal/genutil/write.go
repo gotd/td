@@ -10,7 +10,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/gen"
+	"github.com/nnqq/td/internal/gen"
 )
 
 // WriteTemplate loads template from FS and executes it to given output writer.

@@ -3,7 +3,7 @@ package message
 import (
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/tg"
 )
 
 func convertMessageMediaToInput(m tg.MessageMediaClass) (tg.InputMediaClass, error) {

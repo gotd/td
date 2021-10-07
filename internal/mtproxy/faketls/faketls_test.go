@@ -10,7 +10,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/internal/mtproxy/faketls/tlstypes"
+	"github.com/nnqq/td/internal/mtproxy/faketls/tlstypes"
 )
 
 func generate32(t *testing.T) [32]byte {

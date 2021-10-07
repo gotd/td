@@ -12,9 +12,9 @@ import (
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/telegram/dcs"
+	"github.com/nnqq/td/transport"
 )
 
 func TestWebsocketListener(t *testing.T) {

@@ -5,10 +5,10 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/message/internal/deeplink"
-	"github.com/gotd/td/telegram/message/peer"
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgerr"
+	"github.com/nnqq/td/telegram/message/internal/deeplink"
+	"github.com/nnqq/td/telegram/message/peer"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/tgerr"
 )
 
 // JoinLink joins to private chat using given link or hash.

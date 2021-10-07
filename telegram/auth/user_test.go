@@ -12,10 +12,10 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgerr"
-	"github.com/gotd/td/tgmock"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/tgerr"
+	"github.com/nnqq/td/tgmock"
 )
 
 func getHex(t testing.TB, in string) []byte {

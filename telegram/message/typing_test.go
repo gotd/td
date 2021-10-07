@@ -7,10 +7,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgmock"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/tgmock"
 )
 
 func expectSendSetTyping(t *testing.T, action tg.SendMessageActionClass, mock *tgmock.Mock, threadID int) {

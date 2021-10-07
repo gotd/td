@@ -13,9 +13,9 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/neo"
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/testutil"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/mt"
+	"github.com/nnqq/td/internal/testutil"
 )
 
 type request struct {

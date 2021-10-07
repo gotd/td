@@ -6,9 +6,9 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/ascii"
-	"github.com/gotd/td/telegram/message/internal/deeplink"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/internal/ascii"
+	"github.com/nnqq/td/telegram/message/internal/deeplink"
+	"github.com/nnqq/td/tg"
 )
 
 // Promise is a peer promise.

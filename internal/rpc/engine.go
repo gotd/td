@@ -9,8 +9,8 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/clock"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/clock"
 )
 
 // Engine handles RPC requests.
@@ -268,7 +268,7 @@ func (e *Engine) isClosed() bool {
 // All Do method calls of closed engine will return ErrEngineClosed error.
 func (e *Engine) Close() {
 	atomic.StoreUint32(&e.closed, 1)
-	e.log.Info("Close called")
+	e.log.With(zap.StackSkip("calledFrom", 1)).Info("Close called")
 	e.wg.Wait()
 }
 
@@ -276,6 +276,7 @@ func (e *Engine) Close() {
 // All pending requests will be canceled.
 // All Do method calls of closed engine will return ErrEngineClosed error.
 func (e *Engine) ForceClose() {
+	e.log.With(zap.StackSkip("calledFrom", 1)).Info("ForceClose called")
 	e.reqCancel()
 	e.Close()
 }

@@ -6,11 +6,11 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/proto"
-	"github.com/gotd/td/internal/proto/codec"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/clock"
+	"github.com/nnqq/td/internal/proto"
+	"github.com/nnqq/td/internal/proto/codec"
+	"github.com/nnqq/td/transport"
 )
 
 type unencryptedWriter struct {

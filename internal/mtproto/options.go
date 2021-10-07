@@ -6,13 +6,13 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/exchange"
-	"github.com/gotd/td/internal/proto"
-	"github.com/gotd/td/internal/rpc"
-	"github.com/gotd/td/internal/tmap"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/clock"
+	"github.com/nnqq/td/internal/crypto"
+	"github.com/nnqq/td/internal/exchange"
+	"github.com/nnqq/td/internal/proto"
+	"github.com/nnqq/td/internal/rpc"
+	"github.com/nnqq/td/internal/tmap"
 )
 
 // Options of Conn.

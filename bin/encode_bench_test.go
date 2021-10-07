@@ -3,10 +3,10 @@ package bin_test
 import (
 	"testing"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/telegram/message/entity"
-	"github.com/gotd/td/telegram/message/styling"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/telegram/message/entity"
+	"github.com/nnqq/td/telegram/message/styling"
+	"github.com/nnqq/td/tg"
 )
 
 func BenchmarkDecodeSlice(b *testing.B) {

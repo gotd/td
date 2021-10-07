@@ -1,4 +1,4 @@
-{{- /*gotype: github.com/gotd/td/internal/gen.interfaceDef*/ -}}
+{{- /*gotype: github.com/nnqq/td/internal/gen.interfaceDef*/ -}}
 {{ define "interface_mapping" }}{{ $f := . }}
 {{ range $mapping := $f.Mappings -}}
 
@@ -7,7 +7,7 @@
 type {{ $mapping.Name }} interface {
 {{ template "class_interface_header" $f }}
 
-{{ range $field := index ($f.SharedFields) ($mapping.MapperName) -}}{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
+{{ range $field := index ($f.SharedFields) ($mapping.MapperName) -}}{{- /*gotype: github.com/nnqq/td/internal/gen.fieldDef*/ -}}
     {{- template "print_comment" $field.Comment }}
     {{- if $field.Links }}
         {{- template "print_links" $field.Links }}

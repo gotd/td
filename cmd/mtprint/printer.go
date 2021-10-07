@@ -8,13 +8,13 @@ import (
 	"github.com/k0kubun/pp/v3"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/proto/codec"
-	"github.com/gotd/td/internal/tmap"
-	"github.com/gotd/td/tdp"
-	"github.com/gotd/td/tg"
-	"github.com/gotd/td/transport"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/mt"
+	"github.com/nnqq/td/internal/proto/codec"
+	"github.com/nnqq/td/internal/tmap"
+	"github.com/nnqq/td/tdp"
+	"github.com/nnqq/td/tg"
+	"github.com/nnqq/td/transport"
 )
 
 // Object is abstraction for TL schema object.

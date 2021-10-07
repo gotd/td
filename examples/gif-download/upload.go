@@ -9,10 +9,10 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/message"
-	"github.com/gotd/td/telegram/message/unpack"
-	"github.com/gotd/td/telegram/uploader"
-	"github.com/gotd/td/tg"
+	"github.com/nnqq/td/telegram/message"
+	"github.com/nnqq/td/telegram/message/unpack"
+	"github.com/nnqq/td/telegram/uploader"
+	"github.com/nnqq/td/tg"
 )
 
 // upload lists inputDir and uploads all ".mp4" files to saved gifs.

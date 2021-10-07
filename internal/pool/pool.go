@@ -9,8 +9,8 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/tdsync"
+	"github.com/nnqq/td/bin"
+	"github.com/nnqq/td/internal/tdsync"
 )
 
 // DC represents connection pool to one data center.
