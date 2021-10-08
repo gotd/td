@@ -51,12 +51,22 @@ func (c *Client) invokeDirect(ctx context.Context, input bin.Encoder, output bin
 	return nil
 }
 
-// invokeConn directly invokes RPC call on primary connection without any
-// additional handling.
+// invokeConn directly invokes RPC call on primary connection.
 func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	c.connMux.Lock()
 	conn := c.conn
 	c.connMux.Unlock()
 
-	return conn.Invoke(ctx, input, output)
+	err := conn.Invoke(ctx, input, output)
+	e := err.Error()
+	if strings.Contains(e, "engine was closed") || strings.Contains(e, "broken pipe") {
+		log := c.log.With(zap.String("restart_reason", e))
+		log.Info("got network error, begin restart")
+		c.restart <- struct{}{}
+		<-c.restarted
+		log.Info("restarted, retry invoke")
+		return conn.Invoke(ctx, input, output)
+	}
+
+	return err
 }
