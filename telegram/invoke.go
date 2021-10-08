@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	"go.uber.org/zap"
@@ -59,17 +60,13 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 
 	err := conn.Invoke(ctx, input, output)
 	if err != nil {
-		e := err.Error()
-		if strings.Contains(e, "engine was closed") ||
-			strings.Contains(e, "broken pipe") ||
-			strings.Contains(e, "i/o timeout") {
-			log := c.log.With(zap.String("restart_reason", e))
+		if tgerr.IsNetworkErr(err) {
+			c.log.Info("got network error, begin restart", zap.Error(err))
 
-			log.Info("got network error, begin restart")
-			c.restart <- struct{}{}
-
-			<-c.restarted
-			log.Info("restarted, retry invoke")
+			er := c.ensureRestart(ctx)
+			if er != nil {
+				return fmt.Errorf("c.ensureRestart: %w", er)
+			}
 
 			c.connMux.Lock()
 			newConn := c.conn

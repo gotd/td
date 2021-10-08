@@ -84,8 +84,6 @@ type Client struct {
 
 	// Restart signal channel.
 	restart chan struct{} // immutable
-	// When client restarted and created new conn.
-	restarted chan struct{} // immutable
 	// Migration state.
 	migrationTimeout time.Duration // immutable
 	migration        chan struct{}
@@ -195,7 +193,6 @@ func (c *Client) init() {
 	}
 	c.ready = tdsync.NewResetReady()
 	c.restart = make(chan struct{})
-	c.restarted = make(chan struct{})
 	c.migration = make(chan struct{}, 1)
 	c.sessions = map[int]*pool.SyncSession{}
 	c.subConns = map[int]CloseInvoker{}

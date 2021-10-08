@@ -75,7 +75,6 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 
 		c.connMux.Lock()
 		c.conn = c.createPrimaryConn(nil)
-		c.restarted <- struct{}{}
 		c.connMux.Unlock()
 	})
 }

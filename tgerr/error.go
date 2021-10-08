@@ -150,3 +150,15 @@ func IsCode(err error, code ...int) bool {
 	}
 	return false
 }
+
+// IsNetworkErr returns true if err is network error.
+func IsNetworkErr(err error) bool {
+	if err == nil {
+		return false
+	}
+
+	e := err.Error()
+	return strings.Contains(e, "engine was closed") ||
+		strings.Contains(e, "broken pipe") ||
+		strings.Contains(e, "i/o timeout")
+}
