@@ -45,7 +45,7 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 			// Should call cancel() to cancel group.
 			g.Cancel()
 
-			return nil
+			return context.Canceled
 		}
 	})
 
