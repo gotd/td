@@ -8,9 +8,16 @@ import (
 	"github.com/gotd/td/tg"
 )
 
+type utf8entity struct {
+	offset int
+	length  int
+}
+
 // Builder builds message string and text entities.
 type Builder struct {
 	entities []tg.MessageEntityClass
+	// lengths stores offset/length data too, but in UTF-8 codepoints
+	lengths  []utf8entity
 	// We store index of first entity added at last Format call.
 	// It needed to trim space in all entities of last text block.
 	lastFormatIndex int
@@ -44,24 +51,25 @@ func (b *Builder) Complete() (string, []tg.MessageEntityClass) {
 	entities := b.entities
 	b.reset()
 
-	// If there are not entities or last text block does not have entities
+	// If there are no entities or last text block does not have entities,
 	// so we just return built message.
-	if len(entities) == 0 || b.lastFormatIndex >= len(entities) {
+	if len(b.lengths) == 0 || b.lastFormatIndex >= len(entities) {
 		return msg, entities
 	}
 
 	// Since Telegram client does not handle space after formatted message
 	// we should compute length of the last block to trim it.
 	// Get first entity of last text block.
-	entity := entities[len(entities)-1]
-	offset := entity.GetOffset()
+	entity := b.lengths[len(b.lengths)-1]
+	offset := entity.offset
+	length := entity.length
 	// Get last text block.
 	lastBlock := msg[offset:]
 	// Trim this block.
 	trimmed := strings.TrimRightFunc(lastBlock, unicode.IsSpace)
 
 	// If there are a difference, we should change length of the all entities.
-	if len(trimmed) != len(lastBlock) {
+	if length >= len(lastBlock) && len(trimmed) != len(lastBlock) {
 		length := ComputeLength(trimmed)
 		for idx := range entities[b.lastFormatIndex:] {
 			setLength(idx, length, entities[b.lastFormatIndex:])
@@ -102,13 +110,6 @@ func ComputeLength(s string) int {
 	return n
 }
 
-// AddEntities adds given raw entities to the builder.
-// Use carefully.
-func (b *Builder) AddEntities(e ...tg.MessageEntityClass) *Builder {
-	b.entities = append(b.entities, e...)
-	return b
-}
-
 func (b *Builder) appendMessage(s string, formats ...Formatter) *Builder {
 	if s == "" {
 		return b
@@ -117,11 +118,19 @@ func (b *Builder) appendMessage(s string, formats ...Formatter) *Builder {
 	offset := ComputeLength(b.message.String())
 	length := ComputeLength(s)
 
+	b.appendEntities(offset, length, utf8entity{
+		offset: b.message.Len(),
+		length: len(s),
+	}, formats...)
+	b.message.WriteString(s)
+	return b
+}
+
+func (b *Builder) appendEntities(offset, length int, u utf8entity, formats ...Formatter) *Builder {
 	b.lastFormatIndex = len(b.entities)
 	for i := range formats {
 		b.entities = append(b.entities, formats[i](offset, length))
+		b.lengths = append(b.lengths, u)
 	}
-
-	b.message.WriteString(s)
 	return b
 }
