@@ -60,13 +60,21 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 	err := conn.Invoke(ctx, input, output)
 	if err != nil {
 		e := err.Error()
-		if strings.Contains(e, "engine was closed") || strings.Contains(e, "broken pipe") {
+		if strings.Contains(e, "engine was closed") ||
+			strings.Contains(e, "broken pipe") ||
+			strings.Contains(e, "i/o timeout") {
 			log := c.log.With(zap.String("restart_reason", e))
+
 			log.Info("got network error, begin restart")
 			c.restart <- struct{}{}
+
 			<-c.restarted
 			log.Info("restarted, retry invoke")
-			return conn.Invoke(ctx, input, output)
+
+			c.connMux.Lock()
+			newConn := c.conn
+			c.connMux.Unlock()
+			return newConn.Invoke(ctx, input, output)
 		}
 
 		return err
