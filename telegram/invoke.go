@@ -58,15 +58,18 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 	c.connMux.Unlock()
 
 	err := conn.Invoke(ctx, input, output)
-	e := err.Error()
-	if strings.Contains(e, "engine was closed") || strings.Contains(e, "broken pipe") {
-		log := c.log.With(zap.String("restart_reason", e))
-		log.Info("got network error, begin restart")
-		c.restart <- struct{}{}
-		<-c.restarted
-		log.Info("restarted, retry invoke")
-		return conn.Invoke(ctx, input, output)
+	if err != nil {
+		e := err.Error()
+		if strings.Contains(e, "engine was closed") || strings.Contains(e, "broken pipe") {
+			log := c.log.With(zap.String("restart_reason", e))
+			log.Info("got network error, begin restart")
+			c.restart <- struct{}{}
+			<-c.restarted
+			log.Info("restarted, retry invoke")
+			return conn.Invoke(ctx, input, output)
+		}
+		return err
 	}
 
-	return err
+	return nil
 }
