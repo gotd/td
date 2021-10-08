@@ -13,14 +13,16 @@ import (
 )
 
 type stackElem struct {
-	offset int
-	tag    string
-	format Formatter
+	offset     int
+	utf8offset int
+	tag        string
+	format     Formatter
 }
 
 type htmlParser struct {
 	tokenizer    *html.Tokenizer
 	builder      *Builder
+	offset       int
 	stack        []stackElem
 	attr         map[string]string
 	userResolver func(id int64) (tg.InputUserClass, error)
@@ -52,7 +54,8 @@ func (p *htmlParser) startTag() error {
 		p.fillAttrs()
 	}
 
-	e.offset = p.builder.message.Len()
+	e.offset = p.offset
+	e.utf8offset = p.builder.message.Len()
 	// See https://core.telegram.org/bots/api#html-style.
 	switch e.tag {
 	case "b", "strong":
@@ -123,7 +126,11 @@ func (p *htmlParser) endTag() error {
 
 	length := ComputeLength(p.builder.message.String())
 	if s.format != nil {
-		p.builder.entities = append(p.builder.entities, s.format(s.offset, length-s.offset))
+		u8 := utf8entity{
+			offset: s.utf8offset,
+			length: p.builder.message.Len() - s.utf8offset,
+		}
+		p.builder.appendEntities(s.offset, length-s.offset, u8, s.format)
 	}
 	return nil
 }
@@ -138,7 +145,9 @@ func (p *htmlParser) parse() error {
 			}
 			return nil
 		case html.TextToken:
-			p.builder.message.Write(p.tokenizer.Text())
+			text := p.tokenizer.Text()
+			p.builder.message.Write(text)
+			p.offset += ComputeLength(string(text))
 		case html.StartTagToken:
 			if err := p.startTag(); err != nil {
 				return err
