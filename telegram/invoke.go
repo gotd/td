@@ -68,6 +68,7 @@ func (c *Client) invokeConn(ctx context.Context, input bin.Encoder, output bin.D
 			log.Info("restarted, retry invoke")
 			return conn.Invoke(ctx, input, output)
 		}
+
 		return err
 	}
 
