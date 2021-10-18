@@ -32,7 +32,7 @@ jobs:
             test-${{ runner.os }}-go-
 
       - name: Checkout code
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
 
       - name: Download dependencies
         run: go mod download && go mod tidy
@@ -54,7 +54,7 @@ jobs:
       - test
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
 
       - name: Download artifact
         uses: actions/download-artifact@v2.0.10
