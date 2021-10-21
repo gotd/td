@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"golang.org/x/net/html"
 
 	"github.com/gotd/td/tg"
 )
@@ -59,4 +60,76 @@ func TestHTML(t *testing.T) {
 			a.Equal(test.entities(test.msg), entities)
 		})
 	}
+}
+
+func TestIssue525(t *testing.T) {
+	test := func(text string, expected []tg.MessageEntityClass) func(t *testing.T) {
+		return func(t *testing.T) {
+			a := require.New(t)
+
+			b := Builder{}
+			p := htmlParser{
+				tokenizer:    html.NewTokenizer(strings.NewReader(text)),
+				builder:      &b,
+				attr:         map[string]string{},
+				userResolver: nil,
+			}
+
+			a.NoError(p.parse())
+			_, entities := b.Complete()
+			a.Equal(expected, entities)
+		}
+	}
+
+	t.Run("Ru", test(`Строка
+<i>Строка текста курсивом</i>
+
+Обычный текст с <a href="https://google.com">Ссылкой</a> внутри, и
+ещё одна ссылка - <a href="https://go.dev">Здесь</a>.
+
+Ещё одна строка.
+`,
+		[]tg.MessageEntityClass{
+			&tg.MessageEntityItalic{
+				Offset: 7,
+				Length: 22,
+			},
+			&tg.MessageEntityTextURL{
+				Offset: 47,
+				Length: 7,
+				URL:    "https://google.com",
+			},
+			&tg.MessageEntityTextURL{
+				Offset: 83,
+				Length: 5,
+				URL:    "https://go.dev",
+			},
+		}),
+	)
+	t.Run("En", test(`Line
+<i>Italic line of text</i>
+
+Normal line of text with <a href="https://google.com">Link</a> inside, and
+another link now - <a href="https://go.dev">Here</a>.
+
+One more line.
+`,
+		[]tg.MessageEntityClass{
+			&tg.MessageEntityItalic{
+				Offset: 5,
+				Length: 19,
+			},
+			&tg.MessageEntityTextURL{
+				Offset: 51,
+				Length: 4,
+				URL:    "https://google.com",
+			},
+			&tg.MessageEntityTextURL{
+				Offset: 87,
+				Length: 4,
+				URL:    "https://go.dev",
+			},
+		}),
+	)
+
 }
