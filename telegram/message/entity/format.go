@@ -10,14 +10,14 @@ import (
 
 type utf8entity struct {
 	offset int
-	length  int
+	length int
 }
 
 // Builder builds message string and text entities.
 type Builder struct {
 	entities []tg.MessageEntityClass
 	// lengths stores offset/length data too, but in UTF-8 codepoints
-	lengths  []utf8entity
+	lengths []utf8entity
 	// We store index of first entity added at last Format call.
 	// It needed to trim space in all entities of last text block.
 	lastFormatIndex int

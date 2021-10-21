@@ -132,3 +132,6 @@ issues:
 
     - linters: [ revive ]
       text: "if-return: redundant if ...; err != nil check, just return error instead."
+
+    - linters: [ unparam ]
+      text: "Builder.+is never used"
