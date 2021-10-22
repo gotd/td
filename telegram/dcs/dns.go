@@ -9,7 +9,6 @@ import (
 	"encoding/base64"
 	"math/big"
 	"sort"
-	"strings"
 	"sync"
 
 	"golang.org/x/net/dns/dnsmessage"
@@ -23,6 +22,7 @@ import (
 var dnsKey struct {
 	rsa.PublicKey
 	once sync.Once
+	eBig *big.Int
 }
 
 func init() {
@@ -40,20 +40,17 @@ Y1hZCxdv6cs5UnW9+PWvS+WIbkh+GaWYxwIDAQAB
 		}
 
 		dnsKey.PublicKey = *k[0]
+		dnsKey.eBig = big.NewInt(int64(dnsKey.E))
 	})
 }
 
 // parseDNSList decodes raw encrypted simple config.
 //
 // Notice that parseDNSList does not decode base64, user should do it manually.
-func parseDNSList(input []byte, key *rsa.PublicKey) (tg.HelpConfigSimple, error) {
-	if l := len(input); l != 256 {
-		return tg.HelpConfigSimple{}, xerrors.Errorf("invalid input length %d", l)
-	}
-
+func parseDNSList(input [256]byte) (tg.HelpConfigSimple, error) {
 	// See https://github.com/tdlib/td/blob/master/td/telegram/ConfigManager.cpp#L148.
-	x := new(big.Int).SetBytes(input)
-	y := new(big.Int).Exp(x, big.NewInt(int64(key.E)), key.N)
+	x := new(big.Int).SetBytes(input[:])
+	y := new(big.Int).Exp(x, dnsKey.eBig, dnsKey.N)
 
 	dataRSA := make([]byte, 256)
 	if !crypto.FillBytes(y, dataRSA) {
@@ -83,18 +80,51 @@ func parseDNSList(input []byte, key *rsa.PublicKey) (tg.HelpConfigSimple, error)
 	return cfg, nil
 }
 
+type sortByLen []string
+
+func (s sortByLen) Len() int {
+	return len(s)
+}
+
+func (s sortByLen) Less(i, j int) bool {
+	return len(s[i]) > len(s[j])
+}
+
+func (s sortByLen) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+
 // DNSConfig parses tg.HelpConfigSimple from TXT response.
 func DNSConfig(r dnsmessage.TXTResource) (tg.HelpConfigSimple, error) {
-	sort.Slice(r.TXT, func(i, j int) bool {
-		return len(r.TXT[i]) > len(r.TXT[j])
-	})
+	encoding := base64.StdEncoding
+	const (
+		decodedLen = 256
+		encodedLen = 344
+	)
+	sort.Sort(sortByLen(r.TXT))
 
-	decoded, err := base64.StdEncoding.DecodeString(strings.Join(r.TXT, ""))
-	if err != nil {
-		return tg.HelpConfigSimple{}, xerrors.Errorf("decode base64: %w", err)
+	var totalLength int
+	for i := range r.TXT {
+		totalLength += len(r.TXT[i])
+	}
+	if totalLength != encodedLen {
+		return tg.HelpConfigSimple{}, xerrors.Errorf("invalid input length %d", totalLength)
 	}
 
-	cfg, err := parseDNSList(decoded, &dnsKey.PublicKey)
+	var (
+		encoded [encodedLen]byte
+		decoded [decodedLen]byte
+	)
+	n := 0
+	for i := range r.TXT {
+		n += copy(encoded[n:], r.TXT[i])
+	}
+
+	if _, err := encoding.Decode(decoded[:], encoded[:]); err != nil {
+		return tg.HelpConfigSimple{}, xerrors.Errorf("decode: %w", err)
+	}
+
+	cfg, err := parseDNSList(decoded)
 	if err != nil {
 		return tg.HelpConfigSimple{}, xerrors.Errorf("decrypt config: %w", err)
 	}
