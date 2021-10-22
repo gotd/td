@@ -5,6 +5,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 	"golang.org/x/net/dns/dnsmessage"
+
+	"github.com/gotd/td/tg"
 )
 
 func Test_DNSConfig(t *testing.T) {
@@ -25,4 +27,29 @@ func Test_DNSConfig(t *testing.T) {
 
 	rule := cfg.Rules[0]
 	a.Equal(2, rule.DCID)
+}
+
+func BenchmarkDNSConfig(b *testing.B) {
+	message := dnsmessage.TXTResource{
+		TXT: []string{
+			"LcmEoukF2bVjKwz3E+J9BsDdL+rv9lGqLQWIGXrWACT2ESk5xuOpA6Cz6klKRbhbwSiHOd2zC5PiR57j/OJHPpj4i+tw==",
+			"umjjLFLpOKtPeW9zHLq2ypbMzg/zkqvPhvhr0bxrLZlgPQ04l2GpO/4qZgAx3tk3BDHbY6/gmG1e8eaFBq3YSqR5SZ5hQ1Cm5f4/" +
+				"o67GYcPJClaf1TiHq3wVfsQ5OLnyJRw9A2ZfUfzIXxoSklPJrVdF/4hM1ZdUE0eWDAbmYf7JCeao8ecVVwKndd4CZHZS9wyf1T7DIUh95VpQ" +
+				"sn2klLPA6gA/2YNXOh9gITvjZrKuXLwwh9hBHhPvxv",
+		},
+	}
+
+	b.ResetTimer()
+	b.ReportAllocs()
+
+	var (
+		err error
+		cfgSink tg.HelpConfigSimple
+	)
+	for i := 0; i < b.N; i++ {
+		cfgSink, err = DNSConfig(message)
+		if cfgSink.Zero() || err != nil {
+			b.Fatal(err)
+		}
+	}
 }
