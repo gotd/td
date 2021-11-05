@@ -30,7 +30,7 @@ jobs:
         uses: golangci/golangci-lint-action@v2.5.2
         with:
           version: latest
-          args: --timeout 5m
+          args: --timeout 10m
           skip-go-installation: true
 
   # Check if there are any dirty changes after go mod tidy
