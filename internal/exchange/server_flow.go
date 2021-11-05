@@ -92,7 +92,6 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 
 	var innerData mt.PQInnerData
 	{
-
 		r, err := crypto.DecodeRSAPad(dhParams.EncryptedData, s.key.RSA)
 		if err != nil {
 			return ServerExchangeResult{}, wrapKeyNotFound(err)
