@@ -5,7 +5,7 @@ package messages
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -134,7 +134,7 @@ func (b *GetHistoryQueryBuilder) Count(ctx context.Context) (int, error) {
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return 0, xerrors.Errorf("get total: %w", err)
+		return 0, errors.Wrap(err, "get total")
 	}
 	return c, nil
 }
@@ -144,7 +144,7 @@ func (b *GetHistoryQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("get total: %w", err)
+		return nil, errors.Wrap(err, "get total")
 	}
 
 	r := make([]Elem, 0, c)
@@ -222,7 +222,7 @@ func (b *GetRecentLocationsQueryBuilder) Count(ctx context.Context) (int, error)
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return 0, xerrors.Errorf("get total: %w", err)
+		return 0, errors.Wrap(err, "get total")
 	}
 	return c, nil
 }
@@ -232,7 +232,7 @@ func (b *GetRecentLocationsQueryBuilder) Collect(ctx context.Context) ([]Elem, e
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("get total: %w", err)
+		return nil, errors.Wrap(err, "get total")
 	}
 
 	r := make([]Elem, 0, c)
@@ -337,7 +337,7 @@ func (b *GetRepliesQueryBuilder) Count(ctx context.Context) (int, error) {
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return 0, xerrors.Errorf("get total: %w", err)
+		return 0, errors.Wrap(err, "get total")
 	}
 	return c, nil
 }
@@ -347,7 +347,7 @@ func (b *GetRepliesQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("get total: %w", err)
+		return nil, errors.Wrap(err, "get total")
 	}
 
 	r := make([]Elem, 0, c)
@@ -436,7 +436,7 @@ func (b *GetUnreadMentionsQueryBuilder) Count(ctx context.Context) (int, error) 
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return 0, xerrors.Errorf("get total: %w", err)
+		return 0, errors.Wrap(err, "get total")
 	}
 	return c, nil
 }
@@ -446,7 +446,7 @@ func (b *GetUnreadMentionsQueryBuilder) Collect(ctx context.Context) ([]Elem, er
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("get total: %w", err)
+		return nil, errors.Wrap(err, "get total")
 	}
 
 	r := make([]Elem, 0, c)
@@ -677,7 +677,7 @@ func (b *SearchQueryBuilder) Count(ctx context.Context) (int, error) {
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return 0, xerrors.Errorf("get total: %w", err)
+		return 0, errors.Wrap(err, "get total")
 	}
 	return c, nil
 }
@@ -687,7 +687,7 @@ func (b *SearchQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("get total: %w", err)
+		return nil, errors.Wrap(err, "get total")
 	}
 
 	r := make([]Elem, 0, c)
@@ -903,7 +903,7 @@ func (b *SearchGlobalQueryBuilder) Count(ctx context.Context) (int, error) {
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return 0, xerrors.Errorf("get total: %w", err)
+		return 0, errors.Wrap(err, "get total")
 	}
 	return c, nil
 }
@@ -913,7 +913,7 @@ func (b *SearchGlobalQueryBuilder) Collect(ctx context.Context) ([]Elem, error) 
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("get total: %w", err)
+		return nil, errors.Wrap(err, "get total")
 	}
 
 	r := make([]Elem, 0, c)
@@ -1009,7 +1009,7 @@ func (b *StatsGetMessagePublicForwardsQueryBuilder) Count(ctx context.Context) (
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return 0, xerrors.Errorf("get total: %w", err)
+		return 0, errors.Wrap(err, "get total")
 	}
 	return c, nil
 }
@@ -1019,7 +1019,7 @@ func (b *StatsGetMessagePublicForwardsQueryBuilder) Collect(ctx context.Context)
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("get total: %w", err)
+		return nil, errors.Wrap(err, "get total")
 	}
 
 	r := make([]Elem, 0, c)

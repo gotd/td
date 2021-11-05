@@ -7,7 +7,7 @@ import (
     "context"
     "sync/atomic"
 
-    "golang.org/x/xerrors"
+    "github.com/ogen-go/errors"
 
     "github.com/gotd/td/tg"
 )
@@ -32,7 +32,7 @@ type {{ $query.Name }} struct {
     last atomic.Value
 
     // Reference to RPC client to make requests.
-	raw *tg.Client
+	  raw *tg.Client
 }
 
 // New{{ $query.Name }} creates new {{ $query.Name }}.
@@ -89,7 +89,7 @@ func (s *{{ $query.Name }}) Fetch(ctx context.Context) (bool, error) {
     {{- end }}
 	result, err := s.raw.{{ $query.MethodName }}(ctx, req)
 	if err != nil {
-		return false, xerrors.Errorf("execute {{ $query.MethodName }}: %w", err)
+		return false, errors.Wrap(err, "execute {{ $query.MethodName }}")
 	}
 
 	switch variant := result.(type) {
@@ -107,11 +107,11 @@ func (s *{{ $query.Name }}) Fetch(ctx context.Context) (bool, error) {
         return true, nil
 	case *tg.{{ $query.NotModifiedName }}:
 		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
+			return false, errors.Errorf("got unexpected %T result", result)
 		}
         return false, nil
 	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
+		return false, errors.Errorf("unexpected type %T", result)
 	}
 }
 {{ end }}

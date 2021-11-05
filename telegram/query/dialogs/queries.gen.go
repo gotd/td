@@ -5,7 +5,7 @@ package dialogs
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -129,7 +129,7 @@ func (b *GetDialogsQueryBuilder) Count(ctx context.Context) (int, error) {
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return 0, xerrors.Errorf("get total: %w", err)
+		return 0, errors.Wrap(err, "get total")
 	}
 	return c, nil
 }
@@ -139,7 +139,7 @@ func (b *GetDialogsQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
 	iter := b.Iter()
 	c, err := iter.Total(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("get total: %w", err)
+		return nil, errors.Wrap(err, "get total")
 	}
 
 	r := make([]Elem, 0, c)

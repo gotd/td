@@ -6,7 +6,7 @@ import (
 	"context"
 	"sync/atomic"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -80,7 +80,7 @@ func (s *AccountGetThemes) Fetch(ctx context.Context) (bool, error) {
 	req.Hash = lastHash
 	result, err := s.raw.AccountGetThemes(ctx, req)
 	if err != nil {
-		return false, xerrors.Errorf("execute AccountGetThemes: %w", err)
+		return false, errors.Wrap(err, "execute AccountGetThemes")
 	}
 
 	switch variant := result.(type) {
@@ -94,11 +94,11 @@ func (s *AccountGetThemes) Fetch(ctx context.Context) (bool, error) {
 		return true, nil
 	case *tg.AccountThemesNotModified:
 		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
+			return false, errors.Errorf("got unexpected %T result", result)
 		}
 		return false, nil
 	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
+		return false, errors.Errorf("unexpected type %T", result)
 	}
 }
 
@@ -164,7 +164,7 @@ func (s *AccountGetWallPapers) Fetch(ctx context.Context) (bool, error) {
 	req := lastHash
 	result, err := s.raw.AccountGetWallPapers(ctx, req)
 	if err != nil {
-		return false, xerrors.Errorf("execute AccountGetWallPapers: %w", err)
+		return false, errors.Wrap(err, "execute AccountGetWallPapers")
 	}
 
 	switch variant := result.(type) {
@@ -178,11 +178,11 @@ func (s *AccountGetWallPapers) Fetch(ctx context.Context) (bool, error) {
 		return true, nil
 	case *tg.AccountWallPapersNotModified:
 		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
+			return false, errors.Errorf("got unexpected %T result", result)
 		}
 		return false, nil
 	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
+		return false, errors.Errorf("unexpected type %T", result)
 	}
 }
 
@@ -248,7 +248,7 @@ func (s *ContactsGetContacts) Fetch(ctx context.Context) (bool, error) {
 	req := lastHash
 	result, err := s.raw.ContactsGetContacts(ctx, req)
 	if err != nil {
-		return false, xerrors.Errorf("execute ContactsGetContacts: %w", err)
+		return false, errors.Wrap(err, "execute ContactsGetContacts")
 	}
 
 	switch variant := result.(type) {
@@ -262,11 +262,11 @@ func (s *ContactsGetContacts) Fetch(ctx context.Context) (bool, error) {
 		return true, nil
 	case *tg.ContactsContactsNotModified:
 		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
+			return false, errors.Errorf("got unexpected %T result", result)
 		}
 		return false, nil
 	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
+		return false, errors.Errorf("unexpected type %T", result)
 	}
 }
 
@@ -332,7 +332,7 @@ func (s *MessagesGetAllStickers) Fetch(ctx context.Context) (bool, error) {
 	req := lastHash
 	result, err := s.raw.MessagesGetAllStickers(ctx, req)
 	if err != nil {
-		return false, xerrors.Errorf("execute MessagesGetAllStickers: %w", err)
+		return false, errors.Wrap(err, "execute MessagesGetAllStickers")
 	}
 
 	switch variant := result.(type) {
@@ -346,11 +346,11 @@ func (s *MessagesGetAllStickers) Fetch(ctx context.Context) (bool, error) {
 		return true, nil
 	case *tg.MessagesAllStickersNotModified:
 		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
+			return false, errors.Errorf("got unexpected %T result", result)
 		}
 		return false, nil
 	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
+		return false, errors.Errorf("unexpected type %T", result)
 	}
 }
 
@@ -416,7 +416,7 @@ func (s *MessagesGetFavedStickers) Fetch(ctx context.Context) (bool, error) {
 	req := lastHash
 	result, err := s.raw.MessagesGetFavedStickers(ctx, req)
 	if err != nil {
-		return false, xerrors.Errorf("execute MessagesGetFavedStickers: %w", err)
+		return false, errors.Wrap(err, "execute MessagesGetFavedStickers")
 	}
 
 	switch variant := result.(type) {
@@ -430,11 +430,11 @@ func (s *MessagesGetFavedStickers) Fetch(ctx context.Context) (bool, error) {
 		return true, nil
 	case *tg.MessagesFavedStickersNotModified:
 		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
+			return false, errors.Errorf("got unexpected %T result", result)
 		}
 		return false, nil
 	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
+		return false, errors.Errorf("unexpected type %T", result)
 	}
 }
 
@@ -500,7 +500,7 @@ func (s *MessagesGetFeaturedStickers) Fetch(ctx context.Context) (bool, error) {
 	req := lastHash
 	result, err := s.raw.MessagesGetFeaturedStickers(ctx, req)
 	if err != nil {
-		return false, xerrors.Errorf("execute MessagesGetFeaturedStickers: %w", err)
+		return false, errors.Wrap(err, "execute MessagesGetFeaturedStickers")
 	}
 
 	switch variant := result.(type) {
@@ -514,11 +514,11 @@ func (s *MessagesGetFeaturedStickers) Fetch(ctx context.Context) (bool, error) {
 		return true, nil
 	case *tg.MessagesFeaturedStickersNotModified:
 		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
+			return false, errors.Errorf("got unexpected %T result", result)
 		}
 		return false, nil
 	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
+		return false, errors.Errorf("unexpected type %T", result)
 	}
 }
 
@@ -584,7 +584,7 @@ func (s *MessagesGetMaskStickers) Fetch(ctx context.Context) (bool, error) {
 	req := lastHash
 	result, err := s.raw.MessagesGetMaskStickers(ctx, req)
 	if err != nil {
-		return false, xerrors.Errorf("execute MessagesGetMaskStickers: %w", err)
+		return false, errors.Wrap(err, "execute MessagesGetMaskStickers")
 	}
 
 	switch variant := result.(type) {
@@ -598,11 +598,11 @@ func (s *MessagesGetMaskStickers) Fetch(ctx context.Context) (bool, error) {
 		return true, nil
 	case *tg.MessagesAllStickersNotModified:
 		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
+			return false, errors.Errorf("got unexpected %T result", result)
 		}
 		return false, nil
 	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
+		return false, errors.Errorf("unexpected type %T", result)
 	}
 }
 
@@ -672,7 +672,7 @@ func (s *MessagesGetRecentStickers) Fetch(ctx context.Context) (bool, error) {
 	req.Hash = lastHash
 	result, err := s.raw.MessagesGetRecentStickers(ctx, req)
 	if err != nil {
-		return false, xerrors.Errorf("execute MessagesGetRecentStickers: %w", err)
+		return false, errors.Wrap(err, "execute MessagesGetRecentStickers")
 	}
 
 	switch variant := result.(type) {
@@ -686,11 +686,11 @@ func (s *MessagesGetRecentStickers) Fetch(ctx context.Context) (bool, error) {
 		return true, nil
 	case *tg.MessagesRecentStickersNotModified:
 		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
+			return false, errors.Errorf("got unexpected %T result", result)
 		}
 		return false, nil
 	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
+		return false, errors.Errorf("unexpected type %T", result)
 	}
 }
 
@@ -756,7 +756,7 @@ func (s *MessagesGetSavedGifs) Fetch(ctx context.Context) (bool, error) {
 	req := lastHash
 	result, err := s.raw.MessagesGetSavedGifs(ctx, req)
 	if err != nil {
-		return false, xerrors.Errorf("execute MessagesGetSavedGifs: %w", err)
+		return false, errors.Wrap(err, "execute MessagesGetSavedGifs")
 	}
 
 	switch variant := result.(type) {
@@ -770,11 +770,11 @@ func (s *MessagesGetSavedGifs) Fetch(ctx context.Context) (bool, error) {
 		return true, nil
 	case *tg.MessagesSavedGifsNotModified:
 		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
+			return false, errors.Errorf("got unexpected %T result", result)
 		}
 		return false, nil
 	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
+		return false, errors.Errorf("unexpected type %T", result)
 	}
 }
 
@@ -844,7 +844,7 @@ func (s *MessagesGetStickers) Fetch(ctx context.Context) (bool, error) {
 	req.Hash = lastHash
 	result, err := s.raw.MessagesGetStickers(ctx, req)
 	if err != nil {
-		return false, xerrors.Errorf("execute MessagesGetStickers: %w", err)
+		return false, errors.Wrap(err, "execute MessagesGetStickers")
 	}
 
 	switch variant := result.(type) {
@@ -858,11 +858,11 @@ func (s *MessagesGetStickers) Fetch(ctx context.Context) (bool, error) {
 		return true, nil
 	case *tg.MessagesStickersNotModified:
 		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
+			return false, errors.Errorf("got unexpected %T result", result)
 		}
 		return false, nil
 	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
+		return false, errors.Errorf("unexpected type %T", result)
 	}
 }
 
@@ -932,7 +932,7 @@ func (s *MessagesSearchStickerSets) Fetch(ctx context.Context) (bool, error) {
 	req.Hash = lastHash
 	result, err := s.raw.MessagesSearchStickerSets(ctx, req)
 	if err != nil {
-		return false, xerrors.Errorf("execute MessagesSearchStickerSets: %w", err)
+		return false, errors.Wrap(err, "execute MessagesSearchStickerSets")
 	}
 
 	switch variant := result.(type) {
@@ -946,10 +946,10 @@ func (s *MessagesSearchStickerSets) Fetch(ctx context.Context) (bool, error) {
 		return true, nil
 	case *tg.MessagesFoundStickerSetsNotModified:
 		if lastHash == 0 {
-			return false, xerrors.Errorf("got unexpected %T result", result)
+			return false, errors.Errorf("got unexpected %T result", result)
 		}
 		return false, nil
 	default:
-		return false, xerrors.Errorf("unexpected type %T", result)
+		return false, errors.Errorf("unexpected type %T", result)
 	}
 }
