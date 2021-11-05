@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/getdoc"
 )
@@ -112,7 +112,7 @@ func (g *Generator) makeStructures() error {
 		)
 		t, ok := g.types[typeKey]
 		if !ok {
-			return xerrors.Errorf("find type binding for %q", typeKey)
+			return errors.Errorf("find type binding for %q", typeKey)
 		}
 		s := structDef{
 			Namespace: t.Namespace,
@@ -158,7 +158,7 @@ func (g *Generator) makeStructures() error {
 		for _, param := range d.Params {
 			f, err := g.makeField(param, sd.Annotations)
 			if err != nil {
-				return xerrors.Errorf("make field %s: %w", param.Name, err)
+				return errors.Wrapf(err, "make field %s", param.Name)
 			}
 
 			f.Links = docStruct.Fields[param.Name].Links
@@ -168,7 +168,7 @@ func (g *Generator) makeStructures() error {
 
 			if f.Conditional {
 				if f.ConditionalIndex >= 32 || f.ConditionalIndex < 0 {
-					return xerrors.Errorf("invalid conditional index %d", f.ConditionalIndex)
+					return errors.Errorf("invalid conditional index %d", f.ConditionalIndex)
 				}
 				s.ConditionalTuples[f.ConditionalIndex] = append(s.ConditionalTuples[f.ConditionalIndex], f)
 				allFieldRequired = false

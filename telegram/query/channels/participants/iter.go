@@ -4,7 +4,7 @@ package participants
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/tg"
@@ -69,7 +69,7 @@ func (m *Iterator) apply(r tg.ChannelsChannelParticipantsClass) error {
 		m.count = prts.Count
 		m.lastBatch = len(participants) < m.limit
 	default: // channels.channelParticipantsNotModified#f0173fe9
-		return xerrors.Errorf("unexpected type %T", r)
+		return errors.Errorf("unexpected type %T", r)
 	}
 	m.totalGot = true
 	m.offset += len(participants)
@@ -120,14 +120,14 @@ func (m *Iterator) FetchTotal(ctx context.Context) (int, error) {
 		Limit: 1,
 	})
 	if err != nil {
-		return 0, xerrors.Errorf("fetch total: %w", err)
+		return 0, errors.Wrap(err, "fetch total")
 	}
 
 	switch prts := r.(type) {
 	case *tg.ChannelsChannelParticipants: // channels.channelParticipants#f56ee2a8
 		m.count = prts.Count
 	default: // channels.channelParticipantsNotModified#f0173fe9
-		return 0, xerrors.Errorf("unexpected type %T", r)
+		return 0, errors.Errorf("unexpected type %T", r)
 	}
 
 	m.totalGot = true

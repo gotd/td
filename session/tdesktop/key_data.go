@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/crypto"
 )
@@ -18,35 +18,35 @@ type keyData struct {
 func readKeyData(tgf tdesktopFile, passcode []byte) (_ keyData, rErr error) {
 	salt, err := tgf.readArray()
 	if err != nil {
-		return keyData{}, xerrors.Errorf("read salt: %w", err)
+		return keyData{}, errors.Wrap(err, "read salt")
 	}
 	if l := len(salt); l != localEncryptSaltSize {
-		return keyData{}, xerrors.Errorf("invalid salt length %d", l)
+		return keyData{}, errors.Errorf("invalid salt length %d", l)
 	}
 
 	passcodeKey := createLocalKey(passcode, salt)
 	keyEncrypted, err := tgf.readArray()
 	if err != nil {
-		return keyData{}, xerrors.Errorf("read keyEncrypted: %w", err)
+		return keyData{}, errors.Wrap(err, "read keyEncrypted")
 	}
 	keyInnerData, err := decryptLocal(keyEncrypted, passcodeKey)
 	if err != nil {
-		return keyData{}, xerrors.Errorf("decrypt keyEncrypted: %w", err)
+		return keyData{}, errors.Wrap(err, "decrypt keyEncrypted")
 	}
 	key, err := readArray(bytes.NewReader(keyInnerData), binary.LittleEndian)
 	if err != nil {
-		return keyData{}, xerrors.Errorf("read key: %w", err)
+		return keyData{}, errors.Wrap(err, "read key")
 	}
 
 	if l := len(key); l < len(crypto.Key{}) {
-		return keyData{}, xerrors.Errorf("key too small (%d)", l)
+		return keyData{}, errors.Errorf("key too small (%d)", l)
 	}
 	var localKey crypto.Key
 	copy(localKey[:], key)
 
 	infoEncrypted, err := tgf.readArray()
 	if err != nil {
-		return keyData{}, xerrors.Errorf("read infoEncrypted: %w", err)
+		return keyData{}, errors.Wrap(err, "read infoEncrypted")
 	}
 	infoDecrypted, err := decryptLocal(infoEncrypted, localKey)
 	if err != nil {

@@ -5,7 +5,7 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // ParseRSAPublicKeys parses data as list of PEM-encdoed public keys.
@@ -20,7 +20,7 @@ func ParseRSAPublicKeys(data []byte) ([]*rsa.PublicKey, error) {
 
 		key, err := ParseRSA(block.Bytes)
 		if err != nil {
-			return nil, xerrors.Errorf("parse RSA from PEM: %w", err)
+			return nil, errors.Wrap(err, "parse RSA from PEM")
 		}
 
 		keys = append(keys, key)
@@ -42,7 +42,7 @@ func ParseRSA(data []byte) (*rsa.PublicKey, error) {
 	}
 	publicKey, ok := k.(*rsa.PublicKey)
 	if !ok {
-		return nil, xerrors.Errorf("parsed unexpected key type %T", k)
+		return nil, errors.Errorf("parsed unexpected key type %T", k)
 	}
 	return publicKey, nil
 }

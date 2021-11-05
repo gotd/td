@@ -5,9 +5,9 @@ import (
 	"context"
 	"sync"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/tdsync"
@@ -150,7 +150,7 @@ func (c *DC) release(r *poolConn) {
 	c.free = append(c.free, r)
 }
 
-var errDCIsClosed = xerrors.New("DC is closed")
+var errDCIsClosed = errors.New("DC is closed")
 
 func (c *DC) acquire(ctx context.Context) (r *poolConn, err error) { // nolint:gocyclo
 retry:
@@ -183,7 +183,7 @@ retry:
 		case <-ctx.Done():
 			return nil, ctx.Err()
 		case <-c.ctx.Done():
-			return nil, xerrors.Errorf("DC closed: %w", c.ctx.Err())
+			return nil, errors.Wrap(c.ctx.Err(), "DC closed")
 		case <-conn.Ready():
 			return conn, nil
 		case <-conn.Dead():
@@ -220,7 +220,7 @@ retry:
 	case <-ctx.Done():
 		err = ctx.Err()
 	case <-c.ctx.Done():
-		err = xerrors.Errorf("DC closed: %w", c.ctx.Err())
+		err = errors.Wrap(c.ctx.Err(), "DC closed")
 	}
 
 	// Executed only if at least one of context is Done.
@@ -245,10 +245,10 @@ func (c *DC) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) 
 	for {
 		conn, err := c.acquire(ctx)
 		if err != nil {
-			if xerrors.Is(err, ErrConnDead) {
+			if errors.Is(err, ErrConnDead) {
 				continue
 			}
-			return xerrors.Errorf("acquire connection: %w", err)
+			return errors.Wrap(err, "acquire connection")
 		}
 
 		c.log.Debug("DC Invoke")
@@ -256,7 +256,7 @@ func (c *DC) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) 
 		c.release(conn)
 		if err != nil {
 			c.log.Debug("DC Invoke failed", zap.Error(err))
-			return xerrors.Errorf("invoke pool: %w", err)
+			return errors.Wrap(err, "invoke pool")
 		}
 
 		c.log.Debug("DC Invoke complete")
@@ -268,7 +268,7 @@ func (c *DC) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder) 
 // Then, closes the DC.
 func (c *DC) Close() error {
 	if c.closed.Swap(true) {
-		return xerrors.New("DC already closed")
+		return errors.New("DC already closed")
 	}
 	c.log.Debug("Closing DC")
 	defer c.log.Debug("DC closed")

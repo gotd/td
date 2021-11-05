@@ -1,8 +1,9 @@
 package crypto
 
 import (
-	"errors"
 	"math/big"
+
+	"github.com/ogen-go/errors"
 )
 
 // CheckDHParams checks that g_a, g_b and g params meet key exchange conditions.

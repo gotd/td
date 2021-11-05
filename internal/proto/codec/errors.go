@@ -1,8 +1,9 @@
 package codec
 
 import (
-	"errors"
 	"fmt"
+
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )

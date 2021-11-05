@@ -7,8 +7,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/ogen-go/errors"
 	"golang.org/x/tools/go/packages"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram/query/internal/genutil"
 )
@@ -144,7 +144,7 @@ func (c *collector) methods() ([]method, error) { // nolint:gocognit
 
 		reqTypeStruct, ok := reqType.Underlying().(*types.Struct)
 		if !ok {
-			return nil, xerrors.Errorf("unexpected type %T", reqType.Underlying())
+			return nil, errors.Errorf("unexpected type %T", reqType.Underlying())
 		}
 
 		for i := 0; i < reqTypeStruct.NumFields(); i++ {
@@ -197,7 +197,7 @@ func (c *collector) methods() ([]method, error) { // nolint:gocognit
 func (c *collector) Config() (Config, error) {
 	methods, err := c.collect()
 	if err != nil {
-		return Config{}, xerrors.Errorf("collect: %w", err)
+		return Config{}, errors.Wrap(err, "collect")
 	}
 
 	return Config{
@@ -211,7 +211,7 @@ func (c *collector) Config() (Config, error) {
 func (c *collector) collect() ([]Method, error) {
 	methods, err := c.methods()
 	if err != nil {
-		return nil, xerrors.Errorf("collect types: %w", err)
+		return nil, errors.Wrap(err, "collect types")
 	}
 
 	result := make([]Method, 0, len(methods))
@@ -241,7 +241,7 @@ func (c *collector) collect() ([]Method, error) {
 
 		cases, err := c.collectSpecial(m)
 		if err != nil {
-			return nil, xerrors.Errorf("collect special: %w", err)
+			return nil, errors.Wrap(err, "collect special")
 		}
 
 		m.SpecialCase = cases

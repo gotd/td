@@ -1,7 +1,7 @@
 package session
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/session/tdesktop"
 	"github.com/gotd/td/telegram/dcs"
@@ -32,14 +32,14 @@ func TDesktopSession(a tdesktop.Account) (*Data, error) {
 
 	key, ok := auth.Keys[dc]
 	if !ok {
-		return nil, xerrors.Errorf("key for main DC (%d) not found", dc)
+		return nil, errors.Errorf("key for main DC (%d) not found", dc)
 	}
 	keyID := key.ID()
 
 	// TODO(tdakkota): distinguish test and production accounts.
 	addr := findDCAddr(dcs.Prod().Options, dc)
 	if addr == "" {
-		return nil, xerrors.Errorf("can't find address for DC %d", dc)
+		return nil, errors.Errorf("can't find address for DC %d", dc)
 	}
 
 	return &Data{

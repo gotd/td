@@ -3,7 +3,7 @@ package mtproto
 import (
 	"fmt"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
@@ -63,6 +63,6 @@ func (c *Conn) handleBadMsg(b *bin.Buffer) error {
 		c.rpc.NotifyError(bad.BadMsgID, &badMessageError{Code: bad.ErrorCode, NewSalt: bad.NewServerSalt})
 		return nil
 	default:
-		return xerrors.Errorf("unknown type id 0x%d", id)
+		return errors.Errorf("unknown type id 0x%d", id)
 	}
 }

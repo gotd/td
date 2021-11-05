@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 func writeAtLoop(w io.WriterAt, toWrite <-chan block) func(context.Context) error {
@@ -20,7 +20,7 @@ func writeAtLoop(w io.WriterAt, toWrite <-chan block) func(context.Context) erro
 
 				_, err := w.WriteAt(part.data, part.offset)
 				if err != nil {
-					return xerrors.Errorf("write output: %w", err)
+					return errors.Wrap(err, "write output")
 				}
 			}
 		}
@@ -40,7 +40,7 @@ func writeLoop(w io.Writer, toWrite <-chan block) func(context.Context) error {
 
 				_, err := w.Write(part.data)
 				if err != nil {
-					return xerrors.Errorf("write output: %w", err)
+					return errors.Wrap(err, "write output")
 				}
 			}
 		}

@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 	"nhooyr.io/websocket"
 
 	"github.com/gotd/td/internal/crypto"
@@ -28,7 +28,7 @@ type ws struct {
 func (w ws) connect(ctx context.Context, dc int, domains map[int]string) (transport.Conn, error) {
 	addr, ok := domains[dc]
 	if !ok {
-		return nil, xerrors.Errorf("domain for %d not found", dc)
+		return nil, errors.Errorf("domain for %d not found", dc)
 	}
 
 	conn, resp, err := websocket.Dial(ctx, addr, w.dialOptions)
@@ -36,7 +36,7 @@ func (w ws) connect(ctx context.Context, dc int, domains map[int]string) (transp
 		_ = resp.Body.Close()
 	}
 	if err != nil {
-		return nil, xerrors.Errorf("dial ws: %w", err)
+		return nil, errors.Wrap(err, "dial ws")
 	}
 	obsConn := obfuscator.Obfuscated2(w.rand, wsutil.NetConn(conn))
 
@@ -45,12 +45,12 @@ func (w ws) connect(ctx context.Context, dc int, domains map[int]string) (transp
 		Secret: nil,
 		Type:   mtproxy.Simple,
 	}); err != nil {
-		return nil, xerrors.Errorf("handshake: %w", err)
+		return nil, errors.Wrap(err, "handshake")
 	}
 
 	transportConn, err := w.protocol.Handshake(obsConn)
 	if err != nil {
-		return nil, xerrors.Errorf("transport handshake: %w", err)
+		return nil, errors.Wrap(err, "transport handshake")
 	}
 
 	return transportConn, nil
@@ -61,11 +61,11 @@ func (w ws) Primary(ctx context.Context, dc int, list List) (transport.Conn, err
 }
 
 func (w ws) MediaOnly(ctx context.Context, dc int, list List) (transport.Conn, error) {
-	return nil, xerrors.Errorf("can't resolve %d: MediaOnly is unsupported", dc)
+	return nil, errors.Errorf("can't resolve %d: MediaOnly is unsupported", dc)
 }
 
 func (w ws) CDN(ctx context.Context, dc int, list List) (transport.Conn, error) {
-	return nil, xerrors.Errorf("can't resolve %d: CDN is unsupported", dc)
+	return nil, errors.Errorf("can't resolve %d: CDN is unsupported", dc)
 }
 
 // WebsocketOptions is Websocket resolver creation options.

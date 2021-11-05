@@ -4,7 +4,7 @@ import (
 	"context"
 	"os"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // RunUntilCanceled is client callback which
@@ -27,22 +27,22 @@ func BotFromEnvironment(
 ) error {
 	client, err := ClientFromEnvironment(opts)
 	if err != nil {
-		return xerrors.Errorf("create client: %w", err)
+		return errors.Wrap(err, "create client")
 	}
 
 	if err := setup(ctx, client); err != nil {
-		return xerrors.Errorf("setup: %w", err)
+		return errors.Wrap(err, "setup")
 	}
 
 	return client.Run(ctx, func(ctx context.Context) error {
 		status, err := client.Auth().Status(ctx)
 		if err != nil {
-			return xerrors.Errorf("auth status: %w", err)
+			return errors.Wrap(err, "auth status")
 		}
 
 		if !status.Authorized {
 			if _, err := client.Auth().Bot(ctx, os.Getenv("BOT_TOKEN")); err != nil {
-				return xerrors.Errorf("login: %w", err)
+				return errors.Wrap(err, "login")
 			}
 		}
 

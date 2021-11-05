@@ -3,8 +3,8 @@ package telegram
 import (
 	"fmt"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/telegram/internal/upconv"
@@ -48,7 +48,7 @@ func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 func (c *Client) handleUpdates(b *bin.Buffer) error {
 	updates, err := tg.DecodeUpdates(b)
 	if err != nil {
-		return xerrors.Errorf("decode updates: %w", err)
+		return errors.Wrap(err, "decode updates")
 	}
 	return c.processUpdates(updates)
 }

@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/tl"
 )
@@ -15,7 +15,7 @@ type formattedSource struct{}
 
 func (t formattedSource) WriteFile(name string, content []byte) error {
 	if name == "" {
-		return xerrors.New("name is blank")
+		return errors.New("name is blank")
 	}
 	_, err := format.Source(content)
 	return err

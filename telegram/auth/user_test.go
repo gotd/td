@@ -8,9 +8,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
@@ -91,7 +91,7 @@ func TestClient_AuthSignIn(t *testing.T) {
 				User: testUser,
 			}, nil
 		}
-		return nil, xerrors.New("unexpected")
+		return nil, errors.New("unexpected")
 	})
 
 	t.Run("Manual", func(t *testing.T) {
@@ -159,7 +159,7 @@ func TestClientTestAuth(t *testing.T) {
 				User: &tg.User{ID: 1},
 			}, nil
 		}
-		return nil, xerrors.New("unexpected")
+		return nil, errors.New("unexpected")
 	})
 	require.NoError(t, NewFlow(
 		Test(rand.New(rand.NewSource(1)), dcID),
@@ -218,7 +218,7 @@ func TestClientTestSignUp(t *testing.T) {
 
 			return res, nil
 		}
-		return nil, xerrors.New("unexpected")
+		return nil, errors.New("unexpected")
 	})
 	require.NoError(t, NewFlow(
 		Test(rand.New(rand.NewSource(1)), dcID),

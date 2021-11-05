@@ -1,7 +1,7 @@
 // Package thumbnail implements expanding of stripped telegram thumbnails.
 package thumbnail
 
-import "golang.org/x/xerrors"
+import "github.com/ogen-go/errors"
 
 // Expand returns a JPG payload from stripped thumbnail bytes, like
 // tg.UserProfilePhoto.StrippedThumb.
@@ -22,9 +22,9 @@ func ExpandTo(data, to []byte) ([]byte, error) {
 	const firstChar byte = '\x01'
 	switch {
 	case len(data) < 3:
-		return nil, xerrors.Errorf("payload is too small: %d bytes", len(data))
+		return nil, errors.Errorf("payload is too small: %d bytes", len(data))
 	case data[0] != firstChar:
-		return nil, xerrors.Errorf("payload must start with %#x, but got %#x", firstChar, data[0])
+		return nil, errors.Errorf("payload must start with %#x, but got %#x", firstChar, data[0])
 	}
 
 	// From https://github.com/telegramdesktop/tdesktop/blob/v2.7.5/Telegram/SourceFiles/ui/image/image.cpp#L47-L82.

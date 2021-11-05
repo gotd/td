@@ -6,8 +6,8 @@ import (
 	"path"
 	"path/filepath"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram/message"
 	"github.com/gotd/td/telegram/message/unpack"
@@ -22,7 +22,7 @@ func upload(ctx context.Context, log *zap.Logger, api *tg.Client, inputDir strin
 	// Upload all gifs from requested dir.
 	entries, err := os.ReadDir(inputDir)
 	if err != nil {
-		return xerrors.Errorf("dir: %w", err)
+		return errors.Wrap(err, "dir")
 	}
 
 	var names []string
@@ -59,7 +59,7 @@ func upload(ctx context.Context, log *zap.Logger, api *tg.Client, inputDir strin
 		}
 		doc, ok := msg.Media.(*tg.MessageMediaDocument).Document.AsNotEmpty()
 		if !ok {
-			return xerrors.New("unexpected document")
+			return errors.New("unexpected document")
 		}
 
 		// Actually saving GIF.
@@ -69,11 +69,11 @@ func upload(ctx context.Context, log *zap.Logger, api *tg.Client, inputDir strin
 		})
 		// Cleaning up "buffer" message.
 		if _, deleteErr := sender.Revoke().Messages(ctx, msg.ID); deleteErr != nil {
-			return xerrors.Errorf("delete: %w", deleteErr)
+			return errors.Wrap(deleteErr, "delete")
 		}
 		// Checking for actual save error.
 		if saveErr != nil {
-			return xerrors.Errorf("save: %w", saveErr)
+			return errors.Wrap(saveErr, "save")
 		}
 		log.Info("Saved", zap.String("name", name))
 	}

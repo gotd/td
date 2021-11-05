@@ -1,12 +1,11 @@
 package codec
 
 import (
-	"errors"
 	"hash/crc32"
 	"io"
 	"sync/atomic"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )
@@ -36,7 +35,7 @@ func (i *Full) Write(w io.Writer, b *bin.Buffer) error {
 	}
 
 	if err := writeFull(w, int(atomic.AddInt64(&i.wSeqNo, 1)-1), b); err != nil {
-		return xerrors.Errorf("write full: %w", err)
+		return errors.Wrap(err, "write full")
 	}
 
 	return nil
@@ -45,7 +44,7 @@ func (i *Full) Write(w io.Writer, b *bin.Buffer) error {
 // Read fills buffer with received message.
 func (i *Full) Read(r io.Reader, b *bin.Buffer) error {
 	if err := readFull(r, int(atomic.AddInt64(&i.rSeqNo, 1)-1), b); err != nil {
-		return xerrors.Errorf("read full: %w", err)
+		return errors.Wrap(err, "read full")
 	}
 
 	return checkProtocolError(b)
@@ -78,7 +77,7 @@ var errCRCMismatch = errors.New("crc mismatch")
 func readFull(r io.Reader, seqNo int, b *bin.Buffer) error {
 	n, err := readLen(r, b)
 	if err != nil {
-		return xerrors.Errorf("len: %w", err)
+		return errors.Wrap(err, "len")
 	}
 
 	// Put length, because it need to count CRC.
@@ -89,7 +88,7 @@ func readFull(r io.Reader, seqNo int, b *bin.Buffer) error {
 	// Reads tail of packet to the buffer.
 	// Length already read.
 	if _, err := io.ReadFull(r, inner.Buf); err != nil {
-		return xerrors.Errorf("read seqno, buffer and crc: %w", err)
+		return errors.Wrap(err, "read seqno, buffer and crc")
 	}
 
 	serverSeqNo, err := inner.Int()

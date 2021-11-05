@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
@@ -95,7 +95,7 @@ func (r *reader) next(ctx context.Context, offset, limit int) (block, error) {
 			if flood || tgerr.Is(err, tg.ErrTimeout) {
 				continue
 			}
-			return block{}, xerrors.Errorf("get next chunk: %w", err)
+			return block{}, errors.Wrap(err, "get next chunk")
 		}
 
 		return block{

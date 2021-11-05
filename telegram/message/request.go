@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/tg"
@@ -19,7 +19,7 @@ type RequestBuilder struct {
 func (b *RequestBuilder) ScreenshotNotify(ctx context.Context, msgID int) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	upd, err := b.sender.sendScreenshotNotification(ctx, &tg.MessagesSendScreenshotNotificationRequest{
@@ -27,7 +27,7 @@ func (b *RequestBuilder) ScreenshotNotify(ctx context.Context, msgID int) (tg.Up
 		ReplyToMsgID: msgID,
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("send screenshot notify: %w", err)
+		return nil, errors.Wrap(err, "send screenshot notify")
 	}
 
 	return upd, nil
@@ -37,12 +37,12 @@ func (b *RequestBuilder) ScreenshotNotify(ctx context.Context, msgID int) (tg.Up
 func (b *RequestBuilder) PeerSettings(ctx context.Context) (*tg.PeerSettings, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	settings, err := b.sender.getPeerSettings(ctx, p)
 	if err != nil {
-		return nil, xerrors.Errorf("get peer settings: %w", err)
+		return nil, errors.Wrap(err, "get peer settings")
 	}
 
 	return settings, nil
@@ -74,7 +74,7 @@ func StartBotParam(param string) func(s *startBotBuilder) {
 func (b *RequestBuilder) StartBot(ctx context.Context, opts ...StartBotOption) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	sb := startBotBuilder{}
@@ -85,7 +85,7 @@ func (b *RequestBuilder) StartBot(ctx context.Context, opts ...StartBotOption) (
 	if sb.bot == nil {
 		user, ok := peer.ToInputUser(p)
 		if !ok {
-			return nil, xerrors.Errorf("unexpected peer type %T, try to pass input user manually", p)
+			return nil, errors.Errorf("unexpected peer type %T, try to pass input user manually", p)
 		}
 		sb.bot = user
 	}
@@ -96,7 +96,7 @@ func (b *RequestBuilder) StartBot(ctx context.Context, opts ...StartBotOption) (
 		StartParam: sb.param,
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("start bot: %w", err)
+		return nil, errors.Wrap(err, "start bot")
 	}
 
 	return upd, nil

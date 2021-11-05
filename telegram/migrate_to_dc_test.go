@@ -2,17 +2,14 @@ package telegram
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"math/rand"
 	"testing"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
-	"golang.org/x/xerrors"
-
-	"github.com/gotd/td/tgerr"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -22,6 +19,7 @@ import (
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/telegram/internal/manager"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 type migrationTestHandler func(id int64, dc int, body bin.Encoder) (bin.Encoder, error)
@@ -144,7 +142,7 @@ func TestMigration(t *testing.T) {
 					a.Equal(10, dc)
 					return expected, nil
 				default:
-					return nil, xerrors.Errorf("unexpected body %T", body)
+					return nil, errors.Errorf("unexpected body %T", body)
 				}
 			})
 

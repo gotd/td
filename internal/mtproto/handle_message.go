@@ -1,8 +1,8 @@
 package mtproto
 
 import (
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
@@ -13,7 +13,7 @@ func (c *Conn) handleMessage(msgID int64, b *bin.Buffer) error {
 	id, err := b.PeekID()
 	if err != nil {
 		// Empty body.
-		return xerrors.Errorf("peek message type: %w", err)
+		return errors.Wrap(err, "peek message type")
 	}
 
 	c.logWithBuffer(b).Debug("Handle message", zap.Int64("msg_id", msgID))

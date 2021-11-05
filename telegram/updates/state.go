@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
@@ -353,7 +353,7 @@ func (s *state) getDifference() error {
 		Date: s.date,
 	})
 	if err != nil {
-		return xerrors.Errorf("get difference: %w", err)
+		return errors.Wrap(err, "get difference")
 	}
 
 	switch diff := diff.(type) {
@@ -364,7 +364,7 @@ func (s *state) getDifference() error {
 				Users:   diff.Users,
 				Chats:   diff.Chats,
 			}); err != nil {
-				return xerrors.Errorf("handle diff.OtherUpdates: %w", err)
+				return errors.Wrap(err, "handle diff.OtherUpdates")
 			}
 		}
 
@@ -432,7 +432,7 @@ func (s *state) getDifference() error {
 		return s.getDifference()
 
 	default:
-		return xerrors.Errorf("unexpected diff type: %T", diff)
+		return errors.Errorf("unexpected diff type: %T", diff)
 	}
 }
 

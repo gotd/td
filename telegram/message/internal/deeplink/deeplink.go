@@ -6,7 +6,7 @@ import (
 	"path"
 	"strings"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // Type is an enum type of Telegram deeplinks types.
@@ -40,7 +40,7 @@ type DeepLink struct {
 
 func ensureParam(query url.Values, key string) error {
 	if query.Get(key) == "" {
-		return xerrors.Errorf("should have %q query parameter", key)
+		return errors.Errorf("should have %q query parameter", key)
 	}
 	return nil
 }
@@ -52,7 +52,7 @@ func (d DeepLink) validate() error {
 	case Join:
 		return ensureParam(d.Args, "invite")
 	default:
-		return xerrors.Errorf("unsupported deeplink %q", d.Type)
+		return errors.Errorf("unsupported deeplink %q", d.Type)
 	}
 }
 
@@ -71,7 +71,7 @@ func parseTg(u *url.URL) (DeepLink, error) {
 		}, nil
 	}
 
-	return DeepLink{}, xerrors.Errorf("unsupported deeplink %q", u.String())
+	return DeepLink{}, errors.Errorf("unsupported deeplink %q", u.String())
 }
 
 func parseHTTPS(u *url.URL) (DeepLink, error) {
@@ -102,7 +102,7 @@ func parseHTTPS(u *url.URL) (DeepLink, error) {
 		}, nil
 	}
 
-	return DeepLink{}, xerrors.Errorf("unsupported deeplink %q", u.String())
+	return DeepLink{}, errors.Errorf("unsupported deeplink %q", u.String())
 }
 
 // IsDeeplinkLike returns true if string may be a valid deeplink.
@@ -125,7 +125,7 @@ func Parse(link string) (DeepLink, error) {
 
 	u, err := url.Parse(link)
 	if err != nil {
-		return DeepLink{}, xerrors.Errorf("invalid URL %q: %w", link, err)
+		return DeepLink{}, errors.Wrapf(err, "invalid URL %q", link)
 	}
 
 	var d DeepLink
@@ -135,7 +135,7 @@ func Parse(link string) (DeepLink, error) {
 	case u.Scheme == "tg":
 		d, err = parseTg(u)
 	default:
-		return DeepLink{}, xerrors.Errorf("invalid deeplink %q", link)
+		return DeepLink{}, errors.Errorf("invalid deeplink %q", link)
 	}
 	if err != nil {
 		return DeepLink{}, err
@@ -154,7 +154,7 @@ func Expect(link string, typ Type) (DeepLink, error) {
 		return l, err
 	}
 	if l.Type != typ {
-		return l, xerrors.Errorf("unexpected deeplink type %q", l.Type)
+		return l, errors.Errorf("unexpected deeplink type %q", l.Type)
 	}
 	return l, nil
 }

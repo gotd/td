@@ -8,9 +8,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/telegram/dcs"
@@ -45,16 +45,16 @@ func TestWebsocketListener(t *testing.T) {
 
 		conn, err := server.Accept()
 		if err != nil {
-			return xerrors.Errorf("accept: %w", err)
+			return errors.Wrap(err, "accept")
 		}
 
 		var b bin.Buffer
 		if err := conn.Recv(ctx, &b); err != nil {
-			return xerrors.Errorf("recv: %w", err)
+			return errors.Wrap(err, "recv")
 		}
 
 		if err := conn.Send(ctx, &b); err != nil {
-			return xerrors.Errorf("send: %w", err)
+			return errors.Wrap(err, "send")
 		}
 
 		return nil

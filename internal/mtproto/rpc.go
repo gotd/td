@@ -3,8 +3,8 @@ package mtproto
 import (
 	"context"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
@@ -31,7 +31,7 @@ func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder
 
 	if err := c.rpc.Do(ctx, req); err != nil {
 		var badMsgErr *badMessageError
-		if xerrors.As(err, &badMsgErr) && badMsgErr.Code == codeIncorrectServerSalt {
+		if errors.As(err, &badMsgErr) && badMsgErr.Code == codeIncorrectServerSalt {
 			// Should retry with new salt.
 			c.log.Debug("Setting server salt")
 			// Store salt from server.
@@ -41,7 +41,7 @@ func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder
 			c.log.Info("Retrying request after basMsgErr", zap.Int64("msg_id", req.MsgID))
 			return c.rpc.Do(ctx, req)
 		}
-		return xerrors.Errorf("rpcDoRequest: %w", err)
+		return errors.Wrap(err, "rpcDoRequest")
 	}
 
 	return nil
@@ -64,8 +64,8 @@ func (c *Conn) dropRPC(req rpc.Request) error {
 	case *mt.RPCAnswerDropped, *mt.RPCAnswerDroppedRunning:
 		return nil
 	case *mt.RPCAnswerUnknown:
-		return xerrors.New("answer unknown")
+		return errors.New("answer unknown")
 	default:
-		return xerrors.Errorf("unexpected response type: %T", resp.RpcDropAnswer)
+		return errors.Errorf("unexpected response type: %T", resp.RpcDropAnswer)
 	}
 }

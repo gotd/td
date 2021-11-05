@@ -7,7 +7,7 @@ import (
 	"context"
 	"syscall/js"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // WebLocalStorage is a Web Storage API based session storage.
@@ -34,15 +34,15 @@ func getStorage() (js.Value, bool) {
 }
 
 // ErrLocalStorageIsNotAvailable is returned if localStorage is not available and Storage can't use it.
-var ErrLocalStorageIsNotAvailable = xerrors.New("localStorage is not available")
+var ErrLocalStorageIsNotAvailable = errors.New("localStorage is not available")
 
 func catch(err *error) { // nolint:gocritic
 	if r := recover(); r != nil {
 		rErr, ok := r.(error)
 		if !ok {
-			*err = xerrors.Errorf("catch: %v", r)
+			*err = errors.Errorf("catch: %v", r)
 		} else {
-			*err = xerrors.Errorf("catch: %w", rErr)
+			*err = errors.Wrap(rErr, "catch")
 		}
 	}
 }
@@ -52,7 +52,7 @@ func (w WebLocalStorage) LoadSession(_ context.Context) (_ []byte, rerr error) {
 	defer catch(&rerr)
 
 	if w.Key == "" {
-		return nil, xerrors.Errorf("invalid key %q", w.Key)
+		return nil, errors.Errorf("invalid key %q", w.Key)
 	}
 
 	store, ok := getStorage()
@@ -73,7 +73,7 @@ func (w WebLocalStorage) StoreSession(_ context.Context, data []byte) (rerr erro
 	defer catch(&rerr)
 
 	if w.Key == "" {
-		return xerrors.Errorf("invalid key %q", w.Key)
+		return errors.Errorf("invalid key %q", w.Key)
 	}
 
 	store, ok := getStorage()

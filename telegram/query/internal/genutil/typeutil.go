@@ -3,8 +3,8 @@ package genutil
 import (
 	"go/types"
 
+	"github.com/ogen-go/errors"
 	"golang.org/x/tools/go/packages"
-	"golang.org/x/xerrors"
 )
 
 // Implementations finds iface implementations.
@@ -46,12 +46,12 @@ func NewInterfaces(pkg *packages.Package) *Interfaces {
 func (c *Interfaces) Interface(name string) (*types.Interface, error) {
 	obj := c.pkg.Types.Scope().Lookup(name)
 	if obj == nil {
-		return nil, xerrors.Errorf("%q not found", name)
+		return nil, errors.Errorf("%q not found", name)
 	}
 
 	v, ok := obj.Type().Underlying().(*types.Interface)
 	if !ok {
-		return nil, xerrors.Errorf("%q has unexpected kind type %T", name, obj.Type().Underlying())
+		return nil, errors.Errorf("%q has unexpected kind type %T", name, obj.Type().Underlying())
 	}
 
 	return v, nil
@@ -66,7 +66,7 @@ func (c *Interfaces) Implementations(name string) ([]*types.Named, error) {
 
 	iface, err := c.Interface(name)
 	if err != nil {
-		return nil, xerrors.Errorf("find %q: %w", name, err)
+		return nil, errors.Wrapf(err, "find %q", name)
 	}
 
 	impls = Implementations(c.pkg, iface)

@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 func TestCancellableGroup(t *testing.T) {
@@ -16,7 +16,7 @@ func TestCancellableGroup(t *testing.T) {
 	})
 
 	g.Cancel()
-	if err := g.Wait(); !xerrors.Is(err, context.Canceled) {
+	if err := g.Wait(); !errors.Is(err, context.Canceled) {
 		t.Error(err)
 	}
 }

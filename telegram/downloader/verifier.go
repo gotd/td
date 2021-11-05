@@ -6,7 +6,7 @@ import (
 	"sort"
 	"sync"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/tg"
@@ -14,7 +14,7 @@ import (
 )
 
 // ErrHashMismatch means that download hash verification was failed.
-var ErrHashMismatch = xerrors.New("file hash mismatch")
+var ErrHashMismatch = errors.New("file hash mismatch")
 
 type verifier struct {
 	client schema
@@ -91,7 +91,7 @@ func (v *verifier) next(ctx context.Context) (tg.FileHash, bool, error) {
 			if flood || tgerr.Is(err, tg.ErrTimeout) {
 				continue
 			}
-			return tg.FileHash{}, false, xerrors.Errorf("get hashes: %w", err)
+			return tg.FileHash{}, false, errors.Wrap(err, "get hashes")
 		}
 
 		hash, ok = v.update(hashes...)

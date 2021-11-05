@@ -3,7 +3,7 @@ package mtproxy
 import (
 	"bytes"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // SecretType represents MTProxy secret type.
@@ -50,7 +50,7 @@ func ParseSecret(dc int, secret []byte) (Secret, error) {
 	case len(secret) == simpleLength:
 		r.Type = Simple
 	default:
-		return Secret{}, xerrors.Errorf("invalid secret %q", string(secret))
+		return Secret{}, errors.Errorf("invalid secret %q", string(secret))
 	}
 
 	return r, nil

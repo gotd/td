@@ -3,7 +3,7 @@ package tgtest
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -24,7 +24,7 @@ func (e exchangeConn) Recv(ctx context.Context, b *bin.Buffer) error {
 
 		var authKeyID [8]byte
 		if err := b.PeekN(authKeyID[:], len(authKeyID)); err != nil {
-			return xerrors.Errorf("peek id: %w", err)
+			return errors.Wrap(err, "peek id")
 		}
 		if authKeyID != [8]byte{} {
 			// TODO(tdakkota): what if client send registered auth key during key exchange?
@@ -32,7 +32,7 @@ func (e exchangeConn) Recv(ctx context.Context, b *bin.Buffer) error {
 			buf.PutInt32(-codec.CodeAuthKeyNotFound)
 
 			if err := e.Conn.Send(ctx, &buf); err != nil {
-				return xerrors.Errorf("send: %w", err)
+				return errors.Wrap(err, "send")
 			}
 
 			continue

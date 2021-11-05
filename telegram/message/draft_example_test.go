@@ -6,7 +6,7 @@ import (
 	"os"
 	"os/signal"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/message"
@@ -26,17 +26,17 @@ func saveDraft(ctx context.Context) error {
 
 		// Save draft message.
 		if err := r.SaveDraft(ctx, "Hi!"); err != nil {
-			return xerrors.Errorf("draft: %w", err)
+			return errors.Wrap(err, "draft")
 		}
 
 		// Save styled draft message.
 		if err := r.SaveStyledDraft(ctx, styling.Bold("Hi!")); err != nil {
-			return xerrors.Errorf("draft: %w", err)
+			return errors.Wrap(err, "draft")
 		}
 
 		// Clear draft for resolved @durov peer.
 		if err := r.ClearDraft(ctx); err != nil {
-			return xerrors.Errorf("draft: %w", err)
+			return errors.Wrap(err, "draft")
 		}
 
 		return nil

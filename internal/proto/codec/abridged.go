@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )
@@ -22,7 +22,7 @@ type Abridged struct{}
 // WriteHeader sends protocol tag.
 func (i Abridged) WriteHeader(w io.Writer) error {
 	if _, err := w.Write(AbridgedClientStart[:]); err != nil {
-		return xerrors.Errorf("write abridged header: %w", err)
+		return errors.Wrap(err, "write abridged header")
 	}
 
 	return nil
@@ -32,7 +32,7 @@ func (i Abridged) WriteHeader(w io.Writer) error {
 func (i Abridged) ReadHeader(r io.Reader) error {
 	var b [1]byte
 	if _, err := r.Read(b[:]); err != nil {
-		return xerrors.Errorf("read abridged header: %w", err)
+		return errors.Wrap(err, "read abridged header")
 	}
 
 	if b != AbridgedClientStart {
@@ -58,7 +58,7 @@ func (i Abridged) Write(w io.Writer, b *bin.Buffer) error {
 	}
 
 	if err := writeAbridged(w, b); err != nil {
-		return xerrors.Errorf("write abridged: %w", err)
+		return errors.Wrap(err, "write abridged")
 	}
 
 	return nil
@@ -67,7 +67,7 @@ func (i Abridged) Write(w io.Writer, b *bin.Buffer) error {
 // Read fills buffer with received message.
 func (i Abridged) Read(r io.Reader, b *bin.Buffer) error {
 	if err := readAbridged(r, b); err != nil {
-		return xerrors.Errorf("read abridged: %w", err)
+		return errors.Wrap(err, "read abridged")
 	}
 
 	return checkProtocolError(b)
@@ -133,7 +133,7 @@ func readAbridged(r io.Reader, b *bin.Buffer) error {
 
 	b.ResetN(n << 2)
 	if _, err := io.ReadFull(r, b.Buf); err != nil {
-		return xerrors.Errorf("read payload: %w", err)
+		return errors.Wrap(err, "read payload")
 	}
 
 	return nil

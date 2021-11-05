@@ -5,8 +5,8 @@ import (
 	"net"
 	"strconv"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/multierr"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
@@ -66,7 +66,7 @@ func (p plain) dialTransport(ctx context.Context, dc tg.DCOption) (_ transport.C
 
 	transportConn, err := p.protocol.Handshake(conn)
 	if err != nil {
-		return nil, xerrors.Errorf("transport handshake: %w", err)
+		return nil, errors.Wrap(err, "transport handshake")
 	}
 
 	return transportConn, nil
@@ -75,7 +75,7 @@ func (p plain) dialTransport(ctx context.Context, dc tg.DCOption) (_ transport.C
 func (p plain) connect(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error) {
 	switch len(dcOptions) {
 	case 0:
-		return nil, xerrors.Errorf("no addresses for DC %d", dc)
+		return nil, errors.Errorf("no addresses for DC %d", dc)
 	case 1:
 		return p.dialTransport(ctx, dcOptions[0])
 	}

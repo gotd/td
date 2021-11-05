@@ -2,9 +2,8 @@ package auth
 
 import (
 	"context"
-	"errors"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/crypto/srp"
 	"github.com/gotd/td/tg"
@@ -24,18 +23,18 @@ var ErrPasswordInvalid = errors.New("invalid password")
 func (c *Client) Password(ctx context.Context, password string) (*tg.AuthAuthorization, error) {
 	p, err := c.api.AccountGetPassword(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("get SRP parameters: %w", err)
+		return nil, errors.Wrap(err, "get SRP parameters")
 	}
 
 	algo, ok := p.CurrentAlgo.(*tg.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow)
 	if !ok {
-		return nil, xerrors.Errorf("unsupported algo: %T", p.CurrentAlgo)
+		return nil, errors.Errorf("unsupported algo: %T", p.CurrentAlgo)
 	}
 
 	s := srp.NewSRP(c.rand)
 	a, err := s.Hash([]byte(password), p.SRPB, p.SecureRandom, srp.Input(*algo))
 	if err != nil {
-		return nil, xerrors.Errorf("create SRP answer: %w", err)
+		return nil, errors.Wrap(err, "create SRP answer")
 	}
 
 	auth, err := c.api.AuthCheckPassword(ctx, &tg.InputCheckPasswordSRP{
@@ -47,11 +46,11 @@ func (c *Client) Password(ctx context.Context, password string) (*tg.AuthAuthori
 		return nil, ErrPasswordInvalid
 	}
 	if err != nil {
-		return nil, xerrors.Errorf("check password: %w", err)
+		return nil, errors.Wrap(err, "check password")
 	}
 	result, err := checkResult(auth)
 	if err != nil {
-		return nil, xerrors.Errorf("check: %w", err)
+		return nil, errors.Wrap(err, "check")
 	}
 	return result, nil
 }
@@ -91,7 +90,7 @@ func (c *Client) SendCode(ctx context.Context, phone string, options SendCodeOpt
 		Settings:    settings,
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("send code: %w", err)
+		return nil, errors.Wrap(err, "send code")
 	}
 	return sentCode, nil
 }
@@ -117,11 +116,11 @@ func (c *Client) SignIn(ctx context.Context, phone, code, codeHash string) (*tg.
 		return nil, ErrPasswordAuthNeeded
 	}
 	if err != nil {
-		return nil, xerrors.Errorf("sign in: %w", err)
+		return nil, errors.Wrap(err, "sign in")
 	}
 	result, err := checkResult(auth)
 	if err != nil {
-		return nil, xerrors.Errorf("check: %w", err)
+		return nil, errors.Wrap(err, "check")
 	}
 	return result, nil
 }
@@ -152,11 +151,11 @@ func (c *Client) SignUp(ctx context.Context, s SignUp) (*tg.AuthAuthorization, e
 		FirstName:     s.FirstName,
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("request: %w", err)
+		return nil, errors.Wrap(err, "request")
 	}
 	result, err := checkResult(auth)
 	if err != nil {
-		return nil, xerrors.Errorf("check: %w", err)
+		return nil, errors.Wrap(err, "check")
 	}
 	return result, nil
 }

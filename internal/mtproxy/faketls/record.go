@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 const maxTLSRecordDataLength = 16384 + 24
@@ -36,12 +36,12 @@ func readRecord(r io.Reader) (record, error) {
 	case bytes.Equal(versionRaw, Version10Bytes[:]):
 		rec.Version = Version10Bytes
 	default:
-		return record{}, xerrors.Errorf("unknown protocol version %v", versionRaw)
+		return record{}, errors.Errorf("unknown protocol version %v", versionRaw)
 	}
 
 	length := binary.BigEndian.Uint16(buf[3:])
 	if length > maxTLSRecordDataLength {
-		return record{}, xerrors.New("record length is too big")
+		return record{}, errors.New("record length is too big")
 	}
 
 	rec.Data = make([]byte, length)
@@ -59,17 +59,17 @@ func writeRecord(w io.Writer, r record) (int, error) {
 	}
 
 	if _, err := w.Write(buf[:]); err != nil {
-		return 0, xerrors.Errorf("type and version: %w", err)
+		return 0, errors.Wrap(err, "type and version")
 	}
 
 	binary.BigEndian.PutUint16(buf[:2], uint16(len(r.Data)))
 	if _, err := w.Write(buf[:2]); err != nil {
-		return 0, xerrors.Errorf("data length: %w", err)
+		return 0, errors.Wrap(err, "data length")
 	}
 
 	n, err := w.Write(r.Data)
 	if err != nil {
-		return 0, xerrors.Errorf("data: %w", err)
+		return 0, errors.Wrap(err, "data")
 	}
 
 	return n, nil

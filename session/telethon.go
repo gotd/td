@@ -6,7 +6,7 @@ import (
 	"net"
 	"strconv"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/crypto"
 )
@@ -22,11 +22,11 @@ const latestTelethonVersion byte = '1'
 // See https://github.com/LonamiWebs/Telethon/blob/master/telethon/sessions/string.py#L29-L46.
 func TelethonSession(hx string) (*Data, error) {
 	if len(hx) < 1 {
-		return nil, xerrors.Errorf("given string too small: %d", len(hx))
+		return nil, errors.Errorf("given string too small: %d", len(hx))
 	}
 	version := hx[0]
 	if version != latestTelethonVersion {
-		return nil, xerrors.Errorf("unexpected version %q, latest supported is %q",
+		return nil, errors.Errorf("unexpected version %q, latest supported is %q",
 			version,
 			latestTelethonVersion,
 		)
@@ -34,7 +34,7 @@ func TelethonSession(hx string) (*Data, error) {
 
 	data, err := base64.URLEncoding.DecodeString(hx[1:])
 	if err != nil {
-		return nil, xerrors.Errorf("decode hex: %w", err)
+		return nil, errors.Wrap(err, "decode hex")
 	}
 
 	return decodeStringSession(data)
@@ -60,7 +60,7 @@ func decodeStringSession(data []byte) (*Data, error) {
 	case 275:
 		ipLength = 16
 	default:
-		return nil, xerrors.Errorf("decoded hex has invalid length: %d", len(data))
+		return nil, errors.Errorf("decoded hex has invalid length: %d", len(data))
 	}
 
 	// | 1    | byte   | DC ID       |

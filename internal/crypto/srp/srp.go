@@ -6,8 +6,8 @@ import (
 	"io"
 	"math/big"
 
+	"github.com/ogen-go/errors"
 	"golang.org/x/crypto/pbkdf2"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/xor"
 
@@ -54,14 +54,14 @@ type Answer struct {
 // See https://core.telegram.org/api/srp#checking-the-password-with-srp.
 func (s SRP) Hash(password, srpB, random []byte, i Input) (Answer, error) {
 	if err := s.checkGP(i.G, i.P); err != nil {
-		return Answer{}, xerrors.Errorf("validate algo: %w", err)
+		return Answer{}, errors.Wrap(err, "validate algo")
 	}
 
 	p := s.bigFromBytes(i.P)
 	g := big.NewInt(int64(i.G))
 	gBytes, ok := s.paddedFromBig(g)
 	if !ok {
-		return Answer{}, xerrors.Errorf("invalid g (%d)", i.G)
+		return Answer{}, errors.Errorf("invalid g (%d)", i.G)
 	}
 
 	// random 2048-bit number a
@@ -70,7 +70,7 @@ func (s SRP) Hash(password, srpB, random []byte, i Input) (Answer, error) {
 	// `g_a = pow(g, a) mod p`
 	ga, ok := s.paddedFromBig(s.bigExp(g, a, p))
 	if !ok {
-		return Answer{}, xerrors.New("g_a is too big")
+		return Answer{}, errors.New("g_a is too big")
 	}
 
 	// `g_b = srp_B`
@@ -100,7 +100,7 @@ func (s SRP) Hash(password, srpB, random []byte, i Input) (Answer, error) {
 	// `s_a = pow(t, a + u * x) mod p`
 	sa, ok := s.paddedFromBig(s.bigExp(t, u.Mul(u, x).Add(u, a), p))
 	if !ok {
-		return Answer{}, xerrors.New("s_a is too big")
+		return Answer{}, errors.New("s_a is too big")
 	}
 
 	// `k_a = H(s_a)`

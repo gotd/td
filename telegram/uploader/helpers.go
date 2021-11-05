@@ -9,8 +9,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/multierr"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram/uploader/source"
 	"github.com/gotd/td/tg"
@@ -27,7 +27,7 @@ type File interface {
 func (u *Uploader) FromFile(ctx context.Context, f File) (tg.InputFileClass, error) {
 	info, err := f.Stat()
 	if err != nil {
-		return nil, xerrors.Errorf("stat: %w", err)
+		return nil, errors.Wrap(err, "stat")
 	}
 
 	return u.Upload(ctx, NewUpload(info.Name(), f, info.Size()))
@@ -48,7 +48,7 @@ func (o osFS) Open(name string) (fs.File, error) {
 func (u *Uploader) FromFS(ctx context.Context, filesystem fs.FS, path string) (_ tg.InputFileClass, err error) {
 	f, err := filesystem.Open(path)
 	if err != nil {
-		return nil, xerrors.Errorf("open: %w", err)
+		return nil, errors.Wrap(err, "open")
 	}
 	defer func() {
 		multierr.AppendInto(&err, f.Close())
@@ -78,12 +78,12 @@ func (u *Uploader) FromURL(ctx context.Context, rawURL string) (_ tg.InputFileCl
 func (u *Uploader) FromSource(ctx context.Context, src source.Source, rawURL string) (_ tg.InputFileClass, rerr error) {
 	parsed, err := url.Parse(rawURL)
 	if err != nil {
-		return nil, xerrors.Errorf("parse url %q: %w", rawURL, err)
+		return nil, errors.Wrapf(err, "parse url %q", rawURL)
 	}
 
 	f, err := src.Open(ctx, parsed)
 	if err != nil {
-		return nil, xerrors.Errorf("open %q: %w", rawURL, err)
+		return nil, errors.Wrapf(err, "open %q", rawURL)
 	}
 	defer func() {
 		multierr.AppendInto(&rerr, f.Close())
@@ -91,7 +91,7 @@ func (u *Uploader) FromSource(ctx context.Context, src source.Source, rawURL str
 
 	name := f.Name()
 	if name == "" {
-		return nil, xerrors.Errorf("invalid name %q got from %q", name, rawURL)
+		return nil, errors.Errorf("invalid name %q got from %q", name, rawURL)
 	}
 
 	size := f.Size()

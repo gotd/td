@@ -12,9 +12,9 @@ import (
 	"testing"
 	"testing/fstest"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/atomic"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/syncio"
 	"github.com/gotd/td/internal/testutil"
@@ -50,7 +50,7 @@ func (m *mockClient) write(part int, data []byte) error {
 	} else if m.partSize != len(data) {
 		m.partSizeMux.Unlock()
 
-		return xerrors.Errorf(
+		return errors.Errorf(
 			"invalid part size, expected %d, got %d",
 			m.partSize, len(data),
 		)

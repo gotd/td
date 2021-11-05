@@ -1,7 +1,7 @@
 package styling
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/message/entity"
 )
@@ -20,7 +20,7 @@ func (b *textBuilder) Perform(texts ...StyledTextOption) error {
 
 	for idx, opt := range texts {
 		if err := opt.perform(b); err != nil {
-			return xerrors.Errorf("perform %d styling option: %w", idx+2, err)
+			return errors.Wrapf(err, "perform %d styling option", idx+2)
 		}
 	}
 

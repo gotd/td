@@ -5,8 +5,8 @@ import (
 	"io"
 	"net"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/multierr"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mtproxy"
@@ -42,12 +42,12 @@ func (m mtProxy) CDN(ctx context.Context, dc int, _ List) (transport.Conn, error
 func (m mtProxy) resolve(ctx context.Context, dc int) (transport.Conn, error) {
 	c, err := m.dial(ctx, m.network, m.addr)
 	if err != nil {
-		return nil, xerrors.Errorf("connect to the MTProxy %q: %w", m.addr, err)
+		return nil, errors.Wrapf(err, "connect to the MTProxy %q", m.addr)
 	}
 
 	conn, err := m.handshakeConn(c, dc)
 	if err != nil {
-		err = xerrors.Errorf("handshake: %w", err)
+		err = errors.Wrap(err, "handshake")
 		return nil, multierr.Combine(err, c.Close())
 	}
 
@@ -63,18 +63,18 @@ func (m mtProxy) handshakeConn(c net.Conn, dc int) (transport.Conn, error) {
 	case mtproxy.TLS:
 		obsConn = obfuscator.FakeTLS(m.rand, c)
 	default:
-		return nil, xerrors.Errorf("unknown MTProxy secret type: %d", m.secret.Type)
+		return nil, errors.Errorf("unknown MTProxy secret type: %d", m.secret.Type)
 	}
 
 	secret := m.secret
 	secret.DC = dc
 	if err := obsConn.Handshake(m.tag, secret); err != nil {
-		return nil, xerrors.Errorf("MTProxy handshake: %w", err)
+		return nil, errors.Wrap(err, "MTProxy handshake")
 	}
 
 	transportConn, err := m.protocol.Handshake(obsConn)
 	if err != nil {
-		return nil, xerrors.Errorf("transport handshake: %w", err)
+		return nil, errors.Wrap(err, "transport handshake")
 	}
 
 	return transportConn, nil

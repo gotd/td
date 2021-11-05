@@ -5,9 +5,9 @@ import (
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
+	"github.com/ogen-go/errors"
 	"go.uber.org/multierr"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/exchange"
 	"github.com/gotd/td/internal/tdsync"
@@ -53,7 +53,7 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 }
 
 func (c *Client) isPermanentError(err error) bool {
-	return xerrors.Is(err, exchange.ErrKeyFingerprintNotFound)
+	return errors.Is(err, exchange.ErrKeyFingerprintNotFound)
 }
 
 func (c *Client) reconnectUntilClosed(ctx context.Context) error {
@@ -101,7 +101,7 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 	if c.ctx != nil {
 		select {
 		case <-c.ctx.Done():
-			return xerrors.Errorf("client already closed: %w", c.ctx.Err())
+			return errors.Wrap(c.ctx.Err(), "client already closed")
 		default:
 		}
 	}
@@ -119,7 +119,7 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 		defer c.subConnsMux.Unlock()
 
 		for _, conn := range c.subConns {
-			if closeErr := conn.Close(); !xerrors.Is(closeErr, context.Canceled) {
+			if closeErr := conn.Close(); !errors.Is(closeErr, context.Canceled) {
 				multierr.AppendInto(&err, closeErr)
 			}
 		}
@@ -147,7 +147,7 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 			return ctx.Err()
 		case <-c.ready.Ready():
 			if err := f(ctx); err != nil {
-				return xerrors.Errorf("callback: %w", err)
+				return errors.Wrap(err, "callback")
 			}
 			// Should call cancel() to cancel ctx.
 			// This will terminate c.conn.Run().
@@ -156,7 +156,7 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (er
 			return nil
 		}
 	})
-	if err := g.Wait(); !xerrors.Is(err, context.Canceled) {
+	if err := g.Wait(); !errors.Is(err, context.Canceled) {
 		return err
 	}
 

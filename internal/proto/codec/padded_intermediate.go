@@ -3,7 +3,7 @@ package codec
 import (
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -22,7 +22,7 @@ type PaddedIntermediate struct{}
 // WriteHeader sends protocol tag.
 func (i PaddedIntermediate) WriteHeader(w io.Writer) error {
 	if _, err := w.Write(PaddedIntermediateClientStart[:]); err != nil {
-		return xerrors.Errorf("write padded intermediate header: %w", err)
+		return errors.Wrap(err, "write padded intermediate header")
 	}
 
 	return nil
@@ -32,7 +32,7 @@ func (i PaddedIntermediate) WriteHeader(w io.Writer) error {
 func (i PaddedIntermediate) ReadHeader(r io.Reader) error {
 	var b [4]byte
 	if _, err := r.Read(b[:]); err != nil {
-		return xerrors.Errorf("read padded intermediate header: %w", err)
+		return errors.Wrap(err, "read padded intermediate header")
 	}
 
 	if b != PaddedIntermediateClientStart {
@@ -58,7 +58,7 @@ func (i PaddedIntermediate) Write(w io.Writer, b *bin.Buffer) error {
 	}
 
 	if err := writePaddedIntermediate(crypto.DefaultRand(), w, b); err != nil {
-		return xerrors.Errorf("write padded intermediate: %w", err)
+		return errors.Wrap(err, "write padded intermediate")
 	}
 
 	return nil
@@ -67,7 +67,7 @@ func (i PaddedIntermediate) Write(w io.Writer, b *bin.Buffer) error {
 // Read fills buffer with received message.
 func (i PaddedIntermediate) Read(r io.Reader, b *bin.Buffer) error {
 	if err := readPaddedIntermediate(r, b); err != nil {
-		return xerrors.Errorf("read padded intermediate: %w", err)
+		return errors.Wrap(err, "read padded intermediate")
 	}
 
 	return checkProtocolError(b)

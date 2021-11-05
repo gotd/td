@@ -5,7 +5,7 @@ import (
 	"crypto/sha1" // #nosec
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/ige"
 
@@ -17,13 +17,13 @@ func DecryptExchangeAnswer(data, key, iv []byte) (dst []byte, err error) {
 	// Decrypting inner data.
 	cipher, err := aes.NewCipher(key)
 	if err != nil {
-		return nil, xerrors.Errorf("create aes cipher: %w", err)
+		return nil, errors.Wrap(err, "create aes cipher")
 	}
 
 	dataWithHash := make([]byte, len(data))
 	// Checking length. Invalid length will lead to panic in CryptBlocks.
 	if len(dataWithHash)%cipher.BlockSize() != 0 {
-		return nil, xerrors.Errorf("invalid len of data_with_hash (%d %% 16 != 0)", len(dataWithHash))
+		return nil, errors.Errorf("invalid len of data_with_hash (%d %% 16 != 0)", len(dataWithHash))
 	}
 	ige.DecryptBlocks(cipher, iv, dataWithHash, data)
 
@@ -32,7 +32,7 @@ func DecryptExchangeAnswer(data, key, iv []byte) (dst []byte, err error) {
 		// Most common cause of this error is invalid crypto implementation,
 		// i.e. invalid keys are used to decrypt payload which lead to
 		// decrypt failure, so data does not match sha1 with any padding.
-		return nil, xerrors.New("guess data from data_with_hash")
+		return nil, errors.New("guess data from data_with_hash")
 	}
 
 	return
@@ -42,12 +42,12 @@ func DecryptExchangeAnswer(data, key, iv []byte) (dst []byte, err error) {
 func EncryptExchangeAnswer(rand io.Reader, answer, key, iv []byte) (dst []byte, err error) {
 	cipher, err := aes.NewCipher(key)
 	if err != nil {
-		return nil, xerrors.Errorf("create aes cipher: %w", err)
+		return nil, errors.Wrap(err, "create aes cipher")
 	}
 
 	answerWithHash, err := DataWithHash(answer, rand)
 	if err != nil {
-		return nil, xerrors.Errorf("get answer with hash: %w", err)
+		return nil, errors.Wrap(err, "get answer with hash")
 	}
 
 	dst = make([]byte, len(answerWithHash))

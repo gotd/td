@@ -25,11 +25,11 @@ func ZapPreferNoWith(m dsl.Matcher) {
 
 // UberStyleErrors detects error messages like
 //
-// 	xerrors.Errorf("failed to do something: %w", err)
+// 	errors.Wrap(err, "failed to do something")
 //
 // but you should avoid "failed to" and use
 //
-// 	xerrors.Errorf("do something: %w", err)
+// 	errors.Wrap(err, "do something")
 //
 // according to https://github.com/uber-go/guide/blob/master/style.md#error-wrapping.
 func UberStyleErrors(m dsl.Matcher) {
@@ -41,20 +41,20 @@ func UberStyleErrors(m dsl.Matcher) {
 		m["msg"].Text.Matches(`"failed to.*"`),
 	).Report("Avoid phrases like \"failed to\"")
 
-	m.Match("xerrors.New($msg)").Where(
+	m.Match("errors.New($msg)").Where(
 		m["msg"].Text.Matches(`"failed to.*"`),
 	).Report("Avoid phrases like \"failed to\"")
 }
 
 // UnnecessaryErrorFormat detects unnecessary error formatting like
 //
-// 	xerrors.Errorf("error")
+// 	errors.New("error")
 //
 // and suggests instead
 //
-// 	xerrors.New("error")
+// 	errors.New("error")
 //
 func UnnecessaryErrorFormat(m dsl.Matcher) {
 	m.Match("fmt.Errorf($msg)").Suggest("errors.New($msg)")
-	m.Match("xerrors.Errorf($msg)").Suggest("xerrors.New($msg)")
+	m.Match("errors.Errorf($msg)").Suggest("errors.New($msg)")
 }

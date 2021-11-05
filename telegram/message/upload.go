@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -39,7 +39,7 @@ func (u *UploadBuilder) send(
 ) (tg.UpdatesClass, error) {
 	f, err := u.file(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("upload: %w", err)
+		return nil, errors.Wrap(err, "upload")
 	}
 
 	return using(ctx, f, caption...)
@@ -59,7 +59,7 @@ func (u *UploadBuilder) Audio(ctx context.Context, caption ...StyledTextOption) 
 func (u *UploadBuilder) Voice(ctx context.Context) (tg.UpdatesClass, error) {
 	f, err := u.file(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("upload: %w", err)
+		return nil, errors.Wrap(err, "upload")
 	}
 
 	return u.builder.Voice(ctx, f)

@@ -6,7 +6,7 @@ import (
 	"crypto/sha1" // #nosec G505
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // RSAEncryptHashed encrypts given data with RSA, prefixing with a hash.
@@ -16,7 +16,7 @@ func RSAEncryptHashed(data []byte, key *rsa.PublicKey, randomSource io.Reader) (
 	// such that the length equals 255 bytes;
 	var dataWithHash [rsaWithHashLen]byte
 	if len(data) > rsaDataLen {
-		return nil, xerrors.Errorf("data length %d is too big", len(data))
+		return nil, errors.Errorf("data length %d is too big", len(data))
 	}
 
 	// Filling data_with_hash with random bytes.
@@ -41,7 +41,7 @@ func RSAEncryptHashed(data []byte, key *rsa.PublicKey, randomSource io.Reader) (
 func RSADecryptHashed(data []byte, key *rsa.PrivateKey) ([]byte, error) {
 	var dataWithHash [rsaWithHashLen]byte
 	if !rsaDecrypt(data, key, dataWithHash[:]) {
-		return nil, xerrors.New("invalid data_with_hash")
+		return nil, errors.New("invalid data_with_hash")
 	}
 
 	hash := dataWithHash[:sha1.Size]
@@ -58,5 +58,5 @@ func RSADecryptHashed(data []byte, key *rsa.PrivateKey) ([]byte, error) {
 	}
 
 	// This can be caused by invalid keys or implementation bug.
-	return nil, xerrors.New("hash mismatch")
+	return nil, errors.New("hash mismatch")
 }

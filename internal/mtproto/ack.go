@@ -3,8 +3,8 @@ package mtproto
 import (
 	"context"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/mt"
 )
@@ -30,7 +30,7 @@ func (c *Conn) ackLoop(ctx context.Context) error {
 	for {
 		select {
 		case <-ctx.Done():
-			return xerrors.Errorf("acl: %w", ctx.Err())
+			return errors.Wrap(ctx.Err(), "acl")
 		case <-ticker.C():
 			if len(buf) > 0 {
 				send()

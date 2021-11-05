@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -189,7 +189,7 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 	// This will send initial packet to telegram and perform key exchange
 	// if needed.
 	if c.ran.Swap(true) {
-		return xerrors.New("do Run on closed connection")
+		return errors.New("do Run on closed connection")
 	}
 
 	ctx, cancel := context.WithCancel(ctx)
@@ -198,7 +198,7 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 	c.log.Debug("Run: start")
 	defer c.log.Debug("Run: end")
 	if err := c.connect(ctx); err != nil {
-		return xerrors.Errorf("start: %w", err)
+		return errors.Wrap(err, "start")
 	}
 	{
 		// All goroutines are bound to current call.
@@ -211,7 +211,7 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 		g.Go("readLoop", c.readLoop)
 
 		if err := g.Wait(); err != nil {
-			return xerrors.Errorf("group: %w", err)
+			return errors.Wrap(err, "group")
 		}
 	}
 	return nil

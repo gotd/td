@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/tg"
@@ -23,7 +23,7 @@ func (b *RequestBuilder) AsInputUserClass(ctx context.Context) (tg.InputUserClas
 
 	user, ok := peer.ToInputUser(p)
 	if !ok {
-		return nil, xerrors.Errorf("unexpected type %T", p)
+		return nil, errors.Errorf("unexpected type %T", p)
 	}
 	return user, nil
 }
@@ -37,7 +37,7 @@ func (b *RequestBuilder) AsInputUser(ctx context.Context) (*tg.InputUser, error)
 
 	userID, ok := user.(*tg.InputUser)
 	if !ok {
-		return nil, xerrors.Errorf("unexpected type %T", user)
+		return nil, errors.Errorf("unexpected type %T", user)
 	}
 	return userID, nil
 }
@@ -51,7 +51,7 @@ func (b *RequestBuilder) AsInputChannelClass(ctx context.Context) (tg.InputChann
 
 	channel, ok := peer.ToInputChannel(p)
 	if !ok {
-		return nil, xerrors.Errorf("unexpected type %T", p)
+		return nil, errors.Errorf("unexpected type %T", p)
 	}
 	return channel, nil
 }
@@ -65,7 +65,7 @@ func (b *RequestBuilder) AsInputChannel(ctx context.Context) (*tg.InputChannel, 
 
 	channelID, ok := channel.(*tg.InputChannel)
 	if !ok {
-		return nil, xerrors.Errorf("unexpected type %T", channel)
+		return nil, errors.Errorf("unexpected type %T", channel)
 	}
 	return channelID, nil
 }

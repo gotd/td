@@ -3,7 +3,7 @@ package gen
 import (
 	"strings"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/tl"
 )
@@ -82,7 +82,7 @@ func (g *Generator) makeBindings() error {
 		case tl.CategoryType:
 			constructorsCount, ok := constructors[classKey]
 			if constructorsCount == 0 || !ok {
-				return xerrors.Errorf("constructors[%s] not found", classKey)
+				return errors.Errorf("constructors[%s] not found", classKey)
 			}
 			if constructorsCount == 1 {
 				// Using this constructor instead of generic class for all definitions

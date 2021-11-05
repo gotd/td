@@ -1,18 +1,18 @@
 package rpc
 
 import (
-	"errors"
 	"sync"
 	"testing"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/net/context"
 	"golang.org/x/sync/errgroup"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/neo"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/testutil"
@@ -76,7 +76,7 @@ func TestRPCError(t *testing.T) {
 		})
 
 		log.Info("Got pong response")
-		require.True(t, xerrors.Is(err, expectedErr), "expected error")
+		require.True(t, errors.Is(err, expectedErr), "expected error")
 
 		return nil
 	}
@@ -297,7 +297,7 @@ func TestRPCWithRetryResult(t *testing.T) {
 func TestEngineGracefulShutdown(t *testing.T) {
 	var (
 		log             = zaptest.NewLogger(t)
-		expectedErr     = xerrors.New("server side error")
+		expectedErr     = errors.New("server side error")
 		requestsCount   = 10
 		serverRecv      sync.WaitGroup
 		canSendResponse sync.Mutex

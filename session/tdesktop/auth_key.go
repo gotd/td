@@ -4,7 +4,7 @@ import (
 	"io"
 	"math/bits"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -40,12 +40,12 @@ func (r *reader) skip(n int) error {
 func readMTPData(tgf tdesktopFile, localKey crypto.Key) (MTPAuthorization, error) {
 	encrypted, err := tgf.readArray()
 	if err != nil {
-		return MTPAuthorization{}, xerrors.Errorf("read encrypted data: %w", err)
+		return MTPAuthorization{}, errors.Wrap(err, "read encrypted data")
 	}
 
 	decrypted, err := decryptLocal(encrypted, localKey)
 	if err != nil {
-		return MTPAuthorization{}, xerrors.Errorf("decrypt data: %w", err)
+		return MTPAuthorization{}, errors.Wrap(err, "decrypt data")
 	}
 	// Skip decrypted data length (uint32).
 	decrypted = decrypted[4:]
@@ -54,7 +54,7 @@ func readMTPData(tgf tdesktopFile, localKey crypto.Key) (MTPAuthorization, error
 	// TODO(tdakkota): support other IDs.
 	var m MTPAuthorization
 	if err := m.deserialize(&r); err != nil {
-		return MTPAuthorization{}, xerrors.Errorf("deserialize MTPAuthorization: %w", err)
+		return MTPAuthorization{}, errors.Wrap(err, "deserialize MTPAuthorization")
 	}
 	return m, err
 }

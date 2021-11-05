@@ -4,7 +4,7 @@ import (
 	"crypto/rsa"
 	"encoding/pem"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/tg"
@@ -21,7 +21,7 @@ func parseCDNKeys(keys ...tg.CDNPublicKey) ([]*rsa.PublicKey, error) {
 
 		key, err := crypto.ParseRSA(block.Bytes)
 		if err != nil {
-			return nil, xerrors.Errorf("parse RSA from PEM: %w", err)
+			return nil, errors.Wrap(err, "parse RSA from PEM")
 		}
 
 		r = append(r, key)

@@ -3,8 +3,8 @@ package message
 import (
 	"context"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/atomic"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/tg"
@@ -153,12 +153,12 @@ func (s *Sender) Answer(
 		if !ok {
 			emptyMsg, ok := updMsg.(*tg.MessageEmpty)
 			if !ok {
-				return nil, xerrors.Errorf("unexpected type %T", updMsg)
+				return nil, errors.Errorf("unexpected type %T", updMsg)
 			}
 
 			p, ok := emptyMsg.GetPeerID()
 			if !ok {
-				return nil, xerrors.Errorf("got %T with empty PeerID", updMsg)
+				return nil, errors.Errorf("got %T with empty PeerID", updMsg)
 			}
 
 			return entities.ExtractPeer(p)

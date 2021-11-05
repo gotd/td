@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/neo"
 
@@ -85,7 +85,7 @@ func (m *mockResolver) ResolveDomain(ctx context.Context, domain string) (tg.Inp
 	}
 
 	if domain != m.domain {
-		err := xerrors.Errorf("expected domain %q, got %q", m.domain, domain)
+		err := errors.Errorf("expected domain %q, got %q", m.domain, domain)
 		m.t.Error(err)
 		return nil, err
 	}
@@ -100,7 +100,7 @@ func (m *mockResolver) ResolvePhone(ctx context.Context, phone string) (tg.Input
 	}
 
 	if phone != m.phone {
-		err := xerrors.Errorf("expected phone %q, got %q", m.phone, phone)
+		err := errors.Errorf("expected phone %q, got %q", m.phone, phone)
 		m.t.Error(err)
 		return nil, err
 	}

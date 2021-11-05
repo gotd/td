@@ -7,7 +7,7 @@ import (
 	"os"
 	"os/signal"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
@@ -17,7 +17,7 @@ import (
 func connectViaMTProxy(ctx context.Context) error {
 	secret, err := hex.DecodeString(os.Getenv("SECRET"))
 	if err != nil {
-		return xerrors.Errorf("parse secret: %w", err)
+		return errors.Wrap(err, "parse secret")
 	}
 
 	resolver, err := dcs.MTProxy(
@@ -26,20 +26,20 @@ func connectViaMTProxy(ctx context.Context) error {
 		dcs.MTProxyOptions{},
 	)
 	if err != nil {
-		return xerrors.Errorf("create MTProxy resolver: %w", err)
+		return errors.Wrap(err, "create MTProxy resolver")
 	}
 
 	client, err := telegram.ClientFromEnvironment(telegram.Options{
 		Resolver: resolver,
 	})
 	if err != nil {
-		return xerrors.Errorf("create client: %w", err)
+		return errors.Wrap(err, "create client")
 	}
 
 	return client.Run(ctx, func(ctx context.Context) error {
 		cfg, err := tg.NewClient(client).HelpGetConfig(ctx)
 		if err != nil {
-			return xerrors.Errorf("get config: %w", err)
+			return errors.Wrap(err, "get config")
 		}
 
 		fmt.Println("This DC: ", cfg.ThisDC)

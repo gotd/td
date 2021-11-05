@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )
@@ -36,16 +36,16 @@ func (c *connection) Send(ctx context.Context, b *bin.Buffer) error {
 	defer c.writeMux.Unlock()
 
 	if err := c.conn.SetWriteDeadline(time.Time{}); err != nil {
-		return xerrors.Errorf("reset write deadline: %w", err)
+		return errors.Wrap(err, "reset write deadline")
 	}
 	if deadline, ok := ctx.Deadline(); ok {
 		if err := c.conn.SetWriteDeadline(deadline); err != nil {
-			return xerrors.Errorf("set write deadline: %w", err)
+			return errors.Wrap(err, "set write deadline")
 		}
 	}
 
 	if err := c.codec.Write(c.conn, b); err != nil {
-		return xerrors.Errorf("write: %w", err)
+		return errors.Wrap(err, "write")
 	}
 
 	return nil
@@ -58,16 +58,16 @@ func (c *connection) Recv(ctx context.Context, b *bin.Buffer) error {
 	defer c.readMux.Unlock()
 
 	if err := c.conn.SetReadDeadline(time.Time{}); err != nil {
-		return xerrors.Errorf("reset read deadline: %w", err)
+		return errors.Wrap(err, "reset read deadline")
 	}
 	if deadline, ok := ctx.Deadline(); ok {
 		if err := c.conn.SetReadDeadline(deadline); err != nil {
-			return xerrors.Errorf("set read deadline: %w", err)
+			return errors.Wrap(err, "set read deadline")
 		}
 	}
 
 	if err := c.codec.Read(c.conn, b); err != nil {
-		return xerrors.Errorf("read: %w", err)
+		return errors.Wrap(err, "read")
 	}
 
 	return nil

@@ -5,8 +5,8 @@ import (
 	"crypto/rand"
 	"math/big"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -19,24 +19,24 @@ func (c ClientExchange) Run(ctx context.Context) (ClientExchangeResult, error) {
 	// 1. DH exchange initiation.
 	nonce, err := crypto.RandInt128(c.rand)
 	if err != nil {
-		return ClientExchangeResult{}, xerrors.Errorf("client nonce generation: %w", err)
+		return ClientExchangeResult{}, errors.Wrap(err, "client nonce generation")
 	}
 	b := new(bin.Buffer)
 
 	c.log.Debug("Sending ReqPqMultiRequest")
 	if err := c.writeUnencrypted(ctx, b, &mt.ReqPqMultiRequest{Nonce: nonce}); err != nil {
-		return ClientExchangeResult{}, xerrors.Errorf("write ReqPqMultiRequest: %w", err)
+		return ClientExchangeResult{}, errors.Wrap(err, "write ReqPqMultiRequest")
 	}
 
 	// 2. Server sends response of the form
 	// resPQ#05162463 nonce:int128 server_nonce:int128 pq:string server_public_key_fingerprints:Vector long = ResPQ;
 	var res mt.ResPQ
 	if err := c.readUnencrypted(ctx, b, &res); err != nil {
-		return ClientExchangeResult{}, xerrors.Errorf("read ResPQ response: %w", err)
+		return ClientExchangeResult{}, errors.Wrap(err, "read ResPQ response")
 	}
 	c.log.Debug("Received server ResPQ")
 	if res.Nonce != nonce {
-		return ClientExchangeResult{}, xerrors.New("ResPQ nonce mismatch")
+		return ClientExchangeResult{}, errors.New("ResPQ nonce mismatch")
 	}
 	serverNonce := res.ServerNonce
 
@@ -63,7 +63,7 @@ Loop:
 	// Normally pq is less than or equal to 2^63-1.
 	pqMax := big.NewInt(0).Exp(big.NewInt(2), big.NewInt(63), nil)
 	if pq.Cmp(pqMax) > 0 {
-		return ClientExchangeResult{}, xerrors.New("server provided bad pq")
+		return ClientExchangeResult{}, errors.New("server provided bad pq")
 	}
 
 	start := c.clock.Now()
@@ -71,7 +71,7 @@ Loop:
 	// Performing proof of work.
 	p, q, err := crypto.DecomposePQ(pq, c.rand)
 	if err != nil {
-		return ClientExchangeResult{}, xerrors.Errorf("decompose pq: %w", err)
+		return ClientExchangeResult{}, errors.Wrap(err, "decompose pq")
 	}
 	c.log.Debug("PQ decomposing complete", zap.Duration("took", c.clock.Now().Sub(start)))
 	// Make a copy of p and q values to reduce allocations.
@@ -83,7 +83,7 @@ Loop:
 	//   public_key_fingerprint:long encrypted_data:string = Server_DH_Params
 	newNonce, err := crypto.RandInt256(c.rand)
 	if err != nil {
-		return ClientExchangeResult{}, xerrors.Errorf("generate new nonce: %w", err)
+		return ClientExchangeResult{}, errors.Wrap(err, "generate new nonce")
 	}
 
 	var encryptedData []byte
@@ -104,7 +104,7 @@ Loop:
 		// `encrypted_data := RSA (data_with_hash, server_public_key);`
 		data, err := crypto.RSAEncryptHashed(b.Buf, selectedPubKey.RSA, c.rand)
 		if err != nil {
-			return ClientExchangeResult{}, xerrors.Errorf("encrypted_data generation: %w", err)
+			return ClientExchangeResult{}, errors.Wrap(err, "encrypted_data generation")
 		}
 
 		encryptedData = data
@@ -126,7 +126,7 @@ Loop:
 		// `encrypted_data := RSA_PAD(data, server_public_key);`
 		data, err := crypto.RSAPad(b.Buf, selectedPubKey.RSA, c.rand)
 		if err != nil {
-			return ClientExchangeResult{}, xerrors.Errorf("encrypted_data generation: %w", err)
+			return ClientExchangeResult{}, errors.Wrap(err, "encrypted_data generation")
 		}
 
 		encryptedData = data
@@ -142,18 +142,18 @@ Loop:
 	}
 	c.log.Debug("Sending ReqDHParamsRequest")
 	if err := c.writeUnencrypted(ctx, b, reqDHParams); err != nil {
-		return ClientExchangeResult{}, xerrors.Errorf("write ReqDHParamsRequest: %w", err)
+		return ClientExchangeResult{}, errors.Wrap(err, "write ReqDHParamsRequest")
 	}
 
 	// 5. Server responds with Server_DH_Params.
 	if err := c.conn.Recv(ctx, b); err != nil {
-		return ClientExchangeResult{}, xerrors.Errorf("read ServerDHParams message: %w", err)
+		return ClientExchangeResult{}, errors.Wrap(err, "read ServerDHParams message")
 	}
 	c.log.Debug("Received server ServerDHParams")
 
 	var plaintextMsg proto.UnencryptedMessage
 	if err := plaintextMsg.Decode(b); err != nil {
-		return ClientExchangeResult{}, xerrors.Errorf("decode ServerDHParams message: %w", err)
+		return ClientExchangeResult{}, errors.Wrap(err, "decode ServerDHParams message")
 	}
 
 	b.ResetTo(plaintextMsg.MessageData)
@@ -165,17 +165,17 @@ Loop:
 	case *mt.ServerDHParamsOk:
 		// Success.
 		if p.Nonce != nonce {
-			return ClientExchangeResult{}, xerrors.New("ServerDHParamsOk nonce mismatch")
+			return ClientExchangeResult{}, errors.New("ServerDHParamsOk nonce mismatch")
 		}
 		if p.ServerNonce != serverNonce {
-			return ClientExchangeResult{}, xerrors.New("ServerDHParamsOk server nonce mismatch")
+			return ClientExchangeResult{}, errors.New("ServerDHParamsOk server nonce mismatch")
 		}
 
 		key, iv := crypto.TempAESKeys(newNonce.BigInt(), serverNonce.BigInt())
 		// Decrypting inner data.
 		data, err := crypto.DecryptExchangeAnswer(p.EncryptedAnswer, key, iv)
 		if err != nil {
-			return ClientExchangeResult{}, xerrors.Errorf("exchange answer decrypt: %w", err)
+			return ClientExchangeResult{}, errors.Wrap(err, "exchange answer decrypt")
 		}
 		b.ResetTo(data)
 
@@ -184,16 +184,16 @@ Loop:
 			return ClientExchangeResult{}, err
 		}
 		if innerData.Nonce != nonce {
-			return ClientExchangeResult{}, xerrors.New("ServerDHInnerData nonce mismatch")
+			return ClientExchangeResult{}, errors.New("ServerDHInnerData nonce mismatch")
 		}
 		if innerData.ServerNonce != serverNonce {
-			return ClientExchangeResult{}, xerrors.New("ServerDHInnerData server nonce mismatch")
+			return ClientExchangeResult{}, errors.New("ServerDHInnerData server nonce mismatch")
 		}
 
 		dhPrime := big.NewInt(0).SetBytes(innerData.DhPrime)
 		g := big.NewInt(int64(innerData.G))
 		if err := crypto.CheckDH(innerData.G, dhPrime); err != nil {
-			return ClientExchangeResult{}, xerrors.Errorf("check DH params: %w", err)
+			return ClientExchangeResult{}, errors.Wrap(err, "check DH params")
 		}
 		gA := big.NewInt(0).SetBytes(innerData.GA)
 
@@ -201,14 +201,14 @@ Loop:
 		randMax := big.NewInt(0).SetBit(big.NewInt(0), crypto.RSAKeyBits, 1)
 		bParam, err := rand.Int(c.rand, randMax)
 		if err != nil {
-			return ClientExchangeResult{}, xerrors.Errorf("number b generation: %w", err)
+			return ClientExchangeResult{}, errors.Wrap(err, "number b generation")
 		}
 		// g_b = g^b mod dh_prime
 		gB := big.NewInt(0).Exp(g, bParam, dhPrime)
 
 		// Checking key exchange parameters.
 		if err := crypto.CheckDHParams(dhPrime, g, gA, gB); err != nil {
-			return ClientExchangeResult{}, xerrors.Errorf("key exchange failed: invalid params: %w", err)
+			return ClientExchangeResult{}, errors.Wrap(err, "key exchange failed: invalid params")
 		}
 
 		clientInnerData := mt.ClientDHInnerData{
@@ -224,7 +224,7 @@ Loop:
 		}
 		clientEncrypted, err := crypto.EncryptExchangeAnswer(c.rand, b.Buf, key, iv)
 		if err != nil {
-			return ClientExchangeResult{}, xerrors.Errorf("exchange answer encrypt: %w", err)
+			return ClientExchangeResult{}, errors.Wrap(err, "exchange answer encrypt")
 		}
 
 		setParamsReq := &mt.SetClientDHParamsRequest{
@@ -234,7 +234,7 @@ Loop:
 		}
 		c.log.Debug("Sending SetClientDHParamsRequest")
 		if err := c.writeUnencrypted(ctx, b, setParamsReq); err != nil {
-			return ClientExchangeResult{}, xerrors.Errorf("write SetClientDHParamsRequest: %w", err)
+			return ClientExchangeResult{}, errors.Wrap(err, "write SetClientDHParamsRequest")
 		}
 
 		// 7. Computing auth_key using formula (g_a)^b mod dh_prime
@@ -242,25 +242,25 @@ Loop:
 
 		b.Reset()
 		if err := c.conn.Recv(ctx, b); err != nil {
-			return ClientExchangeResult{}, xerrors.Errorf("read DhGen message: %w", err)
+			return ClientExchangeResult{}, errors.Wrap(err, "read DhGen message")
 		}
 		c.log.Debug("Received server DhGen")
 
 		if err := plaintextMsg.Decode(b); err != nil {
-			return ClientExchangeResult{}, xerrors.Errorf("decode DhGen message: %w", err)
+			return ClientExchangeResult{}, errors.Wrap(err, "decode DhGen message")
 		}
 		b.ResetTo(plaintextMsg.MessageData)
 		dhSetRes, err := mt.DecodeSetClientDHParamsAnswer(b)
 		if err != nil {
-			return ClientExchangeResult{}, xerrors.Errorf("decode DhGen answer: %w", err)
+			return ClientExchangeResult{}, errors.Wrap(err, "decode DhGen answer")
 		}
 		switch v := dhSetRes.(type) {
 		case *mt.DhGenOk: // dh_gen_ok#3bcbf734
 			if v.Nonce != nonce {
-				return ClientExchangeResult{}, xerrors.New("DhGenOk nonce mismatch")
+				return ClientExchangeResult{}, errors.New("DhGenOk nonce mismatch")
 			}
 			if v.ServerNonce != serverNonce {
-				return ClientExchangeResult{}, xerrors.New("DhGenOk server nonce mismatch")
+				return ClientExchangeResult{}, errors.New("DhGenOk server nonce mismatch")
 			}
 
 			var key crypto.Key
@@ -272,7 +272,7 @@ Loop:
 			serverSalt := crypto.ServerSalt(newNonce, v.ServerNonce)
 
 			if nonceHash1 != v.NewNonceHash1 {
-				return ClientExchangeResult{}, xerrors.New("key exchange verification failed: hash mismatch")
+				return ClientExchangeResult{}, errors.New("key exchange verification failed: hash mismatch")
 			}
 
 			// Generating new session id and salt.
@@ -287,15 +287,15 @@ Loop:
 				ServerSalt: serverSalt,
 			}, nil
 		case *mt.DhGenRetry: // dh_gen_retry#46dc1fb9
-			return ClientExchangeResult{}, xerrors.Errorf("retry required: %x", v.NewNonceHash2)
+			return ClientExchangeResult{}, errors.Errorf("retry required: %x", v.NewNonceHash2)
 		case *mt.DhGenFail: // dh_gen_fail#a69dae02
-			return ClientExchangeResult{}, xerrors.Errorf("dh_hen_fail: %x", v.NewNonceHash3)
+			return ClientExchangeResult{}, errors.Errorf("dh_hen_fail: %x", v.NewNonceHash3)
 		default:
-			return ClientExchangeResult{}, xerrors.Errorf("unexpected SetClientDHParamsRequest result %T", v)
+			return ClientExchangeResult{}, errors.Errorf("unexpected SetClientDHParamsRequest result %T", v)
 		}
 	case *mt.ServerDHParamsFail:
-		return ClientExchangeResult{}, xerrors.New("server respond with server_DH_params_fail")
+		return ClientExchangeResult{}, errors.New("server respond with server_DH_params_fail")
 	default:
-		return ClientExchangeResult{}, xerrors.Errorf("unexpected ReqDHParamsRequest result %T", p)
+		return ClientExchangeResult{}, errors.Errorf("unexpected ReqDHParamsRequest result %T", p)
 	}
 }

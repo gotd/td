@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/session"
@@ -53,13 +53,13 @@ func (m mtg) generateSecret(ctx context.Context, t string) ([]byte, error) {
 
 	o, err := exec.CommandContext(ctx, m.path, args...).Output()
 	if err != nil {
-		return nil, xerrors.Errorf("execute command: %w", err)
+		return nil, errors.Wrap(err, "execute command")
 	}
 	output := strings.TrimSpace(string(o))
 
 	r, err := hex.DecodeString(output)
 	if err != nil {
-		return nil, xerrors.Errorf("decode secret %q: %w", output, err)
+		return nil, errors.Wrapf(err, "decode secret %q", output)
 	}
 
 	return r, nil

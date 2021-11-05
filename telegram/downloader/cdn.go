@@ -6,7 +6,7 @@ import (
 	"crypto/cipher"
 	"encoding/binary"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
@@ -39,11 +39,11 @@ var _ schema = cdn{}
 func (c cdn) decrypt(src []byte, offset int) ([]byte, error) {
 	block, err := aes.NewCipher(c.redirect.EncryptionKey)
 	if err != nil {
-		return nil, xerrors.Errorf("create cipher: %w", err)
+		return nil, errors.Wrap(err, "create cipher")
 	}
 
 	if block.BlockSize() != len(c.redirect.EncryptionIv) {
-		return nil, xerrors.Errorf(
+		return nil, errors.Errorf(
 			"invalid IV or key length, block size %d != IV %d",
 			block.BlockSize(), len(c.redirect.EncryptionIv),
 		)
@@ -86,7 +86,7 @@ func (c cdn) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
 	case *tg.UploadCDNFileReuploadNeeded:
 		return chunk{}, &ExpiredTokenError{UploadCDNFileReuploadNeeded: result}
 	default:
-		return chunk{}, xerrors.Errorf("unexpected type %T", r)
+		return chunk{}, errors.Errorf("unexpected type %T", r)
 	}
 }
 

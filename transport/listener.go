@@ -4,8 +4,8 @@ import (
 	"io"
 	"net"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/multierr"
-	"golang.org/x/xerrors"
 )
 
 // Listener is a simple net.Listener wrapper for listening
@@ -56,7 +56,7 @@ func (l Listener) Accept() (_ Conn, rErr error) {
 		codec := l.codec()
 
 		if err := codec.ReadHeader(conn); err != nil {
-			return nil, xerrors.Errorf("read header: %w", err)
+			return nil, errors.Wrap(err, "read header")
 		}
 
 		return &connection{
@@ -68,7 +68,7 @@ func (l Listener) Accept() (_ Conn, rErr error) {
 	// Otherwise try to detect codec.
 	transportCodec, reader, err := detectCodec(conn)
 	if err != nil {
-		return nil, xerrors.Errorf("detect codec: %w", err)
+		return nil, errors.Wrap(err, "detect codec")
 	}
 
 	return &connection{

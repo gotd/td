@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -25,7 +25,7 @@ func (c *ConstraintError) Error() string {
 
 func tryUnpackConstraint(p tg.InputPeerClass, resolveErr error) (tg.InputPeerClass, error) {
 	var constraintErr *ConstraintError
-	if xerrors.As(resolveErr, &constraintErr) {
+	if errors.As(resolveErr, &constraintErr) {
 		return constraintErr.Got, nil
 	}
 	return p, resolveErr

@@ -5,7 +5,7 @@ import (
 	"crypto/md5" // #nosec G501
 	"encoding/hex"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -76,7 +76,7 @@ func (u *Uploader) WithPartSize(partSize int) *Uploader {
 // Upload uploads data from Upload object.
 func (u *Uploader) Upload(ctx context.Context, upload *Upload) (tg.InputFileClass, error) {
 	if err := checkPartSize(u.partSize); err != nil {
-		return nil, xerrors.Errorf("invalid part size: %w", err)
+		return nil, errors.Wrap(err, "invalid part size")
 	}
 
 	if err := u.initUpload(upload); err != nil {

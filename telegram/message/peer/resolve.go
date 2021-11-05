@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/ascii"
 	"github.com/gotd/td/telegram/message/internal/deeplink"
@@ -94,7 +94,7 @@ func ResolveDomain(r Resolver, domain string) Promise {
 		domain = strings.TrimPrefix(domain, "@")
 
 		if err := validateDomain(domain); err != nil {
-			return nil, xerrors.Errorf("validate domain: %w", err)
+			return nil, errors.Wrap(err, "validate domain")
 		}
 
 		return r.ResolveDomain(ctx, domain)
@@ -116,11 +116,11 @@ func checkDomainSymbols(domain string) error {
 
 		switch {
 		case i == 0:
-			return xerrors.Errorf("domain should start with latin letter, got %c in %q", r, domain)
+			return errors.Errorf("domain should start with latin letter, got %c in %q", r, domain)
 		case i == last && r == '_':
-			return xerrors.Errorf("domain should end with latin letter or digit, got %c in %q", r, domain)
+			return errors.Errorf("domain should end with latin letter or digit, got %c in %q", r, domain)
 		case !ascii.IsDigit(r) && r != '_':
-			return xerrors.Errorf("unexpected rune %[1]c (%[1]U) in %[2]q domain", r, domain)
+			return errors.Errorf("unexpected rune %[1]c (%[1]U) in %[2]q domain", r, domain)
 		}
 	}
 
@@ -146,7 +146,7 @@ func ResolveDeeplink(r Resolver, u string) Promise {
 		domain := link.Args.Get("domain")
 
 		if err := validateDomain(domain); err != nil {
-			return nil, xerrors.Errorf("validate domain: %w", err)
+			return nil, errors.Wrap(err, "validate domain")
 		}
 
 		return r.ResolveDomain(ctx, domain)

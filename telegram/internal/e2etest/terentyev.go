@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram/message"
 	"github.com/gotd/td/tg"
@@ -46,7 +46,7 @@ func (u User) messageHandler(ctx context.Context, entities tg.Entities, update *
 
 	msg, ok := update.Message.(*tg.Message)
 	if !ok {
-		return xerrors.Errorf("unexpected type %T", update.Message)
+		return errors.Errorf("unexpected type %T", update.Message)
 	}
 
 	select {
@@ -66,12 +66,12 @@ func (u User) Run(ctx context.Context) error {
 
 	return client.Run(ctx, func(ctx context.Context) error {
 		if err := u.suite.RetryAuthenticate(ctx, client.Auth()); err != nil {
-			return xerrors.Errorf("authenticate: %w", err)
+			return errors.Wrap(err, "authenticate")
 		}
 
 		peer, err := sender.Resolve(u.username).AsInputPeer(ctx)
 		if err != nil {
-			return xerrors.Errorf("resolve bot username %q: %w", u.username, err)
+			return errors.Wrapf(err, "resolve bot username %q", u.username)
 		}
 
 		for _, line := range u.text {

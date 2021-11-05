@@ -7,8 +7,8 @@ import (
 	"go/token"
 	"os"
 
+	"github.com/ogen-go/errors"
 	"golang.org/x/tools/go/packages"
-	"golang.org/x/xerrors"
 )
 
 func loadPackages(ctx context.Context, dir, pattern string, environ []string) ([]*packages.Package, error) {
@@ -33,7 +33,7 @@ func loadPackages(ctx context.Context, dir, pattern string, environ []string) ([
 func Load(ctx context.Context, pattern string) (*packages.Package, error) {
 	pkgs, err := loadPackages(ctx, "", pattern, os.Environ())
 	if err != nil {
-		return nil, xerrors.Errorf("load packages: %w", err)
+		return nil, errors.Wrap(err, "load packages")
 	}
 
 	for _, pkg := range pkgs {
@@ -42,5 +42,5 @@ func Load(ctx context.Context, pattern string) (*packages.Package, error) {
 		}
 	}
 
-	return nil, xerrors.Errorf("package %s not found", pattern)
+	return nil, errors.Errorf("package %s not found", pattern)
 }

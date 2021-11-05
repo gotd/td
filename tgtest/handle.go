@@ -4,9 +4,9 @@ import (
 	"context"
 	"encoding/binary"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/multierr"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -19,17 +19,17 @@ import (
 func (s *Server) rpcHandle(ctx context.Context, c transport.Conn, b *bin.Buffer) error {
 	m := &crypto.EncryptedMessage{}
 	if err := m.DecodeWithoutCopy(b); err != nil {
-		return xerrors.Errorf("decode encrypted message: %w", err)
+		return errors.Wrap(err, "decode encrypted message")
 	}
 
 	key, ok := s.users.getSession(m.AuthKeyID)
 	if !ok {
-		return xerrors.New("invalid session")
+		return errors.New("invalid session")
 	}
 
 	msg, err := s.cipher.Decrypt(key, m)
 	if err != nil {
-		return xerrors.Errorf("decrypt message: %w", err)
+		return errors.Wrap(err, "decrypt message")
 	}
 
 	session := Session{
@@ -54,7 +54,7 @@ func (s *Server) rpcHandle(ctx context.Context, c transport.Conn, b *bin.Buffer)
 		Buf:        b,
 		RequestCtx: ctx,
 	}); err != nil {
-		return xerrors.Errorf("handle: %w", err)
+		return errors.Wrap(err, "handle")
 	}
 
 	return nil
@@ -64,7 +64,7 @@ func (s *Server) handle(req *Request) error {
 	in := req.Buf
 	id, err := in.PeekID()
 	if err != nil {
-		return xerrors.Errorf("peek id: %w", err)
+		return errors.Wrap(err, "peek id")
 	}
 
 	s.log.Debug("Got request",
@@ -109,14 +109,14 @@ func (s *Server) handle(req *Request) error {
 	case proto.GZIPTypeID:
 		var content proto.GZIP
 		if err := content.Decode(in); err != nil {
-			return xerrors.Errorf("gzip: %w", err)
+			return errors.Wrap(err, "gzip")
 		}
 		req.Buf = &bin.Buffer{Buf: content.Data}
 
 	case proto.MessageContainerTypeID:
 		var container proto.MessageContainer
 		if err := container.Decode(in); err != nil {
-			return xerrors.Errorf("container: %w", err)
+			return errors.Wrap(err, "container")
 		}
 
 		var err error
@@ -134,7 +134,7 @@ func (s *Server) handle(req *Request) error {
 
 	if err := s.handler.OnMessage(s, req); err != nil {
 		var rpcErr *tgerr.Error
-		if xerrors.As(err, &rpcErr) {
+		if errors.As(err, &rpcErr) {
 			return s.SendErr(req, rpcErr)
 		}
 		return err

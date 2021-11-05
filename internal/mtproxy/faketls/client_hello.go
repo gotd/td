@@ -7,7 +7,7 @@ import (
 	"io"
 	"time"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )
@@ -64,7 +64,7 @@ func writeClientHello(w io.Writer, sessionID [32]byte, secret []byte) (r [32]byt
 	// https://github.com/tdlib/td/blob/27d3fdd09d90f6b77ecbcce50b1e86dc4b3dd366/td/mtproto/TlsInit.cpp#L380-L384
 	mac := hmac.New(sha256.New, secret)
 	if _, err := mac.Write(b.Buf); err != nil {
-		return [32]byte{}, xerrors.Errorf("hmac write: %w", err)
+		return [32]byte{}, errors.Wrap(err, "hmac write")
 	}
 
 	s := mac.Sum(nil)

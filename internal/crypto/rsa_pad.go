@@ -8,7 +8,7 @@ import (
 	"io"
 	"math/big"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/ige"
 	"github.com/gotd/xor"
@@ -39,14 +39,14 @@ func RSAPad(data []byte, key *rsa.PublicKey, randomSource io.Reader) ([]byte, er
 	//
 	// One has to check that data is not longer than 144 bytes.
 	if len(data) > rsaPadDataLimit {
-		return nil, xerrors.Errorf("data length is bigger that 144 (%d)", len(data))
+		return nil, errors.Errorf("data length is bigger that 144 (%d)", len(data))
 	}
 
 	dataWithPadding := make([]byte, dataWithPaddingLength)
 	copy(dataWithPadding, data)
 	// Filling data_with_padding with random bytes.
 	if _, err := io.ReadFull(randomSource, dataWithPadding[len(data):]); err != nil {
-		return nil, xerrors.Errorf("pad data with random: %w", err)
+		return nil, errors.Wrap(err, "pad data with random")
 	}
 
 	// Make a copy.
@@ -59,7 +59,7 @@ func RSAPad(data []byte, key *rsa.PublicKey, randomSource io.Reader) ([]byte, er
 		// 3) A random 32-byte temp_key is generated.
 		tempKey := make([]byte, tempKeySize)
 		if _, err := io.ReadFull(randomSource, tempKey); err != nil {
-			return nil, xerrors.Errorf("generate temp_key: %w", err)
+			return nil, errors.Wrap(err, "generate temp_key")
 		}
 
 		// 4) data_with_hash := data_pad_reversed + SHA256(temp_key + data_with_padding);
@@ -79,7 +79,7 @@ func RSAPad(data []byte, key *rsa.PublicKey, randomSource io.Reader) ([]byte, er
 		{
 			aesBlock, err := aes.NewCipher(tempKey)
 			if err != nil {
-				return nil, xerrors.Errorf("create cipher: %w", err)
+				return nil, errors.Wrap(err, "create cipher")
 			}
 			var zeroIV bin.Int256
 			ige.EncryptBlocks(aesBlock, zeroIV[:], aesEncrypted, dataWithHash)
@@ -122,7 +122,7 @@ func RSAPad(data []byte, key *rsa.PublicKey, randomSource io.Reader) ([]byte, er
 func DecodeRSAPad(data []byte, key *rsa.PrivateKey) ([]byte, error) {
 	var encryptedData [256]byte
 	if !rsaDecrypt(data, key, encryptedData[:]) {
-		return nil, xerrors.New("invalid encrypted_data")
+		return nil, errors.New("invalid encrypted_data")
 	}
 
 	tempKeyXor := encryptedData[:tempKeySize]
@@ -138,7 +138,7 @@ func DecodeRSAPad(data []byte, key *rsa.PrivateKey) ([]byte, error) {
 	{
 		aesBlock, err := aes.NewCipher(tempKey)
 		if err != nil {
-			return nil, xerrors.Errorf("create cipher: %w", err)
+			return nil, errors.Wrap(err, "create cipher")
 		}
 		var zeroIV bin.Int256
 		ige.DecryptBlocks(aesBlock, zeroIV[:], dataWithHash, aesEncrypted)
@@ -154,7 +154,7 @@ func DecodeRSAPad(data []byte, key *rsa.PrivateKey) ([]byte, error) {
 		_, _ = h.Write(dataWithPadding)
 
 		if !bytes.Equal(hash, h.Sum(nil)) {
-			return nil, xerrors.New("hash mismatch")
+			return nil, errors.New("hash mismatch")
 		}
 	}
 

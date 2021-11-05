@@ -3,12 +3,12 @@ package downloader
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
 
-var errHashesNotSupported = xerrors.New("this schema does not support hashes fetch")
+var errHashesNotSupported = errors.New("this schema does not support hashes fetch")
 
 // web is a web file download schema.
 // See https://core.telegram.org/api/files#downloading-webfiles.

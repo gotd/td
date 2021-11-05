@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/telegram/message/entity"
@@ -126,7 +126,7 @@ func (p *PollBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	if p.input.Poll.ID == 0 {
 		id, err := crypto.RandInt64(b.sender.rand)
 		if err != nil {
-			return xerrors.Errorf("generate id: %w", err)
+			return errors.Wrap(err, "generate id")
 		}
 
 		p.input.Poll.ID = id
@@ -167,7 +167,7 @@ func (b *RequestBuilder) PollVote(
 ) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	upd, err := b.sender.sendVote(ctx, &tg.MessagesSendVoteRequest{
@@ -176,7 +176,7 @@ func (b *RequestBuilder) PollVote(
 		Options: append([][]byte{answer}, answers...),
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("start bot: %w", err)
+		return nil, errors.Wrap(err, "start bot")
 	}
 
 	return upd, nil

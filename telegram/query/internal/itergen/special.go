@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/query/internal/genutil"
 )
@@ -18,7 +18,7 @@ func (c *collector) unpackClass(
 	if field.Type == "tg."+typeName {
 		impls, err := c.ifaces.Implementations(typeName)
 		if err != nil {
-			return nil, xerrors.Errorf("find %q constructors: %w", typeName, err)
+			return nil, errors.Wrapf(err, "find %q constructors", typeName)
 		}
 		for _, impl := range impls {
 			s, ok := impl.Underlying().(*types.Struct)
@@ -61,7 +61,7 @@ func (c *collector) unpackClasses(
 	for _, class := range classes {
 		cases, err := c.unpackClass(field, class[0], class[1])
 		if err != nil {
-			return nil, xerrors.Errorf("unpack %q: %w", class[0], err)
+			return nil, errors.Wrapf(err, "unpack %q", class[0])
 		}
 		r = append(r, cases...)
 	}

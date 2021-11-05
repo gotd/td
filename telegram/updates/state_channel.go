@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
@@ -133,15 +133,15 @@ func (s *channelState) handleUpdate(ctx context.Context, u tg.UpdateClass, ents 
 
 	channelID, pts, ptsCount, ok, err := isChannelPtsUpdate(u)
 	if err != nil {
-		return xerrors.Errorf("invalid update: %w", err)
+		return errors.Wrap(err, "invalid update")
 	}
 
 	if !ok {
-		return xerrors.Errorf("expected channel update, got: %T", u)
+		return errors.Errorf("expected channel update, got: %T", u)
 	}
 
 	if channelID != s.channelID {
-		return xerrors.Errorf("update for wrong channel (channelID: %d)", channelID)
+		return errors.Errorf("update for wrong channel (channelID: %d)", channelID)
 	}
 
 	return s.pts.Handle(update{
@@ -240,7 +240,7 @@ func (s *channelState) getDifference() error {
 		Limit:  s.diffLim,
 	})
 	if err != nil {
-		return xerrors.Errorf("get channel difference: %w", err)
+		return errors.Wrap(err, "get channel difference")
 	}
 
 	switch diff := diff.(type) {
@@ -314,7 +314,7 @@ func (s *channelState) getDifference() error {
 		return nil
 
 	default:
-		return xerrors.Errorf("unexpected channel diff type: %T", diff)
+		return errors.Errorf("unexpected channel diff type: %T", diff)
 	}
 }
 

@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 	"time"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -101,12 +101,12 @@ func (u *SearchDocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder)
 		MimeType: u.mime,
 	})
 	if err != nil {
-		return xerrors.Errorf("find document: %w", err)
+		return errors.Wrap(err, "find document")
 	}
 
 	doc, ok := result.AsNotEmpty()
 	if !ok {
-		return xerrors.Errorf("document with hash %q not found", hex.EncodeToString(u.hash))
+		return errors.Errorf("document with hash %q not found", hex.EncodeToString(u.hash))
 	}
 
 	v := new(tg.InputDocument)
@@ -263,12 +263,12 @@ func (u *UploadedDocumentBuilder) applyMulti(ctx context.Context, b *multiMediaB
 		Media: &u.doc,
 	})
 	if err != nil {
-		return xerrors.Errorf("upload media: %w", err)
+		return errors.Wrap(err, "upload media")
 	}
 
 	input, err := convertMessageMediaToInput(m)
 	if err != nil {
-		return xerrors.Errorf("convert: %w", err)
+		return errors.Wrap(err, "convert")
 	}
 
 	return Media(input, u.caption...).apply(ctx, b)

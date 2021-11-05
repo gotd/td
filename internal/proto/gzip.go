@@ -8,8 +8,8 @@ import (
 	"sync/atomic"
 
 	"github.com/klauspost/compress/gzip"
+	"github.com/ogen-go/errors"
 	"go.uber.org/multierr"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 )
@@ -91,16 +91,16 @@ func (g GZIP) Encode(b *bin.Buffer) (rErr error) {
 	w := gzipRWPool.GetWriter(buf)
 	defer func() {
 		if closeErr := w.Close(); closeErr != nil {
-			closeErr = xerrors.Errorf("close: %w", closeErr)
+			closeErr = errors.Wrap(closeErr, "close")
 			multierr.AppendInto(&rErr, closeErr)
 		}
 		gzipRWPool.PutWriter(w)
 	}()
 	if _, err := w.Write(g.Data); err != nil {
-		return xerrors.Errorf("compress: %w", err)
+		return errors.Wrap(err, "compress")
 	}
 	if err := w.Close(); err != nil {
-		return xerrors.Errorf("close: %w", err)
+		return errors.Wrap(err, "close")
 	}
 
 	// Writing compressed data as bytes.
@@ -150,11 +150,11 @@ func (g *GZIP) Decode(b *bin.Buffer) (rErr error) {
 
 	r, err := gzipRWPool.GetReader(bytes.NewReader(buf))
 	if err != nil {
-		return xerrors.Errorf("gzip error: %w", err)
+		return errors.Wrap(err, "gzip error")
 	}
 	defer func() {
 		if closeErr := r.Close(); closeErr != nil {
-			closeErr = xerrors.Errorf("close: %w", closeErr)
+			closeErr = errors.Wrap(closeErr, "close")
 			multierr.AppendInto(&rErr, closeErr)
 		}
 		gzipRWPool.PutReader(r)
@@ -166,18 +166,18 @@ func (g *GZIP) Decode(b *bin.Buffer) (rErr error) {
 		reader: io.LimitReader(r, maxUncompressedSize),
 	}
 	if g.Data, err = io.ReadAll(reader); err != nil {
-		return xerrors.Errorf("decompress: %w", err)
+		return errors.Wrap(err, "decompress")
 	}
 	if reader.Total() >= maxUncompressedSize {
 		// Read limit reached, possible decompression bomb detected.
-		return xerrors.Errorf("decompress: %w", &DecompressionBombErr{
+		return errors.Wrap(&DecompressionBombErr{
 			Compressed:   maxUncompressedSize,
 			Decompressed: int(reader.Total()),
-		})
+		}, "decompress")
 	}
 
 	if err := r.Close(); err != nil {
-		return xerrors.Errorf("checksum: %w", err)
+		return errors.Wrap(err, "checksum")
 	}
 
 	return nil

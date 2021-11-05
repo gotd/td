@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mtproto"
@@ -20,11 +20,11 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	}
 
 	data, err := c.storage.Load(ctx)
-	if xerrors.Is(err, session.ErrNotFound) {
+	if errors.Is(err, session.ErrNotFound) {
 		return nil
 	}
 	if err != nil {
-		return xerrors.Errorf("load: %w", err)
+		return errors.Wrap(err, "load")
 	}
 
 	// If file does not contain DC ID, so we use DC from options.
@@ -39,7 +39,7 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	copy(key.ID[:], data.AuthKeyID)
 
 	if key.Value.ID() != key.ID {
-		return xerrors.New("corrupted key")
+		return errors.New("corrupted key")
 	}
 
 	// Re-initializing connection from persisted state.
@@ -66,13 +66,13 @@ func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
 	}
 
 	data, err := c.storage.Load(c.ctx)
-	if xerrors.Is(err, session.ErrNotFound) {
+	if errors.Is(err, session.ErrNotFound) {
 		// Initializing new state.
 		err = nil
 		data = &session.Data{}
 	}
 	if err != nil {
-		return xerrors.Errorf("load: %w", err)
+		return errors.Wrap(err, "load")
 	}
 
 	// Updating previous data.
@@ -83,7 +83,7 @@ func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
 	data.Salt = s.Salt
 
 	if err := c.storage.Save(c.ctx, data); err != nil {
-		return xerrors.Errorf("save: %w", err)
+		return errors.Wrap(err, "save")
 	}
 
 	c.log.Debug("Data saved",
@@ -118,7 +118,7 @@ func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
 	c.connMux.Unlock()
 
 	if err := c.saveSession(cfg, s); err != nil {
-		return xerrors.Errorf("save: %w", err)
+		return errors.Wrap(err, "save")
 	}
 
 	return nil

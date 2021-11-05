@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/message/internal/deeplink"
 	"github.com/gotd/td/telegram/message/peer"
@@ -43,12 +43,12 @@ func (s *Sender) JoinHash(ctx context.Context, hash string) (tg.UpdatesClass, er
 func (b *RequestBuilder) Join(ctx context.Context) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	input, ok := peer.ToInputChannel(p)
 	if !ok {
-		return nil, xerrors.Errorf("unexpected type %T", p)
+		return nil, errors.Errorf("unexpected type %T", p)
 	}
 
 	return b.sender.joinChannel(ctx, input)
@@ -57,14 +57,14 @@ func (b *RequestBuilder) Join(ctx context.Context) (tg.UpdatesClass, error) {
 func (b *RequestBuilder) leave(ctx context.Context, revoke bool) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	input, ok := peer.ToInputChannel(p)
 	if ok {
 		r, err := b.sender.leaveChannel(ctx, input)
 		if err != nil {
-			return nil, xerrors.Errorf("leave channel: %w", err)
+			return nil, errors.Wrap(err, "leave channel")
 		}
 		return r, nil
 	}
@@ -84,7 +84,7 @@ func (b *RequestBuilder) leave(ctx context.Context, revoke bool) (tg.UpdatesClas
 		if tgerr.Is(err, tg.ErrPeerIDInvalid) {
 			return &tg.Updates{}, nil
 		}
-		return nil, xerrors.Errorf("leave chat: %w", err)
+		return nil, errors.Wrap(err, "leave chat")
 	}
 	return r, nil
 }

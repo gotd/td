@@ -1,7 +1,7 @@
 package peer
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -107,7 +107,7 @@ func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) 
 	case *tg.PeerUser: // peerUser#9db1bc6d
 		dialog, ok := ent.users[p.UserID]
 		if !ok {
-			return nil, xerrors.Errorf("user %d not found", p.UserID)
+			return nil, errors.Errorf("user %d not found", p.UserID)
 		}
 
 		peer = &tg.InputPeerUser{
@@ -117,7 +117,7 @@ func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) 
 	case *tg.PeerChat: // peerChat#bad0e5bb
 		dialog, ok := ent.chats[p.ChatID]
 		if !ok {
-			return nil, xerrors.Errorf("chat %d not found", p.ChatID)
+			return nil, errors.Errorf("chat %d not found", p.ChatID)
 		}
 
 		peer = &tg.InputPeerChat{
@@ -126,7 +126,7 @@ func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) 
 	case *tg.PeerChannel: // peerChannel#bddde532
 		dialog, ok := ent.channels[p.ChannelID]
 		if !ok {
-			return nil, xerrors.Errorf("channel %d not found", p.ChannelID)
+			return nil, errors.Errorf("channel %d not found", p.ChannelID)
 		}
 
 		peer = &tg.InputPeerChannel{
@@ -134,7 +134,7 @@ func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) 
 			AccessHash: dialog.AccessHash,
 		}
 	default:
-		return nil, xerrors.Errorf("unexpected peer type %T", peerID)
+		return nil, errors.Errorf("unexpected peer type %T", peerID)
 	}
 
 	return peer, nil

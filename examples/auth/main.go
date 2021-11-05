@@ -9,9 +9,9 @@ import (
 	"os"
 	"strings"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
 	"golang.org/x/crypto/ssh/terminal"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/examples"
 	"github.com/gotd/td/telegram"
@@ -23,7 +23,7 @@ import (
 type noSignUp struct{}
 
 func (c noSignUp) SignUp(ctx context.Context) (auth.UserInfo, error) {
-	return auth.UserInfo{}, xerrors.New("not implemented")
+	return auth.UserInfo{}, errors.New("not implemented")
 }
 
 func (c noSignUp) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {

@@ -3,7 +3,7 @@ package tgtest
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/exchange"
@@ -31,7 +31,7 @@ func (s *Server) sendProtoError(ctx context.Context, conn transport.Conn, e int3
 	defer cancel()
 
 	if err := conn.Send(ctx, &buf); err != nil {
-		return xerrors.Errorf("send: %w", err)
+		return errors.Wrap(err, "send")
 	}
 	return nil
 }
@@ -46,18 +46,18 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) error {
 	b := new(bin.Buffer)
 	for {
 		if err := s.read(ctx, conn, b); err != nil {
-			return xerrors.Errorf("read: %w", err)
+			return errors.Wrap(err, "read")
 		}
 
 		var authKeyID [8]byte
 		if err := b.PeekN(authKeyID[:], len(authKeyID)); err != nil {
-			return xerrors.Errorf("peek id: %w", err)
+			return errors.Wrap(err, "peek id")
 		}
 
 		// TODO(tdakkota): dispatch by type ID instead?
 		if _, ok := s.users.getSession(authKeyID); ok {
 			if err := s.rpcHandle(ctx, conn, b); err != nil {
-				return xerrors.Errorf("handle: %w", err)
+				return errors.Wrap(err, "handle")
 			}
 			continue
 		}
@@ -65,7 +65,7 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) error {
 		// If authKeyID not found and is not zero, so send protocol error.
 		if authKeyID != [8]byte{} {
 			if err := s.sendProtoError(ctx, conn, codec.CodeAuthKeyNotFound); err != nil {
-				return xerrors.Errorf("send AuthKeyNotFound: %w", err)
+				return errors.Wrap(err, "send AuthKeyNotFound")
 			}
 			continue
 		}
@@ -77,14 +77,14 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) error {
 		key, err := s.exchange(ctx, exchangeConn{Conn: c})
 		if err != nil {
 			var exchangeErr *exchange.ServerExchangeError
-			if xerrors.As(err, &exchangeErr) {
+			if errors.As(err, &exchangeErr) {
 				code := exchangeErr.Code
 				if err := s.sendProtoError(ctx, c, code); err != nil {
-					return xerrors.Errorf("send proto error %v: %w", code, err)
+					return errors.Wrapf(err, "send proto error %v", code)
 				}
 				return nil
 			}
-			return xerrors.Errorf("key exchange failed: %w", err)
+			return errors.Wrap(err, "key exchange failed")
 		}
 
 		s.users.addSession(key)

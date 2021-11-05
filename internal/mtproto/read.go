@@ -2,14 +2,13 @@ package mtproto
 
 import (
 	"context"
-	"errors"
 	"net"
 	"sync"
 	"sync/atomic"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -36,15 +35,15 @@ func checkMessageID(now time.Time, rawID int64) error {
 	case proto.MessageFromServer, proto.MessageServerResponse:
 		// Valid.
 	default:
-		return xerrors.Errorf("unexpected type %s: %w", id.Type(), errRejected)
+		return errors.Wrapf(errRejected, "unexpected type %s", id.Type())
 	}
 
 	created := id.Time()
 	if created.Before(now) && now.Sub(created) > maxPast {
-		return xerrors.Errorf("created too far in past: %w", errRejected)
+		return errors.Wrap(errRejected, "created too far in past")
 	}
 	if created.Sub(now) > maxFuture {
-		return xerrors.Errorf("created too far in future: %w", errRejected)
+		return errors.Wrap(errRejected, "created too far in future")
 	}
 
 	return nil
@@ -54,18 +53,18 @@ func (c *Conn) decryptMessage(b *bin.Buffer) (*crypto.EncryptedMessageData, erro
 	session := c.session()
 	msg, err := c.cipher.DecryptFromBuffer(session.Key, b)
 	if err != nil {
-		return nil, xerrors.Errorf("decrypt: %w", err)
+		return nil, errors.Wrap(err, "decrypt")
 	}
 
 	// Validating message. This protects from replay attacks.
 	if msg.SessionID != session.ID {
-		return nil, xerrors.Errorf("invalid session (got %d, expected %d): %w", msg.SessionID, session.ID, errRejected)
+		return nil, errors.Wrapf(errRejected, "invalid session (got %d, expected %d)", msg.SessionID, session.ID)
 	}
 	if err := checkMessageID(c.clock.Now(), msg.MessageID); err != nil {
-		return nil, xerrors.Errorf("bad message id %d: %w", msg.MessageID, err)
+		return nil, errors.Wrapf(err, "bad message id %d", msg.MessageID)
 	}
 	if !c.messageIDBuf.Consume(msg.MessageID) {
-		return nil, xerrors.Errorf("duplicate or too low message id %d: %w", msg.MessageID, errRejected)
+		return nil, errors.Wrapf(errRejected, "duplicate or too low message id %d", msg.MessageID)
 	}
 
 	return msg, nil
@@ -73,12 +72,12 @@ func (c *Conn) decryptMessage(b *bin.Buffer) (*crypto.EncryptedMessageData, erro
 
 func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
 	msg, err := c.decryptMessage(buf)
-	if xerrors.Is(err, errRejected) {
+	if errors.Is(err, errRejected) {
 		c.log.Warn("Ignoring rejected message", zap.Error(err))
 		return nil
 	}
 	if err != nil {
-		return xerrors.Errorf("consume message: %w", err)
+		return errors.Wrap(err, "consume message")
 	}
 
 	if err := c.handleMessage(msg.MessageID, &bin.Buffer{Buf: msg.Data()}); err != nil {
@@ -104,7 +103,7 @@ func (c *Conn) consumeMessage(ctx context.Context, buf *bin.Buffer) error {
 func (c *Conn) noUpdates(err error) bool {
 	// Checking for read timeout.
 	var syscall *net.OpError
-	if xerrors.As(err, &syscall) && syscall.Timeout() {
+	if errors.As(err, &syscall) && syscall.Timeout() {
 		// We call SetReadDeadline so such error is expected.
 		c.log.Debug("No updates")
 		return true
@@ -123,7 +122,7 @@ func (c *Conn) handleAuthKeyNotFound(ctx context.Context) error {
 	}
 	c.log.Warn("Re-generating keys (server not found key that we provided)")
 	if err := c.createAuthKey(ctx); err != nil {
-		return xerrors.Errorf("unable to create auth key: %w", err)
+		return errors.Wrap(err, "unable to create auth key")
 	}
 	c.log.Info("Re-created auth keys")
 	// Request will be retried by ack loop.
@@ -165,7 +164,7 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 		// Halting if consumeMessage encountered error.
 		// Should be something critical with crypto.
 		if err, ok := lastErr.Load().(error); ok && err != nil {
-			return xerrors.Errorf("halting: %w", err)
+			return errors.Wrap(err, "halting")
 		}
 
 		if err := c.conn.Recv(ctx, buf); err != nil {
@@ -179,9 +178,9 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 			}
 
 			var protoErr *codec.ProtocolErr
-			if xerrors.As(err, &protoErr) && protoErr.Code == codec.CodeAuthKeyNotFound {
+			if errors.As(err, &protoErr) && protoErr.Code == codec.CodeAuthKeyNotFound {
 				if err := c.handleAuthKeyNotFound(ctx); err != nil {
-					return xerrors.Errorf("auth key not found: %w", err)
+					return errors.Wrap(err, "auth key not found")
 				}
 
 				continue
@@ -189,9 +188,9 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 
 			select {
 			case <-ctx.Done():
-				return xerrors.Errorf("read loop: %w", ctx.Err())
+				return errors.Wrap(ctx.Err(), "read loop")
 			default:
-				return xerrors.Errorf("read: %w", err)
+				return errors.Wrap(err, "read")
 			}
 		}
 
@@ -207,7 +206,7 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 			// clients.
 			if err := c.consumeMessage(ctx, buf); err != nil {
 				log.Error("Failed to process message", zap.Error(err))
-				lastErr.Store(xerrors.Errorf("consume: %w", err))
+				lastErr.Store(errors.Wrap(err, "consume"))
 			}
 		}()
 	}

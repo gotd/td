@@ -2,8 +2,9 @@ package mtproto
 
 import (
 	"context"
-	"errors"
 	"sync"
+
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )

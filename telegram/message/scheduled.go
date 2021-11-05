@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -18,7 +18,7 @@ type ScheduledManager struct {
 func (m *ScheduledManager) Send(ctx context.Context, id int, ids ...int) (tg.UpdatesClass, error) {
 	p, err := m.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	upd, err := m.sender.sendScheduledMessages(ctx, &tg.MessagesSendScheduledMessagesRequest{
@@ -26,7 +26,7 @@ func (m *ScheduledManager) Send(ctx context.Context, id int, ids ...int) (tg.Upd
 		ID:   append([]int{id}, ids...),
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("send scheduled messages: %w", err)
+		return nil, errors.Wrap(err, "send scheduled messages")
 	}
 
 	return upd, nil
@@ -36,7 +36,7 @@ func (m *ScheduledManager) Send(ctx context.Context, id int, ids ...int) (tg.Upd
 func (m *ScheduledManager) Delete(ctx context.Context, id int, ids ...int) (tg.UpdatesClass, error) {
 	p, err := m.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	upd, err := m.sender.deleteScheduledMessages(ctx, &tg.MessagesDeleteScheduledMessagesRequest{
@@ -44,7 +44,7 @@ func (m *ScheduledManager) Delete(ctx context.Context, id int, ids ...int) (tg.U
 		ID:   append([]int{id}, ids...),
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("delete scheduled messages: %w", err)
+		return nil, errors.Wrap(err, "delete scheduled messages")
 	}
 
 	return upd, nil
@@ -54,7 +54,7 @@ func (m *ScheduledManager) Delete(ctx context.Context, id int, ids ...int) (tg.U
 func (m *ScheduledManager) Get(ctx context.Context, id int, ids ...int) (tg.ModifiedMessagesMessages, error) {
 	p, err := m.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	msgs, err := m.sender.getScheduledMessages(ctx, &tg.MessagesGetScheduledMessagesRequest{
@@ -62,12 +62,12 @@ func (m *ScheduledManager) Get(ctx context.Context, id int, ids ...int) (tg.Modi
 		ID:   append([]int{id}, ids...),
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("get scheduled messages: %w", err)
+		return nil, errors.Wrap(err, "get scheduled messages")
 	}
 
 	modified, ok := msgs.AsModified()
 	if !ok {
-		return nil, xerrors.Errorf("unexpected type %T", msgs)
+		return nil, errors.Errorf("unexpected type %T", msgs)
 	}
 
 	return modified, nil
@@ -77,7 +77,7 @@ func (m *ScheduledManager) Get(ctx context.Context, id int, ids ...int) (tg.Modi
 func (m *ScheduledManager) HistoryWithHash(ctx context.Context, hash int64) (tg.ModifiedMessagesMessages, error) {
 	p, err := m.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	msgs, err := m.sender.getScheduledHistory(ctx, &tg.MessagesGetScheduledHistoryRequest{
@@ -85,12 +85,12 @@ func (m *ScheduledManager) HistoryWithHash(ctx context.Context, hash int64) (tg.
 		Hash: hash,
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("get scheduled messages history: %w", err)
+		return nil, errors.Wrap(err, "get scheduled messages history")
 	}
 
 	modified, ok := msgs.AsModified()
 	if !ok {
-		return nil, xerrors.Errorf("unexpected type %T", msgs)
+		return nil, errors.Errorf("unexpected type %T", msgs)
 	}
 
 	return modified, nil

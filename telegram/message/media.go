@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/message/entity"
 	"github.com/gotd/td/telegram/message/styling"
@@ -41,7 +41,7 @@ func Media(media tg.InputMediaClass, caption ...StyledTextOption) MediaOption {
 func (b *Builder) Album(ctx context.Context, media MultiMediaOption, album ...MultiMediaOption) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	if len(album) < 1 {
@@ -63,7 +63,7 @@ func (b *Builder) Album(ctx context.Context, media MultiMediaOption, album ...Mu
 		ScheduleDate: b.scheduleDate,
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("send album: %w", err)
+		return nil, errors.Wrap(err, "send album")
 	}
 
 	return upd, nil
@@ -81,13 +81,13 @@ func (b *Builder) applyMedia(
 	}
 
 	if err := media.applyMulti(ctx, &mb); err != nil {
-		return nil, xerrors.Errorf("media first option: %w", err)
+		return nil, errors.Wrap(err, "media first option")
 	}
 
 	if len(album) > 0 {
 		for i, opt := range album {
 			if err := opt.applyMulti(ctx, &mb); err != nil {
-				return nil, xerrors.Errorf("media option %d: %w", i+2, err)
+				return nil, errors.Wrapf(err, "media option %d", i+2)
 			}
 		}
 	}
@@ -99,7 +99,7 @@ func (b *Builder) applyMedia(
 func (b *Builder) Media(ctx context.Context, media MediaOption) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	attachment, err := b.applySingleMedia(ctx, p, media)
@@ -120,7 +120,7 @@ func (b *Builder) Media(ctx context.Context, media MediaOption) (tg.UpdatesClass
 		ScheduleDate: b.scheduleDate,
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("send media: %w", err)
+		return nil, errors.Wrap(err, "send media")
 	}
 
 	return upd, nil
@@ -138,7 +138,7 @@ func (b *Builder) applySingleMedia(
 	}
 
 	if err := media.apply(ctx, &mb); err != nil {
-		return tg.InputSingleMedia{}, xerrors.Errorf("media first option: %w", err)
+		return tg.InputSingleMedia{}, errors.Wrap(err, "media first option")
 	}
 
 	return mb.media[0], nil
@@ -151,7 +151,7 @@ func (b *Builder) applySingleMedia(
 func (b *Builder) UploadMedia(ctx context.Context, media MediaOption) (tg.MessageMediaClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	attachment, err := b.applySingleMedia(ctx, p, media)
@@ -164,7 +164,7 @@ func (b *Builder) UploadMedia(ctx context.Context, media MediaOption) (tg.Messag
 		Media: attachment.Media,
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("upload media: %w", err)
+		return nil, errors.Wrap(err, "upload media")
 	}
 
 	return r, nil

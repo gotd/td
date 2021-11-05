@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/syncio"
@@ -87,7 +87,7 @@ func (m mock) UploadGetCDNFile(ctx context.Context, request *tg.UploadGetCDNFile
 
 	block, err := aes.NewCipher(m.redirect.EncryptionKey)
 	if err != nil {
-		return nil, xerrors.Errorf("CDN mock cipher creation: %w", err)
+		return nil, errors.Wrap(err, "CDN mock cipher creation")
 	}
 
 	iv := make([]byte, len(m.redirect.EncryptionIv))

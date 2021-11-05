@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/message/entity"
 	"github.com/gotd/td/telegram/message/styling"
@@ -33,12 +33,12 @@ func (b *Builder) sendRequest(
 func (b *Builder) Text(ctx context.Context, msg string) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	upd, err := b.sender.sendMessage(ctx, b.sendRequest(p, msg, nil))
 	if err != nil {
-		return nil, xerrors.Errorf("send text: %w", err)
+		return nil, errors.Wrap(err, "send text")
 	}
 
 	return upd, nil
@@ -53,7 +53,7 @@ func (b *Builder) Textf(ctx context.Context, format string, args ...interface{})
 func (b *Builder) StyledText(ctx context.Context, texts ...StyledTextOption) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	tb := entity.Builder{}
@@ -64,7 +64,7 @@ func (b *Builder) StyledText(ctx context.Context, texts ...StyledTextOption) (tg
 
 	upd, err := b.sender.sendMessage(ctx, b.sendRequest(p, msg, entities))
 	if err != nil {
-		return nil, xerrors.Errorf("send styled text: %w", err)
+		return nil, errors.Wrap(err, "send styled text")
 	}
 
 	return upd, nil

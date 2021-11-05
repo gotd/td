@@ -3,7 +3,7 @@ package crypto
 import (
 	"math/big"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // CheckDH performs DH parameters check described in Telegram docs.
@@ -29,7 +29,7 @@ func CheckDH(g int, p *big.Int) error {
 	// TDLib check 2^2047 <= too:
 	// https://github.com/tdlib/td/blob/d161323858a782bc500d188b9ae916982526c262/td/mtproto/DhHandshake.cpp#L23
 	if p.BitLen() != RSAKeyBits {
-		return xerrors.New("p should be 2^2047 < p < 2^2048")
+		return errors.New("p should be 2^2047 < p < 2^2048")
 	}
 
 	if err := CheckGP(g, p); err != nil {
@@ -41,13 +41,13 @@ func CheckDH(g int, p *big.Int) error {
 
 func checkPrime(p *big.Int) error {
 	if !Prime(p) {
-		return xerrors.New("p is not prime number")
+		return errors.New("p is not prime number")
 	}
 
 	sub := big.NewInt(0).Sub(p, big.NewInt(1))
 	pr := sub.Quo(sub, big.NewInt(2))
 	if !Prime(pr) {
-		return xerrors.New("(p-1)/2 is not prime number")
+		return errors.New("(p-1)/2 is not prime number")
 	}
 
 	return nil

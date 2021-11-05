@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/assert"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/proto/codec"
@@ -39,7 +39,7 @@ func Test_exchangeConn_Recv(t *testing.T) {
 
 		b.Reset()
 		var protocolErr *codec.ProtocolErr
-		if err := c2.Recv(ctx, &b); err != nil && !xerrors.As(err, &protocolErr) {
+		if err := c2.Recv(ctx, &b); err != nil && !errors.As(err, &protocolErr) {
 			return err
 		}
 

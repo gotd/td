@@ -1,8 +1,8 @@
 package mtproto
 
 import (
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
@@ -11,7 +11,7 @@ import (
 func (c *Conn) handleAck(b *bin.Buffer) error {
 	var ack mt.MsgsAck
 	if err := ack.Decode(b); err != nil {
-		return xerrors.Errorf("decode: %w", err)
+		return errors.Wrap(err, "decode")
 	}
 
 	c.log.Debug("Received ack", zap.Int64s("msg_ids", ack.MsgIDs))

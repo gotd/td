@@ -6,7 +6,7 @@ import (
 	"io"
 
 	"github.com/k0kubun/pp/v3"
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
@@ -97,7 +97,7 @@ func (p Printer) Print(output io.Writer) error {
 	for {
 		b.Reset()
 		if err := p.codec.Read(p.src, b); err != nil {
-			if xerrors.Is(err, io.EOF) {
+			if errors.Is(err, io.EOF) {
 				return nil
 			}
 
@@ -111,12 +111,12 @@ func (p Printer) Print(output io.Writer) error {
 
 		obj := m.New(id)
 		if obj == nil {
-			return xerrors.Errorf("find type %#x", id)
+			return errors.Errorf("find type %#x", id)
 		}
 
 		v, ok := obj.(Object)
 		if !ok {
-			return xerrors.Errorf("unexpected type %T", obj)
+			return errors.Errorf("unexpected type %T", obj)
 		}
 
 		if err := v.Decode(b); err != nil {

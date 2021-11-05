@@ -6,7 +6,7 @@ import (
 	"crypto/sha256"
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // readServerHello reads faketls ServerHello.
@@ -17,26 +17,26 @@ func readServerHello(r io.Reader, clientRandom [32]byte, secret []byte) error {
 
 	handshake, err := readRecord(r)
 	if err != nil {
-		return xerrors.Errorf("handshake record: %w", err)
+		return errors.Wrap(err, "handshake record")
 	}
 	if handshake.Type != RecordTypeHandshake {
-		return xerrors.Errorf("unexpected record type: %w", err)
+		return errors.Wrap(err, "unexpected record type")
 	}
 
 	changeCipher, err := readRecord(r)
 	if err != nil {
-		return xerrors.Errorf("change cipher record: %w", err)
+		return errors.Wrap(err, "change cipher record")
 	}
 	if changeCipher.Type != RecordTypeChangeCipherSpec {
-		return xerrors.Errorf("unexpected record type: %w", err)
+		return errors.Wrap(err, "unexpected record type")
 	}
 
 	cert, err := readRecord(r)
 	if err != nil {
-		return xerrors.Errorf("cert record: %w", err)
+		return errors.Wrap(err, "cert record")
 	}
 	if cert.Type != RecordTypeApplication {
-		return xerrors.Errorf("unexpected record type: %w", err)
+		return errors.Wrap(err, "unexpected record type")
 	}
 
 	// `$record_header = type 1 byte + version 2 bytes + payload_length 2 bytes = 5 bytes`
@@ -53,13 +53,13 @@ func readServerHello(r io.Reader, clientRandom [32]byte, secret []byte) error {
 
 	mac := hmac.New(sha256.New, secret)
 	if _, err := mac.Write(clientRandom[:]); err != nil {
-		return xerrors.Errorf("hmac write: %w", err)
+		return errors.Wrap(err, "hmac write")
 	}
 	if _, err := mac.Write(packet); err != nil {
-		return xerrors.Errorf("hmac write: %w", err)
+		return errors.Wrap(err, "hmac write")
 	}
 	if !bytes.Equal(mac.Sum(nil), originalDigest[:]) {
-		return xerrors.New("hmac digest mismatch")
+		return errors.New("hmac digest mismatch")
 	}
 
 	return nil

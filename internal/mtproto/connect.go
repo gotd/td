@@ -3,9 +3,9 @@ package mtproto
 import (
 	"context"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/multierr"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/exchange"
 )
@@ -18,7 +18,7 @@ func (c *Conn) connect(ctx context.Context) (rErr error) {
 
 	conn, err := c.dialer(ctx)
 	if err != nil {
-		return xerrors.Errorf("dial failed: %w", err)
+		return errors.Wrap(err, "dial failed")
 	}
 	c.conn = conn
 	defer func() {
@@ -32,7 +32,7 @@ func (c *Conn) connect(ctx context.Context) (rErr error) {
 		c.log.Info("Generating new auth key")
 		start := c.clock.Now()
 		if err := c.createAuthKey(ctx); err != nil {
-			return xerrors.Errorf("create auth key: %w", err)
+			return errors.Wrap(err, "create auth key")
 		}
 
 		c.log.Info("Auth key generated",

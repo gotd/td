@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -33,7 +33,7 @@ func (b *TypingActionBuilder) ThreadMsg(msg tg.MessageClass) *TypingActionBuilde
 func (b *TypingActionBuilder) send(ctx context.Context, action tg.SendMessageActionClass) error {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return errors.Wrap(err, "peer")
 	}
 
 	if err := b.sender.setTyping(ctx, &tg.MessagesSetTypingRequest{
@@ -41,7 +41,7 @@ func (b *TypingActionBuilder) send(ctx context.Context, action tg.SendMessageAct
 		TopMsgID: b.topMsgID,
 		Action:   action,
 	}); err != nil {
-		return xerrors.Errorf("set typing: %w", err)
+		return errors.Wrap(err, "set typing")
 	}
 
 	return nil

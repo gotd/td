@@ -2,8 +2,9 @@ package hook
 
 import (
 	"context"
-	"errors"
 	"testing"
+
+	"github.com/ogen-go/errors"
 
 	"github.com/stretchr/testify/assert"
 

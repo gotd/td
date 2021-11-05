@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -26,7 +26,7 @@ func (b *ForwardBuilder) WithMyScore() *ForwardBuilder {
 func (b *ForwardBuilder) Send(ctx context.Context) (tg.UpdatesClass, error) {
 	p, err := b.builder.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	upd, err := b.builder.sender.forwardMessages(ctx, &tg.MessagesForwardMessagesRequest{
@@ -39,7 +39,7 @@ func (b *ForwardBuilder) Send(ctx context.Context) (tg.UpdatesClass, error) {
 		ScheduleDate: b.builder.scheduleDate,
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("send inline bot result: %w", err)
+		return nil, errors.Wrap(err, "send inline bot result")
 	}
 
 	return upd, nil

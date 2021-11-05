@@ -8,7 +8,7 @@ import (
 	"os"
 	"text/template"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/gen"
 )
@@ -19,15 +19,15 @@ func WriteTemplate(source fs.FS, out io.Writer, name string, data interface{}) e
 	tmpl = template.Must(tmpl.ParseFS(source, "_template/*.tmpl"))
 	var buf bytes.Buffer
 	if err := tmpl.ExecuteTemplate(&buf, name, data); err != nil {
-		return xerrors.Errorf("template: %w", err)
+		return errors.Wrap(err, "template")
 	}
 
 	formatted, err := format.Source(buf.Bytes())
 	if err != nil {
 		if _, cpyErr := io.Copy(os.Stdout, &buf); cpyErr != nil {
-			return xerrors.Errorf("dump generated: %w, (original error: %s)", cpyErr, err.Error())
+			return errors.Wrapf(cpyErr, "dump generated (original error: %v)", err)
 		}
-		return xerrors.Errorf("format: %w", err)
+		return errors.Wrap(err, "format")
 	}
 
 	_, err = out.Write(formatted)

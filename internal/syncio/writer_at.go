@@ -4,7 +4,7 @@ import (
 	"io"
 	"sync"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // WriterAt is synchronized io.WriterAt.
@@ -52,7 +52,7 @@ func (b *BufWriterAt) Len() int {
 // ReadAt implements io.ReaderAt.
 func (b *BufWriterAt) ReadAt(p []byte, off int64) (n int, err error) {
 	if off < 0 {
-		return 0, xerrors.Errorf("invalid offset %d", off)
+		return 0, errors.Errorf("invalid offset %d", off)
 	}
 
 	b.mux.RLock()
@@ -77,7 +77,7 @@ func (b *BufWriterAt) ReadAt(p []byte, off int64) (n int, err error) {
 // WriteAt implements io.WriterAt.
 func (b *BufWriterAt) WriteAt(p []byte, off int64) (n int, err error) {
 	if off < 0 {
-		return 0, xerrors.Errorf("invalid offset %d", off)
+		return 0, errors.Errorf("invalid offset %d", off)
 	}
 
 	b.mux.Lock()

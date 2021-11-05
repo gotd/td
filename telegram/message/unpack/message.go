@@ -1,7 +1,7 @@
 package unpack
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/internal/upconv"
 	"github.com/gotd/td/tg"
@@ -42,7 +42,7 @@ func MessageClass(u tg.UpdatesClass, err error) (tg.MessageClass, error) {
 	case *tg.Updates:
 		updates = v.GetUpdates()
 	default:
-		return nil, xerrors.Errorf("unexpected type %T", u)
+		return nil, errors.Errorf("unexpected type %T", u)
 	}
 
 	for _, update := range updates {
@@ -51,7 +51,7 @@ func MessageClass(u tg.UpdatesClass, err error) (tg.MessageClass, error) {
 		}
 	}
 
-	return nil, xerrors.Errorf("bad updates result %+v", updates)
+	return nil, errors.Errorf("bad updates result %+v", updates)
 }
 
 // Message tries to unpack sent message and returns it as Message.
@@ -63,7 +63,7 @@ func Message(u tg.UpdatesClass, err error) (*tg.Message, error) {
 
 	m, ok := msg.(*tg.Message)
 	if !ok {
-		return nil, xerrors.Errorf("unexpected type %T", msg)
+		return nil, errors.Errorf("unexpected type %T", msg)
 	}
 
 	return m, nil

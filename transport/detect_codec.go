@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/proto/codec"
 )
@@ -12,7 +12,7 @@ import (
 func detectCodec(c io.Reader) (Codec, io.Reader, error) {
 	var buf [4]byte
 	if _, err := io.ReadFull(c, buf[:1]); err != nil {
-		return nil, nil, xerrors.Errorf("read first byte: %w", err)
+		return nil, nil, errors.Wrap(err, "read first byte")
 	}
 
 	if buf[0] == codec.AbridgedClientStart[0] {
@@ -20,7 +20,7 @@ func detectCodec(c io.Reader) (Codec, io.Reader, error) {
 	}
 
 	if _, err := io.ReadFull(c, buf[1:4]); err != nil {
-		return nil, nil, xerrors.Errorf("read header: %w", err)
+		return nil, nil, errors.Wrap(err, "read header")
 	}
 	switch buf {
 	case codec.IntermediateClientStart:

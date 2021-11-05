@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )
@@ -32,7 +32,7 @@ type TaggedCodec interface {
 func readLen(r io.Reader, b *bin.Buffer) (int, error) {
 	b.ResetN(bin.Word)
 	if _, err := io.ReadFull(r, b.Buf[:bin.Word]); err != nil {
-		return 0, xerrors.Errorf("read length: %w", err)
+		return 0, errors.Wrap(err, "read length")
 	}
 	n := int(binary.LittleEndian.Uint32(b.Buf[:bin.Word]))
 

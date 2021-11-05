@@ -3,7 +3,7 @@ package telegram
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )
@@ -20,7 +20,7 @@ func (c *Client) invokeSub(ctx context.Context, dc int, input bin.Encoder, outpu
 	conn, err := c.dc(ctx, dc, 1, c.primaryDC(dc))
 	if err != nil {
 		c.subConnsMux.Unlock()
-		return xerrors.Errorf("create connection to DC %d: %w", dc, err)
+		return errors.Wrapf(err, "create connection to DC %d", dc)
 	}
 	c.subConns[dc] = conn
 	c.subConnsMux.Unlock()

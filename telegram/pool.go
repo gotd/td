@@ -3,8 +3,8 @@ package telegram
 import (
 	"context"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/pool"
@@ -23,7 +23,7 @@ type CloseInvoker interface {
 func (c *Client) createPool(dc int, max int64, creator func() pool.Conn) (*pool.DC, error) {
 	select {
 	case <-c.ctx.Done():
-		return nil, xerrors.Errorf("client already closed: %w", c.ctx.Err())
+		return nil, errors.Wrap(c.ctx.Err(), "client already closed")
 	default:
 	}
 
@@ -38,7 +38,7 @@ func (c *Client) createPool(dc int, max int64, creator func() pool.Conn) (*pool.
 // Pool creates new multi-connection invoker to current DC.
 func (c *Client) Pool(max int64) (CloseInvoker, error) {
 	if max < 0 {
-		return nil, xerrors.Errorf("invalid max value %d", max)
+		return nil, errors.Errorf("invalid max value %d", max)
 	}
 
 	s := c.session.Load()
@@ -50,12 +50,12 @@ func (c *Client) Pool(max int64) (CloseInvoker, error) {
 
 func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dialer) (*pool.DC, error) {
 	if max < 0 {
-		return nil, xerrors.Errorf("invalid max value %d", max)
+		return nil, errors.Errorf("invalid max value %d", max)
 	}
 
 	dcList := dcs.FindDCs(c.cfg.Load().DCOptions, dcID, false)
 	if len(dcList) < 1 {
-		return nil, xerrors.Errorf("unknown DC %d", dcID)
+		return nil, errors.Errorf("unknown DC %d", dcID)
 	}
 	c.log.Debug("Creating pool",
 		zap.Int("dc_id", dcID),
@@ -90,7 +90,7 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dia
 		)
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("create pool: %w", err)
+		return nil, errors.Wrap(err, "create pool")
 	}
 
 	_, err = c.transfer(ctx, tg.NewClient(p), dcID)
@@ -102,7 +102,7 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dia
 
 		// Kill pool if we got error.
 		_ = p.Close()
-		return nil, xerrors.Errorf("transfer: %w", err)
+		return nil, errors.Wrap(err, "transfer")
 	}
 
 	return p, nil

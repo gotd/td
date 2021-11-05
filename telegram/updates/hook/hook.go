@@ -4,7 +4,7 @@ package hook
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/telegram"
@@ -25,7 +25,7 @@ func (h UpdateHook) Handle(next tg.Invoker) telegram.InvokeFunc {
 		}
 		if u, ok := output.(*tg.UpdatesBox); ok {
 			if err := h(ctx, u.Updates); err != nil {
-				return xerrors.Errorf("hook: %w", err)
+				return errors.Wrap(err, "hook")
 			}
 		}
 

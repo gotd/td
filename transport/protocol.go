@@ -3,7 +3,7 @@ package transport
 import (
 	"net"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/proto/codec"
 )
@@ -58,7 +58,7 @@ func (p Protocol) Codec() Codec {
 func (p Protocol) Handshake(conn net.Conn) (Conn, error) {
 	connCodec := p.codec()
 	if err := connCodec.WriteHeader(conn); err != nil {
-		return nil, xerrors.Errorf("write header: %w", err)
+		return nil, errors.Wrap(err, "write header")
 	}
 
 	return &connection{

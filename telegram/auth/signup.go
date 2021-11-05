@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -32,6 +32,6 @@ func checkResult(a tg.AuthAuthorizationClass) (*tg.AuthAuthorization, error) {
 			TermsOfService: a.TermsOfService,
 		}
 	default:
-		return nil, xerrors.Errorf("got unexpected response %T", a)
+		return nil, errors.Errorf("got unexpected response %T", a)
 	}
 }

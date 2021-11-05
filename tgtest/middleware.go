@@ -1,7 +1,7 @@
 package tgtest
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
@@ -62,12 +62,12 @@ type peekIDObject struct {
 func (t *peekIDObject) Decode(b *bin.Buffer) error {
 	id, err := b.PeekID()
 	if err != nil {
-		return xerrors.Errorf("peek id: %w", err)
+		return errors.Wrap(err, "peek id")
 	}
 	t.TypeID = id
 	return nil
 }
 
 func (t *peekIDObject) Encode(*bin.Buffer) error {
-	return xerrors.New("peekIDObject must not be encoded")
+	return errors.New("peekIDObject must not be encoded")
 }

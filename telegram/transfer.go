@@ -3,7 +3,7 @@ package telegram
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -11,7 +11,7 @@ import (
 func (c *Client) exportAuth(ctx context.Context, dcID int) (*tg.AuthExportedAuthorization, error) {
 	export, err := c.tg.AuthExportAuthorization(ctx, dcID)
 	if err != nil {
-		return nil, xerrors.Errorf("export auth to %d: %w", dcID, err)
+		return nil, errors.Wrapf(err, "export auth to %d", dcID)
 	}
 
 	return export, nil
@@ -22,14 +22,14 @@ func (c *Client) exportAuth(ctx context.Context, dcID int) (*tg.AuthExportedAuth
 func (c *Client) transfer(ctx context.Context, to *tg.Client, dc int) (tg.AuthAuthorizationClass, error) {
 	auth, err := c.exportAuth(ctx, dc)
 	if err != nil {
-		return nil, xerrors.Errorf("export to %d: %w", dc, err)
+		return nil, errors.Wrapf(err, "export to %d", dc)
 	}
 
 	req := &tg.AuthImportAuthorizationRequest{}
 	req.FillFrom(auth)
 	r, err := to.AuthImportAuthorization(ctx, req)
 	if err != nil {
-		return nil, xerrors.Errorf("import from %d: %w", dc, err)
+		return nil, errors.Wrapf(err, "import from %d", dc)
 	}
 
 	return r, nil

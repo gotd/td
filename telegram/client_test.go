@@ -3,7 +3,6 @@ package telegram
 import (
 	"context"
 	"crypto/md5"
-	"errors"
 	"fmt"
 	"math/rand"
 	"net"
@@ -12,6 +11,8 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/ogen-go/errors"
 
 	"github.com/cenkalti/backoff/v4"
 	"github.com/stretchr/testify/assert"

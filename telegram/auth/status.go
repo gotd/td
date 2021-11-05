@@ -3,7 +3,7 @@ package auth
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -36,13 +36,13 @@ func (c *Client) Status(ctx context.Context) (*Status, error) {
 func (c *Client) IfNecessary(ctx context.Context, flow Flow) error {
 	auth, err := c.Status(ctx)
 	if err != nil {
-		return xerrors.Errorf("get auth status: %w", err)
+		return errors.Wrap(err, "get auth status")
 	}
 	if auth.Authorized {
 		return nil
 	}
 	if err := flow.Run(ctx, c); err != nil {
-		return xerrors.Errorf("auth flow: %w", err)
+		return errors.Wrap(err, "auth flow")
 	}
 	return nil
 }

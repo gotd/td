@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/message/inline"
 	"github.com/gotd/td/tg"
@@ -13,7 +13,7 @@ import (
 func (b *Builder) InlineResult(ctx context.Context, id string, queryID int64, hideVia bool) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	upd, err := b.sender.sendInlineBotResult(ctx, &tg.MessagesSendInlineBotResultRequest{
@@ -28,7 +28,7 @@ func (b *Builder) InlineResult(ctx context.Context, id string, queryID int64, hi
 		ScheduleDate: b.scheduleDate,
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("send inline bot result: %w", err)
+		return nil, errors.Wrap(err, "send inline bot result")
 	}
 
 	return upd, nil

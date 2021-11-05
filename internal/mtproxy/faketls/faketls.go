@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/mtproxy"
 )
@@ -34,16 +34,16 @@ func (o *FakeTLS) Handshake(protocol [4]byte, s mtproxy.Secret) error {
 
 	var sessionID [32]byte
 	if _, err := o.rand.Read(sessionID[:]); err != nil {
-		return xerrors.Errorf("generate sessionID: %w", err)
+		return errors.Wrap(err, "generate sessionID")
 	}
 
 	clientDigest, err := writeClientHello(o.conn, sessionID, s.Secret)
 	if err != nil {
-		return xerrors.Errorf("send ClientHello: %w", err)
+		return errors.Wrap(err, "send ClientHello")
 	}
 
 	if err := readServerHello(o.conn, clientDigest, s.Secret); err != nil {
-		return xerrors.Errorf("receive ServerHello: %w", err)
+		return errors.Wrap(err, "receive ServerHello")
 	}
 
 	return nil
@@ -57,7 +57,7 @@ func (o *FakeTLS) Write(b []byte) (n int, err error) {
 		Data:    b,
 	})
 	if err != nil {
-		return 0, xerrors.Errorf("write TLS record: %w", err)
+		return 0, errors.Wrap(err, "write TLS record")
 	}
 	return
 }
@@ -70,16 +70,16 @@ func (o *FakeTLS) Read(b []byte) (n int, err error) {
 
 	rec, err := readRecord(o.conn)
 	if err != nil {
-		return 0, xerrors.Errorf("read TLS record: %w", err)
+		return 0, errors.Wrap(err, "read TLS record")
 	}
 
 	switch rec.Type {
 	case RecordTypeChangeCipherSpec:
 	case RecordTypeApplication:
 	case RecordTypeHandshake:
-		return 0, xerrors.New("unexpected record type handshake")
+		return 0, errors.New("unexpected record type handshake")
 	default:
-		return 0, xerrors.Errorf("unsupported record type %v", rec.Type)
+		return 0, errors.Errorf("unsupported record type %v", rec.Type)
 	}
 	o.buf.Write(rec.Data)
 

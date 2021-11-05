@@ -6,7 +6,7 @@ import (
 	"os"
 	"os/signal"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/message"
@@ -34,12 +34,12 @@ func filePromiseResult(ctx context.Context) error {
 			return r, nil
 		})).Photo(ctx)
 		if err != nil {
-			return xerrors.Errorf("upload photo: %w", err)
+			return errors.Wrap(err, "upload photo")
 		}
 
 		_, err = r.Media(ctx, message.UploadedDocument(result))
 		if err != nil {
-			return xerrors.Errorf("upload document: %w", err)
+			return errors.Wrap(err, "upload document")
 		}
 
 		return nil

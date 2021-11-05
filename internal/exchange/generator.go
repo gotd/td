@@ -6,7 +6,7 @@ import (
 	"io"
 	"math/big"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/crypto"
 )
@@ -28,7 +28,7 @@ type TestServerRNG struct {
 func (s TestServerRNG) bigFromHex(hexString string) (p *big.Int, err error) {
 	data, err := hex.DecodeString(hexString)
 	if err != nil {
-		return nil, xerrors.Errorf("decode hex string: %w", err)
+		return nil, errors.Wrap(err, "decode hex string")
 	}
 
 	return big.NewInt(0).SetBytes(data), nil

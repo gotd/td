@@ -4,7 +4,7 @@ package dialogs
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/tg"
@@ -118,13 +118,13 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 		m.count = dlgs.Count
 		m.lastBatch = len(dlgs.Dialogs) < m.limit
 	default: // messages.dialogsNotModified#f0e3e596
-		return xerrors.Errorf("unexpected type %T", r)
+		return errors.Errorf("unexpected type %T", r)
 	}
 	m.totalGot = true
 
 	msgMap := make(messageMap, len(messages))
 	if err := msgMap.collect(messages); err != nil {
-		return xerrors.Errorf("collect last messages: %w", err)
+		return errors.Wrap(err, "collect last messages")
 	}
 
 	m.bufCur = -1
@@ -158,7 +158,7 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 
 		p, err := entities.ExtractPeer(dialogs[len(m.buf)-1].GetPeer())
 		if err != nil {
-			return xerrors.Errorf("get offset peer: %w", err)
+			return errors.Wrap(err, "get offset peer")
 		}
 		m.offsetPeer = p
 	}
@@ -206,7 +206,7 @@ func (m *Iterator) FetchTotal(ctx context.Context) (int, error) {
 		OffsetPeer: &tg.InputPeerEmpty{},
 	})
 	if err != nil {
-		return 0, xerrors.Errorf("fetch total: %w", err)
+		return 0, errors.Wrap(err, "fetch total")
 	}
 
 	switch dlgs := r.(type) {
@@ -215,7 +215,7 @@ func (m *Iterator) FetchTotal(ctx context.Context) (int, error) {
 	case *tg.MessagesDialogsSlice: // messages.dialogsSlice#71e094f3
 		m.count = dlgs.Count
 	default: // messages.dialogsNotModified#f0e3e596
-		return 0, xerrors.Errorf("unexpected type %T", r)
+		return 0, errors.Errorf("unexpected type %T", r)
 	}
 
 	m.totalGot = true

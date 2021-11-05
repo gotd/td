@@ -8,8 +8,8 @@ import (
 	"io/fs"
 	"math"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/multierr"
-	"golang.org/x/xerrors"
 )
 
 type tdesktopFile struct {
@@ -23,7 +23,7 @@ func open(filesystem fs.FS, fileName string) (tdesktopFile, error) {
 	tryRead := func(p string) (_ tdesktopFile, rErr error) {
 		f, err := filesystem.Open(p)
 		if err != nil {
-			return tdesktopFile{}, xerrors.Errorf("open: %w", err)
+			return tdesktopFile{}, errors.Wrap(err, "open")
 		}
 		defer multierr.AppendInvoke(&rErr, multierr.Close(f))
 
@@ -33,30 +33,30 @@ func open(filesystem fs.FS, fileName string) (tdesktopFile, error) {
 	for _, suffix := range suffixes {
 		p := fileName + suffix
 		if _, err := fs.Stat(filesystem, p); err != nil {
-			if xerrors.Is(err, fs.ErrNotExist) ||
-				xerrors.Is(err, fs.ErrPermission) {
+			if errors.Is(err, fs.ErrNotExist) ||
+				errors.Is(err, fs.ErrPermission) {
 				continue
 			}
-			return tdesktopFile{}, xerrors.Errorf("stat: %w", err)
+			return tdesktopFile{}, errors.Wrap(err, "stat")
 		}
 
 		f, err := tryRead(p)
 		if err != nil {
-			if xerrors.Is(err, io.ErrUnexpectedEOF) {
+			if errors.Is(err, io.ErrUnexpectedEOF) {
 				continue
 			}
 
 			var magicErr *WrongMagicError
-			if xerrors.As(err, &magicErr) {
+			if errors.As(err, &magicErr) {
 				continue
 			}
-			return tdesktopFile{}, xerrors.Errorf("read tdesktop file: %w", err)
+			return tdesktopFile{}, errors.Wrap(err, "read tdesktop file")
 		}
 
 		return f, nil
 	}
 
-	return tdesktopFile{}, xerrors.Errorf("file %q not found", fileName)
+	return tdesktopFile{}, errors.Errorf("file %q not found", fileName)
 }
 
 var tdesktopFileMagic = [4]byte{'T', 'D', 'F', '$'}
@@ -66,7 +66,7 @@ var tdesktopFileMagic = [4]byte{'T', 'D', 'F', '$'}
 func fromFile(r io.Reader) (tdesktopFile, error) {
 	buf := make([]byte, 16)
 	if _, err := io.ReadFull(r, buf[:8]); err != nil {
-		return tdesktopFile{}, xerrors.Errorf("read magic and version: %w", err)
+		return tdesktopFile{}, errors.Wrap(err, "read magic and version")
 	}
 
 	var magic, version [4]byte
@@ -81,17 +81,17 @@ func fromFile(r io.Reader) (tdesktopFile, error) {
 
 	data, err := io.ReadAll(r)
 	if err != nil {
-		return tdesktopFile{}, xerrors.Errorf("read data: %w", err)
+		return tdesktopFile{}, errors.Wrap(err, "read data")
 	}
 	if l := len(data); l < 16 {
-		return tdesktopFile{}, xerrors.Errorf("invalid data length %d", l)
+		return tdesktopFile{}, errors.Errorf("invalid data length %d", l)
 	}
 	hash := data[len(data)-16:]
 	data = data[:len(data)-16]
 
 	computedHash := telegramFileHash(data, version)
 	if !bytes.Equal(computedHash[:], hash) {
-		return tdesktopFile{}, xerrors.New("hash mismatch")
+		return tdesktopFile{}, errors.New("hash mismatch")
 	}
 
 	v := binary.LittleEndian.Uint32(version[:])
@@ -103,17 +103,17 @@ func fromFile(r io.Reader) (tdesktopFile, error) {
 
 func writeFile(w io.Writer, data []byte, version [4]byte) error {
 	if _, err := w.Write(tdesktopFileMagic[:]); err != nil {
-		return xerrors.Errorf("write magic: %w", err)
+		return errors.Wrap(err, "write magic")
 	}
 	if _, err := w.Write(version[:]); err != nil {
-		return xerrors.Errorf("write version: %w", err)
+		return errors.Wrap(err, "write version")
 	}
 	if _, err := w.Write(data); err != nil {
-		return xerrors.Errorf("write data: %w", err)
+		return errors.Wrap(err, "write data")
 	}
 	hash := telegramFileHash(data, version)
 	if _, err := w.Write(hash[:]); err != nil {
-		return xerrors.Errorf("write hash: %w", err)
+		return errors.Wrap(err, "write hash")
 	}
 	return nil
 }
@@ -137,7 +137,7 @@ func (f tdesktopFile) readArray() ([]byte, error) {
 func readArray(reader io.Reader, order binary.ByteOrder) ([]byte, error) {
 	r := make([]byte, 32)
 	if _, err := io.ReadFull(reader, r[:4]); err != nil {
-		return nil, xerrors.Errorf("read length: %w", err)
+		return nil, errors.Wrap(err, "read length")
 	}
 
 	// See https://github.com/qt/qtbase/blob/5.15.2/src/corelib/text/qbytearray.cpp#L3314.
@@ -148,7 +148,7 @@ func readArray(reader io.Reader, order binary.ByteOrder) ([]byte, error) {
 
 	r = append(r[:0], make([]byte, length)...)
 	if _, err := io.ReadFull(reader, r); err != nil {
-		return nil, xerrors.Errorf("read: %w", err)
+		return nil, errors.Wrap(err, "read")
 	}
 	return r, nil
 }
@@ -156,17 +156,17 @@ func readArray(reader io.Reader, order binary.ByteOrder) ([]byte, error) {
 func writeArray(writer io.Writer, data []byte, order binary.ByteOrder) error {
 	length := len(data)
 	if uint64(length) > uint64(math.MaxUint32) {
-		return xerrors.Errorf("data length too big (%d)", length)
+		return errors.Errorf("data length too big (%d)", length)
 	}
 
 	r := make([]byte, 4)
 	order.PutUint32(r, uint32(length))
 	if _, err := writer.Write(r); err != nil {
-		return xerrors.Errorf("write length: %w", err)
+		return errors.Wrap(err, "write length")
 	}
 
 	if _, err := writer.Write(data); err != nil {
-		return xerrors.Errorf("write data: %w", err)
+		return errors.Wrap(err, "write data")
 	}
 
 	return nil

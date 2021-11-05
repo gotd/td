@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/neo"
 	"github.com/gotd/td/bin"
@@ -32,10 +32,10 @@ func (h testUpdateHandler) OnMessage(b *bin.Buffer) error {
 	}
 	v := h.types.New(id)
 	if v == nil {
-		return xerrors.New("not found")
+		return errors.New("not found")
 	}
 	if err := v.Decode(b); err != nil {
-		return xerrors.Errorf("decode: %w", err)
+		return errors.Wrap(err, "decode")
 	}
 	return nil
 }

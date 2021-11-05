@@ -1,7 +1,7 @@
 package uploader
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/constant"
 )
@@ -29,11 +29,11 @@ const (
 func checkPartSize(partSize int) error {
 	switch {
 	case partSize == 0:
-		return xerrors.New("is equal to zero")
+		return errors.New("is equal to zero")
 	case partSize%paddingPartSize != 0:
-		return xerrors.Errorf("%d is not divisible by %d", partSize, paddingPartSize)
+		return errors.Errorf("%d is not divisible by %d", partSize, paddingPartSize)
 	case MaximumPartSize%partSize != 0:
-		return xerrors.Errorf("%d is not divisible by %d", MaximumPartSize, partSize)
+		return errors.Errorf("%d is not divisible by %d", MaximumPartSize, partSize)
 	}
 
 	return nil
@@ -55,7 +55,7 @@ func (u *Uploader) initUpload(upload *Upload) error {
 	big := upload.totalBytes > bigFileLimit
 	totalParts := computeParts(u.partSize, int(upload.totalBytes))
 	if !big && totalParts > partsLimit {
-		return xerrors.Errorf(
+		return errors.Errorf(
 			"part size is too small: total size = %d, part size = %d, %d / %d > %d",
 			upload.totalBytes, u.partSize, upload.totalBytes, u.partSize, partsLimit,
 		)
@@ -64,13 +64,13 @@ func (u *Uploader) initUpload(upload *Upload) error {
 	if upload.id == 0 {
 		id, err := u.id()
 		if err != nil {
-			return xerrors.Errorf("id generation: %w", err)
+			return errors.Wrap(err, "id generation")
 		}
 
 		upload.id = id
 		upload.partSize = u.partSize
 	} else if upload.partSize != u.partSize {
-		return xerrors.Errorf(
+		return errors.Errorf(
 			"previous upload has part size %d, but uploader size is %d",
 			upload.partSize, u.partSize,
 		)

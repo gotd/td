@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/crypto"
 )
@@ -29,7 +29,7 @@ func (k *keys) createStreams(init, secret []byte) error {
 
 	if len(secret) > 0 {
 		if len(secret) < 16 {
-			return xerrors.Errorf("invalid secret size %d", len(secret))
+			return errors.Errorf("invalid secret size %d", len(secret))
 		}
 		secret = secret[0:16]
 

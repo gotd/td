@@ -3,7 +3,7 @@ package crypto
 import (
 	"math/big"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // CheckGP checks whether g generates a cyclic subgroup of prime order (p-1)/2, i.e. is a quadratic residue mod p.
@@ -38,11 +38,11 @@ func CheckGP(g int, p *big.Int) error {
 		// and p mod 7 = 3, 5 or 6 for g = 7.
 		result = checkSubgroup(p, 7, 3, 5, 6)
 	default:
-		return xerrors.Errorf("unexpected g = %d: g should be equal to 2, 3, 4, 5, 6 or 7", g)
+		return errors.Errorf("unexpected g = %d: g should be equal to 2, 3, 4, 5, 6 or 7", g)
 	}
 
 	if !result {
-		return xerrors.New("g should be a quadratic residue mod p")
+		return errors.New("g should be a quadratic residue mod p")
 	}
 
 	return nil

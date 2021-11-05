@@ -4,9 +4,8 @@ package session
 import (
 	"context"
 	"encoding/json"
-	"errors"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -50,7 +49,7 @@ const latestVersion = 1
 func (l *Loader) Load(ctx context.Context) (*Data, error) {
 	buf, err := l.Storage.LoadSession(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("load: %w", err)
+		return nil, errors.Wrap(err, "load")
 	}
 	if len(buf) == 0 {
 		return nil, ErrNotFound
@@ -58,11 +57,11 @@ func (l *Loader) Load(ctx context.Context) (*Data, error) {
 
 	var v jsonData
 	if err := json.Unmarshal(buf, &v); err != nil {
-		return nil, xerrors.Errorf("unmarshal: %w", err)
+		return nil, errors.Wrap(err, "unmarshal")
 	}
 	if v.Version != latestVersion {
 		// HACK(ernado): backward compatibility super shenanigan.
-		return nil, xerrors.Errorf("version mismatch (%d != %d): %w", v.Version, latestVersion, ErrNotFound)
+		return nil, errors.Wrapf(ErrNotFound, "version mismatch (%d != %d)", v.Version, latestVersion)
 	}
 	return &v.Data, err
 }
@@ -75,10 +74,10 @@ func (l *Loader) Save(ctx context.Context, data *Data) error {
 	}
 	buf, err := json.Marshal(v)
 	if err != nil {
-		return xerrors.Errorf("marshal: %w", err)
+		return errors.Wrap(err, "marshal")
 	}
 	if err := l.Storage.StoreSession(ctx, buf); err != nil {
-		return xerrors.Errorf("store: %w", err)
+		return errors.Wrap(err, "store")
 	}
 	return nil
 }

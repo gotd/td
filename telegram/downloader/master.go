@@ -4,7 +4,7 @@ import (
 	"context"
 	"strconv"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -52,7 +52,7 @@ func (c master) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
 	case *tg.UploadFileCDNRedirect:
 		return chunk{}, &RedirectError{Redirect: result}
 	default:
-		return chunk{}, xerrors.Errorf("unexpected type %T", r)
+		return chunk{}, errors.Errorf("unexpected type %T", r)
 	}
 }
 

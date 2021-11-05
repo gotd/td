@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/syncio"
@@ -35,7 +35,7 @@ func (u *Uploader) uploadBigFilePart(ctx context.Context, p part) (int, error) {
 			if flood {
 				continue
 			}
-			return 0, xerrors.Errorf("send upload part %d RPC: %w", p.id, err)
+			return 0, errors.Wrapf(err, "send upload part %d RPC", p.id)
 		}
 
 		// If Telegram returned false, it seems save is not successful, so we retry to send.
@@ -59,9 +59,9 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 
 			n, err := io.ReadFull(r, buf.Buf)
 			switch {
-			case xerrors.Is(err, io.ErrUnexpectedEOF):
+			case errors.Is(err, io.ErrUnexpectedEOF):
 				last = true
-			case xerrors.Is(err, io.EOF):
+			case errors.Is(err, io.EOF):
 				u.pool.Put(buf)
 
 				close(toSend)
@@ -69,7 +69,7 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 			case err != nil:
 				u.pool.Put(buf)
 
-				return xerrors.Errorf("read source: %w", err)
+				return errors.Wrap(err, "read source")
 			}
 
 			buf.Buf = buf.Buf[:n]
@@ -106,11 +106,11 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 
 					n, err := u.uploadBigFilePart(ctx, part)
 					if err != nil {
-						return xerrors.Errorf("upload part: %w", err)
+						return errors.Wrap(err, "upload part")
 					}
 
 					if err := u.callback(ctx, upload.confirm(part.id, n)); err != nil {
-						return xerrors.Errorf("progress callback: %w", err)
+						return errors.Wrap(err, "progress callback")
 					}
 				}
 			}

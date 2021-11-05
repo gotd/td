@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/tg"
@@ -25,7 +25,7 @@ func (d *Downloader) stream(ctx context.Context, r *reader, w io.Writer) (tg.Sto
 		for {
 			b, err := r.Next(ctx)
 			if err != nil {
-				return xerrors.Errorf("get file: %w", err)
+				return errors.Wrap(err, "get file")
 			}
 
 			n := len(b.data)

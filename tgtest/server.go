@@ -6,8 +6,8 @@ import (
 	"net"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 	"nhooyr.io/websocket"
 
 	"github.com/gotd/td/clock"
@@ -91,10 +91,10 @@ func (s *Server) serve(ctx context.Context, l transport.Listener) error {
 		for {
 			conn, err := l.Accept()
 			if err != nil {
-				if xerrors.Is(err, net.ErrClosed) {
+				if errors.Is(err, net.ErrClosed) {
 					return nil
 				}
-				return xerrors.Errorf("accept: %w", err)
+				return errors.Wrap(err, "accept")
 			}
 
 			grp.Go(func(ctx context.Context) error {
@@ -102,9 +102,9 @@ func (s *Server) serve(ctx context.Context, l transport.Listener) error {
 					// Client disconnected.
 					var syscallErr *net.OpError
 					switch {
-					case xerrors.Is(err, io.EOF):
+					case errors.Is(err, io.EOF):
 						return nil
-					case xerrors.As(err, &syscallErr) &&
+					case errors.As(err, &syscallErr) &&
 						(syscallErr.Op == "write" || syscallErr.Op == "read"):
 						return nil
 					}

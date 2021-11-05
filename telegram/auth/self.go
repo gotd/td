@@ -3,7 +3,7 @@ package auth
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -19,7 +19,7 @@ func (c *Client) self(ctx context.Context) (*tg.User, error) {
 
 	user, ok := tg.UserClassArray(users).FirstAsNotEmpty()
 	if !ok {
-		return nil, xerrors.Errorf("users response count: %v", users)
+		return nil, errors.Errorf("users response count: %v", users)
 	}
 
 	return user, nil

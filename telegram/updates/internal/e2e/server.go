@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -109,16 +109,16 @@ func (s *server) UpdatesGetChannelDifference(
 
 	channel, ok := request.Channel.(*tg.InputChannel)
 	if !ok {
-		return nil, xerrors.Errorf("bad InputChannelClass type: %T", request.Channel)
+		return nil, errors.Errorf("bad InputChannelClass type: %T", request.Channel)
 	}
 
 	if peer, ok := s.peers.channels[channel.ChannelID]; true {
 		if !ok {
-			return nil, xerrors.Errorf("channel %d not found", channel.ChannelID)
+			return nil, errors.Errorf("channel %d not found", channel.ChannelID)
 		}
 
 		if peer.AccessHash != channel.AccessHash {
-			return nil, xerrors.New("invalid access hash")
+			return nil, errors.New("invalid access hash")
 		}
 	}
 

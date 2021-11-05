@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/tg"
@@ -46,7 +46,7 @@ func (m *mockFlow) Password(context.Context, string) (*tg.AuthAuthorization, err
 }
 
 func (m *mockFlow) SignUp(context.Context, auth.SignUp) (*tg.AuthAuthorization, error) {
-	return nil, xerrors.New("must not be called")
+	return nil, errors.New("must not be called")
 }
 
 func TestSuite_Authenticate(t *testing.T) {

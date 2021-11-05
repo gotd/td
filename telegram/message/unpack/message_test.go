@@ -3,8 +3,8 @@ package unpack
 import (
 	"testing"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/tg"
 )
@@ -14,7 +14,7 @@ func TestMessage(t *testing.T) {
 		ID:      10,
 		Message: "Golang is always going to do some approximation of the right thing.",
 	}
-	testErr := xerrors.New("женой накормили толпу")
+	testErr := errors.New("женой накормили толпу")
 
 	type args struct {
 		u   tg.UpdatesClass

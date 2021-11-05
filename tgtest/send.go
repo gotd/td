@@ -4,7 +4,7 @@ import (
 	"context"
 	"math"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -26,12 +26,12 @@ const (
 func (s *Server) Send(ctx context.Context, k Session, t proto.MessageType, message bin.Encoder) error {
 	conn, ok := s.users.getConnection(k.ID)
 	if !ok {
-		return xerrors.Errorf("send %T: invalid key: connection %s not found", message, k.AuthKey.String())
+		return errors.Errorf("send %T: invalid key: connection %s not found", message, k.AuthKey.String())
 	}
 
 	var b bin.Buffer
 	if err := message.Encode(&b); err != nil {
-		return xerrors.Errorf("encode: %w", err)
+		return errors.Wrap(err, "encode")
 	}
 
 	data := crypto.EncryptedMessageData{
@@ -43,14 +43,14 @@ func (s *Server) Send(ctx context.Context, k Session, t proto.MessageType, messa
 
 	err := s.cipher.Encrypt(k.AuthKey, data, &b)
 	if err != nil {
-		return xerrors.Errorf("encrypt: %w", err)
+		return errors.Wrap(err, "encrypt")
 	}
 
 	ctx, cancel := context.WithTimeout(ctx, s.writeTimeout)
 	defer cancel()
 
 	if err := conn.Send(ctx, &b); err != nil {
-		return xerrors.Errorf("send: %w", err)
+		return errors.Wrap(err, "send")
 	}
 
 	return nil
@@ -65,14 +65,14 @@ func (s *Server) SendResult(req *Request, msg bin.Encoder) error {
 	var buf bin.Buffer
 
 	if err := msg.Encode(&buf); err != nil {
-		return xerrors.Errorf("encode result: %w", err)
+		return errors.Wrap(err, "encode result")
 	}
 
 	if err := s.sendReq(req, proto.MessageServerResponse, &proto.Result{
 		RequestMessageID: req.MsgID,
 		Result:           buf.Raw(),
 	}); err != nil {
-		return xerrors.Errorf("send result [%T]: %w", msg, err)
+		return errors.Wrapf(err, "send result [%T]", msg)
 	}
 
 	return nil
@@ -83,7 +83,7 @@ func (s *Server) SendGZIP(req *Request, msg bin.Encoder) error {
 	var buf bin.Buffer
 
 	if err := msg.Encode(&buf); err != nil {
-		return xerrors.Errorf("encode gzip data: %w", err)
+		return errors.Wrap(err, "encode gzip data")
 	}
 
 	return s.SendResult(req, proto.GZIP{Data: buf.Buf})
@@ -118,7 +118,7 @@ func (s *Server) sendSessionCreated(ctx context.Context, k Session, serverSalt i
 		FirstMsgID: s.msgID.New(proto.MessageFromClient),
 		ServerSalt: serverSalt,
 	}); err != nil {
-		return xerrors.Errorf("send sessionCreated: %w", err)
+		return errors.Wrap(err, "send sessionCreated")
 	}
 
 	return nil
@@ -130,7 +130,7 @@ func (s *Server) SendPong(req *Request, pingID int64) error {
 		MsgID:  req.MsgID,
 		PingID: pingID,
 	}); err != nil {
-		return xerrors.Errorf("send pong: %w", err)
+		return errors.Wrap(err, "send pong")
 	}
 
 	return nil
@@ -153,7 +153,7 @@ func (s *Server) SendFutureSalts(req *Request, salts ...mt.FutureSalt) error {
 		Now:      int(s.clock.Now().Unix()),
 		Salts:    salts,
 	}); err != nil {
-		return xerrors.Errorf("send future salts: %w", err)
+		return errors.Wrap(err, "send future salts")
 	}
 
 	return nil
@@ -169,7 +169,7 @@ func (s *Server) SendUpdates(ctx context.Context, k Session, updates ...tg.Updat
 		Updates: updates,
 		Date:    int(s.clock.Now().Unix()),
 	}); err != nil {
-		return xerrors.Errorf("send updates: %w", err)
+		return errors.Wrap(err, "send updates")
 	}
 
 	return nil
@@ -178,7 +178,7 @@ func (s *Server) SendUpdates(ctx context.Context, k Session, updates ...tg.Updat
 // SendAck sends acknowledgment for received message.
 func (s *Server) SendAck(ctx context.Context, k Session, ids ...int64) error {
 	if err := s.Send(ctx, k, proto.MessageFromServer, &mt.MsgsAck{MsgIDs: ids}); err != nil {
-		return xerrors.Errorf("send ack: %w", err)
+		return errors.Wrap(err, "send ack")
 	}
 
 	return nil

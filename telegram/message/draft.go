@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/message/entity"
 	"github.com/gotd/td/telegram/message/styling"
@@ -31,7 +31,7 @@ func (b *Builder) saveDraftRequest(
 func (b *Builder) ClearDraft(ctx context.Context) error {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return errors.Wrap(err, "peer")
 	}
 
 	return b.sender.saveDraft(ctx, &tg.MessagesSaveDraftRequest{Peer: p})
@@ -43,7 +43,7 @@ func (b *Builder) ClearDraft(ctx context.Context) error {
 func (b *Builder) SaveDraft(ctx context.Context, msg string) error {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return errors.Wrap(err, "peer")
 	}
 
 	return b.sender.saveDraft(ctx, b.saveDraftRequest(p, msg, nil))
@@ -55,7 +55,7 @@ func (b *Builder) SaveDraft(ctx context.Context, msg string) error {
 func (b *Builder) SaveStyledDraft(ctx context.Context, texts ...StyledTextOption) error {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return errors.Wrap(err, "peer")
 	}
 
 	tb := entity.Builder{}

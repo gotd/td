@@ -3,7 +3,7 @@ package auth
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -20,7 +20,7 @@ func (c *Client) Bot(ctx context.Context, token string) (*tg.AuthAuthorization, 
 	}
 	result, err := checkResult(auth)
 	if err != nil {
-		return nil, xerrors.Errorf("check: %w", err)
+		return nil, errors.Wrap(err, "check")
 	}
 	return result, nil
 }

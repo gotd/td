@@ -6,7 +6,7 @@ import (
 	"os"
 	"os/signal"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/message"
@@ -25,7 +25,7 @@ func sendAudio(ctx context.Context) error {
 		// Upload file.
 		f, err := uploader.NewUploader(raw).FromPath(ctx, "vsyo idyot po planu.mp3")
 		if err != nil {
-			return xerrors.Errorf("upload: %w", err)
+			return errors.Wrap(err, "upload")
 		}
 
 		sender := message.NewSender(raw)

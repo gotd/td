@@ -1,18 +1,18 @@
 package updates
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
 
 func validatePts(pts, ptsCount int) error {
 	if pts < 0 {
-		return xerrors.Errorf("invalid pts value: %d", pts)
+		return errors.Errorf("invalid pts value: %d", pts)
 	}
 
 	if ptsCount < 0 {
-		return xerrors.Errorf("invalid ptsCount value: %d", ptsCount)
+		return errors.Errorf("invalid ptsCount value: %d", ptsCount)
 	}
 
 	return nil
@@ -20,7 +20,7 @@ func validatePts(pts, ptsCount int) error {
 
 func validateQts(qts int) error {
 	if qts < 0 {
-		return xerrors.Errorf("invalid qts value: %d", qts)
+		return errors.Errorf("invalid qts value: %d", qts)
 	}
 
 	return nil
@@ -28,11 +28,11 @@ func validateQts(qts int) error {
 
 func validateSeq(seq, seqStart int) error {
 	if seq < 0 {
-		return xerrors.Errorf("invalid seq value: %d", seq)
+		return errors.Errorf("invalid seq value: %d", seq)
 	}
 
 	if seqStart < 0 {
-		return xerrors.Errorf("invalid seqStart value: %d", seq)
+		return errors.Errorf("invalid seqStart value: %d", seq)
 	}
 
 	return nil
@@ -41,12 +41,12 @@ func validateSeq(seq, seqStart int) error {
 func getDialogPts(dialog tg.DialogClass) (int, error) {
 	d, ok := dialog.(*tg.Dialog)
 	if !ok {
-		return 0, xerrors.Errorf("unexpected dialog type: %T", dialog)
+		return 0, errors.Errorf("unexpected dialog type: %T", dialog)
 	}
 
 	pts, ok := d.GetPts()
 	if !ok {
-		return 0, xerrors.New("dialog has no pts field")
+		return 0, errors.New("dialog has no pts field")
 	}
 
 	return pts, nil

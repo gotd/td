@@ -4,7 +4,7 @@ package photos
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/tg"
@@ -75,7 +75,7 @@ func (m *Iterator) apply(r tg.PhotosPhotosClass) error {
 		m.count = phts.Count
 		m.lastBatch = len(phts.Photos) < m.limit
 	default:
-		return xerrors.Errorf("unexpected type %T", r)
+		return errors.Errorf("unexpected type %T", r)
 	}
 	m.totalGot = true
 	m.offset += len(photos)
@@ -126,7 +126,7 @@ func (m *Iterator) FetchTotal(ctx context.Context) (int, error) {
 		Limit: 1,
 	})
 	if err != nil {
-		return 0, xerrors.Errorf("fetch total: %w", err)
+		return 0, errors.Wrap(err, "fetch total")
 	}
 
 	switch phts := r.(type) {
@@ -135,7 +135,7 @@ func (m *Iterator) FetchTotal(ctx context.Context) (int, error) {
 	case *tg.PhotosPhotosSlice: // photos.photosSlice#15051f54
 		m.count = phts.Count
 	default:
-		return 0, xerrors.Errorf("unexpected type %T", r)
+		return 0, errors.Errorf("unexpected type %T", r)
 	}
 
 	m.totalGot = true

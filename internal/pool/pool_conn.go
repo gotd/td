@@ -3,15 +3,15 @@ package pool
 import (
 	"context"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/atomic"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/tdsync"
 )
 
 // ErrConnDead means that connection is closed and can't be used anymore.
-var ErrConnDead = xerrors.New("connection dead")
+var ErrConnDead = errors.New("connection dead")
 
 // Conn represents Telegram MTProto connection.
 type Conn interface {

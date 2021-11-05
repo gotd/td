@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/tg"
@@ -29,7 +29,7 @@ func (b *DeleteBuilder) Messages(ctx context.Context, ids ...int) (*tg.MessagesA
 		ID: ids,
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("delete messages: %w", err)
+		return nil, errors.Wrap(err, "delete messages")
 	}
 
 	return r, nil
@@ -53,7 +53,7 @@ func (b *RequestBuilder) Revoke() *RevokeBuilder {
 func (b *RevokeBuilder) Messages(ctx context.Context, ids ...int) (*tg.MessagesAffectedMessages, error) {
 	p, err := b.builder.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	ch, isChannel := peer.ToInputChannel(p)
@@ -63,7 +63,7 @@ func (b *RevokeBuilder) Messages(ctx context.Context, ids ...int) (*tg.MessagesA
 			ID:      ids,
 		})
 		if err != nil {
-			return nil, xerrors.Errorf("delete channel messages: %w", err)
+			return nil, errors.Wrap(err, "delete channel messages")
 		}
 
 		return r, nil
@@ -74,7 +74,7 @@ func (b *RevokeBuilder) Messages(ctx context.Context, ids ...int) (*tg.MessagesA
 		ID:     ids,
 	})
 	if err != nil {
-		return nil, xerrors.Errorf("delete messages: %w", err)
+		return nil, errors.Wrap(err, "delete messages")
 	}
 
 	return r, nil

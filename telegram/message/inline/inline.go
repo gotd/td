@@ -5,7 +5,7 @@ import (
 	"io"
 	"time"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -93,7 +93,7 @@ func (r *ResultBuilder) Set(ctx context.Context, opts ...ResultOption) (bool, er
 
 	for idx, opt := range opts {
 		if err := opt.apply(&res); err != nil {
-			return false, xerrors.Errorf("apply %d option: %w", idx+1, err)
+			return false, errors.Wrapf(err, "apply %d option", idx+1)
 		}
 	}
 
@@ -107,7 +107,7 @@ func (r *ResultBuilder) Set(ctx context.Context, opts ...ResultOption) (bool, er
 		Gallery:    r.gallery,
 	})
 	if err != nil {
-		return false, xerrors.Errorf("set inline results: %w", err)
+		return false, errors.Wrap(err, "set inline results")
 	}
 
 	return ok, nil

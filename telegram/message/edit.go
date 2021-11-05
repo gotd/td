@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/message/entity"
 	"github.com/gotd/td/telegram/message/styling"
@@ -36,12 +36,12 @@ func (b *EditMessageBuilder) editTextRequest(
 func (b *EditMessageBuilder) Text(ctx context.Context, msg string) (tg.UpdatesClass, error) {
 	p, err := b.builder.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	upd, err := b.builder.sender.editMessage(ctx, b.editTextRequest(p, msg, nil))
 	if err != nil {
-		return nil, xerrors.Errorf("edit styled text message: %w", err)
+		return nil, errors.Wrap(err, "edit styled text message")
 	}
 
 	return upd, nil
@@ -56,7 +56,7 @@ func (b *EditMessageBuilder) Textf(ctx context.Context, format string, args ...i
 func (b *EditMessageBuilder) StyledText(ctx context.Context, texts ...StyledTextOption) (tg.UpdatesClass, error) {
 	p, err := b.builder.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	tb := entity.Builder{}
@@ -67,7 +67,7 @@ func (b *EditMessageBuilder) StyledText(ctx context.Context, texts ...StyledText
 
 	upd, err := b.builder.sender.editMessage(ctx, b.editTextRequest(p, msg, entities))
 	if err != nil {
-		return nil, xerrors.Errorf("edit styled text message: %w", err)
+		return nil, errors.Wrap(err, "edit styled text message")
 	}
 
 	return upd, nil
@@ -77,7 +77,7 @@ func (b *EditMessageBuilder) StyledText(ctx context.Context, texts ...StyledText
 func (b *EditMessageBuilder) Media(ctx context.Context, media MediaOption) (tg.UpdatesClass, error) {
 	p, err := b.builder.peer(ctx)
 	if err != nil {
-		return nil, xerrors.Errorf("peer: %w", err)
+		return nil, errors.Wrap(err, "peer")
 	}
 
 	attachment, err := b.builder.applySingleMedia(ctx, p, media)
@@ -90,7 +90,7 @@ func (b *EditMessageBuilder) Media(ctx context.Context, media MediaOption) (tg.U
 
 	upd, err := b.builder.sender.editMessage(ctx, req)
 	if err != nil {
-		return nil, xerrors.Errorf("send media: %w", err)
+		return nil, errors.Wrap(err, "send media")
 	}
 
 	return upd, nil

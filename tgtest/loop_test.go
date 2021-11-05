@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/tdsync"
@@ -62,8 +62,8 @@ func TestSessionHandle(t *testing.T) {
 			})
 		})
 
-		if err := g.Wait(); err != nil && !xerrors.Is(err, context.Canceled) {
-			return xerrors.Errorf("wait: %w", err)
+		if err := g.Wait(); err != nil && !errors.Is(err, context.Canceled) {
+			return errors.Wrap(err, "wait")
 		}
 		return nil
 	}

@@ -1,9 +1,7 @@
 package crypto
 
 import (
-	"fmt"
-
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )
@@ -48,7 +46,7 @@ func (e EncryptedMessageData) EncodeWithoutCopy(b *bin.Buffer) error {
 	b.PutInt32(0)
 	originalLength := b.Len()
 	if err := b.Encode(e.Message); err != nil {
-		return fmt.Errorf("encode inner message: %w", err)
+		return errors.Wrap(err, "encode inner message")
 	}
 	msgLen := b.Len() - originalLength
 
@@ -95,7 +93,7 @@ func (e *EncryptedMessageData) Decode(b *bin.Buffer) error {
 	}
 	e.MessageDataWithPadding = append(e.MessageDataWithPadding[:0], b.Buf...)
 	if int(e.MessageDataLen) > len(e.MessageDataWithPadding) {
-		return xerrors.Errorf(
+		return errors.Errorf(
 			"MessageDataLen field is bigger then MessageDataWithPadding length (%d > %d)",
 			int(e.MessageDataLen), len(e.MessageDataWithPadding),
 		)
@@ -144,7 +142,7 @@ func (e *EncryptedMessageData) DecodeWithoutCopy(b *bin.Buffer) error {
 	}
 	e.MessageDataWithPadding = b.Buf
 	if int(e.MessageDataLen) > len(e.MessageDataWithPadding) {
-		return xerrors.Errorf(
+		return errors.Errorf(
 			"MessageDataLen field is bigger then MessageDataWithPadding length (%d > %d)",
 			int(e.MessageDataLen), len(e.MessageDataWithPadding),
 		)

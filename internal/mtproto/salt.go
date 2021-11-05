@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/mt"
 )
@@ -41,7 +41,7 @@ func (c *Conn) getSalts(ctx context.Context) error {
 	defer cancel()
 
 	if err := c.writeServiceMessage(ctx, request); err != nil {
-		return xerrors.Errorf("request salts: %w", err)
+		return errors.Wrap(err, "request salts")
 	}
 
 	return nil

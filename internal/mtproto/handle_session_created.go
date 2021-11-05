@@ -1,8 +1,8 @@
 package mtproto
 
 import (
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
@@ -12,7 +12,7 @@ import (
 func (c *Conn) handleSessionCreated(b *bin.Buffer) error {
 	var s mt.NewSessionCreated
 	if err := s.Decode(b); err != nil {
-		return xerrors.Errorf("decode: %w", err)
+		return errors.Wrap(err, "decode")
 	}
 	c.gotSession.Signal()
 
@@ -34,7 +34,7 @@ func (c *Conn) handleSessionCreated(b *bin.Buffer) error {
 
 	c.storeSalt(s.ServerSalt)
 	if err := c.handler.OnSession(c.session()); err != nil {
-		return xerrors.Errorf("handler.OnSession: %w", err)
+		return errors.Wrap(err, "handler.OnSession")
 	}
 	return nil
 }

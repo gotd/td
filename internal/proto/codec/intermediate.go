@@ -3,7 +3,7 @@ package codec
 import (
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )
@@ -21,7 +21,7 @@ type Intermediate struct{}
 // WriteHeader sends protocol tag.
 func (i Intermediate) WriteHeader(w io.Writer) (err error) {
 	if _, err := w.Write(IntermediateClientStart[:]); err != nil {
-		return xerrors.Errorf("write intermediate header: %w", err)
+		return errors.Wrap(err, "write intermediate header")
 	}
 
 	return nil
@@ -31,7 +31,7 @@ func (i Intermediate) WriteHeader(w io.Writer) (err error) {
 func (i Intermediate) ReadHeader(r io.Reader) (err error) {
 	var b [4]byte
 	if _, err := r.Read(b[:]); err != nil {
-		return xerrors.Errorf("read intermediate header: %w", err)
+		return errors.Wrap(err, "read intermediate header")
 	}
 
 	if b != IntermediateClientStart {
@@ -57,7 +57,7 @@ func (i Intermediate) Write(w io.Writer, b *bin.Buffer) error {
 	}
 
 	if err := writeIntermediate(w, b); err != nil {
-		return xerrors.Errorf("write intermediate: %w", err)
+		return errors.Wrap(err, "write intermediate")
 	}
 
 	return nil
@@ -66,7 +66,7 @@ func (i Intermediate) Write(w io.Writer, b *bin.Buffer) error {
 // Read fills buffer with received message.
 func (i Intermediate) Read(r io.Reader, b *bin.Buffer) error {
 	if err := readIntermediate(r, b, false); err != nil {
-		return xerrors.Errorf("read intermediate: %w", err)
+		return errors.Wrap(err, "read intermediate")
 	}
 
 	return checkProtocolError(b)
@@ -99,7 +99,7 @@ func readIntermediate(r io.Reader, b *bin.Buffer, padding bool) error {
 
 	b.ResetN(n)
 	if _, err := io.ReadFull(r, b.Buf); err != nil {
-		return xerrors.Errorf("read payload: %w", err)
+		return errors.Wrap(err, "read payload")
 	}
 
 	if padding {

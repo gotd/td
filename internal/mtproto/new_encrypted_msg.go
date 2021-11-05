@@ -1,8 +1,8 @@
 package mtproto
 
 import (
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -35,7 +35,7 @@ func (c *Conn) newEncryptedMessage(id int64, seq int32, payload bin.Encoder, b *
 		payloadBuf := bufPool.Get()
 		defer bufPool.Put(payloadBuf)
 		if err := payload.Encode(payloadBuf); err != nil {
-			return xerrors.Errorf("encode payload: %w", err)
+			return errors.Wrap(err, "encode payload")
 		}
 
 		log = c.logWithType(payloadBuf)
@@ -61,7 +61,7 @@ func (c *Conn) newEncryptedMessage(id int64, seq int32, payload bin.Encoder, b *
 
 	log.Debug("Request", zap.Int64("msg_id", id))
 	if err := c.cipher.Encrypt(s.Key, d, b); err != nil {
-		return xerrors.Errorf("encrypt: %w", err)
+		return errors.Wrap(err, "encrypt")
 	}
 
 	return nil

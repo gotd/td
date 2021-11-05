@@ -9,10 +9,10 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/net/proxy"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/auth"
@@ -58,7 +58,7 @@ func run(ctx context.Context) error {
 			if err := auth.NewFlow(
 				auth.Test(rand.Reader, *dcID), auth.SendCodeOptions{},
 			).Run(ctx, client.Auth()); err != nil {
-				return xerrors.Errorf("auth: %w", err)
+				return errors.Wrap(err, "auth")
 			}
 		}
 
@@ -74,7 +74,7 @@ func run(ctx context.Context) error {
 			}
 
 			if err != nil {
-				return xerrors.Errorf("get chats: %w", err)
+				return errors.Wrap(err, "get chats")
 			}
 
 			switch chats.(type) {

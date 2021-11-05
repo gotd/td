@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"testing"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 )
@@ -30,14 +30,14 @@ func TestIntermediate(t *testing.T) {
 			b.PutInt(maxMessageSize + 10)
 
 			var out bin.Buffer
-			if err := codec.Read(&b, &out); !xerrors.Is(err, invalidMsgLenErr{}) {
+			if err := codec.Read(&b, &out); !errors.Is(err, invalidMsgLenErr{}) {
 				t.Error(err)
 			}
 		})
 		t.Run("Write", func(t *testing.T) {
 			buf := make([]byte, maxMessageSize+10)
 
-			if err := codec.Write(nil, &bin.Buffer{Buf: buf}); !xerrors.Is(err, invalidMsgLenErr{}) {
+			if err := codec.Write(nil, &bin.Buffer{Buf: buf}); !errors.Is(err, invalidMsgLenErr{}) {
 				t.Error(err)
 			}
 		})

@@ -3,7 +3,7 @@ package telegram
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )
@@ -49,7 +49,7 @@ func (c *Client) invokeMigrate(ctx context.Context, dcID int, input bin.Encoder,
 	mctx, cancel := context.WithTimeout(ctx, c.migrationTimeout)
 	defer cancel()
 	if err := c.migrateToDc(mctx, dcID); err != nil {
-		return xerrors.Errorf("migrate to dc: %w", err)
+		return errors.Wrap(err, "migrate to dc")
 	}
 
 	// Re-trying request on another connection.

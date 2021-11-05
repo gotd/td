@@ -9,8 +9,8 @@ import (
 	"os"
 	"os/signal"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/multierr"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram/query/internal/genutil"
 )
@@ -21,13 +21,13 @@ var templates embed.FS
 func generate(ctx context.Context, out io.Writer, cfg collectorConfig) error {
 	pkg, err := genutil.Load(ctx, "github.com/gotd/td/tg")
 	if err != nil {
-		return xerrors.Errorf("load: %w", err)
+		return errors.Wrap(err, "load")
 	}
 
 	c := newCollector(pkg, cfg)
 	config, err := c.Config()
 	if err != nil {
-		return xerrors.Errorf("collect: %w", err)
+		return errors.Wrap(err, "collect")
 	}
 
 	return genutil.WriteTemplate(templates, out, "header", config)
@@ -41,13 +41,13 @@ func run(ctx context.Context) (err error) {
 	cfg := collectorConfig{}
 	cfg.fromFlags(set)
 	if err := set.Parse(os.Args[1:]); err != nil {
-		return xerrors.Errorf("parse flags: %w", err)
+		return errors.Wrap(err, "parse flags")
 	}
 
 	if *output != "" {
 		f, err := os.Create(*output)
 		if err != nil {
-			return xerrors.Errorf("can't create file %q: %w", *output, err)
+			return errors.Wrapf(err, "can't create file %q", *output)
 		}
 		defer func() {
 			multierr.AppendInto(&err, f.Close())

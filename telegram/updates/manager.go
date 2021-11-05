@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
@@ -62,12 +62,12 @@ func (m *Manager) Auth(ctx context.Context, client RawClient, userID int64, isBo
 	defer m.mux.Unlock()
 
 	if m.state != nil {
-		return xerrors.Errorf("already authorized (userID: %d)", m.state.selfID)
+		return errors.Errorf("already authorized (userID: %d)", m.state.selfID)
 	}
 
 	state, err := m.loadState(client, userID, forget)
 	if err != nil {
-		return xerrors.Errorf("load state: %w", err)
+		return errors.Wrap(err, "load state")
 	}
 
 	channels := make(map[int64]struct {
@@ -120,7 +120,7 @@ onNotFound:
 	if forget {
 		remote, err := client.UpdatesGetState(context.TODO())
 		if err != nil {
-			return State{}, xerrors.Errorf("get remote state: %w", err)
+			return State{}, errors.Wrap(err, "get remote state")
 		}
 
 		state = state.fromRemote(remote)
@@ -137,7 +137,7 @@ onNotFound:
 
 	state, found, err := m.cfg.Storage.GetState(userID)
 	if err != nil {
-		return State{}, xerrors.Errorf("restore local state: %w", err)
+		return State{}, errors.Wrap(err, "restore local state")
 	}
 
 	if !found {
@@ -154,7 +154,7 @@ func (m *Manager) Logout() error {
 	defer m.mux.Unlock()
 
 	if m.state == nil {
-		return xerrors.New("not authorized, nothing to do")
+		return errors.New("not authorized, nothing to do")
 	}
 
 	m.state.Close()

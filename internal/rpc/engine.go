@@ -6,8 +6,8 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -101,7 +101,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 		if ok := atomic.CompareAndSwapUint32(&handlerCalled, 0, 1); !ok {
 			log.Warn("Handler already called")
 
-			return xerrors.New("handler already called")
+			return errors.New("handler already called")
 		}
 
 		defer retryClose()
@@ -130,7 +130,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 
 	// Start retrying.
 	sent, err := e.retryUntilAck(retryCtx, req)
-	if err != nil && !xerrors.Is(err, retryCtx.Err()) {
+	if err != nil && !errors.Is(err, retryCtx.Err()) {
 		// If the retryCtx was canceled, then one of two things happened:
 		//   1. User canceled the parent context.
 		//   2. The RPC result came and callback canceled retryCtx.
@@ -138,7 +138,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 		// If this is not a Context’s error, most likely we did not receive ack
 		// and exceeded the limit of attempts to send a request,
 		// or could not write data to the connection, so we return an error.
-		return xerrors.Errorf("retryUntilAck: %w", err)
+		return errors.Wrap(err, "retryUntilAck")
 	}
 
 	select {
@@ -165,7 +165,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 		log.Debug("Request dropped")
 		return ctx.Err()
 	case <-e.reqCtx.Done():
-		return xerrors.Errorf("engine forcibly closed: %w", e.reqCtx.Err())
+		return errors.Wrap(e.reqCtx.Err(), "engine forcibly closed")
 	case <-done:
 		return resultErr
 	}
@@ -189,7 +189,7 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 
 	// Encoding request.
 	if err := e.send(ctx, req.MsgID, req.SeqNo, req.Input); err != nil {
-		return false, xerrors.Errorf("send: %w", err)
+		return false, errors.Wrap(err, "send")
 	}
 
 	loop := func() error {
@@ -201,7 +201,7 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 			case <-ctx.Done():
 				return ctx.Err()
 			case <-e.reqCtx.Done():
-				return xerrors.Errorf("engine forcibly closed: %w", e.reqCtx.Err())
+				return errors.Wrap(e.reqCtx.Err(), "engine forcibly closed")
 			case <-ackChan:
 				log.Debug("Acknowledged")
 				return nil
@@ -210,7 +210,7 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 
 				log.Debug("Acknowledge timed out, performing retry")
 				if err := e.send(ctx, req.MsgID, req.SeqNo, req.Input); err != nil {
-					if xerrors.Is(err, context.Canceled) {
+					if errors.Is(err, context.Canceled) {
 						return nil
 					}
 

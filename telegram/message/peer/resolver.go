@@ -3,7 +3,7 @@ package peer
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -31,7 +31,7 @@ type plainResolver struct {
 func (p plainResolver) ResolveDomain(ctx context.Context, domain string) (tg.InputPeerClass, error) {
 	peer, err := p.raw.ContactsResolveUsername(ctx, domain)
 	if err != nil {
-		return nil, xerrors.Errorf("resolve: %w", err)
+		return nil, errors.Wrap(err, "resolve")
 	}
 
 	return EntitiesFromResult(peer).ExtractPeer(peer.Peer)
@@ -40,7 +40,7 @@ func (p plainResolver) ResolveDomain(ctx context.Context, domain string) (tg.Inp
 func (p plainResolver) ResolvePhone(ctx context.Context, phone string) (tg.InputPeerClass, error) {
 	r, err := p.raw.ContactsGetContacts(ctx, 0)
 	if err != nil {
-		return nil, xerrors.Errorf("get contacts: %w", err)
+		return nil, errors.Wrap(err, "get contacts")
 	}
 
 	switch c := r.(type) {
@@ -55,8 +55,8 @@ func (p plainResolver) ResolvePhone(ctx context.Context, phone string) (tg.Input
 			}
 		}
 
-		return nil, xerrors.Errorf("can't resolve phone %q", phone)
+		return nil, errors.Errorf("can't resolve phone %q", phone)
 	default:
-		return nil, xerrors.Errorf("unexpected type %T", r)
+		return nil, errors.Errorf("unexpected type %T", r)
 	}
 }

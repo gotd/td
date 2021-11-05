@@ -6,7 +6,7 @@ import (
 	"os"
 	"sync"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // StorageMemory implements in-memory session storage.
@@ -30,7 +30,7 @@ func (s *StorageMemory) Dump(w io.Writer) error {
 	}
 
 	if _, err := w.Write(s.data); err != nil {
-		return xerrors.Errorf("write session: %w", err)
+		return errors.Wrap(err, "write session")
 	}
 
 	return nil
@@ -89,7 +89,7 @@ func (s *StorageMemory) LoadSession(context.Context) ([]byte, error) {
 // StoreSession stores session to memory.
 func (s *StorageMemory) StoreSession(ctx context.Context, data []byte) error {
 	if s == nil {
-		return xerrors.New("StoreSession called on StorageMemory(nil)")
+		return errors.New("StoreSession called on StorageMemory(nil)")
 	}
 
 	s.mux.Lock()

@@ -4,7 +4,7 @@ package obfuscator
 import (
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/mtproxy"
 	"github.com/gotd/td/internal/mtproxy/faketls"
@@ -41,11 +41,11 @@ func (t tls) Read(p []byte) (int, error) {
 
 func (t tls) Handshake(protocol [4]byte, s mtproxy.Secret) error {
 	if err := t.ftls.Handshake(protocol, s); err != nil {
-		return xerrors.Errorf("faketls handshake: %w", err)
+		return errors.Wrap(err, "faketls handshake")
 	}
 
 	if err := t.obfs2.Handshake(protocol, s); err != nil {
-		return xerrors.Errorf("obfs2 handshake: %w", err)
+		return errors.Wrap(err, "obfs2 handshake")
 	}
 
 	return nil

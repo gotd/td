@@ -1,7 +1,7 @@
 package updates
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -75,25 +75,25 @@ func extractChannelID(msg tg.MessageClass) (int64, error) {
 			return c.ChannelID, nil
 		}
 
-		return 0, xerrors.Errorf("unexpected tg.Message peer type: %T", msg.PeerID)
+		return 0, errors.Errorf("unexpected tg.Message peer type: %T", msg.PeerID)
 	case *tg.MessageEmpty:
 		peer, ok := msg.GetPeerID()
 		if !ok {
-			return 0, xerrors.New("tg.MessageEmpty have no peerID field")
+			return 0, errors.New("tg.MessageEmpty have no peerID field")
 		}
 
 		if c, ok := peer.(*tg.PeerChannel); ok {
 			return c.ChannelID, nil
 		}
 
-		return 0, xerrors.Errorf("unexpected tg.MessageEmpty peer type: %T", peer)
+		return 0, errors.Errorf("unexpected tg.MessageEmpty peer type: %T", peer)
 	case *tg.MessageService:
 		if c, ok := msg.PeerID.(*tg.PeerChannel); ok {
 			return c.ChannelID, nil
 		}
 
-		return 0, xerrors.Errorf("unexpected tg.MessageService peer type: %T", msg.PeerID)
+		return 0, errors.Errorf("unexpected tg.MessageService peer type: %T", msg.PeerID)
 	default:
-		return 0, xerrors.Errorf("unexpected tg.MessageClass type: %T", msg)
+		return 0, errors.Errorf("unexpected tg.MessageClass type: %T", msg)
 	}
 }

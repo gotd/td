@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"strings"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/getdoc"
 	"github.com/gotd/tl"
@@ -62,7 +62,7 @@ func NewGenerator(s *tl.Schema, genOpt GeneratorOptions) (*Generator, error) {
 	if genOpt.DocBaseURL != "" {
 		u, err := url.Parse(genOpt.DocBaseURL)
 		if err != nil {
-			return nil, xerrors.Errorf("parse docBase: %w", err)
+			return nil, errors.Wrap(err, "parse docBase")
 		}
 		g.docBase = u
 
@@ -71,16 +71,16 @@ func NewGenerator(s *tl.Schema, genOpt GeneratorOptions) (*Generator, error) {
 			// TODO(ernado): Get actual layer
 			doc, err := getdoc.Load(getdoc.LayerLatest)
 			if err != nil {
-				return nil, xerrors.Errorf("get documentation: %w", err)
+				return nil, errors.Wrap(err, "get documentation")
 			}
 			g.doc = doc
 		}
 	}
 	if err := g.makeBindings(); err != nil {
-		return nil, xerrors.Errorf("make type bindings: %w", err)
+		return nil, errors.Wrap(err, "make type bindings")
 	}
 	if err := g.makeStructures(); err != nil {
-		return nil, xerrors.Errorf("generate go structures: %w", err)
+		return nil, errors.Wrap(err, "generate go structures")
 	}
 	g.makeInterfaces()
 	g.makeErrors()

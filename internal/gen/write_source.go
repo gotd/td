@@ -6,7 +6,7 @@ import (
 	"strings"
 	"text/template"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // config is input data for templates.
@@ -66,16 +66,16 @@ func (w *writer) Generate(templateName, fileName string, cfg config) error {
 		cfg.Package = w.pkg
 	}
 	if w.wrote[fileName] {
-		return xerrors.Errorf("name collision (already wrote %s)", fileName)
+		return errors.Errorf("name collision (already wrote %s)", fileName)
 	}
 
 	w.buf.Reset()
 	if err := w.t.ExecuteTemplate(w.buf, templateName, cfg); err != nil {
-		return xerrors.Errorf("execute template %s for %s: %w", templateName, fileName, err)
+		return errors.Wrapf(err, "execute template %s for %s", templateName, fileName)
 	}
 	if err := w.fs.WriteFile(fileName, w.buf.Bytes()); err != nil {
 		_ = os.WriteFile(fileName+".dump", w.buf.Bytes(), 0600)
-		return xerrors.Errorf("write file %s: %w", fileName, err)
+		return errors.Wrapf(err, "write file %s", fileName)
 	}
 	w.wrote[fileName] = true
 
@@ -157,10 +157,10 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 	}
 
 	if err := w.WriteInterfaces(g.interfaces); err != nil {
-		return xerrors.Errorf("interfaces: %w", err)
+		return errors.Wrap(err, "interfaces")
 	}
 	if err := w.WriteStructs(g.structs, g.mappings); err != nil {
-		return xerrors.Errorf("structs: %w", err)
+		return errors.Wrap(err, "structs")
 	}
 	if g.generateFlags.Server {
 		if err := w.Generate("server", "tl_server_gen.go", config{

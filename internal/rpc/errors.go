@@ -3,7 +3,7 @@ package rpc
 import (
 	"fmt"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // RetryLimitReachedErr means that server does not acknowledge request
@@ -23,4 +23,4 @@ func (r *RetryLimitReachedErr) Is(err error) bool {
 }
 
 // ErrEngineClosed means that engine was closed.
-var ErrEngineClosed = xerrors.New("engine was closed")
+var ErrEngineClosed = errors.New("engine was closed")

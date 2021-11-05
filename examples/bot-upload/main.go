@@ -3,9 +3,10 @@ package main
 
 import (
 	"context"
-	"errors"
 	"flag"
 	"fmt"
+
+	"github.com/ogen-go/errors"
 
 	"go.uber.org/zap"
 

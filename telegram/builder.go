@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
 	"golang.org/x/net/proxy"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
@@ -49,14 +49,14 @@ func OptionsFromEnvironment(opts Options) (Options, error) {
 		if !ok {
 			dir, err := sessionDir()
 			if err != nil {
-				return Options{}, xerrors.Errorf("SESSION_DIR not set or invalid: %w", err)
+				return Options{}, errors.Wrap(err, "SESSION_DIR not set or invalid")
 			}
 			sessionFile = filepath.Join(dir, "session.json")
 		}
 
 		dir, _ := filepath.Split(sessionFile)
 		if err := os.MkdirAll(dir, 0700); err != nil {
-			return Options{}, xerrors.Errorf("session dir creation: %w", err)
+			return Options{}, errors.Wrap(err, "session dir creation")
 		}
 
 		opts.SessionStorage = &session.FileStorage{
@@ -82,12 +82,12 @@ func OptionsFromEnvironment(opts Options) (Options, error) {
 func ClientFromEnvironment(opts Options) (*Client, error) {
 	appID, err := strconv.Atoi(os.Getenv("APP_ID"))
 	if err != nil {
-		return nil, xerrors.Errorf("APP_ID not set or invalid: %w", err)
+		return nil, errors.Wrap(err, "APP_ID not set or invalid")
 	}
 
 	appHash := os.Getenv("APP_HASH")
 	if appHash == "" {
-		return nil, xerrors.New("no APP_HASH provided")
+		return nil, errors.New("no APP_HASH provided")
 	}
 
 	opts, err = OptionsFromEnvironment(opts)
@@ -126,7 +126,7 @@ func retry(ctx context.Context, logger *zap.Logger, cb func(ctx context.Context)
 					return ctx.Err()
 				}
 			}
-			if xerrors.Is(err, io.EOF) || xerrors.Is(err, io.ErrUnexpectedEOF) {
+			if errors.Is(err, io.EOF) || errors.Is(err, io.ErrUnexpectedEOF) {
 				// Possibly server closed connection.
 				return err
 			}
@@ -163,7 +163,7 @@ func TestClient(ctx context.Context, opts Options, cb func(ctx context.Context, 
 				auth.Test(crypto.DefaultRand(), opts.DC),
 				auth.SendCodeOptions{},
 			)); err != nil {
-				return xerrors.Errorf("auth flow: %w", err)
+				return errors.Wrap(err, "auth flow")
 			}
 
 			return cb(runCtx, client)

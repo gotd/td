@@ -1,7 +1,7 @@
 package peer
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -40,7 +40,7 @@ func (d *DialogKey) FromInputPeer(peer tg.InputPeerClass) error {
 		d.ID = v.ChannelID
 		d.AccessHash = v.AccessHash
 	default:
-		return xerrors.Errorf("unexpected type %T", peer)
+		return errors.Errorf("unexpected type %T", peer)
 	}
 
 	return nil
@@ -59,7 +59,7 @@ func (d *DialogKey) FromPeer(peer tg.PeerClass) error {
 		d.Kind = Channel
 		d.ID = v.ChannelID
 	default:
-		return xerrors.Errorf("unexpected type %T", peer)
+		return errors.Errorf("unexpected type %T", peer)
 	}
 
 	return nil

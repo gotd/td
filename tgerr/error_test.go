@@ -3,8 +3,8 @@ package tgerr_test
 import (
 	"testing"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/require"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/tg"
@@ -80,7 +80,7 @@ func TestHelpers(t *testing.T) {
 				Type: tg.ErrAccessTokenExpired,
 			}
 
-			return xerrors.Errorf("perform operation: %w", rpcErr)
+			return errors.Wrap(rpcErr, "perform operation")
 		}()
 		require.True(t, tgerr.Is(err, tg.ErrAccessTokenExpired))
 		require.True(t, tg.IsAccessTokenExpired(err))

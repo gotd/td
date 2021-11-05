@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/tg"
@@ -36,8 +36,8 @@ func (c *Cluster) Up(ctx context.Context) error {
 			},
 		}
 		g.Go(func(ctx context.Context) error {
-			if err := srv.Serve(l); err != nil && !xerrors.Is(err, http.ErrServerClosed) {
-				return xerrors.Errorf("serve: %w", err)
+			if err := srv.Serve(l); err != nil && !errors.Is(err, http.ErrServerClosed) {
+				return errors.Wrap(err, "serve")
 			}
 			return nil
 		})
@@ -67,7 +67,7 @@ func (c *Cluster) Up(ctx context.Context) error {
 	for dcID, s := range c.setups {
 		l, err := listen(ctx, dcID)
 		if err != nil {
-			return xerrors.Errorf("DC %d: listen port: %w", dcID, err)
+			return errors.Wrapf(err, "DC %d: listen port", dcID)
 		}
 
 		if !c.web {

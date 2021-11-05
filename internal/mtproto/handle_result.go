@@ -1,8 +1,8 @@
 package mtproto
 
 import (
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
@@ -14,7 +14,7 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 	// Response to an RPC query.
 	var res proto.Result
 	if err := res.Decode(b); err != nil {
-		return xerrors.Errorf("decode: %w", err)
+		return errors.Wrap(err, "decode")
 	}
 
 	// Now b contains result message.
@@ -31,7 +31,7 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 	if id == proto.GZIPTypeID {
 		content, err := gzip(b)
 		if err != nil {
-			return xerrors.Errorf("decompress: %w", err)
+			return errors.Wrap(err, "decompress")
 		}
 
 		// Replacing buffer so callback will deal with uncompressed data.
@@ -40,14 +40,14 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 
 		// Replacing id with inner id if error is compressed for any reason.
 		if id, err = b.PeekID(); err != nil {
-			return xerrors.Errorf("peek id: %w", err)
+			return errors.Wrap(err, "peek id")
 		}
 	}
 
 	if id == mt.RPCErrorTypeID {
 		var rpcErr mt.RPCError
 		if err := rpcErr.Decode(b); err != nil {
-			return xerrors.Errorf("error decode: %w", err)
+			return errors.Wrap(err, "error decode")
 		}
 
 		c.log.Debug("Got error", msgID,

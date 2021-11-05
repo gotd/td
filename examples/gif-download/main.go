@@ -12,13 +12,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/crypto/ssh/terminal"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/time/rate"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/contrib/middleware/ratelimit"
 
@@ -34,7 +34,7 @@ import (
 type terminalAuth struct{}
 
 func (terminalAuth) SignUp(ctx context.Context) (auth.UserInfo, error) {
-	return auth.UserInfo{}, xerrors.New("not implemented")
+	return auth.UserInfo{}, errors.New("not implemented")
 }
 
 func (terminalAuth) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
@@ -117,14 +117,14 @@ func run(ctx context.Context) error {
 	return client.Run(ctx, func(ctx context.Context) error {
 		// Perform auth if no session is available.
 		if err := client.Auth().IfNecessary(ctx, flow); err != nil {
-			return xerrors.Errorf("auth: %w", err)
+			return errors.Wrap(err, "auth")
 		}
 
 		if *inputDir != "" {
 			// Handling bulk upload.
 			// Probably we can de-duplicate gifs by some criteria.
 			if err := upload(ctx, log, api, *inputDir); err != nil {
-				return xerrors.Errorf("upload: %w", err)
+				return errors.Wrap(err, "upload")
 			}
 		}
 
@@ -143,7 +143,7 @@ func run(ctx context.Context) error {
 			for {
 				result, err := api.MessagesGetSavedGifs(ctx, int(h.Sum()))
 				if err != nil {
-					return xerrors.Errorf("get: %w", err)
+					return errors.Wrap(err, "get")
 				}
 
 				h.Reset()
@@ -207,7 +207,7 @@ func run(ctx context.Context) error {
 					// Downloading gif to gifPath.
 					loc := doc.AsInputDocumentFileLocation()
 					if _, err := d.Download(api, loc).ToPath(ctx, gifPath); err != nil {
-						return xerrors.Errorf("download: %w", err)
+						return errors.Wrap(err, "download")
 					}
 					downloaded.Inc()
 
@@ -220,7 +220,7 @@ func run(ctx context.Context) error {
 							ID:     doc.AsInput(),
 							Unsave: true,
 						}); err != nil {
-							return xerrors.Errorf("remove: %w", err)
+							return errors.Wrap(err, "remove")
 						}
 					}
 				}

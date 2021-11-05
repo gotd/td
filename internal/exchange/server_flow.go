@@ -4,8 +4,8 @@ import (
 	"context"
 	"math/big"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -57,7 +57,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 
 	serverNonce, err := crypto.RandInt128(s.rand)
 	if err != nil {
-		return ServerExchangeResult{}, xerrors.Errorf("generate server nonce: %w", err)
+		return ServerExchangeResult{}, errors.Wrap(err, "generate server nonce")
 	}
 
 	// 2. Server sends response of the form
@@ -65,7 +65,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	// resPQ#05162463 nonce:int128 server_nonce:int128 pq:string server_public_key_fingerprints:Vector long = ResPQ;
 	pq, err := s.rng.PQ()
 	if err != nil {
-		return ServerExchangeResult{}, xerrors.Errorf("generate pq: %w", err)
+		return ServerExchangeResult{}, errors.Wrap(err, "generate pq")
 	}
 
 	s.log.Debug("Sending ResPQ", zap.String("pq", pq.String()))
@@ -112,7 +112,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 		}
 
 		if innerDataDC, ok := d.(*mt.PQInnerDataDC); ok && innerDataDC.DC != s.dc {
-			err := xerrors.Errorf(
+			err := errors.Errorf(
 				"wrong DC ID, want %d, got %d",
 				s.dc, innerDataDC.DC,
 			)
@@ -131,13 +131,13 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 
 	dhPrime, err := s.rng.DhPrime()
 	if err != nil {
-		return ServerExchangeResult{}, xerrors.Errorf("generate dh_prime: %w", err)
+		return ServerExchangeResult{}, errors.Wrap(err, "generate dh_prime")
 	}
 
 	g := 3
 	a, ga, err := s.rng.GA(g, dhPrime)
 	if err != nil {
-		return ServerExchangeResult{}, xerrors.Errorf("generate g_a: %w", err)
+		return ServerExchangeResult{}, errors.Wrap(err, "generate g_a")
 	}
 
 	data := mt.ServerDHInnerData{
@@ -178,7 +178,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 
 	decrypted, err := crypto.DecryptExchangeAnswer(clientDhParams.EncryptedData, key, iv)
 	if err != nil {
-		err = xerrors.Errorf("decrypt exchange answer: %w", err)
+		err = errors.Wrap(err, "decrypt exchange answer")
 		return ServerExchangeResult{}, wrapKeyNotFound(err)
 	}
 	b.ResetTo(decrypted)
@@ -191,7 +191,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	gB := big.NewInt(0).SetBytes(clientInnerData.GB)
 	var authKey crypto.Key
 	if !crypto.FillBytes(big.NewInt(0).Exp(gB, a, dhPrime), authKey[:]) {
-		err := xerrors.New("auth_key is too big")
+		err := errors.New("auth_key is too big")
 		return ServerExchangeResult{}, wrapKeyNotFound(err)
 	}
 

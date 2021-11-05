@@ -3,7 +3,7 @@ package gen
 import (
 	"strings"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/tl"
 )
@@ -179,7 +179,7 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 			tn := strings.TrimPrefix(baseType.String(), "%")
 			t, ok := g.types[tn]
 			if !ok {
-				return fieldDef{}, xerrors.Errorf("types[%s] not found", baseType)
+				return fieldDef{}, errors.Errorf("types[%s] not found", baseType)
 			}
 			f.Type = t.Name
 		} else {
@@ -191,7 +191,7 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 				t.Name = "bin.Object"
 			}
 			if !ok {
-				return fieldDef{}, xerrors.Errorf("classes[%s] not found", baseType)
+				return fieldDef{}, errors.Errorf("classes[%s] not found", baseType)
 			}
 			f.Type = t.Name
 			if !baseType.Percent && t.Singular && !param.Type.GenericRef {

@@ -3,7 +3,7 @@ package mtproto
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -24,7 +24,7 @@ func (c *Conn) Ping(ctx context.Context) error {
 	defer c.removePong(pingID)
 
 	if err := c.writeServiceMessage(ctx, &mt.PingRequest{PingID: pingID}); err != nil {
-		return xerrors.Errorf("write: %w", err)
+		return errors.Wrap(err, "write")
 	}
 
 	select {
@@ -38,7 +38,7 @@ func (c *Conn) Ping(ctx context.Context) error {
 func (c *Conn) handlePong(b *bin.Buffer) error {
 	var pong mt.Pong
 	if err := pong.Decode(b); err != nil {
-		return xerrors.Errorf("decode: %x", err)
+		return errors.Errorf("decode: %x", err)
 	}
 	c.log.Debug("Pong")
 
@@ -68,7 +68,7 @@ func (c *Conn) pingDelayDisconnect(ctx context.Context, delay int) error {
 		PingID:          pingID,
 		DisconnectDelay: delay,
 	}); err != nil {
-		return xerrors.Errorf("write: %w", err)
+		return errors.Wrap(err, "write")
 	}
 
 	select {
@@ -104,7 +104,7 @@ func (c *Conn) pingLoop(ctx context.Context) error {
 	for {
 		select {
 		case <-ctx.Done():
-			return xerrors.Errorf("ping loop: %w", ctx.Err())
+			return errors.Wrap(ctx.Err(), "ping loop")
 		case <-ticker.C():
 			if err := func() error {
 				ctx, cancel := context.WithTimeout(ctx, c.pingTimeout)
@@ -112,7 +112,7 @@ func (c *Conn) pingLoop(ctx context.Context) error {
 
 				return c.pingDelayDisconnect(ctx, int(delay.Seconds()))
 			}(); err != nil {
-				return xerrors.Errorf("disconnect (pong missed): %w", err)
+				return errors.Wrap(err, "disconnect (pong missed)")
 			}
 		}
 	}

@@ -3,7 +3,7 @@ package crypto
 import (
 	"crypto/aes"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/ige"
 
@@ -33,7 +33,7 @@ func (c Cipher) Decrypt(k AuthKey, encrypted *EncryptedMessage) (*EncryptedMessa
 	// Checking SHA256 hash value of msg_key
 	msgKey := MessageKey(k.Value, plaintext, side)
 	if msgKey != encrypted.MsgKey {
-		return nil, xerrors.New("msg_key is invalid")
+		return nil, errors.New("msg_key is invalid")
 	}
 
 	msg := &EncryptedMessageData{}
@@ -51,11 +51,11 @@ func (c Cipher) Decrypt(k AuthKey, encrypted *EncryptedMessage) (*EncryptedMessa
 
 		switch {
 		case n < 0:
-			return nil, xerrors.Errorf("message length is invalid: %d less than zero", n)
+			return nil, errors.Errorf("message length is invalid: %d less than zero", n)
 		case n%4 != 0:
-			return nil, xerrors.Errorf("message length is invalid: %d is not divisible by 4", n)
+			return nil, errors.Errorf("message length is invalid: %d is not divisible by 4", n)
 		case paddingLen > maxPadding:
-			return nil, xerrors.Errorf("padding %d of message is too big", paddingLen)
+			return nil, errors.Errorf("padding %d of message is too big", paddingLen)
 		}
 	}
 
@@ -65,10 +65,10 @@ func (c Cipher) Decrypt(k AuthKey, encrypted *EncryptedMessage) (*EncryptedMessa
 // decryptMessage decrypts data from encrypted message using AES-IGE.
 func (c Cipher) decryptMessage(k AuthKey, encrypted *EncryptedMessage) ([]byte, error) {
 	if k.ID != encrypted.AuthKeyID {
-		return nil, xerrors.New("unknown auth key id")
+		return nil, errors.New("unknown auth key id")
 	}
 	if len(encrypted.EncryptedData)%16 != 0 {
-		return nil, xerrors.New("invalid encrypted data padding")
+		return nil, errors.New("invalid encrypted data padding")
 	}
 
 	key, iv := Keys(k.Value, encrypted.MsgKey, c.encryptSide.DecryptSide())

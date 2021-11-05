@@ -3,8 +3,8 @@ package tdsync
 import (
 	"context"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/clock"
 )
@@ -45,7 +45,7 @@ func (g *LogGroup) Go(taskName string, f func(groupCtx context.Context) error) {
 		if err := f(ctx); err != nil {
 			elapsed := g.clock.Now().Sub(start)
 			l.Debug("Task stopped", zap.Error(err), zap.Duration("elapsed", elapsed))
-			return xerrors.Errorf("task %s: %w", taskName, err)
+			return errors.Wrapf(err, "task %s", taskName)
 		}
 
 		elapsed := g.clock.Now().Sub(start)

@@ -5,7 +5,7 @@ import (
 	"io"
 	"sync"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/syncio"
 	"github.com/gotd/td/internal/tdsync"
@@ -49,7 +49,7 @@ func (d *Downloader) parallel(
 
 					b, err := r.Next(ctx)
 					if err != nil {
-						return xerrors.Errorf("get file: %w", err)
+						return errors.Wrap(err, "get file")
 					}
 
 					// If returned chunk is zero, that means we read all file.

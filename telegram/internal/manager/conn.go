@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -158,7 +158,7 @@ func (c *Conn) Invoke(ctx context.Context, input bin.Encoder, output bin.Decoder
 	// Tracking ongoing invokes.
 	defer c.trackInvoke()()
 	if err := c.waitSession(ctx); err != nil {
-		return xerrors.Errorf("waitSession: %w", err)
+		return errors.Wrap(err, "waitSession")
 	}
 
 	return c.proto.Invoke(ctx, c.wrapRequest(noopDecoder{input}), output)
@@ -174,7 +174,7 @@ type noopDecoder struct {
 }
 
 func (n noopDecoder) Decode(b *bin.Buffer) error {
-	return xerrors.New("not implemented")
+	return errors.New("not implemented")
 }
 
 func (c *Conn) wrapRequest(req bin.Object) bin.Object {
@@ -215,10 +215,10 @@ func (c *Conn) init(ctx context.Context) error {
 				// multiple connections in short period of time.
 				//
 				// See https://github.com/gotd/td/issues/388.
-				return xerrors.Errorf("flood wait: %w", err)
+				return errors.Wrap(err, "flood wait")
 			}
 			// Not retrying other errors.
-			return backoff.Permanent(xerrors.Errorf("invoke: %w", err))
+			return backoff.Permanent(errors.Wrap(err, "invoke"))
 		}
 
 		return nil
@@ -227,12 +227,12 @@ func (c *Conn) init(ctx context.Context) error {
 			zap.Error(err), zap.Duration("duration", duration),
 		)
 	}); err != nil {
-		return xerrors.Errorf("initConnection: %w", err)
+		return errors.Wrap(err, "initConnection")
 	}
 
 	if c.setup != nil {
 		if err := c.setup(ctx, c); err != nil {
-			return xerrors.Errorf("setup: %w", err)
+			return errors.Wrap(err, "setup")
 		}
 	}
 

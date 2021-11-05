@@ -6,7 +6,7 @@ import (
 	"io/fs"
 	"os"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // Account is a Telegram user account representation in Telegram Desktop storage.
@@ -30,7 +30,7 @@ func Read(root string, passcode []byte) ([]Account, error) {
 func ReadFS(root fs.FS, passcode []byte) ([]Account, error) {
 	keyDataFile, err := open(root, "key_data")
 	if err != nil {
-		return nil, xerrors.Errorf("open key_data: %w", err)
+		return nil, errors.Wrap(err, "open key_data")
 	}
 
 	kd, err := readKeyData(keyDataFile, passcode)
@@ -38,7 +38,7 @@ func ReadFS(root fs.FS, passcode []byte) ([]Account, error) {
 		return nil, err
 	}
 	if len(kd.accountsIDx) < 1 {
-		return nil, xerrors.New("tdesktop data does not contain accounts")
+		return nil, errors.New("tdesktop data does not contain accounts")
 	}
 
 	r := make([]Account, 0, len(kd.accountsIDx))
@@ -50,12 +50,12 @@ func ReadFS(root fs.FS, passcode []byte) ([]Account, error) {
 
 		tgf, err := open(root, keyFile)
 		if err != nil {
-			return nil, xerrors.Errorf("open key_data: %w", err)
+			return nil, errors.Wrap(err, "open key_data")
 		}
 
 		mtp, err := readMTPData(tgf, kd.localKey)
 		if err != nil {
-			return nil, xerrors.Errorf("read mtp: %w", err)
+			return nil, errors.Wrap(err, "read mtp")
 		}
 
 		r = append(r, Account{

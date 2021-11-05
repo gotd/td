@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/assert"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tgerr"
@@ -13,9 +13,7 @@ import (
 
 func TestAsFloodWait(t *testing.T) {
 	err := func() error {
-		return xerrors.Errorf("perform operation: %w",
-			tgerr.New(400, "FLOOD_WAIT_10"),
-		)
+		return errors.Wrap(tgerr.New(400, "FLOOD_WAIT_10"), "perform operation")
 	}()
 
 	d, ok := telegram.AsFloodWait(err)

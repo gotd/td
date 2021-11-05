@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/cenkalti/backoff/v4"
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/telegram/auth"
 )
@@ -35,15 +35,15 @@ func (s *Suite) Authenticate(ctx context.Context, client auth.FlowClient) error 
 	for {
 		flow, err := s.createFlow(ctx)
 		if err != nil {
-			return xerrors.Errorf("create flow: %w", err)
+			return errors.Wrap(err, "create flow")
 		}
 
 		if err := flow.Run(ctx, client); err != nil {
-			if xerrors.Is(err, auth.ErrPasswordNotProvided) {
+			if errors.Is(err, auth.ErrPasswordNotProvided) {
 				continue
 			}
 
-			return xerrors.Errorf("run flow: %w", err)
+			return errors.Wrap(err, "run flow")
 		}
 		return nil
 	}

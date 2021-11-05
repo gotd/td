@@ -1,7 +1,7 @@
 package message
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -11,7 +11,7 @@ func convertMessageMediaToInput(m tg.MessageMediaClass) (tg.InputMediaClass, err
 	case *tg.MessageMediaPhoto: // messageMediaPhoto#695150d7
 		photo, ok := v.Photo.AsNotEmpty()
 		if !ok {
-			return nil, xerrors.Errorf("unexpected type %T", v.Photo)
+			return nil, errors.Errorf("unexpected type %T", v.Photo)
 		}
 
 		return &tg.InputMediaPhoto{
@@ -21,7 +21,7 @@ func convertMessageMediaToInput(m tg.MessageMediaClass) (tg.InputMediaClass, err
 	case *tg.MessageMediaGeo: // messageMediaGeo#56e0d474
 		geo, ok := v.Geo.AsNotEmpty()
 		if !ok {
-			return nil, xerrors.Errorf("unexpected type %T", v.Geo)
+			return nil, errors.Errorf("unexpected type %T", v.Geo)
 		}
 
 		r := new(tg.InputGeoPoint)
@@ -36,7 +36,7 @@ func convertMessageMediaToInput(m tg.MessageMediaClass) (tg.InputMediaClass, err
 	case *tg.MessageMediaDocument: // messageMediaDocument#9cb070d7
 		document, ok := v.Document.AsNotEmpty()
 		if !ok {
-			return nil, xerrors.Errorf("unexpected type %T", v.Document)
+			return nil, errors.Errorf("unexpected type %T", v.Document)
 		}
 
 		return &tg.InputMediaDocument{
@@ -46,7 +46,7 @@ func convertMessageMediaToInput(m tg.MessageMediaClass) (tg.InputMediaClass, err
 	case *tg.MessageMediaVenue: // messageMediaVenue#2ec0533f
 		geo, ok := v.Geo.AsNotEmpty()
 		if !ok {
-			return nil, xerrors.Errorf("unexpected type %T", v.Geo)
+			return nil, errors.Errorf("unexpected type %T", v.Geo)
 		}
 
 		r := new(tg.InputGeoPoint)
@@ -69,7 +69,7 @@ func convertMessageMediaToInput(m tg.MessageMediaClass) (tg.InputMediaClass, err
 	case *tg.MessageMediaGeoLive: // messageMediaGeoLive#b940c666
 		geo, ok := v.Geo.AsNotEmpty()
 		if !ok {
-			return nil, xerrors.Errorf("unexpected type %T", v.Geo)
+			return nil, errors.Errorf("unexpected type %T", v.Geo)
 		}
 
 		r := new(tg.InputGeoPoint)
@@ -90,6 +90,6 @@ func convertMessageMediaToInput(m tg.MessageMediaClass) (tg.InputMediaClass, err
 		// messageMediaEmpty#3ded6320
 		// messageMediaUnsupported#9f84f49e
 		// messageMediaInvoice#84551347
-		return nil, xerrors.Errorf("unexpected type %T", v)
+		return nil, errors.Errorf("unexpected type %T", v)
 	}
 }

@@ -1,7 +1,7 @@
 package proto
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )
@@ -21,7 +21,7 @@ func (u *UnencryptedMessage) Decode(b *bin.Buffer) error {
 			return err
 		}
 		if id != 0 {
-			return xerrors.Errorf("unexpected auth_key_id %d of plaintext message", id)
+			return errors.Errorf("unexpected auth_key_id %d of plaintext message", id)
 		}
 	}
 	{
@@ -39,7 +39,7 @@ func (u *UnencryptedMessage) Decode(b *bin.Buffer) error {
 	}
 	u.MessageData = append(u.MessageData[:0], make([]byte, dataLen)...)
 	if err := b.ConsumeN(u.MessageData, int(dataLen)); err != nil {
-		return xerrors.Errorf("consume payload: %w", err)
+		return errors.Wrap(err, "consume payload")
 	}
 
 	return nil

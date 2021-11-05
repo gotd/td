@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -25,7 +25,7 @@ func (b *ReportBuilder) Message(msg string) *ReportBuilder {
 func (b *ReportBuilder) send(ctx context.Context, reason tg.ReportReasonClass) (bool, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return false, xerrors.Errorf("peer: %w", err)
+		return false, errors.Wrap(err, "peer")
 	}
 
 	return b.sender.report(ctx, &tg.MessagesReportRequest{
@@ -90,7 +90,7 @@ func (b *RequestBuilder) Report(id int, ids ...int) *ReportBuilder {
 func (b *RequestBuilder) ReportSpam(ctx context.Context) (bool, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return false, xerrors.Errorf("peer: %w", err)
+		return false, errors.Wrap(err, "peer")
 	}
 
 	return b.sender.reportSpam(ctx, p)

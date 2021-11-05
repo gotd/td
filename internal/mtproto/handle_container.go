@@ -1,7 +1,7 @@
 package mtproto
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/proto"
 
@@ -11,7 +11,7 @@ import (
 func (c *Conn) handleContainer(msgID int64, b *bin.Buffer) error {
 	var container proto.MessageContainer
 	if err := container.Decode(b); err != nil {
-		return xerrors.Errorf("container: %w", err)
+		return errors.Wrap(err, "container")
 	}
 	for _, msg := range container.Messages {
 		if err := c.processContainerMessage(msgID, msg); err != nil {

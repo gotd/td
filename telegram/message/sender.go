@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/telegram/message/peer"
@@ -60,7 +60,7 @@ func (s *Sender) sendMessage(ctx context.Context, req *tg.MessagesSendMessageReq
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return nil, xerrors.Errorf("generate random_id: %w", err)
+			return nil, errors.Wrap(err, "generate random_id")
 		}
 		req.RandomID = id
 	}
@@ -73,7 +73,7 @@ func (s *Sender) sendMedia(ctx context.Context, req *tg.MessagesSendMediaRequest
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return nil, xerrors.Errorf("generate random_id: %w", err)
+			return nil, errors.Wrap(err, "generate random_id")
 		}
 		req.RandomID = id
 	}
@@ -86,7 +86,7 @@ func (s *Sender) sendMultiMedia(ctx context.Context, req *tg.MessagesSendMultiMe
 	for i := range req.MultiMedia {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return nil, xerrors.Errorf("generate random_id: %w", err)
+			return nil, errors.Wrap(err, "generate random_id")
 		}
 		req.MultiMedia[i].RandomID = id
 	}
@@ -105,7 +105,7 @@ func (s *Sender) forwardMessages(ctx context.Context, req *tg.MessagesForwardMes
 	for i := range req.RandomID {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return nil, xerrors.Errorf("generate random_id: %w", err)
+			return nil, errors.Wrap(err, "generate random_id")
 		}
 		req.RandomID[i] = id
 	}
@@ -118,7 +118,7 @@ func (s *Sender) startBot(ctx context.Context, req *tg.MessagesStartBotRequest) 
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return nil, xerrors.Errorf("generate random_id: %w", err)
+			return nil, errors.Wrap(err, "generate random_id")
 		}
 		req.RandomID = id
 	}
@@ -134,7 +134,7 @@ func (s *Sender) sendInlineBotResult(
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return nil, xerrors.Errorf("generate random_id: %w", err)
+			return nil, errors.Wrap(err, "generate random_id")
 		}
 		req.RandomID = id
 	}
@@ -195,7 +195,7 @@ func (s *Sender) sendScreenshotNotification(
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return nil, xerrors.Errorf("generate random_id: %w", err)
+			return nil, errors.Wrap(err, "generate random_id")
 		}
 		req.RandomID = id
 	}

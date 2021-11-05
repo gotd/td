@@ -3,7 +3,7 @@ package tgtest
 import (
 	"sync"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )
@@ -26,7 +26,7 @@ func NewDispatcher() *Dispatcher {
 func (d *Dispatcher) OnMessage(server *Server, req *Request) error {
 	id, err := req.Buf.PeekID()
 	if err != nil {
-		return xerrors.Errorf("peek id: %w", err)
+		return errors.Wrap(err, "peek id")
 	}
 
 	d.mux.Lock()
@@ -41,7 +41,7 @@ func (d *Dispatcher) OnMessage(server *Server, req *Request) error {
 		return fallback.OnMessage(server, req)
 	}
 
-	return xerrors.Errorf("unexpected type %#x", id)
+	return errors.Errorf("unexpected type %#x", id)
 }
 
 // Handle sets handler for given TypeID.

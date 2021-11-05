@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/tg"
@@ -46,7 +46,7 @@ func (m *Service) getPart(loc tg.InputFileLocationClass, offset, limit int) ([]b
 	r := make([]byte, limit)
 	n, err := f.ReadAt(r, int64(offset))
 	if err != nil {
-		return nil, xerrors.Errorf("read from storage: %w", err)
+		return nil, errors.Wrap(err, "read from storage")
 	}
 
 	return r[:n], nil

@@ -3,7 +3,7 @@ package updates
 import (
 	"sync"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 var _ StateStorage = (*memStorage)(nil)
@@ -44,7 +44,7 @@ func (s *memStorage) SetPts(userID int64, pts int) error {
 
 	state, ok := s.states[userID]
 	if !ok {
-		return xerrors.New("state not found")
+		return errors.New("state not found")
 	}
 
 	state.Pts = pts
@@ -58,7 +58,7 @@ func (s *memStorage) SetQts(userID int64, qts int) error {
 
 	state, ok := s.states[userID]
 	if !ok {
-		return xerrors.New("state not found")
+		return errors.New("state not found")
 	}
 
 	state.Qts = qts
@@ -72,7 +72,7 @@ func (s *memStorage) SetDate(userID int64, date int) error {
 
 	state, ok := s.states[userID]
 	if !ok {
-		return xerrors.New("state not found")
+		return errors.New("state not found")
 	}
 
 	state.Date = date
@@ -86,7 +86,7 @@ func (s *memStorage) SetSeq(userID int64, seq int) error {
 
 	state, ok := s.states[userID]
 	if !ok {
-		return xerrors.New("state not found")
+		return errors.New("state not found")
 	}
 
 	state.Seq = seq
@@ -100,7 +100,7 @@ func (s *memStorage) SetDateSeq(userID int64, date, seq int) error {
 
 	state, ok := s.states[userID]
 	if !ok {
-		return xerrors.New("state not found")
+		return errors.New("state not found")
 	}
 
 	state.Date = date
@@ -115,7 +115,7 @@ func (s *memStorage) SetChannelPts(userID, channelID int64, pts int) error {
 
 	channels, ok := s.channels[userID]
 	if !ok {
-		return xerrors.New("user state does not exist")
+		return errors.New("user state does not exist")
 	}
 
 	channels[channelID] = pts
@@ -141,7 +141,7 @@ func (s *memStorage) ForEachChannels(userID int64, f func(channelID int64, pts i
 
 	cmap, ok := s.channels[userID]
 	if !ok {
-		return xerrors.New("channels map does not exist")
+		return errors.New("channels map does not exist")
 	}
 
 	for id, pts := range cmap {

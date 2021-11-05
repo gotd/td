@@ -5,7 +5,7 @@ import (
 	"os"
 	"sync"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 )
 
 // FileStorage implements SessionStorage for file system as file
@@ -18,7 +18,7 @@ type FileStorage struct {
 // LoadSession loads session from file.
 func (f *FileStorage) LoadSession(_ context.Context) ([]byte, error) {
 	if f == nil {
-		return nil, xerrors.New("nil session storage is invalid")
+		return nil, errors.New("nil session storage is invalid")
 	}
 
 	f.mux.Lock()
@@ -29,7 +29,7 @@ func (f *FileStorage) LoadSession(_ context.Context) ([]byte, error) {
 		return nil, ErrNotFound
 	}
 	if err != nil {
-		return nil, xerrors.Errorf("read: %w", err)
+		return nil, errors.Wrap(err, "read")
 	}
 
 	return data, nil
@@ -38,7 +38,7 @@ func (f *FileStorage) LoadSession(_ context.Context) ([]byte, error) {
 // StoreSession stores session to file.
 func (f *FileStorage) StoreSession(_ context.Context, data []byte) error {
 	if f == nil {
-		return xerrors.New("nil session storage is invalid")
+		return errors.New("nil session storage is invalid")
 	}
 
 	f.mux.Lock()

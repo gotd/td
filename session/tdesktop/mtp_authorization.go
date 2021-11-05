@@ -1,7 +1,7 @@
 package tdesktop
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/crypto"
 )
@@ -19,11 +19,11 @@ type MTPAuthorization struct {
 func readKey(r *reader, k *crypto.Key) (uint32, error) {
 	dcID, err := r.readUint32()
 	if err != nil {
-		return 0, xerrors.Errorf("read DC ID: %w", err)
+		return 0, errors.Wrap(err, "read DC ID")
 	}
 
 	if err := r.consumeN(k[:], 256); err != nil {
-		return 0, xerrors.Errorf("read auth key: %w", err)
+		return 0, errors.Wrap(err, "read auth key")
 	}
 
 	return dcID, nil
@@ -32,32 +32,32 @@ func readKey(r *reader, k *crypto.Key) (uint32, error) {
 func (m *MTPAuthorization) deserialize(r *reader) error {
 	id, err := r.readUint32()
 	if err != nil {
-		return xerrors.Errorf("read dbi ID: %w", err)
+		return errors.Wrap(err, "read dbi ID")
 	}
 	if id != dbiMtpAuthorization {
-		return xerrors.Errorf("unexpected id %d", id)
+		return errors.Errorf("unexpected id %d", id)
 	}
 
 	if err := r.skip(4); err != nil {
-		return xerrors.Errorf("read mainLength: %w", err)
+		return errors.Wrap(err, "read mainLength")
 	}
 
 	legacyUserID, err := r.readUint32()
 	if err != nil {
-		return xerrors.Errorf("read legacyUserID: %w", err)
+		return errors.Wrap(err, "read legacyUserID")
 	}
 	legacyMainDCID, err := r.readUint32()
 	if err != nil {
-		return xerrors.Errorf("read legacyMainDCID: %w", err)
+		return errors.Wrap(err, "read legacyMainDCID")
 	}
 	if (uint64(legacyUserID)<<32)|uint64(legacyMainDCID) == kWideIdsTag {
 		userID, err := r.readUint64()
 		if err != nil {
-			return xerrors.Errorf("read userID: %w", err)
+			return errors.Wrap(err, "read userID")
 		}
 		mainDC, err := r.readUint32()
 		if err != nil {
-			return xerrors.Errorf("read mainDcID: %w", err)
+			return errors.Wrap(err, "read mainDcID")
 		}
 
 		m.UserID = int64(userID)
@@ -69,7 +69,7 @@ func (m *MTPAuthorization) deserialize(r *reader) error {
 
 	keys, err := r.readUint32()
 	if err != nil {
-		return xerrors.Errorf("read keys length: %w", err)
+		return errors.Wrap(err, "read keys length")
 	}
 
 	if m.Keys == nil {
@@ -79,7 +79,7 @@ func (m *MTPAuthorization) deserialize(r *reader) error {
 		var key crypto.Key
 		dcID, err := readKey(r, &key)
 		if err != nil {
-			return xerrors.Errorf("read key %d: %w", i, err)
+			return errors.Wrapf(err, "read key %d", i)
 		}
 		// FIXME(tdakkota): what if there is more than one session per DC?
 		m.Keys[int(dcID)] = key

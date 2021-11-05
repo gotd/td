@@ -2,14 +2,13 @@ package auth
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"io"
 	"os"
 	"strconv"
 	"strings"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/tg"
@@ -32,46 +31,46 @@ type Flow struct {
 // Run starts authentication flow on client.
 func (f Flow) Run(ctx context.Context, client FlowClient) error {
 	if f.Auth == nil {
-		return xerrors.New("no UserAuthenticator provided")
+		return errors.New("no UserAuthenticator provided")
 	}
 
 	phone, err := f.Auth.Phone(ctx)
 	if err != nil {
-		return xerrors.Errorf("get phone: %w", err)
+		return errors.Wrap(err, "get phone")
 	}
 
 	sentCode, err := client.SendCode(ctx, phone, f.Options)
 	if err != nil {
-		return xerrors.Errorf("send code: %w", err)
+		return errors.Wrap(err, "send code")
 	}
 	hash := sentCode.PhoneCodeHash
 
 	code, err := f.Auth.Code(ctx, sentCode)
 	if err != nil {
-		return xerrors.Errorf("get code: %w", err)
+		return errors.Wrap(err, "get code")
 	}
 
 	_, signInErr := client.SignIn(ctx, phone, code, hash)
 
-	if xerrors.Is(signInErr, ErrPasswordAuthNeeded) {
+	if errors.Is(signInErr, ErrPasswordAuthNeeded) {
 		password, err := f.Auth.Password(ctx)
 		if err != nil {
-			return xerrors.Errorf("get password: %w", err)
+			return errors.Wrap(err, "get password")
 		}
 		if _, err := client.Password(ctx, password); err != nil {
-			return xerrors.Errorf("sign in with password: %w", err)
+			return errors.Wrap(err, "sign in with password")
 		}
 		return nil
 	}
 
 	var signUpRequired *SignUpRequired
-	if xerrors.As(signInErr, &signUpRequired) {
+	if errors.As(signInErr, &signUpRequired) {
 		if err := f.Auth.AcceptTermsOfService(ctx, signUpRequired.TermsOfService); err != nil {
-			return xerrors.Errorf("confirm TOS: %w", err)
+			return errors.Wrap(err, "confirm TOS")
 		}
 		info, err := f.Auth.SignUp(ctx)
 		if err != nil {
-			return xerrors.Errorf("sign up info not provided: %w", err)
+			return errors.Wrap(err, "sign up info not provided")
 		}
 		if _, err := client.SignUp(ctx, SignUp{
 			PhoneNumber:   phone,
@@ -79,13 +78,13 @@ func (f Flow) Run(ctx context.Context, client FlowClient) error {
 			FirstName:     info.FirstName,
 			LastName:      info.LastName,
 		}); err != nil {
-			return xerrors.Errorf("sign up: %w", err)
+			return errors.Wrap(err, "sign up")
 		}
 		return nil
 	}
 
 	if signInErr != nil {
-		return xerrors.Errorf("sign in: %w", signInErr)
+		return errors.Wrap(signInErr, "sign in")
 	}
 
 	return nil
@@ -130,7 +129,7 @@ type UserAuthenticator interface {
 type noSignUp struct{}
 
 func (c noSignUp) SignUp(ctx context.Context) (UserInfo, error) {
-	return UserInfo{}, xerrors.New("not implemented")
+	return UserInfo{}, errors.New("not implemented")
 }
 
 func (c noSignUp) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
@@ -170,7 +169,7 @@ func (e envAuth) lookup(k string) (string, error) {
 	env := e.prefix + k
 	v, ok := os.LookupEnv(env)
 	if !ok {
-		return "", xerrors.Errorf("environment variable %q not set", env)
+		return "", errors.Errorf("environment variable %q not set", env)
 	}
 	return v, nil
 }
@@ -236,7 +235,7 @@ func (t testAuth) Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, 
 
 	typ, ok := sentCode.Type.(notFlashing)
 	if !ok {
-		return "", xerrors.Errorf("unexpected type: %T", sentCode.Type)
+		return "", errors.Errorf("unexpected type: %T", sentCode.Type)
 	}
 
 	return strings.Repeat(strconv.Itoa(t.dc), typ.GetLength()), nil

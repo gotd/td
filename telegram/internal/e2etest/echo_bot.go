@@ -6,8 +6,8 @@ import (
 	"sync"
 
 	"github.com/cenkalti/backoff/v4"
+	"github.com/ogen-go/errors"
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/message"
@@ -67,7 +67,7 @@ func (m *users) get(id int64) (r *tg.User) {
 
 func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, error) {
 	if err := b.suite.RetryAuthenticate(ctx, client.Auth()); err != nil {
-		return nil, xerrors.Errorf("authenticate: %w", err)
+		return nil, errors.Wrap(err, "authenticate")
 	}
 
 	var me *tg.User
@@ -83,7 +83,7 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 	_, err := raw.AccountUpdateUsername(ctx, expectedUsername)
 	if err != nil {
 		if !tgerr.Is(err, tg.ErrUsernameNotModified) {
-			return nil, xerrors.Errorf("update username: %w", err)
+			return nil, errors.Wrap(err, "update username")
 		}
 	}
 
@@ -94,11 +94,11 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 				return err
 			}
 
-			return backoff.Permanent(xerrors.Errorf("get self: %w", err))
+			return backoff.Permanent(errors.Wrap(err, "get self"))
 		}
 
 		if me.Username != expectedUsername {
-			return xerrors.Errorf("expected username %q, got %q", expectedUsername, me.Username)
+			return errors.Errorf("expected username %q, got %q", expectedUsername, me.Username)
 		}
 
 		return nil
@@ -130,7 +130,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 				OffsetPeer: &tg.InputPeerEmpty{},
 			})
 			if err != nil {
-				return xerrors.Errorf("get dialogs: %w", err)
+				return errors.Wrap(err, "get dialogs")
 			}
 
 			if dlg, ok := dialogs.AsModified(); ok {
@@ -155,7 +155,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 				)
 
 				if _, err := sender.To(user.AsInputPeer()).Text(ctx, m.Message); err != nil {
-					return xerrors.Errorf("send message: %w", err)
+					return errors.Wrap(err, "send message")
 				}
 				return nil
 			}
@@ -176,7 +176,7 @@ func (b EchoBot) Run(ctx context.Context) error {
 
 		me, err := b.login(ctx, client)
 		if err != nil {
-			return xerrors.Errorf("login: %w", err)
+			return errors.Wrap(err, "login")
 		}
 
 		b.logger.Info("Logged in",

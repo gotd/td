@@ -3,7 +3,7 @@ package obfuscated2
 import (
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/internal/mtproxy"
 )
@@ -28,12 +28,12 @@ func NewObfuscated2(r io.Reader, conn io.ReadWriter) *Obfuscated2 {
 func (o *Obfuscated2) Handshake(protocol [4]byte, s mtproxy.Secret) error {
 	k, err := generateKeys(o.rand, protocol, s.Secret, s.DC)
 	if err != nil {
-		return xerrors.Errorf("generate keys: %w", err)
+		return errors.Wrap(err, "generate keys")
 	}
 	o.keys = k
 
 	if _, err := o.conn.Write(o.header); err != nil {
-		return xerrors.Errorf("write obfuscated header: %w", err)
+		return errors.Wrap(err, "write obfuscated header")
 	}
 
 	return nil

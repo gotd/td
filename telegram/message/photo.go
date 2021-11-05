@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 )
@@ -132,12 +132,12 @@ func (u *UploadedPhotoBuilder) applyMulti(ctx context.Context, b *multiMediaBuil
 		Media: &u.photo,
 	})
 	if err != nil {
-		return xerrors.Errorf("upload media: %w", err)
+		return errors.Wrap(err, "upload media")
 	}
 
 	input, err := convertMessageMediaToInput(m)
 	if err != nil {
-		return xerrors.Errorf("convert: %w", err)
+		return errors.Wrap(err, "convert")
 	}
 
 	return Media(input, u.caption...).apply(ctx, b)

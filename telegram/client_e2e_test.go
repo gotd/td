@@ -6,11 +6,11 @@ import (
 	"testing"
 	"time"
 
+	"github.com/ogen-go/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zaptest"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/session"
@@ -98,7 +98,7 @@ func testCluster(
 		})
 
 		log.Debug("Waiting")
-		if err := g.Wait(); err != nil && !xerrors.Is(err, context.Canceled) {
+		if err := g.Wait(); err != nil && !errors.Is(err, context.Canceled) {
 			require.NoError(t, err)
 		}
 	}
@@ -205,7 +205,7 @@ func testMigrate(p dcs.Protocol) func(t *testing.T) {
 					Peer:    &tg.InputPeerUser{},
 					Message: "abc",
 				}); err != nil {
-					return xerrors.Errorf("send: %w", err)
+					return errors.Wrap(err, "send")
 				}
 
 				select {

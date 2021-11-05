@@ -3,9 +3,10 @@ package rpc
 import (
 	"bytes"
 	"context"
-	"errors"
 	"sync/atomic"
 	"testing"
+
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )

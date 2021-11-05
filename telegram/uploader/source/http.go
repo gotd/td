@@ -7,8 +7,8 @@ import (
 	"net/url"
 	"path"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/multierr"
-	"golang.org/x/xerrors"
 )
 
 // HTTPSource is HTTP source.
@@ -53,12 +53,12 @@ func (h httpFile) Size() int64 {
 func (s *HTTPSource) Open(ctx context.Context, u *url.URL) (_ RemoteFile, rerr error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
 	if err != nil {
-		return nil, xerrors.Errorf("create request: %w", err)
+		return nil, errors.Wrap(err, "create request")
 	}
 
 	resp, err := s.client.Do(req)
 	if err != nil {
-		return nil, xerrors.Errorf("get: %w", err)
+		return nil, errors.Wrap(err, "get")
 	}
 	defer func() {
 		if rerr != nil {
@@ -66,7 +66,7 @@ func (s *HTTPSource) Open(ctx context.Context, u *url.URL) (_ RemoteFile, rerr e
 		}
 	}()
 	if resp.StatusCode >= 400 {
-		return nil, xerrors.Errorf("bad code %d", resp.StatusCode)
+		return nil, errors.Errorf("bad code %d", resp.StatusCode)
 	}
 
 	lastURL := u

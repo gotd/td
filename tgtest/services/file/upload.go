@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/ogen-go/errors"
 	"go.uber.org/multierr"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/constant"
 	"github.com/gotd/td/tg"
@@ -65,7 +65,7 @@ func (m *Service) write(ctx context.Context, request upload) (err error) {
 
 	file, err := m.storage.Open(fmt.Sprintf("%d_%d", id, request.GetFileID()))
 	if err != nil {
-		return xerrors.Errorf("open file: %w", err)
+		return errors.Wrap(err, "open file")
 	}
 	defer func() {
 		multierr.AppendInto(&err, file.Close())
@@ -87,7 +87,7 @@ func (m *Service) write(ctx context.Context, request upload) (err error) {
 
 	offset := int64(partSize * part)
 	if _, err := file.WriteAt(data, offset); err != nil {
-		return xerrors.Errorf("write at %d-%d", offset, offset+int64(len(data)))
+		return errors.Errorf("write at %d-%d", offset, offset+int64(len(data)))
 	}
 
 	return nil

@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -63,7 +63,7 @@ func (w unencryptedWriter) readUnencrypted(ctx context.Context, b *bin.Buffer, d
 		if err := w.tryRead(ctx, b); err != nil {
 			var protocolErr *codec.ProtocolErr
 			if w.isClient() &&
-				xerrors.As(err, &protocolErr) &&
+				errors.As(err, &protocolErr) &&
 				protocolErr.Code == codec.CodeAuthKeyNotFound {
 				continue
 			}
@@ -87,7 +87,7 @@ func (w unencryptedWriter) readUnencrypted(ctx context.Context, b *bin.Buffer, d
 
 func (w unencryptedWriter) checkMsgID(id int64) error {
 	if proto.MessageID(id).Type() != w.input {
-		return xerrors.New("bad msg type")
+		return errors.New("bad msg type")
 	}
 	return nil
 }

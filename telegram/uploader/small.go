@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
@@ -20,12 +20,12 @@ func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) e
 	for {
 		n, err := io.ReadFull(r, buf.Buf)
 		switch {
-		case xerrors.Is(err, io.ErrUnexpectedEOF):
+		case errors.Is(err, io.ErrUnexpectedEOF):
 			last = true
-		case xerrors.Is(err, io.EOF):
+		case errors.Is(err, io.EOF):
 			return nil
 		case err != nil:
-			return xerrors.Errorf("read source: %w", err)
+			return errors.Wrap(err, "read source")
 		}
 		read := buf.Buf[:n]
 
@@ -41,7 +41,7 @@ func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) e
 				if flood {
 					continue
 				}
-				return xerrors.Errorf("send upload RPC: %w", err)
+				return errors.Wrap(err, "send upload RPC")
 			}
 
 			// If Telegram returned false, it seems save is not successful, so we retry to send.
@@ -54,7 +54,7 @@ func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) e
 
 		upload.sentParts.Inc()
 		if err := u.callback(ctx, upload.confirmSmall(n)); err != nil {
-			return xerrors.Errorf("progress callback: %w", err)
+			return errors.Wrap(err, "progress callback")
 		}
 
 		if last {
