@@ -28,8 +28,7 @@ func testExchange(rsaPad bool) func(t *testing.T) {
 		key, err := rsa.GenerateKey(reader, crypto.RSAKeyBits)
 		a.NoError(err)
 		privateKey := PrivateKey{
-			RSA:       key,
-			UseRSAPad: rsaPad,
+			RSA: key,
 		}
 
 		i := transport.Intermediate
@@ -68,8 +67,7 @@ func TestExchange(t *testing.T) {
 
 func TestExchangeCorpus(t *testing.T) {
 	privateKey := PrivateKey{
-		RSA:       testutil.RSAPrivateKey(),
-		UseRSAPad: false,
+		RSA: testutil.RSAPrivateKey(),
 	}
 
 	for i, seed := range []string{

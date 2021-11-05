@@ -35,10 +35,8 @@ func (c *Cluster) DC(id int, name string) (*tgtest.Server, *tgtest.Dispatcher) {
 		// TODO(tdakkota): Return error instead.
 		panic(err)
 	}
-	// TODO(tdakkota): Generate new keys too.
 	privateKey := exchange.PrivateKey{
-		RSA:       key,
-		UseRSAPad: false,
+		RSA: key,
 	}
 
 	d := tgtest.NewDispatcher()

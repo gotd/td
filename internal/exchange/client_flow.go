@@ -87,50 +87,27 @@ Loop:
 	}
 
 	var encryptedData []byte
-	if !selectedPubKey.UseRSAPad {
-		pqInnerData := &mt.PQInnerData{
-			Pq:          res.Pq,
-			Nonce:       nonce,
-			NewNonce:    newNonce,
-			ServerNonce: serverNonce,
-			P:           pBytes,
-			Q:           qBytes,
-		}
-		b.Reset()
-		if err := pqInnerData.Encode(b); err != nil {
-			return ClientExchangeResult{}, err
-		}
-
-		// `encrypted_data := RSA (data_with_hash, server_public_key);`
-		data, err := crypto.RSAEncryptHashed(b.Buf, selectedPubKey.RSA, c.rand)
-		if err != nil {
-			return ClientExchangeResult{}, errors.Wrap(err, "encrypted_data generation")
-		}
-
-		encryptedData = data
-	} else {
-		pqInnerData := &mt.PQInnerDataDC{
-			Pq:          res.Pq,
-			Nonce:       nonce,
-			NewNonce:    newNonce,
-			ServerNonce: serverNonce,
-			P:           pBytes,
-			Q:           qBytes,
-			DC:          c.dc,
-		}
-		b.Reset()
-		if err := pqInnerData.Encode(b); err != nil {
-			return ClientExchangeResult{}, err
-		}
-
-		// `encrypted_data := RSA_PAD(data, server_public_key);`
-		data, err := crypto.RSAPad(b.Buf, selectedPubKey.RSA, c.rand)
-		if err != nil {
-			return ClientExchangeResult{}, errors.Wrap(err, "encrypted_data generation")
-		}
-
-		encryptedData = data
+	pqInnerData := &mt.PQInnerDataDC{
+		Pq:          res.Pq,
+		Nonce:       nonce,
+		NewNonce:    newNonce,
+		ServerNonce: serverNonce,
+		P:           pBytes,
+		Q:           qBytes,
+		DC:          c.dc,
 	}
+	b.Reset()
+	if err := pqInnerData.Encode(b); err != nil {
+		return ClientExchangeResult{}, err
+	}
+
+	// `encrypted_data := RSA_PAD(data, server_public_key);`
+	data, err := crypto.RSAPad(b.Buf, selectedPubKey.RSA, c.rand)
+	if err != nil {
+		return ClientExchangeResult{}, errors.Wrap(err, "encrypted_data generation")
+	}
+
+	encryptedData = data
 
 	reqDHParams := &mt.ReqDHParamsRequest{
 		Nonce:                nonce,
