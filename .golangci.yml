@@ -31,9 +31,13 @@ linters-settings:
       - singleCaseSwitch
       - commentedOutCode
       - appendAssign
+      - octalLiteral
+      - preferWriteByte
+      - httpNoBody
     settings:
       ruleguard:
-        rules: './gorules/rules.go'
+        failOn: dsl,import
+        rules: '${configDir}/gorules/rules.go'
 
 linters:
   disable-all: true
@@ -113,8 +117,14 @@ issues:
       text: 'declaration of "(err|ctx|log)"'
 
     # Ignore linters in main packages.
-    - path: main\.go
+    - path: cmd\/.+\/main\.go
       linters: [ goconst, funlen, gocognit, gocyclo ]
+
+    # Intended in commands:
+    # G307: Deferring unsafe method "Close" on type "*os.File"
+    # G304: Potential file inclusion via variable
+    - path: cmd\/.+\/main\.go
+      text: G(307|304)
 
     # Ignore linters in vendored tlstypes package.
     - path: tlstypes
