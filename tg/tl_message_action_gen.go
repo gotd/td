@@ -4398,6 +4398,107 @@ func (m *MessageActionSetChatTheme) GetEmoticon() (value string) {
 	return m.Emoticon
 }
 
+// MessageActionChatJoinedByRequest represents TL type `messageActionChatJoinedByRequest#ebbca3cb`.
+//
+// See https://core.telegram.org/constructor/messageActionChatJoinedByRequest for reference.
+type MessageActionChatJoinedByRequest struct {
+}
+
+// MessageActionChatJoinedByRequestTypeID is TL type id of MessageActionChatJoinedByRequest.
+const MessageActionChatJoinedByRequestTypeID = 0xebbca3cb
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionChatJoinedByRequest) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionChatJoinedByRequest.
+var (
+	_ bin.Encoder     = &MessageActionChatJoinedByRequest{}
+	_ bin.Decoder     = &MessageActionChatJoinedByRequest{}
+	_ bin.BareEncoder = &MessageActionChatJoinedByRequest{}
+	_ bin.BareDecoder = &MessageActionChatJoinedByRequest{}
+
+	_ MessageActionClass = &MessageActionChatJoinedByRequest{}
+)
+
+func (m *MessageActionChatJoinedByRequest) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionChatJoinedByRequest) String() string {
+	if m == nil {
+		return "MessageActionChatJoinedByRequest(nil)"
+	}
+	type Alias MessageActionChatJoinedByRequest
+	return fmt.Sprintf("MessageActionChatJoinedByRequest%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionChatJoinedByRequest) TypeID() uint32 {
+	return MessageActionChatJoinedByRequestTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionChatJoinedByRequest) TypeName() string {
+	return "messageActionChatJoinedByRequest"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionChatJoinedByRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionChatJoinedByRequest",
+		ID:   MessageActionChatJoinedByRequestTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionChatJoinedByRequest) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionChatJoinedByRequest#ebbca3cb as nil")
+	}
+	b.PutID(MessageActionChatJoinedByRequestTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionChatJoinedByRequest) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionChatJoinedByRequest#ebbca3cb as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionChatJoinedByRequest) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionChatJoinedByRequest#ebbca3cb to nil")
+	}
+	if err := b.ConsumeID(MessageActionChatJoinedByRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionChatJoinedByRequest#ebbca3cb: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionChatJoinedByRequest) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionChatJoinedByRequest#ebbca3cb to nil")
+	}
+	return nil
+}
+
 // MessageActionClass represents MessageAction generic type.
 //
 // See https://core.telegram.org/type/MessageAction for reference.
@@ -4437,6 +4538,7 @@ func (m *MessageActionSetChatTheme) GetEmoticon() (value string) {
 //  case *tg.MessageActionSetMessagesTTL: // messageActionSetMessagesTTL#aa1afbfd
 //  case *tg.MessageActionGroupCallScheduled: // messageActionGroupCallScheduled#b3a07661
 //  case *tg.MessageActionSetChatTheme: // messageActionSetChatTheme#aa786345
+//  case *tg.MessageActionChatJoinedByRequest: // messageActionChatJoinedByRequest#ebbca3cb
 //  default: panic(v)
 //  }
 type MessageActionClass interface {
@@ -4664,6 +4766,13 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionSetChatThemeTypeID:
 		// Decoding messageActionSetChatTheme#aa786345.
 		v := MessageActionSetChatTheme{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionChatJoinedByRequestTypeID:
+		// Decoding messageActionChatJoinedByRequest#ebbca3cb.
+		v := MessageActionChatJoinedByRequest{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesDeleteHistoryRequest represents TL type `messages.deleteHistory#1c015b09`.
+// MessagesDeleteHistoryRequest represents TL type `messages.deleteHistory#b08f922a`.
 // Deletes communication history.
 //
 // See https://core.telegram.org/method/messages.deleteHistory for reference.
@@ -48,10 +48,18 @@ type MessagesDeleteHistoryRequest struct {
 	Peer InputPeerClass
 	// Maximum ID of message to delete
 	MaxID int
+	// MinDate field of MessagesDeleteHistoryRequest.
+	//
+	// Use SetMinDate and GetMinDate helpers.
+	MinDate int
+	// MaxDate field of MessagesDeleteHistoryRequest.
+	//
+	// Use SetMaxDate and GetMaxDate helpers.
+	MaxDate int
 }
 
 // MessagesDeleteHistoryRequestTypeID is TL type id of MessagesDeleteHistoryRequest.
-const MessagesDeleteHistoryRequestTypeID = 0x1c015b09
+const MessagesDeleteHistoryRequestTypeID = 0xb08f922a
 
 // Ensuring interfaces in compile-time for MessagesDeleteHistoryRequest.
 var (
@@ -80,6 +88,12 @@ func (d *MessagesDeleteHistoryRequest) Zero() bool {
 	if !(d.MaxID == 0) {
 		return false
 	}
+	if !(d.MinDate == 0) {
+		return false
+	}
+	if !(d.MaxDate == 0) {
+		return false
+	}
 
 	return true
 }
@@ -99,11 +113,21 @@ func (d *MessagesDeleteHistoryRequest) FillFrom(from interface {
 	GetRevoke() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetMaxID() (value int)
+	GetMinDate() (value int, ok bool)
+	GetMaxDate() (value int, ok bool)
 }) {
 	d.JustClear = from.GetJustClear()
 	d.Revoke = from.GetRevoke()
 	d.Peer = from.GetPeer()
 	d.MaxID = from.GetMaxID()
+	if val, ok := from.GetMinDate(); ok {
+		d.MinDate = val
+	}
+
+	if val, ok := from.GetMaxDate(); ok {
+		d.MaxDate = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -147,6 +171,16 @@ func (d *MessagesDeleteHistoryRequest) TypeInfo() tdp.Type {
 			Name:       "MaxID",
 			SchemaName: "max_id",
 		},
+		{
+			Name:       "MinDate",
+			SchemaName: "min_date",
+			Null:       !d.Flags.Has(2),
+		},
+		{
+			Name:       "MaxDate",
+			SchemaName: "max_date",
+			Null:       !d.Flags.Has(3),
+		},
 	}
 	return typ
 }
@@ -154,7 +188,7 @@ func (d *MessagesDeleteHistoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteHistory#1c015b09 as nil")
+		return fmt.Errorf("can't encode messages.deleteHistory#b08f922a as nil")
 	}
 	b.PutID(MessagesDeleteHistoryRequestTypeID)
 	return d.EncodeBare(b)
@@ -163,7 +197,7 @@ func (d *MessagesDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *MessagesDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.deleteHistory#1c015b09 as nil")
+		return fmt.Errorf("can't encode messages.deleteHistory#b08f922a as nil")
 	}
 	if !(d.JustClear == false) {
 		d.Flags.Set(0)
@@ -171,26 +205,38 @@ func (d *MessagesDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if !(d.Revoke == false) {
 		d.Flags.Set(1)
 	}
+	if !(d.MinDate == 0) {
+		d.Flags.Set(2)
+	}
+	if !(d.MaxDate == 0) {
+		d.Flags.Set(3)
+	}
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteHistory#1c015b09: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.deleteHistory#b08f922a: field flags: %w", err)
 	}
 	if d.Peer == nil {
-		return fmt.Errorf("unable to encode messages.deleteHistory#1c015b09: field peer is nil")
+		return fmt.Errorf("unable to encode messages.deleteHistory#b08f922a: field peer is nil")
 	}
 	if err := d.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.deleteHistory#1c015b09: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.deleteHistory#b08f922a: field peer: %w", err)
 	}
 	b.PutInt(d.MaxID)
+	if d.Flags.Has(2) {
+		b.PutInt(d.MinDate)
+	}
+	if d.Flags.Has(3) {
+		b.PutInt(d.MaxDate)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (d *MessagesDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteHistory#1c015b09 to nil")
+		return fmt.Errorf("can't decode messages.deleteHistory#b08f922a to nil")
 	}
 	if err := b.ConsumeID(MessagesDeleteHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: %w", err)
+		return fmt.Errorf("unable to decode messages.deleteHistory#b08f922a: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -198,11 +244,11 @@ func (d *MessagesDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *MessagesDeleteHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.deleteHistory#1c015b09 to nil")
+		return fmt.Errorf("can't decode messages.deleteHistory#b08f922a to nil")
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.deleteHistory#b08f922a: field flags: %w", err)
 		}
 	}
 	d.JustClear = d.Flags.Has(0)
@@ -210,16 +256,30 @@ func (d *MessagesDeleteHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.deleteHistory#b08f922a: field peer: %w", err)
 		}
 		d.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field max_id: %w", err)
+			return fmt.Errorf("unable to decode messages.deleteHistory#b08f922a: field max_id: %w", err)
 		}
 		d.MaxID = value
+	}
+	if d.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.deleteHistory#b08f922a: field min_date: %w", err)
+		}
+		d.MinDate = value
+	}
+	if d.Flags.Has(3) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.deleteHistory#b08f922a: field max_date: %w", err)
+		}
+		d.MaxDate = value
 	}
 	return nil
 }
@@ -266,7 +326,37 @@ func (d *MessagesDeleteHistoryRequest) GetMaxID() (value int) {
 	return d.MaxID
 }
 
-// MessagesDeleteHistory invokes method messages.deleteHistory#1c015b09 returning error if any.
+// SetMinDate sets value of MinDate conditional field.
+func (d *MessagesDeleteHistoryRequest) SetMinDate(value int) {
+	d.Flags.Set(2)
+	d.MinDate = value
+}
+
+// GetMinDate returns value of MinDate conditional field and
+// boolean which is true if field was set.
+func (d *MessagesDeleteHistoryRequest) GetMinDate() (value int, ok bool) {
+	if !d.Flags.Has(2) {
+		return value, false
+	}
+	return d.MinDate, true
+}
+
+// SetMaxDate sets value of MaxDate conditional field.
+func (d *MessagesDeleteHistoryRequest) SetMaxDate(value int) {
+	d.Flags.Set(3)
+	d.MaxDate = value
+}
+
+// GetMaxDate returns value of MaxDate conditional field and
+// boolean which is true if field was set.
+func (d *MessagesDeleteHistoryRequest) GetMaxDate() (value int, ok bool) {
+	if !d.Flags.Has(3) {
+		return value, false
+	}
+	return d.MaxDate, true
+}
+
+// MessagesDeleteHistory invokes method messages.deleteHistory#b08f922a returning error if any.
 // Deletes communication history.
 //
 // Possible errors:

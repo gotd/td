@@ -1193,6 +1193,32 @@ func (s UpdateClassArray) AsUpdateBotCommands() (to UpdateBotCommandsArray) {
 	return to
 }
 
+// AsUpdatePendingJoinRequests returns copy with only UpdatePendingJoinRequests constructors.
+func (s UpdateClassArray) AsUpdatePendingJoinRequests() (to UpdatePendingJoinRequestsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdatePendingJoinRequests)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateBotChatInviteRequester returns copy with only UpdateBotChatInviteRequester constructors.
+func (s UpdateClassArray) AsUpdateBotChatInviteRequester() (to UpdateBotChatInviteRequesterArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateBotChatInviteRequester)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -8207,4 +8233,182 @@ func (s *UpdateBotCommandsArray) Pop() (v UpdateBotCommands, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// UpdatePendingJoinRequestsArray is adapter for slice of UpdatePendingJoinRequests.
+type UpdatePendingJoinRequestsArray []UpdatePendingJoinRequests
+
+// Sort sorts slice of UpdatePendingJoinRequests.
+func (s UpdatePendingJoinRequestsArray) Sort(less func(a, b UpdatePendingJoinRequests) bool) UpdatePendingJoinRequestsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdatePendingJoinRequests.
+func (s UpdatePendingJoinRequestsArray) SortStable(less func(a, b UpdatePendingJoinRequests) bool) UpdatePendingJoinRequestsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdatePendingJoinRequests.
+func (s UpdatePendingJoinRequestsArray) Retain(keep func(x UpdatePendingJoinRequests) bool) UpdatePendingJoinRequestsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdatePendingJoinRequestsArray) First() (v UpdatePendingJoinRequests, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdatePendingJoinRequestsArray) Last() (v UpdatePendingJoinRequests, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdatePendingJoinRequestsArray) PopFirst() (v UpdatePendingJoinRequests, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdatePendingJoinRequests
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdatePendingJoinRequestsArray) Pop() (v UpdatePendingJoinRequests, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateBotChatInviteRequesterArray is adapter for slice of UpdateBotChatInviteRequester.
+type UpdateBotChatInviteRequesterArray []UpdateBotChatInviteRequester
+
+// Sort sorts slice of UpdateBotChatInviteRequester.
+func (s UpdateBotChatInviteRequesterArray) Sort(less func(a, b UpdateBotChatInviteRequester) bool) UpdateBotChatInviteRequesterArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateBotChatInviteRequester.
+func (s UpdateBotChatInviteRequesterArray) SortStable(less func(a, b UpdateBotChatInviteRequester) bool) UpdateBotChatInviteRequesterArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateBotChatInviteRequester.
+func (s UpdateBotChatInviteRequesterArray) Retain(keep func(x UpdateBotChatInviteRequester) bool) UpdateBotChatInviteRequesterArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateBotChatInviteRequesterArray) First() (v UpdateBotChatInviteRequester, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateBotChatInviteRequesterArray) Last() (v UpdateBotChatInviteRequester, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateBotChatInviteRequesterArray) PopFirst() (v UpdateBotChatInviteRequester, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateBotChatInviteRequester
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateBotChatInviteRequesterArray) Pop() (v UpdateBotChatInviteRequester, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of UpdateBotChatInviteRequester by Date.
+func (s UpdateBotChatInviteRequesterArray) SortByDate() UpdateBotChatInviteRequesterArray {
+	return s.Sort(func(a, b UpdateBotChatInviteRequester) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of UpdateBotChatInviteRequester by Date.
+func (s UpdateBotChatInviteRequesterArray) SortStableByDate() UpdateBotChatInviteRequesterArray {
+	return s.SortStable(func(a, b UpdateBotChatInviteRequester) bool {
+		return a.GetDate() < b.GetDate()
+	})
 }

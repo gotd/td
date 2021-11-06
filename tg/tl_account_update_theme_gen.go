@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// AccountUpdateThemeRequest represents TL type `account.updateTheme#5cb367d5`.
+// AccountUpdateThemeRequest represents TL type `account.updateTheme#2bf40ccc`.
 // Update theme
 //
 // See https://core.telegram.org/method/account.updateTheme for reference.
@@ -58,11 +58,11 @@ type AccountUpdateThemeRequest struct {
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings InputThemeSettings
+	Settings []InputThemeSettings
 }
 
 // AccountUpdateThemeRequestTypeID is TL type id of AccountUpdateThemeRequest.
-const AccountUpdateThemeRequestTypeID = 0x5cb367d5
+const AccountUpdateThemeRequestTypeID = 0x2bf40ccc
 
 // Ensuring interfaces in compile-time for AccountUpdateThemeRequest.
 var (
@@ -94,7 +94,7 @@ func (u *AccountUpdateThemeRequest) Zero() bool {
 	if !(u.Document == nil) {
 		return false
 	}
-	if !(u.Settings.Zero()) {
+	if !(u.Settings == nil) {
 		return false
 	}
 
@@ -117,7 +117,7 @@ func (u *AccountUpdateThemeRequest) FillFrom(from interface {
 	GetSlug() (value string, ok bool)
 	GetTitle() (value string, ok bool)
 	GetDocument() (value InputDocumentClass, ok bool)
-	GetSettings() (value InputThemeSettings, ok bool)
+	GetSettings() (value []InputThemeSettings, ok bool)
 }) {
 	u.Format = from.GetFormat()
 	u.Theme = from.GetTheme()
@@ -197,7 +197,7 @@ func (u *AccountUpdateThemeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *AccountUpdateThemeRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateTheme#5cb367d5 as nil")
+		return fmt.Errorf("can't encode account.updateTheme#2bf40ccc as nil")
 	}
 	b.PutID(AccountUpdateThemeRequestTypeID)
 	return u.EncodeBare(b)
@@ -206,7 +206,7 @@ func (u *AccountUpdateThemeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUpdateThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateTheme#5cb367d5 as nil")
+		return fmt.Errorf("can't encode account.updateTheme#2bf40ccc as nil")
 	}
 	if !(u.Slug == "") {
 		u.Flags.Set(0)
@@ -217,18 +217,18 @@ func (u *AccountUpdateThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if !(u.Document == nil) {
 		u.Flags.Set(2)
 	}
-	if !(u.Settings.Zero()) {
+	if !(u.Settings == nil) {
 		u.Flags.Set(3)
 	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.updateTheme#5cb367d5: field flags: %w", err)
+		return fmt.Errorf("unable to encode account.updateTheme#2bf40ccc: field flags: %w", err)
 	}
 	b.PutString(u.Format)
 	if u.Theme == nil {
-		return fmt.Errorf("unable to encode account.updateTheme#5cb367d5: field theme is nil")
+		return fmt.Errorf("unable to encode account.updateTheme#2bf40ccc: field theme is nil")
 	}
 	if err := u.Theme.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.updateTheme#5cb367d5: field theme: %w", err)
+		return fmt.Errorf("unable to encode account.updateTheme#2bf40ccc: field theme: %w", err)
 	}
 	if u.Flags.Has(0) {
 		b.PutString(u.Slug)
@@ -238,15 +238,18 @@ func (u *AccountUpdateThemeRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if u.Flags.Has(2) {
 		if u.Document == nil {
-			return fmt.Errorf("unable to encode account.updateTheme#5cb367d5: field document is nil")
+			return fmt.Errorf("unable to encode account.updateTheme#2bf40ccc: field document is nil")
 		}
 		if err := u.Document.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.updateTheme#5cb367d5: field document: %w", err)
+			return fmt.Errorf("unable to encode account.updateTheme#2bf40ccc: field document: %w", err)
 		}
 	}
 	if u.Flags.Has(3) {
-		if err := u.Settings.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.updateTheme#5cb367d5: field settings: %w", err)
+		b.PutVectorHeader(len(u.Settings))
+		for idx, v := range u.Settings {
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode account.updateTheme#2bf40ccc: field settings element with index %d: %w", idx, err)
+			}
 		}
 	}
 	return nil
@@ -255,10 +258,10 @@ func (u *AccountUpdateThemeRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *AccountUpdateThemeRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateTheme#5cb367d5 to nil")
+		return fmt.Errorf("can't decode account.updateTheme#2bf40ccc to nil")
 	}
 	if err := b.ConsumeID(AccountUpdateThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: %w", err)
+		return fmt.Errorf("unable to decode account.updateTheme#2bf40ccc: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -266,51 +269,63 @@ func (u *AccountUpdateThemeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUpdateThemeRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateTheme#5cb367d5 to nil")
+		return fmt.Errorf("can't decode account.updateTheme#2bf40ccc to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field flags: %w", err)
+			return fmt.Errorf("unable to decode account.updateTheme#2bf40ccc: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field format: %w", err)
+			return fmt.Errorf("unable to decode account.updateTheme#2bf40ccc: field format: %w", err)
 		}
 		u.Format = value
 	}
 	{
 		value, err := DecodeInputTheme(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field theme: %w", err)
+			return fmt.Errorf("unable to decode account.updateTheme#2bf40ccc: field theme: %w", err)
 		}
 		u.Theme = value
 	}
 	if u.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field slug: %w", err)
+			return fmt.Errorf("unable to decode account.updateTheme#2bf40ccc: field slug: %w", err)
 		}
 		u.Slug = value
 	}
 	if u.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field title: %w", err)
+			return fmt.Errorf("unable to decode account.updateTheme#2bf40ccc: field title: %w", err)
 		}
 		u.Title = value
 	}
 	if u.Flags.Has(2) {
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field document: %w", err)
+			return fmt.Errorf("unable to decode account.updateTheme#2bf40ccc: field document: %w", err)
 		}
 		u.Document = value
 	}
 	if u.Flags.Has(3) {
-		if err := u.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field settings: %w", err)
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.updateTheme#2bf40ccc: field settings: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Settings = make([]InputThemeSettings, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value InputThemeSettings
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode account.updateTheme#2bf40ccc: field settings: %w", err)
+			}
+			u.Settings = append(u.Settings, value)
 		}
 	}
 	return nil
@@ -372,14 +387,14 @@ func (u *AccountUpdateThemeRequest) GetDocument() (value InputDocumentClass, ok 
 }
 
 // SetSettings sets value of Settings conditional field.
-func (u *AccountUpdateThemeRequest) SetSettings(value InputThemeSettings) {
+func (u *AccountUpdateThemeRequest) SetSettings(value []InputThemeSettings) {
 	u.Flags.Set(3)
 	u.Settings = value
 }
 
 // GetSettings returns value of Settings conditional field and
 // boolean which is true if field was set.
-func (u *AccountUpdateThemeRequest) GetSettings() (value InputThemeSettings, ok bool) {
+func (u *AccountUpdateThemeRequest) GetSettings() (value []InputThemeSettings, ok bool) {
 	if !u.Flags.Has(3) {
 		return value, false
 	}
@@ -395,7 +410,7 @@ func (u *AccountUpdateThemeRequest) GetDocumentAsNotEmpty() (*InputDocument, boo
 	return nil, false
 }
 
-// AccountUpdateTheme invokes method account.updateTheme#5cb367d5 returning error if any.
+// AccountUpdateTheme invokes method account.updateTheme#2bf40ccc returning error if any.
 // Update theme
 //
 // See https://core.telegram.org/method/account.updateTheme for reference.

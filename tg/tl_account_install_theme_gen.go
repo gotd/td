@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// AccountInstallThemeRequest represents TL type `account.installTheme#7ae43737`.
+// AccountInstallThemeRequest represents TL type `account.installTheme#c727bb3b`.
 // Install a theme
 //
 // See https://core.telegram.org/method/account.installTheme for reference.
@@ -41,18 +41,22 @@ type AccountInstallThemeRequest struct {
 	Flags bin.Fields
 	// Whether to install the dark version
 	Dark bool
-	// Theme format, a string that identifies the theming engines supported by the client
-	//
-	// Use SetFormat and GetFormat helpers.
-	Format string
 	// Theme to install
 	//
 	// Use SetTheme and GetTheme helpers.
 	Theme InputThemeClass
+	// Theme format, a string that identifies the theming engines supported by the client
+	//
+	// Use SetFormat and GetFormat helpers.
+	Format string
+	// BaseTheme field of AccountInstallThemeRequest.
+	//
+	// Use SetBaseTheme and GetBaseTheme helpers.
+	BaseTheme BaseThemeClass
 }
 
 // AccountInstallThemeRequestTypeID is TL type id of AccountInstallThemeRequest.
-const AccountInstallThemeRequestTypeID = 0x7ae43737
+const AccountInstallThemeRequestTypeID = 0xc727bb3b
 
 // Ensuring interfaces in compile-time for AccountInstallThemeRequest.
 var (
@@ -72,10 +76,13 @@ func (i *AccountInstallThemeRequest) Zero() bool {
 	if !(i.Dark == false) {
 		return false
 	}
+	if !(i.Theme == nil) {
+		return false
+	}
 	if !(i.Format == "") {
 		return false
 	}
-	if !(i.Theme == nil) {
+	if !(i.BaseTheme == nil) {
 		return false
 	}
 
@@ -94,16 +101,21 @@ func (i *AccountInstallThemeRequest) String() string {
 // FillFrom fills AccountInstallThemeRequest from given interface.
 func (i *AccountInstallThemeRequest) FillFrom(from interface {
 	GetDark() (value bool)
-	GetFormat() (value string, ok bool)
 	GetTheme() (value InputThemeClass, ok bool)
+	GetFormat() (value string, ok bool)
+	GetBaseTheme() (value BaseThemeClass, ok bool)
 }) {
 	i.Dark = from.GetDark()
+	if val, ok := from.GetTheme(); ok {
+		i.Theme = val
+	}
+
 	if val, ok := from.GetFormat(); ok {
 		i.Format = val
 	}
 
-	if val, ok := from.GetTheme(); ok {
-		i.Theme = val
+	if val, ok := from.GetBaseTheme(); ok {
+		i.BaseTheme = val
 	}
 
 }
@@ -137,14 +149,19 @@ func (i *AccountInstallThemeRequest) TypeInfo() tdp.Type {
 			Null:       !i.Flags.Has(0),
 		},
 		{
-			Name:       "Format",
-			SchemaName: "format",
-			Null:       !i.Flags.Has(1),
-		},
-		{
 			Name:       "Theme",
 			SchemaName: "theme",
 			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "Format",
+			SchemaName: "format",
+			Null:       !i.Flags.Has(2),
+		},
+		{
+			Name:       "BaseTheme",
+			SchemaName: "base_theme",
+			Null:       !i.Flags.Has(3),
 		},
 	}
 	return typ
@@ -153,7 +170,7 @@ func (i *AccountInstallThemeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *AccountInstallThemeRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode account.installTheme#7ae43737 as nil")
+		return fmt.Errorf("can't encode account.installTheme#c727bb3b as nil")
 	}
 	b.PutID(AccountInstallThemeRequestTypeID)
 	return i.EncodeBare(b)
@@ -162,29 +179,40 @@ func (i *AccountInstallThemeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *AccountInstallThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode account.installTheme#7ae43737 as nil")
+		return fmt.Errorf("can't encode account.installTheme#c727bb3b as nil")
 	}
 	if !(i.Dark == false) {
 		i.Flags.Set(0)
 	}
-	if !(i.Format == "") {
-		i.Flags.Set(1)
-	}
 	if !(i.Theme == nil) {
 		i.Flags.Set(1)
 	}
-	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.installTheme#7ae43737: field flags: %w", err)
+	if !(i.Format == "") {
+		i.Flags.Set(2)
 	}
-	if i.Flags.Has(1) {
-		b.PutString(i.Format)
+	if !(i.BaseTheme == nil) {
+		i.Flags.Set(3)
+	}
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode account.installTheme#c727bb3b: field flags: %w", err)
 	}
 	if i.Flags.Has(1) {
 		if i.Theme == nil {
-			return fmt.Errorf("unable to encode account.installTheme#7ae43737: field theme is nil")
+			return fmt.Errorf("unable to encode account.installTheme#c727bb3b: field theme is nil")
 		}
 		if err := i.Theme.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.installTheme#7ae43737: field theme: %w", err)
+			return fmt.Errorf("unable to encode account.installTheme#c727bb3b: field theme: %w", err)
+		}
+	}
+	if i.Flags.Has(2) {
+		b.PutString(i.Format)
+	}
+	if i.Flags.Has(3) {
+		if i.BaseTheme == nil {
+			return fmt.Errorf("unable to encode account.installTheme#c727bb3b: field base_theme is nil")
+		}
+		if err := i.BaseTheme.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode account.installTheme#c727bb3b: field base_theme: %w", err)
 		}
 	}
 	return nil
@@ -193,10 +221,10 @@ func (i *AccountInstallThemeRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *AccountInstallThemeRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode account.installTheme#7ae43737 to nil")
+		return fmt.Errorf("can't decode account.installTheme#c727bb3b to nil")
 	}
 	if err := b.ConsumeID(AccountInstallThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.installTheme#7ae43737: %w", err)
+		return fmt.Errorf("unable to decode account.installTheme#c727bb3b: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -204,27 +232,34 @@ func (i *AccountInstallThemeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *AccountInstallThemeRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode account.installTheme#7ae43737 to nil")
+		return fmt.Errorf("can't decode account.installTheme#c727bb3b to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field flags: %w", err)
+			return fmt.Errorf("unable to decode account.installTheme#c727bb3b: field flags: %w", err)
 		}
 	}
 	i.Dark = i.Flags.Has(0)
 	if i.Flags.Has(1) {
+		value, err := DecodeInputTheme(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode account.installTheme#c727bb3b: field theme: %w", err)
+		}
+		i.Theme = value
+	}
+	if i.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field format: %w", err)
+			return fmt.Errorf("unable to decode account.installTheme#c727bb3b: field format: %w", err)
 		}
 		i.Format = value
 	}
-	if i.Flags.Has(1) {
-		value, err := DecodeInputTheme(b)
+	if i.Flags.Has(3) {
+		value, err := DecodeBaseTheme(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field theme: %w", err)
+			return fmt.Errorf("unable to decode account.installTheme#c727bb3b: field base_theme: %w", err)
 		}
-		i.Theme = value
+		i.BaseTheme = value
 	}
 	return nil
 }
@@ -245,21 +280,6 @@ func (i *AccountInstallThemeRequest) GetDark() (value bool) {
 	return i.Flags.Has(0)
 }
 
-// SetFormat sets value of Format conditional field.
-func (i *AccountInstallThemeRequest) SetFormat(value string) {
-	i.Flags.Set(1)
-	i.Format = value
-}
-
-// GetFormat returns value of Format conditional field and
-// boolean which is true if field was set.
-func (i *AccountInstallThemeRequest) GetFormat() (value string, ok bool) {
-	if !i.Flags.Has(1) {
-		return value, false
-	}
-	return i.Format, true
-}
-
 // SetTheme sets value of Theme conditional field.
 func (i *AccountInstallThemeRequest) SetTheme(value InputThemeClass) {
 	i.Flags.Set(1)
@@ -275,7 +295,37 @@ func (i *AccountInstallThemeRequest) GetTheme() (value InputThemeClass, ok bool)
 	return i.Theme, true
 }
 
-// AccountInstallTheme invokes method account.installTheme#7ae43737 returning error if any.
+// SetFormat sets value of Format conditional field.
+func (i *AccountInstallThemeRequest) SetFormat(value string) {
+	i.Flags.Set(2)
+	i.Format = value
+}
+
+// GetFormat returns value of Format conditional field and
+// boolean which is true if field was set.
+func (i *AccountInstallThemeRequest) GetFormat() (value string, ok bool) {
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.Format, true
+}
+
+// SetBaseTheme sets value of BaseTheme conditional field.
+func (i *AccountInstallThemeRequest) SetBaseTheme(value BaseThemeClass) {
+	i.Flags.Set(3)
+	i.BaseTheme = value
+}
+
+// GetBaseTheme returns value of BaseTheme conditional field and
+// boolean which is true if field was set.
+func (i *AccountInstallThemeRequest) GetBaseTheme() (value BaseThemeClass, ok bool) {
+	if !i.Flags.Has(3) {
+		return value, false
+	}
+	return i.BaseTheme, true
+}
+
+// AccountInstallTheme invokes method account.installTheme#c727bb3b returning error if any.
 // Install a theme
 //
 // See https://core.telegram.org/method/account.installTheme for reference.

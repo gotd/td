@@ -185,11 +185,15 @@ func (c *ChannelParticipant) GetDate() (value int) {
 	return c.Date
 }
 
-// ChannelParticipantSelf represents TL type `channelParticipantSelf#28a8bc67`.
+// ChannelParticipantSelf represents TL type `channelParticipantSelf#35a8bfa7`.
 // Myself
 //
 // See https://core.telegram.org/constructor/channelParticipantSelf for reference.
 type ChannelParticipantSelf struct {
+	// Flags field of ChannelParticipantSelf.
+	Flags bin.Fields
+	// ViaInvite field of ChannelParticipantSelf.
+	ViaInvite bool
 	// User ID
 	UserID int64
 	// User that invited me to the channel/supergroup
@@ -199,7 +203,7 @@ type ChannelParticipantSelf struct {
 }
 
 // ChannelParticipantSelfTypeID is TL type id of ChannelParticipantSelf.
-const ChannelParticipantSelfTypeID = 0x28a8bc67
+const ChannelParticipantSelfTypeID = 0x35a8bfa7
 
 // construct implements constructor of ChannelParticipantClass.
 func (c ChannelParticipantSelf) construct() ChannelParticipantClass { return &c }
@@ -217,6 +221,12 @@ var (
 func (c *ChannelParticipantSelf) Zero() bool {
 	if c == nil {
 		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.ViaInvite == false) {
+		return false
 	}
 	if !(c.UserID == 0) {
 		return false
@@ -242,10 +252,12 @@ func (c *ChannelParticipantSelf) String() string {
 
 // FillFrom fills ChannelParticipantSelf from given interface.
 func (c *ChannelParticipantSelf) FillFrom(from interface {
+	GetViaInvite() (value bool)
 	GetUserID() (value int64)
 	GetInviterID() (value int64)
 	GetDate() (value int)
 }) {
+	c.ViaInvite = from.GetViaInvite()
 	c.UserID = from.GetUserID()
 	c.InviterID = from.GetInviterID()
 	c.Date = from.GetDate()
@@ -275,6 +287,11 @@ func (c *ChannelParticipantSelf) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ViaInvite",
+			SchemaName: "via_invite",
+			Null:       !c.Flags.Has(0),
+		},
+		{
 			Name:       "UserID",
 			SchemaName: "user_id",
 		},
@@ -293,7 +310,7 @@ func (c *ChannelParticipantSelf) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantSelf) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelParticipantSelf#28a8bc67 as nil")
+		return fmt.Errorf("can't encode channelParticipantSelf#35a8bfa7 as nil")
 	}
 	b.PutID(ChannelParticipantSelfTypeID)
 	return c.EncodeBare(b)
@@ -302,7 +319,13 @@ func (c *ChannelParticipantSelf) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelParticipantSelf) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelParticipantSelf#28a8bc67 as nil")
+		return fmt.Errorf("can't encode channelParticipantSelf#35a8bfa7 as nil")
+	}
+	if !(c.ViaInvite == false) {
+		c.Flags.Set(0)
+	}
+	if err := c.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelParticipantSelf#35a8bfa7: field flags: %w", err)
 	}
 	b.PutLong(c.UserID)
 	b.PutLong(c.InviterID)
@@ -313,10 +336,10 @@ func (c *ChannelParticipantSelf) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChannelParticipantSelf) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelParticipantSelf#28a8bc67 to nil")
+		return fmt.Errorf("can't decode channelParticipantSelf#35a8bfa7 to nil")
 	}
 	if err := b.ConsumeID(ChannelParticipantSelfTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelParticipantSelf#28a8bc67: %w", err)
+		return fmt.Errorf("unable to decode channelParticipantSelf#35a8bfa7: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -324,30 +347,52 @@ func (c *ChannelParticipantSelf) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelParticipantSelf) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelParticipantSelf#28a8bc67 to nil")
+		return fmt.Errorf("can't decode channelParticipantSelf#35a8bfa7 to nil")
 	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelParticipantSelf#35a8bfa7: field flags: %w", err)
+		}
+	}
+	c.ViaInvite = c.Flags.Has(0)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantSelf#28a8bc67: field user_id: %w", err)
+			return fmt.Errorf("unable to decode channelParticipantSelf#35a8bfa7: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantSelf#28a8bc67: field inviter_id: %w", err)
+			return fmt.Errorf("unable to decode channelParticipantSelf#35a8bfa7: field inviter_id: %w", err)
 		}
 		c.InviterID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantSelf#28a8bc67: field date: %w", err)
+			return fmt.Errorf("unable to decode channelParticipantSelf#35a8bfa7: field date: %w", err)
 		}
 		c.Date = value
 	}
 	return nil
+}
+
+// SetViaInvite sets value of ViaInvite conditional field.
+func (c *ChannelParticipantSelf) SetViaInvite(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.ViaInvite = true
+	} else {
+		c.Flags.Unset(0)
+		c.ViaInvite = false
+	}
+}
+
+// GetViaInvite returns value of ViaInvite conditional field.
+func (c *ChannelParticipantSelf) GetViaInvite() (value bool) {
+	return c.Flags.Has(0)
 }
 
 // GetUserID returns value of UserID field.
@@ -1368,7 +1413,7 @@ func (c *ChannelParticipantLeft) GetPeer() (value PeerClass) {
 //  }
 //  switch v := g.(type) {
 //  case *tg.ChannelParticipant: // channelParticipant#c00c07c0
-//  case *tg.ChannelParticipantSelf: // channelParticipantSelf#28a8bc67
+//  case *tg.ChannelParticipantSelf: // channelParticipantSelf#35a8bfa7
 //  case *tg.ChannelParticipantCreator: // channelParticipantCreator#2fe601d3
 //  case *tg.ChannelParticipantAdmin: // channelParticipantAdmin#34c3bb53
 //  case *tg.ChannelParticipantBanned: // channelParticipantBanned#6df8014e
@@ -1409,7 +1454,7 @@ func DecodeChannelParticipant(buf *bin.Buffer) (ChannelParticipantClass, error) 
 		}
 		return &v, nil
 	case ChannelParticipantSelfTypeID:
-		// Decoding channelParticipantSelf#28a8bc67.
+		// Decoding channelParticipantSelf#35a8bfa7.
 		v := ChannelParticipantSelf{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelParticipantClass: %w", err)

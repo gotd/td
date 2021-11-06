@@ -29,14 +29,24 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesGetChatInviteImportersRequest represents TL type `messages.getChatInviteImporters#26fb7289`.
+// MessagesGetChatInviteImportersRequest represents TL type `messages.getChatInviteImporters#df04dd4e`.
 //
 // See https://core.telegram.org/method/messages.getChatInviteImporters for reference.
 type MessagesGetChatInviteImportersRequest struct {
+	// Flags field of MessagesGetChatInviteImportersRequest.
+	Flags bin.Fields
+	// Requested field of MessagesGetChatInviteImportersRequest.
+	Requested bool
 	// Peer field of MessagesGetChatInviteImportersRequest.
 	Peer InputPeerClass
 	// Link field of MessagesGetChatInviteImportersRequest.
+	//
+	// Use SetLink and GetLink helpers.
 	Link string
+	// Q field of MessagesGetChatInviteImportersRequest.
+	//
+	// Use SetQ and GetQ helpers.
+	Q string
 	// OffsetDate field of MessagesGetChatInviteImportersRequest.
 	OffsetDate int
 	// OffsetUser field of MessagesGetChatInviteImportersRequest.
@@ -46,7 +56,7 @@ type MessagesGetChatInviteImportersRequest struct {
 }
 
 // MessagesGetChatInviteImportersRequestTypeID is TL type id of MessagesGetChatInviteImportersRequest.
-const MessagesGetChatInviteImportersRequestTypeID = 0x26fb7289
+const MessagesGetChatInviteImportersRequestTypeID = 0xdf04dd4e
 
 // Ensuring interfaces in compile-time for MessagesGetChatInviteImportersRequest.
 var (
@@ -60,10 +70,19 @@ func (g *MessagesGetChatInviteImportersRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Requested == false) {
+		return false
+	}
 	if !(g.Peer == nil) {
 		return false
 	}
 	if !(g.Link == "") {
+		return false
+	}
+	if !(g.Q == "") {
 		return false
 	}
 	if !(g.OffsetDate == 0) {
@@ -90,14 +109,24 @@ func (g *MessagesGetChatInviteImportersRequest) String() string {
 
 // FillFrom fills MessagesGetChatInviteImportersRequest from given interface.
 func (g *MessagesGetChatInviteImportersRequest) FillFrom(from interface {
+	GetRequested() (value bool)
 	GetPeer() (value InputPeerClass)
-	GetLink() (value string)
+	GetLink() (value string, ok bool)
+	GetQ() (value string, ok bool)
 	GetOffsetDate() (value int)
 	GetOffsetUser() (value InputUserClass)
 	GetLimit() (value int)
 }) {
+	g.Requested = from.GetRequested()
 	g.Peer = from.GetPeer()
-	g.Link = from.GetLink()
+	if val, ok := from.GetLink(); ok {
+		g.Link = val
+	}
+
+	if val, ok := from.GetQ(); ok {
+		g.Q = val
+	}
+
 	g.OffsetDate = from.GetOffsetDate()
 	g.OffsetUser = from.GetOffsetUser()
 	g.Limit = from.GetLimit()
@@ -127,12 +156,23 @@ func (g *MessagesGetChatInviteImportersRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Requested",
+			SchemaName: "requested",
+			Null:       !g.Flags.Has(0),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
 		{
 			Name:       "Link",
 			SchemaName: "link",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "Q",
+			SchemaName: "q",
+			Null:       !g.Flags.Has(2),
 		},
 		{
 			Name:       "OffsetDate",
@@ -153,7 +193,7 @@ func (g *MessagesGetChatInviteImportersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetChatInviteImportersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getChatInviteImporters#26fb7289 as nil")
+		return fmt.Errorf("can't encode messages.getChatInviteImporters#df04dd4e as nil")
 	}
 	b.PutID(MessagesGetChatInviteImportersRequestTypeID)
 	return g.EncodeBare(b)
@@ -162,21 +202,38 @@ func (g *MessagesGetChatInviteImportersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetChatInviteImportersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getChatInviteImporters#26fb7289 as nil")
+		return fmt.Errorf("can't encode messages.getChatInviteImporters#df04dd4e as nil")
+	}
+	if !(g.Requested == false) {
+		g.Flags.Set(0)
+	}
+	if !(g.Link == "") {
+		g.Flags.Set(1)
+	}
+	if !(g.Q == "") {
+		g.Flags.Set(2)
+	}
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.getChatInviteImporters#df04dd4e: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getChatInviteImporters#26fb7289: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getChatInviteImporters#df04dd4e: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getChatInviteImporters#26fb7289: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getChatInviteImporters#df04dd4e: field peer: %w", err)
 	}
-	b.PutString(g.Link)
+	if g.Flags.Has(1) {
+		b.PutString(g.Link)
+	}
+	if g.Flags.Has(2) {
+		b.PutString(g.Q)
+	}
 	b.PutInt(g.OffsetDate)
 	if g.OffsetUser == nil {
-		return fmt.Errorf("unable to encode messages.getChatInviteImporters#26fb7289: field offset_user is nil")
+		return fmt.Errorf("unable to encode messages.getChatInviteImporters#df04dd4e: field offset_user is nil")
 	}
 	if err := g.OffsetUser.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getChatInviteImporters#26fb7289: field offset_user: %w", err)
+		return fmt.Errorf("unable to encode messages.getChatInviteImporters#df04dd4e: field offset_user: %w", err)
 	}
 	b.PutInt(g.Limit)
 	return nil
@@ -185,10 +242,10 @@ func (g *MessagesGetChatInviteImportersRequest) EncodeBare(b *bin.Buffer) error 
 // Decode implements bin.Decoder.
 func (g *MessagesGetChatInviteImportersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getChatInviteImporters#26fb7289 to nil")
+		return fmt.Errorf("can't decode messages.getChatInviteImporters#df04dd4e to nil")
 	}
 	if err := b.ConsumeID(MessagesGetChatInviteImportersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getChatInviteImporters#26fb7289: %w", err)
+		return fmt.Errorf("unable to decode messages.getChatInviteImporters#df04dd4e: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -196,44 +253,73 @@ func (g *MessagesGetChatInviteImportersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetChatInviteImportersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getChatInviteImporters#26fb7289 to nil")
+		return fmt.Errorf("can't decode messages.getChatInviteImporters#df04dd4e to nil")
 	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.getChatInviteImporters#df04dd4e: field flags: %w", err)
+		}
+	}
+	g.Requested = g.Flags.Has(0)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getChatInviteImporters#26fb7289: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getChatInviteImporters#df04dd4e: field peer: %w", err)
 		}
 		g.Peer = value
 	}
-	{
+	if g.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getChatInviteImporters#26fb7289: field link: %w", err)
+			return fmt.Errorf("unable to decode messages.getChatInviteImporters#df04dd4e: field link: %w", err)
 		}
 		g.Link = value
+	}
+	if g.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.getChatInviteImporters#df04dd4e: field q: %w", err)
+		}
+		g.Q = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getChatInviteImporters#26fb7289: field offset_date: %w", err)
+			return fmt.Errorf("unable to decode messages.getChatInviteImporters#df04dd4e: field offset_date: %w", err)
 		}
 		g.OffsetDate = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getChatInviteImporters#26fb7289: field offset_user: %w", err)
+			return fmt.Errorf("unable to decode messages.getChatInviteImporters#df04dd4e: field offset_user: %w", err)
 		}
 		g.OffsetUser = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getChatInviteImporters#26fb7289: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.getChatInviteImporters#df04dd4e: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	return nil
+}
+
+// SetRequested sets value of Requested conditional field.
+func (g *MessagesGetChatInviteImportersRequest) SetRequested(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.Requested = true
+	} else {
+		g.Flags.Unset(0)
+		g.Requested = false
+	}
+}
+
+// GetRequested returns value of Requested conditional field.
+func (g *MessagesGetChatInviteImportersRequest) GetRequested() (value bool) {
+	return g.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
@@ -241,9 +327,34 @@ func (g *MessagesGetChatInviteImportersRequest) GetPeer() (value InputPeerClass)
 	return g.Peer
 }
 
-// GetLink returns value of Link field.
-func (g *MessagesGetChatInviteImportersRequest) GetLink() (value string) {
-	return g.Link
+// SetLink sets value of Link conditional field.
+func (g *MessagesGetChatInviteImportersRequest) SetLink(value string) {
+	g.Flags.Set(1)
+	g.Link = value
+}
+
+// GetLink returns value of Link conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetChatInviteImportersRequest) GetLink() (value string, ok bool) {
+	if !g.Flags.Has(1) {
+		return value, false
+	}
+	return g.Link, true
+}
+
+// SetQ sets value of Q conditional field.
+func (g *MessagesGetChatInviteImportersRequest) SetQ(value string) {
+	g.Flags.Set(2)
+	g.Q = value
+}
+
+// GetQ returns value of Q conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetChatInviteImportersRequest) GetQ() (value string, ok bool) {
+	if !g.Flags.Has(2) {
+		return value, false
+	}
+	return g.Q, true
 }
 
 // GetOffsetDate returns value of OffsetDate field.
@@ -261,7 +372,7 @@ func (g *MessagesGetChatInviteImportersRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// MessagesGetChatInviteImporters invokes method messages.getChatInviteImporters#26fb7289 returning error if any.
+// MessagesGetChatInviteImporters invokes method messages.getChatInviteImporters#df04dd4e returning error if any.
 //
 // See https://core.telegram.org/method/messages.getChatInviteImporters for reference.
 func (c *Client) MessagesGetChatInviteImporters(ctx context.Context, request *MessagesGetChatInviteImportersRequest) (*MessagesChatInviteImporters, error) {

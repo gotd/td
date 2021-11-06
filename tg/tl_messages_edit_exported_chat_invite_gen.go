@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesEditExportedChatInviteRequest represents TL type `messages.editExportedChatInvite#2e4ffbe`.
+// MessagesEditExportedChatInviteRequest represents TL type `messages.editExportedChatInvite#bdca2f75`.
 //
 // See https://core.telegram.org/method/messages.editExportedChatInvite for reference.
 type MessagesEditExportedChatInviteRequest struct {
@@ -49,10 +49,18 @@ type MessagesEditExportedChatInviteRequest struct {
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
 	UsageLimit int
+	// RequestNeeded field of MessagesEditExportedChatInviteRequest.
+	//
+	// Use SetRequestNeeded and GetRequestNeeded helpers.
+	RequestNeeded bool
+	// Title field of MessagesEditExportedChatInviteRequest.
+	//
+	// Use SetTitle and GetTitle helpers.
+	Title string
 }
 
 // MessagesEditExportedChatInviteRequestTypeID is TL type id of MessagesEditExportedChatInviteRequest.
-const MessagesEditExportedChatInviteRequestTypeID = 0x2e4ffbe
+const MessagesEditExportedChatInviteRequestTypeID = 0xbdca2f75
 
 // Ensuring interfaces in compile-time for MessagesEditExportedChatInviteRequest.
 var (
@@ -84,6 +92,12 @@ func (e *MessagesEditExportedChatInviteRequest) Zero() bool {
 	if !(e.UsageLimit == 0) {
 		return false
 	}
+	if !(e.RequestNeeded == false) {
+		return false
+	}
+	if !(e.Title == "") {
+		return false
+	}
 
 	return true
 }
@@ -104,6 +118,8 @@ func (e *MessagesEditExportedChatInviteRequest) FillFrom(from interface {
 	GetLink() (value string)
 	GetExpireDate() (value int, ok bool)
 	GetUsageLimit() (value int, ok bool)
+	GetRequestNeeded() (value bool, ok bool)
+	GetTitle() (value string, ok bool)
 }) {
 	e.Revoked = from.GetRevoked()
 	e.Peer = from.GetPeer()
@@ -114,6 +130,14 @@ func (e *MessagesEditExportedChatInviteRequest) FillFrom(from interface {
 
 	if val, ok := from.GetUsageLimit(); ok {
 		e.UsageLimit = val
+	}
+
+	if val, ok := from.GetRequestNeeded(); ok {
+		e.RequestNeeded = val
+	}
+
+	if val, ok := from.GetTitle(); ok {
+		e.Title = val
 	}
 
 }
@@ -164,6 +188,16 @@ func (e *MessagesEditExportedChatInviteRequest) TypeInfo() tdp.Type {
 			SchemaName: "usage_limit",
 			Null:       !e.Flags.Has(1),
 		},
+		{
+			Name:       "RequestNeeded",
+			SchemaName: "request_needed",
+			Null:       !e.Flags.Has(3),
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+			Null:       !e.Flags.Has(4),
+		},
 	}
 	return typ
 }
@@ -171,7 +205,7 @@ func (e *MessagesEditExportedChatInviteRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *MessagesEditExportedChatInviteRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editExportedChatInvite#2e4ffbe as nil")
+		return fmt.Errorf("can't encode messages.editExportedChatInvite#bdca2f75 as nil")
 	}
 	b.PutID(MessagesEditExportedChatInviteRequestTypeID)
 	return e.EncodeBare(b)
@@ -180,7 +214,7 @@ func (e *MessagesEditExportedChatInviteRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *MessagesEditExportedChatInviteRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.editExportedChatInvite#2e4ffbe as nil")
+		return fmt.Errorf("can't encode messages.editExportedChatInvite#bdca2f75 as nil")
 	}
 	if !(e.Revoked == false) {
 		e.Flags.Set(2)
@@ -191,14 +225,20 @@ func (e *MessagesEditExportedChatInviteRequest) EncodeBare(b *bin.Buffer) error 
 	if !(e.UsageLimit == 0) {
 		e.Flags.Set(1)
 	}
+	if !(e.RequestNeeded == false) {
+		e.Flags.Set(3)
+	}
+	if !(e.Title == "") {
+		e.Flags.Set(4)
+	}
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editExportedChatInvite#2e4ffbe: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.editExportedChatInvite#bdca2f75: field flags: %w", err)
 	}
 	if e.Peer == nil {
-		return fmt.Errorf("unable to encode messages.editExportedChatInvite#2e4ffbe: field peer is nil")
+		return fmt.Errorf("unable to encode messages.editExportedChatInvite#bdca2f75: field peer is nil")
 	}
 	if err := e.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.editExportedChatInvite#2e4ffbe: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.editExportedChatInvite#bdca2f75: field peer: %w", err)
 	}
 	b.PutString(e.Link)
 	if e.Flags.Has(0) {
@@ -207,16 +247,22 @@ func (e *MessagesEditExportedChatInviteRequest) EncodeBare(b *bin.Buffer) error 
 	if e.Flags.Has(1) {
 		b.PutInt(e.UsageLimit)
 	}
+	if e.Flags.Has(3) {
+		b.PutBool(e.RequestNeeded)
+	}
+	if e.Flags.Has(4) {
+		b.PutString(e.Title)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (e *MessagesEditExportedChatInviteRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editExportedChatInvite#2e4ffbe to nil")
+		return fmt.Errorf("can't decode messages.editExportedChatInvite#bdca2f75 to nil")
 	}
 	if err := b.ConsumeID(MessagesEditExportedChatInviteRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: %w", err)
+		return fmt.Errorf("unable to decode messages.editExportedChatInvite#bdca2f75: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -224,41 +270,55 @@ func (e *MessagesEditExportedChatInviteRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *MessagesEditExportedChatInviteRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.editExportedChatInvite#2e4ffbe to nil")
+		return fmt.Errorf("can't decode messages.editExportedChatInvite#bdca2f75 to nil")
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.editExportedChatInvite#bdca2f75: field flags: %w", err)
 		}
 	}
 	e.Revoked = e.Flags.Has(2)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.editExportedChatInvite#bdca2f75: field peer: %w", err)
 		}
 		e.Peer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: field link: %w", err)
+			return fmt.Errorf("unable to decode messages.editExportedChatInvite#bdca2f75: field link: %w", err)
 		}
 		e.Link = value
 	}
 	if e.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: field expire_date: %w", err)
+			return fmt.Errorf("unable to decode messages.editExportedChatInvite#bdca2f75: field expire_date: %w", err)
 		}
 		e.ExpireDate = value
 	}
 	if e.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: field usage_limit: %w", err)
+			return fmt.Errorf("unable to decode messages.editExportedChatInvite#bdca2f75: field usage_limit: %w", err)
 		}
 		e.UsageLimit = value
+	}
+	if e.Flags.Has(3) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.editExportedChatInvite#bdca2f75: field request_needed: %w", err)
+		}
+		e.RequestNeeded = value
+	}
+	if e.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.editExportedChatInvite#bdca2f75: field title: %w", err)
+		}
+		e.Title = value
 	}
 	return nil
 }
@@ -319,7 +379,37 @@ func (e *MessagesEditExportedChatInviteRequest) GetUsageLimit() (value int, ok b
 	return e.UsageLimit, true
 }
 
-// MessagesEditExportedChatInvite invokes method messages.editExportedChatInvite#2e4ffbe returning error if any.
+// SetRequestNeeded sets value of RequestNeeded conditional field.
+func (e *MessagesEditExportedChatInviteRequest) SetRequestNeeded(value bool) {
+	e.Flags.Set(3)
+	e.RequestNeeded = value
+}
+
+// GetRequestNeeded returns value of RequestNeeded conditional field and
+// boolean which is true if field was set.
+func (e *MessagesEditExportedChatInviteRequest) GetRequestNeeded() (value bool, ok bool) {
+	if !e.Flags.Has(3) {
+		return value, false
+	}
+	return e.RequestNeeded, true
+}
+
+// SetTitle sets value of Title conditional field.
+func (e *MessagesEditExportedChatInviteRequest) SetTitle(value string) {
+	e.Flags.Set(4)
+	e.Title = value
+}
+
+// GetTitle returns value of Title conditional field and
+// boolean which is true if field was set.
+func (e *MessagesEditExportedChatInviteRequest) GetTitle() (value string, ok bool) {
+	if !e.Flags.Has(4) {
+		return value, false
+	}
+	return e.Title, true
+}
+
+// MessagesEditExportedChatInvite invokes method messages.editExportedChatInvite#bdca2f75 returning error if any.
 //
 // See https://core.telegram.org/method/messages.editExportedChatInvite for reference.
 func (c *Client) MessagesEditExportedChatInvite(ctx context.Context, request *MessagesEditExportedChatInviteRequest) (MessagesExportedChatInviteClass, error) {

@@ -504,6 +504,19 @@ func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChange
 	return to
 }
 
+// AsChannelAdminLogEventActionParticipantJoinByRequest returns copy with only ChannelAdminLogEventActionParticipantJoinByRequest constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionParticipantJoinByRequest() (to ChannelAdminLogEventActionParticipantJoinByRequestArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionParticipantJoinByRequest)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // ChannelAdminLogEventActionChangeTitleArray is adapter for slice of ChannelAdminLogEventActionChangeTitle.
 type ChannelAdminLogEventActionChangeTitleArray []ChannelAdminLogEventActionChangeTitle
 
@@ -2952,6 +2965,88 @@ func (s *ChannelAdminLogEventActionChangeHistoryTTLArray) PopFirst() (v ChannelA
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *ChannelAdminLogEventActionChangeHistoryTTLArray) Pop() (v ChannelAdminLogEventActionChangeHistoryTTL, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionParticipantJoinByRequestArray is adapter for slice of ChannelAdminLogEventActionParticipantJoinByRequest.
+type ChannelAdminLogEventActionParticipantJoinByRequestArray []ChannelAdminLogEventActionParticipantJoinByRequest
+
+// Sort sorts slice of ChannelAdminLogEventActionParticipantJoinByRequest.
+func (s ChannelAdminLogEventActionParticipantJoinByRequestArray) Sort(less func(a, b ChannelAdminLogEventActionParticipantJoinByRequest) bool) ChannelAdminLogEventActionParticipantJoinByRequestArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionParticipantJoinByRequest.
+func (s ChannelAdminLogEventActionParticipantJoinByRequestArray) SortStable(less func(a, b ChannelAdminLogEventActionParticipantJoinByRequest) bool) ChannelAdminLogEventActionParticipantJoinByRequestArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionParticipantJoinByRequest.
+func (s ChannelAdminLogEventActionParticipantJoinByRequestArray) Retain(keep func(x ChannelAdminLogEventActionParticipantJoinByRequest) bool) ChannelAdminLogEventActionParticipantJoinByRequestArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionParticipantJoinByRequestArray) First() (v ChannelAdminLogEventActionParticipantJoinByRequest, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionParticipantJoinByRequestArray) Last() (v ChannelAdminLogEventActionParticipantJoinByRequest, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionParticipantJoinByRequestArray) PopFirst() (v ChannelAdminLogEventActionParticipantJoinByRequest, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionParticipantJoinByRequest
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionParticipantJoinByRequestArray) Pop() (v ChannelAdminLogEventActionParticipantJoinByRequest, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
