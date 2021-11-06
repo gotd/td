@@ -17803,6 +17803,459 @@ func (u *UpdateBotCommands) GetCommands() (value []BotCommand) {
 	return u.Commands
 }
 
+// UpdatePendingJoinRequests represents TL type `updatePendingJoinRequests#7063c3db`.
+//
+// See https://core.telegram.org/constructor/updatePendingJoinRequests for reference.
+type UpdatePendingJoinRequests struct {
+	// Peer field of UpdatePendingJoinRequests.
+	Peer PeerClass
+	// RequestsPending field of UpdatePendingJoinRequests.
+	RequestsPending int
+	// RecentRequesters field of UpdatePendingJoinRequests.
+	RecentRequesters []int64
+}
+
+// UpdatePendingJoinRequestsTypeID is TL type id of UpdatePendingJoinRequests.
+const UpdatePendingJoinRequestsTypeID = 0x7063c3db
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePendingJoinRequests) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePendingJoinRequests.
+var (
+	_ bin.Encoder     = &UpdatePendingJoinRequests{}
+	_ bin.Decoder     = &UpdatePendingJoinRequests{}
+	_ bin.BareEncoder = &UpdatePendingJoinRequests{}
+	_ bin.BareDecoder = &UpdatePendingJoinRequests{}
+
+	_ UpdateClass = &UpdatePendingJoinRequests{}
+)
+
+func (u *UpdatePendingJoinRequests) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.RequestsPending == 0) {
+		return false
+	}
+	if !(u.RecentRequesters == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdatePendingJoinRequests) String() string {
+	if u == nil {
+		return "UpdatePendingJoinRequests(nil)"
+	}
+	type Alias UpdatePendingJoinRequests
+	return fmt.Sprintf("UpdatePendingJoinRequests%+v", Alias(*u))
+}
+
+// FillFrom fills UpdatePendingJoinRequests from given interface.
+func (u *UpdatePendingJoinRequests) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetRequestsPending() (value int)
+	GetRecentRequesters() (value []int64)
+}) {
+	u.Peer = from.GetPeer()
+	u.RequestsPending = from.GetRequestsPending()
+	u.RecentRequesters = from.GetRecentRequesters()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdatePendingJoinRequests) TypeID() uint32 {
+	return UpdatePendingJoinRequestsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdatePendingJoinRequests) TypeName() string {
+	return "updatePendingJoinRequests"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePendingJoinRequests) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePendingJoinRequests",
+		ID:   UpdatePendingJoinRequestsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "RequestsPending",
+			SchemaName: "requests_pending",
+		},
+		{
+			Name:       "RecentRequesters",
+			SchemaName: "recent_requesters",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdatePendingJoinRequests) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePendingJoinRequests#7063c3db as nil")
+	}
+	b.PutID(UpdatePendingJoinRequestsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdatePendingJoinRequests) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePendingJoinRequests#7063c3db as nil")
+	}
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updatePendingJoinRequests#7063c3db: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updatePendingJoinRequests#7063c3db: field peer: %w", err)
+	}
+	b.PutInt(u.RequestsPending)
+	b.PutVectorHeader(len(u.RecentRequesters))
+	for _, v := range u.RecentRequesters {
+		b.PutLong(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdatePendingJoinRequests) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePendingJoinRequests#7063c3db to nil")
+	}
+	if err := b.ConsumeID(UpdatePendingJoinRequestsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updatePendingJoinRequests#7063c3db: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdatePendingJoinRequests) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePendingJoinRequests#7063c3db to nil")
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updatePendingJoinRequests#7063c3db: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updatePendingJoinRequests#7063c3db: field requests_pending: %w", err)
+		}
+		u.RequestsPending = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updatePendingJoinRequests#7063c3db: field recent_requesters: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.RecentRequesters = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode updatePendingJoinRequests#7063c3db: field recent_requesters: %w", err)
+			}
+			u.RecentRequesters = append(u.RecentRequesters, value)
+		}
+	}
+	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdatePendingJoinRequests) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetRequestsPending returns value of RequestsPending field.
+func (u *UpdatePendingJoinRequests) GetRequestsPending() (value int) {
+	return u.RequestsPending
+}
+
+// GetRecentRequesters returns value of RecentRequesters field.
+func (u *UpdatePendingJoinRequests) GetRecentRequesters() (value []int64) {
+	return u.RecentRequesters
+}
+
+// UpdateBotChatInviteRequester represents TL type `updateBotChatInviteRequester#11dfa986`.
+//
+// See https://core.telegram.org/constructor/updateBotChatInviteRequester for reference.
+type UpdateBotChatInviteRequester struct {
+	// Peer field of UpdateBotChatInviteRequester.
+	Peer PeerClass
+	// Date field of UpdateBotChatInviteRequester.
+	Date int
+	// UserID field of UpdateBotChatInviteRequester.
+	UserID int64
+	// About field of UpdateBotChatInviteRequester.
+	About string
+	// Invite field of UpdateBotChatInviteRequester.
+	Invite ChatInviteExported
+	// Qts field of UpdateBotChatInviteRequester.
+	Qts int
+}
+
+// UpdateBotChatInviteRequesterTypeID is TL type id of UpdateBotChatInviteRequester.
+const UpdateBotChatInviteRequesterTypeID = 0x11dfa986
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotChatInviteRequester) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotChatInviteRequester.
+var (
+	_ bin.Encoder     = &UpdateBotChatInviteRequester{}
+	_ bin.Decoder     = &UpdateBotChatInviteRequester{}
+	_ bin.BareEncoder = &UpdateBotChatInviteRequester{}
+	_ bin.BareDecoder = &UpdateBotChatInviteRequester{}
+
+	_ UpdateClass = &UpdateBotChatInviteRequester{}
+)
+
+func (u *UpdateBotChatInviteRequester) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.About == "") {
+		return false
+	}
+	if !(u.Invite.Zero()) {
+		return false
+	}
+	if !(u.Qts == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBotChatInviteRequester) String() string {
+	if u == nil {
+		return "UpdateBotChatInviteRequester(nil)"
+	}
+	type Alias UpdateBotChatInviteRequester
+	return fmt.Sprintf("UpdateBotChatInviteRequester%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotChatInviteRequester from given interface.
+func (u *UpdateBotChatInviteRequester) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetDate() (value int)
+	GetUserID() (value int64)
+	GetAbout() (value string)
+	GetInvite() (value ChatInviteExported)
+	GetQts() (value int)
+}) {
+	u.Peer = from.GetPeer()
+	u.Date = from.GetDate()
+	u.UserID = from.GetUserID()
+	u.About = from.GetAbout()
+	u.Invite = from.GetInvite()
+	u.Qts = from.GetQts()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateBotChatInviteRequester) TypeID() uint32 {
+	return UpdateBotChatInviteRequesterTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateBotChatInviteRequester) TypeName() string {
+	return "updateBotChatInviteRequester"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotChatInviteRequester) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotChatInviteRequester",
+		ID:   UpdateBotChatInviteRequesterTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "About",
+			SchemaName: "about",
+		},
+		{
+			Name:       "Invite",
+			SchemaName: "invite",
+		},
+		{
+			Name:       "Qts",
+			SchemaName: "qts",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBotChatInviteRequester) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotChatInviteRequester#11dfa986 as nil")
+	}
+	b.PutID(UpdateBotChatInviteRequesterTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateBotChatInviteRequester) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotChatInviteRequester#11dfa986 as nil")
+	}
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updateBotChatInviteRequester#11dfa986: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotChatInviteRequester#11dfa986: field peer: %w", err)
+	}
+	b.PutInt(u.Date)
+	b.PutLong(u.UserID)
+	b.PutString(u.About)
+	if err := u.Invite.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotChatInviteRequester#11dfa986: field invite: %w", err)
+	}
+	b.PutInt(u.Qts)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBotChatInviteRequester) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotChatInviteRequester#11dfa986 to nil")
+	}
+	if err := b.ConsumeID(UpdateBotChatInviteRequesterTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateBotChatInviteRequester) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotChatInviteRequester#11dfa986 to nil")
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: field date: %w", err)
+		}
+		u.Date = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: field about: %w", err)
+		}
+		u.About = value
+	}
+	{
+		if err := u.Invite.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: field invite: %w", err)
+		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: field qts: %w", err)
+		}
+		u.Qts = value
+	}
+	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateBotChatInviteRequester) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateBotChatInviteRequester) GetDate() (value int) {
+	return u.Date
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateBotChatInviteRequester) GetUserID() (value int64) {
+	return u.UserID
+}
+
+// GetAbout returns value of About field.
+func (u *UpdateBotChatInviteRequester) GetAbout() (value string) {
+	return u.About
+}
+
+// GetInvite returns value of Invite field.
+func (u *UpdateBotChatInviteRequester) GetInvite() (value ChatInviteExported) {
+	return u.Invite
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateBotChatInviteRequester) GetQts() (value int) {
+	return u.Qts
+}
+
 // UpdateClass represents Update generic type.
 //
 // See https://core.telegram.org/type/Update for reference.
@@ -17906,6 +18359,8 @@ func (u *UpdateBotCommands) GetCommands() (value []BotCommand) {
 //  case *tg.UpdateBotStopped: // updateBotStopped#c4870a49
 //  case *tg.UpdateGroupCallConnection: // updateGroupCallConnection#b783982
 //  case *tg.UpdateBotCommands: // updateBotCommands#4d712f2e
+//  case *tg.UpdatePendingJoinRequests: // updatePendingJoinRequests#7063c3db
+//  case *tg.UpdateBotChatInviteRequester: // updateBotChatInviteRequester#11dfa986
 //  default: panic(v)
 //  }
 type UpdateClass interface {
@@ -18581,6 +19036,20 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateBotCommandsTypeID:
 		// Decoding updateBotCommands#4d712f2e.
 		v := UpdateBotCommands{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdatePendingJoinRequestsTypeID:
+		// Decoding updatePendingJoinRequests#7063c3db.
+		v := UpdatePendingJoinRequests{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBotChatInviteRequesterTypeID:
+		// Decoding updateBotChatInviteRequester#11dfa986.
+		v := UpdateBotChatInviteRequester{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

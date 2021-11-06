@@ -1762,7 +1762,7 @@ func (s *ServerDispatcher) OnAccountDeclinePasswordReset(f func(ctx context.Cont
 	s.handlers[AccountDeclinePasswordResetRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnAccountGetChatThemes(f func(ctx context.Context, hash int) (AccountChatThemesClass, error)) {
+func (s *ServerDispatcher) OnAccountGetChatThemes(f func(ctx context.Context, hash int64) (AccountThemesClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AccountGetChatThemesRequest
 		if err := request.Decode(b); err != nil {
@@ -1773,7 +1773,7 @@ func (s *ServerDispatcher) OnAccountGetChatThemes(f func(ctx context.Context, ha
 		if err != nil {
 			return nil, err
 		}
-		return &AccountChatThemesBox{ChatThemes: response}, nil
+		return &AccountThemesBox{Themes: response}, nil
 	}
 
 	s.handlers[AccountGetChatThemesRequestTypeID] = handler
@@ -4771,6 +4771,57 @@ func (s *ServerDispatcher) OnMessagesGetMessageReadParticipants(f func(ctx conte
 	}
 
 	s.handlers[MessagesGetMessageReadParticipantsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetSearchResultsCalendar(f func(ctx context.Context, request *MessagesGetSearchResultsCalendarRequest) (*MessagesSearchResultsCalendar, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetSearchResultsCalendarRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesGetSearchResultsCalendarRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetSearchResultsPositions(f func(ctx context.Context, request *MessagesGetSearchResultsPositionsRequest) (*MessagesSearchResultsPositions, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetSearchResultsPositionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesGetSearchResultsPositionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesHideChatJoinRequest(f func(ctx context.Context, request *MessagesHideChatJoinRequestRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesHideChatJoinRequestRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesHideChatJoinRequestRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {

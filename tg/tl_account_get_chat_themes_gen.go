@@ -29,16 +29,16 @@ var (
 	_ = tgerr.Error{}
 )
 
-// AccountGetChatThemesRequest represents TL type `account.getChatThemes#d6d71d7b`.
+// AccountGetChatThemesRequest represents TL type `account.getChatThemes#d638de89`.
 //
 // See https://core.telegram.org/method/account.getChatThemes for reference.
 type AccountGetChatThemesRequest struct {
 	// Hash field of AccountGetChatThemesRequest.
-	Hash int
+	Hash int64
 }
 
 // AccountGetChatThemesRequestTypeID is TL type id of AccountGetChatThemesRequest.
-const AccountGetChatThemesRequestTypeID = 0xd6d71d7b
+const AccountGetChatThemesRequestTypeID = 0xd638de89
 
 // Ensuring interfaces in compile-time for AccountGetChatThemesRequest.
 var (
@@ -70,7 +70,7 @@ func (g *AccountGetChatThemesRequest) String() string {
 
 // FillFrom fills AccountGetChatThemesRequest from given interface.
 func (g *AccountGetChatThemesRequest) FillFrom(from interface {
-	GetHash() (value int)
+	GetHash() (value int64)
 }) {
 	g.Hash = from.GetHash()
 }
@@ -109,7 +109,7 @@ func (g *AccountGetChatThemesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetChatThemesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getChatThemes#d6d71d7b as nil")
+		return fmt.Errorf("can't encode account.getChatThemes#d638de89 as nil")
 	}
 	b.PutID(AccountGetChatThemesRequestTypeID)
 	return g.EncodeBare(b)
@@ -118,19 +118,19 @@ func (g *AccountGetChatThemesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetChatThemesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getChatThemes#d6d71d7b as nil")
+		return fmt.Errorf("can't encode account.getChatThemes#d638de89 as nil")
 	}
-	b.PutInt(g.Hash)
+	b.PutLong(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *AccountGetChatThemesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getChatThemes#d6d71d7b to nil")
+		return fmt.Errorf("can't decode account.getChatThemes#d638de89 to nil")
 	}
 	if err := b.ConsumeID(AccountGetChatThemesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getChatThemes#d6d71d7b: %w", err)
+		return fmt.Errorf("unable to decode account.getChatThemes#d638de89: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -138,12 +138,12 @@ func (g *AccountGetChatThemesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetChatThemesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getChatThemes#d6d71d7b to nil")
+		return fmt.Errorf("can't decode account.getChatThemes#d638de89 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getChatThemes#d6d71d7b: field hash: %w", err)
+			return fmt.Errorf("unable to decode account.getChatThemes#d638de89: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -151,15 +151,15 @@ func (g *AccountGetChatThemesRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetHash returns value of Hash field.
-func (g *AccountGetChatThemesRequest) GetHash() (value int) {
+func (g *AccountGetChatThemesRequest) GetHash() (value int64) {
 	return g.Hash
 }
 
-// AccountGetChatThemes invokes method account.getChatThemes#d6d71d7b returning error if any.
+// AccountGetChatThemes invokes method account.getChatThemes#d638de89 returning error if any.
 //
 // See https://core.telegram.org/method/account.getChatThemes for reference.
-func (c *Client) AccountGetChatThemes(ctx context.Context, hash int) (AccountChatThemesClass, error) {
-	var result AccountChatThemesBox
+func (c *Client) AccountGetChatThemes(ctx context.Context, hash int64) (AccountThemesClass, error) {
+	var result AccountThemesBox
 
 	request := &AccountGetChatThemesRequest{
 		Hash: hash,
@@ -167,5 +167,5 @@ func (c *Client) AccountGetChatThemes(ctx context.Context, hash int) (AccountCha
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.ChatThemes, nil
+	return result.Themes, nil
 }

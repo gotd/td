@@ -1033,3 +1033,23 @@ func (u UpdateDispatcher) OnBotCommands(handler BotCommandsHandler) {
 		return handler(ctx, e, update.(*UpdateBotCommands))
 	}
 }
+
+// PendingJoinRequestsHandler is a PendingJoinRequests event handler.
+type PendingJoinRequestsHandler func(ctx context.Context, e Entities, update *UpdatePendingJoinRequests) error
+
+// OnPendingJoinRequests sets PendingJoinRequests handler.
+func (u UpdateDispatcher) OnPendingJoinRequests(handler PendingJoinRequestsHandler) {
+	u.handlers[UpdatePendingJoinRequestsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePendingJoinRequests))
+	}
+}
+
+// BotChatInviteRequesterHandler is a BotChatInviteRequester event handler.
+type BotChatInviteRequesterHandler func(ctx context.Context, e Entities, update *UpdateBotChatInviteRequester) error
+
+// OnBotChatInviteRequester sets BotChatInviteRequester handler.
+func (u UpdateDispatcher) OnBotChatInviteRequester(handler BotChatInviteRequesterHandler) {
+	u.handlers[UpdateBotChatInviteRequesterTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotChatInviteRequester))
+	}
+}

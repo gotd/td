@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// Theme represents TL type `theme#e802b8dc`.
+// Theme represents TL type `theme#a00e67d6`.
 // Theme
 //
 // See https://core.telegram.org/constructor/theme for reference.
@@ -60,7 +60,11 @@ type Theme struct {
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings ThemeSettings
+	Settings []ThemeSettings
+	// Emoticon field of Theme.
+	//
+	// Use SetEmoticon and GetEmoticon helpers.
+	Emoticon string
 	// Installation count
 	//
 	// Use SetInstallsCount and GetInstallsCount helpers.
@@ -68,7 +72,7 @@ type Theme struct {
 }
 
 // ThemeTypeID is TL type id of Theme.
-const ThemeTypeID = 0xe802b8dc
+const ThemeTypeID = 0xa00e67d6
 
 // Ensuring interfaces in compile-time for Theme.
 var (
@@ -109,7 +113,10 @@ func (t *Theme) Zero() bool {
 	if !(t.Document == nil) {
 		return false
 	}
-	if !(t.Settings.Zero()) {
+	if !(t.Settings == nil) {
+		return false
+	}
+	if !(t.Emoticon == "") {
 		return false
 	}
 	if !(t.InstallsCount == 0) {
@@ -138,7 +145,8 @@ func (t *Theme) FillFrom(from interface {
 	GetSlug() (value string)
 	GetTitle() (value string)
 	GetDocument() (value DocumentClass, ok bool)
-	GetSettings() (value ThemeSettings, ok bool)
+	GetSettings() (value []ThemeSettings, ok bool)
+	GetEmoticon() (value string, ok bool)
 	GetInstallsCount() (value int, ok bool)
 }) {
 	t.Creator = from.GetCreator()
@@ -154,6 +162,10 @@ func (t *Theme) FillFrom(from interface {
 
 	if val, ok := from.GetSettings(); ok {
 		t.Settings = val
+	}
+
+	if val, ok := from.GetEmoticon(); ok {
+		t.Emoticon = val
 	}
 
 	if val, ok := from.GetInstallsCount(); ok {
@@ -227,6 +239,11 @@ func (t *Theme) TypeInfo() tdp.Type {
 			Null:       !t.Flags.Has(3),
 		},
 		{
+			Name:       "Emoticon",
+			SchemaName: "emoticon",
+			Null:       !t.Flags.Has(6),
+		},
+		{
 			Name:       "InstallsCount",
 			SchemaName: "installs_count",
 			Null:       !t.Flags.Has(4),
@@ -238,7 +255,7 @@ func (t *Theme) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *Theme) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode theme#e802b8dc as nil")
+		return fmt.Errorf("can't encode theme#a00e67d6 as nil")
 	}
 	b.PutID(ThemeTypeID)
 	return t.EncodeBare(b)
@@ -247,7 +264,7 @@ func (t *Theme) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *Theme) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode theme#e802b8dc as nil")
+		return fmt.Errorf("can't encode theme#a00e67d6 as nil")
 	}
 	if !(t.Creator == false) {
 		t.Flags.Set(0)
@@ -261,14 +278,17 @@ func (t *Theme) EncodeBare(b *bin.Buffer) error {
 	if !(t.Document == nil) {
 		t.Flags.Set(2)
 	}
-	if !(t.Settings.Zero()) {
+	if !(t.Settings == nil) {
 		t.Flags.Set(3)
+	}
+	if !(t.Emoticon == "") {
+		t.Flags.Set(6)
 	}
 	if !(t.InstallsCount == 0) {
 		t.Flags.Set(4)
 	}
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode theme#e802b8dc: field flags: %w", err)
+		return fmt.Errorf("unable to encode theme#a00e67d6: field flags: %w", err)
 	}
 	b.PutLong(t.ID)
 	b.PutLong(t.AccessHash)
@@ -276,16 +296,22 @@ func (t *Theme) EncodeBare(b *bin.Buffer) error {
 	b.PutString(t.Title)
 	if t.Flags.Has(2) {
 		if t.Document == nil {
-			return fmt.Errorf("unable to encode theme#e802b8dc: field document is nil")
+			return fmt.Errorf("unable to encode theme#a00e67d6: field document is nil")
 		}
 		if err := t.Document.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode theme#e802b8dc: field document: %w", err)
+			return fmt.Errorf("unable to encode theme#a00e67d6: field document: %w", err)
 		}
 	}
 	if t.Flags.Has(3) {
-		if err := t.Settings.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode theme#e802b8dc: field settings: %w", err)
+		b.PutVectorHeader(len(t.Settings))
+		for idx, v := range t.Settings {
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode theme#a00e67d6: field settings element with index %d: %w", idx, err)
+			}
 		}
+	}
+	if t.Flags.Has(6) {
+		b.PutString(t.Emoticon)
 	}
 	if t.Flags.Has(4) {
 		b.PutInt(t.InstallsCount)
@@ -296,10 +322,10 @@ func (t *Theme) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *Theme) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode theme#e802b8dc to nil")
+		return fmt.Errorf("can't decode theme#a00e67d6 to nil")
 	}
 	if err := b.ConsumeID(ThemeTypeID); err != nil {
-		return fmt.Errorf("unable to decode theme#e802b8dc: %w", err)
+		return fmt.Errorf("unable to decode theme#a00e67d6: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -307,11 +333,11 @@ func (t *Theme) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *Theme) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode theme#e802b8dc to nil")
+		return fmt.Errorf("can't decode theme#a00e67d6 to nil")
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode theme#e802b8dc: field flags: %w", err)
+			return fmt.Errorf("unable to decode theme#a00e67d6: field flags: %w", err)
 		}
 	}
 	t.Creator = t.Flags.Has(0)
@@ -320,47 +346,66 @@ func (t *Theme) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#e802b8dc: field id: %w", err)
+			return fmt.Errorf("unable to decode theme#a00e67d6: field id: %w", err)
 		}
 		t.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#e802b8dc: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode theme#a00e67d6: field access_hash: %w", err)
 		}
 		t.AccessHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#e802b8dc: field slug: %w", err)
+			return fmt.Errorf("unable to decode theme#a00e67d6: field slug: %w", err)
 		}
 		t.Slug = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#e802b8dc: field title: %w", err)
+			return fmt.Errorf("unable to decode theme#a00e67d6: field title: %w", err)
 		}
 		t.Title = value
 	}
 	if t.Flags.Has(2) {
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#e802b8dc: field document: %w", err)
+			return fmt.Errorf("unable to decode theme#a00e67d6: field document: %w", err)
 		}
 		t.Document = value
 	}
 	if t.Flags.Has(3) {
-		if err := t.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode theme#e802b8dc: field settings: %w", err)
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode theme#a00e67d6: field settings: %w", err)
 		}
+
+		if headerLen > 0 {
+			t.Settings = make([]ThemeSettings, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value ThemeSettings
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode theme#a00e67d6: field settings: %w", err)
+			}
+			t.Settings = append(t.Settings, value)
+		}
+	}
+	if t.Flags.Has(6) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode theme#a00e67d6: field emoticon: %w", err)
+		}
+		t.Emoticon = value
 	}
 	if t.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode theme#e802b8dc: field installs_count: %w", err)
+			return fmt.Errorf("unable to decode theme#a00e67d6: field installs_count: %w", err)
 		}
 		t.InstallsCount = value
 	}
@@ -451,18 +496,33 @@ func (t *Theme) GetDocument() (value DocumentClass, ok bool) {
 }
 
 // SetSettings sets value of Settings conditional field.
-func (t *Theme) SetSettings(value ThemeSettings) {
+func (t *Theme) SetSettings(value []ThemeSettings) {
 	t.Flags.Set(3)
 	t.Settings = value
 }
 
 // GetSettings returns value of Settings conditional field and
 // boolean which is true if field was set.
-func (t *Theme) GetSettings() (value ThemeSettings, ok bool) {
+func (t *Theme) GetSettings() (value []ThemeSettings, ok bool) {
 	if !t.Flags.Has(3) {
 		return value, false
 	}
 	return t.Settings, true
+}
+
+// SetEmoticon sets value of Emoticon conditional field.
+func (t *Theme) SetEmoticon(value string) {
+	t.Flags.Set(6)
+	t.Emoticon = value
+}
+
+// GetEmoticon returns value of Emoticon conditional field and
+// boolean which is true if field was set.
+func (t *Theme) GetEmoticon() (value string, ok bool) {
+	if !t.Flags.Has(6) {
+		return value, false
+	}
+	return t.Emoticon, true
 }
 
 // SetInstallsCount sets value of InstallsCount conditional field.

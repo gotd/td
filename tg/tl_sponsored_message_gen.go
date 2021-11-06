@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// SponsoredMessage represents TL type `sponsoredMessage#2a3c381f`.
+// SponsoredMessage represents TL type `sponsoredMessage#d151e19a`.
 //
 // See https://core.telegram.org/constructor/sponsoredMessage for reference.
 type SponsoredMessage struct {
@@ -39,6 +39,10 @@ type SponsoredMessage struct {
 	RandomID []byte
 	// FromID field of SponsoredMessage.
 	FromID PeerClass
+	// ChannelPost field of SponsoredMessage.
+	//
+	// Use SetChannelPost and GetChannelPost helpers.
+	ChannelPost int
 	// StartParam field of SponsoredMessage.
 	//
 	// Use SetStartParam and GetStartParam helpers.
@@ -52,7 +56,7 @@ type SponsoredMessage struct {
 }
 
 // SponsoredMessageTypeID is TL type id of SponsoredMessage.
-const SponsoredMessageTypeID = 0x2a3c381f
+const SponsoredMessageTypeID = 0xd151e19a
 
 // Ensuring interfaces in compile-time for SponsoredMessage.
 var (
@@ -73,6 +77,9 @@ func (s *SponsoredMessage) Zero() bool {
 		return false
 	}
 	if !(s.FromID == nil) {
+		return false
+	}
+	if !(s.ChannelPost == 0) {
 		return false
 	}
 	if !(s.StartParam == "") {
@@ -101,12 +108,17 @@ func (s *SponsoredMessage) String() string {
 func (s *SponsoredMessage) FillFrom(from interface {
 	GetRandomID() (value []byte)
 	GetFromID() (value PeerClass)
+	GetChannelPost() (value int, ok bool)
 	GetStartParam() (value string, ok bool)
 	GetMessage() (value string)
 	GetEntities() (value []MessageEntityClass, ok bool)
 }) {
 	s.RandomID = from.GetRandomID()
 	s.FromID = from.GetFromID()
+	if val, ok := from.GetChannelPost(); ok {
+		s.ChannelPost = val
+	}
+
 	if val, ok := from.GetStartParam(); ok {
 		s.StartParam = val
 	}
@@ -150,6 +162,11 @@ func (s *SponsoredMessage) TypeInfo() tdp.Type {
 			SchemaName: "from_id",
 		},
 		{
+			Name:       "ChannelPost",
+			SchemaName: "channel_post",
+			Null:       !s.Flags.Has(2),
+		},
+		{
 			Name:       "StartParam",
 			SchemaName: "start_param",
 			Null:       !s.Flags.Has(0),
@@ -170,7 +187,7 @@ func (s *SponsoredMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SponsoredMessage) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sponsoredMessage#2a3c381f as nil")
+		return fmt.Errorf("can't encode sponsoredMessage#d151e19a as nil")
 	}
 	b.PutID(SponsoredMessageTypeID)
 	return s.EncodeBare(b)
@@ -179,7 +196,10 @@ func (s *SponsoredMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SponsoredMessage) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sponsoredMessage#2a3c381f as nil")
+		return fmt.Errorf("can't encode sponsoredMessage#d151e19a as nil")
+	}
+	if !(s.ChannelPost == 0) {
+		s.Flags.Set(2)
 	}
 	if !(s.StartParam == "") {
 		s.Flags.Set(0)
@@ -188,14 +208,17 @@ func (s *SponsoredMessage) EncodeBare(b *bin.Buffer) error {
 		s.Flags.Set(1)
 	}
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sponsoredMessage#2a3c381f: field flags: %w", err)
+		return fmt.Errorf("unable to encode sponsoredMessage#d151e19a: field flags: %w", err)
 	}
 	b.PutBytes(s.RandomID)
 	if s.FromID == nil {
-		return fmt.Errorf("unable to encode sponsoredMessage#2a3c381f: field from_id is nil")
+		return fmt.Errorf("unable to encode sponsoredMessage#d151e19a: field from_id is nil")
 	}
 	if err := s.FromID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sponsoredMessage#2a3c381f: field from_id: %w", err)
+		return fmt.Errorf("unable to encode sponsoredMessage#d151e19a: field from_id: %w", err)
+	}
+	if s.Flags.Has(2) {
+		b.PutInt(s.ChannelPost)
 	}
 	if s.Flags.Has(0) {
 		b.PutString(s.StartParam)
@@ -205,10 +228,10 @@ func (s *SponsoredMessage) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(s.Entities))
 		for idx, v := range s.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode sponsoredMessage#2a3c381f: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode sponsoredMessage#d151e19a: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode sponsoredMessage#2a3c381f: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode sponsoredMessage#d151e19a: field entities element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -218,10 +241,10 @@ func (s *SponsoredMessage) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SponsoredMessage) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sponsoredMessage#2a3c381f to nil")
+		return fmt.Errorf("can't decode sponsoredMessage#d151e19a to nil")
 	}
 	if err := b.ConsumeID(SponsoredMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode sponsoredMessage#2a3c381f: %w", err)
+		return fmt.Errorf("unable to decode sponsoredMessage#d151e19a: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -229,45 +252,52 @@ func (s *SponsoredMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sponsoredMessage#2a3c381f to nil")
+		return fmt.Errorf("can't decode sponsoredMessage#d151e19a to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#2a3c381f: field flags: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#d151e19a: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#2a3c381f: field random_id: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#d151e19a: field random_id: %w", err)
 		}
 		s.RandomID = value
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#2a3c381f: field from_id: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#d151e19a: field from_id: %w", err)
 		}
 		s.FromID = value
+	}
+	if s.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode sponsoredMessage#d151e19a: field channel_post: %w", err)
+		}
+		s.ChannelPost = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#2a3c381f: field start_param: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#d151e19a: field start_param: %w", err)
 		}
 		s.StartParam = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#2a3c381f: field message: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#d151e19a: field message: %w", err)
 		}
 		s.Message = value
 	}
 	if s.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#2a3c381f: field entities: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#d151e19a: field entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -276,7 +306,7 @@ func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sponsoredMessage#2a3c381f: field entities: %w", err)
+				return fmt.Errorf("unable to decode sponsoredMessage#d151e19a: field entities: %w", err)
 			}
 			s.Entities = append(s.Entities, value)
 		}
@@ -292,6 +322,21 @@ func (s *SponsoredMessage) GetRandomID() (value []byte) {
 // GetFromID returns value of FromID field.
 func (s *SponsoredMessage) GetFromID() (value PeerClass) {
 	return s.FromID
+}
+
+// SetChannelPost sets value of ChannelPost conditional field.
+func (s *SponsoredMessage) SetChannelPost(value int) {
+	s.Flags.Set(2)
+	s.ChannelPost = value
+}
+
+// GetChannelPost returns value of ChannelPost conditional field and
+// boolean which is true if field was set.
+func (s *SponsoredMessage) GetChannelPost() (value int, ok bool) {
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.ChannelPost, true
 }
 
 // SetStartParam sets value of StartParam conditional field.

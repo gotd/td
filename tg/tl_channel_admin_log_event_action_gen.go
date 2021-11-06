@@ -4672,6 +4672,163 @@ func (c *ChannelAdminLogEventActionChangeHistoryTTL) GetNewValue() (value int) {
 	return c.NewValue
 }
 
+// ChannelAdminLogEventActionParticipantJoinByRequest represents TL type `channelAdminLogEventActionParticipantJoinByRequest#afb6144a`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByRequest for reference.
+type ChannelAdminLogEventActionParticipantJoinByRequest struct {
+	// Invite field of ChannelAdminLogEventActionParticipantJoinByRequest.
+	Invite ChatInviteExported
+	// ApprovedBy field of ChannelAdminLogEventActionParticipantJoinByRequest.
+	ApprovedBy int64
+}
+
+// ChannelAdminLogEventActionParticipantJoinByRequestTypeID is TL type id of ChannelAdminLogEventActionParticipantJoinByRequest.
+const ChannelAdminLogEventActionParticipantJoinByRequestTypeID = 0xafb6144a
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantJoinByRequest) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantJoinByRequest.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantJoinByRequest{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantJoinByRequest{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantJoinByRequest{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantJoinByRequest{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantJoinByRequest{}
+)
+
+func (c *ChannelAdminLogEventActionParticipantJoinByRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Invite.Zero()) {
+		return false
+	}
+	if !(c.ApprovedBy == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionParticipantJoinByRequest) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionParticipantJoinByRequest(nil)"
+	}
+	type Alias ChannelAdminLogEventActionParticipantJoinByRequest
+	return fmt.Sprintf("ChannelAdminLogEventActionParticipantJoinByRequest%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionParticipantJoinByRequest from given interface.
+func (c *ChannelAdminLogEventActionParticipantJoinByRequest) FillFrom(from interface {
+	GetInvite() (value ChatInviteExported)
+	GetApprovedBy() (value int64)
+}) {
+	c.Invite = from.GetInvite()
+	c.ApprovedBy = from.GetApprovedBy()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionParticipantJoinByRequest) TypeID() uint32 {
+	return ChannelAdminLogEventActionParticipantJoinByRequestTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionParticipantJoinByRequest) TypeName() string {
+	return "channelAdminLogEventActionParticipantJoinByRequest"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionParticipantJoinByRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionParticipantJoinByRequest",
+		ID:   ChannelAdminLogEventActionParticipantJoinByRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Invite",
+			SchemaName: "invite",
+		},
+		{
+			Name:       "ApprovedBy",
+			SchemaName: "approved_by",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionParticipantJoinByRequest) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantJoinByRequest#afb6144a as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionParticipantJoinByRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionParticipantJoinByRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantJoinByRequest#afb6144a as nil")
+	}
+	if err := c.Invite.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantJoinByRequest#afb6144a: field invite: %w", err)
+	}
+	b.PutLong(c.ApprovedBy)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionParticipantJoinByRequest) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantJoinByRequest#afb6144a to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantJoinByRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByRequest#afb6144a: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionParticipantJoinByRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantJoinByRequest#afb6144a to nil")
+	}
+	{
+		if err := c.Invite.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByRequest#afb6144a: field invite: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByRequest#afb6144a: field approved_by: %w", err)
+		}
+		c.ApprovedBy = value
+	}
+	return nil
+}
+
+// GetInvite returns value of Invite field.
+func (c *ChannelAdminLogEventActionParticipantJoinByRequest) GetInvite() (value ChatInviteExported) {
+	return c.Invite
+}
+
+// GetApprovedBy returns value of ApprovedBy field.
+func (c *ChannelAdminLogEventActionParticipantJoinByRequest) GetApprovedBy() (value int64) {
+	return c.ApprovedBy
+}
+
 // ChannelAdminLogEventActionClass represents ChannelAdminLogEventAction generic type.
 //
 // See https://core.telegram.org/type/ChannelAdminLogEventAction for reference.
@@ -4714,6 +4871,7 @@ func (c *ChannelAdminLogEventActionChangeHistoryTTL) GetNewValue() (value int) {
 //  case *tg.ChannelAdminLogEventActionExportedInviteEdit: // channelAdminLogEventActionExportedInviteEdit#e90ebb59
 //  case *tg.ChannelAdminLogEventActionParticipantVolume: // channelAdminLogEventActionParticipantVolume#3e7f6847
 //  case *tg.ChannelAdminLogEventActionChangeHistoryTTL: // channelAdminLogEventActionChangeHistoryTTL#6e941a38
+//  case *tg.ChannelAdminLogEventActionParticipantJoinByRequest: // channelAdminLogEventActionParticipantJoinByRequest#afb6144a
 //  default: panic(v)
 //  }
 type ChannelAdminLogEventActionClass interface {
@@ -4962,6 +5120,13 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 	case ChannelAdminLogEventActionChangeHistoryTTLTypeID:
 		// Decoding channelAdminLogEventActionChangeHistoryTTL#6e941a38.
 		v := ChannelAdminLogEventActionChangeHistoryTTL{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionParticipantJoinByRequestTypeID:
+		// Decoding channelAdminLogEventActionParticipantJoinByRequest#afb6144a.
+		v := ChannelAdminLogEventActionParticipantJoinByRequest{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
 		}

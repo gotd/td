@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// AccountCreateThemeRequest represents TL type `account.createTheme#8432c21f`.
+// AccountCreateThemeRequest represents TL type `account.createTheme#652e4400`.
 // Create a theme
 //
 // See https://core.telegram.org/method/account.createTheme for reference.
@@ -50,11 +50,11 @@ type AccountCreateThemeRequest struct {
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings InputThemeSettings
+	Settings []InputThemeSettings
 }
 
 // AccountCreateThemeRequestTypeID is TL type id of AccountCreateThemeRequest.
-const AccountCreateThemeRequestTypeID = 0x8432c21f
+const AccountCreateThemeRequestTypeID = 0x652e4400
 
 // Ensuring interfaces in compile-time for AccountCreateThemeRequest.
 var (
@@ -80,7 +80,7 @@ func (c *AccountCreateThemeRequest) Zero() bool {
 	if !(c.Document == nil) {
 		return false
 	}
-	if !(c.Settings.Zero()) {
+	if !(c.Settings == nil) {
 		return false
 	}
 
@@ -101,7 +101,7 @@ func (c *AccountCreateThemeRequest) FillFrom(from interface {
 	GetSlug() (value string)
 	GetTitle() (value string)
 	GetDocument() (value InputDocumentClass, ok bool)
-	GetSettings() (value InputThemeSettings, ok bool)
+	GetSettings() (value []InputThemeSettings, ok bool)
 }) {
 	c.Slug = from.GetSlug()
 	c.Title = from.GetTitle()
@@ -163,7 +163,7 @@ func (c *AccountCreateThemeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *AccountCreateThemeRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.createTheme#8432c21f as nil")
+		return fmt.Errorf("can't encode account.createTheme#652e4400 as nil")
 	}
 	b.PutID(AccountCreateThemeRequestTypeID)
 	return c.EncodeBare(b)
@@ -172,30 +172,33 @@ func (c *AccountCreateThemeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *AccountCreateThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode account.createTheme#8432c21f as nil")
+		return fmt.Errorf("can't encode account.createTheme#652e4400 as nil")
 	}
 	if !(c.Document == nil) {
 		c.Flags.Set(2)
 	}
-	if !(c.Settings.Zero()) {
+	if !(c.Settings == nil) {
 		c.Flags.Set(3)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.createTheme#8432c21f: field flags: %w", err)
+		return fmt.Errorf("unable to encode account.createTheme#652e4400: field flags: %w", err)
 	}
 	b.PutString(c.Slug)
 	b.PutString(c.Title)
 	if c.Flags.Has(2) {
 		if c.Document == nil {
-			return fmt.Errorf("unable to encode account.createTheme#8432c21f: field document is nil")
+			return fmt.Errorf("unable to encode account.createTheme#652e4400: field document is nil")
 		}
 		if err := c.Document.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.createTheme#8432c21f: field document: %w", err)
+			return fmt.Errorf("unable to encode account.createTheme#652e4400: field document: %w", err)
 		}
 	}
 	if c.Flags.Has(3) {
-		if err := c.Settings.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.createTheme#8432c21f: field settings: %w", err)
+		b.PutVectorHeader(len(c.Settings))
+		for idx, v := range c.Settings {
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode account.createTheme#652e4400: field settings element with index %d: %w", idx, err)
+			}
 		}
 	}
 	return nil
@@ -204,10 +207,10 @@ func (c *AccountCreateThemeRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *AccountCreateThemeRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.createTheme#8432c21f to nil")
+		return fmt.Errorf("can't decode account.createTheme#652e4400 to nil")
 	}
 	if err := b.ConsumeID(AccountCreateThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.createTheme#8432c21f: %w", err)
+		return fmt.Errorf("unable to decode account.createTheme#652e4400: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -215,37 +218,49 @@ func (c *AccountCreateThemeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *AccountCreateThemeRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode account.createTheme#8432c21f to nil")
+		return fmt.Errorf("can't decode account.createTheme#652e4400 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.createTheme#8432c21f: field flags: %w", err)
+			return fmt.Errorf("unable to decode account.createTheme#652e4400: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.createTheme#8432c21f: field slug: %w", err)
+			return fmt.Errorf("unable to decode account.createTheme#652e4400: field slug: %w", err)
 		}
 		c.Slug = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.createTheme#8432c21f: field title: %w", err)
+			return fmt.Errorf("unable to decode account.createTheme#652e4400: field title: %w", err)
 		}
 		c.Title = value
 	}
 	if c.Flags.Has(2) {
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.createTheme#8432c21f: field document: %w", err)
+			return fmt.Errorf("unable to decode account.createTheme#652e4400: field document: %w", err)
 		}
 		c.Document = value
 	}
 	if c.Flags.Has(3) {
-		if err := c.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.createTheme#8432c21f: field settings: %w", err)
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.createTheme#652e4400: field settings: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.Settings = make([]InputThemeSettings, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value InputThemeSettings
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode account.createTheme#652e4400: field settings: %w", err)
+			}
+			c.Settings = append(c.Settings, value)
 		}
 	}
 	return nil
@@ -277,14 +292,14 @@ func (c *AccountCreateThemeRequest) GetDocument() (value InputDocumentClass, ok 
 }
 
 // SetSettings sets value of Settings conditional field.
-func (c *AccountCreateThemeRequest) SetSettings(value InputThemeSettings) {
+func (c *AccountCreateThemeRequest) SetSettings(value []InputThemeSettings) {
 	c.Flags.Set(3)
 	c.Settings = value
 }
 
 // GetSettings returns value of Settings conditional field and
 // boolean which is true if field was set.
-func (c *AccountCreateThemeRequest) GetSettings() (value InputThemeSettings, ok bool) {
+func (c *AccountCreateThemeRequest) GetSettings() (value []InputThemeSettings, ok bool) {
 	if !c.Flags.Has(3) {
 		return value, false
 	}
@@ -300,7 +315,7 @@ func (c *AccountCreateThemeRequest) GetDocumentAsNotEmpty() (*InputDocument, boo
 	return nil, false
 }
 
-// AccountCreateTheme invokes method account.createTheme#8432c21f returning error if any.
+// AccountCreateTheme invokes method account.createTheme#652e4400 returning error if any.
 // Create a theme
 //
 // See https://core.telegram.org/method/account.createTheme for reference.
