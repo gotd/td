@@ -60,3 +60,19 @@ func (c *Client) migrateToDc(ctx context.Context, dcID int) error {
 	c.session.Migrate(dcID)
 	return c.ensureRestart(ctx)
 }
+
+// MigrateTo forces client to migrate to another DC.
+func (c *Client) MigrateTo(ctx context.Context, dcID int) error {
+	// Acquire or cancel.
+	select {
+	case c.migration <- struct{}{}:
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+	// Release.
+	defer func() {
+		<-c.migration
+	}()
+
+	return c.migrateToDc(ctx, dcID)
+}
