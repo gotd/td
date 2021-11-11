@@ -68,7 +68,7 @@ func mapConfig(mainDC int, cfg tdesktop.MTPConfig) tg.Config {
 		CallRingTimeoutMs:       int(cfg.CallRingTimeoutMs),
 		CallConnectTimeoutMs:    int(cfg.CallConnectTimeoutMs),
 		CallPacketTimeoutMs:     int(cfg.CallPacketTimeoutMs),
-		WebfileDCID:             int(cfg.WebFileDcId),
+		WebfileDCID:             int(cfg.WebFileDCID),
 		DCTxtDomainName:         cfg.TxtDomainString,
 		PhonecallsEnabled:       cfg.PhoneCallsEnabled,
 		BlockedMode:             cfg.BlockedMode,
@@ -98,10 +98,10 @@ func TDesktopSession(account tdesktop.Account) (*Data, error) {
 		} else {
 			list = dcs.Test()
 		}
-
-	addr := findDCAddr(list.Options, dc)
-	if addr == "" {
-		return nil, errors.Errorf("can't find address for DC %d", dc)
+		addr = findDCAddr(list.Options, dc)
+		if addr == "" {
+			return nil, errors.Errorf("can't find address for DC %d", dc)
+		}
 	}
 
 	return &Data{

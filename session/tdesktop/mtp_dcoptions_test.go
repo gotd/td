@@ -10,22 +10,22 @@ import (
 )
 
 var (
-	testIP = "127.0.0.1"
+	testIP         = "127.0.0.1"
 	optionTestData = func() []byte {
-	testData := []uint8{
-		0x00, 0x00, 0x00, 0x02, // ID
-		0x00, 0x00, 0x00, 1<<4, // Flags
-		0x00, 0x00, 0x00, 80, // Port
-		0x00, 0x00, 0x00, uint8(len(testIP)), // IP size
-	}
+		testData := []uint8{
+			0x00, 0x00, 0x00, 0x02, // ID
+			0x00, 0x00, 0x00, 1 << 4, // Flags
+			0x00, 0x00, 0x00, 80, // Port
+			0x00, 0x00, 0x00, uint8(len(testIP)), // IP size
+		}
 
-	// IP
-	testData = append(testData, testIP...)
-	// Secret length
-	testData = append(testData, 0x00, 0x00, 0x00, 0x00)
+		// IP
+		testData = append(testData, testIP...)
+		// Secret length
+		testData = append(testData, 0x00, 0x00, 0x00, 0x00)
 
-	return testData
-}()
+		return testData
+	}()
 )
 
 func TestMTPDCOption_deserialize(t *testing.T) {
@@ -37,7 +37,7 @@ func TestMTPDCOption_deserialize(t *testing.T) {
 		a.NoError(m.deserialize(&qtReader{buf: bin.Buffer{Buf: optionTestData}}, 1))
 		a.Equal(int32(2), m.ID)
 		a.True(m.Static())
-		a.Equal(bin.Fields(1 << 4), m.Flags)
+		a.Equal(bin.Fields(1<<4), m.Flags)
 		a.Equal(int32(80), m.Port)
 		a.Equal(testIP, m.IP)
 	})
@@ -46,7 +46,7 @@ func TestMTPDCOption_deserialize(t *testing.T) {
 		t.Run(fmt.Sprintf("EOFAfter%d", i), func(t *testing.T) {
 			a := require.New(t)
 			var m MTPDCOption
-			r := &qtReader{buf: bin.Buffer{Buf: testBytes[:i]}}
+			r := &qtReader{buf: bin.Buffer{Buf: optionTestData[:i]}}
 			a.Error(m.deserialize(r, 1))
 		})
 	}

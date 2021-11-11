@@ -61,13 +61,13 @@ func (m *MTPDCOption) deserialize(r *qtReader, version int32) error {
 	}
 	m.Port = port
 
-	const maxIpSize = 45
+	const maxIPSize = 45
 	ip, err := r.readString()
 	if err != nil {
 		return errors.Wrap(err, "read ip")
 	}
-	if l := len(ip); l > maxIpSize {
-		return errors.Errorf("too big IP string (%d > %d)", l, maxIpSize)
+	if l := len(ip); l > maxIPSize {
+		return errors.Errorf("too big IP string (%d > %d)", l, maxIPSize)
 	}
 	m.IP = ip
 
