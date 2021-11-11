@@ -103,7 +103,9 @@ retry:
 // Auth generates new QR login token, shows it and awaits acceptation.
 func (q QR) Auth(
 	ctx context.Context,
-	d tg.UpdateDispatcher,
+	d interface {
+		OnLoginToken(tg.LoginTokenHandler)
+	},
 	show func(ctx context.Context, token Token) error,
 	exceptIDs ...int64,
 ) (*tg.AuthAuthorization, error) {
