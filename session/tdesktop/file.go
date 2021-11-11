@@ -24,7 +24,7 @@ func open(filesystem fs.FS, fileName string) (*tdesktopFile, error) {
 	tryRead := func(p string) (_ *tdesktopFile, rErr error) {
 		f, err := filesystem.Open(p)
 		if err != nil {
-			return tdesktopFile{}, errors.Wrap(err, "open")
+			return nil, errors.Wrap(err, "open")
 		}
 		defer multierr.AppendInvoke(&rErr, multierr.Close(f))
 
@@ -38,7 +38,7 @@ func open(filesystem fs.FS, fileName string) (*tdesktopFile, error) {
 				errors.Is(err, fs.ErrPermission) {
 				continue
 			}
-			return tdesktopFile{}, errors.Wrap(err, "stat")
+			return nil, errors.Wrap(err, "stat")
 		}
 
 		f, err := tryRead(p)
@@ -51,13 +51,13 @@ func open(filesystem fs.FS, fileName string) (*tdesktopFile, error) {
 			if errors.As(err, &magicErr) {
 				continue
 			}
-			return tdesktopFile{}, errors.Wrap(err, "read tdesktop file")
+			return nil, errors.Wrap(err, "read tdesktop file")
 		}
 
 		return f, nil
 	}
 
-	return tdesktopFile{}, errors.Errorf("file %q not found", fileName)
+	return nil, errors.Errorf("file %q not found", fileName)
 }
 
 var tdesktopFileMagic = [4]byte{'T', 'D', 'F', '$'}
@@ -67,7 +67,7 @@ var tdesktopFileMagic = [4]byte{'T', 'D', 'F', '$'}
 func fromFile(r io.Reader) (*tdesktopFile, error) {
 	buf := make([]byte, 16)
 	if _, err := io.ReadFull(r, buf[:8]); err != nil {
-		return tdesktopFile{}, errors.Wrap(err, "read magic and version")
+		return nil, errors.Wrap(err, "read magic and version")
 	}
 
 	var magic, version [4]byte
@@ -82,10 +82,10 @@ func fromFile(r io.Reader) (*tdesktopFile, error) {
 
 	data, err := io.ReadAll(r)
 	if err != nil {
-		return tdesktopFile{}, errors.Wrap(err, "read data")
+		return nil, errors.Wrap(err, "read data")
 	}
 	if l := len(data); l < 16 {
-		return tdesktopFile{}, errors.Errorf("invalid data length %d", l)
+		return nil, errors.Errorf("invalid data length %d", l)
 	}
 	hash := data[len(data)-16:]
 	data = data[:len(data)-16]
@@ -140,7 +140,7 @@ func (f *tdesktopFile) readArray() ([]byte, error) {
 	return data, nil
 }
 
-func readArray(data []byte, order binary.ByteOrder) ([]byte, int, error) {
+func readArray(data []byte, order binary.ByteOrder) (array []byte, n int, _ error) {
 	if len(data) < 4 {
 		return nil, 0, io.ErrUnexpectedEOF
 	}

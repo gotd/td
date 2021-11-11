@@ -1,7 +1,7 @@
 package tdesktop
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )
@@ -45,40 +45,40 @@ func (m MTPDCOption) Static() bool {
 func (m *MTPDCOption) deserialize(r *qtReader, version int32) error {
 	id, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read id: %w", err)
+		return errors.Wrap(err, "read id")
 	}
 	m.ID = id
 
 	flags, err := r.readUint32()
 	if err != nil {
-		return xerrors.Errorf("read flags: %w", err)
+		return errors.Wrap(err, "read flags")
 	}
 	m.Flags = bin.Fields(flags)
 
 	port, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read port: %w", err)
+		return errors.Wrap(err, "read port")
 	}
 	m.Port = port
 
-	const kMaxIpSize = 45
+	const maxIpSize = 45
 	ip, err := r.readString()
 	if err != nil {
-		return xerrors.Errorf("read ip: %w", err)
+		return errors.Wrap(err, "read ip")
 	}
-	if l := len(ip); l > kMaxIpSize {
-		return xerrors.Errorf("too big IP string (%d > %d)", l, kMaxIpSize)
+	if l := len(ip); l > maxIpSize {
+		return errors.Errorf("too big IP string (%d > %d)", l, maxIpSize)
 	}
 	m.IP = ip
 
 	if version > 0 {
-		const kMaxSecretSize = 32
+		const maxSecretSize = 32
 		secret, err := r.readBytes()
 		if err != nil {
-			return xerrors.Errorf("read secret: %w", err)
+			return errors.Wrap(err, "read secret")
 		}
-		if l := len(secret); l > kMaxSecretSize {
-			return xerrors.Errorf("too big DC secret (%d > %d)", l, kMaxSecretSize)
+		if l := len(secret); l > maxSecretSize {
+			return errors.Errorf("too big DC secret (%d > %d)", l, maxSecretSize)
 		}
 		m.Secret = secret
 	}
@@ -96,7 +96,7 @@ type MTPDCOptions struct {
 func (m *MTPDCOptions) deserialize(r *qtReader) error {
 	minusVersion, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read version: %w", err)
+		return errors.Wrap(err, "read version")
 	}
 
 	var version int32
@@ -108,7 +108,7 @@ func (m *MTPDCOptions) deserialize(r *qtReader) error {
 	if version > 0 {
 		c, err := r.readInt32()
 		if err != nil {
-			return xerrors.Errorf("read count: %w", err)
+			return errors.Wrap(err, "read count")
 		}
 		count = c
 	} else {
@@ -118,7 +118,7 @@ func (m *MTPDCOptions) deserialize(r *qtReader) error {
 	for i := 0; i < int(count); i++ {
 		var o MTPDCOption
 		if err := o.deserialize(r, version); err != nil {
-			return xerrors.Errorf("read option %d: %w", i, err)
+			return errors.Errorf("read option %d: %w", i, err)
 		}
 		m.Options = append(m.Options, o)
 	}

@@ -4,7 +4,7 @@ import (
 	"io"
 	"math/bits"
 
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 )
@@ -95,7 +95,7 @@ type qtReader struct {
 func (r *qtReader) subArray() (qtReader, error) {
 	length, err := r.readInt32()
 	if err != nil {
-		return qtReader{}, xerrors.Errorf("read length: %w", err)
+		return qtReader{}, errors.Wrap(err, "read length")
 	}
 	sub := bin.Buffer{Buf: r.buf.Buf}
 	if err := r.skip(int(length)); err != nil {

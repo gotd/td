@@ -1,7 +1,7 @@
 package tdesktop
 
 import (
-	"golang.org/x/xerrors"
+	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -62,7 +62,7 @@ type MTPConfig struct {
 	CallRingTimeoutMs        int32  // default: 90000
 	CallConnectTimeoutMs     int32  // default: 30000
 	CallPacketTimeoutMs      int32  // default: 10000
-	WebFileDcId              int32  // default: 4
+	WebFileDCID              int32  // default: 4
 	TxtDomainString          string // default: ""
 	PhoneCallsEnabled        bool   // default: true
 	BlockedMode              bool   // default: false
@@ -73,12 +73,12 @@ type MTPConfig struct {
 func readMTPConfig(tgf *tdesktopFile, localKey crypto.Key) (MTPConfig, error) {
 	encrypted, err := tgf.readArray()
 	if err != nil {
-		return MTPConfig{}, xerrors.Errorf("read encrypted data: %w", err)
+		return MTPConfig{}, errors.Wrap(err, "read encrypted data")
 	}
 
 	decrypted, err := decryptLocal(encrypted, localKey)
 	if err != nil {
-		return MTPConfig{}, xerrors.Errorf("decrypt data: %w", err)
+		return MTPConfig{}, errors.Wrap(err, "decrypt data")
 	}
 	// Skip decrypted data length (uint32).
 	decrypted = decrypted[4:]
@@ -86,12 +86,12 @@ func readMTPConfig(tgf *tdesktopFile, localKey crypto.Key) (MTPConfig, error) {
 
 	cfgReader, err := root.subArray()
 	if err != nil {
-		return MTPConfig{}, xerrors.Errorf("read config array: %w", err)
+		return MTPConfig{}, errors.Wrap(err, "read config array")
 	}
 
 	var m MTPConfig
 	if err := m.deserialize(&cfgReader); err != nil {
-		return MTPConfig{}, xerrors.Errorf("deserialize MTPConfig: %w", err)
+		return MTPConfig{}, errors.Wrap(err, "deserialize MTPConfig")
 	}
 	return m, err
 }
@@ -99,19 +99,19 @@ func readMTPConfig(tgf *tdesktopFile, localKey crypto.Key) (MTPConfig, error) {
 func (m *MTPConfig) deserialize(r *qtReader) error {
 	version, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read version: %w", err)
+		return errors.Wrap(err, "read version")
 	}
 	if version != kVersion {
-		return xerrors.Errorf("wrong version (expected %d, got %d)", kVersion, version)
+		return errors.Errorf("wrong version (expected %d, got %d)", kVersion, version)
 	}
 
 	environment, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read environment: %w", err)
+		return errors.Wrap(err, "read environment")
 	}
 	m.Environment = MTPConfigEnvironment(environment)
 	if !m.Environment.valid() {
-		return xerrors.Errorf("invalid environment %d", environment)
+		return errors.Errorf("invalid environment %d", environment)
 	}
 
 	{
@@ -120,187 +120,187 @@ func (m *MTPConfig) deserialize(r *qtReader) error {
 			return err
 		}
 		if err := m.DCOptions.deserialize(&sub); err != nil {
-			return xerrors.Errorf("read DC options: %w", err)
+			return errors.Wrap(err, "read DC options")
 		}
 	}
 
 	chatSizeMax, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read chatSizeMax: %w", err)
+		return errors.Wrap(err, "read chatSizeMax")
 	}
 	m.ChatSizeMax = chatSizeMax
 
 	megagroupSizeMax, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read megagroupSizeMax: %w", err)
+		return errors.Wrap(err, "read megagroupSizeMax")
 	}
 	m.MegagroupSizeMax = megagroupSizeMax
 
 	forwardedCountMax, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read forwardedCountMax: %w", err)
+		return errors.Wrap(err, "read forwardedCountMax")
 	}
 	m.ForwardedCountMax = forwardedCountMax
 
 	onlineUpdatePeriod, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read onlineUpdatePeriod: %w", err)
+		return errors.Wrap(err, "read onlineUpdatePeriod")
 	}
 	m.OnlineUpdatePeriod = onlineUpdatePeriod
 
 	offlineBlurTimeout, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read offlineBlurTimeout: %w", err)
+		return errors.Wrap(err, "read offlineBlurTimeout")
 	}
 	m.OfflineBlurTimeout = offlineBlurTimeout
 
 	offlineIdleTimeout, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read offlineIdleTimeout: %w", err)
+		return errors.Wrap(err, "read offlineIdleTimeout")
 	}
 	m.OfflineIdleTimeout = offlineIdleTimeout
 
 	onlineFocusTimeout, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read onlineFocusTimeout: %w", err)
+		return errors.Wrap(err, "read onlineFocusTimeout")
 	}
 	m.OnlineFocusTimeout = onlineFocusTimeout
 
 	onlineCloudTimeout, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read onlineCloudTimeout: %w", err)
+		return errors.Wrap(err, "read onlineCloudTimeout")
 	}
 	m.OnlineCloudTimeout = onlineCloudTimeout
 
 	notifyCloudDelay, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read notifyCloudDelay: %w", err)
+		return errors.Wrap(err, "read notifyCloudDelay")
 	}
 	m.NotifyCloudDelay = notifyCloudDelay
 
 	notifyDefaultDelay, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read notifyDefaultDelay: %w", err)
+		return errors.Wrap(err, "read notifyDefaultDelay")
 	}
 	m.NotifyDefaultDelay = notifyDefaultDelay
 
 	savedGifsLimit, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read savedGifsLimit: %w", err)
+		return errors.Wrap(err, "read savedGifsLimit")
 	}
 	m.SavedGifsLimit = savedGifsLimit
 
 	editTimeLimit, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read editTimeLimit: %w", err)
+		return errors.Wrap(err, "read editTimeLimit")
 	}
 	m.EditTimeLimit = editTimeLimit
 
 	revokeTimeLimit, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read revokeTimeLimit: %w", err)
+		return errors.Wrap(err, "read revokeTimeLimit")
 	}
 	m.RevokeTimeLimit = revokeTimeLimit
 
 	revokePrivateTimeLimit, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read revokePrivateTimeLimit: %w", err)
+		return errors.Wrap(err, "read revokePrivateTimeLimit")
 	}
 	m.RevokePrivateTimeLimit = revokePrivateTimeLimit
 
 	revokePrivateInbox, err := r.readUint32()
 	if err != nil {
-		return xerrors.Errorf("read revokePrivateInbox: %w", err)
+		return errors.Wrap(err, "read revokePrivateInbox")
 	}
 	m.RevokePrivateInbox = revokePrivateInbox == 1
 
 	stickersRecentLimit, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read stickersRecentLimit: %w", err)
+		return errors.Wrap(err, "read stickersRecentLimit")
 	}
 	m.StickersRecentLimit = stickersRecentLimit
 
 	stickersFavedLimit, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read stickersFavedLimit: %w", err)
+		return errors.Wrap(err, "read stickersFavedLimit")
 	}
 	m.StickersFavedLimit = stickersFavedLimit
 
 	pinnedDialogsCountMax, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read pinnedDialogsCountMax: %w", err)
+		return errors.Wrap(err, "read pinnedDialogsCountMax")
 	}
 	m.PinnedDialogsCountMax = pinnedDialogsCountMax
 
 	pinnedDialogsInFolderMax, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read pinnedDialogsInFolderMax: %w", err)
+		return errors.Wrap(err, "read pinnedDialogsInFolderMax")
 	}
 	m.PinnedDialogsInFolderMax = pinnedDialogsInFolderMax
 
 	internalLinksDomain, err := r.readString()
 	if err != nil {
-		return xerrors.Errorf("read internalLinksDomain: %w", err)
+		return errors.Wrap(err, "read internalLinksDomain")
 	}
 	m.InternalLinksDomain = internalLinksDomain
 
 	channelsReadMediaPeriod, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read channelsReadMediaPeriod: %w", err)
+		return errors.Wrap(err, "read channelsReadMediaPeriod")
 	}
 	m.ChannelsReadMediaPeriod = channelsReadMediaPeriod
 
 	callReceiveTimeoutMs, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read callReceiveTimeoutMs: %w", err)
+		return errors.Wrap(err, "read callReceiveTimeoutMs")
 	}
 	m.CallReceiveTimeoutMs = callReceiveTimeoutMs
 
 	callRingTimeoutMs, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read callRingTimeoutMs: %w", err)
+		return errors.Wrap(err, "read callRingTimeoutMs")
 	}
 	m.CallRingTimeoutMs = callRingTimeoutMs
 
 	callConnectTimeoutMs, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read callConnectTimeoutMs: %w", err)
+		return errors.Wrap(err, "read callConnectTimeoutMs")
 	}
 	m.CallConnectTimeoutMs = callConnectTimeoutMs
 
 	callPacketTimeoutMs, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read callPacketTimeoutMs: %w", err)
+		return errors.Wrap(err, "read callPacketTimeoutMs")
 	}
 	m.CallPacketTimeoutMs = callPacketTimeoutMs
 
-	webFileDcId, err := r.readInt32()
+	webFileDCID, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read webFileDcId: %w", err)
+		return errors.Wrap(err, "read webFileDCID")
 	}
-	m.WebFileDcId = webFileDcId
+	m.WebFileDCID = webFileDCID
 
 	txtDomainString, err := r.readString()
 	if err != nil {
-		return xerrors.Errorf("read txtDomainString: %w", err)
+		return errors.Wrap(err, "read txtDomainString")
 	}
 	m.TxtDomainString = txtDomainString
 
 	phoneCallsEnabled, err := r.readUint32()
 	if err != nil {
-		return xerrors.Errorf("read phoneCallsEnabled: %w", err)
+		return errors.Wrap(err, "read phoneCallsEnabled")
 	}
 	m.PhoneCallsEnabled = phoneCallsEnabled == 1
 
 	blockedMode, err := r.readUint32()
 	if err != nil {
-		return xerrors.Errorf("read blockedMode: %w", err)
+		return errors.Wrap(err, "read blockedMode")
 	}
 	m.BlockedMode = blockedMode == 1
 
 	captionLengthMax, err := r.readInt32()
 	if err != nil {
-		return xerrors.Errorf("read captionLengthMax: %w", err)
+		return errors.Wrap(err, "read captionLengthMax")
 	}
 	m.CaptionLengthMax = captionLengthMax
 
