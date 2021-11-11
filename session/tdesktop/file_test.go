@@ -12,13 +12,13 @@ import (
 )
 
 var (
-	testData = bytes.Repeat([]byte("abcd"), 4)
-	zeros    = make([]byte, 32)
+	testBytes = bytes.Repeat([]byte("abcd"), 4)
+	zeros     = make([]byte, 32)
 )
 
 func Test_open(t *testing.T) {
 	b := bytes.NewBuffer(nil)
-	if err := writeFile(b, testData, [4]byte{}); err != nil {
+	if err := writeFile(b, testBytes, [4]byte{}); err != nil {
 		t.Fatal(err)
 	}
 
@@ -83,7 +83,7 @@ func Test_fromFile(t *testing.T) {
 		{"InvalidHash", justBytes(tdesktopFileMagic[:], zeros), true},
 		{"WriteFile", func() io.Reader {
 			b := bytes.NewBuffer(nil)
-			if err := writeFile(b, testData, [4]byte{}); err != nil {
+			if err := writeFile(b, testBytes, [4]byte{}); err != nil {
 				t.Fatal(err)
 			}
 			return b
@@ -96,10 +96,7 @@ func Test_fromFile(t *testing.T) {
 				a.Error(err)
 			} else {
 				a.NoError(err)
-
-				data, err := io.ReadAll(r)
-				a.NoError(err)
-				a.Equal(testData, data)
+				a.Equal(testBytes, r.data)
 			}
 		})
 	}
@@ -118,7 +115,7 @@ func Test_telegramFileHash(t *testing.T) {
 
 func Test_readArray(t *testing.T) {
 	var validData bytes.Buffer
-	if err := writeArray(&validData, testData, binary.LittleEndian); err != nil {
+	if err := writeArray(&validData, testBytes, binary.LittleEndian); err != nil {
 		t.Fatal(err)
 	}
 
@@ -131,16 +128,17 @@ func Test_readArray(t *testing.T) {
 	}{
 		{"LengthEOF", nil, nil, binary.LittleEndian, true},
 		{"DataEOF", []byte{255, 0, 0, 0}, nil, binary.LittleEndian, true},
-		{"OK", validData.Bytes(), testData, binary.LittleEndian, false},
+		{"OK", validData.Bytes(), testBytes, binary.LittleEndian, false},
 		{"0xffffffff", []byte{0xff, 0xff, 0xff, 0xff}, nil, binary.LittleEndian, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			a := require.New(t)
-			if data, err := readArray(bytes.NewReader(tt.data), tt.order); tt.wantErr {
+			if data, n, err := readArray(tt.data, tt.order); tt.wantErr {
 				a.Error(err)
 			} else {
 				a.NoError(err)
+				a.Equal(len(tt.expect)+4, n)
 				a.Equal(tt.expect, data)
 			}
 		})

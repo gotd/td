@@ -13,17 +13,18 @@ import (
 )
 
 type tdesktopFile struct {
-	io.Reader
+	data    []byte
+	n       int
 	version uint32
 }
 
-func open(filesystem fs.FS, fileName string) (tdesktopFile, error) {
+func open(filesystem fs.FS, fileName string) (*tdesktopFile, error) {
 	suffixes := []string{"0", "1", "s"}
 
-	tryRead := func(p string) (_ tdesktopFile, rErr error) {
+	tryRead := func(p string) (_ *tdesktopFile, rErr error) {
 		f, err := filesystem.Open(p)
 		if err != nil {
-			return tdesktopFile{}, errors.Wrap(err, "open")
+			return nil, errors.Wrap(err, "open")
 		}
 		defer multierr.AppendInvoke(&rErr, multierr.Close(f))
 
@@ -37,7 +38,7 @@ func open(filesystem fs.FS, fileName string) (tdesktopFile, error) {
 				errors.Is(err, fs.ErrPermission) {
 				continue
 			}
-			return tdesktopFile{}, errors.Wrap(err, "stat")
+			return nil, errors.Wrap(err, "stat")
 		}
 
 		f, err := tryRead(p)
@@ -50,23 +51,23 @@ func open(filesystem fs.FS, fileName string) (tdesktopFile, error) {
 			if errors.As(err, &magicErr) {
 				continue
 			}
-			return tdesktopFile{}, errors.Wrap(err, "read tdesktop file")
+			return nil, errors.Wrap(err, "read tdesktop file")
 		}
 
 		return f, nil
 	}
 
-	return tdesktopFile{}, errors.Errorf("file %q not found", fileName)
+	return nil, errors.Errorf("file %q not found", fileName)
 }
 
 var tdesktopFileMagic = [4]byte{'T', 'D', 'F', '$'}
 
 // fromFile creates new Telegram Desktop storage file.
 // Based on https://github.com/telegramdesktop/tdesktop/blob/v2.9.8/Telegram/SourceFiles/storage/details/storage_file_utilities.cpp#L473.
-func fromFile(r io.Reader) (tdesktopFile, error) {
+func fromFile(r io.Reader) (*tdesktopFile, error) {
 	buf := make([]byte, 16)
 	if _, err := io.ReadFull(r, buf[:8]); err != nil {
-		return tdesktopFile{}, errors.Wrap(err, "read magic and version")
+		return nil, errors.Wrap(err, "read magic and version")
 	}
 
 	var magic, version [4]byte
@@ -74,29 +75,29 @@ func fromFile(r io.Reader) (tdesktopFile, error) {
 	// TODO(tdakkota): check version
 	copy(version[:], buf[4:8])
 	if magic != tdesktopFileMagic {
-		return tdesktopFile{}, &WrongMagicError{
+		return nil, &WrongMagicError{
 			Magic: magic,
 		}
 	}
 
 	data, err := io.ReadAll(r)
 	if err != nil {
-		return tdesktopFile{}, errors.Wrap(err, "read data")
+		return nil, errors.Wrap(err, "read data")
 	}
 	if l := len(data); l < 16 {
-		return tdesktopFile{}, errors.Errorf("invalid data length %d", l)
+		return nil, errors.Errorf("invalid data length %d", l)
 	}
 	hash := data[len(data)-16:]
 	data = data[:len(data)-16]
 
 	computedHash := telegramFileHash(data, version)
 	if !bytes.Equal(computedHash[:], hash) {
-		return tdesktopFile{}, errors.New("hash mismatch")
+		return nil, errors.New("hash mismatch")
 	}
 
 	v := binary.LittleEndian.Uint32(version[:])
-	return tdesktopFile{
-		Reader:  bytes.NewBuffer(data),
+	return &tdesktopFile{
+		data:    data,
 		version: v,
 	}, nil
 }
@@ -130,27 +131,30 @@ func telegramFileHash(data []byte, version [4]byte) (r [md5.Size]byte) {
 	return r
 }
 
-func (f tdesktopFile) readArray() ([]byte, error) {
-	return readArray(f.Reader, binary.BigEndian)
+func (f *tdesktopFile) readArray() ([]byte, error) {
+	data, skip, err := readArray(f.data[f.n:], binary.BigEndian)
+	if err != nil {
+		return nil, err
+	}
+	f.n += skip
+	return data, nil
 }
 
-func readArray(reader io.Reader, order binary.ByteOrder) ([]byte, error) {
-	r := make([]byte, 32)
-	if _, err := io.ReadFull(reader, r[:4]); err != nil {
-		return nil, errors.Wrap(err, "read length")
+func readArray(data []byte, order binary.ByteOrder) (array []byte, n int, _ error) {
+	if len(data) < 4 {
+		return nil, 0, io.ErrUnexpectedEOF
 	}
-
 	// See https://github.com/qt/qtbase/blob/5.15.2/src/corelib/text/qbytearray.cpp#L3314.
-	length := order.Uint32(r)
+	length := order.Uint32(data)
 	if length == 0xffffffff {
-		return nil, nil
+		return nil, 4, nil
 	}
 
-	r = append(r[:0], make([]byte, length)...)
-	if _, err := io.ReadFull(reader, r); err != nil {
-		return nil, errors.Wrap(err, "read")
+	if uint64(length) >= uint64(len(data)) {
+		return nil, 0, io.ErrUnexpectedEOF
 	}
-	return r, nil
+	r := data[4 : 4+length]
+	return r, len(r) + 4, nil
 }
 
 func writeArray(writer io.Writer, data []byte, order binary.ByteOrder) error {

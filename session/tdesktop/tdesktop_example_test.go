@@ -21,7 +21,8 @@ func ExampleRead() {
 	}
 
 	for _, account := range accounts {
-		a := account.Authorization
-		fmt.Println(a.UserID, a.MainDC)
+		auth := account.Authorization
+		cfg := account.Config
+		fmt.Println(auth.UserID, auth.MainDC, cfg.Environment)
 	}
 }
