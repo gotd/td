@@ -41,7 +41,7 @@ func ReadFS(root fs.FS, passcode []byte) ([]Account, error) {
 		return nil, err
 	}
 	if len(kd.accountsIDx) < 1 {
-		return nil, errors.New("tdesktop data does not contain accounts")
+		return nil, ErrNoAccounts
 	}
 
 	r := make([]Account, 0, len(kd.accountsIDx))
