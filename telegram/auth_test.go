@@ -12,6 +12,7 @@ import (
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/auth"
+	"github.com/gotd/td/telegram/auth/qrlogin"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"
 )
@@ -70,6 +71,34 @@ func ExampleClient_Auth_test() {
 			auth.Test(rand.Reader, dcID),
 			auth.SendCodeOptions{},
 		).Run(ctx, client.Auth())
+	}); err != nil {
+		panic(err)
+	}
+}
+
+func ExampleQR_Auth() {
+	ctx := context.Background()
+
+	d := tg.NewUpdateDispatcher()
+	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
+		UpdateHandler: d,
+	})
+	if err := client.Run(ctx, func(ctx context.Context) error {
+		qr := client.QR()
+		authorization, err := qr.Auth(ctx, d, func(ctx context.Context, token qrlogin.Token) error {
+			fmt.Printf("Open %s using your phone\n", token.URL())
+			return nil
+		})
+		if err != nil {
+			return err
+		}
+
+		u, ok := authorization.User.AsNotEmpty()
+		if !ok {
+			return fmt.Errorf("unexpected type %T", authorization.User)
+		}
+		fmt.Println("ID:", u.ID, "Username:", u.Username, "Bot:", u.Bot)
+		return nil
 	}); err != nil {
 		panic(err)
 	}
