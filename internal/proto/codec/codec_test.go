@@ -138,7 +138,7 @@ func testHeaderTag(c codecTest) func(t *testing.T) {
 			})
 			t.Run("BadTag", func(t *testing.T) {
 				tag := tagged.ObfuscatedTag()
-				buf := bytes.NewBuffer(tag)
+				buf := bytes.NewBuffer(tag[:])
 				tag[0] = 0
 				require.ErrorIs(t, c.create().ReadHeader(buf), ErrProtocolHeaderMismatch)
 			})

@@ -47,8 +47,9 @@ func (i Abridged) ReadHeader(r io.Reader) error {
 }
 
 // ObfuscatedTag returns protocol tag for obfuscation.
-func (i Abridged) ObfuscatedTag() (r []byte) {
-	return append(r, AbridgedClientStart[:]...)
+func (i Abridged) ObfuscatedTag() (r [4]byte) {
+	d := AbridgedClientStart[0]
+	return [4]byte{d, d, d, d}
 }
 
 // Write encode to writer message from given buffer.

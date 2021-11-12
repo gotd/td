@@ -47,8 +47,8 @@ func (i PaddedIntermediate) ReadHeader(r io.Reader) error {
 }
 
 // ObfuscatedTag returns protocol tag for obfuscation.
-func (i PaddedIntermediate) ObfuscatedTag() (r []byte) {
-	return append(r, PaddedIntermediateClientStart[:]...)
+func (i PaddedIntermediate) ObfuscatedTag() [4]byte {
+	return PaddedIntermediateClientStart
 }
 
 // Write encode to writer message from given buffer.
