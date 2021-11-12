@@ -19,6 +19,10 @@ var PaddedIntermediateClientStart = [4]byte{0xdd, 0xdd, 0xdd, 0xdd}
 // See https://core.telegram.org/mtproto/mtproto-transports#padded-intermediate
 type PaddedIntermediate struct{}
 
+var (
+	_ TaggedCodec = PaddedIntermediate{}
+)
+
 // WriteHeader sends protocol tag.
 func (i PaddedIntermediate) WriteHeader(w io.Writer) error {
 	if _, err := w.Write(PaddedIntermediateClientStart[:]); err != nil {

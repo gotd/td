@@ -19,6 +19,10 @@ var AbridgedClientStart = [1]byte{0xef}
 // See https://core.telegram.org/mtproto/mtproto-transports#abridged
 type Abridged struct{}
 
+var (
+	_ TaggedCodec = Abridged{}
+)
+
 // WriteHeader sends protocol tag.
 func (i Abridged) WriteHeader(w io.Writer) error {
 	if _, err := w.Write(AbridgedClientStart[:]); err != nil {

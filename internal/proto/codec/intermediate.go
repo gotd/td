@@ -18,6 +18,10 @@ var IntermediateClientStart = [4]byte{0xee, 0xee, 0xee, 0xee}
 // See https://core.telegram.org/mtproto/mtproto-transports#intermediate
 type Intermediate struct{}
 
+var (
+	_ TaggedCodec = Intermediate{}
+)
+
 // WriteHeader sends protocol tag.
 func (i Intermediate) WriteHeader(w io.Writer) (err error) {
 	if _, err := w.Write(IntermediateClientStart[:]); err != nil {
