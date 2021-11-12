@@ -30,7 +30,7 @@ func (i Intermediate) WriteHeader(w io.Writer) (err error) {
 // ReadHeader reads protocol tag.
 func (i Intermediate) ReadHeader(r io.Reader) (err error) {
 	var b [4]byte
-	if _, err := r.Read(b[:]); err != nil {
+	if _, err := io.ReadFull(r, b[:]); err != nil {
 		return errors.Wrap(err, "read intermediate header")
 	}
 

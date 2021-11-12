@@ -31,7 +31,7 @@ func (i Abridged) WriteHeader(w io.Writer) error {
 // ReadHeader reads protocol tag.
 func (i Abridged) ReadHeader(r io.Reader) error {
 	var b [1]byte
-	if _, err := r.Read(b[:]); err != nil {
+	if _, err := io.ReadFull(r, b[:]); err != nil {
 		return errors.Wrap(err, "read abridged header")
 	}
 
