@@ -11,8 +11,7 @@ import (
 	"sort"
 	"sync"
 
-	"golang.org/x/net/dns/dnsmessage"
-	"golang.org/x/xerrors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -25,6 +24,7 @@ var dnsKey struct {
 	eBig *big.Int
 }
 
+//nolint:gochecknoinits
 func init() {
 	dnsKey.once.Do(func() {
 		k, err := crypto.ParseRSAPublicKeys([]byte(`-----BEGIN RSA PUBLIC KEY-----
@@ -54,7 +54,7 @@ func parseDNSList(input [256]byte) (tg.HelpConfigSimple, error) {
 
 	dataRSA := make([]byte, 256)
 	if !crypto.FillBytes(y, dataRSA) {
-		return tg.HelpConfigSimple{}, xerrors.New("dataRSA has invalid size")
+		return tg.HelpConfigSimple{}, errors.New("dataRSA has invalid size")
 	}
 
 	block, err := aes.NewCipher(dataRSA[:32])
@@ -66,11 +66,11 @@ func parseDNSList(input [256]byte) (tg.HelpConfigSimple, error) {
 	d.CryptBlocks(dataCBC, dataCBC)
 
 	decrypted := dataCBC[:len(dataCBC)-16]
-	decryptedHash := sha256.Sum256(decrypted[:])
+	decryptedHash := sha256.Sum256(decrypted)
 	hash := dataCBC[len(dataCBC)-16:]
 
 	if !bytes.Equal(decryptedHash[:16], hash) {
-		return tg.HelpConfigSimple{}, xerrors.New("hash mismatch")
+		return tg.HelpConfigSimple{}, errors.New("hash mismatch")
 	}
 
 	var cfg tg.HelpConfigSimple
@@ -95,20 +95,20 @@ func (s sortByLen) Swap(i, j int) {
 }
 
 // DNSConfig parses tg.HelpConfigSimple from TXT response.
-func DNSConfig(r dnsmessage.TXTResource) (tg.HelpConfigSimple, error) {
+func DNSConfig(txt []string) (tg.HelpConfigSimple, error) {
 	encoding := base64.StdEncoding
 	const (
 		decodedLen = 256
 		encodedLen = 344
 	)
-	sort.Sort(sortByLen(r.TXT))
+	sort.Sort(sortByLen(txt))
 
 	var totalLength int
-	for i := range r.TXT {
-		totalLength += len(r.TXT[i])
+	for i := range txt {
+		totalLength += len(txt[i])
 	}
 	if totalLength != encodedLen {
-		return tg.HelpConfigSimple{}, xerrors.Errorf("invalid input length %d", totalLength)
+		return tg.HelpConfigSimple{}, errors.Errorf("invalid input length %d", totalLength)
 	}
 
 	var (
@@ -116,17 +116,17 @@ func DNSConfig(r dnsmessage.TXTResource) (tg.HelpConfigSimple, error) {
 		decoded [decodedLen]byte
 	)
 	n := 0
-	for i := range r.TXT {
-		n += copy(encoded[n:], r.TXT[i])
+	for i := range txt {
+		n += copy(encoded[n:], txt[i])
 	}
 
 	if _, err := encoding.Decode(decoded[:], encoded[:]); err != nil {
-		return tg.HelpConfigSimple{}, xerrors.Errorf("decode: %w", err)
+		return tg.HelpConfigSimple{}, errors.Wrap(err, "decode")
 	}
 
 	cfg, err := parseDNSList(decoded)
 	if err != nil {
-		return tg.HelpConfigSimple{}, xerrors.Errorf("decrypt config: %w", err)
+		return tg.HelpConfigSimple{}, errors.Wrap(err, "decrypt config")
 	}
 
 	return cfg, nil
