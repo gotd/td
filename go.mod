@@ -3,7 +3,7 @@ module github.com/gotd/td
 go 1.17
 
 require (
-	github.com/cenkalti/backoff/v4 v4.1.1
+	github.com/cenkalti/backoff/v4 v4.1.2
 	github.com/go-openapi/inflect v0.19.0
 	github.com/gotd/getdoc v0.6.2
 	github.com/gotd/ige v0.2.1
