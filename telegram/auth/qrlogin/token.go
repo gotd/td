@@ -25,11 +25,14 @@ func ParseTokenURL(u string) (Token, error) {
 	switch {
 	case parsed.Scheme != "tg":
 		return Token{}, errors.Errorf("unexpected scheme %q", parsed.Scheme)
-	case parsed.Path != "login":
-		return Token{}, errors.Errorf("wrong path %q", parsed.Path)
+	case parsed.Host != "login":
+		return Token{}, errors.Errorf("wrong path %q", parsed.Host)
 	}
 
 	q := parsed.Query()
+	if q.Get("token") == "" {
+		return Token{}, errors.New("token is empty")
+	}
 	token, err := base64.URLEncoding.DecodeString(q.Get("token"))
 	if err != nil {
 		return Token{}, err
@@ -48,7 +51,7 @@ func NewToken(token []byte, expires int) Token {
 
 // String implements fmt.Stringer.
 func (t Token) String() string {
-	return string(t.token)
+	return base64.URLEncoding.EncodeToString(t.token)
 }
 
 // URL returns login URL.
