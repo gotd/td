@@ -49,6 +49,11 @@ func NewToken(token []byte, expires int) Token {
 	}
 }
 
+// Expires returns token expiration time.
+func (t Token) Expires() time.Time {
+	return t.expires
+}
+
 // String implements fmt.Stringer.
 func (t Token) String() string {
 	return base64.URLEncoding.EncodeToString(t.token)

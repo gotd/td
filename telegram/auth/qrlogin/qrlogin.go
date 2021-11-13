@@ -5,9 +5,11 @@ package qrlogin
 
 import (
 	"context"
+	"time"
 
 	"github.com/ogen-go/errors"
 
+	"github.com/gotd/td/clock"
 	"github.com/gotd/td/tg"
 )
 
@@ -17,6 +19,7 @@ type QR struct {
 	appID   int
 	appHash string
 	migrate func(ctx context.Context, dcID int) error
+	clock   clock.Clock
 }
 
 // NewQR creates new QR
@@ -54,11 +57,7 @@ func (q QR) Export(ctx context.Context, exceptIDs ...int64) (Token, error) {
 //
 // See https://core.telegram.org/api/qr-login#accepting-a-login-token.
 func (q QR) Accept(ctx context.Context, t Token) (*tg.Authorization, error) {
-	auth, err := q.api.AuthAcceptLoginToken(ctx, t.token)
-	if err != nil {
-		return nil, errors.Wrap(err, "accept")
-	}
-	return auth, nil
+	return AcceptQR(ctx, q.api, t)
 }
 
 // Import imports accepted token.
@@ -101,6 +100,8 @@ retry:
 }
 
 // Auth generates new QR login token, shows it and awaits acceptation.
+//
+// NB: Show callback may be called more than once if QR expires.
 func (q QR) Auth(
 	ctx context.Context,
 	d interface {
@@ -126,20 +127,35 @@ func (q QR) Auth(
 		}
 	})
 
+	until := func(token Token) time.Duration {
+		return token.Expires().Sub(q.clock.Now()).Truncate(time.Second)
+	}
+
 	token, err := q.Export(ctx, exceptIDs...)
 	if err != nil {
 		return nil, err
 	}
+	timer := q.clock.Timer(until(token))
+	defer clock.StopTimer(timer)
 
-	if err := show(ctx, token); err != nil {
-		return nil, errors.Wrap(err, "show")
+	for {
+		if err := show(ctx, token); err != nil {
+			return nil, errors.Wrap(err, "show")
+		}
+
+		select {
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		case <-timer.C():
+			t, err := q.Export(ctx, exceptIDs...)
+			if err != nil {
+				return nil, err
+			}
+			token = t
+			timer.Reset(until(token))
+		case <-loggedIn:
+		}
+
+		return q.Import(ctx)
 	}
-
-	select {
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	case <-loggedIn:
-	}
-
-	return q.Import(ctx)
 }
