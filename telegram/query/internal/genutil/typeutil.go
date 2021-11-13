@@ -3,7 +3,7 @@ package genutil
 import (
 	"go/types"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"golang.org/x/tools/go/packages"
 )
 

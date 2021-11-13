@@ -6,7 +6,7 @@ import (
 	"crypto/sha1" // #nosec G505
 	"io"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // RSAEncryptHashed encrypts given data with RSA, prefixing with a hash.

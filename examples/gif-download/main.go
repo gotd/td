@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"

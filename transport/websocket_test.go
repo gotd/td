@@ -8,7 +8,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
 

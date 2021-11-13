@@ -5,7 +5,7 @@ import (
 	"io"
 	"net"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/internal/crypto"

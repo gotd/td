@@ -6,7 +6,7 @@ import (
 	"crypto/sha256"
 	"io"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // readServerHello reads faketls ServerHello.

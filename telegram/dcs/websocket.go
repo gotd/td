@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"nhooyr.io/websocket"
 
 	"github.com/gotd/td/internal/crypto"

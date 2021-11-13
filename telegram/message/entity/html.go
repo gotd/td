@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"golang.org/x/net/html"
 
 	"github.com/gotd/td/tg"

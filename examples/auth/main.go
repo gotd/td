@@ -9,7 +9,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"go.uber.org/zap"
 	"golang.org/x/crypto/ssh/terminal"
 

@@ -6,7 +6,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // config is input data for templates.

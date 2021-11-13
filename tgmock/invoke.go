@@ -4,7 +4,7 @@ import (
 	"context"
 	"crypto/rand"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"

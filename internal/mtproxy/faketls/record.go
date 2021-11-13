@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 	"io"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 const maxTLSRecordDataLength = 16384 + 24

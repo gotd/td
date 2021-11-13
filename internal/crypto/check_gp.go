@@ -3,7 +3,7 @@ package crypto
 import (
 	"math/big"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // CheckGP checks whether g generates a cyclic subgroup of prime order (p-1)/2, i.e. is a quadratic residue mod p.

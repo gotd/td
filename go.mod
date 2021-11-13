@@ -4,15 +4,15 @@ go 1.17
 
 require (
 	github.com/cenkalti/backoff/v4 v4.1.2
+	github.com/go-faster/errors v0.5.0
+	github.com/go-faster/xor v0.3.0
 	github.com/go-openapi/inflect v0.19.0
 	github.com/gotd/getdoc v0.6.2
 	github.com/gotd/ige v0.2.1
 	github.com/gotd/neo v0.1.4
 	github.com/gotd/tl v0.4.0
-	github.com/gotd/xor v0.1.1
 	github.com/k0kubun/pp/v3 v3.0.7
 	github.com/klauspost/compress v1.13.6
-	github.com/ogen-go/errors v0.4.1
 	github.com/quasilyte/go-ruleguard/dsl v0.3.10
 	github.com/rogpeppe/go-internal v1.8.0
 	github.com/stretchr/testify v1.7.0
@@ -33,6 +33,7 @@ require (
 	github.com/andybalholm/cascadia v1.1.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/google/go-cmp v0.5.2 // indirect
+	github.com/gotd/xor v0.1.1 // indirect
 	github.com/mattn/go-colorable v0.1.7 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e // indirect

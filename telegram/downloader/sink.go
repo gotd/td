@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 func writeAtLoop(w io.WriterAt, toWrite <-chan block) func(context.Context) error {

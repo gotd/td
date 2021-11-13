@@ -1,7 +1,7 @@
 package exchange
 
 import (
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // ErrKeyFingerprintNotFound is returned when client can't find keys by fingerprints

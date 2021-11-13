@@ -3,7 +3,7 @@ package updates
 import (
 	"sync"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 var _ StateStorage = (*memStorage)(nil)

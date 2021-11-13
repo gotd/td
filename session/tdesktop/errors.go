@@ -3,7 +3,7 @@ package tdesktop
 import (
 	"fmt"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // WrongMagicError is returned when tdesktop data file

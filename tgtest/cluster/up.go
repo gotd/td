@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/tg"

@@ -6,7 +6,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // StorageMemory implements in-memory session storage.

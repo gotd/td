@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/cenkalti/backoff/v4"
 	"github.com/stretchr/testify/assert"

@@ -6,7 +6,7 @@ import (
 	"crypto/sha1" // #nosec G505
 	"crypto/sha512"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"golang.org/x/crypto/pbkdf2"
 
 	"github.com/gotd/ige"

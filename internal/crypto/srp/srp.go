@@ -6,10 +6,10 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"golang.org/x/crypto/pbkdf2"
 
-	"github.com/gotd/xor"
+	"github.com/go-faster/xor"
 
 	"github.com/gotd/td/internal/crypto"
 )

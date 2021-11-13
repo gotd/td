@@ -7,7 +7,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"golang.org/x/tools/go/packages"
 
 	"github.com/gotd/td/telegram/query/internal/genutil"

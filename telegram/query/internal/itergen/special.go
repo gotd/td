@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/telegram/query/internal/genutil"
 )

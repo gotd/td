@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"path"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"go.uber.org/multierr"
 )
 

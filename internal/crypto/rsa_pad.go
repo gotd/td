@@ -8,10 +8,11 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
+
+	"github.com/go-faster/xor"
 
 	"github.com/gotd/ige"
-	"github.com/gotd/xor"
 
 	"github.com/gotd/td/bin"
 )

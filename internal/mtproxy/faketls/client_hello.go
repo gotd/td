@@ -7,7 +7,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/bin"
 )

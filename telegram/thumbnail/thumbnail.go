@@ -1,7 +1,7 @@
 // Package thumbnail implements expanding of stripped telegram thumbnails.
 package thumbnail
 
-import "github.com/ogen-go/errors"
+import "github.com/go-faster/errors"
 
 // Expand returns a JPG payload from stripped thumbnail bytes, like
 // tg.UserProfilePhoto.StrippedThumb.

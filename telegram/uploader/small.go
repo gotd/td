@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"

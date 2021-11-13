@@ -5,7 +5,7 @@ import (
 	"crypto/sha1" // #nosec
 	"io"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/ige"
 

@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
 

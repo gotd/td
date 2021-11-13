@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/go-faster/errors"
 	"github.com/k0kubun/pp/v3"
-	"github.com/ogen-go/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"

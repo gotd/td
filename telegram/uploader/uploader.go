@@ -5,7 +5,7 @@ import (
 	"crypto/md5" // #nosec G501
 	"encoding/hex"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"

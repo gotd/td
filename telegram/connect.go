@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"go.uber.org/multierr"
 	"go.uber.org/zap"
 

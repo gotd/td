@@ -6,7 +6,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"go.uber.org/zap"
 	"nhooyr.io/websocket"
 

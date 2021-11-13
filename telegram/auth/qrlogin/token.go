@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"rsc.io/qr"
 )
 

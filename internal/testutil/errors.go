@@ -1,7 +1,7 @@
 package testutil
 
 import (
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 var errTestError = errors.New("test error")

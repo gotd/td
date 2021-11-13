@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 func TestCancellableGroup(t *testing.T) {

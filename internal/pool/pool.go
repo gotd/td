@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
 

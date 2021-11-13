@@ -3,7 +3,7 @@ package crypto
 import (
 	"math/big"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // CheckDH performs DH parameters check described in Telegram docs.

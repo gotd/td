@@ -3,7 +3,7 @@ package unpack
 import (
 	"testing"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/tg"

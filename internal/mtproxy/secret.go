@@ -3,7 +3,7 @@ package mtproxy
 import (
 	"bytes"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // SecretType represents MTProxy secret type.

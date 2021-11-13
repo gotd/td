@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 

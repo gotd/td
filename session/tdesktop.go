@@ -1,7 +1,7 @@
 package session
 
 import (
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/session/tdesktop"
 	"github.com/gotd/td/telegram/dcs"

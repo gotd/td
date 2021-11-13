@@ -6,7 +6,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // Type is an enum type of Telegram deeplinks types.

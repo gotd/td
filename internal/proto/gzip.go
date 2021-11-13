@@ -7,8 +7,8 @@ import (
 	"sync"
 	"sync/atomic"
 
+	"github.com/go-faster/errors"
 	"github.com/klauspost/compress/gzip"
-	"github.com/ogen-go/errors"
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"

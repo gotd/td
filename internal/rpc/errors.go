@@ -3,7 +3,7 @@ package rpc
 import (
 	"fmt"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // RetryLimitReachedErr means that server does not acknowledge request

@@ -5,7 +5,7 @@ import (
 	"io"
 	"sync"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/internal/syncio"
 	"github.com/gotd/td/internal/tdsync"

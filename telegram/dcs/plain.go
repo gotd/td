@@ -5,7 +5,7 @@ import (
 	"net"
 	"strconv"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/tg"

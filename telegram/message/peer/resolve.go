@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/internal/ascii"
 	"github.com/gotd/td/telegram/message/internal/deeplink"

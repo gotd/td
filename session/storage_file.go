@@ -5,7 +5,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // FileStorage implements SessionStorage for file system as file

@@ -6,7 +6,7 @@ import (
 	"sync"
 
 	"github.com/cenkalti/backoff/v4"
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/telegram"

@@ -3,8 +3,9 @@ package crypto
 import (
 	"encoding/binary"
 
+	"github.com/go-faster/xor"
+
 	"github.com/gotd/td/bin"
-	"github.com/gotd/xor"
 )
 
 // ServerSalt computes server salt.

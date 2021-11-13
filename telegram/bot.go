@@ -4,7 +4,7 @@ import (
 	"context"
 	"os"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // RunUntilCanceled is client callback which

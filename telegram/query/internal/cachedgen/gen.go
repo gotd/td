@@ -9,7 +9,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/telegram/query/internal/genutil"

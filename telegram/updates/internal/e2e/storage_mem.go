@@ -3,7 +3,7 @@ package e2e
 import (
 	"sync"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/telegram/updates"
 )

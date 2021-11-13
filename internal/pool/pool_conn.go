@@ -3,7 +3,7 @@ package pool
 import (
 	"context"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"go.uber.org/atomic"
 
 	"github.com/gotd/td/bin"

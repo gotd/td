@@ -4,7 +4,7 @@ import (
 	"io"
 	"sync"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // WriterAt is synchronized io.WriterAt.

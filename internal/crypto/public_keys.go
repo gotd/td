@@ -5,7 +5,7 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // ParseRSAPublicKeys parses data as list of PEM-encdoed public keys.

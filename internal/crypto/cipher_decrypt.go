@@ -3,7 +3,7 @@ package crypto
 import (
 	"crypto/aes"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/ige"
 

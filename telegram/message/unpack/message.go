@@ -1,7 +1,7 @@
 package unpack
 
 import (
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/telegram/internal/upconv"
 	"github.com/gotd/td/tg"

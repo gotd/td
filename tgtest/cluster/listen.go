@@ -4,7 +4,7 @@ import (
 	"context"
 	"net"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 func newLocalListener(ctx context.Context) (net.Listener, error) {

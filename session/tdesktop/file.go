@@ -8,7 +8,7 @@ import (
 	"io/fs"
 	"math"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 	"go.uber.org/multierr"
 )
 

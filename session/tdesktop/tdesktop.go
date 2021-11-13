@@ -7,7 +7,7 @@ import (
 	"os"
 	"path"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // Account is a Telegram user account representation in Telegram Desktop storage.

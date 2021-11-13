@@ -7,7 +7,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"

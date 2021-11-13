@@ -7,7 +7,7 @@ import (
 	"context"
 	"syscall/js"
 
-	"github.com/ogen-go/errors"
+	"github.com/go-faster/errors"
 )
 
 // WebLocalStorage is a Web Storage API based session storage.
