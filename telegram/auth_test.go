@@ -80,12 +80,13 @@ func ExampleQR_Auth() {
 	ctx := context.Background()
 
 	d := tg.NewUpdateDispatcher()
+	loggedIn := qrlogin.OnLoginToken(d)
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
 		UpdateHandler: d,
 	})
 	if err := client.Run(ctx, func(ctx context.Context) error {
 		qr := client.QR()
-		authorization, err := qr.Auth(ctx, d, func(ctx context.Context, token qrlogin.Token) error {
+		authorization, err := qr.Auth(ctx, loggedIn, func(ctx context.Context, token qrlogin.Token) error {
 			fmt.Printf("Open %s using your phone\n", token.URL())
 			return nil
 		})

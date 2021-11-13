@@ -29,6 +29,7 @@ func NewQR(api *tg.Client, appID int, appHash string, opts Options) QR {
 		api:     api,
 		appID:   appID,
 		appHash: appHash,
+		clock:   opts.Clock,
 		migrate: opts.Migrate,
 	}
 }
@@ -99,34 +100,34 @@ retry:
 	}
 }
 
+// LoggedIn is signal channel to notify about tg.UpdateLoginToken.
+type LoggedIn <-chan struct{}
+
+// OnLoginToken sets handler for given dispatcher and returns signal channel.
+func OnLoginToken(d interface {
+	OnLoginToken(tg.LoginTokenHandler)
+}) LoggedIn {
+	loggedIn := make(chan struct{})
+	d.OnLoginToken(func(ctx context.Context, e tg.Entities, update *tg.UpdateLoginToken) error {
+		select {
+		case loggedIn <- struct{}{}:
+			return nil
+		default:
+		}
+		return nil
+	})
+	return loggedIn
+}
+
 // Auth generates new QR login token, shows it and awaits acceptation.
 //
 // NB: Show callback may be called more than once if QR expires.
 func (q QR) Auth(
 	ctx context.Context,
-	d interface {
-		OnLoginToken(tg.LoginTokenHandler)
-	},
+	loggedIn LoggedIn,
 	show func(ctx context.Context, token Token) error,
 	exceptIDs ...int64,
 ) (*tg.AuthAuthorization, error) {
-	var (
-		done     = make(chan struct{})
-		loggedIn = make(chan struct{})
-	)
-	defer close(done)
-
-	d.OnLoginToken(func(ctx context.Context, e tg.Entities, update *tg.UpdateLoginToken) error {
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		case <-done:
-			return nil
-		case loggedIn <- struct{}{}:
-			return nil
-		}
-	})
-
 	until := func(token Token) time.Duration {
 		return token.Expires().Sub(q.clock.Now()).Truncate(time.Second)
 	}
@@ -153,6 +154,8 @@ func (q QR) Auth(
 			}
 			token = t
 			timer.Reset(until(token))
+
+			continue
 		case <-loggedIn:
 		}
 

@@ -8,7 +8,6 @@ import (
 )
 
 func TestParseTokenURL(t *testing.T) {
-
 	tests := []struct {
 		name    string
 		u       string
