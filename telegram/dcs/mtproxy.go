@@ -70,8 +70,7 @@ func (m mtProxy) handshakeConn(c net.Conn, dc int) (transport.Conn, error) {
 	}
 
 	secret := m.secret
-	secret.DC = dc
-	if err := obsConn.Handshake(m.tag, secret); err != nil {
+	if err := obsConn.Handshake(m.tag, dc, secret); err != nil {
 		return nil, errors.Wrap(err, "MTProxy handshake")
 	}
 
@@ -111,7 +110,7 @@ func (m *MTProxyOptions) setDefaults() {
 //
 // See https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation.
 func MTProxy(addr string, secret []byte, opts MTProxyOptions) (Resolver, error) {
-	s, err := mtproxy.ParseSecret(2, secret)
+	s, err := mtproxy.ParseSecret(secret)
 	if err != nil {
 		return nil, err
 	}

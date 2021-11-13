@@ -21,7 +21,7 @@ const (
 
 // Secret represents MTProxy secret.
 type Secret struct {
-	DC        int
+	DC int
 	Secret    []byte
 	Tag       byte
 	CloakHost string
@@ -45,9 +45,8 @@ func (s Secret) ExpectedCodec() (cdc codec.Codec, _ bool) {
 }
 
 // ParseSecret checks and parses secret.
-func ParseSecret(dc int, secret []byte) (Secret, error) {
+func ParseSecret(secret []byte) (Secret, error) {
 	r := Secret{
-		DC:     dc,
 		Secret: secret,
 	}
 	const simpleLength = 16
