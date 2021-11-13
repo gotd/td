@@ -116,8 +116,13 @@ func MTProxy(addr string, secret []byte, opts MTProxyOptions) (Resolver, error) 
 		return nil, err
 	}
 
-	cdc := codec.PaddedIntermediate{}
+	var cdc codec.Codec = codec.PaddedIntermediate{}
 	tag := codec.PaddedIntermediateClientStart
+
+	if c, ok := s.ExpectedCodec(); ok {
+		cdc = c
+		tag = [4]byte{s.Tag, s.Tag, s.Tag, s.Tag}
+	}
 
 	opts.setDefaults()
 	return mtProxy{
