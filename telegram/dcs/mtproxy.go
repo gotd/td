@@ -32,7 +32,10 @@ func (m mtProxy) Primary(ctx context.Context, dc int, _ List) (transport.Conn, e
 }
 
 func (m mtProxy) MediaOnly(ctx context.Context, dc int, _ List) (transport.Conn, error) {
-	return m.resolve(ctx, dc+10000)
+	if dc > 0 {
+		dc *= -1
+	}
+	return m.resolve(ctx, dc)
 }
 
 func (m mtProxy) CDN(ctx context.Context, dc int, _ List) (transport.Conn, error) {
