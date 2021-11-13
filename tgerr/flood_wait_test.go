@@ -29,6 +29,7 @@ func TestFloodWait(t *testing.T) {
 		e := floodWaitErr
 
 		done := make(chan struct{})
+		observer := c.Observe()
 		go func() {
 			ok, err := FloodWait(ctx, e, FloodWaitWithClock(c))
 			a.True(ok)
@@ -37,7 +38,7 @@ func TestFloodWait(t *testing.T) {
 			close(done)
 		}()
 
-		<-c.Observe()
+		<-observer
 		c.Travel(3601 * time.Second)
 		<-done
 	})
