@@ -51,7 +51,7 @@ func FindPrimaryDCs(opts []tg.DCOption, dcID int, preferIPv6 bool) []tg.DCOption
 	// Filter (in place) from SliceTricks.
 	n := 0
 	for _, opt := range candidates {
-		if !opt.MediaOnly && !opt.CDN && !opt.TCPObfuscatedOnly {
+		if !opt.MediaOnly && !opt.CDN {
 			candidates[n] = opt
 			n++
 		}
