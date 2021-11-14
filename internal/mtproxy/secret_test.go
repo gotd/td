@@ -29,7 +29,7 @@ func TestParseSecret(t *testing.T) {
 			s, err := hex.DecodeString(tt.secret)
 			require.NoError(t, err)
 
-			got, err := ParseSecret(1, s)
+			got, err := ParseSecret(s)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("ParseSecret() error = %v, wantErr %v", err, tt.wantErr)
 				return

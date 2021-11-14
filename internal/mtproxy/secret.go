@@ -21,7 +21,6 @@ const (
 
 // Secret represents MTProxy secret.
 type Secret struct {
-	DC int
 	Secret    []byte
 	Tag       byte
 	CloakHost string

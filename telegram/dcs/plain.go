@@ -21,15 +21,27 @@ import (
 var _ Resolver = plain{}
 
 type plain struct {
-	dial       DialFunc
-	protocol   Protocol
-	rand       io.Reader
-	network    string
-	preferIPv6 bool
+	dial         DialFunc
+	protocol     Protocol
+	rand         io.Reader
+	network      string
+	noObfuscated bool
+	preferIPv6   bool
 }
 
 func (p plain) Primary(ctx context.Context, dc int, list List) (transport.Conn, error) {
-	return p.connect(ctx, dc, list.Test, FindPrimaryDCs(list.Options, dc, p.preferIPv6))
+	candidates := FindPrimaryDCs(list.Options, dc, p.preferIPv6)
+	if p.noObfuscated {
+		n := 0
+		for _, x := range candidates {
+			if !x.TCPObfuscatedOnly {
+				candidates[n] = x
+				n++
+			}
+		}
+		candidates = candidates[:n]
+	}
+	return p.connect(ctx, dc, list.Test, candidates)
 }
 
 func (p plain) MediaOnly(ctx context.Context, dc int, list List) (transport.Conn, error) {
@@ -76,7 +88,7 @@ func (p plain) dialTransport(ctx context.Context, test bool, dc tg.DCOption) (_ 
 		var (
 			cdc    codec.Codec = codec.Intermediate{}
 			tag                = codec.IntermediateClientStart
-			secret = dc.Secret
+			secret             = dc.Secret
 		)
 
 		if len(secret) > 0 {
@@ -191,6 +203,8 @@ type PlainOptions struct {
 	Rand io.Reader
 	// Network to use. Defaults to "tcp".
 	Network string
+	// NoObfuscated denotes to filter out TCP Obfuscated Only DCs.
+	NoObfuscated bool
 	// PreferIPv6 gives IPv6 DCs higher precedence.
 	// Default is to prefer IPv4 DCs over IPv6.
 	PreferIPv6 bool
@@ -216,10 +230,11 @@ func (m *PlainOptions) setDefaults() {
 func Plain(opts PlainOptions) Resolver {
 	opts.setDefaults()
 	return plain{
-		protocol:   opts.Protocol,
-		dial:       opts.Dial,
-		rand:       opts.Rand,
-		network:    opts.Network,
-		preferIPv6: opts.PreferIPv6,
+		dial:         opts.Dial,
+		protocol:     opts.Protocol,
+		rand:         opts.Rand,
+		network:      opts.Network,
+		noObfuscated: opts.NoObfuscated,
+		preferIPv6:   opts.PreferIPv6,
 	}
 }

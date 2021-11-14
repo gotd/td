@@ -51,7 +51,7 @@ func TestFindPrimaryDCs(t *testing.T) {
 
 		{ID: 2, Ipv6: true, Static: true, MediaOnly: true},
 		{ID: 2, Ipv6: true, CDN: true},
-		{ID: 2, Ipv6: false, TCPObfuscatedOnly: true},
+		{ID: 2, Ipv6: false, CDN: true},
 	}
 	for i := range dcOptions {
 		dcOptions[i].IPAddress = fmt.Sprintf("DC: %d, Index: %d", dcOptions[i].ID, i)
