@@ -32,7 +32,10 @@ func (m mtProxy) Primary(ctx context.Context, dc int, _ List) (transport.Conn, e
 }
 
 func (m mtProxy) MediaOnly(ctx context.Context, dc int, _ List) (transport.Conn, error) {
-	return m.resolve(ctx, dc+10000)
+	if dc > 0 {
+		dc *= -1
+	}
+	return m.resolve(ctx, dc)
 }
 
 func (m mtProxy) CDN(ctx context.Context, dc int, _ List) (transport.Conn, error) {
@@ -67,8 +70,7 @@ func (m mtProxy) handshakeConn(c net.Conn, dc int) (transport.Conn, error) {
 	}
 
 	secret := m.secret
-	secret.DC = dc
-	if err := obsConn.Handshake(m.tag, secret); err != nil {
+	if err := obsConn.Handshake(m.tag, dc, secret); err != nil {
 		return nil, errors.Wrap(err, "MTProxy handshake")
 	}
 
@@ -108,13 +110,18 @@ func (m *MTProxyOptions) setDefaults() {
 //
 // See https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation.
 func MTProxy(addr string, secret []byte, opts MTProxyOptions) (Resolver, error) {
-	s, err := mtproxy.ParseSecret(2, secret)
+	s, err := mtproxy.ParseSecret(secret)
 	if err != nil {
 		return nil, err
 	}
 
-	cdc := codec.PaddedIntermediate{}
+	var cdc codec.Codec = codec.PaddedIntermediate{}
 	tag := codec.PaddedIntermediateClientStart
+
+	if c, ok := s.ExpectedCodec(); ok {
+		cdc = c
+		tag = [4]byte{s.Tag, s.Tag, s.Tag, s.Tag}
+	}
 
 	opts.setDefaults()
 	return mtProxy{

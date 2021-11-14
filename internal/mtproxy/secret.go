@@ -1,9 +1,9 @@
 package mtproxy
 
 import (
-	"bytes"
-
 	"github.com/go-faster/errors"
+
+	"github.com/gotd/td/internal/proto/codec"
 )
 
 // SecretType represents MTProxy secret type.
@@ -21,29 +21,46 @@ const (
 
 // Secret represents MTProxy secret.
 type Secret struct {
-	DC        int
 	Secret    []byte
+	Tag       byte
 	CloakHost string
 	Type      SecretType
 }
 
+// ExpectedCodec returns codec from secret tag if it exists.
+func (s Secret) ExpectedCodec() (cdc codec.Codec, _ bool) {
+	switch s.Tag {
+	case codec.AbridgedClientStart[0]:
+		cdc = codec.Abridged{}
+	case codec.IntermediateClientStart[0]:
+		cdc = codec.Intermediate{}
+	case codec.PaddedIntermediateClientStart[0]:
+		cdc = codec.PaddedIntermediate{}
+	default:
+		return nil, false
+	}
+
+	return cdc, true
+}
+
 // ParseSecret checks and parses secret.
-func ParseSecret(dc int, secret []byte) (Secret, error) {
+func ParseSecret(secret []byte) (Secret, error) {
 	r := Secret{
-		DC:     dc,
 		Secret: secret,
 	}
 	const simpleLength = 16
 
 	switch {
-	case len(secret) == 1+simpleLength && bytes.HasPrefix(secret, []byte{0xdd}):
+	case len(secret) == 1+simpleLength:
 		r.Type = Secured
 
+		r.Tag = secret[0]
 		secret = secret[1:]
 		r.Secret = secret[:simpleLength]
-	case len(secret) > simpleLength && bytes.HasPrefix(secret, []byte{0xee}):
+	case len(secret) > simpleLength:
 		r.Type = TLS
 
+		r.Tag = secret[0]
 		secret = secret[1:]
 		r.Secret = secret[:simpleLength]
 		r.CloakHost = string(secret[simpleLength:])
@@ -51,6 +68,16 @@ func ParseSecret(dc int, secret []byte) (Secret, error) {
 		r.Type = Simple
 	default:
 		return Secret{}, errors.Errorf("invalid secret %q", string(secret))
+	}
+
+	if r.Type != Simple {
+		switch r.Tag {
+		case codec.AbridgedClientStart[0],
+			codec.IntermediateClientStart[0],
+			codec.PaddedIntermediateClientStart[0]:
+		default:
+			return Secret{}, errors.Errorf("unknown tag %+x", r.Tag)
+		}
 	}
 
 	return r, nil

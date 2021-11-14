@@ -14,7 +14,7 @@ import (
 // Obfuscator represents MTProxy obfuscator.
 type Obfuscator interface {
 	io.ReadWriter
-	Handshake(protocol [4]byte, s mtproxy.Secret) error
+	Handshake(protocol [4]byte, dc int, s mtproxy.Secret) error
 }
 
 type tls struct {
@@ -39,12 +39,12 @@ func (t tls) Read(p []byte) (int, error) {
 	return t.obfs2.Read(p)
 }
 
-func (t tls) Handshake(protocol [4]byte, s mtproxy.Secret) error {
-	if err := t.ftls.Handshake(protocol, s); err != nil {
+func (t tls) Handshake(protocol [4]byte, dc int, s mtproxy.Secret) error {
+	if err := t.ftls.Handshake(protocol, dc, s); err != nil {
 		return errors.Wrap(err, "faketls handshake")
 	}
 
-	if err := t.obfs2.Handshake(protocol, s); err != nil {
+	if err := t.obfs2.Handshake(protocol, dc, s); err != nil {
 		return errors.Wrap(err, "obfs2 handshake")
 	}
 

@@ -29,7 +29,7 @@ func NewFakeTLS(r io.Reader, conn io.ReadWriter) *FakeTLS {
 }
 
 // Handshake performs FakeTLS handshake.
-func (o *FakeTLS) Handshake(protocol [4]byte, s mtproxy.Secret) error {
+func (o *FakeTLS) Handshake(protocol [4]byte, dc int, s mtproxy.Secret) error {
 	o.buf.Reset()
 
 	var sessionID [32]byte
