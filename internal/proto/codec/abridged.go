@@ -19,6 +19,10 @@ var AbridgedClientStart = [1]byte{0xef}
 // See https://core.telegram.org/mtproto/mtproto-transports#abridged
 type Abridged struct{}
 
+var (
+	_ TaggedCodec = Abridged{}
+)
+
 // WriteHeader sends protocol tag.
 func (i Abridged) WriteHeader(w io.Writer) error {
 	if _, err := w.Write(AbridgedClientStart[:]); err != nil {
@@ -31,7 +35,7 @@ func (i Abridged) WriteHeader(w io.Writer) error {
 // ReadHeader reads protocol tag.
 func (i Abridged) ReadHeader(r io.Reader) error {
 	var b [1]byte
-	if _, err := r.Read(b[:]); err != nil {
+	if _, err := io.ReadFull(r, b[:]); err != nil {
 		return errors.Wrap(err, "read abridged header")
 	}
 
@@ -43,8 +47,9 @@ func (i Abridged) ReadHeader(r io.Reader) error {
 }
 
 // ObfuscatedTag returns protocol tag for obfuscation.
-func (i Abridged) ObfuscatedTag() (r []byte) {
-	return append(r, AbridgedClientStart[:]...)
+func (i Abridged) ObfuscatedTag() (r [4]byte) {
+	d := AbridgedClientStart[0]
+	return [4]byte{d, d, d, d}
 }
 
 // Write encode to writer message from given buffer.

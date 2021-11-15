@@ -19,6 +19,10 @@ var PaddedIntermediateClientStart = [4]byte{0xdd, 0xdd, 0xdd, 0xdd}
 // See https://core.telegram.org/mtproto/mtproto-transports#padded-intermediate
 type PaddedIntermediate struct{}
 
+var (
+	_ TaggedCodec = PaddedIntermediate{}
+)
+
 // WriteHeader sends protocol tag.
 func (i PaddedIntermediate) WriteHeader(w io.Writer) error {
 	if _, err := w.Write(PaddedIntermediateClientStart[:]); err != nil {
@@ -31,7 +35,7 @@ func (i PaddedIntermediate) WriteHeader(w io.Writer) error {
 // ReadHeader reads protocol tag.
 func (i PaddedIntermediate) ReadHeader(r io.Reader) error {
 	var b [4]byte
-	if _, err := r.Read(b[:]); err != nil {
+	if _, err := io.ReadFull(r, b[:]); err != nil {
 		return errors.Wrap(err, "read padded intermediate header")
 	}
 
@@ -43,8 +47,8 @@ func (i PaddedIntermediate) ReadHeader(r io.Reader) error {
 }
 
 // ObfuscatedTag returns protocol tag for obfuscation.
-func (i PaddedIntermediate) ObfuscatedTag() (r []byte) {
-	return append(r, PaddedIntermediateClientStart[:]...)
+func (i PaddedIntermediate) ObfuscatedTag() [4]byte {
+	return PaddedIntermediateClientStart
 }
 
 // Write encode to writer message from given buffer.

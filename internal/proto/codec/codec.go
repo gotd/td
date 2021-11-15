@@ -25,7 +25,7 @@ type Codec interface {
 type TaggedCodec interface {
 	Codec
 	// ObfuscatedTag returns protocol tag for obfuscation.
-	ObfuscatedTag() []byte
+	ObfuscatedTag() [4]byte
 }
 
 // readLen reads 32-bit integer and validates it as message length.

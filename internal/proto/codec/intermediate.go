@@ -18,6 +18,10 @@ var IntermediateClientStart = [4]byte{0xee, 0xee, 0xee, 0xee}
 // See https://core.telegram.org/mtproto/mtproto-transports#intermediate
 type Intermediate struct{}
 
+var (
+	_ TaggedCodec = Intermediate{}
+)
+
 // WriteHeader sends protocol tag.
 func (i Intermediate) WriteHeader(w io.Writer) (err error) {
 	if _, err := w.Write(IntermediateClientStart[:]); err != nil {
@@ -30,7 +34,7 @@ func (i Intermediate) WriteHeader(w io.Writer) (err error) {
 // ReadHeader reads protocol tag.
 func (i Intermediate) ReadHeader(r io.Reader) (err error) {
 	var b [4]byte
-	if _, err := r.Read(b[:]); err != nil {
+	if _, err := io.ReadFull(r, b[:]); err != nil {
 		return errors.Wrap(err, "read intermediate header")
 	}
 
@@ -42,8 +46,8 @@ func (i Intermediate) ReadHeader(r io.Reader) (err error) {
 }
 
 // ObfuscatedTag returns protocol tag for obfuscation.
-func (i Intermediate) ObfuscatedTag() (r []byte) {
-	return append(r, IntermediateClientStart[:]...)
+func (i Intermediate) ObfuscatedTag() [4]byte {
+	return IntermediateClientStart
 }
 
 // Write encode to writer message from given buffer.

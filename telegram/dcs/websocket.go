@@ -94,12 +94,10 @@ func Websocket(opts WebsocketOptions) Resolver {
 	cdc := codec.Intermediate{}
 	opts.setDefaults()
 
-	var tag [4]byte
-	copy(tag[:], cdc.ObfuscatedTag())
 	return ws{
 		dialOptions: opts.DialOptions,
 		protocol:    transport.NewProtocol(func() transport.Codec { return codec.NoHeader{Codec: cdc} }),
-		tag:         tag,
+		tag:         cdc.ObfuscatedTag(),
 		rand:        opts.Rand,
 	}
 }
