@@ -8,6 +8,7 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"math/big"
+	"net"
 	"sort"
 	"sync"
 
@@ -94,8 +95,51 @@ func (s sortByLen) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
-// DNSConfig parses tg.HelpConfigSimple from TXT response.
-func DNSConfig(txt []string) (tg.HelpConfigSimple, error) {
+// DNSConfig is DC connection config obtained from DNS.
+type DNSConfig struct {
+	// Date field of HelpConfigSimple.
+	Date int
+	// Expires field of HelpConfigSimple.
+	Expires int
+	// Rules field of HelpConfigSimple.
+	Rules []tg.AccessPointRule
+}
+
+// Options returns DC options from this config.
+func (d DNSConfig) Options() (r []tg.DCOption) {
+	convertIP := func(ip int) string {
+		return net.IPv4(
+			byte(ip),
+			byte(ip>>8),
+			byte(ip>>16),
+			byte(ip>>24),
+		).String()
+	}
+	for _, rule := range d.Rules {
+		for _, ip := range rule.IPs {
+			switch ip := ip.(type) {
+			case *tg.IPPort:
+				r = append(r, tg.DCOption{
+					ID:        rule.DCID,
+					IPAddress: convertIP(ip.Ipv4),
+					Port:      ip.Port,
+				})
+			case *tg.IPPortSecret:
+				r = append(r, tg.DCOption{
+					TCPObfuscatedOnly: true,
+					ID:                rule.DCID,
+					IPAddress:         convertIP(ip.Ipv4),
+					Port:              ip.Port,
+					Secret:            ip.Secret,
+				})
+			}
+		}
+	}
+	return r
+}
+
+// ParseDNSConfig parses tg.HelpConfigSimple from TXT response.
+func ParseDNSConfig(txt []string) (DNSConfig, error) {
 	encoding := base64.StdEncoding
 	const (
 		decodedLen = 256
@@ -108,7 +152,7 @@ func DNSConfig(txt []string) (tg.HelpConfigSimple, error) {
 		totalLength += len(txt[i])
 	}
 	if totalLength != encodedLen {
-		return tg.HelpConfigSimple{}, errors.Errorf("invalid input length %d", totalLength)
+		return DNSConfig{}, errors.Errorf("invalid input length %d", totalLength)
 	}
 
 	var (
@@ -121,13 +165,17 @@ func DNSConfig(txt []string) (tg.HelpConfigSimple, error) {
 	}
 
 	if _, err := encoding.Decode(decoded[:], encoded[:]); err != nil {
-		return tg.HelpConfigSimple{}, errors.Wrap(err, "decode")
+		return DNSConfig{}, errors.Wrap(err, "decode")
 	}
 
 	cfg, err := parseDNSList(decoded)
 	if err != nil {
-		return tg.HelpConfigSimple{}, errors.Wrap(err, "decrypt config")
+		return DNSConfig{}, errors.Wrap(err, "decrypt config")
 	}
 
-	return cfg, nil
+	return DNSConfig{
+		Date:    cfg.Date,
+		Expires: cfg.Expires,
+		Rules:   cfg.Rules,
+	}, nil
 }
