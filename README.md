@@ -89,7 +89,7 @@ Also, see the [comparison](#difference-to-other-projects) with other Go Telegram
   * [messages](https://pkg.go.dev/github.com/gotd/td/telegram/message) with various convenience builders and text styling support
   * [query](https://pkg.go.dev/github.com/gotd/td/telegram/query) with pagination helpers
   * [middleware](https://pkg.go.dev/github.com/gotd/td/telegram#Middleware) for [rate limiting](https://pkg.go.dev/github.com/gotd/contrib/middleware/ratelimit) and [FLOOD_WAIT handling](https://pkg.go.dev/github.com/gotd/contrib/middleware/floodwait)
-* CDN support with connection pooling
+* Connection pooling
 * Automatic datacenter migration and redirects handling
 * Graceful [request cancellation](https://core.telegram.org/mtproto/service_messages#cancellation-of-an-rpc-query) via context
 * WebSocket transport support (works in WASM)

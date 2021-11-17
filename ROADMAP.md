@@ -57,6 +57,10 @@ A client for `telegram-bot-api`.
 Features that have no milestone, but are likely to appear at some point.
 
 * Extreme End-to-End
+  * Advanced features
+    * E2E encrypted chats
+    * CDN support
+    * Calls support
   * Components
     * Telegram Server in Go
     * Telegram Bot API in Go
