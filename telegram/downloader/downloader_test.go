@@ -213,12 +213,6 @@ func TestDownloader(t *testing.T) {
 		{"Master", func(c Client, cdn CDN) *Builder {
 			return NewDownloader().Download(c, nil)
 		}},
-		{"Direct", func(c Client, cdn CDN) *Builder {
-			return NewDownloader().DownloadDirect(c, nil)
-		}},
-		{"CDN", func(c Client, cdn CDN) *Builder {
-			return NewDownloader().CDN(c, cdn, redirect)
-		}},
 		{"Web", func(c Client, cdn CDN) *Builder {
 			return NewDownloader().Web(c, nil)
 		}},
