@@ -8,15 +8,15 @@ An updated key exchange protocol should be implemented. Done.
 
 ### Initial tracing
 
-Add basic OpenTelemetry spans.
+Add basic OpenTelemetry spans (**moved to Q4**)
 
-### Bot API Types
+### ~~Bot API Types~~
 
-All Bot API Types should be parsed:
+~~All Bot API Types should be parsed:~~
 
-* ~~Parser from docs.~~
+~~* ~~Parser from docs.~~
 * OpenAPI v3 generated spec from parsed types.
-* Go structs generated from OpenAPI v3 spec.
+* Go structs generated from OpenAPI v3 spec.~~
 
 ## Q4 21
 ### Documentation
@@ -25,6 +25,7 @@ Generate a static websites for documentations.
 
 ### Observability
 
+* Add basic OpenTelemetry spans _(from Q3)_
 * Advanced OpenTelemetry tracing.
 * Prometheus metrics.
 
@@ -33,8 +34,8 @@ Generate a static websites for documentations.
 * ~~Simplify initialization~~
 * ~~Add example~~ and documentation
 
-### Update to go1.17
-* Update go.mod to allow lazy load
+### ~~Update to go1.17~~
+~~* Update go.mod to allow lazy load~~
 
 ## Q1 22
 
