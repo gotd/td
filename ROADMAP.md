@@ -14,9 +14,9 @@ Add basic OpenTelemetry spans (**moved to Q4**)
 
 ~~All Bot API Types should be parsed:~~
 
-~~* ~~Parser from docs.~~
-* OpenAPI v3 generated spec from parsed types.
-* Go structs generated from OpenAPI v3 spec.~~
+* ~~Parser from docs.~~
+* ~~OpenAPI v3 generated spec from parsed types.~~
+* ~~Go structs generated from OpenAPI v3 spec.~~
 
 ## Q4 21
 ### Documentation
