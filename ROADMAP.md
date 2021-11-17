@@ -1,23 +1,5 @@
 # Roadmap
 
-## Q3 21
-
-### ~~Update key exchange~~
-
-An updated key exchange protocol should be implemented. Done.
-
-### Initial tracing
-
-Add basic OpenTelemetry spans (**moved to Q4**)
-
-### ~~Bot API Types~~
-
-~~All Bot API Types should be parsed:~~
-
-* ~~Parser from docs.~~
-* ~~OpenAPI v3 generated spec from parsed types.~~
-* ~~Go structs generated from OpenAPI v3 spec.~~
-
 ## Q4 21
 ### Documentation
 
@@ -104,3 +86,23 @@ Features that have no milestone, but are likely to appear at some point.
   * The [gnet](https://github.com/panjf2000/gnet) Event Loop for Server
   * Generated object pooling
   * Zero allocation AES-IGE implementation
+
+## Changelog
+
+### Q3 21
+
+#### ~~Update key exchange~~
+
+An updated key exchange protocol should be implemented. Done.
+
+#### Initial tracing
+
+Add basic OpenTelemetry spans (**moved to Q4**)
+
+#### ~~Bot API Types~~
+
+~~All Bot API Types should be parsed:~~
+
+* ~~Parser from docs.~~
+* ~~OpenAPI v3 generated spec from parsed types.~~
+* ~~Go structs generated from OpenAPI v3 spec.~~
