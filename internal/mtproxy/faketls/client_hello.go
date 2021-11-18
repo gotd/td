@@ -90,7 +90,7 @@ func createClientHello(b *bin.Buffer, sessionID [32]byte, domain string, key [32
 }
 
 // writeClientHello writes faketls ClientHello.
-// See https://github.com/9seconds/mtg/blob/e075169dd4e9fc4c2b1453668f85f5099c4fb895/tlstypes/client_hello.go#L38-L86.
+//
 // See https://tools.ietf.org/html/rfc5246#section-7.4.1.1.
 func writeClientHello(
 	w io.Writer,

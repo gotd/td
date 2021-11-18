@@ -87,10 +87,6 @@ issues:
       linters: [ gocyclo, gocognit ]
       text: "Run"
 
-    # this package is copy of tlstypes from mtg, keeping unchanged, so suppress some linters.
-    - path: tlstypes
-      linters: [ gochecknoglobals, gosec, golint ]
-
     - linters: [ gocritic ]
       text: "commentedOutCode"
       source: "SHA1"
@@ -125,10 +121,6 @@ issues:
     # G304: Potential file inclusion via variable
     - path: cmd\/.+\/main\.go
       text: G(307|304)
-
-    # Ignore linters in vendored tlstypes package.
-    - path: tlstypes
-      linters: [ revive, golint ]
 
     - linters: [ goconst ]
       text: 'string `bool`'
