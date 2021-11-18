@@ -3,6 +3,7 @@ package faketls
 import (
 	"bytes"
 	"io"
+	"sync"
 
 	"github.com/go-faster/errors"
 
@@ -16,8 +17,11 @@ type FakeTLS struct {
 	clock clock.Clock
 	conn  io.ReadWriter
 
-	version [2]byte
-	buf     bytes.Buffer
+	version     [2]byte
+	firstPacket bool
+
+	readBuf    bytes.Buffer
+	readBufMux sync.Mutex
 }
 
 // NewFakeTLS creates new FakeTLS.
@@ -26,14 +30,16 @@ func NewFakeTLS(r io.Reader, conn io.ReadWriter) *FakeTLS {
 		rand:    r,
 		clock:   clock.System,
 		conn:    conn,
-		version: Version10Bytes,
-		buf:     bytes.Buffer{},
+		version: Version12Bytes,
+		readBuf: bytes.Buffer{},
 	}
 }
 
 // Handshake performs FakeTLS handshake.
 func (o *FakeTLS) Handshake(protocol [4]byte, dc int, s mtproxy.Secret) error {
-	o.buf.Reset()
+	o.readBufMux.Lock()
+	o.readBuf.Reset()
+	o.readBufMux.Unlock()
 
 	var sessionID [32]byte
 	if _, err := o.rand.Read(sessionID[:]); err != nil {
@@ -48,12 +54,25 @@ func (o *FakeTLS) Handshake(protocol [4]byte, dc int, s mtproxy.Secret) error {
 	if err := readServerHello(o.conn, clientDigest, s.Secret); err != nil {
 		return errors.Wrap(err, "receive ServerHello")
 	}
-
 	return nil
 }
 
 // Write implements io.Writer.
 func (o *FakeTLS) Write(b []byte) (n int, err error) {
+	// Some proxies require sending first packet with RecordTypeChangeCipherSpec.
+	//
+	// See https://github.com/tdlib/td/blob/master/td/mtproto/TcpTransport.cpp#L266.
+	if !o.firstPacket {
+		n, err = writeRecord(o.conn, record{
+			Type:    RecordTypeChangeCipherSpec,
+			Version: o.version,
+			Data:    []byte("\x01"),
+		})
+		if err != nil {
+			return 0, errors.Wrap(err, "write first TLS packet")
+		}
+		o.firstPacket = true
+	}
 	n, err = writeRecord(o.conn, record{
 		Type:    RecordTypeApplication,
 		Version: o.version,
@@ -67,8 +86,11 @@ func (o *FakeTLS) Write(b []byte) (n int, err error) {
 
 // Read implements io.Reader.
 func (o *FakeTLS) Read(b []byte) (n int, err error) {
-	if o.buf.Len() > 0 {
-		return o.buf.Read(b)
+	o.readBufMux.Lock()
+	defer o.readBufMux.Unlock()
+
+	if o.readBuf.Len() > 0 {
+		return o.readBuf.Read(b)
 	}
 
 	rec, err := readRecord(o.conn)
@@ -84,7 +106,7 @@ func (o *FakeTLS) Read(b []byte) (n int, err error) {
 	default:
 		return 0, errors.Errorf("unsupported record type %v", rec.Type)
 	}
-	o.buf.Write(rec.Data)
+	o.readBuf.Write(rec.Data)
 
-	return o.buf.Read(b)
+	return o.readBuf.Read(b)
 }
