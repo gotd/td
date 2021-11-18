@@ -4,9 +4,11 @@ import (
 	"bytes"
 	"crypto/hmac"
 	"crypto/sha256"
+	"encoding/hex"
 	"io"
 
 	"github.com/go-faster/errors"
+	"github.com/k0kubun/pp/v3"
 )
 
 // readServerHello reads faketls ServerHello.
@@ -43,6 +45,9 @@ func readServerHello(r io.Reader, clientRandom [32]byte, secret []byte) error {
 	// `$offset = $record_header + $server_hello_header = 11 bytes`
 	const serverRandomOffset = 11
 	packet := packetBuf.Bytes()
+	pp.Println(clientRandom)
+	pp.Println(secret)
+	pp.Println(hex.EncodeToString(packet))
 	// Copy original digest.
 	var originalDigest [32]byte
 	copy(originalDigest[:], packet[serverRandomOffset:serverRandomOffset+32])
