@@ -6,13 +6,15 @@ import (
 
 	"github.com/go-faster/errors"
 
+	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/mtproxy"
 )
 
 // FakeTLS implements FakeTLS obfuscation protocol.
 type FakeTLS struct {
-	rand io.Reader
-	conn io.ReadWriter
+	rand  io.Reader
+	clock clock.Clock
+	conn  io.ReadWriter
 
 	version [2]byte
 	buf     bytes.Buffer
@@ -22,6 +24,7 @@ type FakeTLS struct {
 func NewFakeTLS(r io.Reader, conn io.ReadWriter) *FakeTLS {
 	return &FakeTLS{
 		rand:    r,
+		clock:   clock.System,
 		conn:    conn,
 		version: Version10Bytes,
 		buf:     bytes.Buffer{},
@@ -37,7 +40,7 @@ func (o *FakeTLS) Handshake(protocol [4]byte, dc int, s mtproxy.Secret) error {
 		return errors.Wrap(err, "generate sessionID")
 	}
 
-	clientDigest, err := writeClientHello(o.conn, sessionID, s.Secret)
+	clientDigest, err := writeClientHello(o.conn, o.clock, sessionID, s.CloakHost, s.Secret)
 	if err != nil {
 		return errors.Wrap(err, "send ClientHello")
 	}
