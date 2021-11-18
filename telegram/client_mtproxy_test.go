@@ -45,7 +45,7 @@ func (m mtg) run(ctx context.Context, secret string, out, err io.Writer, wait *t
 	return cmd.Run()
 }
 
-func (m mtg) generateSecret(ctx context.Context, t string) ([]byte, error) {
+func (m mtg) generateSecret(ctx context.Context, _ string) ([]byte, error) {
 	args := []string{"generate-secret", "google.com"}
 
 	o, err := exec.CommandContext(ctx, m.path, args...).Output()
@@ -99,9 +99,6 @@ func testMTProxy(secretType string, m mtg, storage session.Storage) func(t *test
 			case <-ctx.Done():
 				return ctx.Err()
 			}
-
-			// FIXME(tdakkota): mtg generates a 0xee secret, but expects 0xdd
-			secret[0] = 0xdd
 
 			resolver, err := dcs.MTProxy(m.addr, secret, dcs.MTProxyOptions{})
 			if err != nil {

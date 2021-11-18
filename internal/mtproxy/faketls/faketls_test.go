@@ -5,8 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gotd/neo"
 	"github.com/stretchr/testify/require"
+
+	"github.com/gotd/neo"
 )
 
 func TestTLS(t *testing.T) {

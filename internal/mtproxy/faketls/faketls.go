@@ -63,7 +63,7 @@ func (o *FakeTLS) Write(b []byte) (n int, err error) {
 	//
 	// See https://github.com/tdlib/td/blob/master/td/mtproto/TcpTransport.cpp#L266.
 	if !o.firstPacket {
-		n, err = writeRecord(o.conn, record{
+		_, err = writeRecord(o.conn, record{
 			Type:    RecordTypeChangeCipherSpec,
 			Version: o.version,
 			Data:    []byte("\x01"),

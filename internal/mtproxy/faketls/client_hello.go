@@ -22,7 +22,7 @@ func createClientHello(b *bin.Buffer, sessionID [32]byte, domain string, key [32
 		randomOffset = len(b.Buf)
 		b.Expand(n)
 	}
-	G := func(n int) {
+	G := func(_ int) {
 		b.Expand(0)
 	}
 	R := func() {

@@ -95,13 +95,11 @@ func (p plain) dialTransport(ctx context.Context, test bool, dc tg.DCOption) (_ 
 			return nil, errors.Wrap(err, "check DC secret")
 		}
 
-		if c, ok := secret.ExpectedCodec(); ok {
-			tag = [4]byte{secret.Tag, secret.Tag, secret.Tag, secret.Tag}
-			cdc = c
-		}
-
 		if secret.Type == mtproxy.TLS {
 			obfs = obfuscator.FakeTLS
+		} else if c, ok := secret.ExpectedCodec(); ok {
+			tag = [4]byte{secret.Tag, secret.Tag, secret.Tag, secret.Tag}
+			cdc = c
 		}
 
 		obfsConn := obfs(p.rand, conn)
