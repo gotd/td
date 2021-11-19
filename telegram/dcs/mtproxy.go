@@ -118,9 +118,13 @@ func MTProxy(addr string, secret []byte, opts MTProxyOptions) (Resolver, error) 
 	var cdc codec.Codec = codec.PaddedIntermediate{}
 	tag := codec.PaddedIntermediateClientStart
 
-	if c, ok := s.ExpectedCodec(); ok {
-		cdc = c
-		tag = [4]byte{s.Tag, s.Tag, s.Tag, s.Tag}
+	// FIXME(tdakkota): some proxies forces to use Padded (Secure) Intermediate
+	// 	even if secret denotes to use another transport type.
+	if s.Type != mtproxy.TLS {
+		if c, ok := s.ExpectedCodec(); ok {
+			cdc = c
+			tag = [4]byte{s.Tag, s.Tag, s.Tag, s.Tag}
+		}
 	}
 
 	opts.setDefaults()

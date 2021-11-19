@@ -2,7 +2,6 @@ package dcs
 
 import (
 	"context"
-	"crypto/rand"
 	"io"
 	"net"
 	"strconv"
@@ -76,25 +75,6 @@ func (p plain) dialTransport(ctx context.Context, test bool, dc tg.DCOption) (_ 
 
 	proto := p.protocol
 	if dc.TCPObfuscatedOnly {
-		var (
-			cdc    codec.Codec = codec.Intermediate{}
-			tag                = codec.IntermediateClientStart
-			secret             = dc.Secret
-		)
-
-		if len(secret) > 0 {
-			parsed, err := mtproxy.ParseSecret(secret)
-			if err != nil {
-				return nil, errors.Wrap(err, "check DC secret")
-			}
-			secret = parsed.Secret
-
-			if c, ok := parsed.ExpectedCodec(); ok {
-				tag = [4]byte{parsed.Tag, parsed.Tag, parsed.Tag, parsed.Tag}
-				cdc = c
-			}
-		}
-
 		dcID := dc.ID
 		if test {
 			if dcID < 0 {
@@ -104,11 +84,26 @@ func (p plain) dialTransport(ctx context.Context, test bool, dc tg.DCOption) (_ 
 			}
 		}
 
-		obfsConn := obfuscator.Obfuscated2(rand.Reader, conn)
-		if err := obfsConn.Handshake(tag, dcID, mtproxy.Secret{
-			Secret: secret,
-			Type:   mtproxy.Secured,
-		}); err != nil {
+		var (
+			cdc  codec.Codec = codec.Intermediate{}
+			tag              = codec.IntermediateClientStart
+			obfs             = obfuscator.Obfuscated2
+		)
+
+		secret, err := mtproxy.ParseSecret(dc.Secret)
+		if err != nil {
+			return nil, errors.Wrap(err, "check DC secret")
+		}
+
+		if secret.Type == mtproxy.TLS {
+			obfs = obfuscator.FakeTLS
+		} else if c, ok := secret.ExpectedCodec(); ok {
+			tag = [4]byte{secret.Tag, secret.Tag, secret.Tag, secret.Tag}
+			cdc = c
+		}
+
+		obfsConn := obfs(p.rand, conn)
+		if err := obfsConn.Handshake(tag, dcID, secret); err != nil {
 			return nil, err
 		}
 		conn = obfsConn

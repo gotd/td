@@ -3,6 +3,7 @@ package telegram_test
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/hex"
 	"io"
 	"os"
@@ -37,19 +38,15 @@ func (s signalWriter) Write(p []byte) (n int, err error) {
 }
 
 func (m mtg) run(ctx context.Context, secret string, out, err io.Writer, wait *tdsync.Ready) error {
-	cmd := exec.CommandContext(ctx, m.path, "run", "--bind", m.addr, "-4", m.addr, secret)
+	cmd := exec.CommandContext(ctx, m.path, "simple-run", "-d", m.addr, secret)
 	cmd.Stdout = signalWriter{Writer: out, wait: wait}
 	cmd.Stderr = signalWriter{Writer: err, wait: wait}
 	cmd.Env = append([]string{"MTG_DEBUG=true", "MTG_TEST_DC=true"}, os.Environ()...)
 	return cmd.Run()
 }
 
-func (m mtg) generateSecret(ctx context.Context, t string) ([]byte, error) {
-	args := []string{"generate-secret"}
-	if t == "tls" {
-		args = append(args, "-c", "google.com")
-	}
-	args = append(args, t)
+func (m mtg) generateSecret(ctx context.Context, _ string) ([]byte, error) {
+	args := []string{"generate-secret", "google.com"}
 
 	o, err := exec.CommandContext(ctx, m.path, args...).Output()
 	if err != nil {
@@ -57,7 +54,7 @@ func (m mtg) generateSecret(ctx context.Context, t string) ([]byte, error) {
 	}
 	output := strings.TrimSpace(string(o))
 
-	r, err := hex.DecodeString(output)
+	r, err := base64.RawURLEncoding.DecodeString(output)
 	if err != nil {
 		return nil, errors.Wrapf(err, "decode secret %q", output)
 	}
@@ -112,7 +109,7 @@ func testMTProxy(secretType string, m mtg, storage session.Storage) func(t *test
 				Resolver:       resolver,
 				Logger:         logger,
 				SessionStorage: storage,
-				DCList:         dcs.Test(),
+				DCList:         dcs.Prod(),
 			})
 		})
 
@@ -134,7 +131,8 @@ func TestExternalE2EMTProxy(t *testing.T) {
 	// To re-use session.
 	storage := &session.StorageMemory{}
 	m := mtg{path: mtgPath, addr: addr}
-	for _, secretType := range []string{"simple", "secured", "tls"} {
+	// TODO(tdakkota): test all proxy types (mtg v2 supports only faketls)
+	for _, secretType := range []string{"tls"} {
 		t.Run(strings.Title(secretType), testMTProxy(secretType, m, storage))
 	}
 }

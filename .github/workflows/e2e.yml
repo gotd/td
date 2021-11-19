@@ -36,7 +36,7 @@ jobs:
             e2e-${{ runner.os }}-go-
 
       - name: Install latest mtg proxy
-        run: go install github.com/gotd/mtg@master
+        run: go install -v github.com/9seconds/mtg/v2@latest
 
       - name: Download dependencies
         run: go mod download && go mod tidy
@@ -46,4 +46,4 @@ jobs:
         run: go test -v -run ^TestExternalE2E ./...
         env:
           GOTD_TEST_EXTERNAL: 1
-          GOTD_MTPROXY_ADDR: "localhost:3128"
+          GOTD_MTPROXY_ADDR: "127.0.0.1:3128"

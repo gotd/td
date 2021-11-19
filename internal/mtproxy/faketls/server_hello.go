@@ -10,7 +10,6 @@ import (
 )
 
 // readServerHello reads faketls ServerHello.
-// See https://github.com/9seconds/mtg/blob/e075169dd4e9fc4c2b1453668f85f5099c4fb895/tlstypes/server_hello.go#L21-L57.
 func readServerHello(r io.Reader, clientRandom [32]byte, secret []byte) error {
 	packetBuf := bytes.NewBuffer(nil)
 	r = io.TeeReader(r, packetBuf)
