@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // NotificationTypeNewMessage represents TL type `notificationTypeNewMessage#70691637`.
@@ -146,6 +148,21 @@ func (n *NotificationTypeNewMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NotificationTypeNewMessage) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notificationTypeNewMessage#70691637 as nil")
+	}
+	b.ObjStart()
+	b.PutID("notificationTypeNewMessage")
+	b.FieldStart("message")
+	if err := n.Message.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode notificationTypeNewMessage#70691637: field message: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetMessage returns value of Message field.
 func (n *NotificationTypeNewMessage) GetMessage() (value Message) {
 	return n.Message
@@ -247,6 +264,17 @@ func (n *NotificationTypeNewSecretChat) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
 		return fmt.Errorf("can't decode notificationTypeNewSecretChat#4771c6b0 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NotificationTypeNewSecretChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notificationTypeNewSecretChat#4771c6b0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("notificationTypeNewSecretChat")
+	b.ObjEnd()
 	return nil
 }
 
@@ -364,6 +392,19 @@ func (n *NotificationTypeNewCall) DecodeBare(b *bin.Buffer) error {
 		}
 		n.CallID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NotificationTypeNewCall) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notificationTypeNewCall#66164179 as nil")
+	}
+	b.ObjStart()
+	b.PutID("notificationTypeNewCall")
+	b.FieldStart("call_id")
+	b.PutInt32(n.CallID)
+	b.ObjEnd()
 	return nil
 }
 
@@ -568,6 +609,37 @@ func (n *NotificationTypeNewPushMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NotificationTypeNewPushMessage) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notificationTypeNewPushMessage#88ccb27e as nil")
+	}
+	b.ObjStart()
+	b.PutID("notificationTypeNewPushMessage")
+	b.FieldStart("message_id")
+	b.PutLong(n.MessageID)
+	b.FieldStart("sender")
+	if n.Sender == nil {
+		return fmt.Errorf("unable to encode notificationTypeNewPushMessage#88ccb27e: field sender is nil")
+	}
+	if err := n.Sender.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode notificationTypeNewPushMessage#88ccb27e: field sender: %w", err)
+	}
+	b.FieldStart("sender_name")
+	b.PutString(n.SenderName)
+	b.FieldStart("is_outgoing")
+	b.PutBool(n.IsOutgoing)
+	b.FieldStart("content")
+	if n.Content == nil {
+		return fmt.Errorf("unable to encode notificationTypeNewPushMessage#88ccb27e: field content is nil")
+	}
+	if err := n.Content.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode notificationTypeNewPushMessage#88ccb27e: field content: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetMessageID returns value of MessageID field.
 func (n *NotificationTypeNewPushMessage) GetMessageID() (value int64) {
 	return n.MessageID
@@ -624,6 +696,7 @@ type NotificationTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeNotificationType implements binary de-serialization for NotificationTypeClass.

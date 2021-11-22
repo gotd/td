@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetUserPrivacySettingRulesRequest represents TL type `getUserPrivacySettingRules#84301671`.
@@ -143,6 +145,24 @@ func (g *GetUserPrivacySettingRulesRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Setting = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetUserPrivacySettingRulesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getUserPrivacySettingRules#84301671 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getUserPrivacySettingRules")
+	b.FieldStart("setting")
+	if g.Setting == nil {
+		return fmt.Errorf("unable to encode getUserPrivacySettingRules#84301671: field setting is nil")
+	}
+	if err := g.Setting.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getUserPrivacySettingRules#84301671: field setting: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

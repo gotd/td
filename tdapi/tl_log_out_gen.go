@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // LogOutRequest represents TL type `logOut#a1b5c41b`.
@@ -120,6 +122,17 @@ func (l *LogOutRequest) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
 		return fmt.Errorf("can't decode logOut#a1b5c41b to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LogOutRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode logOut#a1b5c41b as nil")
+	}
+	b.ObjStart()
+	b.PutID("logOut")
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CheckAuthenticationPasswordRequest represents TL type `checkAuthenticationPassword#87424ba0`.
@@ -138,6 +140,19 @@ func (c *CheckAuthenticationPasswordRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Password = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CheckAuthenticationPasswordRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkAuthenticationPassword#87424ba0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("checkAuthenticationPassword")
+	b.FieldStart("password")
+	b.PutString(c.Password)
+	b.ObjEnd()
 	return nil
 }
 

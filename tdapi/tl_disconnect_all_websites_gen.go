@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DisconnectAllWebsitesRequest represents TL type `disconnectAllWebsites#bf72f203`.
@@ -120,6 +122,17 @@ func (d *DisconnectAllWebsitesRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't decode disconnectAllWebsites#bf72f203 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DisconnectAllWebsitesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode disconnectAllWebsites#bf72f203 as nil")
+	}
+	b.ObjStart()
+	b.PutID("disconnectAllWebsites")
+	b.ObjEnd()
 	return nil
 }
 

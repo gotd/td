@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DiscardGroupCallRequest represents TL type `discardGroupCall#31b4d159`.
@@ -138,6 +140,19 @@ func (d *DiscardGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		d.GroupCallID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DiscardGroupCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode discardGroupCall#31b4d159 as nil")
+	}
+	b.ObjStart()
+	b.PutID("discardGroupCall")
+	b.FieldStart("group_call_id")
+	b.PutInt32(d.GroupCallID)
+	b.ObjEnd()
 	return nil
 }
 

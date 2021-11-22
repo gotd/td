@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SendChatScreenshotTakenNotificationRequest represents TL type `sendChatScreenshotTakenNotification#1aba0861`.
@@ -138,6 +140,19 @@ func (s *SendChatScreenshotTakenNotificationRequest) DecodeBare(b *bin.Buffer) e
 		}
 		s.ChatID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SendChatScreenshotTakenNotificationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendChatScreenshotTakenNotification#1aba0861 as nil")
+	}
+	b.ObjStart()
+	b.PutID("sendChatScreenshotTakenNotification")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.ObjEnd()
 	return nil
 }
 

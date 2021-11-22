@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ReorderChatFiltersRequest represents TL type `reorderChatFilters#c3a5313d`.
@@ -151,6 +153,23 @@ func (r *ReorderChatFiltersRequest) DecodeBare(b *bin.Buffer) error {
 			r.ChatFilterIDs = append(r.ChatFilterIDs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ReorderChatFiltersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode reorderChatFilters#c3a5313d as nil")
+	}
+	b.ObjStart()
+	b.PutID("reorderChatFilters")
+	b.FieldStart("chat_filter_ids")
+	b.ArrStart()
+	for _, v := range r.ChatFilterIDs {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

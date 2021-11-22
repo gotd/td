@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetSupergroupUsernameRequest represents TL type `setSupergroupUsername#aadd5dbe`.
@@ -155,6 +157,21 @@ func (s *SetSupergroupUsernameRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Username = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetSupergroupUsernameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setSupergroupUsername#aadd5dbe as nil")
+	}
+	b.ObjStart()
+	b.PutID("setSupergroupUsername")
+	b.FieldStart("supergroup_id")
+	b.PutInt32(s.SupergroupID)
+	b.FieldStart("username")
+	b.PutString(s.Username)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Thumbnail represents TL type `thumbnail#4a1ae06b`.
@@ -194,6 +196,32 @@ func (t *Thumbnail) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode thumbnail#4a1ae06b: field file: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *Thumbnail) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode thumbnail#4a1ae06b as nil")
+	}
+	b.ObjStart()
+	b.PutID("thumbnail")
+	b.FieldStart("format")
+	if t.Format == nil {
+		return fmt.Errorf("unable to encode thumbnail#4a1ae06b: field format is nil")
+	}
+	if err := t.Format.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode thumbnail#4a1ae06b: field format: %w", err)
+	}
+	b.FieldStart("width")
+	b.PutInt32(t.Width)
+	b.FieldStart("height")
+	b.PutInt32(t.Height)
+	b.FieldStart("file")
+	if err := t.File.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode thumbnail#4a1ae06b: field file: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

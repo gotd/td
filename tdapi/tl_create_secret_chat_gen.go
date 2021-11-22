@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CreateSecretChatRequest represents TL type `createSecretChat#730dd22f`.
@@ -138,6 +140,19 @@ func (c *CreateSecretChatRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.SecretChatID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CreateSecretChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode createSecretChat#730dd22f as nil")
+	}
+	b.ObjStart()
+	b.PutID("createSecretChat")
+	b.FieldStart("secret_chat_id")
+	b.PutInt32(c.SecretChatID)
+	b.ObjEnd()
 	return nil
 }
 

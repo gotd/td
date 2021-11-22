@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TextEntityTypeMention represents TL type `textEntityTypeMention#37b3df65`.
@@ -125,6 +127,17 @@ func (t *TextEntityTypeMention) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeMention#37b3df65 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeMention) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeMention#37b3df65 as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeMention")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (t *TextEntityTypeHashtag) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeHashtag) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeHashtag#c2f7a2dd as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeHashtag")
+	b.ObjEnd()
+	return nil
+}
+
 // TextEntityTypeCashtag represents TL type `textEntityTypeCashtag#48e4374b`.
 type TextEntityTypeCashtag struct {
 }
@@ -323,6 +347,17 @@ func (t *TextEntityTypeCashtag) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeCashtag#48e4374b to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeCashtag) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeCashtag#48e4374b as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeCashtag")
+	b.ObjEnd()
 	return nil
 }
 
@@ -425,6 +460,17 @@ func (t *TextEntityTypeBotCommand) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeBotCommand) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeBotCommand#bb652bb3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeBotCommand")
+	b.ObjEnd()
+	return nil
+}
+
 // TextEntityTypeURL represents TL type `textEntityTypeUrl#b1c0d47c`.
 type TextEntityTypeURL struct {
 }
@@ -521,6 +567,17 @@ func (t *TextEntityTypeURL) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeUrl#b1c0d47c to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeURL) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeUrl#b1c0d47c as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeUrl")
+	b.ObjEnd()
 	return nil
 }
 
@@ -623,6 +680,17 @@ func (t *TextEntityTypeEmailAddress) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeEmailAddress) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeEmailAddress#54f81821 as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeEmailAddress")
+	b.ObjEnd()
+	return nil
+}
+
 // TextEntityTypePhoneNumber represents TL type `textEntityTypePhoneNumber#bad9aa2a`.
 type TextEntityTypePhoneNumber struct {
 }
@@ -719,6 +787,17 @@ func (t *TextEntityTypePhoneNumber) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypePhoneNumber#bad9aa2a to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypePhoneNumber) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypePhoneNumber#bad9aa2a as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypePhoneNumber")
+	b.ObjEnd()
 	return nil
 }
 
@@ -821,6 +900,17 @@ func (t *TextEntityTypeBankCardNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeBankCardNumber) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeBankCardNumber#6513910 as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeBankCardNumber")
+	b.ObjEnd()
+	return nil
+}
+
 // TextEntityTypeBold represents TL type `textEntityTypeBold#bcc0e1b0`.
 type TextEntityTypeBold struct {
 }
@@ -917,6 +1007,17 @@ func (t *TextEntityTypeBold) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeBold#bcc0e1b0 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeBold) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeBold#bcc0e1b0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeBold")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1019,6 +1120,17 @@ func (t *TextEntityTypeItalic) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeItalic) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeItalic#f8f3965d as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeItalic")
+	b.ObjEnd()
+	return nil
+}
+
 // TextEntityTypeUnderline represents TL type `textEntityTypeUnderline#2f39cf92`.
 type TextEntityTypeUnderline struct {
 }
@@ -1115,6 +1227,17 @@ func (t *TextEntityTypeUnderline) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeUnderline#2f39cf92 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeUnderline) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeUnderline#2f39cf92 as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeUnderline")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1217,6 +1340,17 @@ func (t *TextEntityTypeStrikethrough) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeStrikethrough) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeStrikethrough#394fc4fa as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeStrikethrough")
+	b.ObjEnd()
+	return nil
+}
+
 // TextEntityTypeCode represents TL type `textEntityTypeCode#c5e9c94a`.
 type TextEntityTypeCode struct {
 }
@@ -1316,6 +1450,17 @@ func (t *TextEntityTypeCode) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeCode) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeCode#c5e9c94a as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeCode")
+	b.ObjEnd()
+	return nil
+}
+
 // TextEntityTypePre represents TL type `textEntityTypePre#62491c8e`.
 type TextEntityTypePre struct {
 }
@@ -1412,6 +1557,17 @@ func (t *TextEntityTypePre) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypePre#62491c8e to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypePre) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypePre#62491c8e as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypePre")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1529,6 +1685,19 @@ func (t *TextEntityTypePreCode) DecodeBare(b *bin.Buffer) error {
 		}
 		t.Language = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypePreCode) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypePreCode#c7a77aab as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypePreCode")
+	b.FieldStart("language")
+	b.PutString(t.Language)
+	b.ObjEnd()
 	return nil
 }
 
@@ -1654,6 +1823,19 @@ func (t *TextEntityTypeTextURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeTextURL) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeTextUrl#1a912463 as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeTextUrl")
+	b.FieldStart("url")
+	b.PutString(t.URL)
+	b.ObjEnd()
+	return nil
+}
+
 // GetURL returns value of URL field.
 func (t *TextEntityTypeTextURL) GetURL() (value string) {
 	return t.URL
@@ -1773,6 +1955,19 @@ func (t *TextEntityTypeMentionName) DecodeBare(b *bin.Buffer) error {
 		}
 		t.UserID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeMentionName) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeMentionName#d0d2685d as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeMentionName")
+	b.FieldStart("user_id")
+	b.PutInt32(t.UserID)
+	b.ObjEnd()
 	return nil
 }
 
@@ -1900,6 +2095,19 @@ func (t *TextEntityTypeMediaTimestamp) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntityTypeMediaTimestamp) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeMediaTimestamp#9236da10 as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeMediaTimestamp")
+	b.FieldStart("media_timestamp")
+	b.PutInt32(t.MediaTimestamp)
+	b.ObjEnd()
+	return nil
+}
+
 // GetMediaTimestamp returns value of MediaTimestamp field.
 func (t *TextEntityTypeMediaTimestamp) GetMediaTimestamp() (value int32) {
 	return t.MediaTimestamp
@@ -1950,6 +2158,7 @@ type TextEntityTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeTextEntityType implements binary de-serialization for TextEntityTypeClass.

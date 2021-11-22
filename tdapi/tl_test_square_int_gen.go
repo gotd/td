@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TestSquareIntRequest represents TL type `testSquareInt#fc6a6990`.
@@ -138,6 +140,19 @@ func (t *TestSquareIntRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		t.X = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TestSquareIntRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testSquareInt#fc6a6990 as nil")
+	}
+	b.ObjStart()
+	b.PutID("testSquareInt")
+	b.FieldStart("x")
+	b.PutInt32(t.X)
+	b.ObjEnd()
 	return nil
 }
 

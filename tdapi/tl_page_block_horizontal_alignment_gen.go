@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PageBlockHorizontalAlignmentLeft represents TL type `pageBlockHorizontalAlignmentLeft#329627e9`.
@@ -125,6 +127,17 @@ func (p *PageBlockHorizontalAlignmentLeft) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockHorizontalAlignmentLeft#329627e9 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PageBlockHorizontalAlignmentLeft) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHorizontalAlignmentLeft#329627e9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pageBlockHorizontalAlignmentLeft")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (p *PageBlockHorizontalAlignmentCenter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PageBlockHorizontalAlignmentCenter) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHorizontalAlignmentCenter#c3d8c4ea as nil")
+	}
+	b.ObjStart()
+	b.PutID("pageBlockHorizontalAlignmentCenter")
+	b.ObjEnd()
+	return nil
+}
+
 // PageBlockHorizontalAlignmentRight represents TL type `pageBlockHorizontalAlignmentRight#51bd6efe`.
 type PageBlockHorizontalAlignmentRight struct {
 }
@@ -326,6 +350,17 @@ func (p *PageBlockHorizontalAlignmentRight) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PageBlockHorizontalAlignmentRight) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHorizontalAlignmentRight#51bd6efe as nil")
+	}
+	b.ObjStart()
+	b.PutID("pageBlockHorizontalAlignmentRight")
+	b.ObjEnd()
+	return nil
+}
+
 // PageBlockHorizontalAlignmentClass represents PageBlockHorizontalAlignment generic type.
 //
 // Example:
@@ -356,6 +391,7 @@ type PageBlockHorizontalAlignmentClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodePageBlockHorizontalAlignment implements binary de-serialization for PageBlockHorizontalAlignmentClass.

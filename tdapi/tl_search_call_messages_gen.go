@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SearchCallMessagesRequest represents TL type `searchCallMessages#bfcac31c`.
@@ -175,6 +177,23 @@ func (s *SearchCallMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.OnlyMissed = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchCallMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchCallMessages#bfcac31c as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchCallMessages")
+	b.FieldStart("from_message_id")
+	b.PutLong(s.FromMessageID)
+	b.FieldStart("limit")
+	b.PutInt32(s.Limit)
+	b.FieldStart("only_missed")
+	b.PutBool(s.OnlyMissed)
+	b.ObjEnd()
 	return nil
 }
 

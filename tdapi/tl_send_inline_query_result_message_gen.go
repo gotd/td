@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SendInlineQueryResultMessageRequest represents TL type `sendInlineQueryResultMessage#c774e89c`.
@@ -242,6 +244,35 @@ func (s *SendInlineQueryResultMessageRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.HideViaBot = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SendInlineQueryResultMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendInlineQueryResultMessage#c774e89c as nil")
+	}
+	b.ObjStart()
+	b.PutID("sendInlineQueryResultMessage")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("message_thread_id")
+	b.PutLong(s.MessageThreadID)
+	b.FieldStart("reply_to_message_id")
+	b.PutLong(s.ReplyToMessageID)
+	b.FieldStart("options")
+	if err := s.Options.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sendInlineQueryResultMessage#c774e89c: field options: %w", err)
+	}
+	b.FieldStart("query_id")
+	if err := s.QueryID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sendInlineQueryResultMessage#c774e89c: field query_id: %w", err)
+	}
+	b.FieldStart("result_id")
+	b.PutString(s.ResultID)
+	b.FieldStart("hide_via_bot")
+	b.PutBool(s.HideViaBot)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ConfirmQrCodeAuthenticationRequest represents TL type `confirmQrCodeAuthentication#e993a72d`.
@@ -138,6 +140,19 @@ func (c *ConfirmQrCodeAuthenticationRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Link = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ConfirmQrCodeAuthenticationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode confirmQrCodeAuthentication#e993a72d as nil")
+	}
+	b.ObjStart()
+	b.PutID("confirmQrCodeAuthentication")
+	b.FieldStart("link")
+	b.PutString(c.Link)
+	b.ObjEnd()
 	return nil
 }
 

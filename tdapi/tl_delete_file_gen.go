@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DeleteFileRequest represents TL type `deleteFile#6bbe9b2c`.
@@ -138,6 +140,19 @@ func (d *DeleteFileRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		d.FileID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeleteFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deleteFile#6bbe9b2c as nil")
+	}
+	b.ObjStart()
+	b.PutID("deleteFile")
+	b.FieldStart("file_id")
+	b.PutInt32(d.FileID)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CreateCallRequest represents TL type `createCall#6d86889c`.
@@ -172,6 +174,25 @@ func (c *CreateCallRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.IsVideo = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CreateCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode createCall#6d86889c as nil")
+	}
+	b.ObjStart()
+	b.PutID("createCall")
+	b.FieldStart("user_id")
+	b.PutInt32(c.UserID)
+	b.FieldStart("protocol")
+	if err := c.Protocol.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode createCall#6d86889c: field protocol: %w", err)
+	}
+	b.FieldStart("is_video")
+	b.PutBool(c.IsVideo)
+	b.ObjEnd()
 	return nil
 }
 

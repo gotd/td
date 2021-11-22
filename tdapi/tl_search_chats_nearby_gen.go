@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SearchChatsNearbyRequest represents TL type `searchChatsNearby#f445c81f`.
@@ -138,6 +140,21 @@ func (s *SearchChatsNearbyRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode searchChatsNearby#f445c81f: field location: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchChatsNearbyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchChatsNearby#f445c81f as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchChatsNearby")
+	b.FieldStart("location")
+	if err := s.Location.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode searchChatsNearby#f445c81f: field location: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

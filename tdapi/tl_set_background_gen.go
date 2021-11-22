@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetBackgroundRequest represents TL type `setBackground#c2487387`.
@@ -184,6 +186,33 @@ func (s *SetBackgroundRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.ForDarkTheme = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetBackgroundRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setBackground#c2487387 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setBackground")
+	b.FieldStart("background")
+	if s.Background == nil {
+		return fmt.Errorf("unable to encode setBackground#c2487387: field background is nil")
+	}
+	if err := s.Background.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setBackground#c2487387: field background: %w", err)
+	}
+	b.FieldStart("type")
+	if s.Type == nil {
+		return fmt.Errorf("unable to encode setBackground#c2487387: field type is nil")
+	}
+	if err := s.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setBackground#c2487387: field type: %w", err)
+	}
+	b.FieldStart("for_dark_theme")
+	b.PutBool(s.ForDarkTheme)
+	b.ObjEnd()
 	return nil
 }
 

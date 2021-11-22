@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageForwardOriginUser represents TL type `messageForwardOriginUser#2a7150`.
@@ -143,6 +145,19 @@ func (m *MessageForwardOriginUser) DecodeBare(b *bin.Buffer) error {
 		}
 		m.SenderUserID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageForwardOriginUser) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForwardOriginUser#2a7150 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageForwardOriginUser")
+	b.FieldStart("sender_user_id")
+	b.PutInt32(m.SenderUserID)
+	b.ObjEnd()
 	return nil
 }
 
@@ -285,6 +300,21 @@ func (m *MessageForwardOriginChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageForwardOriginChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForwardOriginChat#5af51364 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageForwardOriginChat")
+	b.FieldStart("sender_chat_id")
+	b.PutLong(m.SenderChatID)
+	b.FieldStart("author_signature")
+	b.PutString(m.AuthorSignature)
+	b.ObjEnd()
+	return nil
+}
+
 // GetSenderChatID returns value of SenderChatID field.
 func (m *MessageForwardOriginChat) GetSenderChatID() (value int64) {
 	return m.SenderChatID
@@ -409,6 +439,19 @@ func (m *MessageForwardOriginHiddenUser) DecodeBare(b *bin.Buffer) error {
 		}
 		m.SenderName = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageForwardOriginHiddenUser) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForwardOriginHiddenUser#efd4eee3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageForwardOriginHiddenUser")
+	b.FieldStart("sender_name")
+	b.PutString(m.SenderName)
+	b.ObjEnd()
 	return nil
 }
 
@@ -568,6 +611,23 @@ func (m *MessageForwardOriginChannel) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageForwardOriginChannel) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForwardOriginChannel#58dabee3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageForwardOriginChannel")
+	b.FieldStart("chat_id")
+	b.PutLong(m.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(m.MessageID)
+	b.FieldStart("author_signature")
+	b.PutString(m.AuthorSignature)
+	b.ObjEnd()
+	return nil
+}
+
 // GetChatID returns value of ChatID field.
 func (m *MessageForwardOriginChannel) GetChatID() (value int64) {
 	return m.ChatID
@@ -700,6 +760,19 @@ func (m *MessageForwardOriginMessageImport) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageForwardOriginMessageImport) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForwardOriginMessageImport#d3eb2e21 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageForwardOriginMessageImport")
+	b.FieldStart("sender_name")
+	b.PutString(m.SenderName)
+	b.ObjEnd()
+	return nil
+}
+
 // GetSenderName returns value of SenderName field.
 func (m *MessageForwardOriginMessageImport) GetSenderName() (value string) {
 	return m.SenderName
@@ -737,6 +810,7 @@ type MessageForwardOriginClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeMessageForwardOrigin implements binary de-serialization for MessageForwardOriginClass.

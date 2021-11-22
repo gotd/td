@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // UserPrivacySettingRules represents TL type `userPrivacySettingRules#425e6b37`.
@@ -156,6 +158,28 @@ func (u *UserPrivacySettingRules) DecodeBare(b *bin.Buffer) error {
 			u.Rules = append(u.Rules, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingRules) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRules#425e6b37 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingRules")
+	b.FieldStart("rules")
+	b.ArrStart()
+	for idx, v := range u.Rules {
+		if v == nil {
+			return fmt.Errorf("unable to encode userPrivacySettingRules#425e6b37: field rules element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode userPrivacySettingRules#425e6b37: field rules element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

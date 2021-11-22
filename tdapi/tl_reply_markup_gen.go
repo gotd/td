@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ReplyMarkupRemoveKeyboard represents TL type `replyMarkupRemoveKeyboard#d6cc5171`.
@@ -144,6 +146,19 @@ func (r *ReplyMarkupRemoveKeyboard) DecodeBare(b *bin.Buffer) error {
 		}
 		r.IsPersonal = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ReplyMarkupRemoveKeyboard) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode replyMarkupRemoveKeyboard#d6cc5171 as nil")
+	}
+	b.ObjStart()
+	b.PutID("replyMarkupRemoveKeyboard")
+	b.FieldStart("is_personal")
+	b.PutBool(r.IsPersonal)
+	b.ObjEnd()
 	return nil
 }
 
@@ -286,6 +301,21 @@ func (r *ReplyMarkupForceReply) DecodeBare(b *bin.Buffer) error {
 		}
 		r.InputFieldPlaceholder = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ReplyMarkupForceReply) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode replyMarkupForceReply#41a6f99f as nil")
+	}
+	b.ObjStart()
+	b.PutID("replyMarkupForceReply")
+	b.FieldStart("is_personal")
+	b.PutBool(r.IsPersonal)
+	b.FieldStart("input_field_placeholder")
+	b.PutString(r.InputFieldPlaceholder)
+	b.ObjEnd()
 	return nil
 }
 
@@ -517,6 +547,37 @@ func (r *ReplyMarkupShowKeyboard) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ReplyMarkupShowKeyboard) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode replyMarkupShowKeyboard#f64168f4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("replyMarkupShowKeyboard")
+	b.FieldStart("rows")
+	b.ArrStart()
+	for idx, row := range r.Rows {
+		b.ArrStart()
+		for _, v := range row {
+			if err := v.EncodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to encode replyMarkupShowKeyboard#f64168f4: field rows element with index %d: %w", idx, err)
+			}
+			b.ArrEnd()
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("resize_keyboard")
+	b.PutBool(r.ResizeKeyboard)
+	b.FieldStart("one_time")
+	b.PutBool(r.OneTime)
+	b.FieldStart("is_personal")
+	b.PutBool(r.IsPersonal)
+	b.FieldStart("input_field_placeholder")
+	b.PutString(r.InputFieldPlaceholder)
+	b.ObjEnd()
+	return nil
+}
+
 // GetRows returns value of Rows field.
 func (r *ReplyMarkupShowKeyboard) GetRows() (value [][]KeyboardButton) {
 	return r.Rows
@@ -689,6 +750,29 @@ func (r *ReplyMarkupInlineKeyboard) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ReplyMarkupInlineKeyboard) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode replyMarkupInlineKeyboard#92ac0efb as nil")
+	}
+	b.ObjStart()
+	b.PutID("replyMarkupInlineKeyboard")
+	b.FieldStart("rows")
+	b.ArrStart()
+	for idx, row := range r.Rows {
+		b.ArrStart()
+		for _, v := range row {
+			if err := v.EncodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to encode replyMarkupInlineKeyboard#92ac0efb: field rows element with index %d: %w", idx, err)
+			}
+			b.ArrEnd()
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
+	return nil
+}
+
 // GetRows returns value of Rows field.
 func (r *ReplyMarkupInlineKeyboard) GetRows() (value [][]InlineKeyboardButton) {
 	return r.Rows
@@ -725,6 +809,7 @@ type ReplyMarkupClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeReplyMarkup implements binary de-serialization for ReplyMarkupClass.

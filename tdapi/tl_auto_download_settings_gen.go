@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AutoDownloadSettings represents TL type `autoDownloadSettings#802ec5e3`.
@@ -258,6 +260,33 @@ func (a *AutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
 		}
 		a.UseLessDataForCalls = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AutoDownloadSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode autoDownloadSettings#802ec5e3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("autoDownloadSettings")
+	b.FieldStart("is_auto_download_enabled")
+	b.PutBool(a.IsAutoDownloadEnabled)
+	b.FieldStart("max_photo_file_size")
+	b.PutInt32(a.MaxPhotoFileSize)
+	b.FieldStart("max_video_file_size")
+	b.PutInt32(a.MaxVideoFileSize)
+	b.FieldStart("max_other_file_size")
+	b.PutInt32(a.MaxOtherFileSize)
+	b.FieldStart("video_upload_bitrate")
+	b.PutInt32(a.VideoUploadBitrate)
+	b.FieldStart("preload_large_videos")
+	b.PutBool(a.PreloadLargeVideos)
+	b.FieldStart("preload_next_audio")
+	b.PutBool(a.PreloadNextAudio)
+	b.FieldStart("use_less_data_for_calls")
+	b.PutBool(a.UseLessDataForCalls)
+	b.ObjEnd()
 	return nil
 }
 

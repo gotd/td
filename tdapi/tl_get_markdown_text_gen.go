@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetMarkdownTextRequest represents TL type `getMarkdownText#9ce7228`.
@@ -138,6 +140,21 @@ func (g *GetMarkdownTextRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode getMarkdownText#9ce7228: field text: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetMarkdownTextRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getMarkdownText#9ce7228 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getMarkdownText")
+	b.FieldStart("text")
+	if err := g.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getMarkdownText#9ce7228: field text: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

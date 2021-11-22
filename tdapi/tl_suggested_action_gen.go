@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SuggestedActionEnableArchiveAndMuteNewChats represents TL type `suggestedActionEnableArchiveAndMuteNewChats#7841ec4f`.
@@ -125,6 +127,17 @@ func (s *SuggestedActionEnableArchiveAndMuteNewChats) DecodeBare(b *bin.Buffer) 
 	if s == nil {
 		return fmt.Errorf("can't decode suggestedActionEnableArchiveAndMuteNewChats#7841ec4f to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SuggestedActionEnableArchiveAndMuteNewChats) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionEnableArchiveAndMuteNewChats#7841ec4f as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionEnableArchiveAndMuteNewChats")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (s *SuggestedActionCheckPassword) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SuggestedActionCheckPassword) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionCheckPassword#71e072b7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionCheckPassword")
+	b.ObjEnd()
+	return nil
+}
+
 // SuggestedActionCheckPhoneNumber represents TL type `suggestedActionCheckPhoneNumber#26ab77eb`.
 type SuggestedActionCheckPhoneNumber struct {
 }
@@ -326,6 +350,17 @@ func (s *SuggestedActionCheckPhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SuggestedActionCheckPhoneNumber) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionCheckPhoneNumber#26ab77eb as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionCheckPhoneNumber")
+	b.ObjEnd()
+	return nil
+}
+
 // SuggestedActionSeeTicksHint represents TL type `suggestedActionSeeTicksHint#3f4ae062`.
 type SuggestedActionSeeTicksHint struct {
 }
@@ -422,6 +457,17 @@ func (s *SuggestedActionSeeTicksHint) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode suggestedActionSeeTicksHint#3f4ae062 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SuggestedActionSeeTicksHint) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionSeeTicksHint#3f4ae062 as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionSeeTicksHint")
+	b.ObjEnd()
 	return nil
 }
 
@@ -542,6 +588,19 @@ func (s *SuggestedActionConvertToBroadcastGroup) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SuggestedActionConvertToBroadcastGroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionConvertToBroadcastGroup#95bb33b5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionConvertToBroadcastGroup")
+	b.FieldStart("supergroup_id")
+	b.PutInt32(s.SupergroupID)
+	b.ObjEnd()
+	return nil
+}
+
 // GetSupergroupID returns value of SupergroupID field.
 func (s *SuggestedActionConvertToBroadcastGroup) GetSupergroupID() (value int32) {
 	return s.SupergroupID
@@ -579,6 +638,7 @@ type SuggestedActionClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeSuggestedAction implements binary de-serialization for SuggestedActionClass.

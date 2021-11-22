@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageThreadInfo represents TL type `messageThreadInfo#f356201b`.
@@ -222,6 +224,37 @@ func (m *MessageThreadInfo) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field draft_message: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageThreadInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageThreadInfo#f356201b as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageThreadInfo")
+	b.FieldStart("chat_id")
+	b.PutLong(m.ChatID)
+	b.FieldStart("message_thread_id")
+	b.PutLong(m.MessageThreadID)
+	b.FieldStart("reply_info")
+	if err := m.ReplyInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageThreadInfo#f356201b: field reply_info: %w", err)
+	}
+	b.FieldStart("messages")
+	b.ArrStart()
+	for idx, v := range m.Messages {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode messageThreadInfo#f356201b: field messages element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("draft_message")
+	if err := m.DraftMessage.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageThreadInfo#f356201b: field draft_message: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

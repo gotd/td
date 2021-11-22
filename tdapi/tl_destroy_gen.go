@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DestroyRequest represents TL type `destroy#28d9534a`.
@@ -120,6 +122,17 @@ func (d *DestroyRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't decode destroy#28d9534a to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DestroyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode destroy#28d9534a as nil")
+	}
+	b.ObjStart()
+	b.PutID("destroy")
+	b.ObjEnd()
 	return nil
 }
 

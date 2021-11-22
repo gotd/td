@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Address represents TL type `address#86304f3a`.
@@ -223,6 +225,29 @@ func (a *Address) DecodeBare(b *bin.Buffer) error {
 		}
 		a.PostalCode = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *Address) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode address#86304f3a as nil")
+	}
+	b.ObjStart()
+	b.PutID("address")
+	b.FieldStart("country_code")
+	b.PutString(a.CountryCode)
+	b.FieldStart("state")
+	b.PutString(a.State)
+	b.FieldStart("city")
+	b.PutString(a.City)
+	b.FieldStart("street_line1")
+	b.PutString(a.StreetLine1)
+	b.FieldStart("street_line2")
+	b.PutString(a.StreetLine2)
+	b.FieldStart("postal_code")
+	b.PutString(a.PostalCode)
+	b.ObjEnd()
 	return nil
 }
 

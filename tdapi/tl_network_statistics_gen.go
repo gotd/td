@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // NetworkStatistics represents TL type `networkStatistics#d86acb3c`.
@@ -173,6 +175,30 @@ func (n *NetworkStatistics) DecodeBare(b *bin.Buffer) error {
 			n.Entries = append(n.Entries, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NetworkStatistics) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode networkStatistics#d86acb3c as nil")
+	}
+	b.ObjStart()
+	b.PutID("networkStatistics")
+	b.FieldStart("since_date")
+	b.PutInt32(n.SinceDate)
+	b.FieldStart("entries")
+	b.ArrStart()
+	for idx, v := range n.Entries {
+		if v == nil {
+			return fmt.Errorf("unable to encode networkStatistics#d86acb3c: field entries element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode networkStatistics#d86acb3c: field entries element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

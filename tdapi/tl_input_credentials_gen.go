@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // InputCredentialsSaved represents TL type `inputCredentialsSaved#86bdbe2c`.
@@ -143,6 +145,19 @@ func (i *InputCredentialsSaved) DecodeBare(b *bin.Buffer) error {
 		}
 		i.SavedCredentialsID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputCredentialsSaved) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputCredentialsSaved#86bdbe2c as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputCredentialsSaved")
+	b.FieldStart("saved_credentials_id")
+	b.PutString(i.SavedCredentialsID)
+	b.ObjEnd()
 	return nil
 }
 
@@ -285,6 +300,21 @@ func (i *InputCredentialsNew) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputCredentialsNew) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputCredentialsNew#ce8bf12a as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputCredentialsNew")
+	b.FieldStart("data")
+	b.PutString(i.Data)
+	b.FieldStart("allow_save")
+	b.PutBool(i.AllowSave)
+	b.ObjEnd()
+	return nil
+}
+
 // GetData returns value of Data field.
 func (i *InputCredentialsNew) GetData() (value string) {
 	return i.Data
@@ -412,6 +442,19 @@ func (i *InputCredentialsApplePay) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputCredentialsApplePay) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputCredentialsApplePay#b5b2d6d1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputCredentialsApplePay")
+	b.FieldStart("data")
+	b.PutString(i.Data)
+	b.ObjEnd()
+	return nil
+}
+
 // GetData returns value of Data field.
 func (i *InputCredentialsApplePay) GetData() (value string) {
 	return i.Data
@@ -534,6 +577,19 @@ func (i *InputCredentialsGooglePay) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputCredentialsGooglePay) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputCredentialsGooglePay#32544764 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputCredentialsGooglePay")
+	b.FieldStart("data")
+	b.PutString(i.Data)
+	b.ObjEnd()
+	return nil
+}
+
 // GetData returns value of Data field.
 func (i *InputCredentialsGooglePay) GetData() (value string) {
 	return i.Data
@@ -570,6 +626,7 @@ type InputCredentialsClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeInputCredentials implements binary de-serialization for InputCredentialsClass.

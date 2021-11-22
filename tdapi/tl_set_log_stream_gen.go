@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetLogStreamRequest represents TL type `setLogStream#aeaff791`.
@@ -143,6 +145,24 @@ func (s *SetLogStreamRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.LogStream = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetLogStreamRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setLogStream#aeaff791 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setLogStream")
+	b.FieldStart("log_stream")
+	if s.LogStream == nil {
+		return fmt.Errorf("unable to encode setLogStream#aeaff791: field log_stream is nil")
+	}
+	if err := s.LogStream.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setLogStream#aeaff791: field log_stream: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

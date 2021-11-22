@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetPassportAuthorizationFormAvailableElementsRequest represents TL type `getPassportAuthorizationFormAvailableElements#6799d4e2`.
@@ -155,6 +157,21 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) DecodeBare(b *bin
 		}
 		g.Password = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetPassportAuthorizationFormAvailableElementsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getPassportAuthorizationFormAvailableElements#6799d4e2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getPassportAuthorizationFormAvailableElements")
+	b.FieldStart("autorization_form_id")
+	b.PutInt32(g.AutorizationFormID)
+	b.FieldStart("password")
+	b.PutString(g.Password)
+	b.ObjEnd()
 	return nil
 }
 

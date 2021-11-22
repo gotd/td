@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PageBlockVerticalAlignmentTop represents TL type `pageBlockVerticalAlignmentTop#ba719a6`.
@@ -125,6 +127,17 @@ func (p *PageBlockVerticalAlignmentTop) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockVerticalAlignmentTop#ba719a6 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PageBlockVerticalAlignmentTop) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockVerticalAlignmentTop#ba719a6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pageBlockVerticalAlignmentTop")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (p *PageBlockVerticalAlignmentMiddle) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PageBlockVerticalAlignmentMiddle) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockVerticalAlignmentMiddle#81741df5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pageBlockVerticalAlignmentMiddle")
+	b.ObjEnd()
+	return nil
+}
+
 // PageBlockVerticalAlignmentBottom represents TL type `pageBlockVerticalAlignmentBottom#7cb97dd6`.
 type PageBlockVerticalAlignmentBottom struct {
 }
@@ -326,6 +350,17 @@ func (p *PageBlockVerticalAlignmentBottom) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PageBlockVerticalAlignmentBottom) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockVerticalAlignmentBottom#7cb97dd6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pageBlockVerticalAlignmentBottom")
+	b.ObjEnd()
+	return nil
+}
+
 // PageBlockVerticalAlignmentClass represents PageBlockVerticalAlignment generic type.
 //
 // Example:
@@ -356,6 +391,7 @@ type PageBlockVerticalAlignmentClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodePageBlockVerticalAlignment implements binary de-serialization for PageBlockVerticalAlignmentClass.

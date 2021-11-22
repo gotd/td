@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // LanguagePackString represents TL type `languagePackString#4df0e460`.
@@ -160,6 +162,26 @@ func (l *LanguagePackString) DecodeBare(b *bin.Buffer) error {
 		}
 		l.Value = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LanguagePackString) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode languagePackString#4df0e460 as nil")
+	}
+	b.ObjStart()
+	b.PutID("languagePackString")
+	b.FieldStart("key")
+	b.PutString(l.Key)
+	b.FieldStart("value")
+	if l.Value == nil {
+		return fmt.Errorf("unable to encode languagePackString#4df0e460: field value is nil")
+	}
+	if err := l.Value.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode languagePackString#4df0e460: field value: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

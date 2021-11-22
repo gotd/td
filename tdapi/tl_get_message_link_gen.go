@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetMessageLinkRequest represents TL type `getMessageLink#a0312f6f`.
@@ -208,6 +210,27 @@ func (g *GetMessageLinkRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.ForComment = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetMessageLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getMessageLink#a0312f6f as nil")
+	}
+	b.ObjStart()
+	b.PutID("getMessageLink")
+	b.FieldStart("chat_id")
+	b.PutLong(g.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(g.MessageID)
+	b.FieldStart("media_timestamp")
+	b.PutInt32(g.MediaTimestamp)
+	b.FieldStart("for_album")
+	b.PutBool(g.ForAlbum)
+	b.FieldStart("for_comment")
+	b.PutBool(g.ForComment)
+	b.ObjEnd()
 	return nil
 }
 

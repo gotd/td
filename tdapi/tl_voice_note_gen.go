@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // VoiceNote represents TL type `voiceNote#84db2866`.
@@ -189,6 +191,27 @@ func (v *VoiceNote) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode voiceNote#84db2866: field voice: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes v in TDLib API JSON format.
+func (v *VoiceNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if v == nil {
+		return fmt.Errorf("can't encode voiceNote#84db2866 as nil")
+	}
+	b.ObjStart()
+	b.PutID("voiceNote")
+	b.FieldStart("duration")
+	b.PutInt32(v.Duration)
+	b.FieldStart("waveform")
+	b.PutBytes(v.Waveform)
+	b.FieldStart("mime_type")
+	b.PutString(v.MimeType)
+	b.FieldStart("voice")
+	if err := v.Voice.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode voiceNote#84db2866: field voice: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

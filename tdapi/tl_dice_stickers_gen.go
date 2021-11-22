@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DiceStickersRegular represents TL type `diceStickersRegular#d3dfecce`.
@@ -143,6 +145,21 @@ func (d *DiceStickersRegular) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode diceStickersRegular#d3dfecce: field sticker: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DiceStickersRegular) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode diceStickersRegular#d3dfecce as nil")
+	}
+	b.ObjStart()
+	b.PutID("diceStickersRegular")
+	b.FieldStart("sticker")
+	if err := d.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode diceStickersRegular#d3dfecce: field sticker: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -338,6 +355,37 @@ func (d *DiceStickersSlotMachine) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DiceStickersSlotMachine) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode diceStickersSlotMachine#e9a28cac as nil")
+	}
+	b.ObjStart()
+	b.PutID("diceStickersSlotMachine")
+	b.FieldStart("background")
+	if err := d.Background.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode diceStickersSlotMachine#e9a28cac: field background: %w", err)
+	}
+	b.FieldStart("lever")
+	if err := d.Lever.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode diceStickersSlotMachine#e9a28cac: field lever: %w", err)
+	}
+	b.FieldStart("left_reel")
+	if err := d.LeftReel.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode diceStickersSlotMachine#e9a28cac: field left_reel: %w", err)
+	}
+	b.FieldStart("center_reel")
+	if err := d.CenterReel.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode diceStickersSlotMachine#e9a28cac: field center_reel: %w", err)
+	}
+	b.FieldStart("right_reel")
+	if err := d.RightReel.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode diceStickersSlotMachine#e9a28cac: field right_reel: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetBackground returns value of Background field.
 func (d *DiceStickersSlotMachine) GetBackground() (value Sticker) {
 	return d.Background
@@ -392,6 +440,7 @@ type DiceStickersClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeDiceStickers implements binary de-serialization for DiceStickersClass.

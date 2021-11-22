@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TextEntity represents TL type `textEntity#8bab99a8`.
@@ -177,6 +179,28 @@ func (t *TextEntity) DecodeBare(b *bin.Buffer) error {
 		}
 		t.Type = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextEntity) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntity#8bab99a8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntity")
+	b.FieldStart("offset")
+	b.PutInt32(t.Offset)
+	b.FieldStart("length")
+	b.PutInt32(t.Length)
+	b.FieldStart("type")
+	if t.Type == nil {
+		return fmt.Errorf("unable to encode textEntity#8bab99a8: field type is nil")
+	}
+	if err := t.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode textEntity#8bab99a8: field type: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetChatPermissionsRequest represents TL type `setChatPermissions#7f7706fe`.
@@ -155,6 +157,23 @@ func (s *SetChatPermissionsRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode setChatPermissions#7f7706fe: field permissions: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetChatPermissionsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setChatPermissions#7f7706fe as nil")
+	}
+	b.ObjStart()
+	b.PutID("setChatPermissions")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("permissions")
+	if err := s.Permissions.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setChatPermissions#7f7706fe: field permissions: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PageBlockListItem represents TL type `pageBlockListItem#5f521776`.
@@ -173,6 +175,30 @@ func (p *PageBlockListItem) DecodeBare(b *bin.Buffer) error {
 			p.PageBlocks = append(p.PageBlocks, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PageBlockListItem) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockListItem#5f521776 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pageBlockListItem")
+	b.FieldStart("label")
+	b.PutString(p.Label)
+	b.FieldStart("page_blocks")
+	b.ArrStart()
+	for idx, v := range p.PageBlocks {
+		if v == nil {
+			return fmt.Errorf("unable to encode pageBlockListItem#5f521776: field page_blocks element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode pageBlockListItem#5f521776: field page_blocks element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

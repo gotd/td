@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetCountryCodeRequest represents TL type `getCountryCode#5bd398f2`.
@@ -120,6 +122,17 @@ func (g *GetCountryCodeRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode getCountryCode#5bd398f2 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetCountryCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getCountryCode#5bd398f2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getCountryCode")
+	b.ObjEnd()
 	return nil
 }
 

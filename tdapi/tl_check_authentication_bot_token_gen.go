@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CheckAuthenticationBotTokenRequest represents TL type `checkAuthenticationBotToken#261b4476`.
@@ -138,6 +140,19 @@ func (c *CheckAuthenticationBotTokenRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Token = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CheckAuthenticationBotTokenRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkAuthenticationBotToken#261b4476 as nil")
+	}
+	b.ObjStart()
+	b.PutID("checkAuthenticationBotToken")
+	b.FieldStart("token")
+	b.PutString(c.Token)
+	b.ObjEnd()
 	return nil
 }
 

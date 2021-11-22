@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatStatisticsMessageInteractionInfo represents TL type `chatStatisticsMessageInteractionInfo#d25e2a2c`.
@@ -172,6 +174,23 @@ func (c *ChatStatisticsMessageInteractionInfo) DecodeBare(b *bin.Buffer) error {
 		}
 		c.ForwardCount = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatStatisticsMessageInteractionInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatStatisticsMessageInteractionInfo#d25e2a2c as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatStatisticsMessageInteractionInfo")
+	b.FieldStart("message_id")
+	b.PutLong(c.MessageID)
+	b.FieldStart("view_count")
+	b.PutInt32(c.ViewCount)
+	b.FieldStart("forward_count")
+	b.PutInt32(c.ForwardCount)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PassportElementErrorSourceUnspecified represents TL type `passportElementErrorSourceUnspecified#e9734842`.
@@ -125,6 +127,17 @@ func (p *PassportElementErrorSourceUnspecified) DecodeBare(b *bin.Buffer) error 
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementErrorSourceUnspecified#e9734842 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementErrorSourceUnspecified) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementErrorSourceUnspecified#e9734842 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementErrorSourceUnspecified")
+	b.ObjEnd()
 	return nil
 }
 
@@ -245,6 +258,19 @@ func (p *PassportElementErrorSourceDataField) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementErrorSourceDataField) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementErrorSourceDataField#ed9a5ce8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementErrorSourceDataField")
+	b.FieldStart("field_name")
+	b.PutString(p.FieldName)
+	b.ObjEnd()
+	return nil
+}
+
 // GetFieldName returns value of FieldName field.
 func (p *PassportElementErrorSourceDataField) GetFieldName() (value string) {
 	return p.FieldName
@@ -349,6 +375,17 @@ func (p *PassportElementErrorSourceFrontSide) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementErrorSourceFrontSide) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementErrorSourceFrontSide#70fd7334 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementErrorSourceFrontSide")
+	b.ObjEnd()
+	return nil
+}
+
 // PassportElementErrorSourceReverseSide represents TL type `passportElementErrorSourceReverseSide#725bf9f7`.
 type PassportElementErrorSourceReverseSide struct {
 }
@@ -448,6 +485,17 @@ func (p *PassportElementErrorSourceReverseSide) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementErrorSourceReverseSide) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementErrorSourceReverseSide#725bf9f7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementErrorSourceReverseSide")
+	b.ObjEnd()
+	return nil
+}
+
 // PassportElementErrorSourceSelfie represents TL type `passportElementErrorSourceSelfie#d07e1428`.
 type PassportElementErrorSourceSelfie struct {
 }
@@ -544,6 +592,17 @@ func (p *PassportElementErrorSourceSelfie) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementErrorSourceSelfie#d07e1428 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementErrorSourceSelfie) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementErrorSourceSelfie#d07e1428 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementErrorSourceSelfie")
+	b.ObjEnd()
 	return nil
 }
 
@@ -666,6 +725,19 @@ func (p *PassportElementErrorSourceTranslationFile) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementErrorSourceTranslationFile) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementErrorSourceTranslationFile#d6e53714 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementErrorSourceTranslationFile")
+	b.FieldStart("file_index")
+	b.PutInt32(p.FileIndex)
+	b.ObjEnd()
+	return nil
+}
+
 // GetFileIndex returns value of FileIndex field.
 func (p *PassportElementErrorSourceTranslationFile) GetFileIndex() (value int32) {
 	return p.FileIndex
@@ -769,6 +841,17 @@ func (p *PassportElementErrorSourceTranslationFiles) DecodeBare(b *bin.Buffer) e
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementErrorSourceTranslationFiles#22a5a41c to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementErrorSourceTranslationFiles) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementErrorSourceTranslationFiles#22a5a41c as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementErrorSourceTranslationFiles")
+	b.ObjEnd()
 	return nil
 }
 
@@ -889,6 +972,19 @@ func (p *PassportElementErrorSourceFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementErrorSourceFile) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementErrorSourceFile#786c3b30 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementErrorSourceFile")
+	b.FieldStart("file_index")
+	b.PutInt32(p.FileIndex)
+	b.ObjEnd()
+	return nil
+}
+
 // GetFileIndex returns value of FileIndex field.
 func (p *PassportElementErrorSourceFile) GetFileIndex() (value int32) {
 	return p.FileIndex
@@ -993,6 +1089,17 @@ func (p *PassportElementErrorSourceFiles) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementErrorSourceFiles) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementErrorSourceFiles#70e6a6d2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementErrorSourceFiles")
+	b.ObjEnd()
+	return nil
+}
+
 // PassportElementErrorSourceClass represents PassportElementErrorSource generic type.
 //
 // Example:
@@ -1029,6 +1136,7 @@ type PassportElementErrorSourceClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodePassportElementErrorSource implements binary de-serialization for PassportElementErrorSourceClass.

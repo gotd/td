@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // UnpinChatMessageRequest represents TL type `unpinChatMessage#7b1c3ede`.
@@ -155,6 +157,21 @@ func (u *UnpinChatMessageRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		u.MessageID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UnpinChatMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode unpinChatMessage#7b1c3ede as nil")
+	}
+	b.ObjStart()
+	b.PutID("unpinChatMessage")
+	b.FieldStart("chat_id")
+	b.PutLong(u.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(u.MessageID)
+	b.ObjEnd()
 	return nil
 }
 

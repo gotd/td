@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // EditInlineMessageMediaRequest represents TL type `editInlineMessageMedia#1676781`.
@@ -183,6 +185,33 @@ func (e *EditInlineMessageMediaRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		e.InputMessageContent = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes e in TDLib API JSON format.
+func (e *EditInlineMessageMediaRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode editInlineMessageMedia#1676781 as nil")
+	}
+	b.ObjStart()
+	b.PutID("editInlineMessageMedia")
+	b.FieldStart("inline_message_id")
+	b.PutString(e.InlineMessageID)
+	b.FieldStart("reply_markup")
+	if e.ReplyMarkup == nil {
+		return fmt.Errorf("unable to encode editInlineMessageMedia#1676781: field reply_markup is nil")
+	}
+	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode editInlineMessageMedia#1676781: field reply_markup: %w", err)
+	}
+	b.FieldStart("input_message_content")
+	if e.InputMessageContent == nil {
+		return fmt.Errorf("unable to encode editInlineMessageMedia#1676781: field input_message_content is nil")
+	}
+	if err := e.InputMessageContent.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode editInlineMessageMedia#1676781: field input_message_content: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

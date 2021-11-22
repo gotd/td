@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // InputBackgroundLocal represents TL type `inputBackgroundLocal#97dd74a4`.
@@ -152,6 +154,24 @@ func (i *InputBackgroundLocal) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputBackgroundLocal) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBackgroundLocal#97dd74a4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputBackgroundLocal")
+	b.FieldStart("background")
+	if i.Background == nil {
+		return fmt.Errorf("unable to encode inputBackgroundLocal#97dd74a4: field background is nil")
+	}
+	if err := i.Background.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputBackgroundLocal#97dd74a4: field background: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetBackground returns value of Background field.
 func (i *InputBackgroundLocal) GetBackground() (value InputFileClass) {
 	return i.Background
@@ -274,6 +294,21 @@ func (i *InputBackgroundRemote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputBackgroundRemote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBackgroundRemote#ef9c3219 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputBackgroundRemote")
+	b.FieldStart("background_id")
+	if err := i.BackgroundID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputBackgroundRemote#ef9c3219: field background_id: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetBackgroundID returns value of BackgroundID field.
 func (i *InputBackgroundRemote) GetBackgroundID() (value Int64) {
 	return i.BackgroundID
@@ -308,6 +343,7 @@ type InputBackgroundClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeInputBackground implements binary de-serialization for InputBackgroundClass.

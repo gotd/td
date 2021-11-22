@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CreateNewStickerSetRequest represents TL type `createNewStickerSet#4875d7a5`.
@@ -245,6 +247,38 @@ func (c *CreateNewStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Source = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CreateNewStickerSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode createNewStickerSet#4875d7a5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("createNewStickerSet")
+	b.FieldStart("user_id")
+	b.PutInt32(c.UserID)
+	b.FieldStart("title")
+	b.PutString(c.Title)
+	b.FieldStart("name")
+	b.PutString(c.Name)
+	b.FieldStart("is_masks")
+	b.PutBool(c.IsMasks)
+	b.FieldStart("stickers")
+	b.ArrStart()
+	for idx, v := range c.Stickers {
+		if v == nil {
+			return fmt.Errorf("unable to encode createNewStickerSet#4875d7a5: field stickers element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode createNewStickerSet#4875d7a5: field stickers element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("source")
+	b.PutString(c.Source)
+	b.ObjEnd()
 	return nil
 }
 

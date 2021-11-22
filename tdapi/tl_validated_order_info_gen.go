@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ValidatedOrderInfo represents TL type `validatedOrderInfo#ac585f14`.
@@ -170,6 +172,27 @@ func (v *ValidatedOrderInfo) DecodeBare(b *bin.Buffer) error {
 			v.ShippingOptions = append(v.ShippingOptions, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes v in TDLib API JSON format.
+func (v *ValidatedOrderInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if v == nil {
+		return fmt.Errorf("can't encode validatedOrderInfo#ac585f14 as nil")
+	}
+	b.ObjStart()
+	b.PutID("validatedOrderInfo")
+	b.FieldStart("order_info_id")
+	b.PutString(v.OrderInfoID)
+	b.FieldStart("shipping_options")
+	b.ArrStart()
+	for idx, v := range v.ShippingOptions {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode validatedOrderInfo#ac585f14: field shipping_options element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

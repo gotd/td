@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CancelDownloadFileRequest represents TL type `cancelDownloadFile#8b8052de`.
@@ -156,6 +158,21 @@ func (c *CancelDownloadFileRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.OnlyIfPending = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CancelDownloadFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode cancelDownloadFile#8b8052de as nil")
+	}
+	b.ObjStart()
+	b.PutID("cancelDownloadFile")
+	b.FieldStart("file_id")
+	b.PutInt32(c.FileID)
+	b.FieldStart("only_if_pending")
+	b.PutBool(c.OnlyIfPending)
+	b.ObjEnd()
 	return nil
 }
 

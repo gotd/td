@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ToggleChatIsMarkedAsUnreadRequest represents TL type `toggleChatIsMarkedAsUnread#c538dadf`.
@@ -155,6 +157,21 @@ func (t *ToggleChatIsMarkedAsUnreadRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		t.IsMarkedAsUnread = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *ToggleChatIsMarkedAsUnreadRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode toggleChatIsMarkedAsUnread#c538dadf as nil")
+	}
+	b.ObjStart()
+	b.PutID("toggleChatIsMarkedAsUnread")
+	b.FieldStart("chat_id")
+	b.PutLong(t.ChatID)
+	b.FieldStart("is_marked_as_unread")
+	b.PutBool(t.IsMarkedAsUnread)
+	b.ObjEnd()
 	return nil
 }
 

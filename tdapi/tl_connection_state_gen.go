@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ConnectionStateWaitingForNetwork represents TL type `connectionStateWaitingForNetwork#650dd758`.
@@ -125,6 +127,17 @@ func (c *ConnectionStateWaitingForNetwork) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode connectionStateWaitingForNetwork#650dd758 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ConnectionStateWaitingForNetwork) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode connectionStateWaitingForNetwork#650dd758 as nil")
+	}
+	b.ObjStart()
+	b.PutID("connectionStateWaitingForNetwork")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (c *ConnectionStateConnectingToProxy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ConnectionStateConnectingToProxy) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode connectionStateConnectingToProxy#fa721359 as nil")
+	}
+	b.ObjStart()
+	b.PutID("connectionStateConnectingToProxy")
+	b.ObjEnd()
+	return nil
+}
+
 // ConnectionStateConnecting represents TL type `connectionStateConnecting#b29bfa62`.
 type ConnectionStateConnecting struct {
 }
@@ -323,6 +347,17 @@ func (c *ConnectionStateConnecting) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode connectionStateConnecting#b29bfa62 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ConnectionStateConnecting) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode connectionStateConnecting#b29bfa62 as nil")
+	}
+	b.ObjStart()
+	b.PutID("connectionStateConnecting")
+	b.ObjEnd()
 	return nil
 }
 
@@ -425,6 +460,17 @@ func (c *ConnectionStateUpdating) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ConnectionStateUpdating) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode connectionStateUpdating#f4c9c2b7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("connectionStateUpdating")
+	b.ObjEnd()
+	return nil
+}
+
 // ConnectionStateReady represents TL type `connectionStateReady#2e5b4ec`.
 type ConnectionStateReady struct {
 }
@@ -524,6 +570,17 @@ func (c *ConnectionStateReady) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ConnectionStateReady) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode connectionStateReady#2e5b4ec as nil")
+	}
+	b.ObjStart()
+	b.PutID("connectionStateReady")
+	b.ObjEnd()
+	return nil
+}
+
 // ConnectionStateClass represents ConnectionState generic type.
 //
 // Example:
@@ -556,6 +613,7 @@ type ConnectionStateClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeConnectionState implements binary de-serialization for ConnectionStateClass.

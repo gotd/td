@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetGroupCallParticipantIsSpeakingRequest represents TL type `setGroupCallParticipantIsSpeaking#3748a1e5`.
@@ -173,6 +175,23 @@ func (s *SetGroupCallParticipantIsSpeakingRequest) DecodeBare(b *bin.Buffer) err
 		}
 		s.IsSpeaking = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetGroupCallParticipantIsSpeakingRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setGroupCallParticipantIsSpeaking#3748a1e5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setGroupCallParticipantIsSpeaking")
+	b.FieldStart("group_call_id")
+	b.PutInt32(s.GroupCallID)
+	b.FieldStart("audio_source")
+	b.PutInt32(s.AudioSource)
+	b.FieldStart("is_speaking")
+	b.PutBool(s.IsSpeaking)
+	b.ObjEnd()
 	return nil
 }
 

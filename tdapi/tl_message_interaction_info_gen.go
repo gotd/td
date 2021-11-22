@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageInteractionInfo represents TL type `messageInteractionInfo#db00a42a`.
@@ -174,6 +176,25 @@ func (m *MessageInteractionInfo) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messageInteractionInfo#db00a42a: field reply_info: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageInteractionInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageInteractionInfo#db00a42a as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageInteractionInfo")
+	b.FieldStart("view_count")
+	b.PutInt32(m.ViewCount)
+	b.FieldStart("forward_count")
+	b.PutInt32(m.ForwardCount)
+	b.FieldStart("reply_info")
+	if err := m.ReplyInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageInteractionInfo#db00a42a: field reply_info: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

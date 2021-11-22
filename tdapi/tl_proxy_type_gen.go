@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ProxyTypeSocks5 represents TL type `proxyTypeSocks5#caf342b3`.
@@ -160,6 +162,21 @@ func (p *ProxyTypeSocks5) DecodeBare(b *bin.Buffer) error {
 		}
 		p.Password = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *ProxyTypeSocks5) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode proxyTypeSocks5#caf342b3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("proxyTypeSocks5")
+	b.FieldStart("username")
+	b.PutString(p.Username)
+	b.FieldStart("password")
+	b.PutString(p.Password)
+	b.ObjEnd()
 	return nil
 }
 
@@ -325,6 +342,23 @@ func (p *ProxyTypeHTTP) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *ProxyTypeHTTP) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode proxyTypeHttp#a3c7c777 as nil")
+	}
+	b.ObjStart()
+	b.PutID("proxyTypeHttp")
+	b.FieldStart("username")
+	b.PutString(p.Username)
+	b.FieldStart("password")
+	b.PutString(p.Password)
+	b.FieldStart("http_only")
+	b.PutBool(p.HTTPOnly)
+	b.ObjEnd()
+	return nil
+}
+
 // GetUsername returns value of Username field.
 func (p *ProxyTypeHTTP) GetUsername() (value string) {
 	return p.Username
@@ -457,6 +491,19 @@ func (p *ProxyTypeMtproto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *ProxyTypeMtproto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode proxyTypeMtproto#8ae31ffd as nil")
+	}
+	b.ObjStart()
+	b.PutID("proxyTypeMtproto")
+	b.FieldStart("secret")
+	b.PutString(p.Secret)
+	b.ObjEnd()
+	return nil
+}
+
 // GetSecret returns value of Secret field.
 func (p *ProxyTypeMtproto) GetSecret() (value string) {
 	return p.Secret
@@ -492,6 +539,7 @@ type ProxyTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeProxyType implements binary de-serialization for ProxyTypeClass.

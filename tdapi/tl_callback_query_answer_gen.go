@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CallbackQueryAnswer represents TL type `callbackQueryAnswer#1582685d`.
@@ -172,6 +174,23 @@ func (c *CallbackQueryAnswer) DecodeBare(b *bin.Buffer) error {
 		}
 		c.URL = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallbackQueryAnswer) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callbackQueryAnswer#1582685d as nil")
+	}
+	b.ObjStart()
+	b.PutID("callbackQueryAnswer")
+	b.FieldStart("text")
+	b.PutString(c.Text)
+	b.FieldStart("show_alert")
+	b.PutBool(c.ShowAlert)
+	b.FieldStart("url")
+	b.PutString(c.URL)
+	b.ObjEnd()
 	return nil
 }
 

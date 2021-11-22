@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetSuggestedFileNameRequest represents TL type `getSuggestedFileName#85d8a486`.
@@ -155,6 +157,21 @@ func (g *GetSuggestedFileNameRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Directory = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetSuggestedFileNameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getSuggestedFileName#85d8a486 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getSuggestedFileName")
+	b.FieldStart("file_id")
+	b.PutInt32(g.FileID)
+	b.FieldStart("directory")
+	b.PutString(g.Directory)
+	b.ObjEnd()
 	return nil
 }
 

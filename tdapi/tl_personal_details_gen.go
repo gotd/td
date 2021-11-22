@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PersonalDetails represents TL type `personalDetails#c0b869b7`.
@@ -291,6 +293,39 @@ func (p *PersonalDetails) DecodeBare(b *bin.Buffer) error {
 		}
 		p.ResidenceCountryCode = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PersonalDetails) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode personalDetails#c0b869b7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("personalDetails")
+	b.FieldStart("first_name")
+	b.PutString(p.FirstName)
+	b.FieldStart("middle_name")
+	b.PutString(p.MiddleName)
+	b.FieldStart("last_name")
+	b.PutString(p.LastName)
+	b.FieldStart("native_first_name")
+	b.PutString(p.NativeFirstName)
+	b.FieldStart("native_middle_name")
+	b.PutString(p.NativeMiddleName)
+	b.FieldStart("native_last_name")
+	b.PutString(p.NativeLastName)
+	b.FieldStart("birthdate")
+	if err := p.Birthdate.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode personalDetails#c0b869b7: field birthdate: %w", err)
+	}
+	b.FieldStart("gender")
+	b.PutString(p.Gender)
+	b.FieldStart("country_code")
+	b.PutString(p.CountryCode)
+	b.FieldStart("residence_country_code")
+	b.PutString(p.ResidenceCountryCode)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetAccountTTLRequest represents TL type `setAccountTtl#29ce58e8`.
@@ -138,6 +140,21 @@ func (s *SetAccountTTLRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode setAccountTtl#29ce58e8: field ttl: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetAccountTTLRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setAccountTtl#29ce58e8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setAccountTtl")
+	b.FieldStart("ttl")
+	if err := s.TTL.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setAccountTtl#29ce58e8: field ttl: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

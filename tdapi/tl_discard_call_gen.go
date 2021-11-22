@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DiscardCallRequest represents TL type `discardCall#95a9a57e`.
@@ -206,6 +208,29 @@ func (d *DiscardCallRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode discardCall#95a9a57e: field connection_id: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DiscardCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode discardCall#95a9a57e as nil")
+	}
+	b.ObjStart()
+	b.PutID("discardCall")
+	b.FieldStart("call_id")
+	b.PutInt32(d.CallID)
+	b.FieldStart("is_disconnected")
+	b.PutBool(d.IsDisconnected)
+	b.FieldStart("duration")
+	b.PutInt32(d.Duration)
+	b.FieldStart("is_video")
+	b.PutBool(d.IsVideo)
+	b.FieldStart("connection_id")
+	if err := d.ConnectionID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode discardCall#95a9a57e: field connection_id: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

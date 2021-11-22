@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatPhotoInfo represents TL type `chatPhotoInfo#9f51bb6`.
@@ -191,6 +193,31 @@ func (c *ChatPhotoInfo) DecodeBare(b *bin.Buffer) error {
 		}
 		c.HasAnimation = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatPhotoInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatPhotoInfo#9f51bb6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatPhotoInfo")
+	b.FieldStart("small")
+	if err := c.Small.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatPhotoInfo#9f51bb6: field small: %w", err)
+	}
+	b.FieldStart("big")
+	if err := c.Big.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatPhotoInfo#9f51bb6: field big: %w", err)
+	}
+	b.FieldStart("minithumbnail")
+	if err := c.Minithumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatPhotoInfo#9f51bb6: field minithumbnail: %w", err)
+	}
+	b.FieldStart("has_animation")
+	b.PutBool(c.HasAnimation)
+	b.ObjEnd()
 	return nil
 }
 

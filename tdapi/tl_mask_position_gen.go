@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MaskPosition represents TL type `maskPosition#82fbb63e`.
@@ -197,6 +199,30 @@ func (m *MaskPosition) DecodeBare(b *bin.Buffer) error {
 		}
 		m.Scale = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MaskPosition) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode maskPosition#82fbb63e as nil")
+	}
+	b.ObjStart()
+	b.PutID("maskPosition")
+	b.FieldStart("point")
+	if m.Point == nil {
+		return fmt.Errorf("unable to encode maskPosition#82fbb63e: field point is nil")
+	}
+	if err := m.Point.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode maskPosition#82fbb63e: field point: %w", err)
+	}
+	b.FieldStart("x_shift")
+	b.PutDouble(m.XShift)
+	b.FieldStart("y_shift")
+	b.PutDouble(m.YShift)
+	b.FieldStart("scale")
+	b.PutDouble(m.Scale)
+	b.ObjEnd()
 	return nil
 }
 

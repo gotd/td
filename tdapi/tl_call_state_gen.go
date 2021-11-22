@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CallStatePending represents TL type `callStatePending#3ff56c2c`.
@@ -163,6 +165,21 @@ func (c *CallStatePending) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallStatePending) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callStatePending#3ff56c2c as nil")
+	}
+	b.ObjStart()
+	b.PutID("callStatePending")
+	b.FieldStart("is_created")
+	b.PutBool(c.IsCreated)
+	b.FieldStart("is_received")
+	b.PutBool(c.IsReceived)
+	b.ObjEnd()
+	return nil
+}
+
 // GetIsCreated returns value of IsCreated field.
 func (c *CallStatePending) GetIsCreated() (value bool) {
 	return c.IsCreated
@@ -269,6 +286,17 @@ func (c *CallStateExchangingKeys) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode callStateExchangingKeys#91d77a65 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallStateExchangingKeys) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callStateExchangingKeys#91d77a65 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callStateExchangingKeys")
+	b.ObjEnd()
 	return nil
 }
 
@@ -502,6 +530,41 @@ func (c *CallStateReady) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallStateReady) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callStateReady#ce59c044 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callStateReady")
+	b.FieldStart("protocol")
+	if err := c.Protocol.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode callStateReady#ce59c044: field protocol: %w", err)
+	}
+	b.FieldStart("servers")
+	b.ArrStart()
+	for idx, v := range c.Servers {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode callStateReady#ce59c044: field servers element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("config")
+	b.PutString(c.Config)
+	b.FieldStart("encryption_key")
+	b.PutBytes(c.EncryptionKey)
+	b.FieldStart("emojis")
+	b.ArrStart()
+	for _, v := range c.Emojis {
+		b.PutString(v)
+	}
+	b.ArrEnd()
+	b.FieldStart("allow_p2p")
+	b.PutBool(c.AllowP2P)
+	b.ObjEnd()
+	return nil
+}
+
 // GetProtocol returns value of Protocol field.
 func (c *CallStateReady) GetProtocol() (value CallProtocol) {
 	return c.Protocol
@@ -628,6 +691,17 @@ func (c *CallStateHangingUp) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode callStateHangingUp#80d0f2aa to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallStateHangingUp) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callStateHangingUp#80d0f2aa as nil")
+	}
+	b.ObjStart()
+	b.PutID("callStateHangingUp")
+	b.ObjEnd()
 	return nil
 }
 
@@ -787,6 +861,28 @@ func (c *CallStateDiscarded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallStateDiscarded) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callStateDiscarded#f49fcfd1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callStateDiscarded")
+	b.FieldStart("reason")
+	if c.Reason == nil {
+		return fmt.Errorf("unable to encode callStateDiscarded#f49fcfd1: field reason is nil")
+	}
+	if err := c.Reason.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode callStateDiscarded#f49fcfd1: field reason: %w", err)
+	}
+	b.FieldStart("need_rating")
+	b.PutBool(c.NeedRating)
+	b.FieldStart("need_debug_information")
+	b.PutBool(c.NeedDebugInformation)
+	b.ObjEnd()
+	return nil
+}
+
 // GetReason returns value of Reason field.
 func (c *CallStateDiscarded) GetReason() (value CallDiscardReasonClass) {
 	return c.Reason
@@ -920,6 +1016,21 @@ func (c *CallStateError) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallStateError) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callStateError#c5df6495 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callStateError")
+	b.FieldStart("error")
+	if err := c.Error.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode callStateError#c5df6495: field error: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetError returns value of Error field.
 func (c *CallStateError) GetError() (value Error) {
 	return c.Error
@@ -958,6 +1069,7 @@ type CallStateClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeCallState implements binary de-serialization for CallStateClass.

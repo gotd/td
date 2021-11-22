@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Call represents TL type `call#59a64c86`.
@@ -211,6 +213,32 @@ func (c *Call) DecodeBare(b *bin.Buffer) error {
 		}
 		c.State = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *Call) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode call#59a64c86 as nil")
+	}
+	b.ObjStart()
+	b.PutID("call")
+	b.FieldStart("id")
+	b.PutInt32(c.ID)
+	b.FieldStart("user_id")
+	b.PutInt32(c.UserID)
+	b.FieldStart("is_outgoing")
+	b.PutBool(c.IsOutgoing)
+	b.FieldStart("is_video")
+	b.PutBool(c.IsVideo)
+	b.FieldStart("state")
+	if c.State == nil {
+		return fmt.Errorf("unable to encode call#59a64c86: field state is nil")
+	}
+	if err := c.State.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode call#59a64c86: field state: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

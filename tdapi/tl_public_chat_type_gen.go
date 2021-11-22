@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PublicChatTypeHasUsername represents TL type `publicChatTypeHasUsername#14e8a07e`.
@@ -125,6 +127,17 @@ func (p *PublicChatTypeHasUsername) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't decode publicChatTypeHasUsername#14e8a07e to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PublicChatTypeHasUsername) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode publicChatTypeHasUsername#14e8a07e as nil")
+	}
+	b.ObjStart()
+	b.PutID("publicChatTypeHasUsername")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (p *PublicChatTypeIsLocationBased) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PublicChatTypeIsLocationBased) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode publicChatTypeIsLocationBased#468e6090 as nil")
+	}
+	b.ObjStart()
+	b.PutID("publicChatTypeIsLocationBased")
+	b.ObjEnd()
+	return nil
+}
+
 // PublicChatTypeClass represents PublicChatType generic type.
 //
 // Example:
@@ -256,6 +280,7 @@ type PublicChatTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodePublicChatType implements binary de-serialization for PublicChatTypeClass.

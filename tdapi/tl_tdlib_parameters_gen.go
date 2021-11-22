@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TdlibParameters represents TL type `tdlibParameters#d29c1d7b`.
@@ -385,6 +387,47 @@ func (t *TdlibParameters) DecodeBare(b *bin.Buffer) error {
 		}
 		t.IgnoreFileNames = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TdlibParameters) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode tdlibParameters#d29c1d7b as nil")
+	}
+	b.ObjStart()
+	b.PutID("tdlibParameters")
+	b.FieldStart("use_test_dc")
+	b.PutBool(t.UseTestDC)
+	b.FieldStart("database_directory")
+	b.PutString(t.DatabaseDirectory)
+	b.FieldStart("files_directory")
+	b.PutString(t.FilesDirectory)
+	b.FieldStart("use_file_database")
+	b.PutBool(t.UseFileDatabase)
+	b.FieldStart("use_chat_info_database")
+	b.PutBool(t.UseChatInfoDatabase)
+	b.FieldStart("use_message_database")
+	b.PutBool(t.UseMessageDatabase)
+	b.FieldStart("use_secret_chats")
+	b.PutBool(t.UseSecretChats)
+	b.FieldStart("api_id")
+	b.PutInt32(t.APIID)
+	b.FieldStart("api_hash")
+	b.PutString(t.APIHash)
+	b.FieldStart("system_language_code")
+	b.PutString(t.SystemLanguageCode)
+	b.FieldStart("device_model")
+	b.PutString(t.DeviceModel)
+	b.FieldStart("system_version")
+	b.PutString(t.SystemVersion)
+	b.FieldStart("application_version")
+	b.PutString(t.ApplicationVersion)
+	b.FieldStart("enable_storage_optimizer")
+	b.PutBool(t.EnableStorageOptimizer)
+	b.FieldStart("ignore_file_names")
+	b.PutBool(t.IgnoreFileNames)
+	b.ObjEnd()
 	return nil
 }
 

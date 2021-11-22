@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TerminateSessionRequest represents TL type `terminateSession#e7b7c92c`.
@@ -138,6 +140,21 @@ func (t *TerminateSessionRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode terminateSession#e7b7c92c: field session_id: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TerminateSessionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode terminateSession#e7b7c92c as nil")
+	}
+	b.ObjStart()
+	b.PutID("terminateSession")
+	b.FieldStart("session_id")
+	if err := t.SessionID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode terminateSession#e7b7c92c: field session_id: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

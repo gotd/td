@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // WriteGeneratedFilePartRequest represents TL type `writeGeneratedFilePart#8512e953`.
@@ -172,6 +174,25 @@ func (w *WriteGeneratedFilePartRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		w.Data = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes w in TDLib API JSON format.
+func (w *WriteGeneratedFilePartRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if w == nil {
+		return fmt.Errorf("can't encode writeGeneratedFilePart#8512e953 as nil")
+	}
+	b.ObjStart()
+	b.PutID("writeGeneratedFilePart")
+	b.FieldStart("generation_id")
+	if err := w.GenerationID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode writeGeneratedFilePart#8512e953: field generation_id: %w", err)
+	}
+	b.FieldStart("offset")
+	b.PutInt32(w.Offset)
+	b.FieldStart("data")
+	b.PutBytes(w.Data)
+	b.ObjEnd()
 	return nil
 }
 

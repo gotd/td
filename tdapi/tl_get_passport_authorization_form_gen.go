@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetPassportAuthorizationFormRequest represents TL type `getPassportAuthorizationForm#a87a1591`.
@@ -189,6 +191,25 @@ func (g *GetPassportAuthorizationFormRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Nonce = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetPassportAuthorizationFormRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getPassportAuthorizationForm#a87a1591 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getPassportAuthorizationForm")
+	b.FieldStart("bot_user_id")
+	b.PutInt32(g.BotUserID)
+	b.FieldStart("scope")
+	b.PutString(g.Scope)
+	b.FieldStart("public_key")
+	b.PutString(g.PublicKey)
+	b.FieldStart("nonce")
+	b.PutString(g.Nonce)
+	b.ObjEnd()
 	return nil
 }
 

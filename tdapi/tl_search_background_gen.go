@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SearchBackgroundRequest represents TL type `searchBackground#80fb9121`.
@@ -138,6 +140,19 @@ func (s *SearchBackgroundRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Name = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchBackgroundRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchBackground#80fb9121 as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchBackground")
+	b.FieldStart("name")
+	b.PutString(s.Name)
+	b.ObjEnd()
 	return nil
 }
 

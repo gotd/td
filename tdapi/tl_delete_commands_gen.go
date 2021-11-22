@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DeleteCommandsRequest represents TL type `deleteCommands#3bc47c2a`.
@@ -160,6 +162,26 @@ func (d *DeleteCommandsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		d.LanguageCode = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeleteCommandsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deleteCommands#3bc47c2a as nil")
+	}
+	b.ObjStart()
+	b.PutID("deleteCommands")
+	b.FieldStart("scope")
+	if d.Scope == nil {
+		return fmt.Errorf("unable to encode deleteCommands#3bc47c2a: field scope is nil")
+	}
+	if err := d.Scope.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode deleteCommands#3bc47c2a: field scope: %w", err)
+	}
+	b.FieldStart("language_code")
+	b.PutString(d.LanguageCode)
+	b.ObjEnd()
 	return nil
 }
 

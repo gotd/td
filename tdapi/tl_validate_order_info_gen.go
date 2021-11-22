@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ValidateOrderInfoRequest represents TL type `validateOrderInfo#90a9c4`.
@@ -189,6 +191,27 @@ func (v *ValidateOrderInfoRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		v.AllowSave = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes v in TDLib API JSON format.
+func (v *ValidateOrderInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if v == nil {
+		return fmt.Errorf("can't encode validateOrderInfo#90a9c4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("validateOrderInfo")
+	b.FieldStart("chat_id")
+	b.PutLong(v.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(v.MessageID)
+	b.FieldStart("order_info")
+	if err := v.OrderInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode validateOrderInfo#90a9c4: field order_info: %w", err)
+	}
+	b.FieldStart("allow_save")
+	b.PutBool(v.AllowSave)
+	b.ObjEnd()
 	return nil
 }
 

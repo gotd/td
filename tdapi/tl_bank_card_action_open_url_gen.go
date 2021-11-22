@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // BankCardActionOpenURL represents TL type `bankCardActionOpenUrl#f44a5885`.
@@ -155,6 +157,21 @@ func (b *BankCardActionOpenURL) DecodeBare(buf *bin.Buffer) error {
 		}
 		b.URL = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BankCardActionOpenURL) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode bankCardActionOpenUrl#f44a5885 as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("bankCardActionOpenUrl")
+	buf.FieldStart("text")
+	buf.PutString(b.Text)
+	buf.FieldStart("url")
+	buf.PutString(b.URL)
+	buf.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // UserTypeRegular represents TL type `userTypeRegular#dc51699b`.
@@ -128,6 +130,17 @@ func (u *UserTypeRegular) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserTypeRegular) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userTypeRegular#dc51699b as nil")
+	}
+	b.ObjStart()
+	b.PutID("userTypeRegular")
+	b.ObjEnd()
+	return nil
+}
+
 // UserTypeDeleted represents TL type `userTypeDeleted#94403d24`.
 type UserTypeDeleted struct {
 }
@@ -224,6 +237,17 @@ func (u *UserTypeDeleted) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't decode userTypeDeleted#94403d24 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserTypeDeleted) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userTypeDeleted#94403d24 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userTypeDeleted")
+	b.ObjEnd()
 	return nil
 }
 
@@ -414,6 +438,27 @@ func (u *UserTypeBot) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserTypeBot) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userTypeBot#4b3e8235 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userTypeBot")
+	b.FieldStart("can_join_groups")
+	b.PutBool(u.CanJoinGroups)
+	b.FieldStart("can_read_all_group_messages")
+	b.PutBool(u.CanReadAllGroupMessages)
+	b.FieldStart("is_inline")
+	b.PutBool(u.IsInline)
+	b.FieldStart("inline_query_placeholder")
+	b.PutString(u.InlineQueryPlaceholder)
+	b.FieldStart("need_location")
+	b.PutBool(u.NeedLocation)
+	b.ObjEnd()
+	return nil
+}
+
 // GetCanJoinGroups returns value of CanJoinGroups field.
 func (u *UserTypeBot) GetCanJoinGroups() (value bool) {
 	return u.CanJoinGroups
@@ -538,6 +583,17 @@ func (u *UserTypeUnknown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserTypeUnknown) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userTypeUnknown#d4d0613d as nil")
+	}
+	b.ObjStart()
+	b.PutID("userTypeUnknown")
+	b.ObjEnd()
+	return nil
+}
+
 // UserTypeClass represents UserType generic type.
 //
 // Example:
@@ -569,6 +625,7 @@ type UserTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeUserType implements binary de-serialization for UserTypeClass.

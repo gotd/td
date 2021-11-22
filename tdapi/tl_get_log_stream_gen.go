@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetLogStreamRequest represents TL type `getLogStream#45984b5b`.
@@ -120,6 +122,17 @@ func (g *GetLogStreamRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode getLogStream#45984b5b to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetLogStreamRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getLogStream#45984b5b as nil")
+	}
+	b.ObjStart()
+	b.PutID("getLogStream")
+	b.ObjEnd()
 	return nil
 }
 

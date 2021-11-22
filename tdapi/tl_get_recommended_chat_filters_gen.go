@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetRecommendedChatFiltersRequest represents TL type `getRecommendedChatFilters#d18b70e6`.
@@ -120,6 +122,17 @@ func (g *GetRecommendedChatFiltersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode getRecommendedChatFilters#d18b70e6 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetRecommendedChatFiltersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getRecommendedChatFilters#d18b70e6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getRecommendedChatFilters")
+	b.ObjEnd()
 	return nil
 }
 

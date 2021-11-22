@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Users represents TL type `users#9ae2fb6f`.
@@ -168,6 +170,25 @@ func (u *Users) DecodeBare(b *bin.Buffer) error {
 			u.UserIDs = append(u.UserIDs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *Users) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode users#9ae2fb6f as nil")
+	}
+	b.ObjStart()
+	b.PutID("users")
+	b.FieldStart("total_count")
+	b.PutInt32(u.TotalCount)
+	b.FieldStart("user_ids")
+	b.ArrStart()
+	for _, v := range u.UserIDs {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

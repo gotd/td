@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Backgrounds represents TL type `backgrounds#b4671319`.
@@ -153,6 +155,25 @@ func (b *Backgrounds) DecodeBare(buf *bin.Buffer) error {
 			b.Backgrounds = append(b.Backgrounds, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *Backgrounds) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode backgrounds#b4671319 as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("backgrounds")
+	buf.FieldStart("backgrounds")
+	buf.ArrStart()
+	for idx, v := range b.Backgrounds {
+		if err := v.EncodeTDLibJSON(buf); err != nil {
+			return fmt.Errorf("unable to encode backgrounds#b4671319: field backgrounds element with index %d: %w", idx, err)
+		}
+	}
+	buf.ArrEnd()
+	buf.ObjEnd()
 	return nil
 }
 

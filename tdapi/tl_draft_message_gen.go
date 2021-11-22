@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DraftMessage represents TL type `draftMessage#51d71500`.
@@ -177,6 +179,28 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 		}
 		d.InputMessageText = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DraftMessage) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode draftMessage#51d71500 as nil")
+	}
+	b.ObjStart()
+	b.PutID("draftMessage")
+	b.FieldStart("reply_to_message_id")
+	b.PutLong(d.ReplyToMessageID)
+	b.FieldStart("date")
+	b.PutInt32(d.Date)
+	b.FieldStart("input_message_text")
+	if d.InputMessageText == nil {
+		return fmt.Errorf("unable to encode draftMessage#51d71500: field input_message_text is nil")
+	}
+	if err := d.InputMessageText.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode draftMessage#51d71500: field input_message_text: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetMessageEmbeddingCodeRequest represents TL type `getMessageEmbeddingCode#62a4cd09`.
@@ -172,6 +174,23 @@ func (g *GetMessageEmbeddingCodeRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.ForAlbum = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetMessageEmbeddingCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getMessageEmbeddingCode#62a4cd09 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getMessageEmbeddingCode")
+	b.FieldStart("chat_id")
+	b.PutLong(g.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(g.MessageID)
+	b.FieldStart("for_album")
+	b.PutBool(g.ForAlbum)
+	b.ObjEnd()
 	return nil
 }
 

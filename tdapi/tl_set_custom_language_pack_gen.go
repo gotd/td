@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetCustomLanguagePackRequest represents TL type `setCustomLanguagePack#234b0607`.
@@ -172,6 +174,29 @@ func (s *SetCustomLanguagePackRequest) DecodeBare(b *bin.Buffer) error {
 			s.Strings = append(s.Strings, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetCustomLanguagePackRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setCustomLanguagePack#234b0607 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setCustomLanguagePack")
+	b.FieldStart("info")
+	if err := s.Info.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setCustomLanguagePack#234b0607: field info: %w", err)
+	}
+	b.FieldStart("strings")
+	b.ArrStart()
+	for idx, v := range s.Strings {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode setCustomLanguagePack#234b0607: field strings element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

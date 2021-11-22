@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ViewMessagesRequest represents TL type `viewMessages#d6e1005d`.
@@ -202,6 +204,29 @@ func (v *ViewMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		v.ForceRead = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes v in TDLib API JSON format.
+func (v *ViewMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if v == nil {
+		return fmt.Errorf("can't encode viewMessages#d6e1005d as nil")
+	}
+	b.ObjStart()
+	b.PutID("viewMessages")
+	b.FieldStart("chat_id")
+	b.PutLong(v.ChatID)
+	b.FieldStart("message_thread_id")
+	b.PutLong(v.MessageThreadID)
+	b.FieldStart("message_ids")
+	b.ArrStart()
+	for _, v := range v.MessageIDs {
+		b.PutLong(v)
+	}
+	b.ArrEnd()
+	b.FieldStart("force_read")
+	b.PutBool(v.ForceRead)
+	b.ObjEnd()
 	return nil
 }
 

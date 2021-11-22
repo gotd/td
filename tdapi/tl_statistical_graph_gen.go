@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // StatisticalGraphData represents TL type `statisticalGraphData#89732e2c`.
@@ -163,6 +165,21 @@ func (s *StatisticalGraphData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *StatisticalGraphData) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statisticalGraphData#89732e2c as nil")
+	}
+	b.ObjStart()
+	b.PutID("statisticalGraphData")
+	b.FieldStart("json_data")
+	b.PutString(s.JSONData)
+	b.FieldStart("zoom_token")
+	b.PutString(s.ZoomToken)
+	b.ObjEnd()
+	return nil
+}
+
 // GetJSONData returns value of JSONData field.
 func (s *StatisticalGraphData) GetJSONData() (value string) {
 	return s.JSONData
@@ -290,6 +307,19 @@ func (s *StatisticalGraphAsync) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *StatisticalGraphAsync) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statisticalGraphAsync#19fb2b9f as nil")
+	}
+	b.ObjStart()
+	b.PutID("statisticalGraphAsync")
+	b.FieldStart("token")
+	b.PutString(s.Token)
+	b.ObjEnd()
+	return nil
+}
+
 // GetToken returns value of Token field.
 func (s *StatisticalGraphAsync) GetToken() (value string) {
 	return s.Token
@@ -412,6 +442,19 @@ func (s *StatisticalGraphError) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *StatisticalGraphError) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statisticalGraphError#c3fda052 as nil")
+	}
+	b.ObjStart()
+	b.PutID("statisticalGraphError")
+	b.FieldStart("error_message")
+	b.PutString(s.ErrorMessage)
+	b.ObjEnd()
+	return nil
+}
+
 // GetErrorMessage returns value of ErrorMessage field.
 func (s *StatisticalGraphError) GetErrorMessage() (value string) {
 	return s.ErrorMessage
@@ -447,6 +490,7 @@ type StatisticalGraphClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeStatisticalGraph implements binary de-serialization for StatisticalGraphClass.

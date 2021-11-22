@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetChatDraftMessageRequest represents TL type `setChatDraftMessage#645e1f1a`.
@@ -172,6 +174,25 @@ func (s *SetChatDraftMessageRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode setChatDraftMessage#645e1f1a: field draft_message: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetChatDraftMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setChatDraftMessage#645e1f1a as nil")
+	}
+	b.ObjStart()
+	b.PutID("setChatDraftMessage")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("message_thread_id")
+	b.PutLong(s.MessageThreadID)
+	b.FieldStart("draft_message")
+	if err := s.DraftMessage.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setChatDraftMessage#645e1f1a: field draft_message: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

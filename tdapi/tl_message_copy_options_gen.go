@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageCopyOptions represents TL type `messageCopyOptions#48076039`.
@@ -174,6 +176,25 @@ func (m *MessageCopyOptions) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messageCopyOptions#48076039: field new_caption: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageCopyOptions) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageCopyOptions#48076039 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageCopyOptions")
+	b.FieldStart("send_copy")
+	b.PutBool(m.SendCopy)
+	b.FieldStart("replace_caption")
+	b.PutBool(m.ReplaceCaption)
+	b.FieldStart("new_caption")
+	if err := m.NewCaption.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageCopyOptions#48076039: field new_caption: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

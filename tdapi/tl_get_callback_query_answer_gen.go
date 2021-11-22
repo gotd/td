@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetCallbackQueryAnswerRequest represents TL type `getCallbackQueryAnswer#6ef7a5f`.
@@ -177,6 +179,28 @@ func (g *GetCallbackQueryAnswerRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Payload = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetCallbackQueryAnswerRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getCallbackQueryAnswer#6ef7a5f as nil")
+	}
+	b.ObjStart()
+	b.PutID("getCallbackQueryAnswer")
+	b.FieldStart("chat_id")
+	b.PutLong(g.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(g.MessageID)
+	b.FieldStart("payload")
+	if g.Payload == nil {
+		return fmt.Errorf("unable to encode getCallbackQueryAnswer#6ef7a5f: field payload is nil")
+	}
+	if err := g.Payload.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getCallbackQueryAnswer#6ef7a5f: field payload: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

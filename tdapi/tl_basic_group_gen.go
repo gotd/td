@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // BasicGroup represents TL type `basicGroup#ed0e293b`.
@@ -211,6 +213,32 @@ func (b *BasicGroup) DecodeBare(buf *bin.Buffer) error {
 		}
 		b.UpgradedToSupergroupID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BasicGroup) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode basicGroup#ed0e293b as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("basicGroup")
+	buf.FieldStart("id")
+	buf.PutInt32(b.ID)
+	buf.FieldStart("member_count")
+	buf.PutInt32(b.MemberCount)
+	buf.FieldStart("status")
+	if b.Status == nil {
+		return fmt.Errorf("unable to encode basicGroup#ed0e293b: field status is nil")
+	}
+	if err := b.Status.EncodeTDLibJSON(buf); err != nil {
+		return fmt.Errorf("unable to encode basicGroup#ed0e293b: field status: %w", err)
+	}
+	buf.FieldStart("is_active")
+	buf.PutBool(b.IsActive)
+	buf.FieldStart("upgraded_to_supergroup_id")
+	buf.PutInt32(b.UpgradedToSupergroupID)
+	buf.ObjEnd()
 	return nil
 }
 

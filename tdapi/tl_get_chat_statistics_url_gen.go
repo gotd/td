@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetChatStatisticsURLRequest represents TL type `getChatStatisticsUrl#426fc4ff`.
@@ -172,6 +174,23 @@ func (g *GetChatStatisticsURLRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.IsDark = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetChatStatisticsURLRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getChatStatisticsUrl#426fc4ff as nil")
+	}
+	b.ObjStart()
+	b.PutID("getChatStatisticsUrl")
+	b.FieldStart("chat_id")
+	b.PutLong(g.ChatID)
+	b.FieldStart("parameters")
+	b.PutString(g.Parameters)
+	b.FieldStart("is_dark")
+	b.PutBool(g.IsDark)
+	b.ObjEnd()
 	return nil
 }
 

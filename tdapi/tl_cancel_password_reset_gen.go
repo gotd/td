@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CancelPasswordResetRequest represents TL type `cancelPasswordReset#38127462`.
@@ -120,6 +122,17 @@ func (c *CancelPasswordResetRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode cancelPasswordReset#38127462 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CancelPasswordResetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode cancelPasswordReset#38127462 as nil")
+	}
+	b.ObjStart()
+	b.PutID("cancelPasswordReset")
+	b.ObjEnd()
 	return nil
 }
 

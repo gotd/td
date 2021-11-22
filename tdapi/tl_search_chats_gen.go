@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SearchChatsRequest represents TL type `searchChats#8ff4b9cc`.
@@ -155,6 +157,21 @@ func (s *SearchChatsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Limit = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchChats#8ff4b9cc as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchChats")
+	b.FieldStart("query")
+	b.PutString(s.Query)
+	b.FieldStart("limit")
+	b.PutInt32(s.Limit)
+	b.ObjEnd()
 	return nil
 }
 

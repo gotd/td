@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Audio represents TL type `audio#b9b4c7de`.
@@ -258,6 +260,39 @@ func (a *Audio) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode audio#b9b4c7de: field audio: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *Audio) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode audio#b9b4c7de as nil")
+	}
+	b.ObjStart()
+	b.PutID("audio")
+	b.FieldStart("duration")
+	b.PutInt32(a.Duration)
+	b.FieldStart("title")
+	b.PutString(a.Title)
+	b.FieldStart("performer")
+	b.PutString(a.Performer)
+	b.FieldStart("file_name")
+	b.PutString(a.FileName)
+	b.FieldStart("mime_type")
+	b.PutString(a.MimeType)
+	b.FieldStart("album_cover_minithumbnail")
+	if err := a.AlbumCoverMinithumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode audio#b9b4c7de: field album_cover_minithumbnail: %w", err)
+	}
+	b.FieldStart("album_cover_thumbnail")
+	if err := a.AlbumCoverThumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode audio#b9b4c7de: field album_cover_thumbnail: %w", err)
+	}
+	b.FieldStart("audio")
+	if err := a.Audio.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode audio#b9b4c7de: field audio: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

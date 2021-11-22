@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // EditProxyRequest represents TL type `editProxy#a0482853`.
@@ -211,6 +213,32 @@ func (e *EditProxyRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		e.Type = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes e in TDLib API JSON format.
+func (e *EditProxyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode editProxy#a0482853 as nil")
+	}
+	b.ObjStart()
+	b.PutID("editProxy")
+	b.FieldStart("proxy_id")
+	b.PutInt32(e.ProxyID)
+	b.FieldStart("server")
+	b.PutString(e.Server)
+	b.FieldStart("port")
+	b.PutInt32(e.Port)
+	b.FieldStart("enable")
+	b.PutBool(e.Enable)
+	b.FieldStart("type")
+	if e.Type == nil {
+		return fmt.Errorf("unable to encode editProxy#a0482853: field type is nil")
+	}
+	if err := e.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode editProxy#a0482853: field type: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

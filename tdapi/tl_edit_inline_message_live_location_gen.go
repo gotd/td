@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // EditInlineMessageLiveLocationRequest represents TL type `editInlineMessageLiveLocation#f6a5da00`.
@@ -213,6 +215,34 @@ func (e *EditInlineMessageLiveLocationRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		e.ProximityAlertRadius = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes e in TDLib API JSON format.
+func (e *EditInlineMessageLiveLocationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode editInlineMessageLiveLocation#f6a5da00 as nil")
+	}
+	b.ObjStart()
+	b.PutID("editInlineMessageLiveLocation")
+	b.FieldStart("inline_message_id")
+	b.PutString(e.InlineMessageID)
+	b.FieldStart("reply_markup")
+	if e.ReplyMarkup == nil {
+		return fmt.Errorf("unable to encode editInlineMessageLiveLocation#f6a5da00: field reply_markup is nil")
+	}
+	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode editInlineMessageLiveLocation#f6a5da00: field reply_markup: %w", err)
+	}
+	b.FieldStart("location")
+	if err := e.Location.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode editInlineMessageLiveLocation#f6a5da00: field location: %w", err)
+	}
+	b.FieldStart("heading")
+	b.PutInt32(e.Heading)
+	b.FieldStart("proximity_alert_radius")
+	b.PutInt32(e.ProximityAlertRadius)
+	b.ObjEnd()
 	return nil
 }
 

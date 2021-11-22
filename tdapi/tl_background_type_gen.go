@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // BackgroundTypeWallpaper represents TL type `backgroundTypeWallpaper#758c4c7b`.
@@ -161,6 +163,21 @@ func (b *BackgroundTypeWallpaper) DecodeBare(buf *bin.Buffer) error {
 		}
 		b.IsMoving = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BackgroundTypeWallpaper) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode backgroundTypeWallpaper#758c4c7b as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("backgroundTypeWallpaper")
+	buf.FieldStart("is_blurred")
+	buf.PutBool(b.IsBlurred)
+	buf.FieldStart("is_moving")
+	buf.PutBool(b.IsMoving)
+	buf.ObjEnd()
 	return nil
 }
 
@@ -331,6 +348,28 @@ func (b *BackgroundTypePattern) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BackgroundTypePattern) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode backgroundTypePattern#26be1eba as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("backgroundTypePattern")
+	buf.FieldStart("fill")
+	if b.Fill == nil {
+		return fmt.Errorf("unable to encode backgroundTypePattern#26be1eba: field fill is nil")
+	}
+	if err := b.Fill.EncodeTDLibJSON(buf); err != nil {
+		return fmt.Errorf("unable to encode backgroundTypePattern#26be1eba: field fill: %w", err)
+	}
+	buf.FieldStart("intensity")
+	buf.PutInt32(b.Intensity)
+	buf.FieldStart("is_moving")
+	buf.PutBool(b.IsMoving)
+	buf.ObjEnd()
+	return nil
+}
+
 // GetFill returns value of Fill field.
 func (b *BackgroundTypePattern) GetFill() (value BackgroundFillClass) {
 	return b.Fill
@@ -468,6 +507,24 @@ func (b *BackgroundTypeFill) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BackgroundTypeFill) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode backgroundTypeFill#3b301c2c as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("backgroundTypeFill")
+	buf.FieldStart("fill")
+	if b.Fill == nil {
+		return fmt.Errorf("unable to encode backgroundTypeFill#3b301c2c: field fill is nil")
+	}
+	if err := b.Fill.EncodeTDLibJSON(buf); err != nil {
+		return fmt.Errorf("unable to encode backgroundTypeFill#3b301c2c: field fill: %w", err)
+	}
+	buf.ObjEnd()
+	return nil
+}
+
 // GetFill returns value of Fill field.
 func (b *BackgroundTypeFill) GetFill() (value BackgroundFillClass) {
 	return b.Fill
@@ -503,6 +560,7 @@ type BackgroundTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeBackgroundType implements binary de-serialization for BackgroundTypeClass.

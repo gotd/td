@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CallServer represents TL type `callServer#6f37df97`.
@@ -211,6 +213,34 @@ func (c *CallServer) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Type = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallServer) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callServer#6f37df97 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callServer")
+	b.FieldStart("id")
+	if err := c.ID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode callServer#6f37df97: field id: %w", err)
+	}
+	b.FieldStart("ip_address")
+	b.PutString(c.IPAddress)
+	b.FieldStart("ipv6_address")
+	b.PutString(c.Ipv6Address)
+	b.FieldStart("port")
+	b.PutInt32(c.Port)
+	b.FieldStart("type")
+	if c.Type == nil {
+		return fmt.Errorf("unable to encode callServer#6f37df97: field type is nil")
+	}
+	if err := c.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode callServer#6f37df97: field type: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

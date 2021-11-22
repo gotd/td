@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // RemoveNotificationRequest represents TL type `removeNotification#336ab34e`.
@@ -155,6 +157,21 @@ func (r *RemoveNotificationRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		r.NotificationID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RemoveNotificationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode removeNotification#336ab34e as nil")
+	}
+	b.ObjStart()
+	b.PutID("removeNotification")
+	b.FieldStart("notification_group_id")
+	b.PutInt32(r.NotificationGroupID)
+	b.FieldStart("notification_id")
+	b.PutInt32(r.NotificationID)
+	b.ObjEnd()
 	return nil
 }
 

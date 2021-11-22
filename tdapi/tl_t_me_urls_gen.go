@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TMeURLs represents TL type `tMeUrls#655b1f52`.
@@ -153,6 +155,25 @@ func (t *TMeURLs) DecodeBare(b *bin.Buffer) error {
 			t.URLs = append(t.URLs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TMeURLs) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode tMeUrls#655b1f52 as nil")
+	}
+	b.ObjStart()
+	b.PutID("tMeUrls")
+	b.FieldStart("urls")
+	b.ArrStart()
+	for idx, v := range t.URLs {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode tMeUrls#655b1f52: field urls element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // OpenMessageContentRequest represents TL type `openMessageContent#d3f2697b`.
@@ -155,6 +157,21 @@ func (o *OpenMessageContentRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		o.MessageID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes o in TDLib API JSON format.
+func (o *OpenMessageContentRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if o == nil {
+		return fmt.Errorf("can't encode openMessageContent#d3f2697b as nil")
+	}
+	b.ObjStart()
+	b.PutID("openMessageContent")
+	b.FieldStart("chat_id")
+	b.PutLong(o.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(o.MessageID)
+	b.ObjEnd()
 	return nil
 }
 

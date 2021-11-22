@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetBotUpdatesStatusRequest represents TL type `setBotUpdatesStatus#bb293991`.
@@ -155,6 +157,21 @@ func (s *SetBotUpdatesStatusRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.ErrorMessage = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetBotUpdatesStatusRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setBotUpdatesStatus#bb293991 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setBotUpdatesStatus")
+	b.FieldStart("pending_update_count")
+	b.PutInt32(s.PendingUpdateCount)
+	b.FieldStart("error_message")
+	b.PutString(s.ErrorMessage)
+	b.ObjEnd()
 	return nil
 }
 

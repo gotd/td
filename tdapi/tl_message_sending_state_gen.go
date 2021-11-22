@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageSendingStatePending represents TL type `messageSendingStatePending#ada359c2`.
@@ -125,6 +127,17 @@ func (m *MessageSendingStatePending) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageSendingStatePending#ada359c2 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageSendingStatePending) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSendingStatePending#ada359c2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageSendingStatePending")
+	b.ObjEnd()
 	return nil
 }
 
@@ -297,6 +310,25 @@ func (m *MessageSendingStateFailed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageSendingStateFailed) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSendingStateFailed#7a74d137 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageSendingStateFailed")
+	b.FieldStart("error_code")
+	b.PutInt32(m.ErrorCode)
+	b.FieldStart("error_message")
+	b.PutString(m.ErrorMessage)
+	b.FieldStart("can_retry")
+	b.PutBool(m.CanRetry)
+	b.FieldStart("retry_after")
+	b.PutDouble(m.RetryAfter)
+	b.ObjEnd()
+	return nil
+}
+
 // GetErrorCode returns value of ErrorCode field.
 func (m *MessageSendingStateFailed) GetErrorCode() (value int32) {
 	return m.ErrorCode
@@ -346,6 +378,7 @@ type MessageSendingStateClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeMessageSendingState implements binary de-serialization for MessageSendingStateClass.

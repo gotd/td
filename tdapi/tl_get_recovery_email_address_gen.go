@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetRecoveryEmailAddressRequest represents TL type `getRecoveryEmailAddress#a0f1b9fd`.
@@ -138,6 +140,19 @@ func (g *GetRecoveryEmailAddressRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Password = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetRecoveryEmailAddressRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getRecoveryEmailAddress#a0f1b9fd as nil")
+	}
+	b.ObjStart()
+	b.PutID("getRecoveryEmailAddress")
+	b.FieldStart("password")
+	b.PutString(g.Password)
+	b.ObjEnd()
 	return nil
 }
 

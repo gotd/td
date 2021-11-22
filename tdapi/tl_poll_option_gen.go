@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PollOption represents TL type `pollOption#57d9d5a5`.
@@ -206,6 +208,27 @@ func (p *PollOption) DecodeBare(b *bin.Buffer) error {
 		}
 		p.IsBeingChosen = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PollOption) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pollOption#57d9d5a5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pollOption")
+	b.FieldStart("text")
+	b.PutString(p.Text)
+	b.FieldStart("voter_count")
+	b.PutInt32(p.VoterCount)
+	b.FieldStart("vote_percentage")
+	b.PutInt32(p.VotePercentage)
+	b.FieldStart("is_chosen")
+	b.PutBool(p.IsChosen)
+	b.FieldStart("is_being_chosen")
+	b.PutBool(p.IsBeingChosen)
+	b.ObjEnd()
 	return nil
 }
 

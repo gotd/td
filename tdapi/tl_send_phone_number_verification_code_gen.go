@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SendPhoneNumberVerificationCodeRequest represents TL type `sendPhoneNumberVerificationCode#7c140dcb`.
@@ -155,6 +157,23 @@ func (s *SendPhoneNumberVerificationCodeRequest) DecodeBare(b *bin.Buffer) error
 			return fmt.Errorf("unable to decode sendPhoneNumberVerificationCode#7c140dcb: field settings: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SendPhoneNumberVerificationCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendPhoneNumberVerificationCode#7c140dcb as nil")
+	}
+	b.ObjStart()
+	b.PutID("sendPhoneNumberVerificationCode")
+	b.FieldStart("phone_number")
+	b.PutString(s.PhoneNumber)
+	b.FieldStart("settings")
+	if err := s.Settings.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sendPhoneNumberVerificationCode#7c140dcb: field settings: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

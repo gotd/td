@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetBankCardInfoRequest represents TL type `getBankCardInfo#b1e31db0`.
@@ -138,6 +140,19 @@ func (g *GetBankCardInfoRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.BankCardNumber = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetBankCardInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getBankCardInfo#b1e31db0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getBankCardInfo")
+	b.FieldStart("bank_card_number")
+	b.PutString(g.BankCardNumber)
+	b.ObjEnd()
 	return nil
 }
 

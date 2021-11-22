@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatPermissions represents TL type `chatPermissions#5e73d8df`.
@@ -260,6 +262,33 @@ func (c *ChatPermissions) DecodeBare(b *bin.Buffer) error {
 		}
 		c.CanPinMessages = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatPermissions) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatPermissions#5e73d8df as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatPermissions")
+	b.FieldStart("can_send_messages")
+	b.PutBool(c.CanSendMessages)
+	b.FieldStart("can_send_media_messages")
+	b.PutBool(c.CanSendMediaMessages)
+	b.FieldStart("can_send_polls")
+	b.PutBool(c.CanSendPolls)
+	b.FieldStart("can_send_other_messages")
+	b.PutBool(c.CanSendOtherMessages)
+	b.FieldStart("can_add_web_page_previews")
+	b.PutBool(c.CanAddWebPagePreviews)
+	b.FieldStart("can_change_info")
+	b.PutBool(c.CanChangeInfo)
+	b.FieldStart("can_invite_users")
+	b.PutBool(c.CanInviteUsers)
+	b.FieldStart("can_pin_messages")
+	b.PutBool(c.CanPinMessages)
+	b.ObjEnd()
 	return nil
 }
 

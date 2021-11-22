@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetPollVotersRequest represents TL type `getPollVoters#7bb2649e`.
@@ -209,6 +211,27 @@ func (g *GetPollVotersRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Limit = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetPollVotersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getPollVoters#7bb2649e as nil")
+	}
+	b.ObjStart()
+	b.PutID("getPollVoters")
+	b.FieldStart("chat_id")
+	b.PutLong(g.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(g.MessageID)
+	b.FieldStart("option_id")
+	b.PutInt32(g.OptionID)
+	b.FieldStart("offset")
+	b.PutInt32(g.Offset)
+	b.FieldStart("limit")
+	b.PutInt32(g.Limit)
+	b.ObjEnd()
 	return nil
 }
 

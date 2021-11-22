@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // OptimizeStorageRequest represents TL type `optimizeStorage#ef73c8c5`.
@@ -324,6 +326,52 @@ func (o *OptimizeStorageRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		o.ChatLimit = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes o in TDLib API JSON format.
+func (o *OptimizeStorageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if o == nil {
+		return fmt.Errorf("can't encode optimizeStorage#ef73c8c5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("optimizeStorage")
+	b.FieldStart("size")
+	b.PutLong(o.Size)
+	b.FieldStart("ttl")
+	b.PutInt32(o.TTL)
+	b.FieldStart("count")
+	b.PutInt32(o.Count)
+	b.FieldStart("immunity_delay")
+	b.PutInt32(o.ImmunityDelay)
+	b.FieldStart("file_types")
+	b.ArrStart()
+	for idx, v := range o.FileTypes {
+		if v == nil {
+			return fmt.Errorf("unable to encode optimizeStorage#ef73c8c5: field file_types element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode optimizeStorage#ef73c8c5: field file_types element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("chat_ids")
+	b.ArrStart()
+	for _, v := range o.ChatIDs {
+		b.PutLong(v)
+	}
+	b.ArrEnd()
+	b.FieldStart("exclude_chat_ids")
+	b.ArrStart()
+	for _, v := range o.ExcludeChatIDs {
+		b.PutLong(v)
+	}
+	b.ArrEnd()
+	b.FieldStart("return_deleted_file_statistics")
+	b.PutBool(o.ReturnDeletedFileStatistics)
+	b.FieldStart("chat_limit")
+	b.PutInt32(o.ChatLimit)
+	b.ObjEnd()
 	return nil
 }
 

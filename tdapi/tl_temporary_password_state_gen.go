@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TemporaryPasswordState represents TL type `temporaryPasswordState#3804c7e2`.
@@ -155,6 +157,21 @@ func (t *TemporaryPasswordState) DecodeBare(b *bin.Buffer) error {
 		}
 		t.ValidFor = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TemporaryPasswordState) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode temporaryPasswordState#3804c7e2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("temporaryPasswordState")
+	b.FieldStart("has_password")
+	b.PutBool(t.HasPassword)
+	b.FieldStart("valid_for")
+	b.PutInt32(t.ValidFor)
+	b.ObjEnd()
 	return nil
 }
 

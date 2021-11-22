@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Bytes represents TL type `bytes#e937bb82`.
@@ -120,5 +122,16 @@ func (b *Bytes) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't decode bytes#e937bb82 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *Bytes) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode bytes#e937bb82 as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("bytes")
+	buf.ObjEnd()
 	return nil
 }

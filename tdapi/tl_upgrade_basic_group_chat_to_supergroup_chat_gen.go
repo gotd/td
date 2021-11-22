@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // UpgradeBasicGroupChatToSupergroupChatRequest represents TL type `upgradeBasicGroupChatToSupergroupChat#11e915ba`.
@@ -138,6 +140,19 @@ func (u *UpgradeBasicGroupChatToSupergroupChatRequest) DecodeBare(b *bin.Buffer)
 		}
 		u.ChatID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UpgradeBasicGroupChatToSupergroupChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode upgradeBasicGroupChatToSupergroupChat#11e915ba as nil")
+	}
+	b.ObjStart()
+	b.PutID("upgradeBasicGroupChatToSupergroupChat")
+	b.FieldStart("chat_id")
+	b.PutLong(u.ChatID)
+	b.ObjEnd()
 	return nil
 }
 

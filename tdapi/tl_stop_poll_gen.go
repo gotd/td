@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // StopPollRequest represents TL type `stopPoll#62e80aad`.
@@ -177,6 +179,28 @@ func (s *StopPollRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.ReplyMarkup = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *StopPollRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stopPoll#62e80aad as nil")
+	}
+	b.ObjStart()
+	b.PutID("stopPoll")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(s.MessageID)
+	b.FieldStart("reply_markup")
+	if s.ReplyMarkup == nil {
+		return fmt.Errorf("unable to encode stopPoll#62e80aad: field reply_markup is nil")
+	}
+	if err := s.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode stopPoll#62e80aad: field reply_markup: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

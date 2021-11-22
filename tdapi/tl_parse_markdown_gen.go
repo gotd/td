@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ParseMarkdownRequest represents TL type `parseMarkdown#2d153aef`.
@@ -139,6 +141,21 @@ func (p *ParseMarkdownRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode parseMarkdown#2d153aef: field text: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *ParseMarkdownRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode parseMarkdown#2d153aef as nil")
+	}
+	b.ObjStart()
+	b.PutID("parseMarkdown")
+	b.FieldStart("text")
+	if err := p.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode parseMarkdown#2d153aef: field text: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

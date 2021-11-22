@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // BotCommandScopeDefault represents TL type `botCommandScopeDefault#2f6cb2ab`.
@@ -125,6 +127,17 @@ func (b *BotCommandScopeDefault) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't decode botCommandScopeDefault#2f6cb2ab to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BotCommandScopeDefault) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botCommandScopeDefault#2f6cb2ab as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("botCommandScopeDefault")
+	buf.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (b *BotCommandScopeAllPrivateChats) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BotCommandScopeAllPrivateChats) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botCommandScopeAllPrivateChats#eb716739 as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("botCommandScopeAllPrivateChats")
+	buf.ObjEnd()
+	return nil
+}
+
 // BotCommandScopeAllGroupChats represents TL type `botCommandScopeAllGroupChats#c585c85e`.
 type BotCommandScopeAllGroupChats struct {
 }
@@ -326,6 +350,17 @@ func (b *BotCommandScopeAllGroupChats) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BotCommandScopeAllGroupChats) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botCommandScopeAllGroupChats#c585c85e as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("botCommandScopeAllGroupChats")
+	buf.ObjEnd()
+	return nil
+}
+
 // BotCommandScopeAllChatAdministrators represents TL type `botCommandScopeAllChatAdministrators#771c1551`.
 type BotCommandScopeAllChatAdministrators struct {
 }
@@ -422,6 +457,17 @@ func (b *BotCommandScopeAllChatAdministrators) DecodeBare(buf *bin.Buffer) error
 	if b == nil {
 		return fmt.Errorf("can't decode botCommandScopeAllChatAdministrators#771c1551 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BotCommandScopeAllChatAdministrators) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botCommandScopeAllChatAdministrators#771c1551 as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("botCommandScopeAllChatAdministrators")
+	buf.ObjEnd()
 	return nil
 }
 
@@ -539,6 +585,19 @@ func (b *BotCommandScopeChat) DecodeBare(buf *bin.Buffer) error {
 		}
 		b.ChatID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BotCommandScopeChat) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botCommandScopeChat#e65b22a5 as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("botCommandScopeChat")
+	buf.FieldStart("chat_id")
+	buf.PutLong(b.ChatID)
+	buf.ObjEnd()
 	return nil
 }
 
@@ -661,6 +720,19 @@ func (b *BotCommandScopeChatAdministrators) DecodeBare(buf *bin.Buffer) error {
 		}
 		b.ChatID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BotCommandScopeChatAdministrators) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botCommandScopeChatAdministrators#42bcfe4e as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("botCommandScopeChatAdministrators")
+	buf.FieldStart("chat_id")
+	buf.PutLong(b.ChatID)
+	buf.ObjEnd()
 	return nil
 }
 
@@ -803,6 +875,21 @@ func (b *BotCommandScopeChatMember) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BotCommandScopeChatMember) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botCommandScopeChatMember#a0a78b7f as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("botCommandScopeChatMember")
+	buf.FieldStart("chat_id")
+	buf.PutLong(b.ChatID)
+	buf.FieldStart("user_id")
+	buf.PutInt32(b.UserID)
+	buf.ObjEnd()
+	return nil
+}
+
 // GetChatID returns value of ChatID field.
 func (b *BotCommandScopeChatMember) GetChatID() (value int64) {
 	return b.ChatID
@@ -847,6 +934,7 @@ type BotCommandScopeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeBotCommandScope implements binary de-serialization for BotCommandScopeClass.

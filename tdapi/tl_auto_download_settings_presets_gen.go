@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AutoDownloadSettingsPresets represents TL type `autoDownloadSettingsPresets#d1621d22`.
@@ -172,6 +174,29 @@ func (a *AutoDownloadSettingsPresets) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode autoDownloadSettingsPresets#d1621d22: field high: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AutoDownloadSettingsPresets) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode autoDownloadSettingsPresets#d1621d22 as nil")
+	}
+	b.ObjStart()
+	b.PutID("autoDownloadSettingsPresets")
+	b.FieldStart("low")
+	if err := a.Low.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode autoDownloadSettingsPresets#d1621d22: field low: %w", err)
+	}
+	b.FieldStart("medium")
+	if err := a.Medium.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode autoDownloadSettingsPresets#d1621d22: field medium: %w", err)
+	}
+	b.FieldStart("high")
+	if err := a.High.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode autoDownloadSettingsPresets#d1621d22: field high: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // LoadGroupCallParticipantsRequest represents TL type `loadGroupCallParticipants#37f3bece`.
@@ -156,6 +158,21 @@ func (l *LoadGroupCallParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		l.Limit = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LoadGroupCallParticipantsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode loadGroupCallParticipants#37f3bece as nil")
+	}
+	b.ObjStart()
+	b.PutID("loadGroupCallParticipants")
+	b.FieldStart("group_call_id")
+	b.PutInt32(l.GroupCallID)
+	b.FieldStart("limit")
+	b.PutInt32(l.Limit)
+	b.ObjEnd()
 	return nil
 }
 

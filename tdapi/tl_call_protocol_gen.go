@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CallProtocol represents TL type `callProtocol#a9a037e`.
@@ -219,6 +221,31 @@ func (c *CallProtocol) DecodeBare(b *bin.Buffer) error {
 			c.LibraryVersions = append(c.LibraryVersions, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallProtocol) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callProtocol#a9a037e as nil")
+	}
+	b.ObjStart()
+	b.PutID("callProtocol")
+	b.FieldStart("udp_p2p")
+	b.PutBool(c.UDPP2P)
+	b.FieldStart("udp_reflector")
+	b.PutBool(c.UDPReflector)
+	b.FieldStart("min_layer")
+	b.PutInt32(c.MinLayer)
+	b.FieldStart("max_layer")
+	b.PutInt32(c.MaxLayer)
+	b.FieldStart("library_versions")
+	b.ArrStart()
+	for _, v := range c.LibraryVersions {
+		b.PutString(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

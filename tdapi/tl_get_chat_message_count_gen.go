@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetChatMessageCountRequest represents TL type `getChatMessageCount#c3eb1ac`.
@@ -178,6 +180,28 @@ func (g *GetChatMessageCountRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.ReturnLocal = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetChatMessageCountRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getChatMessageCount#c3eb1ac as nil")
+	}
+	b.ObjStart()
+	b.PutID("getChatMessageCount")
+	b.FieldStart("chat_id")
+	b.PutLong(g.ChatID)
+	b.FieldStart("filter")
+	if g.Filter == nil {
+		return fmt.Errorf("unable to encode getChatMessageCount#c3eb1ac: field filter is nil")
+	}
+	if err := g.Filter.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getChatMessageCount#c3eb1ac: field filter: %w", err)
+	}
+	b.FieldStart("return_local")
+	b.PutBool(g.ReturnLocal)
+	b.ObjEnd()
 	return nil
 }
 

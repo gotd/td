@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // WebPage represents TL type `webPage#dd96962e`.
@@ -481,6 +483,77 @@ func (w *WebPage) DecodeBare(b *bin.Buffer) error {
 		}
 		w.InstantViewVersion = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes w in TDLib API JSON format.
+func (w *WebPage) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPage#dd96962e as nil")
+	}
+	b.ObjStart()
+	b.PutID("webPage")
+	b.FieldStart("url")
+	b.PutString(w.URL)
+	b.FieldStart("display_url")
+	b.PutString(w.DisplayURL)
+	b.FieldStart("type")
+	b.PutString(w.Type)
+	b.FieldStart("site_name")
+	b.PutString(w.SiteName)
+	b.FieldStart("title")
+	b.PutString(w.Title)
+	b.FieldStart("description")
+	if err := w.Description.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode webPage#dd96962e: field description: %w", err)
+	}
+	b.FieldStart("photo")
+	if err := w.Photo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode webPage#dd96962e: field photo: %w", err)
+	}
+	b.FieldStart("embed_url")
+	b.PutString(w.EmbedURL)
+	b.FieldStart("embed_type")
+	b.PutString(w.EmbedType)
+	b.FieldStart("embed_width")
+	b.PutInt32(w.EmbedWidth)
+	b.FieldStart("embed_height")
+	b.PutInt32(w.EmbedHeight)
+	b.FieldStart("duration")
+	b.PutInt32(w.Duration)
+	b.FieldStart("author")
+	b.PutString(w.Author)
+	b.FieldStart("animation")
+	if err := w.Animation.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode webPage#dd96962e: field animation: %w", err)
+	}
+	b.FieldStart("audio")
+	if err := w.Audio.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode webPage#dd96962e: field audio: %w", err)
+	}
+	b.FieldStart("document")
+	if err := w.Document.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode webPage#dd96962e: field document: %w", err)
+	}
+	b.FieldStart("sticker")
+	if err := w.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode webPage#dd96962e: field sticker: %w", err)
+	}
+	b.FieldStart("video")
+	if err := w.Video.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode webPage#dd96962e: field video: %w", err)
+	}
+	b.FieldStart("video_note")
+	if err := w.VideoNote.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode webPage#dd96962e: field video_note: %w", err)
+	}
+	b.FieldStart("voice_note")
+	if err := w.VoiceNote.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode webPage#dd96962e: field voice_note: %w", err)
+	}
+	b.FieldStart("instant_view_version")
+	b.PutInt32(w.InstantViewVersion)
+	b.ObjEnd()
 	return nil
 }
 

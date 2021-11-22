@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ProfilePhoto represents TL type `profilePhoto#f82f9c4d`.
@@ -209,6 +211,35 @@ func (p *ProfilePhoto) DecodeBare(b *bin.Buffer) error {
 		}
 		p.HasAnimation = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *ProfilePhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode profilePhoto#f82f9c4d as nil")
+	}
+	b.ObjStart()
+	b.PutID("profilePhoto")
+	b.FieldStart("id")
+	if err := p.ID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field id: %w", err)
+	}
+	b.FieldStart("small")
+	if err := p.Small.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field small: %w", err)
+	}
+	b.FieldStart("big")
+	if err := p.Big.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field big: %w", err)
+	}
+	b.FieldStart("minithumbnail")
+	if err := p.Minithumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field minithumbnail: %w", err)
+	}
+	b.FieldStart("has_animation")
+	b.PutBool(p.HasAnimation)
+	b.ObjEnd()
 	return nil
 }
 

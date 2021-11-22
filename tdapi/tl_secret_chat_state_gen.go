@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SecretChatStatePending represents TL type `secretChatStatePending#9e6c967c`.
@@ -125,6 +127,17 @@ func (s *SecretChatStatePending) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode secretChatStatePending#9e6c967c to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SecretChatStatePending) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secretChatStatePending#9e6c967c as nil")
+	}
+	b.ObjStart()
+	b.PutID("secretChatStatePending")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (s *SecretChatStateReady) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SecretChatStateReady) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secretChatStateReady#9ff4b7e9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("secretChatStateReady")
+	b.ObjEnd()
+	return nil
+}
+
 // SecretChatStateClosed represents TL type `secretChatStateClosed#8c1006ed`.
 type SecretChatStateClosed struct {
 }
@@ -326,6 +350,17 @@ func (s *SecretChatStateClosed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SecretChatStateClosed) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secretChatStateClosed#8c1006ed as nil")
+	}
+	b.ObjStart()
+	b.PutID("secretChatStateClosed")
+	b.ObjEnd()
+	return nil
+}
+
 // SecretChatStateClass represents SecretChatState generic type.
 //
 // Example:
@@ -356,6 +391,7 @@ type SecretChatStateClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeSecretChatState implements binary de-serialization for SecretChatStateClass.

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Int64 represents TL type `int64#5d9ed744`.
@@ -120,5 +122,16 @@ func (i *Int64) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't decode int64#5d9ed744 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *Int64) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode int64#5d9ed744 as nil")
+	}
+	b.ObjStart()
+	b.PutID("int64")
+	b.ObjEnd()
 	return nil
 }

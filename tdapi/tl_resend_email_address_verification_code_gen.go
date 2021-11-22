@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ResendEmailAddressVerificationCodeRequest represents TL type `resendEmailAddressVerificationCode#90653024`.
@@ -120,6 +122,17 @@ func (r *ResendEmailAddressVerificationCodeRequest) DecodeBare(b *bin.Buffer) er
 	if r == nil {
 		return fmt.Errorf("can't decode resendEmailAddressVerificationCode#90653024 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ResendEmailAddressVerificationCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode resendEmailAddressVerificationCode#90653024 as nil")
+	}
+	b.ObjStart()
+	b.PutID("resendEmailAddressVerificationCode")
+	b.ObjEnd()
 	return nil
 }
 

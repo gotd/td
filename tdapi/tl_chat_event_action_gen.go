@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatEventMessageEdited represents TL type `chatEventMessageEdited#e64ff5f8`.
@@ -163,6 +165,25 @@ func (c *ChatEventMessageEdited) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventMessageEdited) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMessageEdited#e64ff5f8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMessageEdited")
+	b.FieldStart("old_message")
+	if err := c.OldMessage.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMessageEdited#e64ff5f8: field old_message: %w", err)
+	}
+	b.FieldStart("new_message")
+	if err := c.NewMessage.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMessageEdited#e64ff5f8: field new_message: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetOldMessage returns value of OldMessage field.
 func (c *ChatEventMessageEdited) GetOldMessage() (value Message) {
 	return c.OldMessage
@@ -290,6 +311,21 @@ func (c *ChatEventMessageDeleted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventMessageDeleted) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMessageDeleted#cac649f7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMessageDeleted")
+	b.FieldStart("message")
+	if err := c.Message.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMessageDeleted#cac649f7: field message: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetMessage returns value of Message field.
 func (c *ChatEventMessageDeleted) GetMessage() (value Message) {
 	return c.Message
@@ -409,6 +445,21 @@ func (c *ChatEventPollStopped) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode chatEventPollStopped#77cc8be5: field message: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventPollStopped) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventPollStopped#77cc8be5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventPollStopped")
+	b.FieldStart("message")
+	if err := c.Message.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPollStopped#77cc8be5: field message: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -534,6 +585,21 @@ func (c *ChatEventMessagePinned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventMessagePinned) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMessagePinned#1a26ad1a as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMessagePinned")
+	b.FieldStart("message")
+	if err := c.Message.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMessagePinned#1a26ad1a: field message: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetMessage returns value of Message field.
 func (c *ChatEventMessagePinned) GetMessage() (value Message) {
 	return c.Message
@@ -656,6 +722,21 @@ func (c *ChatEventMessageUnpinned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventMessageUnpinned) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMessageUnpinned#e9943b17 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMessageUnpinned")
+	b.FieldStart("message")
+	if err := c.Message.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMessageUnpinned#e9943b17: field message: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetMessage returns value of Message field.
 func (c *ChatEventMessageUnpinned) GetMessage() (value Message) {
 	return c.Message
@@ -757,6 +838,17 @@ func (c *ChatEventMemberJoined) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatEventMemberJoined#f1f70924 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventMemberJoined) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMemberJoined#f1f70924 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMemberJoined")
+	b.ObjEnd()
 	return nil
 }
 
@@ -877,6 +969,21 @@ func (c *ChatEventMemberJoinedByInviteLink) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventMemberJoinedByInviteLink) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMemberJoinedByInviteLink#f0e6d5bd as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMemberJoinedByInviteLink")
+	b.FieldStart("invite_link")
+	if err := c.InviteLink.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMemberJoinedByInviteLink#f0e6d5bd: field invite_link: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetInviteLink returns value of InviteLink field.
 func (c *ChatEventMemberJoinedByInviteLink) GetInviteLink() (value ChatInviteLink) {
 	return c.InviteLink
@@ -978,6 +1085,17 @@ func (c *ChatEventMemberLeft) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatEventMemberLeft#c778400f to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventMemberLeft) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMemberLeft#c778400f as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMemberLeft")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1117,6 +1235,26 @@ func (c *ChatEventMemberInvited) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Status = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventMemberInvited) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMemberInvited#8334d87e as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMemberInvited")
+	b.FieldStart("user_id")
+	b.PutInt32(c.UserID)
+	b.FieldStart("status")
+	if c.Status == nil {
+		return fmt.Errorf("unable to encode chatEventMemberInvited#8334d87e: field status is nil")
+	}
+	if err := c.Status.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMemberInvited#8334d87e: field status: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -1288,6 +1426,33 @@ func (c *ChatEventMemberPromoted) DecodeBare(b *bin.Buffer) error {
 		}
 		c.NewStatus = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventMemberPromoted) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMemberPromoted#707c05fa as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMemberPromoted")
+	b.FieldStart("user_id")
+	b.PutInt32(c.UserID)
+	b.FieldStart("old_status")
+	if c.OldStatus == nil {
+		return fmt.Errorf("unable to encode chatEventMemberPromoted#707c05fa: field old_status is nil")
+	}
+	if err := c.OldStatus.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMemberPromoted#707c05fa: field old_status: %w", err)
+	}
+	b.FieldStart("new_status")
+	if c.NewStatus == nil {
+		return fmt.Errorf("unable to encode chatEventMemberPromoted#707c05fa: field new_status is nil")
+	}
+	if err := c.NewStatus.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMemberPromoted#707c05fa: field new_status: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -1472,6 +1637,38 @@ func (c *ChatEventMemberRestricted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventMemberRestricted) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMemberRestricted#5f951e05 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMemberRestricted")
+	b.FieldStart("member_id")
+	if c.MemberID == nil {
+		return fmt.Errorf("unable to encode chatEventMemberRestricted#5f951e05: field member_id is nil")
+	}
+	if err := c.MemberID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMemberRestricted#5f951e05: field member_id: %w", err)
+	}
+	b.FieldStart("old_status")
+	if c.OldStatus == nil {
+		return fmt.Errorf("unable to encode chatEventMemberRestricted#5f951e05: field old_status is nil")
+	}
+	if err := c.OldStatus.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMemberRestricted#5f951e05: field old_status: %w", err)
+	}
+	b.FieldStart("new_status")
+	if c.NewStatus == nil {
+		return fmt.Errorf("unable to encode chatEventMemberRestricted#5f951e05: field new_status is nil")
+	}
+	if err := c.NewStatus.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventMemberRestricted#5f951e05: field new_status: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetMemberID returns value of MemberID field.
 func (c *ChatEventMemberRestricted) GetMemberID() (value MessageSenderClass) {
 	return c.MemberID
@@ -1621,6 +1818,21 @@ func (c *ChatEventTitleChanged) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventTitleChanged) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventTitleChanged#43990ad2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventTitleChanged")
+	b.FieldStart("old_title")
+	b.PutString(c.OldTitle)
+	b.FieldStart("new_title")
+	b.PutString(c.NewTitle)
+	b.ObjEnd()
+	return nil
+}
+
 // GetOldTitle returns value of OldTitle field.
 func (c *ChatEventTitleChanged) GetOldTitle() (value string) {
 	return c.OldTitle
@@ -1762,6 +1974,25 @@ func (c *ChatEventPermissionsChanged) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode chatEventPermissionsChanged#b1d337a8: field new_permissions: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventPermissionsChanged) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventPermissionsChanged#b1d337a8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventPermissionsChanged")
+	b.FieldStart("old_permissions")
+	if err := c.OldPermissions.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPermissionsChanged#b1d337a8: field old_permissions: %w", err)
+	}
+	b.FieldStart("new_permissions")
+	if err := c.NewPermissions.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPermissionsChanged#b1d337a8: field new_permissions: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -1909,6 +2140,21 @@ func (c *ChatEventDescriptionChanged) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventDescriptionChanged) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventDescriptionChanged#254cf1e as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventDescriptionChanged")
+	b.FieldStart("old_description")
+	b.PutString(c.OldDescription)
+	b.FieldStart("new_description")
+	b.PutString(c.NewDescription)
+	b.ObjEnd()
+	return nil
+}
+
 // GetOldDescription returns value of OldDescription field.
 func (c *ChatEventDescriptionChanged) GetOldDescription() (value string) {
 	return c.OldDescription
@@ -2050,6 +2296,21 @@ func (c *ChatEventUsernameChanged) DecodeBare(b *bin.Buffer) error {
 		}
 		c.NewUsername = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventUsernameChanged) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventUsernameChanged#6707b56b as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventUsernameChanged")
+	b.FieldStart("old_username")
+	b.PutString(c.OldUsername)
+	b.FieldStart("new_username")
+	b.PutString(c.NewUsername)
+	b.ObjEnd()
 	return nil
 }
 
@@ -2197,6 +2458,25 @@ func (c *ChatEventPhotoChanged) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventPhotoChanged) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventPhotoChanged#cfa062c3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventPhotoChanged")
+	b.FieldStart("old_photo")
+	if err := c.OldPhoto.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPhotoChanged#cfa062c3: field old_photo: %w", err)
+	}
+	b.FieldStart("new_photo")
+	if err := c.NewPhoto.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPhotoChanged#cfa062c3: field new_photo: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetOldPhoto returns value of OldPhoto field.
 func (c *ChatEventPhotoChanged) GetOldPhoto() (value ChatPhoto) {
 	return c.OldPhoto
@@ -2321,6 +2601,19 @@ func (c *ChatEventInvitesToggled) DecodeBare(b *bin.Buffer) error {
 		}
 		c.CanInviteUsers = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventInvitesToggled) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventInvitesToggled#fc45966b as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventInvitesToggled")
+	b.FieldStart("can_invite_users")
+	b.PutBool(c.CanInviteUsers)
+	b.ObjEnd()
 	return nil
 }
 
@@ -2460,6 +2753,21 @@ func (c *ChatEventLinkedChatChanged) DecodeBare(b *bin.Buffer) error {
 		}
 		c.NewLinkedChatID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventLinkedChatChanged) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventLinkedChatChanged#6b2271af as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventLinkedChatChanged")
+	b.FieldStart("old_linked_chat_id")
+	b.PutLong(c.OldLinkedChatID)
+	b.FieldStart("new_linked_chat_id")
+	b.PutLong(c.NewLinkedChatID)
+	b.ObjEnd()
 	return nil
 }
 
@@ -2607,6 +2915,21 @@ func (c *ChatEventSlowModeDelayChanged) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventSlowModeDelayChanged) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventSlowModeDelayChanged#9d763c0b as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventSlowModeDelayChanged")
+	b.FieldStart("old_slow_mode_delay")
+	b.PutInt32(c.OldSlowModeDelay)
+	b.FieldStart("new_slow_mode_delay")
+	b.PutInt32(c.NewSlowModeDelay)
+	b.ObjEnd()
+	return nil
+}
+
 // GetOldSlowModeDelay returns value of OldSlowModeDelay field.
 func (c *ChatEventSlowModeDelayChanged) GetOldSlowModeDelay() (value int32) {
 	return c.OldSlowModeDelay
@@ -2751,6 +3074,21 @@ func (c *ChatEventMessageTTLSettingChanged) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventMessageTTLSettingChanged) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMessageTtlSettingChanged#b01e7caa as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMessageTtlSettingChanged")
+	b.FieldStart("old_message_ttl_setting")
+	b.PutInt32(c.OldMessageTTLSetting)
+	b.FieldStart("new_message_ttl_setting")
+	b.PutInt32(c.NewMessageTTLSetting)
+	b.ObjEnd()
+	return nil
+}
+
 // GetOldMessageTTLSetting returns value of OldMessageTTLSetting field.
 func (c *ChatEventMessageTTLSettingChanged) GetOldMessageTTLSetting() (value int32) {
 	return c.OldMessageTTLSetting
@@ -2875,6 +3213,19 @@ func (c *ChatEventSignMessagesToggled) DecodeBare(b *bin.Buffer) error {
 		}
 		c.SignMessages = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventSignMessagesToggled) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventSignMessagesToggled#b1b9281e as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventSignMessagesToggled")
+	b.FieldStart("sign_messages")
+	b.PutBool(c.SignMessages)
+	b.ObjEnd()
 	return nil
 }
 
@@ -3014,6 +3365,25 @@ func (c *ChatEventStickerSetChanged) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode chatEventStickerSetChanged#b5e7558f: field new_sticker_set_id: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventStickerSetChanged) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventStickerSetChanged#b5e7558f as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventStickerSetChanged")
+	b.FieldStart("old_sticker_set_id")
+	if err := c.OldStickerSetID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventStickerSetChanged#b5e7558f: field old_sticker_set_id: %w", err)
+	}
+	b.FieldStart("new_sticker_set_id")
+	if err := c.NewStickerSetID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventStickerSetChanged#b5e7558f: field new_sticker_set_id: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -3161,6 +3531,25 @@ func (c *ChatEventLocationChanged) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventLocationChanged) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventLocationChanged#e7cdfd4e as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventLocationChanged")
+	b.FieldStart("old_location")
+	if err := c.OldLocation.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventLocationChanged#e7cdfd4e: field old_location: %w", err)
+	}
+	b.FieldStart("new_location")
+	if err := c.NewLocation.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventLocationChanged#e7cdfd4e: field new_location: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetOldLocation returns value of OldLocation field.
 func (c *ChatEventLocationChanged) GetOldLocation() (value ChatLocation) {
 	return c.OldLocation
@@ -3285,6 +3674,19 @@ func (c *ChatEventIsAllHistoryAvailableToggled) DecodeBare(b *bin.Buffer) error 
 		}
 		c.IsAllHistoryAvailable = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventIsAllHistoryAvailableToggled) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventIsAllHistoryAvailableToggled#a0b03c15 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventIsAllHistoryAvailableToggled")
+	b.FieldStart("is_all_history_available")
+	b.PutBool(c.IsAllHistoryAvailable)
+	b.ObjEnd()
 	return nil
 }
 
@@ -3427,6 +3829,25 @@ func (c *ChatEventInviteLinkEdited) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventInviteLinkEdited) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventInviteLinkEdited#e4920d62 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventInviteLinkEdited")
+	b.FieldStart("old_invite_link")
+	if err := c.OldInviteLink.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventInviteLinkEdited#e4920d62: field old_invite_link: %w", err)
+	}
+	b.FieldStart("new_invite_link")
+	if err := c.NewInviteLink.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventInviteLinkEdited#e4920d62: field new_invite_link: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetOldInviteLink returns value of OldInviteLink field.
 func (c *ChatEventInviteLinkEdited) GetOldInviteLink() (value ChatInviteLink) {
 	return c.OldInviteLink
@@ -3554,6 +3975,21 @@ func (c *ChatEventInviteLinkRevoked) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventInviteLinkRevoked) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventInviteLinkRevoked#a1dbffe3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventInviteLinkRevoked")
+	b.FieldStart("invite_link")
+	if err := c.InviteLink.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventInviteLinkRevoked#a1dbffe3: field invite_link: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetInviteLink returns value of InviteLink field.
 func (c *ChatEventInviteLinkRevoked) GetInviteLink() (value ChatInviteLink) {
 	return c.InviteLink
@@ -3673,6 +4109,21 @@ func (c *ChatEventInviteLinkDeleted) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode chatEventInviteLinkDeleted#acda6167: field invite_link: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventInviteLinkDeleted) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventInviteLinkDeleted#acda6167 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventInviteLinkDeleted")
+	b.FieldStart("invite_link")
+	if err := c.InviteLink.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventInviteLinkDeleted#acda6167: field invite_link: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -3799,6 +4250,19 @@ func (c *ChatEventVoiceChatCreated) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventVoiceChatCreated) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventVoiceChatCreated#a4a7072a as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventVoiceChatCreated")
+	b.FieldStart("group_call_id")
+	b.PutInt32(c.GroupCallID)
+	b.ObjEnd()
+	return nil
+}
+
 // GetGroupCallID returns value of GroupCallID field.
 func (c *ChatEventVoiceChatCreated) GetGroupCallID() (value int32) {
 	return c.GroupCallID
@@ -3919,6 +4383,19 @@ func (c *ChatEventVoiceChatDiscarded) DecodeBare(b *bin.Buffer) error {
 		}
 		c.GroupCallID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventVoiceChatDiscarded) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventVoiceChatDiscarded#e17d12ce as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventVoiceChatDiscarded")
+	b.FieldStart("group_call_id")
+	b.PutInt32(c.GroupCallID)
+	b.ObjEnd()
 	return nil
 }
 
@@ -4063,6 +4540,26 @@ func (c *ChatEventVoiceChatParticipantIsMutedToggled) DecodeBare(b *bin.Buffer) 
 		}
 		c.IsMuted = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventVoiceChatParticipantIsMutedToggled) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventVoiceChatParticipantIsMutedToggled#3d79fe1b as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventVoiceChatParticipantIsMutedToggled")
+	b.FieldStart("participant_id")
+	if c.ParticipantID == nil {
+		return fmt.Errorf("unable to encode chatEventVoiceChatParticipantIsMutedToggled#3d79fe1b: field participant_id is nil")
+	}
+	if err := c.ParticipantID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventVoiceChatParticipantIsMutedToggled#3d79fe1b: field participant_id: %w", err)
+	}
+	b.FieldStart("is_muted")
+	b.PutBool(c.IsMuted)
+	b.ObjEnd()
 	return nil
 }
 
@@ -4215,6 +4712,26 @@ func (c *ChatEventVoiceChatParticipantVolumeLevelChanged) DecodeBare(b *bin.Buff
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventVoiceChatParticipantVolumeLevelChanged) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventVoiceChatParticipantVolumeLevelChanged#a705a341 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventVoiceChatParticipantVolumeLevelChanged")
+	b.FieldStart("participant_id")
+	if c.ParticipantID == nil {
+		return fmt.Errorf("unable to encode chatEventVoiceChatParticipantVolumeLevelChanged#a705a341: field participant_id is nil")
+	}
+	if err := c.ParticipantID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventVoiceChatParticipantVolumeLevelChanged#a705a341: field participant_id: %w", err)
+	}
+	b.FieldStart("volume_level")
+	b.PutInt32(c.VolumeLevel)
+	b.ObjEnd()
+	return nil
+}
+
 // GetParticipantID returns value of ParticipantID field.
 func (c *ChatEventVoiceChatParticipantVolumeLevelChanged) GetParticipantID() (value MessageSenderClass) {
 	return c.ParticipantID
@@ -4342,6 +4859,19 @@ func (c *ChatEventVoiceChatMuteNewParticipantsToggled) DecodeBare(b *bin.Buffer)
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventVoiceChatMuteNewParticipantsToggled) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventVoiceChatMuteNewParticipantsToggled#2135e892 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventVoiceChatMuteNewParticipantsToggled")
+	b.FieldStart("mute_new_participants")
+	b.PutBool(c.MuteNewParticipants)
+	b.ObjEnd()
+	return nil
+}
+
 // GetMuteNewParticipants returns value of MuteNewParticipants field.
 func (c *ChatEventVoiceChatMuteNewParticipantsToggled) GetMuteNewParticipants() (value bool) {
 	return c.MuteNewParticipants
@@ -4406,6 +4936,7 @@ type ChatEventActionClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeChatEventAction implements binary de-serialization for ChatEventActionClass.

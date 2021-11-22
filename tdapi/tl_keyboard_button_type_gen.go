@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // KeyboardButtonTypeText represents TL type `keyboardButtonTypeText#96519938`.
@@ -125,6 +127,17 @@ func (k *KeyboardButtonTypeText) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
 		return fmt.Errorf("can't decode keyboardButtonTypeText#96519938 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes k in TDLib API JSON format.
+func (k *KeyboardButtonTypeText) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonTypeText#96519938 as nil")
+	}
+	b.ObjStart()
+	b.PutID("keyboardButtonTypeText")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (k *KeyboardButtonTypeRequestPhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes k in TDLib API JSON format.
+func (k *KeyboardButtonTypeRequestPhoneNumber) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonTypeRequestPhoneNumber#a4d9b7b9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("keyboardButtonTypeRequestPhoneNumber")
+	b.ObjEnd()
+	return nil
+}
+
 // KeyboardButtonTypeRequestLocation represents TL type `keyboardButtonTypeRequestLocation#f8828cfd`.
 type KeyboardButtonTypeRequestLocation struct {
 }
@@ -323,6 +347,17 @@ func (k *KeyboardButtonTypeRequestLocation) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
 		return fmt.Errorf("can't decode keyboardButtonTypeRequestLocation#f8828cfd to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes k in TDLib API JSON format.
+func (k *KeyboardButtonTypeRequestLocation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonTypeRequestLocation#f8828cfd as nil")
+	}
+	b.ObjStart()
+	b.PutID("keyboardButtonTypeRequestLocation")
+	b.ObjEnd()
 	return nil
 }
 
@@ -460,6 +495,21 @@ func (k *KeyboardButtonTypeRequestPoll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes k in TDLib API JSON format.
+func (k *KeyboardButtonTypeRequestPoll) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonTypeRequestPoll#7164dcb8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("keyboardButtonTypeRequestPoll")
+	b.FieldStart("force_regular")
+	b.PutBool(k.ForceRegular)
+	b.FieldStart("force_quiz")
+	b.PutBool(k.ForceQuiz)
+	b.ObjEnd()
+	return nil
+}
+
 // GetForceRegular returns value of ForceRegular field.
 func (k *KeyboardButtonTypeRequestPoll) GetForceRegular() (value bool) {
 	return k.ForceRegular
@@ -501,6 +551,7 @@ type KeyboardButtonTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeKeyboardButtonType implements binary de-serialization for KeyboardButtonTypeClass.

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // InputStickerStatic represents TL type `inputStickerStatic#540604db`.
@@ -182,6 +184,30 @@ func (i *InputStickerStatic) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputStickerStatic#540604db: field mask_position: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputStickerStatic) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStickerStatic#540604db as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputStickerStatic")
+	b.FieldStart("sticker")
+	if i.Sticker == nil {
+		return fmt.Errorf("unable to encode inputStickerStatic#540604db: field sticker is nil")
+	}
+	if err := i.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputStickerStatic#540604db: field sticker: %w", err)
+	}
+	b.FieldStart("emojis")
+	b.PutString(i.Emojis)
+	b.FieldStart("mask_position")
+	if err := i.MaskPosition.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputStickerStatic#540604db: field mask_position: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -341,6 +367,26 @@ func (i *InputStickerAnimated) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputStickerAnimated) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStickerAnimated#bccf4960 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputStickerAnimated")
+	b.FieldStart("sticker")
+	if i.Sticker == nil {
+		return fmt.Errorf("unable to encode inputStickerAnimated#bccf4960: field sticker is nil")
+	}
+	if err := i.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputStickerAnimated#bccf4960: field sticker: %w", err)
+	}
+	b.FieldStart("emojis")
+	b.PutString(i.Emojis)
+	b.ObjEnd()
+	return nil
+}
+
 // GetSticker returns value of Sticker field.
 func (i *InputStickerAnimated) GetSticker() (value InputFileClass) {
 	return i.Sticker
@@ -380,6 +426,7 @@ type InputStickerClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 
 	// PNG image with the sticker; must be up to 512 KB in size and fit in a 512x512 square
 	GetSticker() (value InputFileClass)

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CallbackQueryPayloadData represents TL type `callbackQueryPayloadData#8a1e3c66`.
@@ -143,6 +145,19 @@ func (c *CallbackQueryPayloadData) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Data = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallbackQueryPayloadData) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callbackQueryPayloadData#8a1e3c66 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callbackQueryPayloadData")
+	b.FieldStart("data")
+	b.PutBytes(c.Data)
+	b.ObjEnd()
 	return nil
 }
 
@@ -285,6 +300,21 @@ func (c *CallbackQueryPayloadDataWithPassword) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallbackQueryPayloadDataWithPassword) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callbackQueryPayloadDataWithPassword#4fe2d8f2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callbackQueryPayloadDataWithPassword")
+	b.FieldStart("password")
+	b.PutString(c.Password)
+	b.FieldStart("data")
+	b.PutBytes(c.Data)
+	b.ObjEnd()
+	return nil
+}
+
 // GetPassword returns value of Password field.
 func (c *CallbackQueryPayloadDataWithPassword) GetPassword() (value string) {
 	return c.Password
@@ -412,6 +442,19 @@ func (c *CallbackQueryPayloadGame) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallbackQueryPayloadGame) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callbackQueryPayloadGame#4db2ec38 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callbackQueryPayloadGame")
+	b.FieldStart("game_short_name")
+	b.PutString(c.GameShortName)
+	b.ObjEnd()
+	return nil
+}
+
 // GetGameShortName returns value of GameShortName field.
 func (c *CallbackQueryPayloadGame) GetGameShortName() (value string) {
 	return c.GameShortName
@@ -447,6 +490,7 @@ type CallbackQueryPayloadClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeCallbackQueryPayload implements binary de-serialization for CallbackQueryPayloadClass.

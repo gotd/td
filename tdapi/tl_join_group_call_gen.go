@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // JoinGroupCallRequest represents TL type `joinGroupCall#c1c947e5`.
@@ -247,6 +249,36 @@ func (j *JoinGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		j.InviteHash = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes j in TDLib API JSON format.
+func (j *JoinGroupCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if j == nil {
+		return fmt.Errorf("can't encode joinGroupCall#c1c947e5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("joinGroupCall")
+	b.FieldStart("group_call_id")
+	b.PutInt32(j.GroupCallID)
+	b.FieldStart("participant_id")
+	if j.ParticipantID == nil {
+		return fmt.Errorf("unable to encode joinGroupCall#c1c947e5: field participant_id is nil")
+	}
+	if err := j.ParticipantID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode joinGroupCall#c1c947e5: field participant_id: %w", err)
+	}
+	b.FieldStart("audio_source_id")
+	b.PutInt32(j.AudioSourceID)
+	b.FieldStart("payload")
+	b.PutString(j.Payload)
+	b.FieldStart("is_muted")
+	b.PutBool(j.IsMuted)
+	b.FieldStart("is_my_video_enabled")
+	b.PutBool(j.IsMyVideoEnabled)
+	b.FieldStart("invite_hash")
+	b.PutString(j.InviteHash)
+	b.ObjEnd()
 	return nil
 }
 

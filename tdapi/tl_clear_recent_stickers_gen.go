@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ClearRecentStickersRequest represents TL type `clearRecentStickers#ecda39c4`.
@@ -139,6 +141,19 @@ func (c *ClearRecentStickersRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.IsAttached = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ClearRecentStickersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode clearRecentStickers#ecda39c4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("clearRecentStickers")
+	b.FieldStart("is_attached")
+	b.PutBool(c.IsAttached)
+	b.ObjEnd()
 	return nil
 }
 

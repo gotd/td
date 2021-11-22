@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // BasicGroupFullInfo represents TL type `basicGroupFullInfo#311f738a`.
@@ -254,6 +256,45 @@ func (b *BasicGroupFullInfo) DecodeBare(buf *bin.Buffer) error {
 			b.BotCommands = append(b.BotCommands, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BasicGroupFullInfo) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode basicGroupFullInfo#311f738a as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("basicGroupFullInfo")
+	buf.FieldStart("photo")
+	if err := b.Photo.EncodeTDLibJSON(buf); err != nil {
+		return fmt.Errorf("unable to encode basicGroupFullInfo#311f738a: field photo: %w", err)
+	}
+	buf.FieldStart("description")
+	buf.PutString(b.Description)
+	buf.FieldStart("creator_user_id")
+	buf.PutInt32(b.CreatorUserID)
+	buf.FieldStart("members")
+	buf.ArrStart()
+	for idx, v := range b.Members {
+		if err := v.EncodeTDLibJSON(buf); err != nil {
+			return fmt.Errorf("unable to encode basicGroupFullInfo#311f738a: field members element with index %d: %w", idx, err)
+		}
+	}
+	buf.ArrEnd()
+	buf.FieldStart("invite_link")
+	if err := b.InviteLink.EncodeTDLibJSON(buf); err != nil {
+		return fmt.Errorf("unable to encode basicGroupFullInfo#311f738a: field invite_link: %w", err)
+	}
+	buf.FieldStart("bot_commands")
+	buf.ArrStart()
+	for idx, v := range b.BotCommands {
+		if err := v.EncodeTDLibJSON(buf); err != nil {
+			return fmt.Errorf("unable to encode basicGroupFullInfo#311f738a: field bot_commands element with index %d: %w", idx, err)
+		}
+	}
+	buf.ArrEnd()
+	buf.ObjEnd()
 	return nil
 }
 

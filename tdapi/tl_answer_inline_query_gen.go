@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AnswerInlineQueryRequest represents TL type `answerInlineQuery#18ec5846`.
@@ -259,6 +261,42 @@ func (a *AnswerInlineQueryRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		a.SwitchPmParameter = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AnswerInlineQueryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode answerInlineQuery#18ec5846 as nil")
+	}
+	b.ObjStart()
+	b.PutID("answerInlineQuery")
+	b.FieldStart("inline_query_id")
+	if err := a.InlineQueryID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode answerInlineQuery#18ec5846: field inline_query_id: %w", err)
+	}
+	b.FieldStart("is_personal")
+	b.PutBool(a.IsPersonal)
+	b.FieldStart("results")
+	b.ArrStart()
+	for idx, v := range a.Results {
+		if v == nil {
+			return fmt.Errorf("unable to encode answerInlineQuery#18ec5846: field results element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode answerInlineQuery#18ec5846: field results element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("cache_time")
+	b.PutInt32(a.CacheTime)
+	b.FieldStart("next_offset")
+	b.PutString(a.NextOffset)
+	b.FieldStart("switch_pm_text")
+	b.PutString(a.SwitchPmText)
+	b.FieldStart("switch_pm_parameter")
+	b.PutString(a.SwitchPmParameter)
+	b.ObjEnd()
 	return nil
 }
 

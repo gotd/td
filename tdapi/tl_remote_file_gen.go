@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // RemoteFile represents TL type `remoteFile#93644dd2`.
@@ -210,6 +212,27 @@ func (r *RemoteFile) DecodeBare(b *bin.Buffer) error {
 		}
 		r.UploadedSize = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RemoteFile) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode remoteFile#93644dd2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("remoteFile")
+	b.FieldStart("id")
+	b.PutString(r.ID)
+	b.FieldStart("unique_id")
+	b.PutString(r.UniqueID)
+	b.FieldStart("is_uploading_active")
+	b.PutBool(r.IsUploadingActive)
+	b.FieldStart("is_uploading_completed")
+	b.PutBool(r.IsUploadingCompleted)
+	b.FieldStart("uploaded_size")
+	b.PutInt32(r.UploadedSize)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageSenderUser represents TL type `messageSenderUser#622d1725`.
@@ -143,6 +145,19 @@ func (m *MessageSenderUser) DecodeBare(b *bin.Buffer) error {
 		}
 		m.UserID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageSenderUser) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSenderUser#622d1725 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageSenderUser")
+	b.FieldStart("user_id")
+	b.PutInt32(m.UserID)
+	b.ObjEnd()
 	return nil
 }
 
@@ -268,6 +283,19 @@ func (m *MessageSenderChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageSenderChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSenderChat#f1b71131 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageSenderChat")
+	b.FieldStart("chat_id")
+	b.PutLong(m.ChatID)
+	b.ObjEnd()
+	return nil
+}
+
 // GetChatID returns value of ChatID field.
 func (m *MessageSenderChat) GetChatID() (value int64) {
 	return m.ChatID
@@ -302,6 +330,7 @@ type MessageSenderClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeMessageSender implements binary de-serialization for MessageSenderClass.

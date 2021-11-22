@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DownloadFileRequest represents TL type `downloadFile#be50685a`.
@@ -210,6 +212,27 @@ func (d *DownloadFileRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		d.Synchronous = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DownloadFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode downloadFile#be50685a as nil")
+	}
+	b.ObjStart()
+	b.PutID("downloadFile")
+	b.FieldStart("file_id")
+	b.PutInt32(d.FileID)
+	b.FieldStart("priority")
+	b.PutInt32(d.Priority)
+	b.FieldStart("offset")
+	b.PutInt32(d.Offset)
+	b.FieldStart("limit")
+	b.PutInt32(d.Limit)
+	b.FieldStart("synchronous")
+	b.PutBool(d.Synchronous)
+	b.ObjEnd()
 	return nil
 }
 

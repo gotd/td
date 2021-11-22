@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // InputChatPhotoPrevious represents TL type `inputChatPhotoPrevious#160e9d1`.
@@ -143,6 +145,21 @@ func (i *InputChatPhotoPrevious) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputChatPhotoPrevious#160e9d1: field chat_photo_id: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputChatPhotoPrevious) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputChatPhotoPrevious#160e9d1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputChatPhotoPrevious")
+	b.FieldStart("chat_photo_id")
+	if err := i.ChatPhotoID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputChatPhotoPrevious#160e9d1: field chat_photo_id: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -271,6 +288,24 @@ func (i *InputChatPhotoStatic) DecodeBare(b *bin.Buffer) error {
 		}
 		i.Photo = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputChatPhotoStatic) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputChatPhotoStatic#75f7e2b3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputChatPhotoStatic")
+	b.FieldStart("photo")
+	if i.Photo == nil {
+		return fmt.Errorf("unable to encode inputChatPhotoStatic#75f7e2b3: field photo is nil")
+	}
+	if err := i.Photo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputChatPhotoStatic#75f7e2b3: field photo: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -419,6 +454,26 @@ func (i *InputChatPhotoAnimation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputChatPhotoAnimation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputChatPhotoAnimation#56a3422 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputChatPhotoAnimation")
+	b.FieldStart("animation")
+	if i.Animation == nil {
+		return fmt.Errorf("unable to encode inputChatPhotoAnimation#56a3422: field animation is nil")
+	}
+	if err := i.Animation.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputChatPhotoAnimation#56a3422: field animation: %w", err)
+	}
+	b.FieldStart("main_frame_timestamp")
+	b.PutDouble(i.MainFrameTimestamp)
+	b.ObjEnd()
+	return nil
+}
+
 // GetAnimation returns value of Animation field.
 func (i *InputChatPhotoAnimation) GetAnimation() (value InputFileClass) {
 	return i.Animation
@@ -459,6 +514,7 @@ type InputChatPhotoClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeInputChatPhoto implements binary de-serialization for InputChatPhotoClass.

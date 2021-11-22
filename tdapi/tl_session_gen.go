@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Session represents TL type `session#727950d8`.
@@ -381,6 +383,49 @@ func (s *Session) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Region = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *Session) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode session#727950d8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("session")
+	b.FieldStart("id")
+	if err := s.ID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode session#727950d8: field id: %w", err)
+	}
+	b.FieldStart("is_current")
+	b.PutBool(s.IsCurrent)
+	b.FieldStart("is_password_pending")
+	b.PutBool(s.IsPasswordPending)
+	b.FieldStart("api_id")
+	b.PutInt32(s.APIID)
+	b.FieldStart("application_name")
+	b.PutString(s.ApplicationName)
+	b.FieldStart("application_version")
+	b.PutString(s.ApplicationVersion)
+	b.FieldStart("is_official_application")
+	b.PutBool(s.IsOfficialApplication)
+	b.FieldStart("device_model")
+	b.PutString(s.DeviceModel)
+	b.FieldStart("platform")
+	b.PutString(s.Platform)
+	b.FieldStart("system_version")
+	b.PutString(s.SystemVersion)
+	b.FieldStart("log_in_date")
+	b.PutInt32(s.LogInDate)
+	b.FieldStart("last_active_date")
+	b.PutInt32(s.LastActiveDate)
+	b.FieldStart("ip")
+	b.PutString(s.IP)
+	b.FieldStart("country")
+	b.PutString(s.Country)
+	b.FieldStart("region")
+	b.PutString(s.Region)
+	b.ObjEnd()
 	return nil
 }
 

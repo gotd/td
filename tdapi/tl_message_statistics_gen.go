@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageStatistics represents TL type `messageStatistics#c3b781b0`.
@@ -143,6 +145,24 @@ func (m *MessageStatistics) DecodeBare(b *bin.Buffer) error {
 		}
 		m.MessageInteractionGraph = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageStatistics) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageStatistics#c3b781b0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageStatistics")
+	b.FieldStart("message_interaction_graph")
+	if m.MessageInteractionGraph == nil {
+		return fmt.Errorf("unable to encode messageStatistics#c3b781b0: field message_interaction_graph is nil")
+	}
+	if err := m.MessageInteractionGraph.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageStatistics#c3b781b0: field message_interaction_graph: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

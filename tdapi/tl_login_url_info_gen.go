@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // LoginURLInfoOpen represents TL type `loginUrlInfoOpen#bfaf12d4`.
@@ -160,6 +162,21 @@ func (l *LoginURLInfoOpen) DecodeBare(b *bin.Buffer) error {
 		}
 		l.SkipConfirm = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LoginURLInfoOpen) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode loginUrlInfoOpen#bfaf12d4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("loginUrlInfoOpen")
+	b.FieldStart("url")
+	b.PutString(l.URL)
+	b.FieldStart("skip_confirm")
+	b.PutBool(l.SkipConfirm)
+	b.ObjEnd()
 	return nil
 }
 
@@ -342,6 +359,25 @@ func (l *LoginURLInfoRequestConfirmation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LoginURLInfoRequestConfirmation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode loginUrlInfoRequestConfirmation#96fb909a as nil")
+	}
+	b.ObjStart()
+	b.PutID("loginUrlInfoRequestConfirmation")
+	b.FieldStart("url")
+	b.PutString(l.URL)
+	b.FieldStart("domain")
+	b.PutString(l.Domain)
+	b.FieldStart("bot_user_id")
+	b.PutInt32(l.BotUserID)
+	b.FieldStart("request_write_access")
+	b.PutBool(l.RequestWriteAccess)
+	b.ObjEnd()
+	return nil
+}
+
 // GetURL returns value of URL field.
 func (l *LoginURLInfoRequestConfirmation) GetURL() (value string) {
 	return l.URL
@@ -391,6 +427,7 @@ type LoginURLInfoClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 
 	// The URL to open
 	GetURL() (value string)

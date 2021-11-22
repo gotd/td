@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ShippingOption represents TL type `shippingOption#731bffce`.
@@ -187,6 +189,29 @@ func (s *ShippingOption) DecodeBare(b *bin.Buffer) error {
 			s.PriceParts = append(s.PriceParts, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *ShippingOption) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode shippingOption#731bffce as nil")
+	}
+	b.ObjStart()
+	b.PutID("shippingOption")
+	b.FieldStart("id")
+	b.PutString(s.ID)
+	b.FieldStart("title")
+	b.PutString(s.Title)
+	b.FieldStart("price_parts")
+	b.ArrStart()
+	for idx, v := range s.PriceParts {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode shippingOption#731bffce: field price_parts element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

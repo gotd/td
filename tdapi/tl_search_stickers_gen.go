@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SearchStickersRequest represents TL type `searchStickers#5cbb2f43`.
@@ -155,6 +157,21 @@ func (s *SearchStickersRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Limit = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchStickersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchStickers#5cbb2f43 as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchStickers")
+	b.FieldStart("emoji")
+	b.PutString(s.Emoji)
+	b.FieldStart("limit")
+	b.PutInt32(s.Limit)
+	b.ObjEnd()
 	return nil
 }
 

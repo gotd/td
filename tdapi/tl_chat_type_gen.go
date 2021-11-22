@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatTypePrivate represents TL type `chatTypePrivate#655ef0c6`.
@@ -143,6 +145,19 @@ func (c *ChatTypePrivate) DecodeBare(b *bin.Buffer) error {
 		}
 		c.UserID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatTypePrivate) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatTypePrivate#655ef0c6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatTypePrivate")
+	b.FieldStart("user_id")
+	b.PutInt32(c.UserID)
+	b.ObjEnd()
 	return nil
 }
 
@@ -265,6 +280,19 @@ func (c *ChatTypeBasicGroup) DecodeBare(b *bin.Buffer) error {
 		}
 		c.BasicGroupID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatTypeBasicGroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatTypeBasicGroup#14cdfee as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatTypeBasicGroup")
+	b.FieldStart("basic_group_id")
+	b.PutInt32(c.BasicGroupID)
+	b.ObjEnd()
 	return nil
 }
 
@@ -404,6 +432,21 @@ func (c *ChatTypeSupergroup) DecodeBare(b *bin.Buffer) error {
 		}
 		c.IsChannel = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatTypeSupergroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatTypeSupergroup#38ee77ee as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatTypeSupergroup")
+	b.FieldStart("supergroup_id")
+	b.PutInt32(c.SupergroupID)
+	b.FieldStart("is_channel")
+	b.PutBool(c.IsChannel)
+	b.ObjEnd()
 	return nil
 }
 
@@ -551,6 +594,21 @@ func (c *ChatTypeSecret) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatTypeSecret) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatTypeSecret#8263883 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatTypeSecret")
+	b.FieldStart("secret_chat_id")
+	b.PutInt32(c.SecretChatID)
+	b.FieldStart("user_id")
+	b.PutInt32(c.UserID)
+	b.ObjEnd()
+	return nil
+}
+
 // GetSecretChatID returns value of SecretChatID field.
 func (c *ChatTypeSecret) GetSecretChatID() (value int32) {
 	return c.SecretChatID
@@ -592,6 +650,7 @@ type ChatTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeChatType implements binary de-serialization for ChatTypeClass.

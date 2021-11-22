@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PageBlockCaption represents TL type `pageBlockCaption#b9a9a476`.
@@ -165,6 +167,31 @@ func (p *PageBlockCaption) DecodeBare(b *bin.Buffer) error {
 		}
 		p.Credit = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PageBlockCaption) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockCaption#b9a9a476 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pageBlockCaption")
+	b.FieldStart("text")
+	if p.Text == nil {
+		return fmt.Errorf("unable to encode pageBlockCaption#b9a9a476: field text is nil")
+	}
+	if err := p.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockCaption#b9a9a476: field text: %w", err)
+	}
+	b.FieldStart("credit")
+	if p.Credit == nil {
+		return fmt.Errorf("unable to encode pageBlockCaption#b9a9a476: field credit is nil")
+	}
+	if err := p.Credit.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockCaption#b9a9a476: field credit: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

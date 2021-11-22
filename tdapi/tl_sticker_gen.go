@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Sticker represents TL type `sticker#a5687f28`.
@@ -307,6 +309,51 @@ func (s *Sticker) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode sticker#a5687f28: field sticker: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *Sticker) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sticker#a5687f28 as nil")
+	}
+	b.ObjStart()
+	b.PutID("sticker")
+	b.FieldStart("set_id")
+	if err := s.SetID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sticker#a5687f28: field set_id: %w", err)
+	}
+	b.FieldStart("width")
+	b.PutInt32(s.Width)
+	b.FieldStart("height")
+	b.PutInt32(s.Height)
+	b.FieldStart("emoji")
+	b.PutString(s.Emoji)
+	b.FieldStart("is_animated")
+	b.PutBool(s.IsAnimated)
+	b.FieldStart("is_mask")
+	b.PutBool(s.IsMask)
+	b.FieldStart("mask_position")
+	if err := s.MaskPosition.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sticker#a5687f28: field mask_position: %w", err)
+	}
+	b.FieldStart("outline")
+	b.ArrStart()
+	for idx, v := range s.Outline {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode sticker#a5687f28: field outline element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("thumbnail")
+	if err := s.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sticker#a5687f28: field thumbnail: %w", err)
+	}
+	b.FieldStart("sticker")
+	if err := s.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sticker#a5687f28: field sticker: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

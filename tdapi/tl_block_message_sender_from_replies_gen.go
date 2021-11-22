@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // BlockMessageSenderFromRepliesRequest represents TL type `blockMessageSenderFromReplies#b79df58b`.
@@ -189,6 +191,25 @@ func (b *BlockMessageSenderFromRepliesRequest) DecodeBare(buf *bin.Buffer) error
 		}
 		b.ReportSpam = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BlockMessageSenderFromRepliesRequest) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode blockMessageSenderFromReplies#b79df58b as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("blockMessageSenderFromReplies")
+	buf.FieldStart("message_id")
+	buf.PutLong(b.MessageID)
+	buf.FieldStart("delete_message")
+	buf.PutBool(b.DeleteMessage)
+	buf.FieldStart("delete_all_messages")
+	buf.PutBool(b.DeleteAllMessages)
+	buf.FieldStart("report_spam")
+	buf.PutBool(b.ReportSpam)
+	buf.ObjEnd()
 	return nil
 }
 

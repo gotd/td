@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GameHighScores represents TL type `gameHighScores#6d4cd30d`.
@@ -153,6 +155,25 @@ func (g *GameHighScores) DecodeBare(b *bin.Buffer) error {
 			g.Scores = append(g.Scores, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GameHighScores) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode gameHighScores#6d4cd30d as nil")
+	}
+	b.ObjStart()
+	b.PutID("gameHighScores")
+	b.FieldStart("scores")
+	b.ArrStart()
+	for idx, v := range g.Scores {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode gameHighScores#6d4cd30d: field scores element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

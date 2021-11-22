@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // EditChatFilterRequest represents TL type `editChatFilter#9c2caf82`.
@@ -155,6 +157,23 @@ func (e *EditChatFilterRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode editChatFilter#9c2caf82: field filter: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes e in TDLib API JSON format.
+func (e *EditChatFilterRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode editChatFilter#9c2caf82 as nil")
+	}
+	b.ObjStart()
+	b.PutID("editChatFilter")
+	b.FieldStart("chat_filter_id")
+	b.PutInt32(e.ChatFilterID)
+	b.FieldStart("filter")
+	if err := e.Filter.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode editChatFilter#9c2caf82: field filter: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

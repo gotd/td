@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetPinnedChatsRequest represents TL type `setPinnedChats#c6c6edf1`.
@@ -173,6 +175,30 @@ func (s *SetPinnedChatsRequest) DecodeBare(b *bin.Buffer) error {
 			s.ChatIDs = append(s.ChatIDs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetPinnedChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setPinnedChats#c6c6edf1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setPinnedChats")
+	b.FieldStart("chat_list")
+	if s.ChatList == nil {
+		return fmt.Errorf("unable to encode setPinnedChats#c6c6edf1: field chat_list is nil")
+	}
+	if err := s.ChatList.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setPinnedChats#c6c6edf1: field chat_list: %w", err)
+	}
+	b.FieldStart("chat_ids")
+	b.ArrStart()
+	for _, v := range s.ChatIDs {
+		b.PutLong(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

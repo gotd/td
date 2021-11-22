@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetStickerPositionInSetRequest represents TL type `setStickerPositionInSet#7bb24721`.
@@ -160,6 +162,26 @@ func (s *SetStickerPositionInSetRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Position = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetStickerPositionInSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setStickerPositionInSet#7bb24721 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setStickerPositionInSet")
+	b.FieldStart("sticker")
+	if s.Sticker == nil {
+		return fmt.Errorf("unable to encode setStickerPositionInSet#7bb24721: field sticker is nil")
+	}
+	if err := s.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setStickerPositionInSet#7bb24721: field sticker: %w", err)
+	}
+	b.FieldStart("position")
+	b.PutInt32(s.Position)
+	b.ObjEnd()
 	return nil
 }
 

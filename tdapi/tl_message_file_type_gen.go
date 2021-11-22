@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageFileTypePrivate represents TL type `messageFileTypePrivate#e0e44ed4`.
@@ -143,6 +145,19 @@ func (m *MessageFileTypePrivate) DecodeBare(b *bin.Buffer) error {
 		}
 		m.Name = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageFileTypePrivate) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageFileTypePrivate#e0e44ed4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageFileTypePrivate")
+	b.FieldStart("name")
+	b.PutString(m.Name)
+	b.ObjEnd()
 	return nil
 }
 
@@ -268,6 +283,19 @@ func (m *MessageFileTypeGroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageFileTypeGroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageFileTypeGroup#f2e58f68 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageFileTypeGroup")
+	b.FieldStart("title")
+	b.PutString(m.Title)
+	b.ObjEnd()
+	return nil
+}
+
 // GetTitle returns value of Title field.
 func (m *MessageFileTypeGroup) GetTitle() (value string) {
 	return m.Title
@@ -372,6 +400,17 @@ func (m *MessageFileTypeUnknown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageFileTypeUnknown) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageFileTypeUnknown#461dbab2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageFileTypeUnknown")
+	b.ObjEnd()
+	return nil
+}
+
 // MessageFileTypeClass represents MessageFileType generic type.
 //
 // Example:
@@ -402,6 +441,7 @@ type MessageFileTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeMessageFileType implements binary de-serialization for MessageFileTypeClass.

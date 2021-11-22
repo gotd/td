@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetStorageStatisticsFastRequest represents TL type `getStorageStatisticsFast#3a86702`.
@@ -120,6 +122,17 @@ func (g *GetStorageStatisticsFastRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode getStorageStatisticsFast#3a86702 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetStorageStatisticsFastRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getStorageStatisticsFast#3a86702 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getStorageStatisticsFast")
+	b.ObjEnd()
 	return nil
 }
 

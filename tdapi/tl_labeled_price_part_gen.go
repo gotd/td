@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // LabeledPricePart represents TL type `labeledPricePart#20f2e726`.
@@ -155,6 +157,21 @@ func (l *LabeledPricePart) DecodeBare(b *bin.Buffer) error {
 		}
 		l.Amount = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LabeledPricePart) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode labeledPricePart#20f2e726 as nil")
+	}
+	b.ObjStart()
+	b.PutID("labeledPricePart")
+	b.FieldStart("label")
+	b.PutString(l.Label)
+	b.FieldStart("amount")
+	b.PutLong(l.Amount)
+	b.ObjEnd()
 	return nil
 }
 

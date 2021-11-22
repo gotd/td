@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetStickerEmojisRequest represents TL type `getStickerEmojis#8f04d547`.
@@ -143,6 +145,24 @@ func (g *GetStickerEmojisRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Sticker = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetStickerEmojisRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getStickerEmojis#8f04d547 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getStickerEmojis")
+	b.FieldStart("sticker")
+	if g.Sticker == nil {
+		return fmt.Errorf("unable to encode getStickerEmojis#8f04d547: field sticker is nil")
+	}
+	if err := g.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getStickerEmojis#8f04d547: field sticker: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

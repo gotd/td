@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SendPassportAuthorizationFormRequest represents TL type `sendPassportAuthorizationForm#eee589b5`.
@@ -173,6 +175,30 @@ func (s *SendPassportAuthorizationFormRequest) DecodeBare(b *bin.Buffer) error {
 			s.Types = append(s.Types, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SendPassportAuthorizationFormRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendPassportAuthorizationForm#eee589b5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("sendPassportAuthorizationForm")
+	b.FieldStart("autorization_form_id")
+	b.PutInt32(s.AutorizationFormID)
+	b.FieldStart("types")
+	b.ArrStart()
+	for idx, v := range s.Types {
+		if v == nil {
+			return fmt.Errorf("unable to encode sendPassportAuthorizationForm#eee589b5: field types element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode sendPassportAuthorizationForm#eee589b5: field types element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

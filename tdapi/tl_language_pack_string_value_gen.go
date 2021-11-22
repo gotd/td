@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // LanguagePackStringValueOrdinary represents TL type `languagePackStringValueOrdinary#f124a660`.
@@ -143,6 +145,19 @@ func (l *LanguagePackStringValueOrdinary) DecodeBare(b *bin.Buffer) error {
 		}
 		l.Value = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LanguagePackStringValueOrdinary) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode languagePackStringValueOrdinary#f124a660 as nil")
+	}
+	b.ObjStart()
+	b.PutID("languagePackStringValueOrdinary")
+	b.FieldStart("value")
+	b.PutString(l.Value)
+	b.ObjEnd()
 	return nil
 }
 
@@ -353,6 +368,29 @@ func (l *LanguagePackStringValuePluralized) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LanguagePackStringValuePluralized) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode languagePackStringValuePluralized#71a812c5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("languagePackStringValuePluralized")
+	b.FieldStart("zero_value")
+	b.PutString(l.ZeroValue)
+	b.FieldStart("one_value")
+	b.PutString(l.OneValue)
+	b.FieldStart("two_value")
+	b.PutString(l.TwoValue)
+	b.FieldStart("few_value")
+	b.PutString(l.FewValue)
+	b.FieldStart("many_value")
+	b.PutString(l.ManyValue)
+	b.FieldStart("other_value")
+	b.PutString(l.OtherValue)
+	b.ObjEnd()
+	return nil
+}
+
 // GetZeroValue returns value of ZeroValue field.
 func (l *LanguagePackStringValuePluralized) GetZeroValue() (value string) {
 	return l.ZeroValue
@@ -482,6 +520,17 @@ func (l *LanguagePackStringValueDeleted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LanguagePackStringValueDeleted) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode languagePackStringValueDeleted#6d5cb6fa as nil")
+	}
+	b.ObjStart()
+	b.PutID("languagePackStringValueDeleted")
+	b.ObjEnd()
+	return nil
+}
+
 // LanguagePackStringValueClass represents LanguagePackStringValue generic type.
 //
 // Example:
@@ -512,6 +561,7 @@ type LanguagePackStringValueClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeLanguagePackStringValue implements binary de-serialization for LanguagePackStringValueClass.

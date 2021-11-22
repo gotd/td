@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AddLogMessageRequest represents TL type `addLogMessage#5f36cfec`.
@@ -155,6 +157,21 @@ func (a *AddLogMessageRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		a.Text = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AddLogMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode addLogMessage#5f36cfec as nil")
+	}
+	b.ObjStart()
+	b.PutID("addLogMessage")
+	b.FieldStart("verbosity_level")
+	b.PutInt32(a.VerbosityLevel)
+	b.FieldStart("text")
+	b.PutString(a.Text)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SendCustomRequestRequest represents TL type `sendCustomRequest#10fd71a1`.
@@ -155,6 +157,21 @@ func (s *SendCustomRequestRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Parameters = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SendCustomRequestRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendCustomRequest#10fd71a1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("sendCustomRequest")
+	b.FieldStart("method")
+	b.PutString(s.Method)
+	b.FieldStart("parameters")
+	b.PutString(s.Parameters)
+	b.ObjEnd()
 	return nil
 }
 

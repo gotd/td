@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetLoginURLInfoRequest represents TL type `getLoginUrlInfo#c595bb2a`.
@@ -172,6 +174,23 @@ func (g *GetLoginURLInfoRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.ButtonID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetLoginURLInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getLoginUrlInfo#c595bb2a as nil")
+	}
+	b.ObjStart()
+	b.PutID("getLoginUrlInfo")
+	b.FieldStart("chat_id")
+	b.PutLong(g.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(g.MessageID)
+	b.FieldStart("button_id")
+	b.PutInt32(g.ButtonID)
+	b.ObjEnd()
 	return nil
 }
 

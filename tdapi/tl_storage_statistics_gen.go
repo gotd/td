@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // StorageStatistics represents TL type `storageStatistics#69b98672`.
@@ -187,6 +189,29 @@ func (s *StorageStatistics) DecodeBare(b *bin.Buffer) error {
 			s.ByChat = append(s.ByChat, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *StorageStatistics) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storageStatistics#69b98672 as nil")
+	}
+	b.ObjStart()
+	b.PutID("storageStatistics")
+	b.FieldStart("size")
+	b.PutLong(s.Size)
+	b.FieldStart("count")
+	b.PutInt32(s.Count)
+	b.FieldStart("by_chat")
+	b.ArrStart()
+	for idx, v := range s.ByChat {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode storageStatistics#69b98672: field by_chat element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetChatNotificationSettingsRequest represents TL type `setChatNotificationSettings#2e531ffe`.
@@ -156,6 +158,23 @@ func (s *SetChatNotificationSettingsRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode setChatNotificationSettings#2e531ffe: field notification_settings: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetChatNotificationSettingsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setChatNotificationSettings#2e531ffe as nil")
+	}
+	b.ObjStart()
+	b.PutID("setChatNotificationSettings")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("notification_settings")
+	if err := s.NotificationSettings.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setChatNotificationSettings#2e531ffe: field notification_settings: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetStickerSetThumbnailRequest represents TL type `setStickerSetThumbnail#9afc5c04`.
@@ -178,6 +180,28 @@ func (s *SetStickerSetThumbnailRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Thumbnail = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetStickerSetThumbnailRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setStickerSetThumbnail#9afc5c04 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setStickerSetThumbnail")
+	b.FieldStart("user_id")
+	b.PutInt32(s.UserID)
+	b.FieldStart("name")
+	b.PutString(s.Name)
+	b.FieldStart("thumbnail")
+	if s.Thumbnail == nil {
+		return fmt.Errorf("unable to encode setStickerSetThumbnail#9afc5c04: field thumbnail is nil")
+	}
+	if err := s.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setStickerSetThumbnail#9afc5c04: field thumbnail: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

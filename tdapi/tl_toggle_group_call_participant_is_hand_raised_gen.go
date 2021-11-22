@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ToggleGroupCallParticipantIsHandRaisedRequest represents TL type `toggleGroupCallParticipantIsHandRaised#8efb63e1`.
@@ -178,6 +180,28 @@ func (t *ToggleGroupCallParticipantIsHandRaisedRequest) DecodeBare(b *bin.Buffer
 		}
 		t.IsHandRaised = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *ToggleGroupCallParticipantIsHandRaisedRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode toggleGroupCallParticipantIsHandRaised#8efb63e1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("toggleGroupCallParticipantIsHandRaised")
+	b.FieldStart("group_call_id")
+	b.PutInt32(t.GroupCallID)
+	b.FieldStart("participant_id")
+	if t.ParticipantID == nil {
+		return fmt.Errorf("unable to encode toggleGroupCallParticipantIsHandRaised#8efb63e1: field participant_id is nil")
+	}
+	if err := t.ParticipantID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode toggleGroupCallParticipantIsHandRaised#8efb63e1: field participant_id: %w", err)
+	}
+	b.FieldStart("is_hand_raised")
+	b.PutBool(t.IsHandRaised)
+	b.ObjEnd()
 	return nil
 }
 

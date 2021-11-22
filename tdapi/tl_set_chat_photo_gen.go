@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetChatPhotoRequest represents TL type `setChatPhoto#e97b8d03`.
@@ -160,6 +162,26 @@ func (s *SetChatPhotoRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Photo = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetChatPhotoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setChatPhoto#e97b8d03 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setChatPhoto")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("photo")
+	if s.Photo == nil {
+		return fmt.Errorf("unable to encode setChatPhoto#e97b8d03: field photo is nil")
+	}
+	if err := s.Photo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setChatPhoto#e97b8d03: field photo: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

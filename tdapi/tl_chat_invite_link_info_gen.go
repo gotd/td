@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatInviteLinkInfo represents TL type `chatInviteLinkInfo#2c27a74b`.
@@ -278,6 +280,44 @@ func (c *ChatInviteLinkInfo) DecodeBare(b *bin.Buffer) error {
 		}
 		c.IsPublic = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInviteLinkInfo#2c27a74b as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatInviteLinkInfo")
+	b.FieldStart("chat_id")
+	b.PutLong(c.ChatID)
+	b.FieldStart("accessible_for")
+	b.PutInt32(c.AccessibleFor)
+	b.FieldStart("type")
+	if c.Type == nil {
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#2c27a74b: field type is nil")
+	}
+	if err := c.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#2c27a74b: field type: %w", err)
+	}
+	b.FieldStart("title")
+	b.PutString(c.Title)
+	b.FieldStart("photo")
+	if err := c.Photo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#2c27a74b: field photo: %w", err)
+	}
+	b.FieldStart("member_count")
+	b.PutInt32(c.MemberCount)
+	b.FieldStart("member_user_ids")
+	b.ArrStart()
+	for _, v := range c.MemberUserIDs {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.FieldStart("is_public")
+	b.PutBool(c.IsPublic)
+	b.ObjEnd()
 	return nil
 }
 

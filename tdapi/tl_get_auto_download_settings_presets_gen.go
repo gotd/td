@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetAutoDownloadSettingsPresetsRequest represents TL type `getAutoDownloadSettingsPresets#996a4737`.
@@ -120,6 +122,17 @@ func (g *GetAutoDownloadSettingsPresetsRequest) DecodeBare(b *bin.Buffer) error 
 	if g == nil {
 		return fmt.Errorf("can't decode getAutoDownloadSettingsPresets#996a4737 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetAutoDownloadSettingsPresetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getAutoDownloadSettingsPresets#996a4737 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getAutoDownloadSettingsPresets")
+	b.ObjEnd()
 	return nil
 }
 

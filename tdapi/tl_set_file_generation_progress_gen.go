@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetFileGenerationProgressRequest represents TL type `setFileGenerationProgress#dfc93c4f`.
@@ -172,6 +174,25 @@ func (s *SetFileGenerationProgressRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.LocalPrefixSize = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetFileGenerationProgressRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setFileGenerationProgress#dfc93c4f as nil")
+	}
+	b.ObjStart()
+	b.PutID("setFileGenerationProgress")
+	b.FieldStart("generation_id")
+	if err := s.GenerationID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setFileGenerationProgress#dfc93c4f: field generation_id: %w", err)
+	}
+	b.FieldStart("expected_size")
+	b.PutInt32(s.ExpectedSize)
+	b.FieldStart("local_prefix_size")
+	b.PutInt32(s.LocalPrefixSize)
+	b.ObjEnd()
 	return nil
 }
 

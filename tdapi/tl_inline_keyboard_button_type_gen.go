@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // InlineKeyboardButtonTypeURL represents TL type `inlineKeyboardButtonTypeUrl#4365beac`.
@@ -143,6 +145,19 @@ func (i *InlineKeyboardButtonTypeURL) DecodeBare(b *bin.Buffer) error {
 		}
 		i.URL = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineKeyboardButtonTypeURL) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeUrl#4365beac as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineKeyboardButtonTypeUrl")
+	b.FieldStart("url")
+	b.PutString(i.URL)
+	b.ObjEnd()
 	return nil
 }
 
@@ -302,6 +317,23 @@ func (i *InlineKeyboardButtonTypeLoginURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineKeyboardButtonTypeLoginURL) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeLoginUrl#10c65d93 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineKeyboardButtonTypeLoginUrl")
+	b.FieldStart("url")
+	b.PutString(i.URL)
+	b.FieldStart("id")
+	b.PutInt32(i.ID)
+	b.FieldStart("forward_text")
+	b.PutString(i.ForwardText)
+	b.ObjEnd()
+	return nil
+}
+
 // GetURL returns value of URL field.
 func (i *InlineKeyboardButtonTypeLoginURL) GetURL() (value string) {
 	return i.URL
@@ -434,6 +466,19 @@ func (i *InlineKeyboardButtonTypeCallback) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineKeyboardButtonTypeCallback) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeCallback#bccb7bfd as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineKeyboardButtonTypeCallback")
+	b.FieldStart("data")
+	b.PutBytes(i.Data)
+	b.ObjEnd()
+	return nil
+}
+
 // GetData returns value of Data field.
 func (i *InlineKeyboardButtonTypeCallback) GetData() (value []byte) {
 	return i.Data
@@ -558,6 +603,19 @@ func (i *InlineKeyboardButtonTypeCallbackWithPassword) DecodeBare(b *bin.Buffer)
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineKeyboardButtonTypeCallbackWithPassword) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeCallbackWithPassword#361f4248 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineKeyboardButtonTypeCallbackWithPassword")
+	b.FieldStart("data")
+	b.PutBytes(i.Data)
+	b.ObjEnd()
+	return nil
+}
+
 // GetData returns value of Data field.
 func (i *InlineKeyboardButtonTypeCallbackWithPassword) GetData() (value []byte) {
 	return i.Data
@@ -659,6 +717,17 @@ func (i *InlineKeyboardButtonTypeCallbackGame) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineKeyboardButtonTypeCallbackGame#e9255468 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineKeyboardButtonTypeCallbackGame) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeCallbackGame#e9255468 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineKeyboardButtonTypeCallbackGame")
+	b.ObjEnd()
 	return nil
 }
 
@@ -796,6 +865,21 @@ func (i *InlineKeyboardButtonTypeSwitchInline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineKeyboardButtonTypeSwitchInline) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeSwitchInline#86abc4d5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineKeyboardButtonTypeSwitchInline")
+	b.FieldStart("query")
+	b.PutString(i.Query)
+	b.FieldStart("in_current_chat")
+	b.PutBool(i.InCurrentChat)
+	b.ObjEnd()
+	return nil
+}
+
 // GetQuery returns value of Query field.
 func (i *InlineKeyboardButtonTypeSwitchInline) GetQuery() (value string) {
 	return i.Query
@@ -905,6 +989,17 @@ func (i *InlineKeyboardButtonTypeBuy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineKeyboardButtonTypeBuy) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeBuy#511b3c70 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineKeyboardButtonTypeBuy")
+	b.ObjEnd()
+	return nil
+}
+
 // InlineKeyboardButtonTypeClass represents InlineKeyboardButtonType generic type.
 //
 // Example:
@@ -939,6 +1034,7 @@ type InlineKeyboardButtonTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeInlineKeyboardButtonType implements binary de-serialization for InlineKeyboardButtonTypeClass.

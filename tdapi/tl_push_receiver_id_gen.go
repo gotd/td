@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PushReceiverID represents TL type `pushReceiverId#161ddf2c`.
@@ -138,6 +140,21 @@ func (p *PushReceiverID) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode pushReceiverId#161ddf2c: field id: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PushReceiverID) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushReceiverId#161ddf2c as nil")
+	}
+	b.ObjStart()
+	b.PutID("pushReceiverId")
+	b.FieldStart("id")
+	if err := p.ID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode pushReceiverId#161ddf2c: field id: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

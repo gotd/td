@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AuthenticationCodeInfo represents TL type `authenticationCodeInfo#ccb82bb8`.
@@ -199,6 +201,35 @@ func (a *AuthenticationCodeInfo) DecodeBare(b *bin.Buffer) error {
 		}
 		a.Timeout = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AuthenticationCodeInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeInfo#ccb82bb8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("authenticationCodeInfo")
+	b.FieldStart("phone_number")
+	b.PutString(a.PhoneNumber)
+	b.FieldStart("type")
+	if a.Type == nil {
+		return fmt.Errorf("unable to encode authenticationCodeInfo#ccb82bb8: field type is nil")
+	}
+	if err := a.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode authenticationCodeInfo#ccb82bb8: field type: %w", err)
+	}
+	b.FieldStart("next_type")
+	if a.NextType == nil {
+		return fmt.Errorf("unable to encode authenticationCodeInfo#ccb82bb8: field next_type is nil")
+	}
+	if err := a.NextType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode authenticationCodeInfo#ccb82bb8: field next_type: %w", err)
+	}
+	b.FieldStart("timeout")
+	b.PutInt32(a.Timeout)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatsNearby represents TL type `chatsNearby#cc744cff`.
@@ -185,6 +187,33 @@ func (c *ChatsNearby) DecodeBare(b *bin.Buffer) error {
 			c.SupergroupsNearby = append(c.SupergroupsNearby, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatsNearby) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatsNearby#cc744cff as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatsNearby")
+	b.FieldStart("users_nearby")
+	b.ArrStart()
+	for idx, v := range c.UsersNearby {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode chatsNearby#cc744cff: field users_nearby element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("supergroups_nearby")
+	b.ArrStart()
+	for idx, v := range c.SupergroupsNearby {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode chatsNearby#cc744cff: field supergroups_nearby element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

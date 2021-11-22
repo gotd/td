@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetPollAnswerRequest represents TL type `setPollAnswer#5303b916`.
@@ -186,6 +188,27 @@ func (s *SetPollAnswerRequest) DecodeBare(b *bin.Buffer) error {
 			s.OptionIDs = append(s.OptionIDs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetPollAnswerRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setPollAnswer#5303b916 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setPollAnswer")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(s.MessageID)
+	b.FieldStart("option_ids")
+	b.ArrStart()
+	for _, v := range s.OptionIDs {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

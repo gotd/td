@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetCreatedPublicChatsRequest represents TL type `getCreatedPublicChats#2a5725ef`.
@@ -143,6 +145,24 @@ func (g *GetCreatedPublicChatsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Type = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetCreatedPublicChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getCreatedPublicChats#2a5725ef as nil")
+	}
+	b.ObjStart()
+	b.PutID("getCreatedPublicChats")
+	b.FieldStart("type")
+	if g.Type == nil {
+		return fmt.Errorf("unable to encode getCreatedPublicChats#2a5725ef: field type is nil")
+	}
+	if err := g.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getCreatedPublicChats#2a5725ef: field type: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ConnectedWebsite represents TL type `connectedWebsite#a444ec99`.
@@ -275,6 +277,37 @@ func (c *ConnectedWebsite) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Location = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ConnectedWebsite) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode connectedWebsite#a444ec99 as nil")
+	}
+	b.ObjStart()
+	b.PutID("connectedWebsite")
+	b.FieldStart("id")
+	if err := c.ID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode connectedWebsite#a444ec99: field id: %w", err)
+	}
+	b.FieldStart("domain_name")
+	b.PutString(c.DomainName)
+	b.FieldStart("bot_user_id")
+	b.PutInt32(c.BotUserID)
+	b.FieldStart("browser")
+	b.PutString(c.Browser)
+	b.FieldStart("platform")
+	b.PutString(c.Platform)
+	b.FieldStart("log_in_date")
+	b.PutInt32(c.LogInDate)
+	b.FieldStart("last_active_date")
+	b.PutInt32(c.LastActiveDate)
+	b.FieldStart("ip")
+	b.PutString(c.IP)
+	b.FieldStart("location")
+	b.PutString(c.Location)
+	b.ObjEnd()
 	return nil
 }
 

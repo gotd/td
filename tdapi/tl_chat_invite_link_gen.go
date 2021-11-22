@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatInviteLink represents TL type `chatInviteLink#f13280b3`.
@@ -277,6 +279,35 @@ func (c *ChatInviteLink) DecodeBare(b *bin.Buffer) error {
 		}
 		c.IsRevoked = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatInviteLink) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInviteLink#f13280b3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatInviteLink")
+	b.FieldStart("invite_link")
+	b.PutString(c.InviteLink)
+	b.FieldStart("creator_user_id")
+	b.PutInt32(c.CreatorUserID)
+	b.FieldStart("date")
+	b.PutInt32(c.Date)
+	b.FieldStart("edit_date")
+	b.PutInt32(c.EditDate)
+	b.FieldStart("expire_date")
+	b.PutInt32(c.ExpireDate)
+	b.FieldStart("member_limit")
+	b.PutInt32(c.MemberLimit)
+	b.FieldStart("member_count")
+	b.PutInt32(c.MemberCount)
+	b.FieldStart("is_primary")
+	b.PutBool(c.IsPrimary)
+	b.FieldStart("is_revoked")
+	b.PutBool(c.IsRevoked)
+	b.ObjEnd()
 	return nil
 }
 

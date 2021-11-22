@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Poll represents TL type `poll#2348dbde`.
@@ -324,6 +326,54 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 		}
 		p.IsClosed = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *Poll) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode poll#2348dbde as nil")
+	}
+	b.ObjStart()
+	b.PutID("poll")
+	b.FieldStart("id")
+	if err := p.ID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode poll#2348dbde: field id: %w", err)
+	}
+	b.FieldStart("question")
+	b.PutString(p.Question)
+	b.FieldStart("options")
+	b.ArrStart()
+	for idx, v := range p.Options {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode poll#2348dbde: field options element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("total_voter_count")
+	b.PutInt32(p.TotalVoterCount)
+	b.FieldStart("recent_voter_user_ids")
+	b.ArrStart()
+	for _, v := range p.RecentVoterUserIDs {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.FieldStart("is_anonymous")
+	b.PutBool(p.IsAnonymous)
+	b.FieldStart("type")
+	if p.Type == nil {
+		return fmt.Errorf("unable to encode poll#2348dbde: field type is nil")
+	}
+	if err := p.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode poll#2348dbde: field type: %w", err)
+	}
+	b.FieldStart("open_period")
+	b.PutInt32(p.OpenPeriod)
+	b.FieldStart("close_date")
+	b.PutInt32(p.CloseDate)
+	b.FieldStart("is_closed")
+	b.PutBool(p.IsClosed)
+	b.ObjEnd()
 	return nil
 }
 

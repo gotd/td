@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Animation represents TL type `animation#cc00db3e`.
@@ -275,6 +277,41 @@ func (a *Animation) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode animation#cc00db3e: field animation: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *Animation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode animation#cc00db3e as nil")
+	}
+	b.ObjStart()
+	b.PutID("animation")
+	b.FieldStart("duration")
+	b.PutInt32(a.Duration)
+	b.FieldStart("width")
+	b.PutInt32(a.Width)
+	b.FieldStart("height")
+	b.PutInt32(a.Height)
+	b.FieldStart("file_name")
+	b.PutString(a.FileName)
+	b.FieldStart("mime_type")
+	b.PutString(a.MimeType)
+	b.FieldStart("has_stickers")
+	b.PutBool(a.HasStickers)
+	b.FieldStart("minithumbnail")
+	if err := a.Minithumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode animation#cc00db3e: field minithumbnail: %w", err)
+	}
+	b.FieldStart("thumbnail")
+	if err := a.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode animation#cc00db3e: field thumbnail: %w", err)
+	}
+	b.FieldStart("animation")
+	if err := a.Animation.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode animation#cc00db3e: field animation: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

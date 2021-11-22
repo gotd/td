@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // BackgroundFillSolid represents TL type `backgroundFillSolid#3c3dbc1d`.
@@ -143,6 +145,19 @@ func (b *BackgroundFillSolid) DecodeBare(buf *bin.Buffer) error {
 		}
 		b.Color = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BackgroundFillSolid) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode backgroundFillSolid#3c3dbc1d as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("backgroundFillSolid")
+	buf.FieldStart("color")
+	buf.PutInt32(b.Color)
+	buf.ObjEnd()
 	return nil
 }
 
@@ -303,6 +318,23 @@ func (b *BackgroundFillGradient) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BackgroundFillGradient) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode backgroundFillGradient#925ff17f as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("backgroundFillGradient")
+	buf.FieldStart("top_color")
+	buf.PutInt32(b.TopColor)
+	buf.FieldStart("bottom_color")
+	buf.PutInt32(b.BottomColor)
+	buf.FieldStart("rotation_angle")
+	buf.PutInt32(b.RotationAngle)
+	buf.ObjEnd()
+	return nil
+}
+
 // GetTopColor returns value of TopColor field.
 func (b *BackgroundFillGradient) GetTopColor() (value int32) {
 	return b.TopColor
@@ -448,6 +480,23 @@ func (b *BackgroundFillFreeformGradient) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BackgroundFillFreeformGradient) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode backgroundFillFreeformGradient#fa31756a as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("backgroundFillFreeformGradient")
+	buf.FieldStart("colors")
+	buf.ArrStart()
+	for _, v := range b.Colors {
+		buf.PutInt32(v)
+	}
+	buf.ArrEnd()
+	buf.ObjEnd()
+	return nil
+}
+
 // GetColors returns value of Colors field.
 func (b *BackgroundFillFreeformGradient) GetColors() (value []int32) {
 	return b.Colors
@@ -483,6 +532,7 @@ type BackgroundFillClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeBackgroundFill implements binary de-serialization for BackgroundFillClass.

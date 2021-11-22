@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetGroupCallParticipantVolumeLevelRequest represents TL type `setGroupCallParticipantVolumeLevel#97779828`.
@@ -177,6 +179,28 @@ func (s *SetGroupCallParticipantVolumeLevelRequest) DecodeBare(b *bin.Buffer) er
 		}
 		s.VolumeLevel = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetGroupCallParticipantVolumeLevelRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setGroupCallParticipantVolumeLevel#97779828 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setGroupCallParticipantVolumeLevel")
+	b.FieldStart("group_call_id")
+	b.PutInt32(s.GroupCallID)
+	b.FieldStart("participant_id")
+	if s.ParticipantID == nil {
+		return fmt.Errorf("unable to encode setGroupCallParticipantVolumeLevel#97779828: field participant_id is nil")
+	}
+	if err := s.ParticipantID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setGroupCallParticipantVolumeLevel#97779828: field participant_id: %w", err)
+	}
+	b.FieldStart("volume_level")
+	b.PutInt32(s.VolumeLevel)
+	b.ObjEnd()
 	return nil
 }
 

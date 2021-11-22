@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetCustomLanguagePackStringRequest represents TL type `setCustomLanguagePackString#4e762518`.
@@ -156,6 +158,23 @@ func (s *SetCustomLanguagePackStringRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode setCustomLanguagePackString#4e762518: field new_string: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetCustomLanguagePackStringRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setCustomLanguagePackString#4e762518 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setCustomLanguagePackString")
+	b.FieldStart("language_pack_id")
+	b.PutString(s.LanguagePackID)
+	b.FieldStart("new_string")
+	if err := s.NewString.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setCustomLanguagePackString#4e762518: field new_string: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

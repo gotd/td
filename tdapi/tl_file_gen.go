@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // File represents TL type `file#2dad6278`.
@@ -207,6 +209,31 @@ func (f *File) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode file#2dad6278: field remote: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *File) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode file#2dad6278 as nil")
+	}
+	b.ObjStart()
+	b.PutID("file")
+	b.FieldStart("id")
+	b.PutInt32(f.ID)
+	b.FieldStart("size")
+	b.PutInt32(f.Size)
+	b.FieldStart("expected_size")
+	b.PutInt32(f.ExpectedSize)
+	b.FieldStart("local")
+	if err := f.Local.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode file#2dad6278: field local: %w", err)
+	}
+	b.FieldStart("remote")
+	if err := f.Remote.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode file#2dad6278: field remote: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TMeURLTypeUser represents TL type `tMeUrlTypeUser#b88d499e`.
@@ -143,6 +145,19 @@ func (t *TMeURLTypeUser) DecodeBare(b *bin.Buffer) error {
 		}
 		t.UserID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TMeURLTypeUser) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode tMeUrlTypeUser#b88d499e as nil")
+	}
+	b.ObjStart()
+	b.PutID("tMeUrlTypeUser")
+	b.FieldStart("user_id")
+	b.PutInt32(t.UserID)
+	b.ObjEnd()
 	return nil
 }
 
@@ -268,6 +283,19 @@ func (t *TMeURLTypeSupergroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TMeURLTypeSupergroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode tMeUrlTypeSupergroup#af5536a8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("tMeUrlTypeSupergroup")
+	b.FieldStart("supergroup_id")
+	b.PutLong(t.SupergroupID)
+	b.ObjEnd()
+	return nil
+}
+
 // GetSupergroupID returns value of SupergroupID field.
 func (t *TMeURLTypeSupergroup) GetSupergroupID() (value int64) {
 	return t.SupergroupID
@@ -387,6 +415,21 @@ func (t *TMeURLTypeChatInvite) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode tMeUrlTypeChatInvite#12b5da49: field info: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TMeURLTypeChatInvite) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode tMeUrlTypeChatInvite#12b5da49 as nil")
+	}
+	b.ObjStart()
+	b.PutID("tMeUrlTypeChatInvite")
+	b.FieldStart("info")
+	if err := t.Info.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode tMeUrlTypeChatInvite#12b5da49: field info: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -512,6 +555,21 @@ func (t *TMeURLTypeStickerSet) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TMeURLTypeStickerSet) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode tMeUrlTypeStickerSet#5f83ccec as nil")
+	}
+	b.ObjStart()
+	b.PutID("tMeUrlTypeStickerSet")
+	b.FieldStart("sticker_set_id")
+	if err := t.StickerSetID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode tMeUrlTypeStickerSet#5f83ccec: field sticker_set_id: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetStickerSetID returns value of StickerSetID field.
 func (t *TMeURLTypeStickerSet) GetStickerSetID() (value Int64) {
 	return t.StickerSetID
@@ -548,6 +606,7 @@ type TMeURLTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeTMeURLType implements binary de-serialization for TMeURLTypeClass.

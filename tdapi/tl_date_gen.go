@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Date represents TL type `date#ef6eb6a0`.
@@ -172,6 +174,23 @@ func (d *Date) DecodeBare(b *bin.Buffer) error {
 		}
 		d.Year = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *Date) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode date#ef6eb6a0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("date")
+	b.FieldStart("day")
+	b.PutInt32(d.Day)
+	b.FieldStart("month")
+	b.PutInt32(d.Month)
+	b.FieldStart("year")
+	b.PutInt32(d.Year)
+	b.ObjEnd()
 	return nil
 }
 

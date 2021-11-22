@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Point represents TL type `point#1a13f5b9`.
@@ -155,6 +157,21 @@ func (p *Point) DecodeBare(b *bin.Buffer) error {
 		}
 		p.Y = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *Point) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode point#1a13f5b9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("point")
+	b.FieldStart("x")
+	b.PutDouble(p.X)
+	b.FieldStart("y")
+	b.PutDouble(p.Y)
+	b.ObjEnd()
 	return nil
 }
 

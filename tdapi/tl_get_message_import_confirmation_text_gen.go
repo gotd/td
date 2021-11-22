@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetMessageImportConfirmationTextRequest represents TL type `getMessageImportConfirmationText#174881a8`.
@@ -140,6 +142,19 @@ func (g *GetMessageImportConfirmationTextRequest) DecodeBare(b *bin.Buffer) erro
 		}
 		g.ChatID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetMessageImportConfirmationTextRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getMessageImportConfirmationText#174881a8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getMessageImportConfirmationText")
+	b.FieldStart("chat_id")
+	b.PutLong(g.ChatID)
+	b.ObjEnd()
 	return nil
 }
 

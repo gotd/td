@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // UserPrivacySettingRuleAllowAll represents TL type `userPrivacySettingRuleAllowAll#8abf1c3f`.
@@ -128,6 +130,17 @@ func (u *UserPrivacySettingRuleAllowAll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingRuleAllowAll) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleAllowAll#8abf1c3f as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingRuleAllowAll")
+	b.ObjEnd()
+	return nil
+}
+
 // UserPrivacySettingRuleAllowContacts represents TL type `userPrivacySettingRuleAllowContacts#8f2f2d10`.
 type UserPrivacySettingRuleAllowContacts struct {
 }
@@ -224,6 +237,17 @@ func (u *UserPrivacySettingRuleAllowContacts) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't decode userPrivacySettingRuleAllowContacts#8f2f2d10 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingRuleAllowContacts) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleAllowContacts#8f2f2d10 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingRuleAllowContacts")
+	b.ObjEnd()
 	return nil
 }
 
@@ -354,6 +378,23 @@ func (u *UserPrivacySettingRuleAllowUsers) DecodeBare(b *bin.Buffer) error {
 			u.UserIDs = append(u.UserIDs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingRuleAllowUsers) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleAllowUsers#ba671e7f as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingRuleAllowUsers")
+	b.FieldStart("user_ids")
+	b.ArrStart()
+	for _, v := range u.UserIDs {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 
@@ -492,6 +533,23 @@ func (u *UserPrivacySettingRuleAllowChatMembers) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingRuleAllowChatMembers) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleAllowChatMembers#f249b617 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingRuleAllowChatMembers")
+	b.FieldStart("chat_ids")
+	b.ArrStart()
+	for _, v := range u.ChatIDs {
+		b.PutLong(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
+	return nil
+}
+
 // GetChatIDs returns value of ChatIDs field.
 func (u *UserPrivacySettingRuleAllowChatMembers) GetChatIDs() (value []int64) {
 	return u.ChatIDs
@@ -596,6 +654,17 @@ func (u *UserPrivacySettingRuleRestrictAll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingRuleRestrictAll) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleRestrictAll#ac2a9550 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingRuleRestrictAll")
+	b.ObjEnd()
+	return nil
+}
+
 // UserPrivacySettingRuleRestrictContacts represents TL type `userPrivacySettingRuleRestrictContacts#3c1acd02`.
 type UserPrivacySettingRuleRestrictContacts struct {
 }
@@ -692,6 +761,17 @@ func (u *UserPrivacySettingRuleRestrictContacts) DecodeBare(b *bin.Buffer) error
 	if u == nil {
 		return fmt.Errorf("can't decode userPrivacySettingRuleRestrictContacts#3c1acd02 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingRuleRestrictContacts) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleRestrictContacts#3c1acd02 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingRuleRestrictContacts")
+	b.ObjEnd()
 	return nil
 }
 
@@ -822,6 +902,23 @@ func (u *UserPrivacySettingRuleRestrictUsers) DecodeBare(b *bin.Buffer) error {
 			u.UserIDs = append(u.UserIDs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingRuleRestrictUsers) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleRestrictUsers#26093f9e as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingRuleRestrictUsers")
+	b.FieldStart("user_ids")
+	b.ArrStart()
+	for _, v := range u.UserIDs {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 
@@ -960,6 +1057,23 @@ func (u *UserPrivacySettingRuleRestrictChatMembers) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingRuleRestrictChatMembers) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingRuleRestrictChatMembers#fc00b920 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingRuleRestrictChatMembers")
+	b.FieldStart("chat_ids")
+	b.ArrStart()
+	for _, v := range u.ChatIDs {
+		b.PutLong(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
+	return nil
+}
+
 // GetChatIDs returns value of ChatIDs field.
 func (u *UserPrivacySettingRuleRestrictChatMembers) GetChatIDs() (value []int64) {
 	return u.ChatIDs
@@ -1000,6 +1114,7 @@ type UserPrivacySettingRuleClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeUserPrivacySettingRule implements binary de-serialization for UserPrivacySettingRuleClass.

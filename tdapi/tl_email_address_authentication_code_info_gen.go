@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // EmailAddressAuthenticationCodeInfo represents TL type `emailAddressAuthenticationCodeInfo#449be223`.
@@ -155,6 +157,21 @@ func (e *EmailAddressAuthenticationCodeInfo) DecodeBare(b *bin.Buffer) error {
 		}
 		e.Length = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes e in TDLib API JSON format.
+func (e *EmailAddressAuthenticationCodeInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode emailAddressAuthenticationCodeInfo#449be223 as nil")
+	}
+	b.ObjStart()
+	b.PutID("emailAddressAuthenticationCodeInfo")
+	b.FieldStart("email_address_pattern")
+	b.PutString(e.EmailAddressPattern)
+	b.FieldStart("length")
+	b.PutInt32(e.Length)
+	b.ObjEnd()
 	return nil
 }
 

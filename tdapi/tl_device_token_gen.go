@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DeviceTokenFirebaseCloudMessaging represents TL type `deviceTokenFirebaseCloudMessaging#d0714a07`.
@@ -160,6 +162,21 @@ func (d *DeviceTokenFirebaseCloudMessaging) DecodeBare(b *bin.Buffer) error {
 		}
 		d.Encrypt = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeviceTokenFirebaseCloudMessaging) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenFirebaseCloudMessaging#d0714a07 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deviceTokenFirebaseCloudMessaging")
+	b.FieldStart("token")
+	b.PutString(d.Token)
+	b.FieldStart("encrypt")
+	b.PutBool(d.Encrypt)
+	b.ObjEnd()
 	return nil
 }
 
@@ -304,6 +321,21 @@ func (d *DeviceTokenApplePush) DecodeBare(b *bin.Buffer) error {
 		}
 		d.IsAppSandbox = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeviceTokenApplePush) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenApplePush#17196bc3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deviceTokenApplePush")
+	b.FieldStart("device_token")
+	b.PutString(d.DeviceToken)
+	b.FieldStart("is_app_sandbox")
+	b.PutBool(d.IsAppSandbox)
+	b.ObjEnd()
 	return nil
 }
 
@@ -468,6 +500,23 @@ func (d *DeviceTokenApplePushVoIP) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeviceTokenApplePushVoIP) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenApplePushVoIP#2ff045e9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deviceTokenApplePushVoIP")
+	b.FieldStart("device_token")
+	b.PutString(d.DeviceToken)
+	b.FieldStart("is_app_sandbox")
+	b.PutBool(d.IsAppSandbox)
+	b.FieldStart("encrypt")
+	b.PutBool(d.Encrypt)
+	b.ObjEnd()
+	return nil
+}
+
 // GetDeviceToken returns value of DeviceToken field.
 func (d *DeviceTokenApplePushVoIP) GetDeviceToken() (value string) {
 	return d.DeviceToken
@@ -601,6 +650,19 @@ func (d *DeviceTokenWindowsPush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeviceTokenWindowsPush) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenWindowsPush#abed428f as nil")
+	}
+	b.ObjStart()
+	b.PutID("deviceTokenWindowsPush")
+	b.FieldStart("access_token")
+	b.PutString(d.AccessToken)
+	b.ObjEnd()
+	return nil
+}
+
 // GetAccessToken returns value of AccessToken field.
 func (d *DeviceTokenWindowsPush) GetAccessToken() (value string) {
 	return d.AccessToken
@@ -723,6 +785,19 @@ func (d *DeviceTokenMicrosoftPush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeviceTokenMicrosoftPush) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenMicrosoftPush#48f8e04c as nil")
+	}
+	b.ObjStart()
+	b.PutID("deviceTokenMicrosoftPush")
+	b.FieldStart("channel_uri")
+	b.PutString(d.ChannelURI)
+	b.ObjEnd()
+	return nil
+}
+
 // GetChannelURI returns value of ChannelURI field.
 func (d *DeviceTokenMicrosoftPush) GetChannelURI() (value string) {
 	return d.ChannelURI
@@ -842,6 +917,19 @@ func (d *DeviceTokenMicrosoftPushVoIP) DecodeBare(b *bin.Buffer) error {
 		}
 		d.ChannelURI = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeviceTokenMicrosoftPushVoIP) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenMicrosoftPushVoIP#d12ca351 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deviceTokenMicrosoftPushVoIP")
+	b.FieldStart("channel_uri")
+	b.PutString(d.ChannelURI)
+	b.ObjEnd()
 	return nil
 }
 
@@ -1002,6 +1090,23 @@ func (d *DeviceTokenWebPush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeviceTokenWebPush) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenWebPush#9affdef7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deviceTokenWebPush")
+	b.FieldStart("endpoint")
+	b.PutString(d.Endpoint)
+	b.FieldStart("p256dh_base64url")
+	b.PutString(d.P256dhBase64url)
+	b.FieldStart("auth_base64url")
+	b.PutString(d.AuthBase64url)
+	b.ObjEnd()
+	return nil
+}
+
 // GetEndpoint returns value of Endpoint field.
 func (d *DeviceTokenWebPush) GetEndpoint() (value string) {
 	return d.Endpoint
@@ -1135,6 +1240,19 @@ func (d *DeviceTokenSimplePush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeviceTokenSimplePush) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenSimplePush#2f49a60 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deviceTokenSimplePush")
+	b.FieldStart("endpoint")
+	b.PutString(d.Endpoint)
+	b.ObjEnd()
+	return nil
+}
+
 // GetEndpoint returns value of Endpoint field.
 func (d *DeviceTokenSimplePush) GetEndpoint() (value string) {
 	return d.Endpoint
@@ -1254,6 +1372,19 @@ func (d *DeviceTokenUbuntuPush) DecodeBare(b *bin.Buffer) error {
 		}
 		d.Token = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeviceTokenUbuntuPush) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenUbuntuPush#6a3c0d26 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deviceTokenUbuntuPush")
+	b.FieldStart("token")
+	b.PutString(d.Token)
+	b.ObjEnd()
 	return nil
 }
 
@@ -1379,6 +1510,19 @@ func (d *DeviceTokenBlackBerryPush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeviceTokenBlackBerryPush) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenBlackBerryPush#5cef0102 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deviceTokenBlackBerryPush")
+	b.FieldStart("token")
+	b.PutString(d.Token)
+	b.ObjEnd()
+	return nil
+}
+
 // GetToken returns value of Token field.
 func (d *DeviceTokenBlackBerryPush) GetToken() (value string) {
 	return d.Token
@@ -1501,6 +1645,19 @@ func (d *DeviceTokenTizenPush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeviceTokenTizenPush) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenTizenPush#aef0da33 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deviceTokenTizenPush")
+	b.FieldStart("reg_id")
+	b.PutString(d.RegID)
+	b.ObjEnd()
+	return nil
+}
+
 // GetRegID returns value of RegID field.
 func (d *DeviceTokenTizenPush) GetRegID() (value string) {
 	return d.RegID
@@ -1544,6 +1701,7 @@ type DeviceTokenClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeDeviceToken implements binary de-serialization for DeviceTokenClass.

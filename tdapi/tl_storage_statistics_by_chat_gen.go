@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // StorageStatisticsByChat represents TL type `storageStatisticsByChat#a5498fe4`.
@@ -204,6 +206,31 @@ func (s *StorageStatisticsByChat) DecodeBare(b *bin.Buffer) error {
 			s.ByFileType = append(s.ByFileType, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *StorageStatisticsByChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storageStatisticsByChat#a5498fe4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("storageStatisticsByChat")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("size")
+	b.PutLong(s.Size)
+	b.FieldStart("count")
+	b.PutInt32(s.Count)
+	b.FieldStart("by_file_type")
+	b.ArrStart()
+	for idx, v := range s.ByFileType {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode storageStatisticsByChat#a5498fe4: field by_file_type element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

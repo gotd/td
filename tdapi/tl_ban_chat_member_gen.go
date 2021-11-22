@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // BanChatMemberRequest represents TL type `banChatMember#cb107d7c`.
@@ -197,6 +199,30 @@ func (b *BanChatMemberRequest) DecodeBare(buf *bin.Buffer) error {
 		}
 		b.RevokeMessages = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BanChatMemberRequest) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode banChatMember#cb107d7c as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("banChatMember")
+	buf.FieldStart("chat_id")
+	buf.PutLong(b.ChatID)
+	buf.FieldStart("member_id")
+	if b.MemberID == nil {
+		return fmt.Errorf("unable to encode banChatMember#cb107d7c: field member_id is nil")
+	}
+	if err := b.MemberID.EncodeTDLibJSON(buf); err != nil {
+		return fmt.Errorf("unable to encode banChatMember#cb107d7c: field member_id: %w", err)
+	}
+	buf.FieldStart("banned_until_date")
+	buf.PutInt32(b.BannedUntilDate)
+	buf.FieldStart("revoke_messages")
+	buf.PutBool(b.RevokeMessages)
+	buf.ObjEnd()
 	return nil
 }
 

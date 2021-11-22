@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageForwardInfo represents TL type `messageForwardInfo#ec7dcac8`.
@@ -215,6 +217,32 @@ func (m *MessageForwardInfo) DecodeBare(b *bin.Buffer) error {
 		}
 		m.FromMessageID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageForwardInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForwardInfo#ec7dcac8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageForwardInfo")
+	b.FieldStart("origin")
+	if m.Origin == nil {
+		return fmt.Errorf("unable to encode messageForwardInfo#ec7dcac8: field origin is nil")
+	}
+	if err := m.Origin.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageForwardInfo#ec7dcac8: field origin: %w", err)
+	}
+	b.FieldStart("date")
+	b.PutInt32(m.Date)
+	b.FieldStart("public_service_announcement_type")
+	b.PutString(m.PublicServiceAnnouncementType)
+	b.FieldStart("from_chat_id")
+	b.PutLong(m.FromChatID)
+	b.FieldStart("from_message_id")
+	b.PutLong(m.FromMessageID)
+	b.ObjEnd()
 	return nil
 }
 

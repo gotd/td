@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // StorageStatisticsByFileType represents TL type `storageStatisticsByFileType#2a8ef8a8`.
@@ -177,6 +179,28 @@ func (s *StorageStatisticsByFileType) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Count = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *StorageStatisticsByFileType) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storageStatisticsByFileType#2a8ef8a8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("storageStatisticsByFileType")
+	b.FieldStart("file_type")
+	if s.FileType == nil {
+		return fmt.Errorf("unable to encode storageStatisticsByFileType#2a8ef8a8: field file_type is nil")
+	}
+	if err := s.FileType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode storageStatisticsByFileType#2a8ef8a8: field file_type: %w", err)
+	}
+	b.FieldStart("size")
+	b.PutLong(s.Size)
+	b.FieldStart("count")
+	b.PutInt32(s.Count)
+	b.ObjEnd()
 	return nil
 }
 

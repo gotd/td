@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // RichTextPlain represents TL type `richTextPlain#1cc42966`.
@@ -143,6 +145,19 @@ func (r *RichTextPlain) DecodeBare(b *bin.Buffer) error {
 		}
 		r.Text = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextPlain) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextPlain#1cc42966 as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextPlain")
+	b.FieldStart("text")
+	b.PutString(r.Text)
+	b.ObjEnd()
 	return nil
 }
 
@@ -273,6 +288,24 @@ func (r *RichTextBold) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextBold) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextBold#63970f6c as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextBold")
+	b.FieldStart("text")
+	if r.Text == nil {
+		return fmt.Errorf("unable to encode richTextBold#63970f6c: field text is nil")
+	}
+	if err := r.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextBold#63970f6c: field text: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetText returns value of Text field.
 func (r *RichTextBold) GetText() (value RichTextClass) {
 	return r.Text
@@ -397,6 +430,24 @@ func (r *RichTextItalic) DecodeBare(b *bin.Buffer) error {
 		}
 		r.Text = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextItalic) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextItalic#6e77f03f as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextItalic")
+	b.FieldStart("text")
+	if r.Text == nil {
+		return fmt.Errorf("unable to encode richTextItalic#6e77f03f: field text is nil")
+	}
+	if err := r.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextItalic#6e77f03f: field text: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -527,6 +578,24 @@ func (r *RichTextUnderline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextUnderline) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextUnderline#e00cfd8c as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextUnderline")
+	b.FieldStart("text")
+	if r.Text == nil {
+		return fmt.Errorf("unable to encode richTextUnderline#e00cfd8c: field text is nil")
+	}
+	if err := r.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextUnderline#e00cfd8c: field text: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetText returns value of Text field.
 func (r *RichTextUnderline) GetText() (value RichTextClass) {
 	return r.Text
@@ -654,6 +723,24 @@ func (r *RichTextStrikethrough) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextStrikethrough) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextStrikethrough#2b1e6a51 as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextStrikethrough")
+	b.FieldStart("text")
+	if r.Text == nil {
+		return fmt.Errorf("unable to encode richTextStrikethrough#2b1e6a51: field text is nil")
+	}
+	if err := r.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextStrikethrough#2b1e6a51: field text: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetText returns value of Text field.
 func (r *RichTextStrikethrough) GetText() (value RichTextClass) {
 	return r.Text
@@ -778,6 +865,24 @@ func (r *RichTextFixed) DecodeBare(b *bin.Buffer) error {
 		}
 		r.Text = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextFixed) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextFixed#b43681c7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextFixed")
+	b.FieldStart("text")
+	if r.Text == nil {
+		return fmt.Errorf("unable to encode richTextFixed#b43681c7: field text is nil")
+	}
+	if err := r.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextFixed#b43681c7: field text: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -942,6 +1047,28 @@ func (r *RichTextURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextURL) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextUrl#500cf14 as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextUrl")
+	b.FieldStart("text")
+	if r.Text == nil {
+		return fmt.Errorf("unable to encode richTextUrl#500cf14: field text is nil")
+	}
+	if err := r.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextUrl#500cf14: field text: %w", err)
+	}
+	b.FieldStart("url")
+	b.PutString(r.URL)
+	b.FieldStart("is_cached")
+	b.PutBool(r.IsCached)
+	b.ObjEnd()
+	return nil
+}
+
 // GetText returns value of Text field.
 func (r *RichTextURL) GetText() (value RichTextClass) {
 	return r.Text
@@ -1096,6 +1223,26 @@ func (r *RichTextEmailAddress) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextEmailAddress) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextEmailAddress#262a2f7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextEmailAddress")
+	b.FieldStart("text")
+	if r.Text == nil {
+		return fmt.Errorf("unable to encode richTextEmailAddress#262a2f7: field text is nil")
+	}
+	if err := r.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextEmailAddress#262a2f7: field text: %w", err)
+	}
+	b.FieldStart("email_address")
+	b.PutString(r.EmailAddress)
+	b.ObjEnd()
+	return nil
+}
+
 // GetText returns value of Text field.
 func (r *RichTextEmailAddress) GetText() (value RichTextClass) {
 	return r.Text
@@ -1228,6 +1375,24 @@ func (r *RichTextSubscript) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextSubscript) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextSubscript#cc405a4c as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextSubscript")
+	b.FieldStart("text")
+	if r.Text == nil {
+		return fmt.Errorf("unable to encode richTextSubscript#cc405a4c: field text is nil")
+	}
+	if err := r.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextSubscript#cc405a4c: field text: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetText returns value of Text field.
 func (r *RichTextSubscript) GetText() (value RichTextClass) {
 	return r.Text
@@ -1355,6 +1520,24 @@ func (r *RichTextSuperscript) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextSuperscript) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextSuperscript#e9377563 as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextSuperscript")
+	b.FieldStart("text")
+	if r.Text == nil {
+		return fmt.Errorf("unable to encode richTextSuperscript#e9377563: field text is nil")
+	}
+	if err := r.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextSuperscript#e9377563: field text: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetText returns value of Text field.
 func (r *RichTextSuperscript) GetText() (value RichTextClass) {
 	return r.Text
@@ -1479,6 +1662,24 @@ func (r *RichTextMarked) DecodeBare(b *bin.Buffer) error {
 		}
 		r.Text = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextMarked) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextMarked#b42ed382 as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextMarked")
+	b.FieldStart("text")
+	if r.Text == nil {
+		return fmt.Errorf("unable to encode richTextMarked#b42ed382: field text is nil")
+	}
+	if err := r.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextMarked#b42ed382: field text: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -1623,6 +1824,26 @@ func (r *RichTextPhoneNumber) DecodeBare(b *bin.Buffer) error {
 		}
 		r.PhoneNumber = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextPhoneNumber) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextPhoneNumber#7a91543 as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextPhoneNumber")
+	b.FieldStart("text")
+	if r.Text == nil {
+		return fmt.Errorf("unable to encode richTextPhoneNumber#7a91543: field text is nil")
+	}
+	if err := r.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextPhoneNumber#7a91543: field text: %w", err)
+	}
+	b.FieldStart("phone_number")
+	b.PutString(r.PhoneNumber)
+	b.ObjEnd()
 	return nil
 }
 
@@ -1784,6 +2005,25 @@ func (r *RichTextIcon) DecodeBare(b *bin.Buffer) error {
 		}
 		r.Height = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextIcon) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextIcon#a7c42b02 as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextIcon")
+	b.FieldStart("document")
+	if err := r.Document.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextIcon#a7c42b02: field document: %w", err)
+	}
+	b.FieldStart("width")
+	b.PutInt32(r.Width)
+	b.FieldStart("height")
+	b.PutInt32(r.Height)
+	b.ObjEnd()
 	return nil
 }
 
@@ -1959,6 +2199,28 @@ func (r *RichTextReference) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextReference) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextReference#bb9a1276 as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextReference")
+	b.FieldStart("text")
+	if r.Text == nil {
+		return fmt.Errorf("unable to encode richTextReference#bb9a1276: field text is nil")
+	}
+	if err := r.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextReference#bb9a1276: field text: %w", err)
+	}
+	b.FieldStart("anchor_name")
+	b.PutString(r.AnchorName)
+	b.FieldStart("url")
+	b.PutString(r.URL)
+	b.ObjEnd()
+	return nil
+}
+
 // GetText returns value of Text field.
 func (r *RichTextReference) GetText() (value RichTextClass) {
 	return r.Text
@@ -2088,6 +2350,19 @@ func (r *RichTextAnchor) DecodeBare(b *bin.Buffer) error {
 		}
 		r.Name = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextAnchor) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextAnchor#4e7f1034 as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextAnchor")
+	b.FieldStart("name")
+	b.PutString(r.Name)
+	b.ObjEnd()
 	return nil
 }
 
@@ -2252,6 +2527,28 @@ func (r *RichTextAnchorLink) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTextAnchorLink) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTextAnchorLink#a41fd2d6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTextAnchorLink")
+	b.FieldStart("text")
+	if r.Text == nil {
+		return fmt.Errorf("unable to encode richTextAnchorLink#a41fd2d6: field text is nil")
+	}
+	if err := r.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode richTextAnchorLink#a41fd2d6: field text: %w", err)
+	}
+	b.FieldStart("anchor_name")
+	b.PutString(r.AnchorName)
+	b.FieldStart("url")
+	b.PutString(r.URL)
+	b.ObjEnd()
+	return nil
+}
+
 // GetText returns value of Text field.
 func (r *RichTextAnchorLink) GetText() (value RichTextClass) {
 	return r.Text
@@ -2402,6 +2699,28 @@ func (r *RichTexts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RichTexts) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode richTexts#94b21889 as nil")
+	}
+	b.ObjStart()
+	b.PutID("richTexts")
+	b.FieldStart("texts")
+	b.ArrStart()
+	for idx, v := range r.Texts {
+		if v == nil {
+			return fmt.Errorf("unable to encode richTexts#94b21889: field texts element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode richTexts#94b21889: field texts element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
+	return nil
+}
+
 // GetTexts returns value of Texts field.
 func (r *RichTexts) GetTexts() (value []RichTextClass) {
 	return r.Texts
@@ -2451,6 +2770,7 @@ type RichTextClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeRichText implements binary de-serialization for RichTextClass.

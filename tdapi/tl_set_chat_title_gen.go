@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetChatTitleRequest represents TL type `setChatTitle#9cabebf`.
@@ -155,6 +157,21 @@ func (s *SetChatTitleRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Title = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetChatTitleRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setChatTitle#9cabebf as nil")
+	}
+	b.ObjStart()
+	b.PutID("setChatTitle")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("title")
+	b.PutString(s.Title)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // BoolFalse represents TL type `boolFalse#bc799737`.
@@ -125,6 +127,17 @@ func (b *BoolFalse) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't decode boolFalse#bc799737 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BoolFalse) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode boolFalse#bc799737 as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("boolFalse")
+	buf.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (b *BoolTrue) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BoolTrue) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode boolTrue#997275b5 as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("boolTrue")
+	buf.ObjEnd()
+	return nil
+}
+
 // BoolClass represents Bool generic type.
 //
 // Example:
@@ -256,6 +280,7 @@ type BoolClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeBool implements binary de-serialization for BoolClass.

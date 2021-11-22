@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // EncryptedPassportElement represents TL type `encryptedPassportElement#262d248`.
@@ -309,6 +311,58 @@ func (e *EncryptedPassportElement) DecodeBare(b *bin.Buffer) error {
 		}
 		e.Hash = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes e in TDLib API JSON format.
+func (e *EncryptedPassportElement) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode encryptedPassportElement#262d248 as nil")
+	}
+	b.ObjStart()
+	b.PutID("encryptedPassportElement")
+	b.FieldStart("type")
+	if e.Type == nil {
+		return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field type is nil")
+	}
+	if err := e.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field type: %w", err)
+	}
+	b.FieldStart("data")
+	b.PutBytes(e.Data)
+	b.FieldStart("front_side")
+	if err := e.FrontSide.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field front_side: %w", err)
+	}
+	b.FieldStart("reverse_side")
+	if err := e.ReverseSide.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field reverse_side: %w", err)
+	}
+	b.FieldStart("selfie")
+	if err := e.Selfie.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field selfie: %w", err)
+	}
+	b.FieldStart("translation")
+	b.ArrStart()
+	for idx, v := range e.Translation {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field translation element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("files")
+	b.ArrStart()
+	for idx, v := range e.Files {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field files element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("value")
+	b.PutString(e.Value)
+	b.FieldStart("hash")
+	b.PutString(e.Hash)
+	b.ObjEnd()
 	return nil
 }
 

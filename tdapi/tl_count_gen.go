@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Count represents TL type `count#4d38f104`.
@@ -138,6 +140,19 @@ func (c *Count) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Count = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *Count) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode count#4d38f104 as nil")
+	}
+	b.ObjStart()
+	b.PutID("count")
+	b.FieldStart("count")
+	b.PutInt32(c.Count)
+	b.ObjEnd()
 	return nil
 }
 

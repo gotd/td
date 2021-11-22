@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MaskPointForehead represents TL type `maskPointForehead#3d3e96c5`.
@@ -125,6 +127,17 @@ func (m *MaskPointForehead) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't decode maskPointForehead#3d3e96c5 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MaskPointForehead) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode maskPointForehead#3d3e96c5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("maskPointForehead")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (m *MaskPointEyes) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MaskPointEyes) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode maskPointEyes#68351b4d as nil")
+	}
+	b.ObjStart()
+	b.PutID("maskPointEyes")
+	b.ObjEnd()
+	return nil
+}
+
 // MaskPointMouth represents TL type `maskPointMouth#188b29de`.
 type MaskPointMouth struct {
 }
@@ -323,6 +347,17 @@ func (m *MaskPointMouth) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't decode maskPointMouth#188b29de to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MaskPointMouth) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode maskPointMouth#188b29de as nil")
+	}
+	b.ObjStart()
+	b.PutID("maskPointMouth")
+	b.ObjEnd()
 	return nil
 }
 
@@ -425,6 +460,17 @@ func (m *MaskPointChin) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MaskPointChin) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode maskPointChin#1fe36187 as nil")
+	}
+	b.ObjStart()
+	b.PutID("maskPointChin")
+	b.ObjEnd()
+	return nil
+}
+
 // MaskPointClass represents MaskPoint generic type.
 //
 // Example:
@@ -456,6 +502,7 @@ type MaskPointClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeMaskPoint implements binary de-serialization for MaskPointClass.

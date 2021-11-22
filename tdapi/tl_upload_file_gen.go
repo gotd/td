@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // UploadFileRequest represents TL type `uploadFile#d38f14a6`.
@@ -184,6 +186,33 @@ func (u *UploadFileRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		u.Priority = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UploadFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode uploadFile#d38f14a6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("uploadFile")
+	b.FieldStart("file")
+	if u.File == nil {
+		return fmt.Errorf("unable to encode uploadFile#d38f14a6: field file is nil")
+	}
+	if err := u.File.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode uploadFile#d38f14a6: field file: %w", err)
+	}
+	b.FieldStart("file_type")
+	if u.FileType == nil {
+		return fmt.Errorf("unable to encode uploadFile#d38f14a6: field file_type is nil")
+	}
+	if err := u.FileType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode uploadFile#d38f14a6: field file_type: %w", err)
+	}
+	b.FieldStart("priority")
+	b.PutInt32(u.Priority)
+	b.ObjEnd()
 	return nil
 }
 

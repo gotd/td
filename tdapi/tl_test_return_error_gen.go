@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TestReturnErrorRequest represents TL type `testReturnError#1b217cf2`.
@@ -138,6 +140,21 @@ func (t *TestReturnErrorRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode testReturnError#1b217cf2: field error: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TestReturnErrorRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testReturnError#1b217cf2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("testReturnError")
+	b.FieldStart("error")
+	if err := t.Error.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode testReturnError#1b217cf2: field error: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

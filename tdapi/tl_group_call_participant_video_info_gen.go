@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GroupCallParticipantVideoInfo represents TL type `groupCallParticipantVideoInfo#70f7eff6`.
@@ -188,6 +190,29 @@ func (g *GroupCallParticipantVideoInfo) DecodeBare(b *bin.Buffer) error {
 		}
 		g.IsPaused = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GroupCallParticipantVideoInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode groupCallParticipantVideoInfo#70f7eff6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("groupCallParticipantVideoInfo")
+	b.FieldStart("source_groups")
+	b.ArrStart()
+	for idx, v := range g.SourceGroups {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode groupCallParticipantVideoInfo#70f7eff6: field source_groups element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("endpoint_id")
+	b.PutString(g.EndpointID)
+	b.FieldStart("is_paused")
+	b.PutBool(g.IsPaused)
+	b.ObjEnd()
 	return nil
 }
 

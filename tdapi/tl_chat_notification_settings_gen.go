@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatNotificationSettings represents TL type `chatNotificationSettings#5998c172`.
@@ -298,6 +300,37 @@ func (c *ChatNotificationSettings) DecodeBare(b *bin.Buffer) error {
 		}
 		c.DisableMentionNotifications = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatNotificationSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatNotificationSettings#5998c172 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatNotificationSettings")
+	b.FieldStart("use_default_mute_for")
+	b.PutBool(c.UseDefaultMuteFor)
+	b.FieldStart("mute_for")
+	b.PutInt32(c.MuteFor)
+	b.FieldStart("use_default_sound")
+	b.PutBool(c.UseDefaultSound)
+	b.FieldStart("sound")
+	b.PutString(c.Sound)
+	b.FieldStart("use_default_show_preview")
+	b.PutBool(c.UseDefaultShowPreview)
+	b.FieldStart("show_preview")
+	b.PutBool(c.ShowPreview)
+	b.FieldStart("use_default_disable_pinned_message_notifications")
+	b.PutBool(c.UseDefaultDisablePinnedMessageNotifications)
+	b.FieldStart("disable_pinned_message_notifications")
+	b.PutBool(c.DisablePinnedMessageNotifications)
+	b.FieldStart("use_default_disable_mention_notifications")
+	b.PutBool(c.UseDefaultDisableMentionNotifications)
+	b.FieldStart("disable_mention_notifications")
+	b.PutBool(c.DisableMentionNotifications)
+	b.ObjEnd()
 	return nil
 }
 

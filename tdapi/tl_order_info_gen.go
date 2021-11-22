@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // OrderInfo represents TL type `orderInfo#2ebad96e`.
@@ -189,6 +191,27 @@ func (o *OrderInfo) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode orderInfo#2ebad96e: field shipping_address: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes o in TDLib API JSON format.
+func (o *OrderInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if o == nil {
+		return fmt.Errorf("can't encode orderInfo#2ebad96e as nil")
+	}
+	b.ObjStart()
+	b.PutID("orderInfo")
+	b.FieldStart("name")
+	b.PutString(o.Name)
+	b.FieldStart("phone_number")
+	b.PutString(o.PhoneNumber)
+	b.FieldStart("email_address")
+	b.PutString(o.EmailAddress)
+	b.FieldStart("shipping_address")
+	if err := o.ShippingAddress.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode orderInfo#2ebad96e: field shipping_address: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // NotificationSettingsScopePrivateChats represents TL type `notificationSettingsScopePrivateChats#37e04d67`.
@@ -125,6 +127,17 @@ func (n *NotificationSettingsScopePrivateChats) DecodeBare(b *bin.Buffer) error 
 	if n == nil {
 		return fmt.Errorf("can't decode notificationSettingsScopePrivateChats#37e04d67 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NotificationSettingsScopePrivateChats) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notificationSettingsScopePrivateChats#37e04d67 as nil")
+	}
+	b.ObjStart()
+	b.PutID("notificationSettingsScopePrivateChats")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (n *NotificationSettingsScopeGroupChats) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NotificationSettingsScopeGroupChats) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notificationSettingsScopeGroupChats#483fd1f3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("notificationSettingsScopeGroupChats")
+	b.ObjEnd()
+	return nil
+}
+
 // NotificationSettingsScopeChannelChats represents TL type `notificationSettingsScopeChannelChats#20aa0588`.
 type NotificationSettingsScopeChannelChats struct {
 }
@@ -326,6 +350,17 @@ func (n *NotificationSettingsScopeChannelChats) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NotificationSettingsScopeChannelChats) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notificationSettingsScopeChannelChats#20aa0588 as nil")
+	}
+	b.ObjStart()
+	b.PutID("notificationSettingsScopeChannelChats")
+	b.ObjEnd()
+	return nil
+}
+
 // NotificationSettingsScopeClass represents NotificationSettingsScope generic type.
 //
 // Example:
@@ -356,6 +391,7 @@ type NotificationSettingsScopeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeNotificationSettingsScope implements binary de-serialization for NotificationSettingsScopeClass.

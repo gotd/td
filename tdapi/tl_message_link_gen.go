@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageLink represents TL type `messageLink#af4a3aa6`.
@@ -155,6 +157,21 @@ func (m *MessageLink) DecodeBare(b *bin.Buffer) error {
 		}
 		m.IsPublic = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageLink) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageLink#af4a3aa6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageLink")
+	b.FieldStart("link")
+	b.PutString(m.Link)
+	b.FieldStart("is_public")
+	b.PutBool(m.IsPublic)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SendCallSignalingDataRequest represents TL type `sendCallSignalingData#542db19c`.
@@ -155,6 +157,21 @@ func (s *SendCallSignalingDataRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Data = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SendCallSignalingDataRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendCallSignalingData#542db19c as nil")
+	}
+	b.ObjStart()
+	b.PutID("sendCallSignalingData")
+	b.FieldStart("call_id")
+	b.PutInt32(s.CallID)
+	b.FieldStart("data")
+	b.PutBytes(s.Data)
+	b.ObjEnd()
 	return nil
 }
 

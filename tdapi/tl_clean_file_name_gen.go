@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CleanFileNameRequest represents TL type `cleanFileName#39b1f7fb`.
@@ -138,6 +140,19 @@ func (c *CleanFileNameRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.FileName = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CleanFileNameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode cleanFileName#39b1f7fb as nil")
+	}
+	b.ObjStart()
+	b.PutID("cleanFileName")
+	b.FieldStart("file_name")
+	b.PutString(c.FileName)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetMapThumbnailFileRequest represents TL type `getMapThumbnailFile#f6e6979a`.
@@ -223,6 +225,31 @@ func (g *GetMapThumbnailFileRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.ChatID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetMapThumbnailFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getMapThumbnailFile#f6e6979a as nil")
+	}
+	b.ObjStart()
+	b.PutID("getMapThumbnailFile")
+	b.FieldStart("location")
+	if err := g.Location.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getMapThumbnailFile#f6e6979a: field location: %w", err)
+	}
+	b.FieldStart("zoom")
+	b.PutInt32(g.Zoom)
+	b.FieldStart("width")
+	b.PutInt32(g.Width)
+	b.FieldStart("height")
+	b.PutInt32(g.Height)
+	b.FieldStart("scale")
+	b.PutInt32(g.Scale)
+	b.FieldStart("chat_id")
+	b.PutLong(g.ChatID)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Updates represents TL type `updates#b9829222`.
@@ -156,6 +158,28 @@ func (u *Updates) DecodeBare(b *bin.Buffer) error {
 			u.Updates = append(u.Updates, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *Updates) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updates#b9829222 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updates")
+	b.FieldStart("updates")
+	b.ArrStart()
+	for idx, v := range u.Updates {
+		if v == nil {
+			return fmt.Errorf("unable to encode updates#b9829222: field updates element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode updates#b9829222: field updates element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

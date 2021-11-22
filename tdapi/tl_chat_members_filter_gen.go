@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatMembersFilterContacts represents TL type `chatMembersFilterContacts#69c480a7`.
@@ -125,6 +127,17 @@ func (c *ChatMembersFilterContacts) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatMembersFilterContacts#69c480a7 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMembersFilterContacts) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMembersFilterContacts#69c480a7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMembersFilterContacts")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (c *ChatMembersFilterAdministrators) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMembersFilterAdministrators) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMembersFilterAdministrators#b47cbc1c as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMembersFilterAdministrators")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatMembersFilterMembers represents TL type `chatMembersFilterMembers#27f71596`.
 type ChatMembersFilterMembers struct {
 }
@@ -323,6 +347,17 @@ func (c *ChatMembersFilterMembers) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatMembersFilterMembers#27f71596 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMembersFilterMembers) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMembersFilterMembers#27f71596 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMembersFilterMembers")
+	b.ObjEnd()
 	return nil
 }
 
@@ -443,6 +478,19 @@ func (c *ChatMembersFilterMention) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMembersFilterMention) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMembersFilterMention#330bedf7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMembersFilterMention")
+	b.FieldStart("message_thread_id")
+	b.PutLong(c.MessageThreadID)
+	b.ObjEnd()
+	return nil
+}
+
 // GetMessageThreadID returns value of MessageThreadID field.
 func (c *ChatMembersFilterMention) GetMessageThreadID() (value int64) {
 	return c.MessageThreadID
@@ -547,6 +595,17 @@ func (c *ChatMembersFilterRestricted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMembersFilterRestricted) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMembersFilterRestricted#4ae15abd as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMembersFilterRestricted")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatMembersFilterBanned represents TL type `chatMembersFilterBanned#90f34f48`.
 type ChatMembersFilterBanned struct {
 }
@@ -643,6 +702,17 @@ func (c *ChatMembersFilterBanned) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatMembersFilterBanned#90f34f48 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMembersFilterBanned) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMembersFilterBanned#90f34f48 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMembersFilterBanned")
+	b.ObjEnd()
 	return nil
 }
 
@@ -745,6 +815,17 @@ func (c *ChatMembersFilterBots) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMembersFilterBots) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMembersFilterBots#ab355888 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMembersFilterBots")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatMembersFilterClass represents ChatMembersFilter generic type.
 //
 // Example:
@@ -779,6 +860,7 @@ type ChatMembersFilterClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeChatMembersFilter implements binary de-serialization for ChatMembersFilterClass.

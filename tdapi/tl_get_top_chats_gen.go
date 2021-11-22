@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetTopChatsRequest represents TL type `getTopChats#e8d95221`.
@@ -160,6 +162,26 @@ func (g *GetTopChatsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Limit = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetTopChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getTopChats#e8d95221 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getTopChats")
+	b.FieldStart("category")
+	if g.Category == nil {
+		return fmt.Errorf("unable to encode getTopChats#e8d95221: field category is nil")
+	}
+	if err := g.Category.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getTopChats#e8d95221: field category: %w", err)
+	}
+	b.FieldStart("limit")
+	b.PutInt32(g.Limit)
+	b.ObjEnd()
 	return nil
 }
 

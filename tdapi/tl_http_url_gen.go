@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // HTTPURL represents TL type `httpUrl#87b775a6`.
@@ -138,6 +140,19 @@ func (h *HTTPURL) DecodeBare(b *bin.Buffer) error {
 		}
 		h.URL = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes h in TDLib API JSON format.
+func (h *HTTPURL) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if h == nil {
+		return fmt.Errorf("can't encode httpUrl#87b775a6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("httpUrl")
+	b.FieldStart("url")
+	b.PutString(h.URL)
+	b.ObjEnd()
 	return nil
 }
 

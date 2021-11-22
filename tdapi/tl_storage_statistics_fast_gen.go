@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // StorageStatisticsFast represents TL type `storageStatisticsFast#cb412861`.
@@ -206,6 +208,27 @@ func (s *StorageStatisticsFast) DecodeBare(b *bin.Buffer) error {
 		}
 		s.LogSize = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *StorageStatisticsFast) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storageStatisticsFast#cb412861 as nil")
+	}
+	b.ObjStart()
+	b.PutID("storageStatisticsFast")
+	b.FieldStart("files_size")
+	b.PutLong(s.FilesSize)
+	b.FieldStart("file_count")
+	b.PutInt32(s.FileCount)
+	b.FieldStart("database_size")
+	b.PutLong(s.DatabaseSize)
+	b.FieldStart("language_pack_database_size")
+	b.PutLong(s.LanguagePackDatabaseSize)
+	b.FieldStart("log_size")
+	b.PutLong(s.LogSize)
+	b.ObjEnd()
 	return nil
 }
 

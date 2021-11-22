@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ResetPasswordResultOk represents TL type `resetPasswordResultOk#acb763f9`.
@@ -125,6 +127,17 @@ func (r *ResetPasswordResultOk) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't decode resetPasswordResultOk#acb763f9 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ResetPasswordResultOk) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode resetPasswordResultOk#acb763f9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("resetPasswordResultOk")
+	b.ObjEnd()
 	return nil
 }
 
@@ -243,6 +256,19 @@ func (r *ResetPasswordResultPending) DecodeBare(b *bin.Buffer) error {
 		}
 		r.PendingResetDate = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ResetPasswordResultPending) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode resetPasswordResultPending#4729dc59 as nil")
+	}
+	b.ObjStart()
+	b.PutID("resetPasswordResultPending")
+	b.FieldStart("pending_reset_date")
+	b.PutInt32(r.PendingResetDate)
+	b.ObjEnd()
 	return nil
 }
 
@@ -368,6 +394,19 @@ func (r *ResetPasswordResultDeclined) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ResetPasswordResultDeclined) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode resetPasswordResultDeclined#b857e0cb as nil")
+	}
+	b.ObjStart()
+	b.PutID("resetPasswordResultDeclined")
+	b.FieldStart("retry_date")
+	b.PutInt32(r.RetryDate)
+	b.ObjEnd()
+	return nil
+}
+
 // GetRetryDate returns value of RetryDate field.
 func (r *ResetPasswordResultDeclined) GetRetryDate() (value int32) {
 	return r.RetryDate
@@ -403,6 +442,7 @@ type ResetPasswordResultClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeResetPasswordResult implements binary de-serialization for ResetPasswordResultClass.

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // NotificationGroupTypeMessages represents TL type `notificationGroupTypeMessages#9a86331d`.
@@ -125,6 +127,17 @@ func (n *NotificationGroupTypeMessages) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
 		return fmt.Errorf("can't decode notificationGroupTypeMessages#9a86331d to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NotificationGroupTypeMessages) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notificationGroupTypeMessages#9a86331d as nil")
+	}
+	b.ObjStart()
+	b.PutID("notificationGroupTypeMessages")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (n *NotificationGroupTypeMentions) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NotificationGroupTypeMentions) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notificationGroupTypeMentions#85ca89ad as nil")
+	}
+	b.ObjStart()
+	b.PutID("notificationGroupTypeMentions")
+	b.ObjEnd()
+	return nil
+}
+
 // NotificationGroupTypeSecretChat represents TL type `notificationGroupTypeSecretChat#52e54e34`.
 type NotificationGroupTypeSecretChat struct {
 }
@@ -323,6 +347,17 @@ func (n *NotificationGroupTypeSecretChat) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
 		return fmt.Errorf("can't decode notificationGroupTypeSecretChat#52e54e34 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NotificationGroupTypeSecretChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notificationGroupTypeSecretChat#52e54e34 as nil")
+	}
+	b.ObjStart()
+	b.PutID("notificationGroupTypeSecretChat")
+	b.ObjEnd()
 	return nil
 }
 
@@ -425,6 +460,17 @@ func (n *NotificationGroupTypeCalls) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NotificationGroupTypeCalls) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notificationGroupTypeCalls#5233c152 as nil")
+	}
+	b.ObjStart()
+	b.PutID("notificationGroupTypeCalls")
+	b.ObjEnd()
+	return nil
+}
+
 // NotificationGroupTypeClass represents NotificationGroupType generic type.
 //
 // Example:
@@ -456,6 +502,7 @@ type NotificationGroupTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeNotificationGroupType implements binary de-serialization for NotificationGroupTypeClass.

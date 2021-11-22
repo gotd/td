@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetBioRequest represents TL type `setBio#9f772354`.
@@ -138,6 +140,19 @@ func (s *SetBioRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Bio = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetBioRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setBio#9f772354 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setBio")
+	b.FieldStart("bio")
+	b.PutString(s.Bio)
+	b.ObjEnd()
 	return nil
 }
 

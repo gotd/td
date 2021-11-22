@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetGroupCallTitleRequest represents TL type `setGroupCallTitle#b6c19dcd`.
@@ -155,6 +157,21 @@ func (s *SetGroupCallTitleRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Title = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetGroupCallTitleRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setGroupCallTitle#b6c19dcd as nil")
+	}
+	b.ObjStart()
+	b.PutID("setGroupCallTitle")
+	b.FieldStart("group_call_id")
+	b.PutInt32(s.GroupCallID)
+	b.FieldStart("title")
+	b.PutString(s.Title)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // LocalizationTargetInfo represents TL type `localizationTargetInfo#2ca3903b`.
@@ -153,6 +155,25 @@ func (l *LocalizationTargetInfo) DecodeBare(b *bin.Buffer) error {
 			l.LanguagePacks = append(l.LanguagePacks, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LocalizationTargetInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode localizationTargetInfo#2ca3903b as nil")
+	}
+	b.ObjStart()
+	b.PutID("localizationTargetInfo")
+	b.FieldStart("language_packs")
+	b.ArrStart()
+	for idx, v := range l.LanguagePacks {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode localizationTargetInfo#2ca3903b: field language_packs element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

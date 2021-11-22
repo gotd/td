@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AddRecentStickerRequest represents TL type `addRecentSticker#a7e5d89e`.
@@ -161,6 +163,26 @@ func (a *AddRecentStickerRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		a.Sticker = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AddRecentStickerRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode addRecentSticker#a7e5d89e as nil")
+	}
+	b.ObjStart()
+	b.PutID("addRecentSticker")
+	b.FieldStart("is_attached")
+	b.PutBool(a.IsAttached)
+	b.FieldStart("sticker")
+	if a.Sticker == nil {
+		return fmt.Errorf("unable to encode addRecentSticker#a7e5d89e: field sticker is nil")
+	}
+	if err := a.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode addRecentSticker#a7e5d89e: field sticker: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

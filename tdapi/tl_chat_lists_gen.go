@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatLists represents TL type `chatLists#92c2d216`.
@@ -156,6 +158,28 @@ func (c *ChatLists) DecodeBare(b *bin.Buffer) error {
 			c.ChatLists = append(c.ChatLists, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatLists) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatLists#92c2d216 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatLists")
+	b.FieldStart("chat_lists")
+	b.ArrStart()
+	for idx, v := range c.ChatLists {
+		if v == nil {
+			return fmt.Errorf("unable to encode chatLists#92c2d216: field chat_lists element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode chatLists#92c2d216: field chat_lists element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

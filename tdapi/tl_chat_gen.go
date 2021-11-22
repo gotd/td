@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Chat represents TL type `chat#77f6d111`.
@@ -581,6 +583,95 @@ func (c *Chat) DecodeBare(b *bin.Buffer) error {
 		}
 		c.ClientData = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *Chat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chat#77f6d111 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chat")
+	b.FieldStart("id")
+	b.PutLong(c.ID)
+	b.FieldStart("type")
+	if c.Type == nil {
+		return fmt.Errorf("unable to encode chat#77f6d111: field type is nil")
+	}
+	if err := c.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chat#77f6d111: field type: %w", err)
+	}
+	b.FieldStart("title")
+	b.PutString(c.Title)
+	b.FieldStart("photo")
+	if err := c.Photo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chat#77f6d111: field photo: %w", err)
+	}
+	b.FieldStart("permissions")
+	if err := c.Permissions.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chat#77f6d111: field permissions: %w", err)
+	}
+	b.FieldStart("last_message")
+	if err := c.LastMessage.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chat#77f6d111: field last_message: %w", err)
+	}
+	b.FieldStart("positions")
+	b.ArrStart()
+	for idx, v := range c.Positions {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode chat#77f6d111: field positions element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("is_marked_as_unread")
+	b.PutBool(c.IsMarkedAsUnread)
+	b.FieldStart("is_blocked")
+	b.PutBool(c.IsBlocked)
+	b.FieldStart("has_scheduled_messages")
+	b.PutBool(c.HasScheduledMessages)
+	b.FieldStart("can_be_deleted_only_for_self")
+	b.PutBool(c.CanBeDeletedOnlyForSelf)
+	b.FieldStart("can_be_deleted_for_all_users")
+	b.PutBool(c.CanBeDeletedForAllUsers)
+	b.FieldStart("can_be_reported")
+	b.PutBool(c.CanBeReported)
+	b.FieldStart("default_disable_notification")
+	b.PutBool(c.DefaultDisableNotification)
+	b.FieldStart("unread_count")
+	b.PutInt32(c.UnreadCount)
+	b.FieldStart("last_read_inbox_message_id")
+	b.PutLong(c.LastReadInboxMessageID)
+	b.FieldStart("last_read_outbox_message_id")
+	b.PutLong(c.LastReadOutboxMessageID)
+	b.FieldStart("unread_mention_count")
+	b.PutInt32(c.UnreadMentionCount)
+	b.FieldStart("notification_settings")
+	if err := c.NotificationSettings.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chat#77f6d111: field notification_settings: %w", err)
+	}
+	b.FieldStart("message_ttl_setting")
+	b.PutInt32(c.MessageTTLSetting)
+	b.FieldStart("action_bar")
+	if c.ActionBar == nil {
+		return fmt.Errorf("unable to encode chat#77f6d111: field action_bar is nil")
+	}
+	if err := c.ActionBar.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chat#77f6d111: field action_bar: %w", err)
+	}
+	b.FieldStart("voice_chat")
+	if err := c.VoiceChat.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chat#77f6d111: field voice_chat: %w", err)
+	}
+	b.FieldStart("reply_markup_message_id")
+	b.PutLong(c.ReplyMarkupMessageID)
+	b.FieldStart("draft_message")
+	if err := c.DraftMessage.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chat#77f6d111: field draft_message: %w", err)
+	}
+	b.FieldStart("client_data")
+	b.PutString(c.ClientData)
+	b.ObjEnd()
 	return nil
 }
 

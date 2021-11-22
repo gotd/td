@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AddSavedAnimationRequest represents TL type `addSavedAnimation#a44bf860`.
@@ -144,6 +146,24 @@ func (a *AddSavedAnimationRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		a.Animation = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AddSavedAnimationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode addSavedAnimation#a44bf860 as nil")
+	}
+	b.ObjStart()
+	b.PutID("addSavedAnimation")
+	b.FieldStart("animation")
+	if a.Animation == nil {
+		return fmt.Errorf("unable to encode addSavedAnimation#a44bf860: field animation is nil")
+	}
+	if err := a.Animation.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode addSavedAnimation#a44bf860: field animation: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

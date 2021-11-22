@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AcceptTermsOfServiceRequest represents TL type `acceptTermsOfService#7efe03e4`.
@@ -138,6 +140,19 @@ func (a *AcceptTermsOfServiceRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		a.TermsOfServiceID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AcceptTermsOfServiceRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode acceptTermsOfService#7efe03e4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("acceptTermsOfService")
+	b.FieldStart("terms_of_service_id")
+	b.PutString(a.TermsOfServiceID)
+	b.ObjEnd()
 	return nil
 }
 

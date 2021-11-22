@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // NotificationGroup represents TL type `notificationGroup#d02a41ba`.
@@ -226,6 +228,38 @@ func (n *NotificationGroup) DecodeBare(b *bin.Buffer) error {
 			n.Notifications = append(n.Notifications, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NotificationGroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notificationGroup#d02a41ba as nil")
+	}
+	b.ObjStart()
+	b.PutID("notificationGroup")
+	b.FieldStart("id")
+	b.PutInt32(n.ID)
+	b.FieldStart("type")
+	if n.Type == nil {
+		return fmt.Errorf("unable to encode notificationGroup#d02a41ba: field type is nil")
+	}
+	if err := n.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode notificationGroup#d02a41ba: field type: %w", err)
+	}
+	b.FieldStart("chat_id")
+	b.PutLong(n.ChatID)
+	b.FieldStart("total_count")
+	b.PutInt32(n.TotalCount)
+	b.FieldStart("notifications")
+	b.ArrStart()
+	for idx, v := range n.Notifications {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode notificationGroup#d02a41ba: field notifications element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // VoiceChat represents TL type `voiceChat#f0d4c45b`.
@@ -178,6 +180,28 @@ func (v *VoiceChat) DecodeBare(b *bin.Buffer) error {
 		}
 		v.DefaultParticipantID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes v in TDLib API JSON format.
+func (v *VoiceChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if v == nil {
+		return fmt.Errorf("can't encode voiceChat#f0d4c45b as nil")
+	}
+	b.ObjStart()
+	b.PutID("voiceChat")
+	b.FieldStart("group_call_id")
+	b.PutInt32(v.GroupCallID)
+	b.FieldStart("has_participants")
+	b.PutBool(v.HasParticipants)
+	b.FieldStart("default_participant_id")
+	if v.DefaultParticipantID == nil {
+		return fmt.Errorf("unable to encode voiceChat#f0d4c45b: field default_participant_id is nil")
+	}
+	if err := v.DefaultParticipantID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode voiceChat#f0d4c45b: field default_participant_id: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

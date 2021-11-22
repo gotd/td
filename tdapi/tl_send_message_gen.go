@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SendMessageRequest represents TL type `sendMessage#393f599d`.
@@ -233,6 +235,41 @@ func (s *SendMessageRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.InputMessageContent = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SendMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessage#393f599d as nil")
+	}
+	b.ObjStart()
+	b.PutID("sendMessage")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("message_thread_id")
+	b.PutLong(s.MessageThreadID)
+	b.FieldStart("reply_to_message_id")
+	b.PutLong(s.ReplyToMessageID)
+	b.FieldStart("options")
+	if err := s.Options.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sendMessage#393f599d: field options: %w", err)
+	}
+	b.FieldStart("reply_markup")
+	if s.ReplyMarkup == nil {
+		return fmt.Errorf("unable to encode sendMessage#393f599d: field reply_markup is nil")
+	}
+	if err := s.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sendMessage#393f599d: field reply_markup: %w", err)
+	}
+	b.FieldStart("input_message_content")
+	if s.InputMessageContent == nil {
+		return fmt.Errorf("unable to encode sendMessage#393f599d: field input_message_content is nil")
+	}
+	if err := s.InputMessageContent.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sendMessage#393f599d: field input_message_content: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

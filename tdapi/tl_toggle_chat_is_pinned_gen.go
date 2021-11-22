@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ToggleChatIsPinnedRequest represents TL type `toggleChatIsPinned#a776263e`.
@@ -177,6 +179,28 @@ func (t *ToggleChatIsPinnedRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		t.IsPinned = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *ToggleChatIsPinnedRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode toggleChatIsPinned#a776263e as nil")
+	}
+	b.ObjStart()
+	b.PutID("toggleChatIsPinned")
+	b.FieldStart("chat_list")
+	if t.ChatList == nil {
+		return fmt.Errorf("unable to encode toggleChatIsPinned#a776263e: field chat_list is nil")
+	}
+	if err := t.ChatList.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode toggleChatIsPinned#a776263e: field chat_list: %w", err)
+	}
+	b.FieldStart("chat_id")
+	b.PutLong(t.ChatID)
+	b.FieldStart("is_pinned")
+	b.PutBool(t.IsPinned)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TermsOfService represents TL type `termsOfService#2c12b185`.
@@ -172,6 +174,25 @@ func (t *TermsOfService) DecodeBare(b *bin.Buffer) error {
 		}
 		t.ShowPopup = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TermsOfService) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode termsOfService#2c12b185 as nil")
+	}
+	b.ObjStart()
+	b.PutID("termsOfService")
+	b.FieldStart("text")
+	if err := t.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode termsOfService#2c12b185: field text: %w", err)
+	}
+	b.FieldStart("min_user_age")
+	b.PutInt32(t.MinUserAge)
+	b.FieldStart("show_popup")
+	b.PutBool(t.ShowPopup)
+	b.ObjEnd()
 	return nil
 }
 

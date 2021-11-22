@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GroupCall represents TL type `groupCall#e8fe8ddc`.
@@ -447,6 +449,59 @@ func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Duration = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GroupCall) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode groupCall#e8fe8ddc as nil")
+	}
+	b.ObjStart()
+	b.PutID("groupCall")
+	b.FieldStart("id")
+	b.PutInt32(g.ID)
+	b.FieldStart("title")
+	b.PutString(g.Title)
+	b.FieldStart("scheduled_start_date")
+	b.PutInt32(g.ScheduledStartDate)
+	b.FieldStart("enabled_start_notification")
+	b.PutBool(g.EnabledStartNotification)
+	b.FieldStart("is_active")
+	b.PutBool(g.IsActive)
+	b.FieldStart("is_joined")
+	b.PutBool(g.IsJoined)
+	b.FieldStart("need_rejoin")
+	b.PutBool(g.NeedRejoin)
+	b.FieldStart("can_be_managed")
+	b.PutBool(g.CanBeManaged)
+	b.FieldStart("participant_count")
+	b.PutInt32(g.ParticipantCount)
+	b.FieldStart("loaded_all_participants")
+	b.PutBool(g.LoadedAllParticipants)
+	b.FieldStart("recent_speakers")
+	b.ArrStart()
+	for idx, v := range g.RecentSpeakers {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode groupCall#e8fe8ddc: field recent_speakers element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("is_my_video_enabled")
+	b.PutBool(g.IsMyVideoEnabled)
+	b.FieldStart("is_my_video_paused")
+	b.PutBool(g.IsMyVideoPaused)
+	b.FieldStart("can_enable_video")
+	b.PutBool(g.CanEnableVideo)
+	b.FieldStart("mute_new_participants")
+	b.PutBool(g.MuteNewParticipants)
+	b.FieldStart("can_change_mute_new_participants")
+	b.PutBool(g.CanChangeMuteNewParticipants)
+	b.FieldStart("record_duration")
+	b.PutInt32(g.RecordDuration)
+	b.FieldStart("duration")
+	b.PutInt32(g.Duration)
+	b.ObjEnd()
 	return nil
 }
 

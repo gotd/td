@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetUsernameRequest represents TL type `setUsername#1a385c1e`.
@@ -138,6 +140,19 @@ func (s *SetUsernameRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Username = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetUsernameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setUsername#1a385c1e as nil")
+	}
+	b.ObjStart()
+	b.PutID("setUsername")
+	b.FieldStart("username")
+	b.PutString(s.Username)
+	b.ObjEnd()
 	return nil
 }
 

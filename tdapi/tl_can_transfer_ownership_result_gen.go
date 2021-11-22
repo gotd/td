@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CanTransferOwnershipResultOk represents TL type `canTransferOwnershipResultOk#faa48643`.
@@ -128,6 +130,17 @@ func (c *CanTransferOwnershipResultOk) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CanTransferOwnershipResultOk) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode canTransferOwnershipResultOk#faa48643 as nil")
+	}
+	b.ObjStart()
+	b.PutID("canTransferOwnershipResultOk")
+	b.ObjEnd()
+	return nil
+}
+
 // CanTransferOwnershipResultPasswordNeeded represents TL type `canTransferOwnershipResultPasswordNeeded#5c4a4adf`.
 type CanTransferOwnershipResultPasswordNeeded struct {
 }
@@ -226,6 +239,17 @@ func (c *CanTransferOwnershipResultPasswordNeeded) DecodeBare(b *bin.Buffer) err
 	if c == nil {
 		return fmt.Errorf("can't decode canTransferOwnershipResultPasswordNeeded#5c4a4adf to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CanTransferOwnershipResultPasswordNeeded) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode canTransferOwnershipResultPasswordNeeded#5c4a4adf as nil")
+	}
+	b.ObjStart()
+	b.PutID("canTransferOwnershipResultPasswordNeeded")
+	b.ObjEnd()
 	return nil
 }
 
@@ -345,6 +369,19 @@ func (c *CanTransferOwnershipResultPasswordTooFresh) DecodeBare(b *bin.Buffer) e
 		}
 		c.RetryAfter = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CanTransferOwnershipResultPasswordTooFresh) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode canTransferOwnershipResultPasswordTooFresh#305d9b11 as nil")
+	}
+	b.ObjStart()
+	b.PutID("canTransferOwnershipResultPasswordTooFresh")
+	b.FieldStart("retry_after")
+	b.PutInt32(c.RetryAfter)
+	b.ObjEnd()
 	return nil
 }
 
@@ -472,6 +509,19 @@ func (c *CanTransferOwnershipResultSessionTooFresh) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CanTransferOwnershipResultSessionTooFresh) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode canTransferOwnershipResultSessionTooFresh#3ab0c8e1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("canTransferOwnershipResultSessionTooFresh")
+	b.FieldStart("retry_after")
+	b.PutInt32(c.RetryAfter)
+	b.ObjEnd()
+	return nil
+}
+
 // GetRetryAfter returns value of RetryAfter field.
 func (c *CanTransferOwnershipResultSessionTooFresh) GetRetryAfter() (value int32) {
 	return c.RetryAfter
@@ -508,6 +558,7 @@ type CanTransferOwnershipResultClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeCanTransferOwnershipResult implements binary de-serialization for CanTransferOwnershipResultClass.

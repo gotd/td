@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Sessions represents TL type `sessions#1da11c6e`.
@@ -153,6 +155,25 @@ func (s *Sessions) DecodeBare(b *bin.Buffer) error {
 			s.Sessions = append(s.Sessions, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *Sessions) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sessions#1da11c6e as nil")
+	}
+	b.ObjStart()
+	b.PutID("sessions")
+	b.FieldStart("sessions")
+	b.ArrStart()
+	for idx, v := range s.Sessions {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode sessions#1da11c6e: field sessions element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

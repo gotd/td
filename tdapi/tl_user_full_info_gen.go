@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // UserFullInfo represents TL type `userFullInfo#26be6d7c`.
@@ -326,6 +328,47 @@ func (u *UserFullInfo) DecodeBare(b *bin.Buffer) error {
 			u.Commands = append(u.Commands, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserFullInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userFullInfo#26be6d7c as nil")
+	}
+	b.ObjStart()
+	b.PutID("userFullInfo")
+	b.FieldStart("photo")
+	if err := u.Photo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode userFullInfo#26be6d7c: field photo: %w", err)
+	}
+	b.FieldStart("is_blocked")
+	b.PutBool(u.IsBlocked)
+	b.FieldStart("can_be_called")
+	b.PutBool(u.CanBeCalled)
+	b.FieldStart("supports_video_calls")
+	b.PutBool(u.SupportsVideoCalls)
+	b.FieldStart("has_private_calls")
+	b.PutBool(u.HasPrivateCalls)
+	b.FieldStart("need_phone_number_privacy_exception")
+	b.PutBool(u.NeedPhoneNumberPrivacyException)
+	b.FieldStart("bio")
+	b.PutString(u.Bio)
+	b.FieldStart("share_text")
+	b.PutString(u.ShareText)
+	b.FieldStart("description")
+	b.PutString(u.Description)
+	b.FieldStart("group_in_common_count")
+	b.PutInt32(u.GroupInCommonCount)
+	b.FieldStart("commands")
+	b.ArrStart()
+	for idx, v := range u.Commands {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode userFullInfo#26be6d7c: field commands element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

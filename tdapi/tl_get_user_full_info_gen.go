@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetUserFullInfoRequest represents TL type `getUserFullInfo#d8eebac1`.
@@ -138,6 +140,19 @@ func (g *GetUserFullInfoRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.UserID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetUserFullInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getUserFullInfo#d8eebac1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getUserFullInfo")
+	b.FieldStart("user_id")
+	b.PutInt32(g.UserID)
+	b.ObjEnd()
 	return nil
 }
 

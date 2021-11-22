@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SearchChatMessagesRequest represents TL type `searchChatMessages#9aa50c30`.
@@ -273,6 +275,43 @@ func (s *SearchChatMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.MessageThreadID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchChatMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchChatMessages#9aa50c30 as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchChatMessages")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("query")
+	b.PutString(s.Query)
+	b.FieldStart("sender")
+	if s.Sender == nil {
+		return fmt.Errorf("unable to encode searchChatMessages#9aa50c30: field sender is nil")
+	}
+	if err := s.Sender.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode searchChatMessages#9aa50c30: field sender: %w", err)
+	}
+	b.FieldStart("from_message_id")
+	b.PutLong(s.FromMessageID)
+	b.FieldStart("offset")
+	b.PutInt32(s.Offset)
+	b.FieldStart("limit")
+	b.PutInt32(s.Limit)
+	b.FieldStart("filter")
+	if s.Filter == nil {
+		return fmt.Errorf("unable to encode searchChatMessages#9aa50c30: field filter is nil")
+	}
+	if err := s.Filter.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode searchChatMessages#9aa50c30: field filter: %w", err)
+	}
+	b.FieldStart("message_thread_id")
+	b.PutLong(s.MessageThreadID)
+	b.ObjEnd()
 	return nil
 }
 

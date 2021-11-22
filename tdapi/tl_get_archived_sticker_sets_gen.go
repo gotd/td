@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetArchivedStickerSetsRequest represents TL type `getArchivedStickerSets#7706ef86`.
@@ -172,6 +174,25 @@ func (g *GetArchivedStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Limit = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetArchivedStickerSetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getArchivedStickerSets#7706ef86 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getArchivedStickerSets")
+	b.FieldStart("is_masks")
+	b.PutBool(g.IsMasks)
+	b.FieldStart("offset_sticker_set_id")
+	if err := g.OffsetStickerSetID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getArchivedStickerSets#7706ef86: field offset_sticker_set_id: %w", err)
+	}
+	b.FieldStart("limit")
+	b.PutInt32(g.Limit)
+	b.ObjEnd()
 	return nil
 }
 

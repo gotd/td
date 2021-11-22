@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // VideoNote represents TL type `videoNote#fbb96a3a`.
@@ -206,6 +208,33 @@ func (v *VideoNote) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode videoNote#fbb96a3a: field video: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes v in TDLib API JSON format.
+func (v *VideoNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if v == nil {
+		return fmt.Errorf("can't encode videoNote#fbb96a3a as nil")
+	}
+	b.ObjStart()
+	b.PutID("videoNote")
+	b.FieldStart("duration")
+	b.PutInt32(v.Duration)
+	b.FieldStart("length")
+	b.PutInt32(v.Length)
+	b.FieldStart("minithumbnail")
+	if err := v.Minithumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode videoNote#fbb96a3a: field minithumbnail: %w", err)
+	}
+	b.FieldStart("thumbnail")
+	if err := v.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode videoNote#fbb96a3a: field thumbnail: %w", err)
+	}
+	b.FieldStart("video")
+	if err := v.Video.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode videoNote#fbb96a3a: field video: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

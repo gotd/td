@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // IdentityDocument represents TL type `identityDocument#986321a6`.
@@ -238,6 +240,43 @@ func (i *IdentityDocument) DecodeBare(b *bin.Buffer) error {
 			i.Translation = append(i.Translation, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *IdentityDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode identityDocument#986321a6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("identityDocument")
+	b.FieldStart("number")
+	b.PutString(i.Number)
+	b.FieldStart("expiry_date")
+	if err := i.ExpiryDate.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode identityDocument#986321a6: field expiry_date: %w", err)
+	}
+	b.FieldStart("front_side")
+	if err := i.FrontSide.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode identityDocument#986321a6: field front_side: %w", err)
+	}
+	b.FieldStart("reverse_side")
+	if err := i.ReverseSide.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode identityDocument#986321a6: field reverse_side: %w", err)
+	}
+	b.FieldStart("selfie")
+	if err := i.Selfie.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode identityDocument#986321a6: field selfie: %w", err)
+	}
+	b.FieldStart("translation")
+	b.ArrStart()
+	for idx, v := range i.Translation {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode identityDocument#986321a6: field translation element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GroupCallParticipant represents TL type `groupCallParticipant#7abca1eb`.
@@ -437,6 +439,62 @@ func (g *GroupCallParticipant) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Order = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GroupCallParticipant) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode groupCallParticipant#7abca1eb as nil")
+	}
+	b.ObjStart()
+	b.PutID("groupCallParticipant")
+	b.FieldStart("participant_id")
+	if g.ParticipantID == nil {
+		return fmt.Errorf("unable to encode groupCallParticipant#7abca1eb: field participant_id is nil")
+	}
+	if err := g.ParticipantID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode groupCallParticipant#7abca1eb: field participant_id: %w", err)
+	}
+	b.FieldStart("audio_source_id")
+	b.PutInt32(g.AudioSourceID)
+	b.FieldStart("screen_sharing_audio_source_id")
+	b.PutInt32(g.ScreenSharingAudioSourceID)
+	b.FieldStart("video_info")
+	if err := g.VideoInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode groupCallParticipant#7abca1eb: field video_info: %w", err)
+	}
+	b.FieldStart("screen_sharing_video_info")
+	if err := g.ScreenSharingVideoInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode groupCallParticipant#7abca1eb: field screen_sharing_video_info: %w", err)
+	}
+	b.FieldStart("bio")
+	b.PutString(g.Bio)
+	b.FieldStart("is_current_user")
+	b.PutBool(g.IsCurrentUser)
+	b.FieldStart("is_speaking")
+	b.PutBool(g.IsSpeaking)
+	b.FieldStart("is_hand_raised")
+	b.PutBool(g.IsHandRaised)
+	b.FieldStart("can_be_muted_for_all_users")
+	b.PutBool(g.CanBeMutedForAllUsers)
+	b.FieldStart("can_be_unmuted_for_all_users")
+	b.PutBool(g.CanBeUnmutedForAllUsers)
+	b.FieldStart("can_be_muted_for_current_user")
+	b.PutBool(g.CanBeMutedForCurrentUser)
+	b.FieldStart("can_be_unmuted_for_current_user")
+	b.PutBool(g.CanBeUnmutedForCurrentUser)
+	b.FieldStart("is_muted_for_all_users")
+	b.PutBool(g.IsMutedForAllUsers)
+	b.FieldStart("is_muted_for_current_user")
+	b.PutBool(g.IsMutedForCurrentUser)
+	b.FieldStart("can_unmute_self")
+	b.PutBool(g.CanUnmuteSelf)
+	b.FieldStart("volume_level")
+	b.PutInt32(g.VolumeLevel)
+	b.FieldStart("order")
+	b.PutString(g.Order)
+	b.ObjEnd()
 	return nil
 }
 

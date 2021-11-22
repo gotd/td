@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SendMessageAlbumRequest represents TL type `sendMessageAlbum#ae6f51e6`.
@@ -224,6 +226,38 @@ func (s *SendMessageAlbumRequest) DecodeBare(b *bin.Buffer) error {
 			s.InputMessageContents = append(s.InputMessageContents, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SendMessageAlbumRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageAlbum#ae6f51e6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("sendMessageAlbum")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("message_thread_id")
+	b.PutLong(s.MessageThreadID)
+	b.FieldStart("reply_to_message_id")
+	b.PutLong(s.ReplyToMessageID)
+	b.FieldStart("options")
+	if err := s.Options.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sendMessageAlbum#ae6f51e6: field options: %w", err)
+	}
+	b.FieldStart("input_message_contents")
+	b.ArrStart()
+	for idx, v := range s.InputMessageContents {
+		if v == nil {
+			return fmt.Errorf("unable to encode sendMessageAlbum#ae6f51e6: field input_message_contents element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode sendMessageAlbum#ae6f51e6: field input_message_contents element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

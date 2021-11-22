@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // BankCardInfo represents TL type `bankCardInfo#2bc7da9f`.
@@ -170,6 +172,27 @@ func (b *BankCardInfo) DecodeBare(buf *bin.Buffer) error {
 			b.Actions = append(b.Actions, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BankCardInfo) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode bankCardInfo#2bc7da9f as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("bankCardInfo")
+	buf.FieldStart("title")
+	buf.PutString(b.Title)
+	buf.FieldStart("actions")
+	buf.ArrStart()
+	for idx, v := range b.Actions {
+		if err := v.EncodeTDLibJSON(buf); err != nil {
+			return fmt.Errorf("unable to encode bankCardInfo#2bc7da9f: field actions element with index %d: %w", idx, err)
+		}
+	}
+	buf.ArrEnd()
+	buf.ObjEnd()
 	return nil
 }
 

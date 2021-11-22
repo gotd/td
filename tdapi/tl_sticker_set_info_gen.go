@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // StickerSetInfo represents TL type `stickerSetInfo#aba733ac`.
@@ -375,6 +377,59 @@ func (s *StickerSetInfo) DecodeBare(b *bin.Buffer) error {
 			s.Covers = append(s.Covers, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *StickerSetInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerSetInfo#aba733ac as nil")
+	}
+	b.ObjStart()
+	b.PutID("stickerSetInfo")
+	b.FieldStart("id")
+	if err := s.ID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode stickerSetInfo#aba733ac: field id: %w", err)
+	}
+	b.FieldStart("title")
+	b.PutString(s.Title)
+	b.FieldStart("name")
+	b.PutString(s.Name)
+	b.FieldStart("thumbnail")
+	if err := s.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode stickerSetInfo#aba733ac: field thumbnail: %w", err)
+	}
+	b.FieldStart("thumbnail_outline")
+	b.ArrStart()
+	for idx, v := range s.ThumbnailOutline {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode stickerSetInfo#aba733ac: field thumbnail_outline element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("is_installed")
+	b.PutBool(s.IsInstalled)
+	b.FieldStart("is_archived")
+	b.PutBool(s.IsArchived)
+	b.FieldStart("is_official")
+	b.PutBool(s.IsOfficial)
+	b.FieldStart("is_animated")
+	b.PutBool(s.IsAnimated)
+	b.FieldStart("is_masks")
+	b.PutBool(s.IsMasks)
+	b.FieldStart("is_viewed")
+	b.PutBool(s.IsViewed)
+	b.FieldStart("size")
+	b.PutInt32(s.Size)
+	b.FieldStart("covers")
+	b.ArrStart()
+	for idx, v := range s.Covers {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode stickerSetInfo#aba733ac: field covers element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

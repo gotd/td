@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // JSONObjectMember represents TL type `jsonObjectMember#9483ae96`.
@@ -160,6 +162,26 @@ func (j *JSONObjectMember) DecodeBare(b *bin.Buffer) error {
 		}
 		j.Value = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes j in TDLib API JSON format.
+func (j *JSONObjectMember) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonObjectMember#9483ae96 as nil")
+	}
+	b.ObjStart()
+	b.PutID("jsonObjectMember")
+	b.FieldStart("key")
+	b.PutString(j.Key)
+	b.FieldStart("value")
+	if j.Value == nil {
+		return fmt.Errorf("unable to encode jsonObjectMember#9483ae96: field value is nil")
+	}
+	if err := j.Value.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode jsonObjectMember#9483ae96: field value: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

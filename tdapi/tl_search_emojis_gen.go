@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SearchEmojisRequest represents TL type `searchEmojis#9fb0feea`.
@@ -186,6 +188,27 @@ func (s *SearchEmojisRequest) DecodeBare(b *bin.Buffer) error {
 			s.InputLanguageCodes = append(s.InputLanguageCodes, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchEmojisRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchEmojis#9fb0feea as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchEmojis")
+	b.FieldStart("text")
+	b.PutString(s.Text)
+	b.FieldStart("exact_match")
+	b.PutBool(s.ExactMatch)
+	b.FieldStart("input_language_codes")
+	b.ArrStart()
+	for _, v := range s.InputLanguageCodes {
+		b.PutString(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

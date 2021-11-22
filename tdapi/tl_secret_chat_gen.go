@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SecretChat represents TL type `secretChat#7c751eb5`.
@@ -232,6 +234,34 @@ func (s *SecretChat) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Layer = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SecretChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secretChat#7c751eb5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("secretChat")
+	b.FieldStart("id")
+	b.PutInt32(s.ID)
+	b.FieldStart("user_id")
+	b.PutInt32(s.UserID)
+	b.FieldStart("state")
+	if s.State == nil {
+		return fmt.Errorf("unable to encode secretChat#7c751eb5: field state is nil")
+	}
+	if err := s.State.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode secretChat#7c751eb5: field state: %w", err)
+	}
+	b.FieldStart("is_outbound")
+	b.PutBool(s.IsOutbound)
+	b.FieldStart("key_hash")
+	b.PutBytes(s.KeyHash)
+	b.FieldStart("layer")
+	b.PutInt32(s.Layer)
+	b.ObjEnd()
 	return nil
 }
 

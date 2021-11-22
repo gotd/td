@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SearchPublicChatRequest represents TL type `searchPublicChat#3316d9ad`.
@@ -138,6 +140,19 @@ func (s *SearchPublicChatRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Username = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchPublicChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchPublicChat#3316d9ad as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchPublicChat")
+	b.FieldStart("username")
+	b.PutString(s.Username)
+	b.ObjEnd()
 	return nil
 }
 

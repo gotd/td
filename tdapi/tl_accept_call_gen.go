@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AcceptCallRequest represents TL type `acceptCall#d97562d0`.
@@ -155,6 +157,23 @@ func (a *AcceptCallRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode acceptCall#d97562d0: field protocol: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AcceptCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode acceptCall#d97562d0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("acceptCall")
+	b.FieldStart("call_id")
+	b.PutInt32(a.CallID)
+	b.FieldStart("protocol")
+	if err := a.Protocol.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode acceptCall#d97562d0: field protocol: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

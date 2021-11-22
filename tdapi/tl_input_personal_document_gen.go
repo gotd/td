@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // InputPersonalDocument represents TL type `inputPersonalDocument#bb343fae`.
@@ -191,6 +193,39 @@ func (i *InputPersonalDocument) DecodeBare(b *bin.Buffer) error {
 			i.Translation = append(i.Translation, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputPersonalDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPersonalDocument#bb343fae as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputPersonalDocument")
+	b.FieldStart("files")
+	b.ArrStart()
+	for idx, v := range i.Files {
+		if v == nil {
+			return fmt.Errorf("unable to encode inputPersonalDocument#bb343fae: field files element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode inputPersonalDocument#bb343fae: field files element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("translation")
+	b.ArrStart()
+	for idx, v := range i.Translation {
+		if v == nil {
+			return fmt.Errorf("unable to encode inputPersonalDocument#bb343fae: field translation element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode inputPersonalDocument#bb343fae: field translation element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

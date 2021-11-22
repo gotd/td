@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // EditInlineMessageReplyMarkupRequest represents TL type `editInlineMessageReplyMarkup#fbf906de`.
@@ -160,6 +162,26 @@ func (e *EditInlineMessageReplyMarkupRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		e.ReplyMarkup = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes e in TDLib API JSON format.
+func (e *EditInlineMessageReplyMarkupRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode editInlineMessageReplyMarkup#fbf906de as nil")
+	}
+	b.ObjStart()
+	b.PutID("editInlineMessageReplyMarkup")
+	b.FieldStart("inline_message_id")
+	b.PutString(e.InlineMessageID)
+	b.FieldStart("reply_markup")
+	if e.ReplyMarkup == nil {
+		return fmt.Errorf("unable to encode editInlineMessageReplyMarkup#fbf906de: field reply_markup is nil")
+	}
+	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode editInlineMessageReplyMarkup#fbf906de: field reply_markup: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AddLocalMessageRequest represents TL type `addLocalMessage#330b9dda`.
@@ -216,6 +218,37 @@ func (a *AddLocalMessageRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		a.InputMessageContent = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AddLocalMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode addLocalMessage#330b9dda as nil")
+	}
+	b.ObjStart()
+	b.PutID("addLocalMessage")
+	b.FieldStart("chat_id")
+	b.PutLong(a.ChatID)
+	b.FieldStart("sender")
+	if a.Sender == nil {
+		return fmt.Errorf("unable to encode addLocalMessage#330b9dda: field sender is nil")
+	}
+	if err := a.Sender.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode addLocalMessage#330b9dda: field sender: %w", err)
+	}
+	b.FieldStart("reply_to_message_id")
+	b.PutLong(a.ReplyToMessageID)
+	b.FieldStart("disable_notification")
+	b.PutBool(a.DisableNotification)
+	b.FieldStart("input_message_content")
+	if a.InputMessageContent == nil {
+		return fmt.Errorf("unable to encode addLocalMessage#330b9dda: field input_message_content is nil")
+	}
+	if err := a.InputMessageContent.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode addLocalMessage#330b9dda: field input_message_content: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

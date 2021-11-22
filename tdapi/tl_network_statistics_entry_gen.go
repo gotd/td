@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // NetworkStatisticsEntryFile represents TL type `networkStatisticsEntryFile#b3b8f62`.
@@ -205,6 +207,35 @@ func (n *NetworkStatisticsEntryFile) DecodeBare(b *bin.Buffer) error {
 		}
 		n.ReceivedBytes = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NetworkStatisticsEntryFile) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode networkStatisticsEntryFile#b3b8f62 as nil")
+	}
+	b.ObjStart()
+	b.PutID("networkStatisticsEntryFile")
+	b.FieldStart("file_type")
+	if n.FileType == nil {
+		return fmt.Errorf("unable to encode networkStatisticsEntryFile#b3b8f62: field file_type is nil")
+	}
+	if err := n.FileType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode networkStatisticsEntryFile#b3b8f62: field file_type: %w", err)
+	}
+	b.FieldStart("network_type")
+	if n.NetworkType == nil {
+		return fmt.Errorf("unable to encode networkStatisticsEntryFile#b3b8f62: field network_type is nil")
+	}
+	if err := n.NetworkType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode networkStatisticsEntryFile#b3b8f62: field network_type: %w", err)
+	}
+	b.FieldStart("sent_bytes")
+	b.PutLong(n.SentBytes)
+	b.FieldStart("received_bytes")
+	b.PutLong(n.ReceivedBytes)
+	b.ObjEnd()
 	return nil
 }
 
@@ -402,6 +433,30 @@ func (n *NetworkStatisticsEntryCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NetworkStatisticsEntryCall) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode networkStatisticsEntryCall#2bedbbad as nil")
+	}
+	b.ObjStart()
+	b.PutID("networkStatisticsEntryCall")
+	b.FieldStart("network_type")
+	if n.NetworkType == nil {
+		return fmt.Errorf("unable to encode networkStatisticsEntryCall#2bedbbad: field network_type is nil")
+	}
+	if err := n.NetworkType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode networkStatisticsEntryCall#2bedbbad: field network_type: %w", err)
+	}
+	b.FieldStart("sent_bytes")
+	b.PutLong(n.SentBytes)
+	b.FieldStart("received_bytes")
+	b.PutLong(n.ReceivedBytes)
+	b.FieldStart("duration")
+	b.PutDouble(n.Duration)
+	b.ObjEnd()
+	return nil
+}
+
 // GetNetworkType returns value of NetworkType field.
 func (n *NetworkStatisticsEntryCall) GetNetworkType() (value NetworkTypeClass) {
 	return n.NetworkType
@@ -451,6 +506,7 @@ type NetworkStatisticsEntryClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 
 	// Type of the network the data was sent through. Call setNetworkType to maintain the
 	// actual network type

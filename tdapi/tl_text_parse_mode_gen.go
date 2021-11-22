@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TextParseModeMarkdown represents TL type `textParseModeMarkdown#157648bf`.
@@ -147,6 +149,19 @@ func (t *TextParseModeMarkdown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextParseModeMarkdown) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textParseModeMarkdown#157648bf as nil")
+	}
+	b.ObjStart()
+	b.PutID("textParseModeMarkdown")
+	b.FieldStart("version")
+	b.PutInt32(t.Version)
+	b.ObjEnd()
+	return nil
+}
+
 // GetVersion returns value of Version field.
 func (t *TextParseModeMarkdown) GetVersion() (value int32) {
 	return t.Version
@@ -251,6 +266,17 @@ func (t *TextParseModeHTML) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TextParseModeHTML) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textParseModeHTML#62f4c5f3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("textParseModeHTML")
+	b.ObjEnd()
+	return nil
+}
+
 // TextParseModeClass represents TextParseMode generic type.
 //
 // Example:
@@ -280,6 +306,7 @@ type TextParseModeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeTextParseMode implements binary de-serialization for TextParseModeClass.

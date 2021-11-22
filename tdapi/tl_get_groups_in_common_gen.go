@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetGroupsInCommonRequest represents TL type `getGroupsInCommon#fe9d67df`.
@@ -172,6 +174,23 @@ func (g *GetGroupsInCommonRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Limit = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetGroupsInCommonRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getGroupsInCommon#fe9d67df as nil")
+	}
+	b.ObjStart()
+	b.PutID("getGroupsInCommon")
+	b.FieldStart("user_id")
+	b.PutInt32(g.UserID)
+	b.FieldStart("offset_chat_id")
+	b.PutLong(g.OffsetChatID)
+	b.FieldStart("limit")
+	b.PutInt32(g.Limit)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetCommandsRequest represents TL type `getCommands#58ba8ff7`.
@@ -160,6 +162,26 @@ func (g *GetCommandsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.LanguageCode = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetCommandsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getCommands#58ba8ff7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getCommands")
+	b.FieldStart("scope")
+	if g.Scope == nil {
+		return fmt.Errorf("unable to encode getCommands#58ba8ff7: field scope is nil")
+	}
+	if err := g.Scope.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getCommands#58ba8ff7: field scope: %w", err)
+	}
+	b.FieldStart("language_code")
+	b.PutString(g.LanguageCode)
+	b.ObjEnd()
 	return nil
 }
 

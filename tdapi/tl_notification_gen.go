@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Notification represents TL type `notification#2f0343d0`.
@@ -194,6 +196,30 @@ func (n *Notification) DecodeBare(b *bin.Buffer) error {
 		}
 		n.Type = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *Notification) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notification#2f0343d0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("notification")
+	b.FieldStart("id")
+	b.PutInt32(n.ID)
+	b.FieldStart("date")
+	b.PutInt32(n.Date)
+	b.FieldStart("is_silent")
+	b.PutBool(n.IsSilent)
+	b.FieldStart("type")
+	if n.Type == nil {
+		return fmt.Errorf("unable to encode notification#2f0343d0: field type is nil")
+	}
+	if err := n.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode notification#2f0343d0: field type: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

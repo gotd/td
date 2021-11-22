@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SaveApplicationLogEventRequest represents TL type `saveApplicationLogEvent#cfa6c20e`.
@@ -177,6 +179,28 @@ func (s *SaveApplicationLogEventRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Data = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SaveApplicationLogEventRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode saveApplicationLogEvent#cfa6c20e as nil")
+	}
+	b.ObjStart()
+	b.PutID("saveApplicationLogEvent")
+	b.FieldStart("type")
+	b.PutString(s.Type)
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("data")
+	if s.Data == nil {
+		return fmt.Errorf("unable to encode saveApplicationLogEvent#cfa6c20e: field data is nil")
+	}
+	if err := s.Data.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode saveApplicationLogEvent#cfa6c20e: field data: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

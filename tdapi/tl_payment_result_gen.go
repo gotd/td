@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PaymentResult represents TL type `paymentResult#d00fe85d`.
@@ -156,6 +158,21 @@ func (p *PaymentResult) DecodeBare(b *bin.Buffer) error {
 		}
 		p.VerificationURL = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PaymentResult) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode paymentResult#d00fe85d as nil")
+	}
+	b.ObjStart()
+	b.PutID("paymentResult")
+	b.FieldStart("success")
+	b.PutBool(p.Success)
+	b.FieldStart("verification_url")
+	b.PutString(p.VerificationURL)
+	b.ObjEnd()
 	return nil
 }
 

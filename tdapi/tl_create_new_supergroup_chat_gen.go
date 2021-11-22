@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CreateNewSupergroupChatRequest represents TL type `createNewSupergroupChat#ce83a6c1`.
@@ -207,6 +209,29 @@ func (c *CreateNewSupergroupChatRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.ForImport = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CreateNewSupergroupChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode createNewSupergroupChat#ce83a6c1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("createNewSupergroupChat")
+	b.FieldStart("title")
+	b.PutString(c.Title)
+	b.FieldStart("is_channel")
+	b.PutBool(c.IsChannel)
+	b.FieldStart("description")
+	b.PutString(c.Description)
+	b.FieldStart("location")
+	if err := c.Location.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode createNewSupergroupChat#ce83a6c1: field location: %w", err)
+	}
+	b.FieldStart("for_import")
+	b.PutBool(c.ForImport)
+	b.ObjEnd()
 	return nil
 }
 

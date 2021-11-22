@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SendCallDebugInformationRequest represents TL type `sendCallDebugInformation#785b373f`.
@@ -155,6 +157,21 @@ func (s *SendCallDebugInformationRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.DebugInformation = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SendCallDebugInformationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendCallDebugInformation#785b373f as nil")
+	}
+	b.ObjStart()
+	b.PutID("sendCallDebugInformation")
+	b.FieldStart("call_id")
+	b.PutInt32(s.CallID)
+	b.FieldStart("debug_information")
+	b.PutString(s.DebugInformation)
+	b.ObjEnd()
 	return nil
 }
 

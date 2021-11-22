@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PasswordState represents TL type `passwordState#88b1b6fe`.
@@ -225,6 +227,31 @@ func (p *PasswordState) DecodeBare(b *bin.Buffer) error {
 		}
 		p.PendingResetDate = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PasswordState) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passwordState#88b1b6fe as nil")
+	}
+	b.ObjStart()
+	b.PutID("passwordState")
+	b.FieldStart("has_password")
+	b.PutBool(p.HasPassword)
+	b.FieldStart("password_hint")
+	b.PutString(p.PasswordHint)
+	b.FieldStart("has_recovery_email_address")
+	b.PutBool(p.HasRecoveryEmailAddress)
+	b.FieldStart("has_passport_data")
+	b.PutBool(p.HasPassportData)
+	b.FieldStart("recovery_email_address_code_info")
+	if err := p.RecoveryEmailAddressCodeInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode passwordState#88b1b6fe: field recovery_email_address_code_info: %w", err)
+	}
+	b.FieldStart("pending_reset_date")
+	b.PutInt32(p.PendingResetDate)
+	b.ObjEnd()
 	return nil
 }
 

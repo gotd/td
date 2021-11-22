@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatNearby represents TL type `chatNearby#2de4255`.
@@ -155,6 +157,21 @@ func (c *ChatNearby) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Distance = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatNearby) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatNearby#2de4255 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatNearby")
+	b.FieldStart("chat_id")
+	b.PutLong(c.ChatID)
+	b.FieldStart("distance")
+	b.PutInt32(c.Distance)
+	b.ObjEnd()
 	return nil
 }
 

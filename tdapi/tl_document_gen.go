@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Document represents TL type `document#af19afd8`.
@@ -207,6 +209,33 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode document#af19afd8: field document: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *Document) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode document#af19afd8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("document")
+	b.FieldStart("file_name")
+	b.PutString(d.FileName)
+	b.FieldStart("mime_type")
+	b.PutString(d.MimeType)
+	b.FieldStart("minithumbnail")
+	if err := d.Minithumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode document#af19afd8: field minithumbnail: %w", err)
+	}
+	b.FieldStart("thumbnail")
+	if err := d.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode document#af19afd8: field thumbnail: %w", err)
+	}
+	b.FieldStart("document")
+	if err := d.Document.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode document#af19afd8: field document: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

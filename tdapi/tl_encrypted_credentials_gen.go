@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // EncryptedCredentials represents TL type `encryptedCredentials#4f5713ce`.
@@ -172,6 +174,23 @@ func (e *EncryptedCredentials) DecodeBare(b *bin.Buffer) error {
 		}
 		e.Secret = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes e in TDLib API JSON format.
+func (e *EncryptedCredentials) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode encryptedCredentials#4f5713ce as nil")
+	}
+	b.ObjStart()
+	b.PutID("encryptedCredentials")
+	b.FieldStart("data")
+	b.PutBytes(e.Data)
+	b.FieldStart("hash")
+	b.PutBytes(e.Hash)
+	b.FieldStart("secret")
+	b.PutBytes(e.Secret)
+	b.ObjEnd()
 	return nil
 }
 

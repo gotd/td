@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // RequestQrCodeAuthenticationRequest represents TL type `requestQrCodeAuthentication#36e63e7d`.
@@ -151,6 +153,23 @@ func (r *RequestQrCodeAuthenticationRequest) DecodeBare(b *bin.Buffer) error {
 			r.OtherUserIDs = append(r.OtherUserIDs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RequestQrCodeAuthenticationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode requestQrCodeAuthentication#36e63e7d as nil")
+	}
+	b.ObjStart()
+	b.PutID("requestQrCodeAuthentication")
+	b.FieldStart("other_user_ids")
+	b.ArrStart()
+	for _, v := range r.OtherUserIDs {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

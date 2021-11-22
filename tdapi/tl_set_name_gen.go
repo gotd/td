@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetNameRequest represents TL type `setName#66065f10`.
@@ -155,6 +157,21 @@ func (s *SetNameRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.LastName = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetNameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setName#66065f10 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setName")
+	b.FieldStart("first_name")
+	b.PutString(s.FirstName)
+	b.FieldStart("last_name")
+	b.PutString(s.LastName)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatEventLogFilters represents TL type `chatEventLogFilters#35136b9b`.
@@ -325,6 +327,41 @@ func (c *ChatEventLogFilters) DecodeBare(b *bin.Buffer) error {
 		}
 		c.VoiceChatChanges = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEventLogFilters) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventLogFilters#35136b9b as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventLogFilters")
+	b.FieldStart("message_edits")
+	b.PutBool(c.MessageEdits)
+	b.FieldStart("message_deletions")
+	b.PutBool(c.MessageDeletions)
+	b.FieldStart("message_pins")
+	b.PutBool(c.MessagePins)
+	b.FieldStart("member_joins")
+	b.PutBool(c.MemberJoins)
+	b.FieldStart("member_leaves")
+	b.PutBool(c.MemberLeaves)
+	b.FieldStart("member_invites")
+	b.PutBool(c.MemberInvites)
+	b.FieldStart("member_promotions")
+	b.PutBool(c.MemberPromotions)
+	b.FieldStart("member_restrictions")
+	b.PutBool(c.MemberRestrictions)
+	b.FieldStart("info_changes")
+	b.PutBool(c.InfoChanges)
+	b.FieldStart("setting_changes")
+	b.PutBool(c.SettingChanges)
+	b.FieldStart("invite_link_changes")
+	b.PutBool(c.InviteLinkChanges)
+	b.FieldStart("voice_chat_changes")
+	b.PutBool(c.VoiceChatChanges)
+	b.ObjEnd()
 	return nil
 }
 

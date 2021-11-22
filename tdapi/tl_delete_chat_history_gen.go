@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DeleteChatHistoryRequest represents TL type `deleteChatHistory#a841d09f`.
@@ -172,6 +174,23 @@ func (d *DeleteChatHistoryRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		d.Revoke = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeleteChatHistoryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deleteChatHistory#a841d09f as nil")
+	}
+	b.ObjStart()
+	b.PutID("deleteChatHistory")
+	b.FieldStart("chat_id")
+	b.PutLong(d.ChatID)
+	b.FieldStart("remove_from_chat_list")
+	b.PutBool(d.RemoveFromChatList)
+	b.FieldStart("revoke")
+	b.PutBool(d.Revoke)
+	b.ObjEnd()
 	return nil
 }
 

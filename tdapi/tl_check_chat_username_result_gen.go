@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CheckChatUsernameResultOk represents TL type `checkChatUsernameResultOk#a6a7bb5c`.
@@ -125,6 +127,17 @@ func (c *CheckChatUsernameResultOk) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode checkChatUsernameResultOk#a6a7bb5c to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CheckChatUsernameResultOk) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkChatUsernameResultOk#a6a7bb5c as nil")
+	}
+	b.ObjStart()
+	b.PutID("checkChatUsernameResultOk")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (c *CheckChatUsernameResultUsernameInvalid) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CheckChatUsernameResultUsernameInvalid) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkChatUsernameResultUsernameInvalid#da087756 as nil")
+	}
+	b.ObjStart()
+	b.PutID("checkChatUsernameResultUsernameInvalid")
+	b.ObjEnd()
+	return nil
+}
+
 // CheckChatUsernameResultUsernameOccupied represents TL type `checkChatUsernameResultUsernameOccupied#4ebb3729`.
 type CheckChatUsernameResultUsernameOccupied struct {
 }
@@ -323,6 +347,17 @@ func (c *CheckChatUsernameResultUsernameOccupied) DecodeBare(b *bin.Buffer) erro
 	if c == nil {
 		return fmt.Errorf("can't decode checkChatUsernameResultUsernameOccupied#4ebb3729 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CheckChatUsernameResultUsernameOccupied) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkChatUsernameResultUsernameOccupied#4ebb3729 as nil")
+	}
+	b.ObjStart()
+	b.PutID("checkChatUsernameResultUsernameOccupied")
+	b.ObjEnd()
 	return nil
 }
 
@@ -427,6 +462,17 @@ func (c *CheckChatUsernameResultPublicChatsTooMuch) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CheckChatUsernameResultPublicChatsTooMuch) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkChatUsernameResultPublicChatsTooMuch#3327d23d as nil")
+	}
+	b.ObjStart()
+	b.PutID("checkChatUsernameResultPublicChatsTooMuch")
+	b.ObjEnd()
+	return nil
+}
+
 // CheckChatUsernameResultPublicGroupsUnavailable represents TL type `checkChatUsernameResultPublicGroupsUnavailable#fce914d7`.
 type CheckChatUsernameResultPublicGroupsUnavailable struct {
 }
@@ -528,6 +574,17 @@ func (c *CheckChatUsernameResultPublicGroupsUnavailable) DecodeBare(b *bin.Buffe
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CheckChatUsernameResultPublicGroupsUnavailable) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkChatUsernameResultPublicGroupsUnavailable#fce914d7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("checkChatUsernameResultPublicGroupsUnavailable")
+	b.ObjEnd()
+	return nil
+}
+
 // CheckChatUsernameResultClass represents CheckChatUsernameResult generic type.
 //
 // Example:
@@ -560,6 +617,7 @@ type CheckChatUsernameResultClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeCheckChatUsernameResult implements binary de-serialization for CheckChatUsernameResultClass.

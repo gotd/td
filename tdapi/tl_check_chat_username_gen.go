@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CheckChatUsernameRequest represents TL type `checkChatUsername#f8e66210`.
@@ -156,6 +158,21 @@ func (c *CheckChatUsernameRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Username = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CheckChatUsernameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkChatUsername#f8e66210 as nil")
+	}
+	b.ObjStart()
+	b.PutID("checkChatUsername")
+	b.FieldStart("chat_id")
+	b.PutLong(c.ChatID)
+	b.FieldStart("username")
+	b.PutString(c.Username)
+	b.ObjEnd()
 	return nil
 }
 

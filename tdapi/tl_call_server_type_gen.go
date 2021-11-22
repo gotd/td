@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CallServerTypeTelegramReflector represents TL type `callServerTypeTelegramReflector#a6200634`.
@@ -143,6 +145,19 @@ func (c *CallServerTypeTelegramReflector) DecodeBare(b *bin.Buffer) error {
 		}
 		c.PeerTag = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallServerTypeTelegramReflector) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callServerTypeTelegramReflector#a6200634 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callServerTypeTelegramReflector")
+	b.FieldStart("peer_tag")
+	b.PutBytes(c.PeerTag)
+	b.ObjEnd()
 	return nil
 }
 
@@ -319,6 +334,25 @@ func (c *CallServerTypeWebrtc) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallServerTypeWebrtc) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callServerTypeWebrtc#4a8afd65 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callServerTypeWebrtc")
+	b.FieldStart("username")
+	b.PutString(c.Username)
+	b.FieldStart("password")
+	b.PutString(c.Password)
+	b.FieldStart("supports_turn")
+	b.PutBool(c.SupportsTurn)
+	b.FieldStart("supports_stun")
+	b.PutBool(c.SupportsStun)
+	b.ObjEnd()
+	return nil
+}
+
 // GetUsername returns value of Username field.
 func (c *CallServerTypeWebrtc) GetUsername() (value string) {
 	return c.Username
@@ -368,6 +402,7 @@ type CallServerTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeCallServerType implements binary de-serialization for CallServerTypeClass.

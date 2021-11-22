@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatSourceMtprotoProxy represents TL type `chatSourceMtprotoProxy#177d1803`.
@@ -125,6 +127,17 @@ func (c *ChatSourceMtprotoProxy) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatSourceMtprotoProxy#177d1803 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatSourceMtprotoProxy) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatSourceMtprotoProxy#177d1803 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatSourceMtprotoProxy")
+	b.ObjEnd()
 	return nil
 }
 
@@ -262,6 +275,21 @@ func (c *ChatSourcePublicServiceAnnouncement) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatSourcePublicServiceAnnouncement) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatSourcePublicServiceAnnouncement#ec6a6694 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatSourcePublicServiceAnnouncement")
+	b.FieldStart("type")
+	b.PutString(c.Type)
+	b.FieldStart("text")
+	b.PutString(c.Text)
+	b.ObjEnd()
+	return nil
+}
+
 // GetType returns value of Type field.
 func (c *ChatSourcePublicServiceAnnouncement) GetType() (value string) {
 	return c.Type
@@ -301,6 +329,7 @@ type ChatSourceClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeChatSource implements binary de-serialization for ChatSourceClass.

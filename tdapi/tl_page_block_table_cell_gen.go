@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PageBlockTableCell represents TL type `pageBlockTableCell#547fbf66`.
@@ -238,6 +240,44 @@ func (p *PageBlockTableCell) DecodeBare(b *bin.Buffer) error {
 		}
 		p.Valign = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PageBlockTableCell) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockTableCell#547fbf66 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pageBlockTableCell")
+	b.FieldStart("text")
+	if p.Text == nil {
+		return fmt.Errorf("unable to encode pageBlockTableCell#547fbf66: field text is nil")
+	}
+	if err := p.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockTableCell#547fbf66: field text: %w", err)
+	}
+	b.FieldStart("is_header")
+	b.PutBool(p.IsHeader)
+	b.FieldStart("colspan")
+	b.PutInt32(p.Colspan)
+	b.FieldStart("rowspan")
+	b.PutInt32(p.Rowspan)
+	b.FieldStart("align")
+	if p.Align == nil {
+		return fmt.Errorf("unable to encode pageBlockTableCell#547fbf66: field align is nil")
+	}
+	if err := p.Align.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockTableCell#547fbf66: field align: %w", err)
+	}
+	b.FieldStart("valign")
+	if p.Valign == nil {
+		return fmt.Errorf("unable to encode pageBlockTableCell#547fbf66: field valign is nil")
+	}
+	if err := p.Valign.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockTableCell#547fbf66: field valign: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

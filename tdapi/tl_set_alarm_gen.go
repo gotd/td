@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetAlarmRequest represents TL type `setAlarm#cbef7e15`.
@@ -138,6 +140,19 @@ func (s *SetAlarmRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Seconds = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetAlarmRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setAlarm#cbef7e15 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setAlarm")
+	b.FieldStart("seconds")
+	b.PutDouble(s.Seconds)
+	b.ObjEnd()
 	return nil
 }
 

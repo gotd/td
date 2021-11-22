@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Animations represents TL type `animations#2ce4157c`.
@@ -153,6 +155,25 @@ func (a *Animations) DecodeBare(b *bin.Buffer) error {
 			a.Animations = append(a.Animations, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *Animations) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode animations#2ce4157c as nil")
+	}
+	b.ObjStart()
+	b.PutID("animations")
+	b.FieldStart("animations")
+	b.ArrStart()
+	for idx, v := range a.Animations {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode animations#2ce4157c: field animations element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

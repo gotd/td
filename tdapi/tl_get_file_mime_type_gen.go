@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetFileMimeTypeRequest represents TL type `getFileMimeType#84631b89`.
@@ -138,6 +140,19 @@ func (g *GetFileMimeTypeRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.FileName = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetFileMimeTypeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getFileMimeType#84631b89 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getFileMimeType")
+	b.FieldStart("file_name")
+	b.PutString(g.FileName)
+	b.ObjEnd()
 	return nil
 }
 

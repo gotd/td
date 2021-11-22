@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ResetBackgroundsRequest represents TL type `resetBackgrounds#c35cb78`.
@@ -120,6 +122,17 @@ func (r *ResetBackgroundsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't decode resetBackgrounds#c35cb78 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ResetBackgroundsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode resetBackgrounds#c35cb78 as nil")
+	}
+	b.ObjStart()
+	b.PutID("resetBackgrounds")
+	b.ObjEnd()
 	return nil
 }
 

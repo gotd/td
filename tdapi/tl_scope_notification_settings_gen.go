@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ScopeNotificationSettings represents TL type `scopeNotificationSettings#e69a2c3f`.
@@ -209,6 +211,27 @@ func (s *ScopeNotificationSettings) DecodeBare(b *bin.Buffer) error {
 		}
 		s.DisableMentionNotifications = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *ScopeNotificationSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode scopeNotificationSettings#e69a2c3f as nil")
+	}
+	b.ObjStart()
+	b.PutID("scopeNotificationSettings")
+	b.FieldStart("mute_for")
+	b.PutInt32(s.MuteFor)
+	b.FieldStart("sound")
+	b.PutString(s.Sound)
+	b.FieldStart("show_preview")
+	b.PutBool(s.ShowPreview)
+	b.FieldStart("disable_pinned_message_notifications")
+	b.PutBool(s.DisablePinnedMessageNotifications)
+	b.FieldStart("disable_mention_notifications")
+	b.PutBool(s.DisableMentionNotifications)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ResendPhoneNumberConfirmationCodeRequest represents TL type `resendPhoneNumberConfirmationCode#7b537aea`.
@@ -120,6 +122,17 @@ func (r *ResendPhoneNumberConfirmationCodeRequest) DecodeBare(b *bin.Buffer) err
 	if r == nil {
 		return fmt.Errorf("can't decode resendPhoneNumberConfirmationCode#7b537aea to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ResendPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode resendPhoneNumberConfirmationCode#7b537aea as nil")
+	}
+	b.ObjStart()
+	b.PutID("resendPhoneNumberConfirmationCode")
+	b.ObjEnd()
 	return nil
 }
 

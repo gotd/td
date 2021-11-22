@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // FinishFileGenerationRequest represents TL type `finishFileGeneration#c11d0c9d`.
@@ -155,6 +157,25 @@ func (f *FinishFileGenerationRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode finishFileGeneration#c11d0c9d: field error: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FinishFileGenerationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode finishFileGeneration#c11d0c9d as nil")
+	}
+	b.ObjStart()
+	b.PutID("finishFileGeneration")
+	b.FieldStart("generation_id")
+	if err := f.GenerationID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode finishFileGeneration#c11d0c9d: field generation_id: %w", err)
+	}
+	b.FieldStart("error")
+	if err := f.Error.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode finishFileGeneration#c11d0c9d: field error: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

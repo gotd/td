@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatInviteLinks represents TL type `chatInviteLinks#9b1eddfa`.
@@ -170,6 +172,27 @@ func (c *ChatInviteLinks) DecodeBare(b *bin.Buffer) error {
 			c.InviteLinks = append(c.InviteLinks, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatInviteLinks) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInviteLinks#9b1eddfa as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatInviteLinks")
+	b.FieldStart("total_count")
+	b.PutInt32(c.TotalCount)
+	b.FieldStart("invite_links")
+	b.ArrStart()
+	for idx, v := range c.InviteLinks {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode chatInviteLinks#9b1eddfa: field invite_links element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PaymentFormTheme represents TL type `paymentFormTheme#97180f8f`.
@@ -223,6 +225,29 @@ func (p *PaymentFormTheme) DecodeBare(b *bin.Buffer) error {
 		}
 		p.ButtonTextColor = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PaymentFormTheme) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode paymentFormTheme#97180f8f as nil")
+	}
+	b.ObjStart()
+	b.PutID("paymentFormTheme")
+	b.FieldStart("background_color")
+	b.PutInt32(p.BackgroundColor)
+	b.FieldStart("text_color")
+	b.PutInt32(p.TextColor)
+	b.FieldStart("hint_color")
+	b.PutInt32(p.HintColor)
+	b.FieldStart("link_color")
+	b.PutInt32(p.LinkColor)
+	b.FieldStart("button_color")
+	b.PutInt32(p.ButtonColor)
+	b.FieldStart("button_text_color")
+	b.PutInt32(p.ButtonTextColor)
+	b.ObjEnd()
 	return nil
 }
 

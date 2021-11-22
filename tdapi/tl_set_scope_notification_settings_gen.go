@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetScopeNotificationSettingsRequest represents TL type `setScopeNotificationSettings#85cfb63a`.
@@ -160,6 +162,28 @@ func (s *SetScopeNotificationSettingsRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode setScopeNotificationSettings#85cfb63a: field notification_settings: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetScopeNotificationSettingsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setScopeNotificationSettings#85cfb63a as nil")
+	}
+	b.ObjStart()
+	b.PutID("setScopeNotificationSettings")
+	b.FieldStart("scope")
+	if s.Scope == nil {
+		return fmt.Errorf("unable to encode setScopeNotificationSettings#85cfb63a: field scope is nil")
+	}
+	if err := s.Scope.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setScopeNotificationSettings#85cfb63a: field scope: %w", err)
+	}
+	b.FieldStart("notification_settings")
+	if err := s.NotificationSettings.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setScopeNotificationSettings#85cfb63a: field notification_settings: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

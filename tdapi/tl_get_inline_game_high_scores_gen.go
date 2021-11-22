@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetInlineGameHighScoresRequest represents TL type `getInlineGameHighScores#92b7d658`.
@@ -155,6 +157,21 @@ func (g *GetInlineGameHighScoresRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.UserID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetInlineGameHighScoresRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getInlineGameHighScores#92b7d658 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getInlineGameHighScores")
+	b.FieldStart("inline_message_id")
+	b.PutString(g.InlineMessageID)
+	b.FieldStart("user_id")
+	b.PutInt32(g.UserID)
+	b.ObjEnd()
 	return nil
 }
 

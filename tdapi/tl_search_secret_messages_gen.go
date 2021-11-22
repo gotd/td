@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SearchSecretMessagesRequest represents TL type `searchSecretMessages#cd2a4c9c`.
@@ -214,6 +216,32 @@ func (s *SearchSecretMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Filter = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchSecretMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchSecretMessages#cd2a4c9c as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchSecretMessages")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("query")
+	b.PutString(s.Query)
+	b.FieldStart("offset")
+	b.PutString(s.Offset)
+	b.FieldStart("limit")
+	b.PutInt32(s.Limit)
+	b.FieldStart("filter")
+	if s.Filter == nil {
+		return fmt.Errorf("unable to encode searchSecretMessages#cd2a4c9c: field filter is nil")
+	}
+	if err := s.Filter.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode searchSecretMessages#cd2a4c9c: field filter: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

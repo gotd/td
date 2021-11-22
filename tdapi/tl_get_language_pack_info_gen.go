@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetLanguagePackInfoRequest represents TL type `getLanguagePackInfo#7bd8daa8`.
@@ -138,6 +140,19 @@ func (g *GetLanguagePackInfoRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.LanguagePackID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetLanguagePackInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getLanguagePackInfo#7bd8daa8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getLanguagePackInfo")
+	b.FieldStart("language_pack_id")
+	b.PutString(g.LanguagePackID)
+	b.ObjEnd()
 	return nil
 }
 

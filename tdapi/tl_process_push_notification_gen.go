@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ProcessPushNotificationRequest represents TL type `processPushNotification#2ee3c890`.
@@ -139,6 +141,19 @@ func (p *ProcessPushNotificationRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		p.Payload = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *ProcessPushNotificationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode processPushNotification#2ee3c890 as nil")
+	}
+	b.ObjStart()
+	b.PutID("processPushNotification")
+	b.FieldStart("payload")
+	b.PutString(p.Payload)
+	b.ObjEnd()
 	return nil
 }
 

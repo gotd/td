@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageSchedulingStateSendAtDate represents TL type `messageSchedulingStateSendAtDate#a773ffe7`.
@@ -146,6 +148,19 @@ func (m *MessageSchedulingStateSendAtDate) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageSchedulingStateSendAtDate) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSchedulingStateSendAtDate#a773ffe7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageSchedulingStateSendAtDate")
+	b.FieldStart("send_date")
+	b.PutInt32(m.SendDate)
+	b.ObjEnd()
+	return nil
+}
+
 // GetSendDate returns value of SendDate field.
 func (m *MessageSchedulingStateSendAtDate) GetSendDate() (value int32) {
 	return m.SendDate
@@ -250,6 +265,17 @@ func (m *MessageSchedulingStateSendWhenOnline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageSchedulingStateSendWhenOnline) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSchedulingStateSendWhenOnline#7cbfd808 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageSchedulingStateSendWhenOnline")
+	b.ObjEnd()
+	return nil
+}
+
 // MessageSchedulingStateClass represents MessageSchedulingState generic type.
 //
 // Example:
@@ -279,6 +305,7 @@ type MessageSchedulingStateClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeMessageSchedulingState implements binary de-serialization for MessageSchedulingStateClass.

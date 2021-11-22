@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetLocalizationTargetInfoRequest represents TL type `getLocalizationTargetInfo#6e3d1f86`.
@@ -138,6 +140,19 @@ func (g *GetLocalizationTargetInfoRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.OnlyLocal = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetLocalizationTargetInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getLocalizationTargetInfo#6e3d1f86 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getLocalizationTargetInfo")
+	b.FieldStart("only_local")
+	b.PutBool(g.OnlyLocal)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DatabaseStatistics represents TL type `databaseStatistics#bd027350`.
@@ -138,6 +140,19 @@ func (d *DatabaseStatistics) DecodeBare(b *bin.Buffer) error {
 		}
 		d.Statistics = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DatabaseStatistics) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode databaseStatistics#bd027350 as nil")
+	}
+	b.ObjStart()
+	b.PutID("databaseStatistics")
+	b.FieldStart("statistics")
+	b.PutString(d.Statistics)
+	b.ObjEnd()
 	return nil
 }
 

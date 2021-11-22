@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DeleteSavedOrderInfoRequest represents TL type `deleteSavedOrderInfo#61197474`.
@@ -120,6 +122,17 @@ func (d *DeleteSavedOrderInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deleteSavedOrderInfo#61197474 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeleteSavedOrderInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deleteSavedOrderInfo#61197474 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deleteSavedOrderInfo")
+	b.ObjEnd()
 	return nil
 }
 

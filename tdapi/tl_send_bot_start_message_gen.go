@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SendBotStartMessageRequest represents TL type `sendBotStartMessage#424a8a5b`.
@@ -173,6 +175,23 @@ func (s *SendBotStartMessageRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Parameter = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SendBotStartMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendBotStartMessage#424a8a5b as nil")
+	}
+	b.ObjStart()
+	b.PutID("sendBotStartMessage")
+	b.FieldStart("bot_user_id")
+	b.PutInt32(s.BotUserID)
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("parameter")
+	b.PutString(s.Parameter)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // RemoveChatActionBarRequest represents TL type `removeChatActionBar#9d9839fa`.
@@ -138,6 +140,19 @@ func (r *RemoveChatActionBarRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		r.ChatID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RemoveChatActionBarRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode removeChatActionBar#9d9839fa as nil")
+	}
+	b.ObjStart()
+	b.PutID("removeChatActionBar")
+	b.FieldStart("chat_id")
+	b.PutLong(r.ChatID)
+	b.ObjEnd()
 	return nil
 }
 

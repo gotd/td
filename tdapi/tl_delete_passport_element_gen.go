@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DeletePassportElementRequest represents TL type `deletePassportElement#9981aa74`.
@@ -143,6 +145,24 @@ func (d *DeletePassportElementRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		d.Type = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeletePassportElementRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deletePassportElement#9981aa74 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deletePassportElement")
+	b.FieldStart("type")
+	if d.Type == nil {
+		return fmt.Errorf("unable to encode deletePassportElement#9981aa74: field type is nil")
+	}
+	if err := d.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode deletePassportElement#9981aa74: field type: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

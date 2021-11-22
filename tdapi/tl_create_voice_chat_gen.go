@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CreateVoiceChatRequest represents TL type `createVoiceChat#49dff969`.
@@ -174,6 +176,23 @@ func (c *CreateVoiceChatRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.StartDate = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CreateVoiceChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode createVoiceChat#49dff969 as nil")
+	}
+	b.ObjStart()
+	b.PutID("createVoiceChat")
+	b.FieldStart("chat_id")
+	b.PutLong(c.ChatID)
+	b.FieldStart("title")
+	b.PutString(c.Title)
+	b.FieldStart("start_date")
+	b.PutInt32(c.StartDate)
+	b.ObjEnd()
 	return nil
 }
 

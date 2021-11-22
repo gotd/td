@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PinChatMessageRequest represents TL type `pinChatMessage#79475baf`.
@@ -190,6 +192,25 @@ func (p *PinChatMessageRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		p.OnlyForSelf = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PinChatMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pinChatMessage#79475baf as nil")
+	}
+	b.ObjStart()
+	b.PutID("pinChatMessage")
+	b.FieldStart("chat_id")
+	b.PutLong(p.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(p.MessageID)
+	b.FieldStart("disable_notification")
+	b.PutBool(p.DisableNotification)
+	b.FieldStart("only_for_self")
+	b.PutBool(p.OnlyForSelf)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DeleteSavedCredentialsRequest represents TL type `deleteSavedCredentials#314056d2`.
@@ -120,6 +122,17 @@ func (d *DeleteSavedCredentialsRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deleteSavedCredentials#314056d2 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeleteSavedCredentialsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deleteSavedCredentials#314056d2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deleteSavedCredentials")
+	b.ObjEnd()
 	return nil
 }
 

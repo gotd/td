@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Invoice represents TL type `invoice#eed5ccb4`.
@@ -353,6 +355,51 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 		}
 		i.IsFlexible = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *Invoice) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode invoice#eed5ccb4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("invoice")
+	b.FieldStart("currency")
+	b.PutString(i.Currency)
+	b.FieldStart("price_parts")
+	b.ArrStart()
+	for idx, v := range i.PriceParts {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode invoice#eed5ccb4: field price_parts element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("max_tip_amount")
+	b.PutLong(i.MaxTipAmount)
+	b.FieldStart("suggested_tip_amounts")
+	b.ArrStart()
+	for _, v := range i.SuggestedTipAmounts {
+		b.PutLong(v)
+	}
+	b.ArrEnd()
+	b.FieldStart("is_test")
+	b.PutBool(i.IsTest)
+	b.FieldStart("need_name")
+	b.PutBool(i.NeedName)
+	b.FieldStart("need_phone_number")
+	b.PutBool(i.NeedPhoneNumber)
+	b.FieldStart("need_email_address")
+	b.PutBool(i.NeedEmailAddress)
+	b.FieldStart("need_shipping_address")
+	b.PutBool(i.NeedShippingAddress)
+	b.FieldStart("send_phone_number_to_provider")
+	b.PutBool(i.SendPhoneNumberToProvider)
+	b.FieldStart("send_email_address_to_provider")
+	b.PutBool(i.SendEmailAddressToProvider)
+	b.FieldStart("is_flexible")
+	b.PutBool(i.IsFlexible)
+	b.ObjEnd()
 	return nil
 }
 

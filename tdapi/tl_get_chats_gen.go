@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetChatsRequest represents TL type `getChats#6e18f5c1`.
@@ -196,6 +198,32 @@ func (g *GetChatsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Limit = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getChats#6e18f5c1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getChats")
+	b.FieldStart("chat_list")
+	if g.ChatList == nil {
+		return fmt.Errorf("unable to encode getChats#6e18f5c1: field chat_list is nil")
+	}
+	if err := g.ChatList.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getChats#6e18f5c1: field chat_list: %w", err)
+	}
+	b.FieldStart("offset_order")
+	if err := g.OffsetOrder.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getChats#6e18f5c1: field offset_order: %w", err)
+	}
+	b.FieldStart("offset_chat_id")
+	b.PutLong(g.OffsetChatID)
+	b.FieldStart("limit")
+	b.PutInt32(g.Limit)
+	b.ObjEnd()
 	return nil
 }
 

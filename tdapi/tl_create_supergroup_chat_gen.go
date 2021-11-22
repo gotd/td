@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CreateSupergroupChatRequest represents TL type `createSupergroupChat#15066d66`.
@@ -156,6 +158,21 @@ func (c *CreateSupergroupChatRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Force = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CreateSupergroupChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode createSupergroupChat#15066d66 as nil")
+	}
+	b.ObjStart()
+	b.PutID("createSupergroupChat")
+	b.FieldStart("supergroup_id")
+	b.PutInt32(c.SupergroupID)
+	b.FieldStart("force")
+	b.PutBool(c.Force)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TransferChatOwnershipRequest represents TL type `transferChatOwnership#8d421ca9`.
@@ -173,6 +175,23 @@ func (t *TransferChatOwnershipRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		t.Password = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TransferChatOwnershipRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode transferChatOwnership#8d421ca9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("transferChatOwnership")
+	b.FieldStart("chat_id")
+	b.PutLong(t.ChatID)
+	b.FieldStart("user_id")
+	b.PutInt32(t.UserID)
+	b.FieldStart("password")
+	b.PutString(t.Password)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetDeepLinkInfoRequest represents TL type `getDeepLinkInfo#28923f7e`.
@@ -138,6 +140,19 @@ func (g *GetDeepLinkInfoRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Link = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetDeepLinkInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getDeepLinkInfo#28923f7e as nil")
+	}
+	b.ObjStart()
+	b.PutID("getDeepLinkInfo")
+	b.FieldStart("link")
+	b.PutString(g.Link)
+	b.ObjEnd()
 	return nil
 }
 

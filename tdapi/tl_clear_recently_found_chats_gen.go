@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ClearRecentlyFoundChatsRequest represents TL type `clearRecentlyFoundChats#eefa5b32`.
@@ -120,6 +122,17 @@ func (c *ClearRecentlyFoundChatsRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode clearRecentlyFoundChats#eefa5b32 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ClearRecentlyFoundChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode clearRecentlyFoundChats#eefa5b32 as nil")
+	}
+	b.ObjStart()
+	b.PutID("clearRecentlyFoundChats")
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AddNetworkStatisticsRequest represents TL type `addNetworkStatistics#4b63b3d9`.
@@ -143,6 +145,24 @@ func (a *AddNetworkStatisticsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		a.Entry = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AddNetworkStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode addNetworkStatistics#4b63b3d9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("addNetworkStatistics")
+	b.FieldStart("entry")
+	if a.Entry == nil {
+		return fmt.Errorf("unable to encode addNetworkStatistics#4b63b3d9: field entry is nil")
+	}
+	if err := a.Entry.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode addNetworkStatistics#4b63b3d9: field entry: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

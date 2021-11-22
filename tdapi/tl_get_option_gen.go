@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetOptionRequest represents TL type `getOption#a2459e7e`.
@@ -138,6 +140,19 @@ func (g *GetOptionRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Name = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetOptionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getOption#a2459e7e as nil")
+	}
+	b.ObjStart()
+	b.PutID("getOption")
+	b.FieldStart("name")
+	b.PutString(g.Name)
+	b.ObjEnd()
 	return nil
 }
 

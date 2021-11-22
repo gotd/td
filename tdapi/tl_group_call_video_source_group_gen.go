@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GroupCallVideoSourceGroup represents TL type `groupCallVideoSourceGroup#4ef8a4af`.
@@ -168,6 +170,25 @@ func (g *GroupCallVideoSourceGroup) DecodeBare(b *bin.Buffer) error {
 			g.SourceIDs = append(g.SourceIDs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GroupCallVideoSourceGroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode groupCallVideoSourceGroup#4ef8a4af as nil")
+	}
+	b.ObjStart()
+	b.PutID("groupCallVideoSourceGroup")
+	b.FieldStart("semantics")
+	b.PutString(g.Semantics)
+	b.FieldStart("source_ids")
+	b.ArrStart()
+	for _, v := range g.SourceIDs {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

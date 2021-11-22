@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // EditMessageSchedulingStateRequest represents TL type `editMessageSchedulingState#ae2a0bc0`.
@@ -177,6 +179,28 @@ func (e *EditMessageSchedulingStateRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		e.SchedulingState = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes e in TDLib API JSON format.
+func (e *EditMessageSchedulingStateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode editMessageSchedulingState#ae2a0bc0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("editMessageSchedulingState")
+	b.FieldStart("chat_id")
+	b.PutLong(e.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(e.MessageID)
+	b.FieldStart("scheduling_state")
+	if e.SchedulingState == nil {
+		return fmt.Errorf("unable to encode editMessageSchedulingState#ae2a0bc0: field scheduling_state is nil")
+	}
+	if err := e.SchedulingState.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode editMessageSchedulingState#ae2a0bc0: field scheduling_state: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

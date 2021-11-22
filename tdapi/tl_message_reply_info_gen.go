@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageReplyInfo represents TL type `messageReplyInfo#d1b3673b`.
@@ -224,6 +226,36 @@ func (m *MessageReplyInfo) DecodeBare(b *bin.Buffer) error {
 		}
 		m.LastMessageID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageReplyInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageReplyInfo#d1b3673b as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageReplyInfo")
+	b.FieldStart("reply_count")
+	b.PutInt32(m.ReplyCount)
+	b.FieldStart("recent_repliers")
+	b.ArrStart()
+	for idx, v := range m.RecentRepliers {
+		if v == nil {
+			return fmt.Errorf("unable to encode messageReplyInfo#d1b3673b: field recent_repliers element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode messageReplyInfo#d1b3673b: field recent_repliers element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("last_read_inbox_message_id")
+	b.PutLong(m.LastReadInboxMessageID)
+	b.FieldStart("last_read_outbox_message_id")
+	b.PutLong(m.LastReadOutboxMessageID)
+	b.FieldStart("last_message_id")
+	b.PutLong(m.LastMessageID)
+	b.ObjEnd()
 	return nil
 }
 

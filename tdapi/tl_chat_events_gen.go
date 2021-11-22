@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatEvents represents TL type `chatEvents#d73ecdc4`.
@@ -153,6 +155,25 @@ func (c *ChatEvents) DecodeBare(b *bin.Buffer) error {
 			c.Events = append(c.Events, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatEvents) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEvents#d73ecdc4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEvents")
+	b.FieldStart("events")
+	b.ArrStart()
+	for idx, v := range c.Events {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode chatEvents#d73ecdc4: field events element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

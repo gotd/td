@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // LogStreamDefault represents TL type `logStreamDefault#52e296bc`.
@@ -125,6 +127,17 @@ func (l *LogStreamDefault) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
 		return fmt.Errorf("can't decode logStreamDefault#52e296bc to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LogStreamDefault) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode logStreamDefault#52e296bc as nil")
+	}
+	b.ObjStart()
+	b.PutID("logStreamDefault")
+	b.ObjEnd()
 	return nil
 }
 
@@ -280,6 +293,23 @@ func (l *LogStreamFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LogStreamFile) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode logStreamFile#5b528de5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("logStreamFile")
+	b.FieldStart("path")
+	b.PutString(l.Path)
+	b.FieldStart("max_file_size")
+	b.PutLong(l.MaxFileSize)
+	b.FieldStart("redirect_stderr")
+	b.PutBool(l.RedirectStderr)
+	b.ObjEnd()
+	return nil
+}
+
 // GetPath returns value of Path field.
 func (l *LogStreamFile) GetPath() (value string) {
 	return l.Path
@@ -394,6 +424,17 @@ func (l *LogStreamEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LogStreamEmpty) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode logStreamEmpty#e233f1cc as nil")
+	}
+	b.ObjStart()
+	b.PutID("logStreamEmpty")
+	b.ObjEnd()
+	return nil
+}
+
 // LogStreamClass represents LogStream generic type.
 //
 // Example:
@@ -424,6 +465,7 @@ type LogStreamClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeLogStream implements binary de-serialization for LogStreamClass.

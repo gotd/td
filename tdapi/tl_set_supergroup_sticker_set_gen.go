@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetSupergroupStickerSetRequest represents TL type `setSupergroupStickerSet#ee5eb866`.
@@ -156,6 +158,23 @@ func (s *SetSupergroupStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode setSupergroupStickerSet#ee5eb866: field sticker_set_id: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetSupergroupStickerSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setSupergroupStickerSet#ee5eb866 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setSupergroupStickerSet")
+	b.FieldStart("supergroup_id")
+	b.PutInt32(s.SupergroupID)
+	b.FieldStart("sticker_set_id")
+	if err := s.StickerSetID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setSupergroupStickerSet#ee5eb866: field sticker_set_id: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

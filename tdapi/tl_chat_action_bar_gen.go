@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatActionBarReportSpam represents TL type `chatActionBarReportSpam#b1c0e61a`.
@@ -148,6 +150,19 @@ func (c *ChatActionBarReportSpam) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionBarReportSpam) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionBarReportSpam#b1c0e61a as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionBarReportSpam")
+	b.FieldStart("can_unarchive")
+	b.PutBool(c.CanUnarchive)
+	b.ObjEnd()
+	return nil
+}
+
 // GetCanUnarchive returns value of CanUnarchive field.
 func (c *ChatActionBarReportSpam) GetCanUnarchive() (value bool) {
 	return c.CanUnarchive
@@ -252,6 +267,17 @@ func (c *ChatActionBarReportUnrelatedLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionBarReportUnrelatedLocation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionBarReportUnrelatedLocation#2d30d701 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionBarReportUnrelatedLocation")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatActionBarInviteMembers represents TL type `chatActionBarInviteMembers#76557c70`.
 type ChatActionBarInviteMembers struct {
 }
@@ -348,6 +374,17 @@ func (c *ChatActionBarInviteMembers) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionBarInviteMembers#76557c70 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionBarInviteMembers) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionBarInviteMembers#76557c70 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionBarInviteMembers")
+	b.ObjEnd()
 	return nil
 }
 
@@ -488,6 +525,21 @@ func (c *ChatActionBarReportAddBlock) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionBarReportAddBlock) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionBarReportAddBlock#c9832bed as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionBarReportAddBlock")
+	b.FieldStart("can_unarchive")
+	b.PutBool(c.CanUnarchive)
+	b.FieldStart("distance")
+	b.PutInt32(c.Distance)
+	b.ObjEnd()
+	return nil
+}
+
 // GetCanUnarchive returns value of CanUnarchive field.
 func (c *ChatActionBarReportAddBlock) GetCanUnarchive() (value bool) {
 	return c.CanUnarchive
@@ -597,6 +649,17 @@ func (c *ChatActionBarAddContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionBarAddContact) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionBarAddContact#d44a5811 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionBarAddContact")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatActionBarSharePhoneNumber represents TL type `chatActionBarSharePhoneNumber#218efd9`.
 type ChatActionBarSharePhoneNumber struct {
 }
@@ -696,6 +759,17 @@ func (c *ChatActionBarSharePhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionBarSharePhoneNumber) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionBarSharePhoneNumber#218efd9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionBarSharePhoneNumber")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatActionBarClass represents ChatActionBar generic type.
 //
 // Example:
@@ -729,6 +803,7 @@ type ChatActionBarClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeChatActionBar implements binary de-serialization for ChatActionBarClass.

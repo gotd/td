@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DeleteAllCallMessagesRequest represents TL type `deleteAllCallMessages#a897d1f3`.
@@ -138,6 +140,19 @@ func (d *DeleteAllCallMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		d.Revoke = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeleteAllCallMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deleteAllCallMessages#a897d1f3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deleteAllCallMessages")
+	b.FieldStart("revoke")
+	b.PutBool(d.Revoke)
+	b.ObjEnd()
 	return nil
 }
 

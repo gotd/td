@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // NetworkTypeNone represents TL type `networkTypeNone#8a7a5f11`.
@@ -125,6 +127,17 @@ func (n *NetworkTypeNone) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
 		return fmt.Errorf("can't decode networkTypeNone#8a7a5f11 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NetworkTypeNone) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode networkTypeNone#8a7a5f11 as nil")
+	}
+	b.ObjStart()
+	b.PutID("networkTypeNone")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (n *NetworkTypeMobile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NetworkTypeMobile) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode networkTypeMobile#30d46e4f as nil")
+	}
+	b.ObjStart()
+	b.PutID("networkTypeMobile")
+	b.ObjEnd()
+	return nil
+}
+
 // NetworkTypeMobileRoaming represents TL type `networkTypeMobileRoaming#aa7496f0`.
 type NetworkTypeMobileRoaming struct {
 }
@@ -323,6 +347,17 @@ func (n *NetworkTypeMobileRoaming) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
 		return fmt.Errorf("can't decode networkTypeMobileRoaming#aa7496f0 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NetworkTypeMobileRoaming) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode networkTypeMobileRoaming#aa7496f0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("networkTypeMobileRoaming")
+	b.ObjEnd()
 	return nil
 }
 
@@ -425,6 +460,17 @@ func (n *NetworkTypeWiFi) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NetworkTypeWiFi) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode networkTypeWiFi#da37e13a as nil")
+	}
+	b.ObjStart()
+	b.PutID("networkTypeWiFi")
+	b.ObjEnd()
+	return nil
+}
+
 // NetworkTypeOther represents TL type `networkTypeOther#73c2879b`.
 type NetworkTypeOther struct {
 }
@@ -524,6 +570,17 @@ func (n *NetworkTypeOther) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes n in TDLib API JSON format.
+func (n *NetworkTypeOther) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if n == nil {
+		return fmt.Errorf("can't encode networkTypeOther#73c2879b as nil")
+	}
+	b.ObjStart()
+	b.PutID("networkTypeOther")
+	b.ObjEnd()
+	return nil
+}
+
 // NetworkTypeClass represents NetworkType generic type.
 //
 // Example:
@@ -556,6 +613,7 @@ type NetworkTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeNetworkType implements binary de-serialization for NetworkTypeClass.

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageLinkInfo represents TL type `messageLinkInfo#c57d442a`.
@@ -225,6 +227,31 @@ func (m *MessageLinkInfo) DecodeBare(b *bin.Buffer) error {
 		}
 		m.ForComment = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageLinkInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageLinkInfo#c57d442a as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageLinkInfo")
+	b.FieldStart("is_public")
+	b.PutBool(m.IsPublic)
+	b.FieldStart("chat_id")
+	b.PutLong(m.ChatID)
+	b.FieldStart("message")
+	if err := m.Message.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageLinkInfo#c57d442a: field message: %w", err)
+	}
+	b.FieldStart("media_timestamp")
+	b.PutInt32(m.MediaTimestamp)
+	b.FieldStart("for_album")
+	b.PutBool(m.ForAlbum)
+	b.FieldStart("for_comment")
+	b.PutBool(m.ForComment)
+	b.ObjEnd()
 	return nil
 }
 

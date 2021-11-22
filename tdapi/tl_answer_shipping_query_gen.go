@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AnswerShippingQueryRequest represents TL type `answerShippingQuery#7a3c2432`.
@@ -187,6 +189,31 @@ func (a *AnswerShippingQueryRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		a.ErrorMessage = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AnswerShippingQueryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode answerShippingQuery#7a3c2432 as nil")
+	}
+	b.ObjStart()
+	b.PutID("answerShippingQuery")
+	b.FieldStart("shipping_query_id")
+	if err := a.ShippingQueryID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode answerShippingQuery#7a3c2432: field shipping_query_id: %w", err)
+	}
+	b.FieldStart("shipping_options")
+	b.ArrStart()
+	for idx, v := range a.ShippingOptions {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode answerShippingQuery#7a3c2432: field shipping_options element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("error_message")
+	b.PutString(a.ErrorMessage)
+	b.ObjEnd()
 	return nil
 }
 

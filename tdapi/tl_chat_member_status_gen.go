@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatMemberStatusCreator represents TL type `chatMemberStatusCreator#f6764afe`.
@@ -179,6 +181,23 @@ func (c *ChatMemberStatusCreator) DecodeBare(b *bin.Buffer) error {
 		}
 		c.IsMember = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMemberStatusCreator) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMemberStatusCreator#f6764afe as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMemberStatusCreator")
+	b.FieldStart("custom_title")
+	b.PutString(c.CustomTitle)
+	b.FieldStart("is_anonymous")
+	b.PutBool(c.IsAnonymous)
+	b.FieldStart("is_member")
+	b.PutBool(c.IsMember)
+	b.ObjEnd()
 	return nil
 }
 
@@ -527,6 +546,43 @@ func (c *ChatMemberStatusAdministrator) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMemberStatusAdministrator) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMemberStatusAdministrator#d23a3ed8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMemberStatusAdministrator")
+	b.FieldStart("custom_title")
+	b.PutString(c.CustomTitle)
+	b.FieldStart("can_be_edited")
+	b.PutBool(c.CanBeEdited)
+	b.FieldStart("can_manage_chat")
+	b.PutBool(c.CanManageChat)
+	b.FieldStart("can_change_info")
+	b.PutBool(c.CanChangeInfo)
+	b.FieldStart("can_post_messages")
+	b.PutBool(c.CanPostMessages)
+	b.FieldStart("can_edit_messages")
+	b.PutBool(c.CanEditMessages)
+	b.FieldStart("can_delete_messages")
+	b.PutBool(c.CanDeleteMessages)
+	b.FieldStart("can_invite_users")
+	b.PutBool(c.CanInviteUsers)
+	b.FieldStart("can_restrict_members")
+	b.PutBool(c.CanRestrictMembers)
+	b.FieldStart("can_pin_messages")
+	b.PutBool(c.CanPinMessages)
+	b.FieldStart("can_promote_members")
+	b.PutBool(c.CanPromoteMembers)
+	b.FieldStart("can_manage_voice_chats")
+	b.PutBool(c.CanManageVoiceChats)
+	b.FieldStart("is_anonymous")
+	b.PutBool(c.IsAnonymous)
+	b.ObjEnd()
+	return nil
+}
+
 // GetCustomTitle returns value of CustomTitle field.
 func (c *ChatMemberStatusAdministrator) GetCustomTitle() (value string) {
 	return c.CustomTitle
@@ -691,6 +747,17 @@ func (c *ChatMemberStatusMember) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMemberStatusMember) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMemberStatusMember#32597455 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMemberStatusMember")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatMemberStatusRestricted represents TL type `chatMemberStatusRestricted#630774a6`.
 type ChatMemberStatusRestricted struct {
 	// True, if the user is a member of the chat
@@ -844,6 +911,25 @@ func (c *ChatMemberStatusRestricted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMemberStatusRestricted) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMemberStatusRestricted#630774a6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMemberStatusRestricted")
+	b.FieldStart("is_member")
+	b.PutBool(c.IsMember)
+	b.FieldStart("restricted_until_date")
+	b.PutInt32(c.RestrictedUntilDate)
+	b.FieldStart("permissions")
+	if err := c.Permissions.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatMemberStatusRestricted#630774a6: field permissions: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetIsMember returns value of IsMember field.
 func (c *ChatMemberStatusRestricted) GetIsMember() (value bool) {
 	return c.IsMember
@@ -955,6 +1041,17 @@ func (c *ChatMemberStatusLeft) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatMemberStatusLeft#ffa74425 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMemberStatusLeft) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMemberStatusLeft#ffa74425 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMemberStatusLeft")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1077,6 +1174,19 @@ func (c *ChatMemberStatusBanned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMemberStatusBanned) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMemberStatusBanned#9d714eb6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMemberStatusBanned")
+	b.FieldStart("banned_until_date")
+	b.PutInt32(c.BannedUntilDate)
+	b.ObjEnd()
+	return nil
+}
+
 // GetBannedUntilDate returns value of BannedUntilDate field.
 func (c *ChatMemberStatusBanned) GetBannedUntilDate() (value int32) {
 	return c.BannedUntilDate
@@ -1115,6 +1225,7 @@ type ChatMemberStatusClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeChatMemberStatus implements binary de-serialization for ChatMemberStatusClass.

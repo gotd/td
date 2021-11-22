@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetLogTagVerbosityLevelRequest represents TL type `setLogTagVerbosityLevel#8317d696`.
@@ -155,6 +157,21 @@ func (s *SetLogTagVerbosityLevelRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.NewVerbosityLevel = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetLogTagVerbosityLevelRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setLogTagVerbosityLevel#8317d696 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setLogTagVerbosityLevel")
+	b.FieldStart("tag")
+	b.PutString(s.Tag)
+	b.FieldStart("new_verbosity_level")
+	b.PutInt32(s.NewVerbosityLevel)
+	b.ObjEnd()
 	return nil
 }
 

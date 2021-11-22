@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // FormattedText represents TL type `formattedText#a38d39ee`.
@@ -171,6 +173,27 @@ func (f *FormattedText) DecodeBare(b *bin.Buffer) error {
 			f.Entities = append(f.Entities, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FormattedText) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode formattedText#a38d39ee as nil")
+	}
+	b.ObjStart()
+	b.PutID("formattedText")
+	b.FieldStart("text")
+	b.PutString(f.Text)
+	b.FieldStart("entities")
+	b.ArrStart()
+	for idx, v := range f.Entities {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode formattedText#a38d39ee: field entities element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

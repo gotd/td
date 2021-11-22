@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetInlineQueryResultsRequest represents TL type `getInlineQueryResults#b9844fbc`.
@@ -206,6 +208,29 @@ func (g *GetInlineQueryResultsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Offset = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetInlineQueryResultsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getInlineQueryResults#b9844fbc as nil")
+	}
+	b.ObjStart()
+	b.PutID("getInlineQueryResults")
+	b.FieldStart("bot_user_id")
+	b.PutInt32(g.BotUserID)
+	b.FieldStart("chat_id")
+	b.PutLong(g.ChatID)
+	b.FieldStart("user_location")
+	if err := g.UserLocation.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getInlineQueryResults#b9844fbc: field user_location: %w", err)
+	}
+	b.FieldStart("query")
+	b.PutString(g.Query)
+	b.FieldStart("offset")
+	b.PutString(g.Offset)
+	b.ObjEnd()
 	return nil
 }
 

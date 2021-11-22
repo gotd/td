@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // FilePart represents TL type `filePart#36594c36`.
@@ -138,6 +140,19 @@ func (f *FilePart) DecodeBare(b *bin.Buffer) error {
 		}
 		f.Data = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FilePart) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode filePart#36594c36 as nil")
+	}
+	b.ObjStart()
+	b.PutID("filePart")
+	b.FieldStart("data")
+	b.PutBytes(f.Data)
+	b.ObjEnd()
 	return nil
 }
 

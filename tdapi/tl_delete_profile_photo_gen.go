@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DeleteProfilePhotoRequest represents TL type `deleteProfilePhoto#4eaa77c1`.
@@ -138,6 +140,21 @@ func (d *DeleteProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode deleteProfilePhoto#4eaa77c1: field profile_photo_id: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeleteProfilePhotoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deleteProfilePhoto#4eaa77c1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deleteProfilePhoto")
+	b.FieldStart("profile_photo_id")
+	if err := d.ProfilePhotoID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode deleteProfilePhoto#4eaa77c1: field profile_photo_id: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

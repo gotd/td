@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChangeImportedContactsRequest represents TL type `changeImportedContacts#24885905`.
@@ -153,6 +155,25 @@ func (c *ChangeImportedContactsRequest) DecodeBare(b *bin.Buffer) error {
 			c.Contacts = append(c.Contacts, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChangeImportedContactsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode changeImportedContacts#24885905 as nil")
+	}
+	b.ObjStart()
+	b.PutID("changeImportedContacts")
+	b.FieldStart("contacts")
+	b.ArrStart()
+	for idx, v := range c.Contacts {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode changeImportedContacts#24885905: field contacts element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

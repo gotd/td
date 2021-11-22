@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetJSONStringRequest represents TL type `getJsonString#278b9421`.
@@ -143,6 +145,24 @@ func (g *GetJSONStringRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.JSONValue = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetJSONStringRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getJsonString#278b9421 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getJsonString")
+	b.FieldStart("json_value")
+	if g.JSONValue == nil {
+		return fmt.Errorf("unable to encode getJsonString#278b9421: field json_value is nil")
+	}
+	if err := g.JSONValue.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getJsonString#278b9421: field json_value: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

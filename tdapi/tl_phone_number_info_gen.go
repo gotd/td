@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PhoneNumberInfo represents TL type `phoneNumberInfo#2163aee1`.
@@ -172,6 +174,25 @@ func (p *PhoneNumberInfo) DecodeBare(b *bin.Buffer) error {
 		}
 		p.FormattedPhoneNumber = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PhoneNumberInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode phoneNumberInfo#2163aee1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("phoneNumberInfo")
+	b.FieldStart("country")
+	if err := p.Country.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode phoneNumberInfo#2163aee1: field country: %w", err)
+	}
+	b.FieldStart("country_calling_code")
+	b.PutString(p.CountryCallingCode)
+	b.FieldStart("formatted_phone_number")
+	b.PutString(p.FormattedPhoneNumber)
+	b.ObjEnd()
 	return nil
 }
 

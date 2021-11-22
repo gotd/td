@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetNetworkTypeRequest represents TL type `setNetworkType#d62de55e`.
@@ -143,6 +145,24 @@ func (s *SetNetworkTypeRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Type = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetNetworkTypeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setNetworkType#d62de55e as nil")
+	}
+	b.ObjStart()
+	b.PutID("setNetworkType")
+	b.FieldStart("type")
+	if s.Type == nil {
+		return fmt.Errorf("unable to encode setNetworkType#d62de55e: field type is nil")
+	}
+	if err := s.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setNetworkType#d62de55e: field type: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SupergroupFullInfo represents TL type `supergroupFullInfo#e1d5ed48`.
@@ -502,6 +504,73 @@ func (s *SupergroupFullInfo) DecodeBare(b *bin.Buffer) error {
 		}
 		s.UpgradedFromMaxMessageID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SupergroupFullInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode supergroupFullInfo#e1d5ed48 as nil")
+	}
+	b.ObjStart()
+	b.PutID("supergroupFullInfo")
+	b.FieldStart("photo")
+	if err := s.Photo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode supergroupFullInfo#e1d5ed48: field photo: %w", err)
+	}
+	b.FieldStart("description")
+	b.PutString(s.Description)
+	b.FieldStart("member_count")
+	b.PutInt32(s.MemberCount)
+	b.FieldStart("administrator_count")
+	b.PutInt32(s.AdministratorCount)
+	b.FieldStart("restricted_count")
+	b.PutInt32(s.RestrictedCount)
+	b.FieldStart("banned_count")
+	b.PutInt32(s.BannedCount)
+	b.FieldStart("linked_chat_id")
+	b.PutLong(s.LinkedChatID)
+	b.FieldStart("slow_mode_delay")
+	b.PutInt32(s.SlowModeDelay)
+	b.FieldStart("slow_mode_delay_expires_in")
+	b.PutDouble(s.SlowModeDelayExpiresIn)
+	b.FieldStart("can_get_members")
+	b.PutBool(s.CanGetMembers)
+	b.FieldStart("can_set_username")
+	b.PutBool(s.CanSetUsername)
+	b.FieldStart("can_set_sticker_set")
+	b.PutBool(s.CanSetStickerSet)
+	b.FieldStart("can_set_location")
+	b.PutBool(s.CanSetLocation)
+	b.FieldStart("can_get_statistics")
+	b.PutBool(s.CanGetStatistics)
+	b.FieldStart("is_all_history_available")
+	b.PutBool(s.IsAllHistoryAvailable)
+	b.FieldStart("sticker_set_id")
+	if err := s.StickerSetID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode supergroupFullInfo#e1d5ed48: field sticker_set_id: %w", err)
+	}
+	b.FieldStart("location")
+	if err := s.Location.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode supergroupFullInfo#e1d5ed48: field location: %w", err)
+	}
+	b.FieldStart("invite_link")
+	if err := s.InviteLink.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode supergroupFullInfo#e1d5ed48: field invite_link: %w", err)
+	}
+	b.FieldStart("bot_commands")
+	b.ArrStart()
+	for idx, v := range s.BotCommands {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode supergroupFullInfo#e1d5ed48: field bot_commands element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("upgraded_from_basic_group_id")
+	b.PutInt32(s.UpgradedFromBasicGroupID)
+	b.FieldStart("upgraded_from_max_message_id")
+	b.PutLong(s.UpgradedFromMaxMessageID)
+	b.ObjEnd()
 	return nil
 }
 

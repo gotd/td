@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // FileTypeNone represents TL type `fileTypeNone#77637ea5`.
@@ -125,6 +127,17 @@ func (f *FileTypeNone) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't decode fileTypeNone#77637ea5 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeNone) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeNone#77637ea5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeNone")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (f *FileTypeAnimation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeAnimation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeAnimation#eeaa7dba as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeAnimation")
+	b.ObjEnd()
+	return nil
+}
+
 // FileTypeAudio represents TL type `fileTypeAudio#d5bbcea0`.
 type FileTypeAudio struct {
 }
@@ -323,6 +347,17 @@ func (f *FileTypeAudio) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't decode fileTypeAudio#d5bbcea0 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeAudio) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeAudio#d5bbcea0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeAudio")
+	b.ObjEnd()
 	return nil
 }
 
@@ -425,6 +460,17 @@ func (f *FileTypeDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeDocument#de57030f as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeDocument")
+	b.ObjEnd()
+	return nil
+}
+
 // FileTypePhoto represents TL type `fileTypePhoto#998b71a5`.
 type FileTypePhoto struct {
 }
@@ -521,6 +567,17 @@ func (f *FileTypePhoto) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't decode fileTypePhoto#998b71a5 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypePhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypePhoto#998b71a5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypePhoto")
+	b.ObjEnd()
 	return nil
 }
 
@@ -623,6 +680,17 @@ func (f *FileTypeProfilePhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeProfilePhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeProfilePhoto#6afee3a3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeProfilePhoto")
+	b.ObjEnd()
+	return nil
+}
+
 // FileTypeSecret represents TL type `fileTypeSecret#906d14f7`.
 type FileTypeSecret struct {
 }
@@ -719,6 +787,17 @@ func (f *FileTypeSecret) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't decode fileTypeSecret#906d14f7 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeSecret) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSecret#906d14f7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeSecret")
+	b.ObjEnd()
 	return nil
 }
 
@@ -821,6 +900,17 @@ func (f *FileTypeSecretThumbnail) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeSecretThumbnail) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSecretThumbnail#ac797636 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeSecretThumbnail")
+	b.ObjEnd()
+	return nil
+}
+
 // FileTypeSecure represents TL type `fileTypeSecure#ab69bf26`.
 type FileTypeSecure struct {
 }
@@ -917,6 +1007,17 @@ func (f *FileTypeSecure) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't decode fileTypeSecure#ab69bf26 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeSecure) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSecure#ab69bf26 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeSecure")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1019,6 +1120,17 @@ func (f *FileTypeSticker) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeSticker) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeSticker#1c537c69 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeSticker")
+	b.ObjEnd()
+	return nil
+}
+
 // FileTypeThumbnail represents TL type `fileTypeThumbnail#ff42215e`.
 type FileTypeThumbnail struct {
 }
@@ -1115,6 +1227,17 @@ func (f *FileTypeThumbnail) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't decode fileTypeThumbnail#ff42215e to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeThumbnail) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeThumbnail#ff42215e as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeThumbnail")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1217,6 +1340,17 @@ func (f *FileTypeUnknown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeUnknown) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeUnknown#8819ed50 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeUnknown")
+	b.ObjEnd()
+	return nil
+}
+
 // FileTypeVideo represents TL type `fileTypeVideo#5548871b`.
 type FileTypeVideo struct {
 }
@@ -1313,6 +1447,17 @@ func (f *FileTypeVideo) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't decode fileTypeVideo#5548871b to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeVideo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeVideo#5548871b as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeVideo")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1415,6 +1560,17 @@ func (f *FileTypeVideoNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeVideoNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeVideoNote#e119a79f as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeVideoNote")
+	b.ObjEnd()
+	return nil
+}
+
 // FileTypeVoiceNote represents TL type `fileTypeVoiceNote#dce96e43`.
 type FileTypeVoiceNote struct {
 }
@@ -1511,6 +1667,17 @@ func (f *FileTypeVoiceNote) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't decode fileTypeVoiceNote#dce96e43 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeVoiceNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeVoiceNote#dce96e43 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeVoiceNote")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1613,6 +1780,17 @@ func (f *FileTypeWallpaper) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FileTypeWallpaper) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeWallpaper#6e8ffc9c as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeWallpaper")
+	b.ObjEnd()
+	return nil
+}
+
 // FileTypeClass represents FileType generic type.
 //
 // Example:
@@ -1656,6 +1834,7 @@ type FileTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeFileType implements binary de-serialization for FileTypeClass.

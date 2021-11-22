@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AnswerCallbackQueryRequest represents TL type `answerCallbackQuery#bb462e76`.
@@ -206,6 +208,29 @@ func (a *AnswerCallbackQueryRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		a.CacheTime = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AnswerCallbackQueryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode answerCallbackQuery#bb462e76 as nil")
+	}
+	b.ObjStart()
+	b.PutID("answerCallbackQuery")
+	b.FieldStart("callback_query_id")
+	if err := a.CallbackQueryID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode answerCallbackQuery#bb462e76: field callback_query_id: %w", err)
+	}
+	b.FieldStart("text")
+	b.PutString(a.Text)
+	b.FieldStart("show_alert")
+	b.PutBool(a.ShowAlert)
+	b.FieldStart("url")
+	b.PutString(a.URL)
+	b.FieldStart("cache_time")
+	b.PutInt32(a.CacheTime)
+	b.ObjEnd()
 	return nil
 }
 

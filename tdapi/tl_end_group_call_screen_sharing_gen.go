@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // EndGroupCallScreenSharingRequest represents TL type `endGroupCallScreenSharing#85f41c4c`.
@@ -138,6 +140,19 @@ func (e *EndGroupCallScreenSharingRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		e.GroupCallID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes e in TDLib API JSON format.
+func (e *EndGroupCallScreenSharingRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode endGroupCallScreenSharing#85f41c4c as nil")
+	}
+	b.ObjStart()
+	b.PutID("endGroupCallScreenSharing")
+	b.FieldStart("group_call_id")
+	b.PutInt32(e.GroupCallID)
+	b.ObjEnd()
 	return nil
 }
 

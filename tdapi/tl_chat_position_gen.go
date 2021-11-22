@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatPosition represents TL type `chatPosition#dae48755`.
@@ -200,6 +202,37 @@ func (c *ChatPosition) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Source = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatPosition) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatPosition#dae48755 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatPosition")
+	b.FieldStart("list")
+	if c.List == nil {
+		return fmt.Errorf("unable to encode chatPosition#dae48755: field list is nil")
+	}
+	if err := c.List.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatPosition#dae48755: field list: %w", err)
+	}
+	b.FieldStart("order")
+	if err := c.Order.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatPosition#dae48755: field order: %w", err)
+	}
+	b.FieldStart("is_pinned")
+	b.PutBool(c.IsPinned)
+	b.FieldStart("source")
+	if c.Source == nil {
+		return fmt.Errorf("unable to encode chatPosition#dae48755: field source is nil")
+	}
+	if err := c.Source.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatPosition#dae48755: field source: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

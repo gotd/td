@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetBackgroundsRequest represents TL type `getBackgrounds#ed88bf9`.
@@ -138,6 +140,19 @@ func (g *GetBackgroundsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.ForDarkTheme = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetBackgroundsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getBackgrounds#ed88bf9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getBackgrounds")
+	b.FieldStart("for_dark_theme")
+	b.PutBool(g.ForDarkTheme)
+	b.ObjEnd()
 	return nil
 }
 

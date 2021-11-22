@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DisconnectWebsiteRequest represents TL type `disconnectWebsite#d194f3dd`.
@@ -138,6 +140,21 @@ func (d *DisconnectWebsiteRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode disconnectWebsite#d194f3dd: field website_id: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DisconnectWebsiteRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode disconnectWebsite#d194f3dd as nil")
+	}
+	b.ObjStart()
+	b.PutID("disconnectWebsite")
+	b.FieldStart("website_id")
+	if err := d.WebsiteID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode disconnectWebsite#d194f3dd: field website_id: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // LanguagePackInfo represents TL type `languagePackInfo#20514f5a`.
@@ -345,6 +347,43 @@ func (l *LanguagePackInfo) DecodeBare(b *bin.Buffer) error {
 		}
 		l.TranslationURL = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LanguagePackInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode languagePackInfo#20514f5a as nil")
+	}
+	b.ObjStart()
+	b.PutID("languagePackInfo")
+	b.FieldStart("id")
+	b.PutString(l.ID)
+	b.FieldStart("base_language_pack_id")
+	b.PutString(l.BaseLanguagePackID)
+	b.FieldStart("name")
+	b.PutString(l.Name)
+	b.FieldStart("native_name")
+	b.PutString(l.NativeName)
+	b.FieldStart("plural_code")
+	b.PutString(l.PluralCode)
+	b.FieldStart("is_official")
+	b.PutBool(l.IsOfficial)
+	b.FieldStart("is_rtl")
+	b.PutBool(l.IsRtl)
+	b.FieldStart("is_beta")
+	b.PutBool(l.IsBeta)
+	b.FieldStart("is_installed")
+	b.PutBool(l.IsInstalled)
+	b.FieldStart("total_string_count")
+	b.PutInt32(l.TotalStringCount)
+	b.FieldStart("translated_string_count")
+	b.PutInt32(l.TranslatedStringCount)
+	b.FieldStart("local_string_count")
+	b.PutInt32(l.LocalStringCount)
+	b.FieldStart("translation_url")
+	b.PutString(l.TranslationURL)
+	b.ObjEnd()
 	return nil
 }
 

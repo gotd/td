@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CheckStickerSetNameRequest represents TL type `checkStickerSetName#955808fe`.
@@ -138,6 +140,19 @@ func (c *CheckStickerSetNameRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Name = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CheckStickerSetNameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkStickerSetName#955808fe as nil")
+	}
+	b.ObjStart()
+	b.PutID("checkStickerSetName")
+	b.FieldStart("name")
+	b.PutString(c.Name)
+	b.ObjEnd()
 	return nil
 }
 

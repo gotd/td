@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PassportRequiredElement represents TL type `passportRequiredElement#f2ad05fd`.
@@ -153,6 +155,25 @@ func (p *PassportRequiredElement) DecodeBare(b *bin.Buffer) error {
 			p.SuitableElements = append(p.SuitableElements, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportRequiredElement) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportRequiredElement#f2ad05fd as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportRequiredElement")
+	b.FieldStart("suitable_elements")
+	b.ArrStart()
+	for idx, v := range p.SuitableElements {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode passportRequiredElement#f2ad05fd: field suitable_elements element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

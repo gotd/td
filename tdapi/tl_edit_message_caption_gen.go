@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // EditMessageCaptionRequest represents TL type `editMessageCaption#44d2f92e`.
@@ -194,6 +196,32 @@ func (e *EditMessageCaptionRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: field caption: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes e in TDLib API JSON format.
+func (e *EditMessageCaptionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode editMessageCaption#44d2f92e as nil")
+	}
+	b.ObjStart()
+	b.PutID("editMessageCaption")
+	b.FieldStart("chat_id")
+	b.PutLong(e.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(e.MessageID)
+	b.FieldStart("reply_markup")
+	if e.ReplyMarkup == nil {
+		return fmt.Errorf("unable to encode editMessageCaption#44d2f92e: field reply_markup is nil")
+	}
+	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode editMessageCaption#44d2f92e: field reply_markup: %w", err)
+	}
+	b.FieldStart("caption")
+	if err := e.Caption.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode editMessageCaption#44d2f92e: field caption: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

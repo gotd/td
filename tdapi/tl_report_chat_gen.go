@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ReportChatRequest represents TL type `reportChat#a19024af`.
@@ -207,6 +209,34 @@ func (r *ReportChatRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		r.Text = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ReportChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode reportChat#a19024af as nil")
+	}
+	b.ObjStart()
+	b.PutID("reportChat")
+	b.FieldStart("chat_id")
+	b.PutLong(r.ChatID)
+	b.FieldStart("message_ids")
+	b.ArrStart()
+	for _, v := range r.MessageIDs {
+		b.PutLong(v)
+	}
+	b.ArrEnd()
+	b.FieldStart("reason")
+	if r.Reason == nil {
+		return fmt.Errorf("unable to encode reportChat#a19024af: field reason is nil")
+	}
+	if err := r.Reason.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode reportChat#a19024af: field reason: %w", err)
+	}
+	b.FieldStart("text")
+	b.PutString(r.Text)
+	b.ObjEnd()
 	return nil
 }
 

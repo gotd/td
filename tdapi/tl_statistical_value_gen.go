@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // StatisticalValue represents TL type `statisticalValue#626d6a76`.
@@ -172,6 +174,23 @@ func (s *StatisticalValue) DecodeBare(b *bin.Buffer) error {
 		}
 		s.GrowthRatePercentage = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *StatisticalValue) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statisticalValue#626d6a76 as nil")
+	}
+	b.ObjStart()
+	b.PutID("statisticalValue")
+	b.FieldStart("value")
+	b.PutDouble(s.Value)
+	b.FieldStart("previous_value")
+	b.PutDouble(s.PreviousValue)
+	b.FieldStart("growth_rate_percentage")
+	b.PutDouble(s.GrowthRatePercentage)
+	b.ObjEnd()
 	return nil
 }
 

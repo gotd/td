@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // InlineKeyboardButton represents TL type `inlineKeyboardButton#e9d21e18`.
@@ -160,6 +162,26 @@ func (i *InlineKeyboardButton) DecodeBare(b *bin.Buffer) error {
 		}
 		i.Type = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineKeyboardButton) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButton#e9d21e18 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineKeyboardButton")
+	b.FieldStart("text")
+	b.PutString(i.Text)
+	b.FieldStart("type")
+	if i.Type == nil {
+		return fmt.Errorf("unable to encode inlineKeyboardButton#e9d21e18: field type is nil")
+	}
+	if err := i.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineKeyboardButton#e9d21e18: field type: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

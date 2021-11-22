@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatListMain represents TL type `chatListMain#e8195bac`.
@@ -128,6 +130,17 @@ func (c *ChatListMain) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatListMain) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatListMain#e8195bac as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatListMain")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatListArchive represents TL type `chatListArchive#159f6ec3`.
 type ChatListArchive struct {
 }
@@ -224,6 +237,17 @@ func (c *ChatListArchive) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatListArchive#159f6ec3 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatListArchive) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatListArchive#159f6ec3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatListArchive")
+	b.ObjEnd()
 	return nil
 }
 
@@ -344,6 +368,19 @@ func (c *ChatListFilter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatListFilter) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatListFilter#876fee39 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatListFilter")
+	b.FieldStart("chat_filter_id")
+	b.PutInt32(c.ChatFilterID)
+	b.ObjEnd()
+	return nil
+}
+
 // GetChatFilterID returns value of ChatFilterID field.
 func (c *ChatListFilter) GetChatFilterID() (value int32) {
 	return c.ChatFilterID
@@ -379,6 +416,7 @@ type ChatListClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeChatList implements binary de-serialization for ChatListClass.

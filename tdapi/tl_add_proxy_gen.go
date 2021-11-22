@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AddProxyRequest represents TL type `addProxy#13c2bcd8`.
@@ -194,6 +196,30 @@ func (a *AddProxyRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		a.Type = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AddProxyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode addProxy#13c2bcd8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("addProxy")
+	b.FieldStart("server")
+	b.PutString(a.Server)
+	b.FieldStart("port")
+	b.PutInt32(a.Port)
+	b.FieldStart("enable")
+	b.PutBool(a.Enable)
+	b.FieldStart("type")
+	if a.Type == nil {
+		return fmt.Errorf("unable to encode addProxy#13c2bcd8: field type is nil")
+	}
+	if err := a.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode addProxy#13c2bcd8: field type: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

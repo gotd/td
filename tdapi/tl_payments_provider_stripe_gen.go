@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PaymentsProviderStripe represents TL type `paymentsProviderStripe#41042678`.
@@ -189,6 +191,25 @@ func (p *PaymentsProviderStripe) DecodeBare(b *bin.Buffer) error {
 		}
 		p.NeedCardholderName = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PaymentsProviderStripe) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode paymentsProviderStripe#41042678 as nil")
+	}
+	b.ObjStart()
+	b.PutID("paymentsProviderStripe")
+	b.FieldStart("publishable_key")
+	b.PutString(p.PublishableKey)
+	b.FieldStart("need_country")
+	b.PutBool(p.NeedCountry)
+	b.FieldStart("need_postal_code")
+	b.PutBool(p.NeedPostalCode)
+	b.FieldStart("need_cardholder_name")
+	b.PutBool(p.NeedCardholderName)
+	b.ObjEnd()
 	return nil
 }
 

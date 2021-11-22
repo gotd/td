@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AnimatedChatPhoto represents TL type `animatedChatPhoto#b719c2e`.
@@ -172,6 +174,25 @@ func (a *AnimatedChatPhoto) DecodeBare(b *bin.Buffer) error {
 		}
 		a.MainFrameTimestamp = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AnimatedChatPhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode animatedChatPhoto#b719c2e as nil")
+	}
+	b.ObjStart()
+	b.PutID("animatedChatPhoto")
+	b.FieldStart("length")
+	b.PutInt32(a.Length)
+	b.FieldStart("file")
+	if err := a.File.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode animatedChatPhoto#b719c2e: field file: %w", err)
+	}
+	b.FieldStart("main_frame_timestamp")
+	b.PutDouble(a.MainFrameTimestamp)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // User represents TL type `user#d3da50d6`.
@@ -423,6 +425,63 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 		}
 		u.LanguageCode = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *User) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode user#d3da50d6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("user")
+	b.FieldStart("id")
+	b.PutInt32(u.ID)
+	b.FieldStart("first_name")
+	b.PutString(u.FirstName)
+	b.FieldStart("last_name")
+	b.PutString(u.LastName)
+	b.FieldStart("username")
+	b.PutString(u.Username)
+	b.FieldStart("phone_number")
+	b.PutString(u.PhoneNumber)
+	b.FieldStart("status")
+	if u.Status == nil {
+		return fmt.Errorf("unable to encode user#d3da50d6: field status is nil")
+	}
+	if err := u.Status.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode user#d3da50d6: field status: %w", err)
+	}
+	b.FieldStart("profile_photo")
+	if err := u.ProfilePhoto.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode user#d3da50d6: field profile_photo: %w", err)
+	}
+	b.FieldStart("is_contact")
+	b.PutBool(u.IsContact)
+	b.FieldStart("is_mutual_contact")
+	b.PutBool(u.IsMutualContact)
+	b.FieldStart("is_verified")
+	b.PutBool(u.IsVerified)
+	b.FieldStart("is_support")
+	b.PutBool(u.IsSupport)
+	b.FieldStart("restriction_reason")
+	b.PutString(u.RestrictionReason)
+	b.FieldStart("is_scam")
+	b.PutBool(u.IsScam)
+	b.FieldStart("is_fake")
+	b.PutBool(u.IsFake)
+	b.FieldStart("have_access")
+	b.PutBool(u.HaveAccess)
+	b.FieldStart("type")
+	if u.Type == nil {
+		return fmt.Errorf("unable to encode user#d3da50d6: field type is nil")
+	}
+	if err := u.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode user#d3da50d6: field type: %w", err)
+	}
+	b.FieldStart("language_code")
+	b.PutString(u.LanguageCode)
+	b.ObjEnd()
 	return nil
 }
 

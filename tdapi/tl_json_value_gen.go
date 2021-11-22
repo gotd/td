@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // JSONValueNull represents TL type `jsonValueNull#fa76e0cd`.
@@ -125,6 +127,17 @@ func (j *JSONValueNull) DecodeBare(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't decode jsonValueNull#fa76e0cd to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes j in TDLib API JSON format.
+func (j *JSONValueNull) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonValueNull#fa76e0cd as nil")
+	}
+	b.ObjStart()
+	b.PutID("jsonValueNull")
+	b.ObjEnd()
 	return nil
 }
 
@@ -242,6 +255,19 @@ func (j *JSONValueBoolean) DecodeBare(b *bin.Buffer) error {
 		}
 		j.Value = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes j in TDLib API JSON format.
+func (j *JSONValueBoolean) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonValueBoolean#8050d3b0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("jsonValueBoolean")
+	b.FieldStart("value")
+	b.PutBool(j.Value)
+	b.ObjEnd()
 	return nil
 }
 
@@ -367,6 +393,19 @@ func (j *JSONValueNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes j in TDLib API JSON format.
+func (j *JSONValueNumber) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonValueNumber#c3c0146f as nil")
+	}
+	b.ObjStart()
+	b.PutID("jsonValueNumber")
+	b.FieldStart("value")
+	b.PutDouble(j.Value)
+	b.ObjEnd()
+	return nil
+}
+
 // GetValue returns value of Value field.
 func (j *JSONValueNumber) GetValue() (value float64) {
 	return j.Value
@@ -486,6 +525,19 @@ func (j *JSONValueString) DecodeBare(b *bin.Buffer) error {
 		}
 		j.Value = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes j in TDLib API JSON format.
+func (j *JSONValueString) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonValueString#5f3ebdb1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("jsonValueString")
+	b.FieldStart("value")
+	b.PutString(j.Value)
+	b.ObjEnd()
 	return nil
 }
 
@@ -629,6 +681,28 @@ func (j *JSONValueArray) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes j in TDLib API JSON format.
+func (j *JSONValueArray) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonValueArray#eccdb0d8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("jsonValueArray")
+	b.FieldStart("values")
+	b.ArrStart()
+	for idx, v := range j.Values {
+		if v == nil {
+			return fmt.Errorf("unable to encode jsonValueArray#eccdb0d8: field values element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode jsonValueArray#eccdb0d8: field values element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
+	return nil
+}
+
 // GetValues returns value of Values field.
 func (j *JSONValueArray) GetValues() (value []JSONValueClass) {
 	return j.Values
@@ -766,6 +840,25 @@ func (j *JSONValueObject) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes j in TDLib API JSON format.
+func (j *JSONValueObject) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonValueObject#c67bff40 as nil")
+	}
+	b.ObjStart()
+	b.PutID("jsonValueObject")
+	b.FieldStart("members")
+	b.ArrStart()
+	for idx, v := range j.Members {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode jsonValueObject#c67bff40: field members element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
+	return nil
+}
+
 // GetMembers returns value of Members field.
 func (j *JSONValueObject) GetMembers() (value []JSONObjectMember) {
 	return j.Members
@@ -804,6 +897,7 @@ type JSONValueClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeJSONValue implements binary de-serialization for JSONValueClass.

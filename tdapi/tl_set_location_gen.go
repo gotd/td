@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetLocationRequest represents TL type `setLocation#5993371`.
@@ -138,6 +140,21 @@ func (s *SetLocationRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode setLocation#5993371: field location: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetLocationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setLocation#5993371 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setLocation")
+	b.FieldStart("location")
+	if err := s.Location.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setLocation#5993371: field location: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

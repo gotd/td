@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetChatEventLogRequest represents TL type `getChatEventLog#1e11b897`.
@@ -238,6 +240,37 @@ func (g *GetChatEventLogRequest) DecodeBare(b *bin.Buffer) error {
 			g.UserIDs = append(g.UserIDs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetChatEventLogRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getChatEventLog#1e11b897 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getChatEventLog")
+	b.FieldStart("chat_id")
+	b.PutLong(g.ChatID)
+	b.FieldStart("query")
+	b.PutString(g.Query)
+	b.FieldStart("from_event_id")
+	if err := g.FromEventID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getChatEventLog#1e11b897: field from_event_id: %w", err)
+	}
+	b.FieldStart("limit")
+	b.PutInt32(g.Limit)
+	b.FieldStart("filters")
+	if err := g.Filters.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getChatEventLog#1e11b897: field filters: %w", err)
+	}
+	b.FieldStart("user_ids")
+	b.ArrStart()
+	for _, v := range g.UserIDs {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

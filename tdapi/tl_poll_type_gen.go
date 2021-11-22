@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PollTypeRegular represents TL type `pollTypeRegular#2638f022`.
@@ -143,6 +145,19 @@ func (p *PollTypeRegular) DecodeBare(b *bin.Buffer) error {
 		}
 		p.AllowMultipleAnswers = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PollTypeRegular) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pollTypeRegular#2638f022 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pollTypeRegular")
+	b.FieldStart("allow_multiple_answers")
+	b.PutBool(p.AllowMultipleAnswers)
+	b.ObjEnd()
 	return nil
 }
 
@@ -286,6 +301,23 @@ func (p *PollTypeQuiz) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PollTypeQuiz) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pollTypeQuiz#27293c99 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pollTypeQuiz")
+	b.FieldStart("correct_option_id")
+	b.PutInt32(p.CorrectOptionID)
+	b.FieldStart("explanation")
+	if err := p.Explanation.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode pollTypeQuiz#27293c99: field explanation: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetCorrectOptionID returns value of CorrectOptionID field.
 func (p *PollTypeQuiz) GetCorrectOptionID() (value int32) {
 	return p.CorrectOptionID
@@ -325,6 +357,7 @@ type PollTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodePollType implements binary de-serialization for PollTypeClass.

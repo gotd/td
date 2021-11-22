@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Location represents TL type `location#e5925f73`.
@@ -173,6 +175,23 @@ func (l *Location) DecodeBare(b *bin.Buffer) error {
 		}
 		l.HorizontalAccuracy = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *Location) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode location#e5925f73 as nil")
+	}
+	b.ObjStart()
+	b.PutID("location")
+	b.FieldStart("latitude")
+	b.PutDouble(l.Latitude)
+	b.FieldStart("longitude")
+	b.PutDouble(l.Longitude)
+	b.FieldStart("horizontal_accuracy")
+	b.PutDouble(l.HorizontalAccuracy)
+	b.ObjEnd()
 	return nil
 }
 

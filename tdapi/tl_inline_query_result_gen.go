@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // InlineQueryResultArticle represents TL type `inlineQueryResultArticle#c4c82d9`.
@@ -231,6 +233,31 @@ func (i *InlineQueryResultArticle) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineQueryResultArticle) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryResultArticle#c4c82d9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineQueryResultArticle")
+	b.FieldStart("id")
+	b.PutString(i.ID)
+	b.FieldStart("url")
+	b.PutString(i.URL)
+	b.FieldStart("hide_url")
+	b.PutBool(i.HideURL)
+	b.FieldStart("title")
+	b.PutString(i.Title)
+	b.FieldStart("description")
+	b.PutString(i.Description)
+	b.FieldStart("thumbnail")
+	if err := i.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultArticle#c4c82d9: field thumbnail: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetID returns value of ID field.
 func (i *InlineQueryResultArticle) GetID() (value string) {
 	return i.ID
@@ -409,6 +436,27 @@ func (i *InlineQueryResultContact) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inlineQueryResultContact#f5278212: field thumbnail: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineQueryResultContact) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryResultContact#f5278212 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineQueryResultContact")
+	b.FieldStart("id")
+	b.PutString(i.ID)
+	b.FieldStart("contact")
+	if err := i.Contact.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultContact#f5278212: field contact: %w", err)
+	}
+	b.FieldStart("thumbnail")
+	if err := i.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultContact#f5278212: field thumbnail: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -595,6 +643,29 @@ func (i *InlineQueryResultLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineQueryResultLocation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryResultLocation#1bc6ab10 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineQueryResultLocation")
+	b.FieldStart("id")
+	b.PutString(i.ID)
+	b.FieldStart("location")
+	if err := i.Location.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultLocation#1bc6ab10: field location: %w", err)
+	}
+	b.FieldStart("title")
+	b.PutString(i.Title)
+	b.FieldStart("thumbnail")
+	if err := i.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultLocation#1bc6ab10: field thumbnail: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetID returns value of ID field.
 func (i *InlineQueryResultLocation) GetID() (value string) {
 	return i.ID
@@ -766,6 +837,27 @@ func (i *InlineQueryResultVenue) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineQueryResultVenue) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryResultVenue#4c5b105e as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineQueryResultVenue")
+	b.FieldStart("id")
+	b.PutString(i.ID)
+	b.FieldStart("venue")
+	if err := i.Venue.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultVenue#4c5b105e: field venue: %w", err)
+	}
+	b.FieldStart("thumbnail")
+	if err := i.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultVenue#4c5b105e: field thumbnail: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetID returns value of ID field.
 func (i *InlineQueryResultVenue) GetID() (value string) {
 	return i.ID
@@ -912,6 +1004,23 @@ func (i *InlineQueryResultGame) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inlineQueryResultGame#65bd7c7b: field game: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineQueryResultGame) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryResultGame#65bd7c7b as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineQueryResultGame")
+	b.FieldStart("id")
+	b.PutString(i.ID)
+	b.FieldStart("game")
+	if err := i.Game.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultGame#65bd7c7b: field game: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -1076,6 +1185,25 @@ func (i *InlineQueryResultAnimation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineQueryResultAnimation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryResultAnimation#77cded0b as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineQueryResultAnimation")
+	b.FieldStart("id")
+	b.PutString(i.ID)
+	b.FieldStart("animation")
+	if err := i.Animation.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultAnimation#77cded0b: field animation: %w", err)
+	}
+	b.FieldStart("title")
+	b.PutString(i.Title)
+	b.ObjEnd()
+	return nil
+}
+
 // GetID returns value of ID field.
 func (i *InlineQueryResultAnimation) GetID() (value string) {
 	return i.ID
@@ -1222,6 +1350,23 @@ func (i *InlineQueryResultAudio) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inlineQueryResultAudio#3239d2f8: field audio: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineQueryResultAudio) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryResultAudio#3239d2f8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineQueryResultAudio")
+	b.FieldStart("id")
+	b.PutString(i.ID)
+	b.FieldStart("audio")
+	if err := i.Audio.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultAudio#3239d2f8: field audio: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -1400,6 +1545,27 @@ func (i *InlineQueryResultDocument) DecodeBare(b *bin.Buffer) error {
 		}
 		i.Description = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineQueryResultDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryResultDocument#a71d0c45 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineQueryResultDocument")
+	b.FieldStart("id")
+	b.PutString(i.ID)
+	b.FieldStart("document")
+	if err := i.Document.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultDocument#a71d0c45: field document: %w", err)
+	}
+	b.FieldStart("title")
+	b.PutString(i.Title)
+	b.FieldStart("description")
+	b.PutString(i.Description)
+	b.ObjEnd()
 	return nil
 }
 
@@ -1591,6 +1757,27 @@ func (i *InlineQueryResultPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineQueryResultPhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryResultPhoto#6e2b1dd0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineQueryResultPhoto")
+	b.FieldStart("id")
+	b.PutString(i.ID)
+	b.FieldStart("photo")
+	if err := i.Photo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultPhoto#6e2b1dd0: field photo: %w", err)
+	}
+	b.FieldStart("title")
+	b.PutString(i.Title)
+	b.FieldStart("description")
+	b.PutString(i.Description)
+	b.ObjEnd()
+	return nil
+}
+
 // GetID returns value of ID field.
 func (i *InlineQueryResultPhoto) GetID() (value string) {
 	return i.ID
@@ -1742,6 +1929,23 @@ func (i *InlineQueryResultSticker) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inlineQueryResultSticker#91d6560b: field sticker: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineQueryResultSticker) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryResultSticker#91d6560b as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineQueryResultSticker")
+	b.FieldStart("id")
+	b.PutString(i.ID)
+	b.FieldStart("sticker")
+	if err := i.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultSticker#91d6560b: field sticker: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -1923,6 +2127,27 @@ func (i *InlineQueryResultVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineQueryResultVideo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryResultVideo#ae2742e5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineQueryResultVideo")
+	b.FieldStart("id")
+	b.PutString(i.ID)
+	b.FieldStart("video")
+	if err := i.Video.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultVideo#ae2742e5: field video: %w", err)
+	}
+	b.FieldStart("title")
+	b.PutString(i.Title)
+	b.FieldStart("description")
+	b.PutString(i.Description)
+	b.ObjEnd()
+	return nil
+}
+
 // GetID returns value of ID field.
 func (i *InlineQueryResultVideo) GetID() (value string) {
 	return i.ID
@@ -2094,6 +2319,25 @@ func (i *InlineQueryResultVoiceNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InlineQueryResultVoiceNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryResultVoiceNote#8ee8142f as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineQueryResultVoiceNote")
+	b.FieldStart("id")
+	b.PutString(i.ID)
+	b.FieldStart("voice_note")
+	if err := i.VoiceNote.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineQueryResultVoiceNote#8ee8142f: field voice_note: %w", err)
+	}
+	b.FieldStart("title")
+	b.PutString(i.Title)
+	b.ObjEnd()
+	return nil
+}
+
 // GetID returns value of ID field.
 func (i *InlineQueryResultVoiceNote) GetID() (value string) {
 	return i.ID
@@ -2148,6 +2392,7 @@ type InlineQueryResultClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 
 	// Unique identifier of the query result
 	GetID() (value string)

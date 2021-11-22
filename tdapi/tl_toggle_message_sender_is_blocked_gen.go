@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ToggleMessageSenderIsBlockedRequest represents TL type `toggleMessageSenderIsBlocked#d2b14b9f`.
@@ -160,6 +162,26 @@ func (t *ToggleMessageSenderIsBlockedRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		t.IsBlocked = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *ToggleMessageSenderIsBlockedRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode toggleMessageSenderIsBlocked#d2b14b9f as nil")
+	}
+	b.ObjStart()
+	b.PutID("toggleMessageSenderIsBlocked")
+	b.FieldStart("sender")
+	if t.Sender == nil {
+		return fmt.Errorf("unable to encode toggleMessageSenderIsBlocked#d2b14b9f: field sender is nil")
+	}
+	if err := t.Sender.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode toggleMessageSenderIsBlocked#d2b14b9f: field sender: %w", err)
+	}
+	b.FieldStart("is_blocked")
+	b.PutBool(t.IsBlocked)
+	b.ObjEnd()
 	return nil
 }
 

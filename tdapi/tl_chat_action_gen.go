@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatActionTyping represents TL type `chatActionTyping#16a83437`.
@@ -128,6 +130,17 @@ func (c *ChatActionTyping) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionTyping) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionTyping#16a83437 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionTyping")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatActionRecordingVideo represents TL type `chatActionRecordingVideo#ce85792`.
 type ChatActionRecordingVideo struct {
 }
@@ -224,6 +237,17 @@ func (c *ChatActionRecordingVideo) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionRecordingVideo#ce85792 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionRecordingVideo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionRecordingVideo#ce85792 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionRecordingVideo")
+	b.ObjEnd()
 	return nil
 }
 
@@ -344,6 +368,19 @@ func (c *ChatActionUploadingVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionUploadingVideo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionUploadingVideo#49902c36 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionUploadingVideo")
+	b.FieldStart("progress")
+	b.PutInt32(c.Progress)
+	b.ObjEnd()
+	return nil
+}
+
 // GetProgress returns value of Progress field.
 func (c *ChatActionUploadingVideo) GetProgress() (value int32) {
 	return c.Progress
@@ -445,6 +482,17 @@ func (c *ChatActionRecordingVoiceNote) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionRecordingVoiceNote#cfc9ed76 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionRecordingVoiceNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionRecordingVoiceNote#cfc9ed76 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionRecordingVoiceNote")
+	b.ObjEnd()
 	return nil
 }
 
@@ -562,6 +610,19 @@ func (c *ChatActionUploadingVoiceNote) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Progress = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionUploadingVoiceNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionUploadingVoiceNote#db6c8a6e as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionUploadingVoiceNote")
+	b.FieldStart("progress")
+	b.PutInt32(c.Progress)
+	b.ObjEnd()
 	return nil
 }
 
@@ -687,6 +748,19 @@ func (c *ChatActionUploadingPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionUploadingPhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionUploadingPhoto#26feeb47 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionUploadingPhoto")
+	b.FieldStart("progress")
+	b.PutInt32(c.Progress)
+	b.ObjEnd()
+	return nil
+}
+
 // GetProgress returns value of Progress field.
 func (c *ChatActionUploadingPhoto) GetProgress() (value int32) {
 	return c.Progress
@@ -809,6 +883,19 @@ func (c *ChatActionUploadingDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionUploadingDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionUploadingDocument#a01b64a as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionUploadingDocument")
+	b.FieldStart("progress")
+	b.PutInt32(c.Progress)
+	b.ObjEnd()
+	return nil
+}
+
 // GetProgress returns value of Progress field.
 func (c *ChatActionUploadingDocument) GetProgress() (value int32) {
 	return c.Progress
@@ -913,6 +1000,17 @@ func (c *ChatActionChoosingLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionChoosingLocation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionChoosingLocation#87b96324 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionChoosingLocation")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatActionChoosingContact represents TL type `chatActionChoosingContact#b7220418`.
 type ChatActionChoosingContact struct {
 }
@@ -1009,6 +1107,17 @@ func (c *ChatActionChoosingContact) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionChoosingContact#b7220418 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionChoosingContact) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionChoosingContact#b7220418 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionChoosingContact")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1111,6 +1220,17 @@ func (c *ChatActionStartPlayingGame) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionStartPlayingGame) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionStartPlayingGame#cc63a7fc as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionStartPlayingGame")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatActionRecordingVideoNote represents TL type `chatActionRecordingVideoNote#fc2081`.
 type ChatActionRecordingVideoNote struct {
 }
@@ -1207,6 +1327,17 @@ func (c *ChatActionRecordingVideoNote) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionRecordingVideoNote#fc2081 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionRecordingVideoNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionRecordingVideoNote#fc2081 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionRecordingVideoNote")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1327,6 +1458,19 @@ func (c *ChatActionUploadingVideoNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionUploadingVideoNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionUploadingVideoNote#45e0de76 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionUploadingVideoNote")
+	b.FieldStart("progress")
+	b.PutInt32(c.Progress)
+	b.ObjEnd()
+	return nil
+}
+
 // GetProgress returns value of Progress field.
 func (c *ChatActionUploadingVideoNote) GetProgress() (value int32) {
 	return c.Progress
@@ -1431,6 +1575,17 @@ func (c *ChatActionCancel) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatActionCancel) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionCancel#452c30b6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionCancel")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatActionClass represents ChatAction generic type.
 //
 // Example:
@@ -1471,6 +1626,7 @@ type ChatActionClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeChatAction implements binary de-serialization for ChatActionClass.

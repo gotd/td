@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Game represents TL type `game#a2aedfc8`.
@@ -241,6 +243,39 @@ func (g *Game) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode game#a2aedfc8: field animation: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *Game) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode game#a2aedfc8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("game")
+	b.FieldStart("id")
+	if err := g.ID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode game#a2aedfc8: field id: %w", err)
+	}
+	b.FieldStart("short_name")
+	b.PutString(g.ShortName)
+	b.FieldStart("title")
+	b.PutString(g.Title)
+	b.FieldStart("text")
+	if err := g.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode game#a2aedfc8: field text: %w", err)
+	}
+	b.FieldStart("description")
+	b.PutString(g.Description)
+	b.FieldStart("photo")
+	if err := g.Photo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode game#a2aedfc8: field photo: %w", err)
+	}
+	b.FieldStart("animation")
+	if err := g.Animation.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode game#a2aedfc8: field animation: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

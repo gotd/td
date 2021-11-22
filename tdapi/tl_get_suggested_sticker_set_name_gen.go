@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetSuggestedStickerSetNameRequest represents TL type `getSuggestedStickerSetName#b0120840`.
@@ -138,6 +140,19 @@ func (g *GetSuggestedStickerSetNameRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.Title = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetSuggestedStickerSetNameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getSuggestedStickerSetName#b0120840 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getSuggestedStickerSetName")
+	b.FieldStart("title")
+	b.PutString(g.Title)
+	b.ObjEnd()
 	return nil
 }
 

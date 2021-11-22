@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetCommandsRequest represents TL type `setCommands#b0e0217a`.
@@ -193,6 +195,34 @@ func (s *SetCommandsRequest) DecodeBare(b *bin.Buffer) error {
 			s.Commands = append(s.Commands, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetCommandsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setCommands#b0e0217a as nil")
+	}
+	b.ObjStart()
+	b.PutID("setCommands")
+	b.FieldStart("scope")
+	if s.Scope == nil {
+		return fmt.Errorf("unable to encode setCommands#b0e0217a: field scope is nil")
+	}
+	if err := s.Scope.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setCommands#b0e0217a: field scope: %w", err)
+	}
+	b.FieldStart("language_code")
+	b.PutString(s.LanguageCode)
+	b.FieldStart("commands")
+	b.ArrStart()
+	for idx, v := range s.Commands {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode setCommands#b0e0217a: field commands element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

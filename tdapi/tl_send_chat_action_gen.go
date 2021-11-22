@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SendChatActionRequest represents TL type `sendChatAction#7cfce154`.
@@ -177,6 +179,28 @@ func (s *SendChatActionRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Action = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SendChatActionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendChatAction#7cfce154 as nil")
+	}
+	b.ObjStart()
+	b.PutID("sendChatAction")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("message_thread_id")
+	b.PutLong(s.MessageThreadID)
+	b.FieldStart("action")
+	if s.Action == nil {
+		return fmt.Errorf("unable to encode sendChatAction#7cfce154: field action is nil")
+	}
+	if err := s.Action.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sendChatAction#7cfce154: field action: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

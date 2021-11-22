@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ForwardMessagesRequest represents TL type `forwardMessages#1842041f`.
@@ -239,6 +241,35 @@ func (f *ForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		f.RemoveCaption = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *ForwardMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode forwardMessages#1842041f as nil")
+	}
+	b.ObjStart()
+	b.PutID("forwardMessages")
+	b.FieldStart("chat_id")
+	b.PutLong(f.ChatID)
+	b.FieldStart("from_chat_id")
+	b.PutLong(f.FromChatID)
+	b.FieldStart("message_ids")
+	b.ArrStart()
+	for _, v := range f.MessageIDs {
+		b.PutLong(v)
+	}
+	b.ArrEnd()
+	b.FieldStart("options")
+	if err := f.Options.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode forwardMessages#1842041f: field options: %w", err)
+	}
+	b.FieldStart("send_copy")
+	b.PutBool(f.SendCopy)
+	b.FieldStart("remove_caption")
+	b.PutBool(f.RemoveCaption)
+	b.ObjEnd()
 	return nil
 }
 

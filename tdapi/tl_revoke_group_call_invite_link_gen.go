@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // RevokeGroupCallInviteLinkRequest represents TL type `revokeGroupCallInviteLink#1de5a494`.
@@ -138,6 +140,19 @@ func (r *RevokeGroupCallInviteLinkRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		r.GroupCallID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RevokeGroupCallInviteLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode revokeGroupCallInviteLink#1de5a494 as nil")
+	}
+	b.ObjStart()
+	b.PutID("revokeGroupCallInviteLink")
+	b.FieldStart("group_call_id")
+	b.PutInt32(r.GroupCallID)
+	b.ObjEnd()
 	return nil
 }
 

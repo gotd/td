@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Proxies represents TL type `proxies#5ee27a86`.
@@ -153,6 +155,25 @@ func (p *Proxies) DecodeBare(b *bin.Buffer) error {
 			p.Proxies = append(p.Proxies, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *Proxies) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode proxies#5ee27a86 as nil")
+	}
+	b.ObjStart()
+	b.PutID("proxies")
+	b.FieldStart("proxies")
+	b.ArrStart()
+	for idx, v := range p.Proxies {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode proxies#5ee27a86: field proxies element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

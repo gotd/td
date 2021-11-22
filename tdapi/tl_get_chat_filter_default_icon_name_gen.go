@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetChatFilterDefaultIconNameRequest represents TL type `getChatFilterDefaultIconName#b023d638`.
@@ -138,6 +140,21 @@ func (g *GetChatFilterDefaultIconNameRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode getChatFilterDefaultIconName#b023d638: field filter: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetChatFilterDefaultIconNameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getChatFilterDefaultIconName#b023d638 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getChatFilterDefaultIconName")
+	b.FieldStart("filter")
+	if err := g.Filter.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getChatFilterDefaultIconName#b023d638: field filter: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

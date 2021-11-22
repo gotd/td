@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // OpenChatRequest represents TL type `openChat#ecb9be0b`.
@@ -138,6 +140,19 @@ func (o *OpenChatRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		o.ChatID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes o in TDLib API JSON format.
+func (o *OpenChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if o == nil {
+		return fmt.Errorf("can't encode openChat#ecb9be0b as nil")
+	}
+	b.ObjStart()
+	b.PutID("openChat")
+	b.FieldStart("chat_id")
+	b.PutLong(o.ChatID)
+	b.ObjEnd()
 	return nil
 }
 

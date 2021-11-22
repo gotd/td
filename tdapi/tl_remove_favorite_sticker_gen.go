@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // RemoveFavoriteStickerRequest represents TL type `removeFavoriteSticker#44b88c70`.
@@ -143,6 +145,24 @@ func (r *RemoveFavoriteStickerRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		r.Sticker = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RemoveFavoriteStickerRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode removeFavoriteSticker#44b88c70 as nil")
+	}
+	b.ObjStart()
+	b.PutID("removeFavoriteSticker")
+	b.FieldStart("sticker")
+	if r.Sticker == nil {
+		return fmt.Errorf("unable to encode removeFavoriteSticker#44b88c70: field sticker is nil")
+	}
+	if err := r.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode removeFavoriteSticker#44b88c70: field sticker: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

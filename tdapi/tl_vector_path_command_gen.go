@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // VectorPathCommandLine represents TL type `vectorPathCommandLine#db663c8a`.
@@ -143,6 +145,21 @@ func (v *VectorPathCommandLine) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode vectorPathCommandLine#db663c8a: field end_point: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes v in TDLib API JSON format.
+func (v *VectorPathCommandLine) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if v == nil {
+		return fmt.Errorf("can't encode vectorPathCommandLine#db663c8a as nil")
+	}
+	b.ObjStart()
+	b.PutID("vectorPathCommandLine")
+	b.FieldStart("end_point")
+	if err := v.EndPoint.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode vectorPathCommandLine#db663c8a: field end_point: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 
@@ -302,6 +319,29 @@ func (v *VectorPathCommandCubicBezierCurve) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes v in TDLib API JSON format.
+func (v *VectorPathCommandCubicBezierCurve) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if v == nil {
+		return fmt.Errorf("can't encode vectorPathCommandCubicBezierCurve#494c3e3a as nil")
+	}
+	b.ObjStart()
+	b.PutID("vectorPathCommandCubicBezierCurve")
+	b.FieldStart("start_control_point")
+	if err := v.StartControlPoint.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode vectorPathCommandCubicBezierCurve#494c3e3a: field start_control_point: %w", err)
+	}
+	b.FieldStart("end_control_point")
+	if err := v.EndControlPoint.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode vectorPathCommandCubicBezierCurve#494c3e3a: field end_control_point: %w", err)
+	}
+	b.FieldStart("end_point")
+	if err := v.EndPoint.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode vectorPathCommandCubicBezierCurve#494c3e3a: field end_point: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
 // GetStartControlPoint returns value of StartControlPoint field.
 func (v *VectorPathCommandCubicBezierCurve) GetStartControlPoint() (value Point) {
 	return v.StartControlPoint
@@ -346,6 +386,7 @@ type VectorPathCommandClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 
 	// The end point of the straight line
 	GetEndPoint() (value Point)

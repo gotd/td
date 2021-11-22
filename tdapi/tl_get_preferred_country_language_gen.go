@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetPreferredCountryLanguageRequest represents TL type `getPreferredCountryLanguage#c862cbd6`.
@@ -138,6 +140,19 @@ func (g *GetPreferredCountryLanguageRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.CountryCode = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetPreferredCountryLanguageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getPreferredCountryLanguage#c862cbd6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getPreferredCountryLanguage")
+	b.FieldStart("country_code")
+	b.PutString(g.CountryCode)
+	b.ObjEnd()
 	return nil
 }
 

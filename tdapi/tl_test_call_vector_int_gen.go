@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TestCallVectorIntRequest represents TL type `testCallVectorInt#65ed7e72`.
@@ -151,6 +153,23 @@ func (t *TestCallVectorIntRequest) DecodeBare(b *bin.Buffer) error {
 			t.X = append(t.X, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TestCallVectorIntRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testCallVectorInt#65ed7e72 as nil")
+	}
+	b.ObjStart()
+	b.PutID("testCallVectorInt")
+	b.FieldStart("x")
+	b.ArrStart()
+	for _, v := range t.X {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

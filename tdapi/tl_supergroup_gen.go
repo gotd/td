@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Supergroup represents TL type `supergroup#12428787`.
@@ -391,6 +393,52 @@ func (s *Supergroup) DecodeBare(b *bin.Buffer) error {
 		}
 		s.IsFake = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *Supergroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode supergroup#12428787 as nil")
+	}
+	b.ObjStart()
+	b.PutID("supergroup")
+	b.FieldStart("id")
+	b.PutInt32(s.ID)
+	b.FieldStart("username")
+	b.PutString(s.Username)
+	b.FieldStart("date")
+	b.PutInt32(s.Date)
+	b.FieldStart("status")
+	if s.Status == nil {
+		return fmt.Errorf("unable to encode supergroup#12428787: field status is nil")
+	}
+	if err := s.Status.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode supergroup#12428787: field status: %w", err)
+	}
+	b.FieldStart("member_count")
+	b.PutInt32(s.MemberCount)
+	b.FieldStart("has_linked_chat")
+	b.PutBool(s.HasLinkedChat)
+	b.FieldStart("has_location")
+	b.PutBool(s.HasLocation)
+	b.FieldStart("sign_messages")
+	b.PutBool(s.SignMessages)
+	b.FieldStart("is_slow_mode_enabled")
+	b.PutBool(s.IsSlowModeEnabled)
+	b.FieldStart("is_channel")
+	b.PutBool(s.IsChannel)
+	b.FieldStart("is_broadcast_group")
+	b.PutBool(s.IsBroadcastGroup)
+	b.FieldStart("is_verified")
+	b.PutBool(s.IsVerified)
+	b.FieldStart("restriction_reason")
+	b.PutString(s.RestrictionReason)
+	b.FieldStart("is_scam")
+	b.PutBool(s.IsScam)
+	b.FieldStart("is_fake")
+	b.PutBool(s.IsFake)
+	b.ObjEnd()
 	return nil
 }
 

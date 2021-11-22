@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // FoundMessages represents TL type `foundMessages#2515f708`.
@@ -187,6 +189,29 @@ func (f *FoundMessages) DecodeBare(b *bin.Buffer) error {
 		}
 		f.NextOffset = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes f in TDLib API JSON format.
+func (f *FoundMessages) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode foundMessages#2515f708 as nil")
+	}
+	b.ObjStart()
+	b.PutID("foundMessages")
+	b.FieldStart("total_count")
+	b.PutInt32(f.TotalCount)
+	b.FieldStart("messages")
+	b.ArrStart()
+	for idx, v := range f.Messages {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode foundMessages#2515f708: field messages element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("next_offset")
+	b.PutString(f.NextOffset)
+	b.ObjEnd()
 	return nil
 }
 

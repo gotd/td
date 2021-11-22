@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SearchMessagesFilterEmpty represents TL type `searchMessagesFilterEmpty#cc2e1337`.
@@ -125,6 +127,17 @@ func (s *SearchMessagesFilterEmpty) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterEmpty#cc2e1337 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterEmpty) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterEmpty#cc2e1337 as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterEmpty")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (s *SearchMessagesFilterAnimation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterAnimation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterAnimation#f6b800c5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterAnimation")
+	b.ObjEnd()
+	return nil
+}
+
 // SearchMessagesFilterAudio represents TL type `searchMessagesFilterAudio#33b5147b`.
 type SearchMessagesFilterAudio struct {
 }
@@ -323,6 +347,17 @@ func (s *SearchMessagesFilterAudio) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterAudio#33b5147b to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterAudio) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterAudio#33b5147b as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterAudio")
+	b.ObjEnd()
 	return nil
 }
 
@@ -425,6 +460,17 @@ func (s *SearchMessagesFilterDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterDocument#5af9f74f as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterDocument")
+	b.ObjEnd()
+	return nil
+}
+
 // SearchMessagesFilterPhoto represents TL type `searchMessagesFilterPhoto#37309b05`.
 type SearchMessagesFilterPhoto struct {
 }
@@ -521,6 +567,17 @@ func (s *SearchMessagesFilterPhoto) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterPhoto#37309b05 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterPhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterPhoto#37309b05 as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterPhoto")
+	b.ObjEnd()
 	return nil
 }
 
@@ -623,6 +680,17 @@ func (s *SearchMessagesFilterVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterVideo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterVideo#6e2f92e as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterVideo")
+	b.ObjEnd()
+	return nil
+}
+
 // SearchMessagesFilterVoiceNote represents TL type `searchMessagesFilterVoiceNote#6dc2227d`.
 type SearchMessagesFilterVoiceNote struct {
 }
@@ -719,6 +787,17 @@ func (s *SearchMessagesFilterVoiceNote) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterVoiceNote#6dc2227d to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterVoiceNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterVoiceNote#6dc2227d as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterVoiceNote")
+	b.ObjEnd()
 	return nil
 }
 
@@ -821,6 +900,17 @@ func (s *SearchMessagesFilterPhotoAndVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterPhotoAndVideo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterPhotoAndVideo#5097e193 as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterPhotoAndVideo")
+	b.ObjEnd()
+	return nil
+}
+
 // SearchMessagesFilterURL represents TL type `searchMessagesFilterUrl#92ffe18b`.
 type SearchMessagesFilterURL struct {
 }
@@ -917,6 +1007,17 @@ func (s *SearchMessagesFilterURL) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterUrl#92ffe18b to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterURL) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterUrl#92ffe18b as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterUrl")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1019,6 +1120,17 @@ func (s *SearchMessagesFilterChatPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterChatPhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterChatPhoto#b5a0d35f as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterChatPhoto")
+	b.ObjEnd()
+	return nil
+}
+
 // SearchMessagesFilterCall represents TL type `searchMessagesFilterCall#4dcc3ea4`.
 type SearchMessagesFilterCall struct {
 }
@@ -1115,6 +1227,17 @@ func (s *SearchMessagesFilterCall) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterCall#4dcc3ea4 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterCall) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterCall#4dcc3ea4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterCall")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1217,6 +1340,17 @@ func (s *SearchMessagesFilterMissedCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterMissedCall) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterMissedCall#39db24ba as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterMissedCall")
+	b.ObjEnd()
+	return nil
+}
+
 // SearchMessagesFilterVideoNote represents TL type `searchMessagesFilterVideoNote#21a2e3f9`.
 type SearchMessagesFilterVideoNote struct {
 }
@@ -1313,6 +1447,17 @@ func (s *SearchMessagesFilterVideoNote) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterVideoNote#21a2e3f9 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterVideoNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterVideoNote#21a2e3f9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterVideoNote")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1415,6 +1560,17 @@ func (s *SearchMessagesFilterVoiceAndVideoNote) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterVoiceAndVideoNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterVoiceAndVideoNote#279680e3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterVoiceAndVideoNote")
+	b.ObjEnd()
+	return nil
+}
+
 // SearchMessagesFilterMention represents TL type `searchMessagesFilterMention#7748c89c`.
 type SearchMessagesFilterMention struct {
 }
@@ -1511,6 +1667,17 @@ func (s *SearchMessagesFilterMention) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterMention#7748c89c to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterMention) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterMention#7748c89c as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterMention")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1613,6 +1780,17 @@ func (s *SearchMessagesFilterUnreadMention) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterUnreadMention) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterUnreadMention#fa4aadc3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterUnreadMention")
+	b.ObjEnd()
+	return nil
+}
+
 // SearchMessagesFilterFailedToSend represents TL type `searchMessagesFilterFailedToSend#dc74d6fc`.
 type SearchMessagesFilterFailedToSend struct {
 }
@@ -1709,6 +1887,17 @@ func (s *SearchMessagesFilterFailedToSend) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterFailedToSend#dc74d6fc to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterFailedToSend) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterFailedToSend#dc74d6fc as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterFailedToSend")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1811,6 +2000,17 @@ func (s *SearchMessagesFilterPinned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SearchMessagesFilterPinned) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterPinned#16294d48 as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterPinned")
+	b.ObjEnd()
+	return nil
+}
+
 // SearchMessagesFilterClass represents SearchMessagesFilter generic type.
 //
 // Example:
@@ -1856,6 +2056,7 @@ type SearchMessagesFilterClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeSearchMessagesFilter implements binary de-serialization for SearchMessagesFilterClass.

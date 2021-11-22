@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetStatisticalGraphRequest represents TL type `getStatisticalGraph#419f8d9b`.
@@ -172,6 +174,23 @@ func (g *GetStatisticalGraphRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.X = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetStatisticalGraphRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getStatisticalGraph#419f8d9b as nil")
+	}
+	b.ObjStart()
+	b.PutID("getStatisticalGraph")
+	b.FieldStart("chat_id")
+	b.PutLong(g.ChatID)
+	b.FieldStart("token")
+	b.PutString(g.Token)
+	b.FieldStart("x")
+	b.PutLong(g.X)
+	b.ObjEnd()
 	return nil
 }
 

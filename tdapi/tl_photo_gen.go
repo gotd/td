@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Photo represents TL type `photo#105a0689`.
@@ -188,6 +190,31 @@ func (p *Photo) DecodeBare(b *bin.Buffer) error {
 			p.Sizes = append(p.Sizes, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *Photo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode photo#105a0689 as nil")
+	}
+	b.ObjStart()
+	b.PutID("photo")
+	b.FieldStart("has_stickers")
+	b.PutBool(p.HasStickers)
+	b.FieldStart("minithumbnail")
+	if err := p.Minithumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode photo#105a0689: field minithumbnail: %w", err)
+	}
+	b.FieldStart("sizes")
+	b.ArrStart()
+	for idx, v := range p.Sizes {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode photo#105a0689: field sizes element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

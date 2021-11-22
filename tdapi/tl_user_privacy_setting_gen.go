@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // UserPrivacySettingShowStatus represents TL type `userPrivacySettingShowStatus#6f0884fe`.
@@ -125,6 +127,17 @@ func (u *UserPrivacySettingShowStatus) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't decode userPrivacySettingShowStatus#6f0884fe to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingShowStatus) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingShowStatus#6f0884fe as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingShowStatus")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (u *UserPrivacySettingShowProfilePhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingShowProfilePhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingShowProfilePhoto#53f3c9f5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingShowProfilePhoto")
+	b.ObjEnd()
+	return nil
+}
+
 // UserPrivacySettingShowLinkInForwardedMessages represents TL type `userPrivacySettingShowLinkInForwardedMessages#2353b6e6`.
 type UserPrivacySettingShowLinkInForwardedMessages struct {
 }
@@ -323,6 +347,17 @@ func (u *UserPrivacySettingShowLinkInForwardedMessages) DecodeBare(b *bin.Buffer
 	if u == nil {
 		return fmt.Errorf("can't decode userPrivacySettingShowLinkInForwardedMessages#2353b6e6 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingShowLinkInForwardedMessages) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingShowLinkInForwardedMessages#2353b6e6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingShowLinkInForwardedMessages")
+	b.ObjEnd()
 	return nil
 }
 
@@ -425,6 +460,17 @@ func (u *UserPrivacySettingShowPhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingShowPhoneNumber) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingShowPhoneNumber#d0d1a229 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingShowPhoneNumber")
+	b.ObjEnd()
+	return nil
+}
+
 // UserPrivacySettingAllowChatInvites represents TL type `userPrivacySettingAllowChatInvites#4bcc1d27`.
 type UserPrivacySettingAllowChatInvites struct {
 }
@@ -521,6 +567,17 @@ func (u *UserPrivacySettingAllowChatInvites) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't decode userPrivacySettingAllowChatInvites#4bcc1d27 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingAllowChatInvites) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingAllowChatInvites#4bcc1d27 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingAllowChatInvites")
+	b.ObjEnd()
 	return nil
 }
 
@@ -623,6 +680,17 @@ func (u *UserPrivacySettingAllowCalls) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingAllowCalls) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingAllowCalls#c9f0c705 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingAllowCalls")
+	b.ObjEnd()
+	return nil
+}
+
 // UserPrivacySettingAllowPeerToPeerCalls represents TL type `userPrivacySettingAllowPeerToPeerCalls#1502b940`.
 type UserPrivacySettingAllowPeerToPeerCalls struct {
 }
@@ -719,6 +787,17 @@ func (u *UserPrivacySettingAllowPeerToPeerCalls) DecodeBare(b *bin.Buffer) error
 	if u == nil {
 		return fmt.Errorf("can't decode userPrivacySettingAllowPeerToPeerCalls#1502b940 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingAllowPeerToPeerCalls) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingAllowPeerToPeerCalls#1502b940 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingAllowPeerToPeerCalls")
+	b.ObjEnd()
 	return nil
 }
 
@@ -821,6 +900,17 @@ func (u *UserPrivacySettingAllowFindingByPhoneNumber) DecodeBare(b *bin.Buffer) 
 	return nil
 }
 
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UserPrivacySettingAllowFindingByPhoneNumber) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingAllowFindingByPhoneNumber#91ee6d51 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingAllowFindingByPhoneNumber")
+	b.ObjEnd()
+	return nil
+}
+
 // UserPrivacySettingClass represents UserPrivacySetting generic type.
 //
 // Example:
@@ -856,6 +946,7 @@ type UserPrivacySettingClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeUserPrivacySetting implements binary de-serialization for UserPrivacySettingClass.

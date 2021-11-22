@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Venue represents TL type `venue#3fcd1af9`.
@@ -224,6 +226,31 @@ func (v *Venue) DecodeBare(b *bin.Buffer) error {
 		}
 		v.Type = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes v in TDLib API JSON format.
+func (v *Venue) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if v == nil {
+		return fmt.Errorf("can't encode venue#3fcd1af9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("venue")
+	b.FieldStart("location")
+	if err := v.Location.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode venue#3fcd1af9: field location: %w", err)
+	}
+	b.FieldStart("title")
+	b.PutString(v.Title)
+	b.FieldStart("address")
+	b.PutString(v.Address)
+	b.FieldStart("provider")
+	b.PutString(v.Provider)
+	b.FieldStart("id")
+	b.PutString(v.ID)
+	b.FieldStart("type")
+	b.PutString(v.Type)
+	b.ObjEnd()
 	return nil
 }
 

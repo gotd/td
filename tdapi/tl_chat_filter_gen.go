@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatFilter represents TL type `chatFilter#9a7344af`.
@@ -384,6 +386,55 @@ func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
 		}
 		c.IncludeChannels = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatFilter) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatFilter#9a7344af as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatFilter")
+	b.FieldStart("title")
+	b.PutString(c.Title)
+	b.FieldStart("icon_name")
+	b.PutString(c.IconName)
+	b.FieldStart("pinned_chat_ids")
+	b.ArrStart()
+	for _, v := range c.PinnedChatIDs {
+		b.PutLong(v)
+	}
+	b.ArrEnd()
+	b.FieldStart("included_chat_ids")
+	b.ArrStart()
+	for _, v := range c.IncludedChatIDs {
+		b.PutLong(v)
+	}
+	b.ArrEnd()
+	b.FieldStart("excluded_chat_ids")
+	b.ArrStart()
+	for _, v := range c.ExcludedChatIDs {
+		b.PutLong(v)
+	}
+	b.ArrEnd()
+	b.FieldStart("exclude_muted")
+	b.PutBool(c.ExcludeMuted)
+	b.FieldStart("exclude_read")
+	b.PutBool(c.ExcludeRead)
+	b.FieldStart("exclude_archived")
+	b.PutBool(c.ExcludeArchived)
+	b.FieldStart("include_contacts")
+	b.PutBool(c.IncludeContacts)
+	b.FieldStart("include_non_contacts")
+	b.PutBool(c.IncludeNonContacts)
+	b.FieldStart("include_bots")
+	b.PutBool(c.IncludeBots)
+	b.FieldStart("include_groups")
+	b.PutBool(c.IncludeGroups)
+	b.FieldStart("include_channels")
+	b.PutBool(c.IncludeChannels)
+	b.ObjEnd()
 	return nil
 }
 

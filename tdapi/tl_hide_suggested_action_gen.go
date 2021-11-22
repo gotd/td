@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // HideSuggestedActionRequest represents TL type `hideSuggestedAction#a2ef2b7f`.
@@ -143,6 +145,24 @@ func (h *HideSuggestedActionRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		h.Action = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes h in TDLib API JSON format.
+func (h *HideSuggestedActionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if h == nil {
+		return fmt.Errorf("can't encode hideSuggestedAction#a2ef2b7f as nil")
+	}
+	b.ObjStart()
+	b.PutID("hideSuggestedAction")
+	b.FieldStart("action")
+	if h.Action == nil {
+		return fmt.Errorf("unable to encode hideSuggestedAction#a2ef2b7f: field action is nil")
+	}
+	if err := h.Action.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode hideSuggestedAction#a2ef2b7f: field action: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

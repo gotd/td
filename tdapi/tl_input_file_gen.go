@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // InputFileID represents TL type `inputFileId#6aa08b0d`.
@@ -143,6 +145,19 @@ func (i *InputFileID) DecodeBare(b *bin.Buffer) error {
 		}
 		i.ID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputFileID) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputFileId#6aa08b0d as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputFileId")
+	b.FieldStart("id")
+	b.PutInt32(i.ID)
+	b.ObjEnd()
 	return nil
 }
 
@@ -268,6 +283,19 @@ func (i *InputFileRemote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputFileRemote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputFileRemote#f9968b3e as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputFileRemote")
+	b.FieldStart("id")
+	b.PutString(i.ID)
+	b.ObjEnd()
+	return nil
+}
+
 // GetID returns value of ID field.
 func (i *InputFileRemote) GetID() (value string) {
 	return i.ID
@@ -387,6 +415,19 @@ func (i *InputFileLocal) DecodeBare(b *bin.Buffer) error {
 		}
 		i.Path = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputFileLocal) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputFileLocal#7a8c8ac7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputFileLocal")
+	b.FieldStart("path")
+	b.PutString(i.Path)
+	b.ObjEnd()
 	return nil
 }
 
@@ -549,6 +590,23 @@ func (i *InputFileGenerated) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputFileGenerated) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputFileGenerated#95d2ba33 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputFileGenerated")
+	b.FieldStart("original_path")
+	b.PutString(i.OriginalPath)
+	b.FieldStart("conversion")
+	b.PutString(i.Conversion)
+	b.FieldStart("expected_size")
+	b.PutInt32(i.ExpectedSize)
+	b.ObjEnd()
+	return nil
+}
+
 // GetOriginalPath returns value of OriginalPath field.
 func (i *InputFileGenerated) GetOriginalPath() (value string) {
 	return i.OriginalPath
@@ -595,6 +653,7 @@ type InputFileClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeInputFile implements binary de-serialization for InputFileClass.

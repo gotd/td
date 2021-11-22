@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetApplicationDownloadLinkRequest represents TL type `getApplicationDownloadLink#6ad2fc4`.
@@ -120,6 +122,17 @@ func (g *GetApplicationDownloadLinkRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode getApplicationDownloadLink#6ad2fc4 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetApplicationDownloadLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getApplicationDownloadLink#6ad2fc4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getApplicationDownloadLink")
+	b.ObjEnd()
 	return nil
 }
 

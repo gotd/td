@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Ok represents TL type `ok#d4edbe69`.
@@ -120,5 +122,16 @@ func (o *Ok) DecodeBare(b *bin.Buffer) error {
 	if o == nil {
 		return fmt.Errorf("can't decode ok#d4edbe69 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes o in TDLib API JSON format.
+func (o *Ok) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if o == nil {
+		return fmt.Errorf("can't encode ok#d4edbe69 as nil")
+	}
+	b.ObjStart()
+	b.PutID("ok")
+	b.ObjEnd()
 	return nil
 }

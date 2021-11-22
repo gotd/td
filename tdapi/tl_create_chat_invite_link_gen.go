@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CreateChatInviteLinkRequest represents TL type `createChatInviteLink#2f832dfe`.
@@ -173,6 +175,23 @@ func (c *CreateChatInviteLinkRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.MemberLimit = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CreateChatInviteLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode createChatInviteLink#2f832dfe as nil")
+	}
+	b.ObjStart()
+	b.PutID("createChatInviteLink")
+	b.FieldStart("chat_id")
+	b.PutLong(c.ChatID)
+	b.FieldStart("expire_date")
+	b.PutInt32(c.ExpireDate)
+	b.FieldStart("member_limit")
+	b.PutInt32(c.MemberLimit)
+	b.ObjEnd()
 	return nil
 }
 

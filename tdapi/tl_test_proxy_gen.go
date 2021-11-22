@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TestProxyRequest represents TL type `testProxy#b8a1a29e`.
@@ -211,6 +213,32 @@ func (t *TestProxyRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		t.Timeout = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TestProxyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testProxy#b8a1a29e as nil")
+	}
+	b.ObjStart()
+	b.PutID("testProxy")
+	b.FieldStart("server")
+	b.PutString(t.Server)
+	b.FieldStart("port")
+	b.PutInt32(t.Port)
+	b.FieldStart("type")
+	if t.Type == nil {
+		return fmt.Errorf("unable to encode testProxy#b8a1a29e: field type is nil")
+	}
+	if err := t.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode testProxy#b8a1a29e: field type: %w", err)
+	}
+	b.FieldStart("dc_id")
+	b.PutInt32(t.DCID)
+	b.FieldStart("timeout")
+	b.PutDouble(t.Timeout)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ClearAllDraftMessagesRequest represents TL type `clearAllDraftMessages#fd3c74db`.
@@ -138,6 +140,19 @@ func (c *ClearAllDraftMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.ExcludeSecretChats = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ClearAllDraftMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode clearAllDraftMessages#fd3c74db as nil")
+	}
+	b.ObjStart()
+	b.PutID("clearAllDraftMessages")
+	b.FieldStart("exclude_secret_chats")
+	b.PutBool(c.ExcludeSecretChats)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetExternalLinkRequest represents TL type `getExternalLink#5e92f0eb`.
@@ -156,6 +158,21 @@ func (g *GetExternalLinkRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.AllowWriteAccess = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetExternalLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getExternalLink#5e92f0eb as nil")
+	}
+	b.ObjStart()
+	b.PutID("getExternalLink")
+	b.FieldStart("link")
+	b.PutString(g.Link)
+	b.FieldStart("allow_write_access")
+	b.PutBool(g.AllowWriteAccess)
+	b.ObjEnd()
 	return nil
 }
 

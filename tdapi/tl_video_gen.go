@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Video represents TL type `video#31a460cc`.
@@ -292,6 +294,43 @@ func (v *Video) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode video#31a460cc: field video: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes v in TDLib API JSON format.
+func (v *Video) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if v == nil {
+		return fmt.Errorf("can't encode video#31a460cc as nil")
+	}
+	b.ObjStart()
+	b.PutID("video")
+	b.FieldStart("duration")
+	b.PutInt32(v.Duration)
+	b.FieldStart("width")
+	b.PutInt32(v.Width)
+	b.FieldStart("height")
+	b.PutInt32(v.Height)
+	b.FieldStart("file_name")
+	b.PutString(v.FileName)
+	b.FieldStart("mime_type")
+	b.PutString(v.MimeType)
+	b.FieldStart("has_stickers")
+	b.PutBool(v.HasStickers)
+	b.FieldStart("supports_streaming")
+	b.PutBool(v.SupportsStreaming)
+	b.FieldStart("minithumbnail")
+	if err := v.Minithumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode video#31a460cc: field minithumbnail: %w", err)
+	}
+	b.FieldStart("thumbnail")
+	if err := v.Thumbnail.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode video#31a460cc: field thumbnail: %w", err)
+	}
+	b.FieldStart("video")
+	if err := v.Video.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode video#31a460cc: field video: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

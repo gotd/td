@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SendPhoneNumberConfirmationCodeRequest represents TL type `sendPhoneNumberConfirmationCode#8eae6cd9`.
@@ -172,6 +174,25 @@ func (s *SendPhoneNumberConfirmationCodeRequest) DecodeBare(b *bin.Buffer) error
 			return fmt.Errorf("unable to decode sendPhoneNumberConfirmationCode#8eae6cd9: field settings: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SendPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendPhoneNumberConfirmationCode#8eae6cd9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("sendPhoneNumberConfirmationCode")
+	b.FieldStart("hash")
+	b.PutString(s.Hash)
+	b.FieldStart("phone_number")
+	b.PutString(s.PhoneNumber)
+	b.FieldStart("settings")
+	if err := s.Settings.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sendPhoneNumberConfirmationCode#8eae6cd9: field settings: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

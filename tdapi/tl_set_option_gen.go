@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetOptionRequest represents TL type `setOption#7e0b4ef2`.
@@ -160,6 +162,26 @@ func (s *SetOptionRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Value = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetOptionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setOption#7e0b4ef2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setOption")
+	b.FieldStart("name")
+	b.PutString(s.Name)
+	b.FieldStart("value")
+	if s.Value == nil {
+		return fmt.Errorf("unable to encode setOption#7e0b4ef2: field value is nil")
+	}
+	if err := s.Value.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setOption#7e0b4ef2: field value: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

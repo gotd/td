@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Hashtags represents TL type `hashtags#6c2c0ae1`.
@@ -151,6 +153,23 @@ func (h *Hashtags) DecodeBare(b *bin.Buffer) error {
 			h.Hashtags = append(h.Hashtags, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes h in TDLib API JSON format.
+func (h *Hashtags) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if h == nil {
+		return fmt.Errorf("can't encode hashtags#6c2c0ae1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("hashtags")
+	b.FieldStart("hashtags")
+	b.ArrStart()
+	for _, v := range h.Hashtags {
+		b.PutString(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

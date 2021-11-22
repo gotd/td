@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // RegisterDeviceRequest represents TL type `registerDevice#acd51c1b`.
@@ -173,6 +175,30 @@ func (r *RegisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
 			r.OtherUserIDs = append(r.OtherUserIDs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RegisterDeviceRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode registerDevice#acd51c1b as nil")
+	}
+	b.ObjStart()
+	b.PutID("registerDevice")
+	b.FieldStart("device_token")
+	if r.DeviceToken == nil {
+		return fmt.Errorf("unable to encode registerDevice#acd51c1b: field device_token is nil")
+	}
+	if err := r.DeviceToken.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode registerDevice#acd51c1b: field device_token: %w", err)
+	}
+	b.FieldStart("other_user_ids")
+	b.ArrStart()
+	for _, v := range r.OtherUserIDs {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

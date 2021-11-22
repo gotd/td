@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DatedFile represents TL type `datedFile#9247b09d`.
@@ -155,6 +157,23 @@ func (d *DatedFile) DecodeBare(b *bin.Buffer) error {
 		}
 		d.Date = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DatedFile) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode datedFile#9247b09d as nil")
+	}
+	b.ObjStart()
+	b.PutID("datedFile")
+	b.FieldStart("file")
+	if err := d.File.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode datedFile#9247b09d: field file: %w", err)
+	}
+	b.FieldStart("date")
+	b.PutInt32(d.Date)
+	b.ObjEnd()
 	return nil
 }
 

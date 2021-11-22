@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DeleteAccountRequest represents TL type `deleteAccount#b84ad084`.
@@ -138,6 +140,19 @@ func (d *DeleteAccountRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		d.Reason = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DeleteAccountRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deleteAccount#b84ad084 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deleteAccount")
+	b.FieldStart("reason")
+	b.PutString(d.Reason)
+	b.ObjEnd()
 	return nil
 }
 

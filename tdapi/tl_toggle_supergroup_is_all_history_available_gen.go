@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ToggleSupergroupIsAllHistoryAvailableRequest represents TL type `toggleSupergroupIsAllHistoryAvailable#656b3c1b`.
@@ -155,6 +157,21 @@ func (t *ToggleSupergroupIsAllHistoryAvailableRequest) DecodeBare(b *bin.Buffer)
 		}
 		t.IsAllHistoryAvailable = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *ToggleSupergroupIsAllHistoryAvailableRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode toggleSupergroupIsAllHistoryAvailable#656b3c1b as nil")
+	}
+	b.ObjStart()
+	b.PutID("toggleSupergroupIsAllHistoryAvailable")
+	b.FieldStart("supergroup_id")
+	b.PutInt32(t.SupergroupID)
+	b.FieldStart("is_all_history_available")
+	b.PutBool(t.IsAllHistoryAvailable)
+	b.ObjEnd()
 	return nil
 }
 

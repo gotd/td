@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetGameScoreRequest represents TL type `setGameScore#9699c683`.
@@ -224,6 +226,29 @@ func (s *SetGameScoreRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Force = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetGameScoreRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setGameScore#9699c683 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setGameScore")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(s.MessageID)
+	b.FieldStart("edit_message")
+	b.PutBool(s.EditMessage)
+	b.FieldStart("user_id")
+	b.PutInt32(s.UserID)
+	b.FieldStart("score")
+	b.PutInt32(s.Score)
+	b.FieldStart("force")
+	b.PutBool(s.Force)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ReorderInstalledStickerSetsRequest represents TL type `reorderInstalledStickerSets#4c37c303`.
@@ -171,6 +173,27 @@ func (r *ReorderInstalledStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 			r.StickerSetIDs = append(r.StickerSetIDs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ReorderInstalledStickerSetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode reorderInstalledStickerSets#4c37c303 as nil")
+	}
+	b.ObjStart()
+	b.PutID("reorderInstalledStickerSets")
+	b.FieldStart("is_masks")
+	b.PutBool(r.IsMasks)
+	b.FieldStart("sticker_set_ids")
+	b.ArrStart()
+	for idx, v := range r.StickerSetIDs {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode reorderInstalledStickerSets#4c37c303: field sticker_set_ids element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

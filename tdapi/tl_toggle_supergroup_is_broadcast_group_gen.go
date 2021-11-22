@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ToggleSupergroupIsBroadcastGroupRequest represents TL type `toggleSupergroupIsBroadcastGroup#9c3ec48a`.
@@ -138,6 +140,19 @@ func (t *ToggleSupergroupIsBroadcastGroupRequest) DecodeBare(b *bin.Buffer) erro
 		}
 		t.SupergroupID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *ToggleSupergroupIsBroadcastGroupRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode toggleSupergroupIsBroadcastGroup#9c3ec48a as nil")
+	}
+	b.ObjStart()
+	b.PutID("toggleSupergroupIsBroadcastGroup")
+	b.FieldStart("supergroup_id")
+	b.PutInt32(t.SupergroupID)
+	b.ObjEnd()
 	return nil
 }
 

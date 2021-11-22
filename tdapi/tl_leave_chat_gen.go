@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // LeaveChatRequest represents TL type `leaveChat#93377a61`.
@@ -138,6 +140,19 @@ func (l *LeaveChatRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		l.ChatID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LeaveChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode leaveChat#93377a61 as nil")
+	}
+	b.ObjStart()
+	b.PutID("leaveChat")
+	b.FieldStart("chat_id")
+	b.PutLong(l.ChatID)
+	b.ObjEnd()
 	return nil
 }
 

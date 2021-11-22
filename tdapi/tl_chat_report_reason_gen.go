@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatReportReasonSpam represents TL type `chatReportReasonSpam#e18d10a1`.
@@ -125,6 +127,17 @@ func (c *ChatReportReasonSpam) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatReportReasonSpam#e18d10a1 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatReportReasonSpam) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonSpam#e18d10a1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatReportReasonSpam")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (c *ChatReportReasonViolence) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatReportReasonViolence) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonViolence#b0b637fd as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatReportReasonViolence")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatReportReasonPornography represents TL type `chatReportReasonPornography#2b123871`.
 type ChatReportReasonPornography struct {
 }
@@ -323,6 +347,17 @@ func (c *ChatReportReasonPornography) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatReportReasonPornography#2b123871 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatReportReasonPornography) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonPornography#2b123871 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatReportReasonPornography")
+	b.ObjEnd()
 	return nil
 }
 
@@ -425,6 +460,17 @@ func (c *ChatReportReasonChildAbuse) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatReportReasonChildAbuse) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonChildAbuse#c02e9ebd as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatReportReasonChildAbuse")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatReportReasonCopyright represents TL type `chatReportReasonCopyright#3ad2dea0`.
 type ChatReportReasonCopyright struct {
 }
@@ -521,6 +567,17 @@ func (c *ChatReportReasonCopyright) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatReportReasonCopyright#3ad2dea0 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatReportReasonCopyright) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonCopyright#3ad2dea0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatReportReasonCopyright")
+	b.ObjEnd()
 	return nil
 }
 
@@ -623,6 +680,17 @@ func (c *ChatReportReasonUnrelatedLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatReportReasonUnrelatedLocation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonUnrelatedLocation#282ad3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatReportReasonUnrelatedLocation")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatReportReasonFake represents TL type `chatReportReasonFake#99e22d92`.
 type ChatReportReasonFake struct {
 }
@@ -719,6 +787,17 @@ func (c *ChatReportReasonFake) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatReportReasonFake#99e22d92 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatReportReasonFake) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonFake#99e22d92 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatReportReasonFake")
+	b.ObjEnd()
 	return nil
 }
 
@@ -821,6 +900,17 @@ func (c *ChatReportReasonCustom) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatReportReasonCustom) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonCustom#4cd37316 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatReportReasonCustom")
+	b.ObjEnd()
+	return nil
+}
+
 // ChatReportReasonClass represents ChatReportReason generic type.
 //
 // Example:
@@ -856,6 +946,7 @@ type ChatReportReasonClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeChatReportReason implements binary de-serialization for ChatReportReasonClass.

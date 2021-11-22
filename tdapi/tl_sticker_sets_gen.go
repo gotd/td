@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // StickerSets represents TL type `stickerSets#b8a6490d`.
@@ -170,6 +172,27 @@ func (s *StickerSets) DecodeBare(b *bin.Buffer) error {
 			s.Sets = append(s.Sets, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *StickerSets) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerSets#b8a6490d as nil")
+	}
+	b.ObjStart()
+	b.PutID("stickerSets")
+	b.FieldStart("total_count")
+	b.PutInt32(s.TotalCount)
+	b.FieldStart("sets")
+	b.ArrStart()
+	for idx, v := range s.Sets {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode stickerSets#b8a6490d: field sets element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

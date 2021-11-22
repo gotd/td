@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SupergroupMembersFilterRecent represents TL type `supergroupMembersFilterRecent#4639e5d5`.
@@ -125,6 +127,17 @@ func (s *SupergroupMembersFilterRecent) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode supergroupMembersFilterRecent#4639e5d5 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SupergroupMembersFilterRecent) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode supergroupMembersFilterRecent#4639e5d5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("supergroupMembersFilterRecent")
+	b.ObjEnd()
 	return nil
 }
 
@@ -245,6 +258,19 @@ func (s *SupergroupMembersFilterContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SupergroupMembersFilterContacts) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode supergroupMembersFilterContacts#b3885578 as nil")
+	}
+	b.ObjStart()
+	b.PutID("supergroupMembersFilterContacts")
+	b.FieldStart("query")
+	b.PutString(s.Query)
+	b.ObjEnd()
+	return nil
+}
+
 // GetQuery returns value of Query field.
 func (s *SupergroupMembersFilterContacts) GetQuery() (value string) {
 	return s.Query
@@ -346,6 +372,17 @@ func (s *SupergroupMembersFilterAdministrators) DecodeBare(b *bin.Buffer) error 
 	if s == nil {
 		return fmt.Errorf("can't decode supergroupMembersFilterAdministrators#82fc8457 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SupergroupMembersFilterAdministrators) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode supergroupMembersFilterAdministrators#82fc8457 as nil")
+	}
+	b.ObjStart()
+	b.PutID("supergroupMembersFilterAdministrators")
+	b.ObjEnd()
 	return nil
 }
 
@@ -463,6 +500,19 @@ func (s *SupergroupMembersFilterSearch) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Query = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SupergroupMembersFilterSearch) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode supergroupMembersFilterSearch#9ae39fbb as nil")
+	}
+	b.ObjStart()
+	b.PutID("supergroupMembersFilterSearch")
+	b.FieldStart("query")
+	b.PutString(s.Query)
+	b.ObjEnd()
 	return nil
 }
 
@@ -588,6 +638,19 @@ func (s *SupergroupMembersFilterRestricted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SupergroupMembersFilterRestricted) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode supergroupMembersFilterRestricted#bdf8501e as nil")
+	}
+	b.ObjStart()
+	b.PutID("supergroupMembersFilterRestricted")
+	b.FieldStart("query")
+	b.PutString(s.Query)
+	b.ObjEnd()
+	return nil
+}
+
 // GetQuery returns value of Query field.
 func (s *SupergroupMembersFilterRestricted) GetQuery() (value string) {
 	return s.Query
@@ -707,6 +770,19 @@ func (s *SupergroupMembersFilterBanned) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Query = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SupergroupMembersFilterBanned) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode supergroupMembersFilterBanned#b7d7610d as nil")
+	}
+	b.ObjStart()
+	b.PutID("supergroupMembersFilterBanned")
+	b.FieldStart("query")
+	b.PutString(s.Query)
+	b.ObjEnd()
 	return nil
 }
 
@@ -849,6 +925,21 @@ func (s *SupergroupMembersFilterMention) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SupergroupMembersFilterMention) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode supergroupMembersFilterMention#3880091c as nil")
+	}
+	b.ObjStart()
+	b.PutID("supergroupMembersFilterMention")
+	b.FieldStart("query")
+	b.PutString(s.Query)
+	b.FieldStart("message_thread_id")
+	b.PutLong(s.MessageThreadID)
+	b.ObjEnd()
+	return nil
+}
+
 // GetQuery returns value of Query field.
 func (s *SupergroupMembersFilterMention) GetQuery() (value string) {
 	return s.Query
@@ -958,6 +1049,17 @@ func (s *SupergroupMembersFilterBots) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SupergroupMembersFilterBots) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode supergroupMembersFilterBots#1d5571a6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("supergroupMembersFilterBots")
+	b.ObjEnd()
+	return nil
+}
+
 // SupergroupMembersFilterClass represents SupergroupMembersFilter generic type.
 //
 // Example:
@@ -993,6 +1095,7 @@ type SupergroupMembersFilterClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeSupergroupMembersFilter implements binary de-serialization for SupergroupMembersFilterClass.

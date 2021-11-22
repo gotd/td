@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SharePhoneNumberRequest represents TL type `sharePhoneNumber#e9e806ca`.
@@ -139,6 +141,19 @@ func (s *SharePhoneNumberRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.UserID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SharePhoneNumberRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sharePhoneNumber#e9e806ca as nil")
+	}
+	b.ObjStart()
+	b.PutID("sharePhoneNumber")
+	b.FieldStart("user_id")
+	b.PutInt32(s.UserID)
+	b.ObjEnd()
 	return nil
 }
 

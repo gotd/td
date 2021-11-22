@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AnswerPreCheckoutQueryRequest represents TL type `answerPreCheckoutQuery#a76163eb`.
@@ -155,6 +157,23 @@ func (a *AnswerPreCheckoutQueryRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		a.ErrorMessage = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AnswerPreCheckoutQueryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode answerPreCheckoutQuery#a76163eb as nil")
+	}
+	b.ObjStart()
+	b.PutID("answerPreCheckoutQuery")
+	b.FieldStart("pre_checkout_query_id")
+	if err := a.PreCheckoutQueryID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode answerPreCheckoutQuery#a76163eb: field pre_checkout_query_id: %w", err)
+	}
+	b.FieldStart("error_message")
+	b.PutString(a.ErrorMessage)
+	b.ObjEnd()
 	return nil
 }
 

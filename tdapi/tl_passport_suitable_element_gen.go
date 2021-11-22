@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PassportSuitableElement represents TL type `passportSuitableElement#d0f8831c`.
@@ -195,6 +197,30 @@ func (p *PassportSuitableElement) DecodeBare(b *bin.Buffer) error {
 		}
 		p.IsNativeNameRequired = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportSuitableElement) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportSuitableElement#d0f8831c as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportSuitableElement")
+	b.FieldStart("type")
+	if p.Type == nil {
+		return fmt.Errorf("unable to encode passportSuitableElement#d0f8831c: field type is nil")
+	}
+	if err := p.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode passportSuitableElement#d0f8831c: field type: %w", err)
+	}
+	b.FieldStart("is_selfie_required")
+	b.PutBool(p.IsSelfieRequired)
+	b.FieldStart("is_translation_required")
+	b.PutBool(p.IsTranslationRequired)
+	b.FieldStart("is_native_name_required")
+	b.PutBool(p.IsNativeNameRequired)
+	b.ObjEnd()
 	return nil
 }
 

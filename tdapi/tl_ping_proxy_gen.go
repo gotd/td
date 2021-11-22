@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PingProxyRequest represents TL type `pingProxy#c59b40b1`.
@@ -138,6 +140,19 @@ func (p *PingProxyRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		p.ProxyID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PingProxyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pingProxy#c59b40b1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pingProxy")
+	b.FieldStart("proxy_id")
+	b.PutInt32(p.ProxyID)
+	b.ObjEnd()
 	return nil
 }
 

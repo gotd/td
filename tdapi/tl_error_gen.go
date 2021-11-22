@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Error represents TL type `error#9bdd8f1a`.
@@ -156,6 +158,21 @@ func (e *Error) DecodeBare(b *bin.Buffer) error {
 		}
 		e.Message = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes e in TDLib API JSON format.
+func (e *Error) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode error#9bdd8f1a as nil")
+	}
+	b.ObjStart()
+	b.PutID("error")
+	b.FieldStart("code")
+	b.PutInt32(e.Code)
+	b.FieldStart("message")
+	b.PutString(e.Message)
+	b.ObjEnd()
 	return nil
 }
 

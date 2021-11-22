@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetRemoteFileRequest represents TL type `getRemoteFile#7f632732`.
@@ -160,6 +162,26 @@ func (g *GetRemoteFileRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.FileType = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetRemoteFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getRemoteFile#7f632732 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getRemoteFile")
+	b.FieldStart("remote_file_id")
+	b.PutString(g.RemoteFileID)
+	b.FieldStart("file_type")
+	if g.FileType == nil {
+		return fmt.Errorf("unable to encode getRemoteFile#7f632732: field file_type is nil")
+	}
+	if err := g.FileType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getRemoteFile#7f632732: field file_type: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

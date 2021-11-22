@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PassportElementError represents TL type `passportElementError#91059fc5`.
@@ -182,6 +184,33 @@ func (p *PassportElementError) DecodeBare(b *bin.Buffer) error {
 		}
 		p.Source = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementError) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementError#91059fc5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementError")
+	b.FieldStart("type")
+	if p.Type == nil {
+		return fmt.Errorf("unable to encode passportElementError#91059fc5: field type is nil")
+	}
+	if err := p.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode passportElementError#91059fc5: field type: %w", err)
+	}
+	b.FieldStart("message")
+	b.PutString(p.Message)
+	b.FieldStart("source")
+	if p.Source == nil {
+		return fmt.Errorf("unable to encode passportElementError#91059fc5: field source is nil")
+	}
+	if err := p.Source.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode passportElementError#91059fc5: field source: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

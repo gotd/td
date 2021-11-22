@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ClosedVectorPath represents TL type `closedVectorPath#2f9276b9`.
@@ -156,6 +158,28 @@ func (c *ClosedVectorPath) DecodeBare(b *bin.Buffer) error {
 			c.Commands = append(c.Commands, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ClosedVectorPath) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode closedVectorPath#2f9276b9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("closedVectorPath")
+	b.FieldStart("commands")
+	b.ArrStart()
+	for idx, v := range c.Commands {
+		if v == nil {
+			return fmt.Errorf("unable to encode closedVectorPath#2f9276b9: field commands element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode closedVectorPath#2f9276b9: field commands element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

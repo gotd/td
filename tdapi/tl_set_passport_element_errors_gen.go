@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetPassportElementErrorsRequest represents TL type `setPassportElementErrors#6427e112`.
@@ -170,6 +172,27 @@ func (s *SetPassportElementErrorsRequest) DecodeBare(b *bin.Buffer) error {
 			s.Errors = append(s.Errors, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetPassportElementErrorsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setPassportElementErrors#6427e112 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setPassportElementErrors")
+	b.FieldStart("user_id")
+	b.PutInt32(s.UserID)
+	b.FieldStart("errors")
+	b.ArrStart()
+	for idx, v := range s.Errors {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode setPassportElementErrors#6427e112: field errors element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

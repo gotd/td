@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ToggleGroupCallParticipantIsMutedRequest represents TL type `toggleGroupCallParticipantIsMuted#b2081407`.
@@ -177,6 +179,28 @@ func (t *ToggleGroupCallParticipantIsMutedRequest) DecodeBare(b *bin.Buffer) err
 		}
 		t.IsMuted = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *ToggleGroupCallParticipantIsMutedRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode toggleGroupCallParticipantIsMuted#b2081407 as nil")
+	}
+	b.ObjStart()
+	b.PutID("toggleGroupCallParticipantIsMuted")
+	b.FieldStart("group_call_id")
+	b.PutInt32(t.GroupCallID)
+	b.FieldStart("participant_id")
+	if t.ParticipantID == nil {
+		return fmt.Errorf("unable to encode toggleGroupCallParticipantIsMuted#b2081407: field participant_id is nil")
+	}
+	if err := t.ParticipantID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode toggleGroupCallParticipantIsMuted#b2081407: field participant_id: %w", err)
+	}
+	b.FieldStart("is_muted")
+	b.PutBool(t.IsMuted)
+	b.ObjEnd()
 	return nil
 }
 

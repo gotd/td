@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ToggleGroupCallMuteNewParticipantsRequest represents TL type `toggleGroupCallMuteNewParticipants#10eec1c2`.
@@ -155,6 +157,21 @@ func (t *ToggleGroupCallMuteNewParticipantsRequest) DecodeBare(b *bin.Buffer) er
 		}
 		t.MuteNewParticipants = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *ToggleGroupCallMuteNewParticipantsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode toggleGroupCallMuteNewParticipants#10eec1c2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("toggleGroupCallMuteNewParticipants")
+	b.FieldStart("group_call_id")
+	b.PutInt32(t.GroupCallID)
+	b.FieldStart("mute_new_participants")
+	b.PutBool(t.MuteNewParticipants)
+	b.ObjEnd()
 	return nil
 }
 

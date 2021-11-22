@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Message represents TL type `message#b7bd95f0`.
@@ -704,6 +706,112 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 		}
 		m.ReplyMarkup = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *Message) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode message#b7bd95f0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("message")
+	b.FieldStart("id")
+	b.PutLong(m.ID)
+	b.FieldStart("sender")
+	if m.Sender == nil {
+		return fmt.Errorf("unable to encode message#b7bd95f0: field sender is nil")
+	}
+	if err := m.Sender.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode message#b7bd95f0: field sender: %w", err)
+	}
+	b.FieldStart("chat_id")
+	b.PutLong(m.ChatID)
+	b.FieldStart("sending_state")
+	if m.SendingState == nil {
+		return fmt.Errorf("unable to encode message#b7bd95f0: field sending_state is nil")
+	}
+	if err := m.SendingState.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode message#b7bd95f0: field sending_state: %w", err)
+	}
+	b.FieldStart("scheduling_state")
+	if m.SchedulingState == nil {
+		return fmt.Errorf("unable to encode message#b7bd95f0: field scheduling_state is nil")
+	}
+	if err := m.SchedulingState.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode message#b7bd95f0: field scheduling_state: %w", err)
+	}
+	b.FieldStart("is_outgoing")
+	b.PutBool(m.IsOutgoing)
+	b.FieldStart("is_pinned")
+	b.PutBool(m.IsPinned)
+	b.FieldStart("can_be_edited")
+	b.PutBool(m.CanBeEdited)
+	b.FieldStart("can_be_forwarded")
+	b.PutBool(m.CanBeForwarded)
+	b.FieldStart("can_be_deleted_only_for_self")
+	b.PutBool(m.CanBeDeletedOnlyForSelf)
+	b.FieldStart("can_be_deleted_for_all_users")
+	b.PutBool(m.CanBeDeletedForAllUsers)
+	b.FieldStart("can_get_statistics")
+	b.PutBool(m.CanGetStatistics)
+	b.FieldStart("can_get_message_thread")
+	b.PutBool(m.CanGetMessageThread)
+	b.FieldStart("can_get_media_timestamp_links")
+	b.PutBool(m.CanGetMediaTimestampLinks)
+	b.FieldStart("has_timestamped_media")
+	b.PutBool(m.HasTimestampedMedia)
+	b.FieldStart("is_channel_post")
+	b.PutBool(m.IsChannelPost)
+	b.FieldStart("contains_unread_mention")
+	b.PutBool(m.ContainsUnreadMention)
+	b.FieldStart("date")
+	b.PutInt32(m.Date)
+	b.FieldStart("edit_date")
+	b.PutInt32(m.EditDate)
+	b.FieldStart("forward_info")
+	if err := m.ForwardInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode message#b7bd95f0: field forward_info: %w", err)
+	}
+	b.FieldStart("interaction_info")
+	if err := m.InteractionInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode message#b7bd95f0: field interaction_info: %w", err)
+	}
+	b.FieldStart("reply_in_chat_id")
+	b.PutLong(m.ReplyInChatID)
+	b.FieldStart("reply_to_message_id")
+	b.PutLong(m.ReplyToMessageID)
+	b.FieldStart("message_thread_id")
+	b.PutLong(m.MessageThreadID)
+	b.FieldStart("ttl")
+	b.PutInt32(m.TTL)
+	b.FieldStart("ttl_expires_in")
+	b.PutDouble(m.TTLExpiresIn)
+	b.FieldStart("via_bot_user_id")
+	b.PutInt32(m.ViaBotUserID)
+	b.FieldStart("author_signature")
+	b.PutString(m.AuthorSignature)
+	b.FieldStart("media_album_id")
+	if err := m.MediaAlbumID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode message#b7bd95f0: field media_album_id: %w", err)
+	}
+	b.FieldStart("restriction_reason")
+	b.PutString(m.RestrictionReason)
+	b.FieldStart("content")
+	if m.Content == nil {
+		return fmt.Errorf("unable to encode message#b7bd95f0: field content is nil")
+	}
+	if err := m.Content.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode message#b7bd95f0: field content: %w", err)
+	}
+	b.FieldStart("reply_markup")
+	if m.ReplyMarkup == nil {
+		return fmt.Errorf("unable to encode message#b7bd95f0: field reply_markup is nil")
+	}
+	if err := m.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode message#b7bd95f0: field reply_markup: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

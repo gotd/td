@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AuthenticationCodeTypeTelegramMessage represents TL type `authenticationCodeTypeTelegramMessage#7bf49b2a`.
@@ -143,6 +145,19 @@ func (a *AuthenticationCodeTypeTelegramMessage) DecodeBare(b *bin.Buffer) error 
 		}
 		a.Length = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AuthenticationCodeTypeTelegramMessage) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeTelegramMessage#7bf49b2a as nil")
+	}
+	b.ObjStart()
+	b.PutID("authenticationCodeTypeTelegramMessage")
+	b.FieldStart("length")
+	b.PutInt32(a.Length)
+	b.ObjEnd()
 	return nil
 }
 
@@ -268,6 +283,19 @@ func (a *AuthenticationCodeTypeSMS) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AuthenticationCodeTypeSMS) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeSms#3960e288 as nil")
+	}
+	b.ObjStart()
+	b.PutID("authenticationCodeTypeSms")
+	b.FieldStart("length")
+	b.PutInt32(a.Length)
+	b.ObjEnd()
+	return nil
+}
+
 // GetLength returns value of Length field.
 func (a *AuthenticationCodeTypeSMS) GetLength() (value int32) {
 	return a.Length
@@ -387,6 +415,19 @@ func (a *AuthenticationCodeTypeCall) DecodeBare(b *bin.Buffer) error {
 		}
 		a.Length = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AuthenticationCodeTypeCall) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeCall#61876c67 as nil")
+	}
+	b.ObjStart()
+	b.PutID("authenticationCodeTypeCall")
+	b.FieldStart("length")
+	b.PutInt32(a.Length)
+	b.ObjEnd()
 	return nil
 }
 
@@ -512,6 +553,19 @@ func (a *AuthenticationCodeTypeFlashCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AuthenticationCodeTypeFlashCall) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeFlashCall#533379a2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("authenticationCodeTypeFlashCall")
+	b.FieldStart("pattern")
+	b.PutString(a.Pattern)
+	b.ObjEnd()
+	return nil
+}
+
 // GetPattern returns value of Pattern field.
 func (a *AuthenticationCodeTypeFlashCall) GetPattern() (value string) {
 	return a.Pattern
@@ -548,6 +602,7 @@ type AuthenticationCodeTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeAuthenticationCodeType implements binary de-serialization for AuthenticationCodeTypeClass.

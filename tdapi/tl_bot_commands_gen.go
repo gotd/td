@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // BotCommands represents TL type `botCommands#f479c572`.
@@ -170,6 +172,27 @@ func (b *BotCommands) DecodeBare(buf *bin.Buffer) error {
 			b.Commands = append(b.Commands, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes b in TDLib API JSON format.
+func (b *BotCommands) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botCommands#f479c572 as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("botCommands")
+	buf.FieldStart("bot_user_id")
+	buf.PutInt32(b.BotUserID)
+	buf.FieldStart("commands")
+	buf.ArrStart()
+	for idx, v := range b.Commands {
+		if err := v.EncodeTDLibJSON(buf); err != nil {
+			return fmt.Errorf("unable to encode botCommands#f479c572: field commands element with index %d: %w", idx, err)
+		}
+	}
+	buf.ArrEnd()
+	buf.ObjEnd()
 	return nil
 }
 

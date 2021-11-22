@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // DisableProxyRequest represents TL type `disableProxy#82d31782`.
@@ -120,6 +122,17 @@ func (d *DisableProxyRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't decode disableProxy#82d31782 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes d in TDLib API JSON format.
+func (d *DisableProxyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode disableProxy#82d31782 as nil")
+	}
+	b.ObjStart()
+	b.PutID("disableProxy")
+	b.ObjEnd()
 	return nil
 }
 

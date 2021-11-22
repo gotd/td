@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PassportAuthorizationForm represents TL type `passportAuthorizationForm#3fe28cb0`.
@@ -188,6 +190,29 @@ func (p *PassportAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 		}
 		p.PrivacyPolicyURL = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportAuthorizationForm) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportAuthorizationForm#3fe28cb0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportAuthorizationForm")
+	b.FieldStart("id")
+	b.PutInt32(p.ID)
+	b.FieldStart("required_elements")
+	b.ArrStart()
+	for idx, v := range p.RequiredElements {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode passportAuthorizationForm#3fe28cb0: field required_elements element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.FieldStart("privacy_policy_url")
+	b.PutString(p.PrivacyPolicyURL)
+	b.ObjEnd()
 	return nil
 }
 

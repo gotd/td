@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetConnectedWebsitesRequest represents TL type `getConnectedWebsites#f5d5d352`.
@@ -120,6 +122,17 @@ func (g *GetConnectedWebsitesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode getConnectedWebsites#f5d5d352 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetConnectedWebsitesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getConnectedWebsites#f5d5d352 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getConnectedWebsites")
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetDatabaseEncryptionKeyRequest represents TL type `setDatabaseEncryptionKey#b83345b5`.
@@ -138,6 +140,19 @@ func (s *SetDatabaseEncryptionKeyRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.NewEncryptionKey = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetDatabaseEncryptionKeyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setDatabaseEncryptionKey#b83345b5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setDatabaseEncryptionKey")
+	b.FieldStart("new_encryption_key")
+	b.PutBytes(s.NewEncryptionKey)
+	b.ObjEnd()
 	return nil
 }
 

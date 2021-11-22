@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatMember represents TL type `chatMember#1265e1e8`.
@@ -202,6 +204,35 @@ func (c *ChatMember) DecodeBare(b *bin.Buffer) error {
 		}
 		c.Status = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatMember) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatMember#1265e1e8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatMember")
+	b.FieldStart("member_id")
+	if c.MemberID == nil {
+		return fmt.Errorf("unable to encode chatMember#1265e1e8: field member_id is nil")
+	}
+	if err := c.MemberID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatMember#1265e1e8: field member_id: %w", err)
+	}
+	b.FieldStart("inviter_user_id")
+	b.PutInt32(c.InviterUserID)
+	b.FieldStart("joined_chat_date")
+	b.PutInt32(c.JoinedChatDate)
+	b.FieldStart("status")
+	if c.Status == nil {
+		return fmt.Errorf("unable to encode chatMember#1265e1e8: field status is nil")
+	}
+	if err := c.Status.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatMember#1265e1e8: field status: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

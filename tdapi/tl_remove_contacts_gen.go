@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // RemoveContactsRequest represents TL type `removeContacts#d47cddcc`.
@@ -151,6 +153,23 @@ func (r *RemoveContactsRequest) DecodeBare(b *bin.Buffer) error {
 			r.UserIDs = append(r.UserIDs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *RemoveContactsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode removeContacts#d47cddcc as nil")
+	}
+	b.ObjStart()
+	b.PutID("removeContacts")
+	b.FieldStart("user_ids")
+	b.ArrStart()
+	for _, v := range r.UserIDs {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

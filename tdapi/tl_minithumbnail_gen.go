@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Minithumbnail represents TL type `minithumbnail#ec6addaa`.
@@ -172,6 +174,23 @@ func (m *Minithumbnail) DecodeBare(b *bin.Buffer) error {
 		}
 		m.Data = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *Minithumbnail) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode minithumbnail#ec6addaa as nil")
+	}
+	b.ObjStart()
+	b.PutID("minithumbnail")
+	b.FieldStart("width")
+	b.PutInt32(m.Width)
+	b.FieldStart("height")
+	b.PutInt32(m.Height)
+	b.FieldStart("data")
+	b.PutBytes(m.Data)
+	b.ObjEnd()
 	return nil
 }
 

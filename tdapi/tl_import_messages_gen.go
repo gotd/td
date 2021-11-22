@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ImportMessagesRequest represents TL type `importMessages#7e98592b`.
@@ -199,6 +201,37 @@ func (i *ImportMessagesRequest) DecodeBare(b *bin.Buffer) error {
 			i.AttachedFiles = append(i.AttachedFiles, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *ImportMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode importMessages#7e98592b as nil")
+	}
+	b.ObjStart()
+	b.PutID("importMessages")
+	b.FieldStart("chat_id")
+	b.PutLong(i.ChatID)
+	b.FieldStart("message_file")
+	if i.MessageFile == nil {
+		return fmt.Errorf("unable to encode importMessages#7e98592b: field message_file is nil")
+	}
+	if err := i.MessageFile.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode importMessages#7e98592b: field message_file: %w", err)
+	}
+	b.FieldStart("attached_files")
+	b.ArrStart()
+	for idx, v := range i.AttachedFiles {
+		if v == nil {
+			return fmt.Errorf("unable to encode importMessages#7e98592b: field attached_files element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode importMessages#7e98592b: field attached_files element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

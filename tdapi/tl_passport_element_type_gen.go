@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PassportElementTypePersonalDetails represents TL type `passportElementTypePersonalDetails#c27ad953`.
@@ -125,6 +127,17 @@ func (p *PassportElementTypePersonalDetails) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypePersonalDetails#c27ad953 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementTypePersonalDetails) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementTypePersonalDetails#c27ad953 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementTypePersonalDetails")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (p *PassportElementTypePassport) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementTypePassport) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementTypePassport#e5fdab48 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementTypePassport")
+	b.ObjEnd()
+	return nil
+}
+
 // PassportElementTypeDriverLicense represents TL type `passportElementTypeDriverLicense#6cea5c4b`.
 type PassportElementTypeDriverLicense struct {
 }
@@ -323,6 +347,17 @@ func (p *PassportElementTypeDriverLicense) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeDriverLicense#6cea5c4b to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementTypeDriverLicense) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementTypeDriverLicense#6cea5c4b as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementTypeDriverLicense")
+	b.ObjEnd()
 	return nil
 }
 
@@ -425,6 +460,17 @@ func (p *PassportElementTypeIdentityCard) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementTypeIdentityCard) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementTypeIdentityCard#e20ea75c as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementTypeIdentityCard")
+	b.ObjEnd()
+	return nil
+}
+
 // PassportElementTypeInternalPassport represents TL type `passportElementTypeInternalPassport#d0afd939`.
 type PassportElementTypeInternalPassport struct {
 }
@@ -521,6 +567,17 @@ func (p *PassportElementTypeInternalPassport) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeInternalPassport#d0afd939 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementTypeInternalPassport) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementTypeInternalPassport#d0afd939 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementTypeInternalPassport")
+	b.ObjEnd()
 	return nil
 }
 
@@ -623,6 +680,17 @@ func (p *PassportElementTypeAddress) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementTypeAddress) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementTypeAddress#1d955cc2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementTypeAddress")
+	b.ObjEnd()
+	return nil
+}
+
 // PassportElementTypeUtilityBill represents TL type `passportElementTypeUtilityBill#25608e6a`.
 type PassportElementTypeUtilityBill struct {
 }
@@ -719,6 +787,17 @@ func (p *PassportElementTypeUtilityBill) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeUtilityBill#25608e6a to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementTypeUtilityBill) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementTypeUtilityBill#25608e6a as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementTypeUtilityBill")
+	b.ObjEnd()
 	return nil
 }
 
@@ -821,6 +900,17 @@ func (p *PassportElementTypeBankStatement) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementTypeBankStatement) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementTypeBankStatement#22380133 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementTypeBankStatement")
+	b.ObjEnd()
+	return nil
+}
+
 // PassportElementTypeRentalAgreement represents TL type `passportElementTypeRentalAgreement#852dfe90`.
 type PassportElementTypeRentalAgreement struct {
 }
@@ -917,6 +1007,17 @@ func (p *PassportElementTypeRentalAgreement) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeRentalAgreement#852dfe90 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementTypeRentalAgreement) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementTypeRentalAgreement#852dfe90 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementTypeRentalAgreement")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1019,6 +1120,17 @@ func (p *PassportElementTypePassportRegistration) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementTypePassportRegistration) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementTypePassportRegistration#f67e8e3f as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementTypePassportRegistration")
+	b.ObjEnd()
+	return nil
+}
+
 // PassportElementTypeTemporaryRegistration represents TL type `passportElementTypeTemporaryRegistration#411e345f`.
 type PassportElementTypeTemporaryRegistration struct {
 }
@@ -1115,6 +1227,17 @@ func (p *PassportElementTypeTemporaryRegistration) DecodeBare(b *bin.Buffer) err
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeTemporaryRegistration#411e345f to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementTypeTemporaryRegistration) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementTypeTemporaryRegistration#411e345f as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementTypeTemporaryRegistration")
+	b.ObjEnd()
 	return nil
 }
 
@@ -1217,6 +1340,17 @@ func (p *PassportElementTypePhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementTypePhoneNumber) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementTypePhoneNumber#c4abfe6c as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementTypePhoneNumber")
+	b.ObjEnd()
+	return nil
+}
+
 // PassportElementTypeEmailAddress represents TL type `passportElementTypeEmailAddress#fb45a6c3`.
 type PassportElementTypeEmailAddress struct {
 }
@@ -1316,6 +1450,17 @@ func (p *PassportElementTypeEmailAddress) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PassportElementTypeEmailAddress) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passportElementTypeEmailAddress#fb45a6c3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("passportElementTypeEmailAddress")
+	b.ObjEnd()
+	return nil
+}
+
 // PassportElementTypeClass represents PassportElementType generic type.
 //
 // Example:
@@ -1356,6 +1501,7 @@ type PassportElementTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodePassportElementType implements binary de-serialization for PassportElementTypeClass.

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // InputIdentityDocument represents TL type `inputIdentityDocument#7cf00afe`.
@@ -256,6 +258,55 @@ func (i *InputIdentityDocument) DecodeBare(b *bin.Buffer) error {
 			i.Translation = append(i.Translation, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes i in TDLib API JSON format.
+func (i *InputIdentityDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputIdentityDocument#7cf00afe as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputIdentityDocument")
+	b.FieldStart("number")
+	b.PutString(i.Number)
+	b.FieldStart("expiry_date")
+	if err := i.ExpiryDate.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field expiry_date: %w", err)
+	}
+	b.FieldStart("front_side")
+	if i.FrontSide == nil {
+		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field front_side is nil")
+	}
+	if err := i.FrontSide.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field front_side: %w", err)
+	}
+	b.FieldStart("reverse_side")
+	if i.ReverseSide == nil {
+		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field reverse_side is nil")
+	}
+	if err := i.ReverseSide.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field reverse_side: %w", err)
+	}
+	b.FieldStart("selfie")
+	if i.Selfie == nil {
+		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field selfie is nil")
+	}
+	if err := i.Selfie.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field selfie: %w", err)
+	}
+	b.FieldStart("translation")
+	b.ArrStart()
+	for idx, v := range i.Translation {
+		if v == nil {
+			return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field translation element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field translation element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

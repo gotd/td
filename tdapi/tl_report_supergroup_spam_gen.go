@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ReportSupergroupSpamRequest represents TL type `reportSupergroupSpam#4499c07f`.
@@ -186,6 +188,27 @@ func (r *ReportSupergroupSpamRequest) DecodeBare(b *bin.Buffer) error {
 			r.MessageIDs = append(r.MessageIDs, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes r in TDLib API JSON format.
+func (r *ReportSupergroupSpamRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if r == nil {
+		return fmt.Errorf("can't encode reportSupergroupSpam#4499c07f as nil")
+	}
+	b.ObjStart()
+	b.PutID("reportSupergroupSpam")
+	b.FieldStart("supergroup_id")
+	b.PutInt32(r.SupergroupID)
+	b.FieldStart("user_id")
+	b.PutInt32(r.UserID)
+	b.FieldStart("message_ids")
+	b.ArrStart()
+	for _, v := range r.MessageIDs {
+		b.PutLong(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

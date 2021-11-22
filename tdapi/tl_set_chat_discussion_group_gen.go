@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetChatDiscussionGroupRequest represents TL type `setChatDiscussionGroup#c93c32b8`.
@@ -157,6 +159,21 @@ func (s *SetChatDiscussionGroupRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.DiscussionChatID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetChatDiscussionGroupRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setChatDiscussionGroup#c93c32b8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("setChatDiscussionGroup")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("discussion_chat_id")
+	b.PutLong(s.DiscussionChatID)
+	b.ObjEnd()
 	return nil
 }
 

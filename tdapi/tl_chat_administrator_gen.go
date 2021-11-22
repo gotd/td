@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatAdministrator represents TL type `chatAdministrator#1d0a66ce`.
@@ -172,6 +174,23 @@ func (c *ChatAdministrator) DecodeBare(b *bin.Buffer) error {
 		}
 		c.IsOwner = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatAdministrator) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatAdministrator#1d0a66ce as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatAdministrator")
+	b.FieldStart("user_id")
+	b.PutInt32(c.UserID)
+	b.FieldStart("custom_title")
+	b.PutString(c.CustomTitle)
+	b.FieldStart("is_owner")
+	b.PutBool(c.IsOwner)
+	b.ObjEnd()
 	return nil
 }
 

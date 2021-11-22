@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetChatNotificationSettingsExceptionsRequest represents TL type `getChatNotificationSettingsExceptions#bfe0e11`.
@@ -160,6 +162,26 @@ func (g *GetChatNotificationSettingsExceptionsRequest) DecodeBare(b *bin.Buffer)
 		}
 		g.CompareSound = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetChatNotificationSettingsExceptionsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getChatNotificationSettingsExceptions#bfe0e11 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getChatNotificationSettingsExceptions")
+	b.FieldStart("scope")
+	if g.Scope == nil {
+		return fmt.Errorf("unable to encode getChatNotificationSettingsExceptions#bfe0e11: field scope is nil")
+	}
+	if err := g.Scope.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getChatNotificationSettingsExceptions#bfe0e11: field scope: %w", err)
+	}
+	b.FieldStart("compare_sound")
+	b.PutBool(g.CompareSound)
+	b.ObjEnd()
 	return nil
 }
 

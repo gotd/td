@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PageBlockRelatedArticle represents TL type `pageBlockRelatedArticle#1cae8493`.
@@ -223,6 +225,31 @@ func (p *PageBlockRelatedArticle) DecodeBare(b *bin.Buffer) error {
 		}
 		p.PublishDate = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PageBlockRelatedArticle) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockRelatedArticle#1cae8493 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pageBlockRelatedArticle")
+	b.FieldStart("url")
+	b.PutString(p.URL)
+	b.FieldStart("title")
+	b.PutString(p.Title)
+	b.FieldStart("description")
+	b.PutString(p.Description)
+	b.FieldStart("photo")
+	if err := p.Photo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode pageBlockRelatedArticle#1cae8493: field photo: %w", err)
+	}
+	b.FieldStart("author")
+	b.PutString(p.Author)
+	b.FieldStart("publish_date")
+	b.PutInt32(p.PublishDate)
+	b.ObjEnd()
 	return nil
 }
 

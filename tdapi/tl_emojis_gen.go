@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // Emojis represents TL type `emojis#77274a16`.
@@ -151,6 +153,23 @@ func (e *Emojis) DecodeBare(b *bin.Buffer) error {
 			e.Emojis = append(e.Emojis, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes e in TDLib API JSON format.
+func (e *Emojis) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if e == nil {
+		return fmt.Errorf("can't encode emojis#77274a16 as nil")
+	}
+	b.ObjStart()
+	b.PutID("emojis")
+	b.FieldStart("emojis")
+	b.ArrStart()
+	for _, v := range e.Emojis {
+		b.PutString(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

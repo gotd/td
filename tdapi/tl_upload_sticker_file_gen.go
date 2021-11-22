@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // UploadStickerFileRequest represents TL type `uploadStickerFile#c9e5669a`.
@@ -160,6 +162,26 @@ func (u *UploadStickerFileRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		u.Sticker = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes u in TDLib API JSON format.
+func (u *UploadStickerFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode uploadStickerFile#c9e5669a as nil")
+	}
+	b.ObjStart()
+	b.PutID("uploadStickerFile")
+	b.FieldStart("user_id")
+	b.PutInt32(u.UserID)
+	b.FieldStart("sticker")
+	if u.Sticker == nil {
+		return fmt.Errorf("unable to encode uploadStickerFile#c9e5669a: field sticker is nil")
+	}
+	if err := u.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode uploadStickerFile#c9e5669a: field sticker: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

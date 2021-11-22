@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CallDiscardReasonEmpty represents TL type `callDiscardReasonEmpty#b4f66fc3`.
@@ -125,6 +127,17 @@ func (c *CallDiscardReasonEmpty) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode callDiscardReasonEmpty#b4f66fc3 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallDiscardReasonEmpty) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callDiscardReasonEmpty#b4f66fc3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callDiscardReasonEmpty")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (c *CallDiscardReasonMissed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallDiscardReasonMissed) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callDiscardReasonMissed#64283a7c as nil")
+	}
+	b.ObjStart()
+	b.PutID("callDiscardReasonMissed")
+	b.ObjEnd()
+	return nil
+}
+
 // CallDiscardReasonDeclined represents TL type `callDiscardReasonDeclined#98e36c32`.
 type CallDiscardReasonDeclined struct {
 }
@@ -323,6 +347,17 @@ func (c *CallDiscardReasonDeclined) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode callDiscardReasonDeclined#98e36c32 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallDiscardReasonDeclined) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callDiscardReasonDeclined#98e36c32 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callDiscardReasonDeclined")
+	b.ObjEnd()
 	return nil
 }
 
@@ -425,6 +460,17 @@ func (c *CallDiscardReasonDisconnected) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallDiscardReasonDisconnected) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callDiscardReasonDisconnected#aff563a2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callDiscardReasonDisconnected")
+	b.ObjEnd()
+	return nil
+}
+
 // CallDiscardReasonHungUp represents TL type `callDiscardReasonHungUp#1a1ea5e6`.
 type CallDiscardReasonHungUp struct {
 }
@@ -524,6 +570,17 @@ func (c *CallDiscardReasonHungUp) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CallDiscardReasonHungUp) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode callDiscardReasonHungUp#1a1ea5e6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("callDiscardReasonHungUp")
+	b.ObjEnd()
+	return nil
+}
+
 // CallDiscardReasonClass represents CallDiscardReason generic type.
 //
 // Example:
@@ -556,6 +613,7 @@ type CallDiscardReasonClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeCallDiscardReason implements binary de-serialization for CallDiscardReasonClass.

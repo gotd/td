@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChangeStickerSetRequest represents TL type `changeStickerSet#1ac8a5ed`.
@@ -173,6 +175,25 @@ func (c *ChangeStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		c.IsArchived = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChangeStickerSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode changeStickerSet#1ac8a5ed as nil")
+	}
+	b.ObjStart()
+	b.PutID("changeStickerSet")
+	b.FieldStart("set_id")
+	if err := c.SetID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode changeStickerSet#1ac8a5ed: field set_id: %w", err)
+	}
+	b.FieldStart("is_installed")
+	b.PutBool(c.IsInstalled)
+	b.FieldStart("is_archived")
+	b.PutBool(c.IsArchived)
+	b.ObjEnd()
 	return nil
 }
 

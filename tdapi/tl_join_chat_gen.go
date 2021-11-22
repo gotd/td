@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // JoinChatRequest represents TL type `joinChat#137a1aa1`.
@@ -138,6 +140,19 @@ func (j *JoinChatRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		j.ChatID = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes j in TDLib API JSON format.
+func (j *JoinChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if j == nil {
+		return fmt.Errorf("can't encode joinChat#137a1aa1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("joinChat")
+	b.FieldStart("chat_id")
+	b.PutLong(j.ChatID)
+	b.ObjEnd()
 	return nil
 }
 

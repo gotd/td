@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetWebPageInstantViewRequest represents TL type `getWebPageInstantView#8b045689`.
@@ -155,6 +157,21 @@ func (g *GetWebPageInstantViewRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.ForceFull = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetWebPageInstantViewRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getWebPageInstantView#8b045689 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getWebPageInstantView")
+	b.FieldStart("url")
+	b.PutString(g.URL)
+	b.FieldStart("force_full")
+	b.PutBool(g.ForceFull)
+	b.ObjEnd()
 	return nil
 }
 

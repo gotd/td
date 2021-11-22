@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PhoneNumberAuthenticationSettings represents TL type `phoneNumberAuthenticationSettings#ccc9aae9`.
@@ -176,6 +178,23 @@ func (p *PhoneNumberAuthenticationSettings) DecodeBare(b *bin.Buffer) error {
 		}
 		p.AllowSMSRetrieverAPI = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PhoneNumberAuthenticationSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode phoneNumberAuthenticationSettings#ccc9aae9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("phoneNumberAuthenticationSettings")
+	b.FieldStart("allow_flash_call")
+	b.PutBool(p.AllowFlashCall)
+	b.FieldStart("is_current_phone_number")
+	b.PutBool(p.IsCurrentPhoneNumber)
+	b.FieldStart("allow_sms_retriever_api")
+	b.PutBool(p.AllowSMSRetrieverAPI)
+	b.ObjEnd()
 	return nil
 }
 

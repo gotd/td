@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ToggleGroupCallIsMyVideoPausedRequest represents TL type `toggleGroupCallIsMyVideoPaused#e374f199`.
@@ -155,6 +157,21 @@ func (t *ToggleGroupCallIsMyVideoPausedRequest) DecodeBare(b *bin.Buffer) error 
 		}
 		t.IsMyVideoPaused = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *ToggleGroupCallIsMyVideoPausedRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode toggleGroupCallIsMyVideoPaused#e374f199 as nil")
+	}
+	b.ObjStart()
+	b.PutID("toggleGroupCallIsMyVideoPaused")
+	b.FieldStart("group_call_id")
+	b.PutInt32(t.GroupCallID)
+	b.FieldStart("is_my_video_paused")
+	b.PutBool(t.IsMyVideoPaused)
+	b.ObjEnd()
 	return nil
 }
 

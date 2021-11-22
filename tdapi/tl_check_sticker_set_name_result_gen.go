@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // CheckStickerSetNameResultOk represents TL type `checkStickerSetNameResultOk#ac4bf258`.
@@ -125,6 +127,17 @@ func (c *CheckStickerSetNameResultOk) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode checkStickerSetNameResultOk#ac4bf258 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CheckStickerSetNameResultOk) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkStickerSetNameResultOk#ac4bf258 as nil")
+	}
+	b.ObjStart()
+	b.PutID("checkStickerSetNameResultOk")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (c *CheckStickerSetNameResultNameInvalid) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CheckStickerSetNameResultNameInvalid) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkStickerSetNameResultNameInvalid#a9bf234 as nil")
+	}
+	b.ObjStart()
+	b.PutID("checkStickerSetNameResultNameInvalid")
+	b.ObjEnd()
+	return nil
+}
+
 // CheckStickerSetNameResultNameOccupied represents TL type `checkStickerSetNameResultNameOccupied#3c60dc88`.
 type CheckStickerSetNameResultNameOccupied struct {
 }
@@ -326,6 +350,17 @@ func (c *CheckStickerSetNameResultNameOccupied) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *CheckStickerSetNameResultNameOccupied) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkStickerSetNameResultNameOccupied#3c60dc88 as nil")
+	}
+	b.ObjStart()
+	b.PutID("checkStickerSetNameResultNameOccupied")
+	b.ObjEnd()
+	return nil
+}
+
 // CheckStickerSetNameResultClass represents CheckStickerSetNameResult generic type.
 //
 // Example:
@@ -356,6 +391,7 @@ type CheckStickerSetNameResultClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeCheckStickerSetNameResult implements binary de-serialization for CheckStickerSetNameResultClass.

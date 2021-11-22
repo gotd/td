@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PhotoSize represents TL type `photoSize#18e56d39`.
@@ -220,6 +222,33 @@ func (p *PhotoSize) DecodeBare(b *bin.Buffer) error {
 			p.ProgressiveSizes = append(p.ProgressiveSizes, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PhotoSize) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode photoSize#18e56d39 as nil")
+	}
+	b.ObjStart()
+	b.PutID("photoSize")
+	b.FieldStart("type")
+	b.PutString(p.Type)
+	b.FieldStart("photo")
+	if err := p.Photo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode photoSize#18e56d39: field photo: %w", err)
+	}
+	b.FieldStart("width")
+	b.PutInt32(p.Width)
+	b.FieldStart("height")
+	b.PutInt32(p.Height)
+	b.FieldStart("progressive_sizes")
+	b.ArrStart()
+	for _, v := range p.ProgressiveSizes {
+		b.PutInt32(v)
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // PaymentReceipt represents TL type `paymentReceipt#7a9a2ea4`.
@@ -308,6 +310,47 @@ func (p *PaymentReceipt) DecodeBare(b *bin.Buffer) error {
 		}
 		p.TipAmount = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes p in TDLib API JSON format.
+func (p *PaymentReceipt) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode paymentReceipt#7a9a2ea4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("paymentReceipt")
+	b.FieldStart("title")
+	b.PutString(p.Title)
+	b.FieldStart("description")
+	b.PutString(p.Description)
+	b.FieldStart("photo")
+	if err := p.Photo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode paymentReceipt#7a9a2ea4: field photo: %w", err)
+	}
+	b.FieldStart("date")
+	b.PutInt32(p.Date)
+	b.FieldStart("seller_bot_user_id")
+	b.PutInt32(p.SellerBotUserID)
+	b.FieldStart("payments_provider_user_id")
+	b.PutInt32(p.PaymentsProviderUserID)
+	b.FieldStart("invoice")
+	if err := p.Invoice.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode paymentReceipt#7a9a2ea4: field invoice: %w", err)
+	}
+	b.FieldStart("order_info")
+	if err := p.OrderInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode paymentReceipt#7a9a2ea4: field order_info: %w", err)
+	}
+	b.FieldStart("shipping_option")
+	if err := p.ShippingOption.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode paymentReceipt#7a9a2ea4: field shipping_option: %w", err)
+	}
+	b.FieldStart("credentials_title")
+	b.PutString(p.CredentialsTitle)
+	b.FieldStart("tip_amount")
+	b.PutLong(p.TipAmount)
+	b.ObjEnd()
 	return nil
 }
 

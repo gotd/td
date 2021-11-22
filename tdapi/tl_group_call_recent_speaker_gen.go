@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GroupCallRecentSpeaker represents TL type `groupCallRecentSpeaker#6c73a9cc`.
@@ -160,6 +162,26 @@ func (g *GroupCallRecentSpeaker) DecodeBare(b *bin.Buffer) error {
 		}
 		g.IsSpeaking = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GroupCallRecentSpeaker) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode groupCallRecentSpeaker#6c73a9cc as nil")
+	}
+	b.ObjStart()
+	b.PutID("groupCallRecentSpeaker")
+	b.FieldStart("participant_id")
+	if g.ParticipantID == nil {
+		return fmt.Errorf("unable to encode groupCallRecentSpeaker#6c73a9cc: field participant_id is nil")
+	}
+	if err := g.ParticipantID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode groupCallRecentSpeaker#6c73a9cc: field participant_id: %w", err)
+	}
+	b.FieldStart("is_speaking")
+	b.PutBool(g.IsSpeaking)
+	b.ObjEnd()
 	return nil
 }
 

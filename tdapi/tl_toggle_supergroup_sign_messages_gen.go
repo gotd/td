@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ToggleSupergroupSignMessagesRequest represents TL type `toggleSupergroupSignMessages#deba989b`.
@@ -155,6 +157,21 @@ func (t *ToggleSupergroupSignMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		t.SignMessages = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *ToggleSupergroupSignMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode toggleSupergroupSignMessages#deba989b as nil")
+	}
+	b.ObjStart()
+	b.PutID("toggleSupergroupSignMessages")
+	b.FieldStart("supergroup_id")
+	b.PutInt32(t.SupergroupID)
+	b.FieldStart("sign_messages")
+	b.PutBool(t.SignMessages)
+	b.ObjEnd()
 	return nil
 }
 

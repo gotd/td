@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ToggleChatDefaultDisableNotificationRequest represents TL type `toggleChatDefaultDisableNotification#12c36012`.
@@ -155,6 +157,21 @@ func (t *ToggleChatDefaultDisableNotificationRequest) DecodeBare(b *bin.Buffer) 
 		}
 		t.DefaultDisableNotification = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *ToggleChatDefaultDisableNotificationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode toggleChatDefaultDisableNotification#12c36012 as nil")
+	}
+	b.ObjStart()
+	b.PutID("toggleChatDefaultDisableNotification")
+	b.FieldStart("chat_id")
+	b.PutLong(t.ChatID)
+	b.FieldStart("default_disable_notification")
+	b.PutBool(t.DefaultDisableNotification)
+	b.ObjEnd()
 	return nil
 }
 

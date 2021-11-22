@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetPaymentFormRequest represents TL type `getPaymentForm#96e6319`.
@@ -172,6 +174,25 @@ func (g *GetPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode getPaymentForm#96e6319: field theme: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetPaymentFormRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getPaymentForm#96e6319 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getPaymentForm")
+	b.FieldStart("chat_id")
+	b.PutLong(g.ChatID)
+	b.FieldStart("message_id")
+	b.PutLong(g.MessageID)
+	b.FieldStart("theme")
+	if err := g.Theme.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getPaymentForm#96e6319: field theme: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TestUseUpdateRequest represents TL type `testUseUpdate#2abdff1e`.
@@ -120,6 +122,17 @@ func (t *TestUseUpdateRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode testUseUpdate#2abdff1e to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TestUseUpdateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testUseUpdate#2abdff1e as nil")
+	}
+	b.ObjStart()
+	b.PutID("testUseUpdate")
+	b.ObjEnd()
 	return nil
 }
 

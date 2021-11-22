@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageSenders represents TL type `messageSenders#f6929bcc`.
@@ -173,6 +175,30 @@ func (m *MessageSenders) DecodeBare(b *bin.Buffer) error {
 			m.Senders = append(m.Senders, value)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageSenders) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSenders#f6929bcc as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageSenders")
+	b.FieldStart("total_count")
+	b.PutInt32(m.TotalCount)
+	b.FieldStart("senders")
+	b.ArrStart()
+	for idx, v := range m.Senders {
+		if v == nil {
+			return fmt.Errorf("unable to encode messageSenders#f6929bcc: field senders element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode messageSenders#f6929bcc: field senders element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
+	b.ObjEnd()
 	return nil
 }
 

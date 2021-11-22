@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // LocalFile represents TL type `localFile#ba7a24c3`.
@@ -261,6 +263,33 @@ func (l *LocalFile) DecodeBare(b *bin.Buffer) error {
 		}
 		l.DownloadedSize = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes l in TDLib API JSON format.
+func (l *LocalFile) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if l == nil {
+		return fmt.Errorf("can't encode localFile#ba7a24c3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("localFile")
+	b.FieldStart("path")
+	b.PutString(l.Path)
+	b.FieldStart("can_be_downloaded")
+	b.PutBool(l.CanBeDownloaded)
+	b.FieldStart("can_be_deleted")
+	b.PutBool(l.CanBeDeleted)
+	b.FieldStart("is_downloading_active")
+	b.PutBool(l.IsDownloadingActive)
+	b.FieldStart("is_downloading_completed")
+	b.PutBool(l.IsDownloadingCompleted)
+	b.FieldStart("download_offset")
+	b.PutInt32(l.DownloadOffset)
+	b.FieldStart("downloaded_prefix_size")
+	b.PutInt32(l.DownloadedPrefixSize)
+	b.FieldStart("downloaded_size")
+	b.PutInt32(l.DownloadedSize)
+	b.ObjEnd()
 	return nil
 }
 

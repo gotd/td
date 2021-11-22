@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // ChatFilterInfo represents TL type `chatFilterInfo#c7bff533`.
@@ -175,6 +177,23 @@ func (c *ChatFilterInfo) DecodeBare(b *bin.Buffer) error {
 		}
 		c.IconName = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes c in TDLib API JSON format.
+func (c *ChatFilterInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatFilterInfo#c7bff533 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatFilterInfo")
+	b.FieldStart("id")
+	b.PutInt32(c.ID)
+	b.FieldStart("title")
+	b.PutString(c.Title)
+	b.FieldStart("icon_name")
+	b.PutString(c.IconName)
+	b.ObjEnd()
 	return nil
 }
 

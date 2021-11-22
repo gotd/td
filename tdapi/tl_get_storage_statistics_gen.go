@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetStorageStatisticsRequest represents TL type `getStorageStatistics#cd254b37`.
@@ -141,6 +143,19 @@ func (g *GetStorageStatisticsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.ChatLimit = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetStorageStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getStorageStatistics#cd254b37 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getStorageStatistics")
+	b.FieldStart("chat_limit")
+	b.PutInt32(g.ChatLimit)
+	b.ObjEnd()
 	return nil
 }
 

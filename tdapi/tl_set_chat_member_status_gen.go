@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetChatMemberStatusRequest represents TL type `setChatMemberStatus#4e0171f`.
@@ -182,6 +184,33 @@ func (s *SetChatMemberStatusRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		s.Status = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetChatMemberStatusRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setChatMemberStatus#4e0171f as nil")
+	}
+	b.ObjStart()
+	b.PutID("setChatMemberStatus")
+	b.FieldStart("chat_id")
+	b.PutLong(s.ChatID)
+	b.FieldStart("member_id")
+	if s.MemberID == nil {
+		return fmt.Errorf("unable to encode setChatMemberStatus#4e0171f: field member_id is nil")
+	}
+	if err := s.MemberID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setChatMemberStatus#4e0171f: field member_id: %w", err)
+	}
+	b.FieldStart("status")
+	if s.Status == nil {
+		return fmt.Errorf("unable to encode setChatMemberStatus#4e0171f: field status is nil")
+	}
+	if err := s.Status.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setChatMemberStatus#4e0171f: field status: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

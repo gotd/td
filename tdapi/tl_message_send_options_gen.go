@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // MessageSendOptions represents TL type `messageSendOptions#3682d6ba`.
@@ -178,6 +180,28 @@ func (m *MessageSendOptions) DecodeBare(b *bin.Buffer) error {
 		}
 		m.SchedulingState = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes m in TDLib API JSON format.
+func (m *MessageSendOptions) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSendOptions#3682d6ba as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageSendOptions")
+	b.FieldStart("disable_notification")
+	b.PutBool(m.DisableNotification)
+	b.FieldStart("from_background")
+	b.PutBool(m.FromBackground)
+	b.FieldStart("scheduling_state")
+	if m.SchedulingState == nil {
+		return fmt.Errorf("unable to encode messageSendOptions#3682d6ba: field scheduling_state is nil")
+	}
+	if err := m.SchedulingState.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageSendOptions#3682d6ba: field scheduling_state: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

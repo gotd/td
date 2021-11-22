@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // AddStickerToSetRequest represents TL type `addStickerToSet#e4e66a2c`.
@@ -177,6 +179,28 @@ func (a *AddStickerToSetRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		a.Sticker = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes a in TDLib API JSON format.
+func (a *AddStickerToSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode addStickerToSet#e4e66a2c as nil")
+	}
+	b.ObjStart()
+	b.PutID("addStickerToSet")
+	b.FieldStart("user_id")
+	b.PutInt32(a.UserID)
+	b.FieldStart("name")
+	b.PutString(a.Name)
+	b.FieldStart("sticker")
+	if a.Sticker == nil {
+		return fmt.Errorf("unable to encode addStickerToSet#e4e66a2c: field sticker is nil")
+	}
+	if err := a.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode addStickerToSet#e4e66a2c: field sticker: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

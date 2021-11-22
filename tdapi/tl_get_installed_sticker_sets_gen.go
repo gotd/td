@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // GetInstalledStickerSetsRequest represents TL type `getInstalledStickerSets#48642965`.
@@ -138,6 +140,19 @@ func (g *GetInstalledStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		g.IsMasks = value
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes g in TDLib API JSON format.
+func (g *GetInstalledStickerSetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if g == nil {
+		return fmt.Errorf("can't encode getInstalledStickerSets#48642965 as nil")
+	}
+	b.ObjStart()
+	b.PutID("getInstalledStickerSets")
+	b.FieldStart("is_masks")
+	b.PutBool(g.IsMasks)
+	b.ObjEnd()
 	return nil
 }
 

@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // SetUserPrivacySettingRulesRequest represents TL type `setUserPrivacySettingRules#e3c230fb`.
@@ -160,6 +162,28 @@ func (s *SetUserPrivacySettingRulesRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode setUserPrivacySettingRules#e3c230fb: field rules: %w", err)
 		}
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes s in TDLib API JSON format.
+func (s *SetUserPrivacySettingRulesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode setUserPrivacySettingRules#e3c230fb as nil")
+	}
+	b.ObjStart()
+	b.PutID("setUserPrivacySettingRules")
+	b.FieldStart("setting")
+	if s.Setting == nil {
+		return fmt.Errorf("unable to encode setUserPrivacySettingRules#e3c230fb: field setting is nil")
+	}
+	if err := s.Setting.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setUserPrivacySettingRules#e3c230fb: field setting: %w", err)
+	}
+	b.FieldStart("rules")
+	if err := s.Rules.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setUserPrivacySettingRules#e3c230fb: field rules: %w", err)
+	}
+	b.ObjEnd()
 	return nil
 }
 

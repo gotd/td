@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TopChatCategoryUsers represents TL type `topChatCategoryUsers#3d324d80`.
@@ -125,6 +127,17 @@ func (t *TopChatCategoryUsers) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode topChatCategoryUsers#3d324d80 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TopChatCategoryUsers) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topChatCategoryUsers#3d324d80 as nil")
+	}
+	b.ObjStart()
+	b.PutID("topChatCategoryUsers")
+	b.ObjEnd()
 	return nil
 }
 
@@ -227,6 +240,17 @@ func (t *TopChatCategoryBots) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TopChatCategoryBots) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topChatCategoryBots#a1feeb15 as nil")
+	}
+	b.ObjStart()
+	b.PutID("topChatCategoryBots")
+	b.ObjEnd()
+	return nil
+}
+
 // TopChatCategoryGroups represents TL type `topChatCategoryGroups#5b32d08e`.
 type TopChatCategoryGroups struct {
 }
@@ -323,6 +347,17 @@ func (t *TopChatCategoryGroups) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode topChatCategoryGroups#5b32d08e to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TopChatCategoryGroups) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topChatCategoryGroups#5b32d08e as nil")
+	}
+	b.ObjStart()
+	b.PutID("topChatCategoryGroups")
+	b.ObjEnd()
 	return nil
 }
 
@@ -425,6 +460,17 @@ func (t *TopChatCategoryChannels) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TopChatCategoryChannels) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topChatCategoryChannels#e22600e3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("topChatCategoryChannels")
+	b.ObjEnd()
+	return nil
+}
+
 // TopChatCategoryInlineBots represents TL type `topChatCategoryInlineBots#1678eb7c`.
 type TopChatCategoryInlineBots struct {
 }
@@ -521,6 +567,17 @@ func (t *TopChatCategoryInlineBots) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode topChatCategoryInlineBots#1678eb7c to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TopChatCategoryInlineBots) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topChatCategoryInlineBots#1678eb7c as nil")
+	}
+	b.ObjStart()
+	b.PutID("topChatCategoryInlineBots")
+	b.ObjEnd()
 	return nil
 }
 
@@ -623,6 +680,17 @@ func (t *TopChatCategoryCalls) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TopChatCategoryCalls) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topChatCategoryCalls#153b50dd as nil")
+	}
+	b.ObjStart()
+	b.PutID("topChatCategoryCalls")
+	b.ObjEnd()
+	return nil
+}
+
 // TopChatCategoryForwardChats represents TL type `topChatCategoryForwardChats#6515b7d5`.
 type TopChatCategoryForwardChats struct {
 }
@@ -722,6 +790,17 @@ func (t *TopChatCategoryForwardChats) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TopChatCategoryForwardChats) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topChatCategoryForwardChats#6515b7d5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("topChatCategoryForwardChats")
+	b.ObjEnd()
+	return nil
+}
+
 // TopChatCategoryClass represents TopChatCategory generic type.
 //
 // Example:
@@ -756,6 +835,7 @@ type TopChatCategoryClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+	EncodeTDLibJSON(b *jsontd.Encoder) error
 }
 
 // DecodeTopChatCategory implements binary de-serialization for TopChatCategoryClass.

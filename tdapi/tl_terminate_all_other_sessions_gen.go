@@ -12,6 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/jsontd"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -27,6 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
+	_ = jsontd.Encoder{}
 )
 
 // TerminateAllOtherSessionsRequest represents TL type `terminateAllOtherSessions#6fba6113`.
@@ -120,6 +122,17 @@ func (t *TerminateAllOtherSessionsRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode terminateAllOtherSessions#6fba6113 to nil")
 	}
+	return nil
+}
+
+// EncodeTDLibJSON encodes t in TDLib API JSON format.
+func (t *TerminateAllOtherSessionsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode terminateAllOtherSessions#6fba6113 as nil")
+	}
+	b.ObjStart()
+	b.PutID("terminateAllOtherSessions")
+	b.ObjEnd()
 	return nil
 }
 
