@@ -18,7 +18,6 @@ func rleEncode(s []byte) (r []byte) {
 	}
 	if count > 0 {
 		r = append(r, 0, count)
-		count = 0
 	}
 
 	return r

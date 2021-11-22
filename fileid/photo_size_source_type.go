@@ -6,15 +6,25 @@ package fileid
 type PhotoSizeSourceType int
 
 const (
+	// PhotoSizeSourceLegacy is Legacy type.
 	PhotoSizeSourceLegacy PhotoSizeSourceType = iota
+	// PhotoSizeSourceThumbnail is Thumbnail type.
 	PhotoSizeSourceThumbnail
+	// PhotoSizeSourceDialogPhotoSmall is DialogPhotoSmall type.
 	PhotoSizeSourceDialogPhotoSmall
+	// PhotoSizeSourceDialogPhotoBig is DialogPhotoBig type.
 	PhotoSizeSourceDialogPhotoBig
+	// PhotoSizeSourceStickerSetThumbnail is StickerSetThumbnail type.
 	PhotoSizeSourceStickerSetThumbnail
+	// PhotoSizeSourceFullLegacy is FullLegacy type.
 	PhotoSizeSourceFullLegacy
+	// PhotoSizeSourceDialogPhotoSmallLegacy is DialogPhotoSmallLegacy type.
 	PhotoSizeSourceDialogPhotoSmallLegacy
+	// PhotoSizeSourceDialogPhotoBigLegacy is DialogPhotoBigLegacy type.
 	PhotoSizeSourceDialogPhotoBigLegacy
+	// PhotoSizeSourceStickerSetThumbnailLegacy is StickerSetThumbnailLegacy type.
 	PhotoSizeSourceStickerSetThumbnailLegacy
+	// PhotoSizeSourceStickerSetThumbnailVersion is StickerSetThumbnailVersion type.
 	PhotoSizeSourceStickerSetThumbnailVersion
 	lastPhotoSizeSourceType
 )
