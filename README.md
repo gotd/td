@@ -310,6 +310,12 @@ Status by 11.07.2021
    </td>
 </table>
 
+## Who is using gotd?
+
+[<img src="https://user-images.githubusercontent.com/43930873/142855897-7091ced0-4fe8-4f8d-ad43-e9db2723bacc.png" width="150">](https://telq.org)
+
+Drop a comment [here](https://github.com/gotd/td/issues/568) to add your project.
+
 ## License
 
 MIT License
