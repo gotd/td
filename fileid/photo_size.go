@@ -1,22 +1,21 @@
 package fileid
 
 import (
-	"io"
-
 	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/bin"
 )
 
-// PhotoSize represents photo metadata stored in file_id.
-type PhotoSize struct {
+// PhotoSizeSource represents photo metadata stored in file_id.
+type PhotoSizeSource struct {
+	Type      PhotoSizeSourceType
 	VolumeID  int64
 	LocalID   int
 	Secret    int64
 	PhotoSize string
 
 	FileType      uint32
-	ThumbnailType [4]byte
+	ThumbnailType int32
 
 	DialogID         int64
 	DialogAccessHash int64
@@ -26,20 +25,7 @@ type PhotoSize struct {
 	StickerVersion       int32
 }
 
-const (
-	photoSizeSourceLegacy = iota
-	photoSizeSourceThumbnail
-	photoSizeSourceDialogPhotoSmall
-	photoSizeSourceDialogPhotoBig
-	photoSizeSourceStickerSetThumbnail
-	photoSizeSourceFullLegacy
-	photoSizeSourceDialogPhotoSmallLegacy
-	photoSizeSourceDialogPhotoBigLegacy
-	photoSizeSourceStickerSetThumbnailLegacy
-	photoSizeSourceStickerSetThumbnailVersion
-)
-
-func (p *PhotoSize) readLocalIDVolumeID(b *bin.Buffer) error {
+func (p *PhotoSizeSource) readLocalIDVolumeID(b *bin.Buffer) error {
 	{
 		v, err := b.Long()
 		if err != nil {
@@ -57,7 +43,7 @@ func (p *PhotoSize) readLocalIDVolumeID(b *bin.Buffer) error {
 	return nil
 }
 
-func (p *PhotoSize) readDialog(b *bin.Buffer) error {
+func (p *PhotoSizeSource) readDialog(b *bin.Buffer) error {
 	{
 		v, err := b.Long()
 		if err != nil {
@@ -75,7 +61,7 @@ func (p *PhotoSize) readDialog(b *bin.Buffer) error {
 	return nil
 }
 
-func (p *PhotoSize) readStickerSet(b *bin.Buffer) error {
+func (p *PhotoSizeSource) readStickerSet(b *bin.Buffer) error {
 	{
 		v, err := b.Long()
 		if err != nil {
@@ -93,7 +79,7 @@ func (p *PhotoSize) readStickerSet(b *bin.Buffer) error {
 	return nil
 }
 
-func (p *PhotoSize) decode(b *bin.Buffer, subVersion byte) error {
+func (p *PhotoSizeSource) decode(b *bin.Buffer, subVersion byte) error {
 	if subVersion < 32 {
 		{
 			v, err := b.Long()
@@ -123,23 +109,27 @@ func (p *PhotoSize) decode(b *bin.Buffer, subVersion byte) error {
 		}
 	}
 
-	var photoSizeType int
+	var photoSizeType PhotoSizeSourceType
 	if subVersion >= 4 {
 		v, err := b.Int()
 		if err != nil {
 			return errors.Wrap(err, "read photo_size_type")
 		}
-		photoSizeType = v
+		photoSizeType = PhotoSizeSourceType(v)
 	}
+	if photoSizeType < 0 || photoSizeType >= lastPhotoSizeSourceType {
+		return errors.Errorf("unknown photo size source type %d", photoSizeType)
+	}
+	p.Type = photoSizeType
 
 	switch photoSizeType {
-	case photoSizeSourceLegacy:
+	case PhotoSizeSourceLegacy:
 		v, err := b.Long()
 		if err != nil {
 			return errors.Wrap(err, "read secret")
 		}
 		p.Secret = v
-	case photoSizeSourceThumbnail:
+	case PhotoSizeSourceThumbnail:
 		{
 			v, err := b.Uint32()
 			if err != nil {
@@ -148,21 +138,21 @@ func (p *PhotoSize) decode(b *bin.Buffer, subVersion byte) error {
 			p.FileType = v
 		}
 		{
-			if len(b.Buf) < 4 {
-				return io.ErrUnexpectedEOF
+			v, err := b.Int32()
+			if err != nil {
+				return errors.Wrap(err, "read thumbnail_type")
 			}
-			copy(p.ThumbnailType[:], b.Buf)
-			b.Buf = b.Buf[4:]
+			p.ThumbnailType = v
 		}
-	case photoSizeSourceDialogPhotoBig, photoSizeSourceDialogPhotoSmall:
+	case PhotoSizeSourceDialogPhotoBig, PhotoSizeSourceDialogPhotoSmall:
 		if err := p.readDialog(b); err != nil {
 			return errors.Wrap(err, "read dialog")
 		}
-	case photoSizeSourceStickerSetThumbnail:
+	case PhotoSizeSourceStickerSetThumbnail:
 		if err := p.readStickerSet(b); err != nil {
 			return errors.Wrap(err, "read sticker_set")
 		}
-	case photoSizeSourceFullLegacy:
+	case PhotoSizeSourceFullLegacy:
 		{
 			v, err := b.Long()
 			if err != nil {
@@ -184,7 +174,7 @@ func (p *PhotoSize) decode(b *bin.Buffer, subVersion byte) error {
 			}
 			p.LocalID = v
 		}
-	case photoSizeSourceDialogPhotoBigLegacy, photoSizeSourceDialogPhotoSmallLegacy:
+	case PhotoSizeSourceDialogPhotoBigLegacy, PhotoSizeSourceDialogPhotoSmallLegacy:
 		if err := p.readDialog(b); err != nil {
 			return errors.Wrap(err, "read dialog")
 		}
@@ -192,7 +182,7 @@ func (p *PhotoSize) decode(b *bin.Buffer, subVersion byte) error {
 			return errors.Wrap(err, "read legacy photo")
 		}
 
-	case photoSizeSourceStickerSetThumbnailLegacy:
+	case PhotoSizeSourceStickerSetThumbnailLegacy:
 		if err := p.readStickerSet(b); err != nil {
 			return errors.Wrap(err, "read sticker_set")
 		}
@@ -200,7 +190,7 @@ func (p *PhotoSize) decode(b *bin.Buffer, subVersion byte) error {
 			return errors.Wrap(err, "read legacy photo")
 		}
 
-	case photoSizeSourceStickerSetThumbnailVersion:
+	case PhotoSizeSourceStickerSetThumbnailVersion:
 		if err := p.readStickerSet(b); err != nil {
 			return errors.Wrap(err, "read sticker_set")
 		}

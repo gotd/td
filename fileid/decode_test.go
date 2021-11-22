@@ -53,6 +53,10 @@ func TestDecodeFileID(t *testing.T) {
 				ID:            5237790523883786420,
 				AccessHash:    -7775797414079718261,
 				FileReference: "\x01\x00\x00\x00;a\x9a\x95\x8e\x1a\x06\\\xe2$\xea\xa8\x15\xbb\xbc]\xd1\v\xf2EQ",
+				PhotoSizeSource: PhotoSizeSource{
+					Type:          PhotoSizeSourceThumbnail,
+					ThumbnailType: 109,
+				},
 			},
 			false,
 		},
@@ -65,8 +69,10 @@ func TestDecodeFileID(t *testing.T) {
 				ID:            5249364129762884486,
 				AccessHash:    5280454898771269252,
 				FileReference: "\x01\x00\x00\x00=a\x9a\x97\x1b\xe0tXq/\xeeQeC\x13\x90\x0eΣ\xacd",
-				PhotoSize: PhotoSize{
-					FileType: 0x2,
+				PhotoSizeSource: PhotoSizeSource{
+					Type:          PhotoSizeSourceThumbnail,
+					FileType:      2,
+					ThumbnailType: 120,
 				},
 			},
 			false,
@@ -86,4 +92,3 @@ func TestDecodeFileID(t *testing.T) {
 		})
 	}
 }
-
