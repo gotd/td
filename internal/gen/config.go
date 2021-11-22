@@ -18,6 +18,8 @@ type GenerateFlags struct {
 	Mapping bool
 	// Slices enables slice helpers generation.
 	Slices bool
+	// TDLibJSON enables TDLib API JSON encoders and decoders generation.
+	TDLibJSON bool
 }
 
 // RegisterFlags registers GenerateFlags fields in given flag set.
@@ -29,6 +31,7 @@ func (s *GenerateFlags) RegisterFlags(set *flag.FlagSet) {
 	set.BoolVar(&s.GetSet, "getset", true, "Enables getters and setters generation")
 	set.BoolVar(&s.Mapping, "mapping", false, "Enables mapping helpers generation")
 	set.BoolVar(&s.Slices, "slices", false, "Enables slice helpers generation")
+	set.BoolVar(&s.TDLibJSON, "tdlib-json", false, "Enables TDLib JSON encoding generation")
 }
 
 // GeneratorOptions is a Generator options structure.
