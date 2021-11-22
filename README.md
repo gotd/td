@@ -24,7 +24,6 @@ package main
 
 import (
 	"context"
-
 	"github.com/gotd/td/telegram"
 )
 
