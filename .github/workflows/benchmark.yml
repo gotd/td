@@ -24,7 +24,7 @@ jobs:
         id: go-env
         run: echo "::set-output name=modcache::$(go env GOMODCACHE)"
       - name: Set up cache
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@v2.1.7
         with:
           path: ${{ steps.go-env.outputs.modcache }}
           key: benchmark-${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
