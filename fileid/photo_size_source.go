@@ -4,6 +4,8 @@ import (
 	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/constant"
+	"github.com/gotd/td/tg"
 )
 
 // PhotoSizeSource represents photo metadata stored in file_id.
@@ -14,8 +16,8 @@ type PhotoSizeSource struct {
 	Secret    int64
 	PhotoSize string
 
-	FileType      uint32
-	ThumbnailType int32
+	FileType      Type
+	ThumbnailType rune
 
 	DialogID         int64
 	DialogAccessHash int64
@@ -23,6 +25,33 @@ type PhotoSizeSource struct {
 	StickerSetID         int64
 	StickerSetAccessHash int64
 	StickerVersion       int32
+}
+
+func (p *PhotoSizeSource) stickerSet() tg.InputStickerSetClass {
+	return &tg.InputStickerSetID{
+		ID:         p.StickerSetID,
+		AccessHash: p.StickerSetAccessHash,
+	}
+}
+
+func (p *PhotoSizeSource) dialogPeer() tg.InputPeerClass {
+	switch id := p.DialogID; {
+	case id > 0 && id <= constant.MaxUserID:
+		return &tg.InputPeerUser{
+			UserID:     id,
+			AccessHash: p.DialogAccessHash,
+		}
+	case id < 0 && -constant.MaxChatID <= id:
+		return &tg.InputPeerChat{
+			ChatID: id,
+		}
+	case id < 0 && constant.ZeroChannelID-constant.MaxChannelID <= id && id != constant.ZeroChannelID:
+		return &tg.InputPeerChannel{
+			ChannelID:  id,
+			AccessHash: p.DialogAccessHash,
+		}
+	}
+	return &tg.InputPeerEmpty{}
 }
 
 func (p *PhotoSizeSource) readLocalIDVolumeID(b *bin.Buffer) error {
@@ -135,7 +164,7 @@ func (p *PhotoSizeSource) decode(b *bin.Buffer, subVersion byte) error {
 			if err != nil {
 				return errors.Wrap(err, "read file_type")
 			}
-			p.FileType = v
+			p.FileType = Type(v)
 		}
 		{
 			v, err := b.Int32()

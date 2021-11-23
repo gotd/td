@@ -40,5 +40,7 @@ const (
 	Secure
 	// Background is Background file type.
 	Background
+	// DocumentAsFile is DocumentAsFile file type.
+	DocumentAsFile
 	lastType
 )

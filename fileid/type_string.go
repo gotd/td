@@ -25,12 +25,13 @@ func _() {
 	_ = x[SecureRaw-14]
 	_ = x[Secure-15]
 	_ = x[Background-16]
-	_ = x[lastType-17]
+	_ = x[DocumentAsFile-17]
+	_ = x[lastType-18]
 }
 
-const _Type_name = "ThumbnailProfilePhotoPhotoVoiceVideoDocumentEncryptedTempStickerAudioAnimationEncryptedThumbnailWallpaperVideoNoteSecureRawSecureBackgroundlastType"
+const _Type_name = "ThumbnailProfilePhotoPhotoVoiceVideoDocumentEncryptedTempStickerAudioAnimationEncryptedThumbnailWallpaperVideoNoteSecureRawSecureBackgroundDocumentAsFilelastType"
 
-var _Type_index = [...]uint8{0, 9, 21, 26, 31, 36, 44, 53, 57, 64, 69, 78, 96, 105, 114, 123, 129, 139, 147}
+var _Type_index = [...]uint8{0, 9, 21, 26, 31, 36, 44, 53, 57, 64, 69, 78, 96, 105, 114, 123, 129, 139, 153, 161}
 
 func (i Type) String() string {
 	if i < 0 || i >= Type(len(_Type_index)-1) {
