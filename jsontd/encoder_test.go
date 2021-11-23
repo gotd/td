@@ -11,7 +11,7 @@ import (
 	"github.com/gotd/td/tdapi"
 )
 
-func TestEncoder(t *testing.T) {
+func TestEncodeDecode(t *testing.T) {
 	a := require.New(t)
 
 	req := &tdapi.SetTdlibParametersRequest{
@@ -35,8 +35,13 @@ func TestEncoder(t *testing.T) {
 	}
 
 	enc := jsontd.Encoder{
-		Encoder: *jx.GetEncoder(),
+		Encoder: jx.GetEncoder(),
 	}
-	a.NoError(req.EncodeTDLibJSON(&enc))
+	a.NoError(req.EncodeTDLibJSON(enc))
 	a.True(json.Valid(enc.Bytes()))
+
+	dec := jsontd.Decoder{
+		Decoder: jx.DecodeBytes(enc.Bytes()),
+	}
+	a.NoError(req.DecodeTDLibJSON(dec))
 }
