@@ -1,7 +1,7 @@
 {{- /*gotype: github.com/gotd/td/internal/gen.structDef*/ -}}
 {{ define "encode_tdlib_json" }}{{ $s := . }}
 // EncodeTDLibJSON encodes {{ $s.Receiver }} in TDLib API JSON format.
-func ({{ $s.Receiver }} *{{ $s.Name }}) EncodeTDLibJSON({{ $s.BufArg }} *jsontd.Encoder) error {
+func ({{ $s.Receiver }} *{{ $s.Name }}) EncodeTDLibJSON({{ $s.BufArg }} jsontd.Encoder) error {
     if {{ $s.Receiver }} == nil {
         return fmt.Errorf("can't encode {{ $s.RawType }} as nil")
     }
