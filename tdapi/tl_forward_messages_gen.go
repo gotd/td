@@ -244,8 +244,8 @@ func (f *ForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes f in TDLib API JSON format.
-func (f *ForwardMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (f *ForwardMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if f == nil {
 		return fmt.Errorf("can't encode forwardMessages#1842041f as nil")
 	}
@@ -271,6 +271,64 @@ func (f *ForwardMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(f.RemoveCaption)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (f *ForwardMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if f == nil {
+		return fmt.Errorf("can't decode forwardMessages#1842041f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("forwardMessages"); err != nil {
+				return fmt.Errorf("unable to decode forwardMessages#1842041f: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode forwardMessages#1842041f: field chat_id: %w", err)
+			}
+			f.ChatID = value
+		case "from_chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode forwardMessages#1842041f: field from_chat_id: %w", err)
+			}
+			f.FromChatID = value
+		case "message_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode forwardMessages#1842041f: field message_ids: %w", err)
+				}
+				f.MessageIDs = append(f.MessageIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode forwardMessages#1842041f: field message_ids: %w", err)
+			}
+		case "options":
+			if err := f.Options.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode forwardMessages#1842041f: field options: %w", err)
+			}
+		case "send_copy":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode forwardMessages#1842041f: field send_copy: %w", err)
+			}
+			f.SendCopy = value
+		case "remove_caption":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode forwardMessages#1842041f: field remove_caption: %w", err)
+			}
+			f.RemoveCaption = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

@@ -221,8 +221,8 @@ func (a *AddLocalMessageRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AddLocalMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AddLocalMessageRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addLocalMessage#330b9dda as nil")
 	}
@@ -250,6 +250,55 @@ func (a *AddLocalMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AddLocalMessageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode addLocalMessage#330b9dda to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("addLocalMessage"); err != nil {
+				return fmt.Errorf("unable to decode addLocalMessage#330b9dda: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode addLocalMessage#330b9dda: field chat_id: %w", err)
+			}
+			a.ChatID = value
+		case "sender":
+			value, err := DecodeTDLibJSONMessageSender(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode addLocalMessage#330b9dda: field sender: %w", err)
+			}
+			a.Sender = value
+		case "reply_to_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode addLocalMessage#330b9dda: field reply_to_message_id: %w", err)
+			}
+			a.ReplyToMessageID = value
+		case "disable_notification":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode addLocalMessage#330b9dda: field disable_notification: %w", err)
+			}
+			a.DisableNotification = value
+		case "input_message_content":
+			value, err := DecodeTDLibJSONInputMessageContent(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode addLocalMessage#330b9dda: field input_message_content: %w", err)
+			}
+			a.InputMessageContent = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

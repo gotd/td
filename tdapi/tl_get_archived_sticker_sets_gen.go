@@ -36,7 +36,7 @@ type GetArchivedStickerSetsRequest struct {
 	// Pass true to return mask stickers sets; pass false to return ordinary sticker sets
 	IsMasks bool
 	// Identifier of the sticker set from which to return the result
-	OffsetStickerSetID Int64
+	OffsetStickerSetID int64
 	// The maximum number of sticker sets to return
 	Limit int32
 }
@@ -59,7 +59,7 @@ func (g *GetArchivedStickerSetsRequest) Zero() bool {
 	if !(g.IsMasks == false) {
 		return false
 	}
-	if !(g.OffsetStickerSetID.Zero()) {
+	if !(g.OffsetStickerSetID == 0) {
 		return false
 	}
 	if !(g.Limit == 0) {
@@ -132,9 +132,7 @@ func (g *GetArchivedStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode getArchivedStickerSets#7706ef86 as nil")
 	}
 	b.PutBool(g.IsMasks)
-	if err := g.OffsetStickerSetID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getArchivedStickerSets#7706ef86: field offset_sticker_set_id: %w", err)
-	}
+	b.PutLong(g.OffsetStickerSetID)
 	b.PutInt32(g.Limit)
 	return nil
 }
@@ -163,9 +161,11 @@ func (g *GetArchivedStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 		g.IsMasks = value
 	}
 	{
-		if err := g.OffsetStickerSetID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode getArchivedStickerSets#7706ef86: field offset_sticker_set_id: %w", err)
 		}
+		g.OffsetStickerSetID = value
 	}
 	{
 		value, err := b.Int32()
@@ -177,8 +177,8 @@ func (g *GetArchivedStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetArchivedStickerSetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetArchivedStickerSetsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getArchivedStickerSets#7706ef86 as nil")
 	}
@@ -187,13 +187,48 @@ func (g *GetArchivedStickerSetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error
 	b.FieldStart("is_masks")
 	b.PutBool(g.IsMasks)
 	b.FieldStart("offset_sticker_set_id")
-	if err := g.OffsetStickerSetID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getArchivedStickerSets#7706ef86: field offset_sticker_set_id: %w", err)
-	}
+	b.PutLong(g.OffsetStickerSetID)
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetArchivedStickerSetsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getArchivedStickerSets#7706ef86 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getArchivedStickerSets"); err != nil {
+				return fmt.Errorf("unable to decode getArchivedStickerSets#7706ef86: %w", err)
+			}
+		case "is_masks":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getArchivedStickerSets#7706ef86: field is_masks: %w", err)
+			}
+			g.IsMasks = value
+		case "offset_sticker_set_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getArchivedStickerSets#7706ef86: field offset_sticker_set_id: %w", err)
+			}
+			g.OffsetStickerSetID = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getArchivedStickerSets#7706ef86: field limit: %w", err)
+			}
+			g.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetIsMasks returns value of IsMasks field.
@@ -202,7 +237,7 @@ func (g *GetArchivedStickerSetsRequest) GetIsMasks() (value bool) {
 }
 
 // GetOffsetStickerSetID returns value of OffsetStickerSetID field.
-func (g *GetArchivedStickerSetsRequest) GetOffsetStickerSetID() (value Int64) {
+func (g *GetArchivedStickerSetsRequest) GetOffsetStickerSetID() (value int64) {
 	return g.OffsetStickerSetID
 }
 

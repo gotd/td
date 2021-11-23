@@ -156,8 +156,8 @@ func (r *RequestQrCodeAuthenticationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RequestQrCodeAuthenticationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RequestQrCodeAuthenticationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode requestQrCodeAuthentication#36e63e7d as nil")
 	}
@@ -171,6 +171,36 @@ func (r *RequestQrCodeAuthenticationRequest) EncodeTDLibJSON(b *jsontd.Encoder) 
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RequestQrCodeAuthenticationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode requestQrCodeAuthentication#36e63e7d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("requestQrCodeAuthentication"); err != nil {
+				return fmt.Errorf("unable to decode requestQrCodeAuthentication#36e63e7d: %w", err)
+			}
+		case "other_user_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode requestQrCodeAuthentication#36e63e7d: field other_user_ids: %w", err)
+				}
+				r.OtherUserIDs = append(r.OtherUserIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode requestQrCodeAuthentication#36e63e7d: field other_user_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetOtherUserIDs returns value of OtherUserIDs field.

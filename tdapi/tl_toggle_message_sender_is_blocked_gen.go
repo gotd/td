@@ -165,8 +165,8 @@ func (t *ToggleMessageSenderIsBlockedRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *ToggleMessageSenderIsBlockedRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *ToggleMessageSenderIsBlockedRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleMessageSenderIsBlocked#d2b14b9f as nil")
 	}
@@ -183,6 +183,37 @@ func (t *ToggleMessageSenderIsBlockedRequest) EncodeTDLibJSON(b *jsontd.Encoder)
 	b.PutBool(t.IsBlocked)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *ToggleMessageSenderIsBlockedRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode toggleMessageSenderIsBlocked#d2b14b9f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("toggleMessageSenderIsBlocked"); err != nil {
+				return fmt.Errorf("unable to decode toggleMessageSenderIsBlocked#d2b14b9f: %w", err)
+			}
+		case "sender":
+			value, err := DecodeTDLibJSONMessageSender(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleMessageSenderIsBlocked#d2b14b9f: field sender: %w", err)
+			}
+			t.Sender = value
+		case "is_blocked":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleMessageSenderIsBlocked#d2b14b9f: field is_blocked: %w", err)
+			}
+			t.IsBlocked = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSender returns value of Sender field.

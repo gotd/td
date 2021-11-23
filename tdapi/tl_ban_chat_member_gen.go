@@ -202,8 +202,8 @@ func (b *BanChatMemberRequest) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *BanChatMemberRequest) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *BanChatMemberRequest) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode banChatMember#cb107d7c as nil")
 	}
@@ -224,6 +224,49 @@ func (b *BanChatMemberRequest) EncodeTDLibJSON(buf *jsontd.Encoder) error {
 	buf.PutBool(b.RevokeMessages)
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *BanChatMemberRequest) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode banChatMember#cb107d7c to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("banChatMember"); err != nil {
+				return fmt.Errorf("unable to decode banChatMember#cb107d7c: %w", err)
+			}
+		case "chat_id":
+			value, err := buf.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode banChatMember#cb107d7c: field chat_id: %w", err)
+			}
+			b.ChatID = value
+		case "member_id":
+			value, err := DecodeTDLibJSONMessageSender(buf)
+			if err != nil {
+				return fmt.Errorf("unable to decode banChatMember#cb107d7c: field member_id: %w", err)
+			}
+			b.MemberID = value
+		case "banned_until_date":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode banChatMember#cb107d7c: field banned_until_date: %w", err)
+			}
+			b.BannedUntilDate = value
+		case "revoke_messages":
+			value, err := buf.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode banChatMember#cb107d7c: field revoke_messages: %w", err)
+			}
+			b.RevokeMessages = value
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

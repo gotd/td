@@ -143,8 +143,8 @@ func (g *GetMessageLinkInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetMessageLinkInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetMessageLinkInfoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getMessageLinkInfo#d63eb458 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetMessageLinkInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(g.URL)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetMessageLinkInfoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getMessageLinkInfo#d63eb458 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getMessageLinkInfo"); err != nil {
+				return fmt.Errorf("unable to decode getMessageLinkInfo#d63eb458: %w", err)
+			}
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessageLinkInfo#d63eb458: field url: %w", err)
+			}
+			g.URL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetURL returns value of URL field.

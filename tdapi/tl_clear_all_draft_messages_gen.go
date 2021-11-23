@@ -143,8 +143,8 @@ func (c *ClearAllDraftMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ClearAllDraftMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ClearAllDraftMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode clearAllDraftMessages#fd3c74db as nil")
 	}
@@ -154,6 +154,31 @@ func (c *ClearAllDraftMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutBool(c.ExcludeSecretChats)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ClearAllDraftMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode clearAllDraftMessages#fd3c74db to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("clearAllDraftMessages"); err != nil {
+				return fmt.Errorf("unable to decode clearAllDraftMessages#fd3c74db: %w", err)
+			}
+		case "exclude_secret_chats":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode clearAllDraftMessages#fd3c74db: field exclude_secret_chats: %w", err)
+			}
+			c.ExcludeSecretChats = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetExcludeSecretChats returns value of ExcludeSecretChats field.

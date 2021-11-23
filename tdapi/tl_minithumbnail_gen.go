@@ -177,8 +177,8 @@ func (m *Minithumbnail) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *Minithumbnail) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *Minithumbnail) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode minithumbnail#ec6addaa as nil")
 	}
@@ -192,6 +192,43 @@ func (m *Minithumbnail) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBytes(m.Data)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *Minithumbnail) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode minithumbnail#ec6addaa to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("minithumbnail"); err != nil {
+				return fmt.Errorf("unable to decode minithumbnail#ec6addaa: %w", err)
+			}
+		case "width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode minithumbnail#ec6addaa: field width: %w", err)
+			}
+			m.Width = value
+		case "height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode minithumbnail#ec6addaa: field height: %w", err)
+			}
+			m.Height = value
+		case "data":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode minithumbnail#ec6addaa: field data: %w", err)
+			}
+			m.Data = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetWidth returns value of Width field.

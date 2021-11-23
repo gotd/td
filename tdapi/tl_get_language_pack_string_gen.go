@@ -194,8 +194,8 @@ func (g *GetLanguagePackStringRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetLanguagePackStringRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetLanguagePackStringRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getLanguagePackString#8fcde73 as nil")
 	}
@@ -211,6 +211,49 @@ func (g *GetLanguagePackStringRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutString(g.Key)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetLanguagePackStringRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getLanguagePackString#8fcde73 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getLanguagePackString"); err != nil {
+				return fmt.Errorf("unable to decode getLanguagePackString#8fcde73: %w", err)
+			}
+		case "language_pack_database_path":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getLanguagePackString#8fcde73: field language_pack_database_path: %w", err)
+			}
+			g.LanguagePackDatabasePath = value
+		case "localization_target":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getLanguagePackString#8fcde73: field localization_target: %w", err)
+			}
+			g.LocalizationTarget = value
+		case "language_pack_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getLanguagePackString#8fcde73: field language_pack_id: %w", err)
+			}
+			g.LanguagePackID = value
+		case "key":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getLanguagePackString#8fcde73: field key: %w", err)
+			}
+			g.Key = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLanguagePackDatabasePath returns value of LanguagePackDatabasePath field.

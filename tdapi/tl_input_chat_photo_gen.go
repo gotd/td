@@ -34,7 +34,7 @@ var (
 // InputChatPhotoPrevious represents TL type `inputChatPhotoPrevious#160e9d1`.
 type InputChatPhotoPrevious struct {
 	// Identifier of the current user's profile photo to reuse
-	ChatPhotoID Int64
+	ChatPhotoID int64
 }
 
 // InputChatPhotoPreviousTypeID is TL type id of InputChatPhotoPrevious.
@@ -57,7 +57,7 @@ func (i *InputChatPhotoPrevious) Zero() bool {
 	if i == nil {
 		return true
 	}
-	if !(i.ChatPhotoID.Zero()) {
+	if !(i.ChatPhotoID == 0) {
 		return false
 	}
 
@@ -118,9 +118,7 @@ func (i *InputChatPhotoPrevious) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputChatPhotoPrevious#160e9d1 as nil")
 	}
-	if err := i.ChatPhotoID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputChatPhotoPrevious#160e9d1: field chat_photo_id: %w", err)
-	}
+	b.PutLong(i.ChatPhotoID)
 	return nil
 }
 
@@ -141,30 +139,55 @@ func (i *InputChatPhotoPrevious) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode inputChatPhotoPrevious#160e9d1 to nil")
 	}
 	{
-		if err := i.ChatPhotoID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode inputChatPhotoPrevious#160e9d1: field chat_photo_id: %w", err)
 		}
+		i.ChatPhotoID = value
 	}
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputChatPhotoPrevious) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputChatPhotoPrevious) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputChatPhotoPrevious#160e9d1 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputChatPhotoPrevious")
 	b.FieldStart("chat_photo_id")
-	if err := i.ChatPhotoID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputChatPhotoPrevious#160e9d1: field chat_photo_id: %w", err)
-	}
+	b.PutLong(i.ChatPhotoID)
 	b.ObjEnd()
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputChatPhotoPrevious) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputChatPhotoPrevious#160e9d1 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputChatPhotoPrevious"); err != nil {
+				return fmt.Errorf("unable to decode inputChatPhotoPrevious#160e9d1: %w", err)
+			}
+		case "chat_photo_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputChatPhotoPrevious#160e9d1: field chat_photo_id: %w", err)
+			}
+			i.ChatPhotoID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetChatPhotoID returns value of ChatPhotoID field.
-func (i *InputChatPhotoPrevious) GetChatPhotoID() (value Int64) {
+func (i *InputChatPhotoPrevious) GetChatPhotoID() (value int64) {
 	return i.ChatPhotoID
 }
 
@@ -291,8 +314,8 @@ func (i *InputChatPhotoStatic) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputChatPhotoStatic) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputChatPhotoStatic) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputChatPhotoStatic#75f7e2b3 as nil")
 	}
@@ -307,6 +330,31 @@ func (i *InputChatPhotoStatic) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputChatPhotoStatic) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputChatPhotoStatic#75f7e2b3 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputChatPhotoStatic"); err != nil {
+				return fmt.Errorf("unable to decode inputChatPhotoStatic#75f7e2b3: %w", err)
+			}
+		case "photo":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputChatPhotoStatic#75f7e2b3: field photo: %w", err)
+			}
+			i.Photo = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPhoto returns value of Photo field.
@@ -454,8 +502,8 @@ func (i *InputChatPhotoAnimation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputChatPhotoAnimation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputChatPhotoAnimation) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputChatPhotoAnimation#56a3422 as nil")
 	}
@@ -472,6 +520,37 @@ func (i *InputChatPhotoAnimation) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutDouble(i.MainFrameTimestamp)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputChatPhotoAnimation) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputChatPhotoAnimation#56a3422 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputChatPhotoAnimation"); err != nil {
+				return fmt.Errorf("unable to decode inputChatPhotoAnimation#56a3422: %w", err)
+			}
+		case "animation":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputChatPhotoAnimation#56a3422: field animation: %w", err)
+			}
+			i.Animation = value
+		case "main_frame_timestamp":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputChatPhotoAnimation#56a3422: field main_frame_timestamp: %w", err)
+			}
+			i.MainFrameTimestamp = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetAnimation returns value of Animation field.
@@ -514,7 +593,9 @@ type InputChatPhotoClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeInputChatPhoto implements binary de-serialization for InputChatPhotoClass.
@@ -550,6 +631,39 @@ func DecodeInputChatPhoto(buf *bin.Buffer) (InputChatPhotoClass, error) {
 	}
 }
 
+// DecodeTDLibJSONInputChatPhoto implements binary de-serialization for InputChatPhotoClass.
+func DecodeTDLibJSONInputChatPhoto(buf jsontd.Decoder) (InputChatPhotoClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "inputChatPhotoPrevious":
+		// Decoding inputChatPhotoPrevious#160e9d1.
+		v := InputChatPhotoPrevious{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputChatPhotoClass: %w", err)
+		}
+		return &v, nil
+	case "inputChatPhotoStatic":
+		// Decoding inputChatPhotoStatic#75f7e2b3.
+		v := InputChatPhotoStatic{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputChatPhotoClass: %w", err)
+		}
+		return &v, nil
+	case "inputChatPhotoAnimation":
+		// Decoding inputChatPhotoAnimation#56a3422.
+		v := InputChatPhotoAnimation{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputChatPhotoClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode InputChatPhotoClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // InputChatPhoto boxes the InputChatPhotoClass providing a helper.
 type InputChatPhotoBox struct {
 	InputChatPhoto InputChatPhotoClass
@@ -574,4 +688,25 @@ func (b *InputChatPhotoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputChatPhotoClass as nil")
 	}
 	return b.InputChatPhoto.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for InputChatPhotoBox.
+func (b *InputChatPhotoBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputChatPhotoBox to nil")
+	}
+	v, err := DecodeTDLibJSONInputChatPhoto(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputChatPhoto = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for InputChatPhotoBox.
+func (b *InputChatPhotoBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.InputChatPhoto == nil {
+		return fmt.Errorf("unable to encode InputChatPhotoClass as nil")
+	}
+	return b.InputChatPhoto.EncodeTDLibJSON(buf)
 }

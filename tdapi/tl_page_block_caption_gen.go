@@ -170,8 +170,8 @@ func (p *PageBlockCaption) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PageBlockCaption) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PageBlockCaption) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockCaption#b9a9a476 as nil")
 	}
@@ -193,6 +193,37 @@ func (p *PageBlockCaption) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PageBlockCaption) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockCaption#b9a9a476 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("pageBlockCaption"); err != nil {
+				return fmt.Errorf("unable to decode pageBlockCaption#b9a9a476: %w", err)
+			}
+		case "text":
+			value, err := DecodeTDLibJSONRichText(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockCaption#b9a9a476: field text: %w", err)
+			}
+			p.Text = value
+		case "credit":
+			value, err := DecodeTDLibJSONRichText(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockCaption#b9a9a476: field credit: %w", err)
+			}
+			p.Credit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

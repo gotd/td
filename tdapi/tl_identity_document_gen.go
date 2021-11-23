@@ -243,8 +243,8 @@ func (i *IdentityDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *IdentityDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *IdentityDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode identityDocument#986321a6 as nil")
 	}
@@ -278,6 +278,58 @@ func (i *IdentityDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *IdentityDocument) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode identityDocument#986321a6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("identityDocument"); err != nil {
+				return fmt.Errorf("unable to decode identityDocument#986321a6: %w", err)
+			}
+		case "number":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode identityDocument#986321a6: field number: %w", err)
+			}
+			i.Number = value
+		case "expiry_date":
+			if err := i.ExpiryDate.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode identityDocument#986321a6: field expiry_date: %w", err)
+			}
+		case "front_side":
+			if err := i.FrontSide.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode identityDocument#986321a6: field front_side: %w", err)
+			}
+		case "reverse_side":
+			if err := i.ReverseSide.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode identityDocument#986321a6: field reverse_side: %w", err)
+			}
+		case "selfie":
+			if err := i.Selfie.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode identityDocument#986321a6: field selfie: %w", err)
+			}
+		case "translation":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value DatedFile
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode identityDocument#986321a6: field translation: %w", err)
+				}
+				i.Translation = append(i.Translation, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode identityDocument#986321a6: field translation: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetNumber returns value of Number field.

@@ -165,8 +165,8 @@ func (u *UploadStickerFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UploadStickerFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UploadStickerFileRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode uploadStickerFile#c9e5669a as nil")
 	}
@@ -183,6 +183,37 @@ func (u *UploadStickerFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UploadStickerFileRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode uploadStickerFile#c9e5669a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("uploadStickerFile"); err != nil {
+				return fmt.Errorf("unable to decode uploadStickerFile#c9e5669a: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode uploadStickerFile#c9e5669a: field user_id: %w", err)
+			}
+			u.UserID = value
+		case "sticker":
+			value, err := DecodeTDLibJSONInputSticker(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode uploadStickerFile#c9e5669a: field sticker: %w", err)
+			}
+			u.Sticker = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserID returns value of UserID field.

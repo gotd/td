@@ -125,8 +125,8 @@ func (d *DisconnectAllWebsitesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DisconnectAllWebsitesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DisconnectAllWebsitesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode disconnectAllWebsites#bf72f203 as nil")
 	}
@@ -134,6 +134,25 @@ func (d *DisconnectAllWebsitesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutID("disconnectAllWebsites")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DisconnectAllWebsitesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode disconnectAllWebsites#bf72f203 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("disconnectAllWebsites"); err != nil {
+				return fmt.Errorf("unable to decode disconnectAllWebsites#bf72f203: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // DisconnectAllWebsites invokes method disconnectAllWebsites#bf72f203 returning error if any.

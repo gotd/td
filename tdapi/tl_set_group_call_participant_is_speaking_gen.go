@@ -178,8 +178,8 @@ func (s *SetGroupCallParticipantIsSpeakingRequest) DecodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetGroupCallParticipantIsSpeakingRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetGroupCallParticipantIsSpeakingRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setGroupCallParticipantIsSpeaking#3748a1e5 as nil")
 	}
@@ -193,6 +193,43 @@ func (s *SetGroupCallParticipantIsSpeakingRequest) EncodeTDLibJSON(b *jsontd.Enc
 	b.PutBool(s.IsSpeaking)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetGroupCallParticipantIsSpeakingRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setGroupCallParticipantIsSpeaking#3748a1e5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setGroupCallParticipantIsSpeaking"); err != nil {
+				return fmt.Errorf("unable to decode setGroupCallParticipantIsSpeaking#3748a1e5: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setGroupCallParticipantIsSpeaking#3748a1e5: field group_call_id: %w", err)
+			}
+			s.GroupCallID = value
+		case "audio_source":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setGroupCallParticipantIsSpeaking#3748a1e5: field audio_source: %w", err)
+			}
+			s.AudioSource = value
+		case "is_speaking":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setGroupCallParticipantIsSpeaking#3748a1e5: field is_speaking: %w", err)
+			}
+			s.IsSpeaking = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

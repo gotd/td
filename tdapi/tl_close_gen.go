@@ -125,8 +125,8 @@ func (c *CloseRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CloseRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CloseRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode close#b933e17f as nil")
 	}
@@ -134,6 +134,25 @@ func (c *CloseRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("close")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CloseRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode close#b933e17f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("close"); err != nil {
+				return fmt.Errorf("unable to decode close#b933e17f: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // Close invokes method close#b933e17f returning error if any.

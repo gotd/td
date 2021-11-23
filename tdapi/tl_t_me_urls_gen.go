@@ -158,8 +158,8 @@ func (t *TMeURLs) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TMeURLs) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TMeURLs) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode tMeUrls#655b1f52 as nil")
 	}
@@ -175,6 +175,36 @@ func (t *TMeURLs) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TMeURLs) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode tMeUrls#655b1f52 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("tMeUrls"); err != nil {
+				return fmt.Errorf("unable to decode tMeUrls#655b1f52: %w", err)
+			}
+		case "urls":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value TMeURL
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode tMeUrls#655b1f52: field urls: %w", err)
+				}
+				t.URLs = append(t.URLs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode tMeUrls#655b1f52: field urls: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetURLs returns value of URLs field.

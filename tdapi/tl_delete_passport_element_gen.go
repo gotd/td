@@ -148,8 +148,8 @@ func (d *DeletePassportElementRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DeletePassportElementRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DeletePassportElementRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deletePassportElement#9981aa74 as nil")
 	}
@@ -164,6 +164,31 @@ func (d *DeletePassportElementRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DeletePassportElementRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deletePassportElement#9981aa74 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("deletePassportElement"); err != nil {
+				return fmt.Errorf("unable to decode deletePassportElement#9981aa74: %w", err)
+			}
+		case "type":
+			value, err := DecodeTDLibJSONPassportElementType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode deletePassportElement#9981aa74: field type: %w", err)
+			}
+			d.Type = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetType returns value of Type field.

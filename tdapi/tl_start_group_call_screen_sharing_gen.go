@@ -177,8 +177,8 @@ func (s *StartGroupCallScreenSharingRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *StartGroupCallScreenSharingRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *StartGroupCallScreenSharingRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode startGroupCallScreenSharing#cb4e312d as nil")
 	}
@@ -192,6 +192,43 @@ func (s *StartGroupCallScreenSharingRequest) EncodeTDLibJSON(b *jsontd.Encoder) 
 	b.PutString(s.Payload)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *StartGroupCallScreenSharingRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode startGroupCallScreenSharing#cb4e312d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("startGroupCallScreenSharing"); err != nil {
+				return fmt.Errorf("unable to decode startGroupCallScreenSharing#cb4e312d: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode startGroupCallScreenSharing#cb4e312d: field group_call_id: %w", err)
+			}
+			s.GroupCallID = value
+		case "audio_source_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode startGroupCallScreenSharing#cb4e312d: field audio_source_id: %w", err)
+			}
+			s.AudioSourceID = value
+		case "payload":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode startGroupCallScreenSharing#cb4e312d: field payload: %w", err)
+			}
+			s.Payload = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

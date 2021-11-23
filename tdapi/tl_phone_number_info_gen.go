@@ -177,8 +177,8 @@ func (p *PhoneNumberInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PhoneNumberInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PhoneNumberInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode phoneNumberInfo#2163aee1 as nil")
 	}
@@ -194,6 +194,41 @@ func (p *PhoneNumberInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(p.FormattedPhoneNumber)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PhoneNumberInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneNumberInfo#2163aee1 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("phoneNumberInfo"); err != nil {
+				return fmt.Errorf("unable to decode phoneNumberInfo#2163aee1: %w", err)
+			}
+		case "country":
+			if err := p.Country.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode phoneNumberInfo#2163aee1: field country: %w", err)
+			}
+		case "country_calling_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode phoneNumberInfo#2163aee1: field country_calling_code: %w", err)
+			}
+			p.CountryCallingCode = value
+		case "formatted_phone_number":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode phoneNumberInfo#2163aee1: field formatted_phone_number: %w", err)
+			}
+			p.FormattedPhoneNumber = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCountry returns value of Country field.

@@ -160,8 +160,8 @@ func (t *ToggleSupergroupIsAllHistoryAvailableRequest) DecodeBare(b *bin.Buffer)
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *ToggleSupergroupIsAllHistoryAvailableRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *ToggleSupergroupIsAllHistoryAvailableRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleSupergroupIsAllHistoryAvailable#656b3c1b as nil")
 	}
@@ -173,6 +173,37 @@ func (t *ToggleSupergroupIsAllHistoryAvailableRequest) EncodeTDLibJSON(b *jsontd
 	b.PutBool(t.IsAllHistoryAvailable)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *ToggleSupergroupIsAllHistoryAvailableRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode toggleSupergroupIsAllHistoryAvailable#656b3c1b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("toggleSupergroupIsAllHistoryAvailable"); err != nil {
+				return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#656b3c1b: %w", err)
+			}
+		case "supergroup_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#656b3c1b: field supergroup_id: %w", err)
+			}
+			t.SupergroupID = value
+		case "is_all_history_available":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#656b3c1b: field is_all_history_available: %w", err)
+			}
+			t.IsAllHistoryAvailable = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSupergroupID returns value of SupergroupID field.

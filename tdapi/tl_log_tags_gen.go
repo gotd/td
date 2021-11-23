@@ -156,8 +156,8 @@ func (l *LogTags) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes l in TDLib API JSON format.
-func (l *LogTags) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (l *LogTags) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode logTags#dc09ced4 as nil")
 	}
@@ -171,6 +171,36 @@ func (l *LogTags) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (l *LogTags) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if l == nil {
+		return fmt.Errorf("can't decode logTags#dc09ced4 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("logTags"); err != nil {
+				return fmt.Errorf("unable to decode logTags#dc09ced4: %w", err)
+			}
+		case "tags":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode logTags#dc09ced4: field tags: %w", err)
+				}
+				l.Tags = append(l.Tags, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode logTags#dc09ced4: field tags: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetTags returns value of Tags field.

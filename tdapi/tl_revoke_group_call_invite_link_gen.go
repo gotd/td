@@ -143,8 +143,8 @@ func (r *RevokeGroupCallInviteLinkRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RevokeGroupCallInviteLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RevokeGroupCallInviteLinkRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode revokeGroupCallInviteLink#1de5a494 as nil")
 	}
@@ -154,6 +154,31 @@ func (r *RevokeGroupCallInviteLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) er
 	b.PutInt32(r.GroupCallID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RevokeGroupCallInviteLinkRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode revokeGroupCallInviteLink#1de5a494 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("revokeGroupCallInviteLink"); err != nil {
+				return fmt.Errorf("unable to decode revokeGroupCallInviteLink#1de5a494: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode revokeGroupCallInviteLink#1de5a494: field group_call_id: %w", err)
+			}
+			r.GroupCallID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

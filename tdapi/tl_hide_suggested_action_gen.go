@@ -148,8 +148,8 @@ func (h *HideSuggestedActionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes h in TDLib API JSON format.
-func (h *HideSuggestedActionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (h *HideSuggestedActionRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if h == nil {
 		return fmt.Errorf("can't encode hideSuggestedAction#a2ef2b7f as nil")
 	}
@@ -164,6 +164,31 @@ func (h *HideSuggestedActionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (h *HideSuggestedActionRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if h == nil {
+		return fmt.Errorf("can't decode hideSuggestedAction#a2ef2b7f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("hideSuggestedAction"); err != nil {
+				return fmt.Errorf("unable to decode hideSuggestedAction#a2ef2b7f: %w", err)
+			}
+		case "action":
+			value, err := DecodeTDLibJSONSuggestedAction(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode hideSuggestedAction#a2ef2b7f: field action: %w", err)
+			}
+			h.Action = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetAction returns value of Action field.

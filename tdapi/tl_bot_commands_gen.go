@@ -175,8 +175,8 @@ func (b *BotCommands) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *BotCommands) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *BotCommands) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botCommands#f479c572 as nil")
 	}
@@ -194,6 +194,42 @@ func (b *BotCommands) EncodeTDLibJSON(buf *jsontd.Encoder) error {
 	buf.ArrEnd()
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *BotCommands) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botCommands#f479c572 to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("botCommands"); err != nil {
+				return fmt.Errorf("unable to decode botCommands#f479c572: %w", err)
+			}
+		case "bot_user_id":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode botCommands#f479c572: field bot_user_id: %w", err)
+			}
+			b.BotUserID = value
+		case "commands":
+			if err := buf.Arr(func(buf jsontd.Decoder) error {
+				var value BotCommand
+				if err := value.DecodeTDLibJSON(buf); err != nil {
+					return fmt.Errorf("unable to decode botCommands#f479c572: field commands: %w", err)
+				}
+				b.Commands = append(b.Commands, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode botCommands#f479c572: field commands: %w", err)
+			}
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBotUserID returns value of BotUserID field.

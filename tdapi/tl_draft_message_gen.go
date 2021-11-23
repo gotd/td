@@ -182,8 +182,8 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DraftMessage) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DraftMessage) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode draftMessage#51d71500 as nil")
 	}
@@ -202,6 +202,43 @@ func (d *DraftMessage) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DraftMessage) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode draftMessage#51d71500 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("draftMessage"); err != nil {
+				return fmt.Errorf("unable to decode draftMessage#51d71500: %w", err)
+			}
+		case "reply_to_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode draftMessage#51d71500: field reply_to_message_id: %w", err)
+			}
+			d.ReplyToMessageID = value
+		case "date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode draftMessage#51d71500: field date: %w", err)
+			}
+			d.Date = value
+		case "input_message_text":
+			value, err := DecodeTDLibJSONInputMessageContent(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode draftMessage#51d71500: field input_message_text: %w", err)
+			}
+			d.InputMessageText = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetReplyToMessageID returns value of ReplyToMessageID field.

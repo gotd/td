@@ -177,8 +177,8 @@ func (g *GetPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetPaymentFormRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetPaymentFormRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getPaymentForm#96e6319 as nil")
 	}
@@ -194,6 +194,41 @@ func (g *GetPaymentFormRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetPaymentFormRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getPaymentForm#96e6319 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getPaymentForm"); err != nil {
+				return fmt.Errorf("unable to decode getPaymentForm#96e6319: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getPaymentForm#96e6319: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getPaymentForm#96e6319: field message_id: %w", err)
+			}
+			g.MessageID = value
+		case "theme":
+			if err := g.Theme.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode getPaymentForm#96e6319: field theme: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

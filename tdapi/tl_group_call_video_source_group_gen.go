@@ -173,8 +173,8 @@ func (g *GroupCallVideoSourceGroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GroupCallVideoSourceGroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GroupCallVideoSourceGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode groupCallVideoSourceGroup#4ef8a4af as nil")
 	}
@@ -190,6 +190,42 @@ func (g *GroupCallVideoSourceGroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GroupCallVideoSourceGroup) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode groupCallVideoSourceGroup#4ef8a4af to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("groupCallVideoSourceGroup"); err != nil {
+				return fmt.Errorf("unable to decode groupCallVideoSourceGroup#4ef8a4af: %w", err)
+			}
+		case "semantics":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallVideoSourceGroup#4ef8a4af: field semantics: %w", err)
+			}
+			g.Semantics = value
+		case "source_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode groupCallVideoSourceGroup#4ef8a4af: field source_ids: %w", err)
+				}
+				g.SourceIDs = append(g.SourceIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode groupCallVideoSourceGroup#4ef8a4af: field source_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSemantics returns value of Semantics field.

@@ -125,8 +125,8 @@ func (c *ClearRecentlyFoundChatsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ClearRecentlyFoundChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ClearRecentlyFoundChatsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode clearRecentlyFoundChats#eefa5b32 as nil")
 	}
@@ -134,6 +134,25 @@ func (c *ClearRecentlyFoundChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutID("clearRecentlyFoundChats")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ClearRecentlyFoundChatsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode clearRecentlyFoundChats#eefa5b32 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("clearRecentlyFoundChats"); err != nil {
+				return fmt.Errorf("unable to decode clearRecentlyFoundChats#eefa5b32: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ClearRecentlyFoundChats invokes method clearRecentlyFoundChats#eefa5b32 returning error if any.

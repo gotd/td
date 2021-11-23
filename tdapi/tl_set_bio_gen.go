@@ -143,8 +143,8 @@ func (s *SetBioRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetBioRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetBioRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setBio#9f772354 as nil")
 	}
@@ -154,6 +154,31 @@ func (s *SetBioRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(s.Bio)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetBioRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setBio#9f772354 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setBio"); err != nil {
+				return fmt.Errorf("unable to decode setBio#9f772354: %w", err)
+			}
+		case "bio":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setBio#9f772354: field bio: %w", err)
+			}
+			s.Bio = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBio returns value of Bio field.

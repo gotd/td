@@ -183,8 +183,8 @@ func (s *SetStickerSetThumbnailRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetStickerSetThumbnailRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetStickerSetThumbnailRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setStickerSetThumbnail#9afc5c04 as nil")
 	}
@@ -203,6 +203,43 @@ func (s *SetStickerSetThumbnailRequest) EncodeTDLibJSON(b *jsontd.Encoder) error
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetStickerSetThumbnailRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setStickerSetThumbnail#9afc5c04 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setStickerSetThumbnail"); err != nil {
+				return fmt.Errorf("unable to decode setStickerSetThumbnail#9afc5c04: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setStickerSetThumbnail#9afc5c04: field user_id: %w", err)
+			}
+			s.UserID = value
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setStickerSetThumbnail#9afc5c04: field name: %w", err)
+			}
+			s.Name = value
+		case "thumbnail":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setStickerSetThumbnail#9afc5c04: field thumbnail: %w", err)
+			}
+			s.Thumbnail = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserID returns value of UserID field.

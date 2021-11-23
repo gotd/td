@@ -165,8 +165,8 @@ func (j *JSONObjectMember) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes j in TDLib API JSON format.
-func (j *JSONObjectMember) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (j *JSONObjectMember) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if j == nil {
 		return fmt.Errorf("can't encode jsonObjectMember#9483ae96 as nil")
 	}
@@ -183,6 +183,37 @@ func (j *JSONObjectMember) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (j *JSONObjectMember) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if j == nil {
+		return fmt.Errorf("can't decode jsonObjectMember#9483ae96 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("jsonObjectMember"); err != nil {
+				return fmt.Errorf("unable to decode jsonObjectMember#9483ae96: %w", err)
+			}
+		case "key":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode jsonObjectMember#9483ae96: field key: %w", err)
+			}
+			j.Key = value
+		case "value":
+			value, err := DecodeTDLibJSONJSONValue(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode jsonObjectMember#9483ae96: field value: %w", err)
+			}
+			j.Value = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetKey returns value of Key field.

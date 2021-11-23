@@ -173,8 +173,8 @@ func (i *InviteGroupCallParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InviteGroupCallParticipantsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InviteGroupCallParticipantsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inviteGroupCallParticipants#36d83295 as nil")
 	}
@@ -190,6 +190,42 @@ func (i *InviteGroupCallParticipantsRequest) EncodeTDLibJSON(b *jsontd.Encoder) 
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InviteGroupCallParticipantsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inviteGroupCallParticipants#36d83295 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inviteGroupCallParticipants"); err != nil {
+				return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: field group_call_id: %w", err)
+			}
+			i.GroupCallID = value
+		case "user_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: field user_ids: %w", err)
+				}
+				i.UserIDs = append(i.UserIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: field user_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

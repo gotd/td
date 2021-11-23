@@ -143,8 +143,8 @@ func (c *CheckChatInviteLinkRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CheckChatInviteLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CheckChatInviteLinkRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkChatInviteLink#e261483b as nil")
 	}
@@ -154,6 +154,31 @@ func (c *CheckChatInviteLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(c.InviteLink)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CheckChatInviteLinkRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkChatInviteLink#e261483b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("checkChatInviteLink"); err != nil {
+				return fmt.Errorf("unable to decode checkChatInviteLink#e261483b: %w", err)
+			}
+		case "invite_link":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode checkChatInviteLink#e261483b: field invite_link: %w", err)
+			}
+			c.InviteLink = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetInviteLink returns value of InviteLink field.

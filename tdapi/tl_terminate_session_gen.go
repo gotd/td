@@ -34,7 +34,7 @@ var (
 // TerminateSessionRequest represents TL type `terminateSession#e7b7c92c`.
 type TerminateSessionRequest struct {
 	// Session identifier
-	SessionID Int64
+	SessionID int64
 }
 
 // TerminateSessionRequestTypeID is TL type id of TerminateSessionRequest.
@@ -52,7 +52,7 @@ func (t *TerminateSessionRequest) Zero() bool {
 	if t == nil {
 		return true
 	}
-	if !(t.SessionID.Zero()) {
+	if !(t.SessionID == 0) {
 		return false
 	}
 
@@ -113,9 +113,7 @@ func (t *TerminateSessionRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode terminateSession#e7b7c92c as nil")
 	}
-	if err := t.SessionID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode terminateSession#e7b7c92c: field session_id: %w", err)
-	}
+	b.PutLong(t.SessionID)
 	return nil
 }
 
@@ -136,35 +134,60 @@ func (t *TerminateSessionRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode terminateSession#e7b7c92c to nil")
 	}
 	{
-		if err := t.SessionID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode terminateSession#e7b7c92c: field session_id: %w", err)
 		}
+		t.SessionID = value
 	}
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TerminateSessionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TerminateSessionRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode terminateSession#e7b7c92c as nil")
 	}
 	b.ObjStart()
 	b.PutID("terminateSession")
 	b.FieldStart("session_id")
-	if err := t.SessionID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode terminateSession#e7b7c92c: field session_id: %w", err)
-	}
+	b.PutLong(t.SessionID)
 	b.ObjEnd()
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TerminateSessionRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode terminateSession#e7b7c92c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("terminateSession"); err != nil {
+				return fmt.Errorf("unable to decode terminateSession#e7b7c92c: %w", err)
+			}
+		case "session_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode terminateSession#e7b7c92c: field session_id: %w", err)
+			}
+			t.SessionID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetSessionID returns value of SessionID field.
-func (t *TerminateSessionRequest) GetSessionID() (value Int64) {
+func (t *TerminateSessionRequest) GetSessionID() (value int64) {
 	return t.SessionID
 }
 
 // TerminateSession invokes method terminateSession#e7b7c92c returning error if any.
-func (c *Client) TerminateSession(ctx context.Context, sessionid Int64) error {
+func (c *Client) TerminateSession(ctx context.Context, sessionid int64) error {
 	var ok Ok
 
 	request := &TerminateSessionRequest{

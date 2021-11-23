@@ -182,8 +182,8 @@ func (e *EditMessageSchedulingStateRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *EditMessageSchedulingStateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *EditMessageSchedulingStateRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editMessageSchedulingState#ae2a0bc0 as nil")
 	}
@@ -202,6 +202,43 @@ func (e *EditMessageSchedulingStateRequest) EncodeTDLibJSON(b *jsontd.Encoder) e
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *EditMessageSchedulingStateRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode editMessageSchedulingState#ae2a0bc0 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("editMessageSchedulingState"); err != nil {
+				return fmt.Errorf("unable to decode editMessageSchedulingState#ae2a0bc0: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode editMessageSchedulingState#ae2a0bc0: field chat_id: %w", err)
+			}
+			e.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode editMessageSchedulingState#ae2a0bc0: field message_id: %w", err)
+			}
+			e.MessageID = value
+		case "scheduling_state":
+			value, err := DecodeTDLibJSONMessageSchedulingState(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode editMessageSchedulingState#ae2a0bc0: field scheduling_state: %w", err)
+			}
+			e.SchedulingState = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

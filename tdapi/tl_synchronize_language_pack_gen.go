@@ -143,8 +143,8 @@ func (s *SynchronizeLanguagePackRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SynchronizeLanguagePackRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SynchronizeLanguagePackRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode synchronizeLanguagePack#84e5e72e as nil")
 	}
@@ -154,6 +154,31 @@ func (s *SynchronizeLanguagePackRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutString(s.LanguagePackID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SynchronizeLanguagePackRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode synchronizeLanguagePack#84e5e72e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("synchronizeLanguagePack"); err != nil {
+				return fmt.Errorf("unable to decode synchronizeLanguagePack#84e5e72e: %w", err)
+			}
+		case "language_pack_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode synchronizeLanguagePack#84e5e72e: field language_pack_id: %w", err)
+			}
+			s.LanguagePackID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLanguagePackID returns value of LanguagePackID field.

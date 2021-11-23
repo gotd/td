@@ -178,8 +178,8 @@ func (n *NetworkStatistics) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes n in TDLib API JSON format.
-func (n *NetworkStatistics) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (n *NetworkStatistics) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode networkStatistics#d86acb3c as nil")
 	}
@@ -200,6 +200,42 @@ func (n *NetworkStatistics) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (n *NetworkStatistics) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if n == nil {
+		return fmt.Errorf("can't decode networkStatistics#d86acb3c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("networkStatistics"); err != nil {
+				return fmt.Errorf("unable to decode networkStatistics#d86acb3c: %w", err)
+			}
+		case "since_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode networkStatistics#d86acb3c: field since_date: %w", err)
+			}
+			n.SinceDate = value
+		case "entries":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONNetworkStatisticsEntry(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode networkStatistics#d86acb3c: field entries: %w", err)
+				}
+				n.Entries = append(n.Entries, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode networkStatistics#d86acb3c: field entries: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSinceDate returns value of SinceDate field.

@@ -143,8 +143,8 @@ func (g *GetAttachedStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetAttachedStickerSetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetAttachedStickerSetsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getAttachedStickerSets#4d9d930d as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetAttachedStickerSetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error
 	b.PutInt32(g.FileID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetAttachedStickerSetsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getAttachedStickerSets#4d9d930d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getAttachedStickerSets"); err != nil {
+				return fmt.Errorf("unable to decode getAttachedStickerSets#4d9d930d: %w", err)
+			}
+		case "file_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getAttachedStickerSets#4d9d930d: field file_id: %w", err)
+			}
+			g.FileID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFileID returns value of FileID field.

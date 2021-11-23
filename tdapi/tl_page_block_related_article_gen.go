@@ -228,8 +228,8 @@ func (p *PageBlockRelatedArticle) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PageBlockRelatedArticle) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PageBlockRelatedArticle) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockRelatedArticle#1cae8493 as nil")
 	}
@@ -251,6 +251,59 @@ func (p *PageBlockRelatedArticle) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(p.PublishDate)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PageBlockRelatedArticle) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockRelatedArticle#1cae8493 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("pageBlockRelatedArticle"); err != nil {
+				return fmt.Errorf("unable to decode pageBlockRelatedArticle#1cae8493: %w", err)
+			}
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockRelatedArticle#1cae8493: field url: %w", err)
+			}
+			p.URL = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockRelatedArticle#1cae8493: field title: %w", err)
+			}
+			p.Title = value
+		case "description":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockRelatedArticle#1cae8493: field description: %w", err)
+			}
+			p.Description = value
+		case "photo":
+			if err := p.Photo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode pageBlockRelatedArticle#1cae8493: field photo: %w", err)
+			}
+		case "author":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockRelatedArticle#1cae8493: field author: %w", err)
+			}
+			p.Author = value
+		case "publish_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockRelatedArticle#1cae8493: field publish_date: %w", err)
+			}
+			p.PublishDate = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetURL returns value of URL field.

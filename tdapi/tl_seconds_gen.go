@@ -143,8 +143,8 @@ func (s *Seconds) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *Seconds) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *Seconds) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode seconds#3936e58e as nil")
 	}
@@ -154,6 +154,31 @@ func (s *Seconds) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutDouble(s.Seconds)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *Seconds) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode seconds#3936e58e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("seconds"); err != nil {
+				return fmt.Errorf("unable to decode seconds#3936e58e: %w", err)
+			}
+		case "seconds":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode seconds#3936e58e: field seconds: %w", err)
+			}
+			s.Seconds = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSeconds returns value of Seconds field.

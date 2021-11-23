@@ -148,8 +148,8 @@ func (c *CallServerTypeTelegramReflector) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallServerTypeTelegramReflector) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallServerTypeTelegramReflector) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callServerTypeTelegramReflector#a6200634 as nil")
 	}
@@ -159,6 +159,31 @@ func (c *CallServerTypeTelegramReflector) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.PutBytes(c.PeerTag)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallServerTypeTelegramReflector) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callServerTypeTelegramReflector#a6200634 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callServerTypeTelegramReflector"); err != nil {
+				return fmt.Errorf("unable to decode callServerTypeTelegramReflector#a6200634: %w", err)
+			}
+		case "peer_tag":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode callServerTypeTelegramReflector#a6200634: field peer_tag: %w", err)
+			}
+			c.PeerTag = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPeerTag returns value of PeerTag field.
@@ -334,8 +359,8 @@ func (c *CallServerTypeWebrtc) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallServerTypeWebrtc) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallServerTypeWebrtc) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callServerTypeWebrtc#4a8afd65 as nil")
 	}
@@ -351,6 +376,49 @@ func (c *CallServerTypeWebrtc) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(c.SupportsStun)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallServerTypeWebrtc) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callServerTypeWebrtc#4a8afd65 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callServerTypeWebrtc"); err != nil {
+				return fmt.Errorf("unable to decode callServerTypeWebrtc#4a8afd65: %w", err)
+			}
+		case "username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode callServerTypeWebrtc#4a8afd65: field username: %w", err)
+			}
+			c.Username = value
+		case "password":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode callServerTypeWebrtc#4a8afd65: field password: %w", err)
+			}
+			c.Password = value
+		case "supports_turn":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode callServerTypeWebrtc#4a8afd65: field supports_turn: %w", err)
+			}
+			c.SupportsTurn = value
+		case "supports_stun":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode callServerTypeWebrtc#4a8afd65: field supports_stun: %w", err)
+			}
+			c.SupportsStun = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUsername returns value of Username field.
@@ -402,7 +470,9 @@ type CallServerTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeCallServerType implements binary de-serialization for CallServerTypeClass.
@@ -431,6 +501,32 @@ func DecodeCallServerType(buf *bin.Buffer) (CallServerTypeClass, error) {
 	}
 }
 
+// DecodeTDLibJSONCallServerType implements binary de-serialization for CallServerTypeClass.
+func DecodeTDLibJSONCallServerType(buf jsontd.Decoder) (CallServerTypeClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "callServerTypeTelegramReflector":
+		// Decoding callServerTypeTelegramReflector#a6200634.
+		v := CallServerTypeTelegramReflector{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallServerTypeClass: %w", err)
+		}
+		return &v, nil
+	case "callServerTypeWebrtc":
+		// Decoding callServerTypeWebrtc#4a8afd65.
+		v := CallServerTypeWebrtc{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallServerTypeClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode CallServerTypeClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // CallServerType boxes the CallServerTypeClass providing a helper.
 type CallServerTypeBox struct {
 	CallServerType CallServerTypeClass
@@ -455,4 +551,25 @@ func (b *CallServerTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode CallServerTypeClass as nil")
 	}
 	return b.CallServerType.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for CallServerTypeBox.
+func (b *CallServerTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode CallServerTypeBox to nil")
+	}
+	v, err := DecodeTDLibJSONCallServerType(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.CallServerType = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for CallServerTypeBox.
+func (b *CallServerTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.CallServerType == nil {
+		return fmt.Errorf("unable to encode CallServerTypeClass as nil")
+	}
+	return b.CallServerType.EncodeTDLibJSON(buf)
 }

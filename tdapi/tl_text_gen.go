@@ -143,8 +143,8 @@ func (t *Text) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *Text) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *Text) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode text#22765898 as nil")
 	}
@@ -154,6 +154,31 @@ func (t *Text) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(t.Text)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *Text) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode text#22765898 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("text"); err != nil {
+				return fmt.Errorf("unable to decode text#22765898: %w", err)
+			}
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode text#22765898: field text: %w", err)
+			}
+			t.Text = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

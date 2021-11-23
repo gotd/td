@@ -194,8 +194,8 @@ func (g *GetLoginURLRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetLoginURLRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetLoginURLRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getLoginUrl#296c75e5 as nil")
 	}
@@ -211,6 +211,49 @@ func (g *GetLoginURLRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(g.AllowWriteAccess)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetLoginURLRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getLoginUrl#296c75e5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getLoginUrl"); err != nil {
+				return fmt.Errorf("unable to decode getLoginUrl#296c75e5: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getLoginUrl#296c75e5: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getLoginUrl#296c75e5: field message_id: %w", err)
+			}
+			g.MessageID = value
+		case "button_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getLoginUrl#296c75e5: field button_id: %w", err)
+			}
+			g.ButtonID = value
+		case "allow_write_access":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getLoginUrl#296c75e5: field allow_write_access: %w", err)
+			}
+			g.AllowWriteAccess = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

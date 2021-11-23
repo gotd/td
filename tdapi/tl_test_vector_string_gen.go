@@ -156,8 +156,8 @@ func (t *TestVectorString) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TestVectorString) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TestVectorString) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode testVectorString#5d6f85bc as nil")
 	}
@@ -171,6 +171,36 @@ func (t *TestVectorString) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TestVectorString) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testVectorString#5d6f85bc to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("testVectorString"); err != nil {
+				return fmt.Errorf("unable to decode testVectorString#5d6f85bc: %w", err)
+			}
+		case "value":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode testVectorString#5d6f85bc: field value: %w", err)
+				}
+				t.Value = append(t.Value, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode testVectorString#5d6f85bc: field value: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetValue returns value of Value field.

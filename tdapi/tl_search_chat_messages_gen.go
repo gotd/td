@@ -278,8 +278,8 @@ func (s *SearchChatMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SearchChatMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SearchChatMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchChatMessages#9aa50c30 as nil")
 	}
@@ -313,6 +313,73 @@ func (s *SearchChatMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(s.MessageThreadID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SearchChatMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchChatMessages#9aa50c30 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("searchChatMessages"); err != nil {
+				return fmt.Errorf("unable to decode searchChatMessages#9aa50c30: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatMessages#9aa50c30: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "query":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatMessages#9aa50c30: field query: %w", err)
+			}
+			s.Query = value
+		case "sender":
+			value, err := DecodeTDLibJSONMessageSender(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatMessages#9aa50c30: field sender: %w", err)
+			}
+			s.Sender = value
+		case "from_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatMessages#9aa50c30: field from_message_id: %w", err)
+			}
+			s.FromMessageID = value
+		case "offset":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatMessages#9aa50c30: field offset: %w", err)
+			}
+			s.Offset = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatMessages#9aa50c30: field limit: %w", err)
+			}
+			s.Limit = value
+		case "filter":
+			value, err := DecodeTDLibJSONSearchMessagesFilter(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatMessages#9aa50c30: field filter: %w", err)
+			}
+			s.Filter = value
+		case "message_thread_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatMessages#9aa50c30: field message_thread_id: %w", err)
+			}
+			s.MessageThreadID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

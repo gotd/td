@@ -158,8 +158,8 @@ func (p *Proxies) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *Proxies) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *Proxies) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode proxies#5ee27a86 as nil")
 	}
@@ -175,6 +175,36 @@ func (p *Proxies) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *Proxies) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode proxies#5ee27a86 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("proxies"); err != nil {
+				return fmt.Errorf("unable to decode proxies#5ee27a86: %w", err)
+			}
+		case "proxies":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value Proxy
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode proxies#5ee27a86: field proxies: %w", err)
+				}
+				p.Proxies = append(p.Proxies, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode proxies#5ee27a86: field proxies: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetProxies returns value of Proxies field.

@@ -143,8 +143,8 @@ func (r *RemoveRecentHashtagRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RemoveRecentHashtagRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RemoveRecentHashtagRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode removeRecentHashtag#c393a0a4 as nil")
 	}
@@ -154,6 +154,31 @@ func (r *RemoveRecentHashtagRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(r.Hashtag)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RemoveRecentHashtagRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode removeRecentHashtag#c393a0a4 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("removeRecentHashtag"); err != nil {
+				return fmt.Errorf("unable to decode removeRecentHashtag#c393a0a4: %w", err)
+			}
+		case "hashtag":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode removeRecentHashtag#c393a0a4: field hashtag: %w", err)
+			}
+			r.Hashtag = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetHashtag returns value of Hashtag field.

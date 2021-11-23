@@ -36,7 +36,7 @@ type GetChatsRequest struct {
 	// The chat list in which to return chats
 	ChatList ChatListClass
 	// Chat order to return chats from
-	OffsetOrder Int64
+	OffsetOrder int64
 	// Chat identifier to return chats from
 	OffsetChatID int64
 	// The maximum number of chats to be returned. For optimal performance, the number of
@@ -63,7 +63,7 @@ func (g *GetChatsRequest) Zero() bool {
 	if !(g.ChatList == nil) {
 		return false
 	}
-	if !(g.OffsetOrder.Zero()) {
+	if !(g.OffsetOrder == 0) {
 		return false
 	}
 	if !(g.OffsetChatID == 0) {
@@ -148,9 +148,7 @@ func (g *GetChatsRequest) EncodeBare(b *bin.Buffer) error {
 	if err := g.ChatList.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode getChats#6e18f5c1: field chat_list: %w", err)
 	}
-	if err := g.OffsetOrder.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getChats#6e18f5c1: field offset_order: %w", err)
-	}
+	b.PutLong(g.OffsetOrder)
 	b.PutLong(g.OffsetChatID)
 	b.PutInt32(g.Limit)
 	return nil
@@ -180,9 +178,11 @@ func (g *GetChatsRequest) DecodeBare(b *bin.Buffer) error {
 		g.ChatList = value
 	}
 	{
-		if err := g.OffsetOrder.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode getChats#6e18f5c1: field offset_order: %w", err)
 		}
+		g.OffsetOrder = value
 	}
 	{
 		value, err := b.Long()
@@ -201,8 +201,8 @@ func (g *GetChatsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetChatsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChats#6e18f5c1 as nil")
 	}
@@ -216,9 +216,7 @@ func (g *GetChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 		return fmt.Errorf("unable to encode getChats#6e18f5c1: field chat_list: %w", err)
 	}
 	b.FieldStart("offset_order")
-	if err := g.OffsetOrder.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getChats#6e18f5c1: field offset_order: %w", err)
-	}
+	b.PutLong(g.OffsetOrder)
 	b.FieldStart("offset_chat_id")
 	b.PutLong(g.OffsetChatID)
 	b.FieldStart("limit")
@@ -227,13 +225,56 @@ func (g *GetChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetChatsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getChats#6e18f5c1 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getChats"); err != nil {
+				return fmt.Errorf("unable to decode getChats#6e18f5c1: %w", err)
+			}
+		case "chat_list":
+			value, err := DecodeTDLibJSONChatList(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getChats#6e18f5c1: field chat_list: %w", err)
+			}
+			g.ChatList = value
+		case "offset_order":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChats#6e18f5c1: field offset_order: %w", err)
+			}
+			g.OffsetOrder = value
+		case "offset_chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChats#6e18f5c1: field offset_chat_id: %w", err)
+			}
+			g.OffsetChatID = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChats#6e18f5c1: field limit: %w", err)
+			}
+			g.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetChatList returns value of ChatList field.
 func (g *GetChatsRequest) GetChatList() (value ChatListClass) {
 	return g.ChatList
 }
 
 // GetOffsetOrder returns value of OffsetOrder field.
-func (g *GetChatsRequest) GetOffsetOrder() (value Int64) {
+func (g *GetChatsRequest) GetOffsetOrder() (value int64) {
 	return g.OffsetOrder
 }
 

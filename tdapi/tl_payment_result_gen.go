@@ -161,8 +161,8 @@ func (p *PaymentResult) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PaymentResult) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PaymentResult) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode paymentResult#d00fe85d as nil")
 	}
@@ -174,6 +174,37 @@ func (p *PaymentResult) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(p.VerificationURL)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PaymentResult) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode paymentResult#d00fe85d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("paymentResult"); err != nil {
+				return fmt.Errorf("unable to decode paymentResult#d00fe85d: %w", err)
+			}
+		case "success":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentResult#d00fe85d: field success: %w", err)
+			}
+			p.Success = value
+		case "verification_url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentResult#d00fe85d: field verification_url: %w", err)
+			}
+			p.VerificationURL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSuccess returns value of Success field.

@@ -182,8 +182,8 @@ func (s *StorageStatisticsByFileType) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *StorageStatisticsByFileType) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *StorageStatisticsByFileType) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode storageStatisticsByFileType#2a8ef8a8 as nil")
 	}
@@ -202,6 +202,43 @@ func (s *StorageStatisticsByFileType) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(s.Count)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *StorageStatisticsByFileType) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storageStatisticsByFileType#2a8ef8a8 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("storageStatisticsByFileType"); err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsByFileType#2a8ef8a8: %w", err)
+			}
+		case "file_type":
+			value, err := DecodeTDLibJSONFileType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsByFileType#2a8ef8a8: field file_type: %w", err)
+			}
+			s.FileType = value
+		case "size":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsByFileType#2a8ef8a8: field size: %w", err)
+			}
+			s.Size = value
+		case "count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsByFileType#2a8ef8a8: field count: %w", err)
+			}
+			s.Count = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFileType returns value of FileType field.

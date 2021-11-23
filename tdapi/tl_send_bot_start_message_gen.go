@@ -178,8 +178,8 @@ func (s *SendBotStartMessageRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SendBotStartMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SendBotStartMessageRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sendBotStartMessage#424a8a5b as nil")
 	}
@@ -193,6 +193,43 @@ func (s *SendBotStartMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(s.Parameter)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SendBotStartMessageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendBotStartMessage#424a8a5b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("sendBotStartMessage"); err != nil {
+				return fmt.Errorf("unable to decode sendBotStartMessage#424a8a5b: %w", err)
+			}
+		case "bot_user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendBotStartMessage#424a8a5b: field bot_user_id: %w", err)
+			}
+			s.BotUserID = value
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendBotStartMessage#424a8a5b: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "parameter":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendBotStartMessage#424a8a5b: field parameter: %w", err)
+			}
+			s.Parameter = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBotUserID returns value of BotUserID field.

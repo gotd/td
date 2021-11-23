@@ -314,8 +314,8 @@ func (e *EncryptedPassportElement) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *EncryptedPassportElement) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *EncryptedPassportElement) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode encryptedPassportElement#262d248 as nil")
 	}
@@ -364,6 +364,83 @@ func (e *EncryptedPassportElement) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(e.Hash)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *EncryptedPassportElement) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode encryptedPassportElement#262d248 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("encryptedPassportElement"); err != nil {
+				return fmt.Errorf("unable to decode encryptedPassportElement#262d248: %w", err)
+			}
+		case "type":
+			value, err := DecodeTDLibJSONPassportElementType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field type: %w", err)
+			}
+			e.Type = value
+		case "data":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field data: %w", err)
+			}
+			e.Data = value
+		case "front_side":
+			if err := e.FrontSide.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field front_side: %w", err)
+			}
+		case "reverse_side":
+			if err := e.ReverseSide.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field reverse_side: %w", err)
+			}
+		case "selfie":
+			if err := e.Selfie.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field selfie: %w", err)
+			}
+		case "translation":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value DatedFile
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field translation: %w", err)
+				}
+				e.Translation = append(e.Translation, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field translation: %w", err)
+			}
+		case "files":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value DatedFile
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field files: %w", err)
+				}
+				e.Files = append(e.Files, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field files: %w", err)
+			}
+		case "value":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field value: %w", err)
+			}
+			e.Value = value
+		case "hash":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field hash: %w", err)
+			}
+			e.Hash = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetType returns value of Type field.

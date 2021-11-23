@@ -148,8 +148,8 @@ func (g *GetScopeNotificationSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetScopeNotificationSettingsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetScopeNotificationSettingsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getScopeNotificationSettings#c4a8254f as nil")
 	}
@@ -164,6 +164,31 @@ func (g *GetScopeNotificationSettingsRequest) EncodeTDLibJSON(b *jsontd.Encoder)
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetScopeNotificationSettingsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getScopeNotificationSettings#c4a8254f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getScopeNotificationSettings"); err != nil {
+				return fmt.Errorf("unable to decode getScopeNotificationSettings#c4a8254f: %w", err)
+			}
+		case "scope":
+			value, err := DecodeTDLibJSONNotificationSettingsScope(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getScopeNotificationSettings#c4a8254f: field scope: %w", err)
+			}
+			g.Scope = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetScope returns value of Scope field.

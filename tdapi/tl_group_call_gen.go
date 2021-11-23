@@ -452,8 +452,8 @@ func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GroupCall) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GroupCall) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode groupCall#e8fe8ddc as nil")
 	}
@@ -503,6 +503,138 @@ func (g *GroupCall) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(g.Duration)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GroupCall) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode groupCall#e8fe8ddc to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("groupCall"); err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: %w", err)
+			}
+		case "id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field id: %w", err)
+			}
+			g.ID = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field title: %w", err)
+			}
+			g.Title = value
+		case "scheduled_start_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field scheduled_start_date: %w", err)
+			}
+			g.ScheduledStartDate = value
+		case "enabled_start_notification":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field enabled_start_notification: %w", err)
+			}
+			g.EnabledStartNotification = value
+		case "is_active":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field is_active: %w", err)
+			}
+			g.IsActive = value
+		case "is_joined":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field is_joined: %w", err)
+			}
+			g.IsJoined = value
+		case "need_rejoin":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field need_rejoin: %w", err)
+			}
+			g.NeedRejoin = value
+		case "can_be_managed":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field can_be_managed: %w", err)
+			}
+			g.CanBeManaged = value
+		case "participant_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field participant_count: %w", err)
+			}
+			g.ParticipantCount = value
+		case "loaded_all_participants":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field loaded_all_participants: %w", err)
+			}
+			g.LoadedAllParticipants = value
+		case "recent_speakers":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value GroupCallRecentSpeaker
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field recent_speakers: %w", err)
+				}
+				g.RecentSpeakers = append(g.RecentSpeakers, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field recent_speakers: %w", err)
+			}
+		case "is_my_video_enabled":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field is_my_video_enabled: %w", err)
+			}
+			g.IsMyVideoEnabled = value
+		case "is_my_video_paused":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field is_my_video_paused: %w", err)
+			}
+			g.IsMyVideoPaused = value
+		case "can_enable_video":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field can_enable_video: %w", err)
+			}
+			g.CanEnableVideo = value
+		case "mute_new_participants":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field mute_new_participants: %w", err)
+			}
+			g.MuteNewParticipants = value
+		case "can_change_mute_new_participants":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field can_change_mute_new_participants: %w", err)
+			}
+			g.CanChangeMuteNewParticipants = value
+		case "record_duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field record_duration: %w", err)
+			}
+			g.RecordDuration = value
+		case "duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#e8fe8ddc: field duration: %w", err)
+			}
+			g.Duration = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

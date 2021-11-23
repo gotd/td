@@ -143,8 +143,8 @@ func (c *CheckAuthenticationBotTokenRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CheckAuthenticationBotTokenRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CheckAuthenticationBotTokenRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkAuthenticationBotToken#261b4476 as nil")
 	}
@@ -154,6 +154,31 @@ func (c *CheckAuthenticationBotTokenRequest) EncodeTDLibJSON(b *jsontd.Encoder) 
 	b.PutString(c.Token)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CheckAuthenticationBotTokenRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkAuthenticationBotToken#261b4476 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("checkAuthenticationBotToken"); err != nil {
+				return fmt.Errorf("unable to decode checkAuthenticationBotToken#261b4476: %w", err)
+			}
+		case "token":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode checkAuthenticationBotToken#261b4476: field token: %w", err)
+			}
+			c.Token = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetToken returns value of Token field.

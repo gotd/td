@@ -103,7 +103,7 @@ type Message struct {
 	AuthorSignature string
 	// Unique identifier of an album this message belongs to. Only audios, documents, photos
 	// and videos can be grouped together in albums
-	MediaAlbumID Int64
+	MediaAlbumID int64
 	// If non-empty, contains a human-readable description of the reason why access to this
 	// message must be restricted
 	RestrictionReason string
@@ -212,7 +212,7 @@ func (m *Message) Zero() bool {
 	if !(m.AuthorSignature == "") {
 		return false
 	}
-	if !(m.MediaAlbumID.Zero()) {
+	if !(m.MediaAlbumID == 0) {
 		return false
 	}
 	if !(m.RestrictionReason == "") {
@@ -453,9 +453,7 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	b.PutDouble(m.TTLExpiresIn)
 	b.PutInt32(m.ViaBotUserID)
 	b.PutString(m.AuthorSignature)
-	if err := m.MediaAlbumID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#b7bd95f0: field media_album_id: %w", err)
-	}
+	b.PutLong(m.MediaAlbumID)
 	b.PutString(m.RestrictionReason)
 	if m.Content == nil {
 		return fmt.Errorf("unable to encode message#b7bd95f0: field content is nil")
@@ -681,9 +679,11 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 		m.AuthorSignature = value
 	}
 	{
-		if err := m.MediaAlbumID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode message#b7bd95f0: field media_album_id: %w", err)
 		}
+		m.MediaAlbumID = value
 	}
 	{
 		value, err := b.String()
@@ -709,8 +709,8 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *Message) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *Message) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode message#b7bd95f0 as nil")
 	}
@@ -792,9 +792,7 @@ func (m *Message) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.FieldStart("author_signature")
 	b.PutString(m.AuthorSignature)
 	b.FieldStart("media_album_id")
-	if err := m.MediaAlbumID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#b7bd95f0: field media_album_id: %w", err)
-	}
+	b.PutLong(m.MediaAlbumID)
 	b.FieldStart("restriction_reason")
 	b.PutString(m.RestrictionReason)
 	b.FieldStart("content")
@@ -813,6 +811,213 @@ func (m *Message) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *Message) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode message#b7bd95f0 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("message"); err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: %w", err)
+			}
+		case "id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field id: %w", err)
+			}
+			m.ID = value
+		case "sender":
+			value, err := DecodeTDLibJSONMessageSender(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field sender: %w", err)
+			}
+			m.Sender = value
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field chat_id: %w", err)
+			}
+			m.ChatID = value
+		case "sending_state":
+			value, err := DecodeTDLibJSONMessageSendingState(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field sending_state: %w", err)
+			}
+			m.SendingState = value
+		case "scheduling_state":
+			value, err := DecodeTDLibJSONMessageSchedulingState(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field scheduling_state: %w", err)
+			}
+			m.SchedulingState = value
+		case "is_outgoing":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field is_outgoing: %w", err)
+			}
+			m.IsOutgoing = value
+		case "is_pinned":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field is_pinned: %w", err)
+			}
+			m.IsPinned = value
+		case "can_be_edited":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field can_be_edited: %w", err)
+			}
+			m.CanBeEdited = value
+		case "can_be_forwarded":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field can_be_forwarded: %w", err)
+			}
+			m.CanBeForwarded = value
+		case "can_be_deleted_only_for_self":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field can_be_deleted_only_for_self: %w", err)
+			}
+			m.CanBeDeletedOnlyForSelf = value
+		case "can_be_deleted_for_all_users":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field can_be_deleted_for_all_users: %w", err)
+			}
+			m.CanBeDeletedForAllUsers = value
+		case "can_get_statistics":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field can_get_statistics: %w", err)
+			}
+			m.CanGetStatistics = value
+		case "can_get_message_thread":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field can_get_message_thread: %w", err)
+			}
+			m.CanGetMessageThread = value
+		case "can_get_media_timestamp_links":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field can_get_media_timestamp_links: %w", err)
+			}
+			m.CanGetMediaTimestampLinks = value
+		case "has_timestamped_media":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field has_timestamped_media: %w", err)
+			}
+			m.HasTimestampedMedia = value
+		case "is_channel_post":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field is_channel_post: %w", err)
+			}
+			m.IsChannelPost = value
+		case "contains_unread_mention":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field contains_unread_mention: %w", err)
+			}
+			m.ContainsUnreadMention = value
+		case "date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field date: %w", err)
+			}
+			m.Date = value
+		case "edit_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field edit_date: %w", err)
+			}
+			m.EditDate = value
+		case "forward_info":
+			if err := m.ForwardInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field forward_info: %w", err)
+			}
+		case "interaction_info":
+			if err := m.InteractionInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field interaction_info: %w", err)
+			}
+		case "reply_in_chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field reply_in_chat_id: %w", err)
+			}
+			m.ReplyInChatID = value
+		case "reply_to_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field reply_to_message_id: %w", err)
+			}
+			m.ReplyToMessageID = value
+		case "message_thread_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field message_thread_id: %w", err)
+			}
+			m.MessageThreadID = value
+		case "ttl":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field ttl: %w", err)
+			}
+			m.TTL = value
+		case "ttl_expires_in":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field ttl_expires_in: %w", err)
+			}
+			m.TTLExpiresIn = value
+		case "via_bot_user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field via_bot_user_id: %w", err)
+			}
+			m.ViaBotUserID = value
+		case "author_signature":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field author_signature: %w", err)
+			}
+			m.AuthorSignature = value
+		case "media_album_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field media_album_id: %w", err)
+			}
+			m.MediaAlbumID = value
+		case "restriction_reason":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field restriction_reason: %w", err)
+			}
+			m.RestrictionReason = value
+		case "content":
+			value, err := DecodeTDLibJSONMessageContent(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field content: %w", err)
+			}
+			m.Content = value
+		case "reply_markup":
+			value, err := DecodeTDLibJSONReplyMarkup(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode message#b7bd95f0: field reply_markup: %w", err)
+			}
+			m.ReplyMarkup = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.
@@ -956,7 +1161,7 @@ func (m *Message) GetAuthorSignature() (value string) {
 }
 
 // GetMediaAlbumID returns value of MediaAlbumID field.
-func (m *Message) GetMediaAlbumID() (value Int64) {
+func (m *Message) GetMediaAlbumID() (value int64) {
 	return m.MediaAlbumID
 }
 

@@ -161,8 +161,8 @@ func (e *Error) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *Error) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *Error) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode error#9bdd8f1a as nil")
 	}
@@ -174,6 +174,37 @@ func (e *Error) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(e.Message)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *Error) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode error#9bdd8f1a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("error"); err != nil {
+				return fmt.Errorf("unable to decode error#9bdd8f1a: %w", err)
+			}
+		case "code":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode error#9bdd8f1a: field code: %w", err)
+			}
+			e.Code = value
+		case "message":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode error#9bdd8f1a: field message: %w", err)
+			}
+			e.Message = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCode returns value of Code field.

@@ -160,8 +160,8 @@ func (a *AcceptCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AcceptCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AcceptCallRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode acceptCall#d97562d0 as nil")
 	}
@@ -175,6 +175,35 @@ func (a *AcceptCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AcceptCallRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode acceptCall#d97562d0 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("acceptCall"); err != nil {
+				return fmt.Errorf("unable to decode acceptCall#d97562d0: %w", err)
+			}
+		case "call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode acceptCall#d97562d0: field call_id: %w", err)
+			}
+			a.CallID = value
+		case "protocol":
+			if err := a.Protocol.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode acceptCall#d97562d0: field protocol: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCallID returns value of CallID field.

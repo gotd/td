@@ -38,7 +38,7 @@ type GetCallbackQueryMessageRequest struct {
 	// Message identifier
 	MessageID int64
 	// Identifier of the callback query
-	CallbackQueryID Int64
+	CallbackQueryID int64
 }
 
 // GetCallbackQueryMessageRequestTypeID is TL type id of GetCallbackQueryMessageRequest.
@@ -62,7 +62,7 @@ func (g *GetCallbackQueryMessageRequest) Zero() bool {
 	if !(g.MessageID == 0) {
 		return false
 	}
-	if !(g.CallbackQueryID.Zero()) {
+	if !(g.CallbackQueryID == 0) {
 		return false
 	}
 
@@ -133,9 +133,7 @@ func (g *GetCallbackQueryMessageRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutLong(g.ChatID)
 	b.PutLong(g.MessageID)
-	if err := g.CallbackQueryID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getCallbackQueryMessage#bd209172: field callback_query_id: %w", err)
-	}
+	b.PutLong(g.CallbackQueryID)
 	return nil
 }
 
@@ -170,15 +168,17 @@ func (g *GetCallbackQueryMessageRequest) DecodeBare(b *bin.Buffer) error {
 		g.MessageID = value
 	}
 	{
-		if err := g.CallbackQueryID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode getCallbackQueryMessage#bd209172: field callback_query_id: %w", err)
 		}
+		g.CallbackQueryID = value
 	}
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetCallbackQueryMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetCallbackQueryMessageRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getCallbackQueryMessage#bd209172 as nil")
 	}
@@ -189,11 +189,46 @@ func (g *GetCallbackQueryMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.FieldStart("message_id")
 	b.PutLong(g.MessageID)
 	b.FieldStart("callback_query_id")
-	if err := g.CallbackQueryID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getCallbackQueryMessage#bd209172: field callback_query_id: %w", err)
-	}
+	b.PutLong(g.CallbackQueryID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetCallbackQueryMessageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getCallbackQueryMessage#bd209172 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getCallbackQueryMessage"); err != nil {
+				return fmt.Errorf("unable to decode getCallbackQueryMessage#bd209172: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getCallbackQueryMessage#bd209172: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getCallbackQueryMessage#bd209172: field message_id: %w", err)
+			}
+			g.MessageID = value
+		case "callback_query_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getCallbackQueryMessage#bd209172: field callback_query_id: %w", err)
+			}
+			g.CallbackQueryID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.
@@ -207,7 +242,7 @@ func (g *GetCallbackQueryMessageRequest) GetMessageID() (value int64) {
 }
 
 // GetCallbackQueryID returns value of CallbackQueryID field.
-func (g *GetCallbackQueryMessageRequest) GetCallbackQueryID() (value Int64) {
+func (g *GetCallbackQueryMessageRequest) GetCallbackQueryID() (value int64) {
 	return g.CallbackQueryID
 }
 

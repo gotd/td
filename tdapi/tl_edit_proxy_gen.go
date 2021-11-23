@@ -216,8 +216,8 @@ func (e *EditProxyRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *EditProxyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *EditProxyRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editProxy#a0482853 as nil")
 	}
@@ -240,6 +240,55 @@ func (e *EditProxyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *EditProxyRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode editProxy#a0482853 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("editProxy"); err != nil {
+				return fmt.Errorf("unable to decode editProxy#a0482853: %w", err)
+			}
+		case "proxy_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode editProxy#a0482853: field proxy_id: %w", err)
+			}
+			e.ProxyID = value
+		case "server":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode editProxy#a0482853: field server: %w", err)
+			}
+			e.Server = value
+		case "port":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode editProxy#a0482853: field port: %w", err)
+			}
+			e.Port = value
+		case "enable":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode editProxy#a0482853: field enable: %w", err)
+			}
+			e.Enable = value
+		case "type":
+			value, err := DecodeTDLibJSONProxyType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode editProxy#a0482853: field type: %w", err)
+			}
+			e.Type = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetProxyID returns value of ProxyID field.

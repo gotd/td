@@ -228,8 +228,8 @@ func (g *GetMapThumbnailFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetMapThumbnailFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetMapThumbnailFileRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getMapThumbnailFile#f6e6979a as nil")
 	}
@@ -251,6 +251,59 @@ func (g *GetMapThumbnailFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(g.ChatID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetMapThumbnailFileRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getMapThumbnailFile#f6e6979a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getMapThumbnailFile"); err != nil {
+				return fmt.Errorf("unable to decode getMapThumbnailFile#f6e6979a: %w", err)
+			}
+		case "location":
+			if err := g.Location.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode getMapThumbnailFile#f6e6979a: field location: %w", err)
+			}
+		case "zoom":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMapThumbnailFile#f6e6979a: field zoom: %w", err)
+			}
+			g.Zoom = value
+		case "width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMapThumbnailFile#f6e6979a: field width: %w", err)
+			}
+			g.Width = value
+		case "height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMapThumbnailFile#f6e6979a: field height: %w", err)
+			}
+			g.Height = value
+		case "scale":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMapThumbnailFile#f6e6979a: field scale: %w", err)
+			}
+			g.Scale = value
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMapThumbnailFile#f6e6979a: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLocation returns value of Location field.

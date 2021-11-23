@@ -211,8 +211,8 @@ func (g *GetInlineQueryResultsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetInlineQueryResultsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetInlineQueryResultsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getInlineQueryResults#b9844fbc as nil")
 	}
@@ -232,6 +232,53 @@ func (g *GetInlineQueryResultsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutString(g.Offset)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetInlineQueryResultsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getInlineQueryResults#b9844fbc to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getInlineQueryResults"); err != nil {
+				return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: %w", err)
+			}
+		case "bot_user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field bot_user_id: %w", err)
+			}
+			g.BotUserID = value
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "user_location":
+			if err := g.UserLocation.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field user_location: %w", err)
+			}
+		case "query":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field query: %w", err)
+			}
+			g.Query = value
+		case "offset":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field offset: %w", err)
+			}
+			g.Offset = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBotUserID returns value of BotUserID field.

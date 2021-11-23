@@ -148,8 +148,8 @@ func (b *BackgroundFillSolid) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *BackgroundFillSolid) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *BackgroundFillSolid) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode backgroundFillSolid#3c3dbc1d as nil")
 	}
@@ -159,6 +159,31 @@ func (b *BackgroundFillSolid) EncodeTDLibJSON(buf *jsontd.Encoder) error {
 	buf.PutInt32(b.Color)
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *BackgroundFillSolid) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode backgroundFillSolid#3c3dbc1d to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("backgroundFillSolid"); err != nil {
+				return fmt.Errorf("unable to decode backgroundFillSolid#3c3dbc1d: %w", err)
+			}
+		case "color":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode backgroundFillSolid#3c3dbc1d: field color: %w", err)
+			}
+			b.Color = value
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }
 
 // GetColor returns value of Color field.
@@ -318,8 +343,8 @@ func (b *BackgroundFillGradient) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *BackgroundFillGradient) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *BackgroundFillGradient) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode backgroundFillGradient#925ff17f as nil")
 	}
@@ -333,6 +358,43 @@ func (b *BackgroundFillGradient) EncodeTDLibJSON(buf *jsontd.Encoder) error {
 	buf.PutInt32(b.RotationAngle)
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *BackgroundFillGradient) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode backgroundFillGradient#925ff17f to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("backgroundFillGradient"); err != nil {
+				return fmt.Errorf("unable to decode backgroundFillGradient#925ff17f: %w", err)
+			}
+		case "top_color":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode backgroundFillGradient#925ff17f: field top_color: %w", err)
+			}
+			b.TopColor = value
+		case "bottom_color":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode backgroundFillGradient#925ff17f: field bottom_color: %w", err)
+			}
+			b.BottomColor = value
+		case "rotation_angle":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode backgroundFillGradient#925ff17f: field rotation_angle: %w", err)
+			}
+			b.RotationAngle = value
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }
 
 // GetTopColor returns value of TopColor field.
@@ -480,8 +542,8 @@ func (b *BackgroundFillFreeformGradient) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *BackgroundFillFreeformGradient) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *BackgroundFillFreeformGradient) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode backgroundFillFreeformGradient#fa31756a as nil")
 	}
@@ -495,6 +557,36 @@ func (b *BackgroundFillFreeformGradient) EncodeTDLibJSON(buf *jsontd.Encoder) er
 	buf.ArrEnd()
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *BackgroundFillFreeformGradient) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode backgroundFillFreeformGradient#fa31756a to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("backgroundFillFreeformGradient"); err != nil {
+				return fmt.Errorf("unable to decode backgroundFillFreeformGradient#fa31756a: %w", err)
+			}
+		case "colors":
+			if err := buf.Arr(func(buf jsontd.Decoder) error {
+				value, err := buf.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode backgroundFillFreeformGradient#fa31756a: field colors: %w", err)
+				}
+				b.Colors = append(b.Colors, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode backgroundFillFreeformGradient#fa31756a: field colors: %w", err)
+			}
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }
 
 // GetColors returns value of Colors field.
@@ -532,7 +624,9 @@ type BackgroundFillClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeBackgroundFill implements binary de-serialization for BackgroundFillClass.
@@ -568,6 +662,39 @@ func DecodeBackgroundFill(buf *bin.Buffer) (BackgroundFillClass, error) {
 	}
 }
 
+// DecodeTDLibJSONBackgroundFill implements binary de-serialization for BackgroundFillClass.
+func DecodeTDLibJSONBackgroundFill(buf jsontd.Decoder) (BackgroundFillClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "backgroundFillSolid":
+		// Decoding backgroundFillSolid#3c3dbc1d.
+		v := BackgroundFillSolid{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode BackgroundFillClass: %w", err)
+		}
+		return &v, nil
+	case "backgroundFillGradient":
+		// Decoding backgroundFillGradient#925ff17f.
+		v := BackgroundFillGradient{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode BackgroundFillClass: %w", err)
+		}
+		return &v, nil
+	case "backgroundFillFreeformGradient":
+		// Decoding backgroundFillFreeformGradient#fa31756a.
+		v := BackgroundFillFreeformGradient{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode BackgroundFillClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode BackgroundFillClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // BackgroundFill boxes the BackgroundFillClass providing a helper.
 type BackgroundFillBox struct {
 	BackgroundFill BackgroundFillClass
@@ -592,4 +719,25 @@ func (b *BackgroundFillBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode BackgroundFillClass as nil")
 	}
 	return b.BackgroundFill.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for BackgroundFillBox.
+func (b *BackgroundFillBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode BackgroundFillBox to nil")
+	}
+	v, err := DecodeTDLibJSONBackgroundFill(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.BackgroundFill = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for BackgroundFillBox.
+func (b *BackgroundFillBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.BackgroundFill == nil {
+		return fmt.Errorf("unable to encode BackgroundFillClass as nil")
+	}
+	return b.BackgroundFill.EncodeTDLibJSON(buf)
 }

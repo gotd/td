@@ -229,8 +229,8 @@ func (m *MessageReplyInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MessageReplyInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MessageReplyInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageReplyInfo#d1b3673b as nil")
 	}
@@ -257,6 +257,60 @@ func (m *MessageReplyInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(m.LastMessageID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MessageReplyInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageReplyInfo#d1b3673b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("messageReplyInfo"); err != nil {
+				return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: %w", err)
+			}
+		case "reply_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field reply_count: %w", err)
+			}
+			m.ReplyCount = value
+		case "recent_repliers":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONMessageSender(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field recent_repliers: %w", err)
+				}
+				m.RecentRepliers = append(m.RecentRepliers, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field recent_repliers: %w", err)
+			}
+		case "last_read_inbox_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field last_read_inbox_message_id: %w", err)
+			}
+			m.LastReadInboxMessageID = value
+		case "last_read_outbox_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field last_read_outbox_message_id: %w", err)
+			}
+			m.LastReadOutboxMessageID = value
+		case "last_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field last_message_id: %w", err)
+			}
+			m.LastMessageID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetReplyCount returns value of ReplyCount field.

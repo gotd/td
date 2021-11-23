@@ -182,8 +182,8 @@ func (e *EditInlineMessageCaptionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *EditInlineMessageCaptionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *EditInlineMessageCaptionRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editInlineMessageCaption#d2a446b7 as nil")
 	}
@@ -204,6 +204,41 @@ func (e *EditInlineMessageCaptionRequest) EncodeTDLibJSON(b *jsontd.Encoder) err
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *EditInlineMessageCaptionRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode editInlineMessageCaption#d2a446b7 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("editInlineMessageCaption"); err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageCaption#d2a446b7: %w", err)
+			}
+		case "inline_message_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageCaption#d2a446b7: field inline_message_id: %w", err)
+			}
+			e.InlineMessageID = value
+		case "reply_markup":
+			value, err := DecodeTDLibJSONReplyMarkup(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageCaption#d2a446b7: field reply_markup: %w", err)
+			}
+			e.ReplyMarkup = value
+		case "caption":
+			if err := e.Caption.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageCaption#d2a446b7: field caption: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetInlineMessageID returns value of InlineMessageID field.

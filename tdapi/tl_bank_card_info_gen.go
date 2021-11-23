@@ -175,8 +175,8 @@ func (b *BankCardInfo) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *BankCardInfo) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *BankCardInfo) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode bankCardInfo#2bc7da9f as nil")
 	}
@@ -194,6 +194,42 @@ func (b *BankCardInfo) EncodeTDLibJSON(buf *jsontd.Encoder) error {
 	buf.ArrEnd()
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *BankCardInfo) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode bankCardInfo#2bc7da9f to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("bankCardInfo"); err != nil {
+				return fmt.Errorf("unable to decode bankCardInfo#2bc7da9f: %w", err)
+			}
+		case "title":
+			value, err := buf.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode bankCardInfo#2bc7da9f: field title: %w", err)
+			}
+			b.Title = value
+		case "actions":
+			if err := buf.Arr(func(buf jsontd.Decoder) error {
+				var value BankCardActionOpenURL
+				if err := value.DecodeTDLibJSON(buf); err != nil {
+					return fmt.Errorf("unable to decode bankCardInfo#2bc7da9f: field actions: %w", err)
+				}
+				b.Actions = append(b.Actions, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode bankCardInfo#2bc7da9f: field actions: %w", err)
+			}
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }
 
 // GetTitle returns value of Title field.

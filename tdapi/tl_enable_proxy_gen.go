@@ -143,8 +143,8 @@ func (e *EnableProxyRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *EnableProxyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *EnableProxyRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode enableProxy#59138296 as nil")
 	}
@@ -154,6 +154,31 @@ func (e *EnableProxyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(e.ProxyID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *EnableProxyRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode enableProxy#59138296 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("enableProxy"); err != nil {
+				return fmt.Errorf("unable to decode enableProxy#59138296: %w", err)
+			}
+		case "proxy_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode enableProxy#59138296: field proxy_id: %w", err)
+			}
+			e.ProxyID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetProxyID returns value of ProxyID field.

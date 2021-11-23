@@ -158,8 +158,8 @@ func (c *Countries) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *Countries) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *Countries) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode countries#94b50e0f as nil")
 	}
@@ -175,6 +175,36 @@ func (c *Countries) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *Countries) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode countries#94b50e0f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("countries"); err != nil {
+				return fmt.Errorf("unable to decode countries#94b50e0f: %w", err)
+			}
+		case "countries":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value CountryInfo
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode countries#94b50e0f: field countries: %w", err)
+				}
+				c.Countries = append(c.Countries, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode countries#94b50e0f: field countries: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCountries returns value of Countries field.

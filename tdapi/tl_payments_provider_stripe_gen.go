@@ -194,8 +194,8 @@ func (p *PaymentsProviderStripe) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PaymentsProviderStripe) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PaymentsProviderStripe) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode paymentsProviderStripe#41042678 as nil")
 	}
@@ -211,6 +211,49 @@ func (p *PaymentsProviderStripe) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(p.NeedCardholderName)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PaymentsProviderStripe) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode paymentsProviderStripe#41042678 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("paymentsProviderStripe"); err != nil {
+				return fmt.Errorf("unable to decode paymentsProviderStripe#41042678: %w", err)
+			}
+		case "publishable_key":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentsProviderStripe#41042678: field publishable_key: %w", err)
+			}
+			p.PublishableKey = value
+		case "need_country":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentsProviderStripe#41042678: field need_country: %w", err)
+			}
+			p.NeedCountry = value
+		case "need_postal_code":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentsProviderStripe#41042678: field need_postal_code: %w", err)
+			}
+			p.NeedPostalCode = value
+		case "need_cardholder_name":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentsProviderStripe#41042678: field need_cardholder_name: %w", err)
+			}
+			p.NeedCardholderName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPublishableKey returns value of PublishableKey field.

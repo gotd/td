@@ -215,8 +215,8 @@ func (r *RemoteFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RemoteFile) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RemoteFile) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode remoteFile#93644dd2 as nil")
 	}
@@ -234,6 +234,55 @@ func (r *RemoteFile) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(r.UploadedSize)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RemoteFile) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode remoteFile#93644dd2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("remoteFile"); err != nil {
+				return fmt.Errorf("unable to decode remoteFile#93644dd2: %w", err)
+			}
+		case "id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode remoteFile#93644dd2: field id: %w", err)
+			}
+			r.ID = value
+		case "unique_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode remoteFile#93644dd2: field unique_id: %w", err)
+			}
+			r.UniqueID = value
+		case "is_uploading_active":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode remoteFile#93644dd2: field is_uploading_active: %w", err)
+			}
+			r.IsUploadingActive = value
+		case "is_uploading_completed":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode remoteFile#93644dd2: field is_uploading_completed: %w", err)
+			}
+			r.IsUploadingCompleted = value
+		case "uploaded_size":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode remoteFile#93644dd2: field uploaded_size: %w", err)
+			}
+			r.UploadedSize = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

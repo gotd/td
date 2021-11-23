@@ -34,7 +34,7 @@ var (
 // Background represents TL type `background#e65f291c`.
 type Background struct {
 	// Unique background identifier
-	ID Int64
+	ID int64
 	// True, if this is one of default backgrounds
 	IsDefault bool
 	// True, if the background is dark and is recommended to be used with dark theme
@@ -62,7 +62,7 @@ func (b *Background) Zero() bool {
 	if b == nil {
 		return true
 	}
-	if !(b.ID.Zero()) {
+	if !(b.ID == 0) {
 		return false
 	}
 	if !(b.IsDefault == false) {
@@ -158,9 +158,7 @@ func (b *Background) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't encode background#e65f291c as nil")
 	}
-	if err := b.ID.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode background#e65f291c: field id: %w", err)
-	}
+	buf.PutLong(b.ID)
 	buf.PutBool(b.IsDefault)
 	buf.PutBool(b.IsDark)
 	buf.PutString(b.Name)
@@ -193,9 +191,11 @@ func (b *Background) DecodeBare(buf *bin.Buffer) error {
 		return fmt.Errorf("can't decode background#e65f291c to nil")
 	}
 	{
-		if err := b.ID.Decode(buf); err != nil {
+		value, err := buf.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode background#e65f291c: field id: %w", err)
 		}
+		b.ID = value
 	}
 	{
 		value, err := buf.Bool()
@@ -233,17 +233,15 @@ func (b *Background) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *Background) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *Background) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode background#e65f291c as nil")
 	}
 	buf.ObjStart()
 	buf.PutID("background")
 	buf.FieldStart("id")
-	if err := b.ID.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode background#e65f291c: field id: %w", err)
-	}
+	buf.PutLong(b.ID)
 	buf.FieldStart("is_default")
 	buf.PutBool(b.IsDefault)
 	buf.FieldStart("is_dark")
@@ -265,8 +263,61 @@ func (b *Background) EncodeTDLibJSON(buf *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *Background) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode background#e65f291c to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("background"); err != nil {
+				return fmt.Errorf("unable to decode background#e65f291c: %w", err)
+			}
+		case "id":
+			value, err := buf.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode background#e65f291c: field id: %w", err)
+			}
+			b.ID = value
+		case "is_default":
+			value, err := buf.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode background#e65f291c: field is_default: %w", err)
+			}
+			b.IsDefault = value
+		case "is_dark":
+			value, err := buf.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode background#e65f291c: field is_dark: %w", err)
+			}
+			b.IsDark = value
+		case "name":
+			value, err := buf.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode background#e65f291c: field name: %w", err)
+			}
+			b.Name = value
+		case "document":
+			if err := b.Document.DecodeTDLibJSON(buf); err != nil {
+				return fmt.Errorf("unable to decode background#e65f291c: field document: %w", err)
+			}
+		case "type":
+			value, err := DecodeTDLibJSONBackgroundType(buf)
+			if err != nil {
+				return fmt.Errorf("unable to decode background#e65f291c: field type: %w", err)
+			}
+			b.Type = value
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
+}
+
 // GetID returns value of ID field.
-func (b *Background) GetID() (value Int64) {
+func (b *Background) GetID() (value int64) {
 	return b.ID
 }
 

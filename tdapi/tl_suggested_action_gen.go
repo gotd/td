@@ -130,8 +130,8 @@ func (s *SuggestedActionEnableArchiveAndMuteNewChats) DecodeBare(b *bin.Buffer) 
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SuggestedActionEnableArchiveAndMuteNewChats) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SuggestedActionEnableArchiveAndMuteNewChats) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode suggestedActionEnableArchiveAndMuteNewChats#7841ec4f as nil")
 	}
@@ -139,6 +139,25 @@ func (s *SuggestedActionEnableArchiveAndMuteNewChats) EncodeTDLibJSON(b *jsontd.
 	b.PutID("suggestedActionEnableArchiveAndMuteNewChats")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SuggestedActionEnableArchiveAndMuteNewChats) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionEnableArchiveAndMuteNewChats#7841ec4f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("suggestedActionEnableArchiveAndMuteNewChats"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionEnableArchiveAndMuteNewChats#7841ec4f: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // SuggestedActionCheckPassword represents TL type `suggestedActionCheckPassword#71e072b7`.
@@ -240,8 +259,8 @@ func (s *SuggestedActionCheckPassword) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SuggestedActionCheckPassword) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SuggestedActionCheckPassword) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode suggestedActionCheckPassword#71e072b7 as nil")
 	}
@@ -249,6 +268,25 @@ func (s *SuggestedActionCheckPassword) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutID("suggestedActionCheckPassword")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SuggestedActionCheckPassword) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionCheckPassword#71e072b7 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("suggestedActionCheckPassword"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionCheckPassword#71e072b7: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // SuggestedActionCheckPhoneNumber represents TL type `suggestedActionCheckPhoneNumber#26ab77eb`.
@@ -350,8 +388,8 @@ func (s *SuggestedActionCheckPhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SuggestedActionCheckPhoneNumber) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SuggestedActionCheckPhoneNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode suggestedActionCheckPhoneNumber#26ab77eb as nil")
 	}
@@ -359,6 +397,25 @@ func (s *SuggestedActionCheckPhoneNumber) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.PutID("suggestedActionCheckPhoneNumber")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SuggestedActionCheckPhoneNumber) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionCheckPhoneNumber#26ab77eb to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("suggestedActionCheckPhoneNumber"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionCheckPhoneNumber#26ab77eb: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // SuggestedActionSeeTicksHint represents TL type `suggestedActionSeeTicksHint#3f4ae062`.
@@ -460,8 +517,8 @@ func (s *SuggestedActionSeeTicksHint) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SuggestedActionSeeTicksHint) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SuggestedActionSeeTicksHint) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode suggestedActionSeeTicksHint#3f4ae062 as nil")
 	}
@@ -469,6 +526,25 @@ func (s *SuggestedActionSeeTicksHint) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("suggestedActionSeeTicksHint")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SuggestedActionSeeTicksHint) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionSeeTicksHint#3f4ae062 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("suggestedActionSeeTicksHint"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionSeeTicksHint#3f4ae062: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // SuggestedActionConvertToBroadcastGroup represents TL type `suggestedActionConvertToBroadcastGroup#95bb33b5`.
@@ -588,8 +664,8 @@ func (s *SuggestedActionConvertToBroadcastGroup) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SuggestedActionConvertToBroadcastGroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SuggestedActionConvertToBroadcastGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode suggestedActionConvertToBroadcastGroup#95bb33b5 as nil")
 	}
@@ -599,6 +675,31 @@ func (s *SuggestedActionConvertToBroadcastGroup) EncodeTDLibJSON(b *jsontd.Encod
 	b.PutInt32(s.SupergroupID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SuggestedActionConvertToBroadcastGroup) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionConvertToBroadcastGroup#95bb33b5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("suggestedActionConvertToBroadcastGroup"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionConvertToBroadcastGroup#95bb33b5: %w", err)
+			}
+		case "supergroup_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode suggestedActionConvertToBroadcastGroup#95bb33b5: field supergroup_id: %w", err)
+			}
+			s.SupergroupID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSupergroupID returns value of SupergroupID field.
@@ -638,7 +739,9 @@ type SuggestedActionClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeSuggestedAction implements binary de-serialization for SuggestedActionClass.
@@ -688,6 +791,53 @@ func DecodeSuggestedAction(buf *bin.Buffer) (SuggestedActionClass, error) {
 	}
 }
 
+// DecodeTDLibJSONSuggestedAction implements binary de-serialization for SuggestedActionClass.
+func DecodeTDLibJSONSuggestedAction(buf jsontd.Decoder) (SuggestedActionClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "suggestedActionEnableArchiveAndMuteNewChats":
+		// Decoding suggestedActionEnableArchiveAndMuteNewChats#7841ec4f.
+		v := SuggestedActionEnableArchiveAndMuteNewChats{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case "suggestedActionCheckPassword":
+		// Decoding suggestedActionCheckPassword#71e072b7.
+		v := SuggestedActionCheckPassword{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case "suggestedActionCheckPhoneNumber":
+		// Decoding suggestedActionCheckPhoneNumber#26ab77eb.
+		v := SuggestedActionCheckPhoneNumber{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case "suggestedActionSeeTicksHint":
+		// Decoding suggestedActionSeeTicksHint#3f4ae062.
+		v := SuggestedActionSeeTicksHint{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case "suggestedActionConvertToBroadcastGroup":
+		// Decoding suggestedActionConvertToBroadcastGroup#95bb33b5.
+		v := SuggestedActionConvertToBroadcastGroup{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // SuggestedAction boxes the SuggestedActionClass providing a helper.
 type SuggestedActionBox struct {
 	SuggestedAction SuggestedActionClass
@@ -712,4 +862,25 @@ func (b *SuggestedActionBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SuggestedActionClass as nil")
 	}
 	return b.SuggestedAction.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for SuggestedActionBox.
+func (b *SuggestedActionBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode SuggestedActionBox to nil")
+	}
+	v, err := DecodeTDLibJSONSuggestedAction(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.SuggestedAction = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for SuggestedActionBox.
+func (b *SuggestedActionBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.SuggestedAction == nil {
+		return fmt.Errorf("unable to encode SuggestedActionClass as nil")
+	}
+	return b.SuggestedAction.EncodeTDLibJSON(buf)
 }

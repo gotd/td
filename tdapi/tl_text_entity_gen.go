@@ -182,8 +182,8 @@ func (t *TextEntity) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TextEntity) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TextEntity) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntity#8bab99a8 as nil")
 	}
@@ -202,6 +202,43 @@ func (t *TextEntity) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TextEntity) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntity#8bab99a8 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("textEntity"); err != nil {
+				return fmt.Errorf("unable to decode textEntity#8bab99a8: %w", err)
+			}
+		case "offset":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode textEntity#8bab99a8: field offset: %w", err)
+			}
+			t.Offset = value
+		case "length":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode textEntity#8bab99a8: field length: %w", err)
+			}
+			t.Length = value
+		case "type":
+			value, err := DecodeTDLibJSONTextEntityType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode textEntity#8bab99a8: field type: %w", err)
+			}
+			t.Type = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetOffset returns value of Offset field.

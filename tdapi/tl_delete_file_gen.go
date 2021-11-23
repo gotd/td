@@ -143,8 +143,8 @@ func (d *DeleteFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DeleteFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DeleteFileRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteFile#6bbe9b2c as nil")
 	}
@@ -154,6 +154,31 @@ func (d *DeleteFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(d.FileID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DeleteFileRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deleteFile#6bbe9b2c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("deleteFile"); err != nil {
+				return fmt.Errorf("unable to decode deleteFile#6bbe9b2c: %w", err)
+			}
+		case "file_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteFile#6bbe9b2c: field file_id: %w", err)
+			}
+			d.FileID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFileID returns value of FileID field.

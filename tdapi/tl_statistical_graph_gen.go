@@ -165,8 +165,8 @@ func (s *StatisticalGraphData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *StatisticalGraphData) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *StatisticalGraphData) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode statisticalGraphData#89732e2c as nil")
 	}
@@ -178,6 +178,37 @@ func (s *StatisticalGraphData) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(s.ZoomToken)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *StatisticalGraphData) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statisticalGraphData#89732e2c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("statisticalGraphData"); err != nil {
+				return fmt.Errorf("unable to decode statisticalGraphData#89732e2c: %w", err)
+			}
+		case "json_data":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode statisticalGraphData#89732e2c: field json_data: %w", err)
+			}
+			s.JSONData = value
+		case "zoom_token":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode statisticalGraphData#89732e2c: field zoom_token: %w", err)
+			}
+			s.ZoomToken = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetJSONData returns value of JSONData field.
@@ -307,8 +338,8 @@ func (s *StatisticalGraphAsync) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *StatisticalGraphAsync) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *StatisticalGraphAsync) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode statisticalGraphAsync#19fb2b9f as nil")
 	}
@@ -318,6 +349,31 @@ func (s *StatisticalGraphAsync) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(s.Token)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *StatisticalGraphAsync) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statisticalGraphAsync#19fb2b9f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("statisticalGraphAsync"); err != nil {
+				return fmt.Errorf("unable to decode statisticalGraphAsync#19fb2b9f: %w", err)
+			}
+		case "token":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode statisticalGraphAsync#19fb2b9f: field token: %w", err)
+			}
+			s.Token = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetToken returns value of Token field.
@@ -442,8 +498,8 @@ func (s *StatisticalGraphError) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *StatisticalGraphError) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *StatisticalGraphError) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode statisticalGraphError#c3fda052 as nil")
 	}
@@ -453,6 +509,31 @@ func (s *StatisticalGraphError) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(s.ErrorMessage)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *StatisticalGraphError) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statisticalGraphError#c3fda052 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("statisticalGraphError"); err != nil {
+				return fmt.Errorf("unable to decode statisticalGraphError#c3fda052: %w", err)
+			}
+		case "error_message":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode statisticalGraphError#c3fda052: field error_message: %w", err)
+			}
+			s.ErrorMessage = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetErrorMessage returns value of ErrorMessage field.
@@ -490,7 +571,9 @@ type StatisticalGraphClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeStatisticalGraph implements binary de-serialization for StatisticalGraphClass.
@@ -526,6 +609,39 @@ func DecodeStatisticalGraph(buf *bin.Buffer) (StatisticalGraphClass, error) {
 	}
 }
 
+// DecodeTDLibJSONStatisticalGraph implements binary de-serialization for StatisticalGraphClass.
+func DecodeTDLibJSONStatisticalGraph(buf jsontd.Decoder) (StatisticalGraphClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "statisticalGraphData":
+		// Decoding statisticalGraphData#89732e2c.
+		v := StatisticalGraphData{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StatisticalGraphClass: %w", err)
+		}
+		return &v, nil
+	case "statisticalGraphAsync":
+		// Decoding statisticalGraphAsync#19fb2b9f.
+		v := StatisticalGraphAsync{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StatisticalGraphClass: %w", err)
+		}
+		return &v, nil
+	case "statisticalGraphError":
+		// Decoding statisticalGraphError#c3fda052.
+		v := StatisticalGraphError{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StatisticalGraphClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode StatisticalGraphClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // StatisticalGraph boxes the StatisticalGraphClass providing a helper.
 type StatisticalGraphBox struct {
 	StatisticalGraph StatisticalGraphClass
@@ -550,4 +666,25 @@ func (b *StatisticalGraphBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode StatisticalGraphClass as nil")
 	}
 	return b.StatisticalGraph.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for StatisticalGraphBox.
+func (b *StatisticalGraphBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode StatisticalGraphBox to nil")
+	}
+	v, err := DecodeTDLibJSONStatisticalGraph(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.StatisticalGraph = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for StatisticalGraphBox.
+func (b *StatisticalGraphBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.StatisticalGraph == nil {
+		return fmt.Errorf("unable to encode StatisticalGraphClass as nil")
+	}
+	return b.StatisticalGraph.EncodeTDLibJSON(buf)
 }

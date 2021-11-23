@@ -225,8 +225,8 @@ func (p *PhotoSize) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PhotoSize) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PhotoSize) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode photoSize#18e56d39 as nil")
 	}
@@ -250,6 +250,58 @@ func (p *PhotoSize) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PhotoSize) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode photoSize#18e56d39 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("photoSize"); err != nil {
+				return fmt.Errorf("unable to decode photoSize#18e56d39: %w", err)
+			}
+		case "type":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode photoSize#18e56d39: field type: %w", err)
+			}
+			p.Type = value
+		case "photo":
+			if err := p.Photo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode photoSize#18e56d39: field photo: %w", err)
+			}
+		case "width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode photoSize#18e56d39: field width: %w", err)
+			}
+			p.Width = value
+		case "height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode photoSize#18e56d39: field height: %w", err)
+			}
+			p.Height = value
+		case "progressive_sizes":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode photoSize#18e56d39: field progressive_sizes: %w", err)
+				}
+				p.ProgressiveSizes = append(p.ProgressiveSizes, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode photoSize#18e56d39: field progressive_sizes: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetType returns value of Type field.

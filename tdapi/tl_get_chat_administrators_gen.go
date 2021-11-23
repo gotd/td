@@ -143,8 +143,8 @@ func (g *GetChatAdministratorsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetChatAdministratorsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetChatAdministratorsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatAdministrators#5c0eb6bb as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetChatAdministratorsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutLong(g.ChatID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetChatAdministratorsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getChatAdministrators#5c0eb6bb to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getChatAdministrators"); err != nil {
+				return fmt.Errorf("unable to decode getChatAdministrators#5c0eb6bb: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatAdministrators#5c0eb6bb: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

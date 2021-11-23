@@ -183,8 +183,8 @@ func (g *GetChatMessageCountRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetChatMessageCountRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetChatMessageCountRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatMessageCount#c3eb1ac as nil")
 	}
@@ -203,6 +203,43 @@ func (g *GetChatMessageCountRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(g.ReturnLocal)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetChatMessageCountRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getChatMessageCount#c3eb1ac to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getChatMessageCount"); err != nil {
+				return fmt.Errorf("unable to decode getChatMessageCount#c3eb1ac: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatMessageCount#c3eb1ac: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "filter":
+			value, err := DecodeTDLibJSONSearchMessagesFilter(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatMessageCount#c3eb1ac: field filter: %w", err)
+			}
+			g.Filter = value
+		case "return_local":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatMessageCount#c3eb1ac: field return_local: %w", err)
+			}
+			g.ReturnLocal = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

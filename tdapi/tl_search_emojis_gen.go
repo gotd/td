@@ -191,8 +191,8 @@ func (s *SearchEmojisRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SearchEmojisRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SearchEmojisRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchEmojis#9fb0feea as nil")
 	}
@@ -210,6 +210,48 @@ func (s *SearchEmojisRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SearchEmojisRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchEmojis#9fb0feea to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("searchEmojis"); err != nil {
+				return fmt.Errorf("unable to decode searchEmojis#9fb0feea: %w", err)
+			}
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchEmojis#9fb0feea: field text: %w", err)
+			}
+			s.Text = value
+		case "exact_match":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchEmojis#9fb0feea: field exact_match: %w", err)
+			}
+			s.ExactMatch = value
+		case "input_language_codes":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode searchEmojis#9fb0feea: field input_language_codes: %w", err)
+				}
+				s.InputLanguageCodes = append(s.InputLanguageCodes, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode searchEmojis#9fb0feea: field input_language_codes: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

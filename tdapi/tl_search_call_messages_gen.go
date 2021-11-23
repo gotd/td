@@ -180,8 +180,8 @@ func (s *SearchCallMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SearchCallMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SearchCallMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchCallMessages#bfcac31c as nil")
 	}
@@ -195,6 +195,43 @@ func (s *SearchCallMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(s.OnlyMissed)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SearchCallMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchCallMessages#bfcac31c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("searchCallMessages"); err != nil {
+				return fmt.Errorf("unable to decode searchCallMessages#bfcac31c: %w", err)
+			}
+		case "from_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchCallMessages#bfcac31c: field from_message_id: %w", err)
+			}
+			s.FromMessageID = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchCallMessages#bfcac31c: field limit: %w", err)
+			}
+			s.Limit = value
+		case "only_missed":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchCallMessages#bfcac31c: field only_missed: %w", err)
+			}
+			s.OnlyMissed = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFromMessageID returns value of FromMessageID field.

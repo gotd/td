@@ -148,8 +148,8 @@ func (c *CallbackQueryPayloadData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallbackQueryPayloadData) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallbackQueryPayloadData) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callbackQueryPayloadData#8a1e3c66 as nil")
 	}
@@ -159,6 +159,31 @@ func (c *CallbackQueryPayloadData) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBytes(c.Data)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallbackQueryPayloadData) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callbackQueryPayloadData#8a1e3c66 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callbackQueryPayloadData"); err != nil {
+				return fmt.Errorf("unable to decode callbackQueryPayloadData#8a1e3c66: %w", err)
+			}
+		case "data":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode callbackQueryPayloadData#8a1e3c66: field data: %w", err)
+			}
+			c.Data = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetData returns value of Data field.
@@ -300,8 +325,8 @@ func (c *CallbackQueryPayloadDataWithPassword) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallbackQueryPayloadDataWithPassword) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallbackQueryPayloadDataWithPassword) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callbackQueryPayloadDataWithPassword#4fe2d8f2 as nil")
 	}
@@ -313,6 +338,37 @@ func (c *CallbackQueryPayloadDataWithPassword) EncodeTDLibJSON(b *jsontd.Encoder
 	b.PutBytes(c.Data)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallbackQueryPayloadDataWithPassword) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callbackQueryPayloadDataWithPassword#4fe2d8f2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callbackQueryPayloadDataWithPassword"); err != nil {
+				return fmt.Errorf("unable to decode callbackQueryPayloadDataWithPassword#4fe2d8f2: %w", err)
+			}
+		case "password":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode callbackQueryPayloadDataWithPassword#4fe2d8f2: field password: %w", err)
+			}
+			c.Password = value
+		case "data":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode callbackQueryPayloadDataWithPassword#4fe2d8f2: field data: %w", err)
+			}
+			c.Data = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPassword returns value of Password field.
@@ -442,8 +498,8 @@ func (c *CallbackQueryPayloadGame) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallbackQueryPayloadGame) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallbackQueryPayloadGame) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callbackQueryPayloadGame#4db2ec38 as nil")
 	}
@@ -453,6 +509,31 @@ func (c *CallbackQueryPayloadGame) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(c.GameShortName)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallbackQueryPayloadGame) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callbackQueryPayloadGame#4db2ec38 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callbackQueryPayloadGame"); err != nil {
+				return fmt.Errorf("unable to decode callbackQueryPayloadGame#4db2ec38: %w", err)
+			}
+		case "game_short_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode callbackQueryPayloadGame#4db2ec38: field game_short_name: %w", err)
+			}
+			c.GameShortName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGameShortName returns value of GameShortName field.
@@ -490,7 +571,9 @@ type CallbackQueryPayloadClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeCallbackQueryPayload implements binary de-serialization for CallbackQueryPayloadClass.
@@ -526,6 +609,39 @@ func DecodeCallbackQueryPayload(buf *bin.Buffer) (CallbackQueryPayloadClass, err
 	}
 }
 
+// DecodeTDLibJSONCallbackQueryPayload implements binary de-serialization for CallbackQueryPayloadClass.
+func DecodeTDLibJSONCallbackQueryPayload(buf jsontd.Decoder) (CallbackQueryPayloadClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "callbackQueryPayloadData":
+		// Decoding callbackQueryPayloadData#8a1e3c66.
+		v := CallbackQueryPayloadData{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallbackQueryPayloadClass: %w", err)
+		}
+		return &v, nil
+	case "callbackQueryPayloadDataWithPassword":
+		// Decoding callbackQueryPayloadDataWithPassword#4fe2d8f2.
+		v := CallbackQueryPayloadDataWithPassword{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallbackQueryPayloadClass: %w", err)
+		}
+		return &v, nil
+	case "callbackQueryPayloadGame":
+		// Decoding callbackQueryPayloadGame#4db2ec38.
+		v := CallbackQueryPayloadGame{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallbackQueryPayloadClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode CallbackQueryPayloadClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // CallbackQueryPayload boxes the CallbackQueryPayloadClass providing a helper.
 type CallbackQueryPayloadBox struct {
 	CallbackQueryPayload CallbackQueryPayloadClass
@@ -550,4 +666,25 @@ func (b *CallbackQueryPayloadBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode CallbackQueryPayloadClass as nil")
 	}
 	return b.CallbackQueryPayload.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for CallbackQueryPayloadBox.
+func (b *CallbackQueryPayloadBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode CallbackQueryPayloadBox to nil")
+	}
+	v, err := DecodeTDLibJSONCallbackQueryPayload(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.CallbackQueryPayload = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for CallbackQueryPayloadBox.
+func (b *CallbackQueryPayloadBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.CallbackQueryPayload == nil {
+		return fmt.Errorf("unable to encode CallbackQueryPayloadClass as nil")
+	}
+	return b.CallbackQueryPayload.EncodeTDLibJSON(buf)
 }

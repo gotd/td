@@ -143,8 +143,8 @@ func (g *GetFileExtensionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetFileExtensionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetFileExtensionRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getFileExtension#f9adb934 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetFileExtensionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(g.MimeType)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetFileExtensionRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getFileExtension#f9adb934 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getFileExtension"); err != nil {
+				return fmt.Errorf("unable to decode getFileExtension#f9adb934: %w", err)
+			}
+		case "mime_type":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getFileExtension#f9adb934: field mime_type: %w", err)
+			}
+			g.MimeType = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetMimeType returns value of MimeType field.

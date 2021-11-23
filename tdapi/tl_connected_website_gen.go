@@ -34,7 +34,7 @@ var (
 // ConnectedWebsite represents TL type `connectedWebsite#a444ec99`.
 type ConnectedWebsite struct {
 	// Website identifier
-	ID Int64
+	ID int64
 	// The domain name of the website
 	DomainName string
 	// User identifier of a bot linked with the website
@@ -69,7 +69,7 @@ func (c *ConnectedWebsite) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.ID.Zero()) {
+	if !(c.ID == 0) {
 		return false
 	}
 	if !(c.DomainName == "") {
@@ -186,9 +186,7 @@ func (c *ConnectedWebsite) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode connectedWebsite#a444ec99 as nil")
 	}
-	if err := c.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode connectedWebsite#a444ec99: field id: %w", err)
-	}
+	b.PutLong(c.ID)
 	b.PutString(c.DomainName)
 	b.PutInt32(c.BotUserID)
 	b.PutString(c.Browser)
@@ -217,9 +215,11 @@ func (c *ConnectedWebsite) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode connectedWebsite#a444ec99 to nil")
 	}
 	{
-		if err := c.ID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode connectedWebsite#a444ec99: field id: %w", err)
 		}
+		c.ID = value
 	}
 	{
 		value, err := b.String()
@@ -280,17 +280,15 @@ func (c *ConnectedWebsite) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ConnectedWebsite) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ConnectedWebsite) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode connectedWebsite#a444ec99 as nil")
 	}
 	b.ObjStart()
 	b.PutID("connectedWebsite")
 	b.FieldStart("id")
-	if err := c.ID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode connectedWebsite#a444ec99: field id: %w", err)
-	}
+	b.PutLong(c.ID)
 	b.FieldStart("domain_name")
 	b.PutString(c.DomainName)
 	b.FieldStart("bot_user_id")
@@ -311,8 +309,81 @@ func (c *ConnectedWebsite) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ConnectedWebsite) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode connectedWebsite#a444ec99 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("connectedWebsite"); err != nil {
+				return fmt.Errorf("unable to decode connectedWebsite#a444ec99: %w", err)
+			}
+		case "id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode connectedWebsite#a444ec99: field id: %w", err)
+			}
+			c.ID = value
+		case "domain_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode connectedWebsite#a444ec99: field domain_name: %w", err)
+			}
+			c.DomainName = value
+		case "bot_user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode connectedWebsite#a444ec99: field bot_user_id: %w", err)
+			}
+			c.BotUserID = value
+		case "browser":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode connectedWebsite#a444ec99: field browser: %w", err)
+			}
+			c.Browser = value
+		case "platform":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode connectedWebsite#a444ec99: field platform: %w", err)
+			}
+			c.Platform = value
+		case "log_in_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode connectedWebsite#a444ec99: field log_in_date: %w", err)
+			}
+			c.LogInDate = value
+		case "last_active_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode connectedWebsite#a444ec99: field last_active_date: %w", err)
+			}
+			c.LastActiveDate = value
+		case "ip":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode connectedWebsite#a444ec99: field ip: %w", err)
+			}
+			c.IP = value
+		case "location":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode connectedWebsite#a444ec99: field location: %w", err)
+			}
+			c.Location = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetID returns value of ID field.
-func (c *ConnectedWebsite) GetID() (value Int64) {
+func (c *ConnectedWebsite) GetID() (value int64) {
 	return c.ID
 }
 

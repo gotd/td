@@ -179,8 +179,8 @@ func (c *CreateVoiceChatRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CreateVoiceChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CreateVoiceChatRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createVoiceChat#49dff969 as nil")
 	}
@@ -194,6 +194,43 @@ func (c *CreateVoiceChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(c.StartDate)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CreateVoiceChatRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode createVoiceChat#49dff969 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("createVoiceChat"); err != nil {
+				return fmt.Errorf("unable to decode createVoiceChat#49dff969: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode createVoiceChat#49dff969: field chat_id: %w", err)
+			}
+			c.ChatID = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode createVoiceChat#49dff969: field title: %w", err)
+			}
+			c.Title = value
+		case "start_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode createVoiceChat#49dff969: field start_date: %w", err)
+			}
+			c.StartDate = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

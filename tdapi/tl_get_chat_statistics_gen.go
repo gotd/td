@@ -160,8 +160,8 @@ func (g *GetChatStatisticsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetChatStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetChatStatisticsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatStatistics#137e8198 as nil")
 	}
@@ -173,6 +173,37 @@ func (g *GetChatStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(g.IsDark)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetChatStatisticsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getChatStatistics#137e8198 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getChatStatistics"); err != nil {
+				return fmt.Errorf("unable to decode getChatStatistics#137e8198: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatStatistics#137e8198: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "is_dark":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatStatistics#137e8198: field is_dark: %w", err)
+			}
+			g.IsDark = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

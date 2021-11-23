@@ -191,8 +191,8 @@ func (r *ReportSupergroupSpamRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ReportSupergroupSpamRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ReportSupergroupSpamRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode reportSupergroupSpam#4499c07f as nil")
 	}
@@ -210,6 +210,48 @@ func (r *ReportSupergroupSpamRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ReportSupergroupSpamRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode reportSupergroupSpam#4499c07f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("reportSupergroupSpam"); err != nil {
+				return fmt.Errorf("unable to decode reportSupergroupSpam#4499c07f: %w", err)
+			}
+		case "supergroup_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode reportSupergroupSpam#4499c07f: field supergroup_id: %w", err)
+			}
+			r.SupergroupID = value
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode reportSupergroupSpam#4499c07f: field user_id: %w", err)
+			}
+			r.UserID = value
+		case "message_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode reportSupergroupSpam#4499c07f: field message_ids: %w", err)
+				}
+				r.MessageIDs = append(r.MessageIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode reportSupergroupSpam#4499c07f: field message_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSupergroupID returns value of SupergroupID field.

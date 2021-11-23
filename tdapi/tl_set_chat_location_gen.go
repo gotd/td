@@ -160,8 +160,8 @@ func (s *SetChatLocationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetChatLocationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetChatLocationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatLocation#d2471daa as nil")
 	}
@@ -175,6 +175,35 @@ func (s *SetChatLocationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetChatLocationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setChatLocation#d2471daa to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setChatLocation"); err != nil {
+				return fmt.Errorf("unable to decode setChatLocation#d2471daa: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setChatLocation#d2471daa: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "location":
+			if err := s.Location.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode setChatLocation#d2471daa: field location: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

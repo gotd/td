@@ -125,8 +125,8 @@ func (g *GetStorageStatisticsFastRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetStorageStatisticsFastRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetStorageStatisticsFastRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getStorageStatisticsFast#3a86702 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetStorageStatisticsFastRequest) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.PutID("getStorageStatisticsFast")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetStorageStatisticsFastRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getStorageStatisticsFast#3a86702 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getStorageStatisticsFast"); err != nil {
+				return fmt.Errorf("unable to decode getStorageStatisticsFast#3a86702: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetStorageStatisticsFast invokes method getStorageStatisticsFast#3a86702 returning error if any.

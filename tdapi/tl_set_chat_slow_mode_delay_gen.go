@@ -160,8 +160,8 @@ func (s *SetChatSlowModeDelayRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetChatSlowModeDelayRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetChatSlowModeDelayRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatSlowModeDelay#dfcae63e as nil")
 	}
@@ -173,6 +173,37 @@ func (s *SetChatSlowModeDelayRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(s.SlowModeDelay)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetChatSlowModeDelayRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setChatSlowModeDelay#dfcae63e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setChatSlowModeDelay"); err != nil {
+				return fmt.Errorf("unable to decode setChatSlowModeDelay#dfcae63e: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setChatSlowModeDelay#dfcae63e: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "slow_mode_delay":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setChatSlowModeDelay#dfcae63e: field slow_mode_delay: %w", err)
+			}
+			s.SlowModeDelay = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

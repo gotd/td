@@ -130,8 +130,8 @@ func (i *InternalLinkTypeActiveSessions) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeActiveSessions) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeActiveSessions) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeActiveSessions#706bbbad as nil")
 	}
@@ -139,6 +139,25 @@ func (i *InternalLinkTypeActiveSessions) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutID("internalLinkTypeActiveSessions")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeActiveSessions) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeActiveSessions#706bbbad to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeActiveSessions"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeActiveSessions#706bbbad: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // InternalLinkTypeAuthenticationCode represents TL type `internalLinkTypeAuthenticationCode#f3874ff2`.
@@ -258,8 +277,8 @@ func (i *InternalLinkTypeAuthenticationCode) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeAuthenticationCode) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeAuthenticationCode) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeAuthenticationCode#f3874ff2 as nil")
 	}
@@ -269,6 +288,31 @@ func (i *InternalLinkTypeAuthenticationCode) EncodeTDLibJSON(b *jsontd.Encoder) 
 	b.PutString(i.Code)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeAuthenticationCode) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeAuthenticationCode#f3874ff2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeAuthenticationCode"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeAuthenticationCode#f3874ff2: %w", err)
+			}
+		case "code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeAuthenticationCode#f3874ff2: field code: %w", err)
+			}
+			i.Code = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCode returns value of Code field.
@@ -393,8 +437,8 @@ func (i *InternalLinkTypeBackground) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeBackground) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeBackground) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeBackground#b0d2908 as nil")
 	}
@@ -404,6 +448,31 @@ func (i *InternalLinkTypeBackground) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(i.BackgroundName)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeBackground) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeBackground#b0d2908 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeBackground"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBackground#b0d2908: %w", err)
+			}
+		case "background_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBackground#b0d2908: field background_name: %w", err)
+			}
+			i.BackgroundName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBackgroundName returns value of BackgroundName field.
@@ -545,8 +614,8 @@ func (i *InternalLinkTypeBotStart) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeBotStart) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeBotStart) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeBotStart#b812d93d as nil")
 	}
@@ -558,6 +627,37 @@ func (i *InternalLinkTypeBotStart) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(i.StartParameter)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeBotStart) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeBotStart#b812d93d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeBotStart"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBotStart#b812d93d: %w", err)
+			}
+		case "bot_username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBotStart#b812d93d: field bot_username: %w", err)
+			}
+			i.BotUsername = value
+		case "start_parameter":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBotStart#b812d93d: field start_parameter: %w", err)
+			}
+			i.StartParameter = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBotUsername returns value of BotUsername field.
@@ -704,8 +804,8 @@ func (i *InternalLinkTypeBotStartInGroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeBotStartInGroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeBotStartInGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeBotStartInGroup#c201649c as nil")
 	}
@@ -717,6 +817,37 @@ func (i *InternalLinkTypeBotStartInGroup) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.PutString(i.StartParameter)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeBotStartInGroup) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeBotStartInGroup#c201649c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeBotStartInGroup"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#c201649c: %w", err)
+			}
+		case "bot_username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#c201649c: field bot_username: %w", err)
+			}
+			i.BotUsername = value
+		case "start_parameter":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#c201649c: field start_parameter: %w", err)
+			}
+			i.StartParameter = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBotUsername returns value of BotUsername field.
@@ -828,8 +959,8 @@ func (i *InternalLinkTypeChangePhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeChangePhoneNumber) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeChangePhoneNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeChangePhoneNumber#f0275b01 as nil")
 	}
@@ -837,6 +968,25 @@ func (i *InternalLinkTypeChangePhoneNumber) EncodeTDLibJSON(b *jsontd.Encoder) e
 	b.PutID("internalLinkTypeChangePhoneNumber")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeChangePhoneNumber) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeChangePhoneNumber#f0275b01 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeChangePhoneNumber"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeChangePhoneNumber#f0275b01: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // InternalLinkTypeChatInvite represents TL type `internalLinkTypeChatInvite#64ffb7b6`.
@@ -938,8 +1088,8 @@ func (i *InternalLinkTypeChatInvite) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeChatInvite) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeChatInvite) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeChatInvite#64ffb7b6 as nil")
 	}
@@ -947,6 +1097,25 @@ func (i *InternalLinkTypeChatInvite) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("internalLinkTypeChatInvite")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeChatInvite) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeChatInvite#64ffb7b6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeChatInvite"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeChatInvite#64ffb7b6: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // InternalLinkTypeFilterSettings represents TL type `internalLinkTypeFilterSettings#5981179b`.
@@ -1048,8 +1217,8 @@ func (i *InternalLinkTypeFilterSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeFilterSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeFilterSettings) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeFilterSettings#5981179b as nil")
 	}
@@ -1057,6 +1226,25 @@ func (i *InternalLinkTypeFilterSettings) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutID("internalLinkTypeFilterSettings")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeFilterSettings) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeFilterSettings#5981179b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeFilterSettings"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeFilterSettings#5981179b: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // InternalLinkTypeGame represents TL type `internalLinkTypeGame#f074adcd`.
@@ -1193,8 +1381,8 @@ func (i *InternalLinkTypeGame) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeGame) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeGame) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeGame#f074adcd as nil")
 	}
@@ -1206,6 +1394,37 @@ func (i *InternalLinkTypeGame) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(i.GameShortName)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeGame) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeGame#f074adcd to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeGame"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeGame#f074adcd: %w", err)
+			}
+		case "bot_username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeGame#f074adcd: field bot_username: %w", err)
+			}
+			i.BotUsername = value
+		case "game_short_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeGame#f074adcd: field game_short_name: %w", err)
+			}
+			i.GameShortName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBotUsername returns value of BotUsername field.
@@ -1335,8 +1554,8 @@ func (i *InternalLinkTypeLanguagePack) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeLanguagePack) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeLanguagePack) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeLanguagePack#a9870d6c as nil")
 	}
@@ -1346,6 +1565,31 @@ func (i *InternalLinkTypeLanguagePack) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutString(i.LanguagePackID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeLanguagePack) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeLanguagePack#a9870d6c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeLanguagePack"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeLanguagePack#a9870d6c: %w", err)
+			}
+		case "language_pack_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeLanguagePack#a9870d6c: field language_pack_id: %w", err)
+			}
+			i.LanguagePackID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLanguagePackID returns value of LanguagePackID field.
@@ -1452,8 +1696,8 @@ func (i *InternalLinkTypeMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeMessage) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeMessage) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeMessage#c5ddcd91 as nil")
 	}
@@ -1461,6 +1705,25 @@ func (i *InternalLinkTypeMessage) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("internalLinkTypeMessage")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeMessage) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeMessage#c5ddcd91 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeMessage"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeMessage#c5ddcd91: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // InternalLinkTypeMessageDraft represents TL type `internalLinkTypeMessageDraft#276fbad5`.
@@ -1598,8 +1861,8 @@ func (i *InternalLinkTypeMessageDraft) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeMessageDraft) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeMessageDraft) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeMessageDraft#276fbad5 as nil")
 	}
@@ -1613,6 +1876,35 @@ func (i *InternalLinkTypeMessageDraft) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutBool(i.ContainsLink)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeMessageDraft) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeMessageDraft#276fbad5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeMessageDraft"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeMessageDraft#276fbad5: %w", err)
+			}
+		case "text":
+			if err := i.Text.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeMessageDraft#276fbad5: field text: %w", err)
+			}
+		case "contains_link":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeMessageDraft#276fbad5: field contains_link: %w", err)
+			}
+			i.ContainsLink = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.
@@ -1813,8 +2105,8 @@ func (i *InternalLinkTypePassportDataRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypePassportDataRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypePassportDataRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypePassportDataRequest#a608a548 as nil")
 	}
@@ -1832,6 +2124,55 @@ func (i *InternalLinkTypePassportDataRequest) EncodeTDLibJSON(b *jsontd.Encoder)
 	b.PutString(i.CallbackURL)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypePassportDataRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypePassportDataRequest#a608a548 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypePassportDataRequest"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePassportDataRequest#a608a548: %w", err)
+			}
+		case "bot_user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePassportDataRequest#a608a548: field bot_user_id: %w", err)
+			}
+			i.BotUserID = value
+		case "scope":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePassportDataRequest#a608a548: field scope: %w", err)
+			}
+			i.Scope = value
+		case "public_key":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePassportDataRequest#a608a548: field public_key: %w", err)
+			}
+			i.PublicKey = value
+		case "nonce":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePassportDataRequest#a608a548: field nonce: %w", err)
+			}
+			i.Nonce = value
+		case "callback_url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePassportDataRequest#a608a548: field callback_url: %w", err)
+			}
+			i.CallbackURL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBotUserID returns value of BotUserID field.
@@ -1993,8 +2334,8 @@ func (i *InternalLinkTypePhoneNumberConfirmation) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypePhoneNumberConfirmation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypePhoneNumberConfirmation) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypePhoneNumberConfirmation#68bf6b16 as nil")
 	}
@@ -2006,6 +2347,37 @@ func (i *InternalLinkTypePhoneNumberConfirmation) EncodeTDLibJSON(b *jsontd.Enco
 	b.PutString(i.PhoneNumber)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypePhoneNumberConfirmation) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypePhoneNumberConfirmation#68bf6b16 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypePhoneNumberConfirmation"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePhoneNumberConfirmation#68bf6b16: %w", err)
+			}
+		case "hash":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePhoneNumberConfirmation#68bf6b16: field hash: %w", err)
+			}
+			i.Hash = value
+		case "phone_number":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePhoneNumberConfirmation#68bf6b16: field phone_number: %w", err)
+			}
+			i.PhoneNumber = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetHash returns value of Hash field.
@@ -2174,8 +2546,8 @@ func (i *InternalLinkTypeProxy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeProxy) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeProxy) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeProxy#b1b12cea as nil")
 	}
@@ -2194,6 +2566,43 @@ func (i *InternalLinkTypeProxy) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeProxy) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeProxy#b1b12cea to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeProxy"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeProxy#b1b12cea: %w", err)
+			}
+		case "server":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeProxy#b1b12cea: field server: %w", err)
+			}
+			i.Server = value
+		case "port":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeProxy#b1b12cea: field port: %w", err)
+			}
+			i.Port = value
+		case "type":
+			value, err := DecodeTDLibJSONProxyType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeProxy#b1b12cea: field type: %w", err)
+			}
+			i.Type = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetServer returns value of Server field.
@@ -2328,8 +2737,8 @@ func (i *InternalLinkTypePublicChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypePublicChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypePublicChat) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypePublicChat#a774573b as nil")
 	}
@@ -2339,6 +2748,31 @@ func (i *InternalLinkTypePublicChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(i.ChatUsername)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypePublicChat) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypePublicChat#a774573b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypePublicChat"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePublicChat#a774573b: %w", err)
+			}
+		case "chat_username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePublicChat#a774573b: field chat_username: %w", err)
+			}
+			i.ChatUsername = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatUsername returns value of ChatUsername field.
@@ -2445,8 +2879,8 @@ func (i *InternalLinkTypeQrCodeAuthentication) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeQrCodeAuthentication) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeQrCodeAuthentication) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeQrCodeAuthentication#bf121924 as nil")
 	}
@@ -2454,6 +2888,25 @@ func (i *InternalLinkTypeQrCodeAuthentication) EncodeTDLibJSON(b *jsontd.Encoder
 	b.PutID("internalLinkTypeQrCodeAuthentication")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeQrCodeAuthentication) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeQrCodeAuthentication#bf121924 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeQrCodeAuthentication"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeQrCodeAuthentication#bf121924: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // InternalLinkTypeSettings represents TL type `internalLinkTypeSettings#177545b4`.
@@ -2555,8 +3008,8 @@ func (i *InternalLinkTypeSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeSettings) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeSettings#177545b4 as nil")
 	}
@@ -2564,6 +3017,25 @@ func (i *InternalLinkTypeSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("internalLinkTypeSettings")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeSettings) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeSettings#177545b4 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeSettings"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeSettings#177545b4: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // InternalLinkTypeStickerSet represents TL type `internalLinkTypeStickerSet#e06e56b9`.
@@ -2683,8 +3155,8 @@ func (i *InternalLinkTypeStickerSet) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeStickerSet) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeStickerSet) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeStickerSet#e06e56b9 as nil")
 	}
@@ -2694,6 +3166,31 @@ func (i *InternalLinkTypeStickerSet) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(i.StickerSetName)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeStickerSet) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeStickerSet#e06e56b9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeStickerSet"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeStickerSet#e06e56b9: %w", err)
+			}
+		case "sticker_set_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeStickerSet#e06e56b9: field sticker_set_name: %w", err)
+			}
+			i.StickerSetName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetStickerSetName returns value of StickerSetName field.
@@ -2818,8 +3315,8 @@ func (i *InternalLinkTypeTheme) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeTheme) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeTheme) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeTheme#f405f807 as nil")
 	}
@@ -2829,6 +3326,31 @@ func (i *InternalLinkTypeTheme) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(i.ThemeName)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeTheme) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeTheme#f405f807 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeTheme"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeTheme#f405f807: %w", err)
+			}
+		case "theme_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeTheme#f405f807: field theme_name: %w", err)
+			}
+			i.ThemeName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetThemeName returns value of ThemeName field.
@@ -2935,8 +3457,8 @@ func (i *InternalLinkTypeThemeSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeThemeSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeThemeSettings) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeThemeSettings#c14d3916 as nil")
 	}
@@ -2944,6 +3466,25 @@ func (i *InternalLinkTypeThemeSettings) EncodeTDLibJSON(b *jsontd.Encoder) error
 	b.PutID("internalLinkTypeThemeSettings")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeThemeSettings) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeThemeSettings#c14d3916 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeThemeSettings"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeThemeSettings#c14d3916: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // InternalLinkTypeUnknownDeepLink represents TL type `internalLinkTypeUnknownDeepLink#31d498af`.
@@ -3045,8 +3586,8 @@ func (i *InternalLinkTypeUnknownDeepLink) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeUnknownDeepLink) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeUnknownDeepLink) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeUnknownDeepLink#31d498af as nil")
 	}
@@ -3054,6 +3595,25 @@ func (i *InternalLinkTypeUnknownDeepLink) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.PutID("internalLinkTypeUnknownDeepLink")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeUnknownDeepLink) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeUnknownDeepLink#31d498af to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeUnknownDeepLink"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeUnknownDeepLink#31d498af: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // InternalLinkTypeVoiceChat represents TL type `internalLinkTypeVoiceChat#a848deb8`.
@@ -3191,8 +3751,8 @@ func (i *InternalLinkTypeVoiceChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InternalLinkTypeVoiceChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InternalLinkTypeVoiceChat) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypeVoiceChat#a848deb8 as nil")
 	}
@@ -3204,6 +3764,37 @@ func (i *InternalLinkTypeVoiceChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(i.InviteHash)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InternalLinkTypeVoiceChat) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeVoiceChat#a848deb8 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("internalLinkTypeVoiceChat"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeVoiceChat#a848deb8: %w", err)
+			}
+		case "chat_username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeVoiceChat#a848deb8: field chat_username: %w", err)
+			}
+			i.ChatUsername = value
+		case "invite_hash":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeVoiceChat#a848deb8: field invite_hash: %w", err)
+			}
+			i.InviteHash = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatUsername returns value of ChatUsername field.
@@ -3266,7 +3857,9 @@ type InternalLinkTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeInternalLinkType implements binary de-serialization for InternalLinkTypeClass.
@@ -3442,6 +4035,179 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 	}
 }
 
+// DecodeTDLibJSONInternalLinkType implements binary de-serialization for InternalLinkTypeClass.
+func DecodeTDLibJSONInternalLinkType(buf jsontd.Decoder) (InternalLinkTypeClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "internalLinkTypeActiveSessions":
+		// Decoding internalLinkTypeActiveSessions#706bbbad.
+		v := InternalLinkTypeActiveSessions{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeAuthenticationCode":
+		// Decoding internalLinkTypeAuthenticationCode#f3874ff2.
+		v := InternalLinkTypeAuthenticationCode{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeBackground":
+		// Decoding internalLinkTypeBackground#b0d2908.
+		v := InternalLinkTypeBackground{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeBotStart":
+		// Decoding internalLinkTypeBotStart#b812d93d.
+		v := InternalLinkTypeBotStart{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeBotStartInGroup":
+		// Decoding internalLinkTypeBotStartInGroup#c201649c.
+		v := InternalLinkTypeBotStartInGroup{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeChangePhoneNumber":
+		// Decoding internalLinkTypeChangePhoneNumber#f0275b01.
+		v := InternalLinkTypeChangePhoneNumber{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeChatInvite":
+		// Decoding internalLinkTypeChatInvite#64ffb7b6.
+		v := InternalLinkTypeChatInvite{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeFilterSettings":
+		// Decoding internalLinkTypeFilterSettings#5981179b.
+		v := InternalLinkTypeFilterSettings{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeGame":
+		// Decoding internalLinkTypeGame#f074adcd.
+		v := InternalLinkTypeGame{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeLanguagePack":
+		// Decoding internalLinkTypeLanguagePack#a9870d6c.
+		v := InternalLinkTypeLanguagePack{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeMessage":
+		// Decoding internalLinkTypeMessage#c5ddcd91.
+		v := InternalLinkTypeMessage{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeMessageDraft":
+		// Decoding internalLinkTypeMessageDraft#276fbad5.
+		v := InternalLinkTypeMessageDraft{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypePassportDataRequest":
+		// Decoding internalLinkTypePassportDataRequest#a608a548.
+		v := InternalLinkTypePassportDataRequest{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypePhoneNumberConfirmation":
+		// Decoding internalLinkTypePhoneNumberConfirmation#68bf6b16.
+		v := InternalLinkTypePhoneNumberConfirmation{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeProxy":
+		// Decoding internalLinkTypeProxy#b1b12cea.
+		v := InternalLinkTypeProxy{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypePublicChat":
+		// Decoding internalLinkTypePublicChat#a774573b.
+		v := InternalLinkTypePublicChat{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeQrCodeAuthentication":
+		// Decoding internalLinkTypeQrCodeAuthentication#bf121924.
+		v := InternalLinkTypeQrCodeAuthentication{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeSettings":
+		// Decoding internalLinkTypeSettings#177545b4.
+		v := InternalLinkTypeSettings{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeStickerSet":
+		// Decoding internalLinkTypeStickerSet#e06e56b9.
+		v := InternalLinkTypeStickerSet{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeTheme":
+		// Decoding internalLinkTypeTheme#f405f807.
+		v := InternalLinkTypeTheme{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeThemeSettings":
+		// Decoding internalLinkTypeThemeSettings#c14d3916.
+		v := InternalLinkTypeThemeSettings{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeUnknownDeepLink":
+		// Decoding internalLinkTypeUnknownDeepLink#31d498af.
+		v := InternalLinkTypeUnknownDeepLink{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeVoiceChat":
+		// Decoding internalLinkTypeVoiceChat#a848deb8.
+		v := InternalLinkTypeVoiceChat{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // InternalLinkType boxes the InternalLinkTypeClass providing a helper.
 type InternalLinkTypeBox struct {
 	InternalLinkType InternalLinkTypeClass
@@ -3466,4 +4232,25 @@ func (b *InternalLinkTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InternalLinkTypeClass as nil")
 	}
 	return b.InternalLinkType.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for InternalLinkTypeBox.
+func (b *InternalLinkTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InternalLinkTypeBox to nil")
+	}
+	v, err := DecodeTDLibJSONInternalLinkType(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InternalLinkType = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for InternalLinkTypeBox.
+func (b *InternalLinkTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.InternalLinkType == nil {
+		return fmt.Errorf("unable to encode InternalLinkTypeClass as nil")
+	}
+	return b.InternalLinkType.EncodeTDLibJSON(buf)
 }

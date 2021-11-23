@@ -143,8 +143,8 @@ func (g *GetPreferredCountryLanguageRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetPreferredCountryLanguageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetPreferredCountryLanguageRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getPreferredCountryLanguage#c862cbd6 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetPreferredCountryLanguageRequest) EncodeTDLibJSON(b *jsontd.Encoder) 
 	b.PutString(g.CountryCode)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetPreferredCountryLanguageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getPreferredCountryLanguage#c862cbd6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getPreferredCountryLanguage"); err != nil {
+				return fmt.Errorf("unable to decode getPreferredCountryLanguage#c862cbd6: %w", err)
+			}
+		case "country_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getPreferredCountryLanguage#c862cbd6: field country_code: %w", err)
+			}
+			g.CountryCode = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCountryCode returns value of CountryCode field.

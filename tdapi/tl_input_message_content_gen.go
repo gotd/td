@@ -184,8 +184,8 @@ func (i *InputMessageText) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageText) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageText) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageText#eb9b098 as nil")
 	}
@@ -201,6 +201,41 @@ func (i *InputMessageText) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(i.ClearDraft)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageText) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageText#eb9b098 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageText"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageText#eb9b098: %w", err)
+			}
+		case "text":
+			if err := i.Text.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageText#eb9b098: field text: %w", err)
+			}
+		case "disable_web_page_preview":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageText#eb9b098: field disable_web_page_preview: %w", err)
+			}
+			i.DisableWebPagePreview = value
+		case "clear_draft":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageText#eb9b098: field clear_draft: %w", err)
+			}
+			i.ClearDraft = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.
@@ -455,8 +490,8 @@ func (i *InputMessageAnimation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageAnimation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageAnimation) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageAnimation#11579cfa as nil")
 	}
@@ -491,6 +526,68 @@ func (i *InputMessageAnimation) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageAnimation) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageAnimation#11579cfa to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageAnimation"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: %w", err)
+			}
+		case "animation":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field animation: %w", err)
+			}
+			i.Animation = value
+		case "thumbnail":
+			if err := i.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field thumbnail: %w", err)
+			}
+		case "added_sticker_file_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field added_sticker_file_ids: %w", err)
+				}
+				i.AddedStickerFileIDs = append(i.AddedStickerFileIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field added_sticker_file_ids: %w", err)
+			}
+		case "duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field duration: %w", err)
+			}
+			i.Duration = value
+		case "width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field width: %w", err)
+			}
+			i.Width = value
+		case "height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field height: %w", err)
+			}
+			i.Height = value
+		case "caption":
+			if err := i.Caption.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field caption: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetAnimation returns value of Animation field.
@@ -735,8 +832,8 @@ func (i *InputMessageAudio) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageAudio) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageAudio) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageAudio#daa400b2 as nil")
 	}
@@ -765,6 +862,57 @@ func (i *InputMessageAudio) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageAudio) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageAudio#daa400b2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageAudio"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageAudio#daa400b2: %w", err)
+			}
+		case "audio":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageAudio#daa400b2: field audio: %w", err)
+			}
+			i.Audio = value
+		case "album_cover_thumbnail":
+			if err := i.AlbumCoverThumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageAudio#daa400b2: field album_cover_thumbnail: %w", err)
+			}
+		case "duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageAudio#daa400b2: field duration: %w", err)
+			}
+			i.Duration = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageAudio#daa400b2: field title: %w", err)
+			}
+			i.Title = value
+		case "performer":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageAudio#daa400b2: field performer: %w", err)
+			}
+			i.Performer = value
+		case "caption":
+			if err := i.Caption.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageAudio#daa400b2: field caption: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetAudio returns value of Audio field.
@@ -971,8 +1119,8 @@ func (i *InputMessageDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageDocument#615b72b9 as nil")
 	}
@@ -997,6 +1145,45 @@ func (i *InputMessageDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageDocument) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageDocument#615b72b9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageDocument"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageDocument#615b72b9: %w", err)
+			}
+		case "document":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageDocument#615b72b9: field document: %w", err)
+			}
+			i.Document = value
+		case "thumbnail":
+			if err := i.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageDocument#615b72b9: field thumbnail: %w", err)
+			}
+		case "disable_content_type_detection":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageDocument#615b72b9: field disable_content_type_detection: %w", err)
+			}
+			i.DisableContentTypeDetection = value
+		case "caption":
+			if err := i.Caption.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageDocument#615b72b9: field caption: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetDocument returns value of Document field.
@@ -1257,8 +1444,8 @@ func (i *InputMessagePhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessagePhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessagePhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessagePhoto#72d8e2dd as nil")
 	}
@@ -1293,6 +1480,68 @@ func (i *InputMessagePhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(i.TTL)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessagePhoto) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagePhoto#72d8e2dd to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessagePhoto"); err != nil {
+				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: %w", err)
+			}
+		case "photo":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field photo: %w", err)
+			}
+			i.Photo = value
+		case "thumbnail":
+			if err := i.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field thumbnail: %w", err)
+			}
+		case "added_sticker_file_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field added_sticker_file_ids: %w", err)
+				}
+				i.AddedStickerFileIDs = append(i.AddedStickerFileIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field added_sticker_file_ids: %w", err)
+			}
+		case "width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field width: %w", err)
+			}
+			i.Width = value
+		case "height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field height: %w", err)
+			}
+			i.Height = value
+		case "caption":
+			if err := i.Caption.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field caption: %w", err)
+			}
+		case "ttl":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field ttl: %w", err)
+			}
+			i.TTL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPhoto returns value of Photo field.
@@ -1520,8 +1769,8 @@ func (i *InputMessageSticker) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageSticker) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageSticker) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageSticker#3ff1b6f9 as nil")
 	}
@@ -1546,6 +1795,53 @@ func (i *InputMessageSticker) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(i.Emoji)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageSticker) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageSticker#3ff1b6f9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageSticker"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageSticker#3ff1b6f9: %w", err)
+			}
+		case "sticker":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageSticker#3ff1b6f9: field sticker: %w", err)
+			}
+			i.Sticker = value
+		case "thumbnail":
+			if err := i.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageSticker#3ff1b6f9: field thumbnail: %w", err)
+			}
+		case "width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageSticker#3ff1b6f9: field width: %w", err)
+			}
+			i.Width = value
+		case "height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageSticker#3ff1b6f9: field height: %w", err)
+			}
+			i.Height = value
+		case "emoji":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageSticker#3ff1b6f9: field emoji: %w", err)
+			}
+			i.Emoji = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSticker returns value of Sticker field.
@@ -1845,8 +2141,8 @@ func (i *InputMessageVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageVideo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageVideo#791281b1 as nil")
 	}
@@ -1885,6 +2181,80 @@ func (i *InputMessageVideo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(i.TTL)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageVideo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageVideo#791281b1 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageVideo"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: %w", err)
+			}
+		case "video":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field video: %w", err)
+			}
+			i.Video = value
+		case "thumbnail":
+			if err := i.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field thumbnail: %w", err)
+			}
+		case "added_sticker_file_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field added_sticker_file_ids: %w", err)
+				}
+				i.AddedStickerFileIDs = append(i.AddedStickerFileIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field added_sticker_file_ids: %w", err)
+			}
+		case "duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field duration: %w", err)
+			}
+			i.Duration = value
+		case "width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field width: %w", err)
+			}
+			i.Width = value
+		case "height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field height: %w", err)
+			}
+			i.Height = value
+		case "supports_streaming":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field supports_streaming: %w", err)
+			}
+			i.SupportsStreaming = value
+		case "caption":
+			if err := i.Caption.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field caption: %w", err)
+			}
+		case "ttl":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field ttl: %w", err)
+			}
+			i.TTL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetVideo returns value of Video field.
@@ -2105,8 +2475,8 @@ func (i *InputMessageVideoNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageVideoNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageVideoNote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageVideoNote#10a2dcfb as nil")
 	}
@@ -2129,6 +2499,47 @@ func (i *InputMessageVideoNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(i.Length)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageVideoNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageVideoNote#10a2dcfb to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageVideoNote"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: %w", err)
+			}
+		case "video_note":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: field video_note: %w", err)
+			}
+			i.VideoNote = value
+		case "thumbnail":
+			if err := i.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: field thumbnail: %w", err)
+			}
+		case "duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: field duration: %w", err)
+			}
+			i.Duration = value
+		case "length":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideoNote#10a2dcfb: field length: %w", err)
+			}
+			i.Length = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetVideoNote returns value of VideoNote field.
@@ -2324,8 +2735,8 @@ func (i *InputMessageVoiceNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageVoiceNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageVoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageVoiceNote#7f58b3e9 as nil")
 	}
@@ -2348,6 +2759,47 @@ func (i *InputMessageVoiceNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageVoiceNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageVoiceNote#7f58b3e9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageVoiceNote"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: %w", err)
+			}
+		case "voice_note":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: field voice_note: %w", err)
+			}
+			i.VoiceNote = value
+		case "duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: field duration: %w", err)
+			}
+			i.Duration = value
+		case "waveform":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: field waveform: %w", err)
+			}
+			i.Waveform = value
+		case "caption":
+			if err := i.Caption.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageVoiceNote#7f58b3e9: field caption: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetVoiceNote returns value of VoiceNote field.
@@ -2542,8 +2994,8 @@ func (i *InputMessageLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageLocation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageLocation) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageLocation#26aae970 as nil")
 	}
@@ -2561,6 +3013,47 @@ func (i *InputMessageLocation) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(i.ProximityAlertRadius)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageLocation) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageLocation#26aae970 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageLocation"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageLocation#26aae970: %w", err)
+			}
+		case "location":
+			if err := i.Location.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageLocation#26aae970: field location: %w", err)
+			}
+		case "live_period":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageLocation#26aae970: field live_period: %w", err)
+			}
+			i.LivePeriod = value
+		case "heading":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageLocation#26aae970: field heading: %w", err)
+			}
+			i.Heading = value
+		case "proximity_alert_radius":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageLocation#26aae970: field proximity_alert_radius: %w", err)
+			}
+			i.ProximityAlertRadius = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLocation returns value of Location field.
@@ -2700,8 +3193,8 @@ func (i *InputMessageVenue) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageVenue) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageVenue) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageVenue#564d99fd as nil")
 	}
@@ -2713,6 +3206,29 @@ func (i *InputMessageVenue) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageVenue) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageVenue#564d99fd to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageVenue"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageVenue#564d99fd: %w", err)
+			}
+		case "venue":
+			if err := i.Venue.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageVenue#564d99fd: field venue: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetVenue returns value of Venue field.
@@ -2837,8 +3353,8 @@ func (i *InputMessageContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageContact) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageContact) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageContact#c5710cff as nil")
 	}
@@ -2850,6 +3366,29 @@ func (i *InputMessageContact) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageContact) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageContact#c5710cff to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageContact"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageContact#c5710cff: %w", err)
+			}
+		case "contact":
+			if err := i.Contact.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageContact#c5710cff: field contact: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetContact returns value of Contact field.
@@ -2991,8 +3530,8 @@ func (i *InputMessageDice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageDice) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageDice) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageDice#322967a9 as nil")
 	}
@@ -3004,6 +3543,37 @@ func (i *InputMessageDice) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(i.ClearDraft)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageDice) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageDice#322967a9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageDice"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageDice#322967a9: %w", err)
+			}
+		case "emoji":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageDice#322967a9: field emoji: %w", err)
+			}
+			i.Emoji = value
+		case "clear_draft":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageDice#322967a9: field clear_draft: %w", err)
+			}
+			i.ClearDraft = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetEmoji returns value of Emoji field.
@@ -3150,8 +3720,8 @@ func (i *InputMessageGame) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageGame) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageGame) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageGame#9900cc6e as nil")
 	}
@@ -3163,6 +3733,37 @@ func (i *InputMessageGame) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(i.GameShortName)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageGame) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageGame#9900cc6e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageGame"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageGame#9900cc6e: %w", err)
+			}
+		case "bot_user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageGame#9900cc6e: field bot_user_id: %w", err)
+			}
+			i.BotUserID = value
+		case "game_short_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageGame#9900cc6e: field game_short_name: %w", err)
+			}
+			i.GameShortName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBotUserID returns value of BotUserID field.
@@ -3463,8 +4064,8 @@ func (i *InputMessageInvoice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageInvoice) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageInvoice) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageInvoice#3deb040f as nil")
 	}
@@ -3496,6 +4097,89 @@ func (i *InputMessageInvoice) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(i.StartParameter)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageInvoice) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageInvoice#3deb040f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageInvoice"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: %w", err)
+			}
+		case "invoice":
+			if err := i.Invoice.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field invoice: %w", err)
+			}
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field title: %w", err)
+			}
+			i.Title = value
+		case "description":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field description: %w", err)
+			}
+			i.Description = value
+		case "photo_url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field photo_url: %w", err)
+			}
+			i.PhotoURL = value
+		case "photo_size":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field photo_size: %w", err)
+			}
+			i.PhotoSize = value
+		case "photo_width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field photo_width: %w", err)
+			}
+			i.PhotoWidth = value
+		case "photo_height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field photo_height: %w", err)
+			}
+			i.PhotoHeight = value
+		case "payload":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field payload: %w", err)
+			}
+			i.Payload = value
+		case "provider_token":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field provider_token: %w", err)
+			}
+			i.ProviderToken = value
+		case "provider_data":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field provider_data: %w", err)
+			}
+			i.ProviderData = value
+		case "start_parameter":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field start_parameter: %w", err)
+			}
+			i.StartParameter = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetInvoice returns value of Invoice field.
@@ -3792,8 +4476,8 @@ func (i *InputMessagePoll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessagePoll) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessagePoll) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessagePoll#fe79770 as nil")
 	}
@@ -3824,6 +4508,72 @@ func (i *InputMessagePoll) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(i.IsClosed)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessagePoll) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagePoll#fe79770 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessagePoll"); err != nil {
+				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: %w", err)
+			}
+		case "question":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field question: %w", err)
+			}
+			i.Question = value
+		case "options":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field options: %w", err)
+				}
+				i.Options = append(i.Options, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field options: %w", err)
+			}
+		case "is_anonymous":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field is_anonymous: %w", err)
+			}
+			i.IsAnonymous = value
+		case "type":
+			value, err := DecodeTDLibJSONPollType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field type: %w", err)
+			}
+			i.Type = value
+		case "open_period":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field open_period: %w", err)
+			}
+			i.OpenPeriod = value
+		case "close_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field close_date: %w", err)
+			}
+			i.CloseDate = value
+		case "is_closed":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessagePoll#fe79770: field is_closed: %w", err)
+			}
+			i.IsClosed = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetQuestion returns value of Question field.
@@ -4031,8 +4781,8 @@ func (i *InputMessageForwarded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputMessageForwarded) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputMessageForwarded) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageForwarded#651a73f8 as nil")
 	}
@@ -4050,6 +4800,47 @@ func (i *InputMessageForwarded) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputMessageForwarded) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageForwarded#651a73f8 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputMessageForwarded"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageForwarded#651a73f8: %w", err)
+			}
+		case "from_chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageForwarded#651a73f8: field from_chat_id: %w", err)
+			}
+			i.FromChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageForwarded#651a73f8: field message_id: %w", err)
+			}
+			i.MessageID = value
+		case "in_game_share":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageForwarded#651a73f8: field in_game_share: %w", err)
+			}
+			i.InGameShare = value
+		case "copy_options":
+			if err := i.CopyOptions.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageForwarded#651a73f8: field copy_options: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFromChatID returns value of FromChatID field.
@@ -4116,7 +4907,9 @@ type InputMessageContentClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeInputMessageContent implements binary de-serialization for InputMessageContentClass.
@@ -4250,6 +5043,137 @@ func DecodeInputMessageContent(buf *bin.Buffer) (InputMessageContentClass, error
 	}
 }
 
+// DecodeTDLibJSONInputMessageContent implements binary de-serialization for InputMessageContentClass.
+func DecodeTDLibJSONInputMessageContent(buf jsontd.Decoder) (InputMessageContentClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "inputMessageText":
+		// Decoding inputMessageText#eb9b098.
+		v := InputMessageText{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageAnimation":
+		// Decoding inputMessageAnimation#11579cfa.
+		v := InputMessageAnimation{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageAudio":
+		// Decoding inputMessageAudio#daa400b2.
+		v := InputMessageAudio{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageDocument":
+		// Decoding inputMessageDocument#615b72b9.
+		v := InputMessageDocument{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessagePhoto":
+		// Decoding inputMessagePhoto#72d8e2dd.
+		v := InputMessagePhoto{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageSticker":
+		// Decoding inputMessageSticker#3ff1b6f9.
+		v := InputMessageSticker{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageVideo":
+		// Decoding inputMessageVideo#791281b1.
+		v := InputMessageVideo{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageVideoNote":
+		// Decoding inputMessageVideoNote#10a2dcfb.
+		v := InputMessageVideoNote{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageVoiceNote":
+		// Decoding inputMessageVoiceNote#7f58b3e9.
+		v := InputMessageVoiceNote{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageLocation":
+		// Decoding inputMessageLocation#26aae970.
+		v := InputMessageLocation{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageVenue":
+		// Decoding inputMessageVenue#564d99fd.
+		v := InputMessageVenue{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageContact":
+		// Decoding inputMessageContact#c5710cff.
+		v := InputMessageContact{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageDice":
+		// Decoding inputMessageDice#322967a9.
+		v := InputMessageDice{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageGame":
+		// Decoding inputMessageGame#9900cc6e.
+		v := InputMessageGame{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageInvoice":
+		// Decoding inputMessageInvoice#3deb040f.
+		v := InputMessageInvoice{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessagePoll":
+		// Decoding inputMessagePoll#fe79770.
+		v := InputMessagePoll{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageForwarded":
+		// Decoding inputMessageForwarded#651a73f8.
+		v := InputMessageForwarded{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // InputMessageContent boxes the InputMessageContentClass providing a helper.
 type InputMessageContentBox struct {
 	InputMessageContent InputMessageContentClass
@@ -4274,4 +5198,25 @@ func (b *InputMessageContentBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputMessageContentClass as nil")
 	}
 	return b.InputMessageContent.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for InputMessageContentBox.
+func (b *InputMessageContentBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputMessageContentBox to nil")
+	}
+	v, err := DecodeTDLibJSONInputMessageContent(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputMessageContent = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for InputMessageContentBox.
+func (b *InputMessageContentBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.InputMessageContent == nil {
+		return fmt.Errorf("unable to encode InputMessageContentClass as nil")
+	}
+	return b.InputMessageContent.EncodeTDLibJSON(buf)
 }

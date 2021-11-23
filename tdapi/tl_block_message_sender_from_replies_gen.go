@@ -194,8 +194,8 @@ func (b *BlockMessageSenderFromRepliesRequest) DecodeBare(buf *bin.Buffer) error
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *BlockMessageSenderFromRepliesRequest) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *BlockMessageSenderFromRepliesRequest) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode blockMessageSenderFromReplies#b79df58b as nil")
 	}
@@ -211,6 +211,49 @@ func (b *BlockMessageSenderFromRepliesRequest) EncodeTDLibJSON(buf *jsontd.Encod
 	buf.PutBool(b.ReportSpam)
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *BlockMessageSenderFromRepliesRequest) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode blockMessageSenderFromReplies#b79df58b to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("blockMessageSenderFromReplies"); err != nil {
+				return fmt.Errorf("unable to decode blockMessageSenderFromReplies#b79df58b: %w", err)
+			}
+		case "message_id":
+			value, err := buf.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode blockMessageSenderFromReplies#b79df58b: field message_id: %w", err)
+			}
+			b.MessageID = value
+		case "delete_message":
+			value, err := buf.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode blockMessageSenderFromReplies#b79df58b: field delete_message: %w", err)
+			}
+			b.DeleteMessage = value
+		case "delete_all_messages":
+			value, err := buf.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode blockMessageSenderFromReplies#b79df58b: field delete_all_messages: %w", err)
+			}
+			b.DeleteAllMessages = value
+		case "report_spam":
+			value, err := buf.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode blockMessageSenderFromReplies#b79df58b: field report_spam: %w", err)
+			}
+			b.ReportSpam = value
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }
 
 // GetMessageID returns value of MessageID field.

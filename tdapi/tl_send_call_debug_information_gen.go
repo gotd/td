@@ -160,8 +160,8 @@ func (s *SendCallDebugInformationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SendCallDebugInformationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SendCallDebugInformationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sendCallDebugInformation#785b373f as nil")
 	}
@@ -173,6 +173,37 @@ func (s *SendCallDebugInformationRequest) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.PutString(s.DebugInformation)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SendCallDebugInformationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendCallDebugInformation#785b373f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("sendCallDebugInformation"); err != nil {
+				return fmt.Errorf("unable to decode sendCallDebugInformation#785b373f: %w", err)
+			}
+		case "call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendCallDebugInformation#785b373f: field call_id: %w", err)
+			}
+			s.CallID = value
+		case "debug_information":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendCallDebugInformation#785b373f: field debug_information: %w", err)
+			}
+			s.DebugInformation = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCallID returns value of CallID field.

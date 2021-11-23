@@ -212,8 +212,8 @@ func (r *ReportChatRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ReportChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ReportChatRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode reportChat#a19024af as nil")
 	}
@@ -238,6 +238,54 @@ func (r *ReportChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(r.Text)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ReportChatRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode reportChat#a19024af to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("reportChat"); err != nil {
+				return fmt.Errorf("unable to decode reportChat#a19024af: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode reportChat#a19024af: field chat_id: %w", err)
+			}
+			r.ChatID = value
+		case "message_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode reportChat#a19024af: field message_ids: %w", err)
+				}
+				r.MessageIDs = append(r.MessageIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode reportChat#a19024af: field message_ids: %w", err)
+			}
+		case "reason":
+			value, err := DecodeTDLibJSONChatReportReason(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode reportChat#a19024af: field reason: %w", err)
+			}
+			r.Reason = value
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode reportChat#a19024af: field text: %w", err)
+			}
+			r.Text = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

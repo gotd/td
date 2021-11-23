@@ -34,7 +34,7 @@ var (
 // SetFileGenerationProgressRequest represents TL type `setFileGenerationProgress#dfc93c4f`.
 type SetFileGenerationProgressRequest struct {
 	// The identifier of the generation process
-	GenerationID Int64
+	GenerationID int64
 	// Expected size of the generated file, in bytes; 0 if unknown
 	ExpectedSize int32
 	// The number of bytes already generated
@@ -56,7 +56,7 @@ func (s *SetFileGenerationProgressRequest) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.GenerationID.Zero()) {
+	if !(s.GenerationID == 0) {
 		return false
 	}
 	if !(s.ExpectedSize == 0) {
@@ -131,9 +131,7 @@ func (s *SetFileGenerationProgressRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setFileGenerationProgress#dfc93c4f as nil")
 	}
-	if err := s.GenerationID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode setFileGenerationProgress#dfc93c4f: field generation_id: %w", err)
-	}
+	b.PutLong(s.GenerationID)
 	b.PutInt32(s.ExpectedSize)
 	b.PutInt32(s.LocalPrefixSize)
 	return nil
@@ -156,9 +154,11 @@ func (s *SetFileGenerationProgressRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setFileGenerationProgress#dfc93c4f to nil")
 	}
 	{
-		if err := s.GenerationID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode setFileGenerationProgress#dfc93c4f: field generation_id: %w", err)
 		}
+		s.GenerationID = value
 	}
 	{
 		value, err := b.Int32()
@@ -177,17 +177,15 @@ func (s *SetFileGenerationProgressRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetFileGenerationProgressRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetFileGenerationProgressRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setFileGenerationProgress#dfc93c4f as nil")
 	}
 	b.ObjStart()
 	b.PutID("setFileGenerationProgress")
 	b.FieldStart("generation_id")
-	if err := s.GenerationID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode setFileGenerationProgress#dfc93c4f: field generation_id: %w", err)
-	}
+	b.PutLong(s.GenerationID)
 	b.FieldStart("expected_size")
 	b.PutInt32(s.ExpectedSize)
 	b.FieldStart("local_prefix_size")
@@ -196,8 +194,45 @@ func (s *SetFileGenerationProgressRequest) EncodeTDLibJSON(b *jsontd.Encoder) er
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetFileGenerationProgressRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setFileGenerationProgress#dfc93c4f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setFileGenerationProgress"); err != nil {
+				return fmt.Errorf("unable to decode setFileGenerationProgress#dfc93c4f: %w", err)
+			}
+		case "generation_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setFileGenerationProgress#dfc93c4f: field generation_id: %w", err)
+			}
+			s.GenerationID = value
+		case "expected_size":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setFileGenerationProgress#dfc93c4f: field expected_size: %w", err)
+			}
+			s.ExpectedSize = value
+		case "local_prefix_size":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setFileGenerationProgress#dfc93c4f: field local_prefix_size: %w", err)
+			}
+			s.LocalPrefixSize = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetGenerationID returns value of GenerationID field.
-func (s *SetFileGenerationProgressRequest) GetGenerationID() (value Int64) {
+func (s *SetFileGenerationProgressRequest) GetGenerationID() (value int64) {
 	return s.GenerationID
 }
 

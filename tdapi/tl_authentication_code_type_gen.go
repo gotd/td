@@ -148,8 +148,8 @@ func (a *AuthenticationCodeTypeTelegramMessage) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AuthenticationCodeTypeTelegramMessage) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AuthenticationCodeTypeTelegramMessage) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authenticationCodeTypeTelegramMessage#7bf49b2a as nil")
 	}
@@ -159,6 +159,31 @@ func (a *AuthenticationCodeTypeTelegramMessage) EncodeTDLibJSON(b *jsontd.Encode
 	b.PutInt32(a.Length)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AuthenticationCodeTypeTelegramMessage) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeTelegramMessage#7bf49b2a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("authenticationCodeTypeTelegramMessage"); err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeTelegramMessage#7bf49b2a: %w", err)
+			}
+		case "length":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeTelegramMessage#7bf49b2a: field length: %w", err)
+			}
+			a.Length = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLength returns value of Length field.
@@ -283,8 +308,8 @@ func (a *AuthenticationCodeTypeSMS) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AuthenticationCodeTypeSMS) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AuthenticationCodeTypeSMS) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authenticationCodeTypeSms#3960e288 as nil")
 	}
@@ -294,6 +319,31 @@ func (a *AuthenticationCodeTypeSMS) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(a.Length)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AuthenticationCodeTypeSMS) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeSms#3960e288 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("authenticationCodeTypeSms"); err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeSms#3960e288: %w", err)
+			}
+		case "length":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeSms#3960e288: field length: %w", err)
+			}
+			a.Length = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLength returns value of Length field.
@@ -418,8 +468,8 @@ func (a *AuthenticationCodeTypeCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AuthenticationCodeTypeCall) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AuthenticationCodeTypeCall) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authenticationCodeTypeCall#61876c67 as nil")
 	}
@@ -429,6 +479,31 @@ func (a *AuthenticationCodeTypeCall) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(a.Length)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AuthenticationCodeTypeCall) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeCall#61876c67 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("authenticationCodeTypeCall"); err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeCall#61876c67: %w", err)
+			}
+		case "length":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeCall#61876c67: field length: %w", err)
+			}
+			a.Length = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLength returns value of Length field.
@@ -553,8 +628,8 @@ func (a *AuthenticationCodeTypeFlashCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AuthenticationCodeTypeFlashCall) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AuthenticationCodeTypeFlashCall) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authenticationCodeTypeFlashCall#533379a2 as nil")
 	}
@@ -564,6 +639,31 @@ func (a *AuthenticationCodeTypeFlashCall) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.PutString(a.Pattern)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AuthenticationCodeTypeFlashCall) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeFlashCall#533379a2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("authenticationCodeTypeFlashCall"); err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeFlashCall#533379a2: %w", err)
+			}
+		case "pattern":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeFlashCall#533379a2: field pattern: %w", err)
+			}
+			a.Pattern = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPattern returns value of Pattern field.
@@ -602,7 +702,9 @@ type AuthenticationCodeTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeAuthenticationCodeType implements binary de-serialization for AuthenticationCodeTypeClass.
@@ -645,6 +747,46 @@ func DecodeAuthenticationCodeType(buf *bin.Buffer) (AuthenticationCodeTypeClass,
 	}
 }
 
+// DecodeTDLibJSONAuthenticationCodeType implements binary de-serialization for AuthenticationCodeTypeClass.
+func DecodeTDLibJSONAuthenticationCodeType(buf jsontd.Decoder) (AuthenticationCodeTypeClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "authenticationCodeTypeTelegramMessage":
+		// Decoding authenticationCodeTypeTelegramMessage#7bf49b2a.
+		v := AuthenticationCodeTypeTelegramMessage{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case "authenticationCodeTypeSms":
+		// Decoding authenticationCodeTypeSms#3960e288.
+		v := AuthenticationCodeTypeSMS{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case "authenticationCodeTypeCall":
+		// Decoding authenticationCodeTypeCall#61876c67.
+		v := AuthenticationCodeTypeCall{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case "authenticationCodeTypeFlashCall":
+		// Decoding authenticationCodeTypeFlashCall#533379a2.
+		v := AuthenticationCodeTypeFlashCall{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // AuthenticationCodeType boxes the AuthenticationCodeTypeClass providing a helper.
 type AuthenticationCodeTypeBox struct {
 	AuthenticationCodeType AuthenticationCodeTypeClass
@@ -669,4 +811,25 @@ func (b *AuthenticationCodeTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode AuthenticationCodeTypeClass as nil")
 	}
 	return b.AuthenticationCodeType.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for AuthenticationCodeTypeBox.
+func (b *AuthenticationCodeTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode AuthenticationCodeTypeBox to nil")
+	}
+	v, err := DecodeTDLibJSONAuthenticationCodeType(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.AuthenticationCodeType = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for AuthenticationCodeTypeBox.
+func (b *AuthenticationCodeTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.AuthenticationCodeType == nil {
+		return fmt.Errorf("unable to encode AuthenticationCodeTypeClass as nil")
+	}
+	return b.AuthenticationCodeType.EncodeTDLibJSON(buf)
 }

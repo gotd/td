@@ -125,8 +125,8 @@ func (d *Double) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *Double) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *Double) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode double#2210c154 as nil")
 	}
@@ -134,4 +134,23 @@ func (d *Double) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("double")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *Double) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode double#2210c154 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("double"); err != nil {
+				return fmt.Errorf("unable to decode double#2210c154: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }

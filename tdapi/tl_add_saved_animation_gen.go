@@ -149,8 +149,8 @@ func (a *AddSavedAnimationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AddSavedAnimationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AddSavedAnimationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addSavedAnimation#a44bf860 as nil")
 	}
@@ -165,6 +165,31 @@ func (a *AddSavedAnimationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AddSavedAnimationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode addSavedAnimation#a44bf860 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("addSavedAnimation"); err != nil {
+				return fmt.Errorf("unable to decode addSavedAnimation#a44bf860: %w", err)
+			}
+		case "animation":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode addSavedAnimation#a44bf860: field animation: %w", err)
+			}
+			a.Animation = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetAnimation returns value of Animation field.

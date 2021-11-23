@@ -144,8 +144,8 @@ func (a *AccountTTL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AccountTTL) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AccountTTL) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode accountTtl#4ef23284 as nil")
 	}
@@ -155,6 +155,31 @@ func (a *AccountTTL) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(a.Days)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AccountTTL) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode accountTtl#4ef23284 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("accountTtl"); err != nil {
+				return fmt.Errorf("unable to decode accountTtl#4ef23284: %w", err)
+			}
+		case "days":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode accountTtl#4ef23284: field days: %w", err)
+			}
+			a.Days = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetDays returns value of Days field.

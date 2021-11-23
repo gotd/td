@@ -193,8 +193,8 @@ func (p *Photo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *Photo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *Photo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode photo#105a0689 as nil")
 	}
@@ -216,6 +216,46 @@ func (p *Photo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *Photo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode photo#105a0689 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("photo"); err != nil {
+				return fmt.Errorf("unable to decode photo#105a0689: %w", err)
+			}
+		case "has_stickers":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode photo#105a0689: field has_stickers: %w", err)
+			}
+			p.HasStickers = value
+		case "minithumbnail":
+			if err := p.Minithumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode photo#105a0689: field minithumbnail: %w", err)
+			}
+		case "sizes":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value PhotoSize
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode photo#105a0689: field sizes: %w", err)
+				}
+				p.Sizes = append(p.Sizes, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode photo#105a0689: field sizes: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetHasStickers returns value of HasStickers field.

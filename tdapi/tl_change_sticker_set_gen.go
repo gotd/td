@@ -34,7 +34,7 @@ var (
 // ChangeStickerSetRequest represents TL type `changeStickerSet#1ac8a5ed`.
 type ChangeStickerSetRequest struct {
 	// Identifier of the sticker set
-	SetID Int64
+	SetID int64
 	// The new value of is_installed
 	IsInstalled bool
 	// The new value of is_archived. A sticker set can't be installed and archived
@@ -57,7 +57,7 @@ func (c *ChangeStickerSetRequest) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.SetID.Zero()) {
+	if !(c.SetID == 0) {
 		return false
 	}
 	if !(c.IsInstalled == false) {
@@ -132,9 +132,7 @@ func (c *ChangeStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode changeStickerSet#1ac8a5ed as nil")
 	}
-	if err := c.SetID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode changeStickerSet#1ac8a5ed: field set_id: %w", err)
-	}
+	b.PutLong(c.SetID)
 	b.PutBool(c.IsInstalled)
 	b.PutBool(c.IsArchived)
 	return nil
@@ -157,9 +155,11 @@ func (c *ChangeStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode changeStickerSet#1ac8a5ed to nil")
 	}
 	{
-		if err := c.SetID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode changeStickerSet#1ac8a5ed: field set_id: %w", err)
 		}
+		c.SetID = value
 	}
 	{
 		value, err := b.Bool()
@@ -178,17 +178,15 @@ func (c *ChangeStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChangeStickerSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChangeStickerSetRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode changeStickerSet#1ac8a5ed as nil")
 	}
 	b.ObjStart()
 	b.PutID("changeStickerSet")
 	b.FieldStart("set_id")
-	if err := c.SetID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode changeStickerSet#1ac8a5ed: field set_id: %w", err)
-	}
+	b.PutLong(c.SetID)
 	b.FieldStart("is_installed")
 	b.PutBool(c.IsInstalled)
 	b.FieldStart("is_archived")
@@ -197,8 +195,45 @@ func (c *ChangeStickerSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChangeStickerSetRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode changeStickerSet#1ac8a5ed to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("changeStickerSet"); err != nil {
+				return fmt.Errorf("unable to decode changeStickerSet#1ac8a5ed: %w", err)
+			}
+		case "set_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode changeStickerSet#1ac8a5ed: field set_id: %w", err)
+			}
+			c.SetID = value
+		case "is_installed":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode changeStickerSet#1ac8a5ed: field is_installed: %w", err)
+			}
+			c.IsInstalled = value
+		case "is_archived":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode changeStickerSet#1ac8a5ed: field is_archived: %w", err)
+			}
+			c.IsArchived = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetSetID returns value of SetID field.
-func (c *ChangeStickerSetRequest) GetSetID() (value Int64) {
+func (c *ChangeStickerSetRequest) GetSetID() (value int64) {
 	return c.SetID
 }
 

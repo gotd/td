@@ -143,8 +143,8 @@ func (c *CheckAuthenticationCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CheckAuthenticationCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CheckAuthenticationCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkAuthenticationCode#edfe44aa as nil")
 	}
@@ -154,6 +154,31 @@ func (c *CheckAuthenticationCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutString(c.Code)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CheckAuthenticationCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkAuthenticationCode#edfe44aa to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("checkAuthenticationCode"); err != nil {
+				return fmt.Errorf("unable to decode checkAuthenticationCode#edfe44aa: %w", err)
+			}
+		case "code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode checkAuthenticationCode#edfe44aa: field code: %w", err)
+			}
+			c.Code = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCode returns value of Code field.

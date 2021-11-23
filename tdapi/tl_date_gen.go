@@ -177,8 +177,8 @@ func (d *Date) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *Date) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *Date) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode date#ef6eb6a0 as nil")
 	}
@@ -192,6 +192,43 @@ func (d *Date) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(d.Year)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *Date) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode date#ef6eb6a0 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("date"); err != nil {
+				return fmt.Errorf("unable to decode date#ef6eb6a0: %w", err)
+			}
+		case "day":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode date#ef6eb6a0: field day: %w", err)
+			}
+			d.Day = value
+		case "month":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode date#ef6eb6a0: field month: %w", err)
+			}
+			d.Month = value
+		case "year":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode date#ef6eb6a0: field year: %w", err)
+			}
+			d.Year = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetDay returns value of Day field.

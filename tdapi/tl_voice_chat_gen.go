@@ -183,8 +183,8 @@ func (v *VoiceChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes v in TDLib API JSON format.
-func (v *VoiceChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (v *VoiceChat) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode voiceChat#f0d4c45b as nil")
 	}
@@ -203,6 +203,43 @@ func (v *VoiceChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (v *VoiceChat) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if v == nil {
+		return fmt.Errorf("can't decode voiceChat#f0d4c45b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("voiceChat"); err != nil {
+				return fmt.Errorf("unable to decode voiceChat#f0d4c45b: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode voiceChat#f0d4c45b: field group_call_id: %w", err)
+			}
+			v.GroupCallID = value
+		case "has_participants":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode voiceChat#f0d4c45b: field has_participants: %w", err)
+			}
+			v.HasParticipants = value
+		case "default_participant_id":
+			value, err := DecodeTDLibJSONMessageSender(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode voiceChat#f0d4c45b: field default_participant_id: %w", err)
+			}
+			v.DefaultParticipantID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

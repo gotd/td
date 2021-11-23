@@ -143,8 +143,8 @@ func (c *CheckRecoveryEmailAddressCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CheckRecoveryEmailAddressCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CheckRecoveryEmailAddressCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkRecoveryEmailAddressCode#88f7981b as nil")
 	}
@@ -154,6 +154,31 @@ func (c *CheckRecoveryEmailAddressCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder
 	b.PutString(c.Code)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CheckRecoveryEmailAddressCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkRecoveryEmailAddressCode#88f7981b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("checkRecoveryEmailAddressCode"); err != nil {
+				return fmt.Errorf("unable to decode checkRecoveryEmailAddressCode#88f7981b: %w", err)
+			}
+		case "code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode checkRecoveryEmailAddressCode#88f7981b: field code: %w", err)
+			}
+			c.Code = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCode returns value of Code field.

@@ -179,8 +179,8 @@ func (m *MessageInteractionInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MessageInteractionInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MessageInteractionInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageInteractionInfo#db00a42a as nil")
 	}
@@ -196,6 +196,41 @@ func (m *MessageInteractionInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MessageInteractionInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageInteractionInfo#db00a42a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("messageInteractionInfo"); err != nil {
+				return fmt.Errorf("unable to decode messageInteractionInfo#db00a42a: %w", err)
+			}
+		case "view_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageInteractionInfo#db00a42a: field view_count: %w", err)
+			}
+			m.ViewCount = value
+		case "forward_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageInteractionInfo#db00a42a: field forward_count: %w", err)
+			}
+			m.ForwardCount = value
+		case "reply_info":
+			if err := m.ReplyInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageInteractionInfo#db00a42a: field reply_info: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetViewCount returns value of ViewCount field.

@@ -214,8 +214,8 @@ func (s *ScopeNotificationSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *ScopeNotificationSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *ScopeNotificationSettings) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode scopeNotificationSettings#e69a2c3f as nil")
 	}
@@ -233,6 +233,55 @@ func (s *ScopeNotificationSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(s.DisableMentionNotifications)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *ScopeNotificationSettings) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode scopeNotificationSettings#e69a2c3f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("scopeNotificationSettings"); err != nil {
+				return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: %w", err)
+			}
+		case "mute_for":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field mute_for: %w", err)
+			}
+			s.MuteFor = value
+		case "sound":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field sound: %w", err)
+			}
+			s.Sound = value
+		case "show_preview":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field show_preview: %w", err)
+			}
+			s.ShowPreview = value
+		case "disable_pinned_message_notifications":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field disable_pinned_message_notifications: %w", err)
+			}
+			s.DisablePinnedMessageNotifications = value
+		case "disable_mention_notifications":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field disable_mention_notifications: %w", err)
+			}
+			s.DisableMentionNotifications = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetMuteFor returns value of MuteFor field.

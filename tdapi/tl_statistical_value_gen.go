@@ -177,8 +177,8 @@ func (s *StatisticalValue) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *StatisticalValue) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *StatisticalValue) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode statisticalValue#626d6a76 as nil")
 	}
@@ -192,6 +192,43 @@ func (s *StatisticalValue) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutDouble(s.GrowthRatePercentage)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *StatisticalValue) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statisticalValue#626d6a76 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("statisticalValue"); err != nil {
+				return fmt.Errorf("unable to decode statisticalValue#626d6a76: %w", err)
+			}
+		case "value":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode statisticalValue#626d6a76: field value: %w", err)
+			}
+			s.Value = value
+		case "previous_value":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode statisticalValue#626d6a76: field previous_value: %w", err)
+			}
+			s.PreviousValue = value
+		case "growth_rate_percentage":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode statisticalValue#626d6a76: field growth_rate_percentage: %w", err)
+			}
+			s.GrowthRatePercentage = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetValue returns value of Value field.

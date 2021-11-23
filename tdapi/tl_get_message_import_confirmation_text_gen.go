@@ -145,8 +145,8 @@ func (g *GetMessageImportConfirmationTextRequest) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetMessageImportConfirmationTextRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetMessageImportConfirmationTextRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getMessageImportConfirmationText#174881a8 as nil")
 	}
@@ -156,6 +156,31 @@ func (g *GetMessageImportConfirmationTextRequest) EncodeTDLibJSON(b *jsontd.Enco
 	b.PutLong(g.ChatID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetMessageImportConfirmationTextRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getMessageImportConfirmationText#174881a8 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getMessageImportConfirmationText"); err != nil {
+				return fmt.Errorf("unable to decode getMessageImportConfirmationText#174881a8: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessageImportConfirmationText#174881a8: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

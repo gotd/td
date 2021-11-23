@@ -211,8 +211,8 @@ func (v *VideoNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes v in TDLib API JSON format.
-func (v *VideoNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (v *VideoNote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode videoNote#fbb96a3a as nil")
 	}
@@ -236,6 +236,49 @@ func (v *VideoNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (v *VideoNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if v == nil {
+		return fmt.Errorf("can't decode videoNote#fbb96a3a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("videoNote"); err != nil {
+				return fmt.Errorf("unable to decode videoNote#fbb96a3a: %w", err)
+			}
+		case "duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode videoNote#fbb96a3a: field duration: %w", err)
+			}
+			v.Duration = value
+		case "length":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode videoNote#fbb96a3a: field length: %w", err)
+			}
+			v.Length = value
+		case "minithumbnail":
+			if err := v.Minithumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode videoNote#fbb96a3a: field minithumbnail: %w", err)
+			}
+		case "thumbnail":
+			if err := v.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode videoNote#fbb96a3a: field thumbnail: %w", err)
+			}
+		case "video":
+			if err := v.Video.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode videoNote#fbb96a3a: field video: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetDuration returns value of Duration field.

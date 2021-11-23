@@ -38,7 +38,7 @@ type SendPaymentFormRequest struct {
 	// Message identifier
 	MessageID int64
 	// Payment form identifier returned by getPaymentForm
-	PaymentFormID Int64
+	PaymentFormID int64
 	// Identifier returned by validateOrderInfo, or an empty string
 	OrderInfoID string
 	// Identifier of a chosen shipping option, if applicable
@@ -70,7 +70,7 @@ func (s *SendPaymentFormRequest) Zero() bool {
 	if !(s.MessageID == 0) {
 		return false
 	}
-	if !(s.PaymentFormID.Zero()) {
+	if !(s.PaymentFormID == 0) {
 		return false
 	}
 	if !(s.OrderInfoID == "") {
@@ -169,9 +169,7 @@ func (s *SendPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutLong(s.ChatID)
 	b.PutLong(s.MessageID)
-	if err := s.PaymentFormID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendPaymentForm#5b9133ff: field payment_form_id: %w", err)
-	}
+	b.PutLong(s.PaymentFormID)
 	b.PutString(s.OrderInfoID)
 	b.PutString(s.ShippingOptionID)
 	if s.Credentials == nil {
@@ -215,9 +213,11 @@ func (s *SendPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 		s.MessageID = value
 	}
 	{
-		if err := s.PaymentFormID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field payment_form_id: %w", err)
 		}
+		s.PaymentFormID = value
 	}
 	{
 		value, err := b.String()
@@ -250,8 +250,8 @@ func (s *SendPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SendPaymentFormRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SendPaymentFormRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sendPaymentForm#5b9133ff as nil")
 	}
@@ -262,9 +262,7 @@ func (s *SendPaymentFormRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.FieldStart("message_id")
 	b.PutLong(s.MessageID)
 	b.FieldStart("payment_form_id")
-	if err := s.PaymentFormID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendPaymentForm#5b9133ff: field payment_form_id: %w", err)
-	}
+	b.PutLong(s.PaymentFormID)
 	b.FieldStart("order_info_id")
 	b.PutString(s.OrderInfoID)
 	b.FieldStart("shipping_option_id")
@@ -282,6 +280,67 @@ func (s *SendPaymentFormRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SendPaymentFormRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendPaymentForm#5b9133ff to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("sendPaymentForm"); err != nil {
+				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field message_id: %w", err)
+			}
+			s.MessageID = value
+		case "payment_form_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field payment_form_id: %w", err)
+			}
+			s.PaymentFormID = value
+		case "order_info_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field order_info_id: %w", err)
+			}
+			s.OrderInfoID = value
+		case "shipping_option_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field shipping_option_id: %w", err)
+			}
+			s.ShippingOptionID = value
+		case "credentials":
+			value, err := DecodeTDLibJSONInputCredentials(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field credentials: %w", err)
+			}
+			s.Credentials = value
+		case "tip_amount":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field tip_amount: %w", err)
+			}
+			s.TipAmount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetChatID returns value of ChatID field.
 func (s *SendPaymentFormRequest) GetChatID() (value int64) {
 	return s.ChatID
@@ -293,7 +352,7 @@ func (s *SendPaymentFormRequest) GetMessageID() (value int64) {
 }
 
 // GetPaymentFormID returns value of PaymentFormID field.
-func (s *SendPaymentFormRequest) GetPaymentFormID() (value Int64) {
+func (s *SendPaymentFormRequest) GetPaymentFormID() (value int64) {
 	return s.PaymentFormID
 }
 

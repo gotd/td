@@ -175,8 +175,8 @@ func (s *StickerSets) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *StickerSets) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *StickerSets) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode stickerSets#b8a6490d as nil")
 	}
@@ -194,6 +194,42 @@ func (s *StickerSets) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *StickerSets) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickerSets#b8a6490d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("stickerSets"); err != nil {
+				return fmt.Errorf("unable to decode stickerSets#b8a6490d: %w", err)
+			}
+		case "total_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode stickerSets#b8a6490d: field total_count: %w", err)
+			}
+			s.TotalCount = value
+		case "sets":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value StickerSetInfo
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode stickerSets#b8a6490d: field sets: %w", err)
+				}
+				s.Sets = append(s.Sets, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode stickerSets#b8a6490d: field sets: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetTotalCount returns value of TotalCount field.

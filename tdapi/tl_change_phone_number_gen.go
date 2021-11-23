@@ -160,8 +160,8 @@ func (c *ChangePhoneNumberRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChangePhoneNumberRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChangePhoneNumberRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode changePhoneNumber#f891bba3 as nil")
 	}
@@ -175,6 +175,35 @@ func (c *ChangePhoneNumberRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChangePhoneNumberRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode changePhoneNumber#f891bba3 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("changePhoneNumber"); err != nil {
+				return fmt.Errorf("unable to decode changePhoneNumber#f891bba3: %w", err)
+			}
+		case "phone_number":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode changePhoneNumber#f891bba3: field phone_number: %w", err)
+			}
+			c.PhoneNumber = value
+		case "settings":
+			if err := c.Settings.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode changePhoneNumber#f891bba3: field settings: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPhoneNumber returns value of PhoneNumber field.

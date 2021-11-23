@@ -143,8 +143,8 @@ func (c *CheckPhoneNumberConfirmationCodeRequest) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CheckPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CheckPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkPhoneNumberConfirmationCode#afa638da as nil")
 	}
@@ -154,6 +154,31 @@ func (c *CheckPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b *jsontd.Enco
 	b.PutString(c.Code)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CheckPhoneNumberConfirmationCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkPhoneNumberConfirmationCode#afa638da to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("checkPhoneNumberConfirmationCode"); err != nil {
+				return fmt.Errorf("unable to decode checkPhoneNumberConfirmationCode#afa638da: %w", err)
+			}
+		case "code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode checkPhoneNumberConfirmationCode#afa638da: field code: %w", err)
+			}
+			c.Code = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCode returns value of Code field.

@@ -259,8 +259,8 @@ func (b *BasicGroupFullInfo) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *BasicGroupFullInfo) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *BasicGroupFullInfo) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode basicGroupFullInfo#311f738a as nil")
 	}
@@ -296,6 +296,67 @@ func (b *BasicGroupFullInfo) EncodeTDLibJSON(buf *jsontd.Encoder) error {
 	buf.ArrEnd()
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *BasicGroupFullInfo) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode basicGroupFullInfo#311f738a to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("basicGroupFullInfo"); err != nil {
+				return fmt.Errorf("unable to decode basicGroupFullInfo#311f738a: %w", err)
+			}
+		case "photo":
+			if err := b.Photo.DecodeTDLibJSON(buf); err != nil {
+				return fmt.Errorf("unable to decode basicGroupFullInfo#311f738a: field photo: %w", err)
+			}
+		case "description":
+			value, err := buf.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode basicGroupFullInfo#311f738a: field description: %w", err)
+			}
+			b.Description = value
+		case "creator_user_id":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode basicGroupFullInfo#311f738a: field creator_user_id: %w", err)
+			}
+			b.CreatorUserID = value
+		case "members":
+			if err := buf.Arr(func(buf jsontd.Decoder) error {
+				var value ChatMember
+				if err := value.DecodeTDLibJSON(buf); err != nil {
+					return fmt.Errorf("unable to decode basicGroupFullInfo#311f738a: field members: %w", err)
+				}
+				b.Members = append(b.Members, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode basicGroupFullInfo#311f738a: field members: %w", err)
+			}
+		case "invite_link":
+			if err := b.InviteLink.DecodeTDLibJSON(buf); err != nil {
+				return fmt.Errorf("unable to decode basicGroupFullInfo#311f738a: field invite_link: %w", err)
+			}
+		case "bot_commands":
+			if err := buf.Arr(func(buf jsontd.Decoder) error {
+				var value BotCommands
+				if err := value.DecodeTDLibJSON(buf); err != nil {
+					return fmt.Errorf("unable to decode basicGroupFullInfo#311f738a: field bot_commands: %w", err)
+				}
+				b.BotCommands = append(b.BotCommands, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode basicGroupFullInfo#311f738a: field bot_commands: %w", err)
+			}
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPhoto returns value of Photo field.

@@ -125,8 +125,8 @@ func (r *ResendPhoneNumberVerificationCodeRequest) DecodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ResendPhoneNumberVerificationCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ResendPhoneNumberVerificationCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resendPhoneNumberVerificationCode#51845ffc as nil")
 	}
@@ -134,6 +134,25 @@ func (r *ResendPhoneNumberVerificationCodeRequest) EncodeTDLibJSON(b *jsontd.Enc
 	b.PutID("resendPhoneNumberVerificationCode")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ResendPhoneNumberVerificationCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode resendPhoneNumberVerificationCode#51845ffc to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("resendPhoneNumberVerificationCode"); err != nil {
+				return fmt.Errorf("unable to decode resendPhoneNumberVerificationCode#51845ffc: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ResendPhoneNumberVerificationCode invokes method resendPhoneNumberVerificationCode#51845ffc returning error if any.

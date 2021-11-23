@@ -165,8 +165,8 @@ func (t *TMeURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TMeURL) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TMeURL) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode tMeUrl#bc00fa42 as nil")
 	}
@@ -183,6 +183,37 @@ func (t *TMeURL) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TMeURL) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode tMeUrl#bc00fa42 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("tMeUrl"); err != nil {
+				return fmt.Errorf("unable to decode tMeUrl#bc00fa42: %w", err)
+			}
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode tMeUrl#bc00fa42: field url: %w", err)
+			}
+			t.URL = value
+		case "type":
+			value, err := DecodeTDLibJSONTMeURLType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode tMeUrl#bc00fa42: field type: %w", err)
+			}
+			t.Type = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetURL returns value of URL field.

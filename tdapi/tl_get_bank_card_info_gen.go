@@ -143,8 +143,8 @@ func (g *GetBankCardInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetBankCardInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetBankCardInfoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getBankCardInfo#b1e31db0 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetBankCardInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(g.BankCardNumber)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetBankCardInfoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getBankCardInfo#b1e31db0 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getBankCardInfo"); err != nil {
+				return fmt.Errorf("unable to decode getBankCardInfo#b1e31db0: %w", err)
+			}
+		case "bank_card_number":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getBankCardInfo#b1e31db0: field bank_card_number: %w", err)
+			}
+			g.BankCardNumber = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBankCardNumber returns value of BankCardNumber field.

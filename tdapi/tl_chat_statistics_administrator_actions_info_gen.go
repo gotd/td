@@ -194,8 +194,8 @@ func (c *ChatStatisticsAdministratorActionsInfo) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatStatisticsAdministratorActionsInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatStatisticsAdministratorActionsInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatStatisticsAdministratorActionsInfo#76845888 as nil")
 	}
@@ -211,6 +211,49 @@ func (c *ChatStatisticsAdministratorActionsInfo) EncodeTDLibJSON(b *jsontd.Encod
 	b.PutInt32(c.RestrictedUserCount)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatStatisticsAdministratorActionsInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatStatisticsAdministratorActionsInfo#76845888 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatStatisticsAdministratorActionsInfo"); err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsAdministratorActionsInfo#76845888: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsAdministratorActionsInfo#76845888: field user_id: %w", err)
+			}
+			c.UserID = value
+		case "deleted_message_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsAdministratorActionsInfo#76845888: field deleted_message_count: %w", err)
+			}
+			c.DeletedMessageCount = value
+		case "banned_user_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsAdministratorActionsInfo#76845888: field banned_user_count: %w", err)
+			}
+			c.BannedUserCount = value
+		case "restricted_user_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsAdministratorActionsInfo#76845888: field restricted_user_count: %w", err)
+			}
+			c.RestrictedUserCount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserID returns value of UserID field.

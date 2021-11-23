@@ -189,8 +189,8 @@ func (u *UploadFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UploadFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UploadFileRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode uploadFile#d38f14a6 as nil")
 	}
@@ -214,6 +214,43 @@ func (u *UploadFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(u.Priority)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UploadFileRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode uploadFile#d38f14a6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("uploadFile"); err != nil {
+				return fmt.Errorf("unable to decode uploadFile#d38f14a6: %w", err)
+			}
+		case "file":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode uploadFile#d38f14a6: field file: %w", err)
+			}
+			u.File = value
+		case "file_type":
+			value, err := DecodeTDLibJSONFileType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode uploadFile#d38f14a6: field file_type: %w", err)
+			}
+			u.FileType = value
+		case "priority":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode uploadFile#d38f14a6: field priority: %w", err)
+			}
+			u.Priority = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFile returns value of File field.

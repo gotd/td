@@ -177,8 +177,8 @@ func (g *GameHighScore) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GameHighScore) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GameHighScore) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode gameHighScore#fe2a5c0a as nil")
 	}
@@ -192,6 +192,43 @@ func (g *GameHighScore) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(g.Score)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GameHighScore) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode gameHighScore#fe2a5c0a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("gameHighScore"); err != nil {
+				return fmt.Errorf("unable to decode gameHighScore#fe2a5c0a: %w", err)
+			}
+		case "position":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode gameHighScore#fe2a5c0a: field position: %w", err)
+			}
+			g.Position = value
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode gameHighScore#fe2a5c0a: field user_id: %w", err)
+			}
+			g.UserID = value
+		case "score":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode gameHighScore#fe2a5c0a: field score: %w", err)
+			}
+			g.Score = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPosition returns value of Position field.

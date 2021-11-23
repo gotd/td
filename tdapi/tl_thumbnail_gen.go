@@ -199,8 +199,8 @@ func (t *Thumbnail) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *Thumbnail) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *Thumbnail) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode thumbnail#4a1ae06b as nil")
 	}
@@ -223,6 +223,47 @@ func (t *Thumbnail) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *Thumbnail) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode thumbnail#4a1ae06b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("thumbnail"); err != nil {
+				return fmt.Errorf("unable to decode thumbnail#4a1ae06b: %w", err)
+			}
+		case "format":
+			value, err := DecodeTDLibJSONThumbnailFormat(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode thumbnail#4a1ae06b: field format: %w", err)
+			}
+			t.Format = value
+		case "width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode thumbnail#4a1ae06b: field width: %w", err)
+			}
+			t.Width = value
+		case "height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode thumbnail#4a1ae06b: field height: %w", err)
+			}
+			t.Height = value
+		case "file":
+			if err := t.File.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode thumbnail#4a1ae06b: field file: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFormat returns value of Format field.

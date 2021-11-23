@@ -143,8 +143,8 @@ func (g *GetPushReceiverIDRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetPushReceiverIDRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetPushReceiverIDRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getPushReceiverId#eeec46b2 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetPushReceiverIDRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(g.Payload)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetPushReceiverIDRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getPushReceiverId#eeec46b2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getPushReceiverId"); err != nil {
+				return fmt.Errorf("unable to decode getPushReceiverId#eeec46b2: %w", err)
+			}
+		case "payload":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getPushReceiverId#eeec46b2: field payload: %w", err)
+			}
+			g.Payload = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPayload returns value of Payload field.

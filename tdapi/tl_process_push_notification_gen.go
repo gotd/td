@@ -144,8 +144,8 @@ func (p *ProcessPushNotificationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *ProcessPushNotificationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *ProcessPushNotificationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode processPushNotification#2ee3c890 as nil")
 	}
@@ -155,6 +155,31 @@ func (p *ProcessPushNotificationRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutString(p.Payload)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *ProcessPushNotificationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode processPushNotification#2ee3c890 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("processPushNotification"); err != nil {
+				return fmt.Errorf("unable to decode processPushNotification#2ee3c890: %w", err)
+			}
+		case "payload":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode processPushNotification#2ee3c890: field payload: %w", err)
+			}
+			p.Payload = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPayload returns value of Payload field.

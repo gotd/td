@@ -130,8 +130,8 @@ func (c *ConnectionStateWaitingForNetwork) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ConnectionStateWaitingForNetwork) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ConnectionStateWaitingForNetwork) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode connectionStateWaitingForNetwork#650dd758 as nil")
 	}
@@ -139,6 +139,25 @@ func (c *ConnectionStateWaitingForNetwork) EncodeTDLibJSON(b *jsontd.Encoder) er
 	b.PutID("connectionStateWaitingForNetwork")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ConnectionStateWaitingForNetwork) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode connectionStateWaitingForNetwork#650dd758 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("connectionStateWaitingForNetwork"); err != nil {
+				return fmt.Errorf("unable to decode connectionStateWaitingForNetwork#650dd758: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ConnectionStateConnectingToProxy represents TL type `connectionStateConnectingToProxy#fa721359`.
@@ -240,8 +259,8 @@ func (c *ConnectionStateConnectingToProxy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ConnectionStateConnectingToProxy) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ConnectionStateConnectingToProxy) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode connectionStateConnectingToProxy#fa721359 as nil")
 	}
@@ -249,6 +268,25 @@ func (c *ConnectionStateConnectingToProxy) EncodeTDLibJSON(b *jsontd.Encoder) er
 	b.PutID("connectionStateConnectingToProxy")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ConnectionStateConnectingToProxy) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode connectionStateConnectingToProxy#fa721359 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("connectionStateConnectingToProxy"); err != nil {
+				return fmt.Errorf("unable to decode connectionStateConnectingToProxy#fa721359: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ConnectionStateConnecting represents TL type `connectionStateConnecting#b29bfa62`.
@@ -350,8 +388,8 @@ func (c *ConnectionStateConnecting) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ConnectionStateConnecting) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ConnectionStateConnecting) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode connectionStateConnecting#b29bfa62 as nil")
 	}
@@ -359,6 +397,25 @@ func (c *ConnectionStateConnecting) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("connectionStateConnecting")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ConnectionStateConnecting) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode connectionStateConnecting#b29bfa62 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("connectionStateConnecting"); err != nil {
+				return fmt.Errorf("unable to decode connectionStateConnecting#b29bfa62: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ConnectionStateUpdating represents TL type `connectionStateUpdating#f4c9c2b7`.
@@ -460,8 +517,8 @@ func (c *ConnectionStateUpdating) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ConnectionStateUpdating) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ConnectionStateUpdating) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode connectionStateUpdating#f4c9c2b7 as nil")
 	}
@@ -469,6 +526,25 @@ func (c *ConnectionStateUpdating) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("connectionStateUpdating")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ConnectionStateUpdating) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode connectionStateUpdating#f4c9c2b7 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("connectionStateUpdating"); err != nil {
+				return fmt.Errorf("unable to decode connectionStateUpdating#f4c9c2b7: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ConnectionStateReady represents TL type `connectionStateReady#2e5b4ec`.
@@ -570,8 +646,8 @@ func (c *ConnectionStateReady) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ConnectionStateReady) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ConnectionStateReady) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode connectionStateReady#2e5b4ec as nil")
 	}
@@ -579,6 +655,25 @@ func (c *ConnectionStateReady) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("connectionStateReady")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ConnectionStateReady) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode connectionStateReady#2e5b4ec to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("connectionStateReady"); err != nil {
+				return fmt.Errorf("unable to decode connectionStateReady#2e5b4ec: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ConnectionStateClass represents ConnectionState generic type.
@@ -613,7 +708,9 @@ type ConnectionStateClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeConnectionState implements binary de-serialization for ConnectionStateClass.
@@ -663,6 +760,53 @@ func DecodeConnectionState(buf *bin.Buffer) (ConnectionStateClass, error) {
 	}
 }
 
+// DecodeTDLibJSONConnectionState implements binary de-serialization for ConnectionStateClass.
+func DecodeTDLibJSONConnectionState(buf jsontd.Decoder) (ConnectionStateClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "connectionStateWaitingForNetwork":
+		// Decoding connectionStateWaitingForNetwork#650dd758.
+		v := ConnectionStateWaitingForNetwork{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ConnectionStateClass: %w", err)
+		}
+		return &v, nil
+	case "connectionStateConnectingToProxy":
+		// Decoding connectionStateConnectingToProxy#fa721359.
+		v := ConnectionStateConnectingToProxy{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ConnectionStateClass: %w", err)
+		}
+		return &v, nil
+	case "connectionStateConnecting":
+		// Decoding connectionStateConnecting#b29bfa62.
+		v := ConnectionStateConnecting{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ConnectionStateClass: %w", err)
+		}
+		return &v, nil
+	case "connectionStateUpdating":
+		// Decoding connectionStateUpdating#f4c9c2b7.
+		v := ConnectionStateUpdating{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ConnectionStateClass: %w", err)
+		}
+		return &v, nil
+	case "connectionStateReady":
+		// Decoding connectionStateReady#2e5b4ec.
+		v := ConnectionStateReady{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ConnectionStateClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode ConnectionStateClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // ConnectionState boxes the ConnectionStateClass providing a helper.
 type ConnectionStateBox struct {
 	ConnectionState ConnectionStateClass
@@ -687,4 +831,25 @@ func (b *ConnectionStateBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ConnectionStateClass as nil")
 	}
 	return b.ConnectionState.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for ConnectionStateBox.
+func (b *ConnectionStateBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ConnectionStateBox to nil")
+	}
+	v, err := DecodeTDLibJSONConnectionState(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ConnectionState = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for ConnectionStateBox.
+func (b *ConnectionStateBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.ConnectionState == nil {
+		return fmt.Errorf("unable to encode ConnectionStateClass as nil")
+	}
+	return b.ConnectionState.EncodeTDLibJSON(buf)
 }

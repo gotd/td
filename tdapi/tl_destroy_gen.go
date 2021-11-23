@@ -125,8 +125,8 @@ func (d *DestroyRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DestroyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DestroyRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode destroy#28d9534a as nil")
 	}
@@ -134,6 +134,25 @@ func (d *DestroyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("destroy")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DestroyRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode destroy#28d9534a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("destroy"); err != nil {
+				return fmt.Errorf("unable to decode destroy#28d9534a: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // Destroy invokes method destroy#28d9534a returning error if any.

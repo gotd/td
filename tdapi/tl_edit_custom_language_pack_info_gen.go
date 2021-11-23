@@ -143,8 +143,8 @@ func (e *EditCustomLanguagePackInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *EditCustomLanguagePackInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *EditCustomLanguagePackInfoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editCustomLanguagePackInfo#4eb91099 as nil")
 	}
@@ -156,6 +156,29 @@ func (e *EditCustomLanguagePackInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) e
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *EditCustomLanguagePackInfoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode editCustomLanguagePackInfo#4eb91099 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("editCustomLanguagePackInfo"); err != nil {
+				return fmt.Errorf("unable to decode editCustomLanguagePackInfo#4eb91099: %w", err)
+			}
+		case "info":
+			if err := e.Info.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode editCustomLanguagePackInfo#4eb91099: field info: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetInfo returns value of Info field.

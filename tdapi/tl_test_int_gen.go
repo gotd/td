@@ -143,8 +143,8 @@ func (t *TestInt) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TestInt) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TestInt) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode testInt#ddbd2c09 as nil")
 	}
@@ -154,6 +154,31 @@ func (t *TestInt) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(t.Value)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TestInt) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testInt#ddbd2c09 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("testInt"); err != nil {
+				return fmt.Errorf("unable to decode testInt#ddbd2c09: %w", err)
+			}
+		case "value":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode testInt#ddbd2c09: field value: %w", err)
+			}
+			t.Value = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetValue returns value of Value field.

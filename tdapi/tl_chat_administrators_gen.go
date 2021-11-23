@@ -158,8 +158,8 @@ func (c *ChatAdministrators) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatAdministrators) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatAdministrators) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatAdministrators#5141ca21 as nil")
 	}
@@ -175,6 +175,36 @@ func (c *ChatAdministrators) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatAdministrators) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatAdministrators#5141ca21 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatAdministrators"); err != nil {
+				return fmt.Errorf("unable to decode chatAdministrators#5141ca21: %w", err)
+			}
+		case "administrators":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value ChatAdministrator
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode chatAdministrators#5141ca21: field administrators: %w", err)
+				}
+				c.Administrators = append(c.Administrators, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatAdministrators#5141ca21: field administrators: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetAdministrators returns value of Administrators field.

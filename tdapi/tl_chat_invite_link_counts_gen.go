@@ -158,8 +158,8 @@ func (c *ChatInviteLinkCounts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatInviteLinkCounts) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatInviteLinkCounts) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatInviteLinkCounts#c953d7f8 as nil")
 	}
@@ -175,6 +175,36 @@ func (c *ChatInviteLinkCounts) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatInviteLinkCounts) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatInviteLinkCounts#c953d7f8 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatInviteLinkCounts"); err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkCounts#c953d7f8: %w", err)
+			}
+		case "invite_link_counts":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value ChatInviteLinkCount
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode chatInviteLinkCounts#c953d7f8: field invite_link_counts: %w", err)
+				}
+				c.InviteLinkCounts = append(c.InviteLinkCounts, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkCounts#c953d7f8: field invite_link_counts: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetInviteLinkCounts returns value of InviteLinkCounts field.

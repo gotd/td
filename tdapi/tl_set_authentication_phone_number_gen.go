@@ -160,8 +160,8 @@ func (s *SetAuthenticationPhoneNumberRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetAuthenticationPhoneNumberRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetAuthenticationPhoneNumberRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setAuthenticationPhoneNumber#33c0d823 as nil")
 	}
@@ -175,6 +175,35 @@ func (s *SetAuthenticationPhoneNumberRequest) EncodeTDLibJSON(b *jsontd.Encoder)
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetAuthenticationPhoneNumberRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setAuthenticationPhoneNumber#33c0d823 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setAuthenticationPhoneNumber"); err != nil {
+				return fmt.Errorf("unable to decode setAuthenticationPhoneNumber#33c0d823: %w", err)
+			}
+		case "phone_number":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setAuthenticationPhoneNumber#33c0d823: field phone_number: %w", err)
+			}
+			s.PhoneNumber = value
+		case "settings":
+			if err := s.Settings.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode setAuthenticationPhoneNumber#33c0d823: field settings: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPhoneNumber returns value of PhoneNumber field.

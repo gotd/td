@@ -143,8 +143,8 @@ func (g *GetInternalLinkTypeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetInternalLinkTypeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetInternalLinkTypeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getInternalLinkType#8bdd5709 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetInternalLinkTypeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(g.Link)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetInternalLinkTypeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getInternalLinkType#8bdd5709 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getInternalLinkType"); err != nil {
+				return fmt.Errorf("unable to decode getInternalLinkType#8bdd5709: %w", err)
+			}
+		case "link":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getInternalLinkType#8bdd5709: field link: %w", err)
+			}
+			g.Link = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLink returns value of Link field.

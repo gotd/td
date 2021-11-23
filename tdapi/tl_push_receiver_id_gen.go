@@ -34,7 +34,7 @@ var (
 // PushReceiverID represents TL type `pushReceiverId#161ddf2c`.
 type PushReceiverID struct {
 	// The globally unique identifier of push notification subscription
-	ID Int64
+	ID int64
 }
 
 // PushReceiverIDTypeID is TL type id of PushReceiverID.
@@ -52,7 +52,7 @@ func (p *PushReceiverID) Zero() bool {
 	if p == nil {
 		return true
 	}
-	if !(p.ID.Zero()) {
+	if !(p.ID == 0) {
 		return false
 	}
 
@@ -113,9 +113,7 @@ func (p *PushReceiverID) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushReceiverId#161ddf2c as nil")
 	}
-	if err := p.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pushReceiverId#161ddf2c: field id: %w", err)
-	}
+	b.PutLong(p.ID)
 	return nil
 }
 
@@ -136,29 +134,54 @@ func (p *PushReceiverID) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode pushReceiverId#161ddf2c to nil")
 	}
 	{
-		if err := p.ID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode pushReceiverId#161ddf2c: field id: %w", err)
 		}
+		p.ID = value
 	}
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PushReceiverID) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PushReceiverID) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushReceiverId#161ddf2c as nil")
 	}
 	b.ObjStart()
 	b.PutID("pushReceiverId")
 	b.FieldStart("id")
-	if err := p.ID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode pushReceiverId#161ddf2c: field id: %w", err)
-	}
+	b.PutLong(p.ID)
 	b.ObjEnd()
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PushReceiverID) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushReceiverId#161ddf2c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("pushReceiverId"); err != nil {
+				return fmt.Errorf("unable to decode pushReceiverId#161ddf2c: %w", err)
+			}
+		case "id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode pushReceiverId#161ddf2c: field id: %w", err)
+			}
+			p.ID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetID returns value of ID field.
-func (p *PushReceiverID) GetID() (value Int64) {
+func (p *PushReceiverID) GetID() (value int64) {
 	return p.ID
 }

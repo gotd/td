@@ -125,8 +125,8 @@ func (r *ResetBackgroundsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ResetBackgroundsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ResetBackgroundsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resetBackgrounds#c35cb78 as nil")
 	}
@@ -134,6 +134,25 @@ func (r *ResetBackgroundsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("resetBackgrounds")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ResetBackgroundsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode resetBackgrounds#c35cb78 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("resetBackgrounds"); err != nil {
+				return fmt.Errorf("unable to decode resetBackgrounds#c35cb78: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ResetBackgrounds invokes method resetBackgrounds#c35cb78 returning error if any.

@@ -143,8 +143,8 @@ func (c *Count) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *Count) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *Count) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode count#4d38f104 as nil")
 	}
@@ -154,6 +154,31 @@ func (c *Count) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(c.Count)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *Count) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode count#4d38f104 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("count"); err != nil {
+				return fmt.Errorf("unable to decode count#4d38f104: %w", err)
+			}
+		case "count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode count#4d38f104: field count: %w", err)
+			}
+			c.Count = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCount returns value of Count field.

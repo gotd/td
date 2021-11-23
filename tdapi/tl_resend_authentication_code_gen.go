@@ -125,8 +125,8 @@ func (r *ResendAuthenticationCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ResendAuthenticationCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ResendAuthenticationCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resendAuthenticationCode#cf759719 as nil")
 	}
@@ -134,6 +134,25 @@ func (r *ResendAuthenticationCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.PutID("resendAuthenticationCode")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ResendAuthenticationCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode resendAuthenticationCode#cf759719 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("resendAuthenticationCode"); err != nil {
+				return fmt.Errorf("unable to decode resendAuthenticationCode#cf759719: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ResendAuthenticationCode invokes method resendAuthenticationCode#cf759719 returning error if any.

@@ -144,8 +144,8 @@ func (g *GetRecentStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetRecentStickersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetRecentStickersRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getRecentStickers#dd73aa9f as nil")
 	}
@@ -155,6 +155,31 @@ func (g *GetRecentStickersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(g.IsAttached)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetRecentStickersRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getRecentStickers#dd73aa9f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getRecentStickers"); err != nil {
+				return fmt.Errorf("unable to decode getRecentStickers#dd73aa9f: %w", err)
+			}
+		case "is_attached":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getRecentStickers#dd73aa9f: field is_attached: %w", err)
+			}
+			g.IsAttached = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetIsAttached returns value of IsAttached field.

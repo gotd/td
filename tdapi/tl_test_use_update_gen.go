@@ -125,8 +125,8 @@ func (t *TestUseUpdateRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TestUseUpdateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TestUseUpdateRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode testUseUpdate#2abdff1e as nil")
 	}
@@ -134,6 +134,25 @@ func (t *TestUseUpdateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("testUseUpdate")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TestUseUpdateRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testUseUpdate#2abdff1e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("testUseUpdate"); err != nil {
+				return fmt.Errorf("unable to decode testUseUpdate#2abdff1e: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // TestUseUpdate invokes method testUseUpdate#2abdff1e returning error if any.

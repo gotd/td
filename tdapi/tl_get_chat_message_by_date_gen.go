@@ -160,8 +160,8 @@ func (g *GetChatMessageByDateRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetChatMessageByDateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetChatMessageByDateRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatMessageByDate#3f557136 as nil")
 	}
@@ -173,6 +173,37 @@ func (g *GetChatMessageByDateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(g.Date)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetChatMessageByDateRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getChatMessageByDate#3f557136 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getChatMessageByDate"); err != nil {
+				return fmt.Errorf("unable to decode getChatMessageByDate#3f557136: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatMessageByDate#3f557136: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatMessageByDate#3f557136: field date: %w", err)
+			}
+			g.Date = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

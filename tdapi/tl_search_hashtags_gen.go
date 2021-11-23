@@ -160,8 +160,8 @@ func (s *SearchHashtagsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SearchHashtagsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SearchHashtagsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchHashtags#3e34a571 as nil")
 	}
@@ -173,6 +173,37 @@ func (s *SearchHashtagsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(s.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SearchHashtagsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchHashtags#3e34a571 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("searchHashtags"); err != nil {
+				return fmt.Errorf("unable to decode searchHashtags#3e34a571: %w", err)
+			}
+		case "prefix":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchHashtags#3e34a571: field prefix: %w", err)
+			}
+			s.Prefix = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchHashtags#3e34a571: field limit: %w", err)
+			}
+			s.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPrefix returns value of Prefix field.

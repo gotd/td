@@ -143,8 +143,8 @@ func (r *RecoveryEmailAddress) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RecoveryEmailAddress) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RecoveryEmailAddress) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode recoveryEmailAddress#4cebddeb as nil")
 	}
@@ -154,6 +154,31 @@ func (r *RecoveryEmailAddress) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(r.RecoveryEmailAddress)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RecoveryEmailAddress) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode recoveryEmailAddress#4cebddeb to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("recoveryEmailAddress"); err != nil {
+				return fmt.Errorf("unable to decode recoveryEmailAddress#4cebddeb: %w", err)
+			}
+		case "recovery_email_address":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode recoveryEmailAddress#4cebddeb: field recovery_email_address: %w", err)
+			}
+			r.RecoveryEmailAddress = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetRecoveryEmailAddress returns value of RecoveryEmailAddress field.

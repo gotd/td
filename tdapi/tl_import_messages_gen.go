@@ -204,8 +204,8 @@ func (i *ImportMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *ImportMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *ImportMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode importMessages#7e98592b as nil")
 	}
@@ -233,6 +233,48 @@ func (i *ImportMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *ImportMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode importMessages#7e98592b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("importMessages"); err != nil {
+				return fmt.Errorf("unable to decode importMessages#7e98592b: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode importMessages#7e98592b: field chat_id: %w", err)
+			}
+			i.ChatID = value
+		case "message_file":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode importMessages#7e98592b: field message_file: %w", err)
+			}
+			i.MessageFile = value
+		case "attached_files":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONInputFile(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode importMessages#7e98592b: field attached_files: %w", err)
+				}
+				i.AttachedFiles = append(i.AttachedFiles, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode importMessages#7e98592b: field attached_files: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

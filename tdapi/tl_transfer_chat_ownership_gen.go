@@ -178,8 +178,8 @@ func (t *TransferChatOwnershipRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TransferChatOwnershipRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TransferChatOwnershipRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode transferChatOwnership#8d421ca9 as nil")
 	}
@@ -193,6 +193,43 @@ func (t *TransferChatOwnershipRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutString(t.Password)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TransferChatOwnershipRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode transferChatOwnership#8d421ca9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("transferChatOwnership"); err != nil {
+				return fmt.Errorf("unable to decode transferChatOwnership#8d421ca9: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode transferChatOwnership#8d421ca9: field chat_id: %w", err)
+			}
+			t.ChatID = value
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode transferChatOwnership#8d421ca9: field user_id: %w", err)
+			}
+			t.UserID = value
+		case "password":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode transferChatOwnership#8d421ca9: field password: %w", err)
+			}
+			t.Password = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

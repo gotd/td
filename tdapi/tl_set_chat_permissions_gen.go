@@ -160,8 +160,8 @@ func (s *SetChatPermissionsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetChatPermissionsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetChatPermissionsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatPermissions#7f7706fe as nil")
 	}
@@ -175,6 +175,35 @@ func (s *SetChatPermissionsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetChatPermissionsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setChatPermissions#7f7706fe to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setChatPermissions"); err != nil {
+				return fmt.Errorf("unable to decode setChatPermissions#7f7706fe: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setChatPermissions#7f7706fe: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "permissions":
+			if err := s.Permissions.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode setChatPermissions#7f7706fe: field permissions: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

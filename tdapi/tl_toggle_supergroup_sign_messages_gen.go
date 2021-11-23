@@ -160,8 +160,8 @@ func (t *ToggleSupergroupSignMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *ToggleSupergroupSignMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *ToggleSupergroupSignMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleSupergroupSignMessages#deba989b as nil")
 	}
@@ -173,6 +173,37 @@ func (t *ToggleSupergroupSignMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder)
 	b.PutBool(t.SignMessages)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *ToggleSupergroupSignMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode toggleSupergroupSignMessages#deba989b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("toggleSupergroupSignMessages"); err != nil {
+				return fmt.Errorf("unable to decode toggleSupergroupSignMessages#deba989b: %w", err)
+			}
+		case "supergroup_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleSupergroupSignMessages#deba989b: field supergroup_id: %w", err)
+			}
+			t.SupergroupID = value
+		case "sign_messages":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleSupergroupSignMessages#deba989b: field sign_messages: %w", err)
+			}
+			t.SignMessages = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSupergroupID returns value of SupergroupID field.

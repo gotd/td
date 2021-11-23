@@ -147,8 +147,8 @@ func (s *SetLogVerbosityLevelRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetLogVerbosityLevelRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetLogVerbosityLevelRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setLogVerbosityLevel#edea07d2 as nil")
 	}
@@ -158,6 +158,31 @@ func (s *SetLogVerbosityLevelRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(s.NewVerbosityLevel)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetLogVerbosityLevelRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setLogVerbosityLevel#edea07d2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setLogVerbosityLevel"); err != nil {
+				return fmt.Errorf("unable to decode setLogVerbosityLevel#edea07d2: %w", err)
+			}
+		case "new_verbosity_level":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setLogVerbosityLevel#edea07d2: field new_verbosity_level: %w", err)
+			}
+			s.NewVerbosityLevel = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetNewVerbosityLevel returns value of NewVerbosityLevel field.

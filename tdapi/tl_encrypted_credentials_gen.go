@@ -177,8 +177,8 @@ func (e *EncryptedCredentials) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *EncryptedCredentials) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *EncryptedCredentials) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode encryptedCredentials#4f5713ce as nil")
 	}
@@ -192,6 +192,43 @@ func (e *EncryptedCredentials) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBytes(e.Secret)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *EncryptedCredentials) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode encryptedCredentials#4f5713ce to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("encryptedCredentials"); err != nil {
+				return fmt.Errorf("unable to decode encryptedCredentials#4f5713ce: %w", err)
+			}
+		case "data":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode encryptedCredentials#4f5713ce: field data: %w", err)
+			}
+			e.Data = value
+		case "hash":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode encryptedCredentials#4f5713ce: field hash: %w", err)
+			}
+			e.Hash = value
+		case "secret":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode encryptedCredentials#4f5713ce: field secret: %w", err)
+			}
+			e.Secret = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetData returns value of Data field.

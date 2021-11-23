@@ -130,8 +130,8 @@ func (n *NetworkTypeNone) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes n in TDLib API JSON format.
-func (n *NetworkTypeNone) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (n *NetworkTypeNone) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode networkTypeNone#8a7a5f11 as nil")
 	}
@@ -139,6 +139,25 @@ func (n *NetworkTypeNone) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("networkTypeNone")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (n *NetworkTypeNone) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if n == nil {
+		return fmt.Errorf("can't decode networkTypeNone#8a7a5f11 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("networkTypeNone"); err != nil {
+				return fmt.Errorf("unable to decode networkTypeNone#8a7a5f11: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // NetworkTypeMobile represents TL type `networkTypeMobile#30d46e4f`.
@@ -240,8 +259,8 @@ func (n *NetworkTypeMobile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes n in TDLib API JSON format.
-func (n *NetworkTypeMobile) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (n *NetworkTypeMobile) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode networkTypeMobile#30d46e4f as nil")
 	}
@@ -249,6 +268,25 @@ func (n *NetworkTypeMobile) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("networkTypeMobile")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (n *NetworkTypeMobile) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if n == nil {
+		return fmt.Errorf("can't decode networkTypeMobile#30d46e4f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("networkTypeMobile"); err != nil {
+				return fmt.Errorf("unable to decode networkTypeMobile#30d46e4f: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // NetworkTypeMobileRoaming represents TL type `networkTypeMobileRoaming#aa7496f0`.
@@ -350,8 +388,8 @@ func (n *NetworkTypeMobileRoaming) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes n in TDLib API JSON format.
-func (n *NetworkTypeMobileRoaming) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (n *NetworkTypeMobileRoaming) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode networkTypeMobileRoaming#aa7496f0 as nil")
 	}
@@ -359,6 +397,25 @@ func (n *NetworkTypeMobileRoaming) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("networkTypeMobileRoaming")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (n *NetworkTypeMobileRoaming) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if n == nil {
+		return fmt.Errorf("can't decode networkTypeMobileRoaming#aa7496f0 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("networkTypeMobileRoaming"); err != nil {
+				return fmt.Errorf("unable to decode networkTypeMobileRoaming#aa7496f0: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // NetworkTypeWiFi represents TL type `networkTypeWiFi#da37e13a`.
@@ -460,8 +517,8 @@ func (n *NetworkTypeWiFi) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes n in TDLib API JSON format.
-func (n *NetworkTypeWiFi) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (n *NetworkTypeWiFi) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode networkTypeWiFi#da37e13a as nil")
 	}
@@ -469,6 +526,25 @@ func (n *NetworkTypeWiFi) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("networkTypeWiFi")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (n *NetworkTypeWiFi) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if n == nil {
+		return fmt.Errorf("can't decode networkTypeWiFi#da37e13a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("networkTypeWiFi"); err != nil {
+				return fmt.Errorf("unable to decode networkTypeWiFi#da37e13a: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // NetworkTypeOther represents TL type `networkTypeOther#73c2879b`.
@@ -570,8 +646,8 @@ func (n *NetworkTypeOther) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes n in TDLib API JSON format.
-func (n *NetworkTypeOther) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (n *NetworkTypeOther) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode networkTypeOther#73c2879b as nil")
 	}
@@ -579,6 +655,25 @@ func (n *NetworkTypeOther) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("networkTypeOther")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (n *NetworkTypeOther) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if n == nil {
+		return fmt.Errorf("can't decode networkTypeOther#73c2879b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("networkTypeOther"); err != nil {
+				return fmt.Errorf("unable to decode networkTypeOther#73c2879b: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // NetworkTypeClass represents NetworkType generic type.
@@ -613,7 +708,9 @@ type NetworkTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeNetworkType implements binary de-serialization for NetworkTypeClass.
@@ -663,6 +760,53 @@ func DecodeNetworkType(buf *bin.Buffer) (NetworkTypeClass, error) {
 	}
 }
 
+// DecodeTDLibJSONNetworkType implements binary de-serialization for NetworkTypeClass.
+func DecodeTDLibJSONNetworkType(buf jsontd.Decoder) (NetworkTypeClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "networkTypeNone":
+		// Decoding networkTypeNone#8a7a5f11.
+		v := NetworkTypeNone{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode NetworkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "networkTypeMobile":
+		// Decoding networkTypeMobile#30d46e4f.
+		v := NetworkTypeMobile{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode NetworkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "networkTypeMobileRoaming":
+		// Decoding networkTypeMobileRoaming#aa7496f0.
+		v := NetworkTypeMobileRoaming{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode NetworkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "networkTypeWiFi":
+		// Decoding networkTypeWiFi#da37e13a.
+		v := NetworkTypeWiFi{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode NetworkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "networkTypeOther":
+		// Decoding networkTypeOther#73c2879b.
+		v := NetworkTypeOther{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode NetworkTypeClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode NetworkTypeClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // NetworkType boxes the NetworkTypeClass providing a helper.
 type NetworkTypeBox struct {
 	NetworkType NetworkTypeClass
@@ -687,4 +831,25 @@ func (b *NetworkTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode NetworkTypeClass as nil")
 	}
 	return b.NetworkType.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for NetworkTypeBox.
+func (b *NetworkTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode NetworkTypeBox to nil")
+	}
+	v, err := DecodeTDLibJSONNetworkType(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.NetworkType = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for NetworkTypeBox.
+func (b *NetworkTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.NetworkType == nil {
+		return fmt.Errorf("unable to encode NetworkTypeClass as nil")
+	}
+	return b.NetworkType.EncodeTDLibJSON(buf)
 }

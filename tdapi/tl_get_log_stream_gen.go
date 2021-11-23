@@ -125,8 +125,8 @@ func (g *GetLogStreamRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetLogStreamRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetLogStreamRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getLogStream#45984b5b as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetLogStreamRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("getLogStream")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetLogStreamRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getLogStream#45984b5b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getLogStream"); err != nil {
+				return fmt.Errorf("unable to decode getLogStream#45984b5b: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLogStream invokes method getLogStream#45984b5b returning error if any.

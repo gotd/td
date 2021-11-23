@@ -178,8 +178,8 @@ func (s *SetPinnedChatsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetPinnedChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetPinnedChatsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setPinnedChats#c6c6edf1 as nil")
 	}
@@ -200,6 +200,42 @@ func (s *SetPinnedChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetPinnedChatsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setPinnedChats#c6c6edf1 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setPinnedChats"); err != nil {
+				return fmt.Errorf("unable to decode setPinnedChats#c6c6edf1: %w", err)
+			}
+		case "chat_list":
+			value, err := DecodeTDLibJSONChatList(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setPinnedChats#c6c6edf1: field chat_list: %w", err)
+			}
+			s.ChatList = value
+		case "chat_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode setPinnedChats#c6c6edf1: field chat_ids: %w", err)
+				}
+				s.ChatIDs = append(s.ChatIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode setPinnedChats#c6c6edf1: field chat_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatList returns value of ChatList field.

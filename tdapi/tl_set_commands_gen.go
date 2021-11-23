@@ -198,8 +198,8 @@ func (s *SetCommandsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetCommandsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetCommandsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setCommands#b0e0217a as nil")
 	}
@@ -224,6 +224,48 @@ func (s *SetCommandsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetCommandsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setCommands#b0e0217a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setCommands"); err != nil {
+				return fmt.Errorf("unable to decode setCommands#b0e0217a: %w", err)
+			}
+		case "scope":
+			value, err := DecodeTDLibJSONBotCommandScope(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setCommands#b0e0217a: field scope: %w", err)
+			}
+			s.Scope = value
+		case "language_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setCommands#b0e0217a: field language_code: %w", err)
+			}
+			s.LanguageCode = value
+		case "commands":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value BotCommand
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode setCommands#b0e0217a: field commands: %w", err)
+				}
+				s.Commands = append(s.Commands, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode setCommands#b0e0217a: field commands: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetScope returns value of Scope field.

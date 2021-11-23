@@ -178,8 +178,8 @@ func (c *CreateChatInviteLinkRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CreateChatInviteLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CreateChatInviteLinkRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createChatInviteLink#2f832dfe as nil")
 	}
@@ -193,6 +193,43 @@ func (c *CreateChatInviteLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(c.MemberLimit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CreateChatInviteLinkRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode createChatInviteLink#2f832dfe to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("createChatInviteLink"); err != nil {
+				return fmt.Errorf("unable to decode createChatInviteLink#2f832dfe: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode createChatInviteLink#2f832dfe: field chat_id: %w", err)
+			}
+			c.ChatID = value
+		case "expire_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode createChatInviteLink#2f832dfe: field expire_date: %w", err)
+			}
+			c.ExpireDate = value
+		case "member_limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode createChatInviteLink#2f832dfe: field member_limit: %w", err)
+			}
+			c.MemberLimit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

@@ -34,7 +34,7 @@ var (
 // Game represents TL type `game#a2aedfc8`.
 type Game struct {
 	// Game ID
-	ID Int64
+	ID int64
 	// Game short name. To share a game use the URL https://t
 	// me/{bot_username}?game={game_short_name}
 	ShortName string
@@ -65,7 +65,7 @@ func (g *Game) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.ID.Zero()) {
+	if !(g.ID == 0) {
 		return false
 	}
 	if !(g.ShortName == "") {
@@ -168,9 +168,7 @@ func (g *Game) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode game#a2aedfc8 as nil")
 	}
-	if err := g.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode game#a2aedfc8: field id: %w", err)
-	}
+	b.PutLong(g.ID)
 	b.PutString(g.ShortName)
 	b.PutString(g.Title)
 	if err := g.Text.Encode(b); err != nil {
@@ -203,9 +201,11 @@ func (g *Game) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode game#a2aedfc8 to nil")
 	}
 	{
-		if err := g.ID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode game#a2aedfc8: field id: %w", err)
 		}
+		g.ID = value
 	}
 	{
 		value, err := b.String()
@@ -246,17 +246,15 @@ func (g *Game) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *Game) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *Game) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode game#a2aedfc8 as nil")
 	}
 	b.ObjStart()
 	b.PutID("game")
 	b.FieldStart("id")
-	if err := g.ID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode game#a2aedfc8: field id: %w", err)
-	}
+	b.PutLong(g.ID)
 	b.FieldStart("short_name")
 	b.PutString(g.ShortName)
 	b.FieldStart("title")
@@ -279,8 +277,63 @@ func (g *Game) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *Game) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode game#a2aedfc8 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("game"); err != nil {
+				return fmt.Errorf("unable to decode game#a2aedfc8: %w", err)
+			}
+		case "id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode game#a2aedfc8: field id: %w", err)
+			}
+			g.ID = value
+		case "short_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode game#a2aedfc8: field short_name: %w", err)
+			}
+			g.ShortName = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode game#a2aedfc8: field title: %w", err)
+			}
+			g.Title = value
+		case "text":
+			if err := g.Text.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode game#a2aedfc8: field text: %w", err)
+			}
+		case "description":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode game#a2aedfc8: field description: %w", err)
+			}
+			g.Description = value
+		case "photo":
+			if err := g.Photo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode game#a2aedfc8: field photo: %w", err)
+			}
+		case "animation":
+			if err := g.Animation.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode game#a2aedfc8: field animation: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetID returns value of ID field.
-func (g *Game) GetID() (value Int64) {
+func (g *Game) GetID() (value int64) {
 	return g.ID
 }
 

@@ -161,8 +161,8 @@ func (u *Updates) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *Updates) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *Updates) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updates#b9829222 as nil")
 	}
@@ -181,6 +181,36 @@ func (u *Updates) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *Updates) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updates#b9829222 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("updates"); err != nil {
+				return fmt.Errorf("unable to decode updates#b9829222: %w", err)
+			}
+		case "updates":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONUpdate(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode updates#b9829222: field updates: %w", err)
+				}
+				u.Updates = append(u.Updates, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updates#b9829222: field updates: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUpdates returns value of Updates field.

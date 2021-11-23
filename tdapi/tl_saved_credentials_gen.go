@@ -160,8 +160,8 @@ func (s *SavedCredentials) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SavedCredentials) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SavedCredentials) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode savedCredentials#e9ee14dc as nil")
 	}
@@ -173,6 +173,37 @@ func (s *SavedCredentials) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(s.Title)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SavedCredentials) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode savedCredentials#e9ee14dc to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("savedCredentials"); err != nil {
+				return fmt.Errorf("unable to decode savedCredentials#e9ee14dc: %w", err)
+			}
+		case "id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode savedCredentials#e9ee14dc: field id: %w", err)
+			}
+			s.ID = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode savedCredentials#e9ee14dc: field title: %w", err)
+			}
+			s.Title = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

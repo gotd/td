@@ -34,7 +34,7 @@ var (
 // DisconnectWebsiteRequest represents TL type `disconnectWebsite#d194f3dd`.
 type DisconnectWebsiteRequest struct {
 	// Website identifier
-	WebsiteID Int64
+	WebsiteID int64
 }
 
 // DisconnectWebsiteRequestTypeID is TL type id of DisconnectWebsiteRequest.
@@ -52,7 +52,7 @@ func (d *DisconnectWebsiteRequest) Zero() bool {
 	if d == nil {
 		return true
 	}
-	if !(d.WebsiteID.Zero()) {
+	if !(d.WebsiteID == 0) {
 		return false
 	}
 
@@ -113,9 +113,7 @@ func (d *DisconnectWebsiteRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode disconnectWebsite#d194f3dd as nil")
 	}
-	if err := d.WebsiteID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode disconnectWebsite#d194f3dd: field website_id: %w", err)
-	}
+	b.PutLong(d.WebsiteID)
 	return nil
 }
 
@@ -136,35 +134,60 @@ func (d *DisconnectWebsiteRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode disconnectWebsite#d194f3dd to nil")
 	}
 	{
-		if err := d.WebsiteID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode disconnectWebsite#d194f3dd: field website_id: %w", err)
 		}
+		d.WebsiteID = value
 	}
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DisconnectWebsiteRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DisconnectWebsiteRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode disconnectWebsite#d194f3dd as nil")
 	}
 	b.ObjStart()
 	b.PutID("disconnectWebsite")
 	b.FieldStart("website_id")
-	if err := d.WebsiteID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode disconnectWebsite#d194f3dd: field website_id: %w", err)
-	}
+	b.PutLong(d.WebsiteID)
 	b.ObjEnd()
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DisconnectWebsiteRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode disconnectWebsite#d194f3dd to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("disconnectWebsite"); err != nil {
+				return fmt.Errorf("unable to decode disconnectWebsite#d194f3dd: %w", err)
+			}
+		case "website_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode disconnectWebsite#d194f3dd: field website_id: %w", err)
+			}
+			d.WebsiteID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetWebsiteID returns value of WebsiteID field.
-func (d *DisconnectWebsiteRequest) GetWebsiteID() (value Int64) {
+func (d *DisconnectWebsiteRequest) GetWebsiteID() (value int64) {
 	return d.WebsiteID
 }
 
 // DisconnectWebsite invokes method disconnectWebsite#d194f3dd returning error if any.
-func (c *Client) DisconnectWebsite(ctx context.Context, websiteid Int64) error {
+func (c *Client) DisconnectWebsite(ctx context.Context, websiteid int64) error {
 	var ok Ok
 
 	request := &DisconnectWebsiteRequest{

@@ -177,8 +177,8 @@ func (a *AnimatedChatPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AnimatedChatPhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AnimatedChatPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode animatedChatPhoto#b719c2e as nil")
 	}
@@ -194,6 +194,41 @@ func (a *AnimatedChatPhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutDouble(a.MainFrameTimestamp)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AnimatedChatPhoto) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode animatedChatPhoto#b719c2e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("animatedChatPhoto"); err != nil {
+				return fmt.Errorf("unable to decode animatedChatPhoto#b719c2e: %w", err)
+			}
+		case "length":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode animatedChatPhoto#b719c2e: field length: %w", err)
+			}
+			a.Length = value
+		case "file":
+			if err := a.File.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode animatedChatPhoto#b719c2e: field file: %w", err)
+			}
+		case "main_frame_timestamp":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode animatedChatPhoto#b719c2e: field main_frame_timestamp: %w", err)
+			}
+			a.MainFrameTimestamp = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLength returns value of Length field.

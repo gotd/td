@@ -161,8 +161,8 @@ func (u *UserPrivacySettingRules) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UserPrivacySettingRules) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UserPrivacySettingRules) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode userPrivacySettingRules#425e6b37 as nil")
 	}
@@ -181,6 +181,36 @@ func (u *UserPrivacySettingRules) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UserPrivacySettingRules) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingRules#425e6b37 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("userPrivacySettingRules"); err != nil {
+				return fmt.Errorf("unable to decode userPrivacySettingRules#425e6b37: %w", err)
+			}
+		case "rules":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONUserPrivacySettingRule(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode userPrivacySettingRules#425e6b37: field rules: %w", err)
+				}
+				u.Rules = append(u.Rules, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode userPrivacySettingRules#425e6b37: field rules: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetRules returns value of Rules field.

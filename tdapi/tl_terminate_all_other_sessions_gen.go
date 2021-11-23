@@ -125,8 +125,8 @@ func (t *TerminateAllOtherSessionsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TerminateAllOtherSessionsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TerminateAllOtherSessionsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode terminateAllOtherSessions#6fba6113 as nil")
 	}
@@ -134,6 +134,25 @@ func (t *TerminateAllOtherSessionsRequest) EncodeTDLibJSON(b *jsontd.Encoder) er
 	b.PutID("terminateAllOtherSessions")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TerminateAllOtherSessionsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode terminateAllOtherSessions#6fba6113 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("terminateAllOtherSessions"); err != nil {
+				return fmt.Errorf("unable to decode terminateAllOtherSessions#6fba6113: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // TerminateAllOtherSessions invokes method terminateAllOtherSessions#6fba6113 returning error if any.

@@ -175,8 +175,8 @@ func (s *SetPassportElementErrorsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetPassportElementErrorsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetPassportElementErrorsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setPassportElementErrors#6427e112 as nil")
 	}
@@ -194,6 +194,42 @@ func (s *SetPassportElementErrorsRequest) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetPassportElementErrorsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setPassportElementErrors#6427e112 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setPassportElementErrors"); err != nil {
+				return fmt.Errorf("unable to decode setPassportElementErrors#6427e112: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setPassportElementErrors#6427e112: field user_id: %w", err)
+			}
+			s.UserID = value
+		case "errors":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value InputPassportElementError
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode setPassportElementErrors#6427e112: field errors: %w", err)
+				}
+				s.Errors = append(s.Errors, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode setPassportElementErrors#6427e112: field errors: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserID returns value of UserID field.

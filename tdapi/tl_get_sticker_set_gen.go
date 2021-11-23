@@ -34,7 +34,7 @@ var (
 // GetStickerSetRequest represents TL type `getStickerSet#3eb91bc3`.
 type GetStickerSetRequest struct {
 	// Identifier of the sticker set
-	SetID Int64
+	SetID int64
 }
 
 // GetStickerSetRequestTypeID is TL type id of GetStickerSetRequest.
@@ -52,7 +52,7 @@ func (g *GetStickerSetRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.SetID.Zero()) {
+	if !(g.SetID == 0) {
 		return false
 	}
 
@@ -113,9 +113,7 @@ func (g *GetStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getStickerSet#3eb91bc3 as nil")
 	}
-	if err := g.SetID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getStickerSet#3eb91bc3: field set_id: %w", err)
-	}
+	b.PutLong(g.SetID)
 	return nil
 }
 
@@ -136,35 +134,60 @@ func (g *GetStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getStickerSet#3eb91bc3 to nil")
 	}
 	{
-		if err := g.SetID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode getStickerSet#3eb91bc3: field set_id: %w", err)
 		}
+		g.SetID = value
 	}
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetStickerSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetStickerSetRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getStickerSet#3eb91bc3 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getStickerSet")
 	b.FieldStart("set_id")
-	if err := g.SetID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getStickerSet#3eb91bc3: field set_id: %w", err)
-	}
+	b.PutLong(g.SetID)
 	b.ObjEnd()
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetStickerSetRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getStickerSet#3eb91bc3 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getStickerSet"); err != nil {
+				return fmt.Errorf("unable to decode getStickerSet#3eb91bc3: %w", err)
+			}
+		case "set_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStickerSet#3eb91bc3: field set_id: %w", err)
+			}
+			g.SetID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetSetID returns value of SetID field.
-func (g *GetStickerSetRequest) GetSetID() (value Int64) {
+func (g *GetStickerSetRequest) GetSetID() (value int64) {
 	return g.SetID
 }
 
 // GetStickerSet invokes method getStickerSet#3eb91bc3 returning error if any.
-func (c *Client) GetStickerSet(ctx context.Context, setid Int64) (*StickerSet, error) {
+func (c *Client) GetStickerSet(ctx context.Context, setid int64) (*StickerSet, error) {
 	var result StickerSet
 
 	request := &GetStickerSetRequest{

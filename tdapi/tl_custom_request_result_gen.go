@@ -143,8 +143,8 @@ func (c *CustomRequestResult) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CustomRequestResult) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CustomRequestResult) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode customRequestResult#88326ffc as nil")
 	}
@@ -154,6 +154,31 @@ func (c *CustomRequestResult) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(c.Result)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CustomRequestResult) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode customRequestResult#88326ffc to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("customRequestResult"); err != nil {
+				return fmt.Errorf("unable to decode customRequestResult#88326ffc: %w", err)
+			}
+		case "result":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode customRequestResult#88326ffc: field result: %w", err)
+			}
+			c.Result = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetResult returns value of Result field.

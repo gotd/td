@@ -39,7 +39,7 @@ type GetChatEventLogRequest struct {
 	Query string
 	// Identifier of an event from which to return results. Use 0 to get results from the
 	// latest events
-	FromEventID Int64
+	FromEventID int64
 	// The maximum number of events to return; up to 100
 	Limit int32
 	// The types of events to return. By default, all types will be returned
@@ -70,7 +70,7 @@ func (g *GetChatEventLogRequest) Zero() bool {
 	if !(g.Query == "") {
 		return false
 	}
-	if !(g.FromEventID.Zero()) {
+	if !(g.FromEventID == 0) {
 		return false
 	}
 	if !(g.Limit == 0) {
@@ -162,9 +162,7 @@ func (g *GetChatEventLogRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutLong(g.ChatID)
 	b.PutString(g.Query)
-	if err := g.FromEventID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getChatEventLog#1e11b897: field from_event_id: %w", err)
-	}
+	b.PutLong(g.FromEventID)
 	b.PutInt32(g.Limit)
 	if err := g.Filters.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode getChatEventLog#1e11b897: field filters: %w", err)
@@ -207,9 +205,11 @@ func (g *GetChatEventLogRequest) DecodeBare(b *bin.Buffer) error {
 		g.Query = value
 	}
 	{
-		if err := g.FromEventID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode getChatEventLog#1e11b897: field from_event_id: %w", err)
 		}
+		g.FromEventID = value
 	}
 	{
 		value, err := b.Int32()
@@ -243,8 +243,8 @@ func (g *GetChatEventLogRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetChatEventLogRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetChatEventLogRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatEventLog#1e11b897 as nil")
 	}
@@ -255,9 +255,7 @@ func (g *GetChatEventLogRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.FieldStart("query")
 	b.PutString(g.Query)
 	b.FieldStart("from_event_id")
-	if err := g.FromEventID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getChatEventLog#1e11b897: field from_event_id: %w", err)
-	}
+	b.PutLong(g.FromEventID)
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
 	b.FieldStart("filters")
@@ -274,6 +272,64 @@ func (g *GetChatEventLogRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetChatEventLogRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getChatEventLog#1e11b897 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getChatEventLog"); err != nil {
+				return fmt.Errorf("unable to decode getChatEventLog#1e11b897: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatEventLog#1e11b897: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "query":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatEventLog#1e11b897: field query: %w", err)
+			}
+			g.Query = value
+		case "from_event_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatEventLog#1e11b897: field from_event_id: %w", err)
+			}
+			g.FromEventID = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatEventLog#1e11b897: field limit: %w", err)
+			}
+			g.Limit = value
+		case "filters":
+			if err := g.Filters.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode getChatEventLog#1e11b897: field filters: %w", err)
+			}
+		case "user_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode getChatEventLog#1e11b897: field user_ids: %w", err)
+				}
+				g.UserIDs = append(g.UserIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode getChatEventLog#1e11b897: field user_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetChatID returns value of ChatID field.
 func (g *GetChatEventLogRequest) GetChatID() (value int64) {
 	return g.ChatID
@@ -285,7 +341,7 @@ func (g *GetChatEventLogRequest) GetQuery() (value string) {
 }
 
 // GetFromEventID returns value of FromEventID field.
-func (g *GetChatEventLogRequest) GetFromEventID() (value Int64) {
+func (g *GetChatEventLogRequest) GetFromEventID() (value int64) {
 	return g.FromEventID
 }
 

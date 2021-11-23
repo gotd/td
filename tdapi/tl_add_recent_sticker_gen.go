@@ -166,8 +166,8 @@ func (a *AddRecentStickerRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AddRecentStickerRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AddRecentStickerRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addRecentSticker#a7e5d89e as nil")
 	}
@@ -184,6 +184,37 @@ func (a *AddRecentStickerRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AddRecentStickerRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode addRecentSticker#a7e5d89e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("addRecentSticker"); err != nil {
+				return fmt.Errorf("unable to decode addRecentSticker#a7e5d89e: %w", err)
+			}
+		case "is_attached":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode addRecentSticker#a7e5d89e: field is_attached: %w", err)
+			}
+			a.IsAttached = value
+		case "sticker":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode addRecentSticker#a7e5d89e: field sticker: %w", err)
+			}
+			a.Sticker = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetIsAttached returns value of IsAttached field.

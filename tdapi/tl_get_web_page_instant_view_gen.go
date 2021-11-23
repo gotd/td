@@ -160,8 +160,8 @@ func (g *GetWebPageInstantViewRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetWebPageInstantViewRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetWebPageInstantViewRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getWebPageInstantView#8b045689 as nil")
 	}
@@ -173,6 +173,37 @@ func (g *GetWebPageInstantViewRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutBool(g.ForceFull)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetWebPageInstantViewRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getWebPageInstantView#8b045689 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getWebPageInstantView"); err != nil {
+				return fmt.Errorf("unable to decode getWebPageInstantView#8b045689: %w", err)
+			}
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getWebPageInstantView#8b045689: field url: %w", err)
+			}
+			g.URL = value
+		case "force_full":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getWebPageInstantView#8b045689: field force_full: %w", err)
+			}
+			g.ForceFull = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetURL returns value of URL field.

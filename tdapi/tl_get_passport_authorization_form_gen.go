@@ -194,8 +194,8 @@ func (g *GetPassportAuthorizationFormRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetPassportAuthorizationFormRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetPassportAuthorizationFormRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getPassportAuthorizationForm#a87a1591 as nil")
 	}
@@ -211,6 +211,49 @@ func (g *GetPassportAuthorizationFormRequest) EncodeTDLibJSON(b *jsontd.Encoder)
 	b.PutString(g.Nonce)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetPassportAuthorizationFormRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getPassportAuthorizationForm#a87a1591 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getPassportAuthorizationForm"); err != nil {
+				return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: %w", err)
+			}
+		case "bot_user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: field bot_user_id: %w", err)
+			}
+			g.BotUserID = value
+		case "scope":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: field scope: %w", err)
+			}
+			g.Scope = value
+		case "public_key":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: field public_key: %w", err)
+			}
+			g.PublicKey = value
+		case "nonce":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: field nonce: %w", err)
+			}
+			g.Nonce = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBotUserID returns value of BotUserID field.

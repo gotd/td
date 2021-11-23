@@ -34,7 +34,7 @@ var (
 // AnswerShippingQueryRequest represents TL type `answerShippingQuery#7a3c2432`.
 type AnswerShippingQueryRequest struct {
 	// Identifier of the shipping query
-	ShippingQueryID Int64
+	ShippingQueryID int64
 	// Available shipping options
 	ShippingOptions []ShippingOption
 	// An error message, empty on success
@@ -56,7 +56,7 @@ func (a *AnswerShippingQueryRequest) Zero() bool {
 	if a == nil {
 		return true
 	}
-	if !(a.ShippingQueryID.Zero()) {
+	if !(a.ShippingQueryID == 0) {
 		return false
 	}
 	if !(a.ShippingOptions == nil) {
@@ -131,9 +131,7 @@ func (a *AnswerShippingQueryRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode answerShippingQuery#7a3c2432 as nil")
 	}
-	if err := a.ShippingQueryID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode answerShippingQuery#7a3c2432: field shipping_query_id: %w", err)
-	}
+	b.PutLong(a.ShippingQueryID)
 	b.PutInt(len(a.ShippingOptions))
 	for idx, v := range a.ShippingOptions {
 		if err := v.EncodeBare(b); err != nil {
@@ -161,9 +159,11 @@ func (a *AnswerShippingQueryRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode answerShippingQuery#7a3c2432 to nil")
 	}
 	{
-		if err := a.ShippingQueryID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode answerShippingQuery#7a3c2432: field shipping_query_id: %w", err)
 		}
+		a.ShippingQueryID = value
 	}
 	{
 		headerLen, err := b.Int()
@@ -192,17 +192,15 @@ func (a *AnswerShippingQueryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AnswerShippingQueryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AnswerShippingQueryRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode answerShippingQuery#7a3c2432 as nil")
 	}
 	b.ObjStart()
 	b.PutID("answerShippingQuery")
 	b.FieldStart("shipping_query_id")
-	if err := a.ShippingQueryID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode answerShippingQuery#7a3c2432: field shipping_query_id: %w", err)
-	}
+	b.PutLong(a.ShippingQueryID)
 	b.FieldStart("shipping_options")
 	b.ArrStart()
 	for idx, v := range a.ShippingOptions {
@@ -217,8 +215,50 @@ func (a *AnswerShippingQueryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AnswerShippingQueryRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode answerShippingQuery#7a3c2432 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("answerShippingQuery"); err != nil {
+				return fmt.Errorf("unable to decode answerShippingQuery#7a3c2432: %w", err)
+			}
+		case "shipping_query_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerShippingQuery#7a3c2432: field shipping_query_id: %w", err)
+			}
+			a.ShippingQueryID = value
+		case "shipping_options":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value ShippingOption
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode answerShippingQuery#7a3c2432: field shipping_options: %w", err)
+				}
+				a.ShippingOptions = append(a.ShippingOptions, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode answerShippingQuery#7a3c2432: field shipping_options: %w", err)
+			}
+		case "error_message":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerShippingQuery#7a3c2432: field error_message: %w", err)
+			}
+			a.ErrorMessage = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetShippingQueryID returns value of ShippingQueryID field.
-func (a *AnswerShippingQueryRequest) GetShippingQueryID() (value Int64) {
+func (a *AnswerShippingQueryRequest) GetShippingQueryID() (value int64) {
 	return a.ShippingQueryID
 }
 

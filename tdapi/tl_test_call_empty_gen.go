@@ -125,8 +125,8 @@ func (t *TestCallEmptyRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TestCallEmptyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TestCallEmptyRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode testCallEmpty#da9c4a16 as nil")
 	}
@@ -134,6 +134,25 @@ func (t *TestCallEmptyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("testCallEmpty")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TestCallEmptyRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testCallEmpty#da9c4a16 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("testCallEmpty"); err != nil {
+				return fmt.Errorf("unable to decode testCallEmpty#da9c4a16: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // TestCallEmpty invokes method testCallEmpty#da9c4a16 returning error if any.

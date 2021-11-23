@@ -143,8 +143,8 @@ func (c *CallID) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallID) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallID) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callId#3eac609 as nil")
 	}
@@ -154,6 +154,31 @@ func (c *CallID) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(c.ID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallID) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callId#3eac609 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callId"); err != nil {
+				return fmt.Errorf("unable to decode callId#3eac609: %w", err)
+			}
+		case "id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode callId#3eac609: field id: %w", err)
+			}
+			c.ID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

@@ -216,8 +216,8 @@ func (t *TestProxyRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TestProxyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TestProxyRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode testProxy#b8a1a29e as nil")
 	}
@@ -240,6 +240,55 @@ func (t *TestProxyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutDouble(t.Timeout)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TestProxyRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testProxy#b8a1a29e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("testProxy"); err != nil {
+				return fmt.Errorf("unable to decode testProxy#b8a1a29e: %w", err)
+			}
+		case "server":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode testProxy#b8a1a29e: field server: %w", err)
+			}
+			t.Server = value
+		case "port":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode testProxy#b8a1a29e: field port: %w", err)
+			}
+			t.Port = value
+		case "type":
+			value, err := DecodeTDLibJSONProxyType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode testProxy#b8a1a29e: field type: %w", err)
+			}
+			t.Type = value
+		case "dc_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode testProxy#b8a1a29e: field dc_id: %w", err)
+			}
+			t.DCID = value
+		case "timeout":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode testProxy#b8a1a29e: field timeout: %w", err)
+			}
+			t.Timeout = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetServer returns value of Server field.

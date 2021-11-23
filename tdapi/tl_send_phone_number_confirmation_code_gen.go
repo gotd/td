@@ -177,8 +177,8 @@ func (s *SendPhoneNumberConfirmationCodeRequest) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SendPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SendPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sendPhoneNumberConfirmationCode#8eae6cd9 as nil")
 	}
@@ -194,6 +194,41 @@ func (s *SendPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b *jsontd.Encod
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SendPhoneNumberConfirmationCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendPhoneNumberConfirmationCode#8eae6cd9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("sendPhoneNumberConfirmationCode"); err != nil {
+				return fmt.Errorf("unable to decode sendPhoneNumberConfirmationCode#8eae6cd9: %w", err)
+			}
+		case "hash":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendPhoneNumberConfirmationCode#8eae6cd9: field hash: %w", err)
+			}
+			s.Hash = value
+		case "phone_number":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendPhoneNumberConfirmationCode#8eae6cd9: field phone_number: %w", err)
+			}
+			s.PhoneNumber = value
+		case "settings":
+			if err := s.Settings.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode sendPhoneNumberConfirmationCode#8eae6cd9: field settings: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetHash returns value of Hash field.

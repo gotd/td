@@ -143,8 +143,8 @@ func (s *SearchBackgroundRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SearchBackgroundRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SearchBackgroundRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchBackground#80fb9121 as nil")
 	}
@@ -154,6 +154,31 @@ func (s *SearchBackgroundRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(s.Name)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SearchBackgroundRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchBackground#80fb9121 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("searchBackground"); err != nil {
+				return fmt.Errorf("unable to decode searchBackground#80fb9121: %w", err)
+			}
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchBackground#80fb9121: field name: %w", err)
+			}
+			s.Name = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetName returns value of Name field.

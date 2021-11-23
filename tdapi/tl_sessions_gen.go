@@ -158,8 +158,8 @@ func (s *Sessions) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *Sessions) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *Sessions) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sessions#1da11c6e as nil")
 	}
@@ -175,6 +175,36 @@ func (s *Sessions) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *Sessions) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sessions#1da11c6e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("sessions"); err != nil {
+				return fmt.Errorf("unable to decode sessions#1da11c6e: %w", err)
+			}
+		case "sessions":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value Session
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode sessions#1da11c6e: field sessions: %w", err)
+				}
+				s.Sessions = append(s.Sessions, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode sessions#1da11c6e: field sessions: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSessions returns value of Sessions field.

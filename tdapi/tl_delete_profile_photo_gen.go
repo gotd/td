@@ -34,7 +34,7 @@ var (
 // DeleteProfilePhotoRequest represents TL type `deleteProfilePhoto#4eaa77c1`.
 type DeleteProfilePhotoRequest struct {
 	// Identifier of the profile photo to delete
-	ProfilePhotoID Int64
+	ProfilePhotoID int64
 }
 
 // DeleteProfilePhotoRequestTypeID is TL type id of DeleteProfilePhotoRequest.
@@ -52,7 +52,7 @@ func (d *DeleteProfilePhotoRequest) Zero() bool {
 	if d == nil {
 		return true
 	}
-	if !(d.ProfilePhotoID.Zero()) {
+	if !(d.ProfilePhotoID == 0) {
 		return false
 	}
 
@@ -113,9 +113,7 @@ func (d *DeleteProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteProfilePhoto#4eaa77c1 as nil")
 	}
-	if err := d.ProfilePhotoID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode deleteProfilePhoto#4eaa77c1: field profile_photo_id: %w", err)
-	}
+	b.PutLong(d.ProfilePhotoID)
 	return nil
 }
 
@@ -136,35 +134,60 @@ func (d *DeleteProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode deleteProfilePhoto#4eaa77c1 to nil")
 	}
 	{
-		if err := d.ProfilePhotoID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode deleteProfilePhoto#4eaa77c1: field profile_photo_id: %w", err)
 		}
+		d.ProfilePhotoID = value
 	}
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DeleteProfilePhotoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DeleteProfilePhotoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteProfilePhoto#4eaa77c1 as nil")
 	}
 	b.ObjStart()
 	b.PutID("deleteProfilePhoto")
 	b.FieldStart("profile_photo_id")
-	if err := d.ProfilePhotoID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode deleteProfilePhoto#4eaa77c1: field profile_photo_id: %w", err)
-	}
+	b.PutLong(d.ProfilePhotoID)
 	b.ObjEnd()
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DeleteProfilePhotoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deleteProfilePhoto#4eaa77c1 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("deleteProfilePhoto"); err != nil {
+				return fmt.Errorf("unable to decode deleteProfilePhoto#4eaa77c1: %w", err)
+			}
+		case "profile_photo_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteProfilePhoto#4eaa77c1: field profile_photo_id: %w", err)
+			}
+			d.ProfilePhotoID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetProfilePhotoID returns value of ProfilePhotoID field.
-func (d *DeleteProfilePhotoRequest) GetProfilePhotoID() (value Int64) {
+func (d *DeleteProfilePhotoRequest) GetProfilePhotoID() (value int64) {
 	return d.ProfilePhotoID
 }
 
 // DeleteProfilePhoto invokes method deleteProfilePhoto#4eaa77c1 returning error if any.
-func (c *Client) DeleteProfilePhoto(ctx context.Context, profilephotoid Int64) error {
+func (c *Client) DeleteProfilePhoto(ctx context.Context, profilephotoid int64) error {
 	var ok Ok
 
 	request := &DeleteProfilePhotoRequest{

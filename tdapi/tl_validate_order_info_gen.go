@@ -194,8 +194,8 @@ func (v *ValidateOrderInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes v in TDLib API JSON format.
-func (v *ValidateOrderInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (v *ValidateOrderInfoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode validateOrderInfo#90a9c4 as nil")
 	}
@@ -213,6 +213,47 @@ func (v *ValidateOrderInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(v.AllowSave)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (v *ValidateOrderInfoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if v == nil {
+		return fmt.Errorf("can't decode validateOrderInfo#90a9c4 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("validateOrderInfo"); err != nil {
+				return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field chat_id: %w", err)
+			}
+			v.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field message_id: %w", err)
+			}
+			v.MessageID = value
+		case "order_info":
+			if err := v.OrderInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field order_info: %w", err)
+			}
+		case "allow_save":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field allow_save: %w", err)
+			}
+			v.AllowSave = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

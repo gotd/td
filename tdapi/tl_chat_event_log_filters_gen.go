@@ -330,8 +330,8 @@ func (c *ChatEventLogFilters) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatEventLogFilters) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatEventLogFilters) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatEventLogFilters#35136b9b as nil")
 	}
@@ -363,6 +363,97 @@ func (c *ChatEventLogFilters) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(c.VoiceChatChanges)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatEventLogFilters) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventLogFilters#35136b9b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatEventLogFilters"); err != nil {
+				return fmt.Errorf("unable to decode chatEventLogFilters#35136b9b: %w", err)
+			}
+		case "message_edits":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventLogFilters#35136b9b: field message_edits: %w", err)
+			}
+			c.MessageEdits = value
+		case "message_deletions":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventLogFilters#35136b9b: field message_deletions: %w", err)
+			}
+			c.MessageDeletions = value
+		case "message_pins":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventLogFilters#35136b9b: field message_pins: %w", err)
+			}
+			c.MessagePins = value
+		case "member_joins":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventLogFilters#35136b9b: field member_joins: %w", err)
+			}
+			c.MemberJoins = value
+		case "member_leaves":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventLogFilters#35136b9b: field member_leaves: %w", err)
+			}
+			c.MemberLeaves = value
+		case "member_invites":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventLogFilters#35136b9b: field member_invites: %w", err)
+			}
+			c.MemberInvites = value
+		case "member_promotions":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventLogFilters#35136b9b: field member_promotions: %w", err)
+			}
+			c.MemberPromotions = value
+		case "member_restrictions":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventLogFilters#35136b9b: field member_restrictions: %w", err)
+			}
+			c.MemberRestrictions = value
+		case "info_changes":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventLogFilters#35136b9b: field info_changes: %w", err)
+			}
+			c.InfoChanges = value
+		case "setting_changes":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventLogFilters#35136b9b: field setting_changes: %w", err)
+			}
+			c.SettingChanges = value
+		case "invite_link_changes":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventLogFilters#35136b9b: field invite_link_changes: %w", err)
+			}
+			c.InviteLinkChanges = value
+		case "voice_chat_changes":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventLogFilters#35136b9b: field voice_chat_changes: %w", err)
+			}
+			c.VoiceChatChanges = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetMessageEdits returns value of MessageEdits field.

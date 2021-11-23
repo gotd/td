@@ -143,8 +143,8 @@ func (s *SendChatScreenshotTakenNotificationRequest) DecodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SendChatScreenshotTakenNotificationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SendChatScreenshotTakenNotificationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sendChatScreenshotTakenNotification#1aba0861 as nil")
 	}
@@ -154,6 +154,31 @@ func (s *SendChatScreenshotTakenNotificationRequest) EncodeTDLibJSON(b *jsontd.E
 	b.PutLong(s.ChatID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SendChatScreenshotTakenNotificationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendChatScreenshotTakenNotification#1aba0861 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("sendChatScreenshotTakenNotification"); err != nil {
+				return fmt.Errorf("unable to decode sendChatScreenshotTakenNotification#1aba0861: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendChatScreenshotTakenNotification#1aba0861: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

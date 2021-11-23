@@ -442,8 +442,8 @@ func (g *GroupCallParticipant) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GroupCallParticipant) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GroupCallParticipant) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode groupCallParticipant#7abca1eb as nil")
 	}
@@ -496,6 +496,129 @@ func (g *GroupCallParticipant) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(g.Order)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GroupCallParticipant) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode groupCallParticipant#7abca1eb to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("groupCallParticipant"); err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: %w", err)
+			}
+		case "participant_id":
+			value, err := DecodeTDLibJSONMessageSender(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field participant_id: %w", err)
+			}
+			g.ParticipantID = value
+		case "audio_source_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field audio_source_id: %w", err)
+			}
+			g.AudioSourceID = value
+		case "screen_sharing_audio_source_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field screen_sharing_audio_source_id: %w", err)
+			}
+			g.ScreenSharingAudioSourceID = value
+		case "video_info":
+			if err := g.VideoInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field video_info: %w", err)
+			}
+		case "screen_sharing_video_info":
+			if err := g.ScreenSharingVideoInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field screen_sharing_video_info: %w", err)
+			}
+		case "bio":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field bio: %w", err)
+			}
+			g.Bio = value
+		case "is_current_user":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field is_current_user: %w", err)
+			}
+			g.IsCurrentUser = value
+		case "is_speaking":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field is_speaking: %w", err)
+			}
+			g.IsSpeaking = value
+		case "is_hand_raised":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field is_hand_raised: %w", err)
+			}
+			g.IsHandRaised = value
+		case "can_be_muted_for_all_users":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field can_be_muted_for_all_users: %w", err)
+			}
+			g.CanBeMutedForAllUsers = value
+		case "can_be_unmuted_for_all_users":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field can_be_unmuted_for_all_users: %w", err)
+			}
+			g.CanBeUnmutedForAllUsers = value
+		case "can_be_muted_for_current_user":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field can_be_muted_for_current_user: %w", err)
+			}
+			g.CanBeMutedForCurrentUser = value
+		case "can_be_unmuted_for_current_user":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field can_be_unmuted_for_current_user: %w", err)
+			}
+			g.CanBeUnmutedForCurrentUser = value
+		case "is_muted_for_all_users":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field is_muted_for_all_users: %w", err)
+			}
+			g.IsMutedForAllUsers = value
+		case "is_muted_for_current_user":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field is_muted_for_current_user: %w", err)
+			}
+			g.IsMutedForCurrentUser = value
+		case "can_unmute_self":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field can_unmute_self: %w", err)
+			}
+			g.CanUnmuteSelf = value
+		case "volume_level":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field volume_level: %w", err)
+			}
+			g.VolumeLevel = value
+		case "order":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipant#7abca1eb: field order: %w", err)
+			}
+			g.Order = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetParticipantID returns value of ParticipantID field.

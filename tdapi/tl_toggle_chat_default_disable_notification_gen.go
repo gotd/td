@@ -160,8 +160,8 @@ func (t *ToggleChatDefaultDisableNotificationRequest) DecodeBare(b *bin.Buffer) 
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *ToggleChatDefaultDisableNotificationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *ToggleChatDefaultDisableNotificationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleChatDefaultDisableNotification#12c36012 as nil")
 	}
@@ -173,6 +173,37 @@ func (t *ToggleChatDefaultDisableNotificationRequest) EncodeTDLibJSON(b *jsontd.
 	b.PutBool(t.DefaultDisableNotification)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *ToggleChatDefaultDisableNotificationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode toggleChatDefaultDisableNotification#12c36012 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("toggleChatDefaultDisableNotification"); err != nil {
+				return fmt.Errorf("unable to decode toggleChatDefaultDisableNotification#12c36012: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleChatDefaultDisableNotification#12c36012: field chat_id: %w", err)
+			}
+			t.ChatID = value
+		case "default_disable_notification":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleChatDefaultDisableNotification#12c36012: field default_disable_notification: %w", err)
+			}
+			t.DefaultDisableNotification = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

@@ -143,8 +143,8 @@ func (a *AcceptTermsOfServiceRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AcceptTermsOfServiceRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AcceptTermsOfServiceRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode acceptTermsOfService#7efe03e4 as nil")
 	}
@@ -154,6 +154,31 @@ func (a *AcceptTermsOfServiceRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(a.TermsOfServiceID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AcceptTermsOfServiceRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode acceptTermsOfService#7efe03e4 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("acceptTermsOfService"); err != nil {
+				return fmt.Errorf("unable to decode acceptTermsOfService#7efe03e4: %w", err)
+			}
+		case "terms_of_service_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode acceptTermsOfService#7efe03e4: field terms_of_service_id: %w", err)
+			}
+			a.TermsOfServiceID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetTermsOfServiceID returns value of TermsOfServiceID field.

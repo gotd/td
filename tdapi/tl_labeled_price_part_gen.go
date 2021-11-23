@@ -160,8 +160,8 @@ func (l *LabeledPricePart) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes l in TDLib API JSON format.
-func (l *LabeledPricePart) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (l *LabeledPricePart) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode labeledPricePart#20f2e726 as nil")
 	}
@@ -173,6 +173,37 @@ func (l *LabeledPricePart) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(l.Amount)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (l *LabeledPricePart) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if l == nil {
+		return fmt.Errorf("can't decode labeledPricePart#20f2e726 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("labeledPricePart"); err != nil {
+				return fmt.Errorf("unable to decode labeledPricePart#20f2e726: %w", err)
+			}
+		case "label":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode labeledPricePart#20f2e726: field label: %w", err)
+			}
+			l.Label = value
+		case "amount":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode labeledPricePart#20f2e726: field amount: %w", err)
+			}
+			l.Amount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLabel returns value of Label field.

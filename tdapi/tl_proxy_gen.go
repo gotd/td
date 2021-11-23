@@ -233,8 +233,8 @@ func (p *Proxy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *Proxy) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *Proxy) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode proxy#baf7b73 as nil")
 	}
@@ -259,6 +259,61 @@ func (p *Proxy) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *Proxy) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode proxy#baf7b73 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("proxy"); err != nil {
+				return fmt.Errorf("unable to decode proxy#baf7b73: %w", err)
+			}
+		case "id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode proxy#baf7b73: field id: %w", err)
+			}
+			p.ID = value
+		case "server":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode proxy#baf7b73: field server: %w", err)
+			}
+			p.Server = value
+		case "port":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode proxy#baf7b73: field port: %w", err)
+			}
+			p.Port = value
+		case "last_used_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode proxy#baf7b73: field last_used_date: %w", err)
+			}
+			p.LastUsedDate = value
+		case "is_enabled":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode proxy#baf7b73: field is_enabled: %w", err)
+			}
+			p.IsEnabled = value
+		case "type":
+			value, err := DecodeTDLibJSONProxyType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode proxy#baf7b73: field type: %w", err)
+			}
+			p.Type = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

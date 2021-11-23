@@ -34,7 +34,7 @@ var (
 // RemoveBackgroundRequest represents TL type `removeBackground#a783a196`.
 type RemoveBackgroundRequest struct {
 	// The background identifier
-	BackgroundID Int64
+	BackgroundID int64
 }
 
 // RemoveBackgroundRequestTypeID is TL type id of RemoveBackgroundRequest.
@@ -52,7 +52,7 @@ func (r *RemoveBackgroundRequest) Zero() bool {
 	if r == nil {
 		return true
 	}
-	if !(r.BackgroundID.Zero()) {
+	if !(r.BackgroundID == 0) {
 		return false
 	}
 
@@ -113,9 +113,7 @@ func (r *RemoveBackgroundRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode removeBackground#a783a196 as nil")
 	}
-	if err := r.BackgroundID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode removeBackground#a783a196: field background_id: %w", err)
-	}
+	b.PutLong(r.BackgroundID)
 	return nil
 }
 
@@ -136,35 +134,60 @@ func (r *RemoveBackgroundRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode removeBackground#a783a196 to nil")
 	}
 	{
-		if err := r.BackgroundID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode removeBackground#a783a196: field background_id: %w", err)
 		}
+		r.BackgroundID = value
 	}
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RemoveBackgroundRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RemoveBackgroundRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode removeBackground#a783a196 as nil")
 	}
 	b.ObjStart()
 	b.PutID("removeBackground")
 	b.FieldStart("background_id")
-	if err := r.BackgroundID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode removeBackground#a783a196: field background_id: %w", err)
-	}
+	b.PutLong(r.BackgroundID)
 	b.ObjEnd()
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RemoveBackgroundRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode removeBackground#a783a196 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("removeBackground"); err != nil {
+				return fmt.Errorf("unable to decode removeBackground#a783a196: %w", err)
+			}
+		case "background_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode removeBackground#a783a196: field background_id: %w", err)
+			}
+			r.BackgroundID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetBackgroundID returns value of BackgroundID field.
-func (r *RemoveBackgroundRequest) GetBackgroundID() (value Int64) {
+func (r *RemoveBackgroundRequest) GetBackgroundID() (value int64) {
 	return r.BackgroundID
 }
 
 // RemoveBackground invokes method removeBackground#a783a196 returning error if any.
-func (c *Client) RemoveBackground(ctx context.Context, backgroundid Int64) error {
+func (c *Client) RemoveBackground(ctx context.Context, backgroundid int64) error {
 	var ok Ok
 
 	request := &RemoveBackgroundRequest{

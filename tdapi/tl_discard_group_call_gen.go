@@ -143,8 +143,8 @@ func (d *DiscardGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DiscardGroupCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DiscardGroupCallRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode discardGroupCall#31b4d159 as nil")
 	}
@@ -154,6 +154,31 @@ func (d *DiscardGroupCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(d.GroupCallID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DiscardGroupCallRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode discardGroupCall#31b4d159 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("discardGroupCall"); err != nil {
+				return fmt.Errorf("unable to decode discardGroupCall#31b4d159: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode discardGroupCall#31b4d159: field group_call_id: %w", err)
+			}
+			d.GroupCallID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

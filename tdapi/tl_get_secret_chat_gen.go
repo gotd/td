@@ -143,8 +143,8 @@ func (g *GetSecretChatRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetSecretChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetSecretChatRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getSecretChat#26b7e81 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetSecretChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(g.SecretChatID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetSecretChatRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getSecretChat#26b7e81 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getSecretChat"); err != nil {
+				return fmt.Errorf("unable to decode getSecretChat#26b7e81: %w", err)
+			}
+		case "secret_chat_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getSecretChat#26b7e81: field secret_chat_id: %w", err)
+			}
+			g.SecretChatID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSecretChatID returns value of SecretChatID field.

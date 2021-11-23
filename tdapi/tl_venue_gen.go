@@ -229,8 +229,8 @@ func (v *Venue) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes v in TDLib API JSON format.
-func (v *Venue) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (v *Venue) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode venue#3fcd1af9 as nil")
 	}
@@ -252,6 +252,59 @@ func (v *Venue) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(v.Type)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (v *Venue) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if v == nil {
+		return fmt.Errorf("can't decode venue#3fcd1af9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("venue"); err != nil {
+				return fmt.Errorf("unable to decode venue#3fcd1af9: %w", err)
+			}
+		case "location":
+			if err := v.Location.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode venue#3fcd1af9: field location: %w", err)
+			}
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode venue#3fcd1af9: field title: %w", err)
+			}
+			v.Title = value
+		case "address":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode venue#3fcd1af9: field address: %w", err)
+			}
+			v.Address = value
+		case "provider":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode venue#3fcd1af9: field provider: %w", err)
+			}
+			v.Provider = value
+		case "id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode venue#3fcd1af9: field id: %w", err)
+			}
+			v.ID = value
+		case "type":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode venue#3fcd1af9: field type: %w", err)
+			}
+			v.Type = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLocation returns value of Location field.

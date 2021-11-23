@@ -125,8 +125,8 @@ func (r *ResendChangePhoneNumberCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ResendChangePhoneNumberCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ResendChangePhoneNumberCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resendChangePhoneNumberCode#d11acfa4 as nil")
 	}
@@ -134,6 +134,25 @@ func (r *ResendChangePhoneNumberCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) 
 	b.PutID("resendChangePhoneNumberCode")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ResendChangePhoneNumberCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode resendChangePhoneNumberCode#d11acfa4 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("resendChangePhoneNumberCode"); err != nil {
+				return fmt.Errorf("unable to decode resendChangePhoneNumberCode#d11acfa4: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ResendChangePhoneNumberCode invokes method resendChangePhoneNumberCode#d11acfa4 returning error if any.

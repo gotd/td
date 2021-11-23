@@ -303,8 +303,8 @@ func (c *ChatNotificationSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatNotificationSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatNotificationSettings) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatNotificationSettings#5998c172 as nil")
 	}
@@ -332,6 +332,85 @@ func (c *ChatNotificationSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(c.DisableMentionNotifications)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatNotificationSettings) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatNotificationSettings#5998c172 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatNotificationSettings"); err != nil {
+				return fmt.Errorf("unable to decode chatNotificationSettings#5998c172: %w", err)
+			}
+		case "use_default_mute_for":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatNotificationSettings#5998c172: field use_default_mute_for: %w", err)
+			}
+			c.UseDefaultMuteFor = value
+		case "mute_for":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatNotificationSettings#5998c172: field mute_for: %w", err)
+			}
+			c.MuteFor = value
+		case "use_default_sound":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatNotificationSettings#5998c172: field use_default_sound: %w", err)
+			}
+			c.UseDefaultSound = value
+		case "sound":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatNotificationSettings#5998c172: field sound: %w", err)
+			}
+			c.Sound = value
+		case "use_default_show_preview":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatNotificationSettings#5998c172: field use_default_show_preview: %w", err)
+			}
+			c.UseDefaultShowPreview = value
+		case "show_preview":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatNotificationSettings#5998c172: field show_preview: %w", err)
+			}
+			c.ShowPreview = value
+		case "use_default_disable_pinned_message_notifications":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatNotificationSettings#5998c172: field use_default_disable_pinned_message_notifications: %w", err)
+			}
+			c.UseDefaultDisablePinnedMessageNotifications = value
+		case "disable_pinned_message_notifications":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatNotificationSettings#5998c172: field disable_pinned_message_notifications: %w", err)
+			}
+			c.DisablePinnedMessageNotifications = value
+		case "use_default_disable_mention_notifications":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatNotificationSettings#5998c172: field use_default_disable_mention_notifications: %w", err)
+			}
+			c.UseDefaultDisableMentionNotifications = value
+		case "disable_mention_notifications":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatNotificationSettings#5998c172: field disable_mention_notifications: %w", err)
+			}
+			c.DisableMentionNotifications = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUseDefaultMuteFor returns value of UseDefaultMuteFor field.

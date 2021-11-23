@@ -143,8 +143,8 @@ func (c *CheckAuthenticationPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CheckAuthenticationPasswordRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CheckAuthenticationPasswordRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkAuthenticationPassword#87424ba0 as nil")
 	}
@@ -154,6 +154,31 @@ func (c *CheckAuthenticationPasswordRequest) EncodeTDLibJSON(b *jsontd.Encoder) 
 	b.PutString(c.Password)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CheckAuthenticationPasswordRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkAuthenticationPassword#87424ba0 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("checkAuthenticationPassword"); err != nil {
+				return fmt.Errorf("unable to decode checkAuthenticationPassword#87424ba0: %w", err)
+			}
+		case "password":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode checkAuthenticationPassword#87424ba0: field password: %w", err)
+			}
+			c.Password = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPassword returns value of Password field.

@@ -125,8 +125,8 @@ func (c *ClearImportedContactsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ClearImportedContactsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ClearImportedContactsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode clearImportedContacts#33d39142 as nil")
 	}
@@ -134,6 +134,25 @@ func (c *ClearImportedContactsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutID("clearImportedContacts")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ClearImportedContactsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode clearImportedContacts#33d39142 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("clearImportedContacts"); err != nil {
+				return fmt.Errorf("unable to decode clearImportedContacts#33d39142: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ClearImportedContacts invokes method clearImportedContacts#33d39142 returning error if any.

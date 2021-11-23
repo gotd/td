@@ -160,8 +160,8 @@ func (d *DatedFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DatedFile) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DatedFile) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode datedFile#9247b09d as nil")
 	}
@@ -175,6 +175,35 @@ func (d *DatedFile) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(d.Date)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DatedFile) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode datedFile#9247b09d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("datedFile"); err != nil {
+				return fmt.Errorf("unable to decode datedFile#9247b09d: %w", err)
+			}
+		case "file":
+			if err := d.File.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode datedFile#9247b09d: field file: %w", err)
+			}
+		case "date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode datedFile#9247b09d: field date: %w", err)
+			}
+			d.Date = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFile returns value of File field.

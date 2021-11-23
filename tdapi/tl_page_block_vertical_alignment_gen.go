@@ -130,8 +130,8 @@ func (p *PageBlockVerticalAlignmentTop) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PageBlockVerticalAlignmentTop) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PageBlockVerticalAlignmentTop) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockVerticalAlignmentTop#ba719a6 as nil")
 	}
@@ -139,6 +139,25 @@ func (p *PageBlockVerticalAlignmentTop) EncodeTDLibJSON(b *jsontd.Encoder) error
 	b.PutID("pageBlockVerticalAlignmentTop")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PageBlockVerticalAlignmentTop) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockVerticalAlignmentTop#ba719a6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("pageBlockVerticalAlignmentTop"); err != nil {
+				return fmt.Errorf("unable to decode pageBlockVerticalAlignmentTop#ba719a6: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // PageBlockVerticalAlignmentMiddle represents TL type `pageBlockVerticalAlignmentMiddle#81741df5`.
@@ -240,8 +259,8 @@ func (p *PageBlockVerticalAlignmentMiddle) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PageBlockVerticalAlignmentMiddle) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PageBlockVerticalAlignmentMiddle) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockVerticalAlignmentMiddle#81741df5 as nil")
 	}
@@ -249,6 +268,25 @@ func (p *PageBlockVerticalAlignmentMiddle) EncodeTDLibJSON(b *jsontd.Encoder) er
 	b.PutID("pageBlockVerticalAlignmentMiddle")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PageBlockVerticalAlignmentMiddle) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockVerticalAlignmentMiddle#81741df5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("pageBlockVerticalAlignmentMiddle"); err != nil {
+				return fmt.Errorf("unable to decode pageBlockVerticalAlignmentMiddle#81741df5: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // PageBlockVerticalAlignmentBottom represents TL type `pageBlockVerticalAlignmentBottom#7cb97dd6`.
@@ -350,8 +388,8 @@ func (p *PageBlockVerticalAlignmentBottom) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PageBlockVerticalAlignmentBottom) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PageBlockVerticalAlignmentBottom) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockVerticalAlignmentBottom#7cb97dd6 as nil")
 	}
@@ -359,6 +397,25 @@ func (p *PageBlockVerticalAlignmentBottom) EncodeTDLibJSON(b *jsontd.Encoder) er
 	b.PutID("pageBlockVerticalAlignmentBottom")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PageBlockVerticalAlignmentBottom) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockVerticalAlignmentBottom#7cb97dd6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("pageBlockVerticalAlignmentBottom"); err != nil {
+				return fmt.Errorf("unable to decode pageBlockVerticalAlignmentBottom#7cb97dd6: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // PageBlockVerticalAlignmentClass represents PageBlockVerticalAlignment generic type.
@@ -391,7 +448,9 @@ type PageBlockVerticalAlignmentClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodePageBlockVerticalAlignment implements binary de-serialization for PageBlockVerticalAlignmentClass.
@@ -427,6 +486,39 @@ func DecodePageBlockVerticalAlignment(buf *bin.Buffer) (PageBlockVerticalAlignme
 	}
 }
 
+// DecodeTDLibJSONPageBlockVerticalAlignment implements binary de-serialization for PageBlockVerticalAlignmentClass.
+func DecodeTDLibJSONPageBlockVerticalAlignment(buf jsontd.Decoder) (PageBlockVerticalAlignmentClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "pageBlockVerticalAlignmentTop":
+		// Decoding pageBlockVerticalAlignmentTop#ba719a6.
+		v := PageBlockVerticalAlignmentTop{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockVerticalAlignmentClass: %w", err)
+		}
+		return &v, nil
+	case "pageBlockVerticalAlignmentMiddle":
+		// Decoding pageBlockVerticalAlignmentMiddle#81741df5.
+		v := PageBlockVerticalAlignmentMiddle{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockVerticalAlignmentClass: %w", err)
+		}
+		return &v, nil
+	case "pageBlockVerticalAlignmentBottom":
+		// Decoding pageBlockVerticalAlignmentBottom#7cb97dd6.
+		v := PageBlockVerticalAlignmentBottom{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PageBlockVerticalAlignmentClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode PageBlockVerticalAlignmentClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // PageBlockVerticalAlignment boxes the PageBlockVerticalAlignmentClass providing a helper.
 type PageBlockVerticalAlignmentBox struct {
 	PageBlockVerticalAlignment PageBlockVerticalAlignmentClass
@@ -451,4 +543,25 @@ func (b *PageBlockVerticalAlignmentBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PageBlockVerticalAlignmentClass as nil")
 	}
 	return b.PageBlockVerticalAlignment.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for PageBlockVerticalAlignmentBox.
+func (b *PageBlockVerticalAlignmentBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PageBlockVerticalAlignmentBox to nil")
+	}
+	v, err := DecodeTDLibJSONPageBlockVerticalAlignment(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PageBlockVerticalAlignment = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for PageBlockVerticalAlignmentBox.
+func (b *PageBlockVerticalAlignmentBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.PageBlockVerticalAlignment == nil {
+		return fmt.Errorf("unable to encode PageBlockVerticalAlignmentClass as nil")
+	}
+	return b.PageBlockVerticalAlignment.EncodeTDLibJSON(buf)
 }

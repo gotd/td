@@ -125,8 +125,8 @@ func (l *LogOutRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes l in TDLib API JSON format.
-func (l *LogOutRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (l *LogOutRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode logOut#a1b5c41b as nil")
 	}
@@ -134,6 +134,25 @@ func (l *LogOutRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("logOut")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (l *LogOutRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if l == nil {
+		return fmt.Errorf("can't decode logOut#a1b5c41b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("logOut"); err != nil {
+				return fmt.Errorf("unable to decode logOut#a1b5c41b: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // LogOut invokes method logOut#a1b5c41b returning error if any.

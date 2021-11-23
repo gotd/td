@@ -125,8 +125,8 @@ func (g *GetInactiveSupergroupChatsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetInactiveSupergroupChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetInactiveSupergroupChatsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getInactiveSupergroupChats#d8cbf9b5 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetInactiveSupergroupChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) e
 	b.PutID("getInactiveSupergroupChats")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetInactiveSupergroupChatsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getInactiveSupergroupChats#d8cbf9b5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getInactiveSupergroupChats"); err != nil {
+				return fmt.Errorf("unable to decode getInactiveSupergroupChats#d8cbf9b5: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetInactiveSupergroupChats invokes method getInactiveSupergroupChats#d8cbf9b5 returning error if any.

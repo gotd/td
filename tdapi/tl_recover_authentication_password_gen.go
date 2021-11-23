@@ -177,8 +177,8 @@ func (r *RecoverAuthenticationPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RecoverAuthenticationPasswordRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RecoverAuthenticationPasswordRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode recoverAuthenticationPassword#f8311523 as nil")
 	}
@@ -192,6 +192,43 @@ func (r *RecoverAuthenticationPasswordRequest) EncodeTDLibJSON(b *jsontd.Encoder
 	b.PutString(r.NewHint)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RecoverAuthenticationPasswordRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode recoverAuthenticationPassword#f8311523 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("recoverAuthenticationPassword"); err != nil {
+				return fmt.Errorf("unable to decode recoverAuthenticationPassword#f8311523: %w", err)
+			}
+		case "recovery_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode recoverAuthenticationPassword#f8311523: field recovery_code: %w", err)
+			}
+			r.RecoveryCode = value
+		case "new_password":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode recoverAuthenticationPassword#f8311523: field new_password: %w", err)
+			}
+			r.NewPassword = value
+		case "new_hint":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode recoverAuthenticationPassword#f8311523: field new_hint: %w", err)
+			}
+			r.NewHint = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetRecoveryCode returns value of RecoveryCode field.

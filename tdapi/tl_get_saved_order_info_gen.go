@@ -125,8 +125,8 @@ func (g *GetSavedOrderInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetSavedOrderInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetSavedOrderInfoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getSavedOrderInfo#bb559edd as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetSavedOrderInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("getSavedOrderInfo")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetSavedOrderInfoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getSavedOrderInfo#bb559edd to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getSavedOrderInfo"); err != nil {
+				return fmt.Errorf("unable to decode getSavedOrderInfo#bb559edd: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSavedOrderInfo invokes method getSavedOrderInfo#bb559edd returning error if any.

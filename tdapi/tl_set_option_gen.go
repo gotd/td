@@ -165,8 +165,8 @@ func (s *SetOptionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetOptionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetOptionRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setOption#7e0b4ef2 as nil")
 	}
@@ -183,6 +183,37 @@ func (s *SetOptionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetOptionRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setOption#7e0b4ef2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setOption"); err != nil {
+				return fmt.Errorf("unable to decode setOption#7e0b4ef2: %w", err)
+			}
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setOption#7e0b4ef2: field name: %w", err)
+			}
+			s.Name = value
+		case "value":
+			value, err := DecodeTDLibJSONOptionValue(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setOption#7e0b4ef2: field value: %w", err)
+			}
+			s.Value = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetName returns value of Name field.

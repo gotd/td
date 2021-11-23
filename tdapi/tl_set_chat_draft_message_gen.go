@@ -177,8 +177,8 @@ func (s *SetChatDraftMessageRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetChatDraftMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetChatDraftMessageRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatDraftMessage#645e1f1a as nil")
 	}
@@ -194,6 +194,41 @@ func (s *SetChatDraftMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetChatDraftMessageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setChatDraftMessage#645e1f1a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setChatDraftMessage"); err != nil {
+				return fmt.Errorf("unable to decode setChatDraftMessage#645e1f1a: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setChatDraftMessage#645e1f1a: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "message_thread_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setChatDraftMessage#645e1f1a: field message_thread_id: %w", err)
+			}
+			s.MessageThreadID = value
+		case "draft_message":
+			if err := s.DraftMessage.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode setChatDraftMessage#645e1f1a: field draft_message: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

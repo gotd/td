@@ -125,8 +125,8 @@ func (g *GetCountryCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetCountryCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetCountryCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getCountryCode#5bd398f2 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetCountryCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("getCountryCode")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetCountryCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getCountryCode#5bd398f2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getCountryCode"); err != nil {
+				return fmt.Errorf("unable to decode getCountryCode#5bd398f2: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCountryCode invokes method getCountryCode#5bd398f2 returning error if any.

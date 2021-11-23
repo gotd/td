@@ -125,8 +125,8 @@ func (t *TestNetworkRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TestNetworkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TestNetworkRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode testNetwork#afe4344b as nil")
 	}
@@ -134,6 +134,25 @@ func (t *TestNetworkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("testNetwork")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TestNetworkRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testNetwork#afe4344b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("testNetwork"); err != nil {
+				return fmt.Errorf("unable to decode testNetwork#afe4344b: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // TestNetwork invokes method testNetwork#afe4344b returning error if any.

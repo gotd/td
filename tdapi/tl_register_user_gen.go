@@ -160,8 +160,8 @@ func (r *RegisterUserRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RegisterUserRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RegisterUserRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode registerUser#f9719e1d as nil")
 	}
@@ -173,6 +173,37 @@ func (r *RegisterUserRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(r.LastName)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RegisterUserRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode registerUser#f9719e1d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("registerUser"); err != nil {
+				return fmt.Errorf("unable to decode registerUser#f9719e1d: %w", err)
+			}
+		case "first_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode registerUser#f9719e1d: field first_name: %w", err)
+			}
+			r.FirstName = value
+		case "last_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode registerUser#f9719e1d: field last_name: %w", err)
+			}
+			r.LastName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFirstName returns value of FirstName field.

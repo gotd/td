@@ -177,8 +177,8 @@ func (c *ChatAdministrator) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatAdministrator) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatAdministrator) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatAdministrator#1d0a66ce as nil")
 	}
@@ -192,6 +192,43 @@ func (c *ChatAdministrator) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(c.IsOwner)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatAdministrator) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatAdministrator#1d0a66ce to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatAdministrator"); err != nil {
+				return fmt.Errorf("unable to decode chatAdministrator#1d0a66ce: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatAdministrator#1d0a66ce: field user_id: %w", err)
+			}
+			c.UserID = value
+		case "custom_title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatAdministrator#1d0a66ce: field custom_title: %w", err)
+			}
+			c.CustomTitle = value
+		case "is_owner":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatAdministrator#1d0a66ce: field is_owner: %w", err)
+			}
+			c.IsOwner = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserID returns value of UserID field.

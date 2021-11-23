@@ -160,8 +160,8 @@ func (s *SetRecoveryEmailAddressRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetRecoveryEmailAddressRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetRecoveryEmailAddressRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setRecoveryEmailAddress#89df939f as nil")
 	}
@@ -173,6 +173,37 @@ func (s *SetRecoveryEmailAddressRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutString(s.NewRecoveryEmailAddress)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetRecoveryEmailAddressRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setRecoveryEmailAddress#89df939f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setRecoveryEmailAddress"); err != nil {
+				return fmt.Errorf("unable to decode setRecoveryEmailAddress#89df939f: %w", err)
+			}
+		case "password":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setRecoveryEmailAddress#89df939f: field password: %w", err)
+			}
+			s.Password = value
+		case "new_recovery_email_address":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setRecoveryEmailAddress#89df939f: field new_recovery_email_address: %w", err)
+			}
+			s.NewRecoveryEmailAddress = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPassword returns value of Password field.

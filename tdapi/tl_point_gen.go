@@ -160,8 +160,8 @@ func (p *Point) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *Point) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *Point) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode point#1a13f5b9 as nil")
 	}
@@ -173,6 +173,37 @@ func (p *Point) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutDouble(p.Y)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *Point) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode point#1a13f5b9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("point"); err != nil {
+				return fmt.Errorf("unable to decode point#1a13f5b9: %w", err)
+			}
+		case "x":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode point#1a13f5b9: field x: %w", err)
+			}
+			p.X = value
+		case "y":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode point#1a13f5b9: field y: %w", err)
+			}
+			p.Y = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetX returns value of X field.

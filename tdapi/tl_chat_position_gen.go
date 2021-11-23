@@ -37,7 +37,7 @@ type ChatPosition struct {
 	List ChatListClass
 	// A parameter used to determine order of the chat in the chat list. Chats must be sorted
 	// by the pair (order, chat.id) in descending order
-	Order Int64
+	Order int64
 	// True, if the chat is pinned in the chat list
 	IsPinned bool
 	// Source of the chat in the chat list; may be null
@@ -62,7 +62,7 @@ func (c *ChatPosition) Zero() bool {
 	if !(c.List == nil) {
 		return false
 	}
-	if !(c.Order.Zero()) {
+	if !(c.Order == 0) {
 		return false
 	}
 	if !(c.IsPinned == false) {
@@ -147,9 +147,7 @@ func (c *ChatPosition) EncodeBare(b *bin.Buffer) error {
 	if err := c.List.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatPosition#dae48755: field list: %w", err)
 	}
-	if err := c.Order.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatPosition#dae48755: field order: %w", err)
-	}
+	b.PutLong(c.Order)
 	b.PutBool(c.IsPinned)
 	if c.Source == nil {
 		return fmt.Errorf("unable to encode chatPosition#dae48755: field source is nil")
@@ -184,9 +182,11 @@ func (c *ChatPosition) DecodeBare(b *bin.Buffer) error {
 		c.List = value
 	}
 	{
-		if err := c.Order.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode chatPosition#dae48755: field order: %w", err)
 		}
+		c.Order = value
 	}
 	{
 		value, err := b.Bool()
@@ -205,8 +205,8 @@ func (c *ChatPosition) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatPosition) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatPosition) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatPosition#dae48755 as nil")
 	}
@@ -220,9 +220,7 @@ func (c *ChatPosition) EncodeTDLibJSON(b *jsontd.Encoder) error {
 		return fmt.Errorf("unable to encode chatPosition#dae48755: field list: %w", err)
 	}
 	b.FieldStart("order")
-	if err := c.Order.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatPosition#dae48755: field order: %w", err)
-	}
+	b.PutLong(c.Order)
 	b.FieldStart("is_pinned")
 	b.PutBool(c.IsPinned)
 	b.FieldStart("source")
@@ -236,13 +234,56 @@ func (c *ChatPosition) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatPosition) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatPosition#dae48755 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatPosition"); err != nil {
+				return fmt.Errorf("unable to decode chatPosition#dae48755: %w", err)
+			}
+		case "list":
+			value, err := DecodeTDLibJSONChatList(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPosition#dae48755: field list: %w", err)
+			}
+			c.List = value
+		case "order":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPosition#dae48755: field order: %w", err)
+			}
+			c.Order = value
+		case "is_pinned":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPosition#dae48755: field is_pinned: %w", err)
+			}
+			c.IsPinned = value
+		case "source":
+			value, err := DecodeTDLibJSONChatSource(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPosition#dae48755: field source: %w", err)
+			}
+			c.Source = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetList returns value of List field.
 func (c *ChatPosition) GetList() (value ChatListClass) {
 	return c.List
 }
 
 // GetOrder returns value of Order field.
-func (c *ChatPosition) GetOrder() (value Int64) {
+func (c *ChatPosition) GetOrder() (value int64) {
 	return c.Order
 }
 

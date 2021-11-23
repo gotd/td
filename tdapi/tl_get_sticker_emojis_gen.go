@@ -148,8 +148,8 @@ func (g *GetStickerEmojisRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetStickerEmojisRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetStickerEmojisRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getStickerEmojis#8f04d547 as nil")
 	}
@@ -164,6 +164,31 @@ func (g *GetStickerEmojisRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetStickerEmojisRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getStickerEmojis#8f04d547 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getStickerEmojis"); err != nil {
+				return fmt.Errorf("unable to decode getStickerEmojis#8f04d547: %w", err)
+			}
+		case "sticker":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getStickerEmojis#8f04d547: field sticker: %w", err)
+			}
+			g.Sticker = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSticker returns value of Sticker field.

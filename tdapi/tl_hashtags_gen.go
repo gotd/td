@@ -156,8 +156,8 @@ func (h *Hashtags) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes h in TDLib API JSON format.
-func (h *Hashtags) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (h *Hashtags) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if h == nil {
 		return fmt.Errorf("can't encode hashtags#6c2c0ae1 as nil")
 	}
@@ -171,6 +171,36 @@ func (h *Hashtags) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (h *Hashtags) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if h == nil {
+		return fmt.Errorf("can't decode hashtags#6c2c0ae1 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("hashtags"); err != nil {
+				return fmt.Errorf("unable to decode hashtags#6c2c0ae1: %w", err)
+			}
+		case "hashtags":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode hashtags#6c2c0ae1: field hashtags: %w", err)
+				}
+				h.Hashtags = append(h.Hashtags, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode hashtags#6c2c0ae1: field hashtags: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetHashtags returns value of Hashtags field.

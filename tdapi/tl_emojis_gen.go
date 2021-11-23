@@ -156,8 +156,8 @@ func (e *Emojis) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *Emojis) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *Emojis) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode emojis#77274a16 as nil")
 	}
@@ -171,6 +171,36 @@ func (e *Emojis) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *Emojis) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode emojis#77274a16 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("emojis"); err != nil {
+				return fmt.Errorf("unable to decode emojis#77274a16: %w", err)
+			}
+		case "emojis":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode emojis#77274a16: field emojis: %w", err)
+				}
+				e.Emojis = append(e.Emojis, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode emojis#77274a16: field emojis: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetEmojis returns value of Emojis field.

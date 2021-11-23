@@ -148,8 +148,8 @@ func (r *RemoveFavoriteStickerRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RemoveFavoriteStickerRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RemoveFavoriteStickerRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode removeFavoriteSticker#44b88c70 as nil")
 	}
@@ -164,6 +164,31 @@ func (r *RemoveFavoriteStickerRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RemoveFavoriteStickerRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode removeFavoriteSticker#44b88c70 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("removeFavoriteSticker"); err != nil {
+				return fmt.Errorf("unable to decode removeFavoriteSticker#44b88c70: %w", err)
+			}
+		case "sticker":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode removeFavoriteSticker#44b88c70: field sticker: %w", err)
+			}
+			r.Sticker = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSticker returns value of Sticker field.

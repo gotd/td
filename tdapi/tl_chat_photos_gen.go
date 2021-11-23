@@ -175,8 +175,8 @@ func (c *ChatPhotos) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatPhotos) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatPhotos) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatPhotos#89ec34e8 as nil")
 	}
@@ -194,6 +194,42 @@ func (c *ChatPhotos) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatPhotos) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatPhotos#89ec34e8 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatPhotos"); err != nil {
+				return fmt.Errorf("unable to decode chatPhotos#89ec34e8: %w", err)
+			}
+		case "total_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPhotos#89ec34e8: field total_count: %w", err)
+			}
+			c.TotalCount = value
+		case "photos":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value ChatPhoto
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode chatPhotos#89ec34e8: field photos: %w", err)
+				}
+				c.Photos = append(c.Photos, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatPhotos#89ec34e8: field photos: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetTotalCount returns value of TotalCount field.

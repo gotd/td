@@ -165,8 +165,8 @@ func (p *ParseTextEntitiesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *ParseTextEntitiesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *ParseTextEntitiesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode parseTextEntities#9a1fc29f as nil")
 	}
@@ -183,6 +183,37 @@ func (p *ParseTextEntitiesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *ParseTextEntitiesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode parseTextEntities#9a1fc29f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("parseTextEntities"); err != nil {
+				return fmt.Errorf("unable to decode parseTextEntities#9a1fc29f: %w", err)
+			}
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode parseTextEntities#9a1fc29f: field text: %w", err)
+			}
+			p.Text = value
+		case "parse_mode":
+			value, err := DecodeTDLibJSONTextParseMode(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode parseTextEntities#9a1fc29f: field parse_mode: %w", err)
+			}
+			p.ParseMode = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

@@ -428,8 +428,8 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *User) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *User) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode user#d3da50d6 as nil")
 	}
@@ -483,6 +483,125 @@ func (u *User) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(u.LanguageCode)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *User) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode user#d3da50d6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("user"); err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: %w", err)
+			}
+		case "id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field id: %w", err)
+			}
+			u.ID = value
+		case "first_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field first_name: %w", err)
+			}
+			u.FirstName = value
+		case "last_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field last_name: %w", err)
+			}
+			u.LastName = value
+		case "username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field username: %w", err)
+			}
+			u.Username = value
+		case "phone_number":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field phone_number: %w", err)
+			}
+			u.PhoneNumber = value
+		case "status":
+			value, err := DecodeTDLibJSONUserStatus(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field status: %w", err)
+			}
+			u.Status = value
+		case "profile_photo":
+			if err := u.ProfilePhoto.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field profile_photo: %w", err)
+			}
+		case "is_contact":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field is_contact: %w", err)
+			}
+			u.IsContact = value
+		case "is_mutual_contact":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field is_mutual_contact: %w", err)
+			}
+			u.IsMutualContact = value
+		case "is_verified":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field is_verified: %w", err)
+			}
+			u.IsVerified = value
+		case "is_support":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field is_support: %w", err)
+			}
+			u.IsSupport = value
+		case "restriction_reason":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field restriction_reason: %w", err)
+			}
+			u.RestrictionReason = value
+		case "is_scam":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field is_scam: %w", err)
+			}
+			u.IsScam = value
+		case "is_fake":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field is_fake: %w", err)
+			}
+			u.IsFake = value
+		case "have_access":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field have_access: %w", err)
+			}
+			u.HaveAccess = value
+		case "type":
+			value, err := DecodeTDLibJSONUserType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field type: %w", err)
+			}
+			u.Type = value
+		case "language_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode user#d3da50d6: field language_code: %w", err)
+			}
+			u.LanguageCode = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

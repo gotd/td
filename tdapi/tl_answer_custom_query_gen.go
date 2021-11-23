@@ -34,7 +34,7 @@ var (
 // AnswerCustomQueryRequest represents TL type `answerCustomQuery#b2e52d3f`.
 type AnswerCustomQueryRequest struct {
 	// Identifier of a custom query
-	CustomQueryID Int64
+	CustomQueryID int64
 	// JSON-serialized answer to the query
 	Data string
 }
@@ -54,7 +54,7 @@ func (a *AnswerCustomQueryRequest) Zero() bool {
 	if a == nil {
 		return true
 	}
-	if !(a.CustomQueryID.Zero()) {
+	if !(a.CustomQueryID == 0) {
 		return false
 	}
 	if !(a.Data == "") {
@@ -122,9 +122,7 @@ func (a *AnswerCustomQueryRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode answerCustomQuery#b2e52d3f as nil")
 	}
-	if err := a.CustomQueryID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode answerCustomQuery#b2e52d3f: field custom_query_id: %w", err)
-	}
+	b.PutLong(a.CustomQueryID)
 	b.PutString(a.Data)
 	return nil
 }
@@ -146,9 +144,11 @@ func (a *AnswerCustomQueryRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode answerCustomQuery#b2e52d3f to nil")
 	}
 	{
-		if err := a.CustomQueryID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode answerCustomQuery#b2e52d3f: field custom_query_id: %w", err)
 		}
+		a.CustomQueryID = value
 	}
 	{
 		value, err := b.String()
@@ -160,25 +160,54 @@ func (a *AnswerCustomQueryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AnswerCustomQueryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AnswerCustomQueryRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode answerCustomQuery#b2e52d3f as nil")
 	}
 	b.ObjStart()
 	b.PutID("answerCustomQuery")
 	b.FieldStart("custom_query_id")
-	if err := a.CustomQueryID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode answerCustomQuery#b2e52d3f: field custom_query_id: %w", err)
-	}
+	b.PutLong(a.CustomQueryID)
 	b.FieldStart("data")
 	b.PutString(a.Data)
 	b.ObjEnd()
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AnswerCustomQueryRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode answerCustomQuery#b2e52d3f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("answerCustomQuery"); err != nil {
+				return fmt.Errorf("unable to decode answerCustomQuery#b2e52d3f: %w", err)
+			}
+		case "custom_query_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerCustomQuery#b2e52d3f: field custom_query_id: %w", err)
+			}
+			a.CustomQueryID = value
+		case "data":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerCustomQuery#b2e52d3f: field data: %w", err)
+			}
+			a.Data = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetCustomQueryID returns value of CustomQueryID field.
-func (a *AnswerCustomQueryRequest) GetCustomQueryID() (value Int64) {
+func (a *AnswerCustomQueryRequest) GetCustomQueryID() (value int64) {
 	return a.CustomQueryID
 }
 

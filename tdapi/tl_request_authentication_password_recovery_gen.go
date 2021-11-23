@@ -125,8 +125,8 @@ func (r *RequestAuthenticationPasswordRecoveryRequest) DecodeBare(b *bin.Buffer)
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RequestAuthenticationPasswordRecoveryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RequestAuthenticationPasswordRecoveryRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode requestAuthenticationPasswordRecovery#53152ab6 as nil")
 	}
@@ -134,6 +134,25 @@ func (r *RequestAuthenticationPasswordRecoveryRequest) EncodeTDLibJSON(b *jsontd
 	b.PutID("requestAuthenticationPasswordRecovery")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RequestAuthenticationPasswordRecoveryRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode requestAuthenticationPasswordRecovery#53152ab6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("requestAuthenticationPasswordRecovery"); err != nil {
+				return fmt.Errorf("unable to decode requestAuthenticationPasswordRecovery#53152ab6: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // RequestAuthenticationPasswordRecovery invokes method requestAuthenticationPasswordRecovery#53152ab6 returning error if any.

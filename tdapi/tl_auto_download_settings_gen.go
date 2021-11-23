@@ -263,8 +263,8 @@ func (a *AutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AutoDownloadSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AutoDownloadSettings) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode autoDownloadSettings#802ec5e3 as nil")
 	}
@@ -288,6 +288,73 @@ func (a *AutoDownloadSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(a.UseLessDataForCalls)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AutoDownloadSettings) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode autoDownloadSettings#802ec5e3 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("autoDownloadSettings"); err != nil {
+				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: %w", err)
+			}
+		case "is_auto_download_enabled":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field is_auto_download_enabled: %w", err)
+			}
+			a.IsAutoDownloadEnabled = value
+		case "max_photo_file_size":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field max_photo_file_size: %w", err)
+			}
+			a.MaxPhotoFileSize = value
+		case "max_video_file_size":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field max_video_file_size: %w", err)
+			}
+			a.MaxVideoFileSize = value
+		case "max_other_file_size":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field max_other_file_size: %w", err)
+			}
+			a.MaxOtherFileSize = value
+		case "video_upload_bitrate":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field video_upload_bitrate: %w", err)
+			}
+			a.VideoUploadBitrate = value
+		case "preload_large_videos":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field preload_large_videos: %w", err)
+			}
+			a.PreloadLargeVideos = value
+		case "preload_next_audio":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field preload_next_audio: %w", err)
+			}
+			a.PreloadNextAudio = value
+		case "use_less_data_for_calls":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field use_less_data_for_calls: %w", err)
+			}
+			a.UseLessDataForCalls = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetIsAutoDownloadEnabled returns value of IsAutoDownloadEnabled field.

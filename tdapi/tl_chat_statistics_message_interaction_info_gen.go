@@ -177,8 +177,8 @@ func (c *ChatStatisticsMessageInteractionInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatStatisticsMessageInteractionInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatStatisticsMessageInteractionInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatStatisticsMessageInteractionInfo#d25e2a2c as nil")
 	}
@@ -192,6 +192,43 @@ func (c *ChatStatisticsMessageInteractionInfo) EncodeTDLibJSON(b *jsontd.Encoder
 	b.PutInt32(c.ForwardCount)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatStatisticsMessageInteractionInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatStatisticsMessageInteractionInfo#d25e2a2c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatStatisticsMessageInteractionInfo"); err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsMessageInteractionInfo#d25e2a2c: %w", err)
+			}
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsMessageInteractionInfo#d25e2a2c: field message_id: %w", err)
+			}
+			c.MessageID = value
+		case "view_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsMessageInteractionInfo#d25e2a2c: field view_count: %w", err)
+			}
+			c.ViewCount = value
+		case "forward_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsMessageInteractionInfo#d25e2a2c: field forward_count: %w", err)
+			}
+			c.ForwardCount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetMessageID returns value of MessageID field.

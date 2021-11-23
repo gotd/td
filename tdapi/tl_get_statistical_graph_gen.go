@@ -177,8 +177,8 @@ func (g *GetStatisticalGraphRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetStatisticalGraphRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetStatisticalGraphRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getStatisticalGraph#419f8d9b as nil")
 	}
@@ -192,6 +192,43 @@ func (g *GetStatisticalGraphRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(g.X)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetStatisticalGraphRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getStatisticalGraph#419f8d9b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getStatisticalGraph"); err != nil {
+				return fmt.Errorf("unable to decode getStatisticalGraph#419f8d9b: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStatisticalGraph#419f8d9b: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "token":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStatisticalGraph#419f8d9b: field token: %w", err)
+			}
+			g.Token = value
+		case "x":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStatisticalGraph#419f8d9b: field x: %w", err)
+			}
+			g.X = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

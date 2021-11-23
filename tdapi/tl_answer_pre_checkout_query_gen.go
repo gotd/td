@@ -34,7 +34,7 @@ var (
 // AnswerPreCheckoutQueryRequest represents TL type `answerPreCheckoutQuery#a76163eb`.
 type AnswerPreCheckoutQueryRequest struct {
 	// Identifier of the pre-checkout query
-	PreCheckoutQueryID Int64
+	PreCheckoutQueryID int64
 	// An error message, empty on success
 	ErrorMessage string
 }
@@ -54,7 +54,7 @@ func (a *AnswerPreCheckoutQueryRequest) Zero() bool {
 	if a == nil {
 		return true
 	}
-	if !(a.PreCheckoutQueryID.Zero()) {
+	if !(a.PreCheckoutQueryID == 0) {
 		return false
 	}
 	if !(a.ErrorMessage == "") {
@@ -122,9 +122,7 @@ func (a *AnswerPreCheckoutQueryRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode answerPreCheckoutQuery#a76163eb as nil")
 	}
-	if err := a.PreCheckoutQueryID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode answerPreCheckoutQuery#a76163eb: field pre_checkout_query_id: %w", err)
-	}
+	b.PutLong(a.PreCheckoutQueryID)
 	b.PutString(a.ErrorMessage)
 	return nil
 }
@@ -146,9 +144,11 @@ func (a *AnswerPreCheckoutQueryRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode answerPreCheckoutQuery#a76163eb to nil")
 	}
 	{
-		if err := a.PreCheckoutQueryID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode answerPreCheckoutQuery#a76163eb: field pre_checkout_query_id: %w", err)
 		}
+		a.PreCheckoutQueryID = value
 	}
 	{
 		value, err := b.String()
@@ -160,25 +160,54 @@ func (a *AnswerPreCheckoutQueryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AnswerPreCheckoutQueryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AnswerPreCheckoutQueryRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode answerPreCheckoutQuery#a76163eb as nil")
 	}
 	b.ObjStart()
 	b.PutID("answerPreCheckoutQuery")
 	b.FieldStart("pre_checkout_query_id")
-	if err := a.PreCheckoutQueryID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode answerPreCheckoutQuery#a76163eb: field pre_checkout_query_id: %w", err)
-	}
+	b.PutLong(a.PreCheckoutQueryID)
 	b.FieldStart("error_message")
 	b.PutString(a.ErrorMessage)
 	b.ObjEnd()
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AnswerPreCheckoutQueryRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode answerPreCheckoutQuery#a76163eb to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("answerPreCheckoutQuery"); err != nil {
+				return fmt.Errorf("unable to decode answerPreCheckoutQuery#a76163eb: %w", err)
+			}
+		case "pre_checkout_query_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerPreCheckoutQuery#a76163eb: field pre_checkout_query_id: %w", err)
+			}
+			a.PreCheckoutQueryID = value
+		case "error_message":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerPreCheckoutQuery#a76163eb: field error_message: %w", err)
+			}
+			a.ErrorMessage = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetPreCheckoutQueryID returns value of PreCheckoutQueryID field.
-func (a *AnswerPreCheckoutQueryRequest) GetPreCheckoutQueryID() (value Int64) {
+func (a *AnswerPreCheckoutQueryRequest) GetPreCheckoutQueryID() (value int64) {
 	return a.PreCheckoutQueryID
 }
 

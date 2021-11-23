@@ -177,8 +177,8 @@ func (a *AutoDownloadSettingsPresets) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AutoDownloadSettingsPresets) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AutoDownloadSettingsPresets) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode autoDownloadSettingsPresets#d1621d22 as nil")
 	}
@@ -198,6 +198,37 @@ func (a *AutoDownloadSettingsPresets) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AutoDownloadSettingsPresets) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode autoDownloadSettingsPresets#d1621d22 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("autoDownloadSettingsPresets"); err != nil {
+				return fmt.Errorf("unable to decode autoDownloadSettingsPresets#d1621d22: %w", err)
+			}
+		case "low":
+			if err := a.Low.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode autoDownloadSettingsPresets#d1621d22: field low: %w", err)
+			}
+		case "medium":
+			if err := a.Medium.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode autoDownloadSettingsPresets#d1621d22: field medium: %w", err)
+			}
+		case "high":
+			if err := a.High.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode autoDownloadSettingsPresets#d1621d22: field high: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLow returns value of Low field.

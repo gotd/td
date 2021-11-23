@@ -156,8 +156,8 @@ func (r *ReorderChatFiltersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ReorderChatFiltersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ReorderChatFiltersRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode reorderChatFilters#c3a5313d as nil")
 	}
@@ -171,6 +171,36 @@ func (r *ReorderChatFiltersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ReorderChatFiltersRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode reorderChatFilters#c3a5313d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("reorderChatFilters"); err != nil {
+				return fmt.Errorf("unable to decode reorderChatFilters#c3a5313d: %w", err)
+			}
+		case "chat_filter_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode reorderChatFilters#c3a5313d: field chat_filter_ids: %w", err)
+				}
+				r.ChatFilterIDs = append(r.ChatFilterIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode reorderChatFilters#c3a5313d: field chat_filter_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatFilterIDs returns value of ChatFilterIDs field.

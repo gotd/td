@@ -216,8 +216,8 @@ func (g *GetMessageThreadHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetMessageThreadHistoryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetMessageThreadHistoryRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getMessageThreadHistory#9435d428 as nil")
 	}
@@ -235,6 +235,55 @@ func (g *GetMessageThreadHistoryRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutInt32(g.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetMessageThreadHistoryRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getMessageThreadHistory#9435d428 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getMessageThreadHistory"); err != nil {
+				return fmt.Errorf("unable to decode getMessageThreadHistory#9435d428: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessageThreadHistory#9435d428: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessageThreadHistory#9435d428: field message_id: %w", err)
+			}
+			g.MessageID = value
+		case "from_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessageThreadHistory#9435d428: field from_message_id: %w", err)
+			}
+			g.FromMessageID = value
+		case "offset":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessageThreadHistory#9435d428: field offset: %w", err)
+			}
+			g.Offset = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessageThreadHistory#9435d428: field limit: %w", err)
+			}
+			g.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

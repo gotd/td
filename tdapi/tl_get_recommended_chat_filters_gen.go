@@ -125,8 +125,8 @@ func (g *GetRecommendedChatFiltersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetRecommendedChatFiltersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetRecommendedChatFiltersRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getRecommendedChatFilters#d18b70e6 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetRecommendedChatFiltersRequest) EncodeTDLibJSON(b *jsontd.Encoder) er
 	b.PutID("getRecommendedChatFilters")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetRecommendedChatFiltersRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getRecommendedChatFilters#d18b70e6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getRecommendedChatFilters"); err != nil {
+				return fmt.Errorf("unable to decode getRecommendedChatFilters#d18b70e6: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetRecommendedChatFilters invokes method getRecommendedChatFilters#d18b70e6 returning error if any.

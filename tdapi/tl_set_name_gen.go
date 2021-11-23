@@ -160,8 +160,8 @@ func (s *SetNameRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetNameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetNameRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setName#66065f10 as nil")
 	}
@@ -173,6 +173,37 @@ func (s *SetNameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(s.LastName)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetNameRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setName#66065f10 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setName"); err != nil {
+				return fmt.Errorf("unable to decode setName#66065f10: %w", err)
+			}
+		case "first_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setName#66065f10: field first_name: %w", err)
+			}
+			s.FirstName = value
+		case "last_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setName#66065f10: field last_name: %w", err)
+			}
+			s.LastName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFirstName returns value of FirstName field.

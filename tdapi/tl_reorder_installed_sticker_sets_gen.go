@@ -37,7 +37,7 @@ type ReorderInstalledStickerSetsRequest struct {
 	// ordinary sticker sets
 	IsMasks bool
 	// Identifiers of installed sticker sets in the new correct order
-	StickerSetIDs []Int64
+	StickerSetIDs []int64
 }
 
 // ReorderInstalledStickerSetsRequestTypeID is TL type id of ReorderInstalledStickerSetsRequest.
@@ -125,10 +125,8 @@ func (r *ReorderInstalledStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutBool(r.IsMasks)
 	b.PutInt(len(r.StickerSetIDs))
-	for idx, v := range r.StickerSetIDs {
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare reorderInstalledStickerSets#4c37c303: field sticker_set_ids element with index %d: %w", idx, err)
-		}
+	for _, v := range r.StickerSetIDs {
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -163,12 +161,12 @@ func (r *ReorderInstalledStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 
 		if headerLen > 0 {
-			r.StickerSetIDs = make([]Int64, 0, headerLen%bin.PreallocateLimit)
+			r.StickerSetIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value Int64
-			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare reorderInstalledStickerSets#4c37c303: field sticker_set_ids: %w", err)
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode reorderInstalledStickerSets#4c37c303: field sticker_set_ids: %w", err)
 			}
 			r.StickerSetIDs = append(r.StickerSetIDs, value)
 		}
@@ -176,8 +174,8 @@ func (r *ReorderInstalledStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ReorderInstalledStickerSetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ReorderInstalledStickerSetsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode reorderInstalledStickerSets#4c37c303 as nil")
 	}
@@ -187,14 +185,48 @@ func (r *ReorderInstalledStickerSetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) 
 	b.PutBool(r.IsMasks)
 	b.FieldStart("sticker_set_ids")
 	b.ArrStart()
-	for idx, v := range r.StickerSetIDs {
-		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode reorderInstalledStickerSets#4c37c303: field sticker_set_ids element with index %d: %w", idx, err)
-		}
+	for _, v := range r.StickerSetIDs {
+		b.PutLong(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ReorderInstalledStickerSetsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode reorderInstalledStickerSets#4c37c303 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("reorderInstalledStickerSets"); err != nil {
+				return fmt.Errorf("unable to decode reorderInstalledStickerSets#4c37c303: %w", err)
+			}
+		case "is_masks":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode reorderInstalledStickerSets#4c37c303: field is_masks: %w", err)
+			}
+			r.IsMasks = value
+		case "sticker_set_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode reorderInstalledStickerSets#4c37c303: field sticker_set_ids: %w", err)
+				}
+				r.StickerSetIDs = append(r.StickerSetIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode reorderInstalledStickerSets#4c37c303: field sticker_set_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetIsMasks returns value of IsMasks field.
@@ -203,7 +235,7 @@ func (r *ReorderInstalledStickerSetsRequest) GetIsMasks() (value bool) {
 }
 
 // GetStickerSetIDs returns value of StickerSetIDs field.
-func (r *ReorderInstalledStickerSetsRequest) GetStickerSetIDs() (value []Int64) {
+func (r *ReorderInstalledStickerSetsRequest) GetStickerSetIDs() (value []int64) {
 	return r.StickerSetIDs
 }
 

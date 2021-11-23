@@ -192,8 +192,8 @@ func (s *StorageStatistics) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *StorageStatistics) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *StorageStatistics) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode storageStatistics#69b98672 as nil")
 	}
@@ -213,6 +213,48 @@ func (s *StorageStatistics) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *StorageStatistics) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storageStatistics#69b98672 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("storageStatistics"); err != nil {
+				return fmt.Errorf("unable to decode storageStatistics#69b98672: %w", err)
+			}
+		case "size":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode storageStatistics#69b98672: field size: %w", err)
+			}
+			s.Size = value
+		case "count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode storageStatistics#69b98672: field count: %w", err)
+			}
+			s.Count = value
+		case "by_chat":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value StorageStatisticsByChat
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode storageStatistics#69b98672: field by_chat: %w", err)
+				}
+				s.ByChat = append(s.ByChat, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode storageStatistics#69b98672: field by_chat: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSize returns value of Size field.

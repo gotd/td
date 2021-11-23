@@ -165,8 +165,8 @@ func (s *SetStickerPositionInSetRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetStickerPositionInSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetStickerPositionInSetRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setStickerPositionInSet#7bb24721 as nil")
 	}
@@ -183,6 +183,37 @@ func (s *SetStickerPositionInSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutInt32(s.Position)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetStickerPositionInSetRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setStickerPositionInSet#7bb24721 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setStickerPositionInSet"); err != nil {
+				return fmt.Errorf("unable to decode setStickerPositionInSet#7bb24721: %w", err)
+			}
+		case "sticker":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setStickerPositionInSet#7bb24721: field sticker: %w", err)
+			}
+			s.Sticker = value
+		case "position":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setStickerPositionInSet#7bb24721: field position: %w", err)
+			}
+			s.Position = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSticker returns value of Sticker field.

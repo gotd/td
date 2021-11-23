@@ -143,8 +143,8 @@ func (d *DeleteLanguagePackRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DeleteLanguagePackRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DeleteLanguagePackRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteLanguagePack#824edc3e as nil")
 	}
@@ -154,6 +154,31 @@ func (d *DeleteLanguagePackRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(d.LanguagePackID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DeleteLanguagePackRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deleteLanguagePack#824edc3e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("deleteLanguagePack"); err != nil {
+				return fmt.Errorf("unable to decode deleteLanguagePack#824edc3e: %w", err)
+			}
+		case "language_pack_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteLanguagePack#824edc3e: field language_pack_id: %w", err)
+			}
+			d.LanguagePackID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLanguagePackID returns value of LanguagePackID field.

@@ -390,8 +390,8 @@ func (t *TdlibParameters) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TdlibParameters) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TdlibParameters) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode tdlibParameters#d29c1d7b as nil")
 	}
@@ -429,6 +429,115 @@ func (t *TdlibParameters) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(t.IgnoreFileNames)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TdlibParameters) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode tdlibParameters#d29c1d7b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("tdlibParameters"); err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: %w", err)
+			}
+		case "use_test_dc":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field use_test_dc: %w", err)
+			}
+			t.UseTestDC = value
+		case "database_directory":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field database_directory: %w", err)
+			}
+			t.DatabaseDirectory = value
+		case "files_directory":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field files_directory: %w", err)
+			}
+			t.FilesDirectory = value
+		case "use_file_database":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field use_file_database: %w", err)
+			}
+			t.UseFileDatabase = value
+		case "use_chat_info_database":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field use_chat_info_database: %w", err)
+			}
+			t.UseChatInfoDatabase = value
+		case "use_message_database":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field use_message_database: %w", err)
+			}
+			t.UseMessageDatabase = value
+		case "use_secret_chats":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field use_secret_chats: %w", err)
+			}
+			t.UseSecretChats = value
+		case "api_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field api_id: %w", err)
+			}
+			t.APIID = value
+		case "api_hash":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field api_hash: %w", err)
+			}
+			t.APIHash = value
+		case "system_language_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field system_language_code: %w", err)
+			}
+			t.SystemLanguageCode = value
+		case "device_model":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field device_model: %w", err)
+			}
+			t.DeviceModel = value
+		case "system_version":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field system_version: %w", err)
+			}
+			t.SystemVersion = value
+		case "application_version":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field application_version: %w", err)
+			}
+			t.ApplicationVersion = value
+		case "enable_storage_optimizer":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field enable_storage_optimizer: %w", err)
+			}
+			t.EnableStorageOptimizer = value
+		case "ignore_file_names":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode tdlibParameters#d29c1d7b: field ignore_file_names: %w", err)
+			}
+			t.IgnoreFileNames = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUseTestDC returns value of UseTestDC field.

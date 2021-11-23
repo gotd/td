@@ -158,8 +158,8 @@ func (a *Animations) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *Animations) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *Animations) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode animations#2ce4157c as nil")
 	}
@@ -175,6 +175,36 @@ func (a *Animations) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *Animations) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode animations#2ce4157c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("animations"); err != nil {
+				return fmt.Errorf("unable to decode animations#2ce4157c: %w", err)
+			}
+		case "animations":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value Animation
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode animations#2ce4157c: field animations: %w", err)
+				}
+				a.Animations = append(a.Animations, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode animations#2ce4157c: field animations: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetAnimations returns value of Animations field.

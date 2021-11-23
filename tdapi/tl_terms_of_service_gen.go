@@ -177,8 +177,8 @@ func (t *TermsOfService) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TermsOfService) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TermsOfService) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode termsOfService#2c12b185 as nil")
 	}
@@ -194,6 +194,41 @@ func (t *TermsOfService) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(t.ShowPopup)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TermsOfService) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode termsOfService#2c12b185 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("termsOfService"); err != nil {
+				return fmt.Errorf("unable to decode termsOfService#2c12b185: %w", err)
+			}
+		case "text":
+			if err := t.Text.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode termsOfService#2c12b185: field text: %w", err)
+			}
+		case "min_user_age":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode termsOfService#2c12b185: field min_user_age: %w", err)
+			}
+			t.MinUserAge = value
+		case "show_popup":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode termsOfService#2c12b185: field show_popup: %w", err)
+			}
+			t.ShowPopup = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

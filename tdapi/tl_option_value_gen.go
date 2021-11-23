@@ -148,8 +148,8 @@ func (o *OptionValueBoolean) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes o in TDLib API JSON format.
-func (o *OptionValueBoolean) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (o *OptionValueBoolean) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if o == nil {
 		return fmt.Errorf("can't encode optionValueBoolean#3c35f1e as nil")
 	}
@@ -159,6 +159,31 @@ func (o *OptionValueBoolean) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(o.Value)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (o *OptionValueBoolean) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if o == nil {
+		return fmt.Errorf("can't decode optionValueBoolean#3c35f1e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("optionValueBoolean"); err != nil {
+				return fmt.Errorf("unable to decode optionValueBoolean#3c35f1e: %w", err)
+			}
+		case "value":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode optionValueBoolean#3c35f1e: field value: %w", err)
+			}
+			o.Value = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetValue returns value of Value field.
@@ -265,8 +290,8 @@ func (o *OptionValueEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes o in TDLib API JSON format.
-func (o *OptionValueEmpty) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (o *OptionValueEmpty) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if o == nil {
 		return fmt.Errorf("can't encode optionValueEmpty#36c62493 as nil")
 	}
@@ -276,10 +301,29 @@ func (o *OptionValueEmpty) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (o *OptionValueEmpty) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if o == nil {
+		return fmt.Errorf("can't decode optionValueEmpty#36c62493 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("optionValueEmpty"); err != nil {
+				return fmt.Errorf("unable to decode optionValueEmpty#36c62493: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // OptionValueInteger represents TL type `optionValueInteger#f4dcc2e4`.
 type OptionValueInteger struct {
 	// The value of the option
-	Value Int64
+	Value int64
 }
 
 // OptionValueIntegerTypeID is TL type id of OptionValueInteger.
@@ -302,7 +346,7 @@ func (o *OptionValueInteger) Zero() bool {
 	if o == nil {
 		return true
 	}
-	if !(o.Value.Zero()) {
+	if !(o.Value == 0) {
 		return false
 	}
 
@@ -363,9 +407,7 @@ func (o *OptionValueInteger) EncodeBare(b *bin.Buffer) error {
 	if o == nil {
 		return fmt.Errorf("can't encode optionValueInteger#f4dcc2e4 as nil")
 	}
-	if err := o.Value.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode optionValueInteger#f4dcc2e4: field value: %w", err)
-	}
+	b.PutLong(o.Value)
 	return nil
 }
 
@@ -386,30 +428,55 @@ func (o *OptionValueInteger) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode optionValueInteger#f4dcc2e4 to nil")
 	}
 	{
-		if err := o.Value.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode optionValueInteger#f4dcc2e4: field value: %w", err)
 		}
+		o.Value = value
 	}
 	return nil
 }
 
-// EncodeTDLibJSON encodes o in TDLib API JSON format.
-func (o *OptionValueInteger) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (o *OptionValueInteger) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if o == nil {
 		return fmt.Errorf("can't encode optionValueInteger#f4dcc2e4 as nil")
 	}
 	b.ObjStart()
 	b.PutID("optionValueInteger")
 	b.FieldStart("value")
-	if err := o.Value.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode optionValueInteger#f4dcc2e4: field value: %w", err)
-	}
+	b.PutLong(o.Value)
 	b.ObjEnd()
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (o *OptionValueInteger) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if o == nil {
+		return fmt.Errorf("can't decode optionValueInteger#f4dcc2e4 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("optionValueInteger"); err != nil {
+				return fmt.Errorf("unable to decode optionValueInteger#f4dcc2e4: %w", err)
+			}
+		case "value":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode optionValueInteger#f4dcc2e4: field value: %w", err)
+			}
+			o.Value = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetValue returns value of Value field.
-func (o *OptionValueInteger) GetValue() (value Int64) {
+func (o *OptionValueInteger) GetValue() (value int64) {
 	return o.Value
 }
 
@@ -530,8 +597,8 @@ func (o *OptionValueString) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes o in TDLib API JSON format.
-func (o *OptionValueString) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (o *OptionValueString) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if o == nil {
 		return fmt.Errorf("can't encode optionValueString#2d136e94 as nil")
 	}
@@ -541,6 +608,31 @@ func (o *OptionValueString) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(o.Value)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (o *OptionValueString) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if o == nil {
+		return fmt.Errorf("can't decode optionValueString#2d136e94 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("optionValueString"); err != nil {
+				return fmt.Errorf("unable to decode optionValueString#2d136e94: %w", err)
+			}
+		case "value":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode optionValueString#2d136e94: field value: %w", err)
+			}
+			o.Value = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetValue returns value of Value field.
@@ -579,7 +671,9 @@ type OptionValueClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeOptionValue implements binary de-serialization for OptionValueClass.
@@ -622,6 +716,46 @@ func DecodeOptionValue(buf *bin.Buffer) (OptionValueClass, error) {
 	}
 }
 
+// DecodeTDLibJSONOptionValue implements binary de-serialization for OptionValueClass.
+func DecodeTDLibJSONOptionValue(buf jsontd.Decoder) (OptionValueClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "optionValueBoolean":
+		// Decoding optionValueBoolean#3c35f1e.
+		v := OptionValueBoolean{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode OptionValueClass: %w", err)
+		}
+		return &v, nil
+	case "optionValueEmpty":
+		// Decoding optionValueEmpty#36c62493.
+		v := OptionValueEmpty{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode OptionValueClass: %w", err)
+		}
+		return &v, nil
+	case "optionValueInteger":
+		// Decoding optionValueInteger#f4dcc2e4.
+		v := OptionValueInteger{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode OptionValueClass: %w", err)
+		}
+		return &v, nil
+	case "optionValueString":
+		// Decoding optionValueString#2d136e94.
+		v := OptionValueString{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode OptionValueClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode OptionValueClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // OptionValue boxes the OptionValueClass providing a helper.
 type OptionValueBox struct {
 	OptionValue OptionValueClass
@@ -646,4 +780,25 @@ func (b *OptionValueBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode OptionValueClass as nil")
 	}
 	return b.OptionValue.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for OptionValueBox.
+func (b *OptionValueBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode OptionValueBox to nil")
+	}
+	v, err := DecodeTDLibJSONOptionValue(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.OptionValue = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for OptionValueBox.
+func (b *OptionValueBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.OptionValue == nil {
+		return fmt.Errorf("unable to encode OptionValueClass as nil")
+	}
+	return b.OptionValue.EncodeTDLibJSON(buf)
 }

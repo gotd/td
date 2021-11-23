@@ -143,8 +143,8 @@ func (g *GetFileMimeTypeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetFileMimeTypeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetFileMimeTypeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getFileMimeType#84631b89 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetFileMimeTypeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(g.FileName)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetFileMimeTypeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getFileMimeType#84631b89 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getFileMimeType"); err != nil {
+				return fmt.Errorf("unable to decode getFileMimeType#84631b89: %w", err)
+			}
+		case "file_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getFileMimeType#84631b89: field file_name: %w", err)
+			}
+			g.FileName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFileName returns value of FileName field.

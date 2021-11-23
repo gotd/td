@@ -161,8 +161,8 @@ func (c *ClosedVectorPath) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ClosedVectorPath) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ClosedVectorPath) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode closedVectorPath#2f9276b9 as nil")
 	}
@@ -181,6 +181,36 @@ func (c *ClosedVectorPath) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ClosedVectorPath) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode closedVectorPath#2f9276b9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("closedVectorPath"); err != nil {
+				return fmt.Errorf("unable to decode closedVectorPath#2f9276b9: %w", err)
+			}
+		case "commands":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONVectorPathCommand(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode closedVectorPath#2f9276b9: field commands: %w", err)
+				}
+				c.Commands = append(c.Commands, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode closedVectorPath#2f9276b9: field commands: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCommands returns value of Commands field.

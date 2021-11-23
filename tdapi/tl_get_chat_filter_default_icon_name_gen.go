@@ -143,8 +143,8 @@ func (g *GetChatFilterDefaultIconNameRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetChatFilterDefaultIconNameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetChatFilterDefaultIconNameRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatFilterDefaultIconName#b023d638 as nil")
 	}
@@ -156,6 +156,29 @@ func (g *GetChatFilterDefaultIconNameRequest) EncodeTDLibJSON(b *jsontd.Encoder)
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetChatFilterDefaultIconNameRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getChatFilterDefaultIconName#b023d638 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getChatFilterDefaultIconName"); err != nil {
+				return fmt.Errorf("unable to decode getChatFilterDefaultIconName#b023d638: %w", err)
+			}
+		case "filter":
+			if err := g.Filter.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode getChatFilterDefaultIconName#b023d638: field filter: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFilter returns value of Filter field.

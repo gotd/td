@@ -143,8 +143,8 @@ func (l *LeaveGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes l in TDLib API JSON format.
-func (l *LeaveGroupCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (l *LeaveGroupCallRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode leaveGroupCall#3a6befa9 as nil")
 	}
@@ -154,6 +154,31 @@ func (l *LeaveGroupCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(l.GroupCallID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (l *LeaveGroupCallRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if l == nil {
+		return fmt.Errorf("can't decode leaveGroupCall#3a6befa9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("leaveGroupCall"); err != nil {
+				return fmt.Errorf("unable to decode leaveGroupCall#3a6befa9: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode leaveGroupCall#3a6befa9: field group_call_id: %w", err)
+			}
+			l.GroupCallID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

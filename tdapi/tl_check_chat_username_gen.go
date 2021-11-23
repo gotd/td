@@ -161,8 +161,8 @@ func (c *CheckChatUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CheckChatUsernameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CheckChatUsernameRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkChatUsername#f8e66210 as nil")
 	}
@@ -174,6 +174,37 @@ func (c *CheckChatUsernameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(c.Username)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CheckChatUsernameRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkChatUsername#f8e66210 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("checkChatUsername"); err != nil {
+				return fmt.Errorf("unable to decode checkChatUsername#f8e66210: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode checkChatUsername#f8e66210: field chat_id: %w", err)
+			}
+			c.ChatID = value
+		case "username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode checkChatUsername#f8e66210: field username: %w", err)
+			}
+			c.Username = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

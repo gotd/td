@@ -34,7 +34,7 @@ var (
 // AnswerCallbackQueryRequest represents TL type `answerCallbackQuery#bb462e76`.
 type AnswerCallbackQueryRequest struct {
 	// Identifier of the callback query
-	CallbackQueryID Int64
+	CallbackQueryID int64
 	// Text of the answer
 	Text string
 	// If true, an alert should be shown to the user instead of a toast notification
@@ -60,7 +60,7 @@ func (a *AnswerCallbackQueryRequest) Zero() bool {
 	if a == nil {
 		return true
 	}
-	if !(a.CallbackQueryID.Zero()) {
+	if !(a.CallbackQueryID == 0) {
 		return false
 	}
 	if !(a.Text == "") {
@@ -149,9 +149,7 @@ func (a *AnswerCallbackQueryRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode answerCallbackQuery#bb462e76 as nil")
 	}
-	if err := a.CallbackQueryID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode answerCallbackQuery#bb462e76: field callback_query_id: %w", err)
-	}
+	b.PutLong(a.CallbackQueryID)
 	b.PutString(a.Text)
 	b.PutBool(a.ShowAlert)
 	b.PutString(a.URL)
@@ -176,9 +174,11 @@ func (a *AnswerCallbackQueryRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode answerCallbackQuery#bb462e76 to nil")
 	}
 	{
-		if err := a.CallbackQueryID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode answerCallbackQuery#bb462e76: field callback_query_id: %w", err)
 		}
+		a.CallbackQueryID = value
 	}
 	{
 		value, err := b.String()
@@ -211,17 +211,15 @@ func (a *AnswerCallbackQueryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AnswerCallbackQueryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AnswerCallbackQueryRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode answerCallbackQuery#bb462e76 as nil")
 	}
 	b.ObjStart()
 	b.PutID("answerCallbackQuery")
 	b.FieldStart("callback_query_id")
-	if err := a.CallbackQueryID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode answerCallbackQuery#bb462e76: field callback_query_id: %w", err)
-	}
+	b.PutLong(a.CallbackQueryID)
 	b.FieldStart("text")
 	b.PutString(a.Text)
 	b.FieldStart("show_alert")
@@ -234,8 +232,57 @@ func (a *AnswerCallbackQueryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AnswerCallbackQueryRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode answerCallbackQuery#bb462e76 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("answerCallbackQuery"); err != nil {
+				return fmt.Errorf("unable to decode answerCallbackQuery#bb462e76: %w", err)
+			}
+		case "callback_query_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerCallbackQuery#bb462e76: field callback_query_id: %w", err)
+			}
+			a.CallbackQueryID = value
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerCallbackQuery#bb462e76: field text: %w", err)
+			}
+			a.Text = value
+		case "show_alert":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerCallbackQuery#bb462e76: field show_alert: %w", err)
+			}
+			a.ShowAlert = value
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerCallbackQuery#bb462e76: field url: %w", err)
+			}
+			a.URL = value
+		case "cache_time":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerCallbackQuery#bb462e76: field cache_time: %w", err)
+			}
+			a.CacheTime = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetCallbackQueryID returns value of CallbackQueryID field.
-func (a *AnswerCallbackQueryRequest) GetCallbackQueryID() (value Int64) {
+func (a *AnswerCallbackQueryRequest) GetCallbackQueryID() (value int64) {
 	return a.CallbackQueryID
 }
 

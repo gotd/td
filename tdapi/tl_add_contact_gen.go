@@ -164,8 +164,8 @@ func (a *AddContactRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AddContactRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AddContactRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addContact#6f707140 as nil")
 	}
@@ -179,6 +179,35 @@ func (a *AddContactRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(a.SharePhoneNumber)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AddContactRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode addContact#6f707140 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("addContact"); err != nil {
+				return fmt.Errorf("unable to decode addContact#6f707140: %w", err)
+			}
+		case "contact":
+			if err := a.Contact.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode addContact#6f707140: field contact: %w", err)
+			}
+		case "share_phone_number":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode addContact#6f707140: field share_phone_number: %w", err)
+			}
+			a.SharePhoneNumber = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetContact returns value of Contact field.

@@ -143,8 +143,8 @@ func (s *SearchPublicChatsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SearchPublicChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SearchPublicChatsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchPublicChats#39d6e7b9 as nil")
 	}
@@ -154,6 +154,31 @@ func (s *SearchPublicChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(s.Query)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SearchPublicChatsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchPublicChats#39d6e7b9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("searchPublicChats"); err != nil {
+				return fmt.Errorf("unable to decode searchPublicChats#39d6e7b9: %w", err)
+			}
+		case "query":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchPublicChats#39d6e7b9: field query: %w", err)
+			}
+			s.Query = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetQuery returns value of Query field.

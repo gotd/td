@@ -216,8 +216,8 @@ func (b *BasicGroup) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *BasicGroup) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *BasicGroup) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode basicGroup#ed0e293b as nil")
 	}
@@ -240,6 +240,55 @@ func (b *BasicGroup) EncodeTDLibJSON(buf *jsontd.Encoder) error {
 	buf.PutInt32(b.UpgradedToSupergroupID)
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *BasicGroup) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode basicGroup#ed0e293b to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("basicGroup"); err != nil {
+				return fmt.Errorf("unable to decode basicGroup#ed0e293b: %w", err)
+			}
+		case "id":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode basicGroup#ed0e293b: field id: %w", err)
+			}
+			b.ID = value
+		case "member_count":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode basicGroup#ed0e293b: field member_count: %w", err)
+			}
+			b.MemberCount = value
+		case "status":
+			value, err := DecodeTDLibJSONChatMemberStatus(buf)
+			if err != nil {
+				return fmt.Errorf("unable to decode basicGroup#ed0e293b: field status: %w", err)
+			}
+			b.Status = value
+		case "is_active":
+			value, err := buf.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode basicGroup#ed0e293b: field is_active: %w", err)
+			}
+			b.IsActive = value
+		case "upgraded_to_supergroup_id":
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode basicGroup#ed0e293b: field upgraded_to_supergroup_id: %w", err)
+			}
+			b.UpgradedToSupergroupID = value
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

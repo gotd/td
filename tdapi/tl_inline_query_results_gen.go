@@ -34,7 +34,7 @@ var (
 // InlineQueryResults represents TL type `inlineQueryResults#6ecde5be`.
 type InlineQueryResults struct {
 	// Unique identifier of the inline query
-	InlineQueryID Int64
+	InlineQueryID int64
 	// The offset for the next request. If empty, there are no more results
 	NextOffset string
 	// Results of the query
@@ -61,7 +61,7 @@ func (i *InlineQueryResults) Zero() bool {
 	if i == nil {
 		return true
 	}
-	if !(i.InlineQueryID.Zero()) {
+	if !(i.InlineQueryID == 0) {
 		return false
 	}
 	if !(i.NextOffset == "") {
@@ -150,9 +150,7 @@ func (i *InlineQueryResults) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResults#6ecde5be as nil")
 	}
-	if err := i.InlineQueryID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inlineQueryResults#6ecde5be: field inline_query_id: %w", err)
-	}
+	b.PutLong(i.InlineQueryID)
 	b.PutString(i.NextOffset)
 	b.PutInt(len(i.Results))
 	for idx, v := range i.Results {
@@ -185,9 +183,11 @@ func (i *InlineQueryResults) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode inlineQueryResults#6ecde5be to nil")
 	}
 	{
-		if err := i.InlineQueryID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode inlineQueryResults#6ecde5be: field inline_query_id: %w", err)
 		}
+		i.InlineQueryID = value
 	}
 	{
 		value, err := b.String()
@@ -230,17 +230,15 @@ func (i *InlineQueryResults) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InlineQueryResults) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InlineQueryResults) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResults#6ecde5be as nil")
 	}
 	b.ObjStart()
 	b.PutID("inlineQueryResults")
 	b.FieldStart("inline_query_id")
-	if err := i.InlineQueryID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inlineQueryResults#6ecde5be: field inline_query_id: %w", err)
-	}
+	b.PutLong(i.InlineQueryID)
 	b.FieldStart("next_offset")
 	b.PutString(i.NextOffset)
 	b.FieldStart("results")
@@ -262,8 +260,62 @@ func (i *InlineQueryResults) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InlineQueryResults) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineQueryResults#6ecde5be to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inlineQueryResults"); err != nil {
+				return fmt.Errorf("unable to decode inlineQueryResults#6ecde5be: %w", err)
+			}
+		case "inline_query_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode inlineQueryResults#6ecde5be: field inline_query_id: %w", err)
+			}
+			i.InlineQueryID = value
+		case "next_offset":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inlineQueryResults#6ecde5be: field next_offset: %w", err)
+			}
+			i.NextOffset = value
+		case "results":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONInlineQueryResult(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode inlineQueryResults#6ecde5be: field results: %w", err)
+				}
+				i.Results = append(i.Results, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode inlineQueryResults#6ecde5be: field results: %w", err)
+			}
+		case "switch_pm_text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inlineQueryResults#6ecde5be: field switch_pm_text: %w", err)
+			}
+			i.SwitchPmText = value
+		case "switch_pm_parameter":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inlineQueryResults#6ecde5be: field switch_pm_parameter: %w", err)
+			}
+			i.SwitchPmParameter = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetInlineQueryID returns value of InlineQueryID field.
-func (i *InlineQueryResults) GetInlineQueryID() (value Int64) {
+func (i *InlineQueryResults) GetInlineQueryID() (value int64) {
 	return i.InlineQueryID
 }
 

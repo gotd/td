@@ -125,8 +125,8 @@ func (g *GetActiveSessionsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetActiveSessionsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetActiveSessionsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getActiveSessions#42bd6d3e as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetActiveSessionsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("getActiveSessions")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetActiveSessionsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getActiveSessions#42bd6d3e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getActiveSessions"); err != nil {
+				return fmt.Errorf("unable to decode getActiveSessions#42bd6d3e: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetActiveSessions invokes method getActiveSessions#42bd6d3e returning error if any.

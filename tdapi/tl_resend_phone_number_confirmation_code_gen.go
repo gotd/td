@@ -125,8 +125,8 @@ func (r *ResendPhoneNumberConfirmationCodeRequest) DecodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ResendPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ResendPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resendPhoneNumberConfirmationCode#7b537aea as nil")
 	}
@@ -134,6 +134,25 @@ func (r *ResendPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b *jsontd.Enc
 	b.PutID("resendPhoneNumberConfirmationCode")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ResendPhoneNumberConfirmationCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode resendPhoneNumberConfirmationCode#7b537aea to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("resendPhoneNumberConfirmationCode"); err != nil {
+				return fmt.Errorf("unable to decode resendPhoneNumberConfirmationCode#7b537aea: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ResendPhoneNumberConfirmationCode invokes method resendPhoneNumberConfirmationCode#7b537aea returning error if any.

@@ -148,8 +148,8 @@ func (d *DiceStickersRegular) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DiceStickersRegular) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DiceStickersRegular) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode diceStickersRegular#d3dfecce as nil")
 	}
@@ -161,6 +161,29 @@ func (d *DiceStickersRegular) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DiceStickersRegular) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode diceStickersRegular#d3dfecce to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("diceStickersRegular"); err != nil {
+				return fmt.Errorf("unable to decode diceStickersRegular#d3dfecce: %w", err)
+			}
+		case "sticker":
+			if err := d.Sticker.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode diceStickersRegular#d3dfecce: field sticker: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSticker returns value of Sticker field.
@@ -355,8 +378,8 @@ func (d *DiceStickersSlotMachine) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DiceStickersSlotMachine) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DiceStickersSlotMachine) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode diceStickersSlotMachine#e9a28cac as nil")
 	}
@@ -384,6 +407,45 @@ func (d *DiceStickersSlotMachine) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DiceStickersSlotMachine) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode diceStickersSlotMachine#e9a28cac to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("diceStickersSlotMachine"); err != nil {
+				return fmt.Errorf("unable to decode diceStickersSlotMachine#e9a28cac: %w", err)
+			}
+		case "background":
+			if err := d.Background.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode diceStickersSlotMachine#e9a28cac: field background: %w", err)
+			}
+		case "lever":
+			if err := d.Lever.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode diceStickersSlotMachine#e9a28cac: field lever: %w", err)
+			}
+		case "left_reel":
+			if err := d.LeftReel.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode diceStickersSlotMachine#e9a28cac: field left_reel: %w", err)
+			}
+		case "center_reel":
+			if err := d.CenterReel.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode diceStickersSlotMachine#e9a28cac: field center_reel: %w", err)
+			}
+		case "right_reel":
+			if err := d.RightReel.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode diceStickersSlotMachine#e9a28cac: field right_reel: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBackground returns value of Background field.
@@ -440,7 +502,9 @@ type DiceStickersClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeDiceStickers implements binary de-serialization for DiceStickersClass.
@@ -469,6 +533,32 @@ func DecodeDiceStickers(buf *bin.Buffer) (DiceStickersClass, error) {
 	}
 }
 
+// DecodeTDLibJSONDiceStickers implements binary de-serialization for DiceStickersClass.
+func DecodeTDLibJSONDiceStickers(buf jsontd.Decoder) (DiceStickersClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "diceStickersRegular":
+		// Decoding diceStickersRegular#d3dfecce.
+		v := DiceStickersRegular{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode DiceStickersClass: %w", err)
+		}
+		return &v, nil
+	case "diceStickersSlotMachine":
+		// Decoding diceStickersSlotMachine#e9a28cac.
+		v := DiceStickersSlotMachine{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode DiceStickersClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode DiceStickersClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // DiceStickers boxes the DiceStickersClass providing a helper.
 type DiceStickersBox struct {
 	DiceStickers DiceStickersClass
@@ -493,4 +583,25 @@ func (b *DiceStickersBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DiceStickersClass as nil")
 	}
 	return b.DiceStickers.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for DiceStickersBox.
+func (b *DiceStickersBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode DiceStickersBox to nil")
+	}
+	v, err := DecodeTDLibJSONDiceStickers(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.DiceStickers = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for DiceStickersBox.
+func (b *DiceStickersBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.DiceStickers == nil {
+		return fmt.Errorf("unable to encode DiceStickersClass as nil")
+	}
+	return b.DiceStickers.EncodeTDLibJSON(buf)
 }

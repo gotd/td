@@ -160,8 +160,8 @@ func (g *GetStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetStickersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetStickersRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getStickers#a0ef757c as nil")
 	}
@@ -173,6 +173,37 @@ func (g *GetStickersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(g.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetStickersRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getStickers#a0ef757c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getStickers"); err != nil {
+				return fmt.Errorf("unable to decode getStickers#a0ef757c: %w", err)
+			}
+		case "emoji":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStickers#a0ef757c: field emoji: %w", err)
+			}
+			g.Emoji = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStickers#a0ef757c: field limit: %w", err)
+			}
+			g.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetEmoji returns value of Emoji field.

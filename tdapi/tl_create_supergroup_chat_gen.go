@@ -161,8 +161,8 @@ func (c *CreateSupergroupChatRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CreateSupergroupChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CreateSupergroupChatRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createSupergroupChat#15066d66 as nil")
 	}
@@ -174,6 +174,37 @@ func (c *CreateSupergroupChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(c.Force)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CreateSupergroupChatRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode createSupergroupChat#15066d66 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("createSupergroupChat"); err != nil {
+				return fmt.Errorf("unable to decode createSupergroupChat#15066d66: %w", err)
+			}
+		case "supergroup_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode createSupergroupChat#15066d66: field supergroup_id: %w", err)
+			}
+			c.SupergroupID = value
+		case "force":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode createSupergroupChat#15066d66: field force: %w", err)
+			}
+			c.Force = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSupergroupID returns value of SupergroupID field.

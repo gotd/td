@@ -148,8 +148,8 @@ func (l *LanguagePackStringValueOrdinary) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes l in TDLib API JSON format.
-func (l *LanguagePackStringValueOrdinary) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (l *LanguagePackStringValueOrdinary) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode languagePackStringValueOrdinary#f124a660 as nil")
 	}
@@ -159,6 +159,31 @@ func (l *LanguagePackStringValueOrdinary) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.PutString(l.Value)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (l *LanguagePackStringValueOrdinary) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if l == nil {
+		return fmt.Errorf("can't decode languagePackStringValueOrdinary#f124a660 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("languagePackStringValueOrdinary"); err != nil {
+				return fmt.Errorf("unable to decode languagePackStringValueOrdinary#f124a660: %w", err)
+			}
+		case "value":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackStringValueOrdinary#f124a660: field value: %w", err)
+			}
+			l.Value = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetValue returns value of Value field.
@@ -368,8 +393,8 @@ func (l *LanguagePackStringValuePluralized) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes l in TDLib API JSON format.
-func (l *LanguagePackStringValuePluralized) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (l *LanguagePackStringValuePluralized) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode languagePackStringValuePluralized#71a812c5 as nil")
 	}
@@ -389,6 +414,61 @@ func (l *LanguagePackStringValuePluralized) EncodeTDLibJSON(b *jsontd.Encoder) e
 	b.PutString(l.OtherValue)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (l *LanguagePackStringValuePluralized) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if l == nil {
+		return fmt.Errorf("can't decode languagePackStringValuePluralized#71a812c5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("languagePackStringValuePluralized"); err != nil {
+				return fmt.Errorf("unable to decode languagePackStringValuePluralized#71a812c5: %w", err)
+			}
+		case "zero_value":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackStringValuePluralized#71a812c5: field zero_value: %w", err)
+			}
+			l.ZeroValue = value
+		case "one_value":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackStringValuePluralized#71a812c5: field one_value: %w", err)
+			}
+			l.OneValue = value
+		case "two_value":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackStringValuePluralized#71a812c5: field two_value: %w", err)
+			}
+			l.TwoValue = value
+		case "few_value":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackStringValuePluralized#71a812c5: field few_value: %w", err)
+			}
+			l.FewValue = value
+		case "many_value":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackStringValuePluralized#71a812c5: field many_value: %w", err)
+			}
+			l.ManyValue = value
+		case "other_value":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackStringValuePluralized#71a812c5: field other_value: %w", err)
+			}
+			l.OtherValue = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetZeroValue returns value of ZeroValue field.
@@ -520,8 +600,8 @@ func (l *LanguagePackStringValueDeleted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes l in TDLib API JSON format.
-func (l *LanguagePackStringValueDeleted) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (l *LanguagePackStringValueDeleted) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode languagePackStringValueDeleted#6d5cb6fa as nil")
 	}
@@ -529,6 +609,25 @@ func (l *LanguagePackStringValueDeleted) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutID("languagePackStringValueDeleted")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (l *LanguagePackStringValueDeleted) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if l == nil {
+		return fmt.Errorf("can't decode languagePackStringValueDeleted#6d5cb6fa to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("languagePackStringValueDeleted"); err != nil {
+				return fmt.Errorf("unable to decode languagePackStringValueDeleted#6d5cb6fa: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // LanguagePackStringValueClass represents LanguagePackStringValue generic type.
@@ -561,7 +660,9 @@ type LanguagePackStringValueClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeLanguagePackStringValue implements binary de-serialization for LanguagePackStringValueClass.
@@ -597,6 +698,39 @@ func DecodeLanguagePackStringValue(buf *bin.Buffer) (LanguagePackStringValueClas
 	}
 }
 
+// DecodeTDLibJSONLanguagePackStringValue implements binary de-serialization for LanguagePackStringValueClass.
+func DecodeTDLibJSONLanguagePackStringValue(buf jsontd.Decoder) (LanguagePackStringValueClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "languagePackStringValueOrdinary":
+		// Decoding languagePackStringValueOrdinary#f124a660.
+		v := LanguagePackStringValueOrdinary{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode LanguagePackStringValueClass: %w", err)
+		}
+		return &v, nil
+	case "languagePackStringValuePluralized":
+		// Decoding languagePackStringValuePluralized#71a812c5.
+		v := LanguagePackStringValuePluralized{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode LanguagePackStringValueClass: %w", err)
+		}
+		return &v, nil
+	case "languagePackStringValueDeleted":
+		// Decoding languagePackStringValueDeleted#6d5cb6fa.
+		v := LanguagePackStringValueDeleted{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode LanguagePackStringValueClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode LanguagePackStringValueClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // LanguagePackStringValue boxes the LanguagePackStringValueClass providing a helper.
 type LanguagePackStringValueBox struct {
 	LanguagePackStringValue LanguagePackStringValueClass
@@ -621,4 +755,25 @@ func (b *LanguagePackStringValueBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode LanguagePackStringValueClass as nil")
 	}
 	return b.LanguagePackStringValue.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for LanguagePackStringValueBox.
+func (b *LanguagePackStringValueBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode LanguagePackStringValueBox to nil")
+	}
+	v, err := DecodeTDLibJSONLanguagePackStringValue(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.LanguagePackStringValue = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for LanguagePackStringValueBox.
+func (b *LanguagePackStringValueBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.LanguagePackStringValue == nil {
+		return fmt.Errorf("unable to encode LanguagePackStringValueClass as nil")
+	}
+	return b.LanguagePackStringValue.EncodeTDLibJSON(buf)
 }

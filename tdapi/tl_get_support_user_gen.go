@@ -125,8 +125,8 @@ func (g *GetSupportUserRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetSupportUserRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetSupportUserRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getSupportUser#98acec9c as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetSupportUserRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("getSupportUser")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetSupportUserRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getSupportUser#98acec9c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getSupportUser"); err != nil {
+				return fmt.Errorf("unable to decode getSupportUser#98acec9c: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSupportUser invokes method getSupportUser#98acec9c returning error if any.

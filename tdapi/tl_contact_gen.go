@@ -211,8 +211,8 @@ func (c *Contact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *Contact) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *Contact) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode contact#a79b2d54 as nil")
 	}
@@ -230,6 +230,55 @@ func (c *Contact) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(c.UserID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *Contact) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode contact#a79b2d54 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("contact"); err != nil {
+				return fmt.Errorf("unable to decode contact#a79b2d54: %w", err)
+			}
+		case "phone_number":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode contact#a79b2d54: field phone_number: %w", err)
+			}
+			c.PhoneNumber = value
+		case "first_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode contact#a79b2d54: field first_name: %w", err)
+			}
+			c.FirstName = value
+		case "last_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode contact#a79b2d54: field last_name: %w", err)
+			}
+			c.LastName = value
+		case "vcard":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode contact#a79b2d54: field vcard: %w", err)
+			}
+			c.Vcard = value
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode contact#a79b2d54: field user_id: %w", err)
+			}
+			c.UserID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPhoneNumber returns value of PhoneNumber field.

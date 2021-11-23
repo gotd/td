@@ -227,8 +227,8 @@ func (m *MessageThreadInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MessageThreadInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MessageThreadInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageThreadInfo#f356201b as nil")
 	}
@@ -256,6 +256,56 @@ func (m *MessageThreadInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MessageThreadInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageThreadInfo#f356201b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("messageThreadInfo"); err != nil {
+				return fmt.Errorf("unable to decode messageThreadInfo#f356201b: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field chat_id: %w", err)
+			}
+			m.ChatID = value
+		case "message_thread_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field message_thread_id: %w", err)
+			}
+			m.MessageThreadID = value
+		case "reply_info":
+			if err := m.ReplyInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field reply_info: %w", err)
+			}
+		case "messages":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value Message
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field messages: %w", err)
+				}
+				m.Messages = append(m.Messages, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field messages: %w", err)
+			}
+		case "draft_message":
+			if err := m.DraftMessage.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field draft_message: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

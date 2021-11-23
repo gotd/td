@@ -191,8 +191,8 @@ func (s *SetPollAnswerRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetPollAnswerRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetPollAnswerRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setPollAnswer#5303b916 as nil")
 	}
@@ -210,6 +210,48 @@ func (s *SetPollAnswerRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetPollAnswerRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setPollAnswer#5303b916 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setPollAnswer"); err != nil {
+				return fmt.Errorf("unable to decode setPollAnswer#5303b916: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setPollAnswer#5303b916: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setPollAnswer#5303b916: field message_id: %w", err)
+			}
+			s.MessageID = value
+		case "option_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode setPollAnswer#5303b916: field option_ids: %w", err)
+				}
+				s.OptionIDs = append(s.OptionIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode setPollAnswer#5303b916: field option_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

@@ -158,8 +158,8 @@ func (l *LocalizationTargetInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes l in TDLib API JSON format.
-func (l *LocalizationTargetInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (l *LocalizationTargetInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode localizationTargetInfo#2ca3903b as nil")
 	}
@@ -175,6 +175,36 @@ func (l *LocalizationTargetInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (l *LocalizationTargetInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if l == nil {
+		return fmt.Errorf("can't decode localizationTargetInfo#2ca3903b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("localizationTargetInfo"); err != nil {
+				return fmt.Errorf("unable to decode localizationTargetInfo#2ca3903b: %w", err)
+			}
+		case "language_packs":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value LanguagePackInfo
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode localizationTargetInfo#2ca3903b: field language_packs: %w", err)
+				}
+				l.LanguagePacks = append(l.LanguagePacks, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode localizationTargetInfo#2ca3903b: field language_packs: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLanguagePacks returns value of LanguagePacks field.

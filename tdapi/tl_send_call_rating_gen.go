@@ -212,8 +212,8 @@ func (s *SendCallRatingRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SendCallRatingRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SendCallRatingRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sendCallRating#d89b576c as nil")
 	}
@@ -238,6 +238,54 @@ func (s *SendCallRatingRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SendCallRatingRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendCallRating#d89b576c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("sendCallRating"); err != nil {
+				return fmt.Errorf("unable to decode sendCallRating#d89b576c: %w", err)
+			}
+		case "call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendCallRating#d89b576c: field call_id: %w", err)
+			}
+			s.CallID = value
+		case "rating":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendCallRating#d89b576c: field rating: %w", err)
+			}
+			s.Rating = value
+		case "comment":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendCallRating#d89b576c: field comment: %w", err)
+			}
+			s.Comment = value
+		case "problems":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONCallProblem(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode sendCallRating#d89b576c: field problems: %w", err)
+				}
+				s.Problems = append(s.Problems, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode sendCallRating#d89b576c: field problems: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCallID returns value of CallID field.

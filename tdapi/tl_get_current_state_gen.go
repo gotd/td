@@ -125,8 +125,8 @@ func (g *GetCurrentStateRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetCurrentStateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetCurrentStateRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getCurrentState#b8fc6889 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetCurrentStateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("getCurrentState")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetCurrentStateRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getCurrentState#b8fc6889 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getCurrentState"); err != nil {
+				return fmt.Errorf("unable to decode getCurrentState#b8fc6889: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCurrentState invokes method getCurrentState#b8fc6889 returning error if any.

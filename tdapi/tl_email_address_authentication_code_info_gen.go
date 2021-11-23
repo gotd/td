@@ -160,8 +160,8 @@ func (e *EmailAddressAuthenticationCodeInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *EmailAddressAuthenticationCodeInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *EmailAddressAuthenticationCodeInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode emailAddressAuthenticationCodeInfo#449be223 as nil")
 	}
@@ -173,6 +173,37 @@ func (e *EmailAddressAuthenticationCodeInfo) EncodeTDLibJSON(b *jsontd.Encoder) 
 	b.PutInt32(e.Length)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *EmailAddressAuthenticationCodeInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode emailAddressAuthenticationCodeInfo#449be223 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("emailAddressAuthenticationCodeInfo"); err != nil {
+				return fmt.Errorf("unable to decode emailAddressAuthenticationCodeInfo#449be223: %w", err)
+			}
+		case "email_address_pattern":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode emailAddressAuthenticationCodeInfo#449be223: field email_address_pattern: %w", err)
+			}
+			e.EmailAddressPattern = value
+		case "length":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode emailAddressAuthenticationCodeInfo#449be223: field length: %w", err)
+			}
+			e.Length = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetEmailAddressPattern returns value of EmailAddressPattern field.

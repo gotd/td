@@ -177,8 +177,8 @@ func (c *CallbackQueryAnswer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallbackQueryAnswer) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallbackQueryAnswer) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callbackQueryAnswer#1582685d as nil")
 	}
@@ -192,6 +192,43 @@ func (c *CallbackQueryAnswer) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(c.URL)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallbackQueryAnswer) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callbackQueryAnswer#1582685d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callbackQueryAnswer"); err != nil {
+				return fmt.Errorf("unable to decode callbackQueryAnswer#1582685d: %w", err)
+			}
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode callbackQueryAnswer#1582685d: field text: %w", err)
+			}
+			c.Text = value
+		case "show_alert":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode callbackQueryAnswer#1582685d: field show_alert: %w", err)
+			}
+			c.ShowAlert = value
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode callbackQueryAnswer#1582685d: field url: %w", err)
+			}
+			c.URL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

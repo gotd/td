@@ -178,8 +178,8 @@ func (p *PageBlockListItem) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PageBlockListItem) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PageBlockListItem) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockListItem#5f521776 as nil")
 	}
@@ -200,6 +200,42 @@ func (p *PageBlockListItem) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PageBlockListItem) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockListItem#5f521776 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("pageBlockListItem"); err != nil {
+				return fmt.Errorf("unable to decode pageBlockListItem#5f521776: %w", err)
+			}
+		case "label":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockListItem#5f521776: field label: %w", err)
+			}
+			p.Label = value
+		case "page_blocks":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONPageBlock(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode pageBlockListItem#5f521776: field page_blocks: %w", err)
+				}
+				p.PageBlocks = append(p.PageBlocks, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode pageBlockListItem#5f521776: field page_blocks: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLabel returns value of Label field.

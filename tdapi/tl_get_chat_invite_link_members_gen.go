@@ -195,8 +195,8 @@ func (g *GetChatInviteLinkMembersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetChatInviteLinkMembersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetChatInviteLinkMembersRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatInviteLinkMembers#c5b6199a as nil")
 	}
@@ -214,6 +214,47 @@ func (g *GetChatInviteLinkMembersRequest) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.PutInt32(g.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetChatInviteLinkMembersRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getChatInviteLinkMembers#c5b6199a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getChatInviteLinkMembers"); err != nil {
+				return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "invite_link":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: field invite_link: %w", err)
+			}
+			g.InviteLink = value
+		case "offset_member":
+			if err := g.OffsetMember.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: field offset_member: %w", err)
+			}
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatInviteLinkMembers#c5b6199a: field limit: %w", err)
+			}
+			g.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

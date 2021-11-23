@@ -176,8 +176,8 @@ func (f *FormattedText) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes f in TDLib API JSON format.
-func (f *FormattedText) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (f *FormattedText) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if f == nil {
 		return fmt.Errorf("can't encode formattedText#a38d39ee as nil")
 	}
@@ -195,6 +195,42 @@ func (f *FormattedText) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (f *FormattedText) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if f == nil {
+		return fmt.Errorf("can't decode formattedText#a38d39ee to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("formattedText"); err != nil {
+				return fmt.Errorf("unable to decode formattedText#a38d39ee: %w", err)
+			}
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode formattedText#a38d39ee: field text: %w", err)
+			}
+			f.Text = value
+		case "entities":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value TextEntity
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode formattedText#a38d39ee: field entities: %w", err)
+				}
+				f.Entities = append(f.Entities, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode formattedText#a38d39ee: field entities: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

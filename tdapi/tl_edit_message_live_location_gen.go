@@ -235,8 +235,8 @@ func (e *EditMessageLiveLocationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *EditMessageLiveLocationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *EditMessageLiveLocationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editMessageLiveLocation#ff29a512 as nil")
 	}
@@ -263,6 +263,59 @@ func (e *EditMessageLiveLocationRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutInt32(e.ProximityAlertRadius)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *EditMessageLiveLocationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode editMessageLiveLocation#ff29a512 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("editMessageLiveLocation"); err != nil {
+				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field chat_id: %w", err)
+			}
+			e.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field message_id: %w", err)
+			}
+			e.MessageID = value
+		case "reply_markup":
+			value, err := DecodeTDLibJSONReplyMarkup(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field reply_markup: %w", err)
+			}
+			e.ReplyMarkup = value
+		case "location":
+			if err := e.Location.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field location: %w", err)
+			}
+		case "heading":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field heading: %w", err)
+			}
+			e.Heading = value
+		case "proximity_alert_radius":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field proximity_alert_radius: %w", err)
+			}
+			e.ProximityAlertRadius = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

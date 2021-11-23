@@ -182,8 +182,8 @@ func (s *SaveApplicationLogEventRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SaveApplicationLogEventRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SaveApplicationLogEventRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode saveApplicationLogEvent#cfa6c20e as nil")
 	}
@@ -202,6 +202,43 @@ func (s *SaveApplicationLogEventRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SaveApplicationLogEventRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode saveApplicationLogEvent#cfa6c20e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("saveApplicationLogEvent"); err != nil {
+				return fmt.Errorf("unable to decode saveApplicationLogEvent#cfa6c20e: %w", err)
+			}
+		case "type":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode saveApplicationLogEvent#cfa6c20e: field type: %w", err)
+			}
+			s.Type = value
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode saveApplicationLogEvent#cfa6c20e: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "data":
+			value, err := DecodeTDLibJSONJSONValue(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode saveApplicationLogEvent#cfa6c20e: field data: %w", err)
+			}
+			s.Data = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetType returns value of Type field.

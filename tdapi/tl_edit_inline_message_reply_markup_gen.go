@@ -165,8 +165,8 @@ func (e *EditInlineMessageReplyMarkupRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *EditInlineMessageReplyMarkupRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *EditInlineMessageReplyMarkupRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editInlineMessageReplyMarkup#fbf906de as nil")
 	}
@@ -183,6 +183,37 @@ func (e *EditInlineMessageReplyMarkupRequest) EncodeTDLibJSON(b *jsontd.Encoder)
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *EditInlineMessageReplyMarkupRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode editInlineMessageReplyMarkup#fbf906de to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("editInlineMessageReplyMarkup"); err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageReplyMarkup#fbf906de: %w", err)
+			}
+		case "inline_message_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageReplyMarkup#fbf906de: field inline_message_id: %w", err)
+			}
+			e.InlineMessageID = value
+		case "reply_markup":
+			value, err := DecodeTDLibJSONReplyMarkup(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageReplyMarkup#fbf906de: field reply_markup: %w", err)
+			}
+			e.ReplyMarkup = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetInlineMessageID returns value of InlineMessageID field.

@@ -196,8 +196,8 @@ func (i *InputPersonalDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputPersonalDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputPersonalDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputPersonalDocument#bb343fae as nil")
 	}
@@ -227,6 +227,47 @@ func (i *InputPersonalDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputPersonalDocument) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPersonalDocument#bb343fae to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputPersonalDocument"); err != nil {
+				return fmt.Errorf("unable to decode inputPersonalDocument#bb343fae: %w", err)
+			}
+		case "files":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONInputFile(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode inputPersonalDocument#bb343fae: field files: %w", err)
+				}
+				i.Files = append(i.Files, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode inputPersonalDocument#bb343fae: field files: %w", err)
+			}
+		case "translation":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONInputFile(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode inputPersonalDocument#bb343fae: field translation: %w", err)
+				}
+				i.Translation = append(i.Translation, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode inputPersonalDocument#bb343fae: field translation: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFiles returns value of Files field.

@@ -212,8 +212,8 @@ func (f *File) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes f in TDLib API JSON format.
-func (f *File) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (f *File) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if f == nil {
 		return fmt.Errorf("can't encode file#2dad6278 as nil")
 	}
@@ -235,6 +235,51 @@ func (f *File) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (f *File) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if f == nil {
+		return fmt.Errorf("can't decode file#2dad6278 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("file"); err != nil {
+				return fmt.Errorf("unable to decode file#2dad6278: %w", err)
+			}
+		case "id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode file#2dad6278: field id: %w", err)
+			}
+			f.ID = value
+		case "size":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode file#2dad6278: field size: %w", err)
+			}
+			f.Size = value
+		case "expected_size":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode file#2dad6278: field expected_size: %w", err)
+			}
+			f.ExpectedSize = value
+		case "local":
+			if err := f.Local.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode file#2dad6278: field local: %w", err)
+			}
+		case "remote":
+			if err := f.Remote.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode file#2dad6278: field remote: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

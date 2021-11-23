@@ -165,8 +165,8 @@ func (g *GetChatNotificationSettingsExceptionsRequest) DecodeBare(b *bin.Buffer)
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetChatNotificationSettingsExceptionsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetChatNotificationSettingsExceptionsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatNotificationSettingsExceptions#bfe0e11 as nil")
 	}
@@ -183,6 +183,37 @@ func (g *GetChatNotificationSettingsExceptionsRequest) EncodeTDLibJSON(b *jsontd
 	b.PutBool(g.CompareSound)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetChatNotificationSettingsExceptionsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getChatNotificationSettingsExceptions#bfe0e11 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getChatNotificationSettingsExceptions"); err != nil {
+				return fmt.Errorf("unable to decode getChatNotificationSettingsExceptions#bfe0e11: %w", err)
+			}
+		case "scope":
+			value, err := DecodeTDLibJSONNotificationSettingsScope(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatNotificationSettingsExceptions#bfe0e11: field scope: %w", err)
+			}
+			g.Scope = value
+		case "compare_sound":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatNotificationSettingsExceptions#bfe0e11: field compare_sound: %w", err)
+			}
+			g.CompareSound = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetScope returns value of Scope field.

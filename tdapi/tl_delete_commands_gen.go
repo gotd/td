@@ -165,8 +165,8 @@ func (d *DeleteCommandsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DeleteCommandsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DeleteCommandsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteCommands#3bc47c2a as nil")
 	}
@@ -183,6 +183,37 @@ func (d *DeleteCommandsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(d.LanguageCode)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DeleteCommandsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deleteCommands#3bc47c2a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("deleteCommands"); err != nil {
+				return fmt.Errorf("unable to decode deleteCommands#3bc47c2a: %w", err)
+			}
+		case "scope":
+			value, err := DecodeTDLibJSONBotCommandScope(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteCommands#3bc47c2a: field scope: %w", err)
+			}
+			d.Scope = value
+		case "language_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteCommands#3bc47c2a: field language_code: %w", err)
+			}
+			d.LanguageCode = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetScope returns value of Scope field.

@@ -228,8 +228,8 @@ func (p *PaymentFormTheme) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PaymentFormTheme) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PaymentFormTheme) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode paymentFormTheme#97180f8f as nil")
 	}
@@ -249,6 +249,61 @@ func (p *PaymentFormTheme) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(p.ButtonTextColor)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PaymentFormTheme) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode paymentFormTheme#97180f8f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("paymentFormTheme"); err != nil {
+				return fmt.Errorf("unable to decode paymentFormTheme#97180f8f: %w", err)
+			}
+		case "background_color":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentFormTheme#97180f8f: field background_color: %w", err)
+			}
+			p.BackgroundColor = value
+		case "text_color":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentFormTheme#97180f8f: field text_color: %w", err)
+			}
+			p.TextColor = value
+		case "hint_color":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentFormTheme#97180f8f: field hint_color: %w", err)
+			}
+			p.HintColor = value
+		case "link_color":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentFormTheme#97180f8f: field link_color: %w", err)
+			}
+			p.LinkColor = value
+		case "button_color":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentFormTheme#97180f8f: field button_color: %w", err)
+			}
+			p.ButtonColor = value
+		case "button_text_color":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentFormTheme#97180f8f: field button_text_color: %w", err)
+			}
+			p.ButtonTextColor = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBackgroundColor returns value of BackgroundColor field.

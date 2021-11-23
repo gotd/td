@@ -130,8 +130,8 @@ func (c *CallProblemEcho) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallProblemEcho) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallProblemEcho) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callProblemEcho#2fc01184 as nil")
 	}
@@ -139,6 +139,25 @@ func (c *CallProblemEcho) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callProblemEcho")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallProblemEcho) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callProblemEcho#2fc01184 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callProblemEcho"); err != nil {
+				return fmt.Errorf("unable to decode callProblemEcho#2fc01184: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallProblemNoise represents TL type `callProblemNoise#3ec4808f`.
@@ -240,8 +259,8 @@ func (c *CallProblemNoise) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallProblemNoise) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallProblemNoise) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callProblemNoise#3ec4808f as nil")
 	}
@@ -249,6 +268,25 @@ func (c *CallProblemNoise) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callProblemNoise")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallProblemNoise) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callProblemNoise#3ec4808f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callProblemNoise"); err != nil {
+				return fmt.Errorf("unable to decode callProblemNoise#3ec4808f: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallProblemInterruptions represents TL type `callProblemInterruptions#42ba1c62`.
@@ -350,8 +388,8 @@ func (c *CallProblemInterruptions) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallProblemInterruptions) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallProblemInterruptions) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callProblemInterruptions#42ba1c62 as nil")
 	}
@@ -359,6 +397,25 @@ func (c *CallProblemInterruptions) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callProblemInterruptions")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallProblemInterruptions) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callProblemInterruptions#42ba1c62 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callProblemInterruptions"); err != nil {
+				return fmt.Errorf("unable to decode callProblemInterruptions#42ba1c62: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallProblemDistortedSpeech represents TL type `callProblemDistortedSpeech#16a5bd05`.
@@ -460,8 +517,8 @@ func (c *CallProblemDistortedSpeech) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallProblemDistortedSpeech) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallProblemDistortedSpeech) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callProblemDistortedSpeech#16a5bd05 as nil")
 	}
@@ -469,6 +526,25 @@ func (c *CallProblemDistortedSpeech) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callProblemDistortedSpeech")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallProblemDistortedSpeech) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callProblemDistortedSpeech#16a5bd05 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callProblemDistortedSpeech"); err != nil {
+				return fmt.Errorf("unable to decode callProblemDistortedSpeech#16a5bd05: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallProblemSilentLocal represents TL type `callProblemSilentLocal#f1e6f36`.
@@ -570,8 +646,8 @@ func (c *CallProblemSilentLocal) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallProblemSilentLocal) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallProblemSilentLocal) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callProblemSilentLocal#f1e6f36 as nil")
 	}
@@ -579,6 +655,25 @@ func (c *CallProblemSilentLocal) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callProblemSilentLocal")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallProblemSilentLocal) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callProblemSilentLocal#f1e6f36 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callProblemSilentLocal"); err != nil {
+				return fmt.Errorf("unable to decode callProblemSilentLocal#f1e6f36: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallProblemSilentRemote represents TL type `callProblemSilentRemote#2230f89a`.
@@ -680,8 +775,8 @@ func (c *CallProblemSilentRemote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallProblemSilentRemote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallProblemSilentRemote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callProblemSilentRemote#2230f89a as nil")
 	}
@@ -689,6 +784,25 @@ func (c *CallProblemSilentRemote) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callProblemSilentRemote")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallProblemSilentRemote) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callProblemSilentRemote#2230f89a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callProblemSilentRemote"); err != nil {
+				return fmt.Errorf("unable to decode callProblemSilentRemote#2230f89a: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallProblemDropped represents TL type `callProblemDropped#b809e381`.
@@ -790,8 +904,8 @@ func (c *CallProblemDropped) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallProblemDropped) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallProblemDropped) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callProblemDropped#b809e381 as nil")
 	}
@@ -799,6 +913,25 @@ func (c *CallProblemDropped) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callProblemDropped")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallProblemDropped) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callProblemDropped#b809e381 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callProblemDropped"); err != nil {
+				return fmt.Errorf("unable to decode callProblemDropped#b809e381: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallProblemDistortedVideo represents TL type `callProblemDistortedVideo#16f6620a`.
@@ -900,8 +1033,8 @@ func (c *CallProblemDistortedVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallProblemDistortedVideo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallProblemDistortedVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callProblemDistortedVideo#16f6620a as nil")
 	}
@@ -909,6 +1042,25 @@ func (c *CallProblemDistortedVideo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callProblemDistortedVideo")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallProblemDistortedVideo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callProblemDistortedVideo#16f6620a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callProblemDistortedVideo"); err != nil {
+				return fmt.Errorf("unable to decode callProblemDistortedVideo#16f6620a: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallProblemPixelatedVideo represents TL type `callProblemPixelatedVideo#7e1526d3`.
@@ -1010,8 +1162,8 @@ func (c *CallProblemPixelatedVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallProblemPixelatedVideo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallProblemPixelatedVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callProblemPixelatedVideo#7e1526d3 as nil")
 	}
@@ -1019,6 +1171,25 @@ func (c *CallProblemPixelatedVideo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callProblemPixelatedVideo")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallProblemPixelatedVideo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callProblemPixelatedVideo#7e1526d3 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callProblemPixelatedVideo"); err != nil {
+				return fmt.Errorf("unable to decode callProblemPixelatedVideo#7e1526d3: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallProblemClass represents CallProblem generic type.
@@ -1057,7 +1228,9 @@ type CallProblemClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeCallProblem implements binary de-serialization for CallProblemClass.
@@ -1135,6 +1308,81 @@ func DecodeCallProblem(buf *bin.Buffer) (CallProblemClass, error) {
 	}
 }
 
+// DecodeTDLibJSONCallProblem implements binary de-serialization for CallProblemClass.
+func DecodeTDLibJSONCallProblem(buf jsontd.Decoder) (CallProblemClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "callProblemEcho":
+		// Decoding callProblemEcho#2fc01184.
+		v := CallProblemEcho{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallProblemClass: %w", err)
+		}
+		return &v, nil
+	case "callProblemNoise":
+		// Decoding callProblemNoise#3ec4808f.
+		v := CallProblemNoise{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallProblemClass: %w", err)
+		}
+		return &v, nil
+	case "callProblemInterruptions":
+		// Decoding callProblemInterruptions#42ba1c62.
+		v := CallProblemInterruptions{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallProblemClass: %w", err)
+		}
+		return &v, nil
+	case "callProblemDistortedSpeech":
+		// Decoding callProblemDistortedSpeech#16a5bd05.
+		v := CallProblemDistortedSpeech{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallProblemClass: %w", err)
+		}
+		return &v, nil
+	case "callProblemSilentLocal":
+		// Decoding callProblemSilentLocal#f1e6f36.
+		v := CallProblemSilentLocal{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallProblemClass: %w", err)
+		}
+		return &v, nil
+	case "callProblemSilentRemote":
+		// Decoding callProblemSilentRemote#2230f89a.
+		v := CallProblemSilentRemote{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallProblemClass: %w", err)
+		}
+		return &v, nil
+	case "callProblemDropped":
+		// Decoding callProblemDropped#b809e381.
+		v := CallProblemDropped{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallProblemClass: %w", err)
+		}
+		return &v, nil
+	case "callProblemDistortedVideo":
+		// Decoding callProblemDistortedVideo#16f6620a.
+		v := CallProblemDistortedVideo{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallProblemClass: %w", err)
+		}
+		return &v, nil
+	case "callProblemPixelatedVideo":
+		// Decoding callProblemPixelatedVideo#7e1526d3.
+		v := CallProblemPixelatedVideo{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallProblemClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode CallProblemClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // CallProblem boxes the CallProblemClass providing a helper.
 type CallProblemBox struct {
 	CallProblem CallProblemClass
@@ -1159,4 +1407,25 @@ func (b *CallProblemBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode CallProblemClass as nil")
 	}
 	return b.CallProblem.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for CallProblemBox.
+func (b *CallProblemBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode CallProblemBox to nil")
+	}
+	v, err := DecodeTDLibJSONCallProblem(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.CallProblem = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for CallProblemBox.
+func (b *CallProblemBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.CallProblem == nil {
+		return fmt.Errorf("unable to encode CallProblemClass as nil")
+	}
+	return b.CallProblem.EncodeTDLibJSON(buf)
 }

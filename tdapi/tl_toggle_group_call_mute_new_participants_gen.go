@@ -160,8 +160,8 @@ func (t *ToggleGroupCallMuteNewParticipantsRequest) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *ToggleGroupCallMuteNewParticipantsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *ToggleGroupCallMuteNewParticipantsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleGroupCallMuteNewParticipants#10eec1c2 as nil")
 	}
@@ -173,6 +173,37 @@ func (t *ToggleGroupCallMuteNewParticipantsRequest) EncodeTDLibJSON(b *jsontd.En
 	b.PutBool(t.MuteNewParticipants)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *ToggleGroupCallMuteNewParticipantsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode toggleGroupCallMuteNewParticipants#10eec1c2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("toggleGroupCallMuteNewParticipants"); err != nil {
+				return fmt.Errorf("unable to decode toggleGroupCallMuteNewParticipants#10eec1c2: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleGroupCallMuteNewParticipants#10eec1c2: field group_call_id: %w", err)
+			}
+			t.GroupCallID = value
+		case "mute_new_participants":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleGroupCallMuteNewParticipants#10eec1c2: field mute_new_participants: %w", err)
+			}
+			t.MuteNewParticipants = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

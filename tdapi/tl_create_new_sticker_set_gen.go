@@ -250,8 +250,8 @@ func (c *CreateNewStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CreateNewStickerSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CreateNewStickerSetRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createNewStickerSet#4875d7a5 as nil")
 	}
@@ -280,6 +280,66 @@ func (c *CreateNewStickerSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(c.Source)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CreateNewStickerSetRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode createNewStickerSet#4875d7a5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("createNewStickerSet"); err != nil {
+				return fmt.Errorf("unable to decode createNewStickerSet#4875d7a5: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode createNewStickerSet#4875d7a5: field user_id: %w", err)
+			}
+			c.UserID = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode createNewStickerSet#4875d7a5: field title: %w", err)
+			}
+			c.Title = value
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode createNewStickerSet#4875d7a5: field name: %w", err)
+			}
+			c.Name = value
+		case "is_masks":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode createNewStickerSet#4875d7a5: field is_masks: %w", err)
+			}
+			c.IsMasks = value
+		case "stickers":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONInputSticker(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode createNewStickerSet#4875d7a5: field stickers: %w", err)
+				}
+				c.Stickers = append(c.Stickers, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode createNewStickerSet#4875d7a5: field stickers: %w", err)
+			}
+		case "source":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode createNewStickerSet#4875d7a5: field source: %w", err)
+			}
+			c.Source = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserID returns value of UserID field.

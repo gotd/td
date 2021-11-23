@@ -161,8 +161,8 @@ func (l *LoadGroupCallParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes l in TDLib API JSON format.
-func (l *LoadGroupCallParticipantsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (l *LoadGroupCallParticipantsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode loadGroupCallParticipants#37f3bece as nil")
 	}
@@ -174,6 +174,37 @@ func (l *LoadGroupCallParticipantsRequest) EncodeTDLibJSON(b *jsontd.Encoder) er
 	b.PutInt32(l.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (l *LoadGroupCallParticipantsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if l == nil {
+		return fmt.Errorf("can't decode loadGroupCallParticipants#37f3bece to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("loadGroupCallParticipants"); err != nil {
+				return fmt.Errorf("unable to decode loadGroupCallParticipants#37f3bece: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode loadGroupCallParticipants#37f3bece: field group_call_id: %w", err)
+			}
+			l.GroupCallID = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode loadGroupCallParticipants#37f3bece: field limit: %w", err)
+			}
+			l.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

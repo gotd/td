@@ -143,8 +143,8 @@ func (t *ToggleSupergroupIsBroadcastGroupRequest) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *ToggleSupergroupIsBroadcastGroupRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *ToggleSupergroupIsBroadcastGroupRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleSupergroupIsBroadcastGroup#9c3ec48a as nil")
 	}
@@ -154,6 +154,31 @@ func (t *ToggleSupergroupIsBroadcastGroupRequest) EncodeTDLibJSON(b *jsontd.Enco
 	b.PutInt32(t.SupergroupID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *ToggleSupergroupIsBroadcastGroupRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode toggleSupergroupIsBroadcastGroup#9c3ec48a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("toggleSupergroupIsBroadcastGroup"); err != nil {
+				return fmt.Errorf("unable to decode toggleSupergroupIsBroadcastGroup#9c3ec48a: %w", err)
+			}
+		case "supergroup_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleSupergroupIsBroadcastGroup#9c3ec48a: field supergroup_id: %w", err)
+			}
+			t.SupergroupID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSupergroupID returns value of SupergroupID field.

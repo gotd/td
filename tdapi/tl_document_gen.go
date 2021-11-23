@@ -212,8 +212,8 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *Document) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *Document) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode document#af19afd8 as nil")
 	}
@@ -237,6 +237,49 @@ func (d *Document) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *Document) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode document#af19afd8 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("document"); err != nil {
+				return fmt.Errorf("unable to decode document#af19afd8: %w", err)
+			}
+		case "file_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode document#af19afd8: field file_name: %w", err)
+			}
+			d.FileName = value
+		case "mime_type":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode document#af19afd8: field mime_type: %w", err)
+			}
+			d.MimeType = value
+		case "minithumbnail":
+			if err := d.Minithumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode document#af19afd8: field minithumbnail: %w", err)
+			}
+		case "thumbnail":
+			if err := d.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode document#af19afd8: field thumbnail: %w", err)
+			}
+		case "document":
+			if err := d.Document.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode document#af19afd8: field document: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFileName returns value of FileName field.

@@ -143,8 +143,8 @@ func (g *GetEmojiSuggestionsURLRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetEmojiSuggestionsURLRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetEmojiSuggestionsURLRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getEmojiSuggestionsUrl#ac4f1b2f as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetEmojiSuggestionsURLRequest) EncodeTDLibJSON(b *jsontd.Encoder) error
 	b.PutString(g.LanguageCode)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetEmojiSuggestionsURLRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getEmojiSuggestionsUrl#ac4f1b2f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getEmojiSuggestionsUrl"); err != nil {
+				return fmt.Errorf("unable to decode getEmojiSuggestionsUrl#ac4f1b2f: %w", err)
+			}
+		case "language_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getEmojiSuggestionsUrl#ac4f1b2f: field language_code: %w", err)
+			}
+			g.LanguageCode = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLanguageCode returns value of LanguageCode field.

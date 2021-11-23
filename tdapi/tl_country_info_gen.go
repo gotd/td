@@ -224,8 +224,8 @@ func (c *CountryInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CountryInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CountryInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode countryInfo#d9936dff as nil")
 	}
@@ -247,6 +247,60 @@ func (c *CountryInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CountryInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode countryInfo#d9936dff to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("countryInfo"); err != nil {
+				return fmt.Errorf("unable to decode countryInfo#d9936dff: %w", err)
+			}
+		case "country_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode countryInfo#d9936dff: field country_code: %w", err)
+			}
+			c.CountryCode = value
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode countryInfo#d9936dff: field name: %w", err)
+			}
+			c.Name = value
+		case "english_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode countryInfo#d9936dff: field english_name: %w", err)
+			}
+			c.EnglishName = value
+		case "is_hidden":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode countryInfo#d9936dff: field is_hidden: %w", err)
+			}
+			c.IsHidden = value
+		case "calling_codes":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode countryInfo#d9936dff: field calling_codes: %w", err)
+				}
+				c.CallingCodes = append(c.CallingCodes, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode countryInfo#d9936dff: field calling_codes: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCountryCode returns value of CountryCode field.

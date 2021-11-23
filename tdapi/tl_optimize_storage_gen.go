@@ -329,8 +329,8 @@ func (o *OptimizeStorageRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes o in TDLib API JSON format.
-func (o *OptimizeStorageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (o *OptimizeStorageRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if o == nil {
 		return fmt.Errorf("can't encode optimizeStorage#ef73c8c5 as nil")
 	}
@@ -373,6 +373,94 @@ func (o *OptimizeStorageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(o.ChatLimit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (o *OptimizeStorageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if o == nil {
+		return fmt.Errorf("can't decode optimizeStorage#ef73c8c5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("optimizeStorage"); err != nil {
+				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: %w", err)
+			}
+		case "size":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field size: %w", err)
+			}
+			o.Size = value
+		case "ttl":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field ttl: %w", err)
+			}
+			o.TTL = value
+		case "count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field count: %w", err)
+			}
+			o.Count = value
+		case "immunity_delay":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field immunity_delay: %w", err)
+			}
+			o.ImmunityDelay = value
+		case "file_types":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONFileType(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field file_types: %w", err)
+				}
+				o.FileTypes = append(o.FileTypes, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field file_types: %w", err)
+			}
+		case "chat_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field chat_ids: %w", err)
+				}
+				o.ChatIDs = append(o.ChatIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field chat_ids: %w", err)
+			}
+		case "exclude_chat_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field exclude_chat_ids: %w", err)
+				}
+				o.ExcludeChatIDs = append(o.ExcludeChatIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field exclude_chat_ids: %w", err)
+			}
+		case "return_deleted_file_statistics":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field return_deleted_file_statistics: %w", err)
+			}
+			o.ReturnDeletedFileStatistics = value
+		case "chat_limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field chat_limit: %w", err)
+			}
+			o.ChatLimit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSize returns value of Size field.

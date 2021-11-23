@@ -179,8 +179,8 @@ func (r *ReadFilePartRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ReadFilePartRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ReadFilePartRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode readFilePart#e7b23d3e as nil")
 	}
@@ -194,6 +194,43 @@ func (r *ReadFilePartRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(r.Count)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ReadFilePartRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode readFilePart#e7b23d3e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("readFilePart"); err != nil {
+				return fmt.Errorf("unable to decode readFilePart#e7b23d3e: %w", err)
+			}
+		case "file_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode readFilePart#e7b23d3e: field file_id: %w", err)
+			}
+			r.FileID = value
+		case "offset":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode readFilePart#e7b23d3e: field offset: %w", err)
+			}
+			r.Offset = value
+		case "count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode readFilePart#e7b23d3e: field count: %w", err)
+			}
+			r.Count = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFileID returns value of FileID field.

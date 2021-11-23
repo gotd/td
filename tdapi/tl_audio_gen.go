@@ -263,8 +263,8 @@ func (a *Audio) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *Audio) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *Audio) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode audio#b9b4c7de as nil")
 	}
@@ -294,6 +294,67 @@ func (a *Audio) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *Audio) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode audio#b9b4c7de to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("audio"); err != nil {
+				return fmt.Errorf("unable to decode audio#b9b4c7de: %w", err)
+			}
+		case "duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode audio#b9b4c7de: field duration: %w", err)
+			}
+			a.Duration = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode audio#b9b4c7de: field title: %w", err)
+			}
+			a.Title = value
+		case "performer":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode audio#b9b4c7de: field performer: %w", err)
+			}
+			a.Performer = value
+		case "file_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode audio#b9b4c7de: field file_name: %w", err)
+			}
+			a.FileName = value
+		case "mime_type":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode audio#b9b4c7de: field mime_type: %w", err)
+			}
+			a.MimeType = value
+		case "album_cover_minithumbnail":
+			if err := a.AlbumCoverMinithumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode audio#b9b4c7de: field album_cover_minithumbnail: %w", err)
+			}
+		case "album_cover_thumbnail":
+			if err := a.AlbumCoverThumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode audio#b9b4c7de: field album_cover_thumbnail: %w", err)
+			}
+		case "audio":
+			if err := a.Audio.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode audio#b9b4c7de: field audio: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetDuration returns value of Duration field.

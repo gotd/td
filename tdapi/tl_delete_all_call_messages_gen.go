@@ -143,8 +143,8 @@ func (d *DeleteAllCallMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DeleteAllCallMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DeleteAllCallMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteAllCallMessages#a897d1f3 as nil")
 	}
@@ -154,6 +154,31 @@ func (d *DeleteAllCallMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutBool(d.Revoke)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DeleteAllCallMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deleteAllCallMessages#a897d1f3 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("deleteAllCallMessages"); err != nil {
+				return fmt.Errorf("unable to decode deleteAllCallMessages#a897d1f3: %w", err)
+			}
+		case "revoke":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteAllCallMessages#a897d1f3: field revoke: %w", err)
+			}
+			d.Revoke = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetRevoke returns value of Revoke field.

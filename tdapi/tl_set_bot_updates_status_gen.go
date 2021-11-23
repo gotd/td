@@ -160,8 +160,8 @@ func (s *SetBotUpdatesStatusRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetBotUpdatesStatusRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetBotUpdatesStatusRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setBotUpdatesStatus#bb293991 as nil")
 	}
@@ -173,6 +173,37 @@ func (s *SetBotUpdatesStatusRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(s.ErrorMessage)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetBotUpdatesStatusRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setBotUpdatesStatus#bb293991 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setBotUpdatesStatus"); err != nil {
+				return fmt.Errorf("unable to decode setBotUpdatesStatus#bb293991: %w", err)
+			}
+		case "pending_update_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setBotUpdatesStatus#bb293991: field pending_update_count: %w", err)
+			}
+			s.PendingUpdateCount = value
+		case "error_message":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setBotUpdatesStatus#bb293991: field error_message: %w", err)
+			}
+			s.ErrorMessage = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPendingUpdateCount returns value of PendingUpdateCount field.

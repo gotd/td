@@ -130,8 +130,8 @@ func (s *SecretChatStatePending) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SecretChatStatePending) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SecretChatStatePending) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode secretChatStatePending#9e6c967c as nil")
 	}
@@ -139,6 +139,25 @@ func (s *SecretChatStatePending) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("secretChatStatePending")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SecretChatStatePending) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secretChatStatePending#9e6c967c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("secretChatStatePending"); err != nil {
+				return fmt.Errorf("unable to decode secretChatStatePending#9e6c967c: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // SecretChatStateReady represents TL type `secretChatStateReady#9ff4b7e9`.
@@ -240,8 +259,8 @@ func (s *SecretChatStateReady) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SecretChatStateReady) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SecretChatStateReady) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode secretChatStateReady#9ff4b7e9 as nil")
 	}
@@ -249,6 +268,25 @@ func (s *SecretChatStateReady) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("secretChatStateReady")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SecretChatStateReady) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secretChatStateReady#9ff4b7e9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("secretChatStateReady"); err != nil {
+				return fmt.Errorf("unable to decode secretChatStateReady#9ff4b7e9: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // SecretChatStateClosed represents TL type `secretChatStateClosed#8c1006ed`.
@@ -350,8 +388,8 @@ func (s *SecretChatStateClosed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SecretChatStateClosed) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SecretChatStateClosed) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode secretChatStateClosed#8c1006ed as nil")
 	}
@@ -359,6 +397,25 @@ func (s *SecretChatStateClosed) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("secretChatStateClosed")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SecretChatStateClosed) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secretChatStateClosed#8c1006ed to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("secretChatStateClosed"); err != nil {
+				return fmt.Errorf("unable to decode secretChatStateClosed#8c1006ed: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // SecretChatStateClass represents SecretChatState generic type.
@@ -391,7 +448,9 @@ type SecretChatStateClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeSecretChatState implements binary de-serialization for SecretChatStateClass.
@@ -427,6 +486,39 @@ func DecodeSecretChatState(buf *bin.Buffer) (SecretChatStateClass, error) {
 	}
 }
 
+// DecodeTDLibJSONSecretChatState implements binary de-serialization for SecretChatStateClass.
+func DecodeTDLibJSONSecretChatState(buf jsontd.Decoder) (SecretChatStateClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "secretChatStatePending":
+		// Decoding secretChatStatePending#9e6c967c.
+		v := SecretChatStatePending{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SecretChatStateClass: %w", err)
+		}
+		return &v, nil
+	case "secretChatStateReady":
+		// Decoding secretChatStateReady#9ff4b7e9.
+		v := SecretChatStateReady{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SecretChatStateClass: %w", err)
+		}
+		return &v, nil
+	case "secretChatStateClosed":
+		// Decoding secretChatStateClosed#8c1006ed.
+		v := SecretChatStateClosed{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SecretChatStateClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode SecretChatStateClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // SecretChatState boxes the SecretChatStateClass providing a helper.
 type SecretChatStateBox struct {
 	SecretChatState SecretChatStateClass
@@ -451,4 +543,25 @@ func (b *SecretChatStateBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SecretChatStateClass as nil")
 	}
 	return b.SecretChatState.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for SecretChatStateBox.
+func (b *SecretChatStateBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode SecretChatStateBox to nil")
+	}
+	v, err := DecodeTDLibJSONSecretChatState(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.SecretChatState = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for SecretChatStateBox.
+func (b *SecretChatStateBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.SecretChatState == nil {
+		return fmt.Errorf("unable to encode SecretChatStateClass as nil")
+	}
+	return b.SecretChatState.EncodeTDLibJSON(buf)
 }

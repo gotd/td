@@ -199,8 +199,8 @@ func (n *Notification) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes n in TDLib API JSON format.
-func (n *Notification) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (n *Notification) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notification#2f0343d0 as nil")
 	}
@@ -221,6 +221,49 @@ func (n *Notification) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (n *Notification) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if n == nil {
+		return fmt.Errorf("can't decode notification#2f0343d0 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("notification"); err != nil {
+				return fmt.Errorf("unable to decode notification#2f0343d0: %w", err)
+			}
+		case "id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode notification#2f0343d0: field id: %w", err)
+			}
+			n.ID = value
+		case "date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode notification#2f0343d0: field date: %w", err)
+			}
+			n.Date = value
+		case "is_silent":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode notification#2f0343d0: field is_silent: %w", err)
+			}
+			n.IsSilent = value
+		case "type":
+			value, err := DecodeTDLibJSONNotificationType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode notification#2f0343d0: field type: %w", err)
+			}
+			n.Type = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

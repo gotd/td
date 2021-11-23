@@ -193,8 +193,8 @@ func (g *GroupCallParticipantVideoInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GroupCallParticipantVideoInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GroupCallParticipantVideoInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode groupCallParticipantVideoInfo#70f7eff6 as nil")
 	}
@@ -214,6 +214,48 @@ func (g *GroupCallParticipantVideoInfo) EncodeTDLibJSON(b *jsontd.Encoder) error
 	b.PutBool(g.IsPaused)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GroupCallParticipantVideoInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode groupCallParticipantVideoInfo#70f7eff6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("groupCallParticipantVideoInfo"); err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipantVideoInfo#70f7eff6: %w", err)
+			}
+		case "source_groups":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value GroupCallVideoSourceGroup
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode groupCallParticipantVideoInfo#70f7eff6: field source_groups: %w", err)
+				}
+				g.SourceGroups = append(g.SourceGroups, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipantVideoInfo#70f7eff6: field source_groups: %w", err)
+			}
+		case "endpoint_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipantVideoInfo#70f7eff6: field endpoint_id: %w", err)
+			}
+			g.EndpointID = value
+		case "is_paused":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCallParticipantVideoInfo#70f7eff6: field is_paused: %w", err)
+			}
+			g.IsPaused = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSourceGroups returns value of SourceGroups field.

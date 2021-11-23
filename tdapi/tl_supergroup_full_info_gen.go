@@ -71,7 +71,7 @@ type SupergroupFullInfo struct {
 	// field is only available for chat administrators
 	IsAllHistoryAvailable bool
 	// Identifier of the supergroup sticker set; 0 if none
-	StickerSetID Int64
+	StickerSetID int64
 	// Location to which the supergroup is connected; may be null
 	Location ChatLocation
 	// Primary invite link for this chat; may be null. For chat administrators with
@@ -146,7 +146,7 @@ func (s *SupergroupFullInfo) Zero() bool {
 	if !(s.IsAllHistoryAvailable == false) {
 		return false
 	}
-	if !(s.StickerSetID.Zero()) {
+	if !(s.StickerSetID == 0) {
 		return false
 	}
 	if !(s.Location.Zero()) {
@@ -319,9 +319,7 @@ func (s *SupergroupFullInfo) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(s.CanSetLocation)
 	b.PutBool(s.CanGetStatistics)
 	b.PutBool(s.IsAllHistoryAvailable)
-	if err := s.StickerSetID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode supergroupFullInfo#e1d5ed48: field sticker_set_id: %w", err)
-	}
+	b.PutLong(s.StickerSetID)
 	if err := s.Location.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode supergroupFullInfo#e1d5ed48: field location: %w", err)
 	}
@@ -459,9 +457,11 @@ func (s *SupergroupFullInfo) DecodeBare(b *bin.Buffer) error {
 		s.IsAllHistoryAvailable = value
 	}
 	{
-		if err := s.StickerSetID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field sticker_set_id: %w", err)
 		}
+		s.StickerSetID = value
 	}
 	{
 		if err := s.Location.Decode(b); err != nil {
@@ -507,8 +507,8 @@ func (s *SupergroupFullInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SupergroupFullInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SupergroupFullInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode supergroupFullInfo#e1d5ed48 as nil")
 	}
@@ -547,9 +547,7 @@ func (s *SupergroupFullInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.FieldStart("is_all_history_available")
 	b.PutBool(s.IsAllHistoryAvailable)
 	b.FieldStart("sticker_set_id")
-	if err := s.StickerSetID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode supergroupFullInfo#e1d5ed48: field sticker_set_id: %w", err)
-	}
+	b.PutLong(s.StickerSetID)
 	b.FieldStart("location")
 	if err := s.Location.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode supergroupFullInfo#e1d5ed48: field location: %w", err)
@@ -572,6 +570,150 @@ func (s *SupergroupFullInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(s.UpgradedFromMaxMessageID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SupergroupFullInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode supergroupFullInfo#e1d5ed48 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("supergroupFullInfo"); err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: %w", err)
+			}
+		case "photo":
+			if err := s.Photo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field photo: %w", err)
+			}
+		case "description":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field description: %w", err)
+			}
+			s.Description = value
+		case "member_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field member_count: %w", err)
+			}
+			s.MemberCount = value
+		case "administrator_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field administrator_count: %w", err)
+			}
+			s.AdministratorCount = value
+		case "restricted_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field restricted_count: %w", err)
+			}
+			s.RestrictedCount = value
+		case "banned_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field banned_count: %w", err)
+			}
+			s.BannedCount = value
+		case "linked_chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field linked_chat_id: %w", err)
+			}
+			s.LinkedChatID = value
+		case "slow_mode_delay":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field slow_mode_delay: %w", err)
+			}
+			s.SlowModeDelay = value
+		case "slow_mode_delay_expires_in":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field slow_mode_delay_expires_in: %w", err)
+			}
+			s.SlowModeDelayExpiresIn = value
+		case "can_get_members":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field can_get_members: %w", err)
+			}
+			s.CanGetMembers = value
+		case "can_set_username":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field can_set_username: %w", err)
+			}
+			s.CanSetUsername = value
+		case "can_set_sticker_set":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field can_set_sticker_set: %w", err)
+			}
+			s.CanSetStickerSet = value
+		case "can_set_location":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field can_set_location: %w", err)
+			}
+			s.CanSetLocation = value
+		case "can_get_statistics":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field can_get_statistics: %w", err)
+			}
+			s.CanGetStatistics = value
+		case "is_all_history_available":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field is_all_history_available: %w", err)
+			}
+			s.IsAllHistoryAvailable = value
+		case "sticker_set_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field sticker_set_id: %w", err)
+			}
+			s.StickerSetID = value
+		case "location":
+			if err := s.Location.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field location: %w", err)
+			}
+		case "invite_link":
+			if err := s.InviteLink.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field invite_link: %w", err)
+			}
+		case "bot_commands":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value BotCommands
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field bot_commands: %w", err)
+				}
+				s.BotCommands = append(s.BotCommands, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field bot_commands: %w", err)
+			}
+		case "upgraded_from_basic_group_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field upgraded_from_basic_group_id: %w", err)
+			}
+			s.UpgradedFromBasicGroupID = value
+		case "upgraded_from_max_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode supergroupFullInfo#e1d5ed48: field upgraded_from_max_message_id: %w", err)
+			}
+			s.UpgradedFromMaxMessageID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPhoto returns value of Photo field.
@@ -650,7 +792,7 @@ func (s *SupergroupFullInfo) GetIsAllHistoryAvailable() (value bool) {
 }
 
 // GetStickerSetID returns value of StickerSetID field.
-func (s *SupergroupFullInfo) GetStickerSetID() (value Int64) {
+func (s *SupergroupFullInfo) GetStickerSetID() (value int64) {
 	return s.StickerSetID
 }
 

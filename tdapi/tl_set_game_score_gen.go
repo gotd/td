@@ -229,8 +229,8 @@ func (s *SetGameScoreRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetGameScoreRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetGameScoreRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setGameScore#9699c683 as nil")
 	}
@@ -250,6 +250,61 @@ func (s *SetGameScoreRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(s.Force)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetGameScoreRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setGameScore#9699c683 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setGameScore"); err != nil {
+				return fmt.Errorf("unable to decode setGameScore#9699c683: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setGameScore#9699c683: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setGameScore#9699c683: field message_id: %w", err)
+			}
+			s.MessageID = value
+		case "edit_message":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setGameScore#9699c683: field edit_message: %w", err)
+			}
+			s.EditMessage = value
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setGameScore#9699c683: field user_id: %w", err)
+			}
+			s.UserID = value
+		case "score":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setGameScore#9699c683: field score: %w", err)
+			}
+			s.Score = value
+		case "force":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setGameScore#9699c683: field force: %w", err)
+			}
+			s.Force = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

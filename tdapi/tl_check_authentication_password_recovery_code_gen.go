@@ -143,8 +143,8 @@ func (c *CheckAuthenticationPasswordRecoveryCodeRequest) DecodeBare(b *bin.Buffe
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CheckAuthenticationPasswordRecoveryCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CheckAuthenticationPasswordRecoveryCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkAuthenticationPasswordRecoveryCode#dc0a3be5 as nil")
 	}
@@ -154,6 +154,31 @@ func (c *CheckAuthenticationPasswordRecoveryCodeRequest) EncodeTDLibJSON(b *json
 	b.PutString(c.RecoveryCode)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CheckAuthenticationPasswordRecoveryCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkAuthenticationPasswordRecoveryCode#dc0a3be5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("checkAuthenticationPasswordRecoveryCode"); err != nil {
+				return fmt.Errorf("unable to decode checkAuthenticationPasswordRecoveryCode#dc0a3be5: %w", err)
+			}
+		case "recovery_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode checkAuthenticationPasswordRecoveryCode#dc0a3be5: field recovery_code: %w", err)
+			}
+			c.RecoveryCode = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetRecoveryCode returns value of RecoveryCode field.

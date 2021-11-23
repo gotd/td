@@ -143,8 +143,8 @@ func (c *CancelUploadFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CancelUploadFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CancelUploadFileRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode cancelUploadFile#60c53f90 as nil")
 	}
@@ -154,6 +154,31 @@ func (c *CancelUploadFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(c.FileID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CancelUploadFileRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode cancelUploadFile#60c53f90 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("cancelUploadFile"); err != nil {
+				return fmt.Errorf("unable to decode cancelUploadFile#60c53f90: %w", err)
+			}
+		case "file_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode cancelUploadFile#60c53f90: field file_id: %w", err)
+			}
+			c.FileID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFileID returns value of FileID field.

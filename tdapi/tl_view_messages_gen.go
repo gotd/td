@@ -207,8 +207,8 @@ func (v *ViewMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes v in TDLib API JSON format.
-func (v *ViewMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (v *ViewMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode viewMessages#d6e1005d as nil")
 	}
@@ -228,6 +228,54 @@ func (v *ViewMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(v.ForceRead)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (v *ViewMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if v == nil {
+		return fmt.Errorf("can't decode viewMessages#d6e1005d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("viewMessages"); err != nil {
+				return fmt.Errorf("unable to decode viewMessages#d6e1005d: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode viewMessages#d6e1005d: field chat_id: %w", err)
+			}
+			v.ChatID = value
+		case "message_thread_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_thread_id: %w", err)
+			}
+			v.MessageThreadID = value
+		case "message_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_ids: %w", err)
+				}
+				v.MessageIDs = append(v.MessageIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_ids: %w", err)
+			}
+		case "force_read":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode viewMessages#d6e1005d: field force_read: %w", err)
+			}
+			v.ForceRead = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

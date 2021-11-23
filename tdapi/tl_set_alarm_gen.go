@@ -143,8 +143,8 @@ func (s *SetAlarmRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetAlarmRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetAlarmRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setAlarm#cbef7e15 as nil")
 	}
@@ -154,6 +154,31 @@ func (s *SetAlarmRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutDouble(s.Seconds)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetAlarmRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setAlarm#cbef7e15 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setAlarm"); err != nil {
+				return fmt.Errorf("unable to decode setAlarm#cbef7e15: %w", err)
+			}
+		case "seconds":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode setAlarm#cbef7e15: field seconds: %w", err)
+			}
+			s.Seconds = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSeconds returns value of Seconds field.

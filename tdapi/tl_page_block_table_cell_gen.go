@@ -243,8 +243,8 @@ func (p *PageBlockTableCell) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PageBlockTableCell) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PageBlockTableCell) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockTableCell#547fbf66 as nil")
 	}
@@ -279,6 +279,61 @@ func (p *PageBlockTableCell) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PageBlockTableCell) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockTableCell#547fbf66 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("pageBlockTableCell"); err != nil {
+				return fmt.Errorf("unable to decode pageBlockTableCell#547fbf66: %w", err)
+			}
+		case "text":
+			value, err := DecodeTDLibJSONRichText(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockTableCell#547fbf66: field text: %w", err)
+			}
+			p.Text = value
+		case "is_header":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockTableCell#547fbf66: field is_header: %w", err)
+			}
+			p.IsHeader = value
+		case "colspan":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockTableCell#547fbf66: field colspan: %w", err)
+			}
+			p.Colspan = value
+		case "rowspan":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockTableCell#547fbf66: field rowspan: %w", err)
+			}
+			p.Rowspan = value
+		case "align":
+			value, err := DecodeTDLibJSONPageBlockHorizontalAlignment(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockTableCell#547fbf66: field align: %w", err)
+			}
+			p.Align = value
+		case "valign":
+			value, err := DecodeTDLibJSONPageBlockVerticalAlignment(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockTableCell#547fbf66: field valign: %w", err)
+			}
+			p.Valign = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

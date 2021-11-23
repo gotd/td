@@ -230,8 +230,8 @@ func (w *WebPageInstantView) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes w in TDLib API JSON format.
-func (w *WebPageInstantView) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (w *WebPageInstantView) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if w == nil {
 		return fmt.Errorf("can't encode webPageInstantView#5be32f69 as nil")
 	}
@@ -258,6 +258,60 @@ func (w *WebPageInstantView) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(w.IsFull)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (w *WebPageInstantView) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPageInstantView#5be32f69 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("webPageInstantView"); err != nil {
+				return fmt.Errorf("unable to decode webPageInstantView#5be32f69: %w", err)
+			}
+		case "page_blocks":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONPageBlock(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field page_blocks: %w", err)
+				}
+				w.PageBlocks = append(w.PageBlocks, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field page_blocks: %w", err)
+			}
+		case "view_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field view_count: %w", err)
+			}
+			w.ViewCount = value
+		case "version":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field version: %w", err)
+			}
+			w.Version = value
+		case "is_rtl":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field is_rtl: %w", err)
+			}
+			w.IsRtl = value
+		case "is_full":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field is_full: %w", err)
+			}
+			w.IsFull = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPageBlocks returns value of PageBlocks field.

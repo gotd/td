@@ -160,8 +160,8 @@ func (g *GetBlockedMessageSendersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetBlockedMessageSendersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetBlockedMessageSendersRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getBlockedMessageSenders#740e1460 as nil")
 	}
@@ -173,6 +173,37 @@ func (g *GetBlockedMessageSendersRequest) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.PutInt32(g.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetBlockedMessageSendersRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getBlockedMessageSenders#740e1460 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getBlockedMessageSenders"); err != nil {
+				return fmt.Errorf("unable to decode getBlockedMessageSenders#740e1460: %w", err)
+			}
+		case "offset":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getBlockedMessageSenders#740e1460: field offset: %w", err)
+			}
+			g.Offset = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getBlockedMessageSenders#740e1460: field limit: %w", err)
+			}
+			g.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetOffset returns value of Offset field.

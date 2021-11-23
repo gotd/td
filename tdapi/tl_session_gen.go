@@ -34,7 +34,7 @@ var (
 // Session represents TL type `session#727950d8`.
 type Session struct {
 	// Session identifier
-	ID Int64
+	ID int64
 	// True, if this session is the current session
 	IsCurrent bool
 	// True, if a password is needed to complete authorization of the session
@@ -85,7 +85,7 @@ func (s *Session) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.ID.Zero()) {
+	if !(s.ID == 0) {
 		return false
 	}
 	if !(s.IsCurrent == false) {
@@ -244,9 +244,7 @@ func (s *Session) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode session#727950d8 as nil")
 	}
-	if err := s.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode session#727950d8: field id: %w", err)
-	}
+	b.PutLong(s.ID)
 	b.PutBool(s.IsCurrent)
 	b.PutBool(s.IsPasswordPending)
 	b.PutInt32(s.APIID)
@@ -281,9 +279,11 @@ func (s *Session) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode session#727950d8 to nil")
 	}
 	{
-		if err := s.ID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode session#727950d8: field id: %w", err)
 		}
+		s.ID = value
 	}
 	{
 		value, err := b.Bool()
@@ -386,17 +386,15 @@ func (s *Session) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *Session) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *Session) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode session#727950d8 as nil")
 	}
 	b.ObjStart()
 	b.PutID("session")
 	b.FieldStart("id")
-	if err := s.ID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode session#727950d8: field id: %w", err)
-	}
+	b.PutLong(s.ID)
 	b.FieldStart("is_current")
 	b.PutBool(s.IsCurrent)
 	b.FieldStart("is_password_pending")
@@ -429,8 +427,117 @@ func (s *Session) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *Session) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode session#727950d8 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("session"); err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: %w", err)
+			}
+		case "id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field id: %w", err)
+			}
+			s.ID = value
+		case "is_current":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field is_current: %w", err)
+			}
+			s.IsCurrent = value
+		case "is_password_pending":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field is_password_pending: %w", err)
+			}
+			s.IsPasswordPending = value
+		case "api_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field api_id: %w", err)
+			}
+			s.APIID = value
+		case "application_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field application_name: %w", err)
+			}
+			s.ApplicationName = value
+		case "application_version":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field application_version: %w", err)
+			}
+			s.ApplicationVersion = value
+		case "is_official_application":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field is_official_application: %w", err)
+			}
+			s.IsOfficialApplication = value
+		case "device_model":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field device_model: %w", err)
+			}
+			s.DeviceModel = value
+		case "platform":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field platform: %w", err)
+			}
+			s.Platform = value
+		case "system_version":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field system_version: %w", err)
+			}
+			s.SystemVersion = value
+		case "log_in_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field log_in_date: %w", err)
+			}
+			s.LogInDate = value
+		case "last_active_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field last_active_date: %w", err)
+			}
+			s.LastActiveDate = value
+		case "ip":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field ip: %w", err)
+			}
+			s.IP = value
+		case "country":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field country: %w", err)
+			}
+			s.Country = value
+		case "region":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode session#727950d8: field region: %w", err)
+			}
+			s.Region = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetID returns value of ID field.
-func (s *Session) GetID() (value Int64) {
+func (s *Session) GetID() (value int64) {
 	return s.ID
 }
 

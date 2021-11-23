@@ -296,8 +296,8 @@ func (p *PersonalDetails) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PersonalDetails) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PersonalDetails) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode personalDetails#c0b869b7 as nil")
 	}
@@ -327,6 +327,83 @@ func (p *PersonalDetails) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(p.ResidenceCountryCode)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PersonalDetails) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode personalDetails#c0b869b7 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("personalDetails"); err != nil {
+				return fmt.Errorf("unable to decode personalDetails#c0b869b7: %w", err)
+			}
+		case "first_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode personalDetails#c0b869b7: field first_name: %w", err)
+			}
+			p.FirstName = value
+		case "middle_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode personalDetails#c0b869b7: field middle_name: %w", err)
+			}
+			p.MiddleName = value
+		case "last_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode personalDetails#c0b869b7: field last_name: %w", err)
+			}
+			p.LastName = value
+		case "native_first_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode personalDetails#c0b869b7: field native_first_name: %w", err)
+			}
+			p.NativeFirstName = value
+		case "native_middle_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode personalDetails#c0b869b7: field native_middle_name: %w", err)
+			}
+			p.NativeMiddleName = value
+		case "native_last_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode personalDetails#c0b869b7: field native_last_name: %w", err)
+			}
+			p.NativeLastName = value
+		case "birthdate":
+			if err := p.Birthdate.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode personalDetails#c0b869b7: field birthdate: %w", err)
+			}
+		case "gender":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode personalDetails#c0b869b7: field gender: %w", err)
+			}
+			p.Gender = value
+		case "country_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode personalDetails#c0b869b7: field country_code: %w", err)
+			}
+			p.CountryCode = value
+		case "residence_country_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode personalDetails#c0b869b7: field residence_country_code: %w", err)
+			}
+			p.ResidenceCountryCode = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFirstName returns value of FirstName field.

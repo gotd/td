@@ -143,8 +143,8 @@ func (g *GetInstalledStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetInstalledStickerSetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetInstalledStickerSetsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getInstalledStickerSets#48642965 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetInstalledStickerSetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutBool(g.IsMasks)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetInstalledStickerSetsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getInstalledStickerSets#48642965 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getInstalledStickerSets"); err != nil {
+				return fmt.Errorf("unable to decode getInstalledStickerSets#48642965: %w", err)
+			}
+		case "is_masks":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getInstalledStickerSets#48642965: field is_masks: %w", err)
+			}
+			g.IsMasks = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetIsMasks returns value of IsMasks field.

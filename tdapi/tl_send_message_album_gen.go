@@ -229,8 +229,8 @@ func (s *SendMessageAlbumRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SendMessageAlbumRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SendMessageAlbumRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sendMessageAlbum#ae6f51e6 as nil")
 	}
@@ -259,6 +259,58 @@ func (s *SendMessageAlbumRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SendMessageAlbumRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageAlbum#ae6f51e6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("sendMessageAlbum"); err != nil {
+				return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "message_thread_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field message_thread_id: %w", err)
+			}
+			s.MessageThreadID = value
+		case "reply_to_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field reply_to_message_id: %w", err)
+			}
+			s.ReplyToMessageID = value
+		case "options":
+			if err := s.Options.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field options: %w", err)
+			}
+		case "input_message_contents":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONInputMessageContent(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field input_message_contents: %w", err)
+				}
+				s.InputMessageContents = append(s.InputMessageContents, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field input_message_contents: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

@@ -130,8 +130,8 @@ func (u *UserTypeRegular) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UserTypeRegular) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UserTypeRegular) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode userTypeRegular#dc51699b as nil")
 	}
@@ -139,6 +139,25 @@ func (u *UserTypeRegular) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("userTypeRegular")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UserTypeRegular) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userTypeRegular#dc51699b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("userTypeRegular"); err != nil {
+				return fmt.Errorf("unable to decode userTypeRegular#dc51699b: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // UserTypeDeleted represents TL type `userTypeDeleted#94403d24`.
@@ -240,8 +259,8 @@ func (u *UserTypeDeleted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UserTypeDeleted) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UserTypeDeleted) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode userTypeDeleted#94403d24 as nil")
 	}
@@ -249,6 +268,25 @@ func (u *UserTypeDeleted) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("userTypeDeleted")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UserTypeDeleted) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userTypeDeleted#94403d24 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("userTypeDeleted"); err != nil {
+				return fmt.Errorf("unable to decode userTypeDeleted#94403d24: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // UserTypeBot represents TL type `userTypeBot#4b3e8235`.
@@ -438,8 +476,8 @@ func (u *UserTypeBot) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UserTypeBot) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UserTypeBot) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode userTypeBot#4b3e8235 as nil")
 	}
@@ -457,6 +495,55 @@ func (u *UserTypeBot) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(u.NeedLocation)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UserTypeBot) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userTypeBot#4b3e8235 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("userTypeBot"); err != nil {
+				return fmt.Errorf("unable to decode userTypeBot#4b3e8235: %w", err)
+			}
+		case "can_join_groups":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field can_join_groups: %w", err)
+			}
+			u.CanJoinGroups = value
+		case "can_read_all_group_messages":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field can_read_all_group_messages: %w", err)
+			}
+			u.CanReadAllGroupMessages = value
+		case "is_inline":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field is_inline: %w", err)
+			}
+			u.IsInline = value
+		case "inline_query_placeholder":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field inline_query_placeholder: %w", err)
+			}
+			u.InlineQueryPlaceholder = value
+		case "need_location":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field need_location: %w", err)
+			}
+			u.NeedLocation = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCanJoinGroups returns value of CanJoinGroups field.
@@ -583,8 +670,8 @@ func (u *UserTypeUnknown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UserTypeUnknown) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UserTypeUnknown) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode userTypeUnknown#d4d0613d as nil")
 	}
@@ -592,6 +679,25 @@ func (u *UserTypeUnknown) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("userTypeUnknown")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UserTypeUnknown) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userTypeUnknown#d4d0613d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("userTypeUnknown"); err != nil {
+				return fmt.Errorf("unable to decode userTypeUnknown#d4d0613d: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // UserTypeClass represents UserType generic type.
@@ -625,7 +731,9 @@ type UserTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeUserType implements binary de-serialization for UserTypeClass.
@@ -668,6 +776,46 @@ func DecodeUserType(buf *bin.Buffer) (UserTypeClass, error) {
 	}
 }
 
+// DecodeTDLibJSONUserType implements binary de-serialization for UserTypeClass.
+func DecodeTDLibJSONUserType(buf jsontd.Decoder) (UserTypeClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "userTypeRegular":
+		// Decoding userTypeRegular#dc51699b.
+		v := UserTypeRegular{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserTypeClass: %w", err)
+		}
+		return &v, nil
+	case "userTypeDeleted":
+		// Decoding userTypeDeleted#94403d24.
+		v := UserTypeDeleted{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserTypeClass: %w", err)
+		}
+		return &v, nil
+	case "userTypeBot":
+		// Decoding userTypeBot#4b3e8235.
+		v := UserTypeBot{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserTypeClass: %w", err)
+		}
+		return &v, nil
+	case "userTypeUnknown":
+		// Decoding userTypeUnknown#d4d0613d.
+		v := UserTypeUnknown{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserTypeClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode UserTypeClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // UserType boxes the UserTypeClass providing a helper.
 type UserTypeBox struct {
 	UserType UserTypeClass
@@ -692,4 +840,25 @@ func (b *UserTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UserTypeClass as nil")
 	}
 	return b.UserType.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for UserTypeBox.
+func (b *UserTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode UserTypeBox to nil")
+	}
+	v, err := DecodeTDLibJSONUserType(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.UserType = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for UserTypeBox.
+func (b *UserTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.UserType == nil {
+		return fmt.Errorf("unable to encode UserTypeClass as nil")
+	}
+	return b.UserType.EncodeTDLibJSON(buf)
 }

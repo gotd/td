@@ -130,8 +130,8 @@ func (p *PublicChatTypeHasUsername) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PublicChatTypeHasUsername) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PublicChatTypeHasUsername) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode publicChatTypeHasUsername#14e8a07e as nil")
 	}
@@ -139,6 +139,25 @@ func (p *PublicChatTypeHasUsername) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("publicChatTypeHasUsername")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PublicChatTypeHasUsername) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode publicChatTypeHasUsername#14e8a07e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("publicChatTypeHasUsername"); err != nil {
+				return fmt.Errorf("unable to decode publicChatTypeHasUsername#14e8a07e: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // PublicChatTypeIsLocationBased represents TL type `publicChatTypeIsLocationBased#468e6090`.
@@ -240,8 +259,8 @@ func (p *PublicChatTypeIsLocationBased) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PublicChatTypeIsLocationBased) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PublicChatTypeIsLocationBased) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode publicChatTypeIsLocationBased#468e6090 as nil")
 	}
@@ -249,6 +268,25 @@ func (p *PublicChatTypeIsLocationBased) EncodeTDLibJSON(b *jsontd.Encoder) error
 	b.PutID("publicChatTypeIsLocationBased")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PublicChatTypeIsLocationBased) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode publicChatTypeIsLocationBased#468e6090 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("publicChatTypeIsLocationBased"); err != nil {
+				return fmt.Errorf("unable to decode publicChatTypeIsLocationBased#468e6090: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // PublicChatTypeClass represents PublicChatType generic type.
@@ -280,7 +318,9 @@ type PublicChatTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodePublicChatType implements binary de-serialization for PublicChatTypeClass.
@@ -309,6 +349,32 @@ func DecodePublicChatType(buf *bin.Buffer) (PublicChatTypeClass, error) {
 	}
 }
 
+// DecodeTDLibJSONPublicChatType implements binary de-serialization for PublicChatTypeClass.
+func DecodeTDLibJSONPublicChatType(buf jsontd.Decoder) (PublicChatTypeClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "publicChatTypeHasUsername":
+		// Decoding publicChatTypeHasUsername#14e8a07e.
+		v := PublicChatTypeHasUsername{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PublicChatTypeClass: %w", err)
+		}
+		return &v, nil
+	case "publicChatTypeIsLocationBased":
+		// Decoding publicChatTypeIsLocationBased#468e6090.
+		v := PublicChatTypeIsLocationBased{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PublicChatTypeClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode PublicChatTypeClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // PublicChatType boxes the PublicChatTypeClass providing a helper.
 type PublicChatTypeBox struct {
 	PublicChatType PublicChatTypeClass
@@ -333,4 +399,25 @@ func (b *PublicChatTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PublicChatTypeClass as nil")
 	}
 	return b.PublicChatType.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for PublicChatTypeBox.
+func (b *PublicChatTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PublicChatTypeBox to nil")
+	}
+	v, err := DecodeTDLibJSONPublicChatType(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PublicChatType = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for PublicChatTypeBox.
+func (b *PublicChatTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.PublicChatType == nil {
+		return fmt.Errorf("unable to encode PublicChatTypeClass as nil")
+	}
+	return b.PublicChatType.EncodeTDLibJSON(buf)
 }

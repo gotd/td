@@ -182,8 +182,8 @@ func (a *AddStickerToSetRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AddStickerToSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AddStickerToSetRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addStickerToSet#e4e66a2c as nil")
 	}
@@ -202,6 +202,43 @@ func (a *AddStickerToSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AddStickerToSetRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode addStickerToSet#e4e66a2c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("addStickerToSet"); err != nil {
+				return fmt.Errorf("unable to decode addStickerToSet#e4e66a2c: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode addStickerToSet#e4e66a2c: field user_id: %w", err)
+			}
+			a.UserID = value
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode addStickerToSet#e4e66a2c: field name: %w", err)
+			}
+			a.Name = value
+		case "sticker":
+			value, err := DecodeTDLibJSONInputSticker(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode addStickerToSet#e4e66a2c: field sticker: %w", err)
+			}
+			a.Sticker = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserID returns value of UserID field.

@@ -165,8 +165,8 @@ func (g *GetPassportElementRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetPassportElementRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetPassportElementRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getPassportElement#8fcce17a as nil")
 	}
@@ -183,6 +183,37 @@ func (g *GetPassportElementRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(g.Password)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetPassportElementRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getPassportElement#8fcce17a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getPassportElement"); err != nil {
+				return fmt.Errorf("unable to decode getPassportElement#8fcce17a: %w", err)
+			}
+		case "type":
+			value, err := DecodeTDLibJSONPassportElementType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getPassportElement#8fcce17a: field type: %w", err)
+			}
+			g.Type = value
+		case "password":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getPassportElement#8fcce17a: field password: %w", err)
+			}
+			g.Password = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetType returns value of Type field.

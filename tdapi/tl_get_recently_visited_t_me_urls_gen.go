@@ -143,8 +143,8 @@ func (g *GetRecentlyVisitedTMeURLsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetRecentlyVisitedTMeURLsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetRecentlyVisitedTMeURLsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getRecentlyVisitedTMeUrls#30161a91 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetRecentlyVisitedTMeURLsRequest) EncodeTDLibJSON(b *jsontd.Encoder) er
 	b.PutString(g.Referrer)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetRecentlyVisitedTMeURLsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getRecentlyVisitedTMeUrls#30161a91 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getRecentlyVisitedTMeUrls"); err != nil {
+				return fmt.Errorf("unable to decode getRecentlyVisitedTMeUrls#30161a91: %w", err)
+			}
+		case "referrer":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getRecentlyVisitedTMeUrls#30161a91: field referrer: %w", err)
+			}
+			g.Referrer = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetReferrer returns value of Referrer field.

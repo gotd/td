@@ -125,8 +125,8 @@ func (r *ResetNetworkStatisticsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ResetNetworkStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ResetNetworkStatisticsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resetNetworkStatistics#6222dd86 as nil")
 	}
@@ -134,6 +134,25 @@ func (r *ResetNetworkStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error
 	b.PutID("resetNetworkStatistics")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ResetNetworkStatisticsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode resetNetworkStatistics#6222dd86 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("resetNetworkStatistics"); err != nil {
+				return fmt.Errorf("unable to decode resetNetworkStatistics#6222dd86: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ResetNetworkStatistics invokes method resetNetworkStatistics#6222dd86 returning error if any.

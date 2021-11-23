@@ -130,8 +130,8 @@ func (c *ChatSourceMtprotoProxy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatSourceMtprotoProxy) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatSourceMtprotoProxy) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatSourceMtprotoProxy#177d1803 as nil")
 	}
@@ -139,6 +139,25 @@ func (c *ChatSourceMtprotoProxy) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("chatSourceMtprotoProxy")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatSourceMtprotoProxy) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatSourceMtprotoProxy#177d1803 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatSourceMtprotoProxy"); err != nil {
+				return fmt.Errorf("unable to decode chatSourceMtprotoProxy#177d1803: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ChatSourcePublicServiceAnnouncement represents TL type `chatSourcePublicServiceAnnouncement#ec6a6694`.
@@ -275,8 +294,8 @@ func (c *ChatSourcePublicServiceAnnouncement) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatSourcePublicServiceAnnouncement) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatSourcePublicServiceAnnouncement) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatSourcePublicServiceAnnouncement#ec6a6694 as nil")
 	}
@@ -288,6 +307,37 @@ func (c *ChatSourcePublicServiceAnnouncement) EncodeTDLibJSON(b *jsontd.Encoder)
 	b.PutString(c.Text)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatSourcePublicServiceAnnouncement) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatSourcePublicServiceAnnouncement#ec6a6694 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatSourcePublicServiceAnnouncement"); err != nil {
+				return fmt.Errorf("unable to decode chatSourcePublicServiceAnnouncement#ec6a6694: %w", err)
+			}
+		case "type":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatSourcePublicServiceAnnouncement#ec6a6694: field type: %w", err)
+			}
+			c.Type = value
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatSourcePublicServiceAnnouncement#ec6a6694: field text: %w", err)
+			}
+			c.Text = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetType returns value of Type field.
@@ -329,7 +379,9 @@ type ChatSourceClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeChatSource implements binary de-serialization for ChatSourceClass.
@@ -358,6 +410,32 @@ func DecodeChatSource(buf *bin.Buffer) (ChatSourceClass, error) {
 	}
 }
 
+// DecodeTDLibJSONChatSource implements binary de-serialization for ChatSourceClass.
+func DecodeTDLibJSONChatSource(buf jsontd.Decoder) (ChatSourceClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "chatSourceMtprotoProxy":
+		// Decoding chatSourceMtprotoProxy#177d1803.
+		v := ChatSourceMtprotoProxy{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatSourceClass: %w", err)
+		}
+		return &v, nil
+	case "chatSourcePublicServiceAnnouncement":
+		// Decoding chatSourcePublicServiceAnnouncement#ec6a6694.
+		v := ChatSourcePublicServiceAnnouncement{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatSourceClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode ChatSourceClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // ChatSource boxes the ChatSourceClass providing a helper.
 type ChatSourceBox struct {
 	ChatSource ChatSourceClass
@@ -382,4 +460,25 @@ func (b *ChatSourceBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChatSourceClass as nil")
 	}
 	return b.ChatSource.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for ChatSourceBox.
+func (b *ChatSourceBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ChatSourceBox to nil")
+	}
+	v, err := DecodeTDLibJSONChatSource(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ChatSource = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for ChatSourceBox.
+func (b *ChatSourceBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.ChatSource == nil {
+		return fmt.Errorf("unable to encode ChatSourceClass as nil")
+	}
+	return b.ChatSource.EncodeTDLibJSON(buf)
 }

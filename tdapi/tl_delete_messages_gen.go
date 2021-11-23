@@ -191,8 +191,8 @@ func (d *DeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DeleteMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DeleteMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteMessages#c3ed9de2 as nil")
 	}
@@ -210,6 +210,48 @@ func (d *DeleteMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(d.Revoke)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DeleteMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deleteMessages#c3ed9de2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("deleteMessages"); err != nil {
+				return fmt.Errorf("unable to decode deleteMessages#c3ed9de2: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteMessages#c3ed9de2: field chat_id: %w", err)
+			}
+			d.ChatID = value
+		case "message_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode deleteMessages#c3ed9de2: field message_ids: %w", err)
+				}
+				d.MessageIDs = append(d.MessageIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode deleteMessages#c3ed9de2: field message_ids: %w", err)
+			}
+		case "revoke":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteMessages#c3ed9de2: field revoke: %w", err)
+			}
+			d.Revoke = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

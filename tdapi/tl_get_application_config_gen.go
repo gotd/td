@@ -125,8 +125,8 @@ func (g *GetApplicationConfigRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetApplicationConfigRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetApplicationConfigRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getApplicationConfig#93550682 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetApplicationConfigRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("getApplicationConfig")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetApplicationConfigRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getApplicationConfig#93550682 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getApplicationConfig"); err != nil {
+				return fmt.Errorf("unable to decode getApplicationConfig#93550682: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetApplicationConfig invokes method getApplicationConfig#93550682 returning error if any.

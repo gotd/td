@@ -202,8 +202,8 @@ func (m *MaskPosition) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MaskPosition) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MaskPosition) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode maskPosition#82fbb63e as nil")
 	}
@@ -224,6 +224,49 @@ func (m *MaskPosition) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutDouble(m.Scale)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MaskPosition) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode maskPosition#82fbb63e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("maskPosition"); err != nil {
+				return fmt.Errorf("unable to decode maskPosition#82fbb63e: %w", err)
+			}
+		case "point":
+			value, err := DecodeTDLibJSONMaskPoint(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode maskPosition#82fbb63e: field point: %w", err)
+			}
+			m.Point = value
+		case "x_shift":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode maskPosition#82fbb63e: field x_shift: %w", err)
+			}
+			m.XShift = value
+		case "y_shift":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode maskPosition#82fbb63e: field y_shift: %w", err)
+			}
+			m.YShift = value
+		case "scale":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode maskPosition#82fbb63e: field scale: %w", err)
+			}
+			m.Scale = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPoint returns value of Point field.

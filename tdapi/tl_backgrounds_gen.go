@@ -158,8 +158,8 @@ func (b *Backgrounds) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *Backgrounds) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *Backgrounds) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode backgrounds#b4671319 as nil")
 	}
@@ -175,6 +175,36 @@ func (b *Backgrounds) EncodeTDLibJSON(buf *jsontd.Encoder) error {
 	buf.ArrEnd()
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *Backgrounds) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode backgrounds#b4671319 to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("backgrounds"); err != nil {
+				return fmt.Errorf("unable to decode backgrounds#b4671319: %w", err)
+			}
+		case "backgrounds":
+			if err := buf.Arr(func(buf jsontd.Decoder) error {
+				var value Background
+				if err := value.DecodeTDLibJSON(buf); err != nil {
+					return fmt.Errorf("unable to decode backgrounds#b4671319: field backgrounds: %w", err)
+				}
+				b.Backgrounds = append(b.Backgrounds, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode backgrounds#b4671319: field backgrounds: %w", err)
+			}
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBackgrounds returns value of Backgrounds field.

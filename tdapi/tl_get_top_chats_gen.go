@@ -165,8 +165,8 @@ func (g *GetTopChatsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetTopChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetTopChatsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getTopChats#e8d95221 as nil")
 	}
@@ -183,6 +183,37 @@ func (g *GetTopChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(g.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetTopChatsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getTopChats#e8d95221 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getTopChats"); err != nil {
+				return fmt.Errorf("unable to decode getTopChats#e8d95221: %w", err)
+			}
+		case "category":
+			value, err := DecodeTDLibJSONTopChatCategory(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getTopChats#e8d95221: field category: %w", err)
+			}
+			g.Category = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getTopChats#e8d95221: field limit: %w", err)
+			}
+			g.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCategory returns value of Category field.

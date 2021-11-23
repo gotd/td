@@ -160,8 +160,8 @@ func (o *OpenMessageContentRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes o in TDLib API JSON format.
-func (o *OpenMessageContentRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (o *OpenMessageContentRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if o == nil {
 		return fmt.Errorf("can't encode openMessageContent#d3f2697b as nil")
 	}
@@ -173,6 +173,37 @@ func (o *OpenMessageContentRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(o.MessageID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (o *OpenMessageContentRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if o == nil {
+		return fmt.Errorf("can't decode openMessageContent#d3f2697b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("openMessageContent"); err != nil {
+				return fmt.Errorf("unable to decode openMessageContent#d3f2697b: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode openMessageContent#d3f2697b: field chat_id: %w", err)
+			}
+			o.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode openMessageContent#d3f2697b: field message_id: %w", err)
+			}
+			o.MessageID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

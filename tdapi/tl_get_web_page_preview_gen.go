@@ -143,8 +143,8 @@ func (g *GetWebPagePreviewRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetWebPagePreviewRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetWebPagePreviewRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getWebPagePreview#222e062c as nil")
 	}
@@ -156,6 +156,29 @@ func (g *GetWebPagePreviewRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetWebPagePreviewRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getWebPagePreview#222e062c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getWebPagePreview"); err != nil {
+				return fmt.Errorf("unable to decode getWebPagePreview#222e062c: %w", err)
+			}
+		case "text":
+			if err := g.Text.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode getWebPagePreview#222e062c: field text: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

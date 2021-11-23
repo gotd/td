@@ -174,8 +174,8 @@ func (a *AddChatMembersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AddChatMembersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AddChatMembersRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addChatMembers#d4ee030b as nil")
 	}
@@ -191,6 +191,42 @@ func (a *AddChatMembersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AddChatMembersRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode addChatMembers#d4ee030b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("addChatMembers"); err != nil {
+				return fmt.Errorf("unable to decode addChatMembers#d4ee030b: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode addChatMembers#d4ee030b: field chat_id: %w", err)
+			}
+			a.ChatID = value
+		case "user_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode addChatMembers#d4ee030b: field user_ids: %w", err)
+				}
+				a.UserIDs = append(a.UserIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode addChatMembers#d4ee030b: field user_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

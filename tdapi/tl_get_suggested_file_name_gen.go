@@ -160,8 +160,8 @@ func (g *GetSuggestedFileNameRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetSuggestedFileNameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetSuggestedFileNameRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getSuggestedFileName#85d8a486 as nil")
 	}
@@ -173,6 +173,37 @@ func (g *GetSuggestedFileNameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(g.Directory)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetSuggestedFileNameRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getSuggestedFileName#85d8a486 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getSuggestedFileName"); err != nil {
+				return fmt.Errorf("unable to decode getSuggestedFileName#85d8a486: %w", err)
+			}
+		case "file_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getSuggestedFileName#85d8a486: field file_id: %w", err)
+			}
+			g.FileID = value
+		case "directory":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getSuggestedFileName#85d8a486: field directory: %w", err)
+			}
+			g.Directory = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFileID returns value of FileID field.

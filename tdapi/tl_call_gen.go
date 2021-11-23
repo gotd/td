@@ -216,8 +216,8 @@ func (c *Call) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *Call) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *Call) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode call#59a64c86 as nil")
 	}
@@ -240,6 +240,55 @@ func (c *Call) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *Call) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode call#59a64c86 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("call"); err != nil {
+				return fmt.Errorf("unable to decode call#59a64c86: %w", err)
+			}
+		case "id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode call#59a64c86: field id: %w", err)
+			}
+			c.ID = value
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode call#59a64c86: field user_id: %w", err)
+			}
+			c.UserID = value
+		case "is_outgoing":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode call#59a64c86: field is_outgoing: %w", err)
+			}
+			c.IsOutgoing = value
+		case "is_video":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode call#59a64c86: field is_video: %w", err)
+			}
+			c.IsVideo = value
+		case "state":
+			value, err := DecodeTDLibJSONCallState(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode call#59a64c86: field state: %w", err)
+			}
+			c.State = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

@@ -143,8 +143,8 @@ func (r *ReadAllChatMentionsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ReadAllChatMentionsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ReadAllChatMentionsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode readAllChatMentions#50eab2b5 as nil")
 	}
@@ -154,6 +154,31 @@ func (r *ReadAllChatMentionsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(r.ChatID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ReadAllChatMentionsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode readAllChatMentions#50eab2b5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("readAllChatMentions"); err != nil {
+				return fmt.Errorf("unable to decode readAllChatMentions#50eab2b5: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode readAllChatMentions#50eab2b5: field chat_id: %w", err)
+			}
+			r.ChatID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

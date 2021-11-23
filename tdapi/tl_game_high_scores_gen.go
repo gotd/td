@@ -158,8 +158,8 @@ func (g *GameHighScores) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GameHighScores) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GameHighScores) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode gameHighScores#6d4cd30d as nil")
 	}
@@ -175,6 +175,36 @@ func (g *GameHighScores) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GameHighScores) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode gameHighScores#6d4cd30d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("gameHighScores"); err != nil {
+				return fmt.Errorf("unable to decode gameHighScores#6d4cd30d: %w", err)
+			}
+		case "scores":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value GameHighScore
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode gameHighScores#6d4cd30d: field scores: %w", err)
+				}
+				g.Scores = append(g.Scores, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode gameHighScores#6d4cd30d: field scores: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetScores returns value of Scores field.

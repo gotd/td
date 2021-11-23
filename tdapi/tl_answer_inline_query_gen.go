@@ -34,7 +34,7 @@ var (
 // AnswerInlineQueryRequest represents TL type `answerInlineQuery#18ec5846`.
 type AnswerInlineQueryRequest struct {
 	// Identifier of the inline query
-	InlineQueryID Int64
+	InlineQueryID int64
 	// True, if the result of the query can be cached for the specified user
 	IsPersonal bool
 	// The results of the query
@@ -65,7 +65,7 @@ func (a *AnswerInlineQueryRequest) Zero() bool {
 	if a == nil {
 		return true
 	}
-	if !(a.InlineQueryID.Zero()) {
+	if !(a.InlineQueryID == 0) {
 		return false
 	}
 	if !(a.IsPersonal == false) {
@@ -168,9 +168,7 @@ func (a *AnswerInlineQueryRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode answerInlineQuery#18ec5846 as nil")
 	}
-	if err := a.InlineQueryID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode answerInlineQuery#18ec5846: field inline_query_id: %w", err)
-	}
+	b.PutLong(a.InlineQueryID)
 	b.PutBool(a.IsPersonal)
 	b.PutInt(len(a.Results))
 	for idx, v := range a.Results {
@@ -205,9 +203,11 @@ func (a *AnswerInlineQueryRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode answerInlineQuery#18ec5846 to nil")
 	}
 	{
-		if err := a.InlineQueryID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field inline_query_id: %w", err)
 		}
+		a.InlineQueryID = value
 	}
 	{
 		value, err := b.Bool()
@@ -264,17 +264,15 @@ func (a *AnswerInlineQueryRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AnswerInlineQueryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AnswerInlineQueryRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode answerInlineQuery#18ec5846 as nil")
 	}
 	b.ObjStart()
 	b.PutID("answerInlineQuery")
 	b.FieldStart("inline_query_id")
-	if err := a.InlineQueryID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode answerInlineQuery#18ec5846: field inline_query_id: %w", err)
-	}
+	b.PutLong(a.InlineQueryID)
 	b.FieldStart("is_personal")
 	b.PutBool(a.IsPersonal)
 	b.FieldStart("results")
@@ -300,8 +298,74 @@ func (a *AnswerInlineQueryRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AnswerInlineQueryRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode answerInlineQuery#18ec5846 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("answerInlineQuery"); err != nil {
+				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: %w", err)
+			}
+		case "inline_query_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field inline_query_id: %w", err)
+			}
+			a.InlineQueryID = value
+		case "is_personal":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field is_personal: %w", err)
+			}
+			a.IsPersonal = value
+		case "results":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONInputInlineQueryResult(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field results: %w", err)
+				}
+				a.Results = append(a.Results, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field results: %w", err)
+			}
+		case "cache_time":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field cache_time: %w", err)
+			}
+			a.CacheTime = value
+		case "next_offset":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field next_offset: %w", err)
+			}
+			a.NextOffset = value
+		case "switch_pm_text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field switch_pm_text: %w", err)
+			}
+			a.SwitchPmText = value
+		case "switch_pm_parameter":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field switch_pm_parameter: %w", err)
+			}
+			a.SwitchPmParameter = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetInlineQueryID returns value of InlineQueryID field.
-func (a *AnswerInlineQueryRequest) GetInlineQueryID() (value Int64) {
+func (a *AnswerInlineQueryRequest) GetInlineQueryID() (value int64) {
 	return a.InlineQueryID
 }
 

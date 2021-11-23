@@ -143,8 +143,8 @@ func (c *CheckDatabaseEncryptionKeyRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CheckDatabaseEncryptionKeyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CheckDatabaseEncryptionKeyRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkDatabaseEncryptionKey#3cb92f9b as nil")
 	}
@@ -154,6 +154,31 @@ func (c *CheckDatabaseEncryptionKeyRequest) EncodeTDLibJSON(b *jsontd.Encoder) e
 	b.PutBytes(c.EncryptionKey)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CheckDatabaseEncryptionKeyRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkDatabaseEncryptionKey#3cb92f9b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("checkDatabaseEncryptionKey"); err != nil {
+				return fmt.Errorf("unable to decode checkDatabaseEncryptionKey#3cb92f9b: %w", err)
+			}
+		case "encryption_key":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode checkDatabaseEncryptionKey#3cb92f9b: field encryption_key: %w", err)
+			}
+			c.EncryptionKey = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetEncryptionKey returns value of EncryptionKey field.

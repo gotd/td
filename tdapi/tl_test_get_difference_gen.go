@@ -125,8 +125,8 @@ func (t *TestGetDifferenceRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TestGetDifferenceRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TestGetDifferenceRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode testGetDifference#68226325 as nil")
 	}
@@ -134,6 +134,25 @@ func (t *TestGetDifferenceRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("testGetDifference")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TestGetDifferenceRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testGetDifference#68226325 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("testGetDifference"); err != nil {
+				return fmt.Errorf("unable to decode testGetDifference#68226325: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // TestGetDifference invokes method testGetDifference#68226325 returning error if any.

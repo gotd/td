@@ -125,8 +125,8 @@ func (g *GetImportedContactCountRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetImportedContactCountRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetImportedContactCountRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getImportedContactCount#d8e11a26 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetImportedContactCountRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutID("getImportedContactCount")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetImportedContactCountRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getImportedContactCount#d8e11a26 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getImportedContactCount"); err != nil {
+				return fmt.Errorf("unable to decode getImportedContactCount#d8e11a26: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetImportedContactCount invokes method getImportedContactCount#d8e11a26 returning error if any.

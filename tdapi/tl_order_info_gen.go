@@ -194,8 +194,8 @@ func (o *OrderInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes o in TDLib API JSON format.
-func (o *OrderInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (o *OrderInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if o == nil {
 		return fmt.Errorf("can't encode orderInfo#2ebad96e as nil")
 	}
@@ -213,6 +213,47 @@ func (o *OrderInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (o *OrderInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if o == nil {
+		return fmt.Errorf("can't decode orderInfo#2ebad96e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("orderInfo"); err != nil {
+				return fmt.Errorf("unable to decode orderInfo#2ebad96e: %w", err)
+			}
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode orderInfo#2ebad96e: field name: %w", err)
+			}
+			o.Name = value
+		case "phone_number":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode orderInfo#2ebad96e: field phone_number: %w", err)
+			}
+			o.PhoneNumber = value
+		case "email_address":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode orderInfo#2ebad96e: field email_address: %w", err)
+			}
+			o.EmailAddress = value
+		case "shipping_address":
+			if err := o.ShippingAddress.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode orderInfo#2ebad96e: field shipping_address: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetName returns value of Name field.

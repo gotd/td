@@ -34,7 +34,7 @@ var (
 // WriteGeneratedFilePartRequest represents TL type `writeGeneratedFilePart#8512e953`.
 type WriteGeneratedFilePartRequest struct {
 	// The identifier of the generation process
-	GenerationID Int64
+	GenerationID int64
 	// The offset from which to write the data to the file
 	Offset int32
 	// The data to write
@@ -56,7 +56,7 @@ func (w *WriteGeneratedFilePartRequest) Zero() bool {
 	if w == nil {
 		return true
 	}
-	if !(w.GenerationID.Zero()) {
+	if !(w.GenerationID == 0) {
 		return false
 	}
 	if !(w.Offset == 0) {
@@ -131,9 +131,7 @@ func (w *WriteGeneratedFilePartRequest) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
 		return fmt.Errorf("can't encode writeGeneratedFilePart#8512e953 as nil")
 	}
-	if err := w.GenerationID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode writeGeneratedFilePart#8512e953: field generation_id: %w", err)
-	}
+	b.PutLong(w.GenerationID)
 	b.PutInt32(w.Offset)
 	b.PutBytes(w.Data)
 	return nil
@@ -156,9 +154,11 @@ func (w *WriteGeneratedFilePartRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode writeGeneratedFilePart#8512e953 to nil")
 	}
 	{
-		if err := w.GenerationID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode writeGeneratedFilePart#8512e953: field generation_id: %w", err)
 		}
+		w.GenerationID = value
 	}
 	{
 		value, err := b.Int32()
@@ -177,17 +177,15 @@ func (w *WriteGeneratedFilePartRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes w in TDLib API JSON format.
-func (w *WriteGeneratedFilePartRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (w *WriteGeneratedFilePartRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if w == nil {
 		return fmt.Errorf("can't encode writeGeneratedFilePart#8512e953 as nil")
 	}
 	b.ObjStart()
 	b.PutID("writeGeneratedFilePart")
 	b.FieldStart("generation_id")
-	if err := w.GenerationID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode writeGeneratedFilePart#8512e953: field generation_id: %w", err)
-	}
+	b.PutLong(w.GenerationID)
 	b.FieldStart("offset")
 	b.PutInt32(w.Offset)
 	b.FieldStart("data")
@@ -196,8 +194,45 @@ func (w *WriteGeneratedFilePartRequest) EncodeTDLibJSON(b *jsontd.Encoder) error
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (w *WriteGeneratedFilePartRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if w == nil {
+		return fmt.Errorf("can't decode writeGeneratedFilePart#8512e953 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("writeGeneratedFilePart"); err != nil {
+				return fmt.Errorf("unable to decode writeGeneratedFilePart#8512e953: %w", err)
+			}
+		case "generation_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode writeGeneratedFilePart#8512e953: field generation_id: %w", err)
+			}
+			w.GenerationID = value
+		case "offset":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode writeGeneratedFilePart#8512e953: field offset: %w", err)
+			}
+			w.Offset = value
+		case "data":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode writeGeneratedFilePart#8512e953: field data: %w", err)
+			}
+			w.Data = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetGenerationID returns value of GenerationID field.
-func (w *WriteGeneratedFilePartRequest) GetGenerationID() (value Int64) {
+func (w *WriteGeneratedFilePartRequest) GetGenerationID() (value int64) {
 	return w.GenerationID
 }
 

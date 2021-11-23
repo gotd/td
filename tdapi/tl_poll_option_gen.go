@@ -211,8 +211,8 @@ func (p *PollOption) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PollOption) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PollOption) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pollOption#57d9d5a5 as nil")
 	}
@@ -230,6 +230,55 @@ func (p *PollOption) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(p.IsBeingChosen)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PollOption) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pollOption#57d9d5a5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("pollOption"); err != nil {
+				return fmt.Errorf("unable to decode pollOption#57d9d5a5: %w", err)
+			}
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode pollOption#57d9d5a5: field text: %w", err)
+			}
+			p.Text = value
+		case "voter_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode pollOption#57d9d5a5: field voter_count: %w", err)
+			}
+			p.VoterCount = value
+		case "vote_percentage":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode pollOption#57d9d5a5: field vote_percentage: %w", err)
+			}
+			p.VotePercentage = value
+		case "is_chosen":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode pollOption#57d9d5a5: field is_chosen: %w", err)
+			}
+			p.IsChosen = value
+		case "is_being_chosen":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode pollOption#57d9d5a5: field is_being_chosen: %w", err)
+			}
+			p.IsBeingChosen = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

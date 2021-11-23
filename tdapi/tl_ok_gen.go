@@ -125,8 +125,8 @@ func (o *Ok) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes o in TDLib API JSON format.
-func (o *Ok) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (o *Ok) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if o == nil {
 		return fmt.Errorf("can't encode ok#d4edbe69 as nil")
 	}
@@ -134,4 +134,23 @@ func (o *Ok) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("ok")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (o *Ok) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if o == nil {
+		return fmt.Errorf("can't decode ok#d4edbe69 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("ok"); err != nil {
+				return fmt.Errorf("unable to decode ok#d4edbe69: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }

@@ -586,8 +586,8 @@ func (c *Chat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *Chat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *Chat) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chat#77f6d111 as nil")
 	}
@@ -673,6 +673,168 @@ func (c *Chat) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(c.ClientData)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *Chat) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chat#77f6d111 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chat"); err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: %w", err)
+			}
+		case "id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field id: %w", err)
+			}
+			c.ID = value
+		case "type":
+			value, err := DecodeTDLibJSONChatType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field type: %w", err)
+			}
+			c.Type = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field title: %w", err)
+			}
+			c.Title = value
+		case "photo":
+			if err := c.Photo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field photo: %w", err)
+			}
+		case "permissions":
+			if err := c.Permissions.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field permissions: %w", err)
+			}
+		case "last_message":
+			if err := c.LastMessage.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field last_message: %w", err)
+			}
+		case "positions":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value ChatPosition
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode chat#77f6d111: field positions: %w", err)
+				}
+				c.Positions = append(c.Positions, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field positions: %w", err)
+			}
+		case "is_marked_as_unread":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field is_marked_as_unread: %w", err)
+			}
+			c.IsMarkedAsUnread = value
+		case "is_blocked":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field is_blocked: %w", err)
+			}
+			c.IsBlocked = value
+		case "has_scheduled_messages":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field has_scheduled_messages: %w", err)
+			}
+			c.HasScheduledMessages = value
+		case "can_be_deleted_only_for_self":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field can_be_deleted_only_for_self: %w", err)
+			}
+			c.CanBeDeletedOnlyForSelf = value
+		case "can_be_deleted_for_all_users":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field can_be_deleted_for_all_users: %w", err)
+			}
+			c.CanBeDeletedForAllUsers = value
+		case "can_be_reported":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field can_be_reported: %w", err)
+			}
+			c.CanBeReported = value
+		case "default_disable_notification":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field default_disable_notification: %w", err)
+			}
+			c.DefaultDisableNotification = value
+		case "unread_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field unread_count: %w", err)
+			}
+			c.UnreadCount = value
+		case "last_read_inbox_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field last_read_inbox_message_id: %w", err)
+			}
+			c.LastReadInboxMessageID = value
+		case "last_read_outbox_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field last_read_outbox_message_id: %w", err)
+			}
+			c.LastReadOutboxMessageID = value
+		case "unread_mention_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field unread_mention_count: %w", err)
+			}
+			c.UnreadMentionCount = value
+		case "notification_settings":
+			if err := c.NotificationSettings.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field notification_settings: %w", err)
+			}
+		case "message_ttl_setting":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field message_ttl_setting: %w", err)
+			}
+			c.MessageTTLSetting = value
+		case "action_bar":
+			value, err := DecodeTDLibJSONChatActionBar(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field action_bar: %w", err)
+			}
+			c.ActionBar = value
+		case "voice_chat":
+			if err := c.VoiceChat.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field voice_chat: %w", err)
+			}
+		case "reply_markup_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field reply_markup_message_id: %w", err)
+			}
+			c.ReplyMarkupMessageID = value
+		case "draft_message":
+			if err := c.DraftMessage.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field draft_message: %w", err)
+			}
+		case "client_data":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#77f6d111: field client_data: %w", err)
+			}
+			c.ClientData = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

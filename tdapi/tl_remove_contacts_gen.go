@@ -156,8 +156,8 @@ func (r *RemoveContactsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RemoveContactsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RemoveContactsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode removeContacts#d47cddcc as nil")
 	}
@@ -171,6 +171,36 @@ func (r *RemoveContactsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RemoveContactsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode removeContacts#d47cddcc to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("removeContacts"); err != nil {
+				return fmt.Errorf("unable to decode removeContacts#d47cddcc: %w", err)
+			}
+		case "user_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode removeContacts#d47cddcc: field user_ids: %w", err)
+				}
+				r.UserIDs = append(r.UserIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode removeContacts#d47cddcc: field user_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserIDs returns value of UserIDs field.

@@ -143,8 +143,8 @@ func (g *GetUserFullInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetUserFullInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetUserFullInfoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getUserFullInfo#d8eebac1 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetUserFullInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(g.UserID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetUserFullInfoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getUserFullInfo#d8eebac1 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getUserFullInfo"); err != nil {
+				return fmt.Errorf("unable to decode getUserFullInfo#d8eebac1: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getUserFullInfo#d8eebac1: field user_id: %w", err)
+			}
+			g.UserID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserID returns value of UserID field.

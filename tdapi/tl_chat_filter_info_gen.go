@@ -180,8 +180,8 @@ func (c *ChatFilterInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatFilterInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatFilterInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatFilterInfo#c7bff533 as nil")
 	}
@@ -195,6 +195,43 @@ func (c *ChatFilterInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(c.IconName)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatFilterInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatFilterInfo#c7bff533 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatFilterInfo"); err != nil {
+				return fmt.Errorf("unable to decode chatFilterInfo#c7bff533: %w", err)
+			}
+		case "id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFilterInfo#c7bff533: field id: %w", err)
+			}
+			c.ID = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFilterInfo#c7bff533: field title: %w", err)
+			}
+			c.Title = value
+		case "icon_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFilterInfo#c7bff533: field icon_name: %w", err)
+			}
+			c.IconName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

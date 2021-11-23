@@ -215,8 +215,8 @@ func (d *DownloadFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DownloadFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DownloadFileRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode downloadFile#be50685a as nil")
 	}
@@ -234,6 +234,55 @@ func (d *DownloadFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(d.Synchronous)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DownloadFileRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode downloadFile#be50685a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("downloadFile"); err != nil {
+				return fmt.Errorf("unable to decode downloadFile#be50685a: %w", err)
+			}
+		case "file_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode downloadFile#be50685a: field file_id: %w", err)
+			}
+			d.FileID = value
+		case "priority":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode downloadFile#be50685a: field priority: %w", err)
+			}
+			d.Priority = value
+		case "offset":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode downloadFile#be50685a: field offset: %w", err)
+			}
+			d.Offset = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode downloadFile#be50685a: field limit: %w", err)
+			}
+			d.Limit = value
+		case "synchronous":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode downloadFile#be50685a: field synchronous: %w", err)
+			}
+			d.Synchronous = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFileID returns value of FileID field.

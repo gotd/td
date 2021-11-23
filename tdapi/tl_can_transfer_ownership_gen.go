@@ -125,8 +125,8 @@ func (c *CanTransferOwnershipRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CanTransferOwnershipRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CanTransferOwnershipRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode canTransferOwnership#25d3440c as nil")
 	}
@@ -134,6 +134,25 @@ func (c *CanTransferOwnershipRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("canTransferOwnership")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CanTransferOwnershipRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode canTransferOwnership#25d3440c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("canTransferOwnership"); err != nil {
+				return fmt.Errorf("unable to decode canTransferOwnership#25d3440c: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CanTransferOwnership invokes method canTransferOwnership#25d3440c returning error if any.

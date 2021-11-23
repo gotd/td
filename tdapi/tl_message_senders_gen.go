@@ -178,8 +178,8 @@ func (m *MessageSenders) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MessageSenders) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MessageSenders) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageSenders#f6929bcc as nil")
 	}
@@ -200,6 +200,42 @@ func (m *MessageSenders) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MessageSenders) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSenders#f6929bcc to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("messageSenders"); err != nil {
+				return fmt.Errorf("unable to decode messageSenders#f6929bcc: %w", err)
+			}
+		case "total_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageSenders#f6929bcc: field total_count: %w", err)
+			}
+			m.TotalCount = value
+		case "senders":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONMessageSender(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode messageSenders#f6929bcc: field senders: %w", err)
+				}
+				m.Senders = append(m.Senders, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode messageSenders#f6929bcc: field senders: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetTotalCount returns value of TotalCount field.

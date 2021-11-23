@@ -193,8 +193,8 @@ func (p *PassportElementsWithErrors) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PassportElementsWithErrors) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PassportElementsWithErrors) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementsWithErrors#438d1abf as nil")
 	}
@@ -221,6 +221,47 @@ func (p *PassportElementsWithErrors) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PassportElementsWithErrors) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode passportElementsWithErrors#438d1abf to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("passportElementsWithErrors"); err != nil {
+				return fmt.Errorf("unable to decode passportElementsWithErrors#438d1abf: %w", err)
+			}
+		case "elements":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONPassportElement(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode passportElementsWithErrors#438d1abf: field elements: %w", err)
+				}
+				p.Elements = append(p.Elements, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode passportElementsWithErrors#438d1abf: field elements: %w", err)
+			}
+		case "errors":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value PassportElementError
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode passportElementsWithErrors#438d1abf: field errors: %w", err)
+				}
+				p.Errors = append(p.Errors, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode passportElementsWithErrors#438d1abf: field errors: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetElements returns value of Elements field.

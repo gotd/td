@@ -146,8 +146,8 @@ func (g *GetStorageStatisticsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetStorageStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetStorageStatisticsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getStorageStatistics#cd254b37 as nil")
 	}
@@ -157,6 +157,31 @@ func (g *GetStorageStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(g.ChatLimit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetStorageStatisticsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getStorageStatistics#cd254b37 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getStorageStatistics"); err != nil {
+				return fmt.Errorf("unable to decode getStorageStatistics#cd254b37: %w", err)
+			}
+		case "chat_limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStorageStatistics#cd254b37: field chat_limit: %w", err)
+			}
+			g.ChatLimit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatLimit returns value of ChatLimit field.

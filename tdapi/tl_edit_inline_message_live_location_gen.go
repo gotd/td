@@ -218,8 +218,8 @@ func (e *EditInlineMessageLiveLocationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *EditInlineMessageLiveLocationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *EditInlineMessageLiveLocationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editInlineMessageLiveLocation#f6a5da00 as nil")
 	}
@@ -244,6 +244,53 @@ func (e *EditInlineMessageLiveLocationRequest) EncodeTDLibJSON(b *jsontd.Encoder
 	b.PutInt32(e.ProximityAlertRadius)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *EditInlineMessageLiveLocationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode editInlineMessageLiveLocation#f6a5da00 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("editInlineMessageLiveLocation"); err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageLiveLocation#f6a5da00: %w", err)
+			}
+		case "inline_message_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageLiveLocation#f6a5da00: field inline_message_id: %w", err)
+			}
+			e.InlineMessageID = value
+		case "reply_markup":
+			value, err := DecodeTDLibJSONReplyMarkup(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageLiveLocation#f6a5da00: field reply_markup: %w", err)
+			}
+			e.ReplyMarkup = value
+		case "location":
+			if err := e.Location.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageLiveLocation#f6a5da00: field location: %w", err)
+			}
+		case "heading":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageLiveLocation#f6a5da00: field heading: %w", err)
+			}
+			e.Heading = value
+		case "proximity_alert_radius":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode editInlineMessageLiveLocation#f6a5da00: field proximity_alert_radius: %w", err)
+			}
+			e.ProximityAlertRadius = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetInlineMessageID returns value of InlineMessageID field.

@@ -177,8 +177,8 @@ func (g *GetMessageEmbeddingCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetMessageEmbeddingCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetMessageEmbeddingCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getMessageEmbeddingCode#62a4cd09 as nil")
 	}
@@ -192,6 +192,43 @@ func (g *GetMessageEmbeddingCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutBool(g.ForAlbum)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetMessageEmbeddingCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getMessageEmbeddingCode#62a4cd09 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getMessageEmbeddingCode"); err != nil {
+				return fmt.Errorf("unable to decode getMessageEmbeddingCode#62a4cd09: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessageEmbeddingCode#62a4cd09: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessageEmbeddingCode#62a4cd09: field message_id: %w", err)
+			}
+			g.MessageID = value
+		case "for_album":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessageEmbeddingCode#62a4cd09: field for_album: %w", err)
+			}
+			g.ForAlbum = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

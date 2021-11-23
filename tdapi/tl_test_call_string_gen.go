@@ -143,8 +143,8 @@ func (t *TestCallStringRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TestCallStringRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TestCallStringRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode testCallString#98b74a2f as nil")
 	}
@@ -154,6 +154,31 @@ func (t *TestCallStringRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(t.X)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TestCallStringRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testCallString#98b74a2f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("testCallString"); err != nil {
+				return fmt.Errorf("unable to decode testCallString#98b74a2f: %w", err)
+			}
+		case "x":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode testCallString#98b74a2f: field x: %w", err)
+			}
+			t.X = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetX returns value of X field.

@@ -160,8 +160,8 @@ func (b *BotCommand) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *BotCommand) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *BotCommand) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botCommand#c27ac8c7 as nil")
 	}
@@ -173,6 +173,37 @@ func (b *BotCommand) EncodeTDLibJSON(buf *jsontd.Encoder) error {
 	buf.PutString(b.Description)
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *BotCommand) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botCommand#c27ac8c7 to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("botCommand"); err != nil {
+				return fmt.Errorf("unable to decode botCommand#c27ac8c7: %w", err)
+			}
+		case "command":
+			value, err := buf.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode botCommand#c27ac8c7: field command: %w", err)
+			}
+			b.Command = value
+		case "description":
+			value, err := buf.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode botCommand#c27ac8c7: field description: %w", err)
+			}
+			b.Description = value
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCommand returns value of Command field.

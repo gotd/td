@@ -148,8 +148,8 @@ func (a *AddNetworkStatisticsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AddNetworkStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AddNetworkStatisticsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addNetworkStatistics#4b63b3d9 as nil")
 	}
@@ -164,6 +164,31 @@ func (a *AddNetworkStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AddNetworkStatisticsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode addNetworkStatistics#4b63b3d9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("addNetworkStatistics"); err != nil {
+				return fmt.Errorf("unable to decode addNetworkStatistics#4b63b3d9: %w", err)
+			}
+		case "entry":
+			value, err := DecodeTDLibJSONNetworkStatisticsEntry(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode addNetworkStatistics#4b63b3d9: field entry: %w", err)
+			}
+			a.Entry = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetEntry returns value of Entry field.

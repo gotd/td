@@ -35,7 +35,7 @@ var (
 type ProfilePhoto struct {
 	// Photo identifier; 0 for an empty photo. Can be used to find a photo in a list of user
 	// profile photos
-	ID Int64
+	ID int64
 	// A small (160x160) user profile photo. The file can be downloaded only before the photo
 	// is changed
 	Small File
@@ -63,7 +63,7 @@ func (p *ProfilePhoto) Zero() bool {
 	if p == nil {
 		return true
 	}
-	if !(p.ID.Zero()) {
+	if !(p.ID == 0) {
 		return false
 	}
 	if !(p.Small.Zero()) {
@@ -152,9 +152,7 @@ func (p *ProfilePhoto) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode profilePhoto#f82f9c4d as nil")
 	}
-	if err := p.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field id: %w", err)
-	}
+	b.PutLong(p.ID)
 	if err := p.Small.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field small: %w", err)
 	}
@@ -185,9 +183,11 @@ func (p *ProfilePhoto) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode profilePhoto#f82f9c4d to nil")
 	}
 	{
-		if err := p.ID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field id: %w", err)
 		}
+		p.ID = value
 	}
 	{
 		if err := p.Small.Decode(b); err != nil {
@@ -214,17 +214,15 @@ func (p *ProfilePhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *ProfilePhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *ProfilePhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode profilePhoto#f82f9c4d as nil")
 	}
 	b.ObjStart()
 	b.PutID("profilePhoto")
 	b.FieldStart("id")
-	if err := p.ID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field id: %w", err)
-	}
+	b.PutLong(p.ID)
 	b.FieldStart("small")
 	if err := p.Small.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field small: %w", err)
@@ -243,8 +241,51 @@ func (p *ProfilePhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *ProfilePhoto) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode profilePhoto#f82f9c4d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("profilePhoto"); err != nil {
+				return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: %w", err)
+			}
+		case "id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field id: %w", err)
+			}
+			p.ID = value
+		case "small":
+			if err := p.Small.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field small: %w", err)
+			}
+		case "big":
+			if err := p.Big.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field big: %w", err)
+			}
+		case "minithumbnail":
+			if err := p.Minithumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field minithumbnail: %w", err)
+			}
+		case "has_animation":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field has_animation: %w", err)
+			}
+			p.HasAnimation = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetID returns value of ID field.
-func (p *ProfilePhoto) GetID() (value Int64) {
+func (p *ProfilePhoto) GetID() (value int64) {
 	return p.ID
 }
 

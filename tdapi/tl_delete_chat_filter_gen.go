@@ -143,8 +143,8 @@ func (d *DeleteChatFilterRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DeleteChatFilterRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DeleteChatFilterRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteChatFilter#e0d04873 as nil")
 	}
@@ -154,6 +154,31 @@ func (d *DeleteChatFilterRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(d.ChatFilterID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DeleteChatFilterRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deleteChatFilter#e0d04873 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("deleteChatFilter"); err != nil {
+				return fmt.Errorf("unable to decode deleteChatFilter#e0d04873: %w", err)
+			}
+		case "chat_filter_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteChatFilter#e0d04873: field chat_filter_id: %w", err)
+			}
+			d.ChatFilterID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatFilterID returns value of ChatFilterID field.

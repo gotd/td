@@ -199,8 +199,8 @@ func (r *ReportChatPhotoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ReportChatPhotoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ReportChatPhotoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode reportChatPhoto#2bc9e924 as nil")
 	}
@@ -221,6 +221,49 @@ func (r *ReportChatPhotoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(r.Text)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ReportChatPhotoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode reportChatPhoto#2bc9e924 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("reportChatPhoto"); err != nil {
+				return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field chat_id: %w", err)
+			}
+			r.ChatID = value
+		case "file_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field file_id: %w", err)
+			}
+			r.FileID = value
+		case "reason":
+			value, err := DecodeTDLibJSONChatReportReason(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field reason: %w", err)
+			}
+			r.Reason = value
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field text: %w", err)
+			}
+			r.Text = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

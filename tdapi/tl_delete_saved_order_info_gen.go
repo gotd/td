@@ -125,8 +125,8 @@ func (d *DeleteSavedOrderInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DeleteSavedOrderInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DeleteSavedOrderInfoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteSavedOrderInfo#61197474 as nil")
 	}
@@ -134,6 +134,25 @@ func (d *DeleteSavedOrderInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("deleteSavedOrderInfo")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DeleteSavedOrderInfoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deleteSavedOrderInfo#61197474 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("deleteSavedOrderInfo"); err != nil {
+				return fmt.Errorf("unable to decode deleteSavedOrderInfo#61197474: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // DeleteSavedOrderInfo invokes method deleteSavedOrderInfo#61197474 returning error if any.

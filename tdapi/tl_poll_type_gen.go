@@ -148,8 +148,8 @@ func (p *PollTypeRegular) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PollTypeRegular) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PollTypeRegular) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pollTypeRegular#2638f022 as nil")
 	}
@@ -159,6 +159,31 @@ func (p *PollTypeRegular) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(p.AllowMultipleAnswers)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PollTypeRegular) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pollTypeRegular#2638f022 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("pollTypeRegular"); err != nil {
+				return fmt.Errorf("unable to decode pollTypeRegular#2638f022: %w", err)
+			}
+		case "allow_multiple_answers":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode pollTypeRegular#2638f022: field allow_multiple_answers: %w", err)
+			}
+			p.AllowMultipleAnswers = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetAllowMultipleAnswers returns value of AllowMultipleAnswers field.
@@ -301,8 +326,8 @@ func (p *PollTypeQuiz) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PollTypeQuiz) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PollTypeQuiz) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pollTypeQuiz#27293c99 as nil")
 	}
@@ -316,6 +341,35 @@ func (p *PollTypeQuiz) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PollTypeQuiz) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pollTypeQuiz#27293c99 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("pollTypeQuiz"); err != nil {
+				return fmt.Errorf("unable to decode pollTypeQuiz#27293c99: %w", err)
+			}
+		case "correct_option_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode pollTypeQuiz#27293c99: field correct_option_id: %w", err)
+			}
+			p.CorrectOptionID = value
+		case "explanation":
+			if err := p.Explanation.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode pollTypeQuiz#27293c99: field explanation: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCorrectOptionID returns value of CorrectOptionID field.
@@ -357,7 +411,9 @@ type PollTypeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodePollType implements binary de-serialization for PollTypeClass.
@@ -386,6 +442,32 @@ func DecodePollType(buf *bin.Buffer) (PollTypeClass, error) {
 	}
 }
 
+// DecodeTDLibJSONPollType implements binary de-serialization for PollTypeClass.
+func DecodeTDLibJSONPollType(buf jsontd.Decoder) (PollTypeClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "pollTypeRegular":
+		// Decoding pollTypeRegular#2638f022.
+		v := PollTypeRegular{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PollTypeClass: %w", err)
+		}
+		return &v, nil
+	case "pollTypeQuiz":
+		// Decoding pollTypeQuiz#27293c99.
+		v := PollTypeQuiz{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PollTypeClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode PollTypeClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // PollType boxes the PollTypeClass providing a helper.
 type PollTypeBox struct {
 	PollType PollTypeClass
@@ -410,4 +492,25 @@ func (b *PollTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PollTypeClass as nil")
 	}
 	return b.PollType.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for PollTypeBox.
+func (b *PollTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PollTypeBox to nil")
+	}
+	v, err := DecodeTDLibJSONPollType(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PollType = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for PollTypeBox.
+func (b *PollTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.PollType == nil {
+		return fmt.Errorf("unable to encode PollTypeClass as nil")
+	}
+	return b.PollType.EncodeTDLibJSON(buf)
 }

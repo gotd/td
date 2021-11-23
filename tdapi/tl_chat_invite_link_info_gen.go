@@ -283,8 +283,8 @@ func (c *ChatInviteLinkInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatInviteLinkInfo#2c27a74b as nil")
 	}
@@ -319,6 +319,76 @@ func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(c.IsPublic)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatInviteLinkInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatInviteLinkInfo#2c27a74b to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatInviteLinkInfo"); err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field chat_id: %w", err)
+			}
+			c.ChatID = value
+		case "accessible_for":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field accessible_for: %w", err)
+			}
+			c.AccessibleFor = value
+		case "type":
+			value, err := DecodeTDLibJSONChatType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field type: %w", err)
+			}
+			c.Type = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field title: %w", err)
+			}
+			c.Title = value
+		case "photo":
+			if err := c.Photo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field photo: %w", err)
+			}
+		case "member_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field member_count: %w", err)
+			}
+			c.MemberCount = value
+		case "member_user_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field member_user_ids: %w", err)
+				}
+				c.MemberUserIDs = append(c.MemberUserIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field member_user_ids: %w", err)
+			}
+		case "is_public":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field is_public: %w", err)
+			}
+			c.IsPublic = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

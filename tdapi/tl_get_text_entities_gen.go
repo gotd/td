@@ -143,8 +143,8 @@ func (g *GetTextEntitiesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetTextEntitiesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetTextEntitiesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getTextEntities#eba543fb as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetTextEntitiesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(g.Text)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetTextEntitiesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getTextEntities#eba543fb to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getTextEntities"); err != nil {
+				return fmt.Errorf("unable to decode getTextEntities#eba543fb: %w", err)
+			}
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getTextEntities#eba543fb: field text: %w", err)
+			}
+			g.Text = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

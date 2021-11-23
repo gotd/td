@@ -143,8 +143,8 @@ func (c *CheckStickerSetNameRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CheckStickerSetNameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CheckStickerSetNameRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkStickerSetName#955808fe as nil")
 	}
@@ -154,6 +154,31 @@ func (c *CheckStickerSetNameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(c.Name)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CheckStickerSetNameRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkStickerSetName#955808fe to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("checkStickerSetName"); err != nil {
+				return fmt.Errorf("unable to decode checkStickerSetName#955808fe: %w", err)
+			}
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode checkStickerSetName#955808fe: field name: %w", err)
+			}
+			c.Name = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetName returns value of Name field.

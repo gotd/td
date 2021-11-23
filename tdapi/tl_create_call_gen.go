@@ -177,8 +177,8 @@ func (c *CreateCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CreateCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CreateCallRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createCall#6d86889c as nil")
 	}
@@ -194,6 +194,41 @@ func (c *CreateCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(c.IsVideo)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CreateCallRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode createCall#6d86889c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("createCall"); err != nil {
+				return fmt.Errorf("unable to decode createCall#6d86889c: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode createCall#6d86889c: field user_id: %w", err)
+			}
+			c.UserID = value
+		case "protocol":
+			if err := c.Protocol.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode createCall#6d86889c: field protocol: %w", err)
+			}
+		case "is_video":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode createCall#6d86889c: field is_video: %w", err)
+			}
+			c.IsVideo = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserID returns value of UserID field.

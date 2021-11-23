@@ -125,8 +125,8 @@ func (g *GetAuthorizationStateRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetAuthorizationStateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetAuthorizationStateRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getAuthorizationState#742dbe3d as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetAuthorizationStateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutID("getAuthorizationState")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetAuthorizationStateRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getAuthorizationState#742dbe3d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getAuthorizationState"); err != nil {
+				return fmt.Errorf("unable to decode getAuthorizationState#742dbe3d: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetAuthorizationState invokes method getAuthorizationState#742dbe3d returning error if any.

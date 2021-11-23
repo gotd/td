@@ -224,8 +224,8 @@ func (c *CallProtocol) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallProtocol) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallProtocol) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callProtocol#a9a037e as nil")
 	}
@@ -247,6 +247,60 @@ func (c *CallProtocol) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallProtocol) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callProtocol#a9a037e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callProtocol"); err != nil {
+				return fmt.Errorf("unable to decode callProtocol#a9a037e: %w", err)
+			}
+		case "udp_p2p":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode callProtocol#a9a037e: field udp_p2p: %w", err)
+			}
+			c.UDPP2P = value
+		case "udp_reflector":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode callProtocol#a9a037e: field udp_reflector: %w", err)
+			}
+			c.UDPReflector = value
+		case "min_layer":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode callProtocol#a9a037e: field min_layer: %w", err)
+			}
+			c.MinLayer = value
+		case "max_layer":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode callProtocol#a9a037e: field max_layer: %w", err)
+			}
+			c.MaxLayer = value
+		case "library_versions":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode callProtocol#a9a037e: field library_versions: %w", err)
+				}
+				c.LibraryVersions = append(c.LibraryVersions, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode callProtocol#a9a037e: field library_versions: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUDPP2P returns value of UDPP2P field.

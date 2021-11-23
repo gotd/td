@@ -34,7 +34,7 @@ var (
 // PaymentForm represents TL type `paymentForm#5a9a8c44`.
 type PaymentForm struct {
 	// The payment form identifier
-	ID Int64
+	ID int64
 	// Full information of the invoice
 	Invoice Invoice
 	// Payment form URL
@@ -71,7 +71,7 @@ func (p *PaymentForm) Zero() bool {
 	if p == nil {
 		return true
 	}
-	if !(p.ID.Zero()) {
+	if !(p.ID == 0) {
 		return false
 	}
 	if !(p.Invoice.Zero()) {
@@ -195,9 +195,7 @@ func (p *PaymentForm) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode paymentForm#5a9a8c44 as nil")
 	}
-	if err := p.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode paymentForm#5a9a8c44: field id: %w", err)
-	}
+	b.PutLong(p.ID)
 	if err := p.Invoice.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode paymentForm#5a9a8c44: field invoice: %w", err)
 	}
@@ -235,9 +233,11 @@ func (p *PaymentForm) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode paymentForm#5a9a8c44 to nil")
 	}
 	{
-		if err := p.ID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode paymentForm#5a9a8c44: field id: %w", err)
 		}
+		p.ID = value
 	}
 	{
 		if err := p.Invoice.Decode(b); err != nil {
@@ -297,17 +297,15 @@ func (p *PaymentForm) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PaymentForm) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PaymentForm) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode paymentForm#5a9a8c44 as nil")
 	}
 	b.ObjStart()
 	b.PutID("paymentForm")
 	b.FieldStart("id")
-	if err := p.ID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode paymentForm#5a9a8c44: field id: %w", err)
-	}
+	b.PutLong(p.ID)
 	b.FieldStart("invoice")
 	if err := p.Invoice.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode paymentForm#5a9a8c44: field invoice: %w", err)
@@ -338,8 +336,79 @@ func (p *PaymentForm) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PaymentForm) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode paymentForm#5a9a8c44 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("paymentForm"); err != nil {
+				return fmt.Errorf("unable to decode paymentForm#5a9a8c44: %w", err)
+			}
+		case "id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentForm#5a9a8c44: field id: %w", err)
+			}
+			p.ID = value
+		case "invoice":
+			if err := p.Invoice.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode paymentForm#5a9a8c44: field invoice: %w", err)
+			}
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentForm#5a9a8c44: field url: %w", err)
+			}
+			p.URL = value
+		case "seller_bot_user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentForm#5a9a8c44: field seller_bot_user_id: %w", err)
+			}
+			p.SellerBotUserID = value
+		case "payments_provider_user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentForm#5a9a8c44: field payments_provider_user_id: %w", err)
+			}
+			p.PaymentsProviderUserID = value
+		case "payments_provider":
+			if err := p.PaymentsProvider.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode paymentForm#5a9a8c44: field payments_provider: %w", err)
+			}
+		case "saved_order_info":
+			if err := p.SavedOrderInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode paymentForm#5a9a8c44: field saved_order_info: %w", err)
+			}
+		case "saved_credentials":
+			if err := p.SavedCredentials.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode paymentForm#5a9a8c44: field saved_credentials: %w", err)
+			}
+		case "can_save_credentials":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentForm#5a9a8c44: field can_save_credentials: %w", err)
+			}
+			p.CanSaveCredentials = value
+		case "need_password":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentForm#5a9a8c44: field need_password: %w", err)
+			}
+			p.NeedPassword = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetID returns value of ID field.
-func (p *PaymentForm) GetID() (value Int64) {
+func (p *PaymentForm) GetID() (value int64) {
 	return p.ID
 }
 

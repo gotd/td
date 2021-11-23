@@ -130,8 +130,8 @@ func (b *BoolFalse) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *BoolFalse) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *BoolFalse) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode boolFalse#bc799737 as nil")
 	}
@@ -139,6 +139,25 @@ func (b *BoolFalse) EncodeTDLibJSON(buf *jsontd.Encoder) error {
 	buf.PutID("boolFalse")
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *BoolFalse) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode boolFalse#bc799737 to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("boolFalse"); err != nil {
+				return fmt.Errorf("unable to decode boolFalse#bc799737: %w", err)
+			}
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }
 
 // BoolTrue represents TL type `boolTrue#997275b5`.
@@ -240,8 +259,8 @@ func (b *BoolTrue) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *BoolTrue) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *BoolTrue) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode boolTrue#997275b5 as nil")
 	}
@@ -249,6 +268,25 @@ func (b *BoolTrue) EncodeTDLibJSON(buf *jsontd.Encoder) error {
 	buf.PutID("boolTrue")
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *BoolTrue) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode boolTrue#997275b5 to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("boolTrue"); err != nil {
+				return fmt.Errorf("unable to decode boolTrue#997275b5: %w", err)
+			}
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }
 
 // BoolClass represents Bool generic type.
@@ -280,7 +318,9 @@ type BoolClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeBool implements binary de-serialization for BoolClass.
@@ -309,6 +349,32 @@ func DecodeBool(buf *bin.Buffer) (BoolClass, error) {
 	}
 }
 
+// DecodeTDLibJSONBool implements binary de-serialization for BoolClass.
+func DecodeTDLibJSONBool(buf jsontd.Decoder) (BoolClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "boolFalse":
+		// Decoding boolFalse#bc799737.
+		v := BoolFalse{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode BoolClass: %w", err)
+		}
+		return &v, nil
+	case "boolTrue":
+		// Decoding boolTrue#997275b5.
+		v := BoolTrue{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode BoolClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode BoolClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // Bool boxes the BoolClass providing a helper.
 type BoolBox struct {
 	Bool BoolClass
@@ -333,4 +399,25 @@ func (b *BoolBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode BoolClass as nil")
 	}
 	return b.Bool.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for BoolBox.
+func (b *BoolBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode BoolBox to nil")
+	}
+	v, err := DecodeTDLibJSONBool(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.Bool = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for BoolBox.
+func (b *BoolBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.Bool == nil {
+		return fmt.Errorf("unable to encode BoolClass as nil")
+	}
+	return b.Bool.EncodeTDLibJSON(buf)
 }

@@ -34,7 +34,7 @@ var (
 // FinishFileGenerationRequest represents TL type `finishFileGeneration#c11d0c9d`.
 type FinishFileGenerationRequest struct {
 	// The identifier of the generation process
-	GenerationID Int64
+	GenerationID int64
 	// If set, means that file generation has failed and should be terminated
 	Error Error
 }
@@ -54,7 +54,7 @@ func (f *FinishFileGenerationRequest) Zero() bool {
 	if f == nil {
 		return true
 	}
-	if !(f.GenerationID.Zero()) {
+	if !(f.GenerationID == 0) {
 		return false
 	}
 	if !(f.Error.Zero()) {
@@ -122,9 +122,7 @@ func (f *FinishFileGenerationRequest) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't encode finishFileGeneration#c11d0c9d as nil")
 	}
-	if err := f.GenerationID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode finishFileGeneration#c11d0c9d: field generation_id: %w", err)
-	}
+	b.PutLong(f.GenerationID)
 	if err := f.Error.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode finishFileGeneration#c11d0c9d: field error: %w", err)
 	}
@@ -148,9 +146,11 @@ func (f *FinishFileGenerationRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode finishFileGeneration#c11d0c9d to nil")
 	}
 	{
-		if err := f.GenerationID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode finishFileGeneration#c11d0c9d: field generation_id: %w", err)
 		}
+		f.GenerationID = value
 	}
 	{
 		if err := f.Error.Decode(b); err != nil {
@@ -160,17 +160,15 @@ func (f *FinishFileGenerationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes f in TDLib API JSON format.
-func (f *FinishFileGenerationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (f *FinishFileGenerationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if f == nil {
 		return fmt.Errorf("can't encode finishFileGeneration#c11d0c9d as nil")
 	}
 	b.ObjStart()
 	b.PutID("finishFileGeneration")
 	b.FieldStart("generation_id")
-	if err := f.GenerationID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode finishFileGeneration#c11d0c9d: field generation_id: %w", err)
-	}
+	b.PutLong(f.GenerationID)
 	b.FieldStart("error")
 	if err := f.Error.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode finishFileGeneration#c11d0c9d: field error: %w", err)
@@ -179,8 +177,37 @@ func (f *FinishFileGenerationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (f *FinishFileGenerationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if f == nil {
+		return fmt.Errorf("can't decode finishFileGeneration#c11d0c9d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("finishFileGeneration"); err != nil {
+				return fmt.Errorf("unable to decode finishFileGeneration#c11d0c9d: %w", err)
+			}
+		case "generation_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode finishFileGeneration#c11d0c9d: field generation_id: %w", err)
+			}
+			f.GenerationID = value
+		case "error":
+			if err := f.Error.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode finishFileGeneration#c11d0c9d: field error: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetGenerationID returns value of GenerationID field.
-func (f *FinishFileGenerationRequest) GetGenerationID() (value Int64) {
+func (f *FinishFileGenerationRequest) GetGenerationID() (value int64) {
 	return f.GenerationID
 }
 

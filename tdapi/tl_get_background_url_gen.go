@@ -165,8 +165,8 @@ func (g *GetBackgroundURLRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetBackgroundURLRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetBackgroundURLRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getBackgroundUrl#2bbc6fd2 as nil")
 	}
@@ -183,6 +183,37 @@ func (g *GetBackgroundURLRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetBackgroundURLRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getBackgroundUrl#2bbc6fd2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getBackgroundUrl"); err != nil {
+				return fmt.Errorf("unable to decode getBackgroundUrl#2bbc6fd2: %w", err)
+			}
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getBackgroundUrl#2bbc6fd2: field name: %w", err)
+			}
+			g.Name = value
+		case "type":
+			value, err := DecodeTDLibJSONBackgroundType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getBackgroundUrl#2bbc6fd2: field type: %w", err)
+			}
+			g.Type = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetName returns value of Name field.

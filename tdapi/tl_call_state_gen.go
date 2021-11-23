@@ -165,8 +165,8 @@ func (c *CallStatePending) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallStatePending) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallStatePending) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callStatePending#3ff56c2c as nil")
 	}
@@ -178,6 +178,37 @@ func (c *CallStatePending) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(c.IsReceived)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallStatePending) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callStatePending#3ff56c2c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callStatePending"); err != nil {
+				return fmt.Errorf("unable to decode callStatePending#3ff56c2c: %w", err)
+			}
+		case "is_created":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode callStatePending#3ff56c2c: field is_created: %w", err)
+			}
+			c.IsCreated = value
+		case "is_received":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode callStatePending#3ff56c2c: field is_received: %w", err)
+			}
+			c.IsReceived = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetIsCreated returns value of IsCreated field.
@@ -289,8 +320,8 @@ func (c *CallStateExchangingKeys) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallStateExchangingKeys) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallStateExchangingKeys) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callStateExchangingKeys#91d77a65 as nil")
 	}
@@ -298,6 +329,25 @@ func (c *CallStateExchangingKeys) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callStateExchangingKeys")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallStateExchangingKeys) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callStateExchangingKeys#91d77a65 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callStateExchangingKeys"); err != nil {
+				return fmt.Errorf("unable to decode callStateExchangingKeys#91d77a65: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallStateReady represents TL type `callStateReady#ce59c044`.
@@ -530,8 +580,8 @@ func (c *CallStateReady) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallStateReady) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallStateReady) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callStateReady#ce59c044 as nil")
 	}
@@ -563,6 +613,69 @@ func (c *CallStateReady) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(c.AllowP2P)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallStateReady) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callStateReady#ce59c044 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callStateReady"); err != nil {
+				return fmt.Errorf("unable to decode callStateReady#ce59c044: %w", err)
+			}
+		case "protocol":
+			if err := c.Protocol.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode callStateReady#ce59c044: field protocol: %w", err)
+			}
+		case "servers":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value CallServer
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode callStateReady#ce59c044: field servers: %w", err)
+				}
+				c.Servers = append(c.Servers, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode callStateReady#ce59c044: field servers: %w", err)
+			}
+		case "config":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode callStateReady#ce59c044: field config: %w", err)
+			}
+			c.Config = value
+		case "encryption_key":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode callStateReady#ce59c044: field encryption_key: %w", err)
+			}
+			c.EncryptionKey = value
+		case "emojis":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode callStateReady#ce59c044: field emojis: %w", err)
+				}
+				c.Emojis = append(c.Emojis, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode callStateReady#ce59c044: field emojis: %w", err)
+			}
+		case "allow_p2p":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode callStateReady#ce59c044: field allow_p2p: %w", err)
+			}
+			c.AllowP2P = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetProtocol returns value of Protocol field.
@@ -694,8 +807,8 @@ func (c *CallStateHangingUp) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallStateHangingUp) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallStateHangingUp) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callStateHangingUp#80d0f2aa as nil")
 	}
@@ -703,6 +816,25 @@ func (c *CallStateHangingUp) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callStateHangingUp")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallStateHangingUp) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callStateHangingUp#80d0f2aa to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callStateHangingUp"); err != nil {
+				return fmt.Errorf("unable to decode callStateHangingUp#80d0f2aa: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallStateDiscarded represents TL type `callStateDiscarded#f49fcfd1`.
@@ -861,8 +993,8 @@ func (c *CallStateDiscarded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallStateDiscarded) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallStateDiscarded) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callStateDiscarded#f49fcfd1 as nil")
 	}
@@ -881,6 +1013,43 @@ func (c *CallStateDiscarded) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(c.NeedDebugInformation)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallStateDiscarded) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callStateDiscarded#f49fcfd1 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callStateDiscarded"); err != nil {
+				return fmt.Errorf("unable to decode callStateDiscarded#f49fcfd1: %w", err)
+			}
+		case "reason":
+			value, err := DecodeTDLibJSONCallDiscardReason(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode callStateDiscarded#f49fcfd1: field reason: %w", err)
+			}
+			c.Reason = value
+		case "need_rating":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode callStateDiscarded#f49fcfd1: field need_rating: %w", err)
+			}
+			c.NeedRating = value
+		case "need_debug_information":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode callStateDiscarded#f49fcfd1: field need_debug_information: %w", err)
+			}
+			c.NeedDebugInformation = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetReason returns value of Reason field.
@@ -1016,8 +1185,8 @@ func (c *CallStateError) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallStateError) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallStateError) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callStateError#c5df6495 as nil")
 	}
@@ -1029,6 +1198,29 @@ func (c *CallStateError) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallStateError) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callStateError#c5df6495 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callStateError"); err != nil {
+				return fmt.Errorf("unable to decode callStateError#c5df6495: %w", err)
+			}
+		case "error":
+			if err := c.Error.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode callStateError#c5df6495: field error: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetError returns value of Error field.
@@ -1069,7 +1261,9 @@ type CallStateClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeCallState implements binary de-serialization for CallStateClass.
@@ -1126,6 +1320,60 @@ func DecodeCallState(buf *bin.Buffer) (CallStateClass, error) {
 	}
 }
 
+// DecodeTDLibJSONCallState implements binary de-serialization for CallStateClass.
+func DecodeTDLibJSONCallState(buf jsontd.Decoder) (CallStateClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "callStatePending":
+		// Decoding callStatePending#3ff56c2c.
+		v := CallStatePending{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallStateClass: %w", err)
+		}
+		return &v, nil
+	case "callStateExchangingKeys":
+		// Decoding callStateExchangingKeys#91d77a65.
+		v := CallStateExchangingKeys{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallStateClass: %w", err)
+		}
+		return &v, nil
+	case "callStateReady":
+		// Decoding callStateReady#ce59c044.
+		v := CallStateReady{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallStateClass: %w", err)
+		}
+		return &v, nil
+	case "callStateHangingUp":
+		// Decoding callStateHangingUp#80d0f2aa.
+		v := CallStateHangingUp{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallStateClass: %w", err)
+		}
+		return &v, nil
+	case "callStateDiscarded":
+		// Decoding callStateDiscarded#f49fcfd1.
+		v := CallStateDiscarded{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallStateClass: %w", err)
+		}
+		return &v, nil
+	case "callStateError":
+		// Decoding callStateError#c5df6495.
+		v := CallStateError{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallStateClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode CallStateClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // CallState boxes the CallStateClass providing a helper.
 type CallStateBox struct {
 	CallState CallStateClass
@@ -1150,4 +1398,25 @@ func (b *CallStateBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode CallStateClass as nil")
 	}
 	return b.CallState.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for CallStateBox.
+func (b *CallStateBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode CallStateBox to nil")
+	}
+	v, err := DecodeTDLibJSONCallState(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.CallState = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for CallStateBox.
+func (b *CallStateBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.CallState == nil {
+		return fmt.Errorf("unable to encode CallStateClass as nil")
+	}
+	return b.CallState.EncodeTDLibJSON(buf)
 }

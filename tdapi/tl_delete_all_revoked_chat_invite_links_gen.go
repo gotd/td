@@ -161,8 +161,8 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DeleteAllRevokedChatInviteLinksRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DeleteAllRevokedChatInviteLinksRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteAllRevokedChatInviteLinks#eac4f045 as nil")
 	}
@@ -174,6 +174,37 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) EncodeTDLibJSON(b *jsontd.Encod
 	b.PutInt32(d.CreatorUserID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DeleteAllRevokedChatInviteLinksRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deleteAllRevokedChatInviteLinks#eac4f045 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("deleteAllRevokedChatInviteLinks"); err != nil {
+				return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#eac4f045: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#eac4f045: field chat_id: %w", err)
+			}
+			d.ChatID = value
+		case "creator_user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#eac4f045: field creator_user_id: %w", err)
+			}
+			d.CreatorUserID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

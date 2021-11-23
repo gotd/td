@@ -179,8 +179,8 @@ func (m *MessageCopyOptions) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MessageCopyOptions) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MessageCopyOptions) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageCopyOptions#48076039 as nil")
 	}
@@ -196,6 +196,41 @@ func (m *MessageCopyOptions) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MessageCopyOptions) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageCopyOptions#48076039 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("messageCopyOptions"); err != nil {
+				return fmt.Errorf("unable to decode messageCopyOptions#48076039: %w", err)
+			}
+		case "send_copy":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageCopyOptions#48076039: field send_copy: %w", err)
+			}
+			m.SendCopy = value
+		case "replace_caption":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageCopyOptions#48076039: field replace_caption: %w", err)
+			}
+			m.ReplaceCaption = value
+		case "new_caption":
+			if err := m.NewCaption.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageCopyOptions#48076039: field new_caption: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSendCopy returns value of SendCopy field.

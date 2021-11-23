@@ -125,8 +125,8 @@ func (r *ResetAllNotificationSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ResetAllNotificationSettingsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ResetAllNotificationSettingsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resetAllNotificationSettings#f5a0a8f9 as nil")
 	}
@@ -134,6 +134,25 @@ func (r *ResetAllNotificationSettingsRequest) EncodeTDLibJSON(b *jsontd.Encoder)
 	b.PutID("resetAllNotificationSettings")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ResetAllNotificationSettingsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode resetAllNotificationSettings#f5a0a8f9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("resetAllNotificationSettings"); err != nil {
+				return fmt.Errorf("unable to decode resetAllNotificationSettings#f5a0a8f9: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ResetAllNotificationSettings invokes method resetAllNotificationSettings#f5a0a8f9 returning error if any.

@@ -238,8 +238,8 @@ func (s *SendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SendMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SendMessageRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sendMessage#393f599d as nil")
 	}
@@ -271,6 +271,59 @@ func (s *SendMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SendMessageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessage#393f599d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("sendMessage"); err != nil {
+				return fmt.Errorf("unable to decode sendMessage#393f599d: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendMessage#393f599d: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "message_thread_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendMessage#393f599d: field message_thread_id: %w", err)
+			}
+			s.MessageThreadID = value
+		case "reply_to_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendMessage#393f599d: field reply_to_message_id: %w", err)
+			}
+			s.ReplyToMessageID = value
+		case "options":
+			if err := s.Options.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode sendMessage#393f599d: field options: %w", err)
+			}
+		case "reply_markup":
+			value, err := DecodeTDLibJSONReplyMarkup(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode sendMessage#393f599d: field reply_markup: %w", err)
+			}
+			s.ReplyMarkup = value
+		case "input_message_content":
+			value, err := DecodeTDLibJSONInputMessageContent(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode sendMessage#393f599d: field input_message_content: %w", err)
+			}
+			s.InputMessageContent = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

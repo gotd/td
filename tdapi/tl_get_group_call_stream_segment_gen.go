@@ -177,8 +177,8 @@ func (g *GetGroupCallStreamSegmentRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetGroupCallStreamSegmentRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetGroupCallStreamSegmentRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getGroupCallStreamSegment#6bbcb0a7 as nil")
 	}
@@ -192,6 +192,43 @@ func (g *GetGroupCallStreamSegmentRequest) EncodeTDLibJSON(b *jsontd.Encoder) er
 	b.PutInt32(g.Scale)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetGroupCallStreamSegmentRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getGroupCallStreamSegment#6bbcb0a7 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getGroupCallStreamSegment"); err != nil {
+				return fmt.Errorf("unable to decode getGroupCallStreamSegment#6bbcb0a7: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getGroupCallStreamSegment#6bbcb0a7: field group_call_id: %w", err)
+			}
+			g.GroupCallID = value
+		case "time_offset":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getGroupCallStreamSegment#6bbcb0a7: field time_offset: %w", err)
+			}
+			g.TimeOffset = value
+		case "scale":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getGroupCallStreamSegment#6bbcb0a7: field scale: %w", err)
+			}
+			g.Scale = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

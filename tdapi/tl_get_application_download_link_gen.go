@@ -125,8 +125,8 @@ func (g *GetApplicationDownloadLinkRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetApplicationDownloadLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetApplicationDownloadLinkRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getApplicationDownloadLink#6ad2fc4 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetApplicationDownloadLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) e
 	b.PutID("getApplicationDownloadLink")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetApplicationDownloadLinkRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getApplicationDownloadLink#6ad2fc4 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getApplicationDownloadLink"); err != nil {
+				return fmt.Errorf("unable to decode getApplicationDownloadLink#6ad2fc4: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetApplicationDownloadLink invokes method getApplicationDownloadLink#6ad2fc4 returning error if any.

@@ -143,8 +143,8 @@ func (s *SetTdlibParametersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetTdlibParametersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetTdlibParametersRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setTdlibParameters#8e00ae53 as nil")
 	}
@@ -156,6 +156,29 @@ func (s *SetTdlibParametersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetTdlibParametersRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setTdlibParameters#8e00ae53 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setTdlibParameters"); err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#8e00ae53: %w", err)
+			}
+		case "parameters":
+			if err := s.Parameters.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#8e00ae53: field parameters: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetParameters returns value of Parameters field.

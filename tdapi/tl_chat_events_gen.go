@@ -158,8 +158,8 @@ func (c *ChatEvents) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatEvents) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatEvents) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatEvents#d73ecdc4 as nil")
 	}
@@ -175,6 +175,36 @@ func (c *ChatEvents) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatEvents) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEvents#d73ecdc4 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatEvents"); err != nil {
+				return fmt.Errorf("unable to decode chatEvents#d73ecdc4: %w", err)
+			}
+		case "events":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value ChatEvent
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode chatEvents#d73ecdc4: field events: %w", err)
+				}
+				c.Events = append(c.Events, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatEvents#d73ecdc4: field events: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetEvents returns value of Events field.

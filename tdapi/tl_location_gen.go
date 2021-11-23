@@ -178,8 +178,8 @@ func (l *Location) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes l in TDLib API JSON format.
-func (l *Location) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (l *Location) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode location#e5925f73 as nil")
 	}
@@ -193,6 +193,43 @@ func (l *Location) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutDouble(l.HorizontalAccuracy)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (l *Location) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if l == nil {
+		return fmt.Errorf("can't decode location#e5925f73 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("location"); err != nil {
+				return fmt.Errorf("unable to decode location#e5925f73: %w", err)
+			}
+		case "latitude":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode location#e5925f73: field latitude: %w", err)
+			}
+			l.Latitude = value
+		case "longitude":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode location#e5925f73: field longitude: %w", err)
+			}
+			l.Longitude = value
+		case "horizontal_accuracy":
+			value, err := b.Double()
+			if err != nil {
+				return fmt.Errorf("unable to decode location#e5925f73: field horizontal_accuracy: %w", err)
+			}
+			l.HorizontalAccuracy = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLatitude returns value of Latitude field.

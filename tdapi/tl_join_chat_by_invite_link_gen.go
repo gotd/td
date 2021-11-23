@@ -143,8 +143,8 @@ func (j *JoinChatByInviteLinkRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes j in TDLib API JSON format.
-func (j *JoinChatByInviteLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (j *JoinChatByInviteLinkRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if j == nil {
 		return fmt.Errorf("can't encode joinChatByInviteLink#c16aab86 as nil")
 	}
@@ -154,6 +154,31 @@ func (j *JoinChatByInviteLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(j.InviteLink)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (j *JoinChatByInviteLinkRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if j == nil {
+		return fmt.Errorf("can't decode joinChatByInviteLink#c16aab86 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("joinChatByInviteLink"); err != nil {
+				return fmt.Errorf("unable to decode joinChatByInviteLink#c16aab86: %w", err)
+			}
+		case "invite_link":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode joinChatByInviteLink#c16aab86: field invite_link: %w", err)
+			}
+			j.InviteLink = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetInviteLink returns value of InviteLink field.

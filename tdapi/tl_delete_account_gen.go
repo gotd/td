@@ -143,8 +143,8 @@ func (d *DeleteAccountRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DeleteAccountRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DeleteAccountRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteAccount#b84ad084 as nil")
 	}
@@ -154,6 +154,31 @@ func (d *DeleteAccountRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(d.Reason)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DeleteAccountRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deleteAccount#b84ad084 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("deleteAccount"); err != nil {
+				return fmt.Errorf("unable to decode deleteAccount#b84ad084: %w", err)
+			}
+		case "reason":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteAccount#b84ad084: field reason: %w", err)
+			}
+			d.Reason = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetReason returns value of Reason field.

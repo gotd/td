@@ -34,7 +34,7 @@ var (
 // ViewTrendingStickerSetsRequest represents TL type `viewTrendingStickerSets#36d6469`.
 type ViewTrendingStickerSetsRequest struct {
 	// Identifiers of viewed trending sticker sets
-	StickerSetIDs []Int64
+	StickerSetIDs []int64
 }
 
 // ViewTrendingStickerSetsRequestTypeID is TL type id of ViewTrendingStickerSetsRequest.
@@ -114,10 +114,8 @@ func (v *ViewTrendingStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode viewTrendingStickerSets#36d6469 as nil")
 	}
 	b.PutInt(len(v.StickerSetIDs))
-	for idx, v := range v.StickerSetIDs {
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare viewTrendingStickerSets#36d6469: field sticker_set_ids element with index %d: %w", idx, err)
-		}
+	for _, v := range v.StickerSetIDs {
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -145,12 +143,12 @@ func (v *ViewTrendingStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 
 		if headerLen > 0 {
-			v.StickerSetIDs = make([]Int64, 0, headerLen%bin.PreallocateLimit)
+			v.StickerSetIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value Int64
-			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare viewTrendingStickerSets#36d6469: field sticker_set_ids: %w", err)
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode viewTrendingStickerSets#36d6469: field sticker_set_ids: %w", err)
 			}
 			v.StickerSetIDs = append(v.StickerSetIDs, value)
 		}
@@ -158,8 +156,8 @@ func (v *ViewTrendingStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes v in TDLib API JSON format.
-func (v *ViewTrendingStickerSetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (v *ViewTrendingStickerSetsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode viewTrendingStickerSets#36d6469 as nil")
 	}
@@ -167,23 +165,51 @@ func (v *ViewTrendingStickerSetsRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutID("viewTrendingStickerSets")
 	b.FieldStart("sticker_set_ids")
 	b.ArrStart()
-	for idx, v := range v.StickerSetIDs {
-		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode viewTrendingStickerSets#36d6469: field sticker_set_ids element with index %d: %w", idx, err)
-		}
+	for _, v := range v.StickerSetIDs {
+		b.PutLong(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (v *ViewTrendingStickerSetsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if v == nil {
+		return fmt.Errorf("can't decode viewTrendingStickerSets#36d6469 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("viewTrendingStickerSets"); err != nil {
+				return fmt.Errorf("unable to decode viewTrendingStickerSets#36d6469: %w", err)
+			}
+		case "sticker_set_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode viewTrendingStickerSets#36d6469: field sticker_set_ids: %w", err)
+				}
+				v.StickerSetIDs = append(v.StickerSetIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode viewTrendingStickerSets#36d6469: field sticker_set_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetStickerSetIDs returns value of StickerSetIDs field.
-func (v *ViewTrendingStickerSetsRequest) GetStickerSetIDs() (value []Int64) {
+func (v *ViewTrendingStickerSetsRequest) GetStickerSetIDs() (value []int64) {
 	return v.StickerSetIDs
 }
 
 // ViewTrendingStickerSets invokes method viewTrendingStickerSets#36d6469 returning error if any.
-func (c *Client) ViewTrendingStickerSets(ctx context.Context, stickersetids []Int64) error {
+func (c *Client) ViewTrendingStickerSets(ctx context.Context, stickersetids []int64) error {
 	var ok Ok
 
 	request := &ViewTrendingStickerSetsRequest{

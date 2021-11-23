@@ -165,8 +165,8 @@ func (g *GetRemoteFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetRemoteFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetRemoteFileRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getRemoteFile#7f632732 as nil")
 	}
@@ -183,6 +183,37 @@ func (g *GetRemoteFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetRemoteFileRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getRemoteFile#7f632732 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getRemoteFile"); err != nil {
+				return fmt.Errorf("unable to decode getRemoteFile#7f632732: %w", err)
+			}
+		case "remote_file_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getRemoteFile#7f632732: field remote_file_id: %w", err)
+			}
+			g.RemoteFileID = value
+		case "file_type":
+			value, err := DecodeTDLibJSONFileType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getRemoteFile#7f632732: field file_type: %w", err)
+			}
+			g.FileType = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetRemoteFileID returns value of RemoteFileID field.

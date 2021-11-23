@@ -143,8 +143,8 @@ func (f *FilePart) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes f in TDLib API JSON format.
-func (f *FilePart) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (f *FilePart) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if f == nil {
 		return fmt.Errorf("can't encode filePart#36594c36 as nil")
 	}
@@ -154,6 +154,31 @@ func (f *FilePart) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBytes(f.Data)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (f *FilePart) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if f == nil {
+		return fmt.Errorf("can't decode filePart#36594c36 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("filePart"); err != nil {
+				return fmt.Errorf("unable to decode filePart#36594c36: %w", err)
+			}
+		case "data":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode filePart#36594c36: field data: %w", err)
+			}
+			f.Data = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetData returns value of Data field.

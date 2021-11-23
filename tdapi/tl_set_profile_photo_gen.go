@@ -148,8 +148,8 @@ func (s *SetProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetProfilePhotoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetProfilePhotoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setProfilePhoto#84a334de as nil")
 	}
@@ -164,6 +164,31 @@ func (s *SetProfilePhotoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetProfilePhotoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setProfilePhoto#84a334de to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setProfilePhoto"); err != nil {
+				return fmt.Errorf("unable to decode setProfilePhoto#84a334de: %w", err)
+			}
+		case "photo":
+			value, err := DecodeTDLibJSONInputChatPhoto(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setProfilePhoto#84a334de: field photo: %w", err)
+			}
+			s.Photo = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPhoto returns value of Photo field.

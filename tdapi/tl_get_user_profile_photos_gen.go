@@ -177,8 +177,8 @@ func (g *GetUserProfilePhotosRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetUserProfilePhotosRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetUserProfilePhotosRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getUserProfilePhotos#d22e94fb as nil")
 	}
@@ -192,6 +192,43 @@ func (g *GetUserProfilePhotosRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(g.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetUserProfilePhotosRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getUserProfilePhotos#d22e94fb to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getUserProfilePhotos"); err != nil {
+				return fmt.Errorf("unable to decode getUserProfilePhotos#d22e94fb: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getUserProfilePhotos#d22e94fb: field user_id: %w", err)
+			}
+			g.UserID = value
+		case "offset":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getUserProfilePhotos#d22e94fb: field offset: %w", err)
+			}
+			g.Offset = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getUserProfilePhotos#d22e94fb: field limit: %w", err)
+			}
+			g.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserID returns value of UserID field.

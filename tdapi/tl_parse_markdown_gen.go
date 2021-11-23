@@ -144,8 +144,8 @@ func (p *ParseMarkdownRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *ParseMarkdownRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *ParseMarkdownRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode parseMarkdown#2d153aef as nil")
 	}
@@ -157,6 +157,29 @@ func (p *ParseMarkdownRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *ParseMarkdownRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode parseMarkdown#2d153aef to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("parseMarkdown"); err != nil {
+				return fmt.Errorf("unable to decode parseMarkdown#2d153aef: %w", err)
+			}
+		case "text":
+			if err := p.Text.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode parseMarkdown#2d153aef: field text: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

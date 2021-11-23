@@ -230,8 +230,8 @@ func (m *MessageLinkInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MessageLinkInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MessageLinkInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageLinkInfo#c57d442a as nil")
 	}
@@ -253,6 +253,59 @@ func (m *MessageLinkInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(m.ForComment)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MessageLinkInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageLinkInfo#c57d442a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("messageLinkInfo"); err != nil {
+				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: %w", err)
+			}
+		case "is_public":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field is_public: %w", err)
+			}
+			m.IsPublic = value
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field chat_id: %w", err)
+			}
+			m.ChatID = value
+		case "message":
+			if err := m.Message.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field message: %w", err)
+			}
+		case "media_timestamp":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field media_timestamp: %w", err)
+			}
+			m.MediaTimestamp = value
+		case "for_album":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field for_album: %w", err)
+			}
+			m.ForAlbum = value
+		case "for_comment":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field for_comment: %w", err)
+			}
+			m.ForComment = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetIsPublic returns value of IsPublic field.

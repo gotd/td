@@ -158,8 +158,8 @@ func (c *ConnectedWebsites) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ConnectedWebsites) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ConnectedWebsites) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode connectedWebsites#f0c8b5ea as nil")
 	}
@@ -175,6 +175,36 @@ func (c *ConnectedWebsites) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ConnectedWebsites) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode connectedWebsites#f0c8b5ea to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("connectedWebsites"); err != nil {
+				return fmt.Errorf("unable to decode connectedWebsites#f0c8b5ea: %w", err)
+			}
+		case "websites":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value ConnectedWebsite
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode connectedWebsites#f0c8b5ea: field websites: %w", err)
+				}
+				c.Websites = append(c.Websites, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode connectedWebsites#f0c8b5ea: field websites: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetWebsites returns value of Websites field.

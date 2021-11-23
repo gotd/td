@@ -189,8 +189,8 @@ func (s *SetBackgroundRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetBackgroundRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetBackgroundRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setBackground#c2487387 as nil")
 	}
@@ -214,6 +214,43 @@ func (s *SetBackgroundRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(s.ForDarkTheme)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetBackgroundRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setBackground#c2487387 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setBackground"); err != nil {
+				return fmt.Errorf("unable to decode setBackground#c2487387: %w", err)
+			}
+		case "background":
+			value, err := DecodeTDLibJSONInputBackground(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setBackground#c2487387: field background: %w", err)
+			}
+			s.Background = value
+		case "type":
+			value, err := DecodeTDLibJSONBackgroundType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setBackground#c2487387: field type: %w", err)
+			}
+			s.Type = value
+		case "for_dark_theme":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setBackground#c2487387: field for_dark_theme: %w", err)
+			}
+			s.ForDarkTheme = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBackground returns value of Background field.

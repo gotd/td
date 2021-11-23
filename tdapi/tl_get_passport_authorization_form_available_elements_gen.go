@@ -160,8 +160,8 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) DecodeBare(b *bin
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetPassportAuthorizationFormAvailableElementsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetPassportAuthorizationFormAvailableElementsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getPassportAuthorizationFormAvailableElements#6799d4e2 as nil")
 	}
@@ -173,6 +173,37 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) EncodeTDLibJSON(b
 	b.PutString(g.Password)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetPassportAuthorizationFormAvailableElementsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getPassportAuthorizationFormAvailableElements#6799d4e2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getPassportAuthorizationFormAvailableElements"); err != nil {
+				return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#6799d4e2: %w", err)
+			}
+		case "autorization_form_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#6799d4e2: field autorization_form_id: %w", err)
+			}
+			g.AutorizationFormID = value
+		case "password":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#6799d4e2: field password: %w", err)
+			}
+			g.Password = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetAutorizationFormID returns value of AutorizationFormID field.

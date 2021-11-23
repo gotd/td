@@ -143,8 +143,8 @@ func (t *TestSquareIntRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TestSquareIntRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TestSquareIntRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode testSquareInt#fc6a6990 as nil")
 	}
@@ -154,6 +154,31 @@ func (t *TestSquareIntRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(t.X)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TestSquareIntRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testSquareInt#fc6a6990 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("testSquareInt"); err != nil {
+				return fmt.Errorf("unable to decode testSquareInt#fc6a6990: %w", err)
+			}
+		case "x":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode testSquareInt#fc6a6990: field x: %w", err)
+			}
+			t.X = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetX returns value of X field.

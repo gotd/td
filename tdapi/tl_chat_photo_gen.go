@@ -34,7 +34,7 @@ var (
 // ChatPhoto represents TL type `chatPhoto#77176e42`.
 type ChatPhoto struct {
 	// Unique photo identifier
-	ID Int64
+	ID int64
 	// Point in time (Unix timestamp) when the photo has been added
 	AddedDate int32
 	// Photo minithumbnail; may be null
@@ -60,7 +60,7 @@ func (c *ChatPhoto) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.ID.Zero()) {
+	if !(c.ID == 0) {
 		return false
 	}
 	if !(c.AddedDate == 0) {
@@ -149,9 +149,7 @@ func (c *ChatPhoto) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatPhoto#77176e42 as nil")
 	}
-	if err := c.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhoto#77176e42: field id: %w", err)
-	}
+	b.PutLong(c.ID)
 	b.PutInt32(c.AddedDate)
 	if err := c.Minithumbnail.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatPhoto#77176e42: field minithumbnail: %w", err)
@@ -185,9 +183,11 @@ func (c *ChatPhoto) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatPhoto#77176e42 to nil")
 	}
 	{
-		if err := c.ID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode chatPhoto#77176e42: field id: %w", err)
 		}
+		c.ID = value
 	}
 	{
 		value, err := b.Int32()
@@ -226,17 +226,15 @@ func (c *ChatPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatPhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatPhoto#77176e42 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatPhoto")
 	b.FieldStart("id")
-	if err := c.ID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhoto#77176e42: field id: %w", err)
-	}
+	b.PutLong(c.ID)
 	b.FieldStart("added_date")
 	b.PutInt32(c.AddedDate)
 	b.FieldStart("minithumbnail")
@@ -259,8 +257,58 @@ func (c *ChatPhoto) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatPhoto) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatPhoto#77176e42 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatPhoto"); err != nil {
+				return fmt.Errorf("unable to decode chatPhoto#77176e42: %w", err)
+			}
+		case "id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPhoto#77176e42: field id: %w", err)
+			}
+			c.ID = value
+		case "added_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPhoto#77176e42: field added_date: %w", err)
+			}
+			c.AddedDate = value
+		case "minithumbnail":
+			if err := c.Minithumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatPhoto#77176e42: field minithumbnail: %w", err)
+			}
+		case "sizes":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value PhotoSize
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode chatPhoto#77176e42: field sizes: %w", err)
+				}
+				c.Sizes = append(c.Sizes, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatPhoto#77176e42: field sizes: %w", err)
+			}
+		case "animation":
+			if err := c.Animation.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatPhoto#77176e42: field animation: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetID returns value of ID field.
-func (c *ChatPhoto) GetID() (value Int64) {
+func (c *ChatPhoto) GetID() (value int64) {
 	return c.ID
 }
 

@@ -161,8 +161,8 @@ func (c *CreateTemporaryPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CreateTemporaryPasswordRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CreateTemporaryPasswordRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createTemporaryPassword#9f0d6f86 as nil")
 	}
@@ -174,6 +174,37 @@ func (c *CreateTemporaryPasswordRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutInt32(c.ValidFor)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CreateTemporaryPasswordRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode createTemporaryPassword#9f0d6f86 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("createTemporaryPassword"); err != nil {
+				return fmt.Errorf("unable to decode createTemporaryPassword#9f0d6f86: %w", err)
+			}
+		case "password":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode createTemporaryPassword#9f0d6f86: field password: %w", err)
+			}
+			c.Password = value
+		case "valid_for":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode createTemporaryPassword#9f0d6f86: field valid_for: %w", err)
+			}
+			c.ValidFor = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPassword returns value of Password field.

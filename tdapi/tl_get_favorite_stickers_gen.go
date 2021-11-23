@@ -125,8 +125,8 @@ func (g *GetFavoriteStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetFavoriteStickersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetFavoriteStickersRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getFavoriteStickers#ebcbcf40 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetFavoriteStickersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("getFavoriteStickers")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetFavoriteStickersRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getFavoriteStickers#ebcbcf40 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getFavoriteStickers"); err != nil {
+				return fmt.Errorf("unable to decode getFavoriteStickers#ebcbcf40: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFavoriteStickers invokes method getFavoriteStickers#ebcbcf40 returning error if any.

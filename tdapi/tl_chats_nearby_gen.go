@@ -190,8 +190,8 @@ func (c *ChatsNearby) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatsNearby) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatsNearby) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatsNearby#cc744cff as nil")
 	}
@@ -215,6 +215,47 @@ func (c *ChatsNearby) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatsNearby) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatsNearby#cc744cff to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatsNearby"); err != nil {
+				return fmt.Errorf("unable to decode chatsNearby#cc744cff: %w", err)
+			}
+		case "users_nearby":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value ChatNearby
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode chatsNearby#cc744cff: field users_nearby: %w", err)
+				}
+				c.UsersNearby = append(c.UsersNearby, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatsNearby#cc744cff: field users_nearby: %w", err)
+			}
+		case "supergroups_nearby":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value ChatNearby
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode chatsNearby#cc744cff: field supergroups_nearby: %w", err)
+				}
+				c.SupergroupsNearby = append(c.SupergroupsNearby, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatsNearby#cc744cff: field supergroups_nearby: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUsersNearby returns value of UsersNearby field.

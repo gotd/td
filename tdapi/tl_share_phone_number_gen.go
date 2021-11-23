@@ -144,8 +144,8 @@ func (s *SharePhoneNumberRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SharePhoneNumberRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SharePhoneNumberRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sharePhoneNumber#e9e806ca as nil")
 	}
@@ -155,6 +155,31 @@ func (s *SharePhoneNumberRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(s.UserID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SharePhoneNumberRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sharePhoneNumber#e9e806ca to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("sharePhoneNumber"); err != nil {
+				return fmt.Errorf("unable to decode sharePhoneNumber#e9e806ca: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode sharePhoneNumber#e9e806ca: field user_id: %w", err)
+			}
+			s.UserID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserID returns value of UserID field.

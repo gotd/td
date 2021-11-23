@@ -34,7 +34,7 @@ var (
 // Poll represents TL type `poll#2348dbde`.
 type Poll struct {
 	// Unique poll identifier
-	ID Int64
+	ID int64
 	// Poll question; 1-300 characters
 	Question string
 	// List of poll answer options
@@ -70,7 +70,7 @@ func (p *Poll) Zero() bool {
 	if p == nil {
 		return true
 	}
-	if !(p.ID.Zero()) {
+	if !(p.ID == 0) {
 		return false
 	}
 	if !(p.Question == "") {
@@ -194,9 +194,7 @@ func (p *Poll) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode poll#2348dbde as nil")
 	}
-	if err := p.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode poll#2348dbde: field id: %w", err)
-	}
+	b.PutLong(p.ID)
 	b.PutString(p.Question)
 	b.PutInt(len(p.Options))
 	for idx, v := range p.Options {
@@ -239,9 +237,11 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode poll#2348dbde to nil")
 	}
 	{
-		if err := p.ID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode poll#2348dbde: field id: %w", err)
 		}
+		p.ID = value
 	}
 	{
 		value, err := b.String()
@@ -329,17 +329,15 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *Poll) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *Poll) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode poll#2348dbde as nil")
 	}
 	b.ObjStart()
 	b.PutID("poll")
 	b.FieldStart("id")
-	if err := p.ID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode poll#2348dbde: field id: %w", err)
-	}
+	b.PutLong(p.ID)
 	b.FieldStart("question")
 	b.PutString(p.Question)
 	b.FieldStart("options")
@@ -377,8 +375,97 @@ func (p *Poll) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *Poll) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode poll#2348dbde to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("poll"); err != nil {
+				return fmt.Errorf("unable to decode poll#2348dbde: %w", err)
+			}
+		case "id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode poll#2348dbde: field id: %w", err)
+			}
+			p.ID = value
+		case "question":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode poll#2348dbde: field question: %w", err)
+			}
+			p.Question = value
+		case "options":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value PollOption
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode poll#2348dbde: field options: %w", err)
+				}
+				p.Options = append(p.Options, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode poll#2348dbde: field options: %w", err)
+			}
+		case "total_voter_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode poll#2348dbde: field total_voter_count: %w", err)
+			}
+			p.TotalVoterCount = value
+		case "recent_voter_user_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode poll#2348dbde: field recent_voter_user_ids: %w", err)
+				}
+				p.RecentVoterUserIDs = append(p.RecentVoterUserIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode poll#2348dbde: field recent_voter_user_ids: %w", err)
+			}
+		case "is_anonymous":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode poll#2348dbde: field is_anonymous: %w", err)
+			}
+			p.IsAnonymous = value
+		case "type":
+			value, err := DecodeTDLibJSONPollType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode poll#2348dbde: field type: %w", err)
+			}
+			p.Type = value
+		case "open_period":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode poll#2348dbde: field open_period: %w", err)
+			}
+			p.OpenPeriod = value
+		case "close_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode poll#2348dbde: field close_date: %w", err)
+			}
+			p.CloseDate = value
+		case "is_closed":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode poll#2348dbde: field is_closed: %w", err)
+			}
+			p.IsClosed = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetID returns value of ID field.
-func (p *Poll) GetID() (value Int64) {
+func (p *Poll) GetID() (value int64) {
 	return p.ID
 }
 

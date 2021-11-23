@@ -125,8 +125,8 @@ func (i *Int32) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *Int32) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *Int32) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode int32#5cb934fa as nil")
 	}
@@ -134,4 +134,23 @@ func (i *Int32) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("int32")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *Int32) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode int32#5cb934fa to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("int32"); err != nil {
+				return fmt.Errorf("unable to decode int32#5cb934fa: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }

@@ -350,8 +350,8 @@ func (l *LanguagePackInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes l in TDLib API JSON format.
-func (l *LanguagePackInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (l *LanguagePackInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode languagePackInfo#20514f5a as nil")
 	}
@@ -385,6 +385,103 @@ func (l *LanguagePackInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(l.TranslationURL)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (l *LanguagePackInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if l == nil {
+		return fmt.Errorf("can't decode languagePackInfo#20514f5a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("languagePackInfo"); err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: %w", err)
+			}
+		case "id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: field id: %w", err)
+			}
+			l.ID = value
+		case "base_language_pack_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: field base_language_pack_id: %w", err)
+			}
+			l.BaseLanguagePackID = value
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: field name: %w", err)
+			}
+			l.Name = value
+		case "native_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: field native_name: %w", err)
+			}
+			l.NativeName = value
+		case "plural_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: field plural_code: %w", err)
+			}
+			l.PluralCode = value
+		case "is_official":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: field is_official: %w", err)
+			}
+			l.IsOfficial = value
+		case "is_rtl":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: field is_rtl: %w", err)
+			}
+			l.IsRtl = value
+		case "is_beta":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: field is_beta: %w", err)
+			}
+			l.IsBeta = value
+		case "is_installed":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: field is_installed: %w", err)
+			}
+			l.IsInstalled = value
+		case "total_string_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: field total_string_count: %w", err)
+			}
+			l.TotalStringCount = value
+		case "translated_string_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: field translated_string_count: %w", err)
+			}
+			l.TranslatedStringCount = value
+		case "local_string_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: field local_string_count: %w", err)
+			}
+			l.LocalStringCount = value
+		case "translation_url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode languagePackInfo#20514f5a: field translation_url: %w", err)
+			}
+			l.TranslationURL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

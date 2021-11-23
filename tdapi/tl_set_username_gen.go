@@ -143,8 +143,8 @@ func (s *SetUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetUsernameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetUsernameRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setUsername#1a385c1e as nil")
 	}
@@ -154,6 +154,31 @@ func (s *SetUsernameRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(s.Username)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetUsernameRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setUsername#1a385c1e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setUsername"); err != nil {
+				return fmt.Errorf("unable to decode setUsername#1a385c1e: %w", err)
+			}
+		case "username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setUsername#1a385c1e: field username: %w", err)
+			}
+			s.Username = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUsername returns value of Username field.

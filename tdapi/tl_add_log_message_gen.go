@@ -160,8 +160,8 @@ func (a *AddLogMessageRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AddLogMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AddLogMessageRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addLogMessage#5f36cfec as nil")
 	}
@@ -173,6 +173,37 @@ func (a *AddLogMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(a.Text)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AddLogMessageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode addLogMessage#5f36cfec to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("addLogMessage"); err != nil {
+				return fmt.Errorf("unable to decode addLogMessage#5f36cfec: %w", err)
+			}
+		case "verbosity_level":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode addLogMessage#5f36cfec: field verbosity_level: %w", err)
+			}
+			a.VerbosityLevel = value
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode addLogMessage#5f36cfec: field text: %w", err)
+			}
+			a.Text = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetVerbosityLevel returns value of VerbosityLevel field.

@@ -160,8 +160,8 @@ func (m *MessageLink) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MessageLink) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MessageLink) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageLink#af4a3aa6 as nil")
 	}
@@ -173,6 +173,37 @@ func (m *MessageLink) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(m.IsPublic)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MessageLink) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageLink#af4a3aa6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("messageLink"); err != nil {
+				return fmt.Errorf("unable to decode messageLink#af4a3aa6: %w", err)
+			}
+		case "link":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageLink#af4a3aa6: field link: %w", err)
+			}
+			m.Link = value
+		case "is_public":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageLink#af4a3aa6: field is_public: %w", err)
+			}
+			m.IsPublic = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLink returns value of Link field.

@@ -143,8 +143,8 @@ func (g *GetMessageFileTypeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetMessageFileTypeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetMessageFileTypeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getMessageFileType#e2c70fd4 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetMessageFileTypeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(g.MessageFileHead)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetMessageFileTypeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getMessageFileType#e2c70fd4 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getMessageFileType"); err != nil {
+				return fmt.Errorf("unable to decode getMessageFileType#e2c70fd4: %w", err)
+			}
+		case "message_file_head":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessageFileType#e2c70fd4: field message_file_head: %w", err)
+			}
+			g.MessageFileHead = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetMessageFileHead returns value of MessageFileHead field.

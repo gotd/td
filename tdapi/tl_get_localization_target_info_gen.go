@@ -143,8 +143,8 @@ func (g *GetLocalizationTargetInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetLocalizationTargetInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetLocalizationTargetInfoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getLocalizationTargetInfo#6e3d1f86 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetLocalizationTargetInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) er
 	b.PutBool(g.OnlyLocal)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetLocalizationTargetInfoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getLocalizationTargetInfo#6e3d1f86 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getLocalizationTargetInfo"); err != nil {
+				return fmt.Errorf("unable to decode getLocalizationTargetInfo#6e3d1f86: %w", err)
+			}
+		case "only_local":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getLocalizationTargetInfo#6e3d1f86: field only_local: %w", err)
+			}
+			g.OnlyLocal = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetOnlyLocal returns value of OnlyLocal field.

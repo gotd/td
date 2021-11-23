@@ -252,8 +252,8 @@ func (j *JoinGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes j in TDLib API JSON format.
-func (j *JoinGroupCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (j *JoinGroupCallRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if j == nil {
 		return fmt.Errorf("can't encode joinGroupCall#c1c947e5 as nil")
 	}
@@ -280,6 +280,67 @@ func (j *JoinGroupCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(j.InviteHash)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (j *JoinGroupCallRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if j == nil {
+		return fmt.Errorf("can't decode joinGroupCall#c1c947e5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("joinGroupCall"); err != nil {
+				return fmt.Errorf("unable to decode joinGroupCall#c1c947e5: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode joinGroupCall#c1c947e5: field group_call_id: %w", err)
+			}
+			j.GroupCallID = value
+		case "participant_id":
+			value, err := DecodeTDLibJSONMessageSender(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode joinGroupCall#c1c947e5: field participant_id: %w", err)
+			}
+			j.ParticipantID = value
+		case "audio_source_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode joinGroupCall#c1c947e5: field audio_source_id: %w", err)
+			}
+			j.AudioSourceID = value
+		case "payload":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode joinGroupCall#c1c947e5: field payload: %w", err)
+			}
+			j.Payload = value
+		case "is_muted":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode joinGroupCall#c1c947e5: field is_muted: %w", err)
+			}
+			j.IsMuted = value
+		case "is_my_video_enabled":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode joinGroupCall#c1c947e5: field is_my_video_enabled: %w", err)
+			}
+			j.IsMyVideoEnabled = value
+		case "invite_hash":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode joinGroupCall#c1c947e5: field invite_hash: %w", err)
+			}
+			j.InviteHash = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

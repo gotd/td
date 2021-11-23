@@ -200,8 +200,8 @@ func (p *PassportSuitableElement) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PassportSuitableElement) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PassportSuitableElement) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportSuitableElement#d0f8831c as nil")
 	}
@@ -222,6 +222,49 @@ func (p *PassportSuitableElement) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(p.IsNativeNameRequired)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PassportSuitableElement) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode passportSuitableElement#d0f8831c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("passportSuitableElement"); err != nil {
+				return fmt.Errorf("unable to decode passportSuitableElement#d0f8831c: %w", err)
+			}
+		case "type":
+			value, err := DecodeTDLibJSONPassportElementType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode passportSuitableElement#d0f8831c: field type: %w", err)
+			}
+			p.Type = value
+		case "is_selfie_required":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode passportSuitableElement#d0f8831c: field is_selfie_required: %w", err)
+			}
+			p.IsSelfieRequired = value
+		case "is_translation_required":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode passportSuitableElement#d0f8831c: field is_translation_required: %w", err)
+			}
+			p.IsTranslationRequired = value
+		case "is_native_name_required":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode passportSuitableElement#d0f8831c: field is_native_name_required: %w", err)
+			}
+			p.IsNativeNameRequired = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetType returns value of Type field.

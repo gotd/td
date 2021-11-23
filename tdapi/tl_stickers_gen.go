@@ -158,8 +158,8 @@ func (s *Stickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *Stickers) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *Stickers) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode stickers#83491d00 as nil")
 	}
@@ -175,6 +175,36 @@ func (s *Stickers) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *Stickers) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickers#83491d00 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("stickers"); err != nil {
+				return fmt.Errorf("unable to decode stickers#83491d00: %w", err)
+			}
+		case "stickers":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value Sticker
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode stickers#83491d00: field stickers: %w", err)
+				}
+				s.Stickers = append(s.Stickers, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode stickers#83491d00: field stickers: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetStickers returns value of Stickers field.

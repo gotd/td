@@ -160,8 +160,8 @@ func (d *DeepLinkInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DeepLinkInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DeepLinkInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deepLinkInfo#6f1ba0fe as nil")
 	}
@@ -175,6 +175,35 @@ func (d *DeepLinkInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(d.NeedUpdateApplication)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DeepLinkInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deepLinkInfo#6f1ba0fe to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("deepLinkInfo"); err != nil {
+				return fmt.Errorf("unable to decode deepLinkInfo#6f1ba0fe: %w", err)
+			}
+		case "text":
+			if err := d.Text.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode deepLinkInfo#6f1ba0fe: field text: %w", err)
+			}
+		case "need_update_application":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode deepLinkInfo#6f1ba0fe: field need_update_application: %w", err)
+			}
+			d.NeedUpdateApplication = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

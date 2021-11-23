@@ -143,8 +143,8 @@ func (g *GetPhoneNumberInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetPhoneNumberInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetPhoneNumberInfoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getPhoneNumberInfo#a0229bf9 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetPhoneNumberInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(g.PhoneNumberPrefix)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetPhoneNumberInfoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getPhoneNumberInfo#a0229bf9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getPhoneNumberInfo"); err != nil {
+				return fmt.Errorf("unable to decode getPhoneNumberInfo#a0229bf9: %w", err)
+			}
+		case "phone_number_prefix":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getPhoneNumberInfo#a0229bf9: field phone_number_prefix: %w", err)
+			}
+			g.PhoneNumberPrefix = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPhoneNumberPrefix returns value of PhoneNumberPrefix field.

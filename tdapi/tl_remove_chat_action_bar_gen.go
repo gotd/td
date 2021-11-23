@@ -143,8 +143,8 @@ func (r *RemoveChatActionBarRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RemoveChatActionBarRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RemoveChatActionBarRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode removeChatActionBar#9d9839fa as nil")
 	}
@@ -154,6 +154,31 @@ func (r *RemoveChatActionBarRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(r.ChatID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RemoveChatActionBarRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode removeChatActionBar#9d9839fa to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("removeChatActionBar"); err != nil {
+				return fmt.Errorf("unable to decode removeChatActionBar#9d9839fa: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode removeChatActionBar#9d9839fa: field chat_id: %w", err)
+			}
+			r.ChatID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

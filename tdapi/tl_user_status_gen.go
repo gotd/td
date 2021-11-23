@@ -130,8 +130,8 @@ func (u *UserStatusEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UserStatusEmpty) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UserStatusEmpty) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode userStatusEmpty#9d05049 as nil")
 	}
@@ -139,6 +139,25 @@ func (u *UserStatusEmpty) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("userStatusEmpty")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UserStatusEmpty) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userStatusEmpty#9d05049 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("userStatusEmpty"); err != nil {
+				return fmt.Errorf("unable to decode userStatusEmpty#9d05049: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // UserStatusOnline represents TL type `userStatusOnline#a4d64774`.
@@ -258,8 +277,8 @@ func (u *UserStatusOnline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UserStatusOnline) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UserStatusOnline) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode userStatusOnline#a4d64774 as nil")
 	}
@@ -269,6 +288,31 @@ func (u *UserStatusOnline) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(u.Expires)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UserStatusOnline) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userStatusOnline#a4d64774 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("userStatusOnline"); err != nil {
+				return fmt.Errorf("unable to decode userStatusOnline#a4d64774: %w", err)
+			}
+		case "expires":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode userStatusOnline#a4d64774: field expires: %w", err)
+			}
+			u.Expires = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetExpires returns value of Expires field.
@@ -393,8 +437,8 @@ func (u *UserStatusOffline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UserStatusOffline) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UserStatusOffline) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode userStatusOffline#d2b38d05 as nil")
 	}
@@ -404,6 +448,31 @@ func (u *UserStatusOffline) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(u.WasOnline)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UserStatusOffline) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userStatusOffline#d2b38d05 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("userStatusOffline"); err != nil {
+				return fmt.Errorf("unable to decode userStatusOffline#d2b38d05: %w", err)
+			}
+		case "was_online":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode userStatusOffline#d2b38d05: field was_online: %w", err)
+			}
+			u.WasOnline = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetWasOnline returns value of WasOnline field.
@@ -510,8 +579,8 @@ func (u *UserStatusRecently) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UserStatusRecently) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UserStatusRecently) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode userStatusRecently#e26f42f1 as nil")
 	}
@@ -519,6 +588,25 @@ func (u *UserStatusRecently) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("userStatusRecently")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UserStatusRecently) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userStatusRecently#e26f42f1 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("userStatusRecently"); err != nil {
+				return fmt.Errorf("unable to decode userStatusRecently#e26f42f1: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // UserStatusLastWeek represents TL type `userStatusLastWeek#7bf09fc`.
@@ -620,8 +708,8 @@ func (u *UserStatusLastWeek) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UserStatusLastWeek) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UserStatusLastWeek) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode userStatusLastWeek#7bf09fc as nil")
 	}
@@ -629,6 +717,25 @@ func (u *UserStatusLastWeek) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("userStatusLastWeek")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UserStatusLastWeek) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userStatusLastWeek#7bf09fc to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("userStatusLastWeek"); err != nil {
+				return fmt.Errorf("unable to decode userStatusLastWeek#7bf09fc: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // UserStatusLastMonth represents TL type `userStatusLastMonth#77ebc742`.
@@ -730,8 +837,8 @@ func (u *UserStatusLastMonth) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UserStatusLastMonth) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UserStatusLastMonth) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode userStatusLastMonth#77ebc742 as nil")
 	}
@@ -739,6 +846,25 @@ func (u *UserStatusLastMonth) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("userStatusLastMonth")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UserStatusLastMonth) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userStatusLastMonth#77ebc742 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("userStatusLastMonth"); err != nil {
+				return fmt.Errorf("unable to decode userStatusLastMonth#77ebc742: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // UserStatusClass represents UserStatus generic type.
@@ -774,7 +900,9 @@ type UserStatusClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeUserStatus implements binary de-serialization for UserStatusClass.
@@ -831,6 +959,60 @@ func DecodeUserStatus(buf *bin.Buffer) (UserStatusClass, error) {
 	}
 }
 
+// DecodeTDLibJSONUserStatus implements binary de-serialization for UserStatusClass.
+func DecodeTDLibJSONUserStatus(buf jsontd.Decoder) (UserStatusClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "userStatusEmpty":
+		// Decoding userStatusEmpty#9d05049.
+		v := UserStatusEmpty{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
+		}
+		return &v, nil
+	case "userStatusOnline":
+		// Decoding userStatusOnline#a4d64774.
+		v := UserStatusOnline{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
+		}
+		return &v, nil
+	case "userStatusOffline":
+		// Decoding userStatusOffline#d2b38d05.
+		v := UserStatusOffline{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
+		}
+		return &v, nil
+	case "userStatusRecently":
+		// Decoding userStatusRecently#e26f42f1.
+		v := UserStatusRecently{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
+		}
+		return &v, nil
+	case "userStatusLastWeek":
+		// Decoding userStatusLastWeek#7bf09fc.
+		v := UserStatusLastWeek{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
+		}
+		return &v, nil
+	case "userStatusLastMonth":
+		// Decoding userStatusLastMonth#77ebc742.
+		v := UserStatusLastMonth{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode UserStatusClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // UserStatus boxes the UserStatusClass providing a helper.
 type UserStatusBox struct {
 	UserStatus UserStatusClass
@@ -855,4 +1037,25 @@ func (b *UserStatusBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UserStatusClass as nil")
 	}
 	return b.UserStatus.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for UserStatusBox.
+func (b *UserStatusBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode UserStatusBox to nil")
+	}
+	v, err := DecodeTDLibJSONUserStatus(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.UserStatus = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for UserStatusBox.
+func (b *UserStatusBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.UserStatus == nil {
+		return fmt.Errorf("unable to encode UserStatusClass as nil")
+	}
+	return b.UserStatus.EncodeTDLibJSON(buf)
 }

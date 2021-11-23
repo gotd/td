@@ -177,8 +177,8 @@ func (s *SetCustomLanguagePackRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetCustomLanguagePackRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetCustomLanguagePackRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setCustomLanguagePack#234b0607 as nil")
 	}
@@ -198,6 +198,40 @@ func (s *SetCustomLanguagePackRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetCustomLanguagePackRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setCustomLanguagePack#234b0607 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setCustomLanguagePack"); err != nil {
+				return fmt.Errorf("unable to decode setCustomLanguagePack#234b0607: %w", err)
+			}
+		case "info":
+			if err := s.Info.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode setCustomLanguagePack#234b0607: field info: %w", err)
+			}
+		case "strings":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value LanguagePackString
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode setCustomLanguagePack#234b0607: field strings: %w", err)
+				}
+				s.Strings = append(s.Strings, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode setCustomLanguagePack#234b0607: field strings: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetInfo returns value of Info field.

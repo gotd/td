@@ -183,8 +183,8 @@ func (m *MessageSendOptions) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MessageSendOptions) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MessageSendOptions) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageSendOptions#3682d6ba as nil")
 	}
@@ -203,6 +203,43 @@ func (m *MessageSendOptions) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MessageSendOptions) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSendOptions#3682d6ba to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("messageSendOptions"); err != nil {
+				return fmt.Errorf("unable to decode messageSendOptions#3682d6ba: %w", err)
+			}
+		case "disable_notification":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageSendOptions#3682d6ba: field disable_notification: %w", err)
+			}
+			m.DisableNotification = value
+		case "from_background":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageSendOptions#3682d6ba: field from_background: %w", err)
+			}
+			m.FromBackground = value
+		case "scheduling_state":
+			value, err := DecodeTDLibJSONMessageSchedulingState(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messageSendOptions#3682d6ba: field scheduling_state: %w", err)
+			}
+			m.SchedulingState = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetDisableNotification returns value of DisableNotification field.

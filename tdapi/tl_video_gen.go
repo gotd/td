@@ -297,8 +297,8 @@ func (v *Video) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes v in TDLib API JSON format.
-func (v *Video) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (v *Video) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode video#31a460cc as nil")
 	}
@@ -332,6 +332,79 @@ func (v *Video) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (v *Video) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if v == nil {
+		return fmt.Errorf("can't decode video#31a460cc to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("video"); err != nil {
+				return fmt.Errorf("unable to decode video#31a460cc: %w", err)
+			}
+		case "duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode video#31a460cc: field duration: %w", err)
+			}
+			v.Duration = value
+		case "width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode video#31a460cc: field width: %w", err)
+			}
+			v.Width = value
+		case "height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode video#31a460cc: field height: %w", err)
+			}
+			v.Height = value
+		case "file_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode video#31a460cc: field file_name: %w", err)
+			}
+			v.FileName = value
+		case "mime_type":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode video#31a460cc: field mime_type: %w", err)
+			}
+			v.MimeType = value
+		case "has_stickers":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode video#31a460cc: field has_stickers: %w", err)
+			}
+			v.HasStickers = value
+		case "supports_streaming":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode video#31a460cc: field supports_streaming: %w", err)
+			}
+			v.SupportsStreaming = value
+		case "minithumbnail":
+			if err := v.Minithumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode video#31a460cc: field minithumbnail: %w", err)
+			}
+		case "thumbnail":
+			if err := v.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode video#31a460cc: field thumbnail: %w", err)
+			}
+		case "video":
+			if err := v.Video.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode video#31a460cc: field video: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetDuration returns value of Duration field.

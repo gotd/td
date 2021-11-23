@@ -143,8 +143,8 @@ func (g *GetDeepLinkInfoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetDeepLinkInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetDeepLinkInfoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getDeepLinkInfo#28923f7e as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetDeepLinkInfoRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(g.Link)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetDeepLinkInfoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getDeepLinkInfo#28923f7e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getDeepLinkInfo"); err != nil {
+				return fmt.Errorf("unable to decode getDeepLinkInfo#28923f7e: %w", err)
+			}
+		case "link":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getDeepLinkInfo#28923f7e: field link: %w", err)
+			}
+			g.Link = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLink returns value of Link field.

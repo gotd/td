@@ -188,8 +188,8 @@ func (i *ImportedContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *ImportedContacts) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *ImportedContacts) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode importedContacts#443d9a66 as nil")
 	}
@@ -209,6 +209,47 @@ func (i *ImportedContacts) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *ImportedContacts) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode importedContacts#443d9a66 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("importedContacts"); err != nil {
+				return fmt.Errorf("unable to decode importedContacts#443d9a66: %w", err)
+			}
+		case "user_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode importedContacts#443d9a66: field user_ids: %w", err)
+				}
+				i.UserIDs = append(i.UserIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode importedContacts#443d9a66: field user_ids: %w", err)
+			}
+		case "importer_count":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode importedContacts#443d9a66: field importer_count: %w", err)
+				}
+				i.ImporterCount = append(i.ImporterCount, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode importedContacts#443d9a66: field importer_count: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserIDs returns value of UserIDs field.

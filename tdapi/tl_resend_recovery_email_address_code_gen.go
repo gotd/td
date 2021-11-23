@@ -125,8 +125,8 @@ func (r *ResendRecoveryEmailAddressCodeRequest) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ResendRecoveryEmailAddressCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ResendRecoveryEmailAddressCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resendRecoveryEmailAddressCode#19d66f1c as nil")
 	}
@@ -134,6 +134,25 @@ func (r *ResendRecoveryEmailAddressCodeRequest) EncodeTDLibJSON(b *jsontd.Encode
 	b.PutID("resendRecoveryEmailAddressCode")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ResendRecoveryEmailAddressCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode resendRecoveryEmailAddressCode#19d66f1c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("resendRecoveryEmailAddressCode"); err != nil {
+				return fmt.Errorf("unable to decode resendRecoveryEmailAddressCode#19d66f1c: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ResendRecoveryEmailAddressCode invokes method resendRecoveryEmailAddressCode#19d66f1c returning error if any.

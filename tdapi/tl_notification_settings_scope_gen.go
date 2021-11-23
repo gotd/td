@@ -130,8 +130,8 @@ func (n *NotificationSettingsScopePrivateChats) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// EncodeTDLibJSON encodes n in TDLib API JSON format.
-func (n *NotificationSettingsScopePrivateChats) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (n *NotificationSettingsScopePrivateChats) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationSettingsScopePrivateChats#37e04d67 as nil")
 	}
@@ -139,6 +139,25 @@ func (n *NotificationSettingsScopePrivateChats) EncodeTDLibJSON(b *jsontd.Encode
 	b.PutID("notificationSettingsScopePrivateChats")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (n *NotificationSettingsScopePrivateChats) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if n == nil {
+		return fmt.Errorf("can't decode notificationSettingsScopePrivateChats#37e04d67 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("notificationSettingsScopePrivateChats"); err != nil {
+				return fmt.Errorf("unable to decode notificationSettingsScopePrivateChats#37e04d67: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // NotificationSettingsScopeGroupChats represents TL type `notificationSettingsScopeGroupChats#483fd1f3`.
@@ -240,8 +259,8 @@ func (n *NotificationSettingsScopeGroupChats) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes n in TDLib API JSON format.
-func (n *NotificationSettingsScopeGroupChats) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (n *NotificationSettingsScopeGroupChats) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationSettingsScopeGroupChats#483fd1f3 as nil")
 	}
@@ -249,6 +268,25 @@ func (n *NotificationSettingsScopeGroupChats) EncodeTDLibJSON(b *jsontd.Encoder)
 	b.PutID("notificationSettingsScopeGroupChats")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (n *NotificationSettingsScopeGroupChats) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if n == nil {
+		return fmt.Errorf("can't decode notificationSettingsScopeGroupChats#483fd1f3 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("notificationSettingsScopeGroupChats"); err != nil {
+				return fmt.Errorf("unable to decode notificationSettingsScopeGroupChats#483fd1f3: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // NotificationSettingsScopeChannelChats represents TL type `notificationSettingsScopeChannelChats#20aa0588`.
@@ -350,8 +388,8 @@ func (n *NotificationSettingsScopeChannelChats) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// EncodeTDLibJSON encodes n in TDLib API JSON format.
-func (n *NotificationSettingsScopeChannelChats) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (n *NotificationSettingsScopeChannelChats) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationSettingsScopeChannelChats#20aa0588 as nil")
 	}
@@ -359,6 +397,25 @@ func (n *NotificationSettingsScopeChannelChats) EncodeTDLibJSON(b *jsontd.Encode
 	b.PutID("notificationSettingsScopeChannelChats")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (n *NotificationSettingsScopeChannelChats) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if n == nil {
+		return fmt.Errorf("can't decode notificationSettingsScopeChannelChats#20aa0588 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("notificationSettingsScopeChannelChats"); err != nil {
+				return fmt.Errorf("unable to decode notificationSettingsScopeChannelChats#20aa0588: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // NotificationSettingsScopeClass represents NotificationSettingsScope generic type.
@@ -391,7 +448,9 @@ type NotificationSettingsScopeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeNotificationSettingsScope implements binary de-serialization for NotificationSettingsScopeClass.
@@ -427,6 +486,39 @@ func DecodeNotificationSettingsScope(buf *bin.Buffer) (NotificationSettingsScope
 	}
 }
 
+// DecodeTDLibJSONNotificationSettingsScope implements binary de-serialization for NotificationSettingsScopeClass.
+func DecodeTDLibJSONNotificationSettingsScope(buf jsontd.Decoder) (NotificationSettingsScopeClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "notificationSettingsScopePrivateChats":
+		// Decoding notificationSettingsScopePrivateChats#37e04d67.
+		v := NotificationSettingsScopePrivateChats{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode NotificationSettingsScopeClass: %w", err)
+		}
+		return &v, nil
+	case "notificationSettingsScopeGroupChats":
+		// Decoding notificationSettingsScopeGroupChats#483fd1f3.
+		v := NotificationSettingsScopeGroupChats{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode NotificationSettingsScopeClass: %w", err)
+		}
+		return &v, nil
+	case "notificationSettingsScopeChannelChats":
+		// Decoding notificationSettingsScopeChannelChats#20aa0588.
+		v := NotificationSettingsScopeChannelChats{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode NotificationSettingsScopeClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode NotificationSettingsScopeClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // NotificationSettingsScope boxes the NotificationSettingsScopeClass providing a helper.
 type NotificationSettingsScopeBox struct {
 	NotificationSettingsScope NotificationSettingsScopeClass
@@ -451,4 +543,25 @@ func (b *NotificationSettingsScopeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode NotificationSettingsScopeClass as nil")
 	}
 	return b.NotificationSettingsScope.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for NotificationSettingsScopeBox.
+func (b *NotificationSettingsScopeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode NotificationSettingsScopeBox to nil")
+	}
+	v, err := DecodeTDLibJSONNotificationSettingsScope(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.NotificationSettingsScope = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for NotificationSettingsScopeBox.
+func (b *NotificationSettingsScopeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.NotificationSettingsScope == nil {
+		return fmt.Errorf("unable to encode NotificationSettingsScopeClass as nil")
+	}
+	return b.NotificationSettingsScope.EncodeTDLibJSON(buf)
 }

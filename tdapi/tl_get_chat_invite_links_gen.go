@@ -231,8 +231,8 @@ func (g *GetChatInviteLinksRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetChatInviteLinksRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetChatInviteLinksRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatInviteLinks#94a0fd90 as nil")
 	}
@@ -252,6 +252,61 @@ func (g *GetChatInviteLinksRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(g.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetChatInviteLinksRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getChatInviteLinks#94a0fd90 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getChatInviteLinks"); err != nil {
+				return fmt.Errorf("unable to decode getChatInviteLinks#94a0fd90: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatInviteLinks#94a0fd90: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "creator_user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatInviteLinks#94a0fd90: field creator_user_id: %w", err)
+			}
+			g.CreatorUserID = value
+		case "is_revoked":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatInviteLinks#94a0fd90: field is_revoked: %w", err)
+			}
+			g.IsRevoked = value
+		case "offset_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatInviteLinks#94a0fd90: field offset_date: %w", err)
+			}
+			g.OffsetDate = value
+		case "offset_invite_link":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatInviteLinks#94a0fd90: field offset_invite_link: %w", err)
+			}
+			g.OffsetInviteLink = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatInviteLinks#94a0fd90: field limit: %w", err)
+			}
+			g.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

@@ -143,8 +143,8 @@ func (g *GetSupergroupRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetSupergroupRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetSupergroupRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getSupergroup#85082566 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetSupergroupRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(g.SupergroupID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetSupergroupRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getSupergroup#85082566 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getSupergroup"); err != nil {
+				return fmt.Errorf("unable to decode getSupergroup#85082566: %w", err)
+			}
+		case "supergroup_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getSupergroup#85082566: field supergroup_id: %w", err)
+			}
+			g.SupergroupID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSupergroupID returns value of SupergroupID field.

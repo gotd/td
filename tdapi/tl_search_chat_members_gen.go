@@ -199,8 +199,8 @@ func (s *SearchChatMembersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SearchChatMembersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SearchChatMembersRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchChatMembers#e56d46c5 as nil")
 	}
@@ -221,6 +221,49 @@ func (s *SearchChatMembersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SearchChatMembersRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchChatMembers#e56d46c5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("searchChatMembers"); err != nil {
+				return fmt.Errorf("unable to decode searchChatMembers#e56d46c5: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatMembers#e56d46c5: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "query":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatMembers#e56d46c5: field query: %w", err)
+			}
+			s.Query = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatMembers#e56d46c5: field limit: %w", err)
+			}
+			s.Limit = value
+		case "filter":
+			value, err := DecodeTDLibJSONChatMembersFilter(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatMembers#e56d46c5: field filter: %w", err)
+			}
+			s.Filter = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

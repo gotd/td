@@ -125,8 +125,8 @@ func (b *Bytes) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes b in TDLib API JSON format.
-func (b *Bytes) EncodeTDLibJSON(buf *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (b *Bytes) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode bytes#e937bb82 as nil")
 	}
@@ -134,4 +134,23 @@ func (b *Bytes) EncodeTDLibJSON(buf *jsontd.Encoder) error {
 	buf.PutID("bytes")
 	buf.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (b *Bytes) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode bytes#e937bb82 to nil")
+	}
+
+	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := buf.ConsumeID("bytes"); err != nil {
+				return fmt.Errorf("unable to decode bytes#e937bb82: %w", err)
+			}
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
 }

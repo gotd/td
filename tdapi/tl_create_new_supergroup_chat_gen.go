@@ -212,8 +212,8 @@ func (c *CreateNewSupergroupChatRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CreateNewSupergroupChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CreateNewSupergroupChatRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createNewSupergroupChat#ce83a6c1 as nil")
 	}
@@ -233,6 +233,53 @@ func (c *CreateNewSupergroupChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutBool(c.ForImport)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CreateNewSupergroupChatRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode createNewSupergroupChat#ce83a6c1 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("createNewSupergroupChat"); err != nil {
+				return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: %w", err)
+			}
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field title: %w", err)
+			}
+			c.Title = value
+		case "is_channel":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field is_channel: %w", err)
+			}
+			c.IsChannel = value
+		case "description":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field description: %w", err)
+			}
+			c.Description = value
+		case "location":
+			if err := c.Location.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field location: %w", err)
+			}
+		case "for_import":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field for_import: %w", err)
+			}
+			c.ForImport = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetTitle returns value of Title field.

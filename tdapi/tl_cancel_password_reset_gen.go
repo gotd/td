@@ -125,8 +125,8 @@ func (c *CancelPasswordResetRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CancelPasswordResetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CancelPasswordResetRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode cancelPasswordReset#38127462 as nil")
 	}
@@ -134,6 +134,25 @@ func (c *CancelPasswordResetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("cancelPasswordReset")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CancelPasswordResetRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode cancelPasswordReset#38127462 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("cancelPasswordReset"); err != nil {
+				return fmt.Errorf("unable to decode cancelPasswordReset#38127462: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CancelPasswordReset invokes method cancelPasswordReset#38127462 returning error if any.

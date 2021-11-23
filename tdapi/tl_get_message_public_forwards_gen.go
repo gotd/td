@@ -197,8 +197,8 @@ func (g *GetMessagePublicForwardsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetMessagePublicForwardsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetMessagePublicForwardsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getMessagePublicForwards#6006a949 as nil")
 	}
@@ -214,6 +214,49 @@ func (g *GetMessagePublicForwardsRequest) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.PutInt32(g.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetMessagePublicForwardsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getMessagePublicForwards#6006a949 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getMessagePublicForwards"); err != nil {
+				return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: field chat_id: %w", err)
+			}
+			g.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: field message_id: %w", err)
+			}
+			g.MessageID = value
+		case "offset":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: field offset: %w", err)
+			}
+			g.Offset = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: field limit: %w", err)
+			}
+			g.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

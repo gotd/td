@@ -160,8 +160,8 @@ func (t *ToggleGroupCallEnabledStartNotificationRequest) DecodeBare(b *bin.Buffe
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *ToggleGroupCallEnabledStartNotificationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *ToggleGroupCallEnabledStartNotificationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleGroupCallEnabledStartNotification#2a30c752 as nil")
 	}
@@ -173,6 +173,37 @@ func (t *ToggleGroupCallEnabledStartNotificationRequest) EncodeTDLibJSON(b *json
 	b.PutBool(t.EnabledStartNotification)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *ToggleGroupCallEnabledStartNotificationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode toggleGroupCallEnabledStartNotification#2a30c752 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("toggleGroupCallEnabledStartNotification"); err != nil {
+				return fmt.Errorf("unable to decode toggleGroupCallEnabledStartNotification#2a30c752: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleGroupCallEnabledStartNotification#2a30c752: field group_call_id: %w", err)
+			}
+			t.GroupCallID = value
+		case "enabled_start_notification":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleGroupCallEnabledStartNotification#2a30c752: field enabled_start_notification: %w", err)
+			}
+			t.EnabledStartNotification = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

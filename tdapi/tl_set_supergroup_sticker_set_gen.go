@@ -37,7 +37,7 @@ type SetSupergroupStickerSetRequest struct {
 	SupergroupID int32
 	// New value of the supergroup sticker set identifier. Use 0 to remove the supergroup
 	// sticker set
-	StickerSetID Int64
+	StickerSetID int64
 }
 
 // SetSupergroupStickerSetRequestTypeID is TL type id of SetSupergroupStickerSetRequest.
@@ -58,7 +58,7 @@ func (s *SetSupergroupStickerSetRequest) Zero() bool {
 	if !(s.SupergroupID == 0) {
 		return false
 	}
-	if !(s.StickerSetID.Zero()) {
+	if !(s.StickerSetID == 0) {
 		return false
 	}
 
@@ -124,9 +124,7 @@ func (s *SetSupergroupStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode setSupergroupStickerSet#ee5eb866 as nil")
 	}
 	b.PutInt32(s.SupergroupID)
-	if err := s.StickerSetID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode setSupergroupStickerSet#ee5eb866: field sticker_set_id: %w", err)
-	}
+	b.PutLong(s.StickerSetID)
 	return nil
 }
 
@@ -154,15 +152,17 @@ func (s *SetSupergroupStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 		s.SupergroupID = value
 	}
 	{
-		if err := s.StickerSetID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode setSupergroupStickerSet#ee5eb866: field sticker_set_id: %w", err)
 		}
+		s.StickerSetID = value
 	}
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetSupergroupStickerSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetSupergroupStickerSetRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setSupergroupStickerSet#ee5eb866 as nil")
 	}
@@ -171,11 +171,40 @@ func (s *SetSupergroupStickerSetRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.FieldStart("supergroup_id")
 	b.PutInt32(s.SupergroupID)
 	b.FieldStart("sticker_set_id")
-	if err := s.StickerSetID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode setSupergroupStickerSet#ee5eb866: field sticker_set_id: %w", err)
-	}
+	b.PutLong(s.StickerSetID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetSupergroupStickerSetRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setSupergroupStickerSet#ee5eb866 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setSupergroupStickerSet"); err != nil {
+				return fmt.Errorf("unable to decode setSupergroupStickerSet#ee5eb866: %w", err)
+			}
+		case "supergroup_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setSupergroupStickerSet#ee5eb866: field supergroup_id: %w", err)
+			}
+			s.SupergroupID = value
+		case "sticker_set_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setSupergroupStickerSet#ee5eb866: field sticker_set_id: %w", err)
+			}
+			s.StickerSetID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSupergroupID returns value of SupergroupID field.
@@ -184,7 +213,7 @@ func (s *SetSupergroupStickerSetRequest) GetSupergroupID() (value int32) {
 }
 
 // GetStickerSetID returns value of StickerSetID field.
-func (s *SetSupergroupStickerSetRequest) GetStickerSetID() (value Int64) {
+func (s *SetSupergroupStickerSetRequest) GetStickerSetID() (value int64) {
 	return s.StickerSetID
 }
 

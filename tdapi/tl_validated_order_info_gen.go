@@ -175,8 +175,8 @@ func (v *ValidatedOrderInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes v in TDLib API JSON format.
-func (v *ValidatedOrderInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (v *ValidatedOrderInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode validatedOrderInfo#ac585f14 as nil")
 	}
@@ -194,6 +194,42 @@ func (v *ValidatedOrderInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (v *ValidatedOrderInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if v == nil {
+		return fmt.Errorf("can't decode validatedOrderInfo#ac585f14 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("validatedOrderInfo"); err != nil {
+				return fmt.Errorf("unable to decode validatedOrderInfo#ac585f14: %w", err)
+			}
+		case "order_info_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode validatedOrderInfo#ac585f14: field order_info_id: %w", err)
+			}
+			v.OrderInfoID = value
+		case "shipping_options":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value ShippingOption
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode validatedOrderInfo#ac585f14: field shipping_options: %w", err)
+				}
+				v.ShippingOptions = append(v.ShippingOptions, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode validatedOrderInfo#ac585f14: field shipping_options: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetOrderInfoID returns value of OrderInfoID field.

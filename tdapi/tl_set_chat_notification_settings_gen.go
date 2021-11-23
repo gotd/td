@@ -161,8 +161,8 @@ func (s *SetChatNotificationSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetChatNotificationSettingsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetChatNotificationSettingsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatNotificationSettings#2e531ffe as nil")
 	}
@@ -176,6 +176,35 @@ func (s *SetChatNotificationSettingsRequest) EncodeTDLibJSON(b *jsontd.Encoder) 
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetChatNotificationSettingsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setChatNotificationSettings#2e531ffe to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setChatNotificationSettings"); err != nil {
+				return fmt.Errorf("unable to decode setChatNotificationSettings#2e531ffe: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setChatNotificationSettings#2e531ffe: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "notification_settings":
+			if err := s.NotificationSettings.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode setChatNotificationSettings#2e531ffe: field notification_settings: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

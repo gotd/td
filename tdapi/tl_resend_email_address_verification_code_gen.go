@@ -125,8 +125,8 @@ func (r *ResendEmailAddressVerificationCodeRequest) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ResendEmailAddressVerificationCodeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ResendEmailAddressVerificationCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resendEmailAddressVerificationCode#90653024 as nil")
 	}
@@ -134,6 +134,25 @@ func (r *ResendEmailAddressVerificationCodeRequest) EncodeTDLibJSON(b *jsontd.En
 	b.PutID("resendEmailAddressVerificationCode")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ResendEmailAddressVerificationCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode resendEmailAddressVerificationCode#90653024 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("resendEmailAddressVerificationCode"); err != nil {
+				return fmt.Errorf("unable to decode resendEmailAddressVerificationCode#90653024: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ResendEmailAddressVerificationCode invokes method resendEmailAddressVerificationCode#90653024 returning error if any.

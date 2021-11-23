@@ -160,8 +160,8 @@ func (s *SearchStickersRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SearchStickersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SearchStickersRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchStickers#5cbb2f43 as nil")
 	}
@@ -173,6 +173,37 @@ func (s *SearchStickersRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(s.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SearchStickersRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchStickers#5cbb2f43 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("searchStickers"); err != nil {
+				return fmt.Errorf("unable to decode searchStickers#5cbb2f43: %w", err)
+			}
+		case "emoji":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchStickers#5cbb2f43: field emoji: %w", err)
+			}
+			s.Emoji = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchStickers#5cbb2f43: field limit: %w", err)
+			}
+			s.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetEmoji returns value of Emoji field.

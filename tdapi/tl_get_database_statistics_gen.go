@@ -125,8 +125,8 @@ func (g *GetDatabaseStatisticsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetDatabaseStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetDatabaseStatisticsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getDatabaseStatistics#8c33d4b9 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetDatabaseStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error 
 	b.PutID("getDatabaseStatistics")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetDatabaseStatisticsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getDatabaseStatistics#8c33d4b9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getDatabaseStatistics"); err != nil {
+				return fmt.Errorf("unable to decode getDatabaseStatistics#8c33d4b9: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetDatabaseStatistics invokes method getDatabaseStatistics#8c33d4b9 returning error if any.

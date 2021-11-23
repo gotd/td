@@ -219,8 +219,8 @@ func (s *SearchSecretMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SearchSecretMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SearchSecretMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchSecretMessages#cd2a4c9c as nil")
 	}
@@ -243,6 +243,55 @@ func (s *SearchSecretMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SearchSecretMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchSecretMessages#cd2a4c9c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("searchSecretMessages"); err != nil {
+				return fmt.Errorf("unable to decode searchSecretMessages#cd2a4c9c: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchSecretMessages#cd2a4c9c: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "query":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchSecretMessages#cd2a4c9c: field query: %w", err)
+			}
+			s.Query = value
+		case "offset":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchSecretMessages#cd2a4c9c: field offset: %w", err)
+			}
+			s.Offset = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchSecretMessages#cd2a4c9c: field limit: %w", err)
+			}
+			s.Limit = value
+		case "filter":
+			value, err := DecodeTDLibJSONSearchMessagesFilter(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode searchSecretMessages#cd2a4c9c: field filter: %w", err)
+			}
+			s.Filter = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

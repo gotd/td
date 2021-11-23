@@ -125,8 +125,8 @@ func (r *ResetPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *ResetPasswordRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *ResetPasswordRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resetPassword#dc9e8c9d as nil")
 	}
@@ -134,6 +134,25 @@ func (r *ResetPasswordRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("resetPassword")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *ResetPasswordRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode resetPassword#dc9e8c9d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("resetPassword"); err != nil {
+				return fmt.Errorf("unable to decode resetPassword#dc9e8c9d: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ResetPassword invokes method resetPassword#dc9e8c9d returning error if any.

@@ -389,8 +389,8 @@ func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatFilter) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatFilter) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatFilter#9a7344af as nil")
 	}
@@ -436,6 +436,118 @@ func (c *ChatFilter) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(c.IncludeChannels)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatFilter) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatFilter#9a7344af to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatFilter"); err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: %w", err)
+			}
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: field title: %w", err)
+			}
+			c.Title = value
+		case "icon_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: field icon_name: %w", err)
+			}
+			c.IconName = value
+		case "pinned_chat_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode chatFilter#9a7344af: field pinned_chat_ids: %w", err)
+				}
+				c.PinnedChatIDs = append(c.PinnedChatIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: field pinned_chat_ids: %w", err)
+			}
+		case "included_chat_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode chatFilter#9a7344af: field included_chat_ids: %w", err)
+				}
+				c.IncludedChatIDs = append(c.IncludedChatIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: field included_chat_ids: %w", err)
+			}
+		case "excluded_chat_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode chatFilter#9a7344af: field excluded_chat_ids: %w", err)
+				}
+				c.ExcludedChatIDs = append(c.ExcludedChatIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: field excluded_chat_ids: %w", err)
+			}
+		case "exclude_muted":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: field exclude_muted: %w", err)
+			}
+			c.ExcludeMuted = value
+		case "exclude_read":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: field exclude_read: %w", err)
+			}
+			c.ExcludeRead = value
+		case "exclude_archived":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: field exclude_archived: %w", err)
+			}
+			c.ExcludeArchived = value
+		case "include_contacts":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_contacts: %w", err)
+			}
+			c.IncludeContacts = value
+		case "include_non_contacts":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_non_contacts: %w", err)
+			}
+			c.IncludeNonContacts = value
+		case "include_bots":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_bots: %w", err)
+			}
+			c.IncludeBots = value
+		case "include_groups":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_groups: %w", err)
+			}
+			c.IncludeGroups = value
+		case "include_channels":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_channels: %w", err)
+			}
+			c.IncludeChannels = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetTitle returns value of Title field.

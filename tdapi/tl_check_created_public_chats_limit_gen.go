@@ -148,8 +148,8 @@ func (c *CheckCreatedPublicChatsLimitRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CheckCreatedPublicChatsLimitRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CheckCreatedPublicChatsLimitRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkCreatedPublicChatsLimit#e5717fa1 as nil")
 	}
@@ -164,6 +164,31 @@ func (c *CheckCreatedPublicChatsLimitRequest) EncodeTDLibJSON(b *jsontd.Encoder)
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CheckCreatedPublicChatsLimitRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkCreatedPublicChatsLimit#e5717fa1 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("checkCreatedPublicChatsLimit"); err != nil {
+				return fmt.Errorf("unable to decode checkCreatedPublicChatsLimit#e5717fa1: %w", err)
+			}
+		case "type":
+			value, err := DecodeTDLibJSONPublicChatType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode checkCreatedPublicChatsLimit#e5717fa1: field type: %w", err)
+			}
+			c.Type = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetType returns value of Type field.

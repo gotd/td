@@ -160,8 +160,8 @@ func (r *RemoveNotificationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RemoveNotificationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RemoveNotificationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode removeNotification#336ab34e as nil")
 	}
@@ -173,6 +173,37 @@ func (r *RemoveNotificationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(r.NotificationID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RemoveNotificationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode removeNotification#336ab34e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("removeNotification"); err != nil {
+				return fmt.Errorf("unable to decode removeNotification#336ab34e: %w", err)
+			}
+		case "notification_group_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode removeNotification#336ab34e: field notification_group_id: %w", err)
+			}
+			r.NotificationGroupID = value
+		case "notification_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode removeNotification#336ab34e: field notification_id: %w", err)
+			}
+			r.NotificationID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetNotificationGroupID returns value of NotificationGroupID field.

@@ -192,8 +192,8 @@ func (s *ShippingOption) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *ShippingOption) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *ShippingOption) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode shippingOption#731bffce as nil")
 	}
@@ -213,6 +213,48 @@ func (s *ShippingOption) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *ShippingOption) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode shippingOption#731bffce to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("shippingOption"); err != nil {
+				return fmt.Errorf("unable to decode shippingOption#731bffce: %w", err)
+			}
+		case "id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode shippingOption#731bffce: field id: %w", err)
+			}
+			s.ID = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode shippingOption#731bffce: field title: %w", err)
+			}
+			s.Title = value
+		case "price_parts":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value LabeledPricePart
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode shippingOption#731bffce: field price_parts: %w", err)
+				}
+				s.PriceParts = append(s.PriceParts, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode shippingOption#731bffce: field price_parts: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

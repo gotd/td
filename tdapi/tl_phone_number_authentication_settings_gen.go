@@ -181,8 +181,8 @@ func (p *PhoneNumberAuthenticationSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PhoneNumberAuthenticationSettings) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PhoneNumberAuthenticationSettings) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode phoneNumberAuthenticationSettings#ccc9aae9 as nil")
 	}
@@ -196,6 +196,43 @@ func (p *PhoneNumberAuthenticationSettings) EncodeTDLibJSON(b *jsontd.Encoder) e
 	b.PutBool(p.AllowSMSRetrieverAPI)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PhoneNumberAuthenticationSettings) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneNumberAuthenticationSettings#ccc9aae9 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("phoneNumberAuthenticationSettings"); err != nil {
+				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#ccc9aae9: %w", err)
+			}
+		case "allow_flash_call":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#ccc9aae9: field allow_flash_call: %w", err)
+			}
+			p.AllowFlashCall = value
+		case "is_current_phone_number":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#ccc9aae9: field is_current_phone_number: %w", err)
+			}
+			p.IsCurrentPhoneNumber = value
+		case "allow_sms_retriever_api":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode phoneNumberAuthenticationSettings#ccc9aae9: field allow_sms_retriever_api: %w", err)
+			}
+			p.AllowSMSRetrieverAPI = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetAllowFlashCall returns value of AllowFlashCall field.

@@ -183,8 +183,8 @@ func (t *ToggleGroupCallParticipantIsHandRaisedRequest) DecodeBare(b *bin.Buffer
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *ToggleGroupCallParticipantIsHandRaisedRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *ToggleGroupCallParticipantIsHandRaisedRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleGroupCallParticipantIsHandRaised#8efb63e1 as nil")
 	}
@@ -203,6 +203,43 @@ func (t *ToggleGroupCallParticipantIsHandRaisedRequest) EncodeTDLibJSON(b *jsont
 	b.PutBool(t.IsHandRaised)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *ToggleGroupCallParticipantIsHandRaisedRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode toggleGroupCallParticipantIsHandRaised#8efb63e1 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("toggleGroupCallParticipantIsHandRaised"); err != nil {
+				return fmt.Errorf("unable to decode toggleGroupCallParticipantIsHandRaised#8efb63e1: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleGroupCallParticipantIsHandRaised#8efb63e1: field group_call_id: %w", err)
+			}
+			t.GroupCallID = value
+		case "participant_id":
+			value, err := DecodeTDLibJSONMessageSender(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleGroupCallParticipantIsHandRaised#8efb63e1: field participant_id: %w", err)
+			}
+			t.ParticipantID = value
+		case "is_hand_raised":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleGroupCallParticipantIsHandRaised#8efb63e1: field is_hand_raised: %w", err)
+			}
+			t.IsHandRaised = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

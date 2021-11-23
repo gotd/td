@@ -143,8 +143,8 @@ func (s *SearchChatsNearbyRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SearchChatsNearbyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SearchChatsNearbyRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchChatsNearby#f445c81f as nil")
 	}
@@ -156,6 +156,29 @@ func (s *SearchChatsNearbyRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SearchChatsNearbyRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchChatsNearby#f445c81f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("searchChatsNearby"); err != nil {
+				return fmt.Errorf("unable to decode searchChatsNearby#f445c81f: %w", err)
+			}
+		case "location":
+			if err := s.Location.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode searchChatsNearby#f445c81f: field location: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLocation returns value of Location field.

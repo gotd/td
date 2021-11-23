@@ -143,8 +143,8 @@ func (c *ConfirmQrCodeAuthenticationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ConfirmQrCodeAuthenticationRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ConfirmQrCodeAuthenticationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode confirmQrCodeAuthentication#e993a72d as nil")
 	}
@@ -154,6 +154,31 @@ func (c *ConfirmQrCodeAuthenticationRequest) EncodeTDLibJSON(b *jsontd.Encoder) 
 	b.PutString(c.Link)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ConfirmQrCodeAuthenticationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode confirmQrCodeAuthentication#e993a72d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("confirmQrCodeAuthentication"); err != nil {
+				return fmt.Errorf("unable to decode confirmQrCodeAuthentication#e993a72d: %w", err)
+			}
+		case "link":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode confirmQrCodeAuthentication#e993a72d: field link: %w", err)
+			}
+			c.Link = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLink returns value of Link field.

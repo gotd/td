@@ -130,8 +130,8 @@ func (c *ChatMembersFilterContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatMembersFilterContacts) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatMembersFilterContacts) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatMembersFilterContacts#69c480a7 as nil")
 	}
@@ -139,6 +139,25 @@ func (c *ChatMembersFilterContacts) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("chatMembersFilterContacts")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatMembersFilterContacts) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatMembersFilterContacts#69c480a7 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatMembersFilterContacts"); err != nil {
+				return fmt.Errorf("unable to decode chatMembersFilterContacts#69c480a7: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ChatMembersFilterAdministrators represents TL type `chatMembersFilterAdministrators#b47cbc1c`.
@@ -240,8 +259,8 @@ func (c *ChatMembersFilterAdministrators) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatMembersFilterAdministrators) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatMembersFilterAdministrators) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatMembersFilterAdministrators#b47cbc1c as nil")
 	}
@@ -249,6 +268,25 @@ func (c *ChatMembersFilterAdministrators) EncodeTDLibJSON(b *jsontd.Encoder) err
 	b.PutID("chatMembersFilterAdministrators")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatMembersFilterAdministrators) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatMembersFilterAdministrators#b47cbc1c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatMembersFilterAdministrators"); err != nil {
+				return fmt.Errorf("unable to decode chatMembersFilterAdministrators#b47cbc1c: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ChatMembersFilterMembers represents TL type `chatMembersFilterMembers#27f71596`.
@@ -350,8 +388,8 @@ func (c *ChatMembersFilterMembers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatMembersFilterMembers) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatMembersFilterMembers) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatMembersFilterMembers#27f71596 as nil")
 	}
@@ -359,6 +397,25 @@ func (c *ChatMembersFilterMembers) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("chatMembersFilterMembers")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatMembersFilterMembers) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatMembersFilterMembers#27f71596 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatMembersFilterMembers"); err != nil {
+				return fmt.Errorf("unable to decode chatMembersFilterMembers#27f71596: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ChatMembersFilterMention represents TL type `chatMembersFilterMention#330bedf7`.
@@ -478,8 +535,8 @@ func (c *ChatMembersFilterMention) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatMembersFilterMention) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatMembersFilterMention) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatMembersFilterMention#330bedf7 as nil")
 	}
@@ -489,6 +546,31 @@ func (c *ChatMembersFilterMention) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(c.MessageThreadID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatMembersFilterMention) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatMembersFilterMention#330bedf7 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatMembersFilterMention"); err != nil {
+				return fmt.Errorf("unable to decode chatMembersFilterMention#330bedf7: %w", err)
+			}
+		case "message_thread_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatMembersFilterMention#330bedf7: field message_thread_id: %w", err)
+			}
+			c.MessageThreadID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetMessageThreadID returns value of MessageThreadID field.
@@ -595,8 +677,8 @@ func (c *ChatMembersFilterRestricted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatMembersFilterRestricted) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatMembersFilterRestricted) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatMembersFilterRestricted#4ae15abd as nil")
 	}
@@ -604,6 +686,25 @@ func (c *ChatMembersFilterRestricted) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("chatMembersFilterRestricted")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatMembersFilterRestricted) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatMembersFilterRestricted#4ae15abd to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatMembersFilterRestricted"); err != nil {
+				return fmt.Errorf("unable to decode chatMembersFilterRestricted#4ae15abd: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ChatMembersFilterBanned represents TL type `chatMembersFilterBanned#90f34f48`.
@@ -705,8 +806,8 @@ func (c *ChatMembersFilterBanned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatMembersFilterBanned) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatMembersFilterBanned) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatMembersFilterBanned#90f34f48 as nil")
 	}
@@ -714,6 +815,25 @@ func (c *ChatMembersFilterBanned) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("chatMembersFilterBanned")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatMembersFilterBanned) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatMembersFilterBanned#90f34f48 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatMembersFilterBanned"); err != nil {
+				return fmt.Errorf("unable to decode chatMembersFilterBanned#90f34f48: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ChatMembersFilterBots represents TL type `chatMembersFilterBots#ab355888`.
@@ -815,8 +935,8 @@ func (c *ChatMembersFilterBots) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatMembersFilterBots) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatMembersFilterBots) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatMembersFilterBots#ab355888 as nil")
 	}
@@ -824,6 +944,25 @@ func (c *ChatMembersFilterBots) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("chatMembersFilterBots")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatMembersFilterBots) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatMembersFilterBots#ab355888 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatMembersFilterBots"); err != nil {
+				return fmt.Errorf("unable to decode chatMembersFilterBots#ab355888: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ChatMembersFilterClass represents ChatMembersFilter generic type.
@@ -860,7 +999,9 @@ type ChatMembersFilterClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeChatMembersFilter implements binary de-serialization for ChatMembersFilterClass.
@@ -924,6 +1065,67 @@ func DecodeChatMembersFilter(buf *bin.Buffer) (ChatMembersFilterClass, error) {
 	}
 }
 
+// DecodeTDLibJSONChatMembersFilter implements binary de-serialization for ChatMembersFilterClass.
+func DecodeTDLibJSONChatMembersFilter(buf jsontd.Decoder) (ChatMembersFilterClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "chatMembersFilterContacts":
+		// Decoding chatMembersFilterContacts#69c480a7.
+		v := ChatMembersFilterContacts{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatMembersFilterClass: %w", err)
+		}
+		return &v, nil
+	case "chatMembersFilterAdministrators":
+		// Decoding chatMembersFilterAdministrators#b47cbc1c.
+		v := ChatMembersFilterAdministrators{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatMembersFilterClass: %w", err)
+		}
+		return &v, nil
+	case "chatMembersFilterMembers":
+		// Decoding chatMembersFilterMembers#27f71596.
+		v := ChatMembersFilterMembers{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatMembersFilterClass: %w", err)
+		}
+		return &v, nil
+	case "chatMembersFilterMention":
+		// Decoding chatMembersFilterMention#330bedf7.
+		v := ChatMembersFilterMention{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatMembersFilterClass: %w", err)
+		}
+		return &v, nil
+	case "chatMembersFilterRestricted":
+		// Decoding chatMembersFilterRestricted#4ae15abd.
+		v := ChatMembersFilterRestricted{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatMembersFilterClass: %w", err)
+		}
+		return &v, nil
+	case "chatMembersFilterBanned":
+		// Decoding chatMembersFilterBanned#90f34f48.
+		v := ChatMembersFilterBanned{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatMembersFilterClass: %w", err)
+		}
+		return &v, nil
+	case "chatMembersFilterBots":
+		// Decoding chatMembersFilterBots#ab355888.
+		v := ChatMembersFilterBots{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatMembersFilterClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode ChatMembersFilterClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // ChatMembersFilter boxes the ChatMembersFilterClass providing a helper.
 type ChatMembersFilterBox struct {
 	ChatMembersFilter ChatMembersFilterClass
@@ -948,4 +1150,25 @@ func (b *ChatMembersFilterBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChatMembersFilterClass as nil")
 	}
 	return b.ChatMembersFilter.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for ChatMembersFilterBox.
+func (b *ChatMembersFilterBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ChatMembersFilterBox to nil")
+	}
+	v, err := DecodeTDLibJSONChatMembersFilter(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ChatMembersFilter = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for ChatMembersFilterBox.
+func (b *ChatMembersFilterBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.ChatMembersFilter == nil {
+		return fmt.Errorf("unable to encode ChatMembersFilterClass as nil")
+	}
+	return b.ChatMembersFilter.EncodeTDLibJSON(buf)
 }

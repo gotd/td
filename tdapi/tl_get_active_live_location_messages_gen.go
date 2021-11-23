@@ -125,8 +125,8 @@ func (g *GetActiveLiveLocationMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetActiveLiveLocationMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetActiveLiveLocationMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getActiveLiveLocationMessages#ab093691 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetActiveLiveLocationMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder
 	b.PutID("getActiveLiveLocationMessages")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetActiveLiveLocationMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getActiveLiveLocationMessages#ab093691 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getActiveLiveLocationMessages"); err != nil {
+				return fmt.Errorf("unable to decode getActiveLiveLocationMessages#ab093691: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetActiveLiveLocationMessages invokes method getActiveLiveLocationMessages#ab093691 returning error if any.

@@ -34,7 +34,7 @@ var (
 // StickerSetInfo represents TL type `stickerSetInfo#aba733ac`.
 type StickerSetInfo struct {
 	// Identifier of the sticker set
-	ID Int64
+	ID int64
 	// Title of the sticker set
 	Title string
 	// Name of the sticker set
@@ -79,7 +79,7 @@ func (s *StickerSetInfo) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.ID.Zero()) {
+	if !(s.ID == 0) {
 		return false
 	}
 	if !(s.Title == "") {
@@ -224,9 +224,7 @@ func (s *StickerSetInfo) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode stickerSetInfo#aba733ac as nil")
 	}
-	if err := s.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickerSetInfo#aba733ac: field id: %w", err)
-	}
+	b.PutLong(s.ID)
 	b.PutString(s.Title)
 	b.PutString(s.Name)
 	if err := s.Thumbnail.Encode(b); err != nil {
@@ -271,9 +269,11 @@ func (s *StickerSetInfo) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode stickerSetInfo#aba733ac to nil")
 	}
 	{
-		if err := s.ID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field id: %w", err)
 		}
+		s.ID = value
 	}
 	{
 		value, err := b.String()
@@ -380,17 +380,15 @@ func (s *StickerSetInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *StickerSetInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *StickerSetInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode stickerSetInfo#aba733ac as nil")
 	}
 	b.ObjStart()
 	b.PutID("stickerSetInfo")
 	b.FieldStart("id")
-	if err := s.ID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode stickerSetInfo#aba733ac: field id: %w", err)
-	}
+	b.PutLong(s.ID)
 	b.FieldStart("title")
 	b.PutString(s.Title)
 	b.FieldStart("name")
@@ -433,8 +431,113 @@ func (s *StickerSetInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *StickerSetInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickerSetInfo#aba733ac to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("stickerSetInfo"); err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: %w", err)
+			}
+		case "id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field id: %w", err)
+			}
+			s.ID = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field title: %w", err)
+			}
+			s.Title = value
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field name: %w", err)
+			}
+			s.Name = value
+		case "thumbnail":
+			if err := s.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field thumbnail: %w", err)
+			}
+		case "thumbnail_outline":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value ClosedVectorPath
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field thumbnail_outline: %w", err)
+				}
+				s.ThumbnailOutline = append(s.ThumbnailOutline, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field thumbnail_outline: %w", err)
+			}
+		case "is_installed":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field is_installed: %w", err)
+			}
+			s.IsInstalled = value
+		case "is_archived":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field is_archived: %w", err)
+			}
+			s.IsArchived = value
+		case "is_official":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field is_official: %w", err)
+			}
+			s.IsOfficial = value
+		case "is_animated":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field is_animated: %w", err)
+			}
+			s.IsAnimated = value
+		case "is_masks":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field is_masks: %w", err)
+			}
+			s.IsMasks = value
+		case "is_viewed":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field is_viewed: %w", err)
+			}
+			s.IsViewed = value
+		case "size":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field size: %w", err)
+			}
+			s.Size = value
+		case "covers":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value Sticker
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field covers: %w", err)
+				}
+				s.Covers = append(s.Covers, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field covers: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetID returns value of ID field.
-func (s *StickerSetInfo) GetID() (value Int64) {
+func (s *StickerSetInfo) GetID() (value int64) {
 	return s.ID
 }
 

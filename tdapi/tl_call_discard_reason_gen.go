@@ -130,8 +130,8 @@ func (c *CallDiscardReasonEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallDiscardReasonEmpty) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallDiscardReasonEmpty) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callDiscardReasonEmpty#b4f66fc3 as nil")
 	}
@@ -139,6 +139,25 @@ func (c *CallDiscardReasonEmpty) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callDiscardReasonEmpty")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallDiscardReasonEmpty) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callDiscardReasonEmpty#b4f66fc3 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callDiscardReasonEmpty"); err != nil {
+				return fmt.Errorf("unable to decode callDiscardReasonEmpty#b4f66fc3: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallDiscardReasonMissed represents TL type `callDiscardReasonMissed#64283a7c`.
@@ -240,8 +259,8 @@ func (c *CallDiscardReasonMissed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallDiscardReasonMissed) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallDiscardReasonMissed) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callDiscardReasonMissed#64283a7c as nil")
 	}
@@ -249,6 +268,25 @@ func (c *CallDiscardReasonMissed) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callDiscardReasonMissed")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallDiscardReasonMissed) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callDiscardReasonMissed#64283a7c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callDiscardReasonMissed"); err != nil {
+				return fmt.Errorf("unable to decode callDiscardReasonMissed#64283a7c: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallDiscardReasonDeclined represents TL type `callDiscardReasonDeclined#98e36c32`.
@@ -350,8 +388,8 @@ func (c *CallDiscardReasonDeclined) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallDiscardReasonDeclined) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallDiscardReasonDeclined) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callDiscardReasonDeclined#98e36c32 as nil")
 	}
@@ -359,6 +397,25 @@ func (c *CallDiscardReasonDeclined) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callDiscardReasonDeclined")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallDiscardReasonDeclined) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callDiscardReasonDeclined#98e36c32 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callDiscardReasonDeclined"); err != nil {
+				return fmt.Errorf("unable to decode callDiscardReasonDeclined#98e36c32: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallDiscardReasonDisconnected represents TL type `callDiscardReasonDisconnected#aff563a2`.
@@ -460,8 +517,8 @@ func (c *CallDiscardReasonDisconnected) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallDiscardReasonDisconnected) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallDiscardReasonDisconnected) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callDiscardReasonDisconnected#aff563a2 as nil")
 	}
@@ -469,6 +526,25 @@ func (c *CallDiscardReasonDisconnected) EncodeTDLibJSON(b *jsontd.Encoder) error
 	b.PutID("callDiscardReasonDisconnected")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallDiscardReasonDisconnected) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callDiscardReasonDisconnected#aff563a2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callDiscardReasonDisconnected"); err != nil {
+				return fmt.Errorf("unable to decode callDiscardReasonDisconnected#aff563a2: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallDiscardReasonHungUp represents TL type `callDiscardReasonHungUp#1a1ea5e6`.
@@ -570,8 +646,8 @@ func (c *CallDiscardReasonHungUp) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallDiscardReasonHungUp) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallDiscardReasonHungUp) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callDiscardReasonHungUp#1a1ea5e6 as nil")
 	}
@@ -579,6 +655,25 @@ func (c *CallDiscardReasonHungUp) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("callDiscardReasonHungUp")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallDiscardReasonHungUp) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callDiscardReasonHungUp#1a1ea5e6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callDiscardReasonHungUp"); err != nil {
+				return fmt.Errorf("unable to decode callDiscardReasonHungUp#1a1ea5e6: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // CallDiscardReasonClass represents CallDiscardReason generic type.
@@ -613,7 +708,9 @@ type CallDiscardReasonClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeCallDiscardReason implements binary de-serialization for CallDiscardReasonClass.
@@ -663,6 +760,53 @@ func DecodeCallDiscardReason(buf *bin.Buffer) (CallDiscardReasonClass, error) {
 	}
 }
 
+// DecodeTDLibJSONCallDiscardReason implements binary de-serialization for CallDiscardReasonClass.
+func DecodeTDLibJSONCallDiscardReason(buf jsontd.Decoder) (CallDiscardReasonClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "callDiscardReasonEmpty":
+		// Decoding callDiscardReasonEmpty#b4f66fc3.
+		v := CallDiscardReasonEmpty{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallDiscardReasonClass: %w", err)
+		}
+		return &v, nil
+	case "callDiscardReasonMissed":
+		// Decoding callDiscardReasonMissed#64283a7c.
+		v := CallDiscardReasonMissed{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallDiscardReasonClass: %w", err)
+		}
+		return &v, nil
+	case "callDiscardReasonDeclined":
+		// Decoding callDiscardReasonDeclined#98e36c32.
+		v := CallDiscardReasonDeclined{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallDiscardReasonClass: %w", err)
+		}
+		return &v, nil
+	case "callDiscardReasonDisconnected":
+		// Decoding callDiscardReasonDisconnected#aff563a2.
+		v := CallDiscardReasonDisconnected{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallDiscardReasonClass: %w", err)
+		}
+		return &v, nil
+	case "callDiscardReasonHungUp":
+		// Decoding callDiscardReasonHungUp#1a1ea5e6.
+		v := CallDiscardReasonHungUp{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CallDiscardReasonClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode CallDiscardReasonClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // CallDiscardReason boxes the CallDiscardReasonClass providing a helper.
 type CallDiscardReasonBox struct {
 	CallDiscardReason CallDiscardReasonClass
@@ -687,4 +831,25 @@ func (b *CallDiscardReasonBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode CallDiscardReasonClass as nil")
 	}
 	return b.CallDiscardReason.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for CallDiscardReasonBox.
+func (b *CallDiscardReasonBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode CallDiscardReasonBox to nil")
+	}
+	v, err := DecodeTDLibJSONCallDiscardReason(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.CallDiscardReason = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for CallDiscardReasonBox.
+func (b *CallDiscardReasonBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.CallDiscardReason == nil {
+		return fmt.Errorf("unable to encode CallDiscardReasonClass as nil")
+	}
+	return b.CallDiscardReason.EncodeTDLibJSON(buf)
 }

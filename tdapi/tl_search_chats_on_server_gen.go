@@ -160,8 +160,8 @@ func (s *SearchChatsOnServerRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SearchChatsOnServerRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SearchChatsOnServerRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchChatsOnServer#baf42f74 as nil")
 	}
@@ -173,6 +173,37 @@ func (s *SearchChatsOnServerRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(s.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SearchChatsOnServerRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchChatsOnServer#baf42f74 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("searchChatsOnServer"); err != nil {
+				return fmt.Errorf("unable to decode searchChatsOnServer#baf42f74: %w", err)
+			}
+		case "query":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatsOnServer#baf42f74: field query: %w", err)
+			}
+			s.Query = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatsOnServer#baf42f74: field limit: %w", err)
+			}
+			s.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetQuery returns value of Query field.

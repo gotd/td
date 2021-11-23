@@ -231,8 +231,8 @@ func (n *NotificationGroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes n in TDLib API JSON format.
-func (n *NotificationGroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (n *NotificationGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationGroup#d02a41ba as nil")
 	}
@@ -261,6 +261,60 @@ func (n *NotificationGroup) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (n *NotificationGroup) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if n == nil {
+		return fmt.Errorf("can't decode notificationGroup#d02a41ba to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("notificationGroup"); err != nil {
+				return fmt.Errorf("unable to decode notificationGroup#d02a41ba: %w", err)
+			}
+		case "id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode notificationGroup#d02a41ba: field id: %w", err)
+			}
+			n.ID = value
+		case "type":
+			value, err := DecodeTDLibJSONNotificationGroupType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode notificationGroup#d02a41ba: field type: %w", err)
+			}
+			n.Type = value
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode notificationGroup#d02a41ba: field chat_id: %w", err)
+			}
+			n.ChatID = value
+		case "total_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode notificationGroup#d02a41ba: field total_count: %w", err)
+			}
+			n.TotalCount = value
+		case "notifications":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value Notification
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode notificationGroup#d02a41ba: field notifications: %w", err)
+				}
+				n.Notifications = append(n.Notifications, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode notificationGroup#d02a41ba: field notifications: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

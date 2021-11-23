@@ -160,8 +160,8 @@ func (s *SearchChatRecentLocationMessagesRequest) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SearchChatRecentLocationMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SearchChatRecentLocationMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchChatRecentLocationMessages#38a37ee6 as nil")
 	}
@@ -173,6 +173,37 @@ func (s *SearchChatRecentLocationMessagesRequest) EncodeTDLibJSON(b *jsontd.Enco
 	b.PutInt32(s.Limit)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SearchChatRecentLocationMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchChatRecentLocationMessages#38a37ee6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("searchChatRecentLocationMessages"); err != nil {
+				return fmt.Errorf("unable to decode searchChatRecentLocationMessages#38a37ee6: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatRecentLocationMessages#38a37ee6: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchChatRecentLocationMessages#38a37ee6: field limit: %w", err)
+			}
+			s.Limit = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

@@ -143,8 +143,8 @@ func (g *GetBasicGroupRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetBasicGroupRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetBasicGroupRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getBasicGroup#217c03d0 as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetBasicGroupRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(g.BasicGroupID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetBasicGroupRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getBasicGroup#217c03d0 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getBasicGroup"); err != nil {
+				return fmt.Errorf("unable to decode getBasicGroup#217c03d0: %w", err)
+			}
+		case "basic_group_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getBasicGroup#217c03d0: field basic_group_id: %w", err)
+			}
+			g.BasicGroupID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetBasicGroupID returns value of BasicGroupID field.

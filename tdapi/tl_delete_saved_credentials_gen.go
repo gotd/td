@@ -125,8 +125,8 @@ func (d *DeleteSavedCredentialsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DeleteSavedCredentialsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DeleteSavedCredentialsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteSavedCredentials#314056d2 as nil")
 	}
@@ -134,6 +134,25 @@ func (d *DeleteSavedCredentialsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error
 	b.PutID("deleteSavedCredentials")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DeleteSavedCredentialsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deleteSavedCredentials#314056d2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("deleteSavedCredentials"); err != nil {
+				return fmt.Errorf("unable to decode deleteSavedCredentials#314056d2: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // DeleteSavedCredentials invokes method deleteSavedCredentials#314056d2 returning error if any.

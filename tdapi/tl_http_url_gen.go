@@ -143,8 +143,8 @@ func (h *HTTPURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes h in TDLib API JSON format.
-func (h *HTTPURL) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (h *HTTPURL) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if h == nil {
 		return fmt.Errorf("can't encode httpUrl#87b775a6 as nil")
 	}
@@ -154,6 +154,31 @@ func (h *HTTPURL) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(h.URL)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (h *HTTPURL) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if h == nil {
+		return fmt.Errorf("can't decode httpUrl#87b775a6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("httpUrl"); err != nil {
+				return fmt.Errorf("unable to decode httpUrl#87b775a6: %w", err)
+			}
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode httpUrl#87b775a6: field url: %w", err)
+			}
+			h.URL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetURL returns value of URL field.

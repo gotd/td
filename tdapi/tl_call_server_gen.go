@@ -34,7 +34,7 @@ var (
 // CallServer represents TL type `callServer#6f37df97`.
 type CallServer struct {
 	// Server identifier
-	ID Int64
+	ID int64
 	// Server IPv4 address
 	IPAddress string
 	// Server IPv6 address
@@ -60,7 +60,7 @@ func (c *CallServer) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.ID.Zero()) {
+	if !(c.ID == 0) {
 		return false
 	}
 	if !(c.IPAddress == "") {
@@ -149,9 +149,7 @@ func (c *CallServer) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callServer#6f37df97 as nil")
 	}
-	if err := c.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode callServer#6f37df97: field id: %w", err)
-	}
+	b.PutLong(c.ID)
 	b.PutString(c.IPAddress)
 	b.PutString(c.Ipv6Address)
 	b.PutInt32(c.Port)
@@ -181,9 +179,11 @@ func (c *CallServer) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode callServer#6f37df97 to nil")
 	}
 	{
-		if err := c.ID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode callServer#6f37df97: field id: %w", err)
 		}
+		c.ID = value
 	}
 	{
 		value, err := b.String()
@@ -216,17 +216,15 @@ func (c *CallServer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CallServer) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CallServer) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode callServer#6f37df97 as nil")
 	}
 	b.ObjStart()
 	b.PutID("callServer")
 	b.FieldStart("id")
-	if err := c.ID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode callServer#6f37df97: field id: %w", err)
-	}
+	b.PutLong(c.ID)
 	b.FieldStart("ip_address")
 	b.PutString(c.IPAddress)
 	b.FieldStart("ipv6_address")
@@ -244,8 +242,57 @@ func (c *CallServer) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CallServer) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode callServer#6f37df97 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("callServer"); err != nil {
+				return fmt.Errorf("unable to decode callServer#6f37df97: %w", err)
+			}
+		case "id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode callServer#6f37df97: field id: %w", err)
+			}
+			c.ID = value
+		case "ip_address":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode callServer#6f37df97: field ip_address: %w", err)
+			}
+			c.IPAddress = value
+		case "ipv6_address":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode callServer#6f37df97: field ipv6_address: %w", err)
+			}
+			c.Ipv6Address = value
+		case "port":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode callServer#6f37df97: field port: %w", err)
+			}
+			c.Port = value
+		case "type":
+			value, err := DecodeTDLibJSONCallServerType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode callServer#6f37df97: field type: %w", err)
+			}
+			c.Type = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // GetID returns value of ID field.
-func (c *CallServer) GetID() (value Int64) {
+func (c *CallServer) GetID() (value int64) {
 	return c.ID
 }
 

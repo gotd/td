@@ -237,8 +237,8 @@ func (s *SecretChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SecretChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SecretChat) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode secretChat#7c751eb5 as nil")
 	}
@@ -263,6 +263,61 @@ func (s *SecretChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(s.Layer)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SecretChat) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secretChat#7c751eb5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("secretChat"); err != nil {
+				return fmt.Errorf("unable to decode secretChat#7c751eb5: %w", err)
+			}
+		case "id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode secretChat#7c751eb5: field id: %w", err)
+			}
+			s.ID = value
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode secretChat#7c751eb5: field user_id: %w", err)
+			}
+			s.UserID = value
+		case "state":
+			value, err := DecodeTDLibJSONSecretChatState(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode secretChat#7c751eb5: field state: %w", err)
+			}
+			s.State = value
+		case "is_outbound":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode secretChat#7c751eb5: field is_outbound: %w", err)
+			}
+			s.IsOutbound = value
+		case "key_hash":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode secretChat#7c751eb5: field key_hash: %w", err)
+			}
+			s.KeyHash = value
+		case "layer":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode secretChat#7c751eb5: field layer: %w", err)
+			}
+			s.Layer = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

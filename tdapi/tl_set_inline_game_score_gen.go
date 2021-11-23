@@ -212,8 +212,8 @@ func (s *SetInlineGameScoreRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetInlineGameScoreRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetInlineGameScoreRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setInlineGameScore#2d34ce9f as nil")
 	}
@@ -231,6 +231,55 @@ func (s *SetInlineGameScoreRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(s.Force)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetInlineGameScoreRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setInlineGameScore#2d34ce9f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setInlineGameScore"); err != nil {
+				return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: %w", err)
+			}
+		case "inline_message_id":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field inline_message_id: %w", err)
+			}
+			s.InlineMessageID = value
+		case "edit_message":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field edit_message: %w", err)
+			}
+			s.EditMessage = value
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field user_id: %w", err)
+			}
+			s.UserID = value
+		case "score":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field score: %w", err)
+			}
+			s.Score = value
+		case "force":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field force: %w", err)
+			}
+			s.Force = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetInlineMessageID returns value of InlineMessageID field.

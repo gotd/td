@@ -161,8 +161,8 @@ func (g *GetExternalLinkRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetExternalLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetExternalLinkRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getExternalLink#5e92f0eb as nil")
 	}
@@ -174,6 +174,37 @@ func (g *GetExternalLinkRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(g.AllowWriteAccess)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetExternalLinkRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getExternalLink#5e92f0eb to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getExternalLink"); err != nil {
+				return fmt.Errorf("unable to decode getExternalLink#5e92f0eb: %w", err)
+			}
+		case "link":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getExternalLink#5e92f0eb: field link: %w", err)
+			}
+			g.Link = value
+		case "allow_write_access":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getExternalLink#5e92f0eb: field allow_write_access: %w", err)
+			}
+			g.AllowWriteAccess = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetLink returns value of Link field.

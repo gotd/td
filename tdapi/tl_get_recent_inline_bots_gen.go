@@ -125,8 +125,8 @@ func (g *GetRecentInlineBotsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetRecentInlineBotsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetRecentInlineBotsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getRecentInlineBots#55b3723c as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetRecentInlineBotsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("getRecentInlineBots")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetRecentInlineBotsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getRecentInlineBots#55b3723c to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getRecentInlineBots"); err != nil {
+				return fmt.Errorf("unable to decode getRecentInlineBots#55b3723c: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetRecentInlineBots invokes method getRecentInlineBots#55b3723c returning error if any.

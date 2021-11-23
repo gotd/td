@@ -125,8 +125,8 @@ func (g *GetTemporaryPasswordStateRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetTemporaryPasswordStateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetTemporaryPasswordStateRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getTemporaryPasswordState#ff3ea892 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetTemporaryPasswordStateRequest) EncodeTDLibJSON(b *jsontd.Encoder) er
 	b.PutID("getTemporaryPasswordState")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetTemporaryPasswordStateRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getTemporaryPasswordState#ff3ea892 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getTemporaryPasswordState"); err != nil {
+				return fmt.Errorf("unable to decode getTemporaryPasswordState#ff3ea892: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetTemporaryPasswordState invokes method getTemporaryPasswordState#ff3ea892 returning error if any.

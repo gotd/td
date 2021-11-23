@@ -42,7 +42,7 @@ type DiscardCallRequest struct {
 	// True, if the call was a video call
 	IsVideo bool
 	// Identifier of the connection used during the call
-	ConnectionID Int64
+	ConnectionID int64
 }
 
 // DiscardCallRequestTypeID is TL type id of DiscardCallRequest.
@@ -72,7 +72,7 @@ func (d *DiscardCallRequest) Zero() bool {
 	if !(d.IsVideo == false) {
 		return false
 	}
-	if !(d.ConnectionID.Zero()) {
+	if !(d.ConnectionID == 0) {
 		return false
 	}
 
@@ -153,9 +153,7 @@ func (d *DiscardCallRequest) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(d.IsDisconnected)
 	b.PutInt32(d.Duration)
 	b.PutBool(d.IsVideo)
-	if err := d.ConnectionID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode discardCall#95a9a57e: field connection_id: %w", err)
-	}
+	b.PutLong(d.ConnectionID)
 	return nil
 }
 
@@ -204,15 +202,17 @@ func (d *DiscardCallRequest) DecodeBare(b *bin.Buffer) error {
 		d.IsVideo = value
 	}
 	{
-		if err := d.ConnectionID.Decode(b); err != nil {
+		value, err := b.Long()
+		if err != nil {
 			return fmt.Errorf("unable to decode discardCall#95a9a57e: field connection_id: %w", err)
 		}
+		d.ConnectionID = value
 	}
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DiscardCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DiscardCallRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode discardCall#95a9a57e as nil")
 	}
@@ -227,11 +227,58 @@ func (d *DiscardCallRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.FieldStart("is_video")
 	b.PutBool(d.IsVideo)
 	b.FieldStart("connection_id")
-	if err := d.ConnectionID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode discardCall#95a9a57e: field connection_id: %w", err)
-	}
+	b.PutLong(d.ConnectionID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DiscardCallRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode discardCall#95a9a57e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("discardCall"); err != nil {
+				return fmt.Errorf("unable to decode discardCall#95a9a57e: %w", err)
+			}
+		case "call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode discardCall#95a9a57e: field call_id: %w", err)
+			}
+			d.CallID = value
+		case "is_disconnected":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode discardCall#95a9a57e: field is_disconnected: %w", err)
+			}
+			d.IsDisconnected = value
+		case "duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode discardCall#95a9a57e: field duration: %w", err)
+			}
+			d.Duration = value
+		case "is_video":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode discardCall#95a9a57e: field is_video: %w", err)
+			}
+			d.IsVideo = value
+		case "connection_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode discardCall#95a9a57e: field connection_id: %w", err)
+			}
+			d.ConnectionID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCallID returns value of CallID field.
@@ -255,7 +302,7 @@ func (d *DiscardCallRequest) GetIsVideo() (value bool) {
 }
 
 // GetConnectionID returns value of ConnectionID field.
-func (d *DiscardCallRequest) GetConnectionID() (value Int64) {
+func (d *DiscardCallRequest) GetConnectionID() (value int64) {
 	return d.ConnectionID
 }
 

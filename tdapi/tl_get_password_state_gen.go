@@ -125,8 +125,8 @@ func (g *GetPasswordStateRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetPasswordStateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetPasswordStateRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getPasswordState#f5957b78 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetPasswordStateRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("getPasswordState")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetPasswordStateRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getPasswordState#f5957b78 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getPasswordState"); err != nil {
+				return fmt.Errorf("unable to decode getPasswordState#f5957b78: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPasswordState invokes method getPasswordState#f5957b78 returning error if any.

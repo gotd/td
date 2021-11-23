@@ -195,8 +195,8 @@ func (p *PinChatMessageRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PinChatMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PinChatMessageRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pinChatMessage#79475baf as nil")
 	}
@@ -212,6 +212,49 @@ func (p *PinChatMessageRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(p.OnlyForSelf)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PinChatMessageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pinChatMessage#79475baf to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("pinChatMessage"); err != nil {
+				return fmt.Errorf("unable to decode pinChatMessage#79475baf: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode pinChatMessage#79475baf: field chat_id: %w", err)
+			}
+			p.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode pinChatMessage#79475baf: field message_id: %w", err)
+			}
+			p.MessageID = value
+		case "disable_notification":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode pinChatMessage#79475baf: field disable_notification: %w", err)
+			}
+			p.DisableNotification = value
+		case "only_for_self":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode pinChatMessage#79475baf: field only_for_self: %w", err)
+			}
+			p.OnlyForSelf = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

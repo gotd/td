@@ -220,8 +220,8 @@ func (m *MessageForwardInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MessageForwardInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MessageForwardInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageForwardInfo#ec7dcac8 as nil")
 	}
@@ -244,6 +244,55 @@ func (m *MessageForwardInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(m.FromMessageID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MessageForwardInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageForwardInfo#ec7dcac8 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("messageForwardInfo"); err != nil {
+				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: %w", err)
+			}
+		case "origin":
+			value, err := DecodeTDLibJSONMessageForwardOrigin(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field origin: %w", err)
+			}
+			m.Origin = value
+		case "date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field date: %w", err)
+			}
+			m.Date = value
+		case "public_service_announcement_type":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field public_service_announcement_type: %w", err)
+			}
+			m.PublicServiceAnnouncementType = value
+		case "from_chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field from_chat_id: %w", err)
+			}
+			m.FromChatID = value
+		case "from_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field from_message_id: %w", err)
+			}
+			m.FromMessageID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetOrigin returns value of Origin field.

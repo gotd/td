@@ -182,8 +182,8 @@ func (s *SetGroupCallParticipantVolumeLevelRequest) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetGroupCallParticipantVolumeLevelRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetGroupCallParticipantVolumeLevelRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setGroupCallParticipantVolumeLevel#97779828 as nil")
 	}
@@ -202,6 +202,43 @@ func (s *SetGroupCallParticipantVolumeLevelRequest) EncodeTDLibJSON(b *jsontd.En
 	b.PutInt32(s.VolumeLevel)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetGroupCallParticipantVolumeLevelRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setGroupCallParticipantVolumeLevel#97779828 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setGroupCallParticipantVolumeLevel"); err != nil {
+				return fmt.Errorf("unable to decode setGroupCallParticipantVolumeLevel#97779828: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setGroupCallParticipantVolumeLevel#97779828: field group_call_id: %w", err)
+			}
+			s.GroupCallID = value
+		case "participant_id":
+			value, err := DecodeTDLibJSONMessageSender(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setGroupCallParticipantVolumeLevel#97779828: field participant_id: %w", err)
+			}
+			s.ParticipantID = value
+		case "volume_level":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setGroupCallParticipantVolumeLevel#97779828: field volume_level: %w", err)
+			}
+			s.VolumeLevel = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

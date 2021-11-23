@@ -199,8 +199,8 @@ func (e *EditMessageCaptionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes e in TDLib API JSON format.
-func (e *EditMessageCaptionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (e *EditMessageCaptionRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editMessageCaption#44d2f92e as nil")
 	}
@@ -223,6 +223,47 @@ func (e *EditMessageCaptionRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (e *EditMessageCaptionRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if e == nil {
+		return fmt.Errorf("can't decode editMessageCaption#44d2f92e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("editMessageCaption"); err != nil {
+				return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: field chat_id: %w", err)
+			}
+			e.ChatID = value
+		case "message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: field message_id: %w", err)
+			}
+			e.MessageID = value
+		case "reply_markup":
+			value, err := DecodeTDLibJSONReplyMarkup(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: field reply_markup: %w", err)
+			}
+			e.ReplyMarkup = value
+		case "caption":
+			if err := e.Caption.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode editMessageCaption#44d2f92e: field caption: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

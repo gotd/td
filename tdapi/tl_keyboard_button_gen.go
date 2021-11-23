@@ -165,8 +165,8 @@ func (k *KeyboardButton) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes k in TDLib API JSON format.
-func (k *KeyboardButton) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (k *KeyboardButton) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if k == nil {
 		return fmt.Errorf("can't encode keyboardButton#84a0ce74 as nil")
 	}
@@ -183,6 +183,37 @@ func (k *KeyboardButton) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (k *KeyboardButton) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButton#84a0ce74 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("keyboardButton"); err != nil {
+				return fmt.Errorf("unable to decode keyboardButton#84a0ce74: %w", err)
+			}
+		case "text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButton#84a0ce74: field text: %w", err)
+			}
+			k.Text = value
+		case "type":
+			value, err := DecodeTDLibJSONKeyboardButtonType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButton#84a0ce74: field type: %w", err)
+			}
+			k.Type = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetText returns value of Text field.

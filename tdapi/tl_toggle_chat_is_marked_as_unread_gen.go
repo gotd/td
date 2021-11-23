@@ -160,8 +160,8 @@ func (t *ToggleChatIsMarkedAsUnreadRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *ToggleChatIsMarkedAsUnreadRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *ToggleChatIsMarkedAsUnreadRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleChatIsMarkedAsUnread#c538dadf as nil")
 	}
@@ -173,6 +173,37 @@ func (t *ToggleChatIsMarkedAsUnreadRequest) EncodeTDLibJSON(b *jsontd.Encoder) e
 	b.PutBool(t.IsMarkedAsUnread)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *ToggleChatIsMarkedAsUnreadRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode toggleChatIsMarkedAsUnread#c538dadf to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("toggleChatIsMarkedAsUnread"); err != nil {
+				return fmt.Errorf("unable to decode toggleChatIsMarkedAsUnread#c538dadf: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleChatIsMarkedAsUnread#c538dadf: field chat_id: %w", err)
+			}
+			t.ChatID = value
+		case "is_marked_as_unread":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleChatIsMarkedAsUnread#c538dadf: field is_marked_as_unread: %w", err)
+			}
+			t.IsMarkedAsUnread = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

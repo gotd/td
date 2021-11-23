@@ -211,8 +211,8 @@ func (s *SetPasswordRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetPasswordRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetPasswordRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setPassword#b8db46dd as nil")
 	}
@@ -230,6 +230,55 @@ func (s *SetPasswordRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(s.NewRecoveryEmailAddress)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetPasswordRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setPassword#b8db46dd to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setPassword"); err != nil {
+				return fmt.Errorf("unable to decode setPassword#b8db46dd: %w", err)
+			}
+		case "old_password":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setPassword#b8db46dd: field old_password: %w", err)
+			}
+			s.OldPassword = value
+		case "new_password":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setPassword#b8db46dd: field new_password: %w", err)
+			}
+			s.NewPassword = value
+		case "new_hint":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setPassword#b8db46dd: field new_hint: %w", err)
+			}
+			s.NewHint = value
+		case "set_recovery_email_address":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setPassword#b8db46dd: field set_recovery_email_address: %w", err)
+			}
+			s.SetRecoveryEmailAddress = value
+		case "new_recovery_email_address":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setPassword#b8db46dd: field new_recovery_email_address: %w", err)
+			}
+			s.NewRecoveryEmailAddress = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetOldPassword returns value of OldPassword field.

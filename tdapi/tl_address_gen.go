@@ -228,8 +228,8 @@ func (a *Address) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *Address) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *Address) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode address#86304f3a as nil")
 	}
@@ -249,6 +249,61 @@ func (a *Address) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(a.PostalCode)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *Address) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode address#86304f3a to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("address"); err != nil {
+				return fmt.Errorf("unable to decode address#86304f3a: %w", err)
+			}
+		case "country_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode address#86304f3a: field country_code: %w", err)
+			}
+			a.CountryCode = value
+		case "state":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode address#86304f3a: field state: %w", err)
+			}
+			a.State = value
+		case "city":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode address#86304f3a: field city: %w", err)
+			}
+			a.City = value
+		case "street_line1":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode address#86304f3a: field street_line1: %w", err)
+			}
+			a.StreetLine1 = value
+		case "street_line2":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode address#86304f3a: field street_line2: %w", err)
+			}
+			a.StreetLine2 = value
+		case "postal_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode address#86304f3a: field postal_code: %w", err)
+			}
+			a.PostalCode = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetCountryCode returns value of CountryCode field.

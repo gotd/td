@@ -160,8 +160,8 @@ func (s *StartGroupCallRecordingRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *StartGroupCallRecordingRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *StartGroupCallRecordingRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode startGroupCallRecording#efd6f310 as nil")
 	}
@@ -173,6 +173,37 @@ func (s *StartGroupCallRecordingRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutString(s.Title)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *StartGroupCallRecordingRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode startGroupCallRecording#efd6f310 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("startGroupCallRecording"); err != nil {
+				return fmt.Errorf("unable to decode startGroupCallRecording#efd6f310: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode startGroupCallRecording#efd6f310: field group_call_id: %w", err)
+			}
+			s.GroupCallID = value
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode startGroupCallRecording#efd6f310: field title: %w", err)
+			}
+			s.Title = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

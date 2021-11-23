@@ -143,8 +143,8 @@ func (g *GetNetworkStatisticsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetNetworkStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetNetworkStatisticsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getNetworkStatistics#c537581e as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetNetworkStatisticsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(g.OnlyCurrent)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetNetworkStatisticsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getNetworkStatistics#c537581e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getNetworkStatistics"); err != nil {
+				return fmt.Errorf("unable to decode getNetworkStatistics#c537581e: %w", err)
+			}
+		case "only_current":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getNetworkStatistics#c537581e: field only_current: %w", err)
+			}
+			g.OnlyCurrent = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetOnlyCurrent returns value of OnlyCurrent field.

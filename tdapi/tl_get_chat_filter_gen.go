@@ -143,8 +143,8 @@ func (g *GetChatFilterRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetChatFilterRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetChatFilterRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatFilter#6cdb65eb as nil")
 	}
@@ -154,6 +154,31 @@ func (g *GetChatFilterRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(g.ChatFilterID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetChatFilterRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getChatFilter#6cdb65eb to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getChatFilter"); err != nil {
+				return fmt.Errorf("unable to decode getChatFilter#6cdb65eb: %w", err)
+			}
+		case "chat_filter_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatFilter#6cdb65eb: field chat_filter_id: %w", err)
+			}
+			g.ChatFilterID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatFilterID returns value of ChatFilterID field.

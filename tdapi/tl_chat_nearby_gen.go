@@ -160,8 +160,8 @@ func (c *ChatNearby) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatNearby) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatNearby) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatNearby#2de4255 as nil")
 	}
@@ -173,6 +173,37 @@ func (c *ChatNearby) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(c.Distance)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatNearby) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatNearby#2de4255 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatNearby"); err != nil {
+				return fmt.Errorf("unable to decode chatNearby#2de4255: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatNearby#2de4255: field chat_id: %w", err)
+			}
+			c.ChatID = value
+		case "distance":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatNearby#2de4255: field distance: %w", err)
+			}
+			c.Distance = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

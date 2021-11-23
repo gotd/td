@@ -296,8 +296,8 @@ func (s *SearchMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SearchMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SearchMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessages#f2938192 as nil")
 	}
@@ -333,6 +333,79 @@ func (s *SearchMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(s.MaxDate)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SearchMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchMessages#f2938192 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("searchMessages"); err != nil {
+				return fmt.Errorf("unable to decode searchMessages#f2938192: %w", err)
+			}
+		case "chat_list":
+			value, err := DecodeTDLibJSONChatList(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode searchMessages#f2938192: field chat_list: %w", err)
+			}
+			s.ChatList = value
+		case "query":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchMessages#f2938192: field query: %w", err)
+			}
+			s.Query = value
+		case "offset_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchMessages#f2938192: field offset_date: %w", err)
+			}
+			s.OffsetDate = value
+		case "offset_chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchMessages#f2938192: field offset_chat_id: %w", err)
+			}
+			s.OffsetChatID = value
+		case "offset_message_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchMessages#f2938192: field offset_message_id: %w", err)
+			}
+			s.OffsetMessageID = value
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchMessages#f2938192: field limit: %w", err)
+			}
+			s.Limit = value
+		case "filter":
+			value, err := DecodeTDLibJSONSearchMessagesFilter(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode searchMessages#f2938192: field filter: %w", err)
+			}
+			s.Filter = value
+		case "min_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchMessages#f2938192: field min_date: %w", err)
+			}
+			s.MinDate = value
+		case "max_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode searchMessages#f2938192: field max_date: %w", err)
+			}
+			s.MaxDate = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatList returns value of ChatList field.

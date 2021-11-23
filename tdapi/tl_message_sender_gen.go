@@ -148,8 +148,8 @@ func (m *MessageSenderUser) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MessageSenderUser) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MessageSenderUser) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageSenderUser#622d1725 as nil")
 	}
@@ -159,6 +159,31 @@ func (m *MessageSenderUser) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(m.UserID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MessageSenderUser) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSenderUser#622d1725 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("messageSenderUser"); err != nil {
+				return fmt.Errorf("unable to decode messageSenderUser#622d1725: %w", err)
+			}
+		case "user_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageSenderUser#622d1725: field user_id: %w", err)
+			}
+			m.UserID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserID returns value of UserID field.
@@ -283,8 +308,8 @@ func (m *MessageSenderChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MessageSenderChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MessageSenderChat) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageSenderChat#f1b71131 as nil")
 	}
@@ -294,6 +319,31 @@ func (m *MessageSenderChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(m.ChatID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MessageSenderChat) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSenderChat#f1b71131 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("messageSenderChat"); err != nil {
+				return fmt.Errorf("unable to decode messageSenderChat#f1b71131: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageSenderChat#f1b71131: field chat_id: %w", err)
+			}
+			m.ChatID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.
@@ -330,7 +380,9 @@ type MessageSenderClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeMessageSender implements binary de-serialization for MessageSenderClass.
@@ -359,6 +411,32 @@ func DecodeMessageSender(buf *bin.Buffer) (MessageSenderClass, error) {
 	}
 }
 
+// DecodeTDLibJSONMessageSender implements binary de-serialization for MessageSenderClass.
+func DecodeTDLibJSONMessageSender(buf jsontd.Decoder) (MessageSenderClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "messageSenderUser":
+		// Decoding messageSenderUser#622d1725.
+		v := MessageSenderUser{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageSenderClass: %w", err)
+		}
+		return &v, nil
+	case "messageSenderChat":
+		// Decoding messageSenderChat#f1b71131.
+		v := MessageSenderChat{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageSenderClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode MessageSenderClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // MessageSender boxes the MessageSenderClass providing a helper.
 type MessageSenderBox struct {
 	MessageSender MessageSenderClass
@@ -383,4 +461,25 @@ func (b *MessageSenderBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessageSenderClass as nil")
 	}
 	return b.MessageSender.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for MessageSenderBox.
+func (b *MessageSenderBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessageSenderBox to nil")
+	}
+	v, err := DecodeTDLibJSONMessageSender(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessageSender = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for MessageSenderBox.
+func (b *MessageSenderBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.MessageSender == nil {
+		return fmt.Errorf("unable to encode MessageSenderClass as nil")
+	}
+	return b.MessageSender.EncodeTDLibJSON(buf)
 }

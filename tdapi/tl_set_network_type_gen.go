@@ -148,8 +148,8 @@ func (s *SetNetworkTypeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetNetworkTypeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetNetworkTypeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setNetworkType#d62de55e as nil")
 	}
@@ -164,6 +164,31 @@ func (s *SetNetworkTypeRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetNetworkTypeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setNetworkType#d62de55e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setNetworkType"); err != nil {
+				return fmt.Errorf("unable to decode setNetworkType#d62de55e: %w", err)
+			}
+		case "type":
+			value, err := DecodeTDLibJSONNetworkType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setNetworkType#d62de55e: field type: %w", err)
+			}
+			s.Type = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetType returns value of Type field.

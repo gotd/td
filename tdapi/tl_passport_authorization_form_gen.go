@@ -193,8 +193,8 @@ func (p *PassportAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PassportAuthorizationForm) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PassportAuthorizationForm) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportAuthorizationForm#3fe28cb0 as nil")
 	}
@@ -214,6 +214,48 @@ func (p *PassportAuthorizationForm) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(p.PrivacyPolicyURL)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PassportAuthorizationForm) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode passportAuthorizationForm#3fe28cb0 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("passportAuthorizationForm"); err != nil {
+				return fmt.Errorf("unable to decode passportAuthorizationForm#3fe28cb0: %w", err)
+			}
+		case "id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode passportAuthorizationForm#3fe28cb0: field id: %w", err)
+			}
+			p.ID = value
+		case "required_elements":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value PassportRequiredElement
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode passportAuthorizationForm#3fe28cb0: field required_elements: %w", err)
+				}
+				p.RequiredElements = append(p.RequiredElements, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode passportAuthorizationForm#3fe28cb0: field required_elements: %w", err)
+			}
+		case "privacy_policy_url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode passportAuthorizationForm#3fe28cb0: field privacy_policy_url: %w", err)
+			}
+			p.PrivacyPolicyURL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetID returns value of ID field.

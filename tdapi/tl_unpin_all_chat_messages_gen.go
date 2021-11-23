@@ -143,8 +143,8 @@ func (u *UnpinAllChatMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UnpinAllChatMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UnpinAllChatMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode unpinAllChatMessages#aa4cd4b7 as nil")
 	}
@@ -154,6 +154,31 @@ func (u *UnpinAllChatMessagesRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(u.ChatID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UnpinAllChatMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode unpinAllChatMessages#aa4cd4b7 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("unpinAllChatMessages"); err != nil {
+				return fmt.Errorf("unable to decode unpinAllChatMessages#aa4cd4b7: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode unpinAllChatMessages#aa4cd4b7: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

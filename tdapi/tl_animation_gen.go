@@ -280,8 +280,8 @@ func (a *Animation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *Animation) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *Animation) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode animation#cc00db3e as nil")
 	}
@@ -313,6 +313,73 @@ func (a *Animation) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *Animation) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode animation#cc00db3e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("animation"); err != nil {
+				return fmt.Errorf("unable to decode animation#cc00db3e: %w", err)
+			}
+		case "duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode animation#cc00db3e: field duration: %w", err)
+			}
+			a.Duration = value
+		case "width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode animation#cc00db3e: field width: %w", err)
+			}
+			a.Width = value
+		case "height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode animation#cc00db3e: field height: %w", err)
+			}
+			a.Height = value
+		case "file_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode animation#cc00db3e: field file_name: %w", err)
+			}
+			a.FileName = value
+		case "mime_type":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode animation#cc00db3e: field mime_type: %w", err)
+			}
+			a.MimeType = value
+		case "has_stickers":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode animation#cc00db3e: field has_stickers: %w", err)
+			}
+			a.HasStickers = value
+		case "minithumbnail":
+			if err := a.Minithumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode animation#cc00db3e: field minithumbnail: %w", err)
+			}
+		case "thumbnail":
+			if err := a.Thumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode animation#cc00db3e: field thumbnail: %w", err)
+			}
+		case "animation":
+			if err := a.Animation.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode animation#cc00db3e: field animation: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetDuration returns value of Duration field.

@@ -160,8 +160,8 @@ func (r *RecommendedChatFilter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RecommendedChatFilter) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RecommendedChatFilter) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode recommendedChatFilter#2260ee2 as nil")
 	}
@@ -175,6 +175,35 @@ func (r *RecommendedChatFilter) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutString(r.Description)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RecommendedChatFilter) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode recommendedChatFilter#2260ee2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("recommendedChatFilter"); err != nil {
+				return fmt.Errorf("unable to decode recommendedChatFilter#2260ee2: %w", err)
+			}
+		case "filter":
+			if err := r.Filter.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode recommendedChatFilter#2260ee2: field filter: %w", err)
+			}
+		case "description":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode recommendedChatFilter#2260ee2: field description: %w", err)
+			}
+			r.Description = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFilter returns value of Filter field.

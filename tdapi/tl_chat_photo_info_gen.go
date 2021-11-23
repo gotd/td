@@ -196,8 +196,8 @@ func (c *ChatPhotoInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *ChatPhotoInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *ChatPhotoInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatPhotoInfo#9f51bb6 as nil")
 	}
@@ -219,6 +219,43 @@ func (c *ChatPhotoInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(c.HasAnimation)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *ChatPhotoInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatPhotoInfo#9f51bb6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("chatPhotoInfo"); err != nil {
+				return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: %w", err)
+			}
+		case "small":
+			if err := c.Small.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: field small: %w", err)
+			}
+		case "big":
+			if err := c.Big.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: field big: %w", err)
+			}
+		case "minithumbnail":
+			if err := c.Minithumbnail.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: field minithumbnail: %w", err)
+			}
+		case "has_animation":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: field has_animation: %w", err)
+			}
+			c.HasAnimation = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSmall returns value of Small field.

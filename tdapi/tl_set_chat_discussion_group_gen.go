@@ -162,8 +162,8 @@ func (s *SetChatDiscussionGroupRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetChatDiscussionGroupRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetChatDiscussionGroupRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatDiscussionGroup#c93c32b8 as nil")
 	}
@@ -175,6 +175,37 @@ func (s *SetChatDiscussionGroupRequest) EncodeTDLibJSON(b *jsontd.Encoder) error
 	b.PutLong(s.DiscussionChatID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetChatDiscussionGroupRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setChatDiscussionGroup#c93c32b8 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setChatDiscussionGroup"); err != nil {
+				return fmt.Errorf("unable to decode setChatDiscussionGroup#c93c32b8: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setChatDiscussionGroup#c93c32b8: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "discussion_chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setChatDiscussionGroup#c93c32b8: field discussion_chat_id: %w", err)
+			}
+			s.DiscussionChatID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

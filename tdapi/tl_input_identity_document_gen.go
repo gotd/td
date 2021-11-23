@@ -261,8 +261,8 @@ func (i *InputIdentityDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes i in TDLib API JSON format.
-func (i *InputIdentityDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (i *InputIdentityDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputIdentityDocument#7cf00afe as nil")
 	}
@@ -308,6 +308,64 @@ func (i *InputIdentityDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (i *InputIdentityDocument) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputIdentityDocument#7cf00afe to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("inputIdentityDocument"); err != nil {
+				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: %w", err)
+			}
+		case "number":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field number: %w", err)
+			}
+			i.Number = value
+		case "expiry_date":
+			if err := i.ExpiryDate.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field expiry_date: %w", err)
+			}
+		case "front_side":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field front_side: %w", err)
+			}
+			i.FrontSide = value
+		case "reverse_side":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field reverse_side: %w", err)
+			}
+			i.ReverseSide = value
+		case "selfie":
+			value, err := DecodeTDLibJSONInputFile(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field selfie: %w", err)
+			}
+			i.Selfie = value
+		case "translation":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := DecodeTDLibJSONInputFile(b)
+				if err != nil {
+					return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field translation: %w", err)
+				}
+				i.Translation = append(i.Translation, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field translation: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetNumber returns value of Number field.

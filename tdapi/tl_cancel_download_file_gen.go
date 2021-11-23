@@ -161,8 +161,8 @@ func (c *CancelDownloadFileRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CancelDownloadFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CancelDownloadFileRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode cancelDownloadFile#8b8052de as nil")
 	}
@@ -174,6 +174,37 @@ func (c *CancelDownloadFileRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutBool(c.OnlyIfPending)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CancelDownloadFileRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode cancelDownloadFile#8b8052de to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("cancelDownloadFile"); err != nil {
+				return fmt.Errorf("unable to decode cancelDownloadFile#8b8052de: %w", err)
+			}
+		case "file_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode cancelDownloadFile#8b8052de: field file_id: %w", err)
+			}
+			c.FileID = value
+		case "only_if_pending":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode cancelDownloadFile#8b8052de: field only_if_pending: %w", err)
+			}
+			c.OnlyIfPending = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFileID returns value of FileID field.

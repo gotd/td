@@ -173,8 +173,8 @@ func (c *CreateNewBasicGroupChatRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes c in TDLib API JSON format.
-func (c *CreateNewBasicGroupChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (c *CreateNewBasicGroupChatRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createNewBasicGroupChat#11b54293 as nil")
 	}
@@ -190,6 +190,42 @@ func (c *CreateNewBasicGroupChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutString(c.Title)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (c *CreateNewBasicGroupChatRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode createNewBasicGroupChat#11b54293 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("createNewBasicGroupChat"); err != nil {
+				return fmt.Errorf("unable to decode createNewBasicGroupChat#11b54293: %w", err)
+			}
+		case "user_ids":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode createNewBasicGroupChat#11b54293: field user_ids: %w", err)
+				}
+				c.UserIDs = append(c.UserIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode createNewBasicGroupChat#11b54293: field user_ids: %w", err)
+			}
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode createNewBasicGroupChat#11b54293: field title: %w", err)
+			}
+			c.Title = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetUserIDs returns value of UserIDs field.

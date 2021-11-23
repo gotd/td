@@ -211,8 +211,8 @@ func (s *StorageStatisticsFast) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *StorageStatisticsFast) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *StorageStatisticsFast) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode storageStatisticsFast#cb412861 as nil")
 	}
@@ -230,6 +230,55 @@ func (s *StorageStatisticsFast) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutLong(s.LogSize)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *StorageStatisticsFast) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storageStatisticsFast#cb412861 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("storageStatisticsFast"); err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: %w", err)
+			}
+		case "files_size":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: field files_size: %w", err)
+			}
+			s.FilesSize = value
+		case "file_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: field file_count: %w", err)
+			}
+			s.FileCount = value
+		case "database_size":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: field database_size: %w", err)
+			}
+			s.DatabaseSize = value
+		case "language_pack_database_size":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: field language_pack_database_size: %w", err)
+			}
+			s.LanguagePackDatabaseSize = value
+		case "log_size":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: field log_size: %w", err)
+			}
+			s.LogSize = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFilesSize returns value of FilesSize field.

@@ -143,8 +143,8 @@ func (t *TestReturnErrorRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *TestReturnErrorRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *TestReturnErrorRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode testReturnError#1b217cf2 as nil")
 	}
@@ -156,6 +156,29 @@ func (t *TestReturnErrorRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *TestReturnErrorRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testReturnError#1b217cf2 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("testReturnError"); err != nil {
+				return fmt.Errorf("unable to decode testReturnError#1b217cf2: %w", err)
+			}
+		case "error":
+			if err := t.Error.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode testReturnError#1b217cf2: field error: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetError returns value of Error field.

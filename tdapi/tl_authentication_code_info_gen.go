@@ -204,8 +204,8 @@ func (a *AuthenticationCodeInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes a in TDLib API JSON format.
-func (a *AuthenticationCodeInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (a *AuthenticationCodeInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authenticationCodeInfo#ccb82bb8 as nil")
 	}
@@ -231,6 +231,49 @@ func (a *AuthenticationCodeInfo) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(a.Timeout)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (a *AuthenticationCodeInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeInfo#ccb82bb8 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("authenticationCodeInfo"); err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeInfo#ccb82bb8: %w", err)
+			}
+		case "phone_number":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeInfo#ccb82bb8: field phone_number: %w", err)
+			}
+			a.PhoneNumber = value
+		case "type":
+			value, err := DecodeTDLibJSONAuthenticationCodeType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeInfo#ccb82bb8: field type: %w", err)
+			}
+			a.Type = value
+		case "next_type":
+			value, err := DecodeTDLibJSONAuthenticationCodeType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeInfo#ccb82bb8: field next_type: %w", err)
+			}
+			a.NextType = value
+		case "timeout":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeInfo#ccb82bb8: field timeout: %w", err)
+			}
+			a.Timeout = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPhoneNumber returns value of PhoneNumber field.

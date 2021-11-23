@@ -190,8 +190,8 @@ func (p *PersonalDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PersonalDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PersonalDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode personalDocument#a8357e38 as nil")
 	}
@@ -215,6 +215,47 @@ func (p *PersonalDocument) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PersonalDocument) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode personalDocument#a8357e38 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("personalDocument"); err != nil {
+				return fmt.Errorf("unable to decode personalDocument#a8357e38: %w", err)
+			}
+		case "files":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value DatedFile
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode personalDocument#a8357e38: field files: %w", err)
+				}
+				p.Files = append(p.Files, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode personalDocument#a8357e38: field files: %w", err)
+			}
+		case "translation":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value DatedFile
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode personalDocument#a8357e38: field translation: %w", err)
+				}
+				p.Translation = append(p.Translation, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode personalDocument#a8357e38: field translation: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetFiles returns value of Files field.

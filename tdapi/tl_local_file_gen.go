@@ -266,8 +266,8 @@ func (l *LocalFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes l in TDLib API JSON format.
-func (l *LocalFile) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (l *LocalFile) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode localFile#ba7a24c3 as nil")
 	}
@@ -291,6 +291,73 @@ func (l *LocalFile) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(l.DownloadedSize)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (l *LocalFile) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if l == nil {
+		return fmt.Errorf("can't decode localFile#ba7a24c3 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("localFile"); err != nil {
+				return fmt.Errorf("unable to decode localFile#ba7a24c3: %w", err)
+			}
+		case "path":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode localFile#ba7a24c3: field path: %w", err)
+			}
+			l.Path = value
+		case "can_be_downloaded":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode localFile#ba7a24c3: field can_be_downloaded: %w", err)
+			}
+			l.CanBeDownloaded = value
+		case "can_be_deleted":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode localFile#ba7a24c3: field can_be_deleted: %w", err)
+			}
+			l.CanBeDeleted = value
+		case "is_downloading_active":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode localFile#ba7a24c3: field is_downloading_active: %w", err)
+			}
+			l.IsDownloadingActive = value
+		case "is_downloading_completed":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode localFile#ba7a24c3: field is_downloading_completed: %w", err)
+			}
+			l.IsDownloadingCompleted = value
+		case "download_offset":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode localFile#ba7a24c3: field download_offset: %w", err)
+			}
+			l.DownloadOffset = value
+		case "downloaded_prefix_size":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode localFile#ba7a24c3: field downloaded_prefix_size: %w", err)
+			}
+			l.DownloadedPrefixSize = value
+		case "downloaded_size":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode localFile#ba7a24c3: field downloaded_size: %w", err)
+			}
+			l.DownloadedSize = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetPath returns value of Path field.

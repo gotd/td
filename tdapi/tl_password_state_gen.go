@@ -230,8 +230,8 @@ func (p *PasswordState) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes p in TDLib API JSON format.
-func (p *PasswordState) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (p *PasswordState) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passwordState#88b1b6fe as nil")
 	}
@@ -253,6 +253,59 @@ func (p *PasswordState) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(p.PendingResetDate)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (p *PasswordState) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode passwordState#88b1b6fe to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("passwordState"); err != nil {
+				return fmt.Errorf("unable to decode passwordState#88b1b6fe: %w", err)
+			}
+		case "has_password":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode passwordState#88b1b6fe: field has_password: %w", err)
+			}
+			p.HasPassword = value
+		case "password_hint":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode passwordState#88b1b6fe: field password_hint: %w", err)
+			}
+			p.PasswordHint = value
+		case "has_recovery_email_address":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode passwordState#88b1b6fe: field has_recovery_email_address: %w", err)
+			}
+			p.HasRecoveryEmailAddress = value
+		case "has_passport_data":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode passwordState#88b1b6fe: field has_passport_data: %w", err)
+			}
+			p.HasPassportData = value
+		case "recovery_email_address_code_info":
+			if err := p.RecoveryEmailAddressCodeInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode passwordState#88b1b6fe: field recovery_email_address_code_info: %w", err)
+			}
+		case "pending_reset_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode passwordState#88b1b6fe: field pending_reset_date: %w", err)
+			}
+			p.PendingResetDate = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetHasPassword returns value of HasPassword field.

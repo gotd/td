@@ -187,8 +187,8 @@ func (s *SetChatMemberStatusRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetChatMemberStatusRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetChatMemberStatusRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatMemberStatus#4e0171f as nil")
 	}
@@ -212,6 +212,43 @@ func (s *SetChatMemberStatusRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetChatMemberStatusRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setChatMemberStatus#4e0171f to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setChatMemberStatus"); err != nil {
+				return fmt.Errorf("unable to decode setChatMemberStatus#4e0171f: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setChatMemberStatus#4e0171f: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "member_id":
+			value, err := DecodeTDLibJSONMessageSender(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setChatMemberStatus#4e0171f: field member_id: %w", err)
+			}
+			s.MemberID = value
+		case "status":
+			value, err := DecodeTDLibJSONChatMemberStatus(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setChatMemberStatus#4e0171f: field status: %w", err)
+			}
+			s.Status = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

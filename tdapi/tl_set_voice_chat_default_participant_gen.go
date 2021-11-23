@@ -165,8 +165,8 @@ func (s *SetVoiceChatDefaultParticipantRequest) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *SetVoiceChatDefaultParticipantRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *SetVoiceChatDefaultParticipantRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setVoiceChatDefaultParticipant#1f51ee9d as nil")
 	}
@@ -183,6 +183,37 @@ func (s *SetVoiceChatDefaultParticipantRequest) EncodeTDLibJSON(b *jsontd.Encode
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *SetVoiceChatDefaultParticipantRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode setVoiceChatDefaultParticipant#1f51ee9d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("setVoiceChatDefaultParticipant"); err != nil {
+				return fmt.Errorf("unable to decode setVoiceChatDefaultParticipant#1f51ee9d: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode setVoiceChatDefaultParticipant#1f51ee9d: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "default_participant_id":
+			value, err := DecodeTDLibJSONMessageSender(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setVoiceChatDefaultParticipant#1f51ee9d: field default_participant_id: %w", err)
+			}
+			s.DefaultParticipantID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

@@ -209,8 +209,8 @@ func (s *StorageStatisticsByChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes s in TDLib API JSON format.
-func (s *StorageStatisticsByChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (s *StorageStatisticsByChat) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode storageStatisticsByChat#a5498fe4 as nil")
 	}
@@ -232,6 +232,54 @@ func (s *StorageStatisticsByChat) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.ArrEnd()
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (s *StorageStatisticsByChat) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storageStatisticsByChat#a5498fe4 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("storageStatisticsByChat"); err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsByChat#a5498fe4: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsByChat#a5498fe4: field chat_id: %w", err)
+			}
+			s.ChatID = value
+		case "size":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsByChat#a5498fe4: field size: %w", err)
+			}
+			s.Size = value
+		case "count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsByChat#a5498fe4: field count: %w", err)
+			}
+			s.Count = value
+		case "by_file_type":
+			if err := b.Arr(func(b jsontd.Decoder) error {
+				var value StorageStatisticsByFileType
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode storageStatisticsByChat#a5498fe4: field by_file_type: %w", err)
+				}
+				s.ByFileType = append(s.ByFileType, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode storageStatisticsByChat#a5498fe4: field by_file_type: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

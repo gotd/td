@@ -143,8 +143,8 @@ func (u *UpgradeBasicGroupChatToSupergroupChatRequest) DecodeBare(b *bin.Buffer)
 	return nil
 }
 
-// EncodeTDLibJSON encodes u in TDLib API JSON format.
-func (u *UpgradeBasicGroupChatToSupergroupChatRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (u *UpgradeBasicGroupChatToSupergroupChatRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode upgradeBasicGroupChatToSupergroupChat#11e915ba as nil")
 	}
@@ -154,6 +154,31 @@ func (u *UpgradeBasicGroupChatToSupergroupChatRequest) EncodeTDLibJSON(b *jsontd
 	b.PutLong(u.ChatID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (u *UpgradeBasicGroupChatToSupergroupChatRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode upgradeBasicGroupChatToSupergroupChat#11e915ba to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("upgradeBasicGroupChatToSupergroupChat"); err != nil {
+				return fmt.Errorf("unable to decode upgradeBasicGroupChatToSupergroupChat#11e915ba: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode upgradeBasicGroupChatToSupergroupChat#11e915ba: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetChatID returns value of ChatID field.

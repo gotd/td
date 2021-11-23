@@ -130,8 +130,8 @@ func (m *MaskPointForehead) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MaskPointForehead) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MaskPointForehead) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode maskPointForehead#3d3e96c5 as nil")
 	}
@@ -139,6 +139,25 @@ func (m *MaskPointForehead) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("maskPointForehead")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MaskPointForehead) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode maskPointForehead#3d3e96c5 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("maskPointForehead"); err != nil {
+				return fmt.Errorf("unable to decode maskPointForehead#3d3e96c5: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // MaskPointEyes represents TL type `maskPointEyes#68351b4d`.
@@ -240,8 +259,8 @@ func (m *MaskPointEyes) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MaskPointEyes) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MaskPointEyes) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode maskPointEyes#68351b4d as nil")
 	}
@@ -249,6 +268,25 @@ func (m *MaskPointEyes) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("maskPointEyes")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MaskPointEyes) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode maskPointEyes#68351b4d to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("maskPointEyes"); err != nil {
+				return fmt.Errorf("unable to decode maskPointEyes#68351b4d: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // MaskPointMouth represents TL type `maskPointMouth#188b29de`.
@@ -350,8 +388,8 @@ func (m *MaskPointMouth) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MaskPointMouth) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MaskPointMouth) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode maskPointMouth#188b29de as nil")
 	}
@@ -359,6 +397,25 @@ func (m *MaskPointMouth) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("maskPointMouth")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MaskPointMouth) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode maskPointMouth#188b29de to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("maskPointMouth"); err != nil {
+				return fmt.Errorf("unable to decode maskPointMouth#188b29de: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // MaskPointChin represents TL type `maskPointChin#1fe36187`.
@@ -460,8 +517,8 @@ func (m *MaskPointChin) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MaskPointChin) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MaskPointChin) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode maskPointChin#1fe36187 as nil")
 	}
@@ -469,6 +526,25 @@ func (m *MaskPointChin) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutID("maskPointChin")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MaskPointChin) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode maskPointChin#1fe36187 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("maskPointChin"); err != nil {
+				return fmt.Errorf("unable to decode maskPointChin#1fe36187: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // MaskPointClass represents MaskPoint generic type.
@@ -502,7 +578,9 @@ type MaskPointClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-	EncodeTDLibJSON(b *jsontd.Encoder) error
+
+	EncodeTDLibJSON(b jsontd.Encoder) error
+	DecodeTDLibJSON(b jsontd.Decoder) error
 }
 
 // DecodeMaskPoint implements binary de-serialization for MaskPointClass.
@@ -545,6 +623,46 @@ func DecodeMaskPoint(buf *bin.Buffer) (MaskPointClass, error) {
 	}
 }
 
+// DecodeTDLibJSONMaskPoint implements binary de-serialization for MaskPointClass.
+func DecodeTDLibJSONMaskPoint(buf jsontd.Decoder) (MaskPointClass, error) {
+	id, err := buf.FindTypeID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case "maskPointForehead":
+		// Decoding maskPointForehead#3d3e96c5.
+		v := MaskPointForehead{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MaskPointClass: %w", err)
+		}
+		return &v, nil
+	case "maskPointEyes":
+		// Decoding maskPointEyes#68351b4d.
+		v := MaskPointEyes{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MaskPointClass: %w", err)
+		}
+		return &v, nil
+	case "maskPointMouth":
+		// Decoding maskPointMouth#188b29de.
+		v := MaskPointMouth{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MaskPointClass: %w", err)
+		}
+		return &v, nil
+	case "maskPointChin":
+		// Decoding maskPointChin#1fe36187.
+		v := MaskPointChin{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MaskPointClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode MaskPointClass: %w", jsontd.NewUnexpectedID(id))
+	}
+}
+
 // MaskPoint boxes the MaskPointClass providing a helper.
 type MaskPointBox struct {
 	MaskPoint MaskPointClass
@@ -569,4 +687,25 @@ func (b *MaskPointBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MaskPointClass as nil")
 	}
 	return b.MaskPoint.Encode(buf)
+}
+
+// DecodeTDLibJSON implements bin.Decoder for MaskPointBox.
+func (b *MaskPointBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MaskPointBox to nil")
+	}
+	v, err := DecodeTDLibJSONMaskPoint(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MaskPoint = v
+	return nil
+}
+
+// EncodeTDLibJSON implements bin.Encode for MaskPointBox.
+func (b *MaskPointBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+	if b == nil || b.MaskPoint == nil {
+		return fmt.Errorf("unable to encode MaskPointClass as nil")
+	}
+	return b.MaskPoint.EncodeTDLibJSON(buf)
 }

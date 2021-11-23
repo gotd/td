@@ -160,8 +160,8 @@ func (t *ToggleGroupCallIsMyVideoEnabledRequest) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// EncodeTDLibJSON encodes t in TDLib API JSON format.
-func (t *ToggleGroupCallIsMyVideoEnabledRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (t *ToggleGroupCallIsMyVideoEnabledRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleGroupCallIsMyVideoEnabled#9f2f50fa as nil")
 	}
@@ -173,6 +173,37 @@ func (t *ToggleGroupCallIsMyVideoEnabledRequest) EncodeTDLibJSON(b *jsontd.Encod
 	b.PutBool(t.IsMyVideoEnabled)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (t *ToggleGroupCallIsMyVideoEnabledRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode toggleGroupCallIsMyVideoEnabled#9f2f50fa to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("toggleGroupCallIsMyVideoEnabled"); err != nil {
+				return fmt.Errorf("unable to decode toggleGroupCallIsMyVideoEnabled#9f2f50fa: %w", err)
+			}
+		case "group_call_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleGroupCallIsMyVideoEnabled#9f2f50fa: field group_call_id: %w", err)
+			}
+			t.GroupCallID = value
+		case "is_my_video_enabled":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleGroupCallIsMyVideoEnabled#9f2f50fa: field is_my_video_enabled: %w", err)
+			}
+			t.IsMyVideoEnabled = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetGroupCallID returns value of GroupCallID field.

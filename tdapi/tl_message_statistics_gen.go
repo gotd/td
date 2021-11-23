@@ -148,8 +148,8 @@ func (m *MessageStatistics) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes m in TDLib API JSON format.
-func (m *MessageStatistics) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (m *MessageStatistics) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageStatistics#c3b781b0 as nil")
 	}
@@ -164,6 +164,31 @@ func (m *MessageStatistics) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (m *MessageStatistics) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageStatistics#c3b781b0 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("messageStatistics"); err != nil {
+				return fmt.Errorf("unable to decode messageStatistics#c3b781b0: %w", err)
+			}
+		case "message_interaction_graph":
+			value, err := DecodeTDLibJSONStatisticalGraph(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messageStatistics#c3b781b0: field message_interaction_graph: %w", err)
+			}
+			m.MessageInteractionGraph = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetMessageInteractionGraph returns value of MessageInteractionGraph field.

@@ -194,8 +194,8 @@ func (v *VoiceNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes v in TDLib API JSON format.
-func (v *VoiceNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (v *VoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode voiceNote#84db2866 as nil")
 	}
@@ -213,6 +213,47 @@ func (v *VoiceNote) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	}
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (v *VoiceNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if v == nil {
+		return fmt.Errorf("can't decode voiceNote#84db2866 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("voiceNote"); err != nil {
+				return fmt.Errorf("unable to decode voiceNote#84db2866: %w", err)
+			}
+		case "duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode voiceNote#84db2866: field duration: %w", err)
+			}
+			v.Duration = value
+		case "waveform":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode voiceNote#84db2866: field waveform: %w", err)
+			}
+			v.Waveform = value
+		case "mime_type":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode voiceNote#84db2866: field mime_type: %w", err)
+			}
+			v.MimeType = value
+		case "voice":
+			if err := v.Voice.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode voiceNote#84db2866: field voice: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetDuration returns value of Duration field.

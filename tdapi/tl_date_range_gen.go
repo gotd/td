@@ -160,8 +160,8 @@ func (d *DateRange) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes d in TDLib API JSON format.
-func (d *DateRange) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (d *DateRange) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode dateRange#51150c66 as nil")
 	}
@@ -173,6 +173,37 @@ func (d *DateRange) EncodeTDLibJSON(b *jsontd.Encoder) error {
 	b.PutInt32(d.EndDate)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (d *DateRange) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dateRange#51150c66 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("dateRange"); err != nil {
+				return fmt.Errorf("unable to decode dateRange#51150c66: %w", err)
+			}
+		case "start_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode dateRange#51150c66: field start_date: %w", err)
+			}
+			d.StartDate = value
+		case "end_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode dateRange#51150c66: field end_date: %w", err)
+			}
+			d.EndDate = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetStartDate returns value of StartDate field.

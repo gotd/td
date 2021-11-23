@@ -160,8 +160,8 @@ func (r *RemoveNotificationGroupRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes r in TDLib API JSON format.
-func (r *RemoveNotificationGroupRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (r *RemoveNotificationGroupRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode removeNotificationGroup#661a638e as nil")
 	}
@@ -173,6 +173,37 @@ func (r *RemoveNotificationGroupRequest) EncodeTDLibJSON(b *jsontd.Encoder) erro
 	b.PutInt32(r.MaxNotificationID)
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (r *RemoveNotificationGroupRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if r == nil {
+		return fmt.Errorf("can't decode removeNotificationGroup#661a638e to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("removeNotificationGroup"); err != nil {
+				return fmt.Errorf("unable to decode removeNotificationGroup#661a638e: %w", err)
+			}
+		case "notification_group_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode removeNotificationGroup#661a638e: field notification_group_id: %w", err)
+			}
+			r.NotificationGroupID = value
+		case "max_notification_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode removeNotificationGroup#661a638e: field max_notification_id: %w", err)
+			}
+			r.MaxNotificationID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetNotificationGroupID returns value of NotificationGroupID field.

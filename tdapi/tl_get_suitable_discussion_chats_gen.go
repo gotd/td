@@ -125,8 +125,8 @@ func (g *GetSuitableDiscussionChatsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON encodes g in TDLib API JSON format.
-func (g *GetSuitableDiscussionChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) error {
+// EncodeTDLibJSON implements jsontd.TDLibEncoder.
+func (g *GetSuitableDiscussionChatsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getSuitableDiscussionChats#2ec5df6 as nil")
 	}
@@ -134,6 +134,25 @@ func (g *GetSuitableDiscussionChatsRequest) EncodeTDLibJSON(b *jsontd.Encoder) e
 	b.PutID("getSuitableDiscussionChats")
 	b.ObjEnd()
 	return nil
+}
+
+// DecodeTDLibJSON implements jsontd.TDLibDecoder.
+func (g *GetSuitableDiscussionChatsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+	if g == nil {
+		return fmt.Errorf("can't decode getSuitableDiscussionChats#2ec5df6 to nil")
+	}
+
+	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+		switch string(key) {
+		case jsontd.TypeField:
+			if err := b.ConsumeID("getSuitableDiscussionChats"); err != nil {
+				return fmt.Errorf("unable to decode getSuitableDiscussionChats#2ec5df6: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // GetSuitableDiscussionChats invokes method getSuitableDiscussionChats#2ec5df6 returning error if any.
