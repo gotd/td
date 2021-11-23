@@ -19,8 +19,10 @@
 //  }
 type {{ $f.Name }} interface {
 {{ template "class_interface_header" $f }}
-    {{- if $.Config.Flags.TDLibJSON }}
-    EncodeTDLibJSON(b *jsontd.Encoder) error
+
+    {{ if $.Config.Flags.TDLibJSON }}
+    EncodeTDLibJSON(b jsontd.Encoder) error
+    DecodeTDLibJSON(b jsontd.Decoder) error
     {{- end }}
 
 {{ range $field := $f.SharedFields.Common -}}
