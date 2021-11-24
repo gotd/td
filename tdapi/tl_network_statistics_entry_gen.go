@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // NetworkStatisticsEntryFile represents TL type `networkStatisticsEntryFile#b3b8f62`.
@@ -210,8 +210,8 @@ func (n *NetworkStatisticsEntryFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (n *NetworkStatisticsEntryFile) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (n *NetworkStatisticsEntryFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode networkStatisticsEntryFile#b3b8f62 as nil")
 	}
@@ -239,15 +239,15 @@ func (n *NetworkStatisticsEntryFile) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (n *NetworkStatisticsEntryFile) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (n *NetworkStatisticsEntryFile) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
 		return fmt.Errorf("can't decode networkStatisticsEntryFile#b3b8f62 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("networkStatisticsEntryFile"); err != nil {
 				return fmt.Errorf("unable to decode networkStatisticsEntryFile#b3b8f62: %w", err)
 			}
@@ -476,8 +476,8 @@ func (n *NetworkStatisticsEntryCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (n *NetworkStatisticsEntryCall) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (n *NetworkStatisticsEntryCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode networkStatisticsEntryCall#2bedbbad as nil")
 	}
@@ -500,15 +500,15 @@ func (n *NetworkStatisticsEntryCall) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (n *NetworkStatisticsEntryCall) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (n *NetworkStatisticsEntryCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
 		return fmt.Errorf("can't decode networkStatisticsEntryCall#2bedbbad to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("networkStatisticsEntryCall"); err != nil {
 				return fmt.Errorf("unable to decode networkStatisticsEntryCall#2bedbbad: %w", err)
 			}
@@ -593,8 +593,8 @@ type NetworkStatisticsEntryClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 
 	// Type of the network the data was sent through. Call setNetworkType to maintain the
 	// actual network type
@@ -632,7 +632,7 @@ func DecodeNetworkStatisticsEntry(buf *bin.Buffer) (NetworkStatisticsEntryClass,
 }
 
 // DecodeTDLibJSONNetworkStatisticsEntry implements binary de-serialization for NetworkStatisticsEntryClass.
-func DecodeTDLibJSONNetworkStatisticsEntry(buf jsontd.Decoder) (NetworkStatisticsEntryClass, error) {
+func DecodeTDLibJSONNetworkStatisticsEntry(buf tdjson.Decoder) (NetworkStatisticsEntryClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -653,7 +653,7 @@ func DecodeTDLibJSONNetworkStatisticsEntry(buf jsontd.Decoder) (NetworkStatistic
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode NetworkStatisticsEntryClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode NetworkStatisticsEntryClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -684,7 +684,7 @@ func (b *NetworkStatisticsEntryBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for NetworkStatisticsEntryBox.
-func (b *NetworkStatisticsEntryBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *NetworkStatisticsEntryBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode NetworkStatisticsEntryBox to nil")
 	}
@@ -697,7 +697,7 @@ func (b *NetworkStatisticsEntryBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for NetworkStatisticsEntryBox.
-func (b *NetworkStatisticsEntryBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *NetworkStatisticsEntryBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.NetworkStatisticsEntry == nil {
 		return fmt.Errorf("unable to encode NetworkStatisticsEntryClass as nil")
 	}

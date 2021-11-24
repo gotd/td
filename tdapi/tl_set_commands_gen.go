@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // SetCommandsRequest represents TL type `setCommands#b0e0217a`.
@@ -198,8 +198,8 @@ func (s *SetCommandsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SetCommandsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SetCommandsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setCommands#b0e0217a as nil")
 	}
@@ -226,15 +226,15 @@ func (s *SetCommandsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SetCommandsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SetCommandsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode setCommands#b0e0217a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("setCommands"); err != nil {
 				return fmt.Errorf("unable to decode setCommands#b0e0217a: %w", err)
 			}
@@ -251,7 +251,7 @@ func (s *SetCommandsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			s.LanguageCode = value
 		case "commands":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value BotCommand
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode setCommands#b0e0217a: field commands: %w", err)

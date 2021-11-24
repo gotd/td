@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // InputCredentialsSaved represents TL type `inputCredentialsSaved#86bdbe2c`.
@@ -148,8 +148,8 @@ func (i *InputCredentialsSaved) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputCredentialsSaved) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputCredentialsSaved) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputCredentialsSaved#86bdbe2c as nil")
 	}
@@ -161,15 +161,15 @@ func (i *InputCredentialsSaved) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputCredentialsSaved) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputCredentialsSaved) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputCredentialsSaved#86bdbe2c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputCredentialsSaved"); err != nil {
 				return fmt.Errorf("unable to decode inputCredentialsSaved#86bdbe2c: %w", err)
 			}
@@ -325,8 +325,8 @@ func (i *InputCredentialsNew) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputCredentialsNew) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputCredentialsNew) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputCredentialsNew#ce8bf12a as nil")
 	}
@@ -340,15 +340,15 @@ func (i *InputCredentialsNew) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputCredentialsNew) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputCredentialsNew) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputCredentialsNew#ce8bf12a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputCredentialsNew"); err != nil {
 				return fmt.Errorf("unable to decode inputCredentialsNew#ce8bf12a: %w", err)
 			}
@@ -498,8 +498,8 @@ func (i *InputCredentialsApplePay) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputCredentialsApplePay) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputCredentialsApplePay) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputCredentialsApplePay#b5b2d6d1 as nil")
 	}
@@ -511,15 +511,15 @@ func (i *InputCredentialsApplePay) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputCredentialsApplePay) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputCredentialsApplePay) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputCredentialsApplePay#b5b2d6d1 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputCredentialsApplePay"); err != nil {
 				return fmt.Errorf("unable to decode inputCredentialsApplePay#b5b2d6d1: %w", err)
 			}
@@ -658,8 +658,8 @@ func (i *InputCredentialsGooglePay) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputCredentialsGooglePay) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputCredentialsGooglePay) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputCredentialsGooglePay#32544764 as nil")
 	}
@@ -671,15 +671,15 @@ func (i *InputCredentialsGooglePay) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputCredentialsGooglePay) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputCredentialsGooglePay) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputCredentialsGooglePay#32544764 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputCredentialsGooglePay"); err != nil {
 				return fmt.Errorf("unable to decode inputCredentialsGooglePay#32544764: %w", err)
 			}
@@ -733,8 +733,8 @@ type InputCredentialsClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeInputCredentials implements binary de-serialization for InputCredentialsClass.
@@ -778,7 +778,7 @@ func DecodeInputCredentials(buf *bin.Buffer) (InputCredentialsClass, error) {
 }
 
 // DecodeTDLibJSONInputCredentials implements binary de-serialization for InputCredentialsClass.
-func DecodeTDLibJSONInputCredentials(buf jsontd.Decoder) (InputCredentialsClass, error) {
+func DecodeTDLibJSONInputCredentials(buf tdjson.Decoder) (InputCredentialsClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -813,7 +813,7 @@ func DecodeTDLibJSONInputCredentials(buf jsontd.Decoder) (InputCredentialsClass,
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputCredentialsClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode InputCredentialsClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -844,7 +844,7 @@ func (b *InputCredentialsBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for InputCredentialsBox.
-func (b *InputCredentialsBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *InputCredentialsBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode InputCredentialsBox to nil")
 	}
@@ -857,7 +857,7 @@ func (b *InputCredentialsBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for InputCredentialsBox.
-func (b *InputCredentialsBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *InputCredentialsBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.InputCredentials == nil {
 		return fmt.Errorf("unable to encode InputCredentialsClass as nil")
 	}

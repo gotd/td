@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // TestCallVectorIntObjectRequest represents TL type `testCallVectorIntObject#ca57f472`.
@@ -158,8 +158,8 @@ func (t *TestCallVectorIntObjectRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TestCallVectorIntObjectRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TestCallVectorIntObjectRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode testCallVectorIntObject#ca57f472 as nil")
 	}
@@ -177,20 +177,20 @@ func (t *TestCallVectorIntObjectRequest) EncodeTDLibJSON(b jsontd.Encoder) error
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TestCallVectorIntObjectRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TestCallVectorIntObjectRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode testCallVectorIntObject#ca57f472 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("testCallVectorIntObject"); err != nil {
 				return fmt.Errorf("unable to decode testCallVectorIntObject#ca57f472: %w", err)
 			}
 		case "x":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value TestInt
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode testCallVectorIntObject#ca57f472: field x: %w", err)

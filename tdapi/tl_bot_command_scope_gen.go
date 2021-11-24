@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // BotCommandScopeDefault represents TL type `botCommandScopeDefault#2f6cb2ab`.
@@ -130,8 +130,8 @@ func (b *BotCommandScopeDefault) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BotCommandScopeDefault) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BotCommandScopeDefault) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botCommandScopeDefault#2f6cb2ab as nil")
 	}
@@ -141,15 +141,15 @@ func (b *BotCommandScopeDefault) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BotCommandScopeDefault) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BotCommandScopeDefault) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode botCommandScopeDefault#2f6cb2ab to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("botCommandScopeDefault"); err != nil {
 				return fmt.Errorf("unable to decode botCommandScopeDefault#2f6cb2ab: %w", err)
 			}
@@ -259,8 +259,8 @@ func (b *BotCommandScopeAllPrivateChats) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BotCommandScopeAllPrivateChats) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BotCommandScopeAllPrivateChats) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botCommandScopeAllPrivateChats#eb716739 as nil")
 	}
@@ -270,15 +270,15 @@ func (b *BotCommandScopeAllPrivateChats) EncodeTDLibJSON(buf jsontd.Encoder) err
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BotCommandScopeAllPrivateChats) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BotCommandScopeAllPrivateChats) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode botCommandScopeAllPrivateChats#eb716739 to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("botCommandScopeAllPrivateChats"); err != nil {
 				return fmt.Errorf("unable to decode botCommandScopeAllPrivateChats#eb716739: %w", err)
 			}
@@ -388,8 +388,8 @@ func (b *BotCommandScopeAllGroupChats) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BotCommandScopeAllGroupChats) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BotCommandScopeAllGroupChats) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botCommandScopeAllGroupChats#c585c85e as nil")
 	}
@@ -399,15 +399,15 @@ func (b *BotCommandScopeAllGroupChats) EncodeTDLibJSON(buf jsontd.Encoder) error
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BotCommandScopeAllGroupChats) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BotCommandScopeAllGroupChats) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode botCommandScopeAllGroupChats#c585c85e to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("botCommandScopeAllGroupChats"); err != nil {
 				return fmt.Errorf("unable to decode botCommandScopeAllGroupChats#c585c85e: %w", err)
 			}
@@ -517,8 +517,8 @@ func (b *BotCommandScopeAllChatAdministrators) DecodeBare(buf *bin.Buffer) error
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BotCommandScopeAllChatAdministrators) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BotCommandScopeAllChatAdministrators) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botCommandScopeAllChatAdministrators#771c1551 as nil")
 	}
@@ -528,15 +528,15 @@ func (b *BotCommandScopeAllChatAdministrators) EncodeTDLibJSON(buf jsontd.Encode
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BotCommandScopeAllChatAdministrators) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BotCommandScopeAllChatAdministrators) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode botCommandScopeAllChatAdministrators#771c1551 to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("botCommandScopeAllChatAdministrators"); err != nil {
 				return fmt.Errorf("unable to decode botCommandScopeAllChatAdministrators#771c1551: %w", err)
 			}
@@ -664,8 +664,8 @@ func (b *BotCommandScopeChat) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BotCommandScopeChat) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BotCommandScopeChat) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botCommandScopeChat#e65b22a5 as nil")
 	}
@@ -677,15 +677,15 @@ func (b *BotCommandScopeChat) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BotCommandScopeChat) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BotCommandScopeChat) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode botCommandScopeChat#e65b22a5 to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("botCommandScopeChat"); err != nil {
 				return fmt.Errorf("unable to decode botCommandScopeChat#e65b22a5: %w", err)
 			}
@@ -824,8 +824,8 @@ func (b *BotCommandScopeChatAdministrators) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BotCommandScopeChatAdministrators) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BotCommandScopeChatAdministrators) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botCommandScopeChatAdministrators#42bcfe4e as nil")
 	}
@@ -837,15 +837,15 @@ func (b *BotCommandScopeChatAdministrators) EncodeTDLibJSON(buf jsontd.Encoder) 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BotCommandScopeChatAdministrators) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BotCommandScopeChatAdministrators) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode botCommandScopeChatAdministrators#42bcfe4e to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("botCommandScopeChatAdministrators"); err != nil {
 				return fmt.Errorf("unable to decode botCommandScopeChatAdministrators#42bcfe4e: %w", err)
 			}
@@ -1001,8 +1001,8 @@ func (b *BotCommandScopeChatMember) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BotCommandScopeChatMember) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BotCommandScopeChatMember) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botCommandScopeChatMember#a0a78b7f as nil")
 	}
@@ -1016,15 +1016,15 @@ func (b *BotCommandScopeChatMember) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BotCommandScopeChatMember) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BotCommandScopeChatMember) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode botCommandScopeChatMember#a0a78b7f to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("botCommandScopeChatMember"); err != nil {
 				return fmt.Errorf("unable to decode botCommandScopeChatMember#a0a78b7f: %w", err)
 			}
@@ -1092,8 +1092,8 @@ type BotCommandScopeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeBotCommandScope implements binary de-serialization for BotCommandScopeClass.
@@ -1158,7 +1158,7 @@ func DecodeBotCommandScope(buf *bin.Buffer) (BotCommandScopeClass, error) {
 }
 
 // DecodeTDLibJSONBotCommandScope implements binary de-serialization for BotCommandScopeClass.
-func DecodeTDLibJSONBotCommandScope(buf jsontd.Decoder) (BotCommandScopeClass, error) {
+func DecodeTDLibJSONBotCommandScope(buf tdjson.Decoder) (BotCommandScopeClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -1214,7 +1214,7 @@ func DecodeTDLibJSONBotCommandScope(buf jsontd.Decoder) (BotCommandScopeClass, e
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode BotCommandScopeClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode BotCommandScopeClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -1245,7 +1245,7 @@ func (b *BotCommandScopeBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for BotCommandScopeBox.
-func (b *BotCommandScopeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *BotCommandScopeBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode BotCommandScopeBox to nil")
 	}
@@ -1258,7 +1258,7 @@ func (b *BotCommandScopeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for BotCommandScopeBox.
-func (b *BotCommandScopeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *BotCommandScopeBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.BotCommandScope == nil {
 		return fmt.Errorf("unable to encode BotCommandScopeClass as nil")
 	}

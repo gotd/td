@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // AddCustomServerLanguagePackRequest represents TL type `addCustomServerLanguagePack#448de3`.
@@ -144,8 +144,8 @@ func (a *AddCustomServerLanguagePackRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AddCustomServerLanguagePackRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AddCustomServerLanguagePackRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addCustomServerLanguagePack#448de3 as nil")
 	}
@@ -157,15 +157,15 @@ func (a *AddCustomServerLanguagePackRequest) EncodeTDLibJSON(b jsontd.Encoder) e
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AddCustomServerLanguagePackRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AddCustomServerLanguagePackRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode addCustomServerLanguagePack#448de3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("addCustomServerLanguagePack"); err != nil {
 				return fmt.Errorf("unable to decode addCustomServerLanguagePack#448de3: %w", err)
 			}

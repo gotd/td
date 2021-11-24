@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // SetChatDraftMessageRequest represents TL type `setChatDraftMessage#645e1f1a`.
@@ -177,8 +177,8 @@ func (s *SetChatDraftMessageRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SetChatDraftMessageRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SetChatDraftMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatDraftMessage#645e1f1a as nil")
 	}
@@ -196,15 +196,15 @@ func (s *SetChatDraftMessageRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SetChatDraftMessageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SetChatDraftMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode setChatDraftMessage#645e1f1a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("setChatDraftMessage"); err != nil {
 				return fmt.Errorf("unable to decode setChatDraftMessage#645e1f1a: %w", err)
 			}

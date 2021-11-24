@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ToggleGroupCallMuteNewParticipantsRequest represents TL type `toggleGroupCallMuteNewParticipants#10eec1c2`.
@@ -160,8 +160,8 @@ func (t *ToggleGroupCallMuteNewParticipantsRequest) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *ToggleGroupCallMuteNewParticipantsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *ToggleGroupCallMuteNewParticipantsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleGroupCallMuteNewParticipants#10eec1c2 as nil")
 	}
@@ -175,15 +175,15 @@ func (t *ToggleGroupCallMuteNewParticipantsRequest) EncodeTDLibJSON(b jsontd.Enc
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *ToggleGroupCallMuteNewParticipantsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *ToggleGroupCallMuteNewParticipantsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode toggleGroupCallMuteNewParticipants#10eec1c2 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("toggleGroupCallMuteNewParticipants"); err != nil {
 				return fmt.Errorf("unable to decode toggleGroupCallMuteNewParticipants#10eec1c2: %w", err)
 			}

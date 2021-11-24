@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ConnectionStateWaitingForNetwork represents TL type `connectionStateWaitingForNetwork#650dd758`.
@@ -130,8 +130,8 @@ func (c *ConnectionStateWaitingForNetwork) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ConnectionStateWaitingForNetwork) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ConnectionStateWaitingForNetwork) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode connectionStateWaitingForNetwork#650dd758 as nil")
 	}
@@ -141,15 +141,15 @@ func (c *ConnectionStateWaitingForNetwork) EncodeTDLibJSON(b jsontd.Encoder) err
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ConnectionStateWaitingForNetwork) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ConnectionStateWaitingForNetwork) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode connectionStateWaitingForNetwork#650dd758 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("connectionStateWaitingForNetwork"); err != nil {
 				return fmt.Errorf("unable to decode connectionStateWaitingForNetwork#650dd758: %w", err)
 			}
@@ -259,8 +259,8 @@ func (c *ConnectionStateConnectingToProxy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ConnectionStateConnectingToProxy) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ConnectionStateConnectingToProxy) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode connectionStateConnectingToProxy#fa721359 as nil")
 	}
@@ -270,15 +270,15 @@ func (c *ConnectionStateConnectingToProxy) EncodeTDLibJSON(b jsontd.Encoder) err
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ConnectionStateConnectingToProxy) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ConnectionStateConnectingToProxy) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode connectionStateConnectingToProxy#fa721359 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("connectionStateConnectingToProxy"); err != nil {
 				return fmt.Errorf("unable to decode connectionStateConnectingToProxy#fa721359: %w", err)
 			}
@@ -388,8 +388,8 @@ func (c *ConnectionStateConnecting) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ConnectionStateConnecting) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ConnectionStateConnecting) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode connectionStateConnecting#b29bfa62 as nil")
 	}
@@ -399,15 +399,15 @@ func (c *ConnectionStateConnecting) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ConnectionStateConnecting) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ConnectionStateConnecting) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode connectionStateConnecting#b29bfa62 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("connectionStateConnecting"); err != nil {
 				return fmt.Errorf("unable to decode connectionStateConnecting#b29bfa62: %w", err)
 			}
@@ -517,8 +517,8 @@ func (c *ConnectionStateUpdating) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ConnectionStateUpdating) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ConnectionStateUpdating) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode connectionStateUpdating#f4c9c2b7 as nil")
 	}
@@ -528,15 +528,15 @@ func (c *ConnectionStateUpdating) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ConnectionStateUpdating) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ConnectionStateUpdating) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode connectionStateUpdating#f4c9c2b7 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("connectionStateUpdating"); err != nil {
 				return fmt.Errorf("unable to decode connectionStateUpdating#f4c9c2b7: %w", err)
 			}
@@ -646,8 +646,8 @@ func (c *ConnectionStateReady) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ConnectionStateReady) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ConnectionStateReady) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode connectionStateReady#2e5b4ec as nil")
 	}
@@ -657,15 +657,15 @@ func (c *ConnectionStateReady) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ConnectionStateReady) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ConnectionStateReady) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode connectionStateReady#2e5b4ec to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("connectionStateReady"); err != nil {
 				return fmt.Errorf("unable to decode connectionStateReady#2e5b4ec: %w", err)
 			}
@@ -709,8 +709,8 @@ type ConnectionStateClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeConnectionState implements binary de-serialization for ConnectionStateClass.
@@ -761,7 +761,7 @@ func DecodeConnectionState(buf *bin.Buffer) (ConnectionStateClass, error) {
 }
 
 // DecodeTDLibJSONConnectionState implements binary de-serialization for ConnectionStateClass.
-func DecodeTDLibJSONConnectionState(buf jsontd.Decoder) (ConnectionStateClass, error) {
+func DecodeTDLibJSONConnectionState(buf tdjson.Decoder) (ConnectionStateClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -803,7 +803,7 @@ func DecodeTDLibJSONConnectionState(buf jsontd.Decoder) (ConnectionStateClass, e
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ConnectionStateClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode ConnectionStateClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -834,7 +834,7 @@ func (b *ConnectionStateBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for ConnectionStateBox.
-func (b *ConnectionStateBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *ConnectionStateBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode ConnectionStateBox to nil")
 	}
@@ -847,7 +847,7 @@ func (b *ConnectionStateBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for ConnectionStateBox.
-func (b *ConnectionStateBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *ConnectionStateBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.ConnectionState == nil {
 		return fmt.Errorf("unable to encode ConnectionStateClass as nil")
 	}

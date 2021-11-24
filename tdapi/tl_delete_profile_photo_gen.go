@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // DeleteProfilePhotoRequest represents TL type `deleteProfilePhoto#4eaa77c1`.
@@ -143,8 +143,8 @@ func (d *DeleteProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeleteProfilePhotoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeleteProfilePhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteProfilePhoto#4eaa77c1 as nil")
 	}
@@ -156,15 +156,15 @@ func (d *DeleteProfilePhotoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeleteProfilePhotoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeleteProfilePhotoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deleteProfilePhoto#4eaa77c1 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deleteProfilePhoto"); err != nil {
 				return fmt.Errorf("unable to decode deleteProfilePhoto#4eaa77c1: %w", err)
 			}

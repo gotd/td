@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ChatActionBarReportSpam represents TL type `chatActionBarReportSpam#b1c0e61a`.
@@ -150,8 +150,8 @@ func (c *ChatActionBarReportSpam) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionBarReportSpam) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionBarReportSpam) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionBarReportSpam#b1c0e61a as nil")
 	}
@@ -163,15 +163,15 @@ func (c *ChatActionBarReportSpam) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionBarReportSpam) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionBarReportSpam) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionBarReportSpam#b1c0e61a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionBarReportSpam"); err != nil {
 				return fmt.Errorf("unable to decode chatActionBarReportSpam#b1c0e61a: %w", err)
 			}
@@ -292,8 +292,8 @@ func (c *ChatActionBarReportUnrelatedLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionBarReportUnrelatedLocation) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionBarReportUnrelatedLocation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionBarReportUnrelatedLocation#2d30d701 as nil")
 	}
@@ -303,15 +303,15 @@ func (c *ChatActionBarReportUnrelatedLocation) EncodeTDLibJSON(b jsontd.Encoder)
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionBarReportUnrelatedLocation) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionBarReportUnrelatedLocation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionBarReportUnrelatedLocation#2d30d701 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionBarReportUnrelatedLocation"); err != nil {
 				return fmt.Errorf("unable to decode chatActionBarReportUnrelatedLocation#2d30d701: %w", err)
 			}
@@ -421,8 +421,8 @@ func (c *ChatActionBarInviteMembers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionBarInviteMembers) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionBarInviteMembers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionBarInviteMembers#76557c70 as nil")
 	}
@@ -432,15 +432,15 @@ func (c *ChatActionBarInviteMembers) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionBarInviteMembers) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionBarInviteMembers) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionBarInviteMembers#76557c70 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionBarInviteMembers"); err != nil {
 				return fmt.Errorf("unable to decode chatActionBarInviteMembers#76557c70: %w", err)
 			}
@@ -588,8 +588,8 @@ func (c *ChatActionBarReportAddBlock) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionBarReportAddBlock) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionBarReportAddBlock) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionBarReportAddBlock#c9832bed as nil")
 	}
@@ -603,15 +603,15 @@ func (c *ChatActionBarReportAddBlock) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionBarReportAddBlock) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionBarReportAddBlock) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionBarReportAddBlock#c9832bed to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionBarReportAddBlock"); err != nil {
 				return fmt.Errorf("unable to decode chatActionBarReportAddBlock#c9832bed: %w", err)
 			}
@@ -743,8 +743,8 @@ func (c *ChatActionBarAddContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionBarAddContact) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionBarAddContact) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionBarAddContact#d44a5811 as nil")
 	}
@@ -754,15 +754,15 @@ func (c *ChatActionBarAddContact) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionBarAddContact) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionBarAddContact) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionBarAddContact#d44a5811 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionBarAddContact"); err != nil {
 				return fmt.Errorf("unable to decode chatActionBarAddContact#d44a5811: %w", err)
 			}
@@ -872,8 +872,8 @@ func (c *ChatActionBarSharePhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionBarSharePhoneNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionBarSharePhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionBarSharePhoneNumber#218efd9 as nil")
 	}
@@ -883,15 +883,15 @@ func (c *ChatActionBarSharePhoneNumber) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionBarSharePhoneNumber) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionBarSharePhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionBarSharePhoneNumber#218efd9 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionBarSharePhoneNumber"); err != nil {
 				return fmt.Errorf("unable to decode chatActionBarSharePhoneNumber#218efd9: %w", err)
 			}
@@ -936,8 +936,8 @@ type ChatActionBarClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeChatActionBar implements binary de-serialization for ChatActionBarClass.
@@ -995,7 +995,7 @@ func DecodeChatActionBar(buf *bin.Buffer) (ChatActionBarClass, error) {
 }
 
 // DecodeTDLibJSONChatActionBar implements binary de-serialization for ChatActionBarClass.
-func DecodeTDLibJSONChatActionBar(buf jsontd.Decoder) (ChatActionBarClass, error) {
+func DecodeTDLibJSONChatActionBar(buf tdjson.Decoder) (ChatActionBarClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -1044,7 +1044,7 @@ func DecodeTDLibJSONChatActionBar(buf jsontd.Decoder) (ChatActionBarClass, error
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ChatActionBarClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode ChatActionBarClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -1075,7 +1075,7 @@ func (b *ChatActionBarBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for ChatActionBarBox.
-func (b *ChatActionBarBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *ChatActionBarBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode ChatActionBarBox to nil")
 	}
@@ -1088,7 +1088,7 @@ func (b *ChatActionBarBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for ChatActionBarBox.
-func (b *ChatActionBarBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *ChatActionBarBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.ChatActionBar == nil {
 		return fmt.Errorf("unable to encode ChatActionBarClass as nil")
 	}

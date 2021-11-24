@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // PageBlockTitle represents TL type `pageBlockTitle#6122b610`.
@@ -153,8 +153,8 @@ func (p *PageBlockTitle) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockTitle) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockTitle) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockTitle#6122b610 as nil")
 	}
@@ -171,15 +171,15 @@ func (p *PageBlockTitle) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockTitle) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockTitle) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockTitle#6122b610 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockTitle"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockTitle#6122b610: %w", err)
 			}
@@ -323,8 +323,8 @@ func (p *PageBlockSubtitle) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockSubtitle) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockSubtitle) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockSubtitle#fc451e7 as nil")
 	}
@@ -341,15 +341,15 @@ func (p *PageBlockSubtitle) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockSubtitle) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockSubtitle) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockSubtitle#fc451e7 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockSubtitle"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockSubtitle#fc451e7: %w", err)
 			}
@@ -510,8 +510,8 @@ func (p *PageBlockAuthorDate) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockAuthorDate) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockAuthorDate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockAuthorDate#4d7ff410 as nil")
 	}
@@ -530,15 +530,15 @@ func (p *PageBlockAuthorDate) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockAuthorDate) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockAuthorDate) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockAuthorDate#4d7ff410 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockAuthorDate"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockAuthorDate#4d7ff410: %w", err)
 			}
@@ -693,8 +693,8 @@ func (p *PageBlockHeader) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockHeader) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockHeader) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockHeader#539ddd9b as nil")
 	}
@@ -711,15 +711,15 @@ func (p *PageBlockHeader) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockHeader) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockHeader) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockHeader#539ddd9b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockHeader"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockHeader#539ddd9b: %w", err)
 			}
@@ -863,8 +863,8 @@ func (p *PageBlockSubheader) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockSubheader) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockSubheader) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockSubheader#4b567326 as nil")
 	}
@@ -881,15 +881,15 @@ func (p *PageBlockSubheader) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockSubheader) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockSubheader) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockSubheader#4b567326 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockSubheader"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockSubheader#4b567326: %w", err)
 			}
@@ -1033,8 +1033,8 @@ func (p *PageBlockKicker) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockKicker) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockKicker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockKicker#5123864b as nil")
 	}
@@ -1051,15 +1051,15 @@ func (p *PageBlockKicker) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockKicker) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockKicker) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockKicker#5123864b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockKicker"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockKicker#5123864b: %w", err)
 			}
@@ -1203,8 +1203,8 @@ func (p *PageBlockParagraph) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockParagraph) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockParagraph) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockParagraph#467a0766 as nil")
 	}
@@ -1221,15 +1221,15 @@ func (p *PageBlockParagraph) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockParagraph) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockParagraph) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockParagraph#467a0766 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockParagraph"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockParagraph#467a0766: %w", err)
 			}
@@ -1390,8 +1390,8 @@ func (p *PageBlockPreformatted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockPreformatted) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockPreformatted) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockPreformatted#c070d93e as nil")
 	}
@@ -1410,15 +1410,15 @@ func (p *PageBlockPreformatted) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockPreformatted) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockPreformatted) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockPreformatted#c070d93e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockPreformatted"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockPreformatted#c070d93e: %w", err)
 			}
@@ -1573,8 +1573,8 @@ func (p *PageBlockFooter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockFooter) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockFooter) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockFooter#34d5d728 as nil")
 	}
@@ -1591,15 +1591,15 @@ func (p *PageBlockFooter) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockFooter) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockFooter) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockFooter#34d5d728 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockFooter"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockFooter#34d5d728: %w", err)
 			}
@@ -1720,8 +1720,8 @@ func (p *PageBlockDivider) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockDivider) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockDivider) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockDivider#db20b188 as nil")
 	}
@@ -1731,15 +1731,15 @@ func (p *PageBlockDivider) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockDivider) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockDivider) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockDivider#db20b188 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockDivider"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockDivider#db20b188: %w", err)
 			}
@@ -1867,8 +1867,8 @@ func (p *PageBlockAnchor) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockAnchor) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockAnchor) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockAnchor#ce0d37b0 as nil")
 	}
@@ -1880,15 +1880,15 @@ func (p *PageBlockAnchor) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockAnchor) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockAnchor) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockAnchor#ce0d37b0 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockAnchor"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockAnchor#ce0d37b0: %w", err)
 			}
@@ -2042,8 +2042,8 @@ func (p *PageBlockList) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockList) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockList) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockList#584af35a as nil")
 	}
@@ -2061,20 +2061,20 @@ func (p *PageBlockList) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockList) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockList) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockList#584af35a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockList"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockList#584af35a: %w", err)
 			}
 		case "items":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value PageBlockListItem
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode pageBlockList#584af35a: field items: %w", err)
@@ -2240,8 +2240,8 @@ func (p *PageBlockBlockQuote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockBlockQuote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockBlockQuote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockBlockQuote#62d08a9e as nil")
 	}
@@ -2265,15 +2265,15 @@ func (p *PageBlockBlockQuote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockBlockQuote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockBlockQuote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockBlockQuote#62d08a9e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockBlockQuote"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockBlockQuote#62d08a9e: %w", err)
 			}
@@ -2450,8 +2450,8 @@ func (p *PageBlockPullQuote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockPullQuote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockPullQuote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockPullQuote#1d38810d as nil")
 	}
@@ -2475,15 +2475,15 @@ func (p *PageBlockPullQuote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockPullQuote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockPullQuote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockPullQuote#1d38810d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockPullQuote"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockPullQuote#1d38810d: %w", err)
 			}
@@ -2667,8 +2667,8 @@ func (p *PageBlockAnimation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockAnimation) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockAnimation#50cde009 as nil")
 	}
@@ -2688,15 +2688,15 @@ func (p *PageBlockAnimation) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockAnimation) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockAnimation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockAnimation#50cde009 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockAnimation"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockAnimation#50cde009: %w", err)
 			}
@@ -2870,8 +2870,8 @@ func (p *PageBlockAudio) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockAudio) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockAudio) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockAudio#fc390813 as nil")
 	}
@@ -2889,15 +2889,15 @@ func (p *PageBlockAudio) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockAudio) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockAudio) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockAudio#fc390813 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockAudio"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockAudio#fc390813: %w", err)
 			}
@@ -3077,8 +3077,8 @@ func (p *PageBlockPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockPhoto#18e41684 as nil")
 	}
@@ -3098,15 +3098,15 @@ func (p *PageBlockPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockPhoto) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockPhoto#18e41684 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockPhoto"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockPhoto#18e41684: %w", err)
 			}
@@ -3314,8 +3314,8 @@ func (p *PageBlockVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockVideo#1e669d32 as nil")
 	}
@@ -3337,15 +3337,15 @@ func (p *PageBlockVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockVideo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockVideo#1e669d32 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockVideo"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockVideo#1e669d32: %w", err)
 			}
@@ -3530,8 +3530,8 @@ func (p *PageBlockVoiceNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockVoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockVoiceNote#6cad827f as nil")
 	}
@@ -3549,15 +3549,15 @@ func (p *PageBlockVoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockVoiceNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockVoiceNote#6cad827f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockVoiceNote"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockVoiceNote#6cad827f: %w", err)
 			}
@@ -3708,8 +3708,8 @@ func (p *PageBlockCover) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockCover) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockCover) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockCover#39f23300 as nil")
 	}
@@ -3726,15 +3726,15 @@ func (p *PageBlockCover) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockCover) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockCover) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockCover#39f23300 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockCover"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockCover#39f23300: %w", err)
 			}
@@ -3992,8 +3992,8 @@ func (p *PageBlockEmbedded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockEmbedded) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockEmbedded) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockEmbedded#8c369d9d as nil")
 	}
@@ -4023,15 +4023,15 @@ func (p *PageBlockEmbedded) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockEmbedded) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockEmbedded) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockEmbedded#8c369d9d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockEmbedded"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockEmbedded#8c369d9d: %w", err)
 			}
@@ -4346,8 +4346,8 @@ func (p *PageBlockEmbeddedPost) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockEmbeddedPost) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockEmbeddedPost) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockEmbeddedPost#bc57cdf5 as nil")
 	}
@@ -4382,15 +4382,15 @@ func (p *PageBlockEmbeddedPost) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockEmbeddedPost) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockEmbeddedPost) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockEmbeddedPost#bc57cdf5 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockEmbeddedPost"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockEmbeddedPost#bc57cdf5: %w", err)
 			}
@@ -4417,7 +4417,7 @@ func (p *PageBlockEmbeddedPost) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			p.Date = value
 		case "page_blocks":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONPageBlock(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode pageBlockEmbeddedPost#bc57cdf5: field page_blocks: %w", err)
@@ -4620,8 +4620,8 @@ func (p *PageBlockCollage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockCollage) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockCollage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockCollage#40bcaaf0 as nil")
 	}
@@ -4646,20 +4646,20 @@ func (p *PageBlockCollage) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockCollage) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockCollage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockCollage#40bcaaf0 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockCollage"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockCollage#40bcaaf0: %w", err)
 			}
 		case "page_blocks":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONPageBlock(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode pageBlockCollage#40bcaaf0: field page_blocks: %w", err)
@@ -4842,8 +4842,8 @@ func (p *PageBlockSlideshow) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockSlideshow) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockSlideshow) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockSlideshow#1107d496 as nil")
 	}
@@ -4868,20 +4868,20 @@ func (p *PageBlockSlideshow) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockSlideshow) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockSlideshow) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockSlideshow#1107d496 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockSlideshow"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockSlideshow#1107d496: %w", err)
 			}
 		case "page_blocks":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONPageBlock(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode pageBlockSlideshow#1107d496: field page_blocks: %w", err)
@@ -5063,8 +5063,8 @@ func (p *PageBlockChatLink) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockChatLink) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockChatLink) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockChatLink#f3f4550b as nil")
 	}
@@ -5082,15 +5082,15 @@ func (p *PageBlockChatLink) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockChatLink) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockChatLink) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockChatLink#f3f4550b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockChatLink"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockChatLink#f3f4550b: %w", err)
 			}
@@ -5335,8 +5335,8 @@ func (p *PageBlockTable) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockTable) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockTable) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockTable#cc6352c3 as nil")
 	}
@@ -5369,15 +5369,15 @@ func (p *PageBlockTable) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockTable) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockTable) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockTable#cc6352c3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockTable"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockTable#cc6352c3: %w", err)
 			}
@@ -5388,9 +5388,9 @@ func (p *PageBlockTable) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			p.Caption = value
 		case "cells":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var row []PageBlockTableCell
-				if err := b.Arr(func(b jsontd.Decoder) error {
+				if err := b.Arr(func(b tdjson.Decoder) error {
 					var value PageBlockTableCell
 					if err := value.DecodeTDLibJSON(b); err != nil {
 						return fmt.Errorf("unable to decode pageBlockTable#cc6352c3: field cells: %w", err)
@@ -5618,8 +5618,8 @@ func (p *PageBlockDetails) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockDetails) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockDetails) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockDetails#990a0c0b as nil")
 	}
@@ -5649,15 +5649,15 @@ func (p *PageBlockDetails) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockDetails) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockDetails) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockDetails#990a0c0b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockDetails"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockDetails#990a0c0b: %w", err)
 			}
@@ -5668,7 +5668,7 @@ func (p *PageBlockDetails) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			p.Header = value
 		case "page_blocks":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONPageBlock(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode pageBlockDetails#990a0c0b: field page_blocks: %w", err)
@@ -5860,8 +5860,8 @@ func (p *PageBlockRelatedArticles) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockRelatedArticles) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockRelatedArticles) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockRelatedArticles#936d81e6 as nil")
 	}
@@ -5886,15 +5886,15 @@ func (p *PageBlockRelatedArticles) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockRelatedArticles) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockRelatedArticles) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockRelatedArticles#936d81e6 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockRelatedArticles"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockRelatedArticles#936d81e6: %w", err)
 			}
@@ -5905,7 +5905,7 @@ func (p *PageBlockRelatedArticles) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			p.Header = value
 		case "articles":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value PageBlockRelatedArticle
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode pageBlockRelatedArticles#936d81e6: field articles: %w", err)
@@ -6117,8 +6117,8 @@ func (p *PageBlockMap) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockMap) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockMap) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockMap#5a0f7013 as nil")
 	}
@@ -6142,15 +6142,15 @@ func (p *PageBlockMap) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockMap) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockMap) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockMap#5a0f7013 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockMap"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockMap#5a0f7013: %w", err)
 			}
@@ -6269,8 +6269,8 @@ type PageBlockClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodePageBlock implements binary de-serialization for PageBlockClass.
@@ -6489,7 +6489,7 @@ func DecodePageBlock(buf *bin.Buffer) (PageBlockClass, error) {
 }
 
 // DecodeTDLibJSONPageBlock implements binary de-serialization for PageBlockClass.
-func DecodeTDLibJSONPageBlock(buf jsontd.Decoder) (PageBlockClass, error) {
+func DecodeTDLibJSONPageBlock(buf tdjson.Decoder) (PageBlockClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -6699,7 +6699,7 @@ func DecodeTDLibJSONPageBlock(buf jsontd.Decoder) (PageBlockClass, error) {
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode PageBlockClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode PageBlockClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -6730,7 +6730,7 @@ func (b *PageBlockBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for PageBlockBox.
-func (b *PageBlockBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *PageBlockBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode PageBlockBox to nil")
 	}
@@ -6743,7 +6743,7 @@ func (b *PageBlockBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for PageBlockBox.
-func (b *PageBlockBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *PageBlockBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.PageBlock == nil {
 		return fmt.Errorf("unable to encode PageBlockClass as nil")
 	}

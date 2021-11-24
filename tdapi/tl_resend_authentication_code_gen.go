@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ResendAuthenticationCodeRequest represents TL type `resendAuthenticationCode#cf759719`.
@@ -125,8 +125,8 @@ func (r *ResendAuthenticationCodeRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *ResendAuthenticationCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *ResendAuthenticationCodeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resendAuthenticationCode#cf759719 as nil")
 	}
@@ -136,15 +136,15 @@ func (r *ResendAuthenticationCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) erro
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *ResendAuthenticationCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *ResendAuthenticationCodeRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode resendAuthenticationCode#cf759719 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("resendAuthenticationCode"); err != nil {
 				return fmt.Errorf("unable to decode resendAuthenticationCode#cf759719: %w", err)
 			}

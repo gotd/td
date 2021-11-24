@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // GetChatNotificationSettingsExceptionsRequest represents TL type `getChatNotificationSettingsExceptions#bfe0e11`.
@@ -165,8 +165,8 @@ func (g *GetChatNotificationSettingsExceptionsRequest) DecodeBare(b *bin.Buffer)
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (g *GetChatNotificationSettingsExceptionsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (g *GetChatNotificationSettingsExceptionsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatNotificationSettingsExceptions#bfe0e11 as nil")
 	}
@@ -185,15 +185,15 @@ func (g *GetChatNotificationSettingsExceptionsRequest) EncodeTDLibJSON(b jsontd.
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (g *GetChatNotificationSettingsExceptionsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (g *GetChatNotificationSettingsExceptionsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
 		return fmt.Errorf("can't decode getChatNotificationSettingsExceptions#bfe0e11 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("getChatNotificationSettingsExceptions"); err != nil {
 				return fmt.Errorf("unable to decode getChatNotificationSettingsExceptions#bfe0e11: %w", err)
 			}

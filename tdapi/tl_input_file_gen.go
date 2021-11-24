@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // InputFileID represents TL type `inputFileId#6aa08b0d`.
@@ -148,8 +148,8 @@ func (i *InputFileID) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputFileID) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputFileID) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputFileId#6aa08b0d as nil")
 	}
@@ -161,15 +161,15 @@ func (i *InputFileID) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputFileID) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputFileID) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputFileId#6aa08b0d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputFileId"); err != nil {
 				return fmt.Errorf("unable to decode inputFileId#6aa08b0d: %w", err)
 			}
@@ -308,8 +308,8 @@ func (i *InputFileRemote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputFileRemote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputFileRemote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputFileRemote#f9968b3e as nil")
 	}
@@ -321,15 +321,15 @@ func (i *InputFileRemote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputFileRemote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputFileRemote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputFileRemote#f9968b3e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputFileRemote"); err != nil {
 				return fmt.Errorf("unable to decode inputFileRemote#f9968b3e: %w", err)
 			}
@@ -468,8 +468,8 @@ func (i *InputFileLocal) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputFileLocal) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputFileLocal) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputFileLocal#7a8c8ac7 as nil")
 	}
@@ -481,15 +481,15 @@ func (i *InputFileLocal) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputFileLocal) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputFileLocal) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputFileLocal#7a8c8ac7 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputFileLocal"); err != nil {
 				return fmt.Errorf("unable to decode inputFileLocal#7a8c8ac7: %w", err)
 			}
@@ -665,8 +665,8 @@ func (i *InputFileGenerated) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputFileGenerated) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputFileGenerated) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputFileGenerated#95d2ba33 as nil")
 	}
@@ -682,15 +682,15 @@ func (i *InputFileGenerated) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputFileGenerated) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputFileGenerated) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputFileGenerated#95d2ba33 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputFileGenerated"); err != nil {
 				return fmt.Errorf("unable to decode inputFileGenerated#95d2ba33: %w", err)
 			}
@@ -766,8 +766,8 @@ type InputFileClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeInputFile implements binary de-serialization for InputFileClass.
@@ -811,7 +811,7 @@ func DecodeInputFile(buf *bin.Buffer) (InputFileClass, error) {
 }
 
 // DecodeTDLibJSONInputFile implements binary de-serialization for InputFileClass.
-func DecodeTDLibJSONInputFile(buf jsontd.Decoder) (InputFileClass, error) {
+func DecodeTDLibJSONInputFile(buf tdjson.Decoder) (InputFileClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -846,7 +846,7 @@ func DecodeTDLibJSONInputFile(buf jsontd.Decoder) (InputFileClass, error) {
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputFileClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode InputFileClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -877,7 +877,7 @@ func (b *InputFileBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for InputFileBox.
-func (b *InputFileBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *InputFileBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode InputFileBox to nil")
 	}
@@ -890,7 +890,7 @@ func (b *InputFileBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for InputFileBox.
-func (b *InputFileBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *InputFileBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.InputFile == nil {
 		return fmt.Errorf("unable to encode InputFileClass as nil")
 	}

@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // PageBlockHorizontalAlignmentLeft represents TL type `pageBlockHorizontalAlignmentLeft#329627e9`.
@@ -130,8 +130,8 @@ func (p *PageBlockHorizontalAlignmentLeft) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockHorizontalAlignmentLeft) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockHorizontalAlignmentLeft) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockHorizontalAlignmentLeft#329627e9 as nil")
 	}
@@ -141,15 +141,15 @@ func (p *PageBlockHorizontalAlignmentLeft) EncodeTDLibJSON(b jsontd.Encoder) err
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockHorizontalAlignmentLeft) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockHorizontalAlignmentLeft) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockHorizontalAlignmentLeft#329627e9 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockHorizontalAlignmentLeft"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockHorizontalAlignmentLeft#329627e9: %w", err)
 			}
@@ -259,8 +259,8 @@ func (p *PageBlockHorizontalAlignmentCenter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockHorizontalAlignmentCenter) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockHorizontalAlignmentCenter) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockHorizontalAlignmentCenter#c3d8c4ea as nil")
 	}
@@ -270,15 +270,15 @@ func (p *PageBlockHorizontalAlignmentCenter) EncodeTDLibJSON(b jsontd.Encoder) e
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockHorizontalAlignmentCenter) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockHorizontalAlignmentCenter) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockHorizontalAlignmentCenter#c3d8c4ea to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockHorizontalAlignmentCenter"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockHorizontalAlignmentCenter#c3d8c4ea: %w", err)
 			}
@@ -388,8 +388,8 @@ func (p *PageBlockHorizontalAlignmentRight) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockHorizontalAlignmentRight) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockHorizontalAlignmentRight) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockHorizontalAlignmentRight#51bd6efe as nil")
 	}
@@ -399,15 +399,15 @@ func (p *PageBlockHorizontalAlignmentRight) EncodeTDLibJSON(b jsontd.Encoder) er
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockHorizontalAlignmentRight) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockHorizontalAlignmentRight) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockHorizontalAlignmentRight#51bd6efe to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockHorizontalAlignmentRight"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockHorizontalAlignmentRight#51bd6efe: %w", err)
 			}
@@ -449,8 +449,8 @@ type PageBlockHorizontalAlignmentClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodePageBlockHorizontalAlignment implements binary de-serialization for PageBlockHorizontalAlignmentClass.
@@ -487,7 +487,7 @@ func DecodePageBlockHorizontalAlignment(buf *bin.Buffer) (PageBlockHorizontalAli
 }
 
 // DecodeTDLibJSONPageBlockHorizontalAlignment implements binary de-serialization for PageBlockHorizontalAlignmentClass.
-func DecodeTDLibJSONPageBlockHorizontalAlignment(buf jsontd.Decoder) (PageBlockHorizontalAlignmentClass, error) {
+func DecodeTDLibJSONPageBlockHorizontalAlignment(buf tdjson.Decoder) (PageBlockHorizontalAlignmentClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -515,7 +515,7 @@ func DecodeTDLibJSONPageBlockHorizontalAlignment(buf jsontd.Decoder) (PageBlockH
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode PageBlockHorizontalAlignmentClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode PageBlockHorizontalAlignmentClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -546,7 +546,7 @@ func (b *PageBlockHorizontalAlignmentBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for PageBlockHorizontalAlignmentBox.
-func (b *PageBlockHorizontalAlignmentBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *PageBlockHorizontalAlignmentBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode PageBlockHorizontalAlignmentBox to nil")
 	}
@@ -559,7 +559,7 @@ func (b *PageBlockHorizontalAlignmentBox) DecodeTDLibJSON(buf jsontd.Decoder) er
 }
 
 // EncodeTDLibJSON implements bin.Encode for PageBlockHorizontalAlignmentBox.
-func (b *PageBlockHorizontalAlignmentBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *PageBlockHorizontalAlignmentBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.PageBlockHorizontalAlignment == nil {
 		return fmt.Errorf("unable to encode PageBlockHorizontalAlignmentClass as nil")
 	}

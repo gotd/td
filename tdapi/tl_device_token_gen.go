@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // DeviceTokenFirebaseCloudMessaging represents TL type `deviceTokenFirebaseCloudMessaging#d0714a07`.
@@ -165,8 +165,8 @@ func (d *DeviceTokenFirebaseCloudMessaging) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeviceTokenFirebaseCloudMessaging) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeviceTokenFirebaseCloudMessaging) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deviceTokenFirebaseCloudMessaging#d0714a07 as nil")
 	}
@@ -180,15 +180,15 @@ func (d *DeviceTokenFirebaseCloudMessaging) EncodeTDLibJSON(b jsontd.Encoder) er
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeviceTokenFirebaseCloudMessaging) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeviceTokenFirebaseCloudMessaging) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deviceTokenFirebaseCloudMessaging#d0714a07 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deviceTokenFirebaseCloudMessaging"); err != nil {
 				return fmt.Errorf("unable to decode deviceTokenFirebaseCloudMessaging#d0714a07: %w", err)
 			}
@@ -355,8 +355,8 @@ func (d *DeviceTokenApplePush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeviceTokenApplePush) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeviceTokenApplePush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deviceTokenApplePush#17196bc3 as nil")
 	}
@@ -370,15 +370,15 @@ func (d *DeviceTokenApplePush) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeviceTokenApplePush) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeviceTokenApplePush) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deviceTokenApplePush#17196bc3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deviceTokenApplePush"); err != nil {
 				return fmt.Errorf("unable to decode deviceTokenApplePush#17196bc3: %w", err)
 			}
@@ -562,8 +562,8 @@ func (d *DeviceTokenApplePushVoIP) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeviceTokenApplePushVoIP) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeviceTokenApplePushVoIP) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deviceTokenApplePushVoIP#2ff045e9 as nil")
 	}
@@ -579,15 +579,15 @@ func (d *DeviceTokenApplePushVoIP) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeviceTokenApplePushVoIP) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeviceTokenApplePushVoIP) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deviceTokenApplePushVoIP#2ff045e9 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deviceTokenApplePushVoIP"); err != nil {
 				return fmt.Errorf("unable to decode deviceTokenApplePushVoIP#2ff045e9: %w", err)
 			}
@@ -749,8 +749,8 @@ func (d *DeviceTokenWindowsPush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeviceTokenWindowsPush) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeviceTokenWindowsPush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deviceTokenWindowsPush#abed428f as nil")
 	}
@@ -762,15 +762,15 @@ func (d *DeviceTokenWindowsPush) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeviceTokenWindowsPush) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeviceTokenWindowsPush) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deviceTokenWindowsPush#abed428f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deviceTokenWindowsPush"); err != nil {
 				return fmt.Errorf("unable to decode deviceTokenWindowsPush#abed428f: %w", err)
 			}
@@ -909,8 +909,8 @@ func (d *DeviceTokenMicrosoftPush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeviceTokenMicrosoftPush) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeviceTokenMicrosoftPush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deviceTokenMicrosoftPush#48f8e04c as nil")
 	}
@@ -922,15 +922,15 @@ func (d *DeviceTokenMicrosoftPush) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeviceTokenMicrosoftPush) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeviceTokenMicrosoftPush) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deviceTokenMicrosoftPush#48f8e04c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deviceTokenMicrosoftPush"); err != nil {
 				return fmt.Errorf("unable to decode deviceTokenMicrosoftPush#48f8e04c: %w", err)
 			}
@@ -1069,8 +1069,8 @@ func (d *DeviceTokenMicrosoftPushVoIP) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeviceTokenMicrosoftPushVoIP) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeviceTokenMicrosoftPushVoIP) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deviceTokenMicrosoftPushVoIP#d12ca351 as nil")
 	}
@@ -1082,15 +1082,15 @@ func (d *DeviceTokenMicrosoftPushVoIP) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeviceTokenMicrosoftPushVoIP) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeviceTokenMicrosoftPushVoIP) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deviceTokenMicrosoftPushVoIP#d12ca351 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deviceTokenMicrosoftPushVoIP"); err != nil {
 				return fmt.Errorf("unable to decode deviceTokenMicrosoftPushVoIP#d12ca351: %w", err)
 			}
@@ -1264,8 +1264,8 @@ func (d *DeviceTokenWebPush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeviceTokenWebPush) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeviceTokenWebPush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deviceTokenWebPush#9affdef7 as nil")
 	}
@@ -1281,15 +1281,15 @@ func (d *DeviceTokenWebPush) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeviceTokenWebPush) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeviceTokenWebPush) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deviceTokenWebPush#9affdef7 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deviceTokenWebPush"); err != nil {
 				return fmt.Errorf("unable to decode deviceTokenWebPush#9affdef7: %w", err)
 			}
@@ -1451,8 +1451,8 @@ func (d *DeviceTokenSimplePush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeviceTokenSimplePush) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeviceTokenSimplePush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deviceTokenSimplePush#2f49a60 as nil")
 	}
@@ -1464,15 +1464,15 @@ func (d *DeviceTokenSimplePush) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeviceTokenSimplePush) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeviceTokenSimplePush) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deviceTokenSimplePush#2f49a60 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deviceTokenSimplePush"); err != nil {
 				return fmt.Errorf("unable to decode deviceTokenSimplePush#2f49a60: %w", err)
 			}
@@ -1611,8 +1611,8 @@ func (d *DeviceTokenUbuntuPush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeviceTokenUbuntuPush) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeviceTokenUbuntuPush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deviceTokenUbuntuPush#6a3c0d26 as nil")
 	}
@@ -1624,15 +1624,15 @@ func (d *DeviceTokenUbuntuPush) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeviceTokenUbuntuPush) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeviceTokenUbuntuPush) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deviceTokenUbuntuPush#6a3c0d26 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deviceTokenUbuntuPush"); err != nil {
 				return fmt.Errorf("unable to decode deviceTokenUbuntuPush#6a3c0d26: %w", err)
 			}
@@ -1771,8 +1771,8 @@ func (d *DeviceTokenBlackBerryPush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeviceTokenBlackBerryPush) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeviceTokenBlackBerryPush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deviceTokenBlackBerryPush#5cef0102 as nil")
 	}
@@ -1784,15 +1784,15 @@ func (d *DeviceTokenBlackBerryPush) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeviceTokenBlackBerryPush) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeviceTokenBlackBerryPush) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deviceTokenBlackBerryPush#5cef0102 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deviceTokenBlackBerryPush"); err != nil {
 				return fmt.Errorf("unable to decode deviceTokenBlackBerryPush#5cef0102: %w", err)
 			}
@@ -1931,8 +1931,8 @@ func (d *DeviceTokenTizenPush) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeviceTokenTizenPush) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeviceTokenTizenPush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deviceTokenTizenPush#aef0da33 as nil")
 	}
@@ -1944,15 +1944,15 @@ func (d *DeviceTokenTizenPush) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeviceTokenTizenPush) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeviceTokenTizenPush) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deviceTokenTizenPush#aef0da33 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deviceTokenTizenPush"); err != nil {
 				return fmt.Errorf("unable to decode deviceTokenTizenPush#aef0da33: %w", err)
 			}
@@ -2013,8 +2013,8 @@ type DeviceTokenClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeDeviceToken implements binary de-serialization for DeviceTokenClass.
@@ -2107,7 +2107,7 @@ func DecodeDeviceToken(buf *bin.Buffer) (DeviceTokenClass, error) {
 }
 
 // DecodeTDLibJSONDeviceToken implements binary de-serialization for DeviceTokenClass.
-func DecodeTDLibJSONDeviceToken(buf jsontd.Decoder) (DeviceTokenClass, error) {
+func DecodeTDLibJSONDeviceToken(buf tdjson.Decoder) (DeviceTokenClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -2191,7 +2191,7 @@ func DecodeTDLibJSONDeviceToken(buf jsontd.Decoder) (DeviceTokenClass, error) {
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode DeviceTokenClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode DeviceTokenClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -2222,7 +2222,7 @@ func (b *DeviceTokenBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for DeviceTokenBox.
-func (b *DeviceTokenBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *DeviceTokenBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode DeviceTokenBox to nil")
 	}
@@ -2235,7 +2235,7 @@ func (b *DeviceTokenBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for DeviceTokenBox.
-func (b *DeviceTokenBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *DeviceTokenBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.DeviceToken == nil {
 		return fmt.Errorf("unable to encode DeviceTokenClass as nil")
 	}

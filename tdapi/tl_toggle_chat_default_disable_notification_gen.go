@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ToggleChatDefaultDisableNotificationRequest represents TL type `toggleChatDefaultDisableNotification#12c36012`.
@@ -160,8 +160,8 @@ func (t *ToggleChatDefaultDisableNotificationRequest) DecodeBare(b *bin.Buffer) 
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *ToggleChatDefaultDisableNotificationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *ToggleChatDefaultDisableNotificationRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleChatDefaultDisableNotification#12c36012 as nil")
 	}
@@ -175,15 +175,15 @@ func (t *ToggleChatDefaultDisableNotificationRequest) EncodeTDLibJSON(b jsontd.E
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *ToggleChatDefaultDisableNotificationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *ToggleChatDefaultDisableNotificationRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode toggleChatDefaultDisableNotification#12c36012 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("toggleChatDefaultDisableNotification"); err != nil {
 				return fmt.Errorf("unable to decode toggleChatDefaultDisableNotification#12c36012: %w", err)
 			}

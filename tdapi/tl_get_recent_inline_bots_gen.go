@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // GetRecentInlineBotsRequest represents TL type `getRecentInlineBots#55b3723c`.
@@ -125,8 +125,8 @@ func (g *GetRecentInlineBotsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (g *GetRecentInlineBotsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (g *GetRecentInlineBotsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getRecentInlineBots#55b3723c as nil")
 	}
@@ -136,15 +136,15 @@ func (g *GetRecentInlineBotsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (g *GetRecentInlineBotsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (g *GetRecentInlineBotsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
 		return fmt.Errorf("can't decode getRecentInlineBots#55b3723c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("getRecentInlineBots"); err != nil {
 				return fmt.Errorf("unable to decode getRecentInlineBots#55b3723c: %w", err)
 			}

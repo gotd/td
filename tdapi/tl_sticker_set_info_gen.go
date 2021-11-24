@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // StickerSetInfo represents TL type `stickerSetInfo#aba733ac`.
@@ -380,8 +380,8 @@ func (s *StickerSetInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *StickerSetInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *StickerSetInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode stickerSetInfo#aba733ac as nil")
 	}
@@ -431,15 +431,15 @@ func (s *StickerSetInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *StickerSetInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *StickerSetInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode stickerSetInfo#aba733ac to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("stickerSetInfo"); err != nil {
 				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: %w", err)
 			}
@@ -466,7 +466,7 @@ func (s *StickerSetInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field thumbnail: %w", err)
 			}
 		case "thumbnail_outline":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ClosedVectorPath
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field thumbnail_outline: %w", err)
@@ -519,7 +519,7 @@ func (s *StickerSetInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			s.Size = value
 		case "covers":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value Sticker
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode stickerSetInfo#aba733ac: field covers: %w", err)

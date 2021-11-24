@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // WriteGeneratedFilePartRequest represents TL type `writeGeneratedFilePart#8512e953`.
@@ -177,8 +177,8 @@ func (w *WriteGeneratedFilePartRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (w *WriteGeneratedFilePartRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (w *WriteGeneratedFilePartRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if w == nil {
 		return fmt.Errorf("can't encode writeGeneratedFilePart#8512e953 as nil")
 	}
@@ -194,15 +194,15 @@ func (w *WriteGeneratedFilePartRequest) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (w *WriteGeneratedFilePartRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (w *WriteGeneratedFilePartRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if w == nil {
 		return fmt.Errorf("can't decode writeGeneratedFilePart#8512e953 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("writeGeneratedFilePart"); err != nil {
 				return fmt.Errorf("unable to decode writeGeneratedFilePart#8512e953: %w", err)
 			}

@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // GetChatScheduledMessagesRequest represents TL type `getChatScheduledMessages#df3d2ffb`.
@@ -143,8 +143,8 @@ func (g *GetChatScheduledMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (g *GetChatScheduledMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (g *GetChatScheduledMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatScheduledMessages#df3d2ffb as nil")
 	}
@@ -156,15 +156,15 @@ func (g *GetChatScheduledMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) erro
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (g *GetChatScheduledMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (g *GetChatScheduledMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
 		return fmt.Errorf("can't decode getChatScheduledMessages#df3d2ffb to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("getChatScheduledMessages"); err != nil {
 				return fmt.Errorf("unable to decode getChatScheduledMessages#df3d2ffb: %w", err)
 			}

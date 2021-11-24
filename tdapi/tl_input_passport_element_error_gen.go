@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // InputPassportElementError represents TL type `inputPassportElementError#11084de2`.
@@ -187,8 +187,8 @@ func (i *InputPassportElementError) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputPassportElementError) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputPassportElementError) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputPassportElementError#11084de2 as nil")
 	}
@@ -214,15 +214,15 @@ func (i *InputPassportElementError) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputPassportElementError) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputPassportElementError) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputPassportElementError#11084de2 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputPassportElementError"); err != nil {
 				return fmt.Errorf("unable to decode inputPassportElementError#11084de2: %w", err)
 			}

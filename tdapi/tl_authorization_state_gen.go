@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // AuthorizationStateWaitTdlibParameters represents TL type `authorizationStateWaitTdlibParameters#35ecf25c`.
@@ -130,8 +130,8 @@ func (a *AuthorizationStateWaitTdlibParameters) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AuthorizationStateWaitTdlibParameters) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthorizationStateWaitTdlibParameters) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authorizationStateWaitTdlibParameters#35ecf25c as nil")
 	}
@@ -141,15 +141,15 @@ func (a *AuthorizationStateWaitTdlibParameters) EncodeTDLibJSON(b jsontd.Encoder
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AuthorizationStateWaitTdlibParameters) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthorizationStateWaitTdlibParameters) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode authorizationStateWaitTdlibParameters#35ecf25c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("authorizationStateWaitTdlibParameters"); err != nil {
 				return fmt.Errorf("unable to decode authorizationStateWaitTdlibParameters#35ecf25c: %w", err)
 			}
@@ -277,8 +277,8 @@ func (a *AuthorizationStateWaitEncryptionKey) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AuthorizationStateWaitEncryptionKey) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthorizationStateWaitEncryptionKey) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authorizationStateWaitEncryptionKey#247bf548 as nil")
 	}
@@ -290,15 +290,15 @@ func (a *AuthorizationStateWaitEncryptionKey) EncodeTDLibJSON(b jsontd.Encoder) 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AuthorizationStateWaitEncryptionKey) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthorizationStateWaitEncryptionKey) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode authorizationStateWaitEncryptionKey#247bf548 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("authorizationStateWaitEncryptionKey"); err != nil {
 				return fmt.Errorf("unable to decode authorizationStateWaitEncryptionKey#247bf548: %w", err)
 			}
@@ -419,8 +419,8 @@ func (a *AuthorizationStateWaitPhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AuthorizationStateWaitPhoneNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthorizationStateWaitPhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authorizationStateWaitPhoneNumber#124354e3 as nil")
 	}
@@ -430,15 +430,15 @@ func (a *AuthorizationStateWaitPhoneNumber) EncodeTDLibJSON(b jsontd.Encoder) er
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AuthorizationStateWaitPhoneNumber) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthorizationStateWaitPhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode authorizationStateWaitPhoneNumber#124354e3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("authorizationStateWaitPhoneNumber"); err != nil {
 				return fmt.Errorf("unable to decode authorizationStateWaitPhoneNumber#124354e3: %w", err)
 			}
@@ -566,8 +566,8 @@ func (a *AuthorizationStateWaitCode) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AuthorizationStateWaitCode) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthorizationStateWaitCode) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authorizationStateWaitCode#3234501 as nil")
 	}
@@ -581,15 +581,15 @@ func (a *AuthorizationStateWaitCode) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AuthorizationStateWaitCode) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthorizationStateWaitCode) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode authorizationStateWaitCode#3234501 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("authorizationStateWaitCode"); err != nil {
 				return fmt.Errorf("unable to decode authorizationStateWaitCode#3234501: %w", err)
 			}
@@ -726,8 +726,8 @@ func (a *AuthorizationStateWaitOtherDeviceConfirmation) DecodeBare(b *bin.Buffer
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AuthorizationStateWaitOtherDeviceConfirmation) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthorizationStateWaitOtherDeviceConfirmation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authorizationStateWaitOtherDeviceConfirmation#334518ea as nil")
 	}
@@ -739,15 +739,15 @@ func (a *AuthorizationStateWaitOtherDeviceConfirmation) EncodeTDLibJSON(b jsontd
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AuthorizationStateWaitOtherDeviceConfirmation) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthorizationStateWaitOtherDeviceConfirmation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode authorizationStateWaitOtherDeviceConfirmation#334518ea to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("authorizationStateWaitOtherDeviceConfirmation"); err != nil {
 				return fmt.Errorf("unable to decode authorizationStateWaitOtherDeviceConfirmation#334518ea: %w", err)
 			}
@@ -886,8 +886,8 @@ func (a *AuthorizationStateWaitRegistration) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AuthorizationStateWaitRegistration) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthorizationStateWaitRegistration) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authorizationStateWaitRegistration#20cdaeaf as nil")
 	}
@@ -901,15 +901,15 @@ func (a *AuthorizationStateWaitRegistration) EncodeTDLibJSON(b jsontd.Encoder) e
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AuthorizationStateWaitRegistration) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthorizationStateWaitRegistration) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode authorizationStateWaitRegistration#20cdaeaf to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("authorizationStateWaitRegistration"); err != nil {
 				return fmt.Errorf("unable to decode authorizationStateWaitRegistration#20cdaeaf: %w", err)
 			}
@@ -1081,8 +1081,8 @@ func (a *AuthorizationStateWaitPassword) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AuthorizationStateWaitPassword) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthorizationStateWaitPassword) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authorizationStateWaitPassword#b2dc47c as nil")
 	}
@@ -1098,15 +1098,15 @@ func (a *AuthorizationStateWaitPassword) EncodeTDLibJSON(b jsontd.Encoder) error
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AuthorizationStateWaitPassword) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthorizationStateWaitPassword) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode authorizationStateWaitPassword#b2dc47c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("authorizationStateWaitPassword"); err != nil {
 				return fmt.Errorf("unable to decode authorizationStateWaitPassword#b2dc47c: %w", err)
 			}
@@ -1249,8 +1249,8 @@ func (a *AuthorizationStateReady) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AuthorizationStateReady) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthorizationStateReady) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authorizationStateReady#92a21447 as nil")
 	}
@@ -1260,15 +1260,15 @@ func (a *AuthorizationStateReady) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AuthorizationStateReady) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthorizationStateReady) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode authorizationStateReady#92a21447 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("authorizationStateReady"); err != nil {
 				return fmt.Errorf("unable to decode authorizationStateReady#92a21447: %w", err)
 			}
@@ -1378,8 +1378,8 @@ func (a *AuthorizationStateLoggingOut) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AuthorizationStateLoggingOut) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthorizationStateLoggingOut) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authorizationStateLoggingOut#934b576 as nil")
 	}
@@ -1389,15 +1389,15 @@ func (a *AuthorizationStateLoggingOut) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AuthorizationStateLoggingOut) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthorizationStateLoggingOut) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode authorizationStateLoggingOut#934b576 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("authorizationStateLoggingOut"); err != nil {
 				return fmt.Errorf("unable to decode authorizationStateLoggingOut#934b576: %w", err)
 			}
@@ -1507,8 +1507,8 @@ func (a *AuthorizationStateClosing) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AuthorizationStateClosing) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthorizationStateClosing) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authorizationStateClosing#1a93364f as nil")
 	}
@@ -1518,15 +1518,15 @@ func (a *AuthorizationStateClosing) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AuthorizationStateClosing) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthorizationStateClosing) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode authorizationStateClosing#1a93364f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("authorizationStateClosing"); err != nil {
 				return fmt.Errorf("unable to decode authorizationStateClosing#1a93364f: %w", err)
 			}
@@ -1636,8 +1636,8 @@ func (a *AuthorizationStateClosed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AuthorizationStateClosed) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthorizationStateClosed) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authorizationStateClosed#5af5a360 as nil")
 	}
@@ -1647,15 +1647,15 @@ func (a *AuthorizationStateClosed) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AuthorizationStateClosed) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthorizationStateClosed) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode authorizationStateClosed#5af5a360 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("authorizationStateClosed"); err != nil {
 				return fmt.Errorf("unable to decode authorizationStateClosed#5af5a360: %w", err)
 			}
@@ -1705,8 +1705,8 @@ type AuthorizationStateClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeAuthorizationState implements binary de-serialization for AuthorizationStateClass.
@@ -1799,7 +1799,7 @@ func DecodeAuthorizationState(buf *bin.Buffer) (AuthorizationStateClass, error) 
 }
 
 // DecodeTDLibJSONAuthorizationState implements binary de-serialization for AuthorizationStateClass.
-func DecodeTDLibJSONAuthorizationState(buf jsontd.Decoder) (AuthorizationStateClass, error) {
+func DecodeTDLibJSONAuthorizationState(buf tdjson.Decoder) (AuthorizationStateClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -1883,7 +1883,7 @@ func DecodeTDLibJSONAuthorizationState(buf jsontd.Decoder) (AuthorizationStateCl
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -1914,7 +1914,7 @@ func (b *AuthorizationStateBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for AuthorizationStateBox.
-func (b *AuthorizationStateBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *AuthorizationStateBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode AuthorizationStateBox to nil")
 	}
@@ -1927,7 +1927,7 @@ func (b *AuthorizationStateBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for AuthorizationStateBox.
-func (b *AuthorizationStateBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *AuthorizationStateBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.AuthorizationState == nil {
 		return fmt.Errorf("unable to encode AuthorizationStateClass as nil")
 	}

@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // Backgrounds represents TL type `backgrounds#b4671319`.
@@ -158,8 +158,8 @@ func (b *Backgrounds) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *Backgrounds) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *Backgrounds) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode backgrounds#b4671319 as nil")
 	}
@@ -177,20 +177,20 @@ func (b *Backgrounds) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *Backgrounds) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *Backgrounds) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode backgrounds#b4671319 to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("backgrounds"); err != nil {
 				return fmt.Errorf("unable to decode backgrounds#b4671319: %w", err)
 			}
 		case "backgrounds":
-			if err := buf.Arr(func(buf jsontd.Decoder) error {
+			if err := buf.Arr(func(buf tdjson.Decoder) error {
 				var value Background
 				if err := value.DecodeTDLibJSON(buf); err != nil {
 					return fmt.Errorf("unable to decode backgrounds#b4671319: field backgrounds: %w", err)

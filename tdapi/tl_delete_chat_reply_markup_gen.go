@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // DeleteChatReplyMarkupRequest represents TL type `deleteChatReplyMarkup#5ff9b5b`.
@@ -160,8 +160,8 @@ func (d *DeleteChatReplyMarkupRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeleteChatReplyMarkupRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeleteChatReplyMarkupRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteChatReplyMarkup#5ff9b5b as nil")
 	}
@@ -175,15 +175,15 @@ func (d *DeleteChatReplyMarkupRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeleteChatReplyMarkupRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeleteChatReplyMarkupRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deleteChatReplyMarkup#5ff9b5b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deleteChatReplyMarkup"); err != nil {
 				return fmt.Errorf("unable to decode deleteChatReplyMarkup#5ff9b5b: %w", err)
 			}

@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ResendEmailAddressVerificationCodeRequest represents TL type `resendEmailAddressVerificationCode#90653024`.
@@ -125,8 +125,8 @@ func (r *ResendEmailAddressVerificationCodeRequest) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *ResendEmailAddressVerificationCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *ResendEmailAddressVerificationCodeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resendEmailAddressVerificationCode#90653024 as nil")
 	}
@@ -136,15 +136,15 @@ func (r *ResendEmailAddressVerificationCodeRequest) EncodeTDLibJSON(b jsontd.Enc
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *ResendEmailAddressVerificationCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *ResendEmailAddressVerificationCodeRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode resendEmailAddressVerificationCode#90653024 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("resendEmailAddressVerificationCode"); err != nil {
 				return fmt.Errorf("unable to decode resendEmailAddressVerificationCode#90653024: %w", err)
 			}

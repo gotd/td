@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // HideSuggestedActionRequest represents TL type `hideSuggestedAction#a2ef2b7f`.
@@ -148,8 +148,8 @@ func (h *HideSuggestedActionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (h *HideSuggestedActionRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (h *HideSuggestedActionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if h == nil {
 		return fmt.Errorf("can't encode hideSuggestedAction#a2ef2b7f as nil")
 	}
@@ -166,15 +166,15 @@ func (h *HideSuggestedActionRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (h *HideSuggestedActionRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (h *HideSuggestedActionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if h == nil {
 		return fmt.Errorf("can't decode hideSuggestedAction#a2ef2b7f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("hideSuggestedAction"); err != nil {
 				return fmt.Errorf("unable to decode hideSuggestedAction#a2ef2b7f: %w", err)
 			}

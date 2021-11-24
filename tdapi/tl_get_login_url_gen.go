@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // GetLoginURLRequest represents TL type `getLoginUrl#296c75e5`.
@@ -194,8 +194,8 @@ func (g *GetLoginURLRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (g *GetLoginURLRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (g *GetLoginURLRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getLoginUrl#296c75e5 as nil")
 	}
@@ -213,15 +213,15 @@ func (g *GetLoginURLRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (g *GetLoginURLRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (g *GetLoginURLRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
 		return fmt.Errorf("can't decode getLoginUrl#296c75e5 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("getLoginUrl"); err != nil {
 				return fmt.Errorf("unable to decode getLoginUrl#296c75e5: %w", err)
 			}

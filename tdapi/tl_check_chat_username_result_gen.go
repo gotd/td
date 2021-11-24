@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // CheckChatUsernameResultOk represents TL type `checkChatUsernameResultOk#a6a7bb5c`.
@@ -130,8 +130,8 @@ func (c *CheckChatUsernameResultOk) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CheckChatUsernameResultOk) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CheckChatUsernameResultOk) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkChatUsernameResultOk#a6a7bb5c as nil")
 	}
@@ -141,15 +141,15 @@ func (c *CheckChatUsernameResultOk) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CheckChatUsernameResultOk) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CheckChatUsernameResultOk) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode checkChatUsernameResultOk#a6a7bb5c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("checkChatUsernameResultOk"); err != nil {
 				return fmt.Errorf("unable to decode checkChatUsernameResultOk#a6a7bb5c: %w", err)
 			}
@@ -259,8 +259,8 @@ func (c *CheckChatUsernameResultUsernameInvalid) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CheckChatUsernameResultUsernameInvalid) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CheckChatUsernameResultUsernameInvalid) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkChatUsernameResultUsernameInvalid#da087756 as nil")
 	}
@@ -270,15 +270,15 @@ func (c *CheckChatUsernameResultUsernameInvalid) EncodeTDLibJSON(b jsontd.Encode
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CheckChatUsernameResultUsernameInvalid) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CheckChatUsernameResultUsernameInvalid) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode checkChatUsernameResultUsernameInvalid#da087756 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("checkChatUsernameResultUsernameInvalid"); err != nil {
 				return fmt.Errorf("unable to decode checkChatUsernameResultUsernameInvalid#da087756: %w", err)
 			}
@@ -388,8 +388,8 @@ func (c *CheckChatUsernameResultUsernameOccupied) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CheckChatUsernameResultUsernameOccupied) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CheckChatUsernameResultUsernameOccupied) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkChatUsernameResultUsernameOccupied#4ebb3729 as nil")
 	}
@@ -399,15 +399,15 @@ func (c *CheckChatUsernameResultUsernameOccupied) EncodeTDLibJSON(b jsontd.Encod
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CheckChatUsernameResultUsernameOccupied) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CheckChatUsernameResultUsernameOccupied) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode checkChatUsernameResultUsernameOccupied#4ebb3729 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("checkChatUsernameResultUsernameOccupied"); err != nil {
 				return fmt.Errorf("unable to decode checkChatUsernameResultUsernameOccupied#4ebb3729: %w", err)
 			}
@@ -519,8 +519,8 @@ func (c *CheckChatUsernameResultPublicChatsTooMuch) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CheckChatUsernameResultPublicChatsTooMuch) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CheckChatUsernameResultPublicChatsTooMuch) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkChatUsernameResultPublicChatsTooMuch#3327d23d as nil")
 	}
@@ -530,15 +530,15 @@ func (c *CheckChatUsernameResultPublicChatsTooMuch) EncodeTDLibJSON(b jsontd.Enc
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CheckChatUsernameResultPublicChatsTooMuch) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CheckChatUsernameResultPublicChatsTooMuch) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode checkChatUsernameResultPublicChatsTooMuch#3327d23d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("checkChatUsernameResultPublicChatsTooMuch"); err != nil {
 				return fmt.Errorf("unable to decode checkChatUsernameResultPublicChatsTooMuch#3327d23d: %w", err)
 			}
@@ -650,8 +650,8 @@ func (c *CheckChatUsernameResultPublicGroupsUnavailable) DecodeBare(b *bin.Buffe
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CheckChatUsernameResultPublicGroupsUnavailable) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CheckChatUsernameResultPublicGroupsUnavailable) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkChatUsernameResultPublicGroupsUnavailable#fce914d7 as nil")
 	}
@@ -661,15 +661,15 @@ func (c *CheckChatUsernameResultPublicGroupsUnavailable) EncodeTDLibJSON(b jsont
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CheckChatUsernameResultPublicGroupsUnavailable) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CheckChatUsernameResultPublicGroupsUnavailable) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode checkChatUsernameResultPublicGroupsUnavailable#fce914d7 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("checkChatUsernameResultPublicGroupsUnavailable"); err != nil {
 				return fmt.Errorf("unable to decode checkChatUsernameResultPublicGroupsUnavailable#fce914d7: %w", err)
 			}
@@ -713,8 +713,8 @@ type CheckChatUsernameResultClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeCheckChatUsernameResult implements binary de-serialization for CheckChatUsernameResultClass.
@@ -765,7 +765,7 @@ func DecodeCheckChatUsernameResult(buf *bin.Buffer) (CheckChatUsernameResultClas
 }
 
 // DecodeTDLibJSONCheckChatUsernameResult implements binary de-serialization for CheckChatUsernameResultClass.
-func DecodeTDLibJSONCheckChatUsernameResult(buf jsontd.Decoder) (CheckChatUsernameResultClass, error) {
+func DecodeTDLibJSONCheckChatUsernameResult(buf tdjson.Decoder) (CheckChatUsernameResultClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -807,7 +807,7 @@ func DecodeTDLibJSONCheckChatUsernameResult(buf jsontd.Decoder) (CheckChatUserna
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode CheckChatUsernameResultClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode CheckChatUsernameResultClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -838,7 +838,7 @@ func (b *CheckChatUsernameResultBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for CheckChatUsernameResultBox.
-func (b *CheckChatUsernameResultBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *CheckChatUsernameResultBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode CheckChatUsernameResultBox to nil")
 	}
@@ -851,7 +851,7 @@ func (b *CheckChatUsernameResultBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for CheckChatUsernameResultBox.
-func (b *CheckChatUsernameResultBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *CheckChatUsernameResultBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.CheckChatUsernameResult == nil {
 		return fmt.Errorf("unable to encode CheckChatUsernameResultClass as nil")
 	}

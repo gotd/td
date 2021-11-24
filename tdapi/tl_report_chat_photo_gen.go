@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ReportChatPhotoRequest represents TL type `reportChatPhoto#2bc9e924`.
@@ -199,8 +199,8 @@ func (r *ReportChatPhotoRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *ReportChatPhotoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *ReportChatPhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode reportChatPhoto#2bc9e924 as nil")
 	}
@@ -223,15 +223,15 @@ func (r *ReportChatPhotoRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *ReportChatPhotoRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *ReportChatPhotoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode reportChatPhoto#2bc9e924 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("reportChatPhoto"); err != nil {
 				return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: %w", err)
 			}

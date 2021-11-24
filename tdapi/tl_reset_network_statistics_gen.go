@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ResetNetworkStatisticsRequest represents TL type `resetNetworkStatistics#6222dd86`.
@@ -125,8 +125,8 @@ func (r *ResetNetworkStatisticsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *ResetNetworkStatisticsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *ResetNetworkStatisticsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resetNetworkStatistics#6222dd86 as nil")
 	}
@@ -136,15 +136,15 @@ func (r *ResetNetworkStatisticsRequest) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *ResetNetworkStatisticsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *ResetNetworkStatisticsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode resetNetworkStatistics#6222dd86 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("resetNetworkStatistics"); err != nil {
 				return fmt.Errorf("unable to decode resetNetworkStatistics#6222dd86: %w", err)
 			}

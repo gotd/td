@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // PageBlockTableCell represents TL type `pageBlockTableCell#547fbf66`.
@@ -243,8 +243,8 @@ func (p *PageBlockTableCell) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PageBlockTableCell) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PageBlockTableCell) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockTableCell#547fbf66 as nil")
 	}
@@ -281,15 +281,15 @@ func (p *PageBlockTableCell) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PageBlockTableCell) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PageBlockTableCell) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pageBlockTableCell#547fbf66 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockTableCell"); err != nil {
 				return fmt.Errorf("unable to decode pageBlockTableCell#547fbf66: %w", err)
 			}

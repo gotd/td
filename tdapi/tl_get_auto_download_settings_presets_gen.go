@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // GetAutoDownloadSettingsPresetsRequest represents TL type `getAutoDownloadSettingsPresets#996a4737`.
@@ -125,8 +125,8 @@ func (g *GetAutoDownloadSettingsPresetsRequest) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (g *GetAutoDownloadSettingsPresetsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (g *GetAutoDownloadSettingsPresetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getAutoDownloadSettingsPresets#996a4737 as nil")
 	}
@@ -136,15 +136,15 @@ func (g *GetAutoDownloadSettingsPresetsRequest) EncodeTDLibJSON(b jsontd.Encoder
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (g *GetAutoDownloadSettingsPresetsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (g *GetAutoDownloadSettingsPresetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
 		return fmt.Errorf("can't decode getAutoDownloadSettingsPresets#996a4737 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("getAutoDownloadSettingsPresets"); err != nil {
 				return fmt.Errorf("unable to decode getAutoDownloadSettingsPresets#996a4737: %w", err)
 			}

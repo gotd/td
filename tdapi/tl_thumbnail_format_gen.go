@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ThumbnailFormatJpeg represents TL type `thumbnailFormatJpeg#d90c5488`.
@@ -130,8 +130,8 @@ func (t *ThumbnailFormatJpeg) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *ThumbnailFormatJpeg) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *ThumbnailFormatJpeg) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode thumbnailFormatJpeg#d90c5488 as nil")
 	}
@@ -141,15 +141,15 @@ func (t *ThumbnailFormatJpeg) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *ThumbnailFormatJpeg) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *ThumbnailFormatJpeg) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode thumbnailFormatJpeg#d90c5488 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("thumbnailFormatJpeg"); err != nil {
 				return fmt.Errorf("unable to decode thumbnailFormatJpeg#d90c5488: %w", err)
 			}
@@ -259,8 +259,8 @@ func (t *ThumbnailFormatPng) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *ThumbnailFormatPng) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *ThumbnailFormatPng) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode thumbnailFormatPng#5e0697f5 as nil")
 	}
@@ -270,15 +270,15 @@ func (t *ThumbnailFormatPng) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *ThumbnailFormatPng) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *ThumbnailFormatPng) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode thumbnailFormatPng#5e0697f5 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("thumbnailFormatPng"); err != nil {
 				return fmt.Errorf("unable to decode thumbnailFormatPng#5e0697f5: %w", err)
 			}
@@ -388,8 +388,8 @@ func (t *ThumbnailFormatWebp) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *ThumbnailFormatWebp) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *ThumbnailFormatWebp) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode thumbnailFormatWebp#fcce4c12 as nil")
 	}
@@ -399,15 +399,15 @@ func (t *ThumbnailFormatWebp) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *ThumbnailFormatWebp) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *ThumbnailFormatWebp) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode thumbnailFormatWebp#fcce4c12 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("thumbnailFormatWebp"); err != nil {
 				return fmt.Errorf("unable to decode thumbnailFormatWebp#fcce4c12: %w", err)
 			}
@@ -517,8 +517,8 @@ func (t *ThumbnailFormatGif) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *ThumbnailFormatGif) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *ThumbnailFormatGif) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode thumbnailFormatGif#4aa3258a as nil")
 	}
@@ -528,15 +528,15 @@ func (t *ThumbnailFormatGif) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *ThumbnailFormatGif) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *ThumbnailFormatGif) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode thumbnailFormatGif#4aa3258a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("thumbnailFormatGif"); err != nil {
 				return fmt.Errorf("unable to decode thumbnailFormatGif#4aa3258a: %w", err)
 			}
@@ -646,8 +646,8 @@ func (t *ThumbnailFormatTgs) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *ThumbnailFormatTgs) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *ThumbnailFormatTgs) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode thumbnailFormatTgs#4e694852 as nil")
 	}
@@ -657,15 +657,15 @@ func (t *ThumbnailFormatTgs) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *ThumbnailFormatTgs) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *ThumbnailFormatTgs) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode thumbnailFormatTgs#4e694852 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("thumbnailFormatTgs"); err != nil {
 				return fmt.Errorf("unable to decode thumbnailFormatTgs#4e694852: %w", err)
 			}
@@ -775,8 +775,8 @@ func (t *ThumbnailFormatMpeg4) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *ThumbnailFormatMpeg4) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *ThumbnailFormatMpeg4) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode thumbnailFormatMpeg4#109b57fe as nil")
 	}
@@ -786,15 +786,15 @@ func (t *ThumbnailFormatMpeg4) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *ThumbnailFormatMpeg4) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *ThumbnailFormatMpeg4) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode thumbnailFormatMpeg4#109b57fe to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("thumbnailFormatMpeg4"); err != nil {
 				return fmt.Errorf("unable to decode thumbnailFormatMpeg4#109b57fe: %w", err)
 			}
@@ -839,8 +839,8 @@ type ThumbnailFormatClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeThumbnailFormat implements binary de-serialization for ThumbnailFormatClass.
@@ -898,7 +898,7 @@ func DecodeThumbnailFormat(buf *bin.Buffer) (ThumbnailFormatClass, error) {
 }
 
 // DecodeTDLibJSONThumbnailFormat implements binary de-serialization for ThumbnailFormatClass.
-func DecodeTDLibJSONThumbnailFormat(buf jsontd.Decoder) (ThumbnailFormatClass, error) {
+func DecodeTDLibJSONThumbnailFormat(buf tdjson.Decoder) (ThumbnailFormatClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -947,7 +947,7 @@ func DecodeTDLibJSONThumbnailFormat(buf jsontd.Decoder) (ThumbnailFormatClass, e
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ThumbnailFormatClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode ThumbnailFormatClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -978,7 +978,7 @@ func (b *ThumbnailFormatBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for ThumbnailFormatBox.
-func (b *ThumbnailFormatBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *ThumbnailFormatBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode ThumbnailFormatBox to nil")
 	}
@@ -991,7 +991,7 @@ func (b *ThumbnailFormatBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for ThumbnailFormatBox.
-func (b *ThumbnailFormatBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *ThumbnailFormatBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.ThumbnailFormat == nil {
 		return fmt.Errorf("unable to encode ThumbnailFormatClass as nil")
 	}

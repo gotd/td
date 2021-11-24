@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // BotCommands represents TL type `botCommands#f479c572`.
@@ -175,8 +175,8 @@ func (b *BotCommands) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BotCommands) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BotCommands) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botCommands#f479c572 as nil")
 	}
@@ -196,15 +196,15 @@ func (b *BotCommands) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BotCommands) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BotCommands) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode botCommands#f479c572 to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("botCommands"); err != nil {
 				return fmt.Errorf("unable to decode botCommands#f479c572: %w", err)
 			}
@@ -215,7 +215,7 @@ func (b *BotCommands) DecodeTDLibJSON(buf jsontd.Decoder) error {
 			}
 			b.BotUserID = value
 		case "commands":
-			if err := buf.Arr(func(buf jsontd.Decoder) error {
+			if err := buf.Arr(func(buf tdjson.Decoder) error {
 				var value BotCommand
 				if err := value.DecodeTDLibJSON(buf); err != nil {
 					return fmt.Errorf("unable to decode botCommands#f479c572: field commands: %w", err)

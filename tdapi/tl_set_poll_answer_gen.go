@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // SetPollAnswerRequest represents TL type `setPollAnswer#5303b916`.
@@ -191,8 +191,8 @@ func (s *SetPollAnswerRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SetPollAnswerRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SetPollAnswerRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setPollAnswer#5303b916 as nil")
 	}
@@ -212,15 +212,15 @@ func (s *SetPollAnswerRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SetPollAnswerRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SetPollAnswerRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode setPollAnswer#5303b916 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("setPollAnswer"); err != nil {
 				return fmt.Errorf("unable to decode setPollAnswer#5303b916: %w", err)
 			}
@@ -237,7 +237,7 @@ func (s *SetPollAnswerRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			s.MessageID = value
 		case "option_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
 					return fmt.Errorf("unable to decode setPollAnswer#5303b916: field option_ids: %w", err)

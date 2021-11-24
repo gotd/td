@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // SearchEmojisRequest represents TL type `searchEmojis#9fb0feea`.
@@ -191,8 +191,8 @@ func (s *SearchEmojisRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchEmojisRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchEmojisRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchEmojis#9fb0feea as nil")
 	}
@@ -212,15 +212,15 @@ func (s *SearchEmojisRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchEmojisRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchEmojisRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchEmojis#9fb0feea to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchEmojis"); err != nil {
 				return fmt.Errorf("unable to decode searchEmojis#9fb0feea: %w", err)
 			}
@@ -237,7 +237,7 @@ func (s *SearchEmojisRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			s.ExactMatch = value
 		case "input_language_codes":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.String()
 				if err != nil {
 					return fmt.Errorf("unable to decode searchEmojis#9fb0feea: field input_language_codes: %w", err)

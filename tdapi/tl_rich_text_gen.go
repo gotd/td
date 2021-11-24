@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // RichTextPlain represents TL type `richTextPlain#1cc42966`.
@@ -148,8 +148,8 @@ func (r *RichTextPlain) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextPlain) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextPlain) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextPlain#1cc42966 as nil")
 	}
@@ -161,15 +161,15 @@ func (r *RichTextPlain) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextPlain) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextPlain) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextPlain#1cc42966 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextPlain"); err != nil {
 				return fmt.Errorf("unable to decode richTextPlain#1cc42966: %w", err)
 			}
@@ -313,8 +313,8 @@ func (r *RichTextBold) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextBold) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextBold) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextBold#63970f6c as nil")
 	}
@@ -331,15 +331,15 @@ func (r *RichTextBold) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextBold) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextBold) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextBold#63970f6c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextBold"); err != nil {
 				return fmt.Errorf("unable to decode richTextBold#63970f6c: %w", err)
 			}
@@ -483,8 +483,8 @@ func (r *RichTextItalic) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextItalic) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextItalic) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextItalic#6e77f03f as nil")
 	}
@@ -501,15 +501,15 @@ func (r *RichTextItalic) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextItalic) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextItalic) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextItalic#6e77f03f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextItalic"); err != nil {
 				return fmt.Errorf("unable to decode richTextItalic#6e77f03f: %w", err)
 			}
@@ -653,8 +653,8 @@ func (r *RichTextUnderline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextUnderline) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextUnderline) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextUnderline#e00cfd8c as nil")
 	}
@@ -671,15 +671,15 @@ func (r *RichTextUnderline) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextUnderline) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextUnderline) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextUnderline#e00cfd8c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextUnderline"); err != nil {
 				return fmt.Errorf("unable to decode richTextUnderline#e00cfd8c: %w", err)
 			}
@@ -823,8 +823,8 @@ func (r *RichTextStrikethrough) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextStrikethrough) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextStrikethrough) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextStrikethrough#2b1e6a51 as nil")
 	}
@@ -841,15 +841,15 @@ func (r *RichTextStrikethrough) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextStrikethrough) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextStrikethrough) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextStrikethrough#2b1e6a51 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextStrikethrough"); err != nil {
 				return fmt.Errorf("unable to decode richTextStrikethrough#2b1e6a51: %w", err)
 			}
@@ -993,8 +993,8 @@ func (r *RichTextFixed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextFixed) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextFixed) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextFixed#b43681c7 as nil")
 	}
@@ -1011,15 +1011,15 @@ func (r *RichTextFixed) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextFixed) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextFixed) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextFixed#b43681c7 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextFixed"); err != nil {
 				return fmt.Errorf("unable to decode richTextFixed#b43681c7: %w", err)
 			}
@@ -1197,8 +1197,8 @@ func (r *RichTextURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextURL) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextURL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextUrl#500cf14 as nil")
 	}
@@ -1219,15 +1219,15 @@ func (r *RichTextURL) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextURL) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextURL) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextUrl#500cf14 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextUrl"); err != nil {
 				return fmt.Errorf("unable to decode richTextUrl#500cf14: %w", err)
 			}
@@ -1410,8 +1410,8 @@ func (r *RichTextEmailAddress) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextEmailAddress) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextEmailAddress) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextEmailAddress#262a2f7 as nil")
 	}
@@ -1430,15 +1430,15 @@ func (r *RichTextEmailAddress) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextEmailAddress) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextEmailAddress) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextEmailAddress#262a2f7 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextEmailAddress"); err != nil {
 				return fmt.Errorf("unable to decode richTextEmailAddress#262a2f7: %w", err)
 			}
@@ -1593,8 +1593,8 @@ func (r *RichTextSubscript) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextSubscript) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextSubscript) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextSubscript#cc405a4c as nil")
 	}
@@ -1611,15 +1611,15 @@ func (r *RichTextSubscript) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextSubscript) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextSubscript) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextSubscript#cc405a4c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextSubscript"); err != nil {
 				return fmt.Errorf("unable to decode richTextSubscript#cc405a4c: %w", err)
 			}
@@ -1763,8 +1763,8 @@ func (r *RichTextSuperscript) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextSuperscript) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextSuperscript) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextSuperscript#e9377563 as nil")
 	}
@@ -1781,15 +1781,15 @@ func (r *RichTextSuperscript) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextSuperscript) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextSuperscript) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextSuperscript#e9377563 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextSuperscript"); err != nil {
 				return fmt.Errorf("unable to decode richTextSuperscript#e9377563: %w", err)
 			}
@@ -1933,8 +1933,8 @@ func (r *RichTextMarked) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextMarked) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextMarked) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextMarked#b42ed382 as nil")
 	}
@@ -1951,15 +1951,15 @@ func (r *RichTextMarked) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextMarked) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextMarked) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextMarked#b42ed382 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextMarked"); err != nil {
 				return fmt.Errorf("unable to decode richTextMarked#b42ed382: %w", err)
 			}
@@ -2120,8 +2120,8 @@ func (r *RichTextPhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextPhoneNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextPhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextPhoneNumber#7a91543 as nil")
 	}
@@ -2140,15 +2140,15 @@ func (r *RichTextPhoneNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextPhoneNumber) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextPhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextPhoneNumber#7a91543 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextPhoneNumber"); err != nil {
 				return fmt.Errorf("unable to decode richTextPhoneNumber#7a91543: %w", err)
 			}
@@ -2332,8 +2332,8 @@ func (r *RichTextIcon) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextIcon) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextIcon) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextIcon#a7c42b02 as nil")
 	}
@@ -2351,15 +2351,15 @@ func (r *RichTextIcon) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextIcon) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextIcon) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextIcon#a7c42b02 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextIcon"); err != nil {
 				return fmt.Errorf("unable to decode richTextIcon#a7c42b02: %w", err)
 			}
@@ -2558,8 +2558,8 @@ func (r *RichTextReference) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextReference) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextReference) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextReference#bb9a1276 as nil")
 	}
@@ -2580,15 +2580,15 @@ func (r *RichTextReference) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextReference) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextReference) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextReference#bb9a1276 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextReference"); err != nil {
 				return fmt.Errorf("unable to decode richTextReference#bb9a1276: %w", err)
 			}
@@ -2749,8 +2749,8 @@ func (r *RichTextAnchor) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextAnchor) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextAnchor) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextAnchor#4e7f1034 as nil")
 	}
@@ -2762,15 +2762,15 @@ func (r *RichTextAnchor) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextAnchor) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextAnchor) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextAnchor#4e7f1034 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextAnchor"); err != nil {
 				return fmt.Errorf("unable to decode richTextAnchor#4e7f1034: %w", err)
 			}
@@ -2948,8 +2948,8 @@ func (r *RichTextAnchorLink) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTextAnchorLink) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTextAnchorLink) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTextAnchorLink#a41fd2d6 as nil")
 	}
@@ -2970,15 +2970,15 @@ func (r *RichTextAnchorLink) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTextAnchorLink) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTextAnchorLink) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTextAnchorLink#a41fd2d6 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTextAnchorLink"); err != nil {
 				return fmt.Errorf("unable to decode richTextAnchorLink#a41fd2d6: %w", err)
 			}
@@ -3157,8 +3157,8 @@ func (r *RichTexts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *RichTexts) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *RichTexts) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode richTexts#94b21889 as nil")
 	}
@@ -3179,20 +3179,20 @@ func (r *RichTexts) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *RichTexts) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *RichTexts) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode richTexts#94b21889 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("richTexts"); err != nil {
 				return fmt.Errorf("unable to decode richTexts#94b21889: %w", err)
 			}
 		case "texts":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONRichText(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode richTexts#94b21889: field texts: %w", err)
@@ -3259,8 +3259,8 @@ type RichTextClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeRichText implements binary de-serialization for RichTextClass.
@@ -3395,7 +3395,7 @@ func DecodeRichText(buf *bin.Buffer) (RichTextClass, error) {
 }
 
 // DecodeTDLibJSONRichText implements binary de-serialization for RichTextClass.
-func DecodeTDLibJSONRichText(buf jsontd.Decoder) (RichTextClass, error) {
+func DecodeTDLibJSONRichText(buf tdjson.Decoder) (RichTextClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -3521,7 +3521,7 @@ func DecodeTDLibJSONRichText(buf jsontd.Decoder) (RichTextClass, error) {
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode RichTextClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode RichTextClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -3552,7 +3552,7 @@ func (b *RichTextBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for RichTextBox.
-func (b *RichTextBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *RichTextBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode RichTextBox to nil")
 	}
@@ -3565,7 +3565,7 @@ func (b *RichTextBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for RichTextBox.
-func (b *RichTextBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *RichTextBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.RichText == nil {
 		return fmt.Errorf("unable to encode RichTextClass as nil")
 	}

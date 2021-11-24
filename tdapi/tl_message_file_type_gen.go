@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // MessageFileTypePrivate represents TL type `messageFileTypePrivate#e0e44ed4`.
@@ -148,8 +148,8 @@ func (m *MessageFileTypePrivate) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (m *MessageFileTypePrivate) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageFileTypePrivate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageFileTypePrivate#e0e44ed4 as nil")
 	}
@@ -161,15 +161,15 @@ func (m *MessageFileTypePrivate) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (m *MessageFileTypePrivate) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageFileTypePrivate) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageFileTypePrivate#e0e44ed4 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("messageFileTypePrivate"); err != nil {
 				return fmt.Errorf("unable to decode messageFileTypePrivate#e0e44ed4: %w", err)
 			}
@@ -308,8 +308,8 @@ func (m *MessageFileTypeGroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (m *MessageFileTypeGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageFileTypeGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageFileTypeGroup#f2e58f68 as nil")
 	}
@@ -321,15 +321,15 @@ func (m *MessageFileTypeGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (m *MessageFileTypeGroup) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageFileTypeGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageFileTypeGroup#f2e58f68 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("messageFileTypeGroup"); err != nil {
 				return fmt.Errorf("unable to decode messageFileTypeGroup#f2e58f68: %w", err)
 			}
@@ -450,8 +450,8 @@ func (m *MessageFileTypeUnknown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (m *MessageFileTypeUnknown) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageFileTypeUnknown) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageFileTypeUnknown#461dbab2 as nil")
 	}
@@ -461,15 +461,15 @@ func (m *MessageFileTypeUnknown) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (m *MessageFileTypeUnknown) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageFileTypeUnknown) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageFileTypeUnknown#461dbab2 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("messageFileTypeUnknown"); err != nil {
 				return fmt.Errorf("unable to decode messageFileTypeUnknown#461dbab2: %w", err)
 			}
@@ -511,8 +511,8 @@ type MessageFileTypeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeMessageFileType implements binary de-serialization for MessageFileTypeClass.
@@ -549,7 +549,7 @@ func DecodeMessageFileType(buf *bin.Buffer) (MessageFileTypeClass, error) {
 }
 
 // DecodeTDLibJSONMessageFileType implements binary de-serialization for MessageFileTypeClass.
-func DecodeTDLibJSONMessageFileType(buf jsontd.Decoder) (MessageFileTypeClass, error) {
+func DecodeTDLibJSONMessageFileType(buf tdjson.Decoder) (MessageFileTypeClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -577,7 +577,7 @@ func DecodeTDLibJSONMessageFileType(buf jsontd.Decoder) (MessageFileTypeClass, e
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessageFileTypeClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode MessageFileTypeClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -608,7 +608,7 @@ func (b *MessageFileTypeBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for MessageFileTypeBox.
-func (b *MessageFileTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *MessageFileTypeBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode MessageFileTypeBox to nil")
 	}
@@ -621,7 +621,7 @@ func (b *MessageFileTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for MessageFileTypeBox.
-func (b *MessageFileTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *MessageFileTypeBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.MessageFileType == nil {
 		return fmt.Errorf("unable to encode MessageFileTypeClass as nil")
 	}

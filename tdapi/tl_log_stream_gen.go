@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // LogStreamDefault represents TL type `logStreamDefault#52e296bc`.
@@ -130,8 +130,8 @@ func (l *LogStreamDefault) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (l *LogStreamDefault) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (l *LogStreamDefault) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode logStreamDefault#52e296bc as nil")
 	}
@@ -141,15 +141,15 @@ func (l *LogStreamDefault) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (l *LogStreamDefault) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (l *LogStreamDefault) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
 		return fmt.Errorf("can't decode logStreamDefault#52e296bc to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("logStreamDefault"); err != nil {
 				return fmt.Errorf("unable to decode logStreamDefault#52e296bc: %w", err)
 			}
@@ -312,8 +312,8 @@ func (l *LogStreamFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (l *LogStreamFile) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (l *LogStreamFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode logStreamFile#5b528de5 as nil")
 	}
@@ -329,15 +329,15 @@ func (l *LogStreamFile) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (l *LogStreamFile) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (l *LogStreamFile) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
 		return fmt.Errorf("can't decode logStreamFile#5b528de5 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("logStreamFile"); err != nil {
 				return fmt.Errorf("unable to decode logStreamFile#5b528de5: %w", err)
 			}
@@ -480,8 +480,8 @@ func (l *LogStreamEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (l *LogStreamEmpty) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (l *LogStreamEmpty) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode logStreamEmpty#e233f1cc as nil")
 	}
@@ -491,15 +491,15 @@ func (l *LogStreamEmpty) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (l *LogStreamEmpty) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (l *LogStreamEmpty) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
 		return fmt.Errorf("can't decode logStreamEmpty#e233f1cc to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("logStreamEmpty"); err != nil {
 				return fmt.Errorf("unable to decode logStreamEmpty#e233f1cc: %w", err)
 			}
@@ -541,8 +541,8 @@ type LogStreamClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeLogStream implements binary de-serialization for LogStreamClass.
@@ -579,7 +579,7 @@ func DecodeLogStream(buf *bin.Buffer) (LogStreamClass, error) {
 }
 
 // DecodeTDLibJSONLogStream implements binary de-serialization for LogStreamClass.
-func DecodeTDLibJSONLogStream(buf jsontd.Decoder) (LogStreamClass, error) {
+func DecodeTDLibJSONLogStream(buf tdjson.Decoder) (LogStreamClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -607,7 +607,7 @@ func DecodeTDLibJSONLogStream(buf jsontd.Decoder) (LogStreamClass, error) {
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode LogStreamClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode LogStreamClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -638,7 +638,7 @@ func (b *LogStreamBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for LogStreamBox.
-func (b *LogStreamBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *LogStreamBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode LogStreamBox to nil")
 	}
@@ -651,7 +651,7 @@ func (b *LogStreamBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for LogStreamBox.
-func (b *LogStreamBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *LogStreamBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.LogStream == nil {
 		return fmt.Errorf("unable to encode LogStreamClass as nil")
 	}

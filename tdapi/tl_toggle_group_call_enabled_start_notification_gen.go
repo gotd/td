@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ToggleGroupCallEnabledStartNotificationRequest represents TL type `toggleGroupCallEnabledStartNotification#2a30c752`.
@@ -160,8 +160,8 @@ func (t *ToggleGroupCallEnabledStartNotificationRequest) DecodeBare(b *bin.Buffe
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *ToggleGroupCallEnabledStartNotificationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *ToggleGroupCallEnabledStartNotificationRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleGroupCallEnabledStartNotification#2a30c752 as nil")
 	}
@@ -175,15 +175,15 @@ func (t *ToggleGroupCallEnabledStartNotificationRequest) EncodeTDLibJSON(b jsont
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *ToggleGroupCallEnabledStartNotificationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *ToggleGroupCallEnabledStartNotificationRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode toggleGroupCallEnabledStartNotification#2a30c752 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("toggleGroupCallEnabledStartNotification"); err != nil {
 				return fmt.Errorf("unable to decode toggleGroupCallEnabledStartNotification#2a30c752: %w", err)
 			}

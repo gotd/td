@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // PassportElementTypePersonalDetails represents TL type `passportElementTypePersonalDetails#c27ad953`.
@@ -130,8 +130,8 @@ func (p *PassportElementTypePersonalDetails) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PassportElementTypePersonalDetails) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PassportElementTypePersonalDetails) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementTypePersonalDetails#c27ad953 as nil")
 	}
@@ -141,15 +141,15 @@ func (p *PassportElementTypePersonalDetails) EncodeTDLibJSON(b jsontd.Encoder) e
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PassportElementTypePersonalDetails) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PassportElementTypePersonalDetails) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypePersonalDetails#c27ad953 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("passportElementTypePersonalDetails"); err != nil {
 				return fmt.Errorf("unable to decode passportElementTypePersonalDetails#c27ad953: %w", err)
 			}
@@ -259,8 +259,8 @@ func (p *PassportElementTypePassport) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PassportElementTypePassport) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PassportElementTypePassport) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementTypePassport#e5fdab48 as nil")
 	}
@@ -270,15 +270,15 @@ func (p *PassportElementTypePassport) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PassportElementTypePassport) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PassportElementTypePassport) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypePassport#e5fdab48 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("passportElementTypePassport"); err != nil {
 				return fmt.Errorf("unable to decode passportElementTypePassport#e5fdab48: %w", err)
 			}
@@ -388,8 +388,8 @@ func (p *PassportElementTypeDriverLicense) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PassportElementTypeDriverLicense) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PassportElementTypeDriverLicense) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementTypeDriverLicense#6cea5c4b as nil")
 	}
@@ -399,15 +399,15 @@ func (p *PassportElementTypeDriverLicense) EncodeTDLibJSON(b jsontd.Encoder) err
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PassportElementTypeDriverLicense) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PassportElementTypeDriverLicense) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeDriverLicense#6cea5c4b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("passportElementTypeDriverLicense"); err != nil {
 				return fmt.Errorf("unable to decode passportElementTypeDriverLicense#6cea5c4b: %w", err)
 			}
@@ -517,8 +517,8 @@ func (p *PassportElementTypeIdentityCard) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PassportElementTypeIdentityCard) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PassportElementTypeIdentityCard) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementTypeIdentityCard#e20ea75c as nil")
 	}
@@ -528,15 +528,15 @@ func (p *PassportElementTypeIdentityCard) EncodeTDLibJSON(b jsontd.Encoder) erro
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PassportElementTypeIdentityCard) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PassportElementTypeIdentityCard) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeIdentityCard#e20ea75c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("passportElementTypeIdentityCard"); err != nil {
 				return fmt.Errorf("unable to decode passportElementTypeIdentityCard#e20ea75c: %w", err)
 			}
@@ -646,8 +646,8 @@ func (p *PassportElementTypeInternalPassport) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PassportElementTypeInternalPassport) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PassportElementTypeInternalPassport) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementTypeInternalPassport#d0afd939 as nil")
 	}
@@ -657,15 +657,15 @@ func (p *PassportElementTypeInternalPassport) EncodeTDLibJSON(b jsontd.Encoder) 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PassportElementTypeInternalPassport) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PassportElementTypeInternalPassport) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeInternalPassport#d0afd939 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("passportElementTypeInternalPassport"); err != nil {
 				return fmt.Errorf("unable to decode passportElementTypeInternalPassport#d0afd939: %w", err)
 			}
@@ -775,8 +775,8 @@ func (p *PassportElementTypeAddress) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PassportElementTypeAddress) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PassportElementTypeAddress) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementTypeAddress#1d955cc2 as nil")
 	}
@@ -786,15 +786,15 @@ func (p *PassportElementTypeAddress) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PassportElementTypeAddress) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PassportElementTypeAddress) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeAddress#1d955cc2 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("passportElementTypeAddress"); err != nil {
 				return fmt.Errorf("unable to decode passportElementTypeAddress#1d955cc2: %w", err)
 			}
@@ -904,8 +904,8 @@ func (p *PassportElementTypeUtilityBill) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PassportElementTypeUtilityBill) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PassportElementTypeUtilityBill) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementTypeUtilityBill#25608e6a as nil")
 	}
@@ -915,15 +915,15 @@ func (p *PassportElementTypeUtilityBill) EncodeTDLibJSON(b jsontd.Encoder) error
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PassportElementTypeUtilityBill) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PassportElementTypeUtilityBill) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeUtilityBill#25608e6a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("passportElementTypeUtilityBill"); err != nil {
 				return fmt.Errorf("unable to decode passportElementTypeUtilityBill#25608e6a: %w", err)
 			}
@@ -1033,8 +1033,8 @@ func (p *PassportElementTypeBankStatement) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PassportElementTypeBankStatement) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PassportElementTypeBankStatement) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementTypeBankStatement#22380133 as nil")
 	}
@@ -1044,15 +1044,15 @@ func (p *PassportElementTypeBankStatement) EncodeTDLibJSON(b jsontd.Encoder) err
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PassportElementTypeBankStatement) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PassportElementTypeBankStatement) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeBankStatement#22380133 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("passportElementTypeBankStatement"); err != nil {
 				return fmt.Errorf("unable to decode passportElementTypeBankStatement#22380133: %w", err)
 			}
@@ -1162,8 +1162,8 @@ func (p *PassportElementTypeRentalAgreement) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PassportElementTypeRentalAgreement) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PassportElementTypeRentalAgreement) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementTypeRentalAgreement#852dfe90 as nil")
 	}
@@ -1173,15 +1173,15 @@ func (p *PassportElementTypeRentalAgreement) EncodeTDLibJSON(b jsontd.Encoder) e
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PassportElementTypeRentalAgreement) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PassportElementTypeRentalAgreement) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeRentalAgreement#852dfe90 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("passportElementTypeRentalAgreement"); err != nil {
 				return fmt.Errorf("unable to decode passportElementTypeRentalAgreement#852dfe90: %w", err)
 			}
@@ -1291,8 +1291,8 @@ func (p *PassportElementTypePassportRegistration) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PassportElementTypePassportRegistration) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PassportElementTypePassportRegistration) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementTypePassportRegistration#f67e8e3f as nil")
 	}
@@ -1302,15 +1302,15 @@ func (p *PassportElementTypePassportRegistration) EncodeTDLibJSON(b jsontd.Encod
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PassportElementTypePassportRegistration) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PassportElementTypePassportRegistration) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypePassportRegistration#f67e8e3f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("passportElementTypePassportRegistration"); err != nil {
 				return fmt.Errorf("unable to decode passportElementTypePassportRegistration#f67e8e3f: %w", err)
 			}
@@ -1420,8 +1420,8 @@ func (p *PassportElementTypeTemporaryRegistration) DecodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PassportElementTypeTemporaryRegistration) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PassportElementTypeTemporaryRegistration) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementTypeTemporaryRegistration#411e345f as nil")
 	}
@@ -1431,15 +1431,15 @@ func (p *PassportElementTypeTemporaryRegistration) EncodeTDLibJSON(b jsontd.Enco
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PassportElementTypeTemporaryRegistration) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PassportElementTypeTemporaryRegistration) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeTemporaryRegistration#411e345f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("passportElementTypeTemporaryRegistration"); err != nil {
 				return fmt.Errorf("unable to decode passportElementTypeTemporaryRegistration#411e345f: %w", err)
 			}
@@ -1549,8 +1549,8 @@ func (p *PassportElementTypePhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PassportElementTypePhoneNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PassportElementTypePhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementTypePhoneNumber#c4abfe6c as nil")
 	}
@@ -1560,15 +1560,15 @@ func (p *PassportElementTypePhoneNumber) EncodeTDLibJSON(b jsontd.Encoder) error
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PassportElementTypePhoneNumber) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PassportElementTypePhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypePhoneNumber#c4abfe6c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("passportElementTypePhoneNumber"); err != nil {
 				return fmt.Errorf("unable to decode passportElementTypePhoneNumber#c4abfe6c: %w", err)
 			}
@@ -1678,8 +1678,8 @@ func (p *PassportElementTypeEmailAddress) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PassportElementTypeEmailAddress) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PassportElementTypeEmailAddress) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode passportElementTypeEmailAddress#fb45a6c3 as nil")
 	}
@@ -1689,15 +1689,15 @@ func (p *PassportElementTypeEmailAddress) EncodeTDLibJSON(b jsontd.Encoder) erro
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PassportElementTypeEmailAddress) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PassportElementTypeEmailAddress) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode passportElementTypeEmailAddress#fb45a6c3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("passportElementTypeEmailAddress"); err != nil {
 				return fmt.Errorf("unable to decode passportElementTypeEmailAddress#fb45a6c3: %w", err)
 			}
@@ -1749,8 +1749,8 @@ type PassportElementTypeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodePassportElementType implements binary de-serialization for PassportElementTypeClass.
@@ -1857,7 +1857,7 @@ func DecodePassportElementType(buf *bin.Buffer) (PassportElementTypeClass, error
 }
 
 // DecodeTDLibJSONPassportElementType implements binary de-serialization for PassportElementTypeClass.
-func DecodeTDLibJSONPassportElementType(buf jsontd.Decoder) (PassportElementTypeClass, error) {
+func DecodeTDLibJSONPassportElementType(buf tdjson.Decoder) (PassportElementTypeClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -1955,7 +1955,7 @@ func DecodeTDLibJSONPassportElementType(buf jsontd.Decoder) (PassportElementType
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode PassportElementTypeClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode PassportElementTypeClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -1986,7 +1986,7 @@ func (b *PassportElementTypeBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for PassportElementTypeBox.
-func (b *PassportElementTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *PassportElementTypeBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode PassportElementTypeBox to nil")
 	}
@@ -1999,7 +1999,7 @@ func (b *PassportElementTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for PassportElementTypeBox.
-func (b *PassportElementTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *PassportElementTypeBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.PassportElementType == nil {
 		return fmt.Errorf("unable to encode PassportElementTypeClass as nil")
 	}

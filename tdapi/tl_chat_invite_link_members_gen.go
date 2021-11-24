@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ChatInviteLinkMembers represents TL type `chatInviteLinkMembers#c2ca3a61`.
@@ -175,8 +175,8 @@ func (c *ChatInviteLinkMembers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatInviteLinkMembers) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatInviteLinkMembers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatInviteLinkMembers#c2ca3a61 as nil")
 	}
@@ -196,15 +196,15 @@ func (c *ChatInviteLinkMembers) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatInviteLinkMembers) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatInviteLinkMembers) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatInviteLinkMembers#c2ca3a61 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatInviteLinkMembers"); err != nil {
 				return fmt.Errorf("unable to decode chatInviteLinkMembers#c2ca3a61: %w", err)
 			}
@@ -215,7 +215,7 @@ func (c *ChatInviteLinkMembers) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			c.TotalCount = value
 		case "members":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ChatInviteLinkMember
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode chatInviteLinkMembers#c2ca3a61: field members: %w", err)

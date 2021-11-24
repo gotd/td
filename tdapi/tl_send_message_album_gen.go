@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // SendMessageAlbumRequest represents TL type `sendMessageAlbum#ae6f51e6`.
@@ -229,8 +229,8 @@ func (s *SendMessageAlbumRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SendMessageAlbumRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SendMessageAlbumRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sendMessageAlbum#ae6f51e6 as nil")
 	}
@@ -261,15 +261,15 @@ func (s *SendMessageAlbumRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SendMessageAlbumRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SendMessageAlbumRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode sendMessageAlbum#ae6f51e6 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("sendMessageAlbum"); err != nil {
 				return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: %w", err)
 			}
@@ -296,7 +296,7 @@ func (s *SendMessageAlbumRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field options: %w", err)
 			}
 		case "input_message_contents":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONInputMessageContent(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field input_message_contents: %w", err)

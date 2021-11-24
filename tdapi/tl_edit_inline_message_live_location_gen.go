@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // EditInlineMessageLiveLocationRequest represents TL type `editInlineMessageLiveLocation#f6a5da00`.
@@ -218,8 +218,8 @@ func (e *EditInlineMessageLiveLocationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (e *EditInlineMessageLiveLocationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (e *EditInlineMessageLiveLocationRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editInlineMessageLiveLocation#f6a5da00 as nil")
 	}
@@ -246,15 +246,15 @@ func (e *EditInlineMessageLiveLocationRequest) EncodeTDLibJSON(b jsontd.Encoder)
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (e *EditInlineMessageLiveLocationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (e *EditInlineMessageLiveLocationRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
 		return fmt.Errorf("can't decode editInlineMessageLiveLocation#f6a5da00 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("editInlineMessageLiveLocation"); err != nil {
 				return fmt.Errorf("unable to decode editInlineMessageLiveLocation#f6a5da00: %w", err)
 			}

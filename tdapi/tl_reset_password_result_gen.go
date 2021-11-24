@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ResetPasswordResultOk represents TL type `resetPasswordResultOk#acb763f9`.
@@ -130,8 +130,8 @@ func (r *ResetPasswordResultOk) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *ResetPasswordResultOk) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *ResetPasswordResultOk) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resetPasswordResultOk#acb763f9 as nil")
 	}
@@ -141,15 +141,15 @@ func (r *ResetPasswordResultOk) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *ResetPasswordResultOk) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *ResetPasswordResultOk) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode resetPasswordResultOk#acb763f9 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("resetPasswordResultOk"); err != nil {
 				return fmt.Errorf("unable to decode resetPasswordResultOk#acb763f9: %w", err)
 			}
@@ -278,8 +278,8 @@ func (r *ResetPasswordResultPending) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *ResetPasswordResultPending) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *ResetPasswordResultPending) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resetPasswordResultPending#4729dc59 as nil")
 	}
@@ -291,15 +291,15 @@ func (r *ResetPasswordResultPending) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *ResetPasswordResultPending) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *ResetPasswordResultPending) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode resetPasswordResultPending#4729dc59 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("resetPasswordResultPending"); err != nil {
 				return fmt.Errorf("unable to decode resetPasswordResultPending#4729dc59: %w", err)
 			}
@@ -438,8 +438,8 @@ func (r *ResetPasswordResultDeclined) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *ResetPasswordResultDeclined) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *ResetPasswordResultDeclined) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resetPasswordResultDeclined#b857e0cb as nil")
 	}
@@ -451,15 +451,15 @@ func (r *ResetPasswordResultDeclined) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *ResetPasswordResultDeclined) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *ResetPasswordResultDeclined) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode resetPasswordResultDeclined#b857e0cb to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("resetPasswordResultDeclined"); err != nil {
 				return fmt.Errorf("unable to decode resetPasswordResultDeclined#b857e0cb: %w", err)
 			}
@@ -512,8 +512,8 @@ type ResetPasswordResultClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeResetPasswordResult implements binary de-serialization for ResetPasswordResultClass.
@@ -550,7 +550,7 @@ func DecodeResetPasswordResult(buf *bin.Buffer) (ResetPasswordResultClass, error
 }
 
 // DecodeTDLibJSONResetPasswordResult implements binary de-serialization for ResetPasswordResultClass.
-func DecodeTDLibJSONResetPasswordResult(buf jsontd.Decoder) (ResetPasswordResultClass, error) {
+func DecodeTDLibJSONResetPasswordResult(buf tdjson.Decoder) (ResetPasswordResultClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -578,7 +578,7 @@ func DecodeTDLibJSONResetPasswordResult(buf jsontd.Decoder) (ResetPasswordResult
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ResetPasswordResultClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode ResetPasswordResultClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -609,7 +609,7 @@ func (b *ResetPasswordResultBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for ResetPasswordResultBox.
-func (b *ResetPasswordResultBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *ResetPasswordResultBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode ResetPasswordResultBox to nil")
 	}
@@ -622,7 +622,7 @@ func (b *ResetPasswordResultBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for ResetPasswordResultBox.
-func (b *ResetPasswordResultBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *ResetPasswordResultBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.ResetPasswordResult == nil {
 		return fmt.Errorf("unable to encode ResetPasswordResultClass as nil")
 	}

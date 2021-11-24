@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // SetDatabaseEncryptionKeyRequest represents TL type `setDatabaseEncryptionKey#b83345b5`.
@@ -143,8 +143,8 @@ func (s *SetDatabaseEncryptionKeyRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SetDatabaseEncryptionKeyRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SetDatabaseEncryptionKeyRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setDatabaseEncryptionKey#b83345b5 as nil")
 	}
@@ -156,15 +156,15 @@ func (s *SetDatabaseEncryptionKeyRequest) EncodeTDLibJSON(b jsontd.Encoder) erro
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SetDatabaseEncryptionKeyRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SetDatabaseEncryptionKeyRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode setDatabaseEncryptionKey#b83345b5 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("setDatabaseEncryptionKey"); err != nil {
 				return fmt.Errorf("unable to decode setDatabaseEncryptionKey#b83345b5: %w", err)
 			}

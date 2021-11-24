@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // HTTPURL represents TL type `httpUrl#87b775a6`.
@@ -143,8 +143,8 @@ func (h *HTTPURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (h *HTTPURL) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (h *HTTPURL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if h == nil {
 		return fmt.Errorf("can't encode httpUrl#87b775a6 as nil")
 	}
@@ -156,15 +156,15 @@ func (h *HTTPURL) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (h *HTTPURL) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (h *HTTPURL) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if h == nil {
 		return fmt.Errorf("can't decode httpUrl#87b775a6 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("httpUrl"); err != nil {
 				return fmt.Errorf("unable to decode httpUrl#87b775a6: %w", err)
 			}

@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // CheckStickerSetNameResultOk represents TL type `checkStickerSetNameResultOk#ac4bf258`.
@@ -130,8 +130,8 @@ func (c *CheckStickerSetNameResultOk) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CheckStickerSetNameResultOk) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CheckStickerSetNameResultOk) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkStickerSetNameResultOk#ac4bf258 as nil")
 	}
@@ -141,15 +141,15 @@ func (c *CheckStickerSetNameResultOk) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CheckStickerSetNameResultOk) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CheckStickerSetNameResultOk) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode checkStickerSetNameResultOk#ac4bf258 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("checkStickerSetNameResultOk"); err != nil {
 				return fmt.Errorf("unable to decode checkStickerSetNameResultOk#ac4bf258: %w", err)
 			}
@@ -259,8 +259,8 @@ func (c *CheckStickerSetNameResultNameInvalid) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CheckStickerSetNameResultNameInvalid) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CheckStickerSetNameResultNameInvalid) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkStickerSetNameResultNameInvalid#a9bf234 as nil")
 	}
@@ -270,15 +270,15 @@ func (c *CheckStickerSetNameResultNameInvalid) EncodeTDLibJSON(b jsontd.Encoder)
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CheckStickerSetNameResultNameInvalid) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CheckStickerSetNameResultNameInvalid) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode checkStickerSetNameResultNameInvalid#a9bf234 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("checkStickerSetNameResultNameInvalid"); err != nil {
 				return fmt.Errorf("unable to decode checkStickerSetNameResultNameInvalid#a9bf234: %w", err)
 			}
@@ -388,8 +388,8 @@ func (c *CheckStickerSetNameResultNameOccupied) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CheckStickerSetNameResultNameOccupied) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CheckStickerSetNameResultNameOccupied) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkStickerSetNameResultNameOccupied#3c60dc88 as nil")
 	}
@@ -399,15 +399,15 @@ func (c *CheckStickerSetNameResultNameOccupied) EncodeTDLibJSON(b jsontd.Encoder
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CheckStickerSetNameResultNameOccupied) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CheckStickerSetNameResultNameOccupied) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode checkStickerSetNameResultNameOccupied#3c60dc88 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("checkStickerSetNameResultNameOccupied"); err != nil {
 				return fmt.Errorf("unable to decode checkStickerSetNameResultNameOccupied#3c60dc88: %w", err)
 			}
@@ -449,8 +449,8 @@ type CheckStickerSetNameResultClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeCheckStickerSetNameResult implements binary de-serialization for CheckStickerSetNameResultClass.
@@ -487,7 +487,7 @@ func DecodeCheckStickerSetNameResult(buf *bin.Buffer) (CheckStickerSetNameResult
 }
 
 // DecodeTDLibJSONCheckStickerSetNameResult implements binary de-serialization for CheckStickerSetNameResultClass.
-func DecodeTDLibJSONCheckStickerSetNameResult(buf jsontd.Decoder) (CheckStickerSetNameResultClass, error) {
+func DecodeTDLibJSONCheckStickerSetNameResult(buf tdjson.Decoder) (CheckStickerSetNameResultClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -515,7 +515,7 @@ func DecodeTDLibJSONCheckStickerSetNameResult(buf jsontd.Decoder) (CheckStickerS
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode CheckStickerSetNameResultClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode CheckStickerSetNameResultClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -546,7 +546,7 @@ func (b *CheckStickerSetNameResultBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for CheckStickerSetNameResultBox.
-func (b *CheckStickerSetNameResultBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *CheckStickerSetNameResultBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode CheckStickerSetNameResultBox to nil")
 	}
@@ -559,7 +559,7 @@ func (b *CheckStickerSetNameResultBox) DecodeTDLibJSON(buf jsontd.Decoder) error
 }
 
 // EncodeTDLibJSON implements bin.Encode for CheckStickerSetNameResultBox.
-func (b *CheckStickerSetNameResultBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *CheckStickerSetNameResultBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.CheckStickerSetNameResult == nil {
 		return fmt.Errorf("unable to encode CheckStickerSetNameResultClass as nil")
 	}

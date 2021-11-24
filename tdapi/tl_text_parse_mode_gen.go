@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // TextParseModeMarkdown represents TL type `textParseModeMarkdown#157648bf`.
@@ -149,8 +149,8 @@ func (t *TextParseModeMarkdown) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextParseModeMarkdown) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextParseModeMarkdown) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textParseModeMarkdown#157648bf as nil")
 	}
@@ -162,15 +162,15 @@ func (t *TextParseModeMarkdown) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextParseModeMarkdown) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextParseModeMarkdown) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textParseModeMarkdown#157648bf to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textParseModeMarkdown"); err != nil {
 				return fmt.Errorf("unable to decode textParseModeMarkdown#157648bf: %w", err)
 			}
@@ -291,8 +291,8 @@ func (t *TextParseModeHTML) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextParseModeHTML) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextParseModeHTML) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textParseModeHTML#62f4c5f3 as nil")
 	}
@@ -302,15 +302,15 @@ func (t *TextParseModeHTML) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextParseModeHTML) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextParseModeHTML) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textParseModeHTML#62f4c5f3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textParseModeHTML"); err != nil {
 				return fmt.Errorf("unable to decode textParseModeHTML#62f4c5f3: %w", err)
 			}
@@ -351,8 +351,8 @@ type TextParseModeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeTextParseMode implements binary de-serialization for TextParseModeClass.
@@ -382,7 +382,7 @@ func DecodeTextParseMode(buf *bin.Buffer) (TextParseModeClass, error) {
 }
 
 // DecodeTDLibJSONTextParseMode implements binary de-serialization for TextParseModeClass.
-func DecodeTDLibJSONTextParseMode(buf jsontd.Decoder) (TextParseModeClass, error) {
+func DecodeTDLibJSONTextParseMode(buf tdjson.Decoder) (TextParseModeClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -403,7 +403,7 @@ func DecodeTDLibJSONTextParseMode(buf jsontd.Decoder) (TextParseModeClass, error
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode TextParseModeClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode TextParseModeClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -434,7 +434,7 @@ func (b *TextParseModeBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for TextParseModeBox.
-func (b *TextParseModeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *TextParseModeBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode TextParseModeBox to nil")
 	}
@@ -447,7 +447,7 @@ func (b *TextParseModeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for TextParseModeBox.
-func (b *TextParseModeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *TextParseModeBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.TextParseMode == nil {
 		return fmt.Errorf("unable to encode TextParseModeClass as nil")
 	}

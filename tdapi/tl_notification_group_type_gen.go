@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // NotificationGroupTypeMessages represents TL type `notificationGroupTypeMessages#9a86331d`.
@@ -130,8 +130,8 @@ func (n *NotificationGroupTypeMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (n *NotificationGroupTypeMessages) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (n *NotificationGroupTypeMessages) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationGroupTypeMessages#9a86331d as nil")
 	}
@@ -141,15 +141,15 @@ func (n *NotificationGroupTypeMessages) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (n *NotificationGroupTypeMessages) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (n *NotificationGroupTypeMessages) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
 		return fmt.Errorf("can't decode notificationGroupTypeMessages#9a86331d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("notificationGroupTypeMessages"); err != nil {
 				return fmt.Errorf("unable to decode notificationGroupTypeMessages#9a86331d: %w", err)
 			}
@@ -259,8 +259,8 @@ func (n *NotificationGroupTypeMentions) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (n *NotificationGroupTypeMentions) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (n *NotificationGroupTypeMentions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationGroupTypeMentions#85ca89ad as nil")
 	}
@@ -270,15 +270,15 @@ func (n *NotificationGroupTypeMentions) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (n *NotificationGroupTypeMentions) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (n *NotificationGroupTypeMentions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
 		return fmt.Errorf("can't decode notificationGroupTypeMentions#85ca89ad to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("notificationGroupTypeMentions"); err != nil {
 				return fmt.Errorf("unable to decode notificationGroupTypeMentions#85ca89ad: %w", err)
 			}
@@ -388,8 +388,8 @@ func (n *NotificationGroupTypeSecretChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (n *NotificationGroupTypeSecretChat) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (n *NotificationGroupTypeSecretChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationGroupTypeSecretChat#52e54e34 as nil")
 	}
@@ -399,15 +399,15 @@ func (n *NotificationGroupTypeSecretChat) EncodeTDLibJSON(b jsontd.Encoder) erro
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (n *NotificationGroupTypeSecretChat) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (n *NotificationGroupTypeSecretChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
 		return fmt.Errorf("can't decode notificationGroupTypeSecretChat#52e54e34 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("notificationGroupTypeSecretChat"); err != nil {
 				return fmt.Errorf("unable to decode notificationGroupTypeSecretChat#52e54e34: %w", err)
 			}
@@ -517,8 +517,8 @@ func (n *NotificationGroupTypeCalls) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (n *NotificationGroupTypeCalls) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (n *NotificationGroupTypeCalls) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationGroupTypeCalls#5233c152 as nil")
 	}
@@ -528,15 +528,15 @@ func (n *NotificationGroupTypeCalls) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (n *NotificationGroupTypeCalls) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (n *NotificationGroupTypeCalls) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
 		return fmt.Errorf("can't decode notificationGroupTypeCalls#5233c152 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("notificationGroupTypeCalls"); err != nil {
 				return fmt.Errorf("unable to decode notificationGroupTypeCalls#5233c152: %w", err)
 			}
@@ -579,8 +579,8 @@ type NotificationGroupTypeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeNotificationGroupType implements binary de-serialization for NotificationGroupTypeClass.
@@ -624,7 +624,7 @@ func DecodeNotificationGroupType(buf *bin.Buffer) (NotificationGroupTypeClass, e
 }
 
 // DecodeTDLibJSONNotificationGroupType implements binary de-serialization for NotificationGroupTypeClass.
-func DecodeTDLibJSONNotificationGroupType(buf jsontd.Decoder) (NotificationGroupTypeClass, error) {
+func DecodeTDLibJSONNotificationGroupType(buf tdjson.Decoder) (NotificationGroupTypeClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -659,7 +659,7 @@ func DecodeTDLibJSONNotificationGroupType(buf jsontd.Decoder) (NotificationGroup
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode NotificationGroupTypeClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode NotificationGroupTypeClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -690,7 +690,7 @@ func (b *NotificationGroupTypeBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for NotificationGroupTypeBox.
-func (b *NotificationGroupTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *NotificationGroupTypeBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode NotificationGroupTypeBox to nil")
 	}
@@ -703,7 +703,7 @@ func (b *NotificationGroupTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for NotificationGroupTypeBox.
-func (b *NotificationGroupTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *NotificationGroupTypeBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.NotificationGroupType == nil {
 		return fmt.Errorf("unable to encode NotificationGroupTypeClass as nil")
 	}

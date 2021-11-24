@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // VideoNote represents TL type `videoNote#fbb96a3a`.
@@ -211,8 +211,8 @@ func (v *VideoNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (v *VideoNote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (v *VideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode videoNote#fbb96a3a as nil")
 	}
@@ -238,15 +238,15 @@ func (v *VideoNote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (v *VideoNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (v *VideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if v == nil {
 		return fmt.Errorf("can't decode videoNote#fbb96a3a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("videoNote"); err != nil {
 				return fmt.Errorf("unable to decode videoNote#fbb96a3a: %w", err)
 			}

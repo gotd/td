@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ChatTypePrivate represents TL type `chatTypePrivate#655ef0c6`.
@@ -148,8 +148,8 @@ func (c *ChatTypePrivate) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatTypePrivate) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatTypePrivate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatTypePrivate#655ef0c6 as nil")
 	}
@@ -161,15 +161,15 @@ func (c *ChatTypePrivate) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatTypePrivate) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatTypePrivate) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatTypePrivate#655ef0c6 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatTypePrivate"); err != nil {
 				return fmt.Errorf("unable to decode chatTypePrivate#655ef0c6: %w", err)
 			}
@@ -308,8 +308,8 @@ func (c *ChatTypeBasicGroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatTypeBasicGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatTypeBasicGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatTypeBasicGroup#14cdfee as nil")
 	}
@@ -321,15 +321,15 @@ func (c *ChatTypeBasicGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatTypeBasicGroup) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatTypeBasicGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatTypeBasicGroup#14cdfee to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatTypeBasicGroup"); err != nil {
 				return fmt.Errorf("unable to decode chatTypeBasicGroup#14cdfee: %w", err)
 			}
@@ -485,8 +485,8 @@ func (c *ChatTypeSupergroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatTypeSupergroup) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatTypeSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatTypeSupergroup#38ee77ee as nil")
 	}
@@ -500,15 +500,15 @@ func (c *ChatTypeSupergroup) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatTypeSupergroup) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatTypeSupergroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatTypeSupergroup#38ee77ee to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatTypeSupergroup"); err != nil {
 				return fmt.Errorf("unable to decode chatTypeSupergroup#38ee77ee: %w", err)
 			}
@@ -675,8 +675,8 @@ func (c *ChatTypeSecret) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatTypeSecret) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatTypeSecret) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatTypeSecret#8263883 as nil")
 	}
@@ -690,15 +690,15 @@ func (c *ChatTypeSecret) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatTypeSecret) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatTypeSecret) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatTypeSecret#8263883 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatTypeSecret"); err != nil {
 				return fmt.Errorf("unable to decode chatTypeSecret#8263883: %w", err)
 			}
@@ -763,8 +763,8 @@ type ChatTypeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeChatType implements binary de-serialization for ChatTypeClass.
@@ -808,7 +808,7 @@ func DecodeChatType(buf *bin.Buffer) (ChatTypeClass, error) {
 }
 
 // DecodeTDLibJSONChatType implements binary de-serialization for ChatTypeClass.
-func DecodeTDLibJSONChatType(buf jsontd.Decoder) (ChatTypeClass, error) {
+func DecodeTDLibJSONChatType(buf tdjson.Decoder) (ChatTypeClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -843,7 +843,7 @@ func DecodeTDLibJSONChatType(buf jsontd.Decoder) (ChatTypeClass, error) {
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ChatTypeClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode ChatTypeClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -874,7 +874,7 @@ func (b *ChatTypeBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for ChatTypeBox.
-func (b *ChatTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *ChatTypeBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode ChatTypeBox to nil")
 	}
@@ -887,7 +887,7 @@ func (b *ChatTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for ChatTypeBox.
-func (b *ChatTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *ChatTypeBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.ChatType == nil {
 		return fmt.Errorf("unable to encode ChatTypeClass as nil")
 	}

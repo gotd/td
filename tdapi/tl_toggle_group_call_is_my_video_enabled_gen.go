@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ToggleGroupCallIsMyVideoEnabledRequest represents TL type `toggleGroupCallIsMyVideoEnabled#9f2f50fa`.
@@ -160,8 +160,8 @@ func (t *ToggleGroupCallIsMyVideoEnabledRequest) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *ToggleGroupCallIsMyVideoEnabledRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *ToggleGroupCallIsMyVideoEnabledRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleGroupCallIsMyVideoEnabled#9f2f50fa as nil")
 	}
@@ -175,15 +175,15 @@ func (t *ToggleGroupCallIsMyVideoEnabledRequest) EncodeTDLibJSON(b jsontd.Encode
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *ToggleGroupCallIsMyVideoEnabledRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *ToggleGroupCallIsMyVideoEnabledRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode toggleGroupCallIsMyVideoEnabled#9f2f50fa to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("toggleGroupCallIsMyVideoEnabled"); err != nil {
 				return fmt.Errorf("unable to decode toggleGroupCallIsMyVideoEnabled#9f2f50fa: %w", err)
 			}

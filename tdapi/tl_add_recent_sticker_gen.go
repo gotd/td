@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // AddRecentStickerRequest represents TL type `addRecentSticker#a7e5d89e`.
@@ -166,8 +166,8 @@ func (a *AddRecentStickerRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AddRecentStickerRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AddRecentStickerRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addRecentSticker#a7e5d89e as nil")
 	}
@@ -186,15 +186,15 @@ func (a *AddRecentStickerRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AddRecentStickerRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AddRecentStickerRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode addRecentSticker#a7e5d89e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("addRecentSticker"); err != nil {
 				return fmt.Errorf("unable to decode addRecentSticker#a7e5d89e: %w", err)
 			}

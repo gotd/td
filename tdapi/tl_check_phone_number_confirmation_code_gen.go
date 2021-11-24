@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // CheckPhoneNumberConfirmationCodeRequest represents TL type `checkPhoneNumberConfirmationCode#afa638da`.
@@ -143,8 +143,8 @@ func (c *CheckPhoneNumberConfirmationCodeRequest) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CheckPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CheckPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkPhoneNumberConfirmationCode#afa638da as nil")
 	}
@@ -156,15 +156,15 @@ func (c *CheckPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b jsontd.Encod
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CheckPhoneNumberConfirmationCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CheckPhoneNumberConfirmationCodeRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode checkPhoneNumberConfirmationCode#afa638da to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("checkPhoneNumberConfirmationCode"); err != nil {
 				return fmt.Errorf("unable to decode checkPhoneNumberConfirmationCode#afa638da: %w", err)
 			}

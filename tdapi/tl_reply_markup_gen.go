@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ReplyMarkupRemoveKeyboard represents TL type `replyMarkupRemoveKeyboard#d6cc5171`.
@@ -149,8 +149,8 @@ func (r *ReplyMarkupRemoveKeyboard) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *ReplyMarkupRemoveKeyboard) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *ReplyMarkupRemoveKeyboard) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode replyMarkupRemoveKeyboard#d6cc5171 as nil")
 	}
@@ -162,15 +162,15 @@ func (r *ReplyMarkupRemoveKeyboard) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *ReplyMarkupRemoveKeyboard) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *ReplyMarkupRemoveKeyboard) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode replyMarkupRemoveKeyboard#d6cc5171 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("replyMarkupRemoveKeyboard"); err != nil {
 				return fmt.Errorf("unable to decode replyMarkupRemoveKeyboard#d6cc5171: %w", err)
 			}
@@ -329,8 +329,8 @@ func (r *ReplyMarkupForceReply) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *ReplyMarkupForceReply) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *ReplyMarkupForceReply) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode replyMarkupForceReply#41a6f99f as nil")
 	}
@@ -344,15 +344,15 @@ func (r *ReplyMarkupForceReply) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *ReplyMarkupForceReply) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *ReplyMarkupForceReply) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode replyMarkupForceReply#41a6f99f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("replyMarkupForceReply"); err != nil {
 				return fmt.Errorf("unable to decode replyMarkupForceReply#41a6f99f: %w", err)
 			}
@@ -603,8 +603,8 @@ func (r *ReplyMarkupShowKeyboard) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *ReplyMarkupShowKeyboard) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *ReplyMarkupShowKeyboard) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode replyMarkupShowKeyboard#f64168f4 as nil")
 	}
@@ -634,22 +634,22 @@ func (r *ReplyMarkupShowKeyboard) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *ReplyMarkupShowKeyboard) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *ReplyMarkupShowKeyboard) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode replyMarkupShowKeyboard#f64168f4 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("replyMarkupShowKeyboard"); err != nil {
 				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: %w", err)
 			}
 		case "rows":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var row []KeyboardButton
-				if err := b.Arr(func(b jsontd.Decoder) error {
+				if err := b.Arr(func(b tdjson.Decoder) error {
 					var value KeyboardButton
 					if err := value.DecodeTDLibJSON(b); err != nil {
 						return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field rows: %w", err)
@@ -867,8 +867,8 @@ func (r *ReplyMarkupInlineKeyboard) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (r *ReplyMarkupInlineKeyboard) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (r *ReplyMarkupInlineKeyboard) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
 		return fmt.Errorf("can't encode replyMarkupInlineKeyboard#92ac0efb as nil")
 	}
@@ -890,22 +890,22 @@ func (r *ReplyMarkupInlineKeyboard) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (r *ReplyMarkupInlineKeyboard) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (r *ReplyMarkupInlineKeyboard) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
 		return fmt.Errorf("can't decode replyMarkupInlineKeyboard#92ac0efb to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("replyMarkupInlineKeyboard"); err != nil {
 				return fmt.Errorf("unable to decode replyMarkupInlineKeyboard#92ac0efb: %w", err)
 			}
 		case "rows":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var row []InlineKeyboardButton
-				if err := b.Arr(func(b jsontd.Decoder) error {
+				if err := b.Arr(func(b tdjson.Decoder) error {
 					var value InlineKeyboardButton
 					if err := value.DecodeTDLibJSON(b); err != nil {
 						return fmt.Errorf("unable to decode replyMarkupInlineKeyboard#92ac0efb: field rows: %w", err)
@@ -964,8 +964,8 @@ type ReplyMarkupClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeReplyMarkup implements binary de-serialization for ReplyMarkupClass.
@@ -1009,7 +1009,7 @@ func DecodeReplyMarkup(buf *bin.Buffer) (ReplyMarkupClass, error) {
 }
 
 // DecodeTDLibJSONReplyMarkup implements binary de-serialization for ReplyMarkupClass.
-func DecodeTDLibJSONReplyMarkup(buf jsontd.Decoder) (ReplyMarkupClass, error) {
+func DecodeTDLibJSONReplyMarkup(buf tdjson.Decoder) (ReplyMarkupClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -1044,7 +1044,7 @@ func DecodeTDLibJSONReplyMarkup(buf jsontd.Decoder) (ReplyMarkupClass, error) {
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ReplyMarkupClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode ReplyMarkupClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -1075,7 +1075,7 @@ func (b *ReplyMarkupBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for ReplyMarkupBox.
-func (b *ReplyMarkupBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *ReplyMarkupBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode ReplyMarkupBox to nil")
 	}
@@ -1088,7 +1088,7 @@ func (b *ReplyMarkupBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for ReplyMarkupBox.
-func (b *ReplyMarkupBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *ReplyMarkupBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode ReplyMarkupClass as nil")
 	}

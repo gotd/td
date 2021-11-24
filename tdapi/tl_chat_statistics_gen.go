@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ChatStatisticsSupergroup represents TL type `chatStatisticsSupergroup#c67549ef`.
@@ -488,8 +488,8 @@ func (c *ChatStatisticsSupergroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatStatisticsSupergroup) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatStatisticsSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatStatisticsSupergroup#c67549ef as nil")
 	}
@@ -599,15 +599,15 @@ func (c *ChatStatisticsSupergroup) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatStatisticsSupergroup) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatStatisticsSupergroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatStatisticsSupergroup#c67549ef to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatStatisticsSupergroup"); err != nil {
 				return fmt.Errorf("unable to decode chatStatisticsSupergroup#c67549ef: %w", err)
 			}
@@ -680,7 +680,7 @@ func (c *ChatStatisticsSupergroup) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			c.WeekGraph = value
 		case "top_senders":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ChatStatisticsMessageSenderInfo
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode chatStatisticsSupergroup#c67549ef: field top_senders: %w", err)
@@ -691,7 +691,7 @@ func (c *ChatStatisticsSupergroup) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode chatStatisticsSupergroup#c67549ef: field top_senders: %w", err)
 			}
 		case "top_administrators":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ChatStatisticsAdministratorActionsInfo
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode chatStatisticsSupergroup#c67549ef: field top_administrators: %w", err)
@@ -702,7 +702,7 @@ func (c *ChatStatisticsSupergroup) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode chatStatisticsSupergroup#c67549ef: field top_administrators: %w", err)
 			}
 		case "top_inviters":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ChatStatisticsInviterInfo
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode chatStatisticsSupergroup#c67549ef: field top_inviters: %w", err)
@@ -1214,8 +1214,8 @@ func (c *ChatStatisticsChannel) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatStatisticsChannel) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatStatisticsChannel#9be23786 as nil")
 	}
@@ -1314,15 +1314,15 @@ func (c *ChatStatisticsChannel) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatStatisticsChannel) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatStatisticsChannel) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatStatisticsChannel#9be23786 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatStatisticsChannel"); err != nil {
 				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: %w", err)
 			}
@@ -1403,7 +1403,7 @@ func (c *ChatStatisticsChannel) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			c.InstantViewInteractionGraph = value
 		case "recent_message_interactions":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ChatStatisticsMessageInteractionInfo
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field recent_message_interactions: %w", err)
@@ -1525,8 +1525,8 @@ type ChatStatisticsClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 
 	// A period to which the statistics applies
 	GetPeriod() (value DateRange)
@@ -1569,7 +1569,7 @@ func DecodeChatStatistics(buf *bin.Buffer) (ChatStatisticsClass, error) {
 }
 
 // DecodeTDLibJSONChatStatistics implements binary de-serialization for ChatStatisticsClass.
-func DecodeTDLibJSONChatStatistics(buf jsontd.Decoder) (ChatStatisticsClass, error) {
+func DecodeTDLibJSONChatStatistics(buf tdjson.Decoder) (ChatStatisticsClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -1590,7 +1590,7 @@ func DecodeTDLibJSONChatStatistics(buf jsontd.Decoder) (ChatStatisticsClass, err
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ChatStatisticsClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode ChatStatisticsClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -1621,7 +1621,7 @@ func (b *ChatStatisticsBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for ChatStatisticsBox.
-func (b *ChatStatisticsBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *ChatStatisticsBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode ChatStatisticsBox to nil")
 	}
@@ -1634,7 +1634,7 @@ func (b *ChatStatisticsBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for ChatStatisticsBox.
-func (b *ChatStatisticsBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *ChatStatisticsBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.ChatStatistics == nil {
 		return fmt.Errorf("unable to encode ChatStatisticsClass as nil")
 	}

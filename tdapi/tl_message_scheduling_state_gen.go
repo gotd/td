@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // MessageSchedulingStateSendAtDate represents TL type `messageSchedulingStateSendAtDate#a773ffe7`.
@@ -148,8 +148,8 @@ func (m *MessageSchedulingStateSendAtDate) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (m *MessageSchedulingStateSendAtDate) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageSchedulingStateSendAtDate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageSchedulingStateSendAtDate#a773ffe7 as nil")
 	}
@@ -161,15 +161,15 @@ func (m *MessageSchedulingStateSendAtDate) EncodeTDLibJSON(b jsontd.Encoder) err
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (m *MessageSchedulingStateSendAtDate) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageSchedulingStateSendAtDate) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageSchedulingStateSendAtDate#a773ffe7 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("messageSchedulingStateSendAtDate"); err != nil {
 				return fmt.Errorf("unable to decode messageSchedulingStateSendAtDate#a773ffe7: %w", err)
 			}
@@ -290,8 +290,8 @@ func (m *MessageSchedulingStateSendWhenOnline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (m *MessageSchedulingStateSendWhenOnline) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageSchedulingStateSendWhenOnline) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageSchedulingStateSendWhenOnline#7cbfd808 as nil")
 	}
@@ -301,15 +301,15 @@ func (m *MessageSchedulingStateSendWhenOnline) EncodeTDLibJSON(b jsontd.Encoder)
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (m *MessageSchedulingStateSendWhenOnline) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageSchedulingStateSendWhenOnline) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageSchedulingStateSendWhenOnline#7cbfd808 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("messageSchedulingStateSendWhenOnline"); err != nil {
 				return fmt.Errorf("unable to decode messageSchedulingStateSendWhenOnline#7cbfd808: %w", err)
 			}
@@ -350,8 +350,8 @@ type MessageSchedulingStateClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeMessageSchedulingState implements binary de-serialization for MessageSchedulingStateClass.
@@ -381,7 +381,7 @@ func DecodeMessageSchedulingState(buf *bin.Buffer) (MessageSchedulingStateClass,
 }
 
 // DecodeTDLibJSONMessageSchedulingState implements binary de-serialization for MessageSchedulingStateClass.
-func DecodeTDLibJSONMessageSchedulingState(buf jsontd.Decoder) (MessageSchedulingStateClass, error) {
+func DecodeTDLibJSONMessageSchedulingState(buf tdjson.Decoder) (MessageSchedulingStateClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -402,7 +402,7 @@ func DecodeTDLibJSONMessageSchedulingState(buf jsontd.Decoder) (MessageSchedulin
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessageSchedulingStateClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode MessageSchedulingStateClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -433,7 +433,7 @@ func (b *MessageSchedulingStateBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for MessageSchedulingStateBox.
-func (b *MessageSchedulingStateBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *MessageSchedulingStateBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode MessageSchedulingStateBox to nil")
 	}
@@ -446,7 +446,7 @@ func (b *MessageSchedulingStateBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for MessageSchedulingStateBox.
-func (b *MessageSchedulingStateBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *MessageSchedulingStateBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.MessageSchedulingState == nil {
 		return fmt.Errorf("unable to encode MessageSchedulingStateClass as nil")
 	}

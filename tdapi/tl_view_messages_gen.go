@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ViewMessagesRequest represents TL type `viewMessages#d6e1005d`.
@@ -207,8 +207,8 @@ func (v *ViewMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (v *ViewMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (v *ViewMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode viewMessages#d6e1005d as nil")
 	}
@@ -230,15 +230,15 @@ func (v *ViewMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (v *ViewMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (v *ViewMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if v == nil {
 		return fmt.Errorf("can't decode viewMessages#d6e1005d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("viewMessages"); err != nil {
 				return fmt.Errorf("unable to decode viewMessages#d6e1005d: %w", err)
 			}
@@ -255,7 +255,7 @@ func (v *ViewMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			v.MessageThreadID = value
 		case "message_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Long()
 				if err != nil {
 					return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_ids: %w", err)

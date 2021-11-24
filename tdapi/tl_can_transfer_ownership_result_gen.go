@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // CanTransferOwnershipResultOk represents TL type `canTransferOwnershipResultOk#faa48643`.
@@ -130,8 +130,8 @@ func (c *CanTransferOwnershipResultOk) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CanTransferOwnershipResultOk) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CanTransferOwnershipResultOk) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode canTransferOwnershipResultOk#faa48643 as nil")
 	}
@@ -141,15 +141,15 @@ func (c *CanTransferOwnershipResultOk) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CanTransferOwnershipResultOk) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CanTransferOwnershipResultOk) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode canTransferOwnershipResultOk#faa48643 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("canTransferOwnershipResultOk"); err != nil {
 				return fmt.Errorf("unable to decode canTransferOwnershipResultOk#faa48643: %w", err)
 			}
@@ -261,8 +261,8 @@ func (c *CanTransferOwnershipResultPasswordNeeded) DecodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CanTransferOwnershipResultPasswordNeeded) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CanTransferOwnershipResultPasswordNeeded) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode canTransferOwnershipResultPasswordNeeded#5c4a4adf as nil")
 	}
@@ -272,15 +272,15 @@ func (c *CanTransferOwnershipResultPasswordNeeded) EncodeTDLibJSON(b jsontd.Enco
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CanTransferOwnershipResultPasswordNeeded) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CanTransferOwnershipResultPasswordNeeded) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode canTransferOwnershipResultPasswordNeeded#5c4a4adf to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("canTransferOwnershipResultPasswordNeeded"); err != nil {
 				return fmt.Errorf("unable to decode canTransferOwnershipResultPasswordNeeded#5c4a4adf: %w", err)
 			}
@@ -410,8 +410,8 @@ func (c *CanTransferOwnershipResultPasswordTooFresh) DecodeBare(b *bin.Buffer) e
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CanTransferOwnershipResultPasswordTooFresh) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CanTransferOwnershipResultPasswordTooFresh) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode canTransferOwnershipResultPasswordTooFresh#305d9b11 as nil")
 	}
@@ -423,15 +423,15 @@ func (c *CanTransferOwnershipResultPasswordTooFresh) EncodeTDLibJSON(b jsontd.En
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CanTransferOwnershipResultPasswordTooFresh) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CanTransferOwnershipResultPasswordTooFresh) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode canTransferOwnershipResultPasswordTooFresh#305d9b11 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("canTransferOwnershipResultPasswordTooFresh"); err != nil {
 				return fmt.Errorf("unable to decode canTransferOwnershipResultPasswordTooFresh#305d9b11: %w", err)
 			}
@@ -572,8 +572,8 @@ func (c *CanTransferOwnershipResultSessionTooFresh) DecodeBare(b *bin.Buffer) er
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CanTransferOwnershipResultSessionTooFresh) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CanTransferOwnershipResultSessionTooFresh) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode canTransferOwnershipResultSessionTooFresh#3ab0c8e1 as nil")
 	}
@@ -585,15 +585,15 @@ func (c *CanTransferOwnershipResultSessionTooFresh) EncodeTDLibJSON(b jsontd.Enc
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CanTransferOwnershipResultSessionTooFresh) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CanTransferOwnershipResultSessionTooFresh) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode canTransferOwnershipResultSessionTooFresh#3ab0c8e1 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("canTransferOwnershipResultSessionTooFresh"); err != nil {
 				return fmt.Errorf("unable to decode canTransferOwnershipResultSessionTooFresh#3ab0c8e1: %w", err)
 			}
@@ -647,8 +647,8 @@ type CanTransferOwnershipResultClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeCanTransferOwnershipResult implements binary de-serialization for CanTransferOwnershipResultClass.
@@ -692,7 +692,7 @@ func DecodeCanTransferOwnershipResult(buf *bin.Buffer) (CanTransferOwnershipResu
 }
 
 // DecodeTDLibJSONCanTransferOwnershipResult implements binary de-serialization for CanTransferOwnershipResultClass.
-func DecodeTDLibJSONCanTransferOwnershipResult(buf jsontd.Decoder) (CanTransferOwnershipResultClass, error) {
+func DecodeTDLibJSONCanTransferOwnershipResult(buf tdjson.Decoder) (CanTransferOwnershipResultClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -727,7 +727,7 @@ func DecodeTDLibJSONCanTransferOwnershipResult(buf jsontd.Decoder) (CanTransferO
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode CanTransferOwnershipResultClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode CanTransferOwnershipResultClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -758,7 +758,7 @@ func (b *CanTransferOwnershipResultBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for CanTransferOwnershipResultBox.
-func (b *CanTransferOwnershipResultBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *CanTransferOwnershipResultBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode CanTransferOwnershipResultBox to nil")
 	}
@@ -771,7 +771,7 @@ func (b *CanTransferOwnershipResultBox) DecodeTDLibJSON(buf jsontd.Decoder) erro
 }
 
 // EncodeTDLibJSON implements bin.Encode for CanTransferOwnershipResultBox.
-func (b *CanTransferOwnershipResultBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *CanTransferOwnershipResultBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.CanTransferOwnershipResult == nil {
 		return fmt.Errorf("unable to encode CanTransferOwnershipResultClass as nil")
 	}

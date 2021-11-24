@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ChatListMain represents TL type `chatListMain#e8195bac`.
@@ -130,8 +130,8 @@ func (c *ChatListMain) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatListMain) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatListMain) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatListMain#e8195bac as nil")
 	}
@@ -141,15 +141,15 @@ func (c *ChatListMain) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatListMain) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatListMain) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatListMain#e8195bac to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatListMain"); err != nil {
 				return fmt.Errorf("unable to decode chatListMain#e8195bac: %w", err)
 			}
@@ -259,8 +259,8 @@ func (c *ChatListArchive) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatListArchive) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatListArchive) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatListArchive#159f6ec3 as nil")
 	}
@@ -270,15 +270,15 @@ func (c *ChatListArchive) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatListArchive) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatListArchive) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatListArchive#159f6ec3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatListArchive"); err != nil {
 				return fmt.Errorf("unable to decode chatListArchive#159f6ec3: %w", err)
 			}
@@ -406,8 +406,8 @@ func (c *ChatListFilter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatListFilter) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatListFilter) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatListFilter#876fee39 as nil")
 	}
@@ -419,15 +419,15 @@ func (c *ChatListFilter) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatListFilter) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatListFilter) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatListFilter#876fee39 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatListFilter"); err != nil {
 				return fmt.Errorf("unable to decode chatListFilter#876fee39: %w", err)
 			}
@@ -480,8 +480,8 @@ type ChatListClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeChatList implements binary de-serialization for ChatListClass.
@@ -518,7 +518,7 @@ func DecodeChatList(buf *bin.Buffer) (ChatListClass, error) {
 }
 
 // DecodeTDLibJSONChatList implements binary de-serialization for ChatListClass.
-func DecodeTDLibJSONChatList(buf jsontd.Decoder) (ChatListClass, error) {
+func DecodeTDLibJSONChatList(buf tdjson.Decoder) (ChatListClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -546,7 +546,7 @@ func DecodeTDLibJSONChatList(buf jsontd.Decoder) (ChatListClass, error) {
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ChatListClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode ChatListClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -577,7 +577,7 @@ func (b *ChatListBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for ChatListBox.
-func (b *ChatListBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *ChatListBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode ChatListBox to nil")
 	}
@@ -590,7 +590,7 @@ func (b *ChatListBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for ChatListBox.
-func (b *ChatListBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *ChatListBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.ChatList == nil {
 		return fmt.Errorf("unable to encode ChatListClass as nil")
 	}

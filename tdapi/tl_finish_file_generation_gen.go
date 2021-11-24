@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // FinishFileGenerationRequest represents TL type `finishFileGeneration#c11d0c9d`.
@@ -160,8 +160,8 @@ func (f *FinishFileGenerationRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (f *FinishFileGenerationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (f *FinishFileGenerationRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if f == nil {
 		return fmt.Errorf("can't encode finishFileGeneration#c11d0c9d as nil")
 	}
@@ -177,15 +177,15 @@ func (f *FinishFileGenerationRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (f *FinishFileGenerationRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (f *FinishFileGenerationRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if f == nil {
 		return fmt.Errorf("can't decode finishFileGeneration#c11d0c9d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("finishFileGeneration"); err != nil {
 				return fmt.Errorf("unable to decode finishFileGeneration#c11d0c9d: %w", err)
 			}

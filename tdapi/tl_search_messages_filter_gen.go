@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // SearchMessagesFilterEmpty represents TL type `searchMessagesFilterEmpty#cc2e1337`.
@@ -130,8 +130,8 @@ func (s *SearchMessagesFilterEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterEmpty) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterEmpty) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterEmpty#cc2e1337 as nil")
 	}
@@ -141,15 +141,15 @@ func (s *SearchMessagesFilterEmpty) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterEmpty) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterEmpty) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterEmpty#cc2e1337 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterEmpty"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterEmpty#cc2e1337: %w", err)
 			}
@@ -259,8 +259,8 @@ func (s *SearchMessagesFilterAnimation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterAnimation) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterAnimation#f6b800c5 as nil")
 	}
@@ -270,15 +270,15 @@ func (s *SearchMessagesFilterAnimation) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterAnimation) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterAnimation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterAnimation#f6b800c5 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterAnimation"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterAnimation#f6b800c5: %w", err)
 			}
@@ -388,8 +388,8 @@ func (s *SearchMessagesFilterAudio) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterAudio) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterAudio) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterAudio#33b5147b as nil")
 	}
@@ -399,15 +399,15 @@ func (s *SearchMessagesFilterAudio) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterAudio) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterAudio) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterAudio#33b5147b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterAudio"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterAudio#33b5147b: %w", err)
 			}
@@ -517,8 +517,8 @@ func (s *SearchMessagesFilterDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterDocument#5af9f74f as nil")
 	}
@@ -528,15 +528,15 @@ func (s *SearchMessagesFilterDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterDocument) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterDocument#5af9f74f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterDocument"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterDocument#5af9f74f: %w", err)
 			}
@@ -646,8 +646,8 @@ func (s *SearchMessagesFilterPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterPhoto#37309b05 as nil")
 	}
@@ -657,15 +657,15 @@ func (s *SearchMessagesFilterPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterPhoto) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterPhoto#37309b05 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterPhoto"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterPhoto#37309b05: %w", err)
 			}
@@ -775,8 +775,8 @@ func (s *SearchMessagesFilterVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterVideo#6e2f92e as nil")
 	}
@@ -786,15 +786,15 @@ func (s *SearchMessagesFilterVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterVideo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterVideo#6e2f92e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterVideo"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterVideo#6e2f92e: %w", err)
 			}
@@ -904,8 +904,8 @@ func (s *SearchMessagesFilterVoiceNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterVoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterVoiceNote#6dc2227d as nil")
 	}
@@ -915,15 +915,15 @@ func (s *SearchMessagesFilterVoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterVoiceNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterVoiceNote#6dc2227d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterVoiceNote"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterVoiceNote#6dc2227d: %w", err)
 			}
@@ -1033,8 +1033,8 @@ func (s *SearchMessagesFilterPhotoAndVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterPhotoAndVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterPhotoAndVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterPhotoAndVideo#5097e193 as nil")
 	}
@@ -1044,15 +1044,15 @@ func (s *SearchMessagesFilterPhotoAndVideo) EncodeTDLibJSON(b jsontd.Encoder) er
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterPhotoAndVideo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterPhotoAndVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterPhotoAndVideo#5097e193 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterPhotoAndVideo"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterPhotoAndVideo#5097e193: %w", err)
 			}
@@ -1162,8 +1162,8 @@ func (s *SearchMessagesFilterURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterURL) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterURL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterUrl#92ffe18b as nil")
 	}
@@ -1173,15 +1173,15 @@ func (s *SearchMessagesFilterURL) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterURL) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterURL) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterUrl#92ffe18b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterUrl"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterUrl#92ffe18b: %w", err)
 			}
@@ -1291,8 +1291,8 @@ func (s *SearchMessagesFilterChatPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterChatPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterChatPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterChatPhoto#b5a0d35f as nil")
 	}
@@ -1302,15 +1302,15 @@ func (s *SearchMessagesFilterChatPhoto) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterChatPhoto) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterChatPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterChatPhoto#b5a0d35f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterChatPhoto"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterChatPhoto#b5a0d35f: %w", err)
 			}
@@ -1420,8 +1420,8 @@ func (s *SearchMessagesFilterCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterCall) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterCall#4dcc3ea4 as nil")
 	}
@@ -1431,15 +1431,15 @@ func (s *SearchMessagesFilterCall) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterCall) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterCall#4dcc3ea4 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterCall"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterCall#4dcc3ea4: %w", err)
 			}
@@ -1549,8 +1549,8 @@ func (s *SearchMessagesFilterMissedCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterMissedCall) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterMissedCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterMissedCall#39db24ba as nil")
 	}
@@ -1560,15 +1560,15 @@ func (s *SearchMessagesFilterMissedCall) EncodeTDLibJSON(b jsontd.Encoder) error
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterMissedCall) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterMissedCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterMissedCall#39db24ba to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterMissedCall"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterMissedCall#39db24ba: %w", err)
 			}
@@ -1678,8 +1678,8 @@ func (s *SearchMessagesFilterVideoNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterVideoNote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterVideoNote#21a2e3f9 as nil")
 	}
@@ -1689,15 +1689,15 @@ func (s *SearchMessagesFilterVideoNote) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterVideoNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterVideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterVideoNote#21a2e3f9 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterVideoNote"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterVideoNote#21a2e3f9: %w", err)
 			}
@@ -1807,8 +1807,8 @@ func (s *SearchMessagesFilterVoiceAndVideoNote) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterVoiceAndVideoNote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterVoiceAndVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterVoiceAndVideoNote#279680e3 as nil")
 	}
@@ -1818,15 +1818,15 @@ func (s *SearchMessagesFilterVoiceAndVideoNote) EncodeTDLibJSON(b jsontd.Encoder
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterVoiceAndVideoNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterVoiceAndVideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterVoiceAndVideoNote#279680e3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterVoiceAndVideoNote"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterVoiceAndVideoNote#279680e3: %w", err)
 			}
@@ -1936,8 +1936,8 @@ func (s *SearchMessagesFilterMention) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterMention) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterMention) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterMention#7748c89c as nil")
 	}
@@ -1947,15 +1947,15 @@ func (s *SearchMessagesFilterMention) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterMention) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterMention) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterMention#7748c89c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterMention"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterMention#7748c89c: %w", err)
 			}
@@ -2065,8 +2065,8 @@ func (s *SearchMessagesFilterUnreadMention) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterUnreadMention) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterUnreadMention) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterUnreadMention#fa4aadc3 as nil")
 	}
@@ -2076,15 +2076,15 @@ func (s *SearchMessagesFilterUnreadMention) EncodeTDLibJSON(b jsontd.Encoder) er
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterUnreadMention) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterUnreadMention) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterUnreadMention#fa4aadc3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterUnreadMention"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterUnreadMention#fa4aadc3: %w", err)
 			}
@@ -2194,8 +2194,8 @@ func (s *SearchMessagesFilterFailedToSend) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterFailedToSend) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterFailedToSend) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterFailedToSend#dc74d6fc as nil")
 	}
@@ -2205,15 +2205,15 @@ func (s *SearchMessagesFilterFailedToSend) EncodeTDLibJSON(b jsontd.Encoder) err
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterFailedToSend) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterFailedToSend) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterFailedToSend#dc74d6fc to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterFailedToSend"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterFailedToSend#dc74d6fc: %w", err)
 			}
@@ -2323,8 +2323,8 @@ func (s *SearchMessagesFilterPinned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchMessagesFilterPinned) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterPinned) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchMessagesFilterPinned#16294d48 as nil")
 	}
@@ -2334,15 +2334,15 @@ func (s *SearchMessagesFilterPinned) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchMessagesFilterPinned) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterPinned) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchMessagesFilterPinned#16294d48 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessagesFilterPinned"); err != nil {
 				return fmt.Errorf("unable to decode searchMessagesFilterPinned#16294d48: %w", err)
 			}
@@ -2399,8 +2399,8 @@ type SearchMessagesFilterClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeSearchMessagesFilter implements binary de-serialization for SearchMessagesFilterClass.
@@ -2542,7 +2542,7 @@ func DecodeSearchMessagesFilter(buf *bin.Buffer) (SearchMessagesFilterClass, err
 }
 
 // DecodeTDLibJSONSearchMessagesFilter implements binary de-serialization for SearchMessagesFilterClass.
-func DecodeTDLibJSONSearchMessagesFilter(buf jsontd.Decoder) (SearchMessagesFilterClass, error) {
+func DecodeTDLibJSONSearchMessagesFilter(buf tdjson.Decoder) (SearchMessagesFilterClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -2675,7 +2675,7 @@ func DecodeTDLibJSONSearchMessagesFilter(buf jsontd.Decoder) (SearchMessagesFilt
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode SearchMessagesFilterClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode SearchMessagesFilterClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -2706,7 +2706,7 @@ func (b *SearchMessagesFilterBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for SearchMessagesFilterBox.
-func (b *SearchMessagesFilterBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *SearchMessagesFilterBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode SearchMessagesFilterBox to nil")
 	}
@@ -2719,7 +2719,7 @@ func (b *SearchMessagesFilterBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for SearchMessagesFilterBox.
-func (b *SearchMessagesFilterBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *SearchMessagesFilterBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.SearchMessagesFilter == nil {
 		return fmt.Errorf("unable to encode SearchMessagesFilterClass as nil")
 	}

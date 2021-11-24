@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ImportedContacts represents TL type `importedContacts#443d9a66`.
@@ -188,8 +188,8 @@ func (i *ImportedContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *ImportedContacts) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *ImportedContacts) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode importedContacts#443d9a66 as nil")
 	}
@@ -211,20 +211,20 @@ func (i *ImportedContacts) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *ImportedContacts) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *ImportedContacts) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode importedContacts#443d9a66 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("importedContacts"); err != nil {
 				return fmt.Errorf("unable to decode importedContacts#443d9a66: %w", err)
 			}
 		case "user_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
 					return fmt.Errorf("unable to decode importedContacts#443d9a66: field user_ids: %w", err)
@@ -235,7 +235,7 @@ func (i *ImportedContacts) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode importedContacts#443d9a66: field user_ids: %w", err)
 			}
 		case "importer_count":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
 					return fmt.Errorf("unable to decode importedContacts#443d9a66: field importer_count: %w", err)

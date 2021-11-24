@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // AddStickerToSetRequest represents TL type `addStickerToSet#e4e66a2c`.
@@ -182,8 +182,8 @@ func (a *AddStickerToSetRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (a *AddStickerToSetRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AddStickerToSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addStickerToSet#e4e66a2c as nil")
 	}
@@ -204,15 +204,15 @@ func (a *AddStickerToSetRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (a *AddStickerToSetRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AddStickerToSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
 		return fmt.Errorf("can't decode addStickerToSet#e4e66a2c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("addStickerToSet"); err != nil {
 				return fmt.Errorf("unable to decode addStickerToSet#e4e66a2c: %w", err)
 			}

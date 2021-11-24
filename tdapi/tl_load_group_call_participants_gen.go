@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // LoadGroupCallParticipantsRequest represents TL type `loadGroupCallParticipants#37f3bece`.
@@ -161,8 +161,8 @@ func (l *LoadGroupCallParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (l *LoadGroupCallParticipantsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (l *LoadGroupCallParticipantsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode loadGroupCallParticipants#37f3bece as nil")
 	}
@@ -176,15 +176,15 @@ func (l *LoadGroupCallParticipantsRequest) EncodeTDLibJSON(b jsontd.Encoder) err
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (l *LoadGroupCallParticipantsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (l *LoadGroupCallParticipantsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
 		return fmt.Errorf("can't decode loadGroupCallParticipants#37f3bece to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("loadGroupCallParticipants"); err != nil {
 				return fmt.Errorf("unable to decode loadGroupCallParticipants#37f3bece: %w", err)
 			}

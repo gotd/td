@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // EditInlineMessageCaptionRequest represents TL type `editInlineMessageCaption#d2a446b7`.
@@ -182,8 +182,8 @@ func (e *EditInlineMessageCaptionRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (e *EditInlineMessageCaptionRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (e *EditInlineMessageCaptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editInlineMessageCaption#d2a446b7 as nil")
 	}
@@ -206,15 +206,15 @@ func (e *EditInlineMessageCaptionRequest) EncodeTDLibJSON(b jsontd.Encoder) erro
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (e *EditInlineMessageCaptionRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (e *EditInlineMessageCaptionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
 		return fmt.Errorf("can't decode editInlineMessageCaption#d2a446b7 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("editInlineMessageCaption"); err != nil {
 				return fmt.Errorf("unable to decode editInlineMessageCaption#d2a446b7: %w", err)
 			}

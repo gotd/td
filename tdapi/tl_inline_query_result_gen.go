@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // InlineQueryResultArticle represents TL type `inlineQueryResultArticle#c4c82d9`.
@@ -233,8 +233,8 @@ func (i *InlineQueryResultArticle) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InlineQueryResultArticle) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineQueryResultArticle) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResultArticle#c4c82d9 as nil")
 	}
@@ -258,15 +258,15 @@ func (i *InlineQueryResultArticle) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InlineQueryResultArticle) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineQueryResultArticle) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineQueryResultArticle#c4c82d9 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineQueryResultArticle"); err != nil {
 				return fmt.Errorf("unable to decode inlineQueryResultArticle#c4c82d9: %w", err)
 			}
@@ -492,8 +492,8 @@ func (i *InlineQueryResultContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InlineQueryResultContact) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineQueryResultContact) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResultContact#f5278212 as nil")
 	}
@@ -513,15 +513,15 @@ func (i *InlineQueryResultContact) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InlineQueryResultContact) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineQueryResultContact) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineQueryResultContact#f5278212 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineQueryResultContact"); err != nil {
 				return fmt.Errorf("unable to decode inlineQueryResultContact#f5278212: %w", err)
 			}
@@ -729,8 +729,8 @@ func (i *InlineQueryResultLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InlineQueryResultLocation) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineQueryResultLocation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResultLocation#1bc6ab10 as nil")
 	}
@@ -752,15 +752,15 @@ func (i *InlineQueryResultLocation) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InlineQueryResultLocation) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineQueryResultLocation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineQueryResultLocation#1bc6ab10 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineQueryResultLocation"); err != nil {
 				return fmt.Errorf("unable to decode inlineQueryResultLocation#1bc6ab10: %w", err)
 			}
@@ -962,8 +962,8 @@ func (i *InlineQueryResultVenue) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InlineQueryResultVenue) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineQueryResultVenue) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResultVenue#4c5b105e as nil")
 	}
@@ -983,15 +983,15 @@ func (i *InlineQueryResultVenue) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InlineQueryResultVenue) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineQueryResultVenue) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineQueryResultVenue#4c5b105e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineQueryResultVenue"); err != nil {
 				return fmt.Errorf("unable to decode inlineQueryResultVenue#4c5b105e: %w", err)
 			}
@@ -1165,8 +1165,8 @@ func (i *InlineQueryResultGame) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InlineQueryResultGame) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineQueryResultGame) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResultGame#65bd7c7b as nil")
 	}
@@ -1182,15 +1182,15 @@ func (i *InlineQueryResultGame) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InlineQueryResultGame) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineQueryResultGame) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineQueryResultGame#65bd7c7b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineQueryResultGame"); err != nil {
 				return fmt.Errorf("unable to decode inlineQueryResultGame#65bd7c7b: %w", err)
 			}
@@ -1372,8 +1372,8 @@ func (i *InlineQueryResultAnimation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InlineQueryResultAnimation) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineQueryResultAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResultAnimation#77cded0b as nil")
 	}
@@ -1391,15 +1391,15 @@ func (i *InlineQueryResultAnimation) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InlineQueryResultAnimation) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineQueryResultAnimation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineQueryResultAnimation#77cded0b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineQueryResultAnimation"); err != nil {
 				return fmt.Errorf("unable to decode inlineQueryResultAnimation#77cded0b: %w", err)
 			}
@@ -1575,8 +1575,8 @@ func (i *InlineQueryResultAudio) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InlineQueryResultAudio) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineQueryResultAudio) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResultAudio#3239d2f8 as nil")
 	}
@@ -1592,15 +1592,15 @@ func (i *InlineQueryResultAudio) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InlineQueryResultAudio) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineQueryResultAudio) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineQueryResultAudio#3239d2f8 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineQueryResultAudio"); err != nil {
 				return fmt.Errorf("unable to decode inlineQueryResultAudio#3239d2f8: %w", err)
 			}
@@ -1799,8 +1799,8 @@ func (i *InlineQueryResultDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InlineQueryResultDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineQueryResultDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResultDocument#a71d0c45 as nil")
 	}
@@ -1820,15 +1820,15 @@ func (i *InlineQueryResultDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InlineQueryResultDocument) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineQueryResultDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineQueryResultDocument#a71d0c45 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineQueryResultDocument"); err != nil {
 				return fmt.Errorf("unable to decode inlineQueryResultDocument#a71d0c45: %w", err)
 			}
@@ -2049,8 +2049,8 @@ func (i *InlineQueryResultPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InlineQueryResultPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineQueryResultPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResultPhoto#6e2b1dd0 as nil")
 	}
@@ -2070,15 +2070,15 @@ func (i *InlineQueryResultPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InlineQueryResultPhoto) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineQueryResultPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineQueryResultPhoto#6e2b1dd0 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineQueryResultPhoto"); err != nil {
 				return fmt.Errorf("unable to decode inlineQueryResultPhoto#6e2b1dd0: %w", err)
 			}
@@ -2265,8 +2265,8 @@ func (i *InlineQueryResultSticker) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InlineQueryResultSticker) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineQueryResultSticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResultSticker#91d6560b as nil")
 	}
@@ -2282,15 +2282,15 @@ func (i *InlineQueryResultSticker) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InlineQueryResultSticker) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineQueryResultSticker) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineQueryResultSticker#91d6560b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineQueryResultSticker"); err != nil {
 				return fmt.Errorf("unable to decode inlineQueryResultSticker#91d6560b: %w", err)
 			}
@@ -2489,8 +2489,8 @@ func (i *InlineQueryResultVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InlineQueryResultVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineQueryResultVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResultVideo#ae2742e5 as nil")
 	}
@@ -2510,15 +2510,15 @@ func (i *InlineQueryResultVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InlineQueryResultVideo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineQueryResultVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineQueryResultVideo#ae2742e5 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineQueryResultVideo"); err != nil {
 				return fmt.Errorf("unable to decode inlineQueryResultVideo#ae2742e5: %w", err)
 			}
@@ -2722,8 +2722,8 @@ func (i *InlineQueryResultVoiceNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InlineQueryResultVoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineQueryResultVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResultVoiceNote#8ee8142f as nil")
 	}
@@ -2741,15 +2741,15 @@ func (i *InlineQueryResultVoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InlineQueryResultVoiceNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineQueryResultVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineQueryResultVoiceNote#8ee8142f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineQueryResultVoiceNote"); err != nil {
 				return fmt.Errorf("unable to decode inlineQueryResultVoiceNote#8ee8142f: %w", err)
 			}
@@ -2831,8 +2831,8 @@ type InlineQueryResultClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 
 	// Unique identifier of the query result
 	GetID() (value string)
@@ -2935,7 +2935,7 @@ func DecodeInlineQueryResult(buf *bin.Buffer) (InlineQueryResultClass, error) {
 }
 
 // DecodeTDLibJSONInlineQueryResult implements binary de-serialization for InlineQueryResultClass.
-func DecodeTDLibJSONInlineQueryResult(buf jsontd.Decoder) (InlineQueryResultClass, error) {
+func DecodeTDLibJSONInlineQueryResult(buf tdjson.Decoder) (InlineQueryResultClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -3026,7 +3026,7 @@ func DecodeTDLibJSONInlineQueryResult(buf jsontd.Decoder) (InlineQueryResultClas
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InlineQueryResultClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode InlineQueryResultClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -3057,7 +3057,7 @@ func (b *InlineQueryResultBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for InlineQueryResultBox.
-func (b *InlineQueryResultBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *InlineQueryResultBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode InlineQueryResultBox to nil")
 	}
@@ -3070,7 +3070,7 @@ func (b *InlineQueryResultBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for InlineQueryResultBox.
-func (b *InlineQueryResultBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *InlineQueryResultBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.InlineQueryResult == nil {
 		return fmt.Errorf("unable to encode InlineQueryResultClass as nil")
 	}

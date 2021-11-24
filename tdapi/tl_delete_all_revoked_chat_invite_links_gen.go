@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // DeleteAllRevokedChatInviteLinksRequest represents TL type `deleteAllRevokedChatInviteLinks#eac4f045`.
@@ -161,8 +161,8 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DeleteAllRevokedChatInviteLinksRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeleteAllRevokedChatInviteLinksRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteAllRevokedChatInviteLinks#eac4f045 as nil")
 	}
@@ -176,15 +176,15 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) EncodeTDLibJSON(b jsontd.Encode
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DeleteAllRevokedChatInviteLinksRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeleteAllRevokedChatInviteLinksRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode deleteAllRevokedChatInviteLinks#eac4f045 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("deleteAllRevokedChatInviteLinks"); err != nil {
 				return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#eac4f045: %w", err)
 			}

@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // LocalizationTargetInfo represents TL type `localizationTargetInfo#2ca3903b`.
@@ -158,8 +158,8 @@ func (l *LocalizationTargetInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (l *LocalizationTargetInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (l *LocalizationTargetInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode localizationTargetInfo#2ca3903b as nil")
 	}
@@ -177,20 +177,20 @@ func (l *LocalizationTargetInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (l *LocalizationTargetInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (l *LocalizationTargetInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
 		return fmt.Errorf("can't decode localizationTargetInfo#2ca3903b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("localizationTargetInfo"); err != nil {
 				return fmt.Errorf("unable to decode localizationTargetInfo#2ca3903b: %w", err)
 			}
 		case "language_packs":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value LanguagePackInfo
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode localizationTargetInfo#2ca3903b: field language_packs: %w", err)

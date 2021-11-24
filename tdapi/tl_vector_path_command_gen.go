@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // VectorPathCommandLine represents TL type `vectorPathCommandLine#db663c8a`.
@@ -148,8 +148,8 @@ func (v *VectorPathCommandLine) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (v *VectorPathCommandLine) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (v *VectorPathCommandLine) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode vectorPathCommandLine#db663c8a as nil")
 	}
@@ -163,15 +163,15 @@ func (v *VectorPathCommandLine) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (v *VectorPathCommandLine) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (v *VectorPathCommandLine) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if v == nil {
 		return fmt.Errorf("can't decode vectorPathCommandLine#db663c8a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("vectorPathCommandLine"); err != nil {
 				return fmt.Errorf("unable to decode vectorPathCommandLine#db663c8a: %w", err)
 			}
@@ -342,8 +342,8 @@ func (v *VectorPathCommandCubicBezierCurve) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (v *VectorPathCommandCubicBezierCurve) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (v *VectorPathCommandCubicBezierCurve) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode vectorPathCommandCubicBezierCurve#494c3e3a as nil")
 	}
@@ -365,15 +365,15 @@ func (v *VectorPathCommandCubicBezierCurve) EncodeTDLibJSON(b jsontd.Encoder) er
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (v *VectorPathCommandCubicBezierCurve) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (v *VectorPathCommandCubicBezierCurve) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if v == nil {
 		return fmt.Errorf("can't decode vectorPathCommandCubicBezierCurve#494c3e3a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("vectorPathCommandCubicBezierCurve"); err != nil {
 				return fmt.Errorf("unable to decode vectorPathCommandCubicBezierCurve#494c3e3a: %w", err)
 			}
@@ -441,8 +441,8 @@ type VectorPathCommandClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 
 	// The end point of the straight line
 	GetEndPoint() (value Point)
@@ -475,7 +475,7 @@ func DecodeVectorPathCommand(buf *bin.Buffer) (VectorPathCommandClass, error) {
 }
 
 // DecodeTDLibJSONVectorPathCommand implements binary de-serialization for VectorPathCommandClass.
-func DecodeTDLibJSONVectorPathCommand(buf jsontd.Decoder) (VectorPathCommandClass, error) {
+func DecodeTDLibJSONVectorPathCommand(buf tdjson.Decoder) (VectorPathCommandClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -496,7 +496,7 @@ func DecodeTDLibJSONVectorPathCommand(buf jsontd.Decoder) (VectorPathCommandClas
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode VectorPathCommandClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode VectorPathCommandClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -527,7 +527,7 @@ func (b *VectorPathCommandBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for VectorPathCommandBox.
-func (b *VectorPathCommandBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *VectorPathCommandBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode VectorPathCommandBox to nil")
 	}
@@ -540,7 +540,7 @@ func (b *VectorPathCommandBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for VectorPathCommandBox.
-func (b *VectorPathCommandBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *VectorPathCommandBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.VectorPathCommand == nil {
 		return fmt.Errorf("unable to encode VectorPathCommandClass as nil")
 	}

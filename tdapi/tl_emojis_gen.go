@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // Emojis represents TL type `emojis#77274a16`.
@@ -156,8 +156,8 @@ func (e *Emojis) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (e *Emojis) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (e *Emojis) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode emojis#77274a16 as nil")
 	}
@@ -173,20 +173,20 @@ func (e *Emojis) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (e *Emojis) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (e *Emojis) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
 		return fmt.Errorf("can't decode emojis#77274a16 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("emojis"); err != nil {
 				return fmt.Errorf("unable to decode emojis#77274a16: %w", err)
 			}
 		case "emojis":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.String()
 				if err != nil {
 					return fmt.Errorf("unable to decode emojis#77274a16: field emojis: %w", err)

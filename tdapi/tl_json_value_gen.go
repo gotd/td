@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // JSONValueNull represents TL type `jsonValueNull#fa76e0cd`.
@@ -130,8 +130,8 @@ func (j *JSONValueNull) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (j *JSONValueNull) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (j *JSONValueNull) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if j == nil {
 		return fmt.Errorf("can't encode jsonValueNull#fa76e0cd as nil")
 	}
@@ -141,15 +141,15 @@ func (j *JSONValueNull) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (j *JSONValueNull) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (j *JSONValueNull) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if j == nil {
 		return fmt.Errorf("can't decode jsonValueNull#fa76e0cd to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("jsonValueNull"); err != nil {
 				return fmt.Errorf("unable to decode jsonValueNull#fa76e0cd: %w", err)
 			}
@@ -277,8 +277,8 @@ func (j *JSONValueBoolean) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (j *JSONValueBoolean) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (j *JSONValueBoolean) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if j == nil {
 		return fmt.Errorf("can't encode jsonValueBoolean#8050d3b0 as nil")
 	}
@@ -290,15 +290,15 @@ func (j *JSONValueBoolean) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (j *JSONValueBoolean) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (j *JSONValueBoolean) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if j == nil {
 		return fmt.Errorf("can't decode jsonValueBoolean#8050d3b0 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("jsonValueBoolean"); err != nil {
 				return fmt.Errorf("unable to decode jsonValueBoolean#8050d3b0: %w", err)
 			}
@@ -437,8 +437,8 @@ func (j *JSONValueNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (j *JSONValueNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (j *JSONValueNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if j == nil {
 		return fmt.Errorf("can't encode jsonValueNumber#c3c0146f as nil")
 	}
@@ -450,15 +450,15 @@ func (j *JSONValueNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (j *JSONValueNumber) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (j *JSONValueNumber) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if j == nil {
 		return fmt.Errorf("can't decode jsonValueNumber#c3c0146f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("jsonValueNumber"); err != nil {
 				return fmt.Errorf("unable to decode jsonValueNumber#c3c0146f: %w", err)
 			}
@@ -597,8 +597,8 @@ func (j *JSONValueString) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (j *JSONValueString) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (j *JSONValueString) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if j == nil {
 		return fmt.Errorf("can't encode jsonValueString#5f3ebdb1 as nil")
 	}
@@ -610,15 +610,15 @@ func (j *JSONValueString) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (j *JSONValueString) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (j *JSONValueString) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if j == nil {
 		return fmt.Errorf("can't decode jsonValueString#5f3ebdb1 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("jsonValueString"); err != nil {
 				return fmt.Errorf("unable to decode jsonValueString#5f3ebdb1: %w", err)
 			}
@@ -775,8 +775,8 @@ func (j *JSONValueArray) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (j *JSONValueArray) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (j *JSONValueArray) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if j == nil {
 		return fmt.Errorf("can't encode jsonValueArray#eccdb0d8 as nil")
 	}
@@ -797,20 +797,20 @@ func (j *JSONValueArray) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (j *JSONValueArray) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (j *JSONValueArray) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if j == nil {
 		return fmt.Errorf("can't decode jsonValueArray#eccdb0d8 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("jsonValueArray"); err != nil {
 				return fmt.Errorf("unable to decode jsonValueArray#eccdb0d8: %w", err)
 			}
 		case "values":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONJSONValue(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode jsonValueArray#eccdb0d8: field values: %w", err)
@@ -964,8 +964,8 @@ func (j *JSONValueObject) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (j *JSONValueObject) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (j *JSONValueObject) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if j == nil {
 		return fmt.Errorf("can't encode jsonValueObject#c67bff40 as nil")
 	}
@@ -983,20 +983,20 @@ func (j *JSONValueObject) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (j *JSONValueObject) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (j *JSONValueObject) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if j == nil {
 		return fmt.Errorf("can't decode jsonValueObject#c67bff40 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("jsonValueObject"); err != nil {
 				return fmt.Errorf("unable to decode jsonValueObject#c67bff40: %w", err)
 			}
 		case "members":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value JSONObjectMember
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode jsonValueObject#c67bff40: field members: %w", err)
@@ -1052,8 +1052,8 @@ type JSONValueClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeJSONValue implements binary de-serialization for JSONValueClass.
@@ -1111,7 +1111,7 @@ func DecodeJSONValue(buf *bin.Buffer) (JSONValueClass, error) {
 }
 
 // DecodeTDLibJSONJSONValue implements binary de-serialization for JSONValueClass.
-func DecodeTDLibJSONJSONValue(buf jsontd.Decoder) (JSONValueClass, error) {
+func DecodeTDLibJSONJSONValue(buf tdjson.Decoder) (JSONValueClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -1160,7 +1160,7 @@ func DecodeTDLibJSONJSONValue(buf jsontd.Decoder) (JSONValueClass, error) {
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode JSONValueClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode JSONValueClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -1191,7 +1191,7 @@ func (b *JSONValueBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for JSONValueBox.
-func (b *JSONValueBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *JSONValueBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode JSONValueBox to nil")
 	}
@@ -1204,7 +1204,7 @@ func (b *JSONValueBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for JSONValueBox.
-func (b *JSONValueBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *JSONValueBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.JsonValue == nil {
 		return fmt.Errorf("unable to encode JSONValueClass as nil")
 	}

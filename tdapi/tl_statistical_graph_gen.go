@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // StatisticalGraphData represents TL type `statisticalGraphData#89732e2c`.
@@ -165,8 +165,8 @@ func (s *StatisticalGraphData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *StatisticalGraphData) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *StatisticalGraphData) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode statisticalGraphData#89732e2c as nil")
 	}
@@ -180,15 +180,15 @@ func (s *StatisticalGraphData) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *StatisticalGraphData) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *StatisticalGraphData) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode statisticalGraphData#89732e2c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("statisticalGraphData"); err != nil {
 				return fmt.Errorf("unable to decode statisticalGraphData#89732e2c: %w", err)
 			}
@@ -338,8 +338,8 @@ func (s *StatisticalGraphAsync) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *StatisticalGraphAsync) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *StatisticalGraphAsync) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode statisticalGraphAsync#19fb2b9f as nil")
 	}
@@ -351,15 +351,15 @@ func (s *StatisticalGraphAsync) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *StatisticalGraphAsync) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *StatisticalGraphAsync) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode statisticalGraphAsync#19fb2b9f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("statisticalGraphAsync"); err != nil {
 				return fmt.Errorf("unable to decode statisticalGraphAsync#19fb2b9f: %w", err)
 			}
@@ -498,8 +498,8 @@ func (s *StatisticalGraphError) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *StatisticalGraphError) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *StatisticalGraphError) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode statisticalGraphError#c3fda052 as nil")
 	}
@@ -511,15 +511,15 @@ func (s *StatisticalGraphError) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *StatisticalGraphError) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *StatisticalGraphError) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode statisticalGraphError#c3fda052 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("statisticalGraphError"); err != nil {
 				return fmt.Errorf("unable to decode statisticalGraphError#c3fda052: %w", err)
 			}
@@ -572,8 +572,8 @@ type StatisticalGraphClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeStatisticalGraph implements binary de-serialization for StatisticalGraphClass.
@@ -610,7 +610,7 @@ func DecodeStatisticalGraph(buf *bin.Buffer) (StatisticalGraphClass, error) {
 }
 
 // DecodeTDLibJSONStatisticalGraph implements binary de-serialization for StatisticalGraphClass.
-func DecodeTDLibJSONStatisticalGraph(buf jsontd.Decoder) (StatisticalGraphClass, error) {
+func DecodeTDLibJSONStatisticalGraph(buf tdjson.Decoder) (StatisticalGraphClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -638,7 +638,7 @@ func DecodeTDLibJSONStatisticalGraph(buf jsontd.Decoder) (StatisticalGraphClass,
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode StatisticalGraphClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode StatisticalGraphClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -669,7 +669,7 @@ func (b *StatisticalGraphBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for StatisticalGraphBox.
-func (b *StatisticalGraphBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *StatisticalGraphBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode StatisticalGraphBox to nil")
 	}
@@ -682,7 +682,7 @@ func (b *StatisticalGraphBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for StatisticalGraphBox.
-func (b *StatisticalGraphBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *StatisticalGraphBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.StatisticalGraph == nil {
 		return fmt.Errorf("unable to encode StatisticalGraphClass as nil")
 	}

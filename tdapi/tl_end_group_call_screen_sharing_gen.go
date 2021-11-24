@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // EndGroupCallScreenSharingRequest represents TL type `endGroupCallScreenSharing#85f41c4c`.
@@ -143,8 +143,8 @@ func (e *EndGroupCallScreenSharingRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (e *EndGroupCallScreenSharingRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (e *EndGroupCallScreenSharingRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode endGroupCallScreenSharing#85f41c4c as nil")
 	}
@@ -156,15 +156,15 @@ func (e *EndGroupCallScreenSharingRequest) EncodeTDLibJSON(b jsontd.Encoder) err
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (e *EndGroupCallScreenSharingRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (e *EndGroupCallScreenSharingRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
 		return fmt.Errorf("can't decode endGroupCallScreenSharing#85f41c4c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("endGroupCallScreenSharing"); err != nil {
 				return fmt.Errorf("unable to decode endGroupCallScreenSharing#85f41c4c: %w", err)
 			}

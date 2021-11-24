@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // OrderInfo represents TL type `orderInfo#2ebad96e`.
@@ -194,8 +194,8 @@ func (o *OrderInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (o *OrderInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (o *OrderInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if o == nil {
 		return fmt.Errorf("can't encode orderInfo#2ebad96e as nil")
 	}
@@ -215,15 +215,15 @@ func (o *OrderInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (o *OrderInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (o *OrderInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if o == nil {
 		return fmt.Errorf("can't decode orderInfo#2ebad96e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("orderInfo"); err != nil {
 				return fmt.Errorf("unable to decode orderInfo#2ebad96e: %w", err)
 			}

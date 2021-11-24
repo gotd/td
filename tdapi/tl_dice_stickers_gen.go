@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // DiceStickersRegular represents TL type `diceStickersRegular#d3dfecce`.
@@ -148,8 +148,8 @@ func (d *DiceStickersRegular) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DiceStickersRegular) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DiceStickersRegular) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode diceStickersRegular#d3dfecce as nil")
 	}
@@ -163,15 +163,15 @@ func (d *DiceStickersRegular) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DiceStickersRegular) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DiceStickersRegular) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode diceStickersRegular#d3dfecce to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("diceStickersRegular"); err != nil {
 				return fmt.Errorf("unable to decode diceStickersRegular#d3dfecce: %w", err)
 			}
@@ -378,8 +378,8 @@ func (d *DiceStickersSlotMachine) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (d *DiceStickersSlotMachine) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DiceStickersSlotMachine) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
 		return fmt.Errorf("can't encode diceStickersSlotMachine#e9a28cac as nil")
 	}
@@ -409,15 +409,15 @@ func (d *DiceStickersSlotMachine) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (d *DiceStickersSlotMachine) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DiceStickersSlotMachine) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
 		return fmt.Errorf("can't decode diceStickersSlotMachine#e9a28cac to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("diceStickersSlotMachine"); err != nil {
 				return fmt.Errorf("unable to decode diceStickersSlotMachine#e9a28cac: %w", err)
 			}
@@ -503,8 +503,8 @@ type DiceStickersClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeDiceStickers implements binary de-serialization for DiceStickersClass.
@@ -534,7 +534,7 @@ func DecodeDiceStickers(buf *bin.Buffer) (DiceStickersClass, error) {
 }
 
 // DecodeTDLibJSONDiceStickers implements binary de-serialization for DiceStickersClass.
-func DecodeTDLibJSONDiceStickers(buf jsontd.Decoder) (DiceStickersClass, error) {
+func DecodeTDLibJSONDiceStickers(buf tdjson.Decoder) (DiceStickersClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -555,7 +555,7 @@ func DecodeTDLibJSONDiceStickers(buf jsontd.Decoder) (DiceStickersClass, error) 
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode DiceStickersClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode DiceStickersClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -586,7 +586,7 @@ func (b *DiceStickersBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for DiceStickersBox.
-func (b *DiceStickersBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *DiceStickersBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode DiceStickersBox to nil")
 	}
@@ -599,7 +599,7 @@ func (b *DiceStickersBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for DiceStickersBox.
-func (b *DiceStickersBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *DiceStickersBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.DiceStickers == nil {
 		return fmt.Errorf("unable to encode DiceStickersClass as nil")
 	}

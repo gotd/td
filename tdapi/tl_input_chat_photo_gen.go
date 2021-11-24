@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // InputChatPhotoPrevious represents TL type `inputChatPhotoPrevious#160e9d1`.
@@ -148,8 +148,8 @@ func (i *InputChatPhotoPrevious) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputChatPhotoPrevious) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputChatPhotoPrevious) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputChatPhotoPrevious#160e9d1 as nil")
 	}
@@ -161,15 +161,15 @@ func (i *InputChatPhotoPrevious) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputChatPhotoPrevious) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputChatPhotoPrevious) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputChatPhotoPrevious#160e9d1 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputChatPhotoPrevious"); err != nil {
 				return fmt.Errorf("unable to decode inputChatPhotoPrevious#160e9d1: %w", err)
 			}
@@ -314,8 +314,8 @@ func (i *InputChatPhotoStatic) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputChatPhotoStatic) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputChatPhotoStatic) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputChatPhotoStatic#75f7e2b3 as nil")
 	}
@@ -332,15 +332,15 @@ func (i *InputChatPhotoStatic) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputChatPhotoStatic) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputChatPhotoStatic) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputChatPhotoStatic#75f7e2b3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputChatPhotoStatic"); err != nil {
 				return fmt.Errorf("unable to decode inputChatPhotoStatic#75f7e2b3: %w", err)
 			}
@@ -502,8 +502,8 @@ func (i *InputChatPhotoAnimation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputChatPhotoAnimation) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputChatPhotoAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputChatPhotoAnimation#56a3422 as nil")
 	}
@@ -522,15 +522,15 @@ func (i *InputChatPhotoAnimation) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputChatPhotoAnimation) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputChatPhotoAnimation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputChatPhotoAnimation#56a3422 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputChatPhotoAnimation"); err != nil {
 				return fmt.Errorf("unable to decode inputChatPhotoAnimation#56a3422: %w", err)
 			}
@@ -594,8 +594,8 @@ type InputChatPhotoClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeInputChatPhoto implements binary de-serialization for InputChatPhotoClass.
@@ -632,7 +632,7 @@ func DecodeInputChatPhoto(buf *bin.Buffer) (InputChatPhotoClass, error) {
 }
 
 // DecodeTDLibJSONInputChatPhoto implements binary de-serialization for InputChatPhotoClass.
-func DecodeTDLibJSONInputChatPhoto(buf jsontd.Decoder) (InputChatPhotoClass, error) {
+func DecodeTDLibJSONInputChatPhoto(buf tdjson.Decoder) (InputChatPhotoClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -660,7 +660,7 @@ func DecodeTDLibJSONInputChatPhoto(buf jsontd.Decoder) (InputChatPhotoClass, err
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputChatPhotoClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode InputChatPhotoClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -691,7 +691,7 @@ func (b *InputChatPhotoBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for InputChatPhotoBox.
-func (b *InputChatPhotoBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *InputChatPhotoBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode InputChatPhotoBox to nil")
 	}
@@ -704,7 +704,7 @@ func (b *InputChatPhotoBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for InputChatPhotoBox.
-func (b *InputChatPhotoBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *InputChatPhotoBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.InputChatPhoto == nil {
 		return fmt.Errorf("unable to encode InputChatPhotoClass as nil")
 	}

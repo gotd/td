@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // LoginURLInfoOpen represents TL type `loginUrlInfoOpen#bfaf12d4`.
@@ -165,8 +165,8 @@ func (l *LoginURLInfoOpen) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (l *LoginURLInfoOpen) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (l *LoginURLInfoOpen) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode loginUrlInfoOpen#bfaf12d4 as nil")
 	}
@@ -180,15 +180,15 @@ func (l *LoginURLInfoOpen) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (l *LoginURLInfoOpen) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (l *LoginURLInfoOpen) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
 		return fmt.Errorf("can't decode loginUrlInfoOpen#bfaf12d4 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("loginUrlInfoOpen"); err != nil {
 				return fmt.Errorf("unable to decode loginUrlInfoOpen#bfaf12d4: %w", err)
 			}
@@ -390,8 +390,8 @@ func (l *LoginURLInfoRequestConfirmation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (l *LoginURLInfoRequestConfirmation) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (l *LoginURLInfoRequestConfirmation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
 		return fmt.Errorf("can't encode loginUrlInfoRequestConfirmation#96fb909a as nil")
 	}
@@ -409,15 +409,15 @@ func (l *LoginURLInfoRequestConfirmation) EncodeTDLibJSON(b jsontd.Encoder) erro
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (l *LoginURLInfoRequestConfirmation) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (l *LoginURLInfoRequestConfirmation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
 		return fmt.Errorf("can't decode loginUrlInfoRequestConfirmation#96fb909a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("loginUrlInfoRequestConfirmation"); err != nil {
 				return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#96fb909a: %w", err)
 			}
@@ -502,8 +502,8 @@ type LoginURLInfoClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 
 	// The URL to open
 	GetURL() (value string)
@@ -536,7 +536,7 @@ func DecodeLoginURLInfo(buf *bin.Buffer) (LoginURLInfoClass, error) {
 }
 
 // DecodeTDLibJSONLoginURLInfo implements binary de-serialization for LoginURLInfoClass.
-func DecodeTDLibJSONLoginURLInfo(buf jsontd.Decoder) (LoginURLInfoClass, error) {
+func DecodeTDLibJSONLoginURLInfo(buf tdjson.Decoder) (LoginURLInfoClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -557,7 +557,7 @@ func DecodeTDLibJSONLoginURLInfo(buf jsontd.Decoder) (LoginURLInfoClass, error) 
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode LoginURLInfoClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode LoginURLInfoClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -588,7 +588,7 @@ func (b *LoginURLInfoBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for LoginURLInfoBox.
-func (b *LoginURLInfoBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *LoginURLInfoBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode LoginURLInfoBox to nil")
 	}
@@ -601,7 +601,7 @@ func (b *LoginURLInfoBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for LoginURLInfoBox.
-func (b *LoginURLInfoBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *LoginURLInfoBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.LoginUrlInfo == nil {
 		return fmt.Errorf("unable to encode LoginURLInfoClass as nil")
 	}

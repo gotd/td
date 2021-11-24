@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ChatActionTyping represents TL type `chatActionTyping#16a83437`.
@@ -130,8 +130,8 @@ func (c *ChatActionTyping) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionTyping) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionTyping) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionTyping#16a83437 as nil")
 	}
@@ -141,15 +141,15 @@ func (c *ChatActionTyping) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionTyping) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionTyping) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionTyping#16a83437 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionTyping"); err != nil {
 				return fmt.Errorf("unable to decode chatActionTyping#16a83437: %w", err)
 			}
@@ -259,8 +259,8 @@ func (c *ChatActionRecordingVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionRecordingVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionRecordingVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionRecordingVideo#ce85792 as nil")
 	}
@@ -270,15 +270,15 @@ func (c *ChatActionRecordingVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionRecordingVideo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionRecordingVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionRecordingVideo#ce85792 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionRecordingVideo"); err != nil {
 				return fmt.Errorf("unable to decode chatActionRecordingVideo#ce85792: %w", err)
 			}
@@ -406,8 +406,8 @@ func (c *ChatActionUploadingVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionUploadingVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionUploadingVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionUploadingVideo#49902c36 as nil")
 	}
@@ -419,15 +419,15 @@ func (c *ChatActionUploadingVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionUploadingVideo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionUploadingVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionUploadingVideo#49902c36 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionUploadingVideo"); err != nil {
 				return fmt.Errorf("unable to decode chatActionUploadingVideo#49902c36: %w", err)
 			}
@@ -548,8 +548,8 @@ func (c *ChatActionRecordingVoiceNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionRecordingVoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionRecordingVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionRecordingVoiceNote#cfc9ed76 as nil")
 	}
@@ -559,15 +559,15 @@ func (c *ChatActionRecordingVoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionRecordingVoiceNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionRecordingVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionRecordingVoiceNote#cfc9ed76 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionRecordingVoiceNote"); err != nil {
 				return fmt.Errorf("unable to decode chatActionRecordingVoiceNote#cfc9ed76: %w", err)
 			}
@@ -695,8 +695,8 @@ func (c *ChatActionUploadingVoiceNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionUploadingVoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionUploadingVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionUploadingVoiceNote#db6c8a6e as nil")
 	}
@@ -708,15 +708,15 @@ func (c *ChatActionUploadingVoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionUploadingVoiceNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionUploadingVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionUploadingVoiceNote#db6c8a6e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionUploadingVoiceNote"); err != nil {
 				return fmt.Errorf("unable to decode chatActionUploadingVoiceNote#db6c8a6e: %w", err)
 			}
@@ -855,8 +855,8 @@ func (c *ChatActionUploadingPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionUploadingPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionUploadingPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionUploadingPhoto#26feeb47 as nil")
 	}
@@ -868,15 +868,15 @@ func (c *ChatActionUploadingPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionUploadingPhoto) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionUploadingPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionUploadingPhoto#26feeb47 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionUploadingPhoto"); err != nil {
 				return fmt.Errorf("unable to decode chatActionUploadingPhoto#26feeb47: %w", err)
 			}
@@ -1015,8 +1015,8 @@ func (c *ChatActionUploadingDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionUploadingDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionUploadingDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionUploadingDocument#a01b64a as nil")
 	}
@@ -1028,15 +1028,15 @@ func (c *ChatActionUploadingDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionUploadingDocument) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionUploadingDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionUploadingDocument#a01b64a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionUploadingDocument"); err != nil {
 				return fmt.Errorf("unable to decode chatActionUploadingDocument#a01b64a: %w", err)
 			}
@@ -1157,8 +1157,8 @@ func (c *ChatActionChoosingLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionChoosingLocation) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionChoosingLocation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionChoosingLocation#87b96324 as nil")
 	}
@@ -1168,15 +1168,15 @@ func (c *ChatActionChoosingLocation) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionChoosingLocation) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionChoosingLocation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionChoosingLocation#87b96324 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionChoosingLocation"); err != nil {
 				return fmt.Errorf("unable to decode chatActionChoosingLocation#87b96324: %w", err)
 			}
@@ -1286,8 +1286,8 @@ func (c *ChatActionChoosingContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionChoosingContact) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionChoosingContact) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionChoosingContact#b7220418 as nil")
 	}
@@ -1297,15 +1297,15 @@ func (c *ChatActionChoosingContact) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionChoosingContact) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionChoosingContact) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionChoosingContact#b7220418 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionChoosingContact"); err != nil {
 				return fmt.Errorf("unable to decode chatActionChoosingContact#b7220418: %w", err)
 			}
@@ -1415,8 +1415,8 @@ func (c *ChatActionStartPlayingGame) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionStartPlayingGame) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionStartPlayingGame) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionStartPlayingGame#cc63a7fc as nil")
 	}
@@ -1426,15 +1426,15 @@ func (c *ChatActionStartPlayingGame) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionStartPlayingGame) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionStartPlayingGame) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionStartPlayingGame#cc63a7fc to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionStartPlayingGame"); err != nil {
 				return fmt.Errorf("unable to decode chatActionStartPlayingGame#cc63a7fc: %w", err)
 			}
@@ -1544,8 +1544,8 @@ func (c *ChatActionRecordingVideoNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionRecordingVideoNote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionRecordingVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionRecordingVideoNote#fc2081 as nil")
 	}
@@ -1555,15 +1555,15 @@ func (c *ChatActionRecordingVideoNote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionRecordingVideoNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionRecordingVideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionRecordingVideoNote#fc2081 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionRecordingVideoNote"); err != nil {
 				return fmt.Errorf("unable to decode chatActionRecordingVideoNote#fc2081: %w", err)
 			}
@@ -1691,8 +1691,8 @@ func (c *ChatActionUploadingVideoNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionUploadingVideoNote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionUploadingVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionUploadingVideoNote#45e0de76 as nil")
 	}
@@ -1704,15 +1704,15 @@ func (c *ChatActionUploadingVideoNote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionUploadingVideoNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionUploadingVideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionUploadingVideoNote#45e0de76 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionUploadingVideoNote"); err != nil {
 				return fmt.Errorf("unable to decode chatActionUploadingVideoNote#45e0de76: %w", err)
 			}
@@ -1833,8 +1833,8 @@ func (c *ChatActionCancel) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatActionCancel) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionCancel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatActionCancel#452c30b6 as nil")
 	}
@@ -1844,15 +1844,15 @@ func (c *ChatActionCancel) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatActionCancel) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionCancel) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatActionCancel#452c30b6 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatActionCancel"); err != nil {
 				return fmt.Errorf("unable to decode chatActionCancel#452c30b6: %w", err)
 			}
@@ -1904,8 +1904,8 @@ type ChatActionClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeChatAction implements binary de-serialization for ChatActionClass.
@@ -2012,7 +2012,7 @@ func DecodeChatAction(buf *bin.Buffer) (ChatActionClass, error) {
 }
 
 // DecodeTDLibJSONChatAction implements binary de-serialization for ChatActionClass.
-func DecodeTDLibJSONChatAction(buf jsontd.Decoder) (ChatActionClass, error) {
+func DecodeTDLibJSONChatAction(buf tdjson.Decoder) (ChatActionClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -2110,7 +2110,7 @@ func DecodeTDLibJSONChatAction(buf jsontd.Decoder) (ChatActionClass, error) {
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ChatActionClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode ChatActionClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -2141,7 +2141,7 @@ func (b *ChatActionBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for ChatActionBox.
-func (b *ChatActionBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *ChatActionBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode ChatActionBox to nil")
 	}
@@ -2154,7 +2154,7 @@ func (b *ChatActionBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for ChatActionBox.
-func (b *ChatActionBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *ChatActionBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.ChatAction == nil {
 		return fmt.Errorf("unable to encode ChatActionClass as nil")
 	}

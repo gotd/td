@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // KeyboardButtonTypeText represents TL type `keyboardButtonTypeText#96519938`.
@@ -130,8 +130,8 @@ func (k *KeyboardButtonTypeText) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (k *KeyboardButtonTypeText) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (k *KeyboardButtonTypeText) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if k == nil {
 		return fmt.Errorf("can't encode keyboardButtonTypeText#96519938 as nil")
 	}
@@ -141,15 +141,15 @@ func (k *KeyboardButtonTypeText) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (k *KeyboardButtonTypeText) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (k *KeyboardButtonTypeText) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if k == nil {
 		return fmt.Errorf("can't decode keyboardButtonTypeText#96519938 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("keyboardButtonTypeText"); err != nil {
 				return fmt.Errorf("unable to decode keyboardButtonTypeText#96519938: %w", err)
 			}
@@ -259,8 +259,8 @@ func (k *KeyboardButtonTypeRequestPhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (k *KeyboardButtonTypeRequestPhoneNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (k *KeyboardButtonTypeRequestPhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if k == nil {
 		return fmt.Errorf("can't encode keyboardButtonTypeRequestPhoneNumber#a4d9b7b9 as nil")
 	}
@@ -270,15 +270,15 @@ func (k *KeyboardButtonTypeRequestPhoneNumber) EncodeTDLibJSON(b jsontd.Encoder)
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (k *KeyboardButtonTypeRequestPhoneNumber) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (k *KeyboardButtonTypeRequestPhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if k == nil {
 		return fmt.Errorf("can't decode keyboardButtonTypeRequestPhoneNumber#a4d9b7b9 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("keyboardButtonTypeRequestPhoneNumber"); err != nil {
 				return fmt.Errorf("unable to decode keyboardButtonTypeRequestPhoneNumber#a4d9b7b9: %w", err)
 			}
@@ -388,8 +388,8 @@ func (k *KeyboardButtonTypeRequestLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (k *KeyboardButtonTypeRequestLocation) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (k *KeyboardButtonTypeRequestLocation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if k == nil {
 		return fmt.Errorf("can't encode keyboardButtonTypeRequestLocation#f8828cfd as nil")
 	}
@@ -399,15 +399,15 @@ func (k *KeyboardButtonTypeRequestLocation) EncodeTDLibJSON(b jsontd.Encoder) er
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (k *KeyboardButtonTypeRequestLocation) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (k *KeyboardButtonTypeRequestLocation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if k == nil {
 		return fmt.Errorf("can't decode keyboardButtonTypeRequestLocation#f8828cfd to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("keyboardButtonTypeRequestLocation"); err != nil {
 				return fmt.Errorf("unable to decode keyboardButtonTypeRequestLocation#f8828cfd: %w", err)
 			}
@@ -552,8 +552,8 @@ func (k *KeyboardButtonTypeRequestPoll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (k *KeyboardButtonTypeRequestPoll) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (k *KeyboardButtonTypeRequestPoll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if k == nil {
 		return fmt.Errorf("can't encode keyboardButtonTypeRequestPoll#7164dcb8 as nil")
 	}
@@ -567,15 +567,15 @@ func (k *KeyboardButtonTypeRequestPoll) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (k *KeyboardButtonTypeRequestPoll) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (k *KeyboardButtonTypeRequestPoll) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if k == nil {
 		return fmt.Errorf("can't decode keyboardButtonTypeRequestPoll#7164dcb8 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("keyboardButtonTypeRequestPoll"); err != nil {
 				return fmt.Errorf("unable to decode keyboardButtonTypeRequestPoll#7164dcb8: %w", err)
 			}
@@ -640,8 +640,8 @@ type KeyboardButtonTypeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeKeyboardButtonType implements binary de-serialization for KeyboardButtonTypeClass.
@@ -685,7 +685,7 @@ func DecodeKeyboardButtonType(buf *bin.Buffer) (KeyboardButtonTypeClass, error) 
 }
 
 // DecodeTDLibJSONKeyboardButtonType implements binary de-serialization for KeyboardButtonTypeClass.
-func DecodeTDLibJSONKeyboardButtonType(buf jsontd.Decoder) (KeyboardButtonTypeClass, error) {
+func DecodeTDLibJSONKeyboardButtonType(buf tdjson.Decoder) (KeyboardButtonTypeClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -720,7 +720,7 @@ func DecodeTDLibJSONKeyboardButtonType(buf jsontd.Decoder) (KeyboardButtonTypeCl
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode KeyboardButtonTypeClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode KeyboardButtonTypeClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -751,7 +751,7 @@ func (b *KeyboardButtonTypeBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for KeyboardButtonTypeBox.
-func (b *KeyboardButtonTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *KeyboardButtonTypeBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode KeyboardButtonTypeBox to nil")
 	}
@@ -764,7 +764,7 @@ func (b *KeyboardButtonTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for KeyboardButtonTypeBox.
-func (b *KeyboardButtonTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *KeyboardButtonTypeBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.KeyboardButtonType == nil {
 		return fmt.Errorf("unable to encode KeyboardButtonTypeClass as nil")
 	}

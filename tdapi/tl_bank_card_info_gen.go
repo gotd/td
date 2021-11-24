@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // BankCardInfo represents TL type `bankCardInfo#2bc7da9f`.
@@ -175,8 +175,8 @@ func (b *BankCardInfo) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BankCardInfo) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BankCardInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode bankCardInfo#2bc7da9f as nil")
 	}
@@ -196,15 +196,15 @@ func (b *BankCardInfo) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BankCardInfo) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BankCardInfo) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode bankCardInfo#2bc7da9f to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("bankCardInfo"); err != nil {
 				return fmt.Errorf("unable to decode bankCardInfo#2bc7da9f: %w", err)
 			}
@@ -215,7 +215,7 @@ func (b *BankCardInfo) DecodeTDLibJSON(buf jsontd.Decoder) error {
 			}
 			b.Title = value
 		case "actions":
-			if err := buf.Arr(func(buf jsontd.Decoder) error {
+			if err := buf.Arr(func(buf tdjson.Decoder) error {
 				var value BankCardActionOpenURL
 				if err := value.DecodeTDLibJSON(buf); err != nil {
 					return fmt.Errorf("unable to decode bankCardInfo#2bc7da9f: field actions: %w", err)

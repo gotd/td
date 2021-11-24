@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // EncryptedPassportElement represents TL type `encryptedPassportElement#262d248`.
@@ -314,8 +314,8 @@ func (e *EncryptedPassportElement) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (e *EncryptedPassportElement) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (e *EncryptedPassportElement) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
 		return fmt.Errorf("can't encode encryptedPassportElement#262d248 as nil")
 	}
@@ -366,15 +366,15 @@ func (e *EncryptedPassportElement) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (e *EncryptedPassportElement) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (e *EncryptedPassportElement) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
 		return fmt.Errorf("can't decode encryptedPassportElement#262d248 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("encryptedPassportElement"); err != nil {
 				return fmt.Errorf("unable to decode encryptedPassportElement#262d248: %w", err)
 			}
@@ -403,7 +403,7 @@ func (e *EncryptedPassportElement) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field selfie: %w", err)
 			}
 		case "translation":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value DatedFile
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field translation: %w", err)
@@ -414,7 +414,7 @@ func (e *EncryptedPassportElement) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field translation: %w", err)
 			}
 		case "files":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value DatedFile
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode encryptedPassportElement#262d248: field files: %w", err)

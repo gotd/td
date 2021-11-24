@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // InviteGroupCallParticipantsRequest represents TL type `inviteGroupCallParticipants#36d83295`.
@@ -173,8 +173,8 @@ func (i *InviteGroupCallParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InviteGroupCallParticipantsRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InviteGroupCallParticipantsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inviteGroupCallParticipants#36d83295 as nil")
 	}
@@ -192,15 +192,15 @@ func (i *InviteGroupCallParticipantsRequest) EncodeTDLibJSON(b jsontd.Encoder) e
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InviteGroupCallParticipantsRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InviteGroupCallParticipantsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inviteGroupCallParticipants#36d83295 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inviteGroupCallParticipants"); err != nil {
 				return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: %w", err)
 			}
@@ -211,7 +211,7 @@ func (i *InviteGroupCallParticipantsRequest) DecodeTDLibJSON(b jsontd.Decoder) e
 			}
 			i.GroupCallID = value
 		case "user_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
 					return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: field user_ids: %w", err)

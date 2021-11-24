@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // BackgroundTypeWallpaper represents TL type `backgroundTypeWallpaper#758c4c7b`.
@@ -166,8 +166,8 @@ func (b *BackgroundTypeWallpaper) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BackgroundTypeWallpaper) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BackgroundTypeWallpaper) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode backgroundTypeWallpaper#758c4c7b as nil")
 	}
@@ -181,15 +181,15 @@ func (b *BackgroundTypeWallpaper) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BackgroundTypeWallpaper) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BackgroundTypeWallpaper) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode backgroundTypeWallpaper#758c4c7b to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("backgroundTypeWallpaper"); err != nil {
 				return fmt.Errorf("unable to decode backgroundTypeWallpaper#758c4c7b: %w", err)
 			}
@@ -379,8 +379,8 @@ func (b *BackgroundTypePattern) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BackgroundTypePattern) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BackgroundTypePattern) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode backgroundTypePattern#26be1eba as nil")
 	}
@@ -401,15 +401,15 @@ func (b *BackgroundTypePattern) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BackgroundTypePattern) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BackgroundTypePattern) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode backgroundTypePattern#26be1eba to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("backgroundTypePattern"); err != nil {
 				return fmt.Errorf("unable to decode backgroundTypePattern#26be1eba: %w", err)
 			}
@@ -575,8 +575,8 @@ func (b *BackgroundTypeFill) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BackgroundTypeFill) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BackgroundTypeFill) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode backgroundTypeFill#3b301c2c as nil")
 	}
@@ -593,15 +593,15 @@ func (b *BackgroundTypeFill) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BackgroundTypeFill) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BackgroundTypeFill) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode backgroundTypeFill#3b301c2c to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("backgroundTypeFill"); err != nil {
 				return fmt.Errorf("unable to decode backgroundTypeFill#3b301c2c: %w", err)
 			}
@@ -654,8 +654,8 @@ type BackgroundTypeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeBackgroundType implements binary de-serialization for BackgroundTypeClass.
@@ -692,7 +692,7 @@ func DecodeBackgroundType(buf *bin.Buffer) (BackgroundTypeClass, error) {
 }
 
 // DecodeTDLibJSONBackgroundType implements binary de-serialization for BackgroundTypeClass.
-func DecodeTDLibJSONBackgroundType(buf jsontd.Decoder) (BackgroundTypeClass, error) {
+func DecodeTDLibJSONBackgroundType(buf tdjson.Decoder) (BackgroundTypeClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -720,7 +720,7 @@ func DecodeTDLibJSONBackgroundType(buf jsontd.Decoder) (BackgroundTypeClass, err
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode BackgroundTypeClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode BackgroundTypeClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -751,7 +751,7 @@ func (b *BackgroundTypeBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for BackgroundTypeBox.
-func (b *BackgroundTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *BackgroundTypeBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode BackgroundTypeBox to nil")
 	}
@@ -764,7 +764,7 @@ func (b *BackgroundTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for BackgroundTypeBox.
-func (b *BackgroundTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *BackgroundTypeBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.BackgroundType == nil {
 		return fmt.Errorf("unable to encode BackgroundTypeClass as nil")
 	}

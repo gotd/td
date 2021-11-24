@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // InlineQueryResults represents TL type `inlineQueryResults#6ecde5be`.
@@ -230,8 +230,8 @@ func (i *InlineQueryResults) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InlineQueryResults) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineQueryResults) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inlineQueryResults#6ecde5be as nil")
 	}
@@ -260,15 +260,15 @@ func (i *InlineQueryResults) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InlineQueryResults) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineQueryResults) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inlineQueryResults#6ecde5be to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineQueryResults"); err != nil {
 				return fmt.Errorf("unable to decode inlineQueryResults#6ecde5be: %w", err)
 			}
@@ -285,7 +285,7 @@ func (i *InlineQueryResults) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			i.NextOffset = value
 		case "results":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONInlineQueryResult(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode inlineQueryResults#6ecde5be: field results: %w", err)

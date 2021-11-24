@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // CheckEmailAddressVerificationCodeRequest represents TL type `checkEmailAddressVerificationCode#e695db03`.
@@ -143,8 +143,8 @@ func (c *CheckEmailAddressVerificationCodeRequest) DecodeBare(b *bin.Buffer) err
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *CheckEmailAddressVerificationCodeRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CheckEmailAddressVerificationCodeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkEmailAddressVerificationCode#e695db03 as nil")
 	}
@@ -156,15 +156,15 @@ func (c *CheckEmailAddressVerificationCodeRequest) EncodeTDLibJSON(b jsontd.Enco
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *CheckEmailAddressVerificationCodeRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CheckEmailAddressVerificationCodeRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode checkEmailAddressVerificationCode#e695db03 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("checkEmailAddressVerificationCode"); err != nil {
 				return fmt.Errorf("unable to decode checkEmailAddressVerificationCode#e695db03: %w", err)
 			}

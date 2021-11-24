@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // NotificationGroup represents TL type `notificationGroup#d02a41ba`.
@@ -231,8 +231,8 @@ func (n *NotificationGroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (n *NotificationGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (n *NotificationGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationGroup#d02a41ba as nil")
 	}
@@ -263,15 +263,15 @@ func (n *NotificationGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (n *NotificationGroup) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (n *NotificationGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
 		return fmt.Errorf("can't decode notificationGroup#d02a41ba to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("notificationGroup"); err != nil {
 				return fmt.Errorf("unable to decode notificationGroup#d02a41ba: %w", err)
 			}
@@ -300,7 +300,7 @@ func (n *NotificationGroup) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			n.TotalCount = value
 		case "notifications":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value Notification
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode notificationGroup#d02a41ba: field notifications: %w", err)

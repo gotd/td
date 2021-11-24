@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // VoiceChat represents TL type `voiceChat#f0d4c45b`.
@@ -183,8 +183,8 @@ func (v *VoiceChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (v *VoiceChat) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (v *VoiceChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if v == nil {
 		return fmt.Errorf("can't encode voiceChat#f0d4c45b as nil")
 	}
@@ -205,15 +205,15 @@ func (v *VoiceChat) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (v *VoiceChat) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (v *VoiceChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if v == nil {
 		return fmt.Errorf("can't decode voiceChat#f0d4c45b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("voiceChat"); err != nil {
 				return fmt.Errorf("unable to decode voiceChat#f0d4c45b: %w", err)
 			}

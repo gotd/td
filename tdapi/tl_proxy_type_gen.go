@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ProxyTypeSocks5 represents TL type `proxyTypeSocks5#caf342b3`.
@@ -165,8 +165,8 @@ func (p *ProxyTypeSocks5) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *ProxyTypeSocks5) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *ProxyTypeSocks5) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode proxyTypeSocks5#caf342b3 as nil")
 	}
@@ -180,15 +180,15 @@ func (p *ProxyTypeSocks5) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *ProxyTypeSocks5) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *ProxyTypeSocks5) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode proxyTypeSocks5#caf342b3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("proxyTypeSocks5"); err != nil {
 				return fmt.Errorf("unable to decode proxyTypeSocks5#caf342b3: %w", err)
 			}
@@ -373,8 +373,8 @@ func (p *ProxyTypeHTTP) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *ProxyTypeHTTP) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *ProxyTypeHTTP) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode proxyTypeHttp#a3c7c777 as nil")
 	}
@@ -390,15 +390,15 @@ func (p *ProxyTypeHTTP) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *ProxyTypeHTTP) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *ProxyTypeHTTP) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode proxyTypeHttp#a3c7c777 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("proxyTypeHttp"); err != nil {
 				return fmt.Errorf("unable to decode proxyTypeHttp#a3c7c777: %w", err)
 			}
@@ -559,8 +559,8 @@ func (p *ProxyTypeMtproto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *ProxyTypeMtproto) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *ProxyTypeMtproto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode proxyTypeMtproto#8ae31ffd as nil")
 	}
@@ -572,15 +572,15 @@ func (p *ProxyTypeMtproto) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *ProxyTypeMtproto) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *ProxyTypeMtproto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode proxyTypeMtproto#8ae31ffd to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("proxyTypeMtproto"); err != nil {
 				return fmt.Errorf("unable to decode proxyTypeMtproto#8ae31ffd: %w", err)
 			}
@@ -633,8 +633,8 @@ type ProxyTypeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeProxyType implements binary de-serialization for ProxyTypeClass.
@@ -671,7 +671,7 @@ func DecodeProxyType(buf *bin.Buffer) (ProxyTypeClass, error) {
 }
 
 // DecodeTDLibJSONProxyType implements binary de-serialization for ProxyTypeClass.
-func DecodeTDLibJSONProxyType(buf jsontd.Decoder) (ProxyTypeClass, error) {
+func DecodeTDLibJSONProxyType(buf tdjson.Decoder) (ProxyTypeClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -699,7 +699,7 @@ func DecodeTDLibJSONProxyType(buf jsontd.Decoder) (ProxyTypeClass, error) {
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode ProxyTypeClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode ProxyTypeClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -730,7 +730,7 @@ func (b *ProxyTypeBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for ProxyTypeBox.
-func (b *ProxyTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *ProxyTypeBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode ProxyTypeBox to nil")
 	}
@@ -743,7 +743,7 @@ func (b *ProxyTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for ProxyTypeBox.
-func (b *ProxyTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *ProxyTypeBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.ProxyType == nil {
 		return fmt.Errorf("unable to encode ProxyTypeClass as nil")
 	}

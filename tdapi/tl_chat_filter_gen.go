@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // ChatFilter represents TL type `chatFilter#9a7344af`.
@@ -389,8 +389,8 @@ func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (c *ChatFilter) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatFilter) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatFilter#9a7344af as nil")
 	}
@@ -438,15 +438,15 @@ func (c *ChatFilter) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (c *ChatFilter) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatFilter) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
 		return fmt.Errorf("can't decode chatFilter#9a7344af to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("chatFilter"); err != nil {
 				return fmt.Errorf("unable to decode chatFilter#9a7344af: %w", err)
 			}
@@ -463,7 +463,7 @@ func (c *ChatFilter) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			c.IconName = value
 		case "pinned_chat_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Long()
 				if err != nil {
 					return fmt.Errorf("unable to decode chatFilter#9a7344af: field pinned_chat_ids: %w", err)
@@ -474,7 +474,7 @@ func (c *ChatFilter) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode chatFilter#9a7344af: field pinned_chat_ids: %w", err)
 			}
 		case "included_chat_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Long()
 				if err != nil {
 					return fmt.Errorf("unable to decode chatFilter#9a7344af: field included_chat_ids: %w", err)
@@ -485,7 +485,7 @@ func (c *ChatFilter) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode chatFilter#9a7344af: field included_chat_ids: %w", err)
 			}
 		case "excluded_chat_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Long()
 				if err != nil {
 					return fmt.Errorf("unable to decode chatFilter#9a7344af: field excluded_chat_ids: %w", err)

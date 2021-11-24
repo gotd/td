@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // FilePart represents TL type `filePart#36594c36`.
@@ -143,8 +143,8 @@ func (f *FilePart) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (f *FilePart) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (f *FilePart) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if f == nil {
 		return fmt.Errorf("can't encode filePart#36594c36 as nil")
 	}
@@ -156,15 +156,15 @@ func (f *FilePart) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (f *FilePart) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (f *FilePart) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if f == nil {
 		return fmt.Errorf("can't decode filePart#36594c36 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("filePart"); err != nil {
 				return fmt.Errorf("unable to decode filePart#36594c36: %w", err)
 			}

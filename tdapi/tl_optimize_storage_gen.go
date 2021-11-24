@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // OptimizeStorageRequest represents TL type `optimizeStorage#ef73c8c5`.
@@ -329,8 +329,8 @@ func (o *OptimizeStorageRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (o *OptimizeStorageRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (o *OptimizeStorageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if o == nil {
 		return fmt.Errorf("can't encode optimizeStorage#ef73c8c5 as nil")
 	}
@@ -375,15 +375,15 @@ func (o *OptimizeStorageRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (o *OptimizeStorageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (o *OptimizeStorageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if o == nil {
 		return fmt.Errorf("can't decode optimizeStorage#ef73c8c5 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("optimizeStorage"); err != nil {
 				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: %w", err)
 			}
@@ -412,7 +412,7 @@ func (o *OptimizeStorageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			o.ImmunityDelay = value
 		case "file_types":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONFileType(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field file_types: %w", err)
@@ -423,7 +423,7 @@ func (o *OptimizeStorageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field file_types: %w", err)
 			}
 		case "chat_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Long()
 				if err != nil {
 					return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field chat_ids: %w", err)
@@ -434,7 +434,7 @@ func (o *OptimizeStorageRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field chat_ids: %w", err)
 			}
 		case "exclude_chat_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Long()
 				if err != nil {
 					return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field exclude_chat_ids: %w", err)

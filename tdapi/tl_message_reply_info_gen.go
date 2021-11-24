@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // MessageReplyInfo represents TL type `messageReplyInfo#d1b3673b`.
@@ -229,8 +229,8 @@ func (m *MessageReplyInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (m *MessageReplyInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageReplyInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageReplyInfo#d1b3673b as nil")
 	}
@@ -259,15 +259,15 @@ func (m *MessageReplyInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (m *MessageReplyInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageReplyInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageReplyInfo#d1b3673b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("messageReplyInfo"); err != nil {
 				return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: %w", err)
 			}
@@ -278,7 +278,7 @@ func (m *MessageReplyInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			m.ReplyCount = value
 		case "recent_repliers":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONMessageSender(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field recent_repliers: %w", err)

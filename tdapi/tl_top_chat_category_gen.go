@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // TopChatCategoryUsers represents TL type `topChatCategoryUsers#3d324d80`.
@@ -130,8 +130,8 @@ func (t *TopChatCategoryUsers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TopChatCategoryUsers) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TopChatCategoryUsers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode topChatCategoryUsers#3d324d80 as nil")
 	}
@@ -141,15 +141,15 @@ func (t *TopChatCategoryUsers) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TopChatCategoryUsers) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TopChatCategoryUsers) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode topChatCategoryUsers#3d324d80 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("topChatCategoryUsers"); err != nil {
 				return fmt.Errorf("unable to decode topChatCategoryUsers#3d324d80: %w", err)
 			}
@@ -259,8 +259,8 @@ func (t *TopChatCategoryBots) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TopChatCategoryBots) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TopChatCategoryBots) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode topChatCategoryBots#a1feeb15 as nil")
 	}
@@ -270,15 +270,15 @@ func (t *TopChatCategoryBots) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TopChatCategoryBots) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TopChatCategoryBots) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode topChatCategoryBots#a1feeb15 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("topChatCategoryBots"); err != nil {
 				return fmt.Errorf("unable to decode topChatCategoryBots#a1feeb15: %w", err)
 			}
@@ -388,8 +388,8 @@ func (t *TopChatCategoryGroups) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TopChatCategoryGroups) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TopChatCategoryGroups) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode topChatCategoryGroups#5b32d08e as nil")
 	}
@@ -399,15 +399,15 @@ func (t *TopChatCategoryGroups) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TopChatCategoryGroups) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TopChatCategoryGroups) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode topChatCategoryGroups#5b32d08e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("topChatCategoryGroups"); err != nil {
 				return fmt.Errorf("unable to decode topChatCategoryGroups#5b32d08e: %w", err)
 			}
@@ -517,8 +517,8 @@ func (t *TopChatCategoryChannels) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TopChatCategoryChannels) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TopChatCategoryChannels) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode topChatCategoryChannels#e22600e3 as nil")
 	}
@@ -528,15 +528,15 @@ func (t *TopChatCategoryChannels) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TopChatCategoryChannels) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TopChatCategoryChannels) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode topChatCategoryChannels#e22600e3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("topChatCategoryChannels"); err != nil {
 				return fmt.Errorf("unable to decode topChatCategoryChannels#e22600e3: %w", err)
 			}
@@ -646,8 +646,8 @@ func (t *TopChatCategoryInlineBots) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TopChatCategoryInlineBots) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TopChatCategoryInlineBots) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode topChatCategoryInlineBots#1678eb7c as nil")
 	}
@@ -657,15 +657,15 @@ func (t *TopChatCategoryInlineBots) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TopChatCategoryInlineBots) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TopChatCategoryInlineBots) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode topChatCategoryInlineBots#1678eb7c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("topChatCategoryInlineBots"); err != nil {
 				return fmt.Errorf("unable to decode topChatCategoryInlineBots#1678eb7c: %w", err)
 			}
@@ -775,8 +775,8 @@ func (t *TopChatCategoryCalls) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TopChatCategoryCalls) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TopChatCategoryCalls) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode topChatCategoryCalls#153b50dd as nil")
 	}
@@ -786,15 +786,15 @@ func (t *TopChatCategoryCalls) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TopChatCategoryCalls) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TopChatCategoryCalls) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode topChatCategoryCalls#153b50dd to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("topChatCategoryCalls"); err != nil {
 				return fmt.Errorf("unable to decode topChatCategoryCalls#153b50dd: %w", err)
 			}
@@ -904,8 +904,8 @@ func (t *TopChatCategoryForwardChats) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TopChatCategoryForwardChats) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TopChatCategoryForwardChats) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode topChatCategoryForwardChats#6515b7d5 as nil")
 	}
@@ -915,15 +915,15 @@ func (t *TopChatCategoryForwardChats) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TopChatCategoryForwardChats) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TopChatCategoryForwardChats) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode topChatCategoryForwardChats#6515b7d5 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("topChatCategoryForwardChats"); err != nil {
 				return fmt.Errorf("unable to decode topChatCategoryForwardChats#6515b7d5: %w", err)
 			}
@@ -969,8 +969,8 @@ type TopChatCategoryClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeTopChatCategory implements binary de-serialization for TopChatCategoryClass.
@@ -1035,7 +1035,7 @@ func DecodeTopChatCategory(buf *bin.Buffer) (TopChatCategoryClass, error) {
 }
 
 // DecodeTDLibJSONTopChatCategory implements binary de-serialization for TopChatCategoryClass.
-func DecodeTDLibJSONTopChatCategory(buf jsontd.Decoder) (TopChatCategoryClass, error) {
+func DecodeTDLibJSONTopChatCategory(buf tdjson.Decoder) (TopChatCategoryClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -1091,7 +1091,7 @@ func DecodeTDLibJSONTopChatCategory(buf jsontd.Decoder) (TopChatCategoryClass, e
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode TopChatCategoryClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode TopChatCategoryClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -1122,7 +1122,7 @@ func (b *TopChatCategoryBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for TopChatCategoryBox.
-func (b *TopChatCategoryBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *TopChatCategoryBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode TopChatCategoryBox to nil")
 	}
@@ -1135,7 +1135,7 @@ func (b *TopChatCategoryBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for TopChatCategoryBox.
-func (b *TopChatCategoryBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *TopChatCategoryBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.TopChatCategory == nil {
 		return fmt.Errorf("unable to encode TopChatCategoryClass as nil")
 	}

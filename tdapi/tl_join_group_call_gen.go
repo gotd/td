@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // JoinGroupCallRequest represents TL type `joinGroupCall#c1c947e5`.
@@ -252,8 +252,8 @@ func (j *JoinGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (j *JoinGroupCallRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (j *JoinGroupCallRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if j == nil {
 		return fmt.Errorf("can't encode joinGroupCall#c1c947e5 as nil")
 	}
@@ -282,15 +282,15 @@ func (j *JoinGroupCallRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (j *JoinGroupCallRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (j *JoinGroupCallRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if j == nil {
 		return fmt.Errorf("can't decode joinGroupCall#c1c947e5 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("joinGroupCall"); err != nil {
 				return fmt.Errorf("unable to decode joinGroupCall#c1c947e5: %w", err)
 			}

@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // SearchChatRecentLocationMessagesRequest represents TL type `searchChatRecentLocationMessages#38a37ee6`.
@@ -160,8 +160,8 @@ func (s *SearchChatRecentLocationMessagesRequest) DecodeBare(b *bin.Buffer) erro
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SearchChatRecentLocationMessagesRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchChatRecentLocationMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchChatRecentLocationMessages#38a37ee6 as nil")
 	}
@@ -175,15 +175,15 @@ func (s *SearchChatRecentLocationMessagesRequest) EncodeTDLibJSON(b jsontd.Encod
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SearchChatRecentLocationMessagesRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchChatRecentLocationMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode searchChatRecentLocationMessages#38a37ee6 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("searchChatRecentLocationMessages"); err != nil {
 				return fmt.Errorf("unable to decode searchChatRecentLocationMessages#38a37ee6: %w", err)
 			}

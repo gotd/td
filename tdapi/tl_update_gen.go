@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // UpdateAuthorizationState represents TL type `updateAuthorizationState#60b30ee2`.
@@ -153,8 +153,8 @@ func (u *UpdateAuthorizationState) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateAuthorizationState) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateAuthorizationState) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateAuthorizationState#60b30ee2 as nil")
 	}
@@ -171,15 +171,15 @@ func (u *UpdateAuthorizationState) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateAuthorizationState) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateAuthorizationState) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateAuthorizationState#60b30ee2 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateAuthorizationState"); err != nil {
 				return fmt.Errorf("unable to decode updateAuthorizationState#60b30ee2: %w", err)
 			}
@@ -318,8 +318,8 @@ func (u *UpdateNewMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateNewMessage) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNewMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNewMessage#de6fb20e as nil")
 	}
@@ -333,15 +333,15 @@ func (u *UpdateNewMessage) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateNewMessage) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNewMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateNewMessage#de6fb20e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNewMessage"); err != nil {
 				return fmt.Errorf("unable to decode updateNewMessage#de6fb20e: %w", err)
 			}
@@ -495,8 +495,8 @@ func (u *UpdateMessageSendAcknowledged) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateMessageSendAcknowledged) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateMessageSendAcknowledged) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateMessageSendAcknowledged#4da7d239 as nil")
 	}
@@ -510,15 +510,15 @@ func (u *UpdateMessageSendAcknowledged) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateMessageSendAcknowledged) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateMessageSendAcknowledged) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateMessageSendAcknowledged#4da7d239 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateMessageSendAcknowledged"); err != nil {
 				return fmt.Errorf("unable to decode updateMessageSendAcknowledged#4da7d239: %w", err)
 			}
@@ -686,8 +686,8 @@ func (u *UpdateMessageSendSucceeded) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateMessageSendSucceeded) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateMessageSendSucceeded) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateMessageSendSucceeded#6c399d7d as nil")
 	}
@@ -703,15 +703,15 @@ func (u *UpdateMessageSendSucceeded) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateMessageSendSucceeded) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateMessageSendSucceeded) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateMessageSendSucceeded#6c399d7d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateMessageSendSucceeded"); err != nil {
 				return fmt.Errorf("unable to decode updateMessageSendSucceeded#6c399d7d: %w", err)
 			}
@@ -910,8 +910,8 @@ func (u *UpdateMessageSendFailed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateMessageSendFailed) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateMessageSendFailed) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateMessageSendFailed#c277ce5d as nil")
 	}
@@ -931,15 +931,15 @@ func (u *UpdateMessageSendFailed) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateMessageSendFailed) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateMessageSendFailed) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateMessageSendFailed#c277ce5d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateMessageSendFailed"); err != nil {
 				return fmt.Errorf("unable to decode updateMessageSendFailed#c277ce5d: %w", err)
 			}
@@ -1148,8 +1148,8 @@ func (u *UpdateMessageContent) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateMessageContent) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateMessageContent) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateMessageContent#1e36bb24 as nil")
 	}
@@ -1170,15 +1170,15 @@ func (u *UpdateMessageContent) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateMessageContent) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateMessageContent) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateMessageContent#1e36bb24 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateMessageContent"); err != nil {
 				return fmt.Errorf("unable to decode updateMessageContent#1e36bb24: %w", err)
 			}
@@ -1395,8 +1395,8 @@ func (u *UpdateMessageEdited) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateMessageEdited) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateMessageEdited) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateMessageEdited#dea602e6 as nil")
 	}
@@ -1419,15 +1419,15 @@ func (u *UpdateMessageEdited) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateMessageEdited) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateMessageEdited) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateMessageEdited#dea602e6 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateMessageEdited"); err != nil {
 				return fmt.Errorf("unable to decode updateMessageEdited#dea602e6: %w", err)
 			}
@@ -1633,8 +1633,8 @@ func (u *UpdateMessageIsPinned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateMessageIsPinned) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateMessageIsPinned) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateMessageIsPinned#41bc233d as nil")
 	}
@@ -1650,15 +1650,15 @@ func (u *UpdateMessageIsPinned) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateMessageIsPinned) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateMessageIsPinned) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateMessageIsPinned#41bc233d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateMessageIsPinned"); err != nil {
 				return fmt.Errorf("unable to decode updateMessageIsPinned#41bc233d: %w", err)
 			}
@@ -1853,8 +1853,8 @@ func (u *UpdateMessageInteractionInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateMessageInteractionInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateMessageInteractionInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateMessageInteractionInfo#ab803bfe as nil")
 	}
@@ -1872,15 +1872,15 @@ func (u *UpdateMessageInteractionInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateMessageInteractionInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateMessageInteractionInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateMessageInteractionInfo#ab803bfe to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateMessageInteractionInfo"); err != nil {
 				return fmt.Errorf("unable to decode updateMessageInteractionInfo#ab803bfe: %w", err)
 			}
@@ -2056,8 +2056,8 @@ func (u *UpdateMessageContentOpened) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateMessageContentOpened) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateMessageContentOpened) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateMessageContentOpened#a55ea885 as nil")
 	}
@@ -2071,15 +2071,15 @@ func (u *UpdateMessageContentOpened) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateMessageContentOpened) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateMessageContentOpened) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateMessageContentOpened#a55ea885 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateMessageContentOpened"); err != nil {
 				return fmt.Errorf("unable to decode updateMessageContentOpened#a55ea885: %w", err)
 			}
@@ -2263,8 +2263,8 @@ func (u *UpdateMessageMentionRead) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateMessageMentionRead) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateMessageMentionRead) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateMessageMentionRead#f0f74d46 as nil")
 	}
@@ -2280,15 +2280,15 @@ func (u *UpdateMessageMentionRead) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateMessageMentionRead) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateMessageMentionRead) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateMessageMentionRead#f0f74d46 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateMessageMentionRead"); err != nil {
 				return fmt.Errorf("unable to decode updateMessageMentionRead#f0f74d46: %w", err)
 			}
@@ -2466,8 +2466,8 @@ func (u *UpdateMessageLiveLocationViewed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateMessageLiveLocationViewed) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateMessageLiveLocationViewed) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateMessageLiveLocationViewed#b2058595 as nil")
 	}
@@ -2481,15 +2481,15 @@ func (u *UpdateMessageLiveLocationViewed) EncodeTDLibJSON(b jsontd.Encoder) erro
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateMessageLiveLocationViewed) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateMessageLiveLocationViewed) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateMessageLiveLocationViewed#b2058595 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateMessageLiveLocationViewed"); err != nil {
 				return fmt.Errorf("unable to decode updateMessageLiveLocationViewed#b2058595: %w", err)
 			}
@@ -2639,8 +2639,8 @@ func (u *UpdateNewChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateNewChat) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNewChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNewChat#7bb98ccd as nil")
 	}
@@ -2654,15 +2654,15 @@ func (u *UpdateNewChat) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateNewChat) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNewChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateNewChat#7bb98ccd to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNewChat"); err != nil {
 				return fmt.Errorf("unable to decode updateNewChat#7bb98ccd: %w", err)
 			}
@@ -2816,8 +2816,8 @@ func (u *UpdateChatTitle) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatTitle) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatTitle) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatTitle#f58b85a4 as nil")
 	}
@@ -2831,15 +2831,15 @@ func (u *UpdateChatTitle) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatTitle) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatTitle) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatTitle#f58b85a4 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatTitle"); err != nil {
 				return fmt.Errorf("unable to decode updateChatTitle#f58b85a4: %w", err)
 			}
@@ -3006,8 +3006,8 @@ func (u *UpdateChatPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatPhoto#eca5423f as nil")
 	}
@@ -3023,15 +3023,15 @@ func (u *UpdateChatPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatPhoto) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatPhoto#eca5423f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatPhoto"); err != nil {
 				return fmt.Errorf("unable to decode updateChatPhoto#eca5423f: %w", err)
 			}
@@ -3196,8 +3196,8 @@ func (u *UpdateChatPermissions) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatPermissions) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatPermissions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatPermissions#9f52176d as nil")
 	}
@@ -3213,15 +3213,15 @@ func (u *UpdateChatPermissions) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatPermissions) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatPermissions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatPermissions#9f52176d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatPermissions"); err != nil {
 				return fmt.Errorf("unable to decode updateChatPermissions#9f52176d: %w", err)
 			}
@@ -3418,8 +3418,8 @@ func (u *UpdateChatLastMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatLastMessage) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatLastMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatLastMessage#f10cab1d as nil")
 	}
@@ -3443,15 +3443,15 @@ func (u *UpdateChatLastMessage) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatLastMessage) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatLastMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatLastMessage#f10cab1d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatLastMessage"); err != nil {
 				return fmt.Errorf("unable to decode updateChatLastMessage#f10cab1d: %w", err)
 			}
@@ -3466,7 +3466,7 @@ func (u *UpdateChatLastMessage) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode updateChatLastMessage#f10cab1d: field last_message: %w", err)
 			}
 		case "positions":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ChatPosition
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode updateChatLastMessage#f10cab1d: field positions: %w", err)
@@ -3632,8 +3632,8 @@ func (u *UpdateChatPosition) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatPosition) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatPosition) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatPosition#ff76fa77 as nil")
 	}
@@ -3649,15 +3649,15 @@ func (u *UpdateChatPosition) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatPosition) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatPosition) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatPosition#ff76fa77 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatPosition"); err != nil {
 				return fmt.Errorf("unable to decode updateChatPosition#ff76fa77: %w", err)
 			}
@@ -3822,8 +3822,8 @@ func (u *UpdateChatIsMarkedAsUnread) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatIsMarkedAsUnread) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatIsMarkedAsUnread) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatIsMarkedAsUnread#57853334 as nil")
 	}
@@ -3837,15 +3837,15 @@ func (u *UpdateChatIsMarkedAsUnread) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatIsMarkedAsUnread) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatIsMarkedAsUnread) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatIsMarkedAsUnread#57853334 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatIsMarkedAsUnread"); err != nil {
 				return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: %w", err)
 			}
@@ -4012,8 +4012,8 @@ func (u *UpdateChatIsBlocked) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatIsBlocked) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatIsBlocked) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatIsBlocked#88da7e40 as nil")
 	}
@@ -4027,15 +4027,15 @@ func (u *UpdateChatIsBlocked) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatIsBlocked) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatIsBlocked) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatIsBlocked#88da7e40 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatIsBlocked"); err != nil {
 				return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: %w", err)
 			}
@@ -4202,8 +4202,8 @@ func (u *UpdateChatHasScheduledMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatHasScheduledMessages) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatHasScheduledMessages) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatHasScheduledMessages#7b14c2d7 as nil")
 	}
@@ -4217,15 +4217,15 @@ func (u *UpdateChatHasScheduledMessages) EncodeTDLibJSON(b jsontd.Encoder) error
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatHasScheduledMessages) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatHasScheduledMessages) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatHasScheduledMessages#7b14c2d7 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatHasScheduledMessages"); err != nil {
 				return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: %w", err)
 			}
@@ -4392,8 +4392,8 @@ func (u *UpdateChatVoiceChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatVoiceChat) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatVoiceChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatVoiceChat#e6d4a637 as nil")
 	}
@@ -4409,15 +4409,15 @@ func (u *UpdateChatVoiceChat) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatVoiceChat) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatVoiceChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatVoiceChat#e6d4a637 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatVoiceChat"); err != nil {
 				return fmt.Errorf("unable to decode updateChatVoiceChat#e6d4a637: %w", err)
 			}
@@ -4582,8 +4582,8 @@ func (u *UpdateChatDefaultDisableNotification) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatDefaultDisableNotification) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatDefaultDisableNotification) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatDefaultDisableNotification#1ba96a9b as nil")
 	}
@@ -4597,15 +4597,15 @@ func (u *UpdateChatDefaultDisableNotification) EncodeTDLibJSON(b jsontd.Encoder)
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatDefaultDisableNotification) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatDefaultDisableNotification) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatDefaultDisableNotification#1ba96a9b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatDefaultDisableNotification"); err != nil {
 				return fmt.Errorf("unable to decode updateChatDefaultDisableNotification#1ba96a9b: %w", err)
 			}
@@ -4789,8 +4789,8 @@ func (u *UpdateChatReadInbox) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatReadInbox) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatReadInbox) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatReadInbox#d07036e7 as nil")
 	}
@@ -4806,15 +4806,15 @@ func (u *UpdateChatReadInbox) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatReadInbox) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatReadInbox) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatReadInbox#d07036e7 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatReadInbox"); err != nil {
 				return fmt.Errorf("unable to decode updateChatReadInbox#d07036e7: %w", err)
 			}
@@ -4992,8 +4992,8 @@ func (u *UpdateChatReadOutbox) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatReadOutbox) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatReadOutbox) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatReadOutbox#2a385285 as nil")
 	}
@@ -5007,15 +5007,15 @@ func (u *UpdateChatReadOutbox) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatReadOutbox) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatReadOutbox) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatReadOutbox#2a385285 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatReadOutbox"); err != nil {
 				return fmt.Errorf("unable to decode updateChatReadOutbox#2a385285: %w", err)
 			}
@@ -5182,8 +5182,8 @@ func (u *UpdateChatUnreadMentionCount) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatUnreadMentionCount) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatUnreadMentionCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatUnreadMentionCount#80f47b1c as nil")
 	}
@@ -5197,15 +5197,15 @@ func (u *UpdateChatUnreadMentionCount) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatUnreadMentionCount) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatUnreadMentionCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatUnreadMentionCount#80f47b1c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatUnreadMentionCount"); err != nil {
 				return fmt.Errorf("unable to decode updateChatUnreadMentionCount#80f47b1c: %w", err)
 			}
@@ -5372,8 +5372,8 @@ func (u *UpdateChatNotificationSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatNotificationSettings) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatNotificationSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatNotificationSettings#d020b456 as nil")
 	}
@@ -5389,15 +5389,15 @@ func (u *UpdateChatNotificationSettings) EncodeTDLibJSON(b jsontd.Encoder) error
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatNotificationSettings) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatNotificationSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatNotificationSettings#d020b456 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatNotificationSettings"); err != nil {
 				return fmt.Errorf("unable to decode updateChatNotificationSettings#d020b456: %w", err)
 			}
@@ -5567,8 +5567,8 @@ func (u *UpdateScopeNotificationSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateScopeNotificationSettings) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateScopeNotificationSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateScopeNotificationSettings#b83ccb73 as nil")
 	}
@@ -5589,15 +5589,15 @@ func (u *UpdateScopeNotificationSettings) EncodeTDLibJSON(b jsontd.Encoder) erro
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateScopeNotificationSettings) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateScopeNotificationSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateScopeNotificationSettings#b83ccb73 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateScopeNotificationSettings"); err != nil {
 				return fmt.Errorf("unable to decode updateScopeNotificationSettings#b83ccb73: %w", err)
 			}
@@ -5762,8 +5762,8 @@ func (u *UpdateChatMessageTTLSetting) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatMessageTTLSetting) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatMessageTTLSetting) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatMessageTtlSetting#39dd4338 as nil")
 	}
@@ -5777,15 +5777,15 @@ func (u *UpdateChatMessageTTLSetting) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatMessageTTLSetting) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatMessageTTLSetting) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatMessageTtlSetting#39dd4338 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatMessageTtlSetting"); err != nil {
 				return fmt.Errorf("unable to decode updateChatMessageTtlSetting#39dd4338: %w", err)
 			}
@@ -5957,8 +5957,8 @@ func (u *UpdateChatActionBar) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatActionBar) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatActionBar) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatActionBar#d9a258c2 as nil")
 	}
@@ -5977,15 +5977,15 @@ func (u *UpdateChatActionBar) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatActionBar) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatActionBar) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatActionBar#d9a258c2 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatActionBar"); err != nil {
 				return fmt.Errorf("unable to decode updateChatActionBar#d9a258c2: %w", err)
 			}
@@ -6153,8 +6153,8 @@ func (u *UpdateChatReplyMarkup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatReplyMarkup) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatReplyMarkup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatReplyMarkup#4e0ba5a0 as nil")
 	}
@@ -6168,15 +6168,15 @@ func (u *UpdateChatReplyMarkup) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatReplyMarkup) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatReplyMarkup) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatReplyMarkup#4e0ba5a0 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatReplyMarkup"); err != nil {
 				return fmt.Errorf("unable to decode updateChatReplyMarkup#4e0ba5a0: %w", err)
 			}
@@ -6375,8 +6375,8 @@ func (u *UpdateChatDraftMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatDraftMessage) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatDraftMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatDraftMessage#2bf257d4 as nil")
 	}
@@ -6400,15 +6400,15 @@ func (u *UpdateChatDraftMessage) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatDraftMessage) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatDraftMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatDraftMessage#2bf257d4 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatDraftMessage"); err != nil {
 				return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: %w", err)
 			}
@@ -6423,7 +6423,7 @@ func (u *UpdateChatDraftMessage) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field draft_message: %w", err)
 			}
 		case "positions":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ChatPosition
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field positions: %w", err)
@@ -6587,8 +6587,8 @@ func (u *UpdateChatFilters) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatFilters) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatFilters) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatFilters#928cfaed as nil")
 	}
@@ -6606,20 +6606,20 @@ func (u *UpdateChatFilters) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatFilters) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatFilters) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatFilters#928cfaed to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatFilters"); err != nil {
 				return fmt.Errorf("unable to decode updateChatFilters#928cfaed: %w", err)
 			}
 		case "chat_filters":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ChatFilterInfo
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode updateChatFilters#928cfaed: field chat_filters: %w", err)
@@ -6775,8 +6775,8 @@ func (u *UpdateChatOnlineMemberCount) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatOnlineMemberCount) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatOnlineMemberCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatOnlineMemberCount#1d0caa9d as nil")
 	}
@@ -6790,15 +6790,15 @@ func (u *UpdateChatOnlineMemberCount) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatOnlineMemberCount) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatOnlineMemberCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatOnlineMemberCount#1d0caa9d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatOnlineMemberCount"); err != nil {
 				return fmt.Errorf("unable to decode updateChatOnlineMemberCount#1d0caa9d: %w", err)
 			}
@@ -6965,8 +6965,8 @@ func (u *UpdateNotification) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateNotification) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNotification) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNotification#8ee67ed4 as nil")
 	}
@@ -6982,15 +6982,15 @@ func (u *UpdateNotification) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateNotification) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNotification) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateNotification#8ee67ed4 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNotification"); err != nil {
 				return fmt.Errorf("unable to decode updateNotification#8ee67ed4: %w", err)
 			}
@@ -7292,8 +7292,8 @@ func (u *UpdateNotificationGroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateNotificationGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNotificationGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNotificationGroup#2ec53c49 as nil")
 	}
@@ -7334,15 +7334,15 @@ func (u *UpdateNotificationGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateNotificationGroup) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNotificationGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateNotificationGroup#2ec53c49 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNotificationGroup"); err != nil {
 				return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: %w", err)
 			}
@@ -7383,7 +7383,7 @@ func (u *UpdateNotificationGroup) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			u.TotalCount = value
 		case "added_notifications":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value Notification
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field added_notifications: %w", err)
@@ -7394,7 +7394,7 @@ func (u *UpdateNotificationGroup) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field added_notifications: %w", err)
 			}
 		case "removed_notification_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
 					return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field removed_notification_ids: %w", err)
@@ -7583,8 +7583,8 @@ func (u *UpdateActiveNotifications) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateActiveNotifications) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateActiveNotifications) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateActiveNotifications#317d80f2 as nil")
 	}
@@ -7602,20 +7602,20 @@ func (u *UpdateActiveNotifications) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateActiveNotifications) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateActiveNotifications) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateActiveNotifications#317d80f2 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateActiveNotifications"); err != nil {
 				return fmt.Errorf("unable to decode updateActiveNotifications#317d80f2: %w", err)
 			}
 		case "groups":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value NotificationGroup
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode updateActiveNotifications#317d80f2: field groups: %w", err)
@@ -7772,8 +7772,8 @@ func (u *UpdateHavePendingNotifications) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateHavePendingNotifications) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateHavePendingNotifications) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateHavePendingNotifications#aaee1db as nil")
 	}
@@ -7787,15 +7787,15 @@ func (u *UpdateHavePendingNotifications) EncodeTDLibJSON(b jsontd.Encoder) error
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateHavePendingNotifications) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateHavePendingNotifications) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateHavePendingNotifications#aaee1db to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateHavePendingNotifications"); err != nil {
 				return fmt.Errorf("unable to decode updateHavePendingNotifications#aaee1db: %w", err)
 			}
@@ -8011,8 +8011,8 @@ func (u *UpdateDeleteMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateDeleteMessages) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateDeleteMessages) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateDeleteMessages#6a05bf9 as nil")
 	}
@@ -8034,15 +8034,15 @@ func (u *UpdateDeleteMessages) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateDeleteMessages) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateDeleteMessages) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateDeleteMessages#6a05bf9 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateDeleteMessages"); err != nil {
 				return fmt.Errorf("unable to decode updateDeleteMessages#6a05bf9: %w", err)
 			}
@@ -8053,7 +8053,7 @@ func (u *UpdateDeleteMessages) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			u.ChatID = value
 		case "message_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Long()
 				if err != nil {
 					return fmt.Errorf("unable to decode updateDeleteMessages#6a05bf9: field message_ids: %w", err)
@@ -8275,8 +8275,8 @@ func (u *UpdateUserChatAction) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateUserChatAction) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateUserChatAction) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateUserChatAction#7b2ae883 as nil")
 	}
@@ -8299,15 +8299,15 @@ func (u *UpdateUserChatAction) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateUserChatAction) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateUserChatAction) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateUserChatAction#7b2ae883 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateUserChatAction"); err != nil {
 				return fmt.Errorf("unable to decode updateUserChatAction#7b2ae883: %w", err)
 			}
@@ -8501,8 +8501,8 @@ func (u *UpdateUserStatus) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateUserStatus) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateUserStatus) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateUserStatus#a9f53f95 as nil")
 	}
@@ -8521,15 +8521,15 @@ func (u *UpdateUserStatus) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateUserStatus) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateUserStatus) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateUserStatus#a9f53f95 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateUserStatus"); err != nil {
 				return fmt.Errorf("unable to decode updateUserStatus#a9f53f95: %w", err)
 			}
@@ -8679,8 +8679,8 @@ func (u *UpdateUser) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateUser) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateUser#468928f9 as nil")
 	}
@@ -8694,15 +8694,15 @@ func (u *UpdateUser) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateUser) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateUser#468928f9 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateUser"); err != nil {
 				return fmt.Errorf("unable to decode updateUser#468928f9: %w", err)
 			}
@@ -8839,8 +8839,8 @@ func (u *UpdateBasicGroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateBasicGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateBasicGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateBasicGroup#c433c763 as nil")
 	}
@@ -8854,15 +8854,15 @@ func (u *UpdateBasicGroup) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateBasicGroup) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateBasicGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateBasicGroup#c433c763 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateBasicGroup"); err != nil {
 				return fmt.Errorf("unable to decode updateBasicGroup#c433c763: %w", err)
 			}
@@ -8999,8 +8999,8 @@ func (u *UpdateSupergroup) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateSupergroup) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateSupergroup#fb6c6524 as nil")
 	}
@@ -9014,15 +9014,15 @@ func (u *UpdateSupergroup) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateSupergroup) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateSupergroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateSupergroup#fb6c6524 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateSupergroup"); err != nil {
 				return fmt.Errorf("unable to decode updateSupergroup#fb6c6524: %w", err)
 			}
@@ -9159,8 +9159,8 @@ func (u *UpdateSecretChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateSecretChat) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateSecretChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateSecretChat#9ca5132b as nil")
 	}
@@ -9174,15 +9174,15 @@ func (u *UpdateSecretChat) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateSecretChat) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateSecretChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateSecretChat#9ca5132b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateSecretChat"); err != nil {
 				return fmt.Errorf("unable to decode updateSecretChat#9ca5132b: %w", err)
 			}
@@ -9336,8 +9336,8 @@ func (u *UpdateUserFullInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateUserFullInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateUserFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateUserFullInfo#d3d0942 as nil")
 	}
@@ -9353,15 +9353,15 @@ func (u *UpdateUserFullInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateUserFullInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateUserFullInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateUserFullInfo#d3d0942 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateUserFullInfo"); err != nil {
 				return fmt.Errorf("unable to decode updateUserFullInfo#d3d0942: %w", err)
 			}
@@ -9526,8 +9526,8 @@ func (u *UpdateBasicGroupFullInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateBasicGroupFullInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateBasicGroupFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateBasicGroupFullInfo#37139643 as nil")
 	}
@@ -9543,15 +9543,15 @@ func (u *UpdateBasicGroupFullInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateBasicGroupFullInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateBasicGroupFullInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateBasicGroupFullInfo#37139643 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateBasicGroupFullInfo"); err != nil {
 				return fmt.Errorf("unable to decode updateBasicGroupFullInfo#37139643: %w", err)
 			}
@@ -9716,8 +9716,8 @@ func (u *UpdateSupergroupFullInfo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateSupergroupFullInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateSupergroupFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateSupergroupFullInfo#4cd1f756 as nil")
 	}
@@ -9733,15 +9733,15 @@ func (u *UpdateSupergroupFullInfo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateSupergroupFullInfo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateSupergroupFullInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateSupergroupFullInfo#4cd1f756 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateSupergroupFullInfo"); err != nil {
 				return fmt.Errorf("unable to decode updateSupergroupFullInfo#4cd1f756: %w", err)
 			}
@@ -9913,8 +9913,8 @@ func (u *UpdateServiceNotification) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateServiceNotification) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateServiceNotification) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateServiceNotification#4e9895ad as nil")
 	}
@@ -9933,15 +9933,15 @@ func (u *UpdateServiceNotification) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateServiceNotification) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateServiceNotification) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateServiceNotification#4e9895ad to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateServiceNotification"); err != nil {
 				return fmt.Errorf("unable to decode updateServiceNotification#4e9895ad: %w", err)
 			}
@@ -10091,8 +10091,8 @@ func (u *UpdateFile) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateFile) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateFile#6cd875f as nil")
 	}
@@ -10106,15 +10106,15 @@ func (u *UpdateFile) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateFile) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateFile) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateFile#6cd875f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateFile"); err != nil {
 				return fmt.Errorf("unable to decode updateFile#6cd875f: %w", err)
 			}
@@ -10304,8 +10304,8 @@ func (u *UpdateFileGenerationStart) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateFileGenerationStart) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateFileGenerationStart) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateFileGenerationStart#cec5eec as nil")
 	}
@@ -10323,15 +10323,15 @@ func (u *UpdateFileGenerationStart) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateFileGenerationStart) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateFileGenerationStart) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateFileGenerationStart#cec5eec to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateFileGenerationStart"); err != nil {
 				return fmt.Errorf("unable to decode updateFileGenerationStart#cec5eec: %w", err)
 			}
@@ -10503,8 +10503,8 @@ func (u *UpdateFileGenerationStop) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateFileGenerationStop) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateFileGenerationStop) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateFileGenerationStop#8f14fdeb as nil")
 	}
@@ -10516,15 +10516,15 @@ func (u *UpdateFileGenerationStop) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateFileGenerationStop) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateFileGenerationStop) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateFileGenerationStop#8f14fdeb to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateFileGenerationStop"); err != nil {
 				return fmt.Errorf("unable to decode updateFileGenerationStop#8f14fdeb: %w", err)
 			}
@@ -10663,8 +10663,8 @@ func (u *UpdateCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateCall) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateCall#4fb3d0dd as nil")
 	}
@@ -10678,15 +10678,15 @@ func (u *UpdateCall) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateCall) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateCall#4fb3d0dd to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateCall"); err != nil {
 				return fmt.Errorf("unable to decode updateCall#4fb3d0dd: %w", err)
 			}
@@ -10823,8 +10823,8 @@ func (u *UpdateGroupCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateGroupCall) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateGroupCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateGroupCall#30324e00 as nil")
 	}
@@ -10838,15 +10838,15 @@ func (u *UpdateGroupCall) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateGroupCall) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateGroupCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateGroupCall#30324e00 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateGroupCall"); err != nil {
 				return fmt.Errorf("unable to decode updateGroupCall#30324e00: %w", err)
 			}
@@ -11000,8 +11000,8 @@ func (u *UpdateGroupCallParticipant) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateGroupCallParticipant) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateGroupCallParticipant) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateGroupCallParticipant#d0213cf9 as nil")
 	}
@@ -11017,15 +11017,15 @@ func (u *UpdateGroupCallParticipant) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateGroupCallParticipant) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateGroupCallParticipant) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateGroupCallParticipant#d0213cf9 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateGroupCallParticipant"); err != nil {
 				return fmt.Errorf("unable to decode updateGroupCallParticipant#d0213cf9: %w", err)
 			}
@@ -11190,8 +11190,8 @@ func (u *UpdateNewCallSignalingData) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateNewCallSignalingData) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNewCallSignalingData) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNewCallSignalingData#22c98d8d as nil")
 	}
@@ -11205,15 +11205,15 @@ func (u *UpdateNewCallSignalingData) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateNewCallSignalingData) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNewCallSignalingData) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateNewCallSignalingData#22c98d8d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNewCallSignalingData"); err != nil {
 				return fmt.Errorf("unable to decode updateNewCallSignalingData#22c98d8d: %w", err)
 			}
@@ -11385,8 +11385,8 @@ func (u *UpdateUserPrivacySettingRules) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateUserPrivacySettingRules) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateUserPrivacySettingRules) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateUserPrivacySettingRules#c99552f6 as nil")
 	}
@@ -11407,15 +11407,15 @@ func (u *UpdateUserPrivacySettingRules) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateUserPrivacySettingRules) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateUserPrivacySettingRules) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateUserPrivacySettingRules#c99552f6 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateUserPrivacySettingRules"); err != nil {
 				return fmt.Errorf("unable to decode updateUserPrivacySettingRules#c99552f6: %w", err)
 			}
@@ -11602,8 +11602,8 @@ func (u *UpdateUnreadMessageCount) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateUnreadMessageCount) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateUnreadMessageCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateUnreadMessageCount#4b541c9 as nil")
 	}
@@ -11624,15 +11624,15 @@ func (u *UpdateUnreadMessageCount) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateUnreadMessageCount) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateUnreadMessageCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateUnreadMessageCount#4b541c9 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateUnreadMessageCount"); err != nil {
 				return fmt.Errorf("unable to decode updateUnreadMessageCount#4b541c9: %w", err)
 			}
@@ -11883,8 +11883,8 @@ func (u *UpdateUnreadChatCount) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateUnreadChatCount) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateUnreadChatCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateUnreadChatCount#76e19242 as nil")
 	}
@@ -11911,15 +11911,15 @@ func (u *UpdateUnreadChatCount) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateUnreadChatCount) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateUnreadChatCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateUnreadChatCount#76e19242 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateUnreadChatCount"); err != nil {
 				return fmt.Errorf("unable to decode updateUnreadChatCount#76e19242: %w", err)
 			}
@@ -12135,8 +12135,8 @@ func (u *UpdateOption) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateOption) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateOption) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateOption#35b17404 as nil")
 	}
@@ -12155,15 +12155,15 @@ func (u *UpdateOption) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateOption) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateOption) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateOption#35b17404 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateOption"); err != nil {
 				return fmt.Errorf("unable to decode updateOption#35b17404: %w", err)
 			}
@@ -12313,8 +12313,8 @@ func (u *UpdateStickerSet) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateStickerSet) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateStickerSet) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateStickerSet#70035dcc as nil")
 	}
@@ -12328,15 +12328,15 @@ func (u *UpdateStickerSet) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateStickerSet) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateStickerSet) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateStickerSet#70035dcc to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateStickerSet"); err != nil {
 				return fmt.Errorf("unable to decode updateStickerSet#70035dcc: %w", err)
 			}
@@ -12503,8 +12503,8 @@ func (u *UpdateInstalledStickerSets) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateInstalledStickerSets) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateInstalledStickerSets) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateInstalledStickerSets#6dc3c1f8 as nil")
 	}
@@ -12522,15 +12522,15 @@ func (u *UpdateInstalledStickerSets) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateInstalledStickerSets) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateInstalledStickerSets) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateInstalledStickerSets#6dc3c1f8 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateInstalledStickerSets"); err != nil {
 				return fmt.Errorf("unable to decode updateInstalledStickerSets#6dc3c1f8: %w", err)
 			}
@@ -12541,7 +12541,7 @@ func (u *UpdateInstalledStickerSets) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			u.IsMasks = value
 		case "sticker_set_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Long()
 				if err != nil {
 					return fmt.Errorf("unable to decode updateInstalledStickerSets#6dc3c1f8: field sticker_set_ids: %w", err)
@@ -12685,8 +12685,8 @@ func (u *UpdateTrendingStickerSets) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateTrendingStickerSets) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateTrendingStickerSets) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateTrendingStickerSets#1add5be1 as nil")
 	}
@@ -12700,15 +12700,15 @@ func (u *UpdateTrendingStickerSets) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateTrendingStickerSets) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateTrendingStickerSets) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateTrendingStickerSets#1add5be1 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateTrendingStickerSets"); err != nil {
 				return fmt.Errorf("unable to decode updateTrendingStickerSets#1add5be1: %w", err)
 			}
@@ -12876,8 +12876,8 @@ func (u *UpdateRecentStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateRecentStickers) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateRecentStickers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateRecentStickers#aefdf8dc as nil")
 	}
@@ -12895,15 +12895,15 @@ func (u *UpdateRecentStickers) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateRecentStickers) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateRecentStickers) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateRecentStickers#aefdf8dc to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateRecentStickers"); err != nil {
 				return fmt.Errorf("unable to decode updateRecentStickers#aefdf8dc: %w", err)
 			}
@@ -12914,7 +12914,7 @@ func (u *UpdateRecentStickers) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			u.IsAttached = value
 		case "sticker_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
 					return fmt.Errorf("unable to decode updateRecentStickers#aefdf8dc: field sticker_ids: %w", err)
@@ -13071,8 +13071,8 @@ func (u *UpdateFavoriteStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateFavoriteStickers) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateFavoriteStickers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateFavoriteStickers#113f2b6a as nil")
 	}
@@ -13088,20 +13088,20 @@ func (u *UpdateFavoriteStickers) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateFavoriteStickers) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateFavoriteStickers) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateFavoriteStickers#113f2b6a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateFavoriteStickers"); err != nil {
 				return fmt.Errorf("unable to decode updateFavoriteStickers#113f2b6a: %w", err)
 			}
 		case "sticker_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
 					return fmt.Errorf("unable to decode updateFavoriteStickers#113f2b6a: field sticker_ids: %w", err)
@@ -13253,8 +13253,8 @@ func (u *UpdateSavedAnimations) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateSavedAnimations) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateSavedAnimations) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateSavedAnimations#1084a1c8 as nil")
 	}
@@ -13270,20 +13270,20 @@ func (u *UpdateSavedAnimations) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateSavedAnimations) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateSavedAnimations) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateSavedAnimations#1084a1c8 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateSavedAnimations"); err != nil {
 				return fmt.Errorf("unable to decode updateSavedAnimations#1084a1c8: %w", err)
 			}
 		case "animation_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
 					return fmt.Errorf("unable to decode updateSavedAnimations#1084a1c8: field animation_ids: %w", err)
@@ -13439,8 +13439,8 @@ func (u *UpdateSelectedBackground) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateSelectedBackground) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateSelectedBackground) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateSelectedBackground#99bd205d as nil")
 	}
@@ -13456,15 +13456,15 @@ func (u *UpdateSelectedBackground) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateSelectedBackground) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateSelectedBackground) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateSelectedBackground#99bd205d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateSelectedBackground"); err != nil {
 				return fmt.Errorf("unable to decode updateSelectedBackground#99bd205d: %w", err)
 			}
@@ -13661,8 +13661,8 @@ func (u *UpdateLanguagePackStrings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateLanguagePackStrings) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateLanguagePackStrings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateLanguagePackStrings#af87919f as nil")
 	}
@@ -13684,15 +13684,15 @@ func (u *UpdateLanguagePackStrings) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateLanguagePackStrings) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateLanguagePackStrings) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateLanguagePackStrings#af87919f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateLanguagePackStrings"); err != nil {
 				return fmt.Errorf("unable to decode updateLanguagePackStrings#af87919f: %w", err)
 			}
@@ -13709,7 +13709,7 @@ func (u *UpdateLanguagePackStrings) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			u.LanguagePackID = value
 		case "strings":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value LanguagePackString
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode updateLanguagePackStrings#af87919f: field strings: %w", err)
@@ -13863,8 +13863,8 @@ func (u *UpdateConnectionState) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateConnectionState) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateConnectionState) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateConnectionState#57939e2e as nil")
 	}
@@ -13881,15 +13881,15 @@ func (u *UpdateConnectionState) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateConnectionState) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateConnectionState) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateConnectionState#57939e2e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateConnectionState"); err != nil {
 				return fmt.Errorf("unable to decode updateConnectionState#57939e2e: %w", err)
 			}
@@ -14045,8 +14045,8 @@ func (u *UpdateTermsOfService) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateTermsOfService) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateTermsOfService) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateTermsOfService#b23cc55e as nil")
 	}
@@ -14062,15 +14062,15 @@ func (u *UpdateTermsOfService) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateTermsOfService) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateTermsOfService) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateTermsOfService#b23cc55e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateTermsOfService"); err != nil {
 				return fmt.Errorf("unable to decode updateTermsOfService#b23cc55e: %w", err)
 			}
@@ -14233,8 +14233,8 @@ func (u *UpdateUsersNearby) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateUsersNearby) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateUsersNearby) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateUsersNearby#97c8ab5 as nil")
 	}
@@ -14252,20 +14252,20 @@ func (u *UpdateUsersNearby) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateUsersNearby) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateUsersNearby) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateUsersNearby#97c8ab5 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateUsersNearby"); err != nil {
 				return fmt.Errorf("unable to decode updateUsersNearby#97c8ab5: %w", err)
 			}
 		case "users_nearby":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ChatNearby
 				if err := value.DecodeTDLibJSON(b); err != nil {
 					return fmt.Errorf("unable to decode updateUsersNearby#97c8ab5: field users_nearby: %w", err)
@@ -14417,8 +14417,8 @@ func (u *UpdateDiceEmojis) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateDiceEmojis) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateDiceEmojis) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateDiceEmojis#9d0f91df as nil")
 	}
@@ -14434,20 +14434,20 @@ func (u *UpdateDiceEmojis) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateDiceEmojis) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateDiceEmojis) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateDiceEmojis#9d0f91df to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateDiceEmojis"); err != nil {
 				return fmt.Errorf("unable to decode updateDiceEmojis#9d0f91df: %w", err)
 			}
 		case "emojis":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.String()
 				if err != nil {
 					return fmt.Errorf("unable to decode updateDiceEmojis#9d0f91df: field emojis: %w", err)
@@ -14616,8 +14616,8 @@ func (u *UpdateAnimationSearchParameters) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateAnimationSearchParameters) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateAnimationSearchParameters) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateAnimationSearchParameters#6016ef01 as nil")
 	}
@@ -14635,15 +14635,15 @@ func (u *UpdateAnimationSearchParameters) EncodeTDLibJSON(b jsontd.Encoder) erro
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateAnimationSearchParameters) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateAnimationSearchParameters) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateAnimationSearchParameters#6016ef01 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateAnimationSearchParameters"); err != nil {
 				return fmt.Errorf("unable to decode updateAnimationSearchParameters#6016ef01: %w", err)
 			}
@@ -14654,7 +14654,7 @@ func (u *UpdateAnimationSearchParameters) DecodeTDLibJSON(b jsontd.Decoder) erro
 			}
 			u.Provider = value
 		case "emojis":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.String()
 				if err != nil {
 					return fmt.Errorf("unable to decode updateAnimationSearchParameters#6016ef01: field emojis: %w", err)
@@ -14851,8 +14851,8 @@ func (u *UpdateSuggestedActions) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateSuggestedActions) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateSuggestedActions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateSuggestedActions#c2e5cccb as nil")
 	}
@@ -14884,20 +14884,20 @@ func (u *UpdateSuggestedActions) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateSuggestedActions) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateSuggestedActions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateSuggestedActions#c2e5cccb to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateSuggestedActions"); err != nil {
 				return fmt.Errorf("unable to decode updateSuggestedActions#c2e5cccb: %w", err)
 			}
 		case "added_actions":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONSuggestedAction(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode updateSuggestedActions#c2e5cccb: field added_actions: %w", err)
@@ -14908,7 +14908,7 @@ func (u *UpdateSuggestedActions) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode updateSuggestedActions#c2e5cccb: field added_actions: %w", err)
 			}
 		case "removed_actions":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONSuggestedAction(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode updateSuggestedActions#c2e5cccb: field removed_actions: %w", err)
@@ -15143,8 +15143,8 @@ func (u *UpdateNewInlineQuery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateNewInlineQuery) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNewInlineQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNewInlineQuery#7259981b as nil")
 	}
@@ -15173,15 +15173,15 @@ func (u *UpdateNewInlineQuery) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateNewInlineQuery) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNewInlineQuery) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateNewInlineQuery#7259981b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNewInlineQuery"); err != nil {
 				return fmt.Errorf("unable to decode updateNewInlineQuery#7259981b: %w", err)
 			}
@@ -15441,8 +15441,8 @@ func (u *UpdateNewChosenInlineResult) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateNewChosenInlineResult) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNewChosenInlineResult) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNewChosenInlineResult#1f716c35 as nil")
 	}
@@ -15464,15 +15464,15 @@ func (u *UpdateNewChosenInlineResult) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateNewChosenInlineResult) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNewChosenInlineResult) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateNewChosenInlineResult#1f716c35 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNewChosenInlineResult"); err != nil {
 				return fmt.Errorf("unable to decode updateNewChosenInlineResult#1f716c35: %w", err)
 			}
@@ -15743,8 +15743,8 @@ func (u *UpdateNewCallbackQuery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateNewCallbackQuery) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNewCallbackQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNewCallbackQuery#862794be as nil")
 	}
@@ -15771,15 +15771,15 @@ func (u *UpdateNewCallbackQuery) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateNewCallbackQuery) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNewCallbackQuery) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateNewCallbackQuery#862794be to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNewCallbackQuery"); err != nil {
 				return fmt.Errorf("unable to decode updateNewCallbackQuery#862794be: %w", err)
 			}
@@ -16046,8 +16046,8 @@ func (u *UpdateNewInlineCallbackQuery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateNewInlineCallbackQuery) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNewInlineCallbackQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNewInlineCallbackQuery#8ffe5f73 as nil")
 	}
@@ -16072,15 +16072,15 @@ func (u *UpdateNewInlineCallbackQuery) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateNewInlineCallbackQuery) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNewInlineCallbackQuery) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateNewInlineCallbackQuery#8ffe5f73 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNewInlineCallbackQuery"); err != nil {
 				return fmt.Errorf("unable to decode updateNewInlineCallbackQuery#8ffe5f73: %w", err)
 			}
@@ -16314,8 +16314,8 @@ func (u *UpdateNewShippingQuery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateNewShippingQuery) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNewShippingQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNewShippingQuery#cf465386 as nil")
 	}
@@ -16335,15 +16335,15 @@ func (u *UpdateNewShippingQuery) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateNewShippingQuery) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNewShippingQuery) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateNewShippingQuery#cf465386 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNewShippingQuery"); err != nil {
 				return fmt.Errorf("unable to decode updateNewShippingQuery#cf465386: %w", err)
 			}
@@ -16615,8 +16615,8 @@ func (u *UpdateNewPreCheckoutQuery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateNewPreCheckoutQuery) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNewPreCheckoutQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNewPreCheckoutQuery#53e3966 as nil")
 	}
@@ -16642,15 +16642,15 @@ func (u *UpdateNewPreCheckoutQuery) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateNewPreCheckoutQuery) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNewPreCheckoutQuery) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateNewPreCheckoutQuery#53e3966 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNewPreCheckoutQuery"); err != nil {
 				return fmt.Errorf("unable to decode updateNewPreCheckoutQuery#53e3966: %w", err)
 			}
@@ -16853,8 +16853,8 @@ func (u *UpdateNewCustomEvent) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateNewCustomEvent) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNewCustomEvent) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNewCustomEvent#76dd6a0c as nil")
 	}
@@ -16866,15 +16866,15 @@ func (u *UpdateNewCustomEvent) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateNewCustomEvent) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNewCustomEvent) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateNewCustomEvent#76dd6a0c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNewCustomEvent"); err != nil {
 				return fmt.Errorf("unable to decode updateNewCustomEvent#76dd6a0c: %w", err)
 			}
@@ -17047,8 +17047,8 @@ func (u *UpdateNewCustomQuery) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateNewCustomQuery) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateNewCustomQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNewCustomQuery#d702f9a6 as nil")
 	}
@@ -17064,15 +17064,15 @@ func (u *UpdateNewCustomQuery) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateNewCustomQuery) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateNewCustomQuery) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateNewCustomQuery#d702f9a6 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNewCustomQuery"); err != nil {
 				return fmt.Errorf("unable to decode updateNewCustomQuery#d702f9a6: %w", err)
 			}
@@ -17233,8 +17233,8 @@ func (u *UpdatePoll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdatePoll) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdatePoll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updatePoll#966b73ca as nil")
 	}
@@ -17248,15 +17248,15 @@ func (u *UpdatePoll) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdatePoll) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdatePoll) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updatePoll#966b73ca to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updatePoll"); err != nil {
 				return fmt.Errorf("unable to decode updatePoll#966b73ca: %w", err)
 			}
@@ -17440,8 +17440,8 @@ func (u *UpdatePollAnswer) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdatePollAnswer) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdatePollAnswer) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updatePollAnswer#a9be2610 as nil")
 	}
@@ -17461,15 +17461,15 @@ func (u *UpdatePollAnswer) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdatePollAnswer) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdatePollAnswer) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updatePollAnswer#a9be2610 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updatePollAnswer"); err != nil {
 				return fmt.Errorf("unable to decode updatePollAnswer#a9be2610: %w", err)
 			}
@@ -17486,7 +17486,7 @@ func (u *UpdatePollAnswer) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			u.UserID = value
 		case "option_ids":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
 					return fmt.Errorf("unable to decode updatePollAnswer#a9be2610: field option_ids: %w", err)
@@ -17720,8 +17720,8 @@ func (u *UpdateChatMember) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (u *UpdateChatMember) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatMember#32f4da4 as nil")
 	}
@@ -17749,15 +17749,15 @@ func (u *UpdateChatMember) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (u *UpdateChatMember) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateChatMember#32f4da4 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatMember"); err != nil {
 				return fmt.Errorf("unable to decode updateChatMember#32f4da4: %w", err)
 			}
@@ -17941,8 +17941,8 @@ type UpdateClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeUpdate implements binary de-serialization for UpdateClass.
@@ -18553,7 +18553,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 }
 
 // DecodeTDLibJSONUpdate implements binary de-serialization for UpdateClass.
-func DecodeTDLibJSONUpdate(buf jsontd.Decoder) (UpdateClass, error) {
+func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -19155,7 +19155,7 @@ func DecodeTDLibJSONUpdate(buf jsontd.Decoder) (UpdateClass, error) {
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode UpdateClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode UpdateClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -19186,7 +19186,7 @@ func (b *UpdateBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for UpdateBox.
-func (b *UpdateBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *UpdateBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode UpdateBox to nil")
 	}
@@ -19199,7 +19199,7 @@ func (b *UpdateBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for UpdateBox.
-func (b *UpdateBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *UpdateBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.Update == nil {
 		return fmt.Errorf("unable to encode UpdateClass as nil")
 	}

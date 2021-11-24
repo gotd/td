@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // JoinChatRequest represents TL type `joinChat#137a1aa1`.
@@ -143,8 +143,8 @@ func (j *JoinChatRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (j *JoinChatRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (j *JoinChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if j == nil {
 		return fmt.Errorf("can't encode joinChat#137a1aa1 as nil")
 	}
@@ -156,15 +156,15 @@ func (j *JoinChatRequest) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (j *JoinChatRequest) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (j *JoinChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if j == nil {
 		return fmt.Errorf("can't decode joinChat#137a1aa1 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("joinChat"); err != nil {
 				return fmt.Errorf("unable to decode joinChat#137a1aa1: %w", err)
 			}

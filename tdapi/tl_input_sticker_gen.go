@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // InputStickerStatic represents TL type `inputStickerStatic#540604db`.
@@ -187,8 +187,8 @@ func (i *InputStickerStatic) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputStickerStatic) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputStickerStatic) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputStickerStatic#540604db as nil")
 	}
@@ -211,15 +211,15 @@ func (i *InputStickerStatic) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputStickerStatic) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputStickerStatic) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputStickerStatic#540604db to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputStickerStatic"); err != nil {
 				return fmt.Errorf("unable to decode inputStickerStatic#540604db: %w", err)
 			}
@@ -402,8 +402,8 @@ func (i *InputStickerAnimated) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputStickerAnimated) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputStickerAnimated) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputStickerAnimated#bccf4960 as nil")
 	}
@@ -422,15 +422,15 @@ func (i *InputStickerAnimated) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputStickerAnimated) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputStickerAnimated) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputStickerAnimated#bccf4960 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputStickerAnimated"); err != nil {
 				return fmt.Errorf("unable to decode inputStickerAnimated#bccf4960: %w", err)
 			}
@@ -493,8 +493,8 @@ type InputStickerClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 
 	// PNG image with the sticker; must be up to 512 KB in size and fit in a 512x512 square
 	GetSticker() (value InputFileClass)
@@ -529,7 +529,7 @@ func DecodeInputSticker(buf *bin.Buffer) (InputStickerClass, error) {
 }
 
 // DecodeTDLibJSONInputSticker implements binary de-serialization for InputStickerClass.
-func DecodeTDLibJSONInputSticker(buf jsontd.Decoder) (InputStickerClass, error) {
+func DecodeTDLibJSONInputSticker(buf tdjson.Decoder) (InputStickerClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -550,7 +550,7 @@ func DecodeTDLibJSONInputSticker(buf jsontd.Decoder) (InputStickerClass, error) 
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputStickerClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode InputStickerClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -581,7 +581,7 @@ func (b *InputStickerBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for InputStickerBox.
-func (b *InputStickerBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *InputStickerBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode InputStickerBox to nil")
 	}
@@ -594,7 +594,7 @@ func (b *InputStickerBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for InputStickerBox.
-func (b *InputStickerBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *InputStickerBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.InputSticker == nil {
 		return fmt.Errorf("unable to encode InputStickerClass as nil")
 	}

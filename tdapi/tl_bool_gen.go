@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // BoolFalse represents TL type `boolFalse#bc799737`.
@@ -130,8 +130,8 @@ func (b *BoolFalse) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BoolFalse) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BoolFalse) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode boolFalse#bc799737 as nil")
 	}
@@ -141,15 +141,15 @@ func (b *BoolFalse) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BoolFalse) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BoolFalse) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode boolFalse#bc799737 to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("boolFalse"); err != nil {
 				return fmt.Errorf("unable to decode boolFalse#bc799737: %w", err)
 			}
@@ -259,8 +259,8 @@ func (b *BoolTrue) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BoolTrue) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BoolTrue) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode boolTrue#997275b5 as nil")
 	}
@@ -270,15 +270,15 @@ func (b *BoolTrue) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BoolTrue) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BoolTrue) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode boolTrue#997275b5 to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("boolTrue"); err != nil {
 				return fmt.Errorf("unable to decode boolTrue#997275b5: %w", err)
 			}
@@ -319,8 +319,8 @@ type BoolClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeBool implements binary de-serialization for BoolClass.
@@ -350,7 +350,7 @@ func DecodeBool(buf *bin.Buffer) (BoolClass, error) {
 }
 
 // DecodeTDLibJSONBool implements binary de-serialization for BoolClass.
-func DecodeTDLibJSONBool(buf jsontd.Decoder) (BoolClass, error) {
+func DecodeTDLibJSONBool(buf tdjson.Decoder) (BoolClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -371,7 +371,7 @@ func DecodeTDLibJSONBool(buf jsontd.Decoder) (BoolClass, error) {
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode BoolClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode BoolClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -402,7 +402,7 @@ func (b *BoolBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for BoolBox.
-func (b *BoolBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *BoolBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode BoolBox to nil")
 	}
@@ -415,7 +415,7 @@ func (b *BoolBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for BoolBox.
-func (b *BoolBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *BoolBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.Bool == nil {
 		return fmt.Errorf("unable to encode BoolClass as nil")
 	}

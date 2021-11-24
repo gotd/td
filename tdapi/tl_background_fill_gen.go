@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // BackgroundFillSolid represents TL type `backgroundFillSolid#3c3dbc1d`.
@@ -148,8 +148,8 @@ func (b *BackgroundFillSolid) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BackgroundFillSolid) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BackgroundFillSolid) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode backgroundFillSolid#3c3dbc1d as nil")
 	}
@@ -161,15 +161,15 @@ func (b *BackgroundFillSolid) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BackgroundFillSolid) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BackgroundFillSolid) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode backgroundFillSolid#3c3dbc1d to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("backgroundFillSolid"); err != nil {
 				return fmt.Errorf("unable to decode backgroundFillSolid#3c3dbc1d: %w", err)
 			}
@@ -343,8 +343,8 @@ func (b *BackgroundFillGradient) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BackgroundFillGradient) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BackgroundFillGradient) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode backgroundFillGradient#925ff17f as nil")
 	}
@@ -360,15 +360,15 @@ func (b *BackgroundFillGradient) EncodeTDLibJSON(buf jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BackgroundFillGradient) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BackgroundFillGradient) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode backgroundFillGradient#925ff17f to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("backgroundFillGradient"); err != nil {
 				return fmt.Errorf("unable to decode backgroundFillGradient#925ff17f: %w", err)
 			}
@@ -542,8 +542,8 @@ func (b *BackgroundFillFreeformGradient) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (b *BackgroundFillFreeformGradient) EncodeTDLibJSON(buf jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BackgroundFillFreeformGradient) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
 		return fmt.Errorf("can't encode backgroundFillFreeformGradient#fa31756a as nil")
 	}
@@ -559,20 +559,20 @@ func (b *BackgroundFillFreeformGradient) EncodeTDLibJSON(buf jsontd.Encoder) err
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (b *BackgroundFillFreeformGradient) DecodeTDLibJSON(buf jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BackgroundFillFreeformGradient) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("can't decode backgroundFillFreeformGradient#fa31756a to nil")
 	}
 
-	return buf.Obj(func(buf jsontd.Decoder, key []byte) error {
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := buf.ConsumeID("backgroundFillFreeformGradient"); err != nil {
 				return fmt.Errorf("unable to decode backgroundFillFreeformGradient#fa31756a: %w", err)
 			}
 		case "colors":
-			if err := buf.Arr(func(buf jsontd.Decoder) error {
+			if err := buf.Arr(func(buf tdjson.Decoder) error {
 				value, err := buf.Int32()
 				if err != nil {
 					return fmt.Errorf("unable to decode backgroundFillFreeformGradient#fa31756a: field colors: %w", err)
@@ -625,8 +625,8 @@ type BackgroundFillClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeBackgroundFill implements binary de-serialization for BackgroundFillClass.
@@ -663,7 +663,7 @@ func DecodeBackgroundFill(buf *bin.Buffer) (BackgroundFillClass, error) {
 }
 
 // DecodeTDLibJSONBackgroundFill implements binary de-serialization for BackgroundFillClass.
-func DecodeTDLibJSONBackgroundFill(buf jsontd.Decoder) (BackgroundFillClass, error) {
+func DecodeTDLibJSONBackgroundFill(buf tdjson.Decoder) (BackgroundFillClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -691,7 +691,7 @@ func DecodeTDLibJSONBackgroundFill(buf jsontd.Decoder) (BackgroundFillClass, err
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode BackgroundFillClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode BackgroundFillClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -722,7 +722,7 @@ func (b *BackgroundFillBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for BackgroundFillBox.
-func (b *BackgroundFillBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *BackgroundFillBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode BackgroundFillBox to nil")
 	}
@@ -735,7 +735,7 @@ func (b *BackgroundFillBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for BackgroundFillBox.
-func (b *BackgroundFillBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *BackgroundFillBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.BackgroundFill == nil {
 		return fmt.Errorf("unable to encode BackgroundFillClass as nil")
 	}

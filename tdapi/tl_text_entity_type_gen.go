@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // TextEntityTypeMention represents TL type `textEntityTypeMention#37b3df65`.
@@ -130,8 +130,8 @@ func (t *TextEntityTypeMention) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeMention) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeMention) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeMention#37b3df65 as nil")
 	}
@@ -141,15 +141,15 @@ func (t *TextEntityTypeMention) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeMention) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeMention) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeMention#37b3df65 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeMention"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeMention#37b3df65: %w", err)
 			}
@@ -259,8 +259,8 @@ func (t *TextEntityTypeHashtag) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeHashtag) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeHashtag) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeHashtag#c2f7a2dd as nil")
 	}
@@ -270,15 +270,15 @@ func (t *TextEntityTypeHashtag) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeHashtag) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeHashtag) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeHashtag#c2f7a2dd to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeHashtag"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeHashtag#c2f7a2dd: %w", err)
 			}
@@ -388,8 +388,8 @@ func (t *TextEntityTypeCashtag) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeCashtag) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeCashtag) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeCashtag#48e4374b as nil")
 	}
@@ -399,15 +399,15 @@ func (t *TextEntityTypeCashtag) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeCashtag) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeCashtag) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeCashtag#48e4374b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeCashtag"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeCashtag#48e4374b: %w", err)
 			}
@@ -517,8 +517,8 @@ func (t *TextEntityTypeBotCommand) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeBotCommand) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeBotCommand) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeBotCommand#bb652bb3 as nil")
 	}
@@ -528,15 +528,15 @@ func (t *TextEntityTypeBotCommand) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeBotCommand) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeBotCommand) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeBotCommand#bb652bb3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeBotCommand"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeBotCommand#bb652bb3: %w", err)
 			}
@@ -646,8 +646,8 @@ func (t *TextEntityTypeURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeURL) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeURL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeUrl#b1c0d47c as nil")
 	}
@@ -657,15 +657,15 @@ func (t *TextEntityTypeURL) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeURL) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeURL) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeUrl#b1c0d47c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeUrl"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeUrl#b1c0d47c: %w", err)
 			}
@@ -775,8 +775,8 @@ func (t *TextEntityTypeEmailAddress) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeEmailAddress) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeEmailAddress) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeEmailAddress#54f81821 as nil")
 	}
@@ -786,15 +786,15 @@ func (t *TextEntityTypeEmailAddress) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeEmailAddress) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeEmailAddress) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeEmailAddress#54f81821 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeEmailAddress"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeEmailAddress#54f81821: %w", err)
 			}
@@ -904,8 +904,8 @@ func (t *TextEntityTypePhoneNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypePhoneNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypePhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypePhoneNumber#bad9aa2a as nil")
 	}
@@ -915,15 +915,15 @@ func (t *TextEntityTypePhoneNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypePhoneNumber) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypePhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypePhoneNumber#bad9aa2a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypePhoneNumber"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypePhoneNumber#bad9aa2a: %w", err)
 			}
@@ -1033,8 +1033,8 @@ func (t *TextEntityTypeBankCardNumber) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeBankCardNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeBankCardNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeBankCardNumber#6513910 as nil")
 	}
@@ -1044,15 +1044,15 @@ func (t *TextEntityTypeBankCardNumber) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeBankCardNumber) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeBankCardNumber) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeBankCardNumber#6513910 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeBankCardNumber"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeBankCardNumber#6513910: %w", err)
 			}
@@ -1162,8 +1162,8 @@ func (t *TextEntityTypeBold) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeBold) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeBold) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeBold#bcc0e1b0 as nil")
 	}
@@ -1173,15 +1173,15 @@ func (t *TextEntityTypeBold) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeBold) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeBold) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeBold#bcc0e1b0 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeBold"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeBold#bcc0e1b0: %w", err)
 			}
@@ -1291,8 +1291,8 @@ func (t *TextEntityTypeItalic) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeItalic) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeItalic) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeItalic#f8f3965d as nil")
 	}
@@ -1302,15 +1302,15 @@ func (t *TextEntityTypeItalic) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeItalic) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeItalic) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeItalic#f8f3965d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeItalic"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeItalic#f8f3965d: %w", err)
 			}
@@ -1420,8 +1420,8 @@ func (t *TextEntityTypeUnderline) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeUnderline) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeUnderline) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeUnderline#2f39cf92 as nil")
 	}
@@ -1431,15 +1431,15 @@ func (t *TextEntityTypeUnderline) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeUnderline) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeUnderline) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeUnderline#2f39cf92 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeUnderline"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeUnderline#2f39cf92: %w", err)
 			}
@@ -1549,8 +1549,8 @@ func (t *TextEntityTypeStrikethrough) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeStrikethrough) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeStrikethrough) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeStrikethrough#394fc4fa as nil")
 	}
@@ -1560,15 +1560,15 @@ func (t *TextEntityTypeStrikethrough) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeStrikethrough) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeStrikethrough) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeStrikethrough#394fc4fa to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeStrikethrough"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeStrikethrough#394fc4fa: %w", err)
 			}
@@ -1678,8 +1678,8 @@ func (t *TextEntityTypeCode) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeCode) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeCode) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeCode#c5e9c94a as nil")
 	}
@@ -1689,15 +1689,15 @@ func (t *TextEntityTypeCode) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeCode) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeCode) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeCode#c5e9c94a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeCode"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeCode#c5e9c94a: %w", err)
 			}
@@ -1807,8 +1807,8 @@ func (t *TextEntityTypePre) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypePre) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypePre) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypePre#62491c8e as nil")
 	}
@@ -1818,15 +1818,15 @@ func (t *TextEntityTypePre) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypePre) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypePre) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypePre#62491c8e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypePre"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypePre#62491c8e: %w", err)
 			}
@@ -1954,8 +1954,8 @@ func (t *TextEntityTypePreCode) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypePreCode) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypePreCode) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypePreCode#c7a77aab as nil")
 	}
@@ -1967,15 +1967,15 @@ func (t *TextEntityTypePreCode) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypePreCode) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypePreCode) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypePreCode#c7a77aab to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypePreCode"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypePreCode#c7a77aab: %w", err)
 			}
@@ -2114,8 +2114,8 @@ func (t *TextEntityTypeTextURL) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeTextURL) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeTextURL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeTextUrl#1a912463 as nil")
 	}
@@ -2127,15 +2127,15 @@ func (t *TextEntityTypeTextURL) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeTextURL) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeTextURL) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeTextUrl#1a912463 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeTextUrl"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeTextUrl#1a912463: %w", err)
 			}
@@ -2274,8 +2274,8 @@ func (t *TextEntityTypeMentionName) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeMentionName) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeMentionName) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeMentionName#d0d2685d as nil")
 	}
@@ -2287,15 +2287,15 @@ func (t *TextEntityTypeMentionName) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeMentionName) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeMentionName) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeMentionName#d0d2685d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeMentionName"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeMentionName#d0d2685d: %w", err)
 			}
@@ -2436,8 +2436,8 @@ func (t *TextEntityTypeMediaTimestamp) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (t *TextEntityTypeMediaTimestamp) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeMediaTimestamp) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeMediaTimestamp#9236da10 as nil")
 	}
@@ -2449,15 +2449,15 @@ func (t *TextEntityTypeMediaTimestamp) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (t *TextEntityTypeMediaTimestamp) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeMediaTimestamp) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeMediaTimestamp#9236da10 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeMediaTimestamp"); err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeMediaTimestamp#9236da10: %w", err)
 			}
@@ -2525,8 +2525,8 @@ type TextEntityTypeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeTextEntityType implements binary de-serialization for TextEntityTypeClass.
@@ -2668,7 +2668,7 @@ func DecodeTextEntityType(buf *bin.Buffer) (TextEntityTypeClass, error) {
 }
 
 // DecodeTDLibJSONTextEntityType implements binary de-serialization for TextEntityTypeClass.
-func DecodeTDLibJSONTextEntityType(buf jsontd.Decoder) (TextEntityTypeClass, error) {
+func DecodeTDLibJSONTextEntityType(buf tdjson.Decoder) (TextEntityTypeClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -2801,7 +2801,7 @@ func DecodeTDLibJSONTextEntityType(buf jsontd.Decoder) (TextEntityTypeClass, err
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -2832,7 +2832,7 @@ func (b *TextEntityTypeBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for TextEntityTypeBox.
-func (b *TextEntityTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *TextEntityTypeBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode TextEntityTypeBox to nil")
 	}
@@ -2845,7 +2845,7 @@ func (b *TextEntityTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for TextEntityTypeBox.
-func (b *TextEntityTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *TextEntityTypeBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.TextEntityType == nil {
 		return fmt.Errorf("unable to encode TextEntityTypeClass as nil")
 	}

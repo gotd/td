@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // MessageForwardOriginUser represents TL type `messageForwardOriginUser#2a7150`.
@@ -148,8 +148,8 @@ func (m *MessageForwardOriginUser) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (m *MessageForwardOriginUser) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageForwardOriginUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageForwardOriginUser#2a7150 as nil")
 	}
@@ -161,15 +161,15 @@ func (m *MessageForwardOriginUser) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (m *MessageForwardOriginUser) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageForwardOriginUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageForwardOriginUser#2a7150 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("messageForwardOriginUser"); err != nil {
 				return fmt.Errorf("unable to decode messageForwardOriginUser#2a7150: %w", err)
 			}
@@ -325,8 +325,8 @@ func (m *MessageForwardOriginChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (m *MessageForwardOriginChat) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageForwardOriginChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageForwardOriginChat#5af51364 as nil")
 	}
@@ -340,15 +340,15 @@ func (m *MessageForwardOriginChat) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (m *MessageForwardOriginChat) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageForwardOriginChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageForwardOriginChat#5af51364 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("messageForwardOriginChat"); err != nil {
 				return fmt.Errorf("unable to decode messageForwardOriginChat#5af51364: %w", err)
 			}
@@ -498,8 +498,8 @@ func (m *MessageForwardOriginHiddenUser) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (m *MessageForwardOriginHiddenUser) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageForwardOriginHiddenUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageForwardOriginHiddenUser#efd4eee3 as nil")
 	}
@@ -511,15 +511,15 @@ func (m *MessageForwardOriginHiddenUser) EncodeTDLibJSON(b jsontd.Encoder) error
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (m *MessageForwardOriginHiddenUser) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageForwardOriginHiddenUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageForwardOriginHiddenUser#efd4eee3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("messageForwardOriginHiddenUser"); err != nil {
 				return fmt.Errorf("unable to decode messageForwardOriginHiddenUser#efd4eee3: %w", err)
 			}
@@ -692,8 +692,8 @@ func (m *MessageForwardOriginChannel) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (m *MessageForwardOriginChannel) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageForwardOriginChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageForwardOriginChannel#58dabee3 as nil")
 	}
@@ -709,15 +709,15 @@ func (m *MessageForwardOriginChannel) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (m *MessageForwardOriginChannel) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageForwardOriginChannel) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageForwardOriginChannel#58dabee3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("messageForwardOriginChannel"); err != nil {
 				return fmt.Errorf("unable to decode messageForwardOriginChannel#58dabee3: %w", err)
 			}
@@ -878,8 +878,8 @@ func (m *MessageForwardOriginMessageImport) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (m *MessageForwardOriginMessageImport) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageForwardOriginMessageImport) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageForwardOriginMessageImport#d3eb2e21 as nil")
 	}
@@ -891,15 +891,15 @@ func (m *MessageForwardOriginMessageImport) EncodeTDLibJSON(b jsontd.Encoder) er
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (m *MessageForwardOriginMessageImport) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageForwardOriginMessageImport) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageForwardOriginMessageImport#d3eb2e21 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("messageForwardOriginMessageImport"); err != nil {
 				return fmt.Errorf("unable to decode messageForwardOriginMessageImport#d3eb2e21: %w", err)
 			}
@@ -954,8 +954,8 @@ type MessageForwardOriginClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeMessageForwardOrigin implements binary de-serialization for MessageForwardOriginClass.
@@ -1006,7 +1006,7 @@ func DecodeMessageForwardOrigin(buf *bin.Buffer) (MessageForwardOriginClass, err
 }
 
 // DecodeTDLibJSONMessageForwardOrigin implements binary de-serialization for MessageForwardOriginClass.
-func DecodeTDLibJSONMessageForwardOrigin(buf jsontd.Decoder) (MessageForwardOriginClass, error) {
+func DecodeTDLibJSONMessageForwardOrigin(buf tdjson.Decoder) (MessageForwardOriginClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -1048,7 +1048,7 @@ func DecodeTDLibJSONMessageForwardOrigin(buf jsontd.Decoder) (MessageForwardOrig
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessageForwardOriginClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode MessageForwardOriginClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -1079,7 +1079,7 @@ func (b *MessageForwardOriginBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for MessageForwardOriginBox.
-func (b *MessageForwardOriginBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *MessageForwardOriginBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode MessageForwardOriginBox to nil")
 	}
@@ -1092,7 +1092,7 @@ func (b *MessageForwardOriginBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for MessageForwardOriginBox.
-func (b *MessageForwardOriginBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *MessageForwardOriginBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.MessageForwardOrigin == nil {
 		return fmt.Errorf("unable to encode MessageForwardOriginClass as nil")
 	}

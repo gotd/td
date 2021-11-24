@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // PushMessageContentHidden represents TL type `pushMessageContentHidden#ed1bb85c`.
@@ -148,8 +148,8 @@ func (p *PushMessageContentHidden) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentHidden) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentHidden) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentHidden#ed1bb85c as nil")
 	}
@@ -161,15 +161,15 @@ func (p *PushMessageContentHidden) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentHidden) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentHidden) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentHidden#ed1bb85c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentHidden"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentHidden#ed1bb85c: %w", err)
 			}
@@ -342,8 +342,8 @@ func (p *PushMessageContentAnimation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentAnimation) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentAnimation#3da4dfe4 as nil")
 	}
@@ -361,15 +361,15 @@ func (p *PushMessageContentAnimation) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentAnimation) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentAnimation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentAnimation#3da4dfe4 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentAnimation"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentAnimation#3da4dfe4: %w", err)
 			}
@@ -545,8 +545,8 @@ func (p *PushMessageContentAudio) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentAudio) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentAudio) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentAudio#16be7872 as nil")
 	}
@@ -562,15 +562,15 @@ func (p *PushMessageContentAudio) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentAudio) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentAudio) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentAudio#16be7872 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentAudio"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentAudio#16be7872: %w", err)
 			}
@@ -735,8 +735,8 @@ func (p *PushMessageContentContact) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentContact) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentContact) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentContact#ff458a54 as nil")
 	}
@@ -750,15 +750,15 @@ func (p *PushMessageContentContact) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentContact) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentContact) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentContact#ff458a54 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentContact"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentContact#ff458a54: %w", err)
 			}
@@ -890,8 +890,8 @@ func (p *PushMessageContentContactRegistered) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentContactRegistered) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentContactRegistered) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentContactRegistered#ede1e5a0 as nil")
 	}
@@ -901,15 +901,15 @@ func (p *PushMessageContentContactRegistered) EncodeTDLibJSON(b jsontd.Encoder) 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentContactRegistered) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentContactRegistered) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentContactRegistered#ede1e5a0 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentContactRegistered"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentContactRegistered#ede1e5a0: %w", err)
 			}
@@ -1054,8 +1054,8 @@ func (p *PushMessageContentDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentDocument#e4adae01 as nil")
 	}
@@ -1071,15 +1071,15 @@ func (p *PushMessageContentDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentDocument) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentDocument#e4adae01 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentDocument"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentDocument#e4adae01: %w", err)
 			}
@@ -1244,8 +1244,8 @@ func (p *PushMessageContentGame) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentGame) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentGame) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentGame#e14bb91b as nil")
 	}
@@ -1259,15 +1259,15 @@ func (p *PushMessageContentGame) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentGame) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentGame) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentGame#e14bb91b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentGame"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentGame#e14bb91b: %w", err)
 			}
@@ -1451,8 +1451,8 @@ func (p *PushMessageContentGameScore) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentGameScore) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentGameScore) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentGameScore#35b8cd88 as nil")
 	}
@@ -1468,15 +1468,15 @@ func (p *PushMessageContentGameScore) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentGameScore) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentGameScore) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentGameScore#35b8cd88 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentGameScore"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentGameScore#35b8cd88: %w", err)
 			}
@@ -1654,8 +1654,8 @@ func (p *PushMessageContentInvoice) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentInvoice) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentInvoice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentInvoice#98c88bbc as nil")
 	}
@@ -1669,15 +1669,15 @@ func (p *PushMessageContentInvoice) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentInvoice) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentInvoice) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentInvoice#98c88bbc to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentInvoice"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentInvoice#98c88bbc: %w", err)
 			}
@@ -1844,8 +1844,8 @@ func (p *PushMessageContentLocation) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentLocation) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentLocation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentLocation#b33a97b3 as nil")
 	}
@@ -1859,15 +1859,15 @@ func (p *PushMessageContentLocation) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentLocation) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentLocation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentLocation#b33a97b3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentLocation"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentLocation#b33a97b3: %w", err)
 			}
@@ -2068,8 +2068,8 @@ func (p *PushMessageContentPhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentPhoto#861dc52 as nil")
 	}
@@ -2089,15 +2089,15 @@ func (p *PushMessageContentPhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentPhoto) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentPhoto#861dc52 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentPhoto"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentPhoto#861dc52: %w", err)
 			}
@@ -2301,8 +2301,8 @@ func (p *PushMessageContentPoll) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentPoll) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentPoll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentPoll#fd5a743a as nil")
 	}
@@ -2318,15 +2318,15 @@ func (p *PushMessageContentPoll) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentPoll) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentPoll) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentPoll#fd5a743a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentPoll"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentPoll#fd5a743a: %w", err)
 			}
@@ -2469,8 +2469,8 @@ func (p *PushMessageContentScreenshotTaken) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentScreenshotTaken) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentScreenshotTaken) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentScreenshotTaken#cc51ff9 as nil")
 	}
@@ -2480,15 +2480,15 @@ func (p *PushMessageContentScreenshotTaken) EncodeTDLibJSON(b jsontd.Encoder) er
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentScreenshotTaken) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentScreenshotTaken) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentScreenshotTaken#cc51ff9 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentScreenshotTaken"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentScreenshotTaken#cc51ff9: %w", err)
 			}
@@ -2650,8 +2650,8 @@ func (p *PushMessageContentSticker) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentSticker) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentSticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentSticker#5c98bdd3 as nil")
 	}
@@ -2669,15 +2669,15 @@ func (p *PushMessageContentSticker) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentSticker) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentSticker) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentSticker#5c98bdd3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentSticker"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentSticker#5c98bdd3: %w", err)
 			}
@@ -2853,8 +2853,8 @@ func (p *PushMessageContentText) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentText) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentText) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentText#105ddea9 as nil")
 	}
@@ -2868,15 +2868,15 @@ func (p *PushMessageContentText) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentText) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentText) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentText#105ddea9 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentText"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentText#105ddea9: %w", err)
 			}
@@ -3077,8 +3077,8 @@ func (p *PushMessageContentVideo) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentVideo#127ad12f as nil")
 	}
@@ -3098,15 +3098,15 @@ func (p *PushMessageContentVideo) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentVideo) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentVideo#127ad12f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentVideo"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentVideo#127ad12f: %w", err)
 			}
@@ -3293,8 +3293,8 @@ func (p *PushMessageContentVideoNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentVideoNote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentVideoNote#bd13f97f as nil")
 	}
@@ -3310,15 +3310,15 @@ func (p *PushMessageContentVideoNote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentVideoNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentVideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentVideoNote#bd13f97f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentVideoNote"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentVideoNote#bd13f97f: %w", err)
 			}
@@ -3483,8 +3483,8 @@ func (p *PushMessageContentVoiceNote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentVoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentVoiceNote#54cac8b as nil")
 	}
@@ -3500,15 +3500,15 @@ func (p *PushMessageContentVoiceNote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentVoiceNote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentVoiceNote#54cac8b to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentVoiceNote"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentVoiceNote#54cac8b: %w", err)
 			}
@@ -3638,8 +3638,8 @@ func (p *PushMessageContentBasicGroupChatCreate) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentBasicGroupChatCreate) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentBasicGroupChatCreate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentBasicGroupChatCreate#81f1defc as nil")
 	}
@@ -3649,15 +3649,15 @@ func (p *PushMessageContentBasicGroupChatCreate) EncodeTDLibJSON(b jsontd.Encode
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentBasicGroupChatCreate) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentBasicGroupChatCreate) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentBasicGroupChatCreate#81f1defc to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentBasicGroupChatCreate"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentBasicGroupChatCreate#81f1defc: %w", err)
 			}
@@ -3819,8 +3819,8 @@ func (p *PushMessageContentChatAddMembers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentChatAddMembers) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentChatAddMembers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentChatAddMembers#bf337b3a as nil")
 	}
@@ -3836,15 +3836,15 @@ func (p *PushMessageContentChatAddMembers) EncodeTDLibJSON(b jsontd.Encoder) err
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentChatAddMembers) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentChatAddMembers) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentChatAddMembers#bf337b3a to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentChatAddMembers"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentChatAddMembers#bf337b3a: %w", err)
 			}
@@ -3987,8 +3987,8 @@ func (p *PushMessageContentChatChangePhoto) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentChatChangePhoto) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentChatChangePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentChatChangePhoto#bd96521d as nil")
 	}
@@ -3998,15 +3998,15 @@ func (p *PushMessageContentChatChangePhoto) EncodeTDLibJSON(b jsontd.Encoder) er
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentChatChangePhoto) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentChatChangePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentChatChangePhoto#bd96521d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentChatChangePhoto"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentChatChangePhoto#bd96521d: %w", err)
 			}
@@ -4134,8 +4134,8 @@ func (p *PushMessageContentChatChangeTitle) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentChatChangeTitle) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentChatChangeTitle) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentChatChangeTitle#8ae1f6a3 as nil")
 	}
@@ -4147,15 +4147,15 @@ func (p *PushMessageContentChatChangeTitle) EncodeTDLibJSON(b jsontd.Encoder) er
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentChatChangeTitle) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentChatChangeTitle) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentChatChangeTitle#8ae1f6a3 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentChatChangeTitle"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentChatChangeTitle#8ae1f6a3: %w", err)
 			}
@@ -4328,8 +4328,8 @@ func (p *PushMessageContentChatDeleteMember) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentChatDeleteMember) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentChatDeleteMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentChatDeleteMember#23afa99f as nil")
 	}
@@ -4345,15 +4345,15 @@ func (p *PushMessageContentChatDeleteMember) EncodeTDLibJSON(b jsontd.Encoder) e
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentChatDeleteMember) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentChatDeleteMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentChatDeleteMember#23afa99f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentChatDeleteMember"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentChatDeleteMember#23afa99f: %w", err)
 			}
@@ -4496,8 +4496,8 @@ func (p *PushMessageContentChatJoinByLink) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentChatJoinByLink) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentChatJoinByLink) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentChatJoinByLink#5c9bdf49 as nil")
 	}
@@ -4507,15 +4507,15 @@ func (p *PushMessageContentChatJoinByLink) EncodeTDLibJSON(b jsontd.Encoder) err
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentChatJoinByLink) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentChatJoinByLink) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentChatJoinByLink#5c9bdf49 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentChatJoinByLink"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentChatJoinByLink#5c9bdf49: %w", err)
 			}
@@ -4643,8 +4643,8 @@ func (p *PushMessageContentMessageForwards) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentMessageForwards) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentMessageForwards) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentMessageForwards#8df8a81c as nil")
 	}
@@ -4656,15 +4656,15 @@ func (p *PushMessageContentMessageForwards) EncodeTDLibJSON(b jsontd.Encoder) er
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentMessageForwards) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentMessageForwards) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentMessageForwards#8df8a81c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentMessageForwards"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentMessageForwards#8df8a81c: %w", err)
 			}
@@ -4871,8 +4871,8 @@ func (p *PushMessageContentMediaAlbum) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (p *PushMessageContentMediaAlbum) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentMediaAlbum) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pushMessageContentMediaAlbum#d363e96f as nil")
 	}
@@ -4892,15 +4892,15 @@ func (p *PushMessageContentMediaAlbum) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (p *PushMessageContentMediaAlbum) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentMediaAlbum) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
 		return fmt.Errorf("can't decode pushMessageContentMediaAlbum#d363e96f to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentMediaAlbum"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentMediaAlbum#d363e96f: %w", err)
 			}
@@ -5020,8 +5020,8 @@ type PushMessageContentClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodePushMessageContent implements binary de-serialization for PushMessageContentClass.
@@ -5219,7 +5219,7 @@ func DecodePushMessageContent(buf *bin.Buffer) (PushMessageContentClass, error) 
 }
 
 // DecodeTDLibJSONPushMessageContent implements binary de-serialization for PushMessageContentClass.
-func DecodeTDLibJSONPushMessageContent(buf jsontd.Decoder) (PushMessageContentClass, error) {
+func DecodeTDLibJSONPushMessageContent(buf tdjson.Decoder) (PushMessageContentClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -5408,7 +5408,7 @@ func DecodeTDLibJSONPushMessageContent(buf jsontd.Decoder) (PushMessageContentCl
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -5439,7 +5439,7 @@ func (b *PushMessageContentBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for PushMessageContentBox.
-func (b *PushMessageContentBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *PushMessageContentBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode PushMessageContentBox to nil")
 	}
@@ -5452,7 +5452,7 @@ func (b *PushMessageContentBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for PushMessageContentBox.
-func (b *PushMessageContentBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *PushMessageContentBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.PushMessageContent == nil {
 		return fmt.Errorf("unable to encode PushMessageContentClass as nil")
 	}

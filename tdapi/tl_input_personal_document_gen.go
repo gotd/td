@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // InputPersonalDocument represents TL type `inputPersonalDocument#bb343fae`.
@@ -196,8 +196,8 @@ func (i *InputPersonalDocument) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputPersonalDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputPersonalDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputPersonalDocument#bb343fae as nil")
 	}
@@ -229,20 +229,20 @@ func (i *InputPersonalDocument) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputPersonalDocument) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputPersonalDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputPersonalDocument#bb343fae to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputPersonalDocument"); err != nil {
 				return fmt.Errorf("unable to decode inputPersonalDocument#bb343fae: %w", err)
 			}
 		case "files":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONInputFile(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode inputPersonalDocument#bb343fae: field files: %w", err)
@@ -253,7 +253,7 @@ func (i *InputPersonalDocument) DecodeTDLibJSON(b jsontd.Decoder) error {
 				return fmt.Errorf("unable to decode inputPersonalDocument#bb343fae: field files: %w", err)
 			}
 		case "translation":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONInputFile(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode inputPersonalDocument#bb343fae: field translation: %w", err)

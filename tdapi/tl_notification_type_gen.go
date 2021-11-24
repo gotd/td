@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // NotificationTypeNewMessage represents TL type `notificationTypeNewMessage#70691637`.
@@ -148,8 +148,8 @@ func (n *NotificationTypeNewMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (n *NotificationTypeNewMessage) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (n *NotificationTypeNewMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationTypeNewMessage#70691637 as nil")
 	}
@@ -163,15 +163,15 @@ func (n *NotificationTypeNewMessage) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (n *NotificationTypeNewMessage) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (n *NotificationTypeNewMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
 		return fmt.Errorf("can't decode notificationTypeNewMessage#70691637 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("notificationTypeNewMessage"); err != nil {
 				return fmt.Errorf("unable to decode notificationTypeNewMessage#70691637: %w", err)
 			}
@@ -290,8 +290,8 @@ func (n *NotificationTypeNewSecretChat) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (n *NotificationTypeNewSecretChat) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (n *NotificationTypeNewSecretChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationTypeNewSecretChat#4771c6b0 as nil")
 	}
@@ -301,15 +301,15 @@ func (n *NotificationTypeNewSecretChat) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (n *NotificationTypeNewSecretChat) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (n *NotificationTypeNewSecretChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
 		return fmt.Errorf("can't decode notificationTypeNewSecretChat#4771c6b0 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("notificationTypeNewSecretChat"); err != nil {
 				return fmt.Errorf("unable to decode notificationTypeNewSecretChat#4771c6b0: %w", err)
 			}
@@ -437,8 +437,8 @@ func (n *NotificationTypeNewCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (n *NotificationTypeNewCall) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (n *NotificationTypeNewCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationTypeNewCall#66164179 as nil")
 	}
@@ -450,15 +450,15 @@ func (n *NotificationTypeNewCall) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (n *NotificationTypeNewCall) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (n *NotificationTypeNewCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
 		return fmt.Errorf("can't decode notificationTypeNewCall#66164179 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("notificationTypeNewCall"); err != nil {
 				return fmt.Errorf("unable to decode notificationTypeNewCall#66164179: %w", err)
 			}
@@ -676,8 +676,8 @@ func (n *NotificationTypeNewPushMessage) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (n *NotificationTypeNewPushMessage) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (n *NotificationTypeNewPushMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationTypeNewPushMessage#88ccb27e as nil")
 	}
@@ -707,15 +707,15 @@ func (n *NotificationTypeNewPushMessage) EncodeTDLibJSON(b jsontd.Encoder) error
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (n *NotificationTypeNewPushMessage) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (n *NotificationTypeNewPushMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
 		return fmt.Errorf("can't decode notificationTypeNewPushMessage#88ccb27e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("notificationTypeNewPushMessage"); err != nil {
 				return fmt.Errorf("unable to decode notificationTypeNewPushMessage#88ccb27e: %w", err)
 			}
@@ -813,8 +813,8 @@ type NotificationTypeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeNotificationType implements binary de-serialization for NotificationTypeClass.
@@ -858,7 +858,7 @@ func DecodeNotificationType(buf *bin.Buffer) (NotificationTypeClass, error) {
 }
 
 // DecodeTDLibJSONNotificationType implements binary de-serialization for NotificationTypeClass.
-func DecodeTDLibJSONNotificationType(buf jsontd.Decoder) (NotificationTypeClass, error) {
+func DecodeTDLibJSONNotificationType(buf tdjson.Decoder) (NotificationTypeClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -893,7 +893,7 @@ func DecodeTDLibJSONNotificationType(buf jsontd.Decoder) (NotificationTypeClass,
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode NotificationTypeClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode NotificationTypeClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -924,7 +924,7 @@ func (b *NotificationTypeBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for NotificationTypeBox.
-func (b *NotificationTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *NotificationTypeBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode NotificationTypeBox to nil")
 	}
@@ -937,7 +937,7 @@ func (b *NotificationTypeBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for NotificationTypeBox.
-func (b *NotificationTypeBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *NotificationTypeBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.NotificationType == nil {
 		return fmt.Errorf("unable to encode NotificationTypeClass as nil")
 	}

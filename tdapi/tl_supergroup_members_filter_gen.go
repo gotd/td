@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // SupergroupMembersFilterRecent represents TL type `supergroupMembersFilterRecent#4639e5d5`.
@@ -130,8 +130,8 @@ func (s *SupergroupMembersFilterRecent) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SupergroupMembersFilterRecent) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SupergroupMembersFilterRecent) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode supergroupMembersFilterRecent#4639e5d5 as nil")
 	}
@@ -141,15 +141,15 @@ func (s *SupergroupMembersFilterRecent) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SupergroupMembersFilterRecent) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SupergroupMembersFilterRecent) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode supergroupMembersFilterRecent#4639e5d5 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("supergroupMembersFilterRecent"); err != nil {
 				return fmt.Errorf("unable to decode supergroupMembersFilterRecent#4639e5d5: %w", err)
 			}
@@ -277,8 +277,8 @@ func (s *SupergroupMembersFilterContacts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SupergroupMembersFilterContacts) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SupergroupMembersFilterContacts) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode supergroupMembersFilterContacts#b3885578 as nil")
 	}
@@ -290,15 +290,15 @@ func (s *SupergroupMembersFilterContacts) EncodeTDLibJSON(b jsontd.Encoder) erro
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SupergroupMembersFilterContacts) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SupergroupMembersFilterContacts) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode supergroupMembersFilterContacts#b3885578 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("supergroupMembersFilterContacts"); err != nil {
 				return fmt.Errorf("unable to decode supergroupMembersFilterContacts#b3885578: %w", err)
 			}
@@ -419,8 +419,8 @@ func (s *SupergroupMembersFilterAdministrators) DecodeBare(b *bin.Buffer) error 
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SupergroupMembersFilterAdministrators) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SupergroupMembersFilterAdministrators) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode supergroupMembersFilterAdministrators#82fc8457 as nil")
 	}
@@ -430,15 +430,15 @@ func (s *SupergroupMembersFilterAdministrators) EncodeTDLibJSON(b jsontd.Encoder
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SupergroupMembersFilterAdministrators) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SupergroupMembersFilterAdministrators) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode supergroupMembersFilterAdministrators#82fc8457 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("supergroupMembersFilterAdministrators"); err != nil {
 				return fmt.Errorf("unable to decode supergroupMembersFilterAdministrators#82fc8457: %w", err)
 			}
@@ -566,8 +566,8 @@ func (s *SupergroupMembersFilterSearch) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SupergroupMembersFilterSearch) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SupergroupMembersFilterSearch) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode supergroupMembersFilterSearch#9ae39fbb as nil")
 	}
@@ -579,15 +579,15 @@ func (s *SupergroupMembersFilterSearch) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SupergroupMembersFilterSearch) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SupergroupMembersFilterSearch) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode supergroupMembersFilterSearch#9ae39fbb to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("supergroupMembersFilterSearch"); err != nil {
 				return fmt.Errorf("unable to decode supergroupMembersFilterSearch#9ae39fbb: %w", err)
 			}
@@ -726,8 +726,8 @@ func (s *SupergroupMembersFilterRestricted) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SupergroupMembersFilterRestricted) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SupergroupMembersFilterRestricted) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode supergroupMembersFilterRestricted#bdf8501e as nil")
 	}
@@ -739,15 +739,15 @@ func (s *SupergroupMembersFilterRestricted) EncodeTDLibJSON(b jsontd.Encoder) er
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SupergroupMembersFilterRestricted) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SupergroupMembersFilterRestricted) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode supergroupMembersFilterRestricted#bdf8501e to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("supergroupMembersFilterRestricted"); err != nil {
 				return fmt.Errorf("unable to decode supergroupMembersFilterRestricted#bdf8501e: %w", err)
 			}
@@ -886,8 +886,8 @@ func (s *SupergroupMembersFilterBanned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SupergroupMembersFilterBanned) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SupergroupMembersFilterBanned) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode supergroupMembersFilterBanned#b7d7610d as nil")
 	}
@@ -899,15 +899,15 @@ func (s *SupergroupMembersFilterBanned) EncodeTDLibJSON(b jsontd.Encoder) error 
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SupergroupMembersFilterBanned) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SupergroupMembersFilterBanned) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode supergroupMembersFilterBanned#b7d7610d to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("supergroupMembersFilterBanned"); err != nil {
 				return fmt.Errorf("unable to decode supergroupMembersFilterBanned#b7d7610d: %w", err)
 			}
@@ -1063,8 +1063,8 @@ func (s *SupergroupMembersFilterMention) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SupergroupMembersFilterMention) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SupergroupMembersFilterMention) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode supergroupMembersFilterMention#3880091c as nil")
 	}
@@ -1078,15 +1078,15 @@ func (s *SupergroupMembersFilterMention) EncodeTDLibJSON(b jsontd.Encoder) error
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SupergroupMembersFilterMention) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SupergroupMembersFilterMention) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode supergroupMembersFilterMention#3880091c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("supergroupMembersFilterMention"); err != nil {
 				return fmt.Errorf("unable to decode supergroupMembersFilterMention#3880091c: %w", err)
 			}
@@ -1218,8 +1218,8 @@ func (s *SupergroupMembersFilterBots) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (s *SupergroupMembersFilterBots) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SupergroupMembersFilterBots) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
 		return fmt.Errorf("can't encode supergroupMembersFilterBots#1d5571a6 as nil")
 	}
@@ -1229,15 +1229,15 @@ func (s *SupergroupMembersFilterBots) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (s *SupergroupMembersFilterBots) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SupergroupMembersFilterBots) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
 		return fmt.Errorf("can't decode supergroupMembersFilterBots#1d5571a6 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("supergroupMembersFilterBots"); err != nil {
 				return fmt.Errorf("unable to decode supergroupMembersFilterBots#1d5571a6: %w", err)
 			}
@@ -1284,8 +1284,8 @@ type SupergroupMembersFilterClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeSupergroupMembersFilter implements binary de-serialization for SupergroupMembersFilterClass.
@@ -1357,7 +1357,7 @@ func DecodeSupergroupMembersFilter(buf *bin.Buffer) (SupergroupMembersFilterClas
 }
 
 // DecodeTDLibJSONSupergroupMembersFilter implements binary de-serialization for SupergroupMembersFilterClass.
-func DecodeTDLibJSONSupergroupMembersFilter(buf jsontd.Decoder) (SupergroupMembersFilterClass, error) {
+func DecodeTDLibJSONSupergroupMembersFilter(buf tdjson.Decoder) (SupergroupMembersFilterClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -1420,7 +1420,7 @@ func DecodeTDLibJSONSupergroupMembersFilter(buf jsontd.Decoder) (SupergroupMembe
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode SupergroupMembersFilterClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode SupergroupMembersFilterClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -1451,7 +1451,7 @@ func (b *SupergroupMembersFilterBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for SupergroupMembersFilterBox.
-func (b *SupergroupMembersFilterBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *SupergroupMembersFilterBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode SupergroupMembersFilterBox to nil")
 	}
@@ -1464,7 +1464,7 @@ func (b *SupergroupMembersFilterBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for SupergroupMembersFilterBox.
-func (b *SupergroupMembersFilterBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *SupergroupMembersFilterBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.SupergroupMembersFilter == nil {
 		return fmt.Errorf("unable to encode SupergroupMembersFilterClass as nil")
 	}

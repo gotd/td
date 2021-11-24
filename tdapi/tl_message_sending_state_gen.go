@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // MessageSendingStatePending represents TL type `messageSendingStatePending#ada359c2`.
@@ -130,8 +130,8 @@ func (m *MessageSendingStatePending) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (m *MessageSendingStatePending) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageSendingStatePending) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageSendingStatePending#ada359c2 as nil")
 	}
@@ -141,15 +141,15 @@ func (m *MessageSendingStatePending) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (m *MessageSendingStatePending) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageSendingStatePending) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageSendingStatePending#ada359c2 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("messageSendingStatePending"); err != nil {
 				return fmt.Errorf("unable to decode messageSendingStatePending#ada359c2: %w", err)
 			}
@@ -329,8 +329,8 @@ func (m *MessageSendingStateFailed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (m *MessageSendingStateFailed) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageSendingStateFailed) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageSendingStateFailed#7a74d137 as nil")
 	}
@@ -348,15 +348,15 @@ func (m *MessageSendingStateFailed) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (m *MessageSendingStateFailed) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageSendingStateFailed) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageSendingStateFailed#7a74d137 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("messageSendingStateFailed"); err != nil {
 				return fmt.Errorf("unable to decode messageSendingStateFailed#7a74d137: %w", err)
 			}
@@ -441,8 +441,8 @@ type MessageSendingStateClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeMessageSendingState implements binary de-serialization for MessageSendingStateClass.
@@ -472,7 +472,7 @@ func DecodeMessageSendingState(buf *bin.Buffer) (MessageSendingStateClass, error
 }
 
 // DecodeTDLibJSONMessageSendingState implements binary de-serialization for MessageSendingStateClass.
-func DecodeTDLibJSONMessageSendingState(buf jsontd.Decoder) (MessageSendingStateClass, error) {
+func DecodeTDLibJSONMessageSendingState(buf tdjson.Decoder) (MessageSendingStateClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -493,7 +493,7 @@ func DecodeTDLibJSONMessageSendingState(buf jsontd.Decoder) (MessageSendingState
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode MessageSendingStateClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode MessageSendingStateClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -524,7 +524,7 @@ func (b *MessageSendingStateBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for MessageSendingStateBox.
-func (b *MessageSendingStateBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *MessageSendingStateBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode MessageSendingStateBox to nil")
 	}
@@ -537,7 +537,7 @@ func (b *MessageSendingStateBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for MessageSendingStateBox.
-func (b *MessageSendingStateBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *MessageSendingStateBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.MessageSendingState == nil {
 		return fmt.Errorf("unable to encode MessageSendingStateClass as nil")
 	}

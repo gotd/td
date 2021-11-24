@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // NetworkStatistics represents TL type `networkStatistics#d86acb3c`.
@@ -178,8 +178,8 @@ func (n *NetworkStatistics) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (n *NetworkStatistics) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (n *NetworkStatistics) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
 		return fmt.Errorf("can't encode networkStatistics#d86acb3c as nil")
 	}
@@ -202,15 +202,15 @@ func (n *NetworkStatistics) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (n *NetworkStatistics) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (n *NetworkStatistics) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
 		return fmt.Errorf("can't decode networkStatistics#d86acb3c to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("networkStatistics"); err != nil {
 				return fmt.Errorf("unable to decode networkStatistics#d86acb3c: %w", err)
 			}
@@ -221,7 +221,7 @@ func (n *NetworkStatistics) DecodeTDLibJSON(b jsontd.Decoder) error {
 			}
 			n.SinceDate = value
 		case "entries":
-			if err := b.Arr(func(b jsontd.Decoder) error {
+			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONNetworkStatisticsEntry(b)
 				if err != nil {
 					return fmt.Errorf("unable to decode networkStatistics#d86acb3c: field entries: %w", err)

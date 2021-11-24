@@ -12,7 +12,7 @@ import (
 	"go.uber.org/multierr"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/jsontd"
+	"github.com/gotd/td/tdjson"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
 )
@@ -28,7 +28,7 @@ var (
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
-	_ = jsontd.Encoder{}
+	_ = tdjson.Encoder{}
 )
 
 // InputBackgroundLocal represents TL type `inputBackgroundLocal#97dd74a4`.
@@ -154,8 +154,8 @@ func (i *InputBackgroundLocal) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputBackgroundLocal) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputBackgroundLocal) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputBackgroundLocal#97dd74a4 as nil")
 	}
@@ -172,15 +172,15 @@ func (i *InputBackgroundLocal) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputBackgroundLocal) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputBackgroundLocal) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputBackgroundLocal#97dd74a4 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputBackgroundLocal"); err != nil {
 				return fmt.Errorf("unable to decode inputBackgroundLocal#97dd74a4: %w", err)
 			}
@@ -319,8 +319,8 @@ func (i *InputBackgroundRemote) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncodeTDLibJSON implements jsontd.TDLibEncoder.
-func (i *InputBackgroundRemote) EncodeTDLibJSON(b jsontd.Encoder) error {
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputBackgroundRemote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputBackgroundRemote#ef9c3219 as nil")
 	}
@@ -332,15 +332,15 @@ func (i *InputBackgroundRemote) EncodeTDLibJSON(b jsontd.Encoder) error {
 	return nil
 }
 
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func (i *InputBackgroundRemote) DecodeTDLibJSON(b jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputBackgroundRemote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputBackgroundRemote#ef9c3219 to nil")
 	}
 
-	return b.Obj(func(b jsontd.Decoder, key []byte) error {
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
-		case jsontd.TypeField:
+		case tdjson.TypeField:
 			if err := b.ConsumeID("inputBackgroundRemote"); err != nil {
 				return fmt.Errorf("unable to decode inputBackgroundRemote#ef9c3219: %w", err)
 			}
@@ -392,8 +392,8 @@ type InputBackgroundClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	EncodeTDLibJSON(b jsontd.Encoder) error
-	DecodeTDLibJSON(b jsontd.Decoder) error
+	EncodeTDLibJSON(b tdjson.Encoder) error
+	DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // DecodeInputBackground implements binary de-serialization for InputBackgroundClass.
@@ -423,7 +423,7 @@ func DecodeInputBackground(buf *bin.Buffer) (InputBackgroundClass, error) {
 }
 
 // DecodeTDLibJSONInputBackground implements binary de-serialization for InputBackgroundClass.
-func DecodeTDLibJSONInputBackground(buf jsontd.Decoder) (InputBackgroundClass, error) {
+func DecodeTDLibJSONInputBackground(buf tdjson.Decoder) (InputBackgroundClass, error) {
 	id, err := buf.FindTypeID()
 	if err != nil {
 		return nil, err
@@ -444,7 +444,7 @@ func DecodeTDLibJSONInputBackground(buf jsontd.Decoder) (InputBackgroundClass, e
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode InputBackgroundClass: %w", jsontd.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode InputBackgroundClass: %w", tdjson.NewUnexpectedID(id))
 	}
 }
 
@@ -475,7 +475,7 @@ func (b *InputBackgroundBox) Encode(buf *bin.Buffer) error {
 }
 
 // DecodeTDLibJSON implements bin.Decoder for InputBackgroundBox.
-func (b *InputBackgroundBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *InputBackgroundBox) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
 		return fmt.Errorf("unable to decode InputBackgroundBox to nil")
 	}
@@ -488,7 +488,7 @@ func (b *InputBackgroundBox) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for InputBackgroundBox.
-func (b *InputBackgroundBox) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *InputBackgroundBox) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil || b.InputBackground == nil {
 		return fmt.Errorf("unable to encode InputBackgroundClass as nil")
 	}
