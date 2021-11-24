@@ -1,14 +1,14 @@
 {{- /*gotype: github.com/gotd/td/internal/gen.structDef*/ -}}
 {{ define "decode_tdlib_json" }}{{ $s := . }}
-// DecodeTDLibJSON implements jsontd.TDLibDecoder.
-func ({{ $s.Receiver }} *{{ $s.Name }}) DecodeTDLibJSON({{ $s.BufArg }} jsontd.Decoder) error {
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func ({{ $s.Receiver }} *{{ $s.Name }}) DecodeTDLibJSON({{ $s.BufArg }} tdjson.Decoder) error {
     if {{ $s.Receiver }} == nil {
         return fmt.Errorf("can't decode {{ $s.RawType }} to nil")
     }
 
-    return {{ $s.BufArg }}.Obj(func({{ $s.BufArg }} jsontd.Decoder, key []byte) error {
+    return {{ $s.BufArg }}.Obj(func({{ $s.BufArg }} tdjson.Decoder, key []byte) error {
         switch string(key) {
-        case jsontd.TypeField:
+        case tdjson.TypeField:
             if err := {{ $s.BufArg }}.ConsumeID("{{ $s.RawName }}"); err != nil {
                 return fmt.Errorf("unable to decode {{ $s.RawType }}: %w", err)
             }
@@ -18,11 +18,11 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) DecodeTDLibJSON({{ $s.BufArg }} jsontd.D
             {{ $s.Receiver }}.{{ $f.ConditionalField }}.Set({{ $f.ConditionalIndex }})
         {{- end }}
         {{- if $f.Vector }}
-            if err := {{ $s.BufArg }}.Arr(func({{ $s.BufArg }} jsontd.Decoder) error {
+            if err := {{ $s.BufArg }}.Arr(func({{ $s.BufArg }} tdjson.Decoder) error {
 
             {{- if $f.DoubleVector }}
                 var row []{{ $f.Type }}
-                if err := {{ $s.BufArg }}.Arr(func({{ $s.BufArg }} jsontd.Decoder) error {
+                if err := {{ $s.BufArg }}.Arr(func({{ $s.BufArg }} tdjson.Decoder) error {
             {{- end }}
             {{- if $f.Interface }}
                 value, err := DecodeTDLibJSON{{ $f.InterfaceFunc }}({{ $s.BufArg }})

@@ -1,4 +1,4 @@
-package jsontd
+package tdjson
 
 import (
 	"fmt"

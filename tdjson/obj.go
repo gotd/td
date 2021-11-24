@@ -1,4 +1,4 @@
-package jsontd
+package tdjson
 
 // TDLibEncoder represents TDLib JSON API encoder.
 type TDLibEncoder interface {

@@ -23,7 +23,7 @@ func Decode{{ $f.Func }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
 
 {{- if $.Config.Flags.TDLibJSON }}
 // DecodeTDLibJSON{{ $f.Func }} implements binary de-serialization for {{ $f.Name }}.
-func DecodeTDLibJSON{{ $f.Func }} (buf jsontd.Decoder) ({{ $f.Name }}, error) {
+func DecodeTDLibJSON{{ $f.Func }} (buf tdjson.Decoder) ({{ $f.Name }}, error) {
     id, err := buf.FindTypeID()
     if err != nil {
         return nil, err
@@ -39,7 +39,7 @@ func DecodeTDLibJSON{{ $f.Func }} (buf jsontd.Decoder) ({{ $f.Name }}, error) {
         return &v, nil
     {{- end }}
     default:
-        return nil, fmt.Errorf("unable to decode {{ $f.Name }}: %w", jsontd.NewUnexpectedID(id))
+        return nil, fmt.Errorf("unable to decode {{ $f.Name }}: %w", tdjson.NewUnexpectedID(id))
     }
 }
 {{- end }}
@@ -72,7 +72,7 @@ func (b *{{ $f.Func }}Box) Encode(buf *bin.Buffer) error {
 
 {{- if $.Config.Flags.TDLibJSON }}
 // DecodeTDLibJSON implements bin.Decoder for {{ $f.Func }}Box.
-func (b *{{ $f.Func }}Box) DecodeTDLibJSON(buf jsontd.Decoder) error {
+func (b *{{ $f.Func }}Box) DecodeTDLibJSON(buf tdjson.Decoder) error {
     if b == nil {
         return fmt.Errorf("unable to decode {{ $f.Func }}Box to nil")
     }
@@ -85,7 +85,7 @@ func (b *{{ $f.Func }}Box) DecodeTDLibJSON(buf jsontd.Decoder) error {
 }
 
 // EncodeTDLibJSON implements bin.Encode for {{ $f.Func }}Box.
-func (b *{{ $f.Func }}Box) EncodeTDLibJSON(buf jsontd.Encoder) error {
+func (b *{{ $f.Func }}Box) EncodeTDLibJSON(buf tdjson.Encoder) error {
     if b == nil || b.{{ $f.BaseName }} == nil {
         return fmt.Errorf("unable to encode {{ $f.Name }} as nil")
     }
