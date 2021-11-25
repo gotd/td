@@ -166,6 +166,9 @@ func (g *AccountGetWallPaperRequest) GetWallpaper() (value InputWallPaperClass) 
 // AccountGetWallPaper invokes method account.getWallPaper#fc8ddbea returning error if any.
 // Get info about a certain wallpaper
 //
+// Possible errors:
+//  400 WALLPAPER_INVALID: The specified wallpaper is invalid.
+//
 // See https://core.telegram.org/method/account.getWallPaper for reference.
 func (c *Client) AccountGetWallPaper(ctx context.Context, wallpaper InputWallPaperClass) (WallPaperClass, error) {
 	var result WallPaperBox

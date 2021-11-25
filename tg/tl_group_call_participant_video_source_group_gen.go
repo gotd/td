@@ -32,12 +32,13 @@ var (
 )
 
 // GroupCallParticipantVideoSourceGroup represents TL type `groupCallParticipantVideoSourceGroup#dcb118b7`.
+// Describes a group of video synchronization source identifiers
 //
 // See https://core.telegram.org/constructor/groupCallParticipantVideoSourceGroup for reference.
 type GroupCallParticipantVideoSourceGroup struct {
-	// Semantics field of GroupCallParticipantVideoSourceGroup.
+	// SDP semantics
 	Semantics string
-	// Sources field of GroupCallParticipantVideoSourceGroup.
+	// Source IDs
 	Sources []int
 }
 

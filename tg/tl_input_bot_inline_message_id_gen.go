@@ -32,13 +32,14 @@ var (
 )
 
 // InputBotInlineMessageID represents TL type `inputBotInlineMessageID#890c3d89`.
-// Represents a sent inline message from the perspective of a bot
+// Represents a sent inline message from the perspective of a bot (legacy constructor)
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageID for reference.
 type InputBotInlineMessageID struct {
 	// DC ID to use when working with this inline message
 	DCID int
-	// ID of message
+	// ID of message, contains both the (32-bit, legacy) owner ID and the message ID, used
+	// only for Bot API backwards compatibility with 32-bit user ID.
 	ID int64
 	// Access hash of message
 	AccessHash int64
@@ -212,16 +213,17 @@ func (i *InputBotInlineMessageID) GetAccessHash() (value int64) {
 }
 
 // InputBotInlineMessageID64 represents TL type `inputBotInlineMessageID64#b6d915d7`.
+// Represents a sent inline message from the perspective of a bot
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageID64 for reference.
 type InputBotInlineMessageID64 struct {
-	// DCID field of InputBotInlineMessageID64.
+	// DC ID to use when working with this inline message
 	DCID int
-	// OwnerID field of InputBotInlineMessageID64.
+	// ID of the owner of this message
 	OwnerID int64
-	// ID field of InputBotInlineMessageID64.
+	// ID of message
 	ID int
-	// AccessHash field of InputBotInlineMessageID64.
+	// Access hash of message
 	AccessHash int64
 }
 

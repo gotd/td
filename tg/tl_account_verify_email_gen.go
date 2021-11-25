@@ -192,7 +192,8 @@ func (v *AccountVerifyEmailRequest) GetCode() (value string) {
 //  1) https://core.telegram.org/passport
 //
 // Possible errors:
-//  400 EMAIL_VERIFY_EXPIRED: The verification email has expired
+//  400 EMAIL_INVALID: The specified email is invalid.
+//  400 EMAIL_VERIFY_EXPIRED: The verification email has expired.
 //
 // See https://core.telegram.org/method/account.verifyEmail for reference.
 func (c *Client) AccountVerifyEmail(ctx context.Context, request *AccountVerifyEmailRequest) (bool, error) {

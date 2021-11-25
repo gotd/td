@@ -32,10 +32,12 @@ var (
 )
 
 // AccountResetPasswordFailedWait represents TL type `account.resetPasswordFailedWait#e3779861`.
+// You recently requested a password reset that was canceled, please wait until the
+// specified date before requesting another reset.
 //
 // See https://core.telegram.org/constructor/account.resetPasswordFailedWait for reference.
 type AccountResetPasswordFailedWait struct {
-	// RetryDate field of AccountResetPasswordFailedWait.
+	// Wait until this date before requesting another reset.
 	RetryDate int
 }
 
@@ -163,10 +165,12 @@ func (r *AccountResetPasswordFailedWait) GetRetryDate() (value int) {
 }
 
 // AccountResetPasswordRequestedWait represents TL type `account.resetPasswordRequestedWait#e9effc7d`.
+// You successfully requested a password reset, please wait until the specified date
+// before finalizing the reset.
 //
 // See https://core.telegram.org/constructor/account.resetPasswordRequestedWait for reference.
 type AccountResetPasswordRequestedWait struct {
-	// UntilDate field of AccountResetPasswordRequestedWait.
+	// Wait until this date before finalizing the reset.
 	UntilDate int
 }
 
@@ -294,6 +298,7 @@ func (r *AccountResetPasswordRequestedWait) GetUntilDate() (value int) {
 }
 
 // AccountResetPasswordOk represents TL type `account.resetPasswordOk#e926d63e`.
+// The 2FA password was reset successfully.
 //
 // See https://core.telegram.org/constructor/account.resetPasswordOk for reference.
 type AccountResetPasswordOk struct {

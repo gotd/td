@@ -32,12 +32,13 @@ var (
 )
 
 // ChannelsViewSponsoredMessageRequest represents TL type `channels.viewSponsoredMessage#beaedb94`.
+// Mark a specific sponsored message as read
 //
 // See https://core.telegram.org/method/channels.viewSponsoredMessage for reference.
 type ChannelsViewSponsoredMessageRequest struct {
-	// Channel field of ChannelsViewSponsoredMessageRequest.
+	// Peer
 	Channel InputChannelClass
-	// RandomID field of ChannelsViewSponsoredMessageRequest.
+	// Message ID
 	RandomID []byte
 }
 
@@ -192,6 +193,10 @@ func (v *ChannelsViewSponsoredMessageRequest) GetChannelAsNotEmpty() (NotEmptyIn
 }
 
 // ChannelsViewSponsoredMessage invokes method channels.viewSponsoredMessage#beaedb94 returning error if any.
+// Mark a specific sponsored message as read
+//
+// Possible errors:
+//  400 UNKNOWN_ERROR: Internal error.
 //
 // See https://core.telegram.org/method/channels.viewSponsoredMessage for reference.
 func (c *Client) ChannelsViewSponsoredMessage(ctx context.Context, request *ChannelsViewSponsoredMessageRequest) (bool, error) {

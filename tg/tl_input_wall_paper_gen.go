@@ -320,11 +320,15 @@ func (i *InputWallPaperSlug) GetSlug() (value string) {
 }
 
 // InputWallPaperNoFile represents TL type `inputWallPaperNoFile#967a462e`.
-// Wallpaper with no file
+// Wallpaper with no file access hash, used for example when deleting (unsave=true)
+// wallpapers using account.saveWallPaper¹, specifying just the wallpaper ID.
+//
+// Links:
+//  1) https://core.telegram.org/method/account.saveWallPaper
 //
 // See https://core.telegram.org/constructor/inputWallPaperNoFile for reference.
 type InputWallPaperNoFile struct {
-	// ID field of InputWallPaperNoFile.
+	// Wallpaper ID
 	ID int64
 }
 

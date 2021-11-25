@@ -430,11 +430,16 @@ func (w *WallPaper) GetSettings() (value WallPaperSettings, ok bool) {
 }
 
 // WallPaperNoFile represents TL type `wallPaperNoFile#e0804116`.
-// No file wallpaper
+// Wallpaper with no file access hash, used for example when deleting (unsave=true)
+// wallpapers using account.saveWallPaper¹, specifying just the wallpaper ID.
+// Also used for some default wallpapers which contain only colours.
+//
+// Links:
+//  1) https://core.telegram.org/method/account.saveWallPaper
 //
 // See https://core.telegram.org/constructor/wallPaperNoFile for reference.
 type WallPaperNoFile struct {
-	// ID field of WallPaperNoFile.
+	// Wallpaper ID
 	ID int64
 	// Flags, see TL conditional fields¹
 	//

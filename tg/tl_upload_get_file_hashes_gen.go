@@ -191,7 +191,7 @@ func (g *UploadGetFileHashesRequest) GetOffset() (value int) {
 // Get SHA256 hashes for verifying downloaded files
 //
 // Possible errors:
-//  400 LOCATION_INVALID: The provided location is invalid
+//  400 LOCATION_INVALID: The provided location is invalid.
 //
 // See https://core.telegram.org/method/upload.getFileHashes for reference.
 // Can be used by bots.

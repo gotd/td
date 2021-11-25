@@ -41,9 +41,9 @@ type PaymentsSendPaymentFormRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// FormID field of PaymentsSendPaymentFormRequest.
+	// Form ID
 	FormID int64
-	// Peer field of PaymentsSendPaymentFormRequest.
+	// The peer where the payment form was sent
 	Peer InputPeerClass
 	// Message ID of form
 	MsgID int
@@ -60,7 +60,13 @@ type PaymentsSendPaymentFormRequest struct {
 	ShippingOptionID string
 	// Payment credentials
 	Credentials InputPaymentCredentialsClass
-	// TipAmount field of PaymentsSendPaymentFormRequest.
+	// Tip, in the smallest units of the currency (integer, not float/double). For example,
+	// for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹,
+	// it shows the number of digits past the decimal point for each currency (2 for the
+	// majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	//
 	// Use SetTipAmount and GetTipAmount helpers.
 	TipAmount int64
@@ -398,7 +404,7 @@ func (s *PaymentsSendPaymentFormRequest) GetTipAmount() (value int64, ok bool) {
 // Send compiled payment form
 //
 // Possible errors:
-//  400 MESSAGE_ID_INVALID: The provided message id is invalid
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //
 // See https://core.telegram.org/method/payments.sendPaymentForm for reference.
 func (c *Client) PaymentsSendPaymentForm(ctx context.Context, request *PaymentsSendPaymentFormRequest) (PaymentsPaymentResultClass, error) {

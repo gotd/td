@@ -122,9 +122,9 @@ type ChannelAdminLogEventsFilter struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionDeleteMessage
 	Delete bool
-	// GroupCall field of ChannelAdminLogEventsFilter.
+	// Group call events
 	GroupCall bool
-	// Invites field of ChannelAdminLogEventsFilter.
+	// Invite events
 	Invites bool
 }
 

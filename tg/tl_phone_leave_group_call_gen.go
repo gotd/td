@@ -32,12 +32,13 @@ var (
 )
 
 // PhoneLeaveGroupCallRequest represents TL type `phone.leaveGroupCall#500377f9`.
+// Leave a group call
 //
 // See https://core.telegram.org/method/phone.leaveGroupCall for reference.
 type PhoneLeaveGroupCallRequest struct {
-	// Call field of PhoneLeaveGroupCallRequest.
+	// The group call
 	Call InputGroupCall
-	// Source field of PhoneLeaveGroupCallRequest.
+	// Your source ID
 	Source int
 }
 
@@ -182,6 +183,7 @@ func (l *PhoneLeaveGroupCallRequest) GetSource() (value int) {
 }
 
 // PhoneLeaveGroupCall invokes method phone.leaveGroupCall#500377f9 returning error if any.
+// Leave a group call
 //
 // See https://core.telegram.org/method/phone.leaveGroupCall for reference.
 func (c *Client) PhoneLeaveGroupCall(ctx context.Context, request *PhoneLeaveGroupCallRequest) (UpdatesClass, error) {

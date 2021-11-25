@@ -32,6 +32,7 @@ var (
 )
 
 // MessagesGetChatInviteImportersRequest represents TL type `messages.getChatInviteImporters#df04dd4e`.
+// Get info about the users that joined the chat using a specific chat invite
 //
 // See https://core.telegram.org/method/messages.getChatInviteImporters for reference.
 type MessagesGetChatInviteImportersRequest struct {
@@ -39,9 +40,9 @@ type MessagesGetChatInviteImportersRequest struct {
 	Flags bin.Fields
 	// Requested field of MessagesGetChatInviteImportersRequest.
 	Requested bool
-	// Peer field of MessagesGetChatInviteImportersRequest.
+	// Chat
 	Peer InputPeerClass
-	// Link field of MessagesGetChatInviteImportersRequest.
+	// Invite link
 	//
 	// Use SetLink and GetLink helpers.
 	Link string
@@ -49,11 +50,20 @@ type MessagesGetChatInviteImportersRequest struct {
 	//
 	// Use SetQ and GetQ helpers.
 	Q string
-	// OffsetDate field of MessagesGetChatInviteImportersRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetDate int
-	// OffsetUser field of MessagesGetChatInviteImportersRequest.
+	// User ID for pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetUser InputUserClass
-	// Limit field of MessagesGetChatInviteImportersRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -375,6 +385,7 @@ func (g *MessagesGetChatInviteImportersRequest) GetLimit() (value int) {
 }
 
 // MessagesGetChatInviteImporters invokes method messages.getChatInviteImporters#df04dd4e returning error if any.
+// Get info about the users that joined the chat using a specific chat invite
 //
 // See https://core.telegram.org/method/messages.getChatInviteImporters for reference.
 func (c *Client) MessagesGetChatInviteImporters(ctx context.Context, request *MessagesGetChatInviteImportersRequest) (*MessagesChatInviteImporters, error) {

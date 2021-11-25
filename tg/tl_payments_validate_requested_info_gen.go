@@ -43,7 +43,7 @@ type PaymentsValidateRequestedInfoRequest struct {
 	Flags bin.Fields
 	// Save order information to re-use it for future orders
 	Save bool
-	// Peer field of PaymentsValidateRequestedInfoRequest.
+	// Peer where the payment form was sent
 	Peer InputPeerClass
 	// Message ID of payment form
 	MsgID int
@@ -263,7 +263,7 @@ func (v *PaymentsValidateRequestedInfoRequest) GetInfo() (value PaymentRequested
 // Submit requested order information for validation
 //
 // Possible errors:
-//  400 MESSAGE_ID_INVALID: The provided message id is invalid
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //
 // See https://core.telegram.org/method/payments.validateRequestedInfo for reference.
 func (c *Client) PaymentsValidateRequestedInfo(ctx context.Context, request *PaymentsValidateRequestedInfoRequest) (*PaymentsValidatedRequestedInfo, error) {

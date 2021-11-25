@@ -32,16 +32,24 @@ var (
 )
 
 // MessagesUploadImportedMediaRequest represents TL type `messages.uploadImportedMedia#2a862092`.
+// Upload a media file associated with an imported chat, click here for more info »¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/import
 //
 // See https://core.telegram.org/method/messages.uploadImportedMedia for reference.
 type MessagesUploadImportedMediaRequest struct {
-	// Peer field of MessagesUploadImportedMediaRequest.
+	// The Telegram chat where the media will be imported
 	Peer InputPeerClass
-	// ImportID field of MessagesUploadImportedMediaRequest.
+	// Identifier of a history import session¹, returned by messages.initHistoryImport²
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/import
+	//  2) https://core.telegram.org/method/messages.initHistoryImport
 	ImportID int64
-	// FileName field of MessagesUploadImportedMediaRequest.
+	// File name
 	FileName string
-	// Media field of MessagesUploadImportedMediaRequest.
+	// Media metadata
 	Media InputMediaClass
 }
 
@@ -240,6 +248,10 @@ func (u *MessagesUploadImportedMediaRequest) GetMedia() (value InputMediaClass) 
 }
 
 // MessagesUploadImportedMedia invokes method messages.uploadImportedMedia#2a862092 returning error if any.
+// Upload a media file associated with an imported chat, click here for more info »¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/import
 //
 // See https://core.telegram.org/method/messages.uploadImportedMedia for reference.
 func (c *Client) MessagesUploadImportedMedia(ctx context.Context, request *MessagesUploadImportedMediaRequest) (MessageMediaClass, error) {

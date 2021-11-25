@@ -58,7 +58,10 @@ type PeerSettings struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/globalPrivacySettings
 	Autoarchived bool
-	// InviteMembers field of PeerSettings.
+	// Whether we can invite members to a group or channel¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	InviteMembers bool
 	// Distance in meters between us and this peer
 	//

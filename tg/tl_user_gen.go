@@ -204,7 +204,8 @@ type User struct {
 	Scam bool
 	// If set, the profile picture for this user should be refetched
 	ApplyMinPhoto bool
-	// Fake field of User.
+	// If set, this user was reported by many users as a fake or scam user: be careful when
+	// interacting with them.
 	Fake bool
 	// ID of the user
 	ID int64

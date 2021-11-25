@@ -186,8 +186,8 @@ func (s *BotsSendCustomRequestRequest) GetParams() (value DataJSON) {
 // Sends a custom request; for bots only
 //
 // Possible errors:
-//  400 METHOD_INVALID: The specified method is invalid
-//  400 USER_BOT_INVALID: This method can only be called by a bot
+//  400 METHOD_INVALID: The specified method is invalid.
+//  400 USER_BOT_INVALID: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/bots.sendCustomRequest for reference.
 // Can be used by bots.

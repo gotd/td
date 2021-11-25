@@ -32,16 +32,17 @@ var (
 )
 
 // AccountReportProfilePhotoRequest represents TL type `account.reportProfilePhoto#fa8cc6f5`.
+// Report a profile photo of a dialog
 //
 // See https://core.telegram.org/method/account.reportProfilePhoto for reference.
 type AccountReportProfilePhotoRequest struct {
-	// Peer field of AccountReportProfilePhotoRequest.
+	// The dialog
 	Peer InputPeerClass
-	// PhotoID field of AccountReportProfilePhotoRequest.
+	// Dialog photo ID
 	PhotoID InputPhotoClass
-	// Reason field of AccountReportProfilePhotoRequest.
+	// Report reason
 	Reason ReportReasonClass
-	// Message field of AccountReportProfilePhotoRequest.
+	// Comment for report moderation
 	Message string
 }
 
@@ -250,6 +251,7 @@ func (r *AccountReportProfilePhotoRequest) GetPhotoIDAsNotEmpty() (*InputPhoto, 
 }
 
 // AccountReportProfilePhoto invokes method account.reportProfilePhoto#fa8cc6f5 returning error if any.
+// Report a profile photo of a dialog
 //
 // See https://core.telegram.org/method/account.reportProfilePhoto for reference.
 func (c *Client) AccountReportProfilePhoto(ctx context.Context, request *AccountReportProfilePhotoRequest) (bool, error) {

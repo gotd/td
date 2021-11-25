@@ -1512,7 +1512,7 @@ func (i *InputPhotoFileLocation) GetThumbSize() (value string) {
 }
 
 // InputPhotoLegacyFileLocation represents TL type `inputPhotoLegacyFileLocation#d83466f3`.
-// Legacy photo file location
+// DEPRECATED legacy photo file location
 //
 // See https://core.telegram.org/constructor/inputPhotoLegacyFileLocation for reference.
 type InputPhotoLegacyFileLocation struct {
@@ -1777,7 +1777,7 @@ type InputPeerPhotoFileLocation struct {
 	Big bool
 	// The peer whose profile picture should be downloaded
 	Peer InputPeerClass
-	// PhotoID field of InputPeerPhotoFileLocation.
+	// Photo ID
 	PhotoID int64
 }
 
@@ -1982,7 +1982,7 @@ func (i *InputPeerPhotoFileLocation) GetPhotoID() (value int64) {
 type InputStickerSetThumb struct {
 	// Sticker set
 	Stickerset InputStickerSetClass
-	// ThumbVersion field of InputStickerSetThumb.
+	// Thumbnail version
 	ThumbVersion int
 }
 
@@ -2137,22 +2137,27 @@ func (i *InputStickerSetThumb) GetThumbVersion() (value int) {
 }
 
 // InputGroupCallStream represents TL type `inputGroupCallStream#598a92a`.
+// Chunk of a livestream
 //
 // See https://core.telegram.org/constructor/inputGroupCallStream for reference.
 type InputGroupCallStream struct {
-	// Flags field of InputGroupCallStream.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Call field of InputGroupCallStream.
+	// Livestream info
 	Call InputGroupCall
-	// TimeMs field of InputGroupCallStream.
+	// Timestamp in milliseconds
 	TimeMs int64
-	// Scale field of InputGroupCallStream.
+	// Specifies the duration of the video segment to fetch in milliseconds, by bitshifting
+	// 1000 to the right scale times: duration_ms := 1000 >> scale
 	Scale int
-	// VideoChannel field of InputGroupCallStream.
+	// Selected video channel
 	//
 	// Use SetVideoChannel and GetVideoChannel helpers.
 	VideoChannel int
-	// VideoQuality field of InputGroupCallStream.
+	// Selected video quality (0 = lowest, 1 = medium, 2 = best)
 	//
 	// Use SetVideoQuality and GetVideoQuality helpers.
 	VideoQuality int

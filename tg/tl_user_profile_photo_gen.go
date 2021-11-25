@@ -153,7 +153,10 @@ type UserProfilePhoto struct {
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-2
 	PhotoID int64
-	// StrippedThumb field of UserProfilePhoto.
+	// Stripped thumbnail¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#stripped-thumbnails
 	//
 	// Use SetStrippedThumb and GetStrippedThumb helpers.
 	StrippedThumb []byte

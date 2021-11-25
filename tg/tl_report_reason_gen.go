@@ -746,6 +746,7 @@ func (i *InputReportReasonGeoIrrelevant) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputReportReasonFake represents TL type `inputReportReasonFake#f5ddd6e7`.
+// Report for impersonation
 //
 // See https://core.telegram.org/constructor/inputReportReasonFake for reference.
 type InputReportReasonFake struct {

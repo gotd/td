@@ -62,7 +62,7 @@ type HelpAppUpdate struct {
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	// Sticker field of HelpAppUpdate.
+	// Associated sticker
 	//
 	// Use SetSticker and GetSticker helpers.
 	Sticker DocumentClass

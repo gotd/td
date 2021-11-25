@@ -166,7 +166,7 @@ func (p *PhotoSizeEmpty) GetType() (value string) {
 type PhotoSize struct {
 	// Thumbnail type
 	Type string
-	// File location
+	// Location field of PhotoSize.
 	Location FileLocationClass
 	// Image width
 	W int
@@ -384,7 +384,7 @@ func (p *PhotoSize) GetSize() (value int) {
 type PhotoCachedSize struct {
 	// Thumbnail type
 	Type string
-	// File location
+	// Location field of PhotoCachedSize.
 	Location FileLocationClass
 	// Image width
 	W int

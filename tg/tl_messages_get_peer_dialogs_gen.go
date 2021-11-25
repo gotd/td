@@ -185,11 +185,10 @@ func (g *MessagesGetPeerDialogsRequest) MapPeers() (value InputDialogPeerClassAr
 // Get dialog info of specified peers
 //
 // Possible errors:
-//  400 CHANNEL_INVALID: The provided channel is invalid
-//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
-//  400 CONNECTION_DEVICE_MODEL_EMPTY: Device model empty
-//  400 MSG_ID_INVALID: Invalid message ID provided
-//  400 PEER_ID_INVALID: The provided peer id is invalid
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getPeerDialogs for reference.
 func (c *Client) MessagesGetPeerDialogs(ctx context.Context, peers []InputDialogPeerClass) (*MessagesPeerDialogs, error) {

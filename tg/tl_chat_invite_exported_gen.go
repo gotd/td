@@ -36,33 +36,36 @@ var (
 //
 // See https://core.telegram.org/constructor/chatInviteExported for reference.
 type ChatInviteExported struct {
-	// Flags field of ChatInviteExported.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Revoked field of ChatInviteExported.
+	// Whether this chat invite was revoked
 	Revoked bool
-	// Permanent field of ChatInviteExported.
+	// Whether this chat invite has no expiration
 	Permanent bool
 	// RequestNeeded field of ChatInviteExported.
 	RequestNeeded bool
 	// Chat invitation link
 	Link string
-	// AdminID field of ChatInviteExported.
+	// ID of the admin that created this chat invite
 	AdminID int64
-	// Date field of ChatInviteExported.
+	// When was this chat invite created
 	Date int
-	// StartDate field of ChatInviteExported.
+	// When was this chat invite last modified
 	//
 	// Use SetStartDate and GetStartDate helpers.
 	StartDate int
-	// ExpireDate field of ChatInviteExported.
+	// When does this chat invite expire
 	//
 	// Use SetExpireDate and GetExpireDate helpers.
 	ExpireDate int
-	// UsageLimit field of ChatInviteExported.
+	// Maximum number of users that can join using this link
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
 	UsageLimit int
-	// Usage field of ChatInviteExported.
+	// How many users joined using this link
 	//
 	// Use SetUsage and GetUsage helpers.
 	Usage int

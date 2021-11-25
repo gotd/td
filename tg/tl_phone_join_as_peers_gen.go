@@ -32,14 +32,16 @@ var (
 )
 
 // PhoneJoinAsPeers represents TL type `phone.joinAsPeers#afe5623f`.
+// A list of peers that can be used to join a group call, presenting yourself as a
+// specific user/channel.
 //
 // See https://core.telegram.org/constructor/phone.joinAsPeers for reference.
 type PhoneJoinAsPeers struct {
-	// Peers field of PhoneJoinAsPeers.
+	// Peers
 	Peers []PeerClass
-	// Chats field of PhoneJoinAsPeers.
+	// Chats mentioned in the peers vector
 	Chats []ChatClass
-	// Users field of PhoneJoinAsPeers.
+	// Users mentioned in the peers vector
 	Users []UserClass
 }
 

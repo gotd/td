@@ -41,11 +41,14 @@ var (
 //
 // See https://core.telegram.org/method/auth.recoverPassword for reference.
 type AuthRecoverPasswordRequest struct {
-	// Flags field of AuthRecoverPasswordRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Code received via email
 	Code string
-	// NewSettings field of AuthRecoverPasswordRequest.
+	// New password
 	//
 	// Use SetNewSettings and GetNewSettings helpers.
 	NewSettings AccountPasswordInputSettings
@@ -230,7 +233,8 @@ func (r *AuthRecoverPasswordRequest) GetNewSettings() (value AccountPasswordInpu
 //  2) https://core.telegram.org/method/auth.requestPasswordRecovery
 //
 // Possible errors:
-//  400 CODE_EMPTY: The provided code is empty
+//  400 CODE_EMPTY: The provided code is empty.
+//  400 NEW_SETTINGS_INVALID: The new settings are invalid.
 //
 // See https://core.telegram.org/method/auth.recoverPassword for reference.
 func (c *Client) AuthRecoverPassword(ctx context.Context, request *AuthRecoverPasswordRequest) (AuthAuthorizationClass, error) {

@@ -32,14 +32,15 @@ var (
 )
 
 // MessagesChatInviteImporters represents TL type `messages.chatInviteImporters#81b6b00a`.
+// Info about the users that joined the chat using a specific chat invite
 //
 // See https://core.telegram.org/constructor/messages.chatInviteImporters for reference.
 type MessagesChatInviteImporters struct {
-	// Count field of MessagesChatInviteImporters.
+	// Number of users that joined
 	Count int
-	// Importers field of MessagesChatInviteImporters.
+	// The users that joined
 	Importers []ChatInviteImporter
-	// Users field of MessagesChatInviteImporters.
+	// The users that joined
 	Users []UserClass
 }
 

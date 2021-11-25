@@ -220,8 +220,10 @@ func (r *MessagesReadDiscussionRequest) GetReadMaxID() (value int) {
 // Links:
 //  1) https://core.telegram.org/api/threads
 //
+// Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.readDiscussion for reference.
-// Can be used by bots.
 func (c *Client) MessagesReadDiscussion(ctx context.Context, request *MessagesReadDiscussionRequest) (bool, error) {
 	var result BoolBox
 

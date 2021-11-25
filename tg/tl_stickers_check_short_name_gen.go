@@ -32,10 +32,11 @@ var (
 )
 
 // StickersCheckShortNameRequest represents TL type `stickers.checkShortName#284b3639`.
+// Check whether the given short name is available
 //
 // See https://core.telegram.org/method/stickers.checkShortName for reference.
 type StickersCheckShortNameRequest struct {
-	// ShortName field of StickersCheckShortNameRequest.
+	// Short name
 	ShortName string
 }
 
@@ -158,6 +159,11 @@ func (c *StickersCheckShortNameRequest) GetShortName() (value string) {
 }
 
 // StickersCheckShortName invokes method stickers.checkShortName#284b3639 returning error if any.
+// Check whether the given short name is available
+//
+// Possible errors:
+//  400 SHORT_NAME_INVALID: The specified short name is invalid.
+//  400 SHORT_NAME_OCCUPIED: The specified short name is already in use.
 //
 // See https://core.telegram.org/method/stickers.checkShortName for reference.
 func (c *Client) StickersCheckShortName(ctx context.Context, shortname string) (bool, error) {

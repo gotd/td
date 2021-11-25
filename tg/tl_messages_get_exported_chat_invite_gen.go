@@ -32,12 +32,13 @@ var (
 )
 
 // MessagesGetExportedChatInviteRequest represents TL type `messages.getExportedChatInvite#73746f5c`.
+// Get info about a chat invite
 //
 // See https://core.telegram.org/method/messages.getExportedChatInvite for reference.
 type MessagesGetExportedChatInviteRequest struct {
-	// Peer field of MessagesGetExportedChatInviteRequest.
+	// Chat
 	Peer InputPeerClass
-	// Link field of MessagesGetExportedChatInviteRequest.
+	// Invite link
 	Link string
 }
 
@@ -187,6 +188,7 @@ func (g *MessagesGetExportedChatInviteRequest) GetLink() (value string) {
 }
 
 // MessagesGetExportedChatInvite invokes method messages.getExportedChatInvite#73746f5c returning error if any.
+// Get info about a chat invite
 //
 // See https://core.telegram.org/method/messages.getExportedChatInvite for reference.
 func (c *Client) MessagesGetExportedChatInvite(ctx context.Context, request *MessagesGetExportedChatInviteRequest) (MessagesExportedChatInviteClass, error) {

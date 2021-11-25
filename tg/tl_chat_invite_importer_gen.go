@@ -32,6 +32,7 @@ var (
 )
 
 // ChatInviteImporter represents TL type `chatInviteImporter#8c5adfd9`.
+// When and which user joined the chat using a chat invite
 //
 // See https://core.telegram.org/constructor/chatInviteImporter for reference.
 type ChatInviteImporter struct {
@@ -39,9 +40,9 @@ type ChatInviteImporter struct {
 	Flags bin.Fields
 	// Requested field of ChatInviteImporter.
 	Requested bool
-	// UserID field of ChatInviteImporter.
+	// The user
 	UserID int64
-	// Date field of ChatInviteImporter.
+	// When did the user join
 	Date int
 	// About field of ChatInviteImporter.
 	//

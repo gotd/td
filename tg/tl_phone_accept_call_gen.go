@@ -213,10 +213,10 @@ func (a *PhoneAcceptCallRequest) GetProtocol() (value PhoneCallProtocol) {
 // Accept incoming call
 //
 // Possible errors:
-//  400 CALL_ALREADY_ACCEPTED: The call was already accepted
-//  400 CALL_ALREADY_DECLINED: The call was already declined
-//  400 CALL_PEER_INVALID: The provided call peer object is invalid
-//  400 CALL_PROTOCOL_FLAGS_INVALID: Call protocol flags invalid
+//  400 CALL_ALREADY_ACCEPTED: The call was already accepted.
+//  400 CALL_ALREADY_DECLINED: The call was already declined.
+//  400 CALL_PEER_INVALID: The provided call peer object is invalid.
+//  400 CALL_PROTOCOL_FLAGS_INVALID: Call protocol flags invalid.
 //
 // See https://core.telegram.org/method/phone.acceptCall for reference.
 func (c *Client) PhoneAcceptCall(ctx context.Context, request *PhoneAcceptCallRequest) (*PhonePhoneCall, error) {

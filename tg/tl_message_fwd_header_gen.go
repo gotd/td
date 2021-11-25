@@ -41,7 +41,11 @@ type MessageFwdHeader struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Imported field of MessageFwdHeader.
+	// Whether this message was imported from a foreign chat service, click here for more
+	// info »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/import
 	Imported bool
 	// The ID of the user that originally sent the message
 	//

@@ -32,12 +32,13 @@ var (
 )
 
 // PhoneJoinGroupCallPresentationRequest represents TL type `phone.joinGroupCallPresentation#cbea6bc4`.
+// Start screen sharing in a call
 //
 // See https://core.telegram.org/method/phone.joinGroupCallPresentation for reference.
 type PhoneJoinGroupCallPresentationRequest struct {
-	// Call field of PhoneJoinGroupCallPresentationRequest.
+	// The group call
 	Call InputGroupCall
-	// Params field of PhoneJoinGroupCallPresentationRequest.
+	// WebRTC parameters
 	Params DataJSON
 }
 
@@ -182,6 +183,10 @@ func (j *PhoneJoinGroupCallPresentationRequest) GetParams() (value DataJSON) {
 }
 
 // PhoneJoinGroupCallPresentation invokes method phone.joinGroupCallPresentation#cbea6bc4 returning error if any.
+// Start screen sharing in a call
+//
+// Possible errors:
+//  403 PARTICIPANT_JOIN_MISSING: Trying to enable a presentation, when the user hasn't joined the Video Chat with phone.joinGroupCall.
 //
 // See https://core.telegram.org/method/phone.joinGroupCallPresentation for reference.
 func (c *Client) PhoneJoinGroupCallPresentation(ctx context.Context, request *PhoneJoinGroupCallPresentationRequest) (UpdatesClass, error) {

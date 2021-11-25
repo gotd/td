@@ -196,7 +196,7 @@ func (f *MessagesFaveStickerRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
 // Mark a sticker as favorite
 //
 // Possible errors:
-//  400 STICKER_ID_INVALID: The provided sticker ID is invalid
+//  400 STICKER_ID_INVALID: The provided sticker ID is invalid.
 //
 // See https://core.telegram.org/method/messages.faveSticker for reference.
 func (c *Client) MessagesFaveSticker(ctx context.Context, request *MessagesFaveStickerRequest) (bool, error) {

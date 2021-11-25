@@ -32,6 +32,11 @@ var (
 )
 
 // AccountResetPasswordRequest represents TL type `account.resetPassword#9308ce1b`.
+// Initiate a 2FA password reset: can only be used if the user is already logged-in, see
+// here for more info »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/srp#password-reset
 //
 // See https://core.telegram.org/method/account.resetPassword for reference.
 type AccountResetPasswordRequest struct {
@@ -128,6 +133,11 @@ func (r *AccountResetPasswordRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // AccountResetPassword invokes method account.resetPassword#9308ce1b returning error if any.
+// Initiate a 2FA password reset: can only be used if the user is already logged-in, see
+// here for more info »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/srp#password-reset
 //
 // See https://core.telegram.org/method/account.resetPassword for reference.
 func (c *Client) AccountResetPassword(ctx context.Context) (AccountResetPasswordResultClass, error) {

@@ -214,6 +214,10 @@ func (u *AccountUploadWallPaperRequest) GetSettings() (value WallPaperSettings) 
 // AccountUploadWallPaper invokes method account.uploadWallPaper#dd853661 returning error if any.
 // Create and upload a new wallpaper
 //
+// Possible errors:
+//  400 WALLPAPER_FILE_INVALID: The specified wallpaper file is invalid.
+//  400 WALLPAPER_MIME_INVALID: The specified wallpaper MIME type is invalid.
+//
 // See https://core.telegram.org/method/account.uploadWallPaper for reference.
 func (c *Client) AccountUploadWallPaper(ctx context.Context, request *AccountUploadWallPaperRequest) (WallPaperClass, error) {
 	var result WallPaperBox

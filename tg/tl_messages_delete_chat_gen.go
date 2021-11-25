@@ -32,10 +32,14 @@ var (
 )
 
 // MessagesDeleteChatRequest represents TL type `messages.deleteChat#5bd0ee50`.
+// Delete a chat¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/messages.deleteChat for reference.
 type MessagesDeleteChatRequest struct {
-	// ChatID field of MessagesDeleteChatRequest.
+	// Chat ID
 	ChatID int64
 }
 
@@ -158,6 +162,13 @@ func (d *MessagesDeleteChatRequest) GetChatID() (value int64) {
 }
 
 // MessagesDeleteChat invokes method messages.deleteChat#5bd0ee50 returning error if any.
+// Delete a chat¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
+//
+// Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.deleteChat for reference.
 func (c *Client) MessagesDeleteChat(ctx context.Context, chatid int64) (bool, error) {

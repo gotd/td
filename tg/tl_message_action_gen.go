@@ -3627,14 +3627,18 @@ func (m *MessageActionGeoProximityReached) GetDistance() (value int) {
 }
 
 // MessageActionGroupCall represents TL type `messageActionGroupCall#7a0d7f42`.
+// The group call has ended
 //
 // See https://core.telegram.org/constructor/messageActionGroupCall for reference.
 type MessageActionGroupCall struct {
-	// Flags field of MessageActionGroupCall.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Call field of MessageActionGroupCall.
+	// Group call
 	Call InputGroupCall
-	// Duration field of MessageActionGroupCall.
+	// Group call duration
 	//
 	// Use SetDuration and GetDuration helpers.
 	Duration int
@@ -3816,12 +3820,13 @@ func (m *MessageActionGroupCall) GetDuration() (value int, ok bool) {
 }
 
 // MessageActionInviteToGroupCall represents TL type `messageActionInviteToGroupCall#502f92f7`.
+// A set of users was invited to the group call
 //
 // See https://core.telegram.org/constructor/messageActionInviteToGroupCall for reference.
 type MessageActionInviteToGroupCall struct {
-	// Call field of MessageActionInviteToGroupCall.
+	// The group call
 	Call InputGroupCall
-	// Users field of MessageActionInviteToGroupCall.
+	// The invited users
 	Users []int64
 }
 
@@ -3984,10 +3989,11 @@ func (m *MessageActionInviteToGroupCall) GetUsers() (value []int64) {
 }
 
 // MessageActionSetMessagesTTL represents TL type `messageActionSetMessagesTTL#aa1afbfd`.
+// The Time-To-Live of messages in this chat was changed.
 //
 // See https://core.telegram.org/constructor/messageActionSetMessagesTTL for reference.
 type MessageActionSetMessagesTTL struct {
-	// Period field of MessageActionSetMessagesTTL.
+	// New Time-To-Live
 	Period int
 }
 
@@ -4115,12 +4121,13 @@ func (m *MessageActionSetMessagesTTL) GetPeriod() (value int) {
 }
 
 // MessageActionGroupCallScheduled represents TL type `messageActionGroupCallScheduled#b3a07661`.
+// A group call was scheduled
 //
 // See https://core.telegram.org/constructor/messageActionGroupCallScheduled for reference.
 type MessageActionGroupCallScheduled struct {
-	// Call field of MessageActionGroupCallScheduled.
+	// The group call
 	Call InputGroupCall
-	// ScheduleDate field of MessageActionGroupCallScheduled.
+	// When is this group call scheduled to start
 	ScheduleDate int
 }
 
@@ -4270,10 +4277,11 @@ func (m *MessageActionGroupCallScheduled) GetScheduleDate() (value int) {
 }
 
 // MessageActionSetChatTheme represents TL type `messageActionSetChatTheme#aa786345`.
+// The chat theme was changed
 //
 // See https://core.telegram.org/constructor/messageActionSetChatTheme for reference.
 type MessageActionSetChatTheme struct {
-	// Emoticon field of MessageActionSetChatTheme.
+	// The emoji that identifies a chat theme
 	Emoticon string
 }
 

@@ -32,12 +32,16 @@ var (
 )
 
 // PhoneGetGroupCallRequest represents TL type `phone.getGroupCall#41845db`.
+// Get info about a group call
 //
 // See https://core.telegram.org/method/phone.getGroupCall for reference.
 type PhoneGetGroupCallRequest struct {
-	// Call field of PhoneGetGroupCallRequest.
+	// The group call
 	Call InputGroupCall
-	// Limit field of PhoneGetGroupCallRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -182,6 +186,7 @@ func (g *PhoneGetGroupCallRequest) GetLimit() (value int) {
 }
 
 // PhoneGetGroupCall invokes method phone.getGroupCall#41845db returning error if any.
+// Get info about a group call
 //
 // See https://core.telegram.org/method/phone.getGroupCall for reference.
 func (c *Client) PhoneGetGroupCall(ctx context.Context, request *PhoneGetGroupCallRequest) (*PhoneGroupCall, error) {

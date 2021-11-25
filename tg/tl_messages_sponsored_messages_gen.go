@@ -32,14 +32,15 @@ var (
 )
 
 // MessagesSponsoredMessages represents TL type `messages.sponsoredMessages#65a4c7d5`.
+// A set of sponsored messages associated to a channel
 //
 // See https://core.telegram.org/constructor/messages.sponsoredMessages for reference.
 type MessagesSponsoredMessages struct {
-	// Messages field of MessagesSponsoredMessages.
+	// Sponsored messages
 	Messages []SponsoredMessage
-	// Chats field of MessagesSponsoredMessages.
+	// Chats mentioned in the sponsored messages
 	Chats []ChatClass
-	// Users field of MessagesSponsoredMessages.
+	// Users mentioned in the sponsored messages
 	Users []UserClass
 }
 

@@ -40,7 +40,7 @@ type ChannelsChannelParticipants struct {
 	Count int
 	// Participants
 	Participants []ChannelParticipantClass
-	// Chats field of ChannelsChannelParticipants.
+	// Mentioned chats
 	Chats []ChatClass
 	// Users mentioned in participant info
 	Users []UserClass

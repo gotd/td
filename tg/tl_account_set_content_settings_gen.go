@@ -185,6 +185,9 @@ func (s *AccountSetContentSettingsRequest) GetSensitiveEnabled() (value bool) {
 // AccountSetContentSettings invokes method account.setContentSettings#b574b16b returning error if any.
 // Set sensitive content settings (for viewing or hiding NSFW content)
 //
+// Possible errors:
+//  403 SENSITIVE_CHANGE_FORBIDDEN: You can't change your sensitive content settings.
+//
 // See https://core.telegram.org/method/account.setContentSettings for reference.
 func (c *Client) AccountSetContentSettings(ctx context.Context, request *AccountSetContentSettingsRequest) (bool, error) {
 	var result BoolBox

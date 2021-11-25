@@ -50,7 +50,7 @@ type PaymentsPaymentForm struct {
 	//  1) https://core.telegram.org/api/srp
 	//  2) https://core.telegram.org/api/srp
 	PasswordMissing bool
-	// FormID field of PaymentsPaymentForm.
+	// Form ID
 	FormID int64
 	// Bot ID
 	BotID int64
@@ -66,12 +66,10 @@ type PaymentsPaymentForm struct {
 	NativeProvider string
 	// Contains information about the payment provider, if available, to support it natively
 	// without the need for opening the URL.A JSON object that can contain the following
-	// fields:- publishable_key: Stripe API publishable key- apple_pay_merchant_id: Apple Pay
-	// merchant ID- android_pay_public_key: Android Pay public key- android_pay_bgcolor:
-	// Android Pay form background color- android_pay_inverse: Whether to use the dark theme
-	// in the Android Pay form- need_country: True, if the user country must be provided,-
-	// need_zip: True, if the user ZIP/postal code must be provided,- need_cardholder_name:
-	// True, if the cardholder name must be provided
+	// fields:- apple_pay_merchant_id: Apple Pay merchant ID- google_pay_public_key: Google
+	// Pay public key- need_country: True, if the user country must be provided,- need_zip:
+	// True, if the user ZIP/postal code must be provided,- need_cardholder_name: True, if
+	// the cardholder name must be provided
 	//
 	// Use SetNativeParams and GetNativeParams helpers.
 	NativeParams DataJSON

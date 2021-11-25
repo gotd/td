@@ -142,7 +142,7 @@ func (r *AuthResetAuthorizationsRequest) DecodeBare(b *bin.Buffer) error {
 //  1) https://core.telegram.org/method/account.registerDevice
 //
 // Possible errors:
-//  406 FRESH_RESET_AUTHORISATION_FORBIDDEN: You can't logout other sessions if less than 24 hours have passed since you logged on the current session
+//  406 FRESH_RESET_AUTHORISATION_FORBIDDEN: You can't logout other sessions if less than 24 hours have passed since you logged on the current session.
 //
 // See https://core.telegram.org/method/auth.resetAuthorizations for reference.
 func (c *Client) AuthResetAuthorizations(ctx context.Context) (bool, error) {

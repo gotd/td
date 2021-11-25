@@ -283,7 +283,6 @@ func (b *ContactsBlockFromRepliesRequest) GetMsgID() (value int) {
 //  1) https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/method/contacts.blockFromReplies for reference.
-// Can be used by bots.
 func (c *Client) ContactsBlockFromReplies(ctx context.Context, request *ContactsBlockFromRepliesRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

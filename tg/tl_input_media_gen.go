@@ -1418,7 +1418,8 @@ type InputMediaDocument struct {
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
-	// Query field of InputMediaDocument.
+	// Text query or emoji that was used by the user to find this sticker or GIF: used to
+	// improve search result relevance.
 	//
 	// Use SetQuery and GetQuery helpers.
 	Query string

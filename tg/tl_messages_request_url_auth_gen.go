@@ -40,7 +40,10 @@ var (
 //
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 type MessagesRequestURLAuthRequest struct {
-	// Flags field of MessagesRequestURLAuthRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Peer where the message is located
 	//
@@ -54,7 +57,10 @@ type MessagesRequestURLAuthRequest struct {
 	//
 	// Use SetButtonID and GetButtonID helpers.
 	ButtonID int
-	// URL field of MessagesRequestURLAuthRequest.
+	// URL used for link URL authorization, click here for more info »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/url-authorization#link-url-authorization
 	//
 	// Use SetURL and GetURL helpers.
 	URL string

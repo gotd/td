@@ -191,10 +191,10 @@ func (g *MessagesGetMessageEditDataRequest) GetID() (value int) {
 // Find out if a media message's caption can be edited
 //
 // Possible errors:
-//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this
-//  403 MESSAGE_AUTHOR_REQUIRED: Message author required
-//  400 MESSAGE_ID_INVALID: The provided message id is invalid
-//  400 PEER_ID_INVALID: The provided peer id is invalid
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  403 MESSAGE_AUTHOR_REQUIRED: Message author required.
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getMessageEditData for reference.
 func (c *Client) MessagesGetMessageEditData(ctx context.Context, request *MessagesGetMessageEditDataRequest) (*MessagesMessageEditData, error) {

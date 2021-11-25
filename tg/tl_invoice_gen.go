@@ -65,11 +65,20 @@ type Invoice struct {
 	// Price breakdown, a list of components (e.g. product price, tax, discount, delivery
 	// cost, delivery tax, bonus, etc.)
 	Prices []LabeledPrice
-	// MaxTipAmount field of Invoice.
+	// The maximum accepted amount for tips in the smallest units of the currency (integer,
+	// not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp
+	// parameter in currencies.json¹, it shows the number of digits past the decimal point
+	// for each currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	//
 	// Use SetMaxTipAmount and GetMaxTipAmount helpers.
 	MaxTipAmount int64
-	// SuggestedTipAmounts field of Invoice.
+	// A vector of suggested amounts of tips in the smallest units of the currency (integer,
+	// not float/double). At most 4 suggested tip amounts can be specified. The suggested tip
+	// amounts must be positive, passed in a strictly increased order and must not exceed
+	// max_tip_amount.
 	//
 	// Use SetSuggestedTipAmounts and GetSuggestedTipAmounts helpers.
 	SuggestedTipAmounts []int64

@@ -197,7 +197,8 @@ type UpdateShortMessage struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// TTLPeriod field of UpdateShortMessage.
+	// Time To Live of the message, once message.date+message.ttl_period === time(), the
+	// message will be deleted on the server, and must be deleted locally as well.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int
@@ -858,7 +859,9 @@ type UpdateShortChatMessage struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// TTLPeriod field of UpdateShortChatMessage.
+	// Time To Live of the message, once updateShortChatMessage.date+updateShortChatMessage
+	// ttl_period === time(), the message will be deleted on the server, and must be deleted
+	// locally as well.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int
@@ -2300,7 +2303,8 @@ type UpdateShortSentMessage struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// TTLPeriod field of UpdateShortSentMessage.
+	// Time To Live of the message, once message.date+message.ttl_period === time(), the
+	// message will be deleted on the server, and must be deleted locally as well.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int

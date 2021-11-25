@@ -32,12 +32,13 @@ var (
 )
 
 // MessagesSetHistoryTTLRequest represents TL type `messages.setHistoryTTL#b80e5fe4`.
+// Set maximum Time-To-Live of all messages in the specified chat
 //
 // See https://core.telegram.org/method/messages.setHistoryTTL for reference.
 type MessagesSetHistoryTTLRequest struct {
-	// Peer field of MessagesSetHistoryTTLRequest.
+	// The dialog
 	Peer InputPeerClass
-	// Period field of MessagesSetHistoryTTLRequest.
+	// Automatically delete all messages sent in the chat after this many seconds
 	Period int
 }
 
@@ -187,6 +188,11 @@ func (s *MessagesSetHistoryTTLRequest) GetPeriod() (value int) {
 }
 
 // MessagesSetHistoryTTL invokes method messages.setHistoryTTL#b80e5fe4 returning error if any.
+// Set maximum Time-To-Live of all messages in the specified chat
+//
+// Possible errors:
+//  400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//  400 TTL_PERIOD_INVALID: The specified TTL period is invalid.
 //
 // See https://core.telegram.org/method/messages.setHistoryTTL for reference.
 func (c *Client) MessagesSetHistoryTTL(ctx context.Context, request *MessagesSetHistoryTTLRequest) (UpdatesClass, error) {

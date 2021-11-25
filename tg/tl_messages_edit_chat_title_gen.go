@@ -186,10 +186,10 @@ func (e *MessagesEditChatTitleRequest) GetTitle() (value string) {
 // Chanages chat name and sends a service message on it.
 //
 // Possible errors:
-//  400 CHAT_ID_INVALID: The provided chat id is invalid
-//  400 CHAT_NOT_MODIFIED: The pinned message wasn't modified
-//  400 CHAT_TITLE_EMPTY: No chat title provided
-//  400 PEER_ID_INVALID: The provided peer id is invalid
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//  400 CHAT_TITLE_EMPTY: No chat title provided.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.editChatTitle for reference.
 // Can be used by bots.

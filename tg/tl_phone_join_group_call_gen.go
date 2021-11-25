@@ -32,24 +32,28 @@ var (
 )
 
 // PhoneJoinGroupCallRequest represents TL type `phone.joinGroupCall#b132ff7b`.
+// Join a group call
 //
 // See https://core.telegram.org/method/phone.joinGroupCall for reference.
 type PhoneJoinGroupCallRequest struct {
-	// Flags field of PhoneJoinGroupCallRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Muted field of PhoneJoinGroupCallRequest.
+	// If set, the user will be muted by default upon joining.
 	Muted bool
-	// VideoStopped field of PhoneJoinGroupCallRequest.
+	// If set, the user's video will be disabled by default upon joining.
 	VideoStopped bool
-	// Call field of PhoneJoinGroupCallRequest.
+	// The group call
 	Call InputGroupCall
-	// JoinAs field of PhoneJoinGroupCallRequest.
+	// Join the group call, presenting yourself as the specified user/channel
 	JoinAs InputPeerClass
-	// InviteHash field of PhoneJoinGroupCallRequest.
+	// The invitation hash from the invite link: https://t.me/username?voicechat=hash
 	//
 	// Use SetInviteHash and GetInviteHash helpers.
 	InviteHash string
-	// Params field of PhoneJoinGroupCallRequest.
+	// WebRTC parameters
 	Params DataJSON
 }
 
@@ -333,6 +337,10 @@ func (j *PhoneJoinGroupCallRequest) GetParams() (value DataJSON) {
 }
 
 // PhoneJoinGroupCall invokes method phone.joinGroupCall#b132ff7b returning error if any.
+// Join a group call
+//
+// Possible errors:
+//  400 GROUPCALL_SSRC_DUPLICATE_MUCH: The app needs to retry joining the group call with a new SSRC value.
 //
 // See https://core.telegram.org/method/phone.joinGroupCall for reference.
 func (c *Client) PhoneJoinGroupCall(ctx context.Context, request *PhoneJoinGroupCallRequest) (UpdatesClass, error) {

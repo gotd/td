@@ -32,14 +32,15 @@ var (
 )
 
 // GroupCallDiscarded represents TL type `groupCallDiscarded#7780bcb4`.
+// An ended group call
 //
 // See https://core.telegram.org/constructor/groupCallDiscarded for reference.
 type GroupCallDiscarded struct {
-	// ID field of GroupCallDiscarded.
+	// Group call ID
 	ID int64
-	// AccessHash field of GroupCallDiscarded.
+	// Group call access hash
 	AccessHash int64
-	// Duration field of GroupCallDiscarded.
+	// Group call duration
 	Duration int
 }
 
@@ -211,52 +212,61 @@ func (g *GroupCallDiscarded) GetDuration() (value int) {
 }
 
 // GroupCall represents TL type `groupCall#d597650c`.
+// Info about a group call or livestream
 //
 // See https://core.telegram.org/constructor/groupCall for reference.
 type GroupCall struct {
-	// Flags field of GroupCall.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// JoinMuted field of GroupCall.
+	// Whether the user should be muted upon joining the call
 	JoinMuted bool
-	// CanChangeJoinMuted field of GroupCall.
+	// Whether the current user can change the value of the join_muted flag using phone
+	// toggleGroupCallSettings¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/phone.toggleGroupCallSettings
 	CanChangeJoinMuted bool
-	// JoinDateAsc field of GroupCall.
+	// Specifies the ordering to use when locally sorting by date and displaying in the UI
+	// group call participants.
 	JoinDateAsc bool
-	// ScheduleStartSubscribed field of GroupCall.
+	// Whether we subscribed to the scheduled call
 	ScheduleStartSubscribed bool
-	// CanStartVideo field of GroupCall.
+	// Whether you can start streaming video into the call
 	CanStartVideo bool
-	// RecordVideoActive field of GroupCall.
+	// Whether the group call is currently being recorded
 	RecordVideoActive bool
-	// ID field of GroupCall.
+	// Group call ID
 	ID int64
-	// AccessHash field of GroupCall.
+	// Group call access hash
 	AccessHash int64
-	// ParticipantsCount field of GroupCall.
+	// Participant count
 	ParticipantsCount int
-	// Title field of GroupCall.
+	// Group call title
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// StreamDCID field of GroupCall.
+	// DC ID to be used for livestream chunks
 	//
 	// Use SetStreamDCID and GetStreamDCID helpers.
 	StreamDCID int
-	// RecordStartDate field of GroupCall.
+	// When was the recording started
 	//
 	// Use SetRecordStartDate and GetRecordStartDate helpers.
 	RecordStartDate int
-	// ScheduleDate field of GroupCall.
+	// When is the call scheduled to start
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
-	// UnmutedVideoCount field of GroupCall.
+	// Number of people currently streaming video into the call
 	//
 	// Use SetUnmutedVideoCount and GetUnmutedVideoCount helpers.
 	UnmutedVideoCount int
-	// UnmutedVideoLimit field of GroupCall.
+	// Maximum number of people allowed to stream video into the call
 	UnmutedVideoLimit int
-	// Version field of GroupCall.
+	// Version
 	Version int
 }
 
@@ -899,10 +909,10 @@ type GroupCallClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// ID field of GroupCallDiscarded.
+	// Group call ID
 	GetID() (value int64)
 
-	// AccessHash field of GroupCallDiscarded.
+	// Group call access hash
 	GetAccessHash() (value int64)
 }
 

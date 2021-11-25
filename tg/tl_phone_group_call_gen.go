@@ -32,18 +32,23 @@ var (
 )
 
 // PhoneGroupCall represents TL type `phone.groupCall#9e727aad`.
+// Contains info about a group call, and partial info about its participants.
 //
 // See https://core.telegram.org/constructor/phone.groupCall for reference.
 type PhoneGroupCall struct {
-	// Call field of PhoneGroupCall.
+	// Info about the group call
 	Call GroupCallClass
-	// Participants field of PhoneGroupCall.
+	// A partial list of participants.
 	Participants []GroupCallParticipant
-	// ParticipantsNextOffset field of PhoneGroupCall.
+	// Next offset to use when fetching the remaining participants using phone
+	// getGroupParticipants¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/phone.getGroupParticipants
 	ParticipantsNextOffset string
-	// Chats field of PhoneGroupCall.
+	// Chats mentioned in the participants vector
 	Chats []ChatClass
-	// Users field of PhoneGroupCall.
+	// Users mentioned in the participants vector
 	Users []UserClass
 }
 

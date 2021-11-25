@@ -193,8 +193,10 @@ func (a *StickersAddStickerToSetRequest) GetSticker() (value InputStickerSetItem
 // the bot.
 //
 // Possible errors:
-//  400 BOT_MISSING: This method can only be run by a bot
-//  400 STICKERSET_INVALID: The provided sticker set is invalid
+//  400 BOT_MISSING: This method can only be run by a bot.
+//  400 STICKERSET_INVALID: The provided sticker set is invalid.
+//  400 STICKER_PNG_NOPNG: One of the specified stickers is not a valid PNG file.
+//  400 STICKER_TGS_NOTGS: Invalid TGS sticker provided.
 //
 // See https://core.telegram.org/method/stickers.addStickerToSet for reference.
 // Can be used by bots.

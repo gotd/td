@@ -203,8 +203,11 @@ func (g *MessagesGetDiscussionMessageRequest) GetMsgID() (value int) {
 //  1) https://core.telegram.org/api/threads
 //  2) https://core.telegram.org/api/discussion
 //
+// Possible errors:
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.getDiscussionMessage for reference.
-// Can be used by bots.
 func (c *Client) MessagesGetDiscussionMessage(ctx context.Context, request *MessagesGetDiscussionMessageRequest) (*MessagesDiscussionMessage, error) {
 	var result MessagesDiscussionMessage
 

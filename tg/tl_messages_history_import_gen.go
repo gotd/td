@@ -32,10 +32,17 @@ var (
 )
 
 // MessagesHistoryImport represents TL type `messages.historyImport#1662af0b`.
+// ID of a specific chat import session, click here for more info »¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/import
 //
 // See https://core.telegram.org/constructor/messages.historyImport for reference.
 type MessagesHistoryImport struct {
-	// ID field of MessagesHistoryImport.
+	// History import ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/import
 	ID int64
 }
 

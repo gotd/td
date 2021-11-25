@@ -242,6 +242,9 @@ func (e *AuthExportLoginTokenRequest) GetExceptIDs() (value []int64) {
 //  1) https://core.telegram.org/api/qr-login
 //  2) https://core.telegram.org/api/qr-login
 //
+// Possible errors:
+//  400 API_ID_INVALID: API ID invalid.
+//
 // See https://core.telegram.org/method/auth.exportLoginToken for reference.
 func (c *Client) AuthExportLoginToken(ctx context.Context, request *AuthExportLoginTokenRequest) (AuthLoginTokenClass, error) {
 	var result AuthLoginTokenBox

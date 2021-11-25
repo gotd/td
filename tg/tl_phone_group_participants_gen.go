@@ -32,20 +32,25 @@ var (
 )
 
 // PhoneGroupParticipants represents TL type `phone.groupParticipants#f47751b6`.
+// Info about the participants of a group call or livestream
 //
 // See https://core.telegram.org/constructor/phone.groupParticipants for reference.
 type PhoneGroupParticipants struct {
-	// Count field of PhoneGroupParticipants.
+	// Number of participants
 	Count int
-	// Participants field of PhoneGroupParticipants.
+	// List of participants
 	Participants []GroupCallParticipant
-	// NextOffset field of PhoneGroupParticipants.
+	// If not empty, the specified list of participants is partial, and more participants can
+	// be fetched specifying this parameter as offset in phone.getGroupParticipants¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/phone.getGroupParticipants
 	NextOffset string
-	// Chats field of PhoneGroupParticipants.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of PhoneGroupParticipants.
+	// Mentioned users
 	Users []UserClass
-	// Version field of PhoneGroupParticipants.
+	// Version info
 	Version int
 }
 

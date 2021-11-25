@@ -186,8 +186,8 @@ func (s *ContactsSearchRequest) GetLimit() (value int) {
 // Returns users found by username substring.
 //
 // Possible errors:
-//  400 QUERY_TOO_SHORT: The query string is too short
-//  400 SEARCH_QUERY_EMPTY: The search query is empty
+//  400 QUERY_TOO_SHORT: The query string is too short.
+//  400 SEARCH_QUERY_EMPTY: The search query is empty.
 //
 // See https://core.telegram.org/method/contacts.search for reference.
 func (c *Client) ContactsSearch(ctx context.Context, request *ContactsSearchRequest) (*ContactsFound, error) {

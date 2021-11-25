@@ -36,13 +36,20 @@ var (
 //
 // See https://core.telegram.org/method/payments.getPaymentForm for reference.
 type PaymentsGetPaymentFormRequest struct {
-	// Flags field of PaymentsGetPaymentFormRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of PaymentsGetPaymentFormRequest.
+	// The peer where the payment form was sent
 	Peer InputPeerClass
 	// Message ID of payment form
 	MsgID int
-	// ThemeParams field of PaymentsGetPaymentFormRequest.
+	// A JSON object with the following keys, containing color theme information (integers,
+	// RGB24) to pass to the payment provider, to apply in eventual verification pages:
+	// bg_color - Background color text_color - Text color hint_color - Hint text color
+	// link_color - Link color button_color - Button color button_text_color - Button text
+	// color
 	//
 	// Use SetThemeParams and GetThemeParams helpers.
 	ThemeParams DataJSON
@@ -249,7 +256,7 @@ func (g *PaymentsGetPaymentFormRequest) GetThemeParams() (value DataJSON, ok boo
 // Get a payment form
 //
 // Possible errors:
-//  400 MESSAGE_ID_INVALID: The provided message id is invalid
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //
 // See https://core.telegram.org/method/payments.getPaymentForm for reference.
 func (c *Client) PaymentsGetPaymentForm(ctx context.Context, request *PaymentsGetPaymentFormRequest) (*PaymentsPaymentForm, error) {

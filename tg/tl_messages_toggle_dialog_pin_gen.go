@@ -215,7 +215,9 @@ func (t *MessagesToggleDialogPinRequest) GetPeer() (value InputDialogPeerClass) 
 // Pin/unpin a dialog
 //
 // Possible errors:
-//  400 PEER_ID_INVALID: The provided peer id is invalid
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs.
 //
 // See https://core.telegram.org/method/messages.toggleDialogPin for reference.
 func (c *Client) MessagesToggleDialogPin(ctx context.Context, request *MessagesToggleDialogPinRequest) (bool, error) {

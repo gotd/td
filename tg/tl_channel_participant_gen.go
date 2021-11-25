@@ -1019,7 +1019,7 @@ type ChannelParticipantBanned struct {
 	Flags bin.Fields
 	// Whether the user has left the group
 	Left bool
-	// Peer field of ChannelParticipantBanned.
+	// The banned peer
 	Peer PeerClass
 	// User was kicked by the specified admin
 	KickedBy int64
@@ -1272,7 +1272,7 @@ func (c *ChannelParticipantBanned) GetBannedRights() (value ChatBannedRights) {
 //
 // See https://core.telegram.org/constructor/channelParticipantLeft for reference.
 type ChannelParticipantLeft struct {
-	// Peer field of ChannelParticipantLeft.
+	// The peer that left
 	Peer PeerClass
 }
 

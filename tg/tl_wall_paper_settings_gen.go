@@ -56,11 +56,13 @@ type WallPaperSettings struct {
 	//
 	// Use SetSecondBackgroundColor and GetSecondBackgroundColor helpers.
 	SecondBackgroundColor int
-	// ThirdBackgroundColor field of WallPaperSettings.
+	// If set, a PNG pattern is to be combined with the first, second and third background
+	// colors (RGB24 format) in a freeform gradient
 	//
 	// Use SetThirdBackgroundColor and GetThirdBackgroundColor helpers.
 	ThirdBackgroundColor int
-	// FourthBackgroundColor field of WallPaperSettings.
+	// If set, a PNG pattern is to be combined with the first, second, third and fourth
+	// background colors (RGB24 format) in a freeform gradient
 	//
 	// Use SetFourthBackgroundColor and GetFourthBackgroundColor helpers.
 	FourthBackgroundColor int

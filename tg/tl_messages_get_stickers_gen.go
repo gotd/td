@@ -188,6 +188,9 @@ func (g *MessagesGetStickersRequest) GetHash() (value int64) {
 // MessagesGetStickers invokes method messages.getStickers#d5a5d3a1 returning error if any.
 // Get stickers by emoji
 //
+// Possible errors:
+//  400 EMOTICON_EMPTY: The emoji is empty.
+//
 // See https://core.telegram.org/method/messages.getStickers for reference.
 func (c *Client) MessagesGetStickers(ctx context.Context, request *MessagesGetStickersRequest) (MessagesStickersClass, error) {
 	var result MessagesStickersBox

@@ -32,26 +32,33 @@ var (
 )
 
 // SponsoredMessage represents TL type `sponsoredMessage#d151e19a`.
+// A sponsored message
 //
 // See https://core.telegram.org/constructor/sponsoredMessage for reference.
 type SponsoredMessage struct {
-	// Flags field of SponsoredMessage.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// RandomID field of SponsoredMessage.
+	// Message ID
 	RandomID []byte
-	// FromID field of SponsoredMessage.
+	// ID of the sender of the message
 	FromID PeerClass
 	// ChannelPost field of SponsoredMessage.
 	//
 	// Use SetChannelPost and GetChannelPost helpers.
 	ChannelPost int
-	// StartParam field of SponsoredMessage.
+	// Parameter for the bot start message if the sponsored chat is a chat with a bot.
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
-	// Message field of SponsoredMessage.
+	// Sponsored message
 	Message string
-	// Entities field of SponsoredMessage.
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass

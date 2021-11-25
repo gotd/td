@@ -275,7 +275,7 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) GetError() (value string, ok b
 //  1) https://core.telegram.org/constructor/updateBotPrecheckoutQuery
 //
 // Possible errors:
-//  400 ERROR_TEXT_EMPTY: The provided error message is empty
+//  400 ERROR_TEXT_EMPTY: The provided error message is empty.
 //
 // See https://core.telegram.org/method/messages.setBotPrecheckoutResults for reference.
 // Can be used by bots.

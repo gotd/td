@@ -228,8 +228,12 @@ func (g *StatsGetMegagroupStatsRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 // Links:
 //  1) https://core.telegram.org/api/stats
 //
+// Possible errors:
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 MEGAGROUP_REQUIRED: You can only use this method on a supergroup.
+//
 // See https://core.telegram.org/method/stats.getMegagroupStats for reference.
-// Can be used by bots.
 func (c *Client) StatsGetMegagroupStats(ctx context.Context, request *StatsGetMegagroupStatsRequest) (*StatsMegagroupStats, error) {
 	var result StatsMegagroupStats
 

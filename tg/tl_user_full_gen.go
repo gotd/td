@@ -91,11 +91,12 @@ type UserFull struct {
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
-	// TTLPeriod field of UserFull.
+	// Time To Live of all messages in this chat; once a message is this many seconds old, it
+	// must be deleted.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int
-	// ThemeEmoticon field of UserFull.
+	// Emoji associated with chat theme
 	//
 	// Use SetThemeEmoticon and GetThemeEmoticon helpers.
 	ThemeEmoticon string

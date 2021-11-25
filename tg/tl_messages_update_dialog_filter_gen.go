@@ -235,7 +235,9 @@ func (u *MessagesUpdateDialogFilterRequest) GetFilter() (value DialogFilter, ok 
 //  1) https://core.telegram.org/api/folders
 //
 // Possible errors:
-//  400 FILTER_ID_INVALID: The specified filter ID is invalid
+//  400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//  400 FILTER_INCLUDE_EMPTY: The include_peers vector of the filter is empty.
+//  400 FILTER_TITLE_EMPTY: The title field of the filter is empty.
 //
 // See https://core.telegram.org/method/messages.updateDialogFilter for reference.
 func (c *Client) MessagesUpdateDialogFilter(ctx context.Context, request *MessagesUpdateDialogFilterRequest) (bool, error) {

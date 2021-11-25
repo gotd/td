@@ -32,6 +32,7 @@ var (
 )
 
 // BotCommandScopeDefault represents TL type `botCommandScopeDefault#2f6cb2ab`.
+// The commands will be valid in all dialogs
 //
 // See https://core.telegram.org/constructor/botCommandScopeDefault for reference.
 type BotCommandScopeDefault struct {
@@ -133,6 +134,7 @@ func (b *BotCommandScopeDefault) DecodeBare(buf *bin.Buffer) error {
 }
 
 // BotCommandScopeUsers represents TL type `botCommandScopeUsers#3c4f04d8`.
+// The specified bot commands will only be valid in all private chats with users.
 //
 // See https://core.telegram.org/constructor/botCommandScopeUsers for reference.
 type BotCommandScopeUsers struct {
@@ -234,6 +236,10 @@ func (b *BotCommandScopeUsers) DecodeBare(buf *bin.Buffer) error {
 }
 
 // BotCommandScopeChats represents TL type `botCommandScopeChats#6fe1a881`.
+// The specified bot commands will be valid in all groups and supergroups¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/botCommandScopeChats for reference.
 type BotCommandScopeChats struct {
@@ -335,6 +341,11 @@ func (b *BotCommandScopeChats) DecodeBare(buf *bin.Buffer) error {
 }
 
 // BotCommandScopeChatAdmins represents TL type `botCommandScopeChatAdmins#b9aa606a`.
+// The specified bot commands will be valid only for chat administrators, in all groups
+// and supergroups¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/botCommandScopeChatAdmins for reference.
 type BotCommandScopeChatAdmins struct {
@@ -436,10 +447,11 @@ func (b *BotCommandScopeChatAdmins) DecodeBare(buf *bin.Buffer) error {
 }
 
 // BotCommandScopePeer represents TL type `botCommandScopePeer#db9d897d`.
+// The specified bot commands will be valid only in a specific dialog.
 //
 // See https://core.telegram.org/constructor/botCommandScopePeer for reference.
 type BotCommandScopePeer struct {
-	// Peer field of BotCommandScopePeer.
+	// The dialog
 	Peer InputPeerClass
 }
 
@@ -572,10 +584,15 @@ func (b *BotCommandScopePeer) GetPeer() (value InputPeerClass) {
 }
 
 // BotCommandScopePeerAdmins represents TL type `botCommandScopePeerAdmins#3fd863d1`.
+// The specified bot commands will be valid for all admins of the specified group or
+// supergroup¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/botCommandScopePeerAdmins for reference.
 type BotCommandScopePeerAdmins struct {
-	// Peer field of BotCommandScopePeerAdmins.
+	// The chat
 	Peer InputPeerClass
 }
 
@@ -708,12 +725,17 @@ func (b *BotCommandScopePeerAdmins) GetPeer() (value InputPeerClass) {
 }
 
 // BotCommandScopePeerUser represents TL type `botCommandScopePeerUser#a1321f3`.
+// The specified bot commands will be valid only for a specific user in the specified
+// group or supergroup¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/botCommandScopePeerUser for reference.
 type BotCommandScopePeerUser struct {
-	// Peer field of BotCommandScopePeerUser.
+	// The chat
 	Peer InputPeerClass
-	// UserID field of BotCommandScopePeerUser.
+	// The user
 	UserID InputUserClass
 }
 

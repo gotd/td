@@ -232,7 +232,7 @@ func (s *UsersSetSecureValueErrorsRequest) MapErrors() (value SecureValueErrorCl
 //  1) https://core.telegram.org/passport
 //
 // Possible errors:
-//  400 USER_ID_INVALID: The provided user ID is invalid
+//  400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/users.setSecureValueErrors for reference.
 // Can be used by bots.

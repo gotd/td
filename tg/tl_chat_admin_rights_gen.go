@@ -87,9 +87,10 @@ type ChatAdminRights struct {
 	AddAdmins bool
 	// Whether this admin is anonymous
 	Anonymous bool
-	// ManageCall field of ChatAdminRights.
+	// If set, allows the admin to change group call/livestream settings
 	ManageCall bool
-	// Other field of ChatAdminRights.
+	// Set this flag if none of the other flags are set, but you stil want the user to be an
+	// admin.
 	Other bool
 }
 

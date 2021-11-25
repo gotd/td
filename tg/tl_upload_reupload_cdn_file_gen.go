@@ -192,7 +192,7 @@ func (r *UploadReuploadCDNFileRequest) GetRequestToken() (value []byte) {
 //  1) https://core.telegram.org/cdn
 //
 // Possible errors:
-//  400 RSA_DECRYPT_FAILED: Internal RSA decryption failed
+//  400 RSA_DECRYPT_FAILED: Internal RSA decryption failed.
 //
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
 // Can be used by bots.

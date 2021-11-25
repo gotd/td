@@ -995,9 +995,12 @@ func (e *EncryptedChat) GetKeyFingerprint() (value int64) {
 //
 // See https://core.telegram.org/constructor/encryptedChatDiscarded for reference.
 type EncryptedChatDiscarded struct {
-	// Flags field of EncryptedChatDiscarded.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// HistoryDeleted field of EncryptedChatDiscarded.
+	// Whether both users of this secret chat should also remove all of its messages
 	HistoryDeleted bool
 	// Chat ID
 	ID int

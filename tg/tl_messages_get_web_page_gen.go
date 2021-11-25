@@ -195,7 +195,7 @@ func (g *MessagesGetWebPageRequest) GetHash() (value int) {
 //  1) https://instantview.telegram.org
 //
 // Possible errors:
-//  400 WC_CONVERT_URL_INVALID: WC convert URL invalid
+//  400 WC_CONVERT_URL_INVALID: WC convert URL invalid.
 //
 // See https://core.telegram.org/method/messages.getWebPage for reference.
 func (c *Client) MessagesGetWebPage(ctx context.Context, request *MessagesGetWebPageRequest) (WebPageClass, error) {

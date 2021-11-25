@@ -59,7 +59,10 @@ type MessagesAcceptURLAuthRequest struct {
 	//
 	// Use SetButtonID and GetButtonID helpers.
 	ButtonID int
-	// URL field of MessagesAcceptURLAuthRequest.
+	// URL used for link URL authorization, click here for more info »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/url-authorization#link-url-authorization
 	//
 	// Use SetURL and GetURL helpers.
 	URL string

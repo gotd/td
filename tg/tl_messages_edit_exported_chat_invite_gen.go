@@ -32,22 +32,26 @@ var (
 )
 
 // MessagesEditExportedChatInviteRequest represents TL type `messages.editExportedChatInvite#bdca2f75`.
+// Edit an exported chat invite
 //
 // See https://core.telegram.org/method/messages.editExportedChatInvite for reference.
 type MessagesEditExportedChatInviteRequest struct {
-	// Flags field of MessagesEditExportedChatInviteRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Revoked field of MessagesEditExportedChatInviteRequest.
+	// Whether to revoke the chat invite
 	Revoked bool
-	// Peer field of MessagesEditExportedChatInviteRequest.
+	// Chat
 	Peer InputPeerClass
-	// Link field of MessagesEditExportedChatInviteRequest.
+	// Invite link
 	Link string
-	// ExpireDate field of MessagesEditExportedChatInviteRequest.
+	// New expiration date
 	//
 	// Use SetExpireDate and GetExpireDate helpers.
 	ExpireDate int
-	// UsageLimit field of MessagesEditExportedChatInviteRequest.
+	// Maximum number of users that can join using this link
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
 	UsageLimit int
@@ -412,8 +416,13 @@ func (e *MessagesEditExportedChatInviteRequest) GetTitle() (value string, ok boo
 }
 
 // MessagesEditExportedChatInvite invokes method messages.editExportedChatInvite#bdca2f75 returning error if any.
+// Edit an exported chat invite
+//
+// Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.editExportedChatInvite for reference.
+// Can be used by bots.
 func (c *Client) MessagesEditExportedChatInvite(ctx context.Context, request *MessagesEditExportedChatInviteRequest) (MessagesExportedChatInviteClass, error) {
 	var result MessagesExportedChatInviteBox
 

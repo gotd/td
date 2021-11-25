@@ -167,6 +167,9 @@ func (s *AccountSendVerifyEmailCodeRequest) GetEmail() (value string) {
 // Links:
 //  1) https://core.telegram.org/passport
 //
+// Possible errors:
+//  400 EMAIL_INVALID: The specified email is invalid.
+//
 // See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
 func (c *Client) AccountSendVerifyEmailCode(ctx context.Context, email string) (*AccountSentEmailCode, error) {
 	var result AccountSentEmailCode

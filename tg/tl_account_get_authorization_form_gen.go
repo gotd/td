@@ -209,6 +209,9 @@ func (g *AccountGetAuthorizationFormRequest) GetPublicKey() (value string) {
 // AccountGetAuthorizationForm invokes method account.getAuthorizationForm#a929597a returning error if any.
 // Returns a Telegram Passport authorization form for sharing data with a service
 //
+// Possible errors:
+//  400 PUBLIC_KEY_REQUIRED: A public key is required.
+//
 // See https://core.telegram.org/method/account.getAuthorizationForm for reference.
 func (c *Client) AccountGetAuthorizationForm(ctx context.Context, request *AccountGetAuthorizationFormRequest) (*AccountAuthorizationForm, error) {
 	var result AccountAuthorizationForm

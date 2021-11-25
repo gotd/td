@@ -32,12 +32,14 @@ var (
 )
 
 // PhoneCheckGroupCallRequest represents TL type `phone.checkGroupCall#b59cf977`.
+// Check whether the group call Server Forwarding Unit is currently receiving the streams
+// with the specified WebRTC source IDs
 //
 // See https://core.telegram.org/method/phone.checkGroupCall for reference.
 type PhoneCheckGroupCallRequest struct {
-	// Call field of PhoneCheckGroupCallRequest.
+	// Group call
 	Call InputGroupCall
-	// Sources field of PhoneCheckGroupCallRequest.
+	// Source IDs
 	Sources []int
 }
 
@@ -195,6 +197,8 @@ func (c *PhoneCheckGroupCallRequest) GetSources() (value []int) {
 }
 
 // PhoneCheckGroupCall invokes method phone.checkGroupCall#b59cf977 returning error if any.
+// Check whether the group call Server Forwarding Unit is currently receiving the streams
+// with the specified WebRTC source IDs
 //
 // See https://core.telegram.org/method/phone.checkGroupCall for reference.
 func (c *Client) PhoneCheckGroupCall(ctx context.Context, request *PhoneCheckGroupCallRequest) ([]int, error) {

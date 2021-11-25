@@ -253,13 +253,14 @@ func (s *MessagesStartBotRequest) GetStartParam() (value string) {
 //  1) https://core.telegram.org/bots#deep-linking
 //
 // Possible errors:
-//  400 BOT_INVALID: This is not a valid bot
-//  400 INPUT_USER_DEACTIVATED: The specified user was deleted
-//  400 MSG_ID_INVALID: Invalid message ID provided
-//  400 PEER_ID_INVALID: The provided peer id is invalid
-//  400 START_PARAM_EMPTY: The start parameter is empty
-//  400 START_PARAM_INVALID: Start parameter invalid
-//  400 START_PARAM_TOO_LONG: Start parameter is too long
+//  400 BOT_INVALID: This is not a valid bot.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 INPUT_USER_DEACTIVATED: The specified user was deleted.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 START_PARAM_EMPTY: The start parameter is empty.
+//  400 START_PARAM_INVALID: Start parameter invalid.
+//  400 START_PARAM_TOO_LONG: Start parameter is too long.
 //
 // See https://core.telegram.org/method/messages.startBot for reference.
 func (c *Client) MessagesStartBot(ctx context.Context, request *MessagesStartBotRequest) (UpdatesClass, error) {

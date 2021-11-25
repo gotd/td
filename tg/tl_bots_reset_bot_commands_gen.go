@@ -32,12 +32,13 @@ var (
 )
 
 // BotsResetBotCommandsRequest represents TL type `bots.resetBotCommands#3d8de0f9`.
+// Clear bot commands for the specified bot scope and language code
 //
 // See https://core.telegram.org/method/bots.resetBotCommands for reference.
 type BotsResetBotCommandsRequest struct {
-	// Scope field of BotsResetBotCommandsRequest.
+	// Command scope
 	Scope BotCommandScopeClass
-	// LangCode field of BotsResetBotCommandsRequest.
+	// Language code
 	LangCode string
 }
 
@@ -187,8 +188,10 @@ func (r *BotsResetBotCommandsRequest) GetLangCode() (value string) {
 }
 
 // BotsResetBotCommands invokes method bots.resetBotCommands#3d8de0f9 returning error if any.
+// Clear bot commands for the specified bot scope and language code
 //
 // See https://core.telegram.org/method/bots.resetBotCommands for reference.
+// Can be used by bots.
 func (c *Client) BotsResetBotCommands(ctx context.Context, request *BotsResetBotCommandsRequest) (bool, error) {
 	var result BoolBox
 

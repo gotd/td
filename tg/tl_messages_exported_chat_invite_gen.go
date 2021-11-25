@@ -32,12 +32,13 @@ var (
 )
 
 // MessagesExportedChatInvite represents TL type `messages.exportedChatInvite#1871be50`.
+// Info about a chat invite
 //
 // See https://core.telegram.org/constructor/messages.exportedChatInvite for reference.
 type MessagesExportedChatInvite struct {
-	// Invite field of MessagesExportedChatInvite.
+	// Info about the chat invite
 	Invite ChatInviteExported
-	// Users field of MessagesExportedChatInvite.
+	// Mentioned users
 	Users []UserClass
 }
 
@@ -210,14 +211,15 @@ func (e *MessagesExportedChatInvite) MapUsers() (value UserClassArray) {
 }
 
 // MessagesExportedChatInviteReplaced represents TL type `messages.exportedChatInviteReplaced#222600ef`.
+// The specified chat invite was replaced with another one
 //
 // See https://core.telegram.org/constructor/messages.exportedChatInviteReplaced for reference.
 type MessagesExportedChatInviteReplaced struct {
-	// Invite field of MessagesExportedChatInviteReplaced.
+	// The replaced chat invite
 	Invite ChatInviteExported
-	// NewInvite field of MessagesExportedChatInviteReplaced.
+	// The invite that replaces the previous invite
 	NewInvite ChatInviteExported
-	// Users field of MessagesExportedChatInviteReplaced.
+	// Mentioned users
 	Users []UserClass
 }
 
@@ -443,12 +445,12 @@ type MessagesExportedChatInviteClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Invite field of MessagesExportedChatInvite.
+	// Info about the chat invite
 	GetInvite() (value ChatInviteExported)
 
-	// Users field of MessagesExportedChatInvite.
+	// Mentioned users
 	GetUsers() (value []UserClass)
-	// Users field of MessagesExportedChatInvite.
+	// Mentioned users
 	MapUsers() (value UserClassArray)
 }
 

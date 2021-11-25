@@ -163,10 +163,9 @@ func (r *ContactsResolveUsernameRequest) GetUsername() (value string) {
 //
 // Possible errors:
 //  401 AUTH_KEY_PERM_EMPTY: The temporary auth key must be binded to the permanent auth key to use these methods.
-//  400 CONNECTION_DEVICE_MODEL_EMPTY: Device model empty
-//  400 CONNECTION_LAYER_INVALID: Layer invalid
-//  400 USERNAME_INVALID: The provided username is not valid
-//  400 USERNAME_NOT_OCCUPIED: The provided username is not occupied
+//  400 CONNECTION_LAYER_INVALID: Layer invalid.
+//  400 USERNAME_INVALID: The provided username is not valid.
+//  400 USERNAME_NOT_OCCUPIED: The provided username is not occupied.
 //
 // See https://core.telegram.org/method/contacts.resolveUsername for reference.
 // Can be used by bots.

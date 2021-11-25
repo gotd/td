@@ -659,6 +659,8 @@ func (i *InputStickerSetDice) GetEmoticon() (value string) {
 }
 
 // InputStickerSetAnimatedEmojiAnimations represents TL type `inputStickerSetAnimatedEmojiAnimations#cde3739`.
+// Animated emoji reaction stickerset (contains animations to play when a user clicks on
+// a given animated emoji)
 //
 // See https://core.telegram.org/constructor/inputStickerSetAnimatedEmojiAnimations for reference.
 type InputStickerSetAnimatedEmojiAnimations struct {

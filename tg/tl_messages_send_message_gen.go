@@ -577,35 +577,39 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //
 // Possible errors:
 //  401 AUTH_KEY_PERM_EMPTY: The temporary auth key must be binded to the permanent auth key to use these methods.
-//  400 BOT_DOMAIN_INVALID: Bot domain invalid
-//  400 BOT_INVALID: This is not a valid bot
-//  400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid
-//  400 BUTTON_TYPE_INVALID: The type of one or more of the buttons you provided is invalid
-//  400 BUTTON_URL_INVALID: Button URL invalid
-//  400 CHANNEL_INVALID: The provided channel is invalid
-//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
-//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this
-//  400 CHAT_ID_INVALID: The provided chat id is invalid
-//  400 CHAT_RESTRICTED: You can't send messages in this chat, you were restricted
-//  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat
-//  400 ENCRYPTION_DECLINED: The secret chat was declined
-//  400 ENTITY_MENTION_USER_INVALID: You mentioned an invalid user
-//  400 FROM_MESSAGE_BOT_DISABLED: Bots can't use fromMessage min constructors
-//  400 INPUT_USER_DEACTIVATED: The specified user was deleted
-//  400 MESSAGE_EMPTY: The provided message is empty
-//  400 MESSAGE_TOO_LONG: The provided message is too long
-//  400 MSG_ID_INVALID: Provided reply_to_msg_id is invalid
-//  400 PEER_ID_INVALID: The provided peer id is invalid
-//  400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs
-//  400 REPLY_MARKUP_INVALID: The provided reply markup is invalid
-//  400 SCHEDULE_BOT_NOT_ALLOWED: Bots cannot schedule messages
-//  400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future
-//  400 SCHEDULE_TOO_MUCH: There are too many scheduled messages
+//  400 BOT_DOMAIN_INVALID: Bot domain invalid.
+//  400 BOT_INVALID: This is not a valid bot.
+//  400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid.
+//  400 BUTTON_TYPE_INVALID: The type of one or more of the buttons you provided is invalid.
+//  400 BUTTON_URL_INVALID: Button URL invalid.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 CHAT_RESTRICTED: You can't send messages in this chat, you were restricted.
+//  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//  400 ENCRYPTION_DECLINED: The secret chat was declined.
+//  400 ENTITIES_TOO_LONG: You provided too many styled message entities.
+//  400 ENTITY_MENTION_USER_INVALID: You mentioned an invalid user.
+//  400 FROM_MESSAGE_BOT_DISABLED: Bots can't use fromMessage min constructors.
+//  400 INPUT_USER_DEACTIVATED: The specified user was deleted.
+//  400 MESSAGE_EMPTY: The provided message is empty.
+//  400 MESSAGE_TOO_LONG: The provided message is too long.
+//  400 MSG_ID_INVALID: Provided reply_to_msg_id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs.
+//  400 POLL_OPTION_INVALID: Invalid poll option provided.
+//  400 REPLY_MARKUP_INVALID: The provided reply markup is invalid.
+//  400 REPLY_MARKUP_TOO_LONG: The specified reply_markup is too long.
+//  400 SCHEDULE_BOT_NOT_ALLOWED: Bots cannot schedule messages.
+//  400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
+//  400 SCHEDULE_STATUS_PRIVATE: Can't schedule until user is online, if the user's last seen timestamp is hidden by their privacy settings.
+//  400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
 //  420 SLOWMODE_WAIT_X: Slowmode is enabled in this chat: you must wait for the specified number of seconds before sending another message to the chat.
-//  400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels
-//  400 USER_IS_BLOCKED: You were blocked by this user
-//  400 USER_IS_BOT: Bots can't send messages to other bots
-//  400 YOU_BLOCKED_USER: You blocked this user
+//  400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
+//  400 USER_IS_BLOCKED: You were blocked by this user.
+//  400 USER_IS_BOT: Bots can't send messages to other bots.
+//  400 YOU_BLOCKED_USER: You blocked this user.
 //
 // See https://core.telegram.org/method/messages.sendMessage for reference.
 // Can be used by bots.

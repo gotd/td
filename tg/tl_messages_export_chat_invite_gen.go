@@ -36,19 +36,24 @@ var (
 //
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
 type MessagesExportChatInviteRequest struct {
-	// Flags field of MessagesExportChatInviteRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// LegacyRevokePermanent field of MessagesExportChatInviteRequest.
+	// Legacy flag, reproducing legacy behavior of this method: if set, revokes all previous
+	// links before creating a new one. Kept for bot API BC, should not be used by modern
+	// clients.
 	LegacyRevokePermanent bool
 	// RequestNeeded field of MessagesExportChatInviteRequest.
 	RequestNeeded bool
 	// Chat
 	Peer InputPeerClass
-	// ExpireDate field of MessagesExportChatInviteRequest.
+	// Expiration date
 	//
 	// Use SetExpireDate and GetExpireDate helpers.
 	ExpireDate int
-	// UsageLimit field of MessagesExportChatInviteRequest.
+	// Maximum number of users that can join using this link
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
 	UsageLimit int
@@ -379,11 +384,13 @@ func (e *MessagesExportChatInviteRequest) GetTitle() (value string, ok bool) {
 // Export an invite link for a chat
 //
 // Possible errors:
-//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
-//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this
-//  400 CHAT_ID_INVALID: The provided chat id is invalid
-//  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat
-//  400 PEER_ID_INVALID: The provided peer id is invalid
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//  400 EXPIRE_DATE_INVALID: The specified expiration date is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 USAGE_LIMIT_INVALID: The specified usage limit is invalid.
 //
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
 // Can be used by bots.

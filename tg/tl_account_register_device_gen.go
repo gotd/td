@@ -338,7 +338,10 @@ func (r *AccountRegisterDeviceRequest) GetOtherUIDs() (value []int64) {
 //  1) https://core.telegram.org/api/push-updates
 //
 // Possible errors:
-//  400 TOKEN_INVALID: The provided token is invalid
+//  400 TOKEN_INVALID: The provided token is invalid.
+//  400 WEBPUSH_AUTH_INVALID: The specified web push authentication secret is invalid.
+//  400 WEBPUSH_KEY_INVALID: The specified web push elliptic curve Diffie-Hellman public key is invalid.
+//  400 WEBPUSH_TOKEN_INVALID: The specified web push token is invalid.
 //
 // See https://core.telegram.org/method/account.registerDevice for reference.
 func (c *Client) AccountRegisterDevice(ctx context.Context, request *AccountRegisterDeviceRequest) (bool, error) {

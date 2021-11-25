@@ -32,16 +32,23 @@ var (
 )
 
 // MessagesAffectedFoundMessages represents TL type `messages.affectedFoundMessages#ef8d3e6c`.
+// Messages found and affected by changes
 //
 // See https://core.telegram.org/constructor/messages.affectedFoundMessages for reference.
 type MessagesAffectedFoundMessages struct {
-	// Pts field of MessagesAffectedFoundMessages.
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// PtsCount field of MessagesAffectedFoundMessages.
+	// Number of events that were generated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
-	// Offset field of MessagesAffectedFoundMessages.
+	// If bigger than zero, the request must be repeated to remove more messages
 	Offset int
-	// Messages field of MessagesAffectedFoundMessages.
+	// Affected message IDs
 	Messages []int
 }
 

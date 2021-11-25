@@ -171,8 +171,8 @@ func (c *AccountConfirmPasswordEmailRequest) GetCode() (value string) {
 //  1) https://core.telegram.org/api/srp
 //
 // Possible errors:
-//  400 CODE_INVALID: Code invalid
-//  400 EMAIL_HASH_EXPIRED: Email hash expired
+//  400 CODE_INVALID: Code invalid.
+//  400 EMAIL_HASH_EXPIRED: Email hash expired.
 //
 // See https://core.telegram.org/method/account.confirmPasswordEmail for reference.
 func (c *Client) AccountConfirmPasswordEmail(ctx context.Context, code string) (bool, error) {

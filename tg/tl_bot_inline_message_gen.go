@@ -1549,28 +1549,41 @@ func (b *BotInlineMessageMediaContact) GetReplyMarkup() (value ReplyMarkupClass,
 }
 
 // BotInlineMessageMediaInvoice represents TL type `botInlineMessageMediaInvoice#354a9b09`.
+// Send an invoice
 //
 // See https://core.telegram.org/constructor/botInlineMessageMediaInvoice for reference.
 type BotInlineMessageMediaInvoice struct {
-	// Flags field of BotInlineMessageMediaInvoice.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ShippingAddressRequested field of BotInlineMessageMediaInvoice.
+	// Set this flag if you require the user's shipping address to complete the order
 	ShippingAddressRequested bool
-	// Test field of BotInlineMessageMediaInvoice.
+	// Test invoice
 	Test bool
-	// Title field of BotInlineMessageMediaInvoice.
+	// Product name, 1-32 characters
 	Title string
-	// Description field of BotInlineMessageMediaInvoice.
+	// Product description, 1-255 characters
 	Description string
-	// Photo field of BotInlineMessageMediaInvoice.
+	// Product photo
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo WebDocumentClass
-	// Currency field of BotInlineMessageMediaInvoice.
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// TotalAmount field of BotInlineMessageMediaInvoice.
+	// Total price in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	TotalAmount int64
-	// ReplyMarkup field of BotInlineMessageMediaInvoice.
+	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass

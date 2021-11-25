@@ -199,6 +199,9 @@ func (s *AccountSaveSecureValueRequest) GetSecureSecretID() (value int64) {
 //  1) https://core.telegram.org/passport
 //  2) https://core.telegram.org/passport/encryption#encryption
 //
+// Possible errors:
+//  400 PASSWORD_REQUIRED: A 2FA password must be configured to use Telegram Passport.
+//
 // See https://core.telegram.org/method/account.saveSecureValue for reference.
 func (c *Client) AccountSaveSecureValue(ctx context.Context, request *AccountSaveSecureValueRequest) (*SecureValue, error) {
 	var result SecureValue

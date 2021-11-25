@@ -167,7 +167,8 @@ func (g *MessagesGetStickerSetRequest) GetStickerset() (value InputStickerSetCla
 // Get info about a stickerset
 //
 // Possible errors:
-//  400 STICKERSET_INVALID: The provided sticker set is invalid
+//  400 EMOTICON_STICKERPACK_MISSING:
+//  400 STICKERSET_INVALID: The provided sticker set is invalid.
 //
 // See https://core.telegram.org/method/messages.getStickerSet for reference.
 // Can be used by bots.

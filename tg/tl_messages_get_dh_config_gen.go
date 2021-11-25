@@ -191,7 +191,7 @@ func (g *MessagesGetDhConfigRequest) GetRandomLength() (value int) {
 // random sequence of bytes of required length.
 //
 // Possible errors:
-//  400 RANDOM_LENGTH_INVALID: Random length invalid
+//  400 RANDOM_LENGTH_INVALID: Random length invalid.
 //
 // See https://core.telegram.org/method/messages.getDhConfig for reference.
 func (c *Client) MessagesGetDhConfig(ctx context.Context, request *MessagesGetDhConfigRequest) (MessagesDhConfigClass, error) {

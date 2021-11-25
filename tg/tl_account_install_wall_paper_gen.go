@@ -190,6 +190,9 @@ func (i *AccountInstallWallPaperRequest) GetSettings() (value WallPaperSettings)
 // AccountInstallWallPaper invokes method account.installWallPaper#feed5769 returning error if any.
 // Install wallpaper
 //
+// Possible errors:
+//  400 WALLPAPER_INVALID: The specified wallpaper is invalid.
+//
 // See https://core.telegram.org/method/account.installWallPaper for reference.
 func (c *Client) AccountInstallWallPaper(ctx context.Context, request *AccountInstallWallPaperRequest) (bool, error) {
 	var result BoolBox

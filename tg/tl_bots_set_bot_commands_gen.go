@@ -36,9 +36,9 @@ var (
 //
 // See https://core.telegram.org/method/bots.setBotCommands for reference.
 type BotsSetBotCommandsRequest struct {
-	// Scope field of BotsSetBotCommandsRequest.
+	// Command scope
 	Scope BotCommandScopeClass
-	// LangCode field of BotsSetBotCommandsRequest.
+	// Language code
 	LangCode string
 	// Bot commands
 	Commands []BotCommand
@@ -228,6 +228,11 @@ func (s *BotsSetBotCommandsRequest) GetCommands() (value []BotCommand) {
 
 // BotsSetBotCommands invokes method bots.setBotCommands#517165a returning error if any.
 // Set bot command list
+//
+// Possible errors:
+//  400 BOT_COMMAND_DESCRIPTION_INVALID: The specified command description is invalid.
+//  400 BOT_COMMAND_INVALID: The specified command is invalid.
+//  400 LANG_CODE_INVALID: The specified language code is invalid.
 //
 // See https://core.telegram.org/method/bots.setBotCommands for reference.
 // Can be used by bots.

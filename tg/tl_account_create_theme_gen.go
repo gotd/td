@@ -320,6 +320,9 @@ func (c *AccountCreateThemeRequest) GetDocumentAsNotEmpty() (*InputDocument, boo
 // AccountCreateTheme invokes method account.createTheme#652e4400 returning error if any.
 // Create a theme
 //
+// Possible errors:
+//  400 THEME_MIME_INVALID: The theme's MIME type is invalid.
+//
 // See https://core.telegram.org/method/account.createTheme for reference.
 func (c *Client) AccountCreateTheme(ctx context.Context, request *AccountCreateThemeRequest) (*Theme, error) {
 	var result Theme

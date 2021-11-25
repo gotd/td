@@ -32,18 +32,29 @@ var (
 )
 
 // PhoneGetGroupParticipantsRequest represents TL type `phone.getGroupParticipants#c558d8ab`.
+// Get group call participants
 //
 // See https://core.telegram.org/method/phone.getGroupParticipants for reference.
 type PhoneGetGroupParticipantsRequest struct {
-	// Call field of PhoneGetGroupParticipantsRequest.
+	// Group call
 	Call InputGroupCall
-	// IDs field of PhoneGetGroupParticipantsRequest.
+	// If specified, will fetch group participant info about the specified peers
 	IDs []InputPeerClass
-	// Sources field of PhoneGetGroupParticipantsRequest.
+	// If specified, will fetch group participant info about the specified WebRTC source IDs
 	Sources []int
-	// Offset field of PhoneGetGroupParticipantsRequest.
+	// Offset for results, taken from the next_offset field of phone.groupParticipants¹,
+	// initially an empty string. Note: if no more results are available, the method call
+	// will return an empty next_offset; thus, avoid providing the next_offset returned in
+	// phone.groupParticipants² if it is empty, to avoid an infinite loop.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/phone.groupParticipants
+	//  2) https://core.telegram.org/constructor/phone.groupParticipants
 	Offset string
-	// Limit field of PhoneGetGroupParticipantsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -290,6 +301,7 @@ func (g *PhoneGetGroupParticipantsRequest) MapIDs() (value InputPeerClassArray) 
 }
 
 // PhoneGetGroupParticipants invokes method phone.getGroupParticipants#c558d8ab returning error if any.
+// Get group call participants
 //
 // See https://core.telegram.org/method/phone.getGroupParticipants for reference.
 func (c *Client) PhoneGetGroupParticipants(ctx context.Context, request *PhoneGetGroupParticipantsRequest) (*PhoneGroupParticipants, error) {

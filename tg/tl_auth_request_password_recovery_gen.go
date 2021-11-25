@@ -142,7 +142,8 @@ func (r *AuthRequestPasswordRecoveryRequest) DecodeBare(b *bin.Buffer) error {
 //  2) https://core.telegram.org/api/srp#email-verification
 //
 // Possible errors:
-//  400 PASSWORD_EMPTY: The provided password is empty
+//  400 PASSWORD_EMPTY: The provided password is empty.
+//  400 PASSWORD_RECOVERY_NA: No email was set, can't recover password via email.
 //
 // See https://core.telegram.org/method/auth.requestPasswordRecovery for reference.
 func (c *Client) AuthRequestPasswordRecovery(ctx context.Context) (*AuthPasswordRecovery, error) {

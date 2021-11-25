@@ -170,6 +170,9 @@ func (r *AccountResetWebAuthorizationRequest) GetHash() (value int64) {
 // Links:
 //  1) https://core.telegram.org/widgets/login
 //
+// Possible errors:
+//  400 HASH_INVALID: The provided hash is invalid.
+//
 // See https://core.telegram.org/method/account.resetWebAuthorization for reference.
 func (c *Client) AccountResetWebAuthorization(ctx context.Context, hash int64) (bool, error) {
 	var result BoolBox

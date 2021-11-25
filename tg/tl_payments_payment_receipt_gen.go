@@ -47,11 +47,11 @@ type PaymentsPaymentReceipt struct {
 	BotID int64
 	// Provider ID
 	ProviderID int64
-	// Title field of PaymentsPaymentReceipt.
+	// Title
 	Title string
-	// Description field of PaymentsPaymentReceipt.
+	// Description
 	Description string
-	// Photo field of PaymentsPaymentReceipt.
+	// Photo
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo WebDocumentClass
@@ -65,7 +65,7 @@ type PaymentsPaymentReceipt struct {
 	//
 	// Use SetShipping and GetShipping helpers.
 	Shipping ShippingOption
-	// TipAmount field of PaymentsPaymentReceipt.
+	// Tipped amount
 	//
 	// Use SetTipAmount and GetTipAmount helpers.
 	TipAmount int64

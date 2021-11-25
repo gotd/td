@@ -45,7 +45,10 @@ type Theme struct {
 	Creator bool
 	// Whether this is the default theme
 	Default bool
-	// ForChat field of Theme.
+	// Whether this theme is meant to be used as a chat theme¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/blog/chat-themes-interactive-emoji-read-receipts
 	ForChat bool
 	// Theme ID
 	ID int64

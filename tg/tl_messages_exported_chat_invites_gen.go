@@ -32,14 +32,15 @@ var (
 )
 
 // MessagesExportedChatInvites represents TL type `messages.exportedChatInvites#bdc62dcc`.
+// Info about chat invites exported by a certain admin.
 //
 // See https://core.telegram.org/constructor/messages.exportedChatInvites for reference.
 type MessagesExportedChatInvites struct {
-	// Count field of MessagesExportedChatInvites.
+	// Number of invites exported by the admin
 	Count int
-	// Invites field of MessagesExportedChatInvites.
+	// Exported invites
 	Invites []ChatInviteExported
-	// Users field of MessagesExportedChatInvites.
+	// Info about the admin
 	Users []UserClass
 }
 

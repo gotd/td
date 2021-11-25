@@ -32,18 +32,22 @@ var (
 )
 
 // GroupCallParticipantVideo represents TL type `groupCallParticipantVideo#67753ac8`.
+// Info about a video stream
 //
 // See https://core.telegram.org/constructor/groupCallParticipantVideo for reference.
 type GroupCallParticipantVideo struct {
-	// Flags field of GroupCallParticipantVideo.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Paused field of GroupCallParticipantVideo.
+	// Whether the stream is currently paused
 	Paused bool
-	// Endpoint field of GroupCallParticipantVideo.
+	// Endpoint
 	Endpoint string
-	// SourceGroups field of GroupCallParticipantVideo.
+	// Source groups
 	SourceGroups []GroupCallParticipantVideoSourceGroup
-	// AudioSource field of GroupCallParticipantVideo.
+	// Audio source ID
 	//
 	// Use SetAudioSource and GetAudioSource helpers.
 	AudioSource int

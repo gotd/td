@@ -32,13 +32,22 @@ var (
 )
 
 // HelpDismissSuggestionRequest represents TL type `help.dismissSuggestion#f50dbaa1`.
-// Dismiss a suggestion
+// Dismiss a suggestion, see here for more info »¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/config#suggestions
 //
 // See https://core.telegram.org/method/help.dismissSuggestion for reference.
 type HelpDismissSuggestionRequest struct {
-	// Peer field of HelpDismissSuggestionRequest.
+	// In the case of pending suggestions in channels¹, the channel ID.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelFull
 	Peer InputPeerClass
-	// Suggestion
+	// Suggestion, see here for more info »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#suggestions
 	Suggestion string
 }
 
@@ -188,10 +197,12 @@ func (d *HelpDismissSuggestionRequest) GetSuggestion() (value string) {
 }
 
 // HelpDismissSuggestion invokes method help.dismissSuggestion#f50dbaa1 returning error if any.
-// Dismiss a suggestion
+// Dismiss a suggestion, see here for more info »¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/config#suggestions
 //
 // See https://core.telegram.org/method/help.dismissSuggestion for reference.
-// Can be used by bots.
 func (c *Client) HelpDismissSuggestion(ctx context.Context, request *HelpDismissSuggestionRequest) (bool, error) {
 	var result BoolBox
 

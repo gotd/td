@@ -32,20 +32,28 @@ var (
 )
 
 // PhoneCreateGroupCallRequest represents TL type `phone.createGroupCall#48cdc6d8`.
+// Create a group call or livestream
 //
 // See https://core.telegram.org/method/phone.createGroupCall for reference.
 type PhoneCreateGroupCallRequest struct {
-	// Flags field of PhoneCreateGroupCallRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of PhoneCreateGroupCallRequest.
+	// Associate the group call or livestream to the provided group/supergroup/channel¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Peer InputPeerClass
-	// RandomID field of PhoneCreateGroupCallRequest.
+	// Unique client message ID required to prevent creation of duplicate group calls
 	RandomID int
-	// Title field of PhoneCreateGroupCallRequest.
+	// Call title
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// ScheduleDate field of PhoneCreateGroupCallRequest.
+	// For scheduled group call or livestreams, the absolute date when the group call will
+	// start
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
@@ -290,6 +298,11 @@ func (c *PhoneCreateGroupCallRequest) GetScheduleDate() (value int, ok bool) {
 }
 
 // PhoneCreateGroupCall invokes method phone.createGroupCall#48cdc6d8 returning error if any.
+// Create a group call or livestream
+//
+// Possible errors:
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 SCHEDULE_DATE_INVALID: Invalid schedule date provided.
 //
 // See https://core.telegram.org/method/phone.createGroupCall for reference.
 func (c *Client) PhoneCreateGroupCall(ctx context.Context, request *PhoneCreateGroupCallRequest) (UpdatesClass, error) {

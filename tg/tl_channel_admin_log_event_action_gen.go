@@ -3164,10 +3164,11 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) GetNewValue() (value int) {
 }
 
 // ChannelAdminLogEventActionStartGroupCall represents TL type `channelAdminLogEventActionStartGroupCall#23209745`.
+// A group call was started
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionStartGroupCall for reference.
 type ChannelAdminLogEventActionStartGroupCall struct {
-	// Call field of ChannelAdminLogEventActionStartGroupCall.
+	// Group call
 	Call InputGroupCall
 }
 
@@ -3297,10 +3298,11 @@ func (c *ChannelAdminLogEventActionStartGroupCall) GetCall() (value InputGroupCa
 }
 
 // ChannelAdminLogEventActionDiscardGroupCall represents TL type `channelAdminLogEventActionDiscardGroupCall#db9f9140`.
+// A group call was terminated
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDiscardGroupCall for reference.
 type ChannelAdminLogEventActionDiscardGroupCall struct {
-	// Call field of ChannelAdminLogEventActionDiscardGroupCall.
+	// The group call that was terminated
 	Call InputGroupCall
 }
 
@@ -3430,10 +3432,11 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) GetCall() (value InputGroup
 }
 
 // ChannelAdminLogEventActionParticipantMute represents TL type `channelAdminLogEventActionParticipantMute#f92424d2`.
+// A group call participant was muted
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantMute for reference.
 type ChannelAdminLogEventActionParticipantMute struct {
-	// Participant field of ChannelAdminLogEventActionParticipantMute.
+	// The participant that was muted
 	Participant GroupCallParticipant
 }
 
@@ -3563,10 +3566,11 @@ func (c *ChannelAdminLogEventActionParticipantMute) GetParticipant() (value Grou
 }
 
 // ChannelAdminLogEventActionParticipantUnmute represents TL type `channelAdminLogEventActionParticipantUnmute#e64429c0`.
+// A group call participant was unmuted
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantUnmute for reference.
 type ChannelAdminLogEventActionParticipantUnmute struct {
-	// Participant field of ChannelAdminLogEventActionParticipantUnmute.
+	// The participant that was unmuted
 	Participant GroupCallParticipant
 }
 
@@ -3696,10 +3700,11 @@ func (c *ChannelAdminLogEventActionParticipantUnmute) GetParticipant() (value Gr
 }
 
 // ChannelAdminLogEventActionToggleGroupCallSetting represents TL type `channelAdminLogEventActionToggleGroupCallSetting#56d6a247`.
+// Group call settings were changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleGroupCallSetting for reference.
 type ChannelAdminLogEventActionToggleGroupCallSetting struct {
-	// JoinMuted field of ChannelAdminLogEventActionToggleGroupCallSetting.
+	// Whether all users are muted by default upon joining
 	JoinMuted bool
 }
 
@@ -3829,10 +3834,17 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) GetJoinMuted() (value
 }
 
 // ChannelAdminLogEventActionParticipantJoinByInvite represents TL type `channelAdminLogEventActionParticipantJoinByInvite#5cdada77`.
+// A user joined the supergroup/channel¹ using a specific invite link
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite for reference.
 type ChannelAdminLogEventActionParticipantJoinByInvite struct {
-	// Invite field of ChannelAdminLogEventActionParticipantJoinByInvite.
+	// The invite link used to join the supergroup/channel¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Invite ChatInviteExported
 }
 
@@ -3962,10 +3974,11 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) GetInvite() (value C
 }
 
 // ChannelAdminLogEventActionExportedInviteDelete represents TL type `channelAdminLogEventActionExportedInviteDelete#5a50fca4`.
+// A chat invite was deleted
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteDelete for reference.
 type ChannelAdminLogEventActionExportedInviteDelete struct {
-	// Invite field of ChannelAdminLogEventActionExportedInviteDelete.
+	// The deleted chat invite
 	Invite ChatInviteExported
 }
 
@@ -4095,10 +4108,11 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) GetInvite() (value Chat
 }
 
 // ChannelAdminLogEventActionExportedInviteRevoke represents TL type `channelAdminLogEventActionExportedInviteRevoke#410a134e`.
+// A specific invite link was revoked
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteRevoke for reference.
 type ChannelAdminLogEventActionExportedInviteRevoke struct {
-	// Invite field of ChannelAdminLogEventActionExportedInviteRevoke.
+	// The invite link that was revoked
 	Invite ChatInviteExported
 }
 
@@ -4228,12 +4242,13 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) GetInvite() (value Chat
 }
 
 // ChannelAdminLogEventActionExportedInviteEdit represents TL type `channelAdminLogEventActionExportedInviteEdit#e90ebb59`.
+// A chat invite was edited
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteEdit for reference.
 type ChannelAdminLogEventActionExportedInviteEdit struct {
-	// PrevInvite field of ChannelAdminLogEventActionExportedInviteEdit.
+	// Previous chat invite information
 	PrevInvite ChatInviteExported
-	// NewInvite field of ChannelAdminLogEventActionExportedInviteEdit.
+	// New chat invite information
 	NewInvite ChatInviteExported
 }
 
@@ -4385,10 +4400,12 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) GetNewInvite() (value Cha
 }
 
 // ChannelAdminLogEventActionParticipantVolume represents TL type `channelAdminLogEventActionParticipantVolume#3e7f6847`.
+// channelAdminLogEvent.user_id has set the volume of participant.peer to participant
+// volume
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantVolume for reference.
 type ChannelAdminLogEventActionParticipantVolume struct {
-	// Participant field of ChannelAdminLogEventActionParticipantVolume.
+	// The participant whose volume was changed
 	Participant GroupCallParticipant
 }
 
@@ -4518,12 +4535,13 @@ func (c *ChannelAdminLogEventActionParticipantVolume) GetParticipant() (value Gr
 }
 
 // ChannelAdminLogEventActionChangeHistoryTTL represents TL type `channelAdminLogEventActionChangeHistoryTTL#6e941a38`.
+// The Time-To-Live of messages in this chat was changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeHistoryTTL for reference.
 type ChannelAdminLogEventActionChangeHistoryTTL struct {
-	// PrevValue field of ChannelAdminLogEventActionChangeHistoryTTL.
+	// Previous value
 	PrevValue int
-	// NewValue field of ChannelAdminLogEventActionChangeHistoryTTL.
+	// New value
 	NewValue int
 }
 

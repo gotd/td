@@ -170,6 +170,9 @@ func (d *FoldersDeleteFolderRequest) GetFolderID() (value int) {
 // Links:
 //  1) https://core.telegram.org/api/folders#peer-folders
 //
+// Possible errors:
+//  400 FOLDER_ID_EMPTY: An empty folder ID was specified.
+//
 // See https://core.telegram.org/method/folders.deleteFolder for reference.
 func (c *Client) FoldersDeleteFolder(ctx context.Context, folderid int) (UpdatesClass, error) {
 	var result UpdatesBox

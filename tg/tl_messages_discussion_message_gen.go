@@ -67,7 +67,7 @@ type MessagesDiscussionMessage struct {
 	//
 	// Use SetReadOutboxMaxID and GetReadOutboxMaxID helpers.
 	ReadOutboxMaxID int
-	// UnreadCount field of MessagesDiscussionMessage.
+	// Number of unread messages
 	UnreadCount int
 	// Chats mentioned in constructor
 	Chats []ChatClass

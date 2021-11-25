@@ -1509,6 +1509,7 @@ func (s *SendMessageUploadRoundAction) GetProgress() (value int) {
 }
 
 // SpeakingInGroupCallAction represents TL type `speakingInGroupCallAction#d92c2285`.
+// User is currently speaking in the group call
 //
 // See https://core.telegram.org/constructor/speakingInGroupCallAction for reference.
 type SpeakingInGroupCallAction struct {
@@ -1610,10 +1611,11 @@ func (s *SpeakingInGroupCallAction) DecodeBare(b *bin.Buffer) error {
 }
 
 // SendMessageHistoryImportAction represents TL type `sendMessageHistoryImportAction#dbda9246`.
+// Chat history is being imported
 //
 // See https://core.telegram.org/constructor/sendMessageHistoryImportAction for reference.
 type SendMessageHistoryImportAction struct {
-	// Progress field of SendMessageHistoryImportAction.
+	// Progress percentage
 	Progress int
 }
 
@@ -1741,6 +1743,7 @@ func (s *SendMessageHistoryImportAction) GetProgress() (value int) {
 }
 
 // SendMessageChooseStickerAction represents TL type `sendMessageChooseStickerAction#b05ac6b1`.
+// User is choosing a sticker
 //
 // See https://core.telegram.org/constructor/sendMessageChooseStickerAction for reference.
 type SendMessageChooseStickerAction struct {
@@ -1842,14 +1845,22 @@ func (s *SendMessageChooseStickerAction) DecodeBare(b *bin.Buffer) error {
 }
 
 // SendMessageEmojiInteraction represents TL type `sendMessageEmojiInteraction#25972bcb`.
+// User has clicked on an animated emoji triggering a reaction, click here for more info
+// »¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/animated-emojis#emoji-reactions
 //
 // See https://core.telegram.org/constructor/sendMessageEmojiInteraction for reference.
 type SendMessageEmojiInteraction struct {
-	// Emoticon field of SendMessageEmojiInteraction.
+	// Emoji
 	Emoticon string
-	// MsgID field of SendMessageEmojiInteraction.
+	// Message ID of the animated emoji that was clicked
 	MsgID int
-	// Interaction field of SendMessageEmojiInteraction.
+	// A JSON object with interaction info, click here for more info »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/animated-emojis#emoji-reactions
 	Interaction DataJSON
 }
 
@@ -2021,10 +2032,15 @@ func (s *SendMessageEmojiInteraction) GetInteraction() (value DataJSON) {
 }
 
 // SendMessageEmojiInteractionSeen represents TL type `sendMessageEmojiInteractionSeen#b665902e`.
+// User is watching an animated emoji reaction triggered by another user, click here for
+// more info »¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/animated-emojis#emoji-reactions
 //
 // See https://core.telegram.org/constructor/sendMessageEmojiInteractionSeen for reference.
 type SendMessageEmojiInteractionSeen struct {
-	// Emoticon field of SendMessageEmojiInteractionSeen.
+	// Emoji
 	Emoticon string
 }
 

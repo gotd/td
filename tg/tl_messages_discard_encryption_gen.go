@@ -36,9 +36,12 @@ var (
 //
 // See https://core.telegram.org/method/messages.discardEncryption for reference.
 type MessagesDiscardEncryptionRequest struct {
-	// Flags field of MessagesDiscardEncryptionRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// DeleteHistory field of MessagesDiscardEncryptionRequest.
+	// Whether to delete the entire chat history for the other user as well
 	DeleteHistory bool
 	// Secret chat ID
 	ChatID int
@@ -207,9 +210,9 @@ func (d *MessagesDiscardEncryptionRequest) GetChatID() (value int) {
 // Cancels a request for creation and/or delete info on secret chat.
 //
 // Possible errors:
-//  400 CHAT_ID_EMPTY: The provided chat ID is empty
-//  400 ENCRYPTION_ALREADY_DECLINED: The secret chat was already declined
-//  400 ENCRYPTION_ID_INVALID: The provided secret chat ID is invalid
+//  400 CHAT_ID_EMPTY: The provided chat ID is empty.
+//  400 ENCRYPTION_ALREADY_DECLINED: The secret chat was already declined.
+//  400 ENCRYPTION_ID_INVALID: The provided secret chat ID is invalid.
 //
 // See https://core.telegram.org/method/messages.discardEncryption for reference.
 func (c *Client) MessagesDiscardEncryption(ctx context.Context, request *MessagesDiscardEncryptionRequest) (bool, error) {

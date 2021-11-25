@@ -270,8 +270,9 @@ func (g *ContactsGetLocatedRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, boo
 // Get contacts near you
 //
 // Possible errors:
-//  400 GEO_POINT_INVALID: Invalid geoposition provided
-//  406 USERPIC_UPLOAD_REQUIRED: You must have a profile picture to publish your geolocation
+//  400 GEO_POINT_INVALID: Invalid geoposition provided.
+//  406 USERPIC_PRIVACY_REQUIRED: You need to disable privacy settings for your profile picture in order to make your geolocation public.
+//  406 USERPIC_UPLOAD_REQUIRED: You must have a profile picture to publish your geolocation.
 //
 // See https://core.telegram.org/method/contacts.getLocated for reference.
 func (c *Client) ContactsGetLocated(ctx context.Context, request *ContactsGetLocatedRequest) (UpdatesClass, error) {

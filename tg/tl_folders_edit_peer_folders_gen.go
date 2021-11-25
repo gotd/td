@@ -183,7 +183,7 @@ func (e *FoldersEditPeerFoldersRequest) GetFolderPeers() (value []InputFolderPee
 //  1) https://core.telegram.org/api/folders#peer-folders
 //
 // Possible errors:
-//  400 FOLDER_ID_INVALID: Invalid folder ID
+//  400 FOLDER_ID_INVALID: Invalid folder ID.
 //
 // See https://core.telegram.org/method/folders.editPeerFolders for reference.
 func (c *Client) FoldersEditPeerFolders(ctx context.Context, folderpeers []InputFolderPeer) (UpdatesClass, error) {

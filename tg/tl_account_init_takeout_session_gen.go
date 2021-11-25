@@ -32,7 +32,7 @@ var (
 )
 
 // AccountInitTakeoutSessionRequest represents TL type `account.initTakeoutSession#f05b4804`.
-// Intialize account takeout session
+// Initialize account takeout session
 //
 // See https://core.telegram.org/method/account.initTakeoutSession for reference.
 type AccountInitTakeoutSessionRequest struct {
@@ -397,10 +397,10 @@ func (i *AccountInitTakeoutSessionRequest) GetFileMaxSize() (value int, ok bool)
 }
 
 // AccountInitTakeoutSession invokes method account.initTakeoutSession#f05b4804 returning error if any.
-// Intialize account takeout session
+// Initialize account takeout session
 //
 // Possible errors:
-//  420 TAKEOUT_INIT_DELAY_X: Wait X seconds before initing takeout
+//  420 TAKEOUT_INIT_DELAY_X: Wait X seconds before initing takeout.
 //
 // See https://core.telegram.org/method/account.initTakeoutSession for reference.
 func (c *Client) AccountInitTakeoutSession(ctx context.Context, request *AccountInitTakeoutSessionRequest) (*AccountTakeout, error) {

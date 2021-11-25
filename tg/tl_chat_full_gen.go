@@ -82,19 +82,23 @@ type ChatFull struct {
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
-	// Call field of ChatFull.
+	// Group call information
 	//
 	// Use SetCall and GetCall helpers.
 	Call InputGroupCall
-	// TTLPeriod field of ChatFull.
+	// Time-To-Live of messages sent by the current user to this chat
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int
-	// GroupcallDefaultJoinAs field of ChatFull.
+	// When using phone.getGroupCallJoinAs¹ to get a list of peers that can be used to join
+	// a group call, this field indicates the peer that should be selected by default.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/phone.getGroupCallJoinAs
 	//
 	// Use SetGroupcallDefaultJoinAs and GetGroupcallDefaultJoinAs helpers.
 	GroupcallDefaultJoinAs PeerClass
-	// ThemeEmoticon field of ChatFull.
+	// Emoji representing a specific chat theme
 	//
 	// Use SetThemeEmoticon and GetThemeEmoticon helpers.
 	ThemeEmoticon string
@@ -1013,23 +1017,31 @@ type ChannelFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Call field of ChannelFull.
+	// Livestream or group call information
 	//
 	// Use SetCall and GetCall helpers.
 	Call InputGroupCall
-	// TTLPeriod field of ChannelFull.
+	// Time-To-Live of messages in this channel or supergroup
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int
-	// PendingSuggestions field of ChannelFull.
+	// A list of suggested actions¹ for the supergroup admin, see here for more info »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#suggestions
+	//  2) https://core.telegram.org/api/config#suggestions
 	//
 	// Use SetPendingSuggestions and GetPendingSuggestions helpers.
 	PendingSuggestions []string
-	// GroupcallDefaultJoinAs field of ChannelFull.
+	// When using phone.getGroupCallJoinAs¹ to get a list of peers that can be used to join
+	// a group call, this field indicates the peer that should be selected by default.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/phone.getGroupCallJoinAs
 	//
 	// Use SetGroupcallDefaultJoinAs and GetGroupcallDefaultJoinAs helpers.
 	GroupcallDefaultJoinAs PeerClass
-	// ThemeEmoticon field of ChannelFull.
+	// Emoji representing a specific chat theme
 	//
 	// Use SetThemeEmoticon and GetThemeEmoticon helpers.
 	ThemeEmoticon string
@@ -2698,16 +2710,20 @@ type ChatFullClass interface {
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	GetFolderID() (value int, ok bool)
 
-	// Call field of ChatFull.
+	// Group call information
 	GetCall() (value InputGroupCall, ok bool)
 
-	// TTLPeriod field of ChatFull.
+	// Time-To-Live of messages sent by the current user to this chat
 	GetTTLPeriod() (value int, ok bool)
 
-	// GroupcallDefaultJoinAs field of ChatFull.
+	// When using phone.getGroupCallJoinAs¹ to get a list of peers that can be used to join
+	// a group call, this field indicates the peer that should be selected by default.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/phone.getGroupCallJoinAs
 	GetGroupcallDefaultJoinAs() (value PeerClass, ok bool)
 
-	// ThemeEmoticon field of ChatFull.
+	// Emoji representing a specific chat theme
 	GetThemeEmoticon() (value string, ok bool)
 
 	// RequestsPending field of ChatFull.

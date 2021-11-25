@@ -32,12 +32,17 @@ var (
 )
 
 // MessagesSetChatThemeRequest represents TL type `messages.setChatTheme#e63be13f`.
+// Change the chat theme of a certain chat
 //
 // See https://core.telegram.org/method/messages.setChatTheme for reference.
 type MessagesSetChatThemeRequest struct {
-	// Peer field of MessagesSetChatThemeRequest.
+	// Private chat where to change theme
 	Peer InputPeerClass
-	// Emoticon field of MessagesSetChatThemeRequest.
+	// Emoji, identifying a specific chat theme; a list of chat themes can be fetched using
+	// account.getChatThemes¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/account.getChatThemes
 	Emoticon string
 }
 
@@ -187,6 +192,11 @@ func (s *MessagesSetChatThemeRequest) GetEmoticon() (value string) {
 }
 
 // MessagesSetChatTheme invokes method messages.setChatTheme#e63be13f returning error if any.
+// Change the chat theme of a certain chat
+//
+// Possible errors:
+//  400 EMOJI_INVALID: The specified theme emoji is valid.
+//  400 EMOJI_NOT_MODIFIED: The theme wasn't changed.
 //
 // See https://core.telegram.org/method/messages.setChatTheme for reference.
 func (c *Client) MessagesSetChatTheme(ctx context.Context, request *MessagesSetChatThemeRequest) (UpdatesClass, error) {

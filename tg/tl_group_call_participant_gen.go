@@ -32,58 +32,73 @@ var (
 )
 
 // GroupCallParticipant represents TL type `groupCallParticipant#eba636fe`.
+// Info about a group call participant
 //
 // See https://core.telegram.org/constructor/groupCallParticipant for reference.
 type GroupCallParticipant struct {
-	// Flags field of GroupCallParticipant.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Muted field of GroupCallParticipant.
+	// Whether the participant is muted
 	Muted bool
-	// Left field of GroupCallParticipant.
+	// Whether the participant has left
 	Left bool
-	// CanSelfUnmute field of GroupCallParticipant.
+	// Whether the participant can unmute themselves
 	CanSelfUnmute bool
-	// JustJoined field of GroupCallParticipant.
+	// Whether the participant has just joined
 	JustJoined bool
-	// Versioned field of GroupCallParticipant.
+	// If set, and updateGroupCallParticipants¹.version < locally stored call.version, info
+	// about this participant should be ignored. If (...), and updateGroupCallParticipants²
+	// version > call.version+1, the participant list should be refetched using phone
+	// getGroupParticipants³.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/updateGroupCallParticipants
+	//  2) https://core.telegram.org/constructor/updateGroupCallParticipants
+	//  3) https://core.telegram.org/method/phone.getGroupParticipants
 	Versioned bool
-	// Min field of GroupCallParticipant.
+	// If not set, the volume and muted_by_you fields can be safely used to overwrite locally
+	// cached information; otherwise, volume will contain valid information only if
+	// volume_by_admin is set both in the cache and in the received constructor.
 	Min bool
-	// MutedByYou field of GroupCallParticipant.
+	// Whether this participant was muted by the current user
 	MutedByYou bool
-	// VolumeByAdmin field of GroupCallParticipant.
+	// Whether our volume can only changed by an admin
 	VolumeByAdmin bool
-	// Self field of GroupCallParticipant.
+	// Whether this participant is the current user
 	Self bool
-	// VideoJoined field of GroupCallParticipant.
+	// Whether this participant is currently broadcasting video
 	VideoJoined bool
-	// Peer field of GroupCallParticipant.
+	// Peer information
 	Peer PeerClass
-	// Date field of GroupCallParticipant.
+	// When did this participant join the group call
 	Date int
-	// ActiveDate field of GroupCallParticipant.
+	// When was this participant last active in the group call
 	//
 	// Use SetActiveDate and GetActiveDate helpers.
 	ActiveDate int
-	// Source field of GroupCallParticipant.
+	// Source ID
 	Source int
-	// Volume field of GroupCallParticipant.
+	// Volume, if not set the volume is set to 100%.
 	//
 	// Use SetVolume and GetVolume helpers.
 	Volume int
-	// About field of GroupCallParticipant.
+	// Info about this participant
 	//
 	// Use SetAbout and GetAbout helpers.
 	About string
-	// RaiseHandRating field of GroupCallParticipant.
+	// Specifies the UI visualization order of peers with raised hands: peers with a higher
+	// rating should be showed first in the list.
 	//
 	// Use SetRaiseHandRating and GetRaiseHandRating helpers.
 	RaiseHandRating int64
-	// Video field of GroupCallParticipant.
+	// Info about the video stream the participant is currently broadcasting
 	//
 	// Use SetVideo and GetVideo helpers.
 	Video GroupCallParticipantVideo
-	// Presentation field of GroupCallParticipant.
+	// Info about the screen sharing stream the participant is currently broadcasting
 	//
 	// Use SetPresentation and GetPresentation helpers.
 	Presentation GroupCallParticipantVideo

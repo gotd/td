@@ -221,6 +221,9 @@ func (g *MessagesGetSearchCountersRequest) MapFilters() (value MessagesFilterCla
 // Links:
 //  1) https://core.telegram.org/method/messages.search
 //
+// Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.getSearchCounters for reference.
 func (c *Client) MessagesGetSearchCounters(ctx context.Context, request *MessagesGetSearchCountersRequest) ([]MessagesSearchCounter, error) {
 	var result MessagesSearchCounterVector

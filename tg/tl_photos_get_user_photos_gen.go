@@ -240,8 +240,9 @@ func (g *PhotosGetUserPhotosRequest) GetLimit() (value int) {
 // Returns the list of user photos.
 //
 // Possible errors:
-//  400 MAX_ID_INVALID: The provided max ID is invalid
-//  400 USER_ID_INVALID: The provided user ID is invalid
+//  400 MAX_ID_INVALID: The provided max ID is invalid.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/photos.getUserPhotos for reference.
 // Can be used by bots.

@@ -186,8 +186,8 @@ func (a *BotsAnswerWebhookJSONQueryRequest) GetData() (value DataJSON) {
 // Answers a custom query; for bots only
 //
 // Possible errors:
-//  400 QUERY_ID_INVALID: The query ID is invalid
-//  400 USER_BOT_INVALID: This method can only be called by a bot
+//  400 QUERY_ID_INVALID: The query ID is invalid.
+//  400 USER_BOT_INVALID: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/bots.answerWebhookJSONQuery for reference.
 // Can be used by bots.

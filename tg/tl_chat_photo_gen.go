@@ -145,9 +145,12 @@ type ChatPhoto struct {
 	Flags bin.Fields
 	// Whether the user has an animated profile picture
 	HasVideo bool
-	// PhotoID field of ChatPhoto.
+	// Photo ID
 	PhotoID int64
-	// StrippedThumb field of ChatPhoto.
+	// Stripped thumbnail¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#stripped-thumbnails
 	//
 	// Use SetStrippedThumb and GetStrippedThumb helpers.
 	StrippedThumb []byte

@@ -38,7 +38,7 @@ var (
 type ChannelsChannelParticipant struct {
 	// The channel participant
 	Participant ChannelParticipantClass
-	// Chats field of ChannelsChannelParticipant.
+	// Mentioned chats
 	Chats []ChatClass
 	// Users
 	Users []UserClass

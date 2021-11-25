@@ -341,12 +341,11 @@ func (g *MessagesGetHistoryRequest) GetHash() (value int64) {
 //
 // Possible errors:
 //  401 AUTH_KEY_PERM_EMPTY: The temporary auth key must be binded to the permanent auth key to use these methods.
-//  400 CHANNEL_INVALID: The provided channel is invalid
-//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
-//  400 CHAT_ID_INVALID: The provided chat id is invalid
-//  400 CONNECTION_DEVICE_MODEL_EMPTY: Device model empty
-//  400 MSG_ID_INVALID: Invalid message ID provided
-//  400 PEER_ID_INVALID: The provided peer id is invalid
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getHistory for reference.
 func (c *Client) MessagesGetHistory(ctx context.Context, request *MessagesGetHistoryRequest) (MessagesMessagesClass, error) {

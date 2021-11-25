@@ -1720,28 +1720,38 @@ func (i *InputBotInlineMessageGame) GetReplyMarkup() (value ReplyMarkupClass, ok
 }
 
 // InputBotInlineMessageMediaInvoice represents TL type `inputBotInlineMessageMediaInvoice#d7e78225`.
+// An invoice
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageMediaInvoice for reference.
 type InputBotInlineMessageMediaInvoice struct {
-	// Flags field of InputBotInlineMessageMediaInvoice.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Title field of InputBotInlineMessageMediaInvoice.
+	// Product name, 1-32 characters
 	Title string
-	// Description field of InputBotInlineMessageMediaInvoice.
+	// Product description, 1-255 characters
 	Description string
-	// Photo field of InputBotInlineMessageMediaInvoice.
+	// Invoice photo
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo InputWebDocument
-	// Invoice field of InputBotInlineMessageMediaInvoice.
+	// The invoice
 	Invoice Invoice
-	// Payload field of InputBotInlineMessageMediaInvoice.
+	// Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use
+	// for your internal processes.
 	Payload []byte
-	// Provider field of InputBotInlineMessageMediaInvoice.
+	// Payments provider token, obtained via Botfather¹
+	//
+	// Links:
+	//  1) https://t.me/botfather
 	Provider string
-	// ProviderData field of InputBotInlineMessageMediaInvoice.
+	// A JSON-serialized object for data about the invoice, which will be shared with the
+	// payment provider. A detailed description of the required fields should be provided by
+	// the payment provider.
 	ProviderData DataJSON
-	// ReplyMarkup field of InputBotInlineMessageMediaInvoice.
+	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass

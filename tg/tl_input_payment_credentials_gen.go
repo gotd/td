@@ -500,10 +500,11 @@ func (i *InputPaymentCredentialsApplePay) GetPaymentData() (value DataJSON) {
 }
 
 // InputPaymentCredentialsGooglePay represents TL type `inputPaymentCredentialsGooglePay#8ac32801`.
+// Google Pay payment credentials
 //
 // See https://core.telegram.org/constructor/inputPaymentCredentialsGooglePay for reference.
 type InputPaymentCredentialsGooglePay struct {
-	// PaymentToken field of InputPaymentCredentialsGooglePay.
+	// Payment token
 	PaymentToken DataJSON
 }
 

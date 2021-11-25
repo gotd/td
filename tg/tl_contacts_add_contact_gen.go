@@ -297,9 +297,10 @@ func (a *ContactsAddContactRequest) GetPhone() (value string) {
 //  1) https://core.telegram.org/method/contacts.importContacts
 //
 // Possible errors:
-//  400 CONTACT_ID_INVALID: The provided contact ID is invalid
-//  400 CONTACT_NAME_EMPTY: Contact name empty
-//  400 MSG_ID_INVALID: Invalid message ID provided
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 CONTACT_ID_INVALID: The provided contact ID is invalid.
+//  400 CONTACT_NAME_EMPTY: Contact name empty.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
 //
 // See https://core.telegram.org/method/contacts.addContact for reference.
 func (c *Client) ContactsAddContact(ctx context.Context, request *ContactsAddContactRequest) (UpdatesClass, error) {

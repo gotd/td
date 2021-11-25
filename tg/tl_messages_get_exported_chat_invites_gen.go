@@ -32,26 +32,39 @@ var (
 )
 
 // MessagesGetExportedChatInvitesRequest represents TL type `messages.getExportedChatInvites#a2b5a3f6`.
+// Get info about the chat invites of a specific chat
 //
 // See https://core.telegram.org/method/messages.getExportedChatInvites for reference.
 type MessagesGetExportedChatInvitesRequest struct {
-	// Flags field of MessagesGetExportedChatInvitesRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Revoked field of MessagesGetExportedChatInvitesRequest.
+	// Whether to fetch revoked chat invites
 	Revoked bool
-	// Peer field of MessagesGetExportedChatInvitesRequest.
+	// Chat
 	Peer InputPeerClass
-	// AdminID field of MessagesGetExportedChatInvitesRequest.
+	// Whether to only fetch chat invites from this admin
 	AdminID InputUserClass
-	// OffsetDate field of MessagesGetExportedChatInvitesRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	//
 	// Use SetOffsetDate and GetOffsetDate helpers.
 	OffsetDate int
-	// OffsetLink field of MessagesGetExportedChatInvitesRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	//
 	// Use SetOffsetLink and GetOffsetLink helpers.
 	OffsetLink string
-	// Limit field of MessagesGetExportedChatInvitesRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -351,6 +364,7 @@ func (g *MessagesGetExportedChatInvitesRequest) GetLimit() (value int) {
 }
 
 // MessagesGetExportedChatInvites invokes method messages.getExportedChatInvites#a2b5a3f6 returning error if any.
+// Get info about the chat invites of a specific chat
 //
 // See https://core.telegram.org/method/messages.getExportedChatInvites for reference.
 func (c *Client) MessagesGetExportedChatInvites(ctx context.Context, request *MessagesGetExportedChatInvitesRequest) (*MessagesExportedChatInvites, error) {

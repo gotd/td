@@ -749,7 +749,7 @@ func (u *UpdateUserTyping) GetAction() (value SendMessageActionClass) {
 type UpdateChatUserTyping struct {
 	// Group id
 	ChatID int64
-	// FromID field of UpdateChatUserTyping.
+	// Peer that started typing (can be the chat itself, in case of anonymous admins).
 	FromID PeerClass
 	// Type of actionParameter added in Layer 17¹.
 	//
@@ -1667,7 +1667,10 @@ func (u *UpdateUserPhoto) GetPrevious() (value bool) {
 type UpdateNewEncryptedMessage struct {
 	// Message
 	Message EncryptedMessageClass
-	// New qts value
+	// New qts value, see updates »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -6574,7 +6577,7 @@ type UpdateBotInlineQuery struct {
 	//
 	// Use SetGeo and GetGeo helpers.
 	Geo GeoPointClass
-	// PeerType field of UpdateBotInlineQuery.
+	// Type of the chat from which the inline query was sent.
 	//
 	// Use SetPeerType and GetPeerType helpers.
 	PeerType InlineQueryPeerTypeClass
@@ -13301,7 +13304,10 @@ type UpdateMessagePollVote struct {
 	UserID int64
 	// Chosen option(s)
 	Options [][]byte
-	// Qts field of UpdateMessagePollVote.
+	// New qts value, see updates »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -14983,7 +14989,7 @@ type UpdateChannelUserTyping struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
-	// FromID field of UpdateChannelUserTyping.
+	// The peer that is typing
 	FromID PeerClass
 	// Whether the user is typing, sending a media or doing something else
 	Action SendMessageActionClass
@@ -15769,10 +15775,11 @@ func (u *UpdatePinnedChannelMessages) GetPtsCount() (value int) {
 }
 
 // UpdateChat represents TL type `updateChat#f89a6a4e`.
+// A new chat is available
 //
 // See https://core.telegram.org/constructor/updateChat for reference.
 type UpdateChat struct {
-	// ChatID field of UpdateChat.
+	// Chat ID
 	ChatID int64
 }
 
@@ -15900,14 +15907,15 @@ func (u *UpdateChat) GetChatID() (value int64) {
 }
 
 // UpdateGroupCallParticipants represents TL type `updateGroupCallParticipants#f2ebdb4e`.
+// The participant list of a certain group call has changed
 //
 // See https://core.telegram.org/constructor/updateGroupCallParticipants for reference.
 type UpdateGroupCallParticipants struct {
-	// Call field of UpdateGroupCallParticipants.
+	// Group call
 	Call InputGroupCall
-	// Participants field of UpdateGroupCallParticipants.
+	// New participant list
 	Participants []GroupCallParticipant
-	// Version field of UpdateGroupCallParticipants.
+	// Version
 	Version int
 }
 
@@ -16094,12 +16102,16 @@ func (u *UpdateGroupCallParticipants) GetVersion() (value int) {
 }
 
 // UpdateGroupCall represents TL type `updateGroupCall#14b24500`.
+// A new groupcall was started
 //
 // See https://core.telegram.org/constructor/updateGroupCall for reference.
 type UpdateGroupCall struct {
-	// ChatID field of UpdateGroupCall.
+	// The channel/supergroup¹ where this group call or livestream takes place
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	ChatID int64
-	// Call field of UpdateGroupCall.
+	// Info about the group call or livestream
 	Call GroupCallClass
 }
 
@@ -16254,14 +16266,18 @@ func (u *UpdateGroupCall) GetCall() (value GroupCallClass) {
 }
 
 // UpdatePeerHistoryTTL represents TL type `updatePeerHistoryTTL#bb9bb9a5`.
+// The Time-To-Live for messages sent by the current user in a specific chat has changed
 //
 // See https://core.telegram.org/constructor/updatePeerHistoryTTL for reference.
 type UpdatePeerHistoryTTL struct {
-	// Flags field of UpdatePeerHistoryTTL.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of UpdatePeerHistoryTTL.
+	// The chat
 	Peer PeerClass
-	// TTLPeriod field of UpdatePeerHistoryTTL.
+	// The new Time-To-Live
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int
@@ -16448,32 +16464,43 @@ func (u *UpdatePeerHistoryTTL) GetTTLPeriod() (value int, ok bool) {
 }
 
 // UpdateChatParticipant represents TL type `updateChatParticipant#d087663a`.
+// A user has joined or left a specific chat
 //
 // See https://core.telegram.org/constructor/updateChatParticipant for reference.
 type UpdateChatParticipant struct {
-	// Flags field of UpdateChatParticipant.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ChatID field of UpdateChatParticipant.
+	// Chat¹ ID
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	ChatID int64
-	// Date field of UpdateChatParticipant.
+	// When did this event occur
 	Date int
-	// ActorID field of UpdateChatParticipant.
+	// User that triggered the change (inviter, admin that kicked the user, or the even the
+	// user_id itself)
 	ActorID int64
-	// UserID field of UpdateChatParticipant.
+	// User that was affected by the change
 	UserID int64
-	// PrevParticipant field of UpdateChatParticipant.
+	// Previous participant info (empty if this participant just joined)
 	//
 	// Use SetPrevParticipant and GetPrevParticipant helpers.
 	PrevParticipant ChatParticipantClass
-	// NewParticipant field of UpdateChatParticipant.
+	// New participant info (empty if this participant just left)
 	//
 	// Use SetNewParticipant and GetNewParticipant helpers.
 	NewParticipant ChatParticipantClass
-	// Invite field of UpdateChatParticipant.
+	// The invite that was used to join the group
 	//
 	// Use SetInvite and GetInvite helpers.
 	Invite ChatInviteExported
-	// Qts field of UpdateChatParticipant.
+	// New qts value, see updates »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -16849,9 +16876,10 @@ type UpdateChannelParticipant struct {
 	ChannelID int64
 	// Date of the event
 	Date int
-	// ActorID field of UpdateChannelParticipant.
+	// User that triggered the change (inviter, admin that kicked the user, or the even the
+	// user_id itself)
 	ActorID int64
-	// User in question
+	// User that was affected by the change
 	UserID int64
 	// Previous participant status
 	//
@@ -16861,11 +16889,14 @@ type UpdateChannelParticipant struct {
 	//
 	// Use SetNewParticipant and GetNewParticipant helpers.
 	NewParticipant ChannelParticipantClass
-	// Invite field of UpdateChannelParticipant.
+	// Chat invite used to join the channel/supergroup¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetInvite and GetInvite helpers.
 	Invite ChatInviteExported
-	// PTS¹
+	// New qts value, see updates »¹ for more info.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
@@ -17228,16 +17259,20 @@ func (u *UpdateChannelParticipant) GetQts() (value int) {
 }
 
 // UpdateBotStopped represents TL type `updateBotStopped#c4870a49`.
+// A bot was stopped or re-started.
 //
 // See https://core.telegram.org/constructor/updateBotStopped for reference.
 type UpdateBotStopped struct {
-	// UserID field of UpdateBotStopped.
+	// The bot ID
 	UserID int64
-	// Date field of UpdateBotStopped.
+	// When did this action occur
 	Date int
-	// Stopped field of UpdateBotStopped.
+	// Whether the bot was stopped or started
 	Stopped bool
-	// Qts field of UpdateBotStopped.
+	// New qts value, see updates »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -17431,14 +17466,18 @@ func (u *UpdateBotStopped) GetQts() (value int) {
 }
 
 // UpdateGroupCallConnection represents TL type `updateGroupCallConnection#b783982`.
+// New WebRTC parameters
 //
 // See https://core.telegram.org/constructor/updateGroupCallConnection for reference.
 type UpdateGroupCallConnection struct {
-	// Flags field of UpdateGroupCallConnection.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Presentation field of UpdateGroupCallConnection.
+	// Are these parameters related to the screen capture session currently in progress?
 	Presentation bool
-	// Params field of UpdateGroupCallConnection.
+	// WebRTC parameters
 	Params DataJSON
 }
 
@@ -17607,14 +17646,18 @@ func (u *UpdateGroupCallConnection) GetParams() (value DataJSON) {
 }
 
 // UpdateBotCommands represents TL type `updateBotCommands#4d712f2e`.
+// The command set¹ of a certain bot in a certain chat has changed.
+//
+// Links:
+//  1) https://core.telegram.org/bots/api#june-25-2021
 //
 // See https://core.telegram.org/constructor/updateBotCommands for reference.
 type UpdateBotCommands struct {
-	// Peer field of UpdateBotCommands.
+	// The affected chat
 	Peer PeerClass
-	// BotID field of UpdateBotCommands.
+	// ID of the bot that changed its command set
 	BotID int64
-	// Commands field of UpdateBotCommands.
+	// New bot commands
 	Commands []BotCommand
 }
 

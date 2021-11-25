@@ -32,12 +32,13 @@ var (
 )
 
 // BotsGetBotCommandsRequest represents TL type `bots.getBotCommands#e34c0dd6`.
+// Obtain a list of bot commands for the specified bot scope and language code
 //
 // See https://core.telegram.org/method/bots.getBotCommands for reference.
 type BotsGetBotCommandsRequest struct {
-	// Scope field of BotsGetBotCommandsRequest.
+	// Command scope
 	Scope BotCommandScopeClass
-	// LangCode field of BotsGetBotCommandsRequest.
+	// Language code
 	LangCode string
 }
 
@@ -187,8 +188,10 @@ func (g *BotsGetBotCommandsRequest) GetLangCode() (value string) {
 }
 
 // BotsGetBotCommands invokes method bots.getBotCommands#e34c0dd6 returning error if any.
+// Obtain a list of bot commands for the specified bot scope and language code
 //
 // See https://core.telegram.org/method/bots.getBotCommands for reference.
+// Can be used by bots.
 func (c *Client) BotsGetBotCommands(ctx context.Context, request *BotsGetBotCommandsRequest) ([]BotCommand, error) {
 	var result BotCommandVector
 

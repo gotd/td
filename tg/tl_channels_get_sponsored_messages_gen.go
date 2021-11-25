@@ -32,10 +32,11 @@ var (
 )
 
 // ChannelsGetSponsoredMessagesRequest represents TL type `channels.getSponsoredMessages#ec210fbf`.
+// Get a list of sponsored messages
 //
 // See https://core.telegram.org/method/channels.getSponsoredMessages for reference.
 type ChannelsGetSponsoredMessagesRequest struct {
-	// Channel field of ChannelsGetSponsoredMessagesRequest.
+	// Peer
 	Channel InputChannelClass
 }
 
@@ -168,6 +169,7 @@ func (g *ChannelsGetSponsoredMessagesRequest) GetChannelAsNotEmpty() (NotEmptyIn
 }
 
 // ChannelsGetSponsoredMessages invokes method channels.getSponsoredMessages#ec210fbf returning error if any.
+// Get a list of sponsored messages
 //
 // See https://core.telegram.org/method/channels.getSponsoredMessages for reference.
 func (c *Client) ChannelsGetSponsoredMessages(ctx context.Context, channel InputChannelClass) (*MessagesSponsoredMessages, error) {

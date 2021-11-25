@@ -213,7 +213,8 @@ type ReplyKeyboardForceReply struct {
 	// A user requests to change the bot‘s language, bot replies to the request with a
 	// keyboard to select the new language. Other users in the group don’t see the keyboard.
 	Selective bool
-	// Placeholder field of ReplyKeyboardForceReply.
+	// The placeholder to be shown in the input field when the keyboard is active; 1-64
+	// characters.
 	//
 	// Use SetPlaceholder and GetPlaceholder helpers.
 	Placeholder string
@@ -459,7 +460,8 @@ type ReplyKeyboardMarkup struct {
 	Selective bool
 	// Button row
 	Rows []KeyboardButtonRow
-	// Placeholder field of ReplyKeyboardMarkup.
+	// The placeholder to be shown in the input field when the keyboard is active; 1-64
+	// characters.
 	//
 	// Use SetPlaceholder and GetPlaceholder helpers.
 	Placeholder string

@@ -172,10 +172,11 @@ func (g *ChannelsGetFullChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 // Get full info about a channel
 //
 // Possible errors:
-//  400 CHANNEL_INVALID: The provided channel is invalid
-//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
-//  403 CHANNEL_PUBLIC_GROUP_NA: channel/supergroup not available
-//  400 MSG_ID_INVALID: Invalid message ID provided
+//  400 CHANNEL_INVALID: The provided channel is invalid.
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  403 CHANNEL_PUBLIC_GROUP_NA: channel/supergroup not available.
+//  400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
 //
 // See https://core.telegram.org/method/channels.getFullChannel for reference.
 // Can be used by bots.

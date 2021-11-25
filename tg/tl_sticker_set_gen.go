@@ -62,7 +62,7 @@ type StickerSet struct {
 	Title string
 	// Short name of stickerset to use in tg://addstickers?set=short_name
 	ShortName string
-	// Thumbs field of StickerSet.
+	// Stickerset thumbnail
 	//
 	// Use SetThumbs and GetThumbs helpers.
 	Thumbs []PhotoSizeClass
@@ -70,7 +70,7 @@ type StickerSet struct {
 	//
 	// Use SetThumbDCID and GetThumbDCID helpers.
 	ThumbDCID int
-	// ThumbVersion field of StickerSet.
+	// Thumbnail version
 	//
 	// Use SetThumbVersion and GetThumbVersion helpers.
 	ThumbVersion int

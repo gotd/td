@@ -32,10 +32,11 @@ var (
 )
 
 // PhoneDiscardGroupCallRequest represents TL type `phone.discardGroupCall#7a777135`.
+// Terminate a group call
 //
 // See https://core.telegram.org/method/phone.discardGroupCall for reference.
 type PhoneDiscardGroupCallRequest struct {
-	// Call field of PhoneDiscardGroupCallRequest.
+	// The group call to terminate
 	Call InputGroupCall
 }
 
@@ -158,6 +159,7 @@ func (d *PhoneDiscardGroupCallRequest) GetCall() (value InputGroupCall) {
 }
 
 // PhoneDiscardGroupCall invokes method phone.discardGroupCall#7a777135 returning error if any.
+// Terminate a group call
 //
 // See https://core.telegram.org/method/phone.discardGroupCall for reference.
 func (c *Client) PhoneDiscardGroupCall(ctx context.Context, call InputGroupCall) (UpdatesClass, error) {

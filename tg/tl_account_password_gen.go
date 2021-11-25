@@ -97,7 +97,8 @@ type AccountPassword struct {
 	NewSecureAlgo SecurePasswordKdfAlgoClass
 	// Secure random string
 	SecureRandom []byte
-	// PendingResetDate field of AccountPassword.
+	// The 2FA password will be automatically removed at this date, unless the user cancels
+	// the operation
 	//
 	// Use SetPendingResetDate and GetPendingResetDate helpers.
 	PendingResetDate int

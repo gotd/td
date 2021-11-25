@@ -36,11 +36,14 @@ var (
 //
 // See https://core.telegram.org/constructor/messageEmpty for reference.
 type MessageEmpty struct {
-	// Flags field of MessageEmpty.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Message identifier
 	ID int
-	// PeerID field of MessageEmpty.
+	// Peer ID, the chat where this message was sent
 	//
 	// Use SetPeerID and GetPeerID helpers.
 	PeerID PeerClass
@@ -339,7 +342,8 @@ type Message struct {
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
 	RestrictionReason []RestrictionReason
-	// TTLPeriod field of Message.
+	// Time To Live of the message, once message.date+message.ttl_period === time(), the
+	// message will be deleted on the server, and must be deleted locally as well.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int
@@ -1529,7 +1533,8 @@ type MessageService struct {
 	Date int
 	// Event connected with the service message
 	Action MessageActionClass
-	// TTLPeriod field of MessageService.
+	// Time To Live of the message, once message.date+message.ttl_period === time(), the
+	// message will be deleted on the server, and must be deleted locally as well.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int
@@ -2164,7 +2169,8 @@ type NotEmptyMessage interface {
 	// Date of the message
 	GetDate() (value int)
 
-	// TTLPeriod field of Message.
+	// Time To Live of the message, once message.date+message.ttl_period === time(), the
+	// message will be deleted on the server, and must be deleted locally as well.
 	GetTTLPeriod() (value int, ok bool)
 }
 

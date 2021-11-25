@@ -36,9 +36,12 @@ var (
 //
 // See https://core.telegram.org/method/messages.deleteChatUser for reference.
 type MessagesDeleteChatUserRequest struct {
-	// Flags field of MessagesDeleteChatUserRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// RevokeHistory field of MessagesDeleteChatUserRequest.
+	// Remove the entire chat history of the specified user in this chat.
 	RevokeHistory bool
 	// Chat ID
 	ChatID int64
@@ -236,11 +239,11 @@ func (d *MessagesDeleteChatUserRequest) GetUserID() (value InputUserClass) {
 // Deletes a user from a chat and sends a service message on it.
 //
 // Possible errors:
-//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this
-//  400 CHAT_ID_INVALID: The provided chat id is invalid
-//  400 PEER_ID_INVALID: The provided peer id is invalid
-//  400 USER_ID_INVALID: The provided user ID is invalid
-//  400 USER_NOT_PARTICIPANT: You're not a member of this supergroup/channel
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 USER_ID_INVALID: The provided user ID is invalid.
+//  400 USER_NOT_PARTICIPANT: You're not a member of this supergroup/channel.
 //
 // See https://core.telegram.org/method/messages.deleteChatUser for reference.
 // Can be used by bots.

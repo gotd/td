@@ -198,8 +198,8 @@ func (c *AccountConfirmPhoneRequest) GetPhoneCode() (value string) {
 //  1) https://core.telegram.org/api/account-deletion
 //
 // Possible errors:
-//  400 CODE_HASH_INVALID: Code hash invalid
-//  400 PHONE_CODE_EMPTY: phone_code is missing
+//  400 CODE_HASH_INVALID: Code hash invalid.
+//  400 PHONE_CODE_EMPTY: phone_code is missing.
 //
 // See https://core.telegram.org/method/account.confirmPhone for reference.
 func (c *Client) AccountConfirmPhone(ctx context.Context, request *AccountConfirmPhoneRequest) (bool, error) {

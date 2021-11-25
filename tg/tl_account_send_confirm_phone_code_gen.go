@@ -195,7 +195,7 @@ func (s *AccountSendConfirmPhoneCodeRequest) GetSettings() (value CodeSettings) 
 //  1) https://core.telegram.org/api/account-deletion
 //
 // Possible errors:
-//  400 HASH_INVALID: The provided hash is invalid
+//  400 HASH_INVALID: The provided hash is invalid.
 //
 // See https://core.telegram.org/method/account.sendConfirmPhoneCode for reference.
 func (c *Client) AccountSendConfirmPhoneCode(ctx context.Context, request *AccountSendConfirmPhoneCodeRequest) (*AuthSentCode, error) {

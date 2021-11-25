@@ -41,17 +41,21 @@ type ThemeSettings struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// MessageColorsAnimated field of ThemeSettings.
+	// If set, the freeform gradient fill needs to be animated on every sent message.
 	MessageColorsAnimated bool
 	// Base theme
 	BaseTheme BaseThemeClass
-	// Accent color, RGB24 format
+	// Accent color, ARGB format
 	AccentColor int
-	// OutboxAccentColor field of ThemeSettings.
+	// Accent color of outgoing messages in ARGB format
 	//
 	// Use SetOutboxAccentColor and GetOutboxAccentColor helpers.
 	OutboxAccentColor int
-	// MessageColors field of ThemeSettings.
+	// The fill to be used as a background for outgoing messages, in RGB24 format. If just
+	// one or two equal colors are provided, describes a solid fill of a background. If two
+	// different colors are provided, describes the top and bottom colors of a 0-degree
+	// gradient.If three or four colors are provided, describes a freeform gradient fill of a
+	// background.
 	//
 	// Use SetMessageColors and GetMessageColors helpers.
 	MessageColors []int

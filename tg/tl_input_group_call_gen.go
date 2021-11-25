@@ -32,12 +32,13 @@ var (
 )
 
 // InputGroupCall represents TL type `inputGroupCall#d8aa840f`.
+// Points to a specific group call
 //
 // See https://core.telegram.org/constructor/inputGroupCall for reference.
 type InputGroupCall struct {
-	// ID field of InputGroupCall.
+	// Group call ID
 	ID int64
-	// AccessHash field of InputGroupCall.
+	// Group call access hash
 	AccessHash int64
 }
 

@@ -32,10 +32,19 @@ var (
 )
 
 // ChannelsConvertToGigagroupRequest represents TL type `channels.convertToGigagroup#b290c69`.
+// Convert a supergroup¹ to a gigagroup², when requested by channel suggestions³.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/api/channel
+//  3) https://core.telegram.org/api/config#channel-suggestions
 //
 // See https://core.telegram.org/method/channels.convertToGigagroup for reference.
 type ChannelsConvertToGigagroupRequest struct {
-	// Channel field of ChannelsConvertToGigagroupRequest.
+	// The supergroup¹ to convert
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
 }
 
@@ -168,6 +177,15 @@ func (c *ChannelsConvertToGigagroupRequest) GetChannelAsNotEmpty() (NotEmptyInpu
 }
 
 // ChannelsConvertToGigagroup invokes method channels.convertToGigagroup#b290c69 returning error if any.
+// Convert a supergroup¹ to a gigagroup², when requested by channel suggestions³.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/api/channel
+//  3) https://core.telegram.org/api/config#channel-suggestions
+//
+// Possible errors:
+//  400 PARTICIPANTS_TOO_FEW: Not enough participants.
 //
 // See https://core.telegram.org/method/channels.convertToGigagroup for reference.
 func (c *Client) ChannelsConvertToGigagroup(ctx context.Context, channel InputChannelClass) (UpdatesClass, error) {

@@ -32,12 +32,13 @@ var (
 )
 
 // PhoneInviteToGroupCallRequest represents TL type `phone.inviteToGroupCall#7b393160`.
+// Invite a set of users to a group call.
 //
 // See https://core.telegram.org/method/phone.inviteToGroupCall for reference.
 type PhoneInviteToGroupCallRequest struct {
-	// Call field of PhoneInviteToGroupCallRequest.
+	// The group call
 	Call InputGroupCall
-	// Users field of PhoneInviteToGroupCallRequest.
+	// The users to invite.
 	Users []InputUserClass
 }
 
@@ -205,6 +206,10 @@ func (i *PhoneInviteToGroupCallRequest) MapUsers() (value InputUserClassArray) {
 }
 
 // PhoneInviteToGroupCall invokes method phone.inviteToGroupCall#7b393160 returning error if any.
+// Invite a set of users to a group call.
+//
+// Possible errors:
+//  403 GROUPCALL_FORBIDDEN: The group call has already ended.
 //
 // See https://core.telegram.org/method/phone.inviteToGroupCall for reference.
 func (c *Client) PhoneInviteToGroupCall(ctx context.Context, request *PhoneInviteToGroupCallRequest) (UpdatesClass, error) {

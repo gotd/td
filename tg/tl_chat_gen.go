@@ -184,9 +184,9 @@ type Chat struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	Deactivated bool
-	// CallActive field of Chat.
+	// Whether a group call is currently active
 	CallActive bool
-	// CallNotEmpty field of Chat.
+	// Whether there's anyone in the group call
 	CallNotEmpty bool
 	// ID of the group
 	ID int64
@@ -974,13 +974,20 @@ type Channel struct {
 	HasGeo bool
 	// Whether slow mode is enabled for groups to prevent flood in chat
 	SlowmodeEnabled bool
-	// CallActive field of Channel.
+	// Whether a group call or livestream is currently active
 	CallActive bool
-	// CallNotEmpty field of Channel.
+	// Whether there's anyone in the group call or livestream
 	CallNotEmpty bool
-	// Fake field of Channel.
+	// If set, this supergroup/channel¹ was reported by many users as a fake or scam: be
+	// careful when interacting with it.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Fake bool
-	// Gigagroup field of Channel.
+	// Whether this supergroup¹ is a gigagroup
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Gigagroup bool
 	// ID of the channel
 	ID int64
@@ -2533,10 +2540,10 @@ type FullChat interface {
 	// Whether the current user has left the group
 	GetLeft() (value bool)
 
-	// CallActive field of Chat.
+	// Whether a group call is currently active
 	GetCallActive() (value bool)
 
-	// CallNotEmpty field of Chat.
+	// Whether there's anyone in the group call
 	GetCallNotEmpty() (value bool)
 
 	// ID of the group

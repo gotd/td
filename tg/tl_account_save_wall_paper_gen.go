@@ -214,6 +214,9 @@ func (s *AccountSaveWallPaperRequest) GetSettings() (value WallPaperSettings) {
 // AccountSaveWallPaper invokes method account.saveWallPaper#6c5a5b37 returning error if any.
 // Install/uninstall wallpaper
 //
+// Possible errors:
+//  400 WALLPAPER_INVALID: The specified wallpaper is invalid.
+//
 // See https://core.telegram.org/method/account.saveWallPaper for reference.
 func (c *Client) AccountSaveWallPaper(ctx context.Context, request *AccountSaveWallPaperRequest) (bool, error) {
 	var result BoolBox

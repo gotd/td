@@ -162,8 +162,8 @@ func (g *MessagesGetFullChatRequest) GetChatID() (value int64) {
 // Returns full chat info according to its ID.
 //
 // Possible errors:
-//  400 CHAT_ID_INVALID: The provided chat id is invalid
-//  400 PEER_ID_INVALID: The provided peer id is invalid
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getFullChat for reference.
 // Can be used by bots.
