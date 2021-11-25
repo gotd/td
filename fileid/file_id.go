@@ -89,7 +89,7 @@ func (f FileID) asPhotoLocation() (tg.InputFileLocationClass, bool) {
 // AsInputFileLocation converts file ID to tg.InputFileLocationClass.
 func (f FileID) AsInputFileLocation() (tg.InputFileLocationClass, bool) {
 	switch f.Type {
-	case Photo:
+	case Thumbnail, ProfilePhoto, Photo:
 		return f.asPhotoLocation()
 	case Encrypted:
 		return &tg.InputEncryptedFileLocation{
