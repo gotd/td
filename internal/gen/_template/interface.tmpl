@@ -20,6 +20,11 @@
 type {{ $f.Name }} interface {
 {{ template "class_interface_header" $f }}
 
+    {{ if $.Config.Flags.TDLibJSON }}
+    EncodeTDLibJSON(b tdjson.Encoder) error
+    DecodeTDLibJSON(b tdjson.Decoder) error
+    {{- end }}
+
 {{ range $field := $f.SharedFields.Common -}}
     {{- template "print_comment" $field.Comment }}
     {{- if $field.Links }}
