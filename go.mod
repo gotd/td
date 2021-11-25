@@ -7,7 +7,7 @@ require (
 	github.com/go-faster/errors v0.5.0
 	github.com/go-faster/xor v0.3.0
 	github.com/go-openapi/inflect v0.19.0
-	github.com/gotd/getdoc v0.6.2
+	github.com/gotd/getdoc v0.7.0
 	github.com/gotd/ige v0.2.2
 	github.com/gotd/neo v0.1.4
 	github.com/gotd/tl v0.4.0
@@ -20,7 +20,7 @@ require (
 	go.uber.org/multierr v1.7.0
 	go.uber.org/zap v1.19.1
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
-	golang.org/x/net v0.0.0-20210805182204-aaa1db679c0d
+	golang.org/x/net v0.0.0-20210916014120-12bc252f5db8
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/tools v0.1.7
 	nhooyr.io/websocket v1.8.7
@@ -28,9 +28,9 @@ require (
 )
 
 require (
-	github.com/PuerkitoBio/goquery v1.6.1 // indirect
+	github.com/PuerkitoBio/goquery v1.8.0 // indirect
 	github.com/andres-erbsen/clock v0.0.0-20160526145045-9e14626cd129 // indirect
-	github.com/andybalholm/cascadia v1.1.0 // indirect
+	github.com/andybalholm/cascadia v1.3.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/google/go-cmp v0.5.2 // indirect
 	github.com/mattn/go-colorable v0.1.7 // indirect
