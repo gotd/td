@@ -1,4 +1,4 @@
-# td [![Go Reference](https://pkg.go.dev/badge/github.com/gotd/td.svg)](https://pkg.go.dev/github.com/gotd/td/telegram) [![codecov](https://codecov.io/gh/gotd/td/branch/main/graph/badge.svg?token=shR5PXG7Ds)](https://codecov.io/gh/gotd/td)
+# td [![Go Reference](https://img.shields.io/badge/go-pkg-00ADD8)](https://pkg.go.dev/github.com/gotd/td#section-documentation) [![codecov](https://img.shields.io/codecov/c/github/gotd/td?label=cover)](https://codecov.io/gh/gotd/td) [![alpha](https://img.shields.io/badge/-alpha-orange)](https://go-faster.org/docs/projects/status#alpha)
 
 A fast Telegram client in pure Go.
 
