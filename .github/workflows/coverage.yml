@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, arm64]
     steps:
       - name: Install Go
         uses: actions/setup-go@v2.1.4
