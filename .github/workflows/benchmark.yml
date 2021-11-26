@@ -10,7 +10,7 @@ on:
 
 jobs:
   benchmark:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     steps:
       - name: Checkout latest code
         uses: actions/checkout@v2.4.0
