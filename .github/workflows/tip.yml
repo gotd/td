@@ -23,4 +23,9 @@ jobs:
           sudo ln -s /usr/local/go/bin/* /usr/local/bin/
       - uses: actions/checkout@v2
       - name: test
-        run: go test ./...
+        # NB: go test ./... fails with
+        # github.com/rogpeppe/go-internal/testscript
+#        /go/pkg/mod/github.com/rogpeppe/go-internal@v1.8.0/testscript/exe.go:231:51: not enough arguments in call to testing.MainStart
+#          have (nopTestDeps, nil, nil, nil)
+#          want (testing.testDeps, []testing.InternalTest, []testing.InternalBenchmark, []testing.InternalFuzzTarget, []testing.InternalExample
+        run: go test ./fileid/ ./internal/...
