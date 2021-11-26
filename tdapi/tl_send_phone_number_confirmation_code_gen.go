@@ -37,7 +37,8 @@ type SendPhoneNumberConfirmationCodeRequest struct {
 	Hash string
 	// Phone number value from the link
 	PhoneNumber string
-	// Settings for the authentication of the user's phone number
+	// Settings for the authentication of the user's phone number; pass null to use default
+	// settings
 	Settings PhoneNumberAuthenticationSettings
 }
 

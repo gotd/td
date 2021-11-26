@@ -2727,6 +2727,196 @@ func (m *MessageContact) GetContact() (value Contact) {
 	return m.Contact
 }
 
+// MessageAnimatedEmoji represents TL type `messageAnimatedEmoji#3621f5e2`.
+type MessageAnimatedEmoji struct {
+	// The animated emoji
+	AnimatedEmoji AnimatedEmoji
+	// The corresponding emoji
+	Emoji string
+}
+
+// MessageAnimatedEmojiTypeID is TL type id of MessageAnimatedEmoji.
+const MessageAnimatedEmojiTypeID = 0x3621f5e2
+
+// construct implements constructor of MessageContentClass.
+func (m MessageAnimatedEmoji) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageAnimatedEmoji.
+var (
+	_ bin.Encoder     = &MessageAnimatedEmoji{}
+	_ bin.Decoder     = &MessageAnimatedEmoji{}
+	_ bin.BareEncoder = &MessageAnimatedEmoji{}
+	_ bin.BareDecoder = &MessageAnimatedEmoji{}
+
+	_ MessageContentClass = &MessageAnimatedEmoji{}
+)
+
+func (m *MessageAnimatedEmoji) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.AnimatedEmoji.Zero()) {
+		return false
+	}
+	if !(m.Emoji == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageAnimatedEmoji) String() string {
+	if m == nil {
+		return "MessageAnimatedEmoji(nil)"
+	}
+	type Alias MessageAnimatedEmoji
+	return fmt.Sprintf("MessageAnimatedEmoji%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageAnimatedEmoji) TypeID() uint32 {
+	return MessageAnimatedEmojiTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageAnimatedEmoji) TypeName() string {
+	return "messageAnimatedEmoji"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageAnimatedEmoji) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageAnimatedEmoji",
+		ID:   MessageAnimatedEmojiTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "AnimatedEmoji",
+			SchemaName: "animated_emoji",
+		},
+		{
+			Name:       "Emoji",
+			SchemaName: "emoji",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageAnimatedEmoji) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageAnimatedEmoji#3621f5e2 as nil")
+	}
+	b.PutID(MessageAnimatedEmojiTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageAnimatedEmoji) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageAnimatedEmoji#3621f5e2 as nil")
+	}
+	if err := m.AnimatedEmoji.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageAnimatedEmoji#3621f5e2: field animated_emoji: %w", err)
+	}
+	b.PutString(m.Emoji)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageAnimatedEmoji) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageAnimatedEmoji#3621f5e2 to nil")
+	}
+	if err := b.ConsumeID(MessageAnimatedEmojiTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageAnimatedEmoji#3621f5e2: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageAnimatedEmoji) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageAnimatedEmoji#3621f5e2 to nil")
+	}
+	{
+		if err := m.AnimatedEmoji.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageAnimatedEmoji#3621f5e2: field animated_emoji: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageAnimatedEmoji#3621f5e2: field emoji: %w", err)
+		}
+		m.Emoji = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageAnimatedEmoji) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageAnimatedEmoji#3621f5e2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageAnimatedEmoji")
+	b.FieldStart("animated_emoji")
+	if err := m.AnimatedEmoji.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageAnimatedEmoji#3621f5e2: field animated_emoji: %w", err)
+	}
+	b.FieldStart("emoji")
+	b.PutString(m.Emoji)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageAnimatedEmoji) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageAnimatedEmoji#3621f5e2 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageAnimatedEmoji"); err != nil {
+				return fmt.Errorf("unable to decode messageAnimatedEmoji#3621f5e2: %w", err)
+			}
+		case "animated_emoji":
+			if err := m.AnimatedEmoji.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageAnimatedEmoji#3621f5e2: field animated_emoji: %w", err)
+			}
+		case "emoji":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageAnimatedEmoji#3621f5e2: field emoji: %w", err)
+			}
+			m.Emoji = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetAnimatedEmoji returns value of AnimatedEmoji field.
+func (m *MessageAnimatedEmoji) GetAnimatedEmoji() (value AnimatedEmoji) {
+	return m.AnimatedEmoji
+}
+
+// GetEmoji returns value of Emoji field.
+func (m *MessageAnimatedEmoji) GetEmoji() (value string) {
+	return m.Emoji
+}
+
 // MessageDice represents TL type `messageDice#42817239`.
 type MessageDice struct {
 	// The animated stickers with the initial dice animation; may be null if unknown.
@@ -3367,7 +3557,7 @@ type MessageInvoice struct {
 	StartParameter string
 	// True, if the invoice is a test invoice
 	IsTest bool
-	// True, if the shipping address should be specified
+	// True, if the shipping address must be specified
 	NeedShippingAddress bool
 	// The identifier of the message with the receipt, after the product has been purchased
 	ReceiptMessageID int64
@@ -3981,9 +4171,9 @@ func (m *MessageCall) GetDuration() (value int32) {
 	return m.Duration
 }
 
-// MessageVoiceChatScheduled represents TL type `messageVoiceChatScheduled#a7bf3904`.
-type MessageVoiceChatScheduled struct {
-	// Identifier of the voice chat. The voice chat can be received through the method
+// MessageVideoChatScheduled represents TL type `messageVideoChatScheduled#916c1db7`.
+type MessageVideoChatScheduled struct {
+	// Identifier of the video chat. The video chat can be received through the method
 	// getGroupCall
 	GroupCallID int32
 	// Point in time (Unix timestamp) when the group call is supposed to be started by an
@@ -3991,23 +4181,23 @@ type MessageVoiceChatScheduled struct {
 	StartDate int32
 }
 
-// MessageVoiceChatScheduledTypeID is TL type id of MessageVoiceChatScheduled.
-const MessageVoiceChatScheduledTypeID = 0xa7bf3904
+// MessageVideoChatScheduledTypeID is TL type id of MessageVideoChatScheduled.
+const MessageVideoChatScheduledTypeID = 0x916c1db7
 
 // construct implements constructor of MessageContentClass.
-func (m MessageVoiceChatScheduled) construct() MessageContentClass { return &m }
+func (m MessageVideoChatScheduled) construct() MessageContentClass { return &m }
 
-// Ensuring interfaces in compile-time for MessageVoiceChatScheduled.
+// Ensuring interfaces in compile-time for MessageVideoChatScheduled.
 var (
-	_ bin.Encoder     = &MessageVoiceChatScheduled{}
-	_ bin.Decoder     = &MessageVoiceChatScheduled{}
-	_ bin.BareEncoder = &MessageVoiceChatScheduled{}
-	_ bin.BareDecoder = &MessageVoiceChatScheduled{}
+	_ bin.Encoder     = &MessageVideoChatScheduled{}
+	_ bin.Decoder     = &MessageVideoChatScheduled{}
+	_ bin.BareEncoder = &MessageVideoChatScheduled{}
+	_ bin.BareDecoder = &MessageVideoChatScheduled{}
 
-	_ MessageContentClass = &MessageVoiceChatScheduled{}
+	_ MessageContentClass = &MessageVideoChatScheduled{}
 )
 
-func (m *MessageVoiceChatScheduled) Zero() bool {
+func (m *MessageVideoChatScheduled) Zero() bool {
 	if m == nil {
 		return true
 	}
@@ -4022,31 +4212,31 @@ func (m *MessageVoiceChatScheduled) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (m *MessageVoiceChatScheduled) String() string {
+func (m *MessageVideoChatScheduled) String() string {
 	if m == nil {
-		return "MessageVoiceChatScheduled(nil)"
+		return "MessageVideoChatScheduled(nil)"
 	}
-	type Alias MessageVoiceChatScheduled
-	return fmt.Sprintf("MessageVoiceChatScheduled%+v", Alias(*m))
+	type Alias MessageVideoChatScheduled
+	return fmt.Sprintf("MessageVideoChatScheduled%+v", Alias(*m))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessageVoiceChatScheduled) TypeID() uint32 {
-	return MessageVoiceChatScheduledTypeID
+func (*MessageVideoChatScheduled) TypeID() uint32 {
+	return MessageVideoChatScheduledTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*MessageVoiceChatScheduled) TypeName() string {
-	return "messageVoiceChatScheduled"
+func (*MessageVideoChatScheduled) TypeName() string {
+	return "messageVideoChatScheduled"
 }
 
 // TypeInfo returns info about TL type.
-func (m *MessageVoiceChatScheduled) TypeInfo() tdp.Type {
+func (m *MessageVideoChatScheduled) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "messageVoiceChatScheduled",
-		ID:   MessageVoiceChatScheduledTypeID,
+		Name: "messageVideoChatScheduled",
+		ID:   MessageVideoChatScheduledTypeID,
 	}
 	if m == nil {
 		typ.Null = true
@@ -4066,18 +4256,18 @@ func (m *MessageVoiceChatScheduled) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (m *MessageVoiceChatScheduled) Encode(b *bin.Buffer) error {
+func (m *MessageVideoChatScheduled) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageVoiceChatScheduled#a7bf3904 as nil")
+		return fmt.Errorf("can't encode messageVideoChatScheduled#916c1db7 as nil")
 	}
-	b.PutID(MessageVoiceChatScheduledTypeID)
+	b.PutID(MessageVideoChatScheduledTypeID)
 	return m.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (m *MessageVoiceChatScheduled) EncodeBare(b *bin.Buffer) error {
+func (m *MessageVideoChatScheduled) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageVoiceChatScheduled#a7bf3904 as nil")
+		return fmt.Errorf("can't encode messageVideoChatScheduled#916c1db7 as nil")
 	}
 	b.PutInt32(m.GroupCallID)
 	b.PutInt32(m.StartDate)
@@ -4085,32 +4275,32 @@ func (m *MessageVoiceChatScheduled) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (m *MessageVoiceChatScheduled) Decode(b *bin.Buffer) error {
+func (m *MessageVideoChatScheduled) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageVoiceChatScheduled#a7bf3904 to nil")
+		return fmt.Errorf("can't decode messageVideoChatScheduled#916c1db7 to nil")
 	}
-	if err := b.ConsumeID(MessageVoiceChatScheduledTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageVoiceChatScheduled#a7bf3904: %w", err)
+	if err := b.ConsumeID(MessageVideoChatScheduledTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageVideoChatScheduled#916c1db7: %w", err)
 	}
 	return m.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (m *MessageVoiceChatScheduled) DecodeBare(b *bin.Buffer) error {
+func (m *MessageVideoChatScheduled) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageVoiceChatScheduled#a7bf3904 to nil")
+		return fmt.Errorf("can't decode messageVideoChatScheduled#916c1db7 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageVoiceChatScheduled#a7bf3904: field group_call_id: %w", err)
+			return fmt.Errorf("unable to decode messageVideoChatScheduled#916c1db7: field group_call_id: %w", err)
 		}
 		m.GroupCallID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageVoiceChatScheduled#a7bf3904: field start_date: %w", err)
+			return fmt.Errorf("unable to decode messageVideoChatScheduled#916c1db7: field start_date: %w", err)
 		}
 		m.StartDate = value
 	}
@@ -4118,12 +4308,12 @@ func (m *MessageVoiceChatScheduled) DecodeBare(b *bin.Buffer) error {
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (m *MessageVoiceChatScheduled) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (m *MessageVideoChatScheduled) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageVoiceChatScheduled#a7bf3904 as nil")
+		return fmt.Errorf("can't encode messageVideoChatScheduled#916c1db7 as nil")
 	}
 	b.ObjStart()
-	b.PutID("messageVoiceChatScheduled")
+	b.PutID("messageVideoChatScheduled")
 	b.FieldStart("group_call_id")
 	b.PutInt32(m.GroupCallID)
 	b.FieldStart("start_date")
@@ -4133,27 +4323,27 @@ func (m *MessageVoiceChatScheduled) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (m *MessageVoiceChatScheduled) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (m *MessageVideoChatScheduled) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageVoiceChatScheduled#a7bf3904 to nil")
+		return fmt.Errorf("can't decode messageVideoChatScheduled#916c1db7 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("messageVoiceChatScheduled"); err != nil {
-				return fmt.Errorf("unable to decode messageVoiceChatScheduled#a7bf3904: %w", err)
+			if err := b.ConsumeID("messageVideoChatScheduled"); err != nil {
+				return fmt.Errorf("unable to decode messageVideoChatScheduled#916c1db7: %w", err)
 			}
 		case "group_call_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageVoiceChatScheduled#a7bf3904: field group_call_id: %w", err)
+				return fmt.Errorf("unable to decode messageVideoChatScheduled#916c1db7: field group_call_id: %w", err)
 			}
 			m.GroupCallID = value
 		case "start_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageVoiceChatScheduled#a7bf3904: field start_date: %w", err)
+				return fmt.Errorf("unable to decode messageVideoChatScheduled#916c1db7: field start_date: %w", err)
 			}
 			m.StartDate = value
 		default:
@@ -4164,39 +4354,39 @@ func (m *MessageVoiceChatScheduled) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetGroupCallID returns value of GroupCallID field.
-func (m *MessageVoiceChatScheduled) GetGroupCallID() (value int32) {
+func (m *MessageVideoChatScheduled) GetGroupCallID() (value int32) {
 	return m.GroupCallID
 }
 
 // GetStartDate returns value of StartDate field.
-func (m *MessageVoiceChatScheduled) GetStartDate() (value int32) {
+func (m *MessageVideoChatScheduled) GetStartDate() (value int32) {
 	return m.StartDate
 }
 
-// MessageVoiceChatStarted represents TL type `messageVoiceChatStarted#c9cd946b`.
-type MessageVoiceChatStarted struct {
-	// Identifier of the voice chat. The voice chat can be received through the method
+// MessageVideoChatStarted represents TL type `messageVideoChatStarted#1f114559`.
+type MessageVideoChatStarted struct {
+	// Identifier of the video chat. The video chat can be received through the method
 	// getGroupCall
 	GroupCallID int32
 }
 
-// MessageVoiceChatStartedTypeID is TL type id of MessageVoiceChatStarted.
-const MessageVoiceChatStartedTypeID = 0xc9cd946b
+// MessageVideoChatStartedTypeID is TL type id of MessageVideoChatStarted.
+const MessageVideoChatStartedTypeID = 0x1f114559
 
 // construct implements constructor of MessageContentClass.
-func (m MessageVoiceChatStarted) construct() MessageContentClass { return &m }
+func (m MessageVideoChatStarted) construct() MessageContentClass { return &m }
 
-// Ensuring interfaces in compile-time for MessageVoiceChatStarted.
+// Ensuring interfaces in compile-time for MessageVideoChatStarted.
 var (
-	_ bin.Encoder     = &MessageVoiceChatStarted{}
-	_ bin.Decoder     = &MessageVoiceChatStarted{}
-	_ bin.BareEncoder = &MessageVoiceChatStarted{}
-	_ bin.BareDecoder = &MessageVoiceChatStarted{}
+	_ bin.Encoder     = &MessageVideoChatStarted{}
+	_ bin.Decoder     = &MessageVideoChatStarted{}
+	_ bin.BareEncoder = &MessageVideoChatStarted{}
+	_ bin.BareDecoder = &MessageVideoChatStarted{}
 
-	_ MessageContentClass = &MessageVoiceChatStarted{}
+	_ MessageContentClass = &MessageVideoChatStarted{}
 )
 
-func (m *MessageVoiceChatStarted) Zero() bool {
+func (m *MessageVideoChatStarted) Zero() bool {
 	if m == nil {
 		return true
 	}
@@ -4208,31 +4398,31 @@ func (m *MessageVoiceChatStarted) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (m *MessageVoiceChatStarted) String() string {
+func (m *MessageVideoChatStarted) String() string {
 	if m == nil {
-		return "MessageVoiceChatStarted(nil)"
+		return "MessageVideoChatStarted(nil)"
 	}
-	type Alias MessageVoiceChatStarted
-	return fmt.Sprintf("MessageVoiceChatStarted%+v", Alias(*m))
+	type Alias MessageVideoChatStarted
+	return fmt.Sprintf("MessageVideoChatStarted%+v", Alias(*m))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessageVoiceChatStarted) TypeID() uint32 {
-	return MessageVoiceChatStartedTypeID
+func (*MessageVideoChatStarted) TypeID() uint32 {
+	return MessageVideoChatStartedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*MessageVoiceChatStarted) TypeName() string {
-	return "messageVoiceChatStarted"
+func (*MessageVideoChatStarted) TypeName() string {
+	return "messageVideoChatStarted"
 }
 
 // TypeInfo returns info about TL type.
-func (m *MessageVoiceChatStarted) TypeInfo() tdp.Type {
+func (m *MessageVideoChatStarted) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "messageVoiceChatStarted",
-		ID:   MessageVoiceChatStartedTypeID,
+		Name: "messageVideoChatStarted",
+		ID:   MessageVideoChatStartedTypeID,
 	}
 	if m == nil {
 		typ.Null = true
@@ -4248,43 +4438,43 @@ func (m *MessageVoiceChatStarted) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (m *MessageVoiceChatStarted) Encode(b *bin.Buffer) error {
+func (m *MessageVideoChatStarted) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageVoiceChatStarted#c9cd946b as nil")
+		return fmt.Errorf("can't encode messageVideoChatStarted#1f114559 as nil")
 	}
-	b.PutID(MessageVoiceChatStartedTypeID)
+	b.PutID(MessageVideoChatStartedTypeID)
 	return m.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (m *MessageVoiceChatStarted) EncodeBare(b *bin.Buffer) error {
+func (m *MessageVideoChatStarted) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageVoiceChatStarted#c9cd946b as nil")
+		return fmt.Errorf("can't encode messageVideoChatStarted#1f114559 as nil")
 	}
 	b.PutInt32(m.GroupCallID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (m *MessageVoiceChatStarted) Decode(b *bin.Buffer) error {
+func (m *MessageVideoChatStarted) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageVoiceChatStarted#c9cd946b to nil")
+		return fmt.Errorf("can't decode messageVideoChatStarted#1f114559 to nil")
 	}
-	if err := b.ConsumeID(MessageVoiceChatStartedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageVoiceChatStarted#c9cd946b: %w", err)
+	if err := b.ConsumeID(MessageVideoChatStartedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageVideoChatStarted#1f114559: %w", err)
 	}
 	return m.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (m *MessageVoiceChatStarted) DecodeBare(b *bin.Buffer) error {
+func (m *MessageVideoChatStarted) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageVoiceChatStarted#c9cd946b to nil")
+		return fmt.Errorf("can't decode messageVideoChatStarted#1f114559 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageVoiceChatStarted#c9cd946b: field group_call_id: %w", err)
+			return fmt.Errorf("unable to decode messageVideoChatStarted#1f114559: field group_call_id: %w", err)
 		}
 		m.GroupCallID = value
 	}
@@ -4292,12 +4482,12 @@ func (m *MessageVoiceChatStarted) DecodeBare(b *bin.Buffer) error {
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (m *MessageVoiceChatStarted) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (m *MessageVideoChatStarted) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageVoiceChatStarted#c9cd946b as nil")
+		return fmt.Errorf("can't encode messageVideoChatStarted#1f114559 as nil")
 	}
 	b.ObjStart()
-	b.PutID("messageVoiceChatStarted")
+	b.PutID("messageVideoChatStarted")
 	b.FieldStart("group_call_id")
 	b.PutInt32(m.GroupCallID)
 	b.ObjEnd()
@@ -4305,21 +4495,21 @@ func (m *MessageVoiceChatStarted) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (m *MessageVoiceChatStarted) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (m *MessageVideoChatStarted) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageVoiceChatStarted#c9cd946b to nil")
+		return fmt.Errorf("can't decode messageVideoChatStarted#1f114559 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("messageVoiceChatStarted"); err != nil {
-				return fmt.Errorf("unable to decode messageVoiceChatStarted#c9cd946b: %w", err)
+			if err := b.ConsumeID("messageVideoChatStarted"); err != nil {
+				return fmt.Errorf("unable to decode messageVideoChatStarted#1f114559: %w", err)
 			}
 		case "group_call_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageVoiceChatStarted#c9cd946b: field group_call_id: %w", err)
+				return fmt.Errorf("unable to decode messageVideoChatStarted#1f114559: field group_call_id: %w", err)
 			}
 			m.GroupCallID = value
 		default:
@@ -4330,33 +4520,33 @@ func (m *MessageVoiceChatStarted) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetGroupCallID returns value of GroupCallID field.
-func (m *MessageVoiceChatStarted) GetGroupCallID() (value int32) {
+func (m *MessageVideoChatStarted) GetGroupCallID() (value int32) {
 	return m.GroupCallID
 }
 
-// MessageVoiceChatEnded represents TL type `messageVoiceChatEnded#d788c6b7`.
-type MessageVoiceChatEnded struct {
+// MessageVideoChatEnded represents TL type `messageVideoChatEnded#79262c57`.
+type MessageVideoChatEnded struct {
 	// Call duration, in seconds
 	Duration int32
 }
 
-// MessageVoiceChatEndedTypeID is TL type id of MessageVoiceChatEnded.
-const MessageVoiceChatEndedTypeID = 0xd788c6b7
+// MessageVideoChatEndedTypeID is TL type id of MessageVideoChatEnded.
+const MessageVideoChatEndedTypeID = 0x79262c57
 
 // construct implements constructor of MessageContentClass.
-func (m MessageVoiceChatEnded) construct() MessageContentClass { return &m }
+func (m MessageVideoChatEnded) construct() MessageContentClass { return &m }
 
-// Ensuring interfaces in compile-time for MessageVoiceChatEnded.
+// Ensuring interfaces in compile-time for MessageVideoChatEnded.
 var (
-	_ bin.Encoder     = &MessageVoiceChatEnded{}
-	_ bin.Decoder     = &MessageVoiceChatEnded{}
-	_ bin.BareEncoder = &MessageVoiceChatEnded{}
-	_ bin.BareDecoder = &MessageVoiceChatEnded{}
+	_ bin.Encoder     = &MessageVideoChatEnded{}
+	_ bin.Decoder     = &MessageVideoChatEnded{}
+	_ bin.BareEncoder = &MessageVideoChatEnded{}
+	_ bin.BareDecoder = &MessageVideoChatEnded{}
 
-	_ MessageContentClass = &MessageVoiceChatEnded{}
+	_ MessageContentClass = &MessageVideoChatEnded{}
 )
 
-func (m *MessageVoiceChatEnded) Zero() bool {
+func (m *MessageVideoChatEnded) Zero() bool {
 	if m == nil {
 		return true
 	}
@@ -4368,31 +4558,31 @@ func (m *MessageVoiceChatEnded) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (m *MessageVoiceChatEnded) String() string {
+func (m *MessageVideoChatEnded) String() string {
 	if m == nil {
-		return "MessageVoiceChatEnded(nil)"
+		return "MessageVideoChatEnded(nil)"
 	}
-	type Alias MessageVoiceChatEnded
-	return fmt.Sprintf("MessageVoiceChatEnded%+v", Alias(*m))
+	type Alias MessageVideoChatEnded
+	return fmt.Sprintf("MessageVideoChatEnded%+v", Alias(*m))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessageVoiceChatEnded) TypeID() uint32 {
-	return MessageVoiceChatEndedTypeID
+func (*MessageVideoChatEnded) TypeID() uint32 {
+	return MessageVideoChatEndedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*MessageVoiceChatEnded) TypeName() string {
-	return "messageVoiceChatEnded"
+func (*MessageVideoChatEnded) TypeName() string {
+	return "messageVideoChatEnded"
 }
 
 // TypeInfo returns info about TL type.
-func (m *MessageVoiceChatEnded) TypeInfo() tdp.Type {
+func (m *MessageVideoChatEnded) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "messageVoiceChatEnded",
-		ID:   MessageVoiceChatEndedTypeID,
+		Name: "messageVideoChatEnded",
+		ID:   MessageVideoChatEndedTypeID,
 	}
 	if m == nil {
 		typ.Null = true
@@ -4408,43 +4598,43 @@ func (m *MessageVoiceChatEnded) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (m *MessageVoiceChatEnded) Encode(b *bin.Buffer) error {
+func (m *MessageVideoChatEnded) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageVoiceChatEnded#d788c6b7 as nil")
+		return fmt.Errorf("can't encode messageVideoChatEnded#79262c57 as nil")
 	}
-	b.PutID(MessageVoiceChatEndedTypeID)
+	b.PutID(MessageVideoChatEndedTypeID)
 	return m.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (m *MessageVoiceChatEnded) EncodeBare(b *bin.Buffer) error {
+func (m *MessageVideoChatEnded) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageVoiceChatEnded#d788c6b7 as nil")
+		return fmt.Errorf("can't encode messageVideoChatEnded#79262c57 as nil")
 	}
 	b.PutInt32(m.Duration)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (m *MessageVoiceChatEnded) Decode(b *bin.Buffer) error {
+func (m *MessageVideoChatEnded) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageVoiceChatEnded#d788c6b7 to nil")
+		return fmt.Errorf("can't decode messageVideoChatEnded#79262c57 to nil")
 	}
-	if err := b.ConsumeID(MessageVoiceChatEndedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageVoiceChatEnded#d788c6b7: %w", err)
+	if err := b.ConsumeID(MessageVideoChatEndedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageVideoChatEnded#79262c57: %w", err)
 	}
 	return m.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (m *MessageVoiceChatEnded) DecodeBare(b *bin.Buffer) error {
+func (m *MessageVideoChatEnded) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageVoiceChatEnded#d788c6b7 to nil")
+		return fmt.Errorf("can't decode messageVideoChatEnded#79262c57 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageVoiceChatEnded#d788c6b7: field duration: %w", err)
+			return fmt.Errorf("unable to decode messageVideoChatEnded#79262c57: field duration: %w", err)
 		}
 		m.Duration = value
 	}
@@ -4452,12 +4642,12 @@ func (m *MessageVoiceChatEnded) DecodeBare(b *bin.Buffer) error {
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (m *MessageVoiceChatEnded) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (m *MessageVideoChatEnded) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageVoiceChatEnded#d788c6b7 as nil")
+		return fmt.Errorf("can't encode messageVideoChatEnded#79262c57 as nil")
 	}
 	b.ObjStart()
-	b.PutID("messageVoiceChatEnded")
+	b.PutID("messageVideoChatEnded")
 	b.FieldStart("duration")
 	b.PutInt32(m.Duration)
 	b.ObjEnd()
@@ -4465,21 +4655,21 @@ func (m *MessageVoiceChatEnded) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (m *MessageVoiceChatEnded) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (m *MessageVideoChatEnded) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageVoiceChatEnded#d788c6b7 to nil")
+		return fmt.Errorf("can't decode messageVideoChatEnded#79262c57 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("messageVoiceChatEnded"); err != nil {
-				return fmt.Errorf("unable to decode messageVoiceChatEnded#d788c6b7: %w", err)
+			if err := b.ConsumeID("messageVideoChatEnded"); err != nil {
+				return fmt.Errorf("unable to decode messageVideoChatEnded#79262c57: %w", err)
 			}
 		case "duration":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageVoiceChatEnded#d788c6b7: field duration: %w", err)
+				return fmt.Errorf("unable to decode messageVideoChatEnded#79262c57: field duration: %w", err)
 			}
 			m.Duration = value
 		default:
@@ -4490,36 +4680,36 @@ func (m *MessageVoiceChatEnded) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetDuration returns value of Duration field.
-func (m *MessageVoiceChatEnded) GetDuration() (value int32) {
+func (m *MessageVideoChatEnded) GetDuration() (value int32) {
 	return m.Duration
 }
 
-// MessageInviteVoiceChatParticipants represents TL type `messageInviteVoiceChatParticipants#1844a612`.
-type MessageInviteVoiceChatParticipants struct {
-	// Identifier of the voice chat. The voice chat can be received through the method
+// MessageInviteVideoChatParticipants represents TL type `messageInviteVideoChatParticipants#f58d603`.
+type MessageInviteVideoChatParticipants struct {
+	// Identifier of the video chat. The video chat can be received through the method
 	// getGroupCall
 	GroupCallID int32
 	// Invited user identifiers
-	UserIDs []int32
+	UserIDs []int64
 }
 
-// MessageInviteVoiceChatParticipantsTypeID is TL type id of MessageInviteVoiceChatParticipants.
-const MessageInviteVoiceChatParticipantsTypeID = 0x1844a612
+// MessageInviteVideoChatParticipantsTypeID is TL type id of MessageInviteVideoChatParticipants.
+const MessageInviteVideoChatParticipantsTypeID = 0xf58d603
 
 // construct implements constructor of MessageContentClass.
-func (m MessageInviteVoiceChatParticipants) construct() MessageContentClass { return &m }
+func (m MessageInviteVideoChatParticipants) construct() MessageContentClass { return &m }
 
-// Ensuring interfaces in compile-time for MessageInviteVoiceChatParticipants.
+// Ensuring interfaces in compile-time for MessageInviteVideoChatParticipants.
 var (
-	_ bin.Encoder     = &MessageInviteVoiceChatParticipants{}
-	_ bin.Decoder     = &MessageInviteVoiceChatParticipants{}
-	_ bin.BareEncoder = &MessageInviteVoiceChatParticipants{}
-	_ bin.BareDecoder = &MessageInviteVoiceChatParticipants{}
+	_ bin.Encoder     = &MessageInviteVideoChatParticipants{}
+	_ bin.Decoder     = &MessageInviteVideoChatParticipants{}
+	_ bin.BareEncoder = &MessageInviteVideoChatParticipants{}
+	_ bin.BareDecoder = &MessageInviteVideoChatParticipants{}
 
-	_ MessageContentClass = &MessageInviteVoiceChatParticipants{}
+	_ MessageContentClass = &MessageInviteVideoChatParticipants{}
 )
 
-func (m *MessageInviteVoiceChatParticipants) Zero() bool {
+func (m *MessageInviteVideoChatParticipants) Zero() bool {
 	if m == nil {
 		return true
 	}
@@ -4534,31 +4724,31 @@ func (m *MessageInviteVoiceChatParticipants) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (m *MessageInviteVoiceChatParticipants) String() string {
+func (m *MessageInviteVideoChatParticipants) String() string {
 	if m == nil {
-		return "MessageInviteVoiceChatParticipants(nil)"
+		return "MessageInviteVideoChatParticipants(nil)"
 	}
-	type Alias MessageInviteVoiceChatParticipants
-	return fmt.Sprintf("MessageInviteVoiceChatParticipants%+v", Alias(*m))
+	type Alias MessageInviteVideoChatParticipants
+	return fmt.Sprintf("MessageInviteVideoChatParticipants%+v", Alias(*m))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessageInviteVoiceChatParticipants) TypeID() uint32 {
-	return MessageInviteVoiceChatParticipantsTypeID
+func (*MessageInviteVideoChatParticipants) TypeID() uint32 {
+	return MessageInviteVideoChatParticipantsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*MessageInviteVoiceChatParticipants) TypeName() string {
-	return "messageInviteVoiceChatParticipants"
+func (*MessageInviteVideoChatParticipants) TypeName() string {
+	return "messageInviteVideoChatParticipants"
 }
 
 // TypeInfo returns info about TL type.
-func (m *MessageInviteVoiceChatParticipants) TypeInfo() tdp.Type {
+func (m *MessageInviteVideoChatParticipants) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "messageInviteVoiceChatParticipants",
-		ID:   MessageInviteVoiceChatParticipantsTypeID,
+		Name: "messageInviteVideoChatParticipants",
+		ID:   MessageInviteVideoChatParticipantsTypeID,
 	}
 	if m == nil {
 		typ.Null = true
@@ -4578,63 +4768,63 @@ func (m *MessageInviteVoiceChatParticipants) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (m *MessageInviteVoiceChatParticipants) Encode(b *bin.Buffer) error {
+func (m *MessageInviteVideoChatParticipants) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageInviteVoiceChatParticipants#1844a612 as nil")
+		return fmt.Errorf("can't encode messageInviteVideoChatParticipants#f58d603 as nil")
 	}
-	b.PutID(MessageInviteVoiceChatParticipantsTypeID)
+	b.PutID(MessageInviteVideoChatParticipantsTypeID)
 	return m.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (m *MessageInviteVoiceChatParticipants) EncodeBare(b *bin.Buffer) error {
+func (m *MessageInviteVideoChatParticipants) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageInviteVoiceChatParticipants#1844a612 as nil")
+		return fmt.Errorf("can't encode messageInviteVideoChatParticipants#f58d603 as nil")
 	}
 	b.PutInt32(m.GroupCallID)
 	b.PutInt(len(m.UserIDs))
 	for _, v := range m.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (m *MessageInviteVoiceChatParticipants) Decode(b *bin.Buffer) error {
+func (m *MessageInviteVideoChatParticipants) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageInviteVoiceChatParticipants#1844a612 to nil")
+		return fmt.Errorf("can't decode messageInviteVideoChatParticipants#f58d603 to nil")
 	}
-	if err := b.ConsumeID(MessageInviteVoiceChatParticipantsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageInviteVoiceChatParticipants#1844a612: %w", err)
+	if err := b.ConsumeID(MessageInviteVideoChatParticipantsTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageInviteVideoChatParticipants#f58d603: %w", err)
 	}
 	return m.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (m *MessageInviteVoiceChatParticipants) DecodeBare(b *bin.Buffer) error {
+func (m *MessageInviteVideoChatParticipants) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageInviteVoiceChatParticipants#1844a612 to nil")
+		return fmt.Errorf("can't decode messageInviteVideoChatParticipants#f58d603 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageInviteVoiceChatParticipants#1844a612: field group_call_id: %w", err)
+			return fmt.Errorf("unable to decode messageInviteVideoChatParticipants#f58d603: field group_call_id: %w", err)
 		}
 		m.GroupCallID = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageInviteVoiceChatParticipants#1844a612: field user_ids: %w", err)
+			return fmt.Errorf("unable to decode messageInviteVideoChatParticipants#f58d603: field user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			m.UserIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+			m.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageInviteVoiceChatParticipants#1844a612: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode messageInviteVideoChatParticipants#f58d603: field user_ids: %w", err)
 			}
 			m.UserIDs = append(m.UserIDs, value)
 		}
@@ -4643,18 +4833,18 @@ func (m *MessageInviteVoiceChatParticipants) DecodeBare(b *bin.Buffer) error {
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (m *MessageInviteVoiceChatParticipants) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (m *MessageInviteVideoChatParticipants) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageInviteVoiceChatParticipants#1844a612 as nil")
+		return fmt.Errorf("can't encode messageInviteVideoChatParticipants#f58d603 as nil")
 	}
 	b.ObjStart()
-	b.PutID("messageInviteVoiceChatParticipants")
+	b.PutID("messageInviteVideoChatParticipants")
 	b.FieldStart("group_call_id")
 	b.PutInt32(m.GroupCallID)
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range m.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -4662,33 +4852,33 @@ func (m *MessageInviteVoiceChatParticipants) EncodeTDLibJSON(b tdjson.Encoder) e
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (m *MessageInviteVoiceChatParticipants) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (m *MessageInviteVideoChatParticipants) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageInviteVoiceChatParticipants#1844a612 to nil")
+		return fmt.Errorf("can't decode messageInviteVideoChatParticipants#f58d603 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("messageInviteVoiceChatParticipants"); err != nil {
-				return fmt.Errorf("unable to decode messageInviteVoiceChatParticipants#1844a612: %w", err)
+			if err := b.ConsumeID("messageInviteVideoChatParticipants"); err != nil {
+				return fmt.Errorf("unable to decode messageInviteVideoChatParticipants#f58d603: %w", err)
 			}
 		case "group_call_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageInviteVoiceChatParticipants#1844a612: field group_call_id: %w", err)
+				return fmt.Errorf("unable to decode messageInviteVideoChatParticipants#f58d603: field group_call_id: %w", err)
 			}
 			m.GroupCallID = value
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Int32()
+				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode messageInviteVoiceChatParticipants#1844a612: field user_ids: %w", err)
+					return fmt.Errorf("unable to decode messageInviteVideoChatParticipants#f58d603: field user_ids: %w", err)
 				}
 				m.UserIDs = append(m.UserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode messageInviteVoiceChatParticipants#1844a612: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode messageInviteVideoChatParticipants#f58d603: field user_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -4698,25 +4888,25 @@ func (m *MessageInviteVoiceChatParticipants) DecodeTDLibJSON(b tdjson.Decoder) e
 }
 
 // GetGroupCallID returns value of GroupCallID field.
-func (m *MessageInviteVoiceChatParticipants) GetGroupCallID() (value int32) {
+func (m *MessageInviteVideoChatParticipants) GetGroupCallID() (value int32) {
 	return m.GroupCallID
 }
 
 // GetUserIDs returns value of UserIDs field.
-func (m *MessageInviteVoiceChatParticipants) GetUserIDs() (value []int32) {
+func (m *MessageInviteVideoChatParticipants) GetUserIDs() (value []int64) {
 	return m.UserIDs
 }
 
-// MessageBasicGroupChatCreate represents TL type `messageBasicGroupChatCreate#d8a1eada`.
+// MessageBasicGroupChatCreate represents TL type `messageBasicGroupChatCreate#8b60f757`.
 type MessageBasicGroupChatCreate struct {
 	// Title of the basic group
 	Title string
 	// User identifiers of members in the basic group
-	MemberUserIDs []int32
+	MemberUserIDs []int64
 }
 
 // MessageBasicGroupChatCreateTypeID is TL type id of MessageBasicGroupChatCreate.
-const MessageBasicGroupChatCreateTypeID = 0xd8a1eada
+const MessageBasicGroupChatCreateTypeID = 0x8b60f757
 
 // construct implements constructor of MessageContentClass.
 func (m MessageBasicGroupChatCreate) construct() MessageContentClass { return &m }
@@ -4792,7 +4982,7 @@ func (m *MessageBasicGroupChatCreate) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageBasicGroupChatCreate) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageBasicGroupChatCreate#d8a1eada as nil")
+		return fmt.Errorf("can't encode messageBasicGroupChatCreate#8b60f757 as nil")
 	}
 	b.PutID(MessageBasicGroupChatCreateTypeID)
 	return m.EncodeBare(b)
@@ -4801,12 +4991,12 @@ func (m *MessageBasicGroupChatCreate) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageBasicGroupChatCreate) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageBasicGroupChatCreate#d8a1eada as nil")
+		return fmt.Errorf("can't encode messageBasicGroupChatCreate#8b60f757 as nil")
 	}
 	b.PutString(m.Title)
 	b.PutInt(len(m.MemberUserIDs))
 	for _, v := range m.MemberUserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -4814,10 +5004,10 @@ func (m *MessageBasicGroupChatCreate) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageBasicGroupChatCreate) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageBasicGroupChatCreate#d8a1eada to nil")
+		return fmt.Errorf("can't decode messageBasicGroupChatCreate#8b60f757 to nil")
 	}
 	if err := b.ConsumeID(MessageBasicGroupChatCreateTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageBasicGroupChatCreate#d8a1eada: %w", err)
+		return fmt.Errorf("unable to decode messageBasicGroupChatCreate#8b60f757: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -4825,28 +5015,28 @@ func (m *MessageBasicGroupChatCreate) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageBasicGroupChatCreate) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageBasicGroupChatCreate#d8a1eada to nil")
+		return fmt.Errorf("can't decode messageBasicGroupChatCreate#8b60f757 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageBasicGroupChatCreate#d8a1eada: field title: %w", err)
+			return fmt.Errorf("unable to decode messageBasicGroupChatCreate#8b60f757: field title: %w", err)
 		}
 		m.Title = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageBasicGroupChatCreate#d8a1eada: field member_user_ids: %w", err)
+			return fmt.Errorf("unable to decode messageBasicGroupChatCreate#8b60f757: field member_user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			m.MemberUserIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+			m.MemberUserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageBasicGroupChatCreate#d8a1eada: field member_user_ids: %w", err)
+				return fmt.Errorf("unable to decode messageBasicGroupChatCreate#8b60f757: field member_user_ids: %w", err)
 			}
 			m.MemberUserIDs = append(m.MemberUserIDs, value)
 		}
@@ -4857,7 +5047,7 @@ func (m *MessageBasicGroupChatCreate) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageBasicGroupChatCreate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageBasicGroupChatCreate#d8a1eada as nil")
+		return fmt.Errorf("can't encode messageBasicGroupChatCreate#8b60f757 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageBasicGroupChatCreate")
@@ -4866,7 +5056,7 @@ func (m *MessageBasicGroupChatCreate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("member_user_ids")
 	b.ArrStart()
 	for _, v := range m.MemberUserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -4876,31 +5066,31 @@ func (m *MessageBasicGroupChatCreate) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageBasicGroupChatCreate) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageBasicGroupChatCreate#d8a1eada to nil")
+		return fmt.Errorf("can't decode messageBasicGroupChatCreate#8b60f757 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageBasicGroupChatCreate"); err != nil {
-				return fmt.Errorf("unable to decode messageBasicGroupChatCreate#d8a1eada: %w", err)
+				return fmt.Errorf("unable to decode messageBasicGroupChatCreate#8b60f757: %w", err)
 			}
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageBasicGroupChatCreate#d8a1eada: field title: %w", err)
+				return fmt.Errorf("unable to decode messageBasicGroupChatCreate#8b60f757: field title: %w", err)
 			}
 			m.Title = value
 		case "member_user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Int32()
+				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode messageBasicGroupChatCreate#d8a1eada: field member_user_ids: %w", err)
+					return fmt.Errorf("unable to decode messageBasicGroupChatCreate#8b60f757: field member_user_ids: %w", err)
 				}
 				m.MemberUserIDs = append(m.MemberUserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode messageBasicGroupChatCreate#d8a1eada: field member_user_ids: %w", err)
+				return fmt.Errorf("unable to decode messageBasicGroupChatCreate#8b60f757: field member_user_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -4915,7 +5105,7 @@ func (m *MessageBasicGroupChatCreate) GetTitle() (value string) {
 }
 
 // GetMemberUserIDs returns value of MemberUserIDs field.
-func (m *MessageBasicGroupChatCreate) GetMemberUserIDs() (value []int32) {
+func (m *MessageBasicGroupChatCreate) GetMemberUserIDs() (value []int64) {
 	return m.MemberUserIDs
 }
 
@@ -5528,14 +5718,14 @@ func (m *MessageChatDeletePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// MessageChatAddMembers represents TL type `messageChatAddMembers#4d54ac40`.
+// MessageChatAddMembers represents TL type `messageChatAddMembers#1e95b1cd`.
 type MessageChatAddMembers struct {
 	// User identifiers of the new members
-	MemberUserIDs []int32
+	MemberUserIDs []int64
 }
 
 // MessageChatAddMembersTypeID is TL type id of MessageChatAddMembers.
-const MessageChatAddMembersTypeID = 0x4d54ac40
+const MessageChatAddMembersTypeID = 0x1e95b1cd
 
 // construct implements constructor of MessageContentClass.
 func (m MessageChatAddMembers) construct() MessageContentClass { return &m }
@@ -5604,7 +5794,7 @@ func (m *MessageChatAddMembers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageChatAddMembers) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatAddMembers#4d54ac40 as nil")
+		return fmt.Errorf("can't encode messageChatAddMembers#1e95b1cd as nil")
 	}
 	b.PutID(MessageChatAddMembersTypeID)
 	return m.EncodeBare(b)
@@ -5613,11 +5803,11 @@ func (m *MessageChatAddMembers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageChatAddMembers) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatAddMembers#4d54ac40 as nil")
+		return fmt.Errorf("can't encode messageChatAddMembers#1e95b1cd as nil")
 	}
 	b.PutInt(len(m.MemberUserIDs))
 	for _, v := range m.MemberUserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -5625,10 +5815,10 @@ func (m *MessageChatAddMembers) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageChatAddMembers) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatAddMembers#4d54ac40 to nil")
+		return fmt.Errorf("can't decode messageChatAddMembers#1e95b1cd to nil")
 	}
 	if err := b.ConsumeID(MessageChatAddMembersTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageChatAddMembers#4d54ac40: %w", err)
+		return fmt.Errorf("unable to decode messageChatAddMembers#1e95b1cd: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -5636,21 +5826,21 @@ func (m *MessageChatAddMembers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageChatAddMembers) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatAddMembers#4d54ac40 to nil")
+		return fmt.Errorf("can't decode messageChatAddMembers#1e95b1cd to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageChatAddMembers#4d54ac40: field member_user_ids: %w", err)
+			return fmt.Errorf("unable to decode messageChatAddMembers#1e95b1cd: field member_user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			m.MemberUserIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+			m.MemberUserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageChatAddMembers#4d54ac40: field member_user_ids: %w", err)
+				return fmt.Errorf("unable to decode messageChatAddMembers#1e95b1cd: field member_user_ids: %w", err)
 			}
 			m.MemberUserIDs = append(m.MemberUserIDs, value)
 		}
@@ -5661,14 +5851,14 @@ func (m *MessageChatAddMembers) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageChatAddMembers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatAddMembers#4d54ac40 as nil")
+		return fmt.Errorf("can't encode messageChatAddMembers#1e95b1cd as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageChatAddMembers")
 	b.FieldStart("member_user_ids")
 	b.ArrStart()
 	for _, v := range m.MemberUserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -5678,25 +5868,25 @@ func (m *MessageChatAddMembers) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageChatAddMembers) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatAddMembers#4d54ac40 to nil")
+		return fmt.Errorf("can't decode messageChatAddMembers#1e95b1cd to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageChatAddMembers"); err != nil {
-				return fmt.Errorf("unable to decode messageChatAddMembers#4d54ac40: %w", err)
+				return fmt.Errorf("unable to decode messageChatAddMembers#1e95b1cd: %w", err)
 			}
 		case "member_user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Int32()
+				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode messageChatAddMembers#4d54ac40: field member_user_ids: %w", err)
+					return fmt.Errorf("unable to decode messageChatAddMembers#1e95b1cd: field member_user_ids: %w", err)
 				}
 				m.MemberUserIDs = append(m.MemberUserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode messageChatAddMembers#4d54ac40: field member_user_ids: %w", err)
+				return fmt.Errorf("unable to decode messageChatAddMembers#1e95b1cd: field member_user_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -5706,7 +5896,7 @@ func (m *MessageChatAddMembers) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetMemberUserIDs returns value of MemberUserIDs field.
-func (m *MessageChatAddMembers) GetMemberUserIDs() (value []int32) {
+func (m *MessageChatAddMembers) GetMemberUserIDs() (value []int64) {
 	return m.MemberUserIDs
 }
 
@@ -5839,14 +6029,143 @@ func (m *MessageChatJoinByLink) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// MessageChatDeleteMember represents TL type `messageChatDeleteMember#45678c5b`.
+// MessageChatJoinByRequest represents TL type `messageChatJoinByRequest#4740cb7c`.
+type MessageChatJoinByRequest struct {
+}
+
+// MessageChatJoinByRequestTypeID is TL type id of MessageChatJoinByRequest.
+const MessageChatJoinByRequestTypeID = 0x4740cb7c
+
+// construct implements constructor of MessageContentClass.
+func (m MessageChatJoinByRequest) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageChatJoinByRequest.
+var (
+	_ bin.Encoder     = &MessageChatJoinByRequest{}
+	_ bin.Decoder     = &MessageChatJoinByRequest{}
+	_ bin.BareEncoder = &MessageChatJoinByRequest{}
+	_ bin.BareDecoder = &MessageChatJoinByRequest{}
+
+	_ MessageContentClass = &MessageChatJoinByRequest{}
+)
+
+func (m *MessageChatJoinByRequest) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageChatJoinByRequest) String() string {
+	if m == nil {
+		return "MessageChatJoinByRequest(nil)"
+	}
+	type Alias MessageChatJoinByRequest
+	return fmt.Sprintf("MessageChatJoinByRequest%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageChatJoinByRequest) TypeID() uint32 {
+	return MessageChatJoinByRequestTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageChatJoinByRequest) TypeName() string {
+	return "messageChatJoinByRequest"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageChatJoinByRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageChatJoinByRequest",
+		ID:   MessageChatJoinByRequestTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageChatJoinByRequest) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageChatJoinByRequest#4740cb7c as nil")
+	}
+	b.PutID(MessageChatJoinByRequestTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageChatJoinByRequest) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageChatJoinByRequest#4740cb7c as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageChatJoinByRequest) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageChatJoinByRequest#4740cb7c to nil")
+	}
+	if err := b.ConsumeID(MessageChatJoinByRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageChatJoinByRequest#4740cb7c: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageChatJoinByRequest) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageChatJoinByRequest#4740cb7c to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageChatJoinByRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageChatJoinByRequest#4740cb7c as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageChatJoinByRequest")
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageChatJoinByRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageChatJoinByRequest#4740cb7c to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageChatJoinByRequest"); err != nil {
+				return fmt.Errorf("unable to decode messageChatJoinByRequest#4740cb7c: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// MessageChatDeleteMember represents TL type `messageChatDeleteMember#37e931a9`.
 type MessageChatDeleteMember struct {
 	// User identifier of the deleted chat member
-	UserID int32
+	UserID int64
 }
 
 // MessageChatDeleteMemberTypeID is TL type id of MessageChatDeleteMember.
-const MessageChatDeleteMemberTypeID = 0x45678c5b
+const MessageChatDeleteMemberTypeID = 0x37e931a9
 
 // construct implements constructor of MessageContentClass.
 func (m MessageChatDeleteMember) construct() MessageContentClass { return &m }
@@ -5915,7 +6234,7 @@ func (m *MessageChatDeleteMember) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageChatDeleteMember) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatDeleteMember#45678c5b as nil")
+		return fmt.Errorf("can't encode messageChatDeleteMember#37e931a9 as nil")
 	}
 	b.PutID(MessageChatDeleteMemberTypeID)
 	return m.EncodeBare(b)
@@ -5924,19 +6243,19 @@ func (m *MessageChatDeleteMember) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageChatDeleteMember) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatDeleteMember#45678c5b as nil")
+		return fmt.Errorf("can't encode messageChatDeleteMember#37e931a9 as nil")
 	}
-	b.PutInt32(m.UserID)
+	b.PutLong(m.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageChatDeleteMember) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatDeleteMember#45678c5b to nil")
+		return fmt.Errorf("can't decode messageChatDeleteMember#37e931a9 to nil")
 	}
 	if err := b.ConsumeID(MessageChatDeleteMemberTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageChatDeleteMember#45678c5b: %w", err)
+		return fmt.Errorf("unable to decode messageChatDeleteMember#37e931a9: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -5944,12 +6263,12 @@ func (m *MessageChatDeleteMember) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageChatDeleteMember) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatDeleteMember#45678c5b to nil")
+		return fmt.Errorf("can't decode messageChatDeleteMember#37e931a9 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageChatDeleteMember#45678c5b: field user_id: %w", err)
+			return fmt.Errorf("unable to decode messageChatDeleteMember#37e931a9: field user_id: %w", err)
 		}
 		m.UserID = value
 	}
@@ -5959,12 +6278,12 @@ func (m *MessageChatDeleteMember) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageChatDeleteMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatDeleteMember#45678c5b as nil")
+		return fmt.Errorf("can't encode messageChatDeleteMember#37e931a9 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageChatDeleteMember")
 	b.FieldStart("user_id")
-	b.PutInt32(m.UserID)
+	b.PutLong(m.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -5972,19 +6291,19 @@ func (m *MessageChatDeleteMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageChatDeleteMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatDeleteMember#45678c5b to nil")
+		return fmt.Errorf("can't decode messageChatDeleteMember#37e931a9 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageChatDeleteMember"); err != nil {
-				return fmt.Errorf("unable to decode messageChatDeleteMember#45678c5b: %w", err)
+				return fmt.Errorf("unable to decode messageChatDeleteMember#37e931a9: %w", err)
 			}
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageChatDeleteMember#45678c5b: field user_id: %w", err)
+				return fmt.Errorf("unable to decode messageChatDeleteMember#37e931a9: field user_id: %w", err)
 			}
 			m.UserID = value
 		default:
@@ -5995,18 +6314,18 @@ func (m *MessageChatDeleteMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserID returns value of UserID field.
-func (m *MessageChatDeleteMember) GetUserID() (value int32) {
+func (m *MessageChatDeleteMember) GetUserID() (value int64) {
 	return m.UserID
 }
 
-// MessageChatUpgradeTo represents TL type `messageChatUpgradeTo#74b1e969`.
+// MessageChatUpgradeTo represents TL type `messageChatUpgradeTo#63f549b`.
 type MessageChatUpgradeTo struct {
 	// Identifier of the supergroup to which the basic group was upgraded
-	SupergroupID int32
+	SupergroupID int64
 }
 
 // MessageChatUpgradeToTypeID is TL type id of MessageChatUpgradeTo.
-const MessageChatUpgradeToTypeID = 0x74b1e969
+const MessageChatUpgradeToTypeID = 0x63f549b
 
 // construct implements constructor of MessageContentClass.
 func (m MessageChatUpgradeTo) construct() MessageContentClass { return &m }
@@ -6075,7 +6394,7 @@ func (m *MessageChatUpgradeTo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageChatUpgradeTo) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatUpgradeTo#74b1e969 as nil")
+		return fmt.Errorf("can't encode messageChatUpgradeTo#63f549b as nil")
 	}
 	b.PutID(MessageChatUpgradeToTypeID)
 	return m.EncodeBare(b)
@@ -6084,19 +6403,19 @@ func (m *MessageChatUpgradeTo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageChatUpgradeTo) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatUpgradeTo#74b1e969 as nil")
+		return fmt.Errorf("can't encode messageChatUpgradeTo#63f549b as nil")
 	}
-	b.PutInt32(m.SupergroupID)
+	b.PutLong(m.SupergroupID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageChatUpgradeTo) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatUpgradeTo#74b1e969 to nil")
+		return fmt.Errorf("can't decode messageChatUpgradeTo#63f549b to nil")
 	}
 	if err := b.ConsumeID(MessageChatUpgradeToTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageChatUpgradeTo#74b1e969: %w", err)
+		return fmt.Errorf("unable to decode messageChatUpgradeTo#63f549b: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -6104,12 +6423,12 @@ func (m *MessageChatUpgradeTo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageChatUpgradeTo) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatUpgradeTo#74b1e969 to nil")
+		return fmt.Errorf("can't decode messageChatUpgradeTo#63f549b to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageChatUpgradeTo#74b1e969: field supergroup_id: %w", err)
+			return fmt.Errorf("unable to decode messageChatUpgradeTo#63f549b: field supergroup_id: %w", err)
 		}
 		m.SupergroupID = value
 	}
@@ -6119,12 +6438,12 @@ func (m *MessageChatUpgradeTo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageChatUpgradeTo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatUpgradeTo#74b1e969 as nil")
+		return fmt.Errorf("can't encode messageChatUpgradeTo#63f549b as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageChatUpgradeTo")
 	b.FieldStart("supergroup_id")
-	b.PutInt32(m.SupergroupID)
+	b.PutLong(m.SupergroupID)
 	b.ObjEnd()
 	return nil
 }
@@ -6132,19 +6451,19 @@ func (m *MessageChatUpgradeTo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageChatUpgradeTo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatUpgradeTo#74b1e969 to nil")
+		return fmt.Errorf("can't decode messageChatUpgradeTo#63f549b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageChatUpgradeTo"); err != nil {
-				return fmt.Errorf("unable to decode messageChatUpgradeTo#74b1e969: %w", err)
+				return fmt.Errorf("unable to decode messageChatUpgradeTo#63f549b: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageChatUpgradeTo#74b1e969: field supergroup_id: %w", err)
+				return fmt.Errorf("unable to decode messageChatUpgradeTo#63f549b: field supergroup_id: %w", err)
 			}
 			m.SupergroupID = value
 		default:
@@ -6155,20 +6474,20 @@ func (m *MessageChatUpgradeTo) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetSupergroupID returns value of SupergroupID field.
-func (m *MessageChatUpgradeTo) GetSupergroupID() (value int32) {
+func (m *MessageChatUpgradeTo) GetSupergroupID() (value int64) {
 	return m.SupergroupID
 }
 
-// MessageChatUpgradeFrom represents TL type `messageChatUpgradeFrom#61e3172e`.
+// MessageChatUpgradeFrom represents TL type `messageChatUpgradeFrom#136daadc`.
 type MessageChatUpgradeFrom struct {
 	// Title of the newly created supergroup
 	Title string
 	// The identifier of the original basic group
-	BasicGroupID int32
+	BasicGroupID int64
 }
 
 // MessageChatUpgradeFromTypeID is TL type id of MessageChatUpgradeFrom.
-const MessageChatUpgradeFromTypeID = 0x61e3172e
+const MessageChatUpgradeFromTypeID = 0x136daadc
 
 // construct implements constructor of MessageContentClass.
 func (m MessageChatUpgradeFrom) construct() MessageContentClass { return &m }
@@ -6244,7 +6563,7 @@ func (m *MessageChatUpgradeFrom) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageChatUpgradeFrom) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatUpgradeFrom#61e3172e as nil")
+		return fmt.Errorf("can't encode messageChatUpgradeFrom#136daadc as nil")
 	}
 	b.PutID(MessageChatUpgradeFromTypeID)
 	return m.EncodeBare(b)
@@ -6253,20 +6572,20 @@ func (m *MessageChatUpgradeFrom) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageChatUpgradeFrom) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatUpgradeFrom#61e3172e as nil")
+		return fmt.Errorf("can't encode messageChatUpgradeFrom#136daadc as nil")
 	}
 	b.PutString(m.Title)
-	b.PutInt32(m.BasicGroupID)
+	b.PutLong(m.BasicGroupID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageChatUpgradeFrom) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatUpgradeFrom#61e3172e to nil")
+		return fmt.Errorf("can't decode messageChatUpgradeFrom#136daadc to nil")
 	}
 	if err := b.ConsumeID(MessageChatUpgradeFromTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageChatUpgradeFrom#61e3172e: %w", err)
+		return fmt.Errorf("unable to decode messageChatUpgradeFrom#136daadc: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -6274,19 +6593,19 @@ func (m *MessageChatUpgradeFrom) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageChatUpgradeFrom) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatUpgradeFrom#61e3172e to nil")
+		return fmt.Errorf("can't decode messageChatUpgradeFrom#136daadc to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageChatUpgradeFrom#61e3172e: field title: %w", err)
+			return fmt.Errorf("unable to decode messageChatUpgradeFrom#136daadc: field title: %w", err)
 		}
 		m.Title = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageChatUpgradeFrom#61e3172e: field basic_group_id: %w", err)
+			return fmt.Errorf("unable to decode messageChatUpgradeFrom#136daadc: field basic_group_id: %w", err)
 		}
 		m.BasicGroupID = value
 	}
@@ -6296,14 +6615,14 @@ func (m *MessageChatUpgradeFrom) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageChatUpgradeFrom) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatUpgradeFrom#61e3172e as nil")
+		return fmt.Errorf("can't encode messageChatUpgradeFrom#136daadc as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageChatUpgradeFrom")
 	b.FieldStart("title")
 	b.PutString(m.Title)
 	b.FieldStart("basic_group_id")
-	b.PutInt32(m.BasicGroupID)
+	b.PutLong(m.BasicGroupID)
 	b.ObjEnd()
 	return nil
 }
@@ -6311,25 +6630,25 @@ func (m *MessageChatUpgradeFrom) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageChatUpgradeFrom) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatUpgradeFrom#61e3172e to nil")
+		return fmt.Errorf("can't decode messageChatUpgradeFrom#136daadc to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageChatUpgradeFrom"); err != nil {
-				return fmt.Errorf("unable to decode messageChatUpgradeFrom#61e3172e: %w", err)
+				return fmt.Errorf("unable to decode messageChatUpgradeFrom#136daadc: %w", err)
 			}
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageChatUpgradeFrom#61e3172e: field title: %w", err)
+				return fmt.Errorf("unable to decode messageChatUpgradeFrom#136daadc: field title: %w", err)
 			}
 			m.Title = value
 		case "basic_group_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageChatUpgradeFrom#61e3172e: field basic_group_id: %w", err)
+				return fmt.Errorf("unable to decode messageChatUpgradeFrom#136daadc: field basic_group_id: %w", err)
 			}
 			m.BasicGroupID = value
 		default:
@@ -6345,7 +6664,7 @@ func (m *MessageChatUpgradeFrom) GetTitle() (value string) {
 }
 
 // GetBasicGroupID returns value of BasicGroupID field.
-func (m *MessageChatUpgradeFrom) GetBasicGroupID() (value int32) {
+func (m *MessageChatUpgradeFrom) GetBasicGroupID() (value int64) {
 	return m.BasicGroupID
 }
 
@@ -6636,6 +6955,167 @@ func (m *MessageScreenshotTaken) DecodeTDLibJSON(b tdjson.Decoder) error {
 		}
 		return nil
 	})
+}
+
+// MessageChatSetTheme represents TL type `messageChatSetTheme#99ae9408`.
+type MessageChatSetTheme struct {
+	// If non-empty, name of a new theme, set for the chat. Otherwise chat theme was reset to
+	// the default one
+	ThemeName string
+}
+
+// MessageChatSetThemeTypeID is TL type id of MessageChatSetTheme.
+const MessageChatSetThemeTypeID = 0x99ae9408
+
+// construct implements constructor of MessageContentClass.
+func (m MessageChatSetTheme) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageChatSetTheme.
+var (
+	_ bin.Encoder     = &MessageChatSetTheme{}
+	_ bin.Decoder     = &MessageChatSetTheme{}
+	_ bin.BareEncoder = &MessageChatSetTheme{}
+	_ bin.BareDecoder = &MessageChatSetTheme{}
+
+	_ MessageContentClass = &MessageChatSetTheme{}
+)
+
+func (m *MessageChatSetTheme) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.ThemeName == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageChatSetTheme) String() string {
+	if m == nil {
+		return "MessageChatSetTheme(nil)"
+	}
+	type Alias MessageChatSetTheme
+	return fmt.Sprintf("MessageChatSetTheme%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageChatSetTheme) TypeID() uint32 {
+	return MessageChatSetThemeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageChatSetTheme) TypeName() string {
+	return "messageChatSetTheme"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageChatSetTheme) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageChatSetTheme",
+		ID:   MessageChatSetThemeTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ThemeName",
+			SchemaName: "theme_name",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageChatSetTheme) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageChatSetTheme#99ae9408 as nil")
+	}
+	b.PutID(MessageChatSetThemeTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageChatSetTheme) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageChatSetTheme#99ae9408 as nil")
+	}
+	b.PutString(m.ThemeName)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageChatSetTheme) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageChatSetTheme#99ae9408 to nil")
+	}
+	if err := b.ConsumeID(MessageChatSetThemeTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageChatSetTheme#99ae9408: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageChatSetTheme) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageChatSetTheme#99ae9408 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageChatSetTheme#99ae9408: field theme_name: %w", err)
+		}
+		m.ThemeName = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageChatSetTheme) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageChatSetTheme#99ae9408 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageChatSetTheme")
+	b.FieldStart("theme_name")
+	b.PutString(m.ThemeName)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageChatSetTheme) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageChatSetTheme#99ae9408 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageChatSetTheme"); err != nil {
+				return fmt.Errorf("unable to decode messageChatSetTheme#99ae9408: %w", err)
+			}
+		case "theme_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageChatSetTheme#99ae9408: field theme_name: %w", err)
+			}
+			m.ThemeName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetThemeName returns value of ThemeName field.
+func (m *MessageChatSetTheme) GetThemeName() (value string) {
+	return m.ThemeName
 }
 
 // MessageChatSetTTL represents TL type `messageChatSetTtl#6be353b1`.
@@ -8858,27 +9338,30 @@ func (m *MessageUnsupported) DecodeTDLibJSON(b tdjson.Decoder) error {
 //  case *tdapi.MessageLocation: // messageLocation#121e4474
 //  case *tdapi.MessageVenue: // messageVenue#800f2175
 //  case *tdapi.MessageContact: // messageContact#e1710c5a
+//  case *tdapi.MessageAnimatedEmoji: // messageAnimatedEmoji#3621f5e2
 //  case *tdapi.MessageDice: // messageDice#42817239
 //  case *tdapi.MessageGame: // messageGame#fbdc6976
 //  case *tdapi.MessagePoll: // messagePoll#d888b24d
 //  case *tdapi.MessageInvoice: // messageInvoice#8dc1ea0c
 //  case *tdapi.MessageCall: // messageCall#201ede00
-//  case *tdapi.MessageVoiceChatScheduled: // messageVoiceChatScheduled#a7bf3904
-//  case *tdapi.MessageVoiceChatStarted: // messageVoiceChatStarted#c9cd946b
-//  case *tdapi.MessageVoiceChatEnded: // messageVoiceChatEnded#d788c6b7
-//  case *tdapi.MessageInviteVoiceChatParticipants: // messageInviteVoiceChatParticipants#1844a612
-//  case *tdapi.MessageBasicGroupChatCreate: // messageBasicGroupChatCreate#d8a1eada
+//  case *tdapi.MessageVideoChatScheduled: // messageVideoChatScheduled#916c1db7
+//  case *tdapi.MessageVideoChatStarted: // messageVideoChatStarted#1f114559
+//  case *tdapi.MessageVideoChatEnded: // messageVideoChatEnded#79262c57
+//  case *tdapi.MessageInviteVideoChatParticipants: // messageInviteVideoChatParticipants#f58d603
+//  case *tdapi.MessageBasicGroupChatCreate: // messageBasicGroupChatCreate#8b60f757
 //  case *tdapi.MessageSupergroupChatCreate: // messageSupergroupChatCreate#e61cb71b
 //  case *tdapi.MessageChatChangeTitle: // messageChatChangeTitle#2c99bb41
 //  case *tdapi.MessageChatChangePhoto: // messageChatChangePhoto#cf84454b
 //  case *tdapi.MessageChatDeletePhoto: // messageChatDeletePhoto#f502a9e7
-//  case *tdapi.MessageChatAddMembers: // messageChatAddMembers#4d54ac40
+//  case *tdapi.MessageChatAddMembers: // messageChatAddMembers#1e95b1cd
 //  case *tdapi.MessageChatJoinByLink: // messageChatJoinByLink#6e0f407f
-//  case *tdapi.MessageChatDeleteMember: // messageChatDeleteMember#45678c5b
-//  case *tdapi.MessageChatUpgradeTo: // messageChatUpgradeTo#74b1e969
-//  case *tdapi.MessageChatUpgradeFrom: // messageChatUpgradeFrom#61e3172e
+//  case *tdapi.MessageChatJoinByRequest: // messageChatJoinByRequest#4740cb7c
+//  case *tdapi.MessageChatDeleteMember: // messageChatDeleteMember#37e931a9
+//  case *tdapi.MessageChatUpgradeTo: // messageChatUpgradeTo#63f549b
+//  case *tdapi.MessageChatUpgradeFrom: // messageChatUpgradeFrom#136daadc
 //  case *tdapi.MessagePinMessage: // messagePinMessage#38d55039
 //  case *tdapi.MessageScreenshotTaken: // messageScreenshotTaken#a2b86dab
+//  case *tdapi.MessageChatSetTheme: // messageChatSetTheme#99ae9408
 //  case *tdapi.MessageChatSetTTL: // messageChatSetTtl#6be353b1
 //  case *tdapi.MessageCustomServiceAction: // messageCustomServiceAction#5595c772
 //  case *tdapi.MessageGameScore: // messageGameScore#50299d7f
@@ -9019,6 +9502,13 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
+	case MessageAnimatedEmojiTypeID:
+		// Decoding messageAnimatedEmoji#3621f5e2.
+		v := MessageAnimatedEmoji{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
 	case MessageDiceTypeID:
 		// Decoding messageDice#42817239.
 		v := MessageDice{}
@@ -9054,36 +9544,36 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case MessageVoiceChatScheduledTypeID:
-		// Decoding messageVoiceChatScheduled#a7bf3904.
-		v := MessageVoiceChatScheduled{}
+	case MessageVideoChatScheduledTypeID:
+		// Decoding messageVideoChatScheduled#916c1db7.
+		v := MessageVideoChatScheduled{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case MessageVoiceChatStartedTypeID:
-		// Decoding messageVoiceChatStarted#c9cd946b.
-		v := MessageVoiceChatStarted{}
+	case MessageVideoChatStartedTypeID:
+		// Decoding messageVideoChatStarted#1f114559.
+		v := MessageVideoChatStarted{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case MessageVoiceChatEndedTypeID:
-		// Decoding messageVoiceChatEnded#d788c6b7.
-		v := MessageVoiceChatEnded{}
+	case MessageVideoChatEndedTypeID:
+		// Decoding messageVideoChatEnded#79262c57.
+		v := MessageVideoChatEnded{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case MessageInviteVoiceChatParticipantsTypeID:
-		// Decoding messageInviteVoiceChatParticipants#1844a612.
-		v := MessageInviteVoiceChatParticipants{}
+	case MessageInviteVideoChatParticipantsTypeID:
+		// Decoding messageInviteVideoChatParticipants#f58d603.
+		v := MessageInviteVideoChatParticipants{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
 	case MessageBasicGroupChatCreateTypeID:
-		// Decoding messageBasicGroupChatCreate#d8a1eada.
+		// Decoding messageBasicGroupChatCreate#8b60f757.
 		v := MessageBasicGroupChatCreate{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -9118,7 +9608,7 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 		}
 		return &v, nil
 	case MessageChatAddMembersTypeID:
-		// Decoding messageChatAddMembers#4d54ac40.
+		// Decoding messageChatAddMembers#1e95b1cd.
 		v := MessageChatAddMembers{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -9131,22 +9621,29 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
+	case MessageChatJoinByRequestTypeID:
+		// Decoding messageChatJoinByRequest#4740cb7c.
+		v := MessageChatJoinByRequest{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
 	case MessageChatDeleteMemberTypeID:
-		// Decoding messageChatDeleteMember#45678c5b.
+		// Decoding messageChatDeleteMember#37e931a9.
 		v := MessageChatDeleteMember{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
 	case MessageChatUpgradeToTypeID:
-		// Decoding messageChatUpgradeTo#74b1e969.
+		// Decoding messageChatUpgradeTo#63f549b.
 		v := MessageChatUpgradeTo{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
 	case MessageChatUpgradeFromTypeID:
-		// Decoding messageChatUpgradeFrom#61e3172e.
+		// Decoding messageChatUpgradeFrom#136daadc.
 		v := MessageChatUpgradeFrom{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -9162,6 +9659,13 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 	case MessageScreenshotTakenTypeID:
 		// Decoding messageScreenshotTaken#a2b86dab.
 		v := MessageScreenshotTaken{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageChatSetThemeTypeID:
+		// Decoding messageChatSetTheme#99ae9408.
+		v := MessageChatSetTheme{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -9353,6 +9857,13 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
+	case "messageAnimatedEmoji":
+		// Decoding messageAnimatedEmoji#3621f5e2.
+		v := MessageAnimatedEmoji{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
 	case "messageDice":
 		// Decoding messageDice#42817239.
 		v := MessageDice{}
@@ -9388,36 +9899,36 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case "messageVoiceChatScheduled":
-		// Decoding messageVoiceChatScheduled#a7bf3904.
-		v := MessageVoiceChatScheduled{}
+	case "messageVideoChatScheduled":
+		// Decoding messageVideoChatScheduled#916c1db7.
+		v := MessageVideoChatScheduled{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case "messageVoiceChatStarted":
-		// Decoding messageVoiceChatStarted#c9cd946b.
-		v := MessageVoiceChatStarted{}
+	case "messageVideoChatStarted":
+		// Decoding messageVideoChatStarted#1f114559.
+		v := MessageVideoChatStarted{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case "messageVoiceChatEnded":
-		// Decoding messageVoiceChatEnded#d788c6b7.
-		v := MessageVoiceChatEnded{}
+	case "messageVideoChatEnded":
+		// Decoding messageVideoChatEnded#79262c57.
+		v := MessageVideoChatEnded{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case "messageInviteVoiceChatParticipants":
-		// Decoding messageInviteVoiceChatParticipants#1844a612.
-		v := MessageInviteVoiceChatParticipants{}
+	case "messageInviteVideoChatParticipants":
+		// Decoding messageInviteVideoChatParticipants#f58d603.
+		v := MessageInviteVideoChatParticipants{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
 	case "messageBasicGroupChatCreate":
-		// Decoding messageBasicGroupChatCreate#d8a1eada.
+		// Decoding messageBasicGroupChatCreate#8b60f757.
 		v := MessageBasicGroupChatCreate{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -9452,7 +9963,7 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 		}
 		return &v, nil
 	case "messageChatAddMembers":
-		// Decoding messageChatAddMembers#4d54ac40.
+		// Decoding messageChatAddMembers#1e95b1cd.
 		v := MessageChatAddMembers{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -9465,22 +9976,29 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
+	case "messageChatJoinByRequest":
+		// Decoding messageChatJoinByRequest#4740cb7c.
+		v := MessageChatJoinByRequest{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
 	case "messageChatDeleteMember":
-		// Decoding messageChatDeleteMember#45678c5b.
+		// Decoding messageChatDeleteMember#37e931a9.
 		v := MessageChatDeleteMember{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
 	case "messageChatUpgradeTo":
-		// Decoding messageChatUpgradeTo#74b1e969.
+		// Decoding messageChatUpgradeTo#63f549b.
 		v := MessageChatUpgradeTo{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
 	case "messageChatUpgradeFrom":
-		// Decoding messageChatUpgradeFrom#61e3172e.
+		// Decoding messageChatUpgradeFrom#136daadc.
 		v := MessageChatUpgradeFrom{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -9496,6 +10014,13 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 	case "messageScreenshotTaken":
 		// Decoding messageScreenshotTaken#a2b86dab.
 		v := MessageScreenshotTaken{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageChatSetTheme":
+		// Decoding messageChatSetTheme#99ae9408.
+		v := MessageChatSetTheme{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}

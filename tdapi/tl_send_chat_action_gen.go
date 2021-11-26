@@ -37,7 +37,7 @@ type SendChatActionRequest struct {
 	ChatID int64
 	// If not 0, a message thread identifier in which the action was performed
 	MessageThreadID int64
-	// The action description
+	// The action description; pass null to cancel the currently active action
 	Action ChatActionClass
 }
 

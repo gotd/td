@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// RemoveContactsRequest represents TL type `removeContacts#d47cddcc`.
+// RemoveContactsRequest represents TL type `removeContacts#b464dfff`.
 type RemoveContactsRequest struct {
 	// Identifiers of users to be deleted
-	UserIDs []int32
+	UserIDs []int64
 }
 
 // RemoveContactsRequestTypeID is TL type id of RemoveContactsRequest.
-const RemoveContactsRequestTypeID = 0xd47cddcc
+const RemoveContactsRequestTypeID = 0xb464dfff
 
 // Ensuring interfaces in compile-time for RemoveContactsRequest.
 var (
@@ -102,7 +102,7 @@ func (r *RemoveContactsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RemoveContactsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode removeContacts#d47cddcc as nil")
+		return fmt.Errorf("can't encode removeContacts#b464dfff as nil")
 	}
 	b.PutID(RemoveContactsRequestTypeID)
 	return r.EncodeBare(b)
@@ -111,11 +111,11 @@ func (r *RemoveContactsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RemoveContactsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode removeContacts#d47cddcc as nil")
+		return fmt.Errorf("can't encode removeContacts#b464dfff as nil")
 	}
 	b.PutInt(len(r.UserIDs))
 	for _, v := range r.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -123,10 +123,10 @@ func (r *RemoveContactsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *RemoveContactsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode removeContacts#d47cddcc to nil")
+		return fmt.Errorf("can't decode removeContacts#b464dfff to nil")
 	}
 	if err := b.ConsumeID(RemoveContactsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode removeContacts#d47cddcc: %w", err)
+		return fmt.Errorf("unable to decode removeContacts#b464dfff: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -134,21 +134,21 @@ func (r *RemoveContactsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RemoveContactsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode removeContacts#d47cddcc to nil")
+		return fmt.Errorf("can't decode removeContacts#b464dfff to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode removeContacts#d47cddcc: field user_ids: %w", err)
+			return fmt.Errorf("unable to decode removeContacts#b464dfff: field user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			r.UserIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+			r.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode removeContacts#d47cddcc: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode removeContacts#b464dfff: field user_ids: %w", err)
 			}
 			r.UserIDs = append(r.UserIDs, value)
 		}
@@ -159,14 +159,14 @@ func (r *RemoveContactsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *RemoveContactsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode removeContacts#d47cddcc as nil")
+		return fmt.Errorf("can't encode removeContacts#b464dfff as nil")
 	}
 	b.ObjStart()
 	b.PutID("removeContacts")
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range r.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -176,25 +176,25 @@ func (r *RemoveContactsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *RemoveContactsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode removeContacts#d47cddcc to nil")
+		return fmt.Errorf("can't decode removeContacts#b464dfff to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("removeContacts"); err != nil {
-				return fmt.Errorf("unable to decode removeContacts#d47cddcc: %w", err)
+				return fmt.Errorf("unable to decode removeContacts#b464dfff: %w", err)
 			}
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Int32()
+				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode removeContacts#d47cddcc: field user_ids: %w", err)
+					return fmt.Errorf("unable to decode removeContacts#b464dfff: field user_ids: %w", err)
 				}
 				r.UserIDs = append(r.UserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode removeContacts#d47cddcc: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode removeContacts#b464dfff: field user_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -204,12 +204,12 @@ func (r *RemoveContactsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserIDs returns value of UserIDs field.
-func (r *RemoveContactsRequest) GetUserIDs() (value []int32) {
+func (r *RemoveContactsRequest) GetUserIDs() (value []int64) {
 	return r.UserIDs
 }
 
-// RemoveContacts invokes method removeContacts#d47cddcc returning error if any.
-func (c *Client) RemoveContacts(ctx context.Context, userids []int32) error {
+// RemoveContacts invokes method removeContacts#b464dfff returning error if any.
+func (c *Client) RemoveContacts(ctx context.Context, userids []int64) error {
 	var ok Ok
 
 	request := &RemoveContactsRequest{

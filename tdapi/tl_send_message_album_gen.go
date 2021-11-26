@@ -39,7 +39,7 @@ type SendMessageAlbumRequest struct {
 	MessageThreadID int64
 	// Identifier of a message to reply to or 0
 	ReplyToMessageID int64
-	// Options to be used to send the messages
+	// Options to be used to send the messages; pass null to use default options
 	Options MessageSendOptions
 	// Contents of messages to be sent. At most 10 messages can be added to an album
 	InputMessageContents []InputMessageContentClass

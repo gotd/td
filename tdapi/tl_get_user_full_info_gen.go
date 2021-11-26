@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetUserFullInfoRequest represents TL type `getUserFullInfo#d8eebac1`.
+// GetUserFullInfoRequest represents TL type `getUserFullInfo#d1b29c58`.
 type GetUserFullInfoRequest struct {
 	// User identifier
-	UserID int32
+	UserID int64
 }
 
 // GetUserFullInfoRequestTypeID is TL type id of GetUserFullInfoRequest.
-const GetUserFullInfoRequestTypeID = 0xd8eebac1
+const GetUserFullInfoRequestTypeID = 0xd1b29c58
 
 // Ensuring interfaces in compile-time for GetUserFullInfoRequest.
 var (
@@ -102,7 +102,7 @@ func (g *GetUserFullInfoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetUserFullInfoRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getUserFullInfo#d8eebac1 as nil")
+		return fmt.Errorf("can't encode getUserFullInfo#d1b29c58 as nil")
 	}
 	b.PutID(GetUserFullInfoRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,19 +111,19 @@ func (g *GetUserFullInfoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetUserFullInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getUserFullInfo#d8eebac1 as nil")
+		return fmt.Errorf("can't encode getUserFullInfo#d1b29c58 as nil")
 	}
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetUserFullInfoRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getUserFullInfo#d8eebac1 to nil")
+		return fmt.Errorf("can't decode getUserFullInfo#d1b29c58 to nil")
 	}
 	if err := b.ConsumeID(GetUserFullInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getUserFullInfo#d8eebac1: %w", err)
+		return fmt.Errorf("unable to decode getUserFullInfo#d1b29c58: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -131,12 +131,12 @@ func (g *GetUserFullInfoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetUserFullInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getUserFullInfo#d8eebac1 to nil")
+		return fmt.Errorf("can't decode getUserFullInfo#d1b29c58 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getUserFullInfo#d8eebac1: field user_id: %w", err)
+			return fmt.Errorf("unable to decode getUserFullInfo#d1b29c58: field user_id: %w", err)
 		}
 		g.UserID = value
 	}
@@ -146,12 +146,12 @@ func (g *GetUserFullInfoRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetUserFullInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getUserFullInfo#d8eebac1 as nil")
+		return fmt.Errorf("can't encode getUserFullInfo#d1b29c58 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getUserFullInfo")
 	b.FieldStart("user_id")
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -159,19 +159,19 @@ func (g *GetUserFullInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetUserFullInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getUserFullInfo#d8eebac1 to nil")
+		return fmt.Errorf("can't decode getUserFullInfo#d1b29c58 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getUserFullInfo"); err != nil {
-				return fmt.Errorf("unable to decode getUserFullInfo#d8eebac1: %w", err)
+				return fmt.Errorf("unable to decode getUserFullInfo#d1b29c58: %w", err)
 			}
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getUserFullInfo#d8eebac1: field user_id: %w", err)
+				return fmt.Errorf("unable to decode getUserFullInfo#d1b29c58: field user_id: %w", err)
 			}
 			g.UserID = value
 		default:
@@ -182,12 +182,12 @@ func (g *GetUserFullInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserID returns value of UserID field.
-func (g *GetUserFullInfoRequest) GetUserID() (value int32) {
+func (g *GetUserFullInfoRequest) GetUserID() (value int64) {
 	return g.UserID
 }
 
-// GetUserFullInfo invokes method getUserFullInfo#d8eebac1 returning error if any.
-func (c *Client) GetUserFullInfo(ctx context.Context, userid int32) (*UserFullInfo, error) {
+// GetUserFullInfo invokes method getUserFullInfo#d1b29c58 returning error if any.
+func (c *Client) GetUserFullInfo(ctx context.Context, userid int64) (*UserFullInfo, error) {
 	var result UserFullInfo
 
 	request := &GetUserFullInfoRequest{

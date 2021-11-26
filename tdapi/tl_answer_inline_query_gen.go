@@ -43,8 +43,8 @@ type AnswerInlineQueryRequest struct {
 	CacheTime int32
 	// Offset for the next inline query; pass an empty string if there are no more results
 	NextOffset string
-	// If non-empty, this text should be shown on the button that opens a private chat with
-	// the bot and sends a start message to the bot with the parameter switch_pm_parameter
+	// If non-empty, this text must be shown on the button that opens a private chat with the
+	// bot and sends a start message to the bot with the parameter switch_pm_parameter
 	SwitchPmText string
 	// The parameter for the bot start message
 	SwitchPmParameter string

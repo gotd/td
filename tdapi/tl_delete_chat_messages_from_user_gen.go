@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// DeleteChatMessagesFromUserRequest represents TL type `deleteChatMessagesFromUser#a0a6ae11`.
+// DeleteChatMessagesFromUserRequest represents TL type `deleteChatMessagesFromUser#82a488e`.
 type DeleteChatMessagesFromUserRequest struct {
 	// Chat identifier
 	ChatID int64
 	// User identifier
-	UserID int32
+	UserID int64
 }
 
 // DeleteChatMessagesFromUserRequestTypeID is TL type id of DeleteChatMessagesFromUserRequest.
-const DeleteChatMessagesFromUserRequestTypeID = 0xa0a6ae11
+const DeleteChatMessagesFromUserRequestTypeID = 0x82a488e
 
 // Ensuring interfaces in compile-time for DeleteChatMessagesFromUserRequest.
 var (
@@ -111,7 +111,7 @@ func (d *DeleteChatMessagesFromUserRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DeleteChatMessagesFromUserRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteChatMessagesFromUser#a0a6ae11 as nil")
+		return fmt.Errorf("can't encode deleteChatMessagesFromUser#82a488e as nil")
 	}
 	b.PutID(DeleteChatMessagesFromUserRequestTypeID)
 	return d.EncodeBare(b)
@@ -120,20 +120,20 @@ func (d *DeleteChatMessagesFromUserRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DeleteChatMessagesFromUserRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteChatMessagesFromUser#a0a6ae11 as nil")
+		return fmt.Errorf("can't encode deleteChatMessagesFromUser#82a488e as nil")
 	}
 	b.PutLong(d.ChatID)
-	b.PutInt32(d.UserID)
+	b.PutLong(d.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (d *DeleteChatMessagesFromUserRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteChatMessagesFromUser#a0a6ae11 to nil")
+		return fmt.Errorf("can't decode deleteChatMessagesFromUser#82a488e to nil")
 	}
 	if err := b.ConsumeID(DeleteChatMessagesFromUserRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode deleteChatMessagesFromUser#a0a6ae11: %w", err)
+		return fmt.Errorf("unable to decode deleteChatMessagesFromUser#82a488e: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -141,19 +141,19 @@ func (d *DeleteChatMessagesFromUserRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DeleteChatMessagesFromUserRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteChatMessagesFromUser#a0a6ae11 to nil")
+		return fmt.Errorf("can't decode deleteChatMessagesFromUser#82a488e to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode deleteChatMessagesFromUser#a0a6ae11: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode deleteChatMessagesFromUser#82a488e: field chat_id: %w", err)
 		}
 		d.ChatID = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode deleteChatMessagesFromUser#a0a6ae11: field user_id: %w", err)
+			return fmt.Errorf("unable to decode deleteChatMessagesFromUser#82a488e: field user_id: %w", err)
 		}
 		d.UserID = value
 	}
@@ -163,14 +163,14 @@ func (d *DeleteChatMessagesFromUserRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (d *DeleteChatMessagesFromUserRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteChatMessagesFromUser#a0a6ae11 as nil")
+		return fmt.Errorf("can't encode deleteChatMessagesFromUser#82a488e as nil")
 	}
 	b.ObjStart()
 	b.PutID("deleteChatMessagesFromUser")
 	b.FieldStart("chat_id")
 	b.PutLong(d.ChatID)
 	b.FieldStart("user_id")
-	b.PutInt32(d.UserID)
+	b.PutLong(d.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -178,25 +178,25 @@ func (d *DeleteChatMessagesFromUserRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (d *DeleteChatMessagesFromUserRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteChatMessagesFromUser#a0a6ae11 to nil")
+		return fmt.Errorf("can't decode deleteChatMessagesFromUser#82a488e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("deleteChatMessagesFromUser"); err != nil {
-				return fmt.Errorf("unable to decode deleteChatMessagesFromUser#a0a6ae11: %w", err)
+				return fmt.Errorf("unable to decode deleteChatMessagesFromUser#82a488e: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode deleteChatMessagesFromUser#a0a6ae11: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode deleteChatMessagesFromUser#82a488e: field chat_id: %w", err)
 			}
 			d.ChatID = value
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode deleteChatMessagesFromUser#a0a6ae11: field user_id: %w", err)
+				return fmt.Errorf("unable to decode deleteChatMessagesFromUser#82a488e: field user_id: %w", err)
 			}
 			d.UserID = value
 		default:
@@ -212,11 +212,11 @@ func (d *DeleteChatMessagesFromUserRequest) GetChatID() (value int64) {
 }
 
 // GetUserID returns value of UserID field.
-func (d *DeleteChatMessagesFromUserRequest) GetUserID() (value int32) {
+func (d *DeleteChatMessagesFromUserRequest) GetUserID() (value int64) {
 	return d.UserID
 }
 
-// DeleteChatMessagesFromUser invokes method deleteChatMessagesFromUser#a0a6ae11 returning error if any.
+// DeleteChatMessagesFromUser invokes method deleteChatMessagesFromUser#82a488e returning error if any.
 func (c *Client) DeleteChatMessagesFromUser(ctx context.Context, request *DeleteChatMessagesFromUserRequest) error {
 	var ok Ok
 

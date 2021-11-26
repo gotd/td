@@ -35,10 +35,10 @@ var (
 type File struct {
 	// Unique file identifier
 	ID int32
-	// File size; 0 if unknown
+	// File size, in bytes; 0 if unknown
 	Size int32
-	// Expected file size in case the exact file size is unknown, but an approximate size is
-	// known. Can be used to show download/upload progress
+	// Approximate file size in bytes in case the exact file size is unknown. Can be used to
+	// show download/upload progress
 	ExpectedSize int32
 	// Information about the local copy of the file
 	Local LocalFile

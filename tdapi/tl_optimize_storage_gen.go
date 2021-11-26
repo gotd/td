@@ -33,7 +33,8 @@ var (
 
 // OptimizeStorageRequest represents TL type `optimizeStorage#ef73c8c5`.
 type OptimizeStorageRequest struct {
-	// Limit on the total size of files after deletion. Pass -1 to use the default limit
+	// Limit on the total size of files after deletion, in bytes. Pass -1 to use the default
+	// limit
 	Size int64
 	// Limit on the time that has passed since the last time a file was accessed (or creation
 	// time for some filesystems). Pass -1 to use the default limit
@@ -43,13 +44,13 @@ type OptimizeStorageRequest struct {
 	// The amount of time after the creation of a file during which it can't be deleted, in
 	// seconds. Pass -1 to use the default value
 	ImmunityDelay int32
-	// If not empty, only files with the given type(s) are considered. By default, all types
+	// If non-empty, only files with the given types are considered. By default, all types
 	// except thumbnails, profile photos, stickers and wallpapers are deleted
 	FileTypes []FileTypeClass
-	// If not empty, only files from the given chats are considered. Use 0 as chat identifier
+	// If non-empty, only files from the given chats are considered. Use 0 as chat identifier
 	// to delete files not belonging to any chat (e.g., profile photos)
 	ChatIDs []int64
-	// If not empty, files from the given chats are excluded. Use 0 as chat identifier to
+	// If non-empty, files from the given chats are excluded. Use 0 as chat identifier to
 	// exclude all files not belonging to any chat (e.g., profile photos)
 	ExcludeChatIDs []int64
 	// Pass true if statistics about the files that were deleted must be returned instead of

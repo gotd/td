@@ -31,18 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetLoginURLInfoRequest represents TL type `getLoginUrlInfo#c595bb2a`.
+// GetLoginURLInfoRequest represents TL type `getLoginUrlInfo#ccc99db3`.
 type GetLoginURLInfoRequest struct {
 	// Chat identifier of the message with the button
 	ChatID int64
 	// Message identifier of the message with the button
 	MessageID int64
 	// Button identifier
-	ButtonID int32
+	ButtonID int64
 }
 
 // GetLoginURLInfoRequestTypeID is TL type id of GetLoginURLInfoRequest.
-const GetLoginURLInfoRequestTypeID = 0xc595bb2a
+const GetLoginURLInfoRequestTypeID = 0xccc99db3
 
 // Ensuring interfaces in compile-time for GetLoginURLInfoRequest.
 var (
@@ -120,7 +120,7 @@ func (g *GetLoginURLInfoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetLoginURLInfoRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getLoginUrlInfo#c595bb2a as nil")
+		return fmt.Errorf("can't encode getLoginUrlInfo#ccc99db3 as nil")
 	}
 	b.PutID(GetLoginURLInfoRequestTypeID)
 	return g.EncodeBare(b)
@@ -129,21 +129,21 @@ func (g *GetLoginURLInfoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetLoginURLInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getLoginUrlInfo#c595bb2a as nil")
+		return fmt.Errorf("can't encode getLoginUrlInfo#ccc99db3 as nil")
 	}
 	b.PutLong(g.ChatID)
 	b.PutLong(g.MessageID)
-	b.PutInt32(g.ButtonID)
+	b.PutLong(g.ButtonID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetLoginURLInfoRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getLoginUrlInfo#c595bb2a to nil")
+		return fmt.Errorf("can't decode getLoginUrlInfo#ccc99db3 to nil")
 	}
 	if err := b.ConsumeID(GetLoginURLInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getLoginUrlInfo#c595bb2a: %w", err)
+		return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -151,26 +151,26 @@ func (g *GetLoginURLInfoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetLoginURLInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getLoginUrlInfo#c595bb2a to nil")
+		return fmt.Errorf("can't decode getLoginUrlInfo#ccc99db3 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getLoginUrlInfo#c595bb2a: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getLoginUrlInfo#c595bb2a: field message_id: %w", err)
+			return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: field message_id: %w", err)
 		}
 		g.MessageID = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getLoginUrlInfo#c595bb2a: field button_id: %w", err)
+			return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: field button_id: %w", err)
 		}
 		g.ButtonID = value
 	}
@@ -180,7 +180,7 @@ func (g *GetLoginURLInfoRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetLoginURLInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getLoginUrlInfo#c595bb2a as nil")
+		return fmt.Errorf("can't encode getLoginUrlInfo#ccc99db3 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getLoginUrlInfo")
@@ -189,7 +189,7 @@ func (g *GetLoginURLInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("message_id")
 	b.PutLong(g.MessageID)
 	b.FieldStart("button_id")
-	b.PutInt32(g.ButtonID)
+	b.PutLong(g.ButtonID)
 	b.ObjEnd()
 	return nil
 }
@@ -197,31 +197,31 @@ func (g *GetLoginURLInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetLoginURLInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getLoginUrlInfo#c595bb2a to nil")
+		return fmt.Errorf("can't decode getLoginUrlInfo#ccc99db3 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getLoginUrlInfo"); err != nil {
-				return fmt.Errorf("unable to decode getLoginUrlInfo#c595bb2a: %w", err)
+				return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getLoginUrlInfo#c595bb2a: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getLoginUrlInfo#c595bb2a: field message_id: %w", err)
+				return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: field message_id: %w", err)
 			}
 			g.MessageID = value
 		case "button_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getLoginUrlInfo#c595bb2a: field button_id: %w", err)
+				return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: field button_id: %w", err)
 			}
 			g.ButtonID = value
 		default:
@@ -242,11 +242,11 @@ func (g *GetLoginURLInfoRequest) GetMessageID() (value int64) {
 }
 
 // GetButtonID returns value of ButtonID field.
-func (g *GetLoginURLInfoRequest) GetButtonID() (value int32) {
+func (g *GetLoginURLInfoRequest) GetButtonID() (value int64) {
 	return g.ButtonID
 }
 
-// GetLoginURLInfo invokes method getLoginUrlInfo#c595bb2a returning error if any.
+// GetLoginURLInfo invokes method getLoginUrlInfo#ccc99db3 returning error if any.
 func (c *Client) GetLoginURLInfo(ctx context.Context, request *GetLoginURLInfoRequest) (LoginURLInfoClass, error) {
 	var result LoginURLInfoBox
 

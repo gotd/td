@@ -33,7 +33,7 @@ var (
 
 // ChatInviteLinkCounts represents TL type `chatInviteLinkCounts#c953d7f8`.
 type ChatInviteLinkCounts struct {
-	// List of invite linkcounts
+	// List of invite link counts
 	InviteLinkCounts []ChatInviteLinkCount
 }
 

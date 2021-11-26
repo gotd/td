@@ -39,7 +39,7 @@ type EditProxyRequest struct {
 	Server string
 	// Proxy server port
 	Port int32
-	// True, if the proxy should be enabled
+	// True, if the proxy needs to be enabled
 	Enable bool
 	// Proxy type
 	Type ProxyTypeClass

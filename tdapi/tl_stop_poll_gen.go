@@ -37,7 +37,7 @@ type StopPollRequest struct {
 	ChatID int64
 	// Identifier of the message containing the poll
 	MessageID int64
-	// The new message reply markup; for bots only
+	// The new message reply markup; pass null if none; for bots only
 	ReplyMarkup ReplyMarkupClass
 }
 

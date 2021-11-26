@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetBasicGroupRequest represents TL type `getBasicGroup#217c03d0`.
+// GetBasicGroupRequest represents TL type `getBasicGroup#9e893654`.
 type GetBasicGroupRequest struct {
 	// Basic group identifier
-	BasicGroupID int32
+	BasicGroupID int64
 }
 
 // GetBasicGroupRequestTypeID is TL type id of GetBasicGroupRequest.
-const GetBasicGroupRequestTypeID = 0x217c03d0
+const GetBasicGroupRequestTypeID = 0x9e893654
 
 // Ensuring interfaces in compile-time for GetBasicGroupRequest.
 var (
@@ -102,7 +102,7 @@ func (g *GetBasicGroupRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetBasicGroupRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getBasicGroup#217c03d0 as nil")
+		return fmt.Errorf("can't encode getBasicGroup#9e893654 as nil")
 	}
 	b.PutID(GetBasicGroupRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,19 +111,19 @@ func (g *GetBasicGroupRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetBasicGroupRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getBasicGroup#217c03d0 as nil")
+		return fmt.Errorf("can't encode getBasicGroup#9e893654 as nil")
 	}
-	b.PutInt32(g.BasicGroupID)
+	b.PutLong(g.BasicGroupID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetBasicGroupRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getBasicGroup#217c03d0 to nil")
+		return fmt.Errorf("can't decode getBasicGroup#9e893654 to nil")
 	}
 	if err := b.ConsumeID(GetBasicGroupRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getBasicGroup#217c03d0: %w", err)
+		return fmt.Errorf("unable to decode getBasicGroup#9e893654: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -131,12 +131,12 @@ func (g *GetBasicGroupRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetBasicGroupRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getBasicGroup#217c03d0 to nil")
+		return fmt.Errorf("can't decode getBasicGroup#9e893654 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getBasicGroup#217c03d0: field basic_group_id: %w", err)
+			return fmt.Errorf("unable to decode getBasicGroup#9e893654: field basic_group_id: %w", err)
 		}
 		g.BasicGroupID = value
 	}
@@ -146,12 +146,12 @@ func (g *GetBasicGroupRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetBasicGroupRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getBasicGroup#217c03d0 as nil")
+		return fmt.Errorf("can't encode getBasicGroup#9e893654 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getBasicGroup")
 	b.FieldStart("basic_group_id")
-	b.PutInt32(g.BasicGroupID)
+	b.PutLong(g.BasicGroupID)
 	b.ObjEnd()
 	return nil
 }
@@ -159,19 +159,19 @@ func (g *GetBasicGroupRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetBasicGroupRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getBasicGroup#217c03d0 to nil")
+		return fmt.Errorf("can't decode getBasicGroup#9e893654 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getBasicGroup"); err != nil {
-				return fmt.Errorf("unable to decode getBasicGroup#217c03d0: %w", err)
+				return fmt.Errorf("unable to decode getBasicGroup#9e893654: %w", err)
 			}
 		case "basic_group_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getBasicGroup#217c03d0: field basic_group_id: %w", err)
+				return fmt.Errorf("unable to decode getBasicGroup#9e893654: field basic_group_id: %w", err)
 			}
 			g.BasicGroupID = value
 		default:
@@ -182,12 +182,12 @@ func (g *GetBasicGroupRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetBasicGroupID returns value of BasicGroupID field.
-func (g *GetBasicGroupRequest) GetBasicGroupID() (value int32) {
+func (g *GetBasicGroupRequest) GetBasicGroupID() (value int64) {
 	return g.BasicGroupID
 }
 
-// GetBasicGroup invokes method getBasicGroup#217c03d0 returning error if any.
-func (c *Client) GetBasicGroup(ctx context.Context, basicgroupid int32) (*BasicGroup, error) {
+// GetBasicGroup invokes method getBasicGroup#9e893654 returning error if any.
+func (c *Client) GetBasicGroup(ctx context.Context, basicgroupid int64) (*BasicGroup, error) {
 	var result BasicGroup
 
 	request := &GetBasicGroupRequest{

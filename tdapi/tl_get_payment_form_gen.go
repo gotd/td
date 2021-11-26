@@ -37,7 +37,7 @@ type GetPaymentFormRequest struct {
 	ChatID int64
 	// Message identifier
 	MessageID int64
-	// Preferred payment form theme
+	// Preferred payment form theme; pass null to use the default theme
 	Theme PaymentFormTheme
 }
 

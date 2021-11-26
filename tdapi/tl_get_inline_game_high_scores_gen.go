@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetInlineGameHighScoresRequest represents TL type `getInlineGameHighScores#92b7d658`.
+// GetInlineGameHighScoresRequest represents TL type `getInlineGameHighScores#e0396baa`.
 type GetInlineGameHighScoresRequest struct {
 	// Inline message identifier
 	InlineMessageID string
 	// User identifier
-	UserID int32
+	UserID int64
 }
 
 // GetInlineGameHighScoresRequestTypeID is TL type id of GetInlineGameHighScoresRequest.
-const GetInlineGameHighScoresRequestTypeID = 0x92b7d658
+const GetInlineGameHighScoresRequestTypeID = 0xe0396baa
 
 // Ensuring interfaces in compile-time for GetInlineGameHighScoresRequest.
 var (
@@ -111,7 +111,7 @@ func (g *GetInlineGameHighScoresRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetInlineGameHighScoresRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getInlineGameHighScores#92b7d658 as nil")
+		return fmt.Errorf("can't encode getInlineGameHighScores#e0396baa as nil")
 	}
 	b.PutID(GetInlineGameHighScoresRequestTypeID)
 	return g.EncodeBare(b)
@@ -120,20 +120,20 @@ func (g *GetInlineGameHighScoresRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetInlineGameHighScoresRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getInlineGameHighScores#92b7d658 as nil")
+		return fmt.Errorf("can't encode getInlineGameHighScores#e0396baa as nil")
 	}
 	b.PutString(g.InlineMessageID)
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetInlineGameHighScoresRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getInlineGameHighScores#92b7d658 to nil")
+		return fmt.Errorf("can't decode getInlineGameHighScores#e0396baa to nil")
 	}
 	if err := b.ConsumeID(GetInlineGameHighScoresRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getInlineGameHighScores#92b7d658: %w", err)
+		return fmt.Errorf("unable to decode getInlineGameHighScores#e0396baa: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -141,19 +141,19 @@ func (g *GetInlineGameHighScoresRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetInlineGameHighScoresRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getInlineGameHighScores#92b7d658 to nil")
+		return fmt.Errorf("can't decode getInlineGameHighScores#e0396baa to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getInlineGameHighScores#92b7d658: field inline_message_id: %w", err)
+			return fmt.Errorf("unable to decode getInlineGameHighScores#e0396baa: field inline_message_id: %w", err)
 		}
 		g.InlineMessageID = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getInlineGameHighScores#92b7d658: field user_id: %w", err)
+			return fmt.Errorf("unable to decode getInlineGameHighScores#e0396baa: field user_id: %w", err)
 		}
 		g.UserID = value
 	}
@@ -163,14 +163,14 @@ func (g *GetInlineGameHighScoresRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetInlineGameHighScoresRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getInlineGameHighScores#92b7d658 as nil")
+		return fmt.Errorf("can't encode getInlineGameHighScores#e0396baa as nil")
 	}
 	b.ObjStart()
 	b.PutID("getInlineGameHighScores")
 	b.FieldStart("inline_message_id")
 	b.PutString(g.InlineMessageID)
 	b.FieldStart("user_id")
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -178,25 +178,25 @@ func (g *GetInlineGameHighScoresRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetInlineGameHighScoresRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getInlineGameHighScores#92b7d658 to nil")
+		return fmt.Errorf("can't decode getInlineGameHighScores#e0396baa to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getInlineGameHighScores"); err != nil {
-				return fmt.Errorf("unable to decode getInlineGameHighScores#92b7d658: %w", err)
+				return fmt.Errorf("unable to decode getInlineGameHighScores#e0396baa: %w", err)
 			}
 		case "inline_message_id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getInlineGameHighScores#92b7d658: field inline_message_id: %w", err)
+				return fmt.Errorf("unable to decode getInlineGameHighScores#e0396baa: field inline_message_id: %w", err)
 			}
 			g.InlineMessageID = value
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getInlineGameHighScores#92b7d658: field user_id: %w", err)
+				return fmt.Errorf("unable to decode getInlineGameHighScores#e0396baa: field user_id: %w", err)
 			}
 			g.UserID = value
 		default:
@@ -212,11 +212,11 @@ func (g *GetInlineGameHighScoresRequest) GetInlineMessageID() (value string) {
 }
 
 // GetUserID returns value of UserID field.
-func (g *GetInlineGameHighScoresRequest) GetUserID() (value int32) {
+func (g *GetInlineGameHighScoresRequest) GetUserID() (value int64) {
 	return g.UserID
 }
 
-// GetInlineGameHighScores invokes method getInlineGameHighScores#92b7d658 returning error if any.
+// GetInlineGameHighScores invokes method getInlineGameHighScores#e0396baa returning error if any.
 func (c *Client) GetInlineGameHighScores(ctx context.Context, request *GetInlineGameHighScoresRequest) (*GameHighScores, error) {
 	var result GameHighScores
 

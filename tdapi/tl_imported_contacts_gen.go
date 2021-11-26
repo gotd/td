@@ -31,18 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ImportedContacts represents TL type `importedContacts#443d9a66`.
+// ImportedContacts represents TL type `importedContacts#1119a03e`.
 type ImportedContacts struct {
 	// User identifiers of the imported contacts in the same order as they were specified in
 	// the request; 0 if the contact is not yet a registered user
-	UserIDs []int32
+	UserIDs []int64
 	// The number of users that imported the corresponding contact; 0 for already registered
 	// users or if unavailable
 	ImporterCount []int32
 }
 
 // ImportedContactsTypeID is TL type id of ImportedContacts.
-const ImportedContactsTypeID = 0x443d9a66
+const ImportedContactsTypeID = 0x1119a03e
 
 // Ensuring interfaces in compile-time for ImportedContacts.
 var (
@@ -113,7 +113,7 @@ func (i *ImportedContacts) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *ImportedContacts) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode importedContacts#443d9a66 as nil")
+		return fmt.Errorf("can't encode importedContacts#1119a03e as nil")
 	}
 	b.PutID(ImportedContactsTypeID)
 	return i.EncodeBare(b)
@@ -122,11 +122,11 @@ func (i *ImportedContacts) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *ImportedContacts) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode importedContacts#443d9a66 as nil")
+		return fmt.Errorf("can't encode importedContacts#1119a03e as nil")
 	}
 	b.PutInt(len(i.UserIDs))
 	for _, v := range i.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	b.PutInt(len(i.ImporterCount))
 	for _, v := range i.ImporterCount {
@@ -138,10 +138,10 @@ func (i *ImportedContacts) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *ImportedContacts) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode importedContacts#443d9a66 to nil")
+		return fmt.Errorf("can't decode importedContacts#1119a03e to nil")
 	}
 	if err := b.ConsumeID(ImportedContactsTypeID); err != nil {
-		return fmt.Errorf("unable to decode importedContacts#443d9a66: %w", err)
+		return fmt.Errorf("unable to decode importedContacts#1119a03e: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -149,21 +149,21 @@ func (i *ImportedContacts) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *ImportedContacts) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode importedContacts#443d9a66 to nil")
+		return fmt.Errorf("can't decode importedContacts#1119a03e to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode importedContacts#443d9a66: field user_ids: %w", err)
+			return fmt.Errorf("unable to decode importedContacts#1119a03e: field user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			i.UserIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+			i.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode importedContacts#443d9a66: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode importedContacts#1119a03e: field user_ids: %w", err)
 			}
 			i.UserIDs = append(i.UserIDs, value)
 		}
@@ -171,7 +171,7 @@ func (i *ImportedContacts) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode importedContacts#443d9a66: field importer_count: %w", err)
+			return fmt.Errorf("unable to decode importedContacts#1119a03e: field importer_count: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -180,7 +180,7 @@ func (i *ImportedContacts) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode importedContacts#443d9a66: field importer_count: %w", err)
+				return fmt.Errorf("unable to decode importedContacts#1119a03e: field importer_count: %w", err)
 			}
 			i.ImporterCount = append(i.ImporterCount, value)
 		}
@@ -191,14 +191,14 @@ func (i *ImportedContacts) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *ImportedContacts) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode importedContacts#443d9a66 as nil")
+		return fmt.Errorf("can't encode importedContacts#1119a03e as nil")
 	}
 	b.ObjStart()
 	b.PutID("importedContacts")
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range i.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("importer_count")
@@ -214,36 +214,36 @@ func (i *ImportedContacts) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *ImportedContacts) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode importedContacts#443d9a66 to nil")
+		return fmt.Errorf("can't decode importedContacts#1119a03e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("importedContacts"); err != nil {
-				return fmt.Errorf("unable to decode importedContacts#443d9a66: %w", err)
+				return fmt.Errorf("unable to decode importedContacts#1119a03e: %w", err)
 			}
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Int32()
+				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode importedContacts#443d9a66: field user_ids: %w", err)
+					return fmt.Errorf("unable to decode importedContacts#1119a03e: field user_ids: %w", err)
 				}
 				i.UserIDs = append(i.UserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode importedContacts#443d9a66: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode importedContacts#1119a03e: field user_ids: %w", err)
 			}
 		case "importer_count":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
-					return fmt.Errorf("unable to decode importedContacts#443d9a66: field importer_count: %w", err)
+					return fmt.Errorf("unable to decode importedContacts#1119a03e: field importer_count: %w", err)
 				}
 				i.ImporterCount = append(i.ImporterCount, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode importedContacts#443d9a66: field importer_count: %w", err)
+				return fmt.Errorf("unable to decode importedContacts#1119a03e: field importer_count: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -253,7 +253,7 @@ func (i *ImportedContacts) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserIDs returns value of UserIDs field.
-func (i *ImportedContacts) GetUserIDs() (value []int32) {
+func (i *ImportedContacts) GetUserIDs() (value []int64) {
 	return i.UserIDs
 }
 

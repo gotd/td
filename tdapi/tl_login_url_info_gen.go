@@ -221,21 +221,21 @@ func (l *LoginURLInfoOpen) GetSkipConfirm() (value bool) {
 	return l.SkipConfirm
 }
 
-// LoginURLInfoRequestConfirmation represents TL type `loginUrlInfoRequestConfirmation#96fb909a`.
+// LoginURLInfoRequestConfirmation represents TL type `loginUrlInfoRequestConfirmation#7edb242f`.
 type LoginURLInfoRequestConfirmation struct {
 	// An HTTP URL to be opened
 	URL string
 	// A domain of the URL
 	Domain string
 	// User identifier of a bot linked with the website
-	BotUserID int32
+	BotUserID int64
 	// True, if the user needs to be requested to give the permission to the bot to send them
 	// messages
 	RequestWriteAccess bool
 }
 
 // LoginURLInfoRequestConfirmationTypeID is TL type id of LoginURLInfoRequestConfirmation.
-const LoginURLInfoRequestConfirmationTypeID = 0x96fb909a
+const LoginURLInfoRequestConfirmationTypeID = 0x7edb242f
 
 // construct implements constructor of LoginURLInfoClass.
 func (l LoginURLInfoRequestConfirmation) construct() LoginURLInfoClass { return &l }
@@ -325,7 +325,7 @@ func (l *LoginURLInfoRequestConfirmation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LoginURLInfoRequestConfirmation) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode loginUrlInfoRequestConfirmation#96fb909a as nil")
+		return fmt.Errorf("can't encode loginUrlInfoRequestConfirmation#7edb242f as nil")
 	}
 	b.PutID(LoginURLInfoRequestConfirmationTypeID)
 	return l.EncodeBare(b)
@@ -334,11 +334,11 @@ func (l *LoginURLInfoRequestConfirmation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LoginURLInfoRequestConfirmation) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode loginUrlInfoRequestConfirmation#96fb909a as nil")
+		return fmt.Errorf("can't encode loginUrlInfoRequestConfirmation#7edb242f as nil")
 	}
 	b.PutString(l.URL)
 	b.PutString(l.Domain)
-	b.PutInt32(l.BotUserID)
+	b.PutLong(l.BotUserID)
 	b.PutBool(l.RequestWriteAccess)
 	return nil
 }
@@ -346,10 +346,10 @@ func (l *LoginURLInfoRequestConfirmation) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (l *LoginURLInfoRequestConfirmation) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode loginUrlInfoRequestConfirmation#96fb909a to nil")
+		return fmt.Errorf("can't decode loginUrlInfoRequestConfirmation#7edb242f to nil")
 	}
 	if err := b.ConsumeID(LoginURLInfoRequestConfirmationTypeID); err != nil {
-		return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#96fb909a: %w", err)
+		return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#7edb242f: %w", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -357,33 +357,33 @@ func (l *LoginURLInfoRequestConfirmation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LoginURLInfoRequestConfirmation) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode loginUrlInfoRequestConfirmation#96fb909a to nil")
+		return fmt.Errorf("can't decode loginUrlInfoRequestConfirmation#7edb242f to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#96fb909a: field url: %w", err)
+			return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#7edb242f: field url: %w", err)
 		}
 		l.URL = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#96fb909a: field domain: %w", err)
+			return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#7edb242f: field domain: %w", err)
 		}
 		l.Domain = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#96fb909a: field bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#7edb242f: field bot_user_id: %w", err)
 		}
 		l.BotUserID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#96fb909a: field request_write_access: %w", err)
+			return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#7edb242f: field request_write_access: %w", err)
 		}
 		l.RequestWriteAccess = value
 	}
@@ -393,7 +393,7 @@ func (l *LoginURLInfoRequestConfirmation) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (l *LoginURLInfoRequestConfirmation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
-		return fmt.Errorf("can't encode loginUrlInfoRequestConfirmation#96fb909a as nil")
+		return fmt.Errorf("can't encode loginUrlInfoRequestConfirmation#7edb242f as nil")
 	}
 	b.ObjStart()
 	b.PutID("loginUrlInfoRequestConfirmation")
@@ -402,7 +402,7 @@ func (l *LoginURLInfoRequestConfirmation) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.FieldStart("domain")
 	b.PutString(l.Domain)
 	b.FieldStart("bot_user_id")
-	b.PutInt32(l.BotUserID)
+	b.PutLong(l.BotUserID)
 	b.FieldStart("request_write_access")
 	b.PutBool(l.RequestWriteAccess)
 	b.ObjEnd()
@@ -412,37 +412,37 @@ func (l *LoginURLInfoRequestConfirmation) EncodeTDLibJSON(b tdjson.Encoder) erro
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (l *LoginURLInfoRequestConfirmation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
-		return fmt.Errorf("can't decode loginUrlInfoRequestConfirmation#96fb909a to nil")
+		return fmt.Errorf("can't decode loginUrlInfoRequestConfirmation#7edb242f to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("loginUrlInfoRequestConfirmation"); err != nil {
-				return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#96fb909a: %w", err)
+				return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#7edb242f: %w", err)
 			}
 		case "url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#96fb909a: field url: %w", err)
+				return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#7edb242f: field url: %w", err)
 			}
 			l.URL = value
 		case "domain":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#96fb909a: field domain: %w", err)
+				return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#7edb242f: field domain: %w", err)
 			}
 			l.Domain = value
 		case "bot_user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#96fb909a: field bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#7edb242f: field bot_user_id: %w", err)
 			}
 			l.BotUserID = value
 		case "request_write_access":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#96fb909a: field request_write_access: %w", err)
+				return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#7edb242f: field request_write_access: %w", err)
 			}
 			l.RequestWriteAccess = value
 		default:
@@ -463,7 +463,7 @@ func (l *LoginURLInfoRequestConfirmation) GetDomain() (value string) {
 }
 
 // GetBotUserID returns value of BotUserID field.
-func (l *LoginURLInfoRequestConfirmation) GetBotUserID() (value int32) {
+func (l *LoginURLInfoRequestConfirmation) GetBotUserID() (value int64) {
 	return l.BotUserID
 }
 
@@ -481,7 +481,7 @@ func (l *LoginURLInfoRequestConfirmation) GetRequestWriteAccess() (value bool) {
 //  }
 //  switch v := g.(type) {
 //  case *tdapi.LoginURLInfoOpen: // loginUrlInfoOpen#bfaf12d4
-//  case *tdapi.LoginURLInfoRequestConfirmation: // loginUrlInfoRequestConfirmation#96fb909a
+//  case *tdapi.LoginURLInfoRequestConfirmation: // loginUrlInfoRequestConfirmation#7edb242f
 //  default: panic(v)
 //  }
 type LoginURLInfoClass interface {
@@ -524,7 +524,7 @@ func DecodeLoginURLInfo(buf *bin.Buffer) (LoginURLInfoClass, error) {
 		}
 		return &v, nil
 	case LoginURLInfoRequestConfirmationTypeID:
-		// Decoding loginUrlInfoRequestConfirmation#96fb909a.
+		// Decoding loginUrlInfoRequestConfirmation#7edb242f.
 		v := LoginURLInfoRequestConfirmation{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode LoginURLInfoClass: %w", err)
@@ -550,7 +550,7 @@ func DecodeTDLibJSONLoginURLInfo(buf tdjson.Decoder) (LoginURLInfoClass, error) 
 		}
 		return &v, nil
 	case "loginUrlInfoRequestConfirmation":
-		// Decoding loginUrlInfoRequestConfirmation#96fb909a.
+		// Decoding loginUrlInfoRequestConfirmation#7edb242f.
 		v := LoginURLInfoRequestConfirmation{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode LoginURLInfoClass: %w", err)

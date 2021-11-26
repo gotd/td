@@ -31,20 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatEvent represents TL type `chatEvent#dba579ac`.
+// ChatEvent represents TL type `chatEvent#fa17d3f9`.
 type ChatEvent struct {
 	// Chat event identifier
 	ID int64
 	// Point in time (Unix timestamp) when the event happened
 	Date int32
 	// Identifier of the user who performed the action that triggered the event
-	UserID int32
+	UserID int64
 	// Action performed by the user
 	Action ChatEventActionClass
 }
 
 // ChatEventTypeID is TL type id of ChatEvent.
-const ChatEventTypeID = 0xdba579ac
+const ChatEventTypeID = 0xfa17d3f9
 
 // Ensuring interfaces in compile-time for ChatEvent.
 var (
@@ -129,7 +129,7 @@ func (c *ChatEvent) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatEvent) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEvent#dba579ac as nil")
+		return fmt.Errorf("can't encode chatEvent#fa17d3f9 as nil")
 	}
 	b.PutID(ChatEventTypeID)
 	return c.EncodeBare(b)
@@ -138,16 +138,16 @@ func (c *ChatEvent) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatEvent) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEvent#dba579ac as nil")
+		return fmt.Errorf("can't encode chatEvent#fa17d3f9 as nil")
 	}
 	b.PutLong(c.ID)
 	b.PutInt32(c.Date)
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	if c.Action == nil {
-		return fmt.Errorf("unable to encode chatEvent#dba579ac: field action is nil")
+		return fmt.Errorf("unable to encode chatEvent#fa17d3f9: field action is nil")
 	}
 	if err := c.Action.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatEvent#dba579ac: field action: %w", err)
+		return fmt.Errorf("unable to encode chatEvent#fa17d3f9: field action: %w", err)
 	}
 	return nil
 }
@@ -155,10 +155,10 @@ func (c *ChatEvent) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatEvent) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEvent#dba579ac to nil")
+		return fmt.Errorf("can't decode chatEvent#fa17d3f9 to nil")
 	}
 	if err := b.ConsumeID(ChatEventTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEvent#dba579ac: %w", err)
+		return fmt.Errorf("unable to decode chatEvent#fa17d3f9: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -166,33 +166,33 @@ func (c *ChatEvent) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatEvent) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEvent#dba579ac to nil")
+		return fmt.Errorf("can't decode chatEvent#fa17d3f9 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEvent#dba579ac: field id: %w", err)
+			return fmt.Errorf("unable to decode chatEvent#fa17d3f9: field id: %w", err)
 		}
 		c.ID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEvent#dba579ac: field date: %w", err)
+			return fmt.Errorf("unable to decode chatEvent#fa17d3f9: field date: %w", err)
 		}
 		c.Date = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEvent#dba579ac: field user_id: %w", err)
+			return fmt.Errorf("unable to decode chatEvent#fa17d3f9: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := DecodeChatEventAction(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEvent#dba579ac: field action: %w", err)
+			return fmt.Errorf("unable to decode chatEvent#fa17d3f9: field action: %w", err)
 		}
 		c.Action = value
 	}
@@ -202,7 +202,7 @@ func (c *ChatEvent) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatEvent) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEvent#dba579ac as nil")
+		return fmt.Errorf("can't encode chatEvent#fa17d3f9 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatEvent")
@@ -211,13 +211,13 @@ func (c *ChatEvent) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("date")
 	b.PutInt32(c.Date)
 	b.FieldStart("user_id")
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	b.FieldStart("action")
 	if c.Action == nil {
-		return fmt.Errorf("unable to encode chatEvent#dba579ac: field action is nil")
+		return fmt.Errorf("unable to encode chatEvent#fa17d3f9: field action is nil")
 	}
 	if err := c.Action.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatEvent#dba579ac: field action: %w", err)
+		return fmt.Errorf("unable to encode chatEvent#fa17d3f9: field action: %w", err)
 	}
 	b.ObjEnd()
 	return nil
@@ -226,37 +226,37 @@ func (c *ChatEvent) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatEvent) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEvent#dba579ac to nil")
+		return fmt.Errorf("can't decode chatEvent#fa17d3f9 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatEvent"); err != nil {
-				return fmt.Errorf("unable to decode chatEvent#dba579ac: %w", err)
+				return fmt.Errorf("unable to decode chatEvent#fa17d3f9: %w", err)
 			}
 		case "id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEvent#dba579ac: field id: %w", err)
+				return fmt.Errorf("unable to decode chatEvent#fa17d3f9: field id: %w", err)
 			}
 			c.ID = value
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEvent#dba579ac: field date: %w", err)
+				return fmt.Errorf("unable to decode chatEvent#fa17d3f9: field date: %w", err)
 			}
 			c.Date = value
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEvent#dba579ac: field user_id: %w", err)
+				return fmt.Errorf("unable to decode chatEvent#fa17d3f9: field user_id: %w", err)
 			}
 			c.UserID = value
 		case "action":
 			value, err := DecodeTDLibJSONChatEventAction(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEvent#dba579ac: field action: %w", err)
+				return fmt.Errorf("unable to decode chatEvent#fa17d3f9: field action: %w", err)
 			}
 			c.Action = value
 		default:
@@ -277,7 +277,7 @@ func (c *ChatEvent) GetDate() (value int32) {
 }
 
 // GetUserID returns value of UserID field.
-func (c *ChatEvent) GetUserID() (value int32) {
+func (c *ChatEvent) GetUserID() (value int64) {
 	return c.UserID
 }
 

@@ -37,7 +37,7 @@ type ValidateOrderInfoRequest struct {
 	ChatID int64
 	// Message identifier
 	MessageID int64
-	// The order information, provided by the user
+	// The order information, provided by the user; pass null if empty
 	OrderInfo OrderInfo
 	// True, if the order information can be saved
 	AllowSave bool

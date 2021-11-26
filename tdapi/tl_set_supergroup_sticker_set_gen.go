@@ -31,17 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SetSupergroupStickerSetRequest represents TL type `setSupergroupStickerSet#ee5eb866`.
+// SetSupergroupStickerSetRequest represents TL type `setSupergroupStickerSet#856ead69`.
 type SetSupergroupStickerSetRequest struct {
 	// Identifier of the supergroup
-	SupergroupID int32
+	SupergroupID int64
 	// New value of the supergroup sticker set identifier. Use 0 to remove the supergroup
 	// sticker set
 	StickerSetID int64
 }
 
 // SetSupergroupStickerSetRequestTypeID is TL type id of SetSupergroupStickerSetRequest.
-const SetSupergroupStickerSetRequestTypeID = 0xee5eb866
+const SetSupergroupStickerSetRequestTypeID = 0x856ead69
 
 // Ensuring interfaces in compile-time for SetSupergroupStickerSetRequest.
 var (
@@ -112,7 +112,7 @@ func (s *SetSupergroupStickerSetRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SetSupergroupStickerSetRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setSupergroupStickerSet#ee5eb866 as nil")
+		return fmt.Errorf("can't encode setSupergroupStickerSet#856ead69 as nil")
 	}
 	b.PutID(SetSupergroupStickerSetRequestTypeID)
 	return s.EncodeBare(b)
@@ -121,9 +121,9 @@ func (s *SetSupergroupStickerSetRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SetSupergroupStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setSupergroupStickerSet#ee5eb866 as nil")
+		return fmt.Errorf("can't encode setSupergroupStickerSet#856ead69 as nil")
 	}
-	b.PutInt32(s.SupergroupID)
+	b.PutLong(s.SupergroupID)
 	b.PutLong(s.StickerSetID)
 	return nil
 }
@@ -131,10 +131,10 @@ func (s *SetSupergroupStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SetSupergroupStickerSetRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setSupergroupStickerSet#ee5eb866 to nil")
+		return fmt.Errorf("can't decode setSupergroupStickerSet#856ead69 to nil")
 	}
 	if err := b.ConsumeID(SetSupergroupStickerSetRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode setSupergroupStickerSet#ee5eb866: %w", err)
+		return fmt.Errorf("unable to decode setSupergroupStickerSet#856ead69: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -142,19 +142,19 @@ func (s *SetSupergroupStickerSetRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SetSupergroupStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setSupergroupStickerSet#ee5eb866 to nil")
+		return fmt.Errorf("can't decode setSupergroupStickerSet#856ead69 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode setSupergroupStickerSet#ee5eb866: field supergroup_id: %w", err)
+			return fmt.Errorf("unable to decode setSupergroupStickerSet#856ead69: field supergroup_id: %w", err)
 		}
 		s.SupergroupID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode setSupergroupStickerSet#ee5eb866: field sticker_set_id: %w", err)
+			return fmt.Errorf("unable to decode setSupergroupStickerSet#856ead69: field sticker_set_id: %w", err)
 		}
 		s.StickerSetID = value
 	}
@@ -164,12 +164,12 @@ func (s *SetSupergroupStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SetSupergroupStickerSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setSupergroupStickerSet#ee5eb866 as nil")
+		return fmt.Errorf("can't encode setSupergroupStickerSet#856ead69 as nil")
 	}
 	b.ObjStart()
 	b.PutID("setSupergroupStickerSet")
 	b.FieldStart("supergroup_id")
-	b.PutInt32(s.SupergroupID)
+	b.PutLong(s.SupergroupID)
 	b.FieldStart("sticker_set_id")
 	b.PutLong(s.StickerSetID)
 	b.ObjEnd()
@@ -179,25 +179,25 @@ func (s *SetSupergroupStickerSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SetSupergroupStickerSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setSupergroupStickerSet#ee5eb866 to nil")
+		return fmt.Errorf("can't decode setSupergroupStickerSet#856ead69 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("setSupergroupStickerSet"); err != nil {
-				return fmt.Errorf("unable to decode setSupergroupStickerSet#ee5eb866: %w", err)
+				return fmt.Errorf("unable to decode setSupergroupStickerSet#856ead69: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode setSupergroupStickerSet#ee5eb866: field supergroup_id: %w", err)
+				return fmt.Errorf("unable to decode setSupergroupStickerSet#856ead69: field supergroup_id: %w", err)
 			}
 			s.SupergroupID = value
 		case "sticker_set_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode setSupergroupStickerSet#ee5eb866: field sticker_set_id: %w", err)
+				return fmt.Errorf("unable to decode setSupergroupStickerSet#856ead69: field sticker_set_id: %w", err)
 			}
 			s.StickerSetID = value
 		default:
@@ -208,7 +208,7 @@ func (s *SetSupergroupStickerSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // GetSupergroupID returns value of SupergroupID field.
-func (s *SetSupergroupStickerSetRequest) GetSupergroupID() (value int32) {
+func (s *SetSupergroupStickerSetRequest) GetSupergroupID() (value int64) {
 	return s.SupergroupID
 }
 
@@ -217,7 +217,7 @@ func (s *SetSupergroupStickerSetRequest) GetStickerSetID() (value int64) {
 	return s.StickerSetID
 }
 
-// SetSupergroupStickerSet invokes method setSupergroupStickerSet#ee5eb866 returning error if any.
+// SetSupergroupStickerSet invokes method setSupergroupStickerSet#856ead69 returning error if any.
 func (c *Client) SetSupergroupStickerSet(ctx context.Context, request *SetSupergroupStickerSetRequest) error {
 	var ok Ok
 

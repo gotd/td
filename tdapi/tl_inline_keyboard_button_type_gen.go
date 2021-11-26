@@ -191,18 +191,18 @@ func (i *InlineKeyboardButtonTypeURL) GetURL() (value string) {
 	return i.URL
 }
 
-// InlineKeyboardButtonTypeLoginURL represents TL type `inlineKeyboardButtonTypeLoginUrl#10c65d93`.
+// InlineKeyboardButtonTypeLoginURL represents TL type `inlineKeyboardButtonTypeLoginUrl#b8455fa7`.
 type InlineKeyboardButtonTypeLoginURL struct {
 	// An HTTP URL to open
 	URL string
 	// Unique button identifier
-	ID int32
+	ID int64
 	// If non-empty, new text of the button in forwarded messages
 	ForwardText string
 }
 
 // InlineKeyboardButtonTypeLoginURLTypeID is TL type id of InlineKeyboardButtonTypeLoginURL.
-const InlineKeyboardButtonTypeLoginURLTypeID = 0x10c65d93
+const InlineKeyboardButtonTypeLoginURLTypeID = 0xb8455fa7
 
 // construct implements constructor of InlineKeyboardButtonTypeClass.
 func (i InlineKeyboardButtonTypeLoginURL) construct() InlineKeyboardButtonTypeClass { return &i }
@@ -285,7 +285,7 @@ func (i *InlineKeyboardButtonTypeLoginURL) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InlineKeyboardButtonTypeLoginURL) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineKeyboardButtonTypeLoginUrl#10c65d93 as nil")
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeLoginUrl#b8455fa7 as nil")
 	}
 	b.PutID(InlineKeyboardButtonTypeLoginURLTypeID)
 	return i.EncodeBare(b)
@@ -294,10 +294,10 @@ func (i *InlineKeyboardButtonTypeLoginURL) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InlineKeyboardButtonTypeLoginURL) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineKeyboardButtonTypeLoginUrl#10c65d93 as nil")
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeLoginUrl#b8455fa7 as nil")
 	}
 	b.PutString(i.URL)
-	b.PutInt32(i.ID)
+	b.PutLong(i.ID)
 	b.PutString(i.ForwardText)
 	return nil
 }
@@ -305,10 +305,10 @@ func (i *InlineKeyboardButtonTypeLoginURL) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InlineKeyboardButtonTypeLoginURL) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineKeyboardButtonTypeLoginUrl#10c65d93 to nil")
+		return fmt.Errorf("can't decode inlineKeyboardButtonTypeLoginUrl#b8455fa7 to nil")
 	}
 	if err := b.ConsumeID(InlineKeyboardButtonTypeLoginURLTypeID); err != nil {
-		return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#10c65d93: %w", err)
+		return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#b8455fa7: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -316,26 +316,26 @@ func (i *InlineKeyboardButtonTypeLoginURL) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InlineKeyboardButtonTypeLoginURL) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineKeyboardButtonTypeLoginUrl#10c65d93 to nil")
+		return fmt.Errorf("can't decode inlineKeyboardButtonTypeLoginUrl#b8455fa7 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#10c65d93: field url: %w", err)
+			return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#b8455fa7: field url: %w", err)
 		}
 		i.URL = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#10c65d93: field id: %w", err)
+			return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#b8455fa7: field id: %w", err)
 		}
 		i.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#10c65d93: field forward_text: %w", err)
+			return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#b8455fa7: field forward_text: %w", err)
 		}
 		i.ForwardText = value
 	}
@@ -345,14 +345,14 @@ func (i *InlineKeyboardButtonTypeLoginURL) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InlineKeyboardButtonTypeLoginURL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineKeyboardButtonTypeLoginUrl#10c65d93 as nil")
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeLoginUrl#b8455fa7 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inlineKeyboardButtonTypeLoginUrl")
 	b.FieldStart("url")
 	b.PutString(i.URL)
 	b.FieldStart("id")
-	b.PutInt32(i.ID)
+	b.PutLong(i.ID)
 	b.FieldStart("forward_text")
 	b.PutString(i.ForwardText)
 	b.ObjEnd()
@@ -362,31 +362,31 @@ func (i *InlineKeyboardButtonTypeLoginURL) EncodeTDLibJSON(b tdjson.Encoder) err
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InlineKeyboardButtonTypeLoginURL) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineKeyboardButtonTypeLoginUrl#10c65d93 to nil")
+		return fmt.Errorf("can't decode inlineKeyboardButtonTypeLoginUrl#b8455fa7 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineKeyboardButtonTypeLoginUrl"); err != nil {
-				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#10c65d93: %w", err)
+				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#b8455fa7: %w", err)
 			}
 		case "url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#10c65d93: field url: %w", err)
+				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#b8455fa7: field url: %w", err)
 			}
 			i.URL = value
 		case "id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#10c65d93: field id: %w", err)
+				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#b8455fa7: field id: %w", err)
 			}
 			i.ID = value
 		case "forward_text":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#10c65d93: field forward_text: %w", err)
+				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeLoginUrl#b8455fa7: field forward_text: %w", err)
 			}
 			i.ForwardText = value
 		default:
@@ -402,7 +402,7 @@ func (i *InlineKeyboardButtonTypeLoginURL) GetURL() (value string) {
 }
 
 // GetID returns value of ID field.
-func (i *InlineKeyboardButtonTypeLoginURL) GetID() (value int32) {
+func (i *InlineKeyboardButtonTypeLoginURL) GetID() (value int64) {
 	return i.ID
 }
 
@@ -866,7 +866,7 @@ func (i *InlineKeyboardButtonTypeCallbackGame) DecodeTDLibJSON(b tdjson.Decoder)
 type InlineKeyboardButtonTypeSwitchInline struct {
 	// Inline query to be sent to the bot
 	Query string
-	// True, if the inline query should be sent from the current chat
+	// True, if the inline query must be sent from the current chat
 	InCurrentChat bool
 }
 
@@ -1190,7 +1190,7 @@ func (i *InlineKeyboardButtonTypeBuy) DecodeTDLibJSON(b tdjson.Decoder) error {
 //  }
 //  switch v := g.(type) {
 //  case *tdapi.InlineKeyboardButtonTypeURL: // inlineKeyboardButtonTypeUrl#4365beac
-//  case *tdapi.InlineKeyboardButtonTypeLoginURL: // inlineKeyboardButtonTypeLoginUrl#10c65d93
+//  case *tdapi.InlineKeyboardButtonTypeLoginURL: // inlineKeyboardButtonTypeLoginUrl#b8455fa7
 //  case *tdapi.InlineKeyboardButtonTypeCallback: // inlineKeyboardButtonTypeCallback#bccb7bfd
 //  case *tdapi.InlineKeyboardButtonTypeCallbackWithPassword: // inlineKeyboardButtonTypeCallbackWithPassword#361f4248
 //  case *tdapi.InlineKeyboardButtonTypeCallbackGame: // inlineKeyboardButtonTypeCallbackGame#e9255468
@@ -1235,7 +1235,7 @@ func DecodeInlineKeyboardButtonType(buf *bin.Buffer) (InlineKeyboardButtonTypeCl
 		}
 		return &v, nil
 	case InlineKeyboardButtonTypeLoginURLTypeID:
-		// Decoding inlineKeyboardButtonTypeLoginUrl#10c65d93.
+		// Decoding inlineKeyboardButtonTypeLoginUrl#b8455fa7.
 		v := InlineKeyboardButtonTypeLoginURL{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InlineKeyboardButtonTypeClass: %w", err)
@@ -1296,7 +1296,7 @@ func DecodeTDLibJSONInlineKeyboardButtonType(buf tdjson.Decoder) (InlineKeyboard
 		}
 		return &v, nil
 	case "inlineKeyboardButtonTypeLoginUrl":
-		// Decoding inlineKeyboardButtonTypeLoginUrl#10c65d93.
+		// Decoding inlineKeyboardButtonTypeLoginUrl#b8455fa7.
 		v := InlineKeyboardButtonTypeLoginURL{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InlineKeyboardButtonTypeClass: %w", err)

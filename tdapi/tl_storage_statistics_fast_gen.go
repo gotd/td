@@ -33,7 +33,7 @@ var (
 
 // StorageStatisticsFast represents TL type `storageStatisticsFast#cb412861`.
 type StorageStatisticsFast struct {
-	// Approximate total size of files
+	// Approximate total size of files, in bytes
 	FilesSize int64
 	// Approximate number of files
 	FileCount int32

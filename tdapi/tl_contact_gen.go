@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Contact represents TL type `contact#a79b2d54`.
+// Contact represents TL type `contact#89285774`.
 type Contact struct {
 	// Phone number of the user
 	PhoneNumber string
@@ -42,11 +42,11 @@ type Contact struct {
 	// Additional data about the user in a form of vCard; 0-2048 bytes in length
 	Vcard string
 	// Identifier of the user, if known; otherwise 0
-	UserID int32
+	UserID int64
 }
 
 // ContactTypeID is TL type id of Contact.
-const ContactTypeID = 0xa79b2d54
+const ContactTypeID = 0x89285774
 
 // Ensuring interfaces in compile-time for Contact.
 var (
@@ -138,7 +138,7 @@ func (c *Contact) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *Contact) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contact#a79b2d54 as nil")
+		return fmt.Errorf("can't encode contact#89285774 as nil")
 	}
 	b.PutID(ContactTypeID)
 	return c.EncodeBare(b)
@@ -147,23 +147,23 @@ func (c *Contact) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *Contact) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contact#a79b2d54 as nil")
+		return fmt.Errorf("can't encode contact#89285774 as nil")
 	}
 	b.PutString(c.PhoneNumber)
 	b.PutString(c.FirstName)
 	b.PutString(c.LastName)
 	b.PutString(c.Vcard)
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *Contact) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contact#a79b2d54 to nil")
+		return fmt.Errorf("can't decode contact#89285774 to nil")
 	}
 	if err := b.ConsumeID(ContactTypeID); err != nil {
-		return fmt.Errorf("unable to decode contact#a79b2d54: %w", err)
+		return fmt.Errorf("unable to decode contact#89285774: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -171,40 +171,40 @@ func (c *Contact) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *Contact) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contact#a79b2d54 to nil")
+		return fmt.Errorf("can't decode contact#89285774 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contact#a79b2d54: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode contact#89285774: field phone_number: %w", err)
 		}
 		c.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contact#a79b2d54: field first_name: %w", err)
+			return fmt.Errorf("unable to decode contact#89285774: field first_name: %w", err)
 		}
 		c.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contact#a79b2d54: field last_name: %w", err)
+			return fmt.Errorf("unable to decode contact#89285774: field last_name: %w", err)
 		}
 		c.LastName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode contact#a79b2d54: field vcard: %w", err)
+			return fmt.Errorf("unable to decode contact#89285774: field vcard: %w", err)
 		}
 		c.Vcard = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode contact#a79b2d54: field user_id: %w", err)
+			return fmt.Errorf("unable to decode contact#89285774: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
@@ -214,7 +214,7 @@ func (c *Contact) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *Contact) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode contact#a79b2d54 as nil")
+		return fmt.Errorf("can't encode contact#89285774 as nil")
 	}
 	b.ObjStart()
 	b.PutID("contact")
@@ -227,7 +227,7 @@ func (c *Contact) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("vcard")
 	b.PutString(c.Vcard)
 	b.FieldStart("user_id")
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -235,43 +235,43 @@ func (c *Contact) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *Contact) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode contact#a79b2d54 to nil")
+		return fmt.Errorf("can't decode contact#89285774 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("contact"); err != nil {
-				return fmt.Errorf("unable to decode contact#a79b2d54: %w", err)
+				return fmt.Errorf("unable to decode contact#89285774: %w", err)
 			}
 		case "phone_number":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode contact#a79b2d54: field phone_number: %w", err)
+				return fmt.Errorf("unable to decode contact#89285774: field phone_number: %w", err)
 			}
 			c.PhoneNumber = value
 		case "first_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode contact#a79b2d54: field first_name: %w", err)
+				return fmt.Errorf("unable to decode contact#89285774: field first_name: %w", err)
 			}
 			c.FirstName = value
 		case "last_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode contact#a79b2d54: field last_name: %w", err)
+				return fmt.Errorf("unable to decode contact#89285774: field last_name: %w", err)
 			}
 			c.LastName = value
 		case "vcard":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode contact#a79b2d54: field vcard: %w", err)
+				return fmt.Errorf("unable to decode contact#89285774: field vcard: %w", err)
 			}
 			c.Vcard = value
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode contact#a79b2d54: field user_id: %w", err)
+				return fmt.Errorf("unable to decode contact#89285774: field user_id: %w", err)
 			}
 			c.UserID = value
 		default:
@@ -302,6 +302,6 @@ func (c *Contact) GetVcard() (value string) {
 }
 
 // GetUserID returns value of UserID field.
-func (c *Contact) GetUserID() (value int32) {
+func (c *Contact) GetUserID() (value int64) {
 	return c.UserID
 }

@@ -31,18 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetGameHighScoresRequest represents TL type `getGameHighScores#727ef869`.
+// GetGameHighScoresRequest represents TL type `getGameHighScores#f0459b`.
 type GetGameHighScoresRequest struct {
 	// The chat that contains the message with the game
 	ChatID int64
 	// Identifier of the message
 	MessageID int64
 	// User identifier
-	UserID int32
+	UserID int64
 }
 
 // GetGameHighScoresRequestTypeID is TL type id of GetGameHighScoresRequest.
-const GetGameHighScoresRequestTypeID = 0x727ef869
+const GetGameHighScoresRequestTypeID = 0xf0459b
 
 // Ensuring interfaces in compile-time for GetGameHighScoresRequest.
 var (
@@ -120,7 +120,7 @@ func (g *GetGameHighScoresRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetGameHighScoresRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getGameHighScores#727ef869 as nil")
+		return fmt.Errorf("can't encode getGameHighScores#f0459b as nil")
 	}
 	b.PutID(GetGameHighScoresRequestTypeID)
 	return g.EncodeBare(b)
@@ -129,21 +129,21 @@ func (g *GetGameHighScoresRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetGameHighScoresRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getGameHighScores#727ef869 as nil")
+		return fmt.Errorf("can't encode getGameHighScores#f0459b as nil")
 	}
 	b.PutLong(g.ChatID)
 	b.PutLong(g.MessageID)
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetGameHighScoresRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getGameHighScores#727ef869 to nil")
+		return fmt.Errorf("can't decode getGameHighScores#f0459b to nil")
 	}
 	if err := b.ConsumeID(GetGameHighScoresRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getGameHighScores#727ef869: %w", err)
+		return fmt.Errorf("unable to decode getGameHighScores#f0459b: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -151,26 +151,26 @@ func (g *GetGameHighScoresRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetGameHighScoresRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getGameHighScores#727ef869 to nil")
+		return fmt.Errorf("can't decode getGameHighScores#f0459b to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getGameHighScores#727ef869: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getGameHighScores#f0459b: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getGameHighScores#727ef869: field message_id: %w", err)
+			return fmt.Errorf("unable to decode getGameHighScores#f0459b: field message_id: %w", err)
 		}
 		g.MessageID = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getGameHighScores#727ef869: field user_id: %w", err)
+			return fmt.Errorf("unable to decode getGameHighScores#f0459b: field user_id: %w", err)
 		}
 		g.UserID = value
 	}
@@ -180,7 +180,7 @@ func (g *GetGameHighScoresRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetGameHighScoresRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getGameHighScores#727ef869 as nil")
+		return fmt.Errorf("can't encode getGameHighScores#f0459b as nil")
 	}
 	b.ObjStart()
 	b.PutID("getGameHighScores")
@@ -189,7 +189,7 @@ func (g *GetGameHighScoresRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("message_id")
 	b.PutLong(g.MessageID)
 	b.FieldStart("user_id")
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -197,31 +197,31 @@ func (g *GetGameHighScoresRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetGameHighScoresRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getGameHighScores#727ef869 to nil")
+		return fmt.Errorf("can't decode getGameHighScores#f0459b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getGameHighScores"); err != nil {
-				return fmt.Errorf("unable to decode getGameHighScores#727ef869: %w", err)
+				return fmt.Errorf("unable to decode getGameHighScores#f0459b: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getGameHighScores#727ef869: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getGameHighScores#f0459b: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getGameHighScores#727ef869: field message_id: %w", err)
+				return fmt.Errorf("unable to decode getGameHighScores#f0459b: field message_id: %w", err)
 			}
 			g.MessageID = value
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getGameHighScores#727ef869: field user_id: %w", err)
+				return fmt.Errorf("unable to decode getGameHighScores#f0459b: field user_id: %w", err)
 			}
 			g.UserID = value
 		default:
@@ -242,11 +242,11 @@ func (g *GetGameHighScoresRequest) GetMessageID() (value int64) {
 }
 
 // GetUserID returns value of UserID field.
-func (g *GetGameHighScoresRequest) GetUserID() (value int32) {
+func (g *GetGameHighScoresRequest) GetUserID() (value int64) {
 	return g.UserID
 }
 
-// GetGameHighScores invokes method getGameHighScores#727ef869 returning error if any.
+// GetGameHighScores invokes method getGameHighScores#f0459b returning error if any.
 func (c *Client) GetGameHighScores(ctx context.Context, request *GetGameHighScoresRequest) (*GameHighScores, error) {
 	var result GameHighScores
 

@@ -41,8 +41,8 @@ type BanChatMemberRequest struct {
 	// is banned for more than 366 days or for less than 30 seconds from the current time,
 	// the user is considered to be banned forever. Ignored in basic groups
 	BannedUntilDate int32
-	// Pass true to delete all messages in the chat for the user. Always true for supergroups
-	// and channels
+	// Pass true to delete all messages in the chat for the user that is being removed.
+	// Always true for supergroups and channels
 	RevokeMessages bool
 }
 

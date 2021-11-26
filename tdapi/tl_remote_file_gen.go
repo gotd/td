@@ -45,7 +45,7 @@ type RemoteFile struct {
 	IsUploadingActive bool
 	// True, if a remote copy is fully available
 	IsUploadingCompleted bool
-	// Size of the remote available part of the file; 0 if unknown
+	// Size of the remote available part of the file, in bytes; 0 if unknown
 	UploadedSize int32
 }
 

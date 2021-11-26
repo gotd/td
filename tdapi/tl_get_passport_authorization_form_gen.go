@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetPassportAuthorizationFormRequest represents TL type `getPassportAuthorizationForm#a87a1591`.
+// GetPassportAuthorizationFormRequest represents TL type `getPassportAuthorizationForm#61850486`.
 type GetPassportAuthorizationFormRequest struct {
 	// User identifier of the service's bot
-	BotUserID int32
+	BotUserID int64
 	// Telegram Passport element types requested by the service
 	Scope string
 	// Service's public key
@@ -44,7 +44,7 @@ type GetPassportAuthorizationFormRequest struct {
 }
 
 // GetPassportAuthorizationFormRequestTypeID is TL type id of GetPassportAuthorizationFormRequest.
-const GetPassportAuthorizationFormRequestTypeID = 0xa87a1591
+const GetPassportAuthorizationFormRequestTypeID = 0x61850486
 
 // Ensuring interfaces in compile-time for GetPassportAuthorizationFormRequest.
 var (
@@ -129,7 +129,7 @@ func (g *GetPassportAuthorizationFormRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetPassportAuthorizationFormRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getPassportAuthorizationForm#a87a1591 as nil")
+		return fmt.Errorf("can't encode getPassportAuthorizationForm#61850486 as nil")
 	}
 	b.PutID(GetPassportAuthorizationFormRequestTypeID)
 	return g.EncodeBare(b)
@@ -138,9 +138,9 @@ func (g *GetPassportAuthorizationFormRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetPassportAuthorizationFormRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getPassportAuthorizationForm#a87a1591 as nil")
+		return fmt.Errorf("can't encode getPassportAuthorizationForm#61850486 as nil")
 	}
-	b.PutInt32(g.BotUserID)
+	b.PutLong(g.BotUserID)
 	b.PutString(g.Scope)
 	b.PutString(g.PublicKey)
 	b.PutString(g.Nonce)
@@ -150,10 +150,10 @@ func (g *GetPassportAuthorizationFormRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetPassportAuthorizationFormRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getPassportAuthorizationForm#a87a1591 to nil")
+		return fmt.Errorf("can't decode getPassportAuthorizationForm#61850486 to nil")
 	}
 	if err := b.ConsumeID(GetPassportAuthorizationFormRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: %w", err)
+		return fmt.Errorf("unable to decode getPassportAuthorizationForm#61850486: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -161,33 +161,33 @@ func (g *GetPassportAuthorizationFormRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetPassportAuthorizationFormRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getPassportAuthorizationForm#a87a1591 to nil")
+		return fmt.Errorf("can't decode getPassportAuthorizationForm#61850486 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: field bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode getPassportAuthorizationForm#61850486: field bot_user_id: %w", err)
 		}
 		g.BotUserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: field scope: %w", err)
+			return fmt.Errorf("unable to decode getPassportAuthorizationForm#61850486: field scope: %w", err)
 		}
 		g.Scope = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: field public_key: %w", err)
+			return fmt.Errorf("unable to decode getPassportAuthorizationForm#61850486: field public_key: %w", err)
 		}
 		g.PublicKey = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: field nonce: %w", err)
+			return fmt.Errorf("unable to decode getPassportAuthorizationForm#61850486: field nonce: %w", err)
 		}
 		g.Nonce = value
 	}
@@ -197,12 +197,12 @@ func (g *GetPassportAuthorizationFormRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetPassportAuthorizationFormRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getPassportAuthorizationForm#a87a1591 as nil")
+		return fmt.Errorf("can't encode getPassportAuthorizationForm#61850486 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getPassportAuthorizationForm")
 	b.FieldStart("bot_user_id")
-	b.PutInt32(g.BotUserID)
+	b.PutLong(g.BotUserID)
 	b.FieldStart("scope")
 	b.PutString(g.Scope)
 	b.FieldStart("public_key")
@@ -216,37 +216,37 @@ func (g *GetPassportAuthorizationFormRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetPassportAuthorizationFormRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getPassportAuthorizationForm#a87a1591 to nil")
+		return fmt.Errorf("can't decode getPassportAuthorizationForm#61850486 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getPassportAuthorizationForm"); err != nil {
-				return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: %w", err)
+				return fmt.Errorf("unable to decode getPassportAuthorizationForm#61850486: %w", err)
 			}
 		case "bot_user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: field bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode getPassportAuthorizationForm#61850486: field bot_user_id: %w", err)
 			}
 			g.BotUserID = value
 		case "scope":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: field scope: %w", err)
+				return fmt.Errorf("unable to decode getPassportAuthorizationForm#61850486: field scope: %w", err)
 			}
 			g.Scope = value
 		case "public_key":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: field public_key: %w", err)
+				return fmt.Errorf("unable to decode getPassportAuthorizationForm#61850486: field public_key: %w", err)
 			}
 			g.PublicKey = value
 		case "nonce":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getPassportAuthorizationForm#a87a1591: field nonce: %w", err)
+				return fmt.Errorf("unable to decode getPassportAuthorizationForm#61850486: field nonce: %w", err)
 			}
 			g.Nonce = value
 		default:
@@ -257,7 +257,7 @@ func (g *GetPassportAuthorizationFormRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 }
 
 // GetBotUserID returns value of BotUserID field.
-func (g *GetPassportAuthorizationFormRequest) GetBotUserID() (value int32) {
+func (g *GetPassportAuthorizationFormRequest) GetBotUserID() (value int64) {
 	return g.BotUserID
 }
 
@@ -276,7 +276,7 @@ func (g *GetPassportAuthorizationFormRequest) GetNonce() (value string) {
 	return g.Nonce
 }
 
-// GetPassportAuthorizationForm invokes method getPassportAuthorizationForm#a87a1591 returning error if any.
+// GetPassportAuthorizationForm invokes method getPassportAuthorizationForm#61850486 returning error if any.
 func (c *Client) GetPassportAuthorizationForm(ctx context.Context, request *GetPassportAuthorizationFormRequest) (*PassportAuthorizationForm, error) {
 	var result PassportAuthorizationForm
 

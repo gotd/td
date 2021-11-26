@@ -35,8 +35,8 @@ var (
 type CreateTemporaryPasswordRequest struct {
 	// Persistent user password
 	Password string
-	// Time during which the temporary password will be valid, in seconds; should be between
-	// 60 and 86400
+	// Time during which the temporary password will be valid, in seconds; must be between 60
+	// and 86400
 	ValidFor int32
 }
 

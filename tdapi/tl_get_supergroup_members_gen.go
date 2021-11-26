@@ -31,11 +31,11 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetSupergroupMembersRequest represents TL type `getSupergroupMembers#55181ada`.
+// GetSupergroupMembersRequest represents TL type `getSupergroupMembers#ddf821c8`.
 type GetSupergroupMembersRequest struct {
 	// Identifier of the supergroup or channel
-	SupergroupID int32
-	// The type of users to return. By default, supergroupMembersFilterRecent
+	SupergroupID int64
+	// The type of users to return; pass null to use supergroupMembersFilterRecent
 	Filter SupergroupMembersFilterClass
 	// Number of users to skip
 	Offset int32
@@ -44,7 +44,7 @@ type GetSupergroupMembersRequest struct {
 }
 
 // GetSupergroupMembersRequestTypeID is TL type id of GetSupergroupMembersRequest.
-const GetSupergroupMembersRequestTypeID = 0x55181ada
+const GetSupergroupMembersRequestTypeID = 0xddf821c8
 
 // Ensuring interfaces in compile-time for GetSupergroupMembersRequest.
 var (
@@ -129,7 +129,7 @@ func (g *GetSupergroupMembersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetSupergroupMembersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getSupergroupMembers#55181ada as nil")
+		return fmt.Errorf("can't encode getSupergroupMembers#ddf821c8 as nil")
 	}
 	b.PutID(GetSupergroupMembersRequestTypeID)
 	return g.EncodeBare(b)
@@ -138,14 +138,14 @@ func (g *GetSupergroupMembersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetSupergroupMembersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getSupergroupMembers#55181ada as nil")
+		return fmt.Errorf("can't encode getSupergroupMembers#ddf821c8 as nil")
 	}
-	b.PutInt32(g.SupergroupID)
+	b.PutLong(g.SupergroupID)
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode getSupergroupMembers#55181ada: field filter is nil")
+		return fmt.Errorf("unable to encode getSupergroupMembers#ddf821c8: field filter is nil")
 	}
 	if err := g.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getSupergroupMembers#55181ada: field filter: %w", err)
+		return fmt.Errorf("unable to encode getSupergroupMembers#ddf821c8: field filter: %w", err)
 	}
 	b.PutInt32(g.Offset)
 	b.PutInt32(g.Limit)
@@ -155,10 +155,10 @@ func (g *GetSupergroupMembersRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetSupergroupMembersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getSupergroupMembers#55181ada to nil")
+		return fmt.Errorf("can't decode getSupergroupMembers#ddf821c8 to nil")
 	}
 	if err := b.ConsumeID(GetSupergroupMembersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getSupergroupMembers#55181ada: %w", err)
+		return fmt.Errorf("unable to decode getSupergroupMembers#ddf821c8: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -166,33 +166,33 @@ func (g *GetSupergroupMembersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetSupergroupMembersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getSupergroupMembers#55181ada to nil")
+		return fmt.Errorf("can't decode getSupergroupMembers#ddf821c8 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getSupergroupMembers#55181ada: field supergroup_id: %w", err)
+			return fmt.Errorf("unable to decode getSupergroupMembers#ddf821c8: field supergroup_id: %w", err)
 		}
 		g.SupergroupID = value
 	}
 	{
 		value, err := DecodeSupergroupMembersFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode getSupergroupMembers#55181ada: field filter: %w", err)
+			return fmt.Errorf("unable to decode getSupergroupMembers#ddf821c8: field filter: %w", err)
 		}
 		g.Filter = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getSupergroupMembers#55181ada: field offset: %w", err)
+			return fmt.Errorf("unable to decode getSupergroupMembers#ddf821c8: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getSupergroupMembers#55181ada: field limit: %w", err)
+			return fmt.Errorf("unable to decode getSupergroupMembers#ddf821c8: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -202,18 +202,18 @@ func (g *GetSupergroupMembersRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetSupergroupMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getSupergroupMembers#55181ada as nil")
+		return fmt.Errorf("can't encode getSupergroupMembers#ddf821c8 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getSupergroupMembers")
 	b.FieldStart("supergroup_id")
-	b.PutInt32(g.SupergroupID)
+	b.PutLong(g.SupergroupID)
 	b.FieldStart("filter")
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode getSupergroupMembers#55181ada: field filter is nil")
+		return fmt.Errorf("unable to encode getSupergroupMembers#ddf821c8: field filter is nil")
 	}
 	if err := g.Filter.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getSupergroupMembers#55181ada: field filter: %w", err)
+		return fmt.Errorf("unable to encode getSupergroupMembers#ddf821c8: field filter: %w", err)
 	}
 	b.FieldStart("offset")
 	b.PutInt32(g.Offset)
@@ -226,37 +226,37 @@ func (g *GetSupergroupMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetSupergroupMembersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getSupergroupMembers#55181ada to nil")
+		return fmt.Errorf("can't decode getSupergroupMembers#ddf821c8 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getSupergroupMembers"); err != nil {
-				return fmt.Errorf("unable to decode getSupergroupMembers#55181ada: %w", err)
+				return fmt.Errorf("unable to decode getSupergroupMembers#ddf821c8: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getSupergroupMembers#55181ada: field supergroup_id: %w", err)
+				return fmt.Errorf("unable to decode getSupergroupMembers#ddf821c8: field supergroup_id: %w", err)
 			}
 			g.SupergroupID = value
 		case "filter":
 			value, err := DecodeTDLibJSONSupergroupMembersFilter(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode getSupergroupMembers#55181ada: field filter: %w", err)
+				return fmt.Errorf("unable to decode getSupergroupMembers#ddf821c8: field filter: %w", err)
 			}
 			g.Filter = value
 		case "offset":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getSupergroupMembers#55181ada: field offset: %w", err)
+				return fmt.Errorf("unable to decode getSupergroupMembers#ddf821c8: field offset: %w", err)
 			}
 			g.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getSupergroupMembers#55181ada: field limit: %w", err)
+				return fmt.Errorf("unable to decode getSupergroupMembers#ddf821c8: field limit: %w", err)
 			}
 			g.Limit = value
 		default:
@@ -267,7 +267,7 @@ func (g *GetSupergroupMembersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetSupergroupID returns value of SupergroupID field.
-func (g *GetSupergroupMembersRequest) GetSupergroupID() (value int32) {
+func (g *GetSupergroupMembersRequest) GetSupergroupID() (value int64) {
 	return g.SupergroupID
 }
 
@@ -286,7 +286,7 @@ func (g *GetSupergroupMembersRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetSupergroupMembers invokes method getSupergroupMembers#55181ada returning error if any.
+// GetSupergroupMembers invokes method getSupergroupMembers#ddf821c8 returning error if any.
 func (c *Client) GetSupergroupMembers(ctx context.Context, request *GetSupergroupMembersRequest) (*ChatMembers, error) {
 	var result ChatMembers
 

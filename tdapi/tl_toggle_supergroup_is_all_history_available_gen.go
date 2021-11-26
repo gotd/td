@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ToggleSupergroupIsAllHistoryAvailableRequest represents TL type `toggleSupergroupIsAllHistoryAvailable#656b3c1b`.
+// ToggleSupergroupIsAllHistoryAvailableRequest represents TL type `toggleSupergroupIsAllHistoryAvailable#44d9964e`.
 type ToggleSupergroupIsAllHistoryAvailableRequest struct {
 	// The identifier of the supergroup
-	SupergroupID int32
+	SupergroupID int64
 	// The new value of is_all_history_available
 	IsAllHistoryAvailable bool
 }
 
 // ToggleSupergroupIsAllHistoryAvailableRequestTypeID is TL type id of ToggleSupergroupIsAllHistoryAvailableRequest.
-const ToggleSupergroupIsAllHistoryAvailableRequestTypeID = 0x656b3c1b
+const ToggleSupergroupIsAllHistoryAvailableRequestTypeID = 0x44d9964e
 
 // Ensuring interfaces in compile-time for ToggleSupergroupIsAllHistoryAvailableRequest.
 var (
@@ -111,7 +111,7 @@ func (t *ToggleSupergroupIsAllHistoryAvailableRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ToggleSupergroupIsAllHistoryAvailableRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleSupergroupIsAllHistoryAvailable#656b3c1b as nil")
+		return fmt.Errorf("can't encode toggleSupergroupIsAllHistoryAvailable#44d9964e as nil")
 	}
 	b.PutID(ToggleSupergroupIsAllHistoryAvailableRequestTypeID)
 	return t.EncodeBare(b)
@@ -120,9 +120,9 @@ func (t *ToggleSupergroupIsAllHistoryAvailableRequest) Encode(b *bin.Buffer) err
 // EncodeBare implements bin.BareEncoder.
 func (t *ToggleSupergroupIsAllHistoryAvailableRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleSupergroupIsAllHistoryAvailable#656b3c1b as nil")
+		return fmt.Errorf("can't encode toggleSupergroupIsAllHistoryAvailable#44d9964e as nil")
 	}
-	b.PutInt32(t.SupergroupID)
+	b.PutLong(t.SupergroupID)
 	b.PutBool(t.IsAllHistoryAvailable)
 	return nil
 }
@@ -130,10 +130,10 @@ func (t *ToggleSupergroupIsAllHistoryAvailableRequest) EncodeBare(b *bin.Buffer)
 // Decode implements bin.Decoder.
 func (t *ToggleSupergroupIsAllHistoryAvailableRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleSupergroupIsAllHistoryAvailable#656b3c1b to nil")
+		return fmt.Errorf("can't decode toggleSupergroupIsAllHistoryAvailable#44d9964e to nil")
 	}
 	if err := b.ConsumeID(ToggleSupergroupIsAllHistoryAvailableRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#656b3c1b: %w", err)
+		return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#44d9964e: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -141,19 +141,19 @@ func (t *ToggleSupergroupIsAllHistoryAvailableRequest) Decode(b *bin.Buffer) err
 // DecodeBare implements bin.BareDecoder.
 func (t *ToggleSupergroupIsAllHistoryAvailableRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleSupergroupIsAllHistoryAvailable#656b3c1b to nil")
+		return fmt.Errorf("can't decode toggleSupergroupIsAllHistoryAvailable#44d9964e to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#656b3c1b: field supergroup_id: %w", err)
+			return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#44d9964e: field supergroup_id: %w", err)
 		}
 		t.SupergroupID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#656b3c1b: field is_all_history_available: %w", err)
+			return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#44d9964e: field is_all_history_available: %w", err)
 		}
 		t.IsAllHistoryAvailable = value
 	}
@@ -163,12 +163,12 @@ func (t *ToggleSupergroupIsAllHistoryAvailableRequest) DecodeBare(b *bin.Buffer)
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (t *ToggleSupergroupIsAllHistoryAvailableRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleSupergroupIsAllHistoryAvailable#656b3c1b as nil")
+		return fmt.Errorf("can't encode toggleSupergroupIsAllHistoryAvailable#44d9964e as nil")
 	}
 	b.ObjStart()
 	b.PutID("toggleSupergroupIsAllHistoryAvailable")
 	b.FieldStart("supergroup_id")
-	b.PutInt32(t.SupergroupID)
+	b.PutLong(t.SupergroupID)
 	b.FieldStart("is_all_history_available")
 	b.PutBool(t.IsAllHistoryAvailable)
 	b.ObjEnd()
@@ -178,25 +178,25 @@ func (t *ToggleSupergroupIsAllHistoryAvailableRequest) EncodeTDLibJSON(b tdjson.
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (t *ToggleSupergroupIsAllHistoryAvailableRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleSupergroupIsAllHistoryAvailable#656b3c1b to nil")
+		return fmt.Errorf("can't decode toggleSupergroupIsAllHistoryAvailable#44d9964e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("toggleSupergroupIsAllHistoryAvailable"); err != nil {
-				return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#656b3c1b: %w", err)
+				return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#44d9964e: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#656b3c1b: field supergroup_id: %w", err)
+				return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#44d9964e: field supergroup_id: %w", err)
 			}
 			t.SupergroupID = value
 		case "is_all_history_available":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#656b3c1b: field is_all_history_available: %w", err)
+				return fmt.Errorf("unable to decode toggleSupergroupIsAllHistoryAvailable#44d9964e: field is_all_history_available: %w", err)
 			}
 			t.IsAllHistoryAvailable = value
 		default:
@@ -207,7 +207,7 @@ func (t *ToggleSupergroupIsAllHistoryAvailableRequest) DecodeTDLibJSON(b tdjson.
 }
 
 // GetSupergroupID returns value of SupergroupID field.
-func (t *ToggleSupergroupIsAllHistoryAvailableRequest) GetSupergroupID() (value int32) {
+func (t *ToggleSupergroupIsAllHistoryAvailableRequest) GetSupergroupID() (value int64) {
 	return t.SupergroupID
 }
 
@@ -216,7 +216,7 @@ func (t *ToggleSupergroupIsAllHistoryAvailableRequest) GetIsAllHistoryAvailable(
 	return t.IsAllHistoryAvailable
 }
 
-// ToggleSupergroupIsAllHistoryAvailable invokes method toggleSupergroupIsAllHistoryAvailable#656b3c1b returning error if any.
+// ToggleSupergroupIsAllHistoryAvailable invokes method toggleSupergroupIsAllHistoryAvailable#44d9964e returning error if any.
 func (c *Client) ToggleSupergroupIsAllHistoryAvailable(ctx context.Context, request *ToggleSupergroupIsAllHistoryAvailableRequest) error {
 	var ok Ok
 

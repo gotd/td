@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Chat represents TL type `chat#77f6d111`.
+// Chat represents TL type `chat#ac5453a2`.
 type Chat struct {
 	// Chat unique identifier
 	ID int64
@@ -79,24 +79,28 @@ type Chat struct {
 	// defined. TTL is counted from the time message or its content is viewed in secret chats
 	// and from the send date in other chats
 	MessageTTLSetting int32
-	// Describes actions which should be possible to do through a chat action bar; may be
-	// null
+	// If non-empty, name of a theme, set for the chat
+	ThemeName string
+	// Information about actions which must be possible to do through the chat action bar;
+	// may be null
 	ActionBar ChatActionBarClass
-	// Contains information about voice chat of the chat
-	VoiceChat VoiceChat
+	// Information about video chat of the chat
+	VideoChat VideoChat
+	// Information about pending join requests; may be null
+	PendingJoinRequests ChatJoinRequestsInfo
 	// Identifier of the message from which reply markup needs to be used; 0 if there is no
 	// default custom reply markup in the chat
 	ReplyMarkupMessageID int64
 	// A draft of a message in the chat; may be null
 	DraftMessage DraftMessage
-	// Contains application-specific data associated with the chat. (For example, the chat
-	// scroll position or local chat notification settings can be stored here.) Persistent if
-	// the message database is used
+	// Application-specific data associated with the chat. (For example, the chat scroll
+	// position or local chat notification settings can be stored here.) Persistent if the
+	// message database is used
 	ClientData string
 }
 
 // ChatTypeID is TL type id of Chat.
-const ChatTypeID = 0x77f6d111
+const ChatTypeID = 0xac5453a2
 
 // Ensuring interfaces in compile-time for Chat.
 var (
@@ -170,10 +174,16 @@ func (c *Chat) Zero() bool {
 	if !(c.MessageTTLSetting == 0) {
 		return false
 	}
+	if !(c.ThemeName == "") {
+		return false
+	}
 	if !(c.ActionBar == nil) {
 		return false
 	}
-	if !(c.VoiceChat.Zero()) {
+	if !(c.VideoChat.Zero()) {
+		return false
+	}
+	if !(c.PendingJoinRequests.Zero()) {
 		return false
 	}
 	if !(c.ReplyMarkupMessageID == 0) {
@@ -302,12 +312,20 @@ func (c *Chat) TypeInfo() tdp.Type {
 			SchemaName: "message_ttl_setting",
 		},
 		{
+			Name:       "ThemeName",
+			SchemaName: "theme_name",
+		},
+		{
 			Name:       "ActionBar",
 			SchemaName: "action_bar",
 		},
 		{
-			Name:       "VoiceChat",
-			SchemaName: "voice_chat",
+			Name:       "VideoChat",
+			SchemaName: "video_chat",
+		},
+		{
+			Name:       "PendingJoinRequests",
+			SchemaName: "pending_join_requests",
 		},
 		{
 			Name:       "ReplyMarkupMessageID",
@@ -328,7 +346,7 @@ func (c *Chat) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *Chat) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chat#77f6d111 as nil")
+		return fmt.Errorf("can't encode chat#ac5453a2 as nil")
 	}
 	b.PutID(ChatTypeID)
 	return c.EncodeBare(b)
@@ -337,29 +355,29 @@ func (c *Chat) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *Chat) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chat#77f6d111 as nil")
+		return fmt.Errorf("can't encode chat#ac5453a2 as nil")
 	}
 	b.PutLong(c.ID)
 	if c.Type == nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field type is nil")
+		return fmt.Errorf("unable to encode chat#ac5453a2: field type is nil")
 	}
 	if err := c.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field type: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field type: %w", err)
 	}
 	b.PutString(c.Title)
 	if err := c.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field photo: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field photo: %w", err)
 	}
 	if err := c.Permissions.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field permissions: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field permissions: %w", err)
 	}
 	if err := c.LastMessage.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field last_message: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field last_message: %w", err)
 	}
 	b.PutInt(len(c.Positions))
 	for idx, v := range c.Positions {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare chat#77f6d111: field positions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare chat#ac5453a2: field positions element with index %d: %w", idx, err)
 		}
 	}
 	b.PutBool(c.IsMarkedAsUnread)
@@ -374,21 +392,25 @@ func (c *Chat) EncodeBare(b *bin.Buffer) error {
 	b.PutLong(c.LastReadOutboxMessageID)
 	b.PutInt32(c.UnreadMentionCount)
 	if err := c.NotificationSettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field notification_settings: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field notification_settings: %w", err)
 	}
 	b.PutInt32(c.MessageTTLSetting)
+	b.PutString(c.ThemeName)
 	if c.ActionBar == nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field action_bar is nil")
+		return fmt.Errorf("unable to encode chat#ac5453a2: field action_bar is nil")
 	}
 	if err := c.ActionBar.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field action_bar: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field action_bar: %w", err)
 	}
-	if err := c.VoiceChat.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field voice_chat: %w", err)
+	if err := c.VideoChat.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chat#ac5453a2: field video_chat: %w", err)
+	}
+	if err := c.PendingJoinRequests.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chat#ac5453a2: field pending_join_requests: %w", err)
 	}
 	b.PutLong(c.ReplyMarkupMessageID)
 	if err := c.DraftMessage.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field draft_message: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field draft_message: %w", err)
 	}
 	b.PutString(c.ClientData)
 	return nil
@@ -397,10 +419,10 @@ func (c *Chat) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *Chat) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chat#77f6d111 to nil")
+		return fmt.Errorf("can't decode chat#ac5453a2 to nil")
 	}
 	if err := b.ConsumeID(ChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode chat#77f6d111: %w", err)
+		return fmt.Errorf("unable to decode chat#ac5453a2: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -408,48 +430,48 @@ func (c *Chat) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *Chat) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chat#77f6d111 to nil")
+		return fmt.Errorf("can't decode chat#ac5453a2 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field id: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field id: %w", err)
 		}
 		c.ID = value
 	}
 	{
 		value, err := DecodeChatType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field type: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field type: %w", err)
 		}
 		c.Type = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field title: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field title: %w", err)
 		}
 		c.Title = value
 	}
 	{
 		if err := c.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field photo: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field photo: %w", err)
 		}
 	}
 	{
 		if err := c.Permissions.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field permissions: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field permissions: %w", err)
 		}
 	}
 	{
 		if err := c.LastMessage.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field last_message: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field last_message: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field positions: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field positions: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -458,7 +480,7 @@ func (c *Chat) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value ChatPosition
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare chat#77f6d111: field positions: %w", err)
+				return fmt.Errorf("unable to decode bare chat#ac5453a2: field positions: %w", err)
 			}
 			c.Positions = append(c.Positions, value)
 		}
@@ -466,120 +488,132 @@ func (c *Chat) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field is_marked_as_unread: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field is_marked_as_unread: %w", err)
 		}
 		c.IsMarkedAsUnread = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field is_blocked: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field is_blocked: %w", err)
 		}
 		c.IsBlocked = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field has_scheduled_messages: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field has_scheduled_messages: %w", err)
 		}
 		c.HasScheduledMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field can_be_deleted_only_for_self: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field can_be_deleted_only_for_self: %w", err)
 		}
 		c.CanBeDeletedOnlyForSelf = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field can_be_deleted_for_all_users: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field can_be_deleted_for_all_users: %w", err)
 		}
 		c.CanBeDeletedForAllUsers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field can_be_reported: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field can_be_reported: %w", err)
 		}
 		c.CanBeReported = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field default_disable_notification: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field default_disable_notification: %w", err)
 		}
 		c.DefaultDisableNotification = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field unread_count: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field unread_count: %w", err)
 		}
 		c.UnreadCount = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field last_read_inbox_message_id: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field last_read_inbox_message_id: %w", err)
 		}
 		c.LastReadInboxMessageID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field last_read_outbox_message_id: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field last_read_outbox_message_id: %w", err)
 		}
 		c.LastReadOutboxMessageID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field unread_mention_count: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field unread_mention_count: %w", err)
 		}
 		c.UnreadMentionCount = value
 	}
 	{
 		if err := c.NotificationSettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field notification_settings: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field notification_settings: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field message_ttl_setting: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field message_ttl_setting: %w", err)
 		}
 		c.MessageTTLSetting = value
 	}
 	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chat#ac5453a2: field theme_name: %w", err)
+		}
+		c.ThemeName = value
+	}
+	{
 		value, err := DecodeChatActionBar(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field action_bar: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field action_bar: %w", err)
 		}
 		c.ActionBar = value
 	}
 	{
-		if err := c.VoiceChat.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field voice_chat: %w", err)
+		if err := c.VideoChat.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chat#ac5453a2: field video_chat: %w", err)
+		}
+	}
+	{
+		if err := c.PendingJoinRequests.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chat#ac5453a2: field pending_join_requests: %w", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field reply_markup_message_id: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field reply_markup_message_id: %w", err)
 		}
 		c.ReplyMarkupMessageID = value
 	}
 	{
 		if err := c.DraftMessage.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field draft_message: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field draft_message: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chat#77f6d111: field client_data: %w", err)
+			return fmt.Errorf("unable to decode chat#ac5453a2: field client_data: %w", err)
 		}
 		c.ClientData = value
 	}
@@ -589,7 +623,7 @@ func (c *Chat) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *Chat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chat#77f6d111 as nil")
+		return fmt.Errorf("can't encode chat#ac5453a2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chat")
@@ -597,30 +631,30 @@ func (c *Chat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutLong(c.ID)
 	b.FieldStart("type")
 	if c.Type == nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field type is nil")
+		return fmt.Errorf("unable to encode chat#ac5453a2: field type is nil")
 	}
 	if err := c.Type.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field type: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field type: %w", err)
 	}
 	b.FieldStart("title")
 	b.PutString(c.Title)
 	b.FieldStart("photo")
 	if err := c.Photo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field photo: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field photo: %w", err)
 	}
 	b.FieldStart("permissions")
 	if err := c.Permissions.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field permissions: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field permissions: %w", err)
 	}
 	b.FieldStart("last_message")
 	if err := c.LastMessage.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field last_message: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field last_message: %w", err)
 	}
 	b.FieldStart("positions")
 	b.ArrStart()
 	for idx, v := range c.Positions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode chat#77f6d111: field positions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode chat#ac5453a2: field positions element with index %d: %w", idx, err)
 		}
 	}
 	b.ArrEnd()
@@ -648,26 +682,32 @@ func (c *Chat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutInt32(c.UnreadMentionCount)
 	b.FieldStart("notification_settings")
 	if err := c.NotificationSettings.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field notification_settings: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field notification_settings: %w", err)
 	}
 	b.FieldStart("message_ttl_setting")
 	b.PutInt32(c.MessageTTLSetting)
+	b.FieldStart("theme_name")
+	b.PutString(c.ThemeName)
 	b.FieldStart("action_bar")
 	if c.ActionBar == nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field action_bar is nil")
+		return fmt.Errorf("unable to encode chat#ac5453a2: field action_bar is nil")
 	}
 	if err := c.ActionBar.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field action_bar: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field action_bar: %w", err)
 	}
-	b.FieldStart("voice_chat")
-	if err := c.VoiceChat.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field voice_chat: %w", err)
+	b.FieldStart("video_chat")
+	if err := c.VideoChat.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chat#ac5453a2: field video_chat: %w", err)
+	}
+	b.FieldStart("pending_join_requests")
+	if err := c.PendingJoinRequests.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chat#ac5453a2: field pending_join_requests: %w", err)
 	}
 	b.FieldStart("reply_markup_message_id")
 	b.PutLong(c.ReplyMarkupMessageID)
 	b.FieldStart("draft_message")
 	if err := c.DraftMessage.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chat#77f6d111: field draft_message: %w", err)
+		return fmt.Errorf("unable to encode chat#ac5453a2: field draft_message: %w", err)
 	}
 	b.FieldStart("client_data")
 	b.PutString(c.ClientData)
@@ -678,156 +718,166 @@ func (c *Chat) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *Chat) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chat#77f6d111 to nil")
+		return fmt.Errorf("can't decode chat#ac5453a2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chat"); err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: %w", err)
 			}
 		case "id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field id: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field id: %w", err)
 			}
 			c.ID = value
 		case "type":
 			value, err := DecodeTDLibJSONChatType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field type: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field type: %w", err)
 			}
 			c.Type = value
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field title: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field title: %w", err)
 			}
 			c.Title = value
 		case "photo":
 			if err := c.Photo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field photo: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field photo: %w", err)
 			}
 		case "permissions":
 			if err := c.Permissions.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field permissions: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field permissions: %w", err)
 			}
 		case "last_message":
 			if err := c.LastMessage.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field last_message: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field last_message: %w", err)
 			}
 		case "positions":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ChatPosition
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode chat#77f6d111: field positions: %w", err)
+					return fmt.Errorf("unable to decode chat#ac5453a2: field positions: %w", err)
 				}
 				c.Positions = append(c.Positions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field positions: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field positions: %w", err)
 			}
 		case "is_marked_as_unread":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field is_marked_as_unread: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field is_marked_as_unread: %w", err)
 			}
 			c.IsMarkedAsUnread = value
 		case "is_blocked":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field is_blocked: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field is_blocked: %w", err)
 			}
 			c.IsBlocked = value
 		case "has_scheduled_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field has_scheduled_messages: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field has_scheduled_messages: %w", err)
 			}
 			c.HasScheduledMessages = value
 		case "can_be_deleted_only_for_self":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field can_be_deleted_only_for_self: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field can_be_deleted_only_for_self: %w", err)
 			}
 			c.CanBeDeletedOnlyForSelf = value
 		case "can_be_deleted_for_all_users":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field can_be_deleted_for_all_users: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field can_be_deleted_for_all_users: %w", err)
 			}
 			c.CanBeDeletedForAllUsers = value
 		case "can_be_reported":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field can_be_reported: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field can_be_reported: %w", err)
 			}
 			c.CanBeReported = value
 		case "default_disable_notification":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field default_disable_notification: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field default_disable_notification: %w", err)
 			}
 			c.DefaultDisableNotification = value
 		case "unread_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field unread_count: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field unread_count: %w", err)
 			}
 			c.UnreadCount = value
 		case "last_read_inbox_message_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field last_read_inbox_message_id: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field last_read_inbox_message_id: %w", err)
 			}
 			c.LastReadInboxMessageID = value
 		case "last_read_outbox_message_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field last_read_outbox_message_id: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field last_read_outbox_message_id: %w", err)
 			}
 			c.LastReadOutboxMessageID = value
 		case "unread_mention_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field unread_mention_count: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field unread_mention_count: %w", err)
 			}
 			c.UnreadMentionCount = value
 		case "notification_settings":
 			if err := c.NotificationSettings.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field notification_settings: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field notification_settings: %w", err)
 			}
 		case "message_ttl_setting":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field message_ttl_setting: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field message_ttl_setting: %w", err)
 			}
 			c.MessageTTLSetting = value
+		case "theme_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chat#ac5453a2: field theme_name: %w", err)
+			}
+			c.ThemeName = value
 		case "action_bar":
 			value, err := DecodeTDLibJSONChatActionBar(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field action_bar: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field action_bar: %w", err)
 			}
 			c.ActionBar = value
-		case "voice_chat":
-			if err := c.VoiceChat.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field voice_chat: %w", err)
+		case "video_chat":
+			if err := c.VideoChat.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chat#ac5453a2: field video_chat: %w", err)
+			}
+		case "pending_join_requests":
+			if err := c.PendingJoinRequests.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chat#ac5453a2: field pending_join_requests: %w", err)
 			}
 		case "reply_markup_message_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field reply_markup_message_id: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field reply_markup_message_id: %w", err)
 			}
 			c.ReplyMarkupMessageID = value
 		case "draft_message":
 			if err := c.DraftMessage.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field draft_message: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field draft_message: %w", err)
 			}
 		case "client_data":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chat#77f6d111: field client_data: %w", err)
+				return fmt.Errorf("unable to decode chat#ac5453a2: field client_data: %w", err)
 			}
 			c.ClientData = value
 		default:
@@ -937,14 +987,24 @@ func (c *Chat) GetMessageTTLSetting() (value int32) {
 	return c.MessageTTLSetting
 }
 
+// GetThemeName returns value of ThemeName field.
+func (c *Chat) GetThemeName() (value string) {
+	return c.ThemeName
+}
+
 // GetActionBar returns value of ActionBar field.
 func (c *Chat) GetActionBar() (value ChatActionBarClass) {
 	return c.ActionBar
 }
 
-// GetVoiceChat returns value of VoiceChat field.
-func (c *Chat) GetVoiceChat() (value VoiceChat) {
-	return c.VoiceChat
+// GetVideoChat returns value of VideoChat field.
+func (c *Chat) GetVideoChat() (value VideoChat) {
+	return c.VideoChat
+}
+
+// GetPendingJoinRequests returns value of PendingJoinRequests field.
+func (c *Chat) GetPendingJoinRequests() (value ChatJoinRequestsInfo) {
+	return c.PendingJoinRequests
 }
 
 // GetReplyMarkupMessageID returns value of ReplyMarkupMessageID field.

@@ -31,19 +31,24 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// CreateChatInviteLinkRequest represents TL type `createChatInviteLink#2f832dfe`.
+// CreateChatInviteLinkRequest represents TL type `createChatInviteLink#6b2c2784`.
 type CreateChatInviteLinkRequest struct {
 	// Chat identifier
 	ChatID int64
+	// Invite link name; 0-32 characters
+	Name string
 	// Point in time (Unix timestamp) when the link will expire; pass 0 if never
 	ExpireDate int32
 	// The maximum number of chat members that can join the chat by the link simultaneously;
 	// 0-99999; pass 0 if not limited
 	MemberLimit int32
+	// True, if the link only creates join request. If true, member_limit must not be
+	// specified
+	CreatesJoinRequest bool
 }
 
 // CreateChatInviteLinkRequestTypeID is TL type id of CreateChatInviteLinkRequest.
-const CreateChatInviteLinkRequestTypeID = 0x2f832dfe
+const CreateChatInviteLinkRequestTypeID = 0x6b2c2784
 
 // Ensuring interfaces in compile-time for CreateChatInviteLinkRequest.
 var (
@@ -60,10 +65,16 @@ func (c *CreateChatInviteLinkRequest) Zero() bool {
 	if !(c.ChatID == 0) {
 		return false
 	}
+	if !(c.Name == "") {
+		return false
+	}
 	if !(c.ExpireDate == 0) {
 		return false
 	}
 	if !(c.MemberLimit == 0) {
+		return false
+	}
+	if !(c.CreatesJoinRequest == false) {
 		return false
 	}
 
@@ -107,12 +118,20 @@ func (c *CreateChatInviteLinkRequest) TypeInfo() tdp.Type {
 			SchemaName: "chat_id",
 		},
 		{
+			Name:       "Name",
+			SchemaName: "name",
+		},
+		{
 			Name:       "ExpireDate",
 			SchemaName: "expire_date",
 		},
 		{
 			Name:       "MemberLimit",
 			SchemaName: "member_limit",
+		},
+		{
+			Name:       "CreatesJoinRequest",
+			SchemaName: "creates_join_request",
 		},
 	}
 	return typ
@@ -121,7 +140,7 @@ func (c *CreateChatInviteLinkRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CreateChatInviteLinkRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createChatInviteLink#2f832dfe as nil")
+		return fmt.Errorf("can't encode createChatInviteLink#6b2c2784 as nil")
 	}
 	b.PutID(CreateChatInviteLinkRequestTypeID)
 	return c.EncodeBare(b)
@@ -130,21 +149,23 @@ func (c *CreateChatInviteLinkRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CreateChatInviteLinkRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createChatInviteLink#2f832dfe as nil")
+		return fmt.Errorf("can't encode createChatInviteLink#6b2c2784 as nil")
 	}
 	b.PutLong(c.ChatID)
+	b.PutString(c.Name)
 	b.PutInt32(c.ExpireDate)
 	b.PutInt32(c.MemberLimit)
+	b.PutBool(c.CreatesJoinRequest)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *CreateChatInviteLinkRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createChatInviteLink#2f832dfe to nil")
+		return fmt.Errorf("can't decode createChatInviteLink#6b2c2784 to nil")
 	}
 	if err := b.ConsumeID(CreateChatInviteLinkRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode createChatInviteLink#2f832dfe: %w", err)
+		return fmt.Errorf("unable to decode createChatInviteLink#6b2c2784: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -152,28 +173,42 @@ func (c *CreateChatInviteLinkRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CreateChatInviteLinkRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createChatInviteLink#2f832dfe to nil")
+		return fmt.Errorf("can't decode createChatInviteLink#6b2c2784 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode createChatInviteLink#2f832dfe: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode createChatInviteLink#6b2c2784: field chat_id: %w", err)
 		}
 		c.ChatID = value
 	}
 	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode createChatInviteLink#6b2c2784: field name: %w", err)
+		}
+		c.Name = value
+	}
+	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode createChatInviteLink#2f832dfe: field expire_date: %w", err)
+			return fmt.Errorf("unable to decode createChatInviteLink#6b2c2784: field expire_date: %w", err)
 		}
 		c.ExpireDate = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode createChatInviteLink#2f832dfe: field member_limit: %w", err)
+			return fmt.Errorf("unable to decode createChatInviteLink#6b2c2784: field member_limit: %w", err)
 		}
 		c.MemberLimit = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode createChatInviteLink#6b2c2784: field creates_join_request: %w", err)
+		}
+		c.CreatesJoinRequest = value
 	}
 	return nil
 }
@@ -181,16 +216,20 @@ func (c *CreateChatInviteLinkRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *CreateChatInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createChatInviteLink#2f832dfe as nil")
+		return fmt.Errorf("can't encode createChatInviteLink#6b2c2784 as nil")
 	}
 	b.ObjStart()
 	b.PutID("createChatInviteLink")
 	b.FieldStart("chat_id")
 	b.PutLong(c.ChatID)
+	b.FieldStart("name")
+	b.PutString(c.Name)
 	b.FieldStart("expire_date")
 	b.PutInt32(c.ExpireDate)
 	b.FieldStart("member_limit")
 	b.PutInt32(c.MemberLimit)
+	b.FieldStart("creates_join_request")
+	b.PutBool(c.CreatesJoinRequest)
 	b.ObjEnd()
 	return nil
 }
@@ -198,33 +237,45 @@ func (c *CreateChatInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *CreateChatInviteLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createChatInviteLink#2f832dfe to nil")
+		return fmt.Errorf("can't decode createChatInviteLink#6b2c2784 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("createChatInviteLink"); err != nil {
-				return fmt.Errorf("unable to decode createChatInviteLink#2f832dfe: %w", err)
+				return fmt.Errorf("unable to decode createChatInviteLink#6b2c2784: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode createChatInviteLink#2f832dfe: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode createChatInviteLink#6b2c2784: field chat_id: %w", err)
 			}
 			c.ChatID = value
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode createChatInviteLink#6b2c2784: field name: %w", err)
+			}
+			c.Name = value
 		case "expire_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode createChatInviteLink#2f832dfe: field expire_date: %w", err)
+				return fmt.Errorf("unable to decode createChatInviteLink#6b2c2784: field expire_date: %w", err)
 			}
 			c.ExpireDate = value
 		case "member_limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode createChatInviteLink#2f832dfe: field member_limit: %w", err)
+				return fmt.Errorf("unable to decode createChatInviteLink#6b2c2784: field member_limit: %w", err)
 			}
 			c.MemberLimit = value
+		case "creates_join_request":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode createChatInviteLink#6b2c2784: field creates_join_request: %w", err)
+			}
+			c.CreatesJoinRequest = value
 		default:
 			return b.Skip()
 		}
@@ -237,6 +288,11 @@ func (c *CreateChatInviteLinkRequest) GetChatID() (value int64) {
 	return c.ChatID
 }
 
+// GetName returns value of Name field.
+func (c *CreateChatInviteLinkRequest) GetName() (value string) {
+	return c.Name
+}
+
 // GetExpireDate returns value of ExpireDate field.
 func (c *CreateChatInviteLinkRequest) GetExpireDate() (value int32) {
 	return c.ExpireDate
@@ -247,7 +303,12 @@ func (c *CreateChatInviteLinkRequest) GetMemberLimit() (value int32) {
 	return c.MemberLimit
 }
 
-// CreateChatInviteLink invokes method createChatInviteLink#2f832dfe returning error if any.
+// GetCreatesJoinRequest returns value of CreatesJoinRequest field.
+func (c *CreateChatInviteLinkRequest) GetCreatesJoinRequest() (value bool) {
+	return c.CreatesJoinRequest
+}
+
+// CreateChatInviteLink invokes method createChatInviteLink#6b2c2784 returning error if any.
 func (c *Client) CreateChatInviteLink(ctx context.Context, request *CreateChatInviteLinkRequest) (*ChatInviteLink, error) {
 	var result ChatInviteLink
 

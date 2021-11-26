@@ -39,9 +39,9 @@ type SendMessageRequest struct {
 	MessageThreadID int64
 	// Identifier of the message to reply to or 0
 	ReplyToMessageID int64
-	// Options to be used to send the message
+	// Options to be used to send the message; pass null to use default options
 	Options MessageSendOptions
-	// Markup for replying to the message; for bots only
+	// Markup for replying to the message; pass null if none; for bots only
 	ReplyMarkup ReplyMarkupClass
 	// The content of the message to be sent
 	InputMessageContent InputMessageContentClass

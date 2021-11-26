@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetUserProfilePhotosRequest represents TL type `getUserProfilePhotos#d22e94fb`.
+// GetUserProfilePhotosRequest represents TL type `getUserProfilePhotos#c9defe42`.
 type GetUserProfilePhotosRequest struct {
 	// User identifier
-	UserID int32
+	UserID int64
 	// The number of photos to skip; must be non-negative
 	Offset int32
 	// The maximum number of photos to be returned; up to 100
@@ -42,7 +42,7 @@ type GetUserProfilePhotosRequest struct {
 }
 
 // GetUserProfilePhotosRequestTypeID is TL type id of GetUserProfilePhotosRequest.
-const GetUserProfilePhotosRequestTypeID = 0xd22e94fb
+const GetUserProfilePhotosRequestTypeID = 0xc9defe42
 
 // Ensuring interfaces in compile-time for GetUserProfilePhotosRequest.
 var (
@@ -120,7 +120,7 @@ func (g *GetUserProfilePhotosRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetUserProfilePhotosRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getUserProfilePhotos#d22e94fb as nil")
+		return fmt.Errorf("can't encode getUserProfilePhotos#c9defe42 as nil")
 	}
 	b.PutID(GetUserProfilePhotosRequestTypeID)
 	return g.EncodeBare(b)
@@ -129,9 +129,9 @@ func (g *GetUserProfilePhotosRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetUserProfilePhotosRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getUserProfilePhotos#d22e94fb as nil")
+		return fmt.Errorf("can't encode getUserProfilePhotos#c9defe42 as nil")
 	}
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	b.PutInt32(g.Offset)
 	b.PutInt32(g.Limit)
 	return nil
@@ -140,10 +140,10 @@ func (g *GetUserProfilePhotosRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetUserProfilePhotosRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getUserProfilePhotos#d22e94fb to nil")
+		return fmt.Errorf("can't decode getUserProfilePhotos#c9defe42 to nil")
 	}
 	if err := b.ConsumeID(GetUserProfilePhotosRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getUserProfilePhotos#d22e94fb: %w", err)
+		return fmt.Errorf("unable to decode getUserProfilePhotos#c9defe42: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -151,26 +151,26 @@ func (g *GetUserProfilePhotosRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetUserProfilePhotosRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getUserProfilePhotos#d22e94fb to nil")
+		return fmt.Errorf("can't decode getUserProfilePhotos#c9defe42 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getUserProfilePhotos#d22e94fb: field user_id: %w", err)
+			return fmt.Errorf("unable to decode getUserProfilePhotos#c9defe42: field user_id: %w", err)
 		}
 		g.UserID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getUserProfilePhotos#d22e94fb: field offset: %w", err)
+			return fmt.Errorf("unable to decode getUserProfilePhotos#c9defe42: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getUserProfilePhotos#d22e94fb: field limit: %w", err)
+			return fmt.Errorf("unable to decode getUserProfilePhotos#c9defe42: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -180,12 +180,12 @@ func (g *GetUserProfilePhotosRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetUserProfilePhotosRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getUserProfilePhotos#d22e94fb as nil")
+		return fmt.Errorf("can't encode getUserProfilePhotos#c9defe42 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getUserProfilePhotos")
 	b.FieldStart("user_id")
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	b.FieldStart("offset")
 	b.PutInt32(g.Offset)
 	b.FieldStart("limit")
@@ -197,31 +197,31 @@ func (g *GetUserProfilePhotosRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetUserProfilePhotosRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getUserProfilePhotos#d22e94fb to nil")
+		return fmt.Errorf("can't decode getUserProfilePhotos#c9defe42 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getUserProfilePhotos"); err != nil {
-				return fmt.Errorf("unable to decode getUserProfilePhotos#d22e94fb: %w", err)
+				return fmt.Errorf("unable to decode getUserProfilePhotos#c9defe42: %w", err)
 			}
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getUserProfilePhotos#d22e94fb: field user_id: %w", err)
+				return fmt.Errorf("unable to decode getUserProfilePhotos#c9defe42: field user_id: %w", err)
 			}
 			g.UserID = value
 		case "offset":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getUserProfilePhotos#d22e94fb: field offset: %w", err)
+				return fmt.Errorf("unable to decode getUserProfilePhotos#c9defe42: field offset: %w", err)
 			}
 			g.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getUserProfilePhotos#d22e94fb: field limit: %w", err)
+				return fmt.Errorf("unable to decode getUserProfilePhotos#c9defe42: field limit: %w", err)
 			}
 			g.Limit = value
 		default:
@@ -232,7 +232,7 @@ func (g *GetUserProfilePhotosRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserID returns value of UserID field.
-func (g *GetUserProfilePhotosRequest) GetUserID() (value int32) {
+func (g *GetUserProfilePhotosRequest) GetUserID() (value int64) {
 	return g.UserID
 }
 
@@ -246,7 +246,7 @@ func (g *GetUserProfilePhotosRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetUserProfilePhotos invokes method getUserProfilePhotos#d22e94fb returning error if any.
+// GetUserProfilePhotos invokes method getUserProfilePhotos#c9defe42 returning error if any.
 func (c *Client) GetUserProfilePhotos(ctx context.Context, request *GetUserProfilePhotosRequest) (*ChatPhotos, error) {
 	var result ChatPhotos
 

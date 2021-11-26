@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// RequestQrCodeAuthenticationRequest represents TL type `requestQrCodeAuthentication#36e63e7d`.
+// RequestQrCodeAuthenticationRequest represents TL type `requestQrCodeAuthentication#56fe3c4e`.
 type RequestQrCodeAuthenticationRequest struct {
 	// List of user identifiers of other users currently using the application
-	OtherUserIDs []int32
+	OtherUserIDs []int64
 }
 
 // RequestQrCodeAuthenticationRequestTypeID is TL type id of RequestQrCodeAuthenticationRequest.
-const RequestQrCodeAuthenticationRequestTypeID = 0x36e63e7d
+const RequestQrCodeAuthenticationRequestTypeID = 0x56fe3c4e
 
 // Ensuring interfaces in compile-time for RequestQrCodeAuthenticationRequest.
 var (
@@ -102,7 +102,7 @@ func (r *RequestQrCodeAuthenticationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RequestQrCodeAuthenticationRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode requestQrCodeAuthentication#36e63e7d as nil")
+		return fmt.Errorf("can't encode requestQrCodeAuthentication#56fe3c4e as nil")
 	}
 	b.PutID(RequestQrCodeAuthenticationRequestTypeID)
 	return r.EncodeBare(b)
@@ -111,11 +111,11 @@ func (r *RequestQrCodeAuthenticationRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RequestQrCodeAuthenticationRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode requestQrCodeAuthentication#36e63e7d as nil")
+		return fmt.Errorf("can't encode requestQrCodeAuthentication#56fe3c4e as nil")
 	}
 	b.PutInt(len(r.OtherUserIDs))
 	for _, v := range r.OtherUserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -123,10 +123,10 @@ func (r *RequestQrCodeAuthenticationRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *RequestQrCodeAuthenticationRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode requestQrCodeAuthentication#36e63e7d to nil")
+		return fmt.Errorf("can't decode requestQrCodeAuthentication#56fe3c4e to nil")
 	}
 	if err := b.ConsumeID(RequestQrCodeAuthenticationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode requestQrCodeAuthentication#36e63e7d: %w", err)
+		return fmt.Errorf("unable to decode requestQrCodeAuthentication#56fe3c4e: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -134,21 +134,21 @@ func (r *RequestQrCodeAuthenticationRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RequestQrCodeAuthenticationRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode requestQrCodeAuthentication#36e63e7d to nil")
+		return fmt.Errorf("can't decode requestQrCodeAuthentication#56fe3c4e to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode requestQrCodeAuthentication#36e63e7d: field other_user_ids: %w", err)
+			return fmt.Errorf("unable to decode requestQrCodeAuthentication#56fe3c4e: field other_user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			r.OtherUserIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+			r.OtherUserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode requestQrCodeAuthentication#36e63e7d: field other_user_ids: %w", err)
+				return fmt.Errorf("unable to decode requestQrCodeAuthentication#56fe3c4e: field other_user_ids: %w", err)
 			}
 			r.OtherUserIDs = append(r.OtherUserIDs, value)
 		}
@@ -159,14 +159,14 @@ func (r *RequestQrCodeAuthenticationRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *RequestQrCodeAuthenticationRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode requestQrCodeAuthentication#36e63e7d as nil")
+		return fmt.Errorf("can't encode requestQrCodeAuthentication#56fe3c4e as nil")
 	}
 	b.ObjStart()
 	b.PutID("requestQrCodeAuthentication")
 	b.FieldStart("other_user_ids")
 	b.ArrStart()
 	for _, v := range r.OtherUserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -176,25 +176,25 @@ func (r *RequestQrCodeAuthenticationRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *RequestQrCodeAuthenticationRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode requestQrCodeAuthentication#36e63e7d to nil")
+		return fmt.Errorf("can't decode requestQrCodeAuthentication#56fe3c4e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("requestQrCodeAuthentication"); err != nil {
-				return fmt.Errorf("unable to decode requestQrCodeAuthentication#36e63e7d: %w", err)
+				return fmt.Errorf("unable to decode requestQrCodeAuthentication#56fe3c4e: %w", err)
 			}
 		case "other_user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Int32()
+				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode requestQrCodeAuthentication#36e63e7d: field other_user_ids: %w", err)
+					return fmt.Errorf("unable to decode requestQrCodeAuthentication#56fe3c4e: field other_user_ids: %w", err)
 				}
 				r.OtherUserIDs = append(r.OtherUserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode requestQrCodeAuthentication#36e63e7d: field other_user_ids: %w", err)
+				return fmt.Errorf("unable to decode requestQrCodeAuthentication#56fe3c4e: field other_user_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -204,12 +204,12 @@ func (r *RequestQrCodeAuthenticationRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 }
 
 // GetOtherUserIDs returns value of OtherUserIDs field.
-func (r *RequestQrCodeAuthenticationRequest) GetOtherUserIDs() (value []int32) {
+func (r *RequestQrCodeAuthenticationRequest) GetOtherUserIDs() (value []int64) {
 	return r.OtherUserIDs
 }
 
-// RequestQrCodeAuthentication invokes method requestQrCodeAuthentication#36e63e7d returning error if any.
-func (c *Client) RequestQrCodeAuthentication(ctx context.Context, otheruserids []int32) error {
+// RequestQrCodeAuthentication invokes method requestQrCodeAuthentication#56fe3c4e returning error if any.
+func (c *Client) RequestQrCodeAuthentication(ctx context.Context, otheruserids []int64) error {
 	var ok Ok
 
 	request := &RequestQrCodeAuthenticationRequest{

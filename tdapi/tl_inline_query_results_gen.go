@@ -39,7 +39,7 @@ type InlineQueryResults struct {
 	NextOffset string
 	// Results of the query
 	Results []InlineQueryResultClass
-	// If non-empty, this text should be shown on the button, which opens a private chat with
+	// If non-empty, this text must be shown on the button, which opens a private chat with
 	// the bot and sends the bot a start message with the switch_pm_parameter
 	SwitchPmText string
 	// Parameter for the bot start message

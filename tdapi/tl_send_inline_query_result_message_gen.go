@@ -39,7 +39,7 @@ type SendInlineQueryResultMessageRequest struct {
 	MessageThreadID int64
 	// Identifier of a message to reply to or 0
 	ReplyToMessageID int64
-	// Options to be used to send the message
+	// Options to be used to send the message; pass null to use default options
 	Options MessageSendOptions
 	// Identifier of the inline query
 	QueryID int64

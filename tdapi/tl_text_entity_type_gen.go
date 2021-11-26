@@ -2157,14 +2157,14 @@ func (t *TextEntityTypeTextURL) GetURL() (value string) {
 	return t.URL
 }
 
-// TextEntityTypeMentionName represents TL type `textEntityTypeMentionName#d0d2685d`.
+// TextEntityTypeMentionName represents TL type `textEntityTypeMentionName#a25cd5af`.
 type TextEntityTypeMentionName struct {
 	// Identifier of the mentioned user
-	UserID int32
+	UserID int64
 }
 
 // TextEntityTypeMentionNameTypeID is TL type id of TextEntityTypeMentionName.
-const TextEntityTypeMentionNameTypeID = 0xd0d2685d
+const TextEntityTypeMentionNameTypeID = 0xa25cd5af
 
 // construct implements constructor of TextEntityTypeClass.
 func (t TextEntityTypeMentionName) construct() TextEntityTypeClass { return &t }
@@ -2233,7 +2233,7 @@ func (t *TextEntityTypeMentionName) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeMentionName) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeMentionName#d0d2685d as nil")
+		return fmt.Errorf("can't encode textEntityTypeMentionName#a25cd5af as nil")
 	}
 	b.PutID(TextEntityTypeMentionNameTypeID)
 	return t.EncodeBare(b)
@@ -2242,19 +2242,19 @@ func (t *TextEntityTypeMentionName) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TextEntityTypeMentionName) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeMentionName#d0d2685d as nil")
+		return fmt.Errorf("can't encode textEntityTypeMentionName#a25cd5af as nil")
 	}
-	b.PutInt32(t.UserID)
+	b.PutLong(t.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *TextEntityTypeMentionName) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeMentionName#d0d2685d to nil")
+		return fmt.Errorf("can't decode textEntityTypeMentionName#a25cd5af to nil")
 	}
 	if err := b.ConsumeID(TextEntityTypeMentionNameTypeID); err != nil {
-		return fmt.Errorf("unable to decode textEntityTypeMentionName#d0d2685d: %w", err)
+		return fmt.Errorf("unable to decode textEntityTypeMentionName#a25cd5af: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -2262,12 +2262,12 @@ func (t *TextEntityTypeMentionName) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TextEntityTypeMentionName) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeMentionName#d0d2685d to nil")
+		return fmt.Errorf("can't decode textEntityTypeMentionName#a25cd5af to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode textEntityTypeMentionName#d0d2685d: field user_id: %w", err)
+			return fmt.Errorf("unable to decode textEntityTypeMentionName#a25cd5af: field user_id: %w", err)
 		}
 		t.UserID = value
 	}
@@ -2277,12 +2277,12 @@ func (t *TextEntityTypeMentionName) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (t *TextEntityTypeMentionName) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
-		return fmt.Errorf("can't encode textEntityTypeMentionName#d0d2685d as nil")
+		return fmt.Errorf("can't encode textEntityTypeMentionName#a25cd5af as nil")
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeMentionName")
 	b.FieldStart("user_id")
-	b.PutInt32(t.UserID)
+	b.PutLong(t.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -2290,19 +2290,19 @@ func (t *TextEntityTypeMentionName) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (t *TextEntityTypeMentionName) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
-		return fmt.Errorf("can't decode textEntityTypeMentionName#d0d2685d to nil")
+		return fmt.Errorf("can't decode textEntityTypeMentionName#a25cd5af to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("textEntityTypeMentionName"); err != nil {
-				return fmt.Errorf("unable to decode textEntityTypeMentionName#d0d2685d: %w", err)
+				return fmt.Errorf("unable to decode textEntityTypeMentionName#a25cd5af: %w", err)
 			}
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode textEntityTypeMentionName#d0d2685d: field user_id: %w", err)
+				return fmt.Errorf("unable to decode textEntityTypeMentionName#a25cd5af: field user_id: %w", err)
 			}
 			t.UserID = value
 		default:
@@ -2313,13 +2313,13 @@ func (t *TextEntityTypeMentionName) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserID returns value of UserID field.
-func (t *TextEntityTypeMentionName) GetUserID() (value int32) {
+func (t *TextEntityTypeMentionName) GetUserID() (value int64) {
 	return t.UserID
 }
 
 // TextEntityTypeMediaTimestamp represents TL type `textEntityTypeMediaTimestamp#9236da10`.
 type TextEntityTypeMediaTimestamp struct {
-	// Timestamp from which a video/audio/video note/voice note playing should start, in
+	// Timestamp from which a video/audio/video note/voice note playing must start, in
 	// seconds. The media can be in the content or the web page preview of the current
 	// message, or in the same places in the replied message
 	MediaTimestamp int32
@@ -2503,7 +2503,7 @@ func (t *TextEntityTypeMediaTimestamp) GetMediaTimestamp() (value int32) {
 //  case *tdapi.TextEntityTypePre: // textEntityTypePre#62491c8e
 //  case *tdapi.TextEntityTypePreCode: // textEntityTypePreCode#c7a77aab
 //  case *tdapi.TextEntityTypeTextURL: // textEntityTypeTextUrl#1a912463
-//  case *tdapi.TextEntityTypeMentionName: // textEntityTypeMentionName#d0d2685d
+//  case *tdapi.TextEntityTypeMentionName: // textEntityTypeMentionName#a25cd5af
 //  case *tdapi.TextEntityTypeMediaTimestamp: // textEntityTypeMediaTimestamp#9236da10
 //  default: panic(v)
 //  }
@@ -2649,7 +2649,7 @@ func DecodeTextEntityType(buf *bin.Buffer) (TextEntityTypeClass, error) {
 		}
 		return &v, nil
 	case TextEntityTypeMentionNameTypeID:
-		// Decoding textEntityTypeMentionName#d0d2685d.
+		// Decoding textEntityTypeMentionName#a25cd5af.
 		v := TextEntityTypeMentionName{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
@@ -2787,7 +2787,7 @@ func DecodeTDLibJSONTextEntityType(buf tdjson.Decoder) (TextEntityTypeClass, err
 		}
 		return &v, nil
 	case "textEntityTypeMentionName":
-		// Decoding textEntityTypeMentionName#d0d2685d.
+		// Decoding textEntityTypeMentionName#a25cd5af.
 		v := TextEntityTypeMentionName{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)

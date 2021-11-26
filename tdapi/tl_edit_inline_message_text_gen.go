@@ -35,9 +35,9 @@ var (
 type EditInlineMessageTextRequest struct {
 	// Inline message identifier
 	InlineMessageID string
-	// The new message reply markup
+	// The new message reply markup; pass null if none
 	ReplyMarkup ReplyMarkupClass
-	// New text content of the message. Should be of type inputMessageText
+	// New text content of the message. Must be of type inputMessageText
 	InputMessageContent InputMessageContentClass
 }
 

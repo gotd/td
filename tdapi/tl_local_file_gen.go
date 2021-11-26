@@ -49,9 +49,10 @@ type LocalFile struct {
 	DownloadOffset int32
 	// If is_downloading_completed is false, then only some prefix of the file starting from
 	// download_offset is ready to be read. downloaded_prefix_size is the size of that prefix
+	// in bytes
 	DownloadedPrefixSize int32
-	// Total downloaded file bytes. Should be used only for calculating download progress.
-	// The actual file size may be bigger, and some parts of it may contain garbage
+	// Total downloaded file size, in bytes. Can be used only for calculating download
+	// progress. The actual file size may be bigger, and some parts of it may contain garbage
 	DownloadedSize int32
 }
 

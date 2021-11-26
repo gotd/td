@@ -37,9 +37,9 @@ type SearchChatMembersRequest struct {
 	ChatID int64
 	// Query to search for
 	Query string
-	// The maximum number of users to be returned
+	// The maximum number of users to be returned; up to 200
 	Limit int32
-	// The type of users to return. By default, chatMembersFilterMembers
+	// The type of users to search for; pass null to search among all chat members
 	Filter ChatMembersFilterClass
 }
 

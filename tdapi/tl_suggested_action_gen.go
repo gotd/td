@@ -547,14 +547,14 @@ func (s *SuggestedActionSeeTicksHint) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// SuggestedActionConvertToBroadcastGroup represents TL type `suggestedActionConvertToBroadcastGroup#95bb33b5`.
+// SuggestedActionConvertToBroadcastGroup represents TL type `suggestedActionConvertToBroadcastGroup#c67a2e38`.
 type SuggestedActionConvertToBroadcastGroup struct {
 	// Supergroup identifier
-	SupergroupID int32
+	SupergroupID int64
 }
 
 // SuggestedActionConvertToBroadcastGroupTypeID is TL type id of SuggestedActionConvertToBroadcastGroup.
-const SuggestedActionConvertToBroadcastGroupTypeID = 0x95bb33b5
+const SuggestedActionConvertToBroadcastGroupTypeID = 0xc67a2e38
 
 // construct implements constructor of SuggestedActionClass.
 func (s SuggestedActionConvertToBroadcastGroup) construct() SuggestedActionClass { return &s }
@@ -623,7 +623,7 @@ func (s *SuggestedActionConvertToBroadcastGroup) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SuggestedActionConvertToBroadcastGroup) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode suggestedActionConvertToBroadcastGroup#95bb33b5 as nil")
+		return fmt.Errorf("can't encode suggestedActionConvertToBroadcastGroup#c67a2e38 as nil")
 	}
 	b.PutID(SuggestedActionConvertToBroadcastGroupTypeID)
 	return s.EncodeBare(b)
@@ -632,19 +632,19 @@ func (s *SuggestedActionConvertToBroadcastGroup) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SuggestedActionConvertToBroadcastGroup) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode suggestedActionConvertToBroadcastGroup#95bb33b5 as nil")
+		return fmt.Errorf("can't encode suggestedActionConvertToBroadcastGroup#c67a2e38 as nil")
 	}
-	b.PutInt32(s.SupergroupID)
+	b.PutLong(s.SupergroupID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *SuggestedActionConvertToBroadcastGroup) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode suggestedActionConvertToBroadcastGroup#95bb33b5 to nil")
+		return fmt.Errorf("can't decode suggestedActionConvertToBroadcastGroup#c67a2e38 to nil")
 	}
 	if err := b.ConsumeID(SuggestedActionConvertToBroadcastGroupTypeID); err != nil {
-		return fmt.Errorf("unable to decode suggestedActionConvertToBroadcastGroup#95bb33b5: %w", err)
+		return fmt.Errorf("unable to decode suggestedActionConvertToBroadcastGroup#c67a2e38: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -652,12 +652,12 @@ func (s *SuggestedActionConvertToBroadcastGroup) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SuggestedActionConvertToBroadcastGroup) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode suggestedActionConvertToBroadcastGroup#95bb33b5 to nil")
+		return fmt.Errorf("can't decode suggestedActionConvertToBroadcastGroup#c67a2e38 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode suggestedActionConvertToBroadcastGroup#95bb33b5: field supergroup_id: %w", err)
+			return fmt.Errorf("unable to decode suggestedActionConvertToBroadcastGroup#c67a2e38: field supergroup_id: %w", err)
 		}
 		s.SupergroupID = value
 	}
@@ -667,12 +667,12 @@ func (s *SuggestedActionConvertToBroadcastGroup) DecodeBare(b *bin.Buffer) error
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SuggestedActionConvertToBroadcastGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode suggestedActionConvertToBroadcastGroup#95bb33b5 as nil")
+		return fmt.Errorf("can't encode suggestedActionConvertToBroadcastGroup#c67a2e38 as nil")
 	}
 	b.ObjStart()
 	b.PutID("suggestedActionConvertToBroadcastGroup")
 	b.FieldStart("supergroup_id")
-	b.PutInt32(s.SupergroupID)
+	b.PutLong(s.SupergroupID)
 	b.ObjEnd()
 	return nil
 }
@@ -680,19 +680,19 @@ func (s *SuggestedActionConvertToBroadcastGroup) EncodeTDLibJSON(b tdjson.Encode
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SuggestedActionConvertToBroadcastGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode suggestedActionConvertToBroadcastGroup#95bb33b5 to nil")
+		return fmt.Errorf("can't decode suggestedActionConvertToBroadcastGroup#c67a2e38 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("suggestedActionConvertToBroadcastGroup"); err != nil {
-				return fmt.Errorf("unable to decode suggestedActionConvertToBroadcastGroup#95bb33b5: %w", err)
+				return fmt.Errorf("unable to decode suggestedActionConvertToBroadcastGroup#c67a2e38: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode suggestedActionConvertToBroadcastGroup#95bb33b5: field supergroup_id: %w", err)
+				return fmt.Errorf("unable to decode suggestedActionConvertToBroadcastGroup#c67a2e38: field supergroup_id: %w", err)
 			}
 			s.SupergroupID = value
 		default:
@@ -703,7 +703,7 @@ func (s *SuggestedActionConvertToBroadcastGroup) DecodeTDLibJSON(b tdjson.Decode
 }
 
 // GetSupergroupID returns value of SupergroupID field.
-func (s *SuggestedActionConvertToBroadcastGroup) GetSupergroupID() (value int32) {
+func (s *SuggestedActionConvertToBroadcastGroup) GetSupergroupID() (value int64) {
 	return s.SupergroupID
 }
 
@@ -719,7 +719,7 @@ func (s *SuggestedActionConvertToBroadcastGroup) GetSupergroupID() (value int32)
 //  case *tdapi.SuggestedActionCheckPassword: // suggestedActionCheckPassword#71e072b7
 //  case *tdapi.SuggestedActionCheckPhoneNumber: // suggestedActionCheckPhoneNumber#26ab77eb
 //  case *tdapi.SuggestedActionSeeTicksHint: // suggestedActionSeeTicksHint#3f4ae062
-//  case *tdapi.SuggestedActionConvertToBroadcastGroup: // suggestedActionConvertToBroadcastGroup#95bb33b5
+//  case *tdapi.SuggestedActionConvertToBroadcastGroup: // suggestedActionConvertToBroadcastGroup#c67a2e38
 //  default: panic(v)
 //  }
 type SuggestedActionClass interface {
@@ -780,7 +780,7 @@ func DecodeSuggestedAction(buf *bin.Buffer) (SuggestedActionClass, error) {
 		}
 		return &v, nil
 	case SuggestedActionConvertToBroadcastGroupTypeID:
-		// Decoding suggestedActionConvertToBroadcastGroup#95bb33b5.
+		// Decoding suggestedActionConvertToBroadcastGroup#c67a2e38.
 		v := SuggestedActionConvertToBroadcastGroup{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
@@ -827,7 +827,7 @@ func DecodeTDLibJSONSuggestedAction(buf tdjson.Decoder) (SuggestedActionClass, e
 		}
 		return &v, nil
 	case "suggestedActionConvertToBroadcastGroup":
-		// Decoding suggestedActionConvertToBroadcastGroup#95bb33b5.
+		// Decoding suggestedActionConvertToBroadcastGroup#c67a2e38.
 		v := SuggestedActionConvertToBroadcastGroup{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)

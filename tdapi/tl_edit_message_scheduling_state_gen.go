@@ -37,7 +37,7 @@ type EditMessageSchedulingStateRequest struct {
 	ChatID int64
 	// Identifier of the message
 	MessageID int64
-	// The new message scheduling state. Pass null to send the message immediately
+	// The new message scheduling state; pass null to send the message immediately
 	SchedulingState MessageSchedulingStateClass
 }
 

@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatStatisticsInviterInfo represents TL type `chatStatisticsInviterInfo#e82fd75d`.
+// ChatStatisticsInviterInfo represents TL type `chatStatisticsInviterInfo#2583d48b`.
 type ChatStatisticsInviterInfo struct {
 	// User identifier
-	UserID int32
+	UserID int64
 	// Number of new members invited by the user
 	AddedMemberCount int32
 }
 
 // ChatStatisticsInviterInfoTypeID is TL type id of ChatStatisticsInviterInfo.
-const ChatStatisticsInviterInfoTypeID = 0xe82fd75d
+const ChatStatisticsInviterInfoTypeID = 0x2583d48b
 
 // Ensuring interfaces in compile-time for ChatStatisticsInviterInfo.
 var (
@@ -111,7 +111,7 @@ func (c *ChatStatisticsInviterInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatStatisticsInviterInfo) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatStatisticsInviterInfo#e82fd75d as nil")
+		return fmt.Errorf("can't encode chatStatisticsInviterInfo#2583d48b as nil")
 	}
 	b.PutID(ChatStatisticsInviterInfoTypeID)
 	return c.EncodeBare(b)
@@ -120,9 +120,9 @@ func (c *ChatStatisticsInviterInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatStatisticsInviterInfo) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatStatisticsInviterInfo#e82fd75d as nil")
+		return fmt.Errorf("can't encode chatStatisticsInviterInfo#2583d48b as nil")
 	}
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	b.PutInt32(c.AddedMemberCount)
 	return nil
 }
@@ -130,10 +130,10 @@ func (c *ChatStatisticsInviterInfo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatStatisticsInviterInfo) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatStatisticsInviterInfo#e82fd75d to nil")
+		return fmt.Errorf("can't decode chatStatisticsInviterInfo#2583d48b to nil")
 	}
 	if err := b.ConsumeID(ChatStatisticsInviterInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatStatisticsInviterInfo#e82fd75d: %w", err)
+		return fmt.Errorf("unable to decode chatStatisticsInviterInfo#2583d48b: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -141,19 +141,19 @@ func (c *ChatStatisticsInviterInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatStatisticsInviterInfo) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatStatisticsInviterInfo#e82fd75d to nil")
+		return fmt.Errorf("can't decode chatStatisticsInviterInfo#2583d48b to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsInviterInfo#e82fd75d: field user_id: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsInviterInfo#2583d48b: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsInviterInfo#e82fd75d: field added_member_count: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsInviterInfo#2583d48b: field added_member_count: %w", err)
 		}
 		c.AddedMemberCount = value
 	}
@@ -163,12 +163,12 @@ func (c *ChatStatisticsInviterInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatStatisticsInviterInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatStatisticsInviterInfo#e82fd75d as nil")
+		return fmt.Errorf("can't encode chatStatisticsInviterInfo#2583d48b as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatStatisticsInviterInfo")
 	b.FieldStart("user_id")
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	b.FieldStart("added_member_count")
 	b.PutInt32(c.AddedMemberCount)
 	b.ObjEnd()
@@ -178,25 +178,25 @@ func (c *ChatStatisticsInviterInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatStatisticsInviterInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatStatisticsInviterInfo#e82fd75d to nil")
+		return fmt.Errorf("can't decode chatStatisticsInviterInfo#2583d48b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatStatisticsInviterInfo"); err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsInviterInfo#e82fd75d: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsInviterInfo#2583d48b: %w", err)
 			}
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsInviterInfo#e82fd75d: field user_id: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsInviterInfo#2583d48b: field user_id: %w", err)
 			}
 			c.UserID = value
 		case "added_member_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsInviterInfo#e82fd75d: field added_member_count: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsInviterInfo#2583d48b: field added_member_count: %w", err)
 			}
 			c.AddedMemberCount = value
 		default:
@@ -207,7 +207,7 @@ func (c *ChatStatisticsInviterInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserID returns value of UserID field.
-func (c *ChatStatisticsInviterInfo) GetUserID() (value int32) {
+func (c *ChatStatisticsInviterInfo) GetUserID() (value int64) {
 	return c.UserID
 }
 

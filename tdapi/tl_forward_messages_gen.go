@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ForwardMessagesRequest represents TL type `forwardMessages#1842041f`.
+// ForwardMessagesRequest represents TL type `forwardMessages#e68eedda`.
 type ForwardMessagesRequest struct {
 	// Identifier of the chat to which to forward messages
 	ChatID int64
@@ -40,18 +40,20 @@ type ForwardMessagesRequest struct {
 	// Identifiers of the messages to forward. Message identifiers must be in a strictly
 	// increasing order. At most 100 messages can be forwarded simultaneously
 	MessageIDs []int64
-	// Options to be used to send the messages
+	// Options to be used to send the messages; pass null to use default options
 	Options MessageSendOptions
-	// True, if content of the messages needs to be copied without links to the original
-	// messages. Always true if the messages are forwarded to a secret chat
+	// If true, content of the messages will be copied without reference to the original
+	// sender. Always true if the messages are forwarded to a secret chat or are local
 	SendCopy bool
-	// True, if media caption of message copies needs to be removed. Ignored if send_copy is
+	// If true, media caption of message copies will be removed. Ignored if send_copy is
 	// false
 	RemoveCaption bool
+	// If true, messages will not be forwarded and instead fake messages will be returned
+	OnlyPreview bool
 }
 
 // ForwardMessagesRequestTypeID is TL type id of ForwardMessagesRequest.
-const ForwardMessagesRequestTypeID = 0x1842041f
+const ForwardMessagesRequestTypeID = 0xe68eedda
 
 // Ensuring interfaces in compile-time for ForwardMessagesRequest.
 var (
@@ -81,6 +83,9 @@ func (f *ForwardMessagesRequest) Zero() bool {
 		return false
 	}
 	if !(f.RemoveCaption == false) {
+		return false
+	}
+	if !(f.OnlyPreview == false) {
 		return false
 	}
 
@@ -143,6 +148,10 @@ func (f *ForwardMessagesRequest) TypeInfo() tdp.Type {
 			Name:       "RemoveCaption",
 			SchemaName: "remove_caption",
 		},
+		{
+			Name:       "OnlyPreview",
+			SchemaName: "only_preview",
+		},
 	}
 	return typ
 }
@@ -150,7 +159,7 @@ func (f *ForwardMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *ForwardMessagesRequest) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode forwardMessages#1842041f as nil")
+		return fmt.Errorf("can't encode forwardMessages#e68eedda as nil")
 	}
 	b.PutID(ForwardMessagesRequestTypeID)
 	return f.EncodeBare(b)
@@ -159,7 +168,7 @@ func (f *ForwardMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *ForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode forwardMessages#1842041f as nil")
+		return fmt.Errorf("can't encode forwardMessages#e68eedda as nil")
 	}
 	b.PutLong(f.ChatID)
 	b.PutLong(f.FromChatID)
@@ -168,20 +177,21 @@ func (f *ForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutLong(v)
 	}
 	if err := f.Options.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode forwardMessages#1842041f: field options: %w", err)
+		return fmt.Errorf("unable to encode forwardMessages#e68eedda: field options: %w", err)
 	}
 	b.PutBool(f.SendCopy)
 	b.PutBool(f.RemoveCaption)
+	b.PutBool(f.OnlyPreview)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (f *ForwardMessagesRequest) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode forwardMessages#1842041f to nil")
+		return fmt.Errorf("can't decode forwardMessages#e68eedda to nil")
 	}
 	if err := b.ConsumeID(ForwardMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode forwardMessages#1842041f: %w", err)
+		return fmt.Errorf("unable to decode forwardMessages#e68eedda: %w", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -189,26 +199,26 @@ func (f *ForwardMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *ForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode forwardMessages#1842041f to nil")
+		return fmt.Errorf("can't decode forwardMessages#e68eedda to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode forwardMessages#1842041f: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode forwardMessages#e68eedda: field chat_id: %w", err)
 		}
 		f.ChatID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode forwardMessages#1842041f: field from_chat_id: %w", err)
+			return fmt.Errorf("unable to decode forwardMessages#e68eedda: field from_chat_id: %w", err)
 		}
 		f.FromChatID = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode forwardMessages#1842041f: field message_ids: %w", err)
+			return fmt.Errorf("unable to decode forwardMessages#e68eedda: field message_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -217,29 +227,36 @@ func (f *ForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode forwardMessages#1842041f: field message_ids: %w", err)
+				return fmt.Errorf("unable to decode forwardMessages#e68eedda: field message_ids: %w", err)
 			}
 			f.MessageIDs = append(f.MessageIDs, value)
 		}
 	}
 	{
 		if err := f.Options.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode forwardMessages#1842041f: field options: %w", err)
+			return fmt.Errorf("unable to decode forwardMessages#e68eedda: field options: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode forwardMessages#1842041f: field send_copy: %w", err)
+			return fmt.Errorf("unable to decode forwardMessages#e68eedda: field send_copy: %w", err)
 		}
 		f.SendCopy = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode forwardMessages#1842041f: field remove_caption: %w", err)
+			return fmt.Errorf("unable to decode forwardMessages#e68eedda: field remove_caption: %w", err)
 		}
 		f.RemoveCaption = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode forwardMessages#e68eedda: field only_preview: %w", err)
+		}
+		f.OnlyPreview = value
 	}
 	return nil
 }
@@ -247,7 +264,7 @@ func (f *ForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (f *ForwardMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if f == nil {
-		return fmt.Errorf("can't encode forwardMessages#1842041f as nil")
+		return fmt.Errorf("can't encode forwardMessages#e68eedda as nil")
 	}
 	b.ObjStart()
 	b.PutID("forwardMessages")
@@ -263,12 +280,14 @@ func (f *ForwardMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrEnd()
 	b.FieldStart("options")
 	if err := f.Options.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode forwardMessages#1842041f: field options: %w", err)
+		return fmt.Errorf("unable to encode forwardMessages#e68eedda: field options: %w", err)
 	}
 	b.FieldStart("send_copy")
 	b.PutBool(f.SendCopy)
 	b.FieldStart("remove_caption")
 	b.PutBool(f.RemoveCaption)
+	b.FieldStart("only_preview")
+	b.PutBool(f.OnlyPreview)
 	b.ObjEnd()
 	return nil
 }
@@ -276,54 +295,60 @@ func (f *ForwardMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (f *ForwardMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if f == nil {
-		return fmt.Errorf("can't decode forwardMessages#1842041f to nil")
+		return fmt.Errorf("can't decode forwardMessages#e68eedda to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("forwardMessages"); err != nil {
-				return fmt.Errorf("unable to decode forwardMessages#1842041f: %w", err)
+				return fmt.Errorf("unable to decode forwardMessages#e68eedda: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode forwardMessages#1842041f: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode forwardMessages#e68eedda: field chat_id: %w", err)
 			}
 			f.ChatID = value
 		case "from_chat_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode forwardMessages#1842041f: field from_chat_id: %w", err)
+				return fmt.Errorf("unable to decode forwardMessages#e68eedda: field from_chat_id: %w", err)
 			}
 			f.FromChatID = value
 		case "message_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode forwardMessages#1842041f: field message_ids: %w", err)
+					return fmt.Errorf("unable to decode forwardMessages#e68eedda: field message_ids: %w", err)
 				}
 				f.MessageIDs = append(f.MessageIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode forwardMessages#1842041f: field message_ids: %w", err)
+				return fmt.Errorf("unable to decode forwardMessages#e68eedda: field message_ids: %w", err)
 			}
 		case "options":
 			if err := f.Options.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode forwardMessages#1842041f: field options: %w", err)
+				return fmt.Errorf("unable to decode forwardMessages#e68eedda: field options: %w", err)
 			}
 		case "send_copy":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode forwardMessages#1842041f: field send_copy: %w", err)
+				return fmt.Errorf("unable to decode forwardMessages#e68eedda: field send_copy: %w", err)
 			}
 			f.SendCopy = value
 		case "remove_caption":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode forwardMessages#1842041f: field remove_caption: %w", err)
+				return fmt.Errorf("unable to decode forwardMessages#e68eedda: field remove_caption: %w", err)
 			}
 			f.RemoveCaption = value
+		case "only_preview":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode forwardMessages#e68eedda: field only_preview: %w", err)
+			}
+			f.OnlyPreview = value
 		default:
 			return b.Skip()
 		}
@@ -361,7 +386,12 @@ func (f *ForwardMessagesRequest) GetRemoveCaption() (value bool) {
 	return f.RemoveCaption
 }
 
-// ForwardMessages invokes method forwardMessages#1842041f returning error if any.
+// GetOnlyPreview returns value of OnlyPreview field.
+func (f *ForwardMessagesRequest) GetOnlyPreview() (value bool) {
+	return f.OnlyPreview
+}
+
+// ForwardMessages invokes method forwardMessages#e68eedda returning error if any.
 func (c *Client) ForwardMessages(ctx context.Context, request *ForwardMessagesRequest) (*Messages, error) {
 	var result Messages
 
