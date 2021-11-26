@@ -38,7 +38,7 @@ func FuzzDecodeEncodeDecode(f *testing.F) {
 		}
 		input.Reset()
 
-		a.NoError(fileID.encodeLatestFileID(&input))
+		fileID.encodeLatestFileID(&input)
 
 		var decoded FileID
 		a.NoError(decoded.decodeLatestFileID(&input))
