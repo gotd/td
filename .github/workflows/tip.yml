@@ -12,15 +12,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Remove existing go installation from Actions runner
+      - name: cleanup
         run: |
           sudo rm -fr /opt/hostedtoolcache/go /usr/local/go /usr/bin/go /bin/go
-      - name: Install latest golang-tip on Actions runner
+      - name: install
         run: |
           curl -o go.tar.gz -L \
             https://github.com/AlekSi/golang-tip/releases/download/tip/master.linux-amd64.tar.gz
           sudo tar -C /usr/local -xzf go.tar.gz
           sudo ln -s /usr/local/go/bin/* /usr/local/bin/
       - uses: actions/checkout@v2
-      - name: run tests
+      - name: test
         run: go test ./...
