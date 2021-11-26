@@ -33,7 +33,7 @@ var (
 
 // NetworkStatisticsEntryFile represents TL type `networkStatisticsEntryFile#b3b8f62`.
 type NetworkStatisticsEntryFile struct {
-	// Type of the file the data is part of
+	// Type of the file the data is part of; pass null if the data isn't related to files
 	FileType FileTypeClass
 	// Type of the network the data was sent through. Call setNetworkType to maintain the
 	// actual network type

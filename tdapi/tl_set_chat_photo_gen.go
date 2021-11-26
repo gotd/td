@@ -35,7 +35,7 @@ var (
 type SetChatPhotoRequest struct {
 	// Chat identifier
 	ChatID int64
-	// New chat photo. Pass null to delete the chat photo
+	// New chat photo; pass null to delete the chat photo
 	Photo InputChatPhotoClass
 }
 

@@ -31,15 +31,15 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SharePhoneNumberRequest represents TL type `sharePhoneNumber#e9e806ca`.
+// SharePhoneNumberRequest represents TL type `sharePhoneNumber#4164e055`.
 type SharePhoneNumberRequest struct {
 	// Identifier of the user with whom to share the phone number. The user must be a mutual
 	// contact
-	UserID int32
+	UserID int64
 }
 
 // SharePhoneNumberRequestTypeID is TL type id of SharePhoneNumberRequest.
-const SharePhoneNumberRequestTypeID = 0xe9e806ca
+const SharePhoneNumberRequestTypeID = 0x4164e055
 
 // Ensuring interfaces in compile-time for SharePhoneNumberRequest.
 var (
@@ -103,7 +103,7 @@ func (s *SharePhoneNumberRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SharePhoneNumberRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sharePhoneNumber#e9e806ca as nil")
+		return fmt.Errorf("can't encode sharePhoneNumber#4164e055 as nil")
 	}
 	b.PutID(SharePhoneNumberRequestTypeID)
 	return s.EncodeBare(b)
@@ -112,19 +112,19 @@ func (s *SharePhoneNumberRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SharePhoneNumberRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sharePhoneNumber#e9e806ca as nil")
+		return fmt.Errorf("can't encode sharePhoneNumber#4164e055 as nil")
 	}
-	b.PutInt32(s.UserID)
+	b.PutLong(s.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *SharePhoneNumberRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sharePhoneNumber#e9e806ca to nil")
+		return fmt.Errorf("can't decode sharePhoneNumber#4164e055 to nil")
 	}
 	if err := b.ConsumeID(SharePhoneNumberRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sharePhoneNumber#e9e806ca: %w", err)
+		return fmt.Errorf("unable to decode sharePhoneNumber#4164e055: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -132,12 +132,12 @@ func (s *SharePhoneNumberRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SharePhoneNumberRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sharePhoneNumber#e9e806ca to nil")
+		return fmt.Errorf("can't decode sharePhoneNumber#4164e055 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode sharePhoneNumber#e9e806ca: field user_id: %w", err)
+			return fmt.Errorf("unable to decode sharePhoneNumber#4164e055: field user_id: %w", err)
 		}
 		s.UserID = value
 	}
@@ -147,12 +147,12 @@ func (s *SharePhoneNumberRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SharePhoneNumberRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sharePhoneNumber#e9e806ca as nil")
+		return fmt.Errorf("can't encode sharePhoneNumber#4164e055 as nil")
 	}
 	b.ObjStart()
 	b.PutID("sharePhoneNumber")
 	b.FieldStart("user_id")
-	b.PutInt32(s.UserID)
+	b.PutLong(s.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -160,19 +160,19 @@ func (s *SharePhoneNumberRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SharePhoneNumberRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sharePhoneNumber#e9e806ca to nil")
+		return fmt.Errorf("can't decode sharePhoneNumber#4164e055 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sharePhoneNumber"); err != nil {
-				return fmt.Errorf("unable to decode sharePhoneNumber#e9e806ca: %w", err)
+				return fmt.Errorf("unable to decode sharePhoneNumber#4164e055: %w", err)
 			}
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode sharePhoneNumber#e9e806ca: field user_id: %w", err)
+				return fmt.Errorf("unable to decode sharePhoneNumber#4164e055: field user_id: %w", err)
 			}
 			s.UserID = value
 		default:
@@ -183,12 +183,12 @@ func (s *SharePhoneNumberRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserID returns value of UserID field.
-func (s *SharePhoneNumberRequest) GetUserID() (value int32) {
+func (s *SharePhoneNumberRequest) GetUserID() (value int64) {
 	return s.UserID
 }
 
-// SharePhoneNumber invokes method sharePhoneNumber#e9e806ca returning error if any.
-func (c *Client) SharePhoneNumber(ctx context.Context, userid int32) error {
+// SharePhoneNumber invokes method sharePhoneNumber#4164e055 returning error if any.
+func (c *Client) SharePhoneNumber(ctx context.Context, userid int64) error {
 	var ok Ok
 
 	request := &SharePhoneNumberRequest{

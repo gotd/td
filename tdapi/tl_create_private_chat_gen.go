@@ -31,17 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// CreatePrivateChatRequest represents TL type `createPrivateChat#94434684`.
+// CreatePrivateChatRequest represents TL type `createPrivateChat#c7825b09`.
 type CreatePrivateChatRequest struct {
 	// User identifier
-	UserID int32
+	UserID int64
 	// If true, the chat will be created without network request. In this case all
 	// information about the chat except its type, title and photo can be incorrect
 	Force bool
 }
 
 // CreatePrivateChatRequestTypeID is TL type id of CreatePrivateChatRequest.
-const CreatePrivateChatRequestTypeID = 0x94434684
+const CreatePrivateChatRequestTypeID = 0xc7825b09
 
 // Ensuring interfaces in compile-time for CreatePrivateChatRequest.
 var (
@@ -112,7 +112,7 @@ func (c *CreatePrivateChatRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CreatePrivateChatRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createPrivateChat#94434684 as nil")
+		return fmt.Errorf("can't encode createPrivateChat#c7825b09 as nil")
 	}
 	b.PutID(CreatePrivateChatRequestTypeID)
 	return c.EncodeBare(b)
@@ -121,9 +121,9 @@ func (c *CreatePrivateChatRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CreatePrivateChatRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createPrivateChat#94434684 as nil")
+		return fmt.Errorf("can't encode createPrivateChat#c7825b09 as nil")
 	}
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	b.PutBool(c.Force)
 	return nil
 }
@@ -131,10 +131,10 @@ func (c *CreatePrivateChatRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *CreatePrivateChatRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createPrivateChat#94434684 to nil")
+		return fmt.Errorf("can't decode createPrivateChat#c7825b09 to nil")
 	}
 	if err := b.ConsumeID(CreatePrivateChatRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode createPrivateChat#94434684: %w", err)
+		return fmt.Errorf("unable to decode createPrivateChat#c7825b09: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -142,19 +142,19 @@ func (c *CreatePrivateChatRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CreatePrivateChatRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createPrivateChat#94434684 to nil")
+		return fmt.Errorf("can't decode createPrivateChat#c7825b09 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode createPrivateChat#94434684: field user_id: %w", err)
+			return fmt.Errorf("unable to decode createPrivateChat#c7825b09: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode createPrivateChat#94434684: field force: %w", err)
+			return fmt.Errorf("unable to decode createPrivateChat#c7825b09: field force: %w", err)
 		}
 		c.Force = value
 	}
@@ -164,12 +164,12 @@ func (c *CreatePrivateChatRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *CreatePrivateChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createPrivateChat#94434684 as nil")
+		return fmt.Errorf("can't encode createPrivateChat#c7825b09 as nil")
 	}
 	b.ObjStart()
 	b.PutID("createPrivateChat")
 	b.FieldStart("user_id")
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	b.FieldStart("force")
 	b.PutBool(c.Force)
 	b.ObjEnd()
@@ -179,25 +179,25 @@ func (c *CreatePrivateChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *CreatePrivateChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createPrivateChat#94434684 to nil")
+		return fmt.Errorf("can't decode createPrivateChat#c7825b09 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("createPrivateChat"); err != nil {
-				return fmt.Errorf("unable to decode createPrivateChat#94434684: %w", err)
+				return fmt.Errorf("unable to decode createPrivateChat#c7825b09: %w", err)
 			}
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode createPrivateChat#94434684: field user_id: %w", err)
+				return fmt.Errorf("unable to decode createPrivateChat#c7825b09: field user_id: %w", err)
 			}
 			c.UserID = value
 		case "force":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode createPrivateChat#94434684: field force: %w", err)
+				return fmt.Errorf("unable to decode createPrivateChat#c7825b09: field force: %w", err)
 			}
 			c.Force = value
 		default:
@@ -208,7 +208,7 @@ func (c *CreatePrivateChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserID returns value of UserID field.
-func (c *CreatePrivateChatRequest) GetUserID() (value int32) {
+func (c *CreatePrivateChatRequest) GetUserID() (value int64) {
 	return c.UserID
 }
 
@@ -217,7 +217,7 @@ func (c *CreatePrivateChatRequest) GetForce() (value bool) {
 	return c.Force
 }
 
-// CreatePrivateChat invokes method createPrivateChat#94434684 returning error if any.
+// CreatePrivateChat invokes method createPrivateChat#c7825b09 returning error if any.
 func (c *Client) CreatePrivateChat(ctx context.Context, request *CreatePrivateChatRequest) (*Chat, error) {
 	var result Chat
 

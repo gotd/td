@@ -35,11 +35,11 @@ var (
 type AutoDownloadSettings struct {
 	// True, if the auto-download is enabled
 	IsAutoDownloadEnabled bool
-	// The maximum size of a photo file to be auto-downloaded
+	// The maximum size of a photo file to be auto-downloaded, in bytes
 	MaxPhotoFileSize int32
-	// The maximum size of a video file to be auto-downloaded
+	// The maximum size of a video file to be auto-downloaded, in bytes
 	MaxVideoFileSize int32
-	// The maximum size of other file types to be auto-downloaded
+	// The maximum size of other file types to be auto-downloaded, in bytes
 	MaxOtherFileSize int32
 	// The maximum suggested bitrate for uploaded videos, in kbit/s
 	VideoUploadBitrate int32

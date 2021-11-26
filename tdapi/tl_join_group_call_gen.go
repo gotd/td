@@ -35,8 +35,8 @@ var (
 type JoinGroupCallRequest struct {
 	// Group call identifier
 	GroupCallID int32
-	// Identifier of a group call participant, which will be used to join the call; voice
-	// chats only
+	// Identifier of a group call participant, which will be used to join the call; pass null
+	// to join as self; video chats only
 	ParticipantID MessageSenderClass
 	// Caller audio channel synchronization source identifier; received from tgcalls
 	AudioSourceID int32

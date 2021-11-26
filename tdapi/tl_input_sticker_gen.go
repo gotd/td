@@ -37,7 +37,7 @@ type InputStickerStatic struct {
 	Sticker InputFileClass
 	// Emojis corresponding to the sticker
 	Emojis string
-	// For masks, position where the mask should be placed; may be null
+	// For masks, position where the mask is placed; pass null if unspecified
 	MaskPosition MaskPosition
 }
 

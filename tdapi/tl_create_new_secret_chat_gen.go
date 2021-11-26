@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// CreateNewSecretChatRequest represents TL type `createNewSecretChat#64b15b71`.
+// CreateNewSecretChatRequest represents TL type `createNewSecretChat#db012265`.
 type CreateNewSecretChatRequest struct {
 	// Identifier of the target user
-	UserID int32
+	UserID int64
 }
 
 // CreateNewSecretChatRequestTypeID is TL type id of CreateNewSecretChatRequest.
-const CreateNewSecretChatRequestTypeID = 0x64b15b71
+const CreateNewSecretChatRequestTypeID = 0xdb012265
 
 // Ensuring interfaces in compile-time for CreateNewSecretChatRequest.
 var (
@@ -102,7 +102,7 @@ func (c *CreateNewSecretChatRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CreateNewSecretChatRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createNewSecretChat#64b15b71 as nil")
+		return fmt.Errorf("can't encode createNewSecretChat#db012265 as nil")
 	}
 	b.PutID(CreateNewSecretChatRequestTypeID)
 	return c.EncodeBare(b)
@@ -111,19 +111,19 @@ func (c *CreateNewSecretChatRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CreateNewSecretChatRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createNewSecretChat#64b15b71 as nil")
+		return fmt.Errorf("can't encode createNewSecretChat#db012265 as nil")
 	}
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *CreateNewSecretChatRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createNewSecretChat#64b15b71 to nil")
+		return fmt.Errorf("can't decode createNewSecretChat#db012265 to nil")
 	}
 	if err := b.ConsumeID(CreateNewSecretChatRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode createNewSecretChat#64b15b71: %w", err)
+		return fmt.Errorf("unable to decode createNewSecretChat#db012265: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -131,12 +131,12 @@ func (c *CreateNewSecretChatRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CreateNewSecretChatRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createNewSecretChat#64b15b71 to nil")
+		return fmt.Errorf("can't decode createNewSecretChat#db012265 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode createNewSecretChat#64b15b71: field user_id: %w", err)
+			return fmt.Errorf("unable to decode createNewSecretChat#db012265: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
@@ -146,12 +146,12 @@ func (c *CreateNewSecretChatRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *CreateNewSecretChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createNewSecretChat#64b15b71 as nil")
+		return fmt.Errorf("can't encode createNewSecretChat#db012265 as nil")
 	}
 	b.ObjStart()
 	b.PutID("createNewSecretChat")
 	b.FieldStart("user_id")
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -159,19 +159,19 @@ func (c *CreateNewSecretChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *CreateNewSecretChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createNewSecretChat#64b15b71 to nil")
+		return fmt.Errorf("can't decode createNewSecretChat#db012265 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("createNewSecretChat"); err != nil {
-				return fmt.Errorf("unable to decode createNewSecretChat#64b15b71: %w", err)
+				return fmt.Errorf("unable to decode createNewSecretChat#db012265: %w", err)
 			}
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode createNewSecretChat#64b15b71: field user_id: %w", err)
+				return fmt.Errorf("unable to decode createNewSecretChat#db012265: field user_id: %w", err)
 			}
 			c.UserID = value
 		default:
@@ -182,12 +182,12 @@ func (c *CreateNewSecretChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserID returns value of UserID field.
-func (c *CreateNewSecretChatRequest) GetUserID() (value int32) {
+func (c *CreateNewSecretChatRequest) GetUserID() (value int64) {
 	return c.UserID
 }
 
-// CreateNewSecretChat invokes method createNewSecretChat#64b15b71 returning error if any.
-func (c *Client) CreateNewSecretChat(ctx context.Context, userid int32) (*Chat, error) {
+// CreateNewSecretChat invokes method createNewSecretChat#db012265 returning error if any.
+func (c *Client) CreateNewSecretChat(ctx context.Context, userid int64) (*Chat, error) {
 	var result Chat
 
 	request := &CreateNewSecretChatRequest{

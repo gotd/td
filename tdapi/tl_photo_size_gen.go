@@ -42,7 +42,7 @@ type PhotoSize struct {
 	// Image height
 	Height int32
 	// Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the
-	// image
+	// image; in bytes
 	ProgressiveSizes []int32
 }
 

@@ -35,7 +35,7 @@ var (
 type DeviceTokenFirebaseCloudMessaging struct {
 	// Device registration token; may be empty to de-register a device
 	Token string
-	// True, if push notifications should be additionally encrypted
+	// True, if push notifications must be additionally encrypted
 	Encrypt bool
 }
 
@@ -417,7 +417,7 @@ type DeviceTokenApplePushVoIP struct {
 	DeviceToken string
 	// True, if App Sandbox is enabled
 	IsAppSandbox bool
-	// True, if push notifications should be additionally encrypted
+	// True, if push notifications must be additionally encrypted
 	Encrypt bool
 }
 

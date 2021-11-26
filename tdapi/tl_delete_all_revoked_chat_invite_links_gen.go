@@ -31,17 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// DeleteAllRevokedChatInviteLinksRequest represents TL type `deleteAllRevokedChatInviteLinks#eac4f045`.
+// DeleteAllRevokedChatInviteLinksRequest represents TL type `deleteAllRevokedChatInviteLinks#424816da`.
 type DeleteAllRevokedChatInviteLinksRequest struct {
 	// Chat identifier
 	ChatID int64
 	// User identifier of a chat administrator, which links will be deleted. Must be an
 	// identifier of the current user for non-owner
-	CreatorUserID int32
+	CreatorUserID int64
 }
 
 // DeleteAllRevokedChatInviteLinksRequestTypeID is TL type id of DeleteAllRevokedChatInviteLinksRequest.
-const DeleteAllRevokedChatInviteLinksRequestTypeID = 0xeac4f045
+const DeleteAllRevokedChatInviteLinksRequestTypeID = 0x424816da
 
 // Ensuring interfaces in compile-time for DeleteAllRevokedChatInviteLinksRequest.
 var (
@@ -112,7 +112,7 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DeleteAllRevokedChatInviteLinksRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteAllRevokedChatInviteLinks#eac4f045 as nil")
+		return fmt.Errorf("can't encode deleteAllRevokedChatInviteLinks#424816da as nil")
 	}
 	b.PutID(DeleteAllRevokedChatInviteLinksRequestTypeID)
 	return d.EncodeBare(b)
@@ -121,20 +121,20 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DeleteAllRevokedChatInviteLinksRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteAllRevokedChatInviteLinks#eac4f045 as nil")
+		return fmt.Errorf("can't encode deleteAllRevokedChatInviteLinks#424816da as nil")
 	}
 	b.PutLong(d.ChatID)
-	b.PutInt32(d.CreatorUserID)
+	b.PutLong(d.CreatorUserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (d *DeleteAllRevokedChatInviteLinksRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteAllRevokedChatInviteLinks#eac4f045 to nil")
+		return fmt.Errorf("can't decode deleteAllRevokedChatInviteLinks#424816da to nil")
 	}
 	if err := b.ConsumeID(DeleteAllRevokedChatInviteLinksRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#eac4f045: %w", err)
+		return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#424816da: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -142,19 +142,19 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DeleteAllRevokedChatInviteLinksRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteAllRevokedChatInviteLinks#eac4f045 to nil")
+		return fmt.Errorf("can't decode deleteAllRevokedChatInviteLinks#424816da to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#eac4f045: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#424816da: field chat_id: %w", err)
 		}
 		d.ChatID = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#eac4f045: field creator_user_id: %w", err)
+			return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#424816da: field creator_user_id: %w", err)
 		}
 		d.CreatorUserID = value
 	}
@@ -164,14 +164,14 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) DecodeBare(b *bin.Buffer) error
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (d *DeleteAllRevokedChatInviteLinksRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteAllRevokedChatInviteLinks#eac4f045 as nil")
+		return fmt.Errorf("can't encode deleteAllRevokedChatInviteLinks#424816da as nil")
 	}
 	b.ObjStart()
 	b.PutID("deleteAllRevokedChatInviteLinks")
 	b.FieldStart("chat_id")
 	b.PutLong(d.ChatID)
 	b.FieldStart("creator_user_id")
-	b.PutInt32(d.CreatorUserID)
+	b.PutLong(d.CreatorUserID)
 	b.ObjEnd()
 	return nil
 }
@@ -179,25 +179,25 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) EncodeTDLibJSON(b tdjson.Encode
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (d *DeleteAllRevokedChatInviteLinksRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteAllRevokedChatInviteLinks#eac4f045 to nil")
+		return fmt.Errorf("can't decode deleteAllRevokedChatInviteLinks#424816da to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("deleteAllRevokedChatInviteLinks"); err != nil {
-				return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#eac4f045: %w", err)
+				return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#424816da: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#eac4f045: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#424816da: field chat_id: %w", err)
 			}
 			d.ChatID = value
 		case "creator_user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#eac4f045: field creator_user_id: %w", err)
+				return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#424816da: field creator_user_id: %w", err)
 			}
 			d.CreatorUserID = value
 		default:
@@ -213,11 +213,11 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) GetChatID() (value int64) {
 }
 
 // GetCreatorUserID returns value of CreatorUserID field.
-func (d *DeleteAllRevokedChatInviteLinksRequest) GetCreatorUserID() (value int32) {
+func (d *DeleteAllRevokedChatInviteLinksRequest) GetCreatorUserID() (value int64) {
 	return d.CreatorUserID
 }
 
-// DeleteAllRevokedChatInviteLinks invokes method deleteAllRevokedChatInviteLinks#eac4f045 returning error if any.
+// DeleteAllRevokedChatInviteLinks invokes method deleteAllRevokedChatInviteLinks#424816da returning error if any.
 func (c *Client) DeleteAllRevokedChatInviteLinks(ctx context.Context, request *DeleteAllRevokedChatInviteLinksRequest) error {
 	var ok Ok
 

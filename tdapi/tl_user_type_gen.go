@@ -301,7 +301,8 @@ type UserTypeBot struct {
 	IsInline bool
 	// Placeholder for inline queries (displayed on the application input field)
 	InlineQueryPlaceholder string
-	// True, if the location of the user should be sent with every inline query to this bot
+	// True, if the location of the user is expected to be sent with every inline query to
+	// this bot
 	NeedLocation bool
 }
 

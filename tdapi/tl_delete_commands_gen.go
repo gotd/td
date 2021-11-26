@@ -33,7 +33,8 @@ var (
 
 // DeleteCommandsRequest represents TL type `deleteCommands#3bc47c2a`.
 type DeleteCommandsRequest struct {
-	// The scope to which the commands are relevant
+	// The scope to which the commands are relevant; pass null to delete commands in the
+	// default bot command scope
 	Scope BotCommandScopeClass
 	// A two-letter ISO 639-1 country code or an empty string
 	LanguageCode string

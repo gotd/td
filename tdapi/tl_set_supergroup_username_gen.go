@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SetSupergroupUsernameRequest represents TL type `setSupergroupUsername#aadd5dbe`.
+// SetSupergroupUsernameRequest represents TL type `setSupergroupUsername#503f4b04`.
 type SetSupergroupUsernameRequest struct {
 	// Identifier of the supergroup or channel
-	SupergroupID int32
+	SupergroupID int64
 	// New value of the username. Use an empty string to remove the username
 	Username string
 }
 
 // SetSupergroupUsernameRequestTypeID is TL type id of SetSupergroupUsernameRequest.
-const SetSupergroupUsernameRequestTypeID = 0xaadd5dbe
+const SetSupergroupUsernameRequestTypeID = 0x503f4b04
 
 // Ensuring interfaces in compile-time for SetSupergroupUsernameRequest.
 var (
@@ -111,7 +111,7 @@ func (s *SetSupergroupUsernameRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SetSupergroupUsernameRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setSupergroupUsername#aadd5dbe as nil")
+		return fmt.Errorf("can't encode setSupergroupUsername#503f4b04 as nil")
 	}
 	b.PutID(SetSupergroupUsernameRequestTypeID)
 	return s.EncodeBare(b)
@@ -120,9 +120,9 @@ func (s *SetSupergroupUsernameRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SetSupergroupUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setSupergroupUsername#aadd5dbe as nil")
+		return fmt.Errorf("can't encode setSupergroupUsername#503f4b04 as nil")
 	}
-	b.PutInt32(s.SupergroupID)
+	b.PutLong(s.SupergroupID)
 	b.PutString(s.Username)
 	return nil
 }
@@ -130,10 +130,10 @@ func (s *SetSupergroupUsernameRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SetSupergroupUsernameRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setSupergroupUsername#aadd5dbe to nil")
+		return fmt.Errorf("can't decode setSupergroupUsername#503f4b04 to nil")
 	}
 	if err := b.ConsumeID(SetSupergroupUsernameRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode setSupergroupUsername#aadd5dbe: %w", err)
+		return fmt.Errorf("unable to decode setSupergroupUsername#503f4b04: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -141,19 +141,19 @@ func (s *SetSupergroupUsernameRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SetSupergroupUsernameRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setSupergroupUsername#aadd5dbe to nil")
+		return fmt.Errorf("can't decode setSupergroupUsername#503f4b04 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode setSupergroupUsername#aadd5dbe: field supergroup_id: %w", err)
+			return fmt.Errorf("unable to decode setSupergroupUsername#503f4b04: field supergroup_id: %w", err)
 		}
 		s.SupergroupID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode setSupergroupUsername#aadd5dbe: field username: %w", err)
+			return fmt.Errorf("unable to decode setSupergroupUsername#503f4b04: field username: %w", err)
 		}
 		s.Username = value
 	}
@@ -163,12 +163,12 @@ func (s *SetSupergroupUsernameRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SetSupergroupUsernameRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setSupergroupUsername#aadd5dbe as nil")
+		return fmt.Errorf("can't encode setSupergroupUsername#503f4b04 as nil")
 	}
 	b.ObjStart()
 	b.PutID("setSupergroupUsername")
 	b.FieldStart("supergroup_id")
-	b.PutInt32(s.SupergroupID)
+	b.PutLong(s.SupergroupID)
 	b.FieldStart("username")
 	b.PutString(s.Username)
 	b.ObjEnd()
@@ -178,25 +178,25 @@ func (s *SetSupergroupUsernameRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SetSupergroupUsernameRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setSupergroupUsername#aadd5dbe to nil")
+		return fmt.Errorf("can't decode setSupergroupUsername#503f4b04 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("setSupergroupUsername"); err != nil {
-				return fmt.Errorf("unable to decode setSupergroupUsername#aadd5dbe: %w", err)
+				return fmt.Errorf("unable to decode setSupergroupUsername#503f4b04: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode setSupergroupUsername#aadd5dbe: field supergroup_id: %w", err)
+				return fmt.Errorf("unable to decode setSupergroupUsername#503f4b04: field supergroup_id: %w", err)
 			}
 			s.SupergroupID = value
 		case "username":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode setSupergroupUsername#aadd5dbe: field username: %w", err)
+				return fmt.Errorf("unable to decode setSupergroupUsername#503f4b04: field username: %w", err)
 			}
 			s.Username = value
 		default:
@@ -207,7 +207,7 @@ func (s *SetSupergroupUsernameRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetSupergroupID returns value of SupergroupID field.
-func (s *SetSupergroupUsernameRequest) GetSupergroupID() (value int32) {
+func (s *SetSupergroupUsernameRequest) GetSupergroupID() (value int64) {
 	return s.SupergroupID
 }
 
@@ -216,7 +216,7 @@ func (s *SetSupergroupUsernameRequest) GetUsername() (value string) {
 	return s.Username
 }
 
-// SetSupergroupUsername invokes method setSupergroupUsername#aadd5dbe returning error if any.
+// SetSupergroupUsername invokes method setSupergroupUsername#503f4b04 returning error if any.
 func (c *Client) SetSupergroupUsername(ctx context.Context, request *SetSupergroupUsernameRequest) error {
 	var ok Ok
 

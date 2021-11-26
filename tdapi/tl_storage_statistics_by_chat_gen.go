@@ -35,7 +35,7 @@ var (
 type StorageStatisticsByChat struct {
 	// Chat identifier; 0 if none
 	ChatID int64
-	// Total size of the files in the chat
+	// Total size of the files in the chat, in bytes
 	Size int64
 	// Total number of files in the chat
 	Count int32

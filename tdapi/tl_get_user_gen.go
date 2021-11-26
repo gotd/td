@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetUserRequest represents TL type `getUser#fd29e51f`.
+// GetUserRequest represents TL type `getUser#42999c0b`.
 type GetUserRequest struct {
 	// User identifier
-	UserID int32
+	UserID int64
 }
 
 // GetUserRequestTypeID is TL type id of GetUserRequest.
-const GetUserRequestTypeID = 0xfd29e51f
+const GetUserRequestTypeID = 0x42999c0b
 
 // Ensuring interfaces in compile-time for GetUserRequest.
 var (
@@ -102,7 +102,7 @@ func (g *GetUserRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetUserRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getUser#fd29e51f as nil")
+		return fmt.Errorf("can't encode getUser#42999c0b as nil")
 	}
 	b.PutID(GetUserRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,19 +111,19 @@ func (g *GetUserRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetUserRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getUser#fd29e51f as nil")
+		return fmt.Errorf("can't encode getUser#42999c0b as nil")
 	}
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetUserRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getUser#fd29e51f to nil")
+		return fmt.Errorf("can't decode getUser#42999c0b to nil")
 	}
 	if err := b.ConsumeID(GetUserRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getUser#fd29e51f: %w", err)
+		return fmt.Errorf("unable to decode getUser#42999c0b: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -131,12 +131,12 @@ func (g *GetUserRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetUserRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getUser#fd29e51f to nil")
+		return fmt.Errorf("can't decode getUser#42999c0b to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getUser#fd29e51f: field user_id: %w", err)
+			return fmt.Errorf("unable to decode getUser#42999c0b: field user_id: %w", err)
 		}
 		g.UserID = value
 	}
@@ -146,12 +146,12 @@ func (g *GetUserRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetUserRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getUser#fd29e51f as nil")
+		return fmt.Errorf("can't encode getUser#42999c0b as nil")
 	}
 	b.ObjStart()
 	b.PutID("getUser")
 	b.FieldStart("user_id")
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -159,19 +159,19 @@ func (g *GetUserRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetUserRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getUser#fd29e51f to nil")
+		return fmt.Errorf("can't decode getUser#42999c0b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getUser"); err != nil {
-				return fmt.Errorf("unable to decode getUser#fd29e51f: %w", err)
+				return fmt.Errorf("unable to decode getUser#42999c0b: %w", err)
 			}
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getUser#fd29e51f: field user_id: %w", err)
+				return fmt.Errorf("unable to decode getUser#42999c0b: field user_id: %w", err)
 			}
 			g.UserID = value
 		default:
@@ -182,12 +182,12 @@ func (g *GetUserRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserID returns value of UserID field.
-func (g *GetUserRequest) GetUserID() (value int32) {
+func (g *GetUserRequest) GetUserID() (value int64) {
 	return g.UserID
 }
 
-// GetUser invokes method getUser#fd29e51f returning error if any.
-func (c *Client) GetUser(ctx context.Context, userid int32) (*User, error) {
+// GetUser invokes method getUser#42999c0b returning error if any.
+func (c *Client) GetUser(ctx context.Context, userid int64) (*User, error) {
 	var result User
 
 	request := &GetUserRequest{

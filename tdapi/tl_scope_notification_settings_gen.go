@@ -38,7 +38,7 @@ type ScopeNotificationSettings struct {
 	// The name of an audio file to be used for notification sounds; only applies to iOS
 	// applications
 	Sound string
-	// True, if message content should be displayed in notifications
+	// True, if message content must be displayed in notifications
 	ShowPreview bool
 	// True, if notifications for incoming pinned messages will be created as for an ordinary
 	// unread message

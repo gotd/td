@@ -40,7 +40,8 @@ type CreateNewSupergroupChatRequest struct {
 	// Creates a new supergroup or channel and sends a corresponding
 	// messageSupergroupChatCreate. Returns the newly created chat
 	Description string
-	// Chat location if a location-based supergroup is being created
+	// Chat location if a location-based supergroup is being created; pass null to create an
+	// ordinary supergroup chat
 	Location ChatLocation
 	// True, if the supergroup is created for importing messages using importMessage
 	ForImport bool

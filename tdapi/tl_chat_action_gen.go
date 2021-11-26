@@ -1058,6 +1058,135 @@ func (c *ChatActionUploadingDocument) GetProgress() (value int32) {
 	return c.Progress
 }
 
+// ChatActionChoosingSticker represents TL type `chatActionChoosingSticker#1637c521`.
+type ChatActionChoosingSticker struct {
+}
+
+// ChatActionChoosingStickerTypeID is TL type id of ChatActionChoosingSticker.
+const ChatActionChoosingStickerTypeID = 0x1637c521
+
+// construct implements constructor of ChatActionClass.
+func (c ChatActionChoosingSticker) construct() ChatActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatActionChoosingSticker.
+var (
+	_ bin.Encoder     = &ChatActionChoosingSticker{}
+	_ bin.Decoder     = &ChatActionChoosingSticker{}
+	_ bin.BareEncoder = &ChatActionChoosingSticker{}
+	_ bin.BareDecoder = &ChatActionChoosingSticker{}
+
+	_ ChatActionClass = &ChatActionChoosingSticker{}
+)
+
+func (c *ChatActionChoosingSticker) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatActionChoosingSticker) String() string {
+	if c == nil {
+		return "ChatActionChoosingSticker(nil)"
+	}
+	type Alias ChatActionChoosingSticker
+	return fmt.Sprintf("ChatActionChoosingSticker%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatActionChoosingSticker) TypeID() uint32 {
+	return ChatActionChoosingStickerTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatActionChoosingSticker) TypeName() string {
+	return "chatActionChoosingSticker"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatActionChoosingSticker) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatActionChoosingSticker",
+		ID:   ChatActionChoosingStickerTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatActionChoosingSticker) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionChoosingSticker#1637c521 as nil")
+	}
+	b.PutID(ChatActionChoosingStickerTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatActionChoosingSticker) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionChoosingSticker#1637c521 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatActionChoosingSticker) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatActionChoosingSticker#1637c521 to nil")
+	}
+	if err := b.ConsumeID(ChatActionChoosingStickerTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatActionChoosingSticker#1637c521: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatActionChoosingSticker) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatActionChoosingSticker#1637c521 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionChoosingSticker) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionChoosingSticker#1637c521 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionChoosingSticker")
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionChoosingSticker) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatActionChoosingSticker#1637c521 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatActionChoosingSticker"); err != nil {
+				return fmt.Errorf("unable to decode chatActionChoosingSticker#1637c521: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // ChatActionChoosingLocation represents TL type `chatActionChoosingLocation#87b96324`.
 type ChatActionChoosingLocation struct {
 }
@@ -1734,6 +1863,166 @@ func (c *ChatActionUploadingVideoNote) GetProgress() (value int32) {
 	return c.Progress
 }
 
+// ChatActionWatchingAnimations represents TL type `chatActionWatchingAnimations#7a5e26b1`.
+type ChatActionWatchingAnimations struct {
+	// The animated emoji
+	Emoji string
+}
+
+// ChatActionWatchingAnimationsTypeID is TL type id of ChatActionWatchingAnimations.
+const ChatActionWatchingAnimationsTypeID = 0x7a5e26b1
+
+// construct implements constructor of ChatActionClass.
+func (c ChatActionWatchingAnimations) construct() ChatActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatActionWatchingAnimations.
+var (
+	_ bin.Encoder     = &ChatActionWatchingAnimations{}
+	_ bin.Decoder     = &ChatActionWatchingAnimations{}
+	_ bin.BareEncoder = &ChatActionWatchingAnimations{}
+	_ bin.BareDecoder = &ChatActionWatchingAnimations{}
+
+	_ ChatActionClass = &ChatActionWatchingAnimations{}
+)
+
+func (c *ChatActionWatchingAnimations) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Emoji == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatActionWatchingAnimations) String() string {
+	if c == nil {
+		return "ChatActionWatchingAnimations(nil)"
+	}
+	type Alias ChatActionWatchingAnimations
+	return fmt.Sprintf("ChatActionWatchingAnimations%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatActionWatchingAnimations) TypeID() uint32 {
+	return ChatActionWatchingAnimationsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatActionWatchingAnimations) TypeName() string {
+	return "chatActionWatchingAnimations"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatActionWatchingAnimations) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatActionWatchingAnimations",
+		ID:   ChatActionWatchingAnimationsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Emoji",
+			SchemaName: "emoji",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatActionWatchingAnimations) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionWatchingAnimations#7a5e26b1 as nil")
+	}
+	b.PutID(ChatActionWatchingAnimationsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatActionWatchingAnimations) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionWatchingAnimations#7a5e26b1 as nil")
+	}
+	b.PutString(c.Emoji)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatActionWatchingAnimations) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatActionWatchingAnimations#7a5e26b1 to nil")
+	}
+	if err := b.ConsumeID(ChatActionWatchingAnimationsTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatActionWatchingAnimations#7a5e26b1: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatActionWatchingAnimations) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatActionWatchingAnimations#7a5e26b1 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatActionWatchingAnimations#7a5e26b1: field emoji: %w", err)
+		}
+		c.Emoji = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionWatchingAnimations) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionWatchingAnimations#7a5e26b1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionWatchingAnimations")
+	b.FieldStart("emoji")
+	b.PutString(c.Emoji)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionWatchingAnimations) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatActionWatchingAnimations#7a5e26b1 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatActionWatchingAnimations"); err != nil {
+				return fmt.Errorf("unable to decode chatActionWatchingAnimations#7a5e26b1: %w", err)
+			}
+		case "emoji":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatActionWatchingAnimations#7a5e26b1: field emoji: %w", err)
+			}
+			c.Emoji = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetEmoji returns value of Emoji field.
+func (c *ChatActionWatchingAnimations) GetEmoji() (value string) {
+	return c.Emoji
+}
+
 // ChatActionCancel represents TL type `chatActionCancel#452c30b6`.
 type ChatActionCancel struct {
 }
@@ -1878,11 +2167,13 @@ func (c *ChatActionCancel) DecodeTDLibJSON(b tdjson.Decoder) error {
 //  case *tdapi.ChatActionUploadingVoiceNote: // chatActionUploadingVoiceNote#db6c8a6e
 //  case *tdapi.ChatActionUploadingPhoto: // chatActionUploadingPhoto#26feeb47
 //  case *tdapi.ChatActionUploadingDocument: // chatActionUploadingDocument#a01b64a
+//  case *tdapi.ChatActionChoosingSticker: // chatActionChoosingSticker#1637c521
 //  case *tdapi.ChatActionChoosingLocation: // chatActionChoosingLocation#87b96324
 //  case *tdapi.ChatActionChoosingContact: // chatActionChoosingContact#b7220418
 //  case *tdapi.ChatActionStartPlayingGame: // chatActionStartPlayingGame#cc63a7fc
 //  case *tdapi.ChatActionRecordingVideoNote: // chatActionRecordingVideoNote#fc2081
 //  case *tdapi.ChatActionUploadingVideoNote: // chatActionUploadingVideoNote#45e0de76
+//  case *tdapi.ChatActionWatchingAnimations: // chatActionWatchingAnimations#7a5e26b1
 //  case *tdapi.ChatActionCancel: // chatActionCancel#452c30b6
 //  default: panic(v)
 //  }
@@ -1964,6 +2255,13 @@ func DecodeChatAction(buf *bin.Buffer) (ChatActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatActionClass: %w", err)
 		}
 		return &v, nil
+	case ChatActionChoosingStickerTypeID:
+		// Decoding chatActionChoosingSticker#1637c521.
+		v := ChatActionChoosingSticker{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatActionClass: %w", err)
+		}
+		return &v, nil
 	case ChatActionChoosingLocationTypeID:
 		// Decoding chatActionChoosingLocation#87b96324.
 		v := ChatActionChoosingLocation{}
@@ -1995,6 +2293,13 @@ func DecodeChatAction(buf *bin.Buffer) (ChatActionClass, error) {
 	case ChatActionUploadingVideoNoteTypeID:
 		// Decoding chatActionUploadingVideoNote#45e0de76.
 		v := ChatActionUploadingVideoNote{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatActionWatchingAnimationsTypeID:
+		// Decoding chatActionWatchingAnimations#7a5e26b1.
+		v := ChatActionWatchingAnimations{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatActionClass: %w", err)
 		}
@@ -2067,6 +2372,13 @@ func DecodeTDLibJSONChatAction(buf tdjson.Decoder) (ChatActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatActionClass: %w", err)
 		}
 		return &v, nil
+	case "chatActionChoosingSticker":
+		// Decoding chatActionChoosingSticker#1637c521.
+		v := ChatActionChoosingSticker{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatActionClass: %w", err)
+		}
+		return &v, nil
 	case "chatActionChoosingLocation":
 		// Decoding chatActionChoosingLocation#87b96324.
 		v := ChatActionChoosingLocation{}
@@ -2098,6 +2410,13 @@ func DecodeTDLibJSONChatAction(buf tdjson.Decoder) (ChatActionClass, error) {
 	case "chatActionUploadingVideoNote":
 		// Decoding chatActionUploadingVideoNote#45e0de76.
 		v := ChatActionUploadingVideoNote{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatActionWatchingAnimations":
+		// Decoding chatActionWatchingAnimations#7a5e26b1.
+		v := ChatActionWatchingAnimations{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatActionClass: %w", err)
 		}

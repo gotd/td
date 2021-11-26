@@ -35,7 +35,7 @@ var (
 type SetOptionRequest struct {
 	// The name of the option
 	Name string
-	// The new value of the option
+	// The new value of the option; pass null to reset option value to a default value
 	Value OptionValueClass
 }
 

@@ -39,7 +39,7 @@ type CountryInfo struct {
 	Name string
 	// English name of the country
 	EnglishName string
-	// True, if the country should be hidden from the list of all countries
+	// True, if the country must be hidden from the list of all countries
 	IsHidden bool
 	// List of country calling codes
 	CallingCodes []string

@@ -35,7 +35,7 @@ var (
 type EditInlineMessageMediaRequest struct {
 	// Inline message identifier
 	InlineMessageID string
-	// The new message reply markup; for bots only
+	// The new message reply markup; pass null if none; for bots only
 	ReplyMarkup ReplyMarkupClass
 	// New content of the message. Must be one of the following types: inputMessageAnimation,
 	// inputMessageAudio, inputMessageDocument, inputMessagePhoto or inputMessageVideo

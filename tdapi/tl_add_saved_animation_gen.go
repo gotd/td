@@ -33,8 +33,8 @@ var (
 
 // AddSavedAnimationRequest represents TL type `addSavedAnimation#a44bf860`.
 type AddSavedAnimationRequest struct {
-	// The animation file to be added. Only animations known to the server (i.e. successfully
-	// sent via a message) can be added to the list
+	// The animation file to be added. Only animations known to the server (i.e.,
+	// successfully sent via a message) can be added to the list
 	Animation InputFileClass
 }
 

@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// TMeURLTypeUser represents TL type `tMeUrlTypeUser#b88d499e`.
+// TMeURLTypeUser represents TL type `tMeUrlTypeUser#7787c1a`.
 type TMeURLTypeUser struct {
 	// Identifier of the user
-	UserID int32
+	UserID int64
 }
 
 // TMeURLTypeUserTypeID is TL type id of TMeURLTypeUser.
-const TMeURLTypeUserTypeID = 0xb88d499e
+const TMeURLTypeUserTypeID = 0x7787c1a
 
 // construct implements constructor of TMeURLTypeClass.
 func (t TMeURLTypeUser) construct() TMeURLTypeClass { return &t }
@@ -107,7 +107,7 @@ func (t *TMeURLTypeUser) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TMeURLTypeUser) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode tMeUrlTypeUser#b88d499e as nil")
+		return fmt.Errorf("can't encode tMeUrlTypeUser#7787c1a as nil")
 	}
 	b.PutID(TMeURLTypeUserTypeID)
 	return t.EncodeBare(b)
@@ -116,19 +116,19 @@ func (t *TMeURLTypeUser) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TMeURLTypeUser) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode tMeUrlTypeUser#b88d499e as nil")
+		return fmt.Errorf("can't encode tMeUrlTypeUser#7787c1a as nil")
 	}
-	b.PutInt32(t.UserID)
+	b.PutLong(t.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *TMeURLTypeUser) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode tMeUrlTypeUser#b88d499e to nil")
+		return fmt.Errorf("can't decode tMeUrlTypeUser#7787c1a to nil")
 	}
 	if err := b.ConsumeID(TMeURLTypeUserTypeID); err != nil {
-		return fmt.Errorf("unable to decode tMeUrlTypeUser#b88d499e: %w", err)
+		return fmt.Errorf("unable to decode tMeUrlTypeUser#7787c1a: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (t *TMeURLTypeUser) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TMeURLTypeUser) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode tMeUrlTypeUser#b88d499e to nil")
+		return fmt.Errorf("can't decode tMeUrlTypeUser#7787c1a to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode tMeUrlTypeUser#b88d499e: field user_id: %w", err)
+			return fmt.Errorf("unable to decode tMeUrlTypeUser#7787c1a: field user_id: %w", err)
 		}
 		t.UserID = value
 	}
@@ -151,12 +151,12 @@ func (t *TMeURLTypeUser) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (t *TMeURLTypeUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
-		return fmt.Errorf("can't encode tMeUrlTypeUser#b88d499e as nil")
+		return fmt.Errorf("can't encode tMeUrlTypeUser#7787c1a as nil")
 	}
 	b.ObjStart()
 	b.PutID("tMeUrlTypeUser")
 	b.FieldStart("user_id")
-	b.PutInt32(t.UserID)
+	b.PutLong(t.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -164,19 +164,19 @@ func (t *TMeURLTypeUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (t *TMeURLTypeUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
-		return fmt.Errorf("can't decode tMeUrlTypeUser#b88d499e to nil")
+		return fmt.Errorf("can't decode tMeUrlTypeUser#7787c1a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("tMeUrlTypeUser"); err != nil {
-				return fmt.Errorf("unable to decode tMeUrlTypeUser#b88d499e: %w", err)
+				return fmt.Errorf("unable to decode tMeUrlTypeUser#7787c1a: %w", err)
 			}
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode tMeUrlTypeUser#b88d499e: field user_id: %w", err)
+				return fmt.Errorf("unable to decode tMeUrlTypeUser#7787c1a: field user_id: %w", err)
 			}
 			t.UserID = value
 		default:
@@ -187,7 +187,7 @@ func (t *TMeURLTypeUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserID returns value of UserID field.
-func (t *TMeURLTypeUser) GetUserID() (value int32) {
+func (t *TMeURLTypeUser) GetUserID() (value int64) {
 	return t.UserID
 }
 
@@ -679,7 +679,7 @@ func (t *TMeURLTypeStickerSet) GetStickerSetID() (value int64) {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tdapi.TMeURLTypeUser: // tMeUrlTypeUser#b88d499e
+//  case *tdapi.TMeURLTypeUser: // tMeUrlTypeUser#7787c1a
 //  case *tdapi.TMeURLTypeSupergroup: // tMeUrlTypeSupergroup#af5536a8
 //  case *tdapi.TMeURLTypeChatInvite: // tMeUrlTypeChatInvite#12b5da49
 //  case *tdapi.TMeURLTypeStickerSet: // tMeUrlTypeStickerSet#5f83ccec
@@ -715,7 +715,7 @@ func DecodeTMeURLType(buf *bin.Buffer) (TMeURLTypeClass, error) {
 	}
 	switch id {
 	case TMeURLTypeUserTypeID:
-		// Decoding tMeUrlTypeUser#b88d499e.
+		// Decoding tMeUrlTypeUser#7787c1a.
 		v := TMeURLTypeUser{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TMeURLTypeClass: %w", err)
@@ -755,7 +755,7 @@ func DecodeTDLibJSONTMeURLType(buf tdjson.Decoder) (TMeURLTypeClass, error) {
 	}
 	switch id {
 	case "tMeUrlTypeUser":
-		// Decoding tMeUrlTypeUser#b88d499e.
+		// Decoding tMeUrlTypeUser#7787c1a.
 		v := TMeURLTypeUser{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TMeURLTypeClass: %w", err)

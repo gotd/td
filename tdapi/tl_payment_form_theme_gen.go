@@ -41,7 +41,7 @@ type PaymentFormTheme struct {
 	HintColor int32
 	// A color of links in the RGB24 format
 	LinkColor int32
-	// A color of thebuttons in the RGB24 format
+	// A color of the buttons in the RGB24 format
 	ButtonColor int32
 	// A color of text on the buttons in the RGB24 format
 	ButtonTextColor int32

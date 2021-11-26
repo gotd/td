@@ -841,9 +841,9 @@ func (c *CallStateHangingUp) DecodeTDLibJSON(b tdjson.Decoder) error {
 type CallStateDiscarded struct {
 	// The reason, why the call has ended
 	Reason CallDiscardReasonClass
-	// True, if the call rating should be sent to the server
+	// True, if the call rating must be sent to the server
 	NeedRating bool
-	// True, if the call debug information should be sent to the server
+	// True, if the call debug information must be sent to the server
 	NeedDebugInformation bool
 }
 

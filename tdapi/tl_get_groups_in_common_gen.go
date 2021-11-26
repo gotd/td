@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetGroupsInCommonRequest represents TL type `getGroupsInCommon#fe9d67df`.
+// GetGroupsInCommonRequest represents TL type `getGroupsInCommon#16bdd36a`.
 type GetGroupsInCommonRequest struct {
 	// User identifier
-	UserID int32
+	UserID int64
 	// Chat identifier starting from which to return chats; use 0 for the first request
 	OffsetChatID int64
 	// The maximum number of chats to be returned; up to 100
@@ -42,7 +42,7 @@ type GetGroupsInCommonRequest struct {
 }
 
 // GetGroupsInCommonRequestTypeID is TL type id of GetGroupsInCommonRequest.
-const GetGroupsInCommonRequestTypeID = 0xfe9d67df
+const GetGroupsInCommonRequestTypeID = 0x16bdd36a
 
 // Ensuring interfaces in compile-time for GetGroupsInCommonRequest.
 var (
@@ -120,7 +120,7 @@ func (g *GetGroupsInCommonRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetGroupsInCommonRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getGroupsInCommon#fe9d67df as nil")
+		return fmt.Errorf("can't encode getGroupsInCommon#16bdd36a as nil")
 	}
 	b.PutID(GetGroupsInCommonRequestTypeID)
 	return g.EncodeBare(b)
@@ -129,9 +129,9 @@ func (g *GetGroupsInCommonRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetGroupsInCommonRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getGroupsInCommon#fe9d67df as nil")
+		return fmt.Errorf("can't encode getGroupsInCommon#16bdd36a as nil")
 	}
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	b.PutLong(g.OffsetChatID)
 	b.PutInt32(g.Limit)
 	return nil
@@ -140,10 +140,10 @@ func (g *GetGroupsInCommonRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetGroupsInCommonRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getGroupsInCommon#fe9d67df to nil")
+		return fmt.Errorf("can't decode getGroupsInCommon#16bdd36a to nil")
 	}
 	if err := b.ConsumeID(GetGroupsInCommonRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getGroupsInCommon#fe9d67df: %w", err)
+		return fmt.Errorf("unable to decode getGroupsInCommon#16bdd36a: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -151,26 +151,26 @@ func (g *GetGroupsInCommonRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetGroupsInCommonRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getGroupsInCommon#fe9d67df to nil")
+		return fmt.Errorf("can't decode getGroupsInCommon#16bdd36a to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getGroupsInCommon#fe9d67df: field user_id: %w", err)
+			return fmt.Errorf("unable to decode getGroupsInCommon#16bdd36a: field user_id: %w", err)
 		}
 		g.UserID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getGroupsInCommon#fe9d67df: field offset_chat_id: %w", err)
+			return fmt.Errorf("unable to decode getGroupsInCommon#16bdd36a: field offset_chat_id: %w", err)
 		}
 		g.OffsetChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getGroupsInCommon#fe9d67df: field limit: %w", err)
+			return fmt.Errorf("unable to decode getGroupsInCommon#16bdd36a: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -180,12 +180,12 @@ func (g *GetGroupsInCommonRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetGroupsInCommonRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getGroupsInCommon#fe9d67df as nil")
+		return fmt.Errorf("can't encode getGroupsInCommon#16bdd36a as nil")
 	}
 	b.ObjStart()
 	b.PutID("getGroupsInCommon")
 	b.FieldStart("user_id")
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	b.FieldStart("offset_chat_id")
 	b.PutLong(g.OffsetChatID)
 	b.FieldStart("limit")
@@ -197,31 +197,31 @@ func (g *GetGroupsInCommonRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetGroupsInCommonRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getGroupsInCommon#fe9d67df to nil")
+		return fmt.Errorf("can't decode getGroupsInCommon#16bdd36a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getGroupsInCommon"); err != nil {
-				return fmt.Errorf("unable to decode getGroupsInCommon#fe9d67df: %w", err)
+				return fmt.Errorf("unable to decode getGroupsInCommon#16bdd36a: %w", err)
 			}
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getGroupsInCommon#fe9d67df: field user_id: %w", err)
+				return fmt.Errorf("unable to decode getGroupsInCommon#16bdd36a: field user_id: %w", err)
 			}
 			g.UserID = value
 		case "offset_chat_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getGroupsInCommon#fe9d67df: field offset_chat_id: %w", err)
+				return fmt.Errorf("unable to decode getGroupsInCommon#16bdd36a: field offset_chat_id: %w", err)
 			}
 			g.OffsetChatID = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getGroupsInCommon#fe9d67df: field limit: %w", err)
+				return fmt.Errorf("unable to decode getGroupsInCommon#16bdd36a: field limit: %w", err)
 			}
 			g.Limit = value
 		default:
@@ -232,7 +232,7 @@ func (g *GetGroupsInCommonRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserID returns value of UserID field.
-func (g *GetGroupsInCommonRequest) GetUserID() (value int32) {
+func (g *GetGroupsInCommonRequest) GetUserID() (value int64) {
 	return g.UserID
 }
 
@@ -246,7 +246,7 @@ func (g *GetGroupsInCommonRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetGroupsInCommon invokes method getGroupsInCommon#fe9d67df returning error if any.
+// GetGroupsInCommon invokes method getGroupsInCommon#16bdd36a returning error if any.
 func (c *Client) GetGroupsInCommon(ctx context.Context, request *GetGroupsInCommonRequest) (*Chats, error) {
 	var result Chats
 

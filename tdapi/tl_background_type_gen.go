@@ -222,19 +222,21 @@ func (b *BackgroundTypeWallpaper) GetIsMoving() (value bool) {
 	return b.IsMoving
 }
 
-// BackgroundTypePattern represents TL type `backgroundTypePattern#26be1eba`.
+// BackgroundTypePattern represents TL type `backgroundTypePattern#4ce716fd`.
 type BackgroundTypePattern struct {
-	// Description of the background fill
+	// Fill of the background
 	Fill BackgroundFillClass
-	// Intensity of the pattern when it is shown above the filled background; -100-100. If
-	// negative, the pattern color and the filled background colors needs to be inverted
+	// Intensity of the pattern when it is shown above the filled background; 0-100.
 	Intensity int32
+	// True, if the background fill must be applied only to the pattern itself. All other
+	// pixels are black in this case. For dark themes only
+	IsInverted bool
 	// True, if the background needs to be slightly moved when device is tilted
 	IsMoving bool
 }
 
 // BackgroundTypePatternTypeID is TL type id of BackgroundTypePattern.
-const BackgroundTypePatternTypeID = 0x26be1eba
+const BackgroundTypePatternTypeID = 0x4ce716fd
 
 // construct implements constructor of BackgroundTypeClass.
 func (b BackgroundTypePattern) construct() BackgroundTypeClass { return &b }
@@ -257,6 +259,9 @@ func (b *BackgroundTypePattern) Zero() bool {
 		return false
 	}
 	if !(b.Intensity == 0) {
+		return false
+	}
+	if !(b.IsInverted == false) {
 		return false
 	}
 	if !(b.IsMoving == false) {
@@ -307,6 +312,10 @@ func (b *BackgroundTypePattern) TypeInfo() tdp.Type {
 			SchemaName: "intensity",
 		},
 		{
+			Name:       "IsInverted",
+			SchemaName: "is_inverted",
+		},
+		{
 			Name:       "IsMoving",
 			SchemaName: "is_moving",
 		},
@@ -317,7 +326,7 @@ func (b *BackgroundTypePattern) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BackgroundTypePattern) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode backgroundTypePattern#26be1eba as nil")
+		return fmt.Errorf("can't encode backgroundTypePattern#4ce716fd as nil")
 	}
 	buf.PutID(BackgroundTypePatternTypeID)
 	return b.EncodeBare(buf)
@@ -326,15 +335,16 @@ func (b *BackgroundTypePattern) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BackgroundTypePattern) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode backgroundTypePattern#26be1eba as nil")
+		return fmt.Errorf("can't encode backgroundTypePattern#4ce716fd as nil")
 	}
 	if b.Fill == nil {
-		return fmt.Errorf("unable to encode backgroundTypePattern#26be1eba: field fill is nil")
+		return fmt.Errorf("unable to encode backgroundTypePattern#4ce716fd: field fill is nil")
 	}
 	if err := b.Fill.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode backgroundTypePattern#26be1eba: field fill: %w", err)
+		return fmt.Errorf("unable to encode backgroundTypePattern#4ce716fd: field fill: %w", err)
 	}
 	buf.PutInt32(b.Intensity)
+	buf.PutBool(b.IsInverted)
 	buf.PutBool(b.IsMoving)
 	return nil
 }
@@ -342,10 +352,10 @@ func (b *BackgroundTypePattern) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BackgroundTypePattern) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode backgroundTypePattern#26be1eba to nil")
+		return fmt.Errorf("can't decode backgroundTypePattern#4ce716fd to nil")
 	}
 	if err := buf.ConsumeID(BackgroundTypePatternTypeID); err != nil {
-		return fmt.Errorf("unable to decode backgroundTypePattern#26be1eba: %w", err)
+		return fmt.Errorf("unable to decode backgroundTypePattern#4ce716fd: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -353,26 +363,33 @@ func (b *BackgroundTypePattern) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BackgroundTypePattern) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode backgroundTypePattern#26be1eba to nil")
+		return fmt.Errorf("can't decode backgroundTypePattern#4ce716fd to nil")
 	}
 	{
 		value, err := DecodeBackgroundFill(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode backgroundTypePattern#26be1eba: field fill: %w", err)
+			return fmt.Errorf("unable to decode backgroundTypePattern#4ce716fd: field fill: %w", err)
 		}
 		b.Fill = value
 	}
 	{
 		value, err := buf.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode backgroundTypePattern#26be1eba: field intensity: %w", err)
+			return fmt.Errorf("unable to decode backgroundTypePattern#4ce716fd: field intensity: %w", err)
 		}
 		b.Intensity = value
 	}
 	{
 		value, err := buf.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode backgroundTypePattern#26be1eba: field is_moving: %w", err)
+			return fmt.Errorf("unable to decode backgroundTypePattern#4ce716fd: field is_inverted: %w", err)
+		}
+		b.IsInverted = value
+	}
+	{
+		value, err := buf.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode backgroundTypePattern#4ce716fd: field is_moving: %w", err)
 		}
 		b.IsMoving = value
 	}
@@ -382,19 +399,21 @@ func (b *BackgroundTypePattern) DecodeBare(buf *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (b *BackgroundTypePattern) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
-		return fmt.Errorf("can't encode backgroundTypePattern#26be1eba as nil")
+		return fmt.Errorf("can't encode backgroundTypePattern#4ce716fd as nil")
 	}
 	buf.ObjStart()
 	buf.PutID("backgroundTypePattern")
 	buf.FieldStart("fill")
 	if b.Fill == nil {
-		return fmt.Errorf("unable to encode backgroundTypePattern#26be1eba: field fill is nil")
+		return fmt.Errorf("unable to encode backgroundTypePattern#4ce716fd: field fill is nil")
 	}
 	if err := b.Fill.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode backgroundTypePattern#26be1eba: field fill: %w", err)
+		return fmt.Errorf("unable to encode backgroundTypePattern#4ce716fd: field fill: %w", err)
 	}
 	buf.FieldStart("intensity")
 	buf.PutInt32(b.Intensity)
+	buf.FieldStart("is_inverted")
+	buf.PutBool(b.IsInverted)
 	buf.FieldStart("is_moving")
 	buf.PutBool(b.IsMoving)
 	buf.ObjEnd()
@@ -404,31 +423,37 @@ func (b *BackgroundTypePattern) EncodeTDLibJSON(buf tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (b *BackgroundTypePattern) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
-		return fmt.Errorf("can't decode backgroundTypePattern#26be1eba to nil")
+		return fmt.Errorf("can't decode backgroundTypePattern#4ce716fd to nil")
 	}
 
 	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := buf.ConsumeID("backgroundTypePattern"); err != nil {
-				return fmt.Errorf("unable to decode backgroundTypePattern#26be1eba: %w", err)
+				return fmt.Errorf("unable to decode backgroundTypePattern#4ce716fd: %w", err)
 			}
 		case "fill":
 			value, err := DecodeTDLibJSONBackgroundFill(buf)
 			if err != nil {
-				return fmt.Errorf("unable to decode backgroundTypePattern#26be1eba: field fill: %w", err)
+				return fmt.Errorf("unable to decode backgroundTypePattern#4ce716fd: field fill: %w", err)
 			}
 			b.Fill = value
 		case "intensity":
 			value, err := buf.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode backgroundTypePattern#26be1eba: field intensity: %w", err)
+				return fmt.Errorf("unable to decode backgroundTypePattern#4ce716fd: field intensity: %w", err)
 			}
 			b.Intensity = value
+		case "is_inverted":
+			value, err := buf.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode backgroundTypePattern#4ce716fd: field is_inverted: %w", err)
+			}
+			b.IsInverted = value
 		case "is_moving":
 			value, err := buf.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode backgroundTypePattern#26be1eba: field is_moving: %w", err)
+				return fmt.Errorf("unable to decode backgroundTypePattern#4ce716fd: field is_moving: %w", err)
 			}
 			b.IsMoving = value
 		default:
@@ -448,6 +473,11 @@ func (b *BackgroundTypePattern) GetIntensity() (value int32) {
 	return b.Intensity
 }
 
+// GetIsInverted returns value of IsInverted field.
+func (b *BackgroundTypePattern) GetIsInverted() (value bool) {
+	return b.IsInverted
+}
+
 // GetIsMoving returns value of IsMoving field.
 func (b *BackgroundTypePattern) GetIsMoving() (value bool) {
 	return b.IsMoving
@@ -455,7 +485,7 @@ func (b *BackgroundTypePattern) GetIsMoving() (value bool) {
 
 // BackgroundTypeFill represents TL type `backgroundTypeFill#3b301c2c`.
 type BackgroundTypeFill struct {
-	// Description of the background fill
+	// The background fill
 	Fill BackgroundFillClass
 }
 
@@ -632,7 +662,7 @@ func (b *BackgroundTypeFill) GetFill() (value BackgroundFillClass) {
 //  }
 //  switch v := g.(type) {
 //  case *tdapi.BackgroundTypeWallpaper: // backgroundTypeWallpaper#758c4c7b
-//  case *tdapi.BackgroundTypePattern: // backgroundTypePattern#26be1eba
+//  case *tdapi.BackgroundTypePattern: // backgroundTypePattern#4ce716fd
 //  case *tdapi.BackgroundTypeFill: // backgroundTypeFill#3b301c2c
 //  default: panic(v)
 //  }
@@ -673,7 +703,7 @@ func DecodeBackgroundType(buf *bin.Buffer) (BackgroundTypeClass, error) {
 		}
 		return &v, nil
 	case BackgroundTypePatternTypeID:
-		// Decoding backgroundTypePattern#26be1eba.
+		// Decoding backgroundTypePattern#4ce716fd.
 		v := BackgroundTypePattern{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode BackgroundTypeClass: %w", err)
@@ -706,7 +736,7 @@ func DecodeTDLibJSONBackgroundType(buf tdjson.Decoder) (BackgroundTypeClass, err
 		}
 		return &v, nil
 	case "backgroundTypePattern":
-		// Decoding backgroundTypePattern#26be1eba.
+		// Decoding backgroundTypePattern#4ce716fd.
 		v := BackgroundTypePattern{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode BackgroundTypeClass: %w", err)

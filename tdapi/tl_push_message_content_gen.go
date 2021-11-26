@@ -4177,6 +4177,167 @@ func (p *PushMessageContentChatChangeTitle) GetTitle() (value string) {
 	return p.Title
 }
 
+// PushMessageContentChatSetTheme represents TL type `pushMessageContentChatSetTheme#a5d3b68`.
+type PushMessageContentChatSetTheme struct {
+	// If non-empty, name of a new theme, set for the chat. Otherwise chat theme was reset to
+	// the default one
+	ThemeName string
+}
+
+// PushMessageContentChatSetThemeTypeID is TL type id of PushMessageContentChatSetTheme.
+const PushMessageContentChatSetThemeTypeID = 0xa5d3b68
+
+// construct implements constructor of PushMessageContentClass.
+func (p PushMessageContentChatSetTheme) construct() PushMessageContentClass { return &p }
+
+// Ensuring interfaces in compile-time for PushMessageContentChatSetTheme.
+var (
+	_ bin.Encoder     = &PushMessageContentChatSetTheme{}
+	_ bin.Decoder     = &PushMessageContentChatSetTheme{}
+	_ bin.BareEncoder = &PushMessageContentChatSetTheme{}
+	_ bin.BareDecoder = &PushMessageContentChatSetTheme{}
+
+	_ PushMessageContentClass = &PushMessageContentChatSetTheme{}
+)
+
+func (p *PushMessageContentChatSetTheme) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.ThemeName == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PushMessageContentChatSetTheme) String() string {
+	if p == nil {
+		return "PushMessageContentChatSetTheme(nil)"
+	}
+	type Alias PushMessageContentChatSetTheme
+	return fmt.Sprintf("PushMessageContentChatSetTheme%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PushMessageContentChatSetTheme) TypeID() uint32 {
+	return PushMessageContentChatSetThemeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PushMessageContentChatSetTheme) TypeName() string {
+	return "pushMessageContentChatSetTheme"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PushMessageContentChatSetTheme) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pushMessageContentChatSetTheme",
+		ID:   PushMessageContentChatSetThemeTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ThemeName",
+			SchemaName: "theme_name",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PushMessageContentChatSetTheme) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentChatSetTheme#a5d3b68 as nil")
+	}
+	b.PutID(PushMessageContentChatSetThemeTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PushMessageContentChatSetTheme) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentChatSetTheme#a5d3b68 as nil")
+	}
+	b.PutString(p.ThemeName)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PushMessageContentChatSetTheme) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentChatSetTheme#a5d3b68 to nil")
+	}
+	if err := b.ConsumeID(PushMessageContentChatSetThemeTypeID); err != nil {
+		return fmt.Errorf("unable to decode pushMessageContentChatSetTheme#a5d3b68: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PushMessageContentChatSetTheme) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentChatSetTheme#a5d3b68 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode pushMessageContentChatSetTheme#a5d3b68: field theme_name: %w", err)
+		}
+		p.ThemeName = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentChatSetTheme) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentChatSetTheme#a5d3b68 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pushMessageContentChatSetTheme")
+	b.FieldStart("theme_name")
+	b.PutString(p.ThemeName)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentChatSetTheme) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentChatSetTheme#a5d3b68 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("pushMessageContentChatSetTheme"); err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentChatSetTheme#a5d3b68: %w", err)
+			}
+		case "theme_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentChatSetTheme#a5d3b68: field theme_name: %w", err)
+			}
+			p.ThemeName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetThemeName returns value of ThemeName field.
+func (p *PushMessageContentChatSetTheme) GetThemeName() (value string) {
+	return p.ThemeName
+}
+
 // PushMessageContentChatDeleteMember represents TL type `pushMessageContentChatDeleteMember#23afa99f`.
 type PushMessageContentChatDeleteMember struct {
 	// Name of the deleted member
@@ -4518,6 +4679,135 @@ func (p *PushMessageContentChatJoinByLink) DecodeTDLibJSON(b tdjson.Decoder) err
 		case tdjson.TypeField:
 			if err := b.ConsumeID("pushMessageContentChatJoinByLink"); err != nil {
 				return fmt.Errorf("unable to decode pushMessageContentChatJoinByLink#5c9bdf49: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// PushMessageContentChatJoinByRequest represents TL type `pushMessageContentChatJoinByRequest#f3bb6175`.
+type PushMessageContentChatJoinByRequest struct {
+}
+
+// PushMessageContentChatJoinByRequestTypeID is TL type id of PushMessageContentChatJoinByRequest.
+const PushMessageContentChatJoinByRequestTypeID = 0xf3bb6175
+
+// construct implements constructor of PushMessageContentClass.
+func (p PushMessageContentChatJoinByRequest) construct() PushMessageContentClass { return &p }
+
+// Ensuring interfaces in compile-time for PushMessageContentChatJoinByRequest.
+var (
+	_ bin.Encoder     = &PushMessageContentChatJoinByRequest{}
+	_ bin.Decoder     = &PushMessageContentChatJoinByRequest{}
+	_ bin.BareEncoder = &PushMessageContentChatJoinByRequest{}
+	_ bin.BareDecoder = &PushMessageContentChatJoinByRequest{}
+
+	_ PushMessageContentClass = &PushMessageContentChatJoinByRequest{}
+)
+
+func (p *PushMessageContentChatJoinByRequest) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PushMessageContentChatJoinByRequest) String() string {
+	if p == nil {
+		return "PushMessageContentChatJoinByRequest(nil)"
+	}
+	type Alias PushMessageContentChatJoinByRequest
+	return fmt.Sprintf("PushMessageContentChatJoinByRequest%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PushMessageContentChatJoinByRequest) TypeID() uint32 {
+	return PushMessageContentChatJoinByRequestTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PushMessageContentChatJoinByRequest) TypeName() string {
+	return "pushMessageContentChatJoinByRequest"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PushMessageContentChatJoinByRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pushMessageContentChatJoinByRequest",
+		ID:   PushMessageContentChatJoinByRequestTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PushMessageContentChatJoinByRequest) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentChatJoinByRequest#f3bb6175 as nil")
+	}
+	b.PutID(PushMessageContentChatJoinByRequestTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PushMessageContentChatJoinByRequest) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentChatJoinByRequest#f3bb6175 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PushMessageContentChatJoinByRequest) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentChatJoinByRequest#f3bb6175 to nil")
+	}
+	if err := b.ConsumeID(PushMessageContentChatJoinByRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode pushMessageContentChatJoinByRequest#f3bb6175: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PushMessageContentChatJoinByRequest) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentChatJoinByRequest#f3bb6175 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentChatJoinByRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentChatJoinByRequest#f3bb6175 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pushMessageContentChatJoinByRequest")
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentChatJoinByRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentChatJoinByRequest#f3bb6175 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("pushMessageContentChatJoinByRequest"); err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentChatJoinByRequest#f3bb6175: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -4996,8 +5286,10 @@ func (p *PushMessageContentMediaAlbum) GetHasDocuments() (value bool) {
 //  case *tdapi.PushMessageContentChatAddMembers: // pushMessageContentChatAddMembers#bf337b3a
 //  case *tdapi.PushMessageContentChatChangePhoto: // pushMessageContentChatChangePhoto#bd96521d
 //  case *tdapi.PushMessageContentChatChangeTitle: // pushMessageContentChatChangeTitle#8ae1f6a3
+//  case *tdapi.PushMessageContentChatSetTheme: // pushMessageContentChatSetTheme#a5d3b68
 //  case *tdapi.PushMessageContentChatDeleteMember: // pushMessageContentChatDeleteMember#23afa99f
 //  case *tdapi.PushMessageContentChatJoinByLink: // pushMessageContentChatJoinByLink#5c9bdf49
+//  case *tdapi.PushMessageContentChatJoinByRequest: // pushMessageContentChatJoinByRequest#f3bb6175
 //  case *tdapi.PushMessageContentMessageForwards: // pushMessageContentMessageForwards#8df8a81c
 //  case *tdapi.PushMessageContentMediaAlbum: // pushMessageContentMediaAlbum#d363e96f
 //  default: panic(v)
@@ -5185,6 +5477,13 @@ func DecodePushMessageContent(buf *bin.Buffer) (PushMessageContentClass, error) 
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}
 		return &v, nil
+	case PushMessageContentChatSetThemeTypeID:
+		// Decoding pushMessageContentChatSetTheme#a5d3b68.
+		v := PushMessageContentChatSetTheme{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
 	case PushMessageContentChatDeleteMemberTypeID:
 		// Decoding pushMessageContentChatDeleteMember#23afa99f.
 		v := PushMessageContentChatDeleteMember{}
@@ -5195,6 +5494,13 @@ func DecodePushMessageContent(buf *bin.Buffer) (PushMessageContentClass, error) 
 	case PushMessageContentChatJoinByLinkTypeID:
 		// Decoding pushMessageContentChatJoinByLink#5c9bdf49.
 		v := PushMessageContentChatJoinByLink{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case PushMessageContentChatJoinByRequestTypeID:
+		// Decoding pushMessageContentChatJoinByRequest#f3bb6175.
+		v := PushMessageContentChatJoinByRequest{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}
@@ -5379,6 +5685,13 @@ func DecodeTDLibJSONPushMessageContent(buf tdjson.Decoder) (PushMessageContentCl
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}
 		return &v, nil
+	case "pushMessageContentChatSetTheme":
+		// Decoding pushMessageContentChatSetTheme#a5d3b68.
+		v := PushMessageContentChatSetTheme{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
 	case "pushMessageContentChatDeleteMember":
 		// Decoding pushMessageContentChatDeleteMember#23afa99f.
 		v := PushMessageContentChatDeleteMember{}
@@ -5389,6 +5702,13 @@ func DecodeTDLibJSONPushMessageContent(buf tdjson.Decoder) (PushMessageContentCl
 	case "pushMessageContentChatJoinByLink":
 		// Decoding pushMessageContentChatJoinByLink#5c9bdf49.
 		v := PushMessageContentChatJoinByLink{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "pushMessageContentChatJoinByRequest":
+		// Decoding pushMessageContentChatJoinByRequest#f3bb6175.
+		v := PushMessageContentChatJoinByRequest{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}

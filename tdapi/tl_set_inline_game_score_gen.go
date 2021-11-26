@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SetInlineGameScoreRequest represents TL type `setInlineGameScore#2d34ce9f`.
+// SetInlineGameScoreRequest represents TL type `setInlineGameScore#c7715d8b`.
 type SetInlineGameScoreRequest struct {
 	// Inline message identifier
 	InlineMessageID string
-	// True, if the message should be edited
+	// True, if the message needs to be edited
 	EditMessage bool
 	// User identifier
-	UserID int32
+	UserID int64
 	// The new score
 	Score int32
 	// Pass true to update the score even if it decreases. If the score is 0, the user will
@@ -47,7 +47,7 @@ type SetInlineGameScoreRequest struct {
 }
 
 // SetInlineGameScoreRequestTypeID is TL type id of SetInlineGameScoreRequest.
-const SetInlineGameScoreRequestTypeID = 0x2d34ce9f
+const SetInlineGameScoreRequestTypeID = 0xc7715d8b
 
 // Ensuring interfaces in compile-time for SetInlineGameScoreRequest.
 var (
@@ -139,7 +139,7 @@ func (s *SetInlineGameScoreRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SetInlineGameScoreRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setInlineGameScore#2d34ce9f as nil")
+		return fmt.Errorf("can't encode setInlineGameScore#c7715d8b as nil")
 	}
 	b.PutID(SetInlineGameScoreRequestTypeID)
 	return s.EncodeBare(b)
@@ -148,11 +148,11 @@ func (s *SetInlineGameScoreRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SetInlineGameScoreRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setInlineGameScore#2d34ce9f as nil")
+		return fmt.Errorf("can't encode setInlineGameScore#c7715d8b as nil")
 	}
 	b.PutString(s.InlineMessageID)
 	b.PutBool(s.EditMessage)
-	b.PutInt32(s.UserID)
+	b.PutLong(s.UserID)
 	b.PutInt32(s.Score)
 	b.PutBool(s.Force)
 	return nil
@@ -161,10 +161,10 @@ func (s *SetInlineGameScoreRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SetInlineGameScoreRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setInlineGameScore#2d34ce9f to nil")
+		return fmt.Errorf("can't decode setInlineGameScore#c7715d8b to nil")
 	}
 	if err := b.ConsumeID(SetInlineGameScoreRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: %w", err)
+		return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -172,40 +172,40 @@ func (s *SetInlineGameScoreRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SetInlineGameScoreRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setInlineGameScore#2d34ce9f to nil")
+		return fmt.Errorf("can't decode setInlineGameScore#c7715d8b to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field inline_message_id: %w", err)
+			return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: field inline_message_id: %w", err)
 		}
 		s.InlineMessageID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field edit_message: %w", err)
+			return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: field edit_message: %w", err)
 		}
 		s.EditMessage = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field user_id: %w", err)
+			return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: field user_id: %w", err)
 		}
 		s.UserID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field score: %w", err)
+			return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: field score: %w", err)
 		}
 		s.Score = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field force: %w", err)
+			return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: field force: %w", err)
 		}
 		s.Force = value
 	}
@@ -215,7 +215,7 @@ func (s *SetInlineGameScoreRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SetInlineGameScoreRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setInlineGameScore#2d34ce9f as nil")
+		return fmt.Errorf("can't encode setInlineGameScore#c7715d8b as nil")
 	}
 	b.ObjStart()
 	b.PutID("setInlineGameScore")
@@ -224,7 +224,7 @@ func (s *SetInlineGameScoreRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("edit_message")
 	b.PutBool(s.EditMessage)
 	b.FieldStart("user_id")
-	b.PutInt32(s.UserID)
+	b.PutLong(s.UserID)
 	b.FieldStart("score")
 	b.PutInt32(s.Score)
 	b.FieldStart("force")
@@ -236,43 +236,43 @@ func (s *SetInlineGameScoreRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SetInlineGameScoreRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setInlineGameScore#2d34ce9f to nil")
+		return fmt.Errorf("can't decode setInlineGameScore#c7715d8b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("setInlineGameScore"); err != nil {
-				return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: %w", err)
+				return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: %w", err)
 			}
 		case "inline_message_id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field inline_message_id: %w", err)
+				return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: field inline_message_id: %w", err)
 			}
 			s.InlineMessageID = value
 		case "edit_message":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field edit_message: %w", err)
+				return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: field edit_message: %w", err)
 			}
 			s.EditMessage = value
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field user_id: %w", err)
+				return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: field user_id: %w", err)
 			}
 			s.UserID = value
 		case "score":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field score: %w", err)
+				return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: field score: %w", err)
 			}
 			s.Score = value
 		case "force":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode setInlineGameScore#2d34ce9f: field force: %w", err)
+				return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: field force: %w", err)
 			}
 			s.Force = value
 		default:
@@ -293,7 +293,7 @@ func (s *SetInlineGameScoreRequest) GetEditMessage() (value bool) {
 }
 
 // GetUserID returns value of UserID field.
-func (s *SetInlineGameScoreRequest) GetUserID() (value int32) {
+func (s *SetInlineGameScoreRequest) GetUserID() (value int64) {
 	return s.UserID
 }
 
@@ -307,7 +307,7 @@ func (s *SetInlineGameScoreRequest) GetForce() (value bool) {
 	return s.Force
 }
 
-// SetInlineGameScore invokes method setInlineGameScore#2d34ce9f returning error if any.
+// SetInlineGameScore invokes method setInlineGameScore#c7715d8b returning error if any.
 func (c *Client) SetInlineGameScore(ctx context.Context, request *SetInlineGameScoreRequest) error {
 	var ok Ok
 

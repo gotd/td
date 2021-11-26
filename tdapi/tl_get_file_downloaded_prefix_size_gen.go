@@ -35,7 +35,7 @@ var (
 type GetFileDownloadedPrefixSizeRequest struct {
 	// Identifier of the file
 	FileID int32
-	// Offset from which downloaded prefix size should be calculated
+	// Offset from which downloaded prefix size needs to be calculated
 	Offset int32
 }
 

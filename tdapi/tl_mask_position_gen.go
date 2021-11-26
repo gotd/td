@@ -33,7 +33,7 @@ var (
 
 // MaskPosition represents TL type `maskPosition#82fbb63e`.
 type MaskPosition struct {
-	// Part of the face, relative to which the mask should be placed
+	// Part of the face, relative to which the mask is placed
 	Point MaskPointClass
 	// Shift by X-axis measured in widths of the mask scaled to the face size, from left to
 	// right. (For example, -1.0 will place the mask just to the left of the default mask

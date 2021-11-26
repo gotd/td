@@ -31,19 +31,19 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// TransferChatOwnershipRequest represents TL type `transferChatOwnership#8d421ca9`.
+// TransferChatOwnershipRequest represents TL type `transferChatOwnership#77a00a13`.
 type TransferChatOwnershipRequest struct {
 	// Chat identifier
 	ChatID int64
 	// Identifier of the user to which transfer the ownership. The ownership can't be
 	// transferred to a bot or to a deleted user
-	UserID int32
+	UserID int64
 	// The password of the current user
 	Password string
 }
 
 // TransferChatOwnershipRequestTypeID is TL type id of TransferChatOwnershipRequest.
-const TransferChatOwnershipRequestTypeID = 0x8d421ca9
+const TransferChatOwnershipRequestTypeID = 0x77a00a13
 
 // Ensuring interfaces in compile-time for TransferChatOwnershipRequest.
 var (
@@ -121,7 +121,7 @@ func (t *TransferChatOwnershipRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TransferChatOwnershipRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode transferChatOwnership#8d421ca9 as nil")
+		return fmt.Errorf("can't encode transferChatOwnership#77a00a13 as nil")
 	}
 	b.PutID(TransferChatOwnershipRequestTypeID)
 	return t.EncodeBare(b)
@@ -130,10 +130,10 @@ func (t *TransferChatOwnershipRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TransferChatOwnershipRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode transferChatOwnership#8d421ca9 as nil")
+		return fmt.Errorf("can't encode transferChatOwnership#77a00a13 as nil")
 	}
 	b.PutLong(t.ChatID)
-	b.PutInt32(t.UserID)
+	b.PutLong(t.UserID)
 	b.PutString(t.Password)
 	return nil
 }
@@ -141,10 +141,10 @@ func (t *TransferChatOwnershipRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TransferChatOwnershipRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode transferChatOwnership#8d421ca9 to nil")
+		return fmt.Errorf("can't decode transferChatOwnership#77a00a13 to nil")
 	}
 	if err := b.ConsumeID(TransferChatOwnershipRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode transferChatOwnership#8d421ca9: %w", err)
+		return fmt.Errorf("unable to decode transferChatOwnership#77a00a13: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -152,26 +152,26 @@ func (t *TransferChatOwnershipRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TransferChatOwnershipRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode transferChatOwnership#8d421ca9 to nil")
+		return fmt.Errorf("can't decode transferChatOwnership#77a00a13 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode transferChatOwnership#8d421ca9: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode transferChatOwnership#77a00a13: field chat_id: %w", err)
 		}
 		t.ChatID = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode transferChatOwnership#8d421ca9: field user_id: %w", err)
+			return fmt.Errorf("unable to decode transferChatOwnership#77a00a13: field user_id: %w", err)
 		}
 		t.UserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode transferChatOwnership#8d421ca9: field password: %w", err)
+			return fmt.Errorf("unable to decode transferChatOwnership#77a00a13: field password: %w", err)
 		}
 		t.Password = value
 	}
@@ -181,14 +181,14 @@ func (t *TransferChatOwnershipRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (t *TransferChatOwnershipRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
-		return fmt.Errorf("can't encode transferChatOwnership#8d421ca9 as nil")
+		return fmt.Errorf("can't encode transferChatOwnership#77a00a13 as nil")
 	}
 	b.ObjStart()
 	b.PutID("transferChatOwnership")
 	b.FieldStart("chat_id")
 	b.PutLong(t.ChatID)
 	b.FieldStart("user_id")
-	b.PutInt32(t.UserID)
+	b.PutLong(t.UserID)
 	b.FieldStart("password")
 	b.PutString(t.Password)
 	b.ObjEnd()
@@ -198,31 +198,31 @@ func (t *TransferChatOwnershipRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (t *TransferChatOwnershipRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
-		return fmt.Errorf("can't decode transferChatOwnership#8d421ca9 to nil")
+		return fmt.Errorf("can't decode transferChatOwnership#77a00a13 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("transferChatOwnership"); err != nil {
-				return fmt.Errorf("unable to decode transferChatOwnership#8d421ca9: %w", err)
+				return fmt.Errorf("unable to decode transferChatOwnership#77a00a13: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode transferChatOwnership#8d421ca9: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode transferChatOwnership#77a00a13: field chat_id: %w", err)
 			}
 			t.ChatID = value
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode transferChatOwnership#8d421ca9: field user_id: %w", err)
+				return fmt.Errorf("unable to decode transferChatOwnership#77a00a13: field user_id: %w", err)
 			}
 			t.UserID = value
 		case "password":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode transferChatOwnership#8d421ca9: field password: %w", err)
+				return fmt.Errorf("unable to decode transferChatOwnership#77a00a13: field password: %w", err)
 			}
 			t.Password = value
 		default:
@@ -238,7 +238,7 @@ func (t *TransferChatOwnershipRequest) GetChatID() (value int64) {
 }
 
 // GetUserID returns value of UserID field.
-func (t *TransferChatOwnershipRequest) GetUserID() (value int32) {
+func (t *TransferChatOwnershipRequest) GetUserID() (value int64) {
 	return t.UserID
 }
 
@@ -247,7 +247,7 @@ func (t *TransferChatOwnershipRequest) GetPassword() (value string) {
 	return t.Password
 }
 
-// TransferChatOwnership invokes method transferChatOwnership#8d421ca9 returning error if any.
+// TransferChatOwnership invokes method transferChatOwnership#77a00a13 returning error if any.
 func (c *Client) TransferChatOwnership(ctx context.Context, request *TransferChatOwnershipRequest) error {
 	var ok Ok
 

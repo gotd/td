@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ToggleSupergroupSignMessagesRequest represents TL type `toggleSupergroupSignMessages#deba989b`.
+// ToggleSupergroupSignMessagesRequest represents TL type `toggleSupergroupSignMessages#44efd524`.
 type ToggleSupergroupSignMessagesRequest struct {
 	// Identifier of the channel
-	SupergroupID int32
+	SupergroupID int64
 	// New value of sign_messages
 	SignMessages bool
 }
 
 // ToggleSupergroupSignMessagesRequestTypeID is TL type id of ToggleSupergroupSignMessagesRequest.
-const ToggleSupergroupSignMessagesRequestTypeID = 0xdeba989b
+const ToggleSupergroupSignMessagesRequestTypeID = 0x44efd524
 
 // Ensuring interfaces in compile-time for ToggleSupergroupSignMessagesRequest.
 var (
@@ -111,7 +111,7 @@ func (t *ToggleSupergroupSignMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ToggleSupergroupSignMessagesRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleSupergroupSignMessages#deba989b as nil")
+		return fmt.Errorf("can't encode toggleSupergroupSignMessages#44efd524 as nil")
 	}
 	b.PutID(ToggleSupergroupSignMessagesRequestTypeID)
 	return t.EncodeBare(b)
@@ -120,9 +120,9 @@ func (t *ToggleSupergroupSignMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ToggleSupergroupSignMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleSupergroupSignMessages#deba989b as nil")
+		return fmt.Errorf("can't encode toggleSupergroupSignMessages#44efd524 as nil")
 	}
-	b.PutInt32(t.SupergroupID)
+	b.PutLong(t.SupergroupID)
 	b.PutBool(t.SignMessages)
 	return nil
 }
@@ -130,10 +130,10 @@ func (t *ToggleSupergroupSignMessagesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *ToggleSupergroupSignMessagesRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleSupergroupSignMessages#deba989b to nil")
+		return fmt.Errorf("can't decode toggleSupergroupSignMessages#44efd524 to nil")
 	}
 	if err := b.ConsumeID(ToggleSupergroupSignMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode toggleSupergroupSignMessages#deba989b: %w", err)
+		return fmt.Errorf("unable to decode toggleSupergroupSignMessages#44efd524: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -141,19 +141,19 @@ func (t *ToggleSupergroupSignMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ToggleSupergroupSignMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleSupergroupSignMessages#deba989b to nil")
+		return fmt.Errorf("can't decode toggleSupergroupSignMessages#44efd524 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode toggleSupergroupSignMessages#deba989b: field supergroup_id: %w", err)
+			return fmt.Errorf("unable to decode toggleSupergroupSignMessages#44efd524: field supergroup_id: %w", err)
 		}
 		t.SupergroupID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode toggleSupergroupSignMessages#deba989b: field sign_messages: %w", err)
+			return fmt.Errorf("unable to decode toggleSupergroupSignMessages#44efd524: field sign_messages: %w", err)
 		}
 		t.SignMessages = value
 	}
@@ -163,12 +163,12 @@ func (t *ToggleSupergroupSignMessagesRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (t *ToggleSupergroupSignMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleSupergroupSignMessages#deba989b as nil")
+		return fmt.Errorf("can't encode toggleSupergroupSignMessages#44efd524 as nil")
 	}
 	b.ObjStart()
 	b.PutID("toggleSupergroupSignMessages")
 	b.FieldStart("supergroup_id")
-	b.PutInt32(t.SupergroupID)
+	b.PutLong(t.SupergroupID)
 	b.FieldStart("sign_messages")
 	b.PutBool(t.SignMessages)
 	b.ObjEnd()
@@ -178,25 +178,25 @@ func (t *ToggleSupergroupSignMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (t *ToggleSupergroupSignMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleSupergroupSignMessages#deba989b to nil")
+		return fmt.Errorf("can't decode toggleSupergroupSignMessages#44efd524 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("toggleSupergroupSignMessages"); err != nil {
-				return fmt.Errorf("unable to decode toggleSupergroupSignMessages#deba989b: %w", err)
+				return fmt.Errorf("unable to decode toggleSupergroupSignMessages#44efd524: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode toggleSupergroupSignMessages#deba989b: field supergroup_id: %w", err)
+				return fmt.Errorf("unable to decode toggleSupergroupSignMessages#44efd524: field supergroup_id: %w", err)
 			}
 			t.SupergroupID = value
 		case "sign_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode toggleSupergroupSignMessages#deba989b: field sign_messages: %w", err)
+				return fmt.Errorf("unable to decode toggleSupergroupSignMessages#44efd524: field sign_messages: %w", err)
 			}
 			t.SignMessages = value
 		default:
@@ -207,7 +207,7 @@ func (t *ToggleSupergroupSignMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 }
 
 // GetSupergroupID returns value of SupergroupID field.
-func (t *ToggleSupergroupSignMessagesRequest) GetSupergroupID() (value int32) {
+func (t *ToggleSupergroupSignMessagesRequest) GetSupergroupID() (value int64) {
 	return t.SupergroupID
 }
 
@@ -216,7 +216,7 @@ func (t *ToggleSupergroupSignMessagesRequest) GetSignMessages() (value bool) {
 	return t.SignMessages
 }
 
-// ToggleSupergroupSignMessages invokes method toggleSupergroupSignMessages#deba989b returning error if any.
+// ToggleSupergroupSignMessages invokes method toggleSupergroupSignMessages#44efd524 returning error if any.
 func (c *Client) ToggleSupergroupSignMessages(ctx context.Context, request *ToggleSupergroupSignMessagesRequest) error {
 	var ok Ok
 

@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageSenderUser represents TL type `messageSenderUser#622d1725`.
+// MessageSenderUser represents TL type `messageSenderUser#ebf760e3`.
 type MessageSenderUser struct {
 	// Identifier of the user that sent the message
-	UserID int32
+	UserID int64
 }
 
 // MessageSenderUserTypeID is TL type id of MessageSenderUser.
-const MessageSenderUserTypeID = 0x622d1725
+const MessageSenderUserTypeID = 0xebf760e3
 
 // construct implements constructor of MessageSenderClass.
 func (m MessageSenderUser) construct() MessageSenderClass { return &m }
@@ -107,7 +107,7 @@ func (m *MessageSenderUser) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageSenderUser) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSenderUser#622d1725 as nil")
+		return fmt.Errorf("can't encode messageSenderUser#ebf760e3 as nil")
 	}
 	b.PutID(MessageSenderUserTypeID)
 	return m.EncodeBare(b)
@@ -116,19 +116,19 @@ func (m *MessageSenderUser) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageSenderUser) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSenderUser#622d1725 as nil")
+		return fmt.Errorf("can't encode messageSenderUser#ebf760e3 as nil")
 	}
-	b.PutInt32(m.UserID)
+	b.PutLong(m.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageSenderUser) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSenderUser#622d1725 to nil")
+		return fmt.Errorf("can't decode messageSenderUser#ebf760e3 to nil")
 	}
 	if err := b.ConsumeID(MessageSenderUserTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageSenderUser#622d1725: %w", err)
+		return fmt.Errorf("unable to decode messageSenderUser#ebf760e3: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (m *MessageSenderUser) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageSenderUser) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSenderUser#622d1725 to nil")
+		return fmt.Errorf("can't decode messageSenderUser#ebf760e3 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSenderUser#622d1725: field user_id: %w", err)
+			return fmt.Errorf("unable to decode messageSenderUser#ebf760e3: field user_id: %w", err)
 		}
 		m.UserID = value
 	}
@@ -151,12 +151,12 @@ func (m *MessageSenderUser) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageSenderUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSenderUser#622d1725 as nil")
+		return fmt.Errorf("can't encode messageSenderUser#ebf760e3 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageSenderUser")
 	b.FieldStart("user_id")
-	b.PutInt32(m.UserID)
+	b.PutLong(m.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -164,19 +164,19 @@ func (m *MessageSenderUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageSenderUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSenderUser#622d1725 to nil")
+		return fmt.Errorf("can't decode messageSenderUser#ebf760e3 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageSenderUser"); err != nil {
-				return fmt.Errorf("unable to decode messageSenderUser#622d1725: %w", err)
+				return fmt.Errorf("unable to decode messageSenderUser#ebf760e3: %w", err)
 			}
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSenderUser#622d1725: field user_id: %w", err)
+				return fmt.Errorf("unable to decode messageSenderUser#ebf760e3: field user_id: %w", err)
 			}
 			m.UserID = value
 		default:
@@ -187,7 +187,7 @@ func (m *MessageSenderUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserID returns value of UserID field.
-func (m *MessageSenderUser) GetUserID() (value int32) {
+func (m *MessageSenderUser) GetUserID() (value int64) {
 	return m.UserID
 }
 
@@ -359,7 +359,7 @@ func (m *MessageSenderChat) GetChatID() (value int64) {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tdapi.MessageSenderUser: // messageSenderUser#622d1725
+//  case *tdapi.MessageSenderUser: // messageSenderUser#ebf760e3
 //  case *tdapi.MessageSenderChat: // messageSenderChat#f1b71131
 //  default: panic(v)
 //  }
@@ -393,7 +393,7 @@ func DecodeMessageSender(buf *bin.Buffer) (MessageSenderClass, error) {
 	}
 	switch id {
 	case MessageSenderUserTypeID:
-		// Decoding messageSenderUser#622d1725.
+		// Decoding messageSenderUser#ebf760e3.
 		v := MessageSenderUser{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageSenderClass: %w", err)
@@ -419,7 +419,7 @@ func DecodeTDLibJSONMessageSender(buf tdjson.Decoder) (MessageSenderClass, error
 	}
 	switch id {
 	case "messageSenderUser":
-		// Decoding messageSenderUser#622d1725.
+		// Decoding messageSenderUser#ebf760e3.
 		v := MessageSenderUser{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageSenderClass: %w", err)

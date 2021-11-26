@@ -59,8 +59,8 @@ type StickerSetInfo struct {
 	IsViewed bool
 	// Total number of stickers in the set
 	Size int32
-	// Contains up to the first 5 stickers from the set, depending on the context. If the
-	// application needs more stickers the full set should be requested
+	// Up to the first 5 stickers from the set, depending on the context. If the application
+	// needs more stickers the full sticker set needs to be requested
 	Covers []Sticker
 }
 

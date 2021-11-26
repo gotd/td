@@ -31,16 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StartGroupCallRecordingRequest represents TL type `startGroupCallRecording#efd6f310`.
+// StartGroupCallRecordingRequest represents TL type `startGroupCallRecording#68c5847b`.
 type StartGroupCallRecordingRequest struct {
 	// Group call identifier
 	GroupCallID int32
 	// Group call recording title; 0-64 characters
 	Title string
+	// Pass true to record a video file instead of an audio file
+	RecordVideo bool
+	// Pass true to use portrait orientation for video instead of landscape one
+	UsePortraitOrientation bool
 }
 
 // StartGroupCallRecordingRequestTypeID is TL type id of StartGroupCallRecordingRequest.
-const StartGroupCallRecordingRequestTypeID = 0xefd6f310
+const StartGroupCallRecordingRequestTypeID = 0x68c5847b
 
 // Ensuring interfaces in compile-time for StartGroupCallRecordingRequest.
 var (
@@ -58,6 +62,12 @@ func (s *StartGroupCallRecordingRequest) Zero() bool {
 		return false
 	}
 	if !(s.Title == "") {
+		return false
+	}
+	if !(s.RecordVideo == false) {
+		return false
+	}
+	if !(s.UsePortraitOrientation == false) {
 		return false
 	}
 
@@ -104,6 +114,14 @@ func (s *StartGroupCallRecordingRequest) TypeInfo() tdp.Type {
 			Name:       "Title",
 			SchemaName: "title",
 		},
+		{
+			Name:       "RecordVideo",
+			SchemaName: "record_video",
+		},
+		{
+			Name:       "UsePortraitOrientation",
+			SchemaName: "use_portrait_orientation",
+		},
 	}
 	return typ
 }
@@ -111,7 +129,7 @@ func (s *StartGroupCallRecordingRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StartGroupCallRecordingRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode startGroupCallRecording#efd6f310 as nil")
+		return fmt.Errorf("can't encode startGroupCallRecording#68c5847b as nil")
 	}
 	b.PutID(StartGroupCallRecordingRequestTypeID)
 	return s.EncodeBare(b)
@@ -120,20 +138,22 @@ func (s *StartGroupCallRecordingRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StartGroupCallRecordingRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode startGroupCallRecording#efd6f310 as nil")
+		return fmt.Errorf("can't encode startGroupCallRecording#68c5847b as nil")
 	}
 	b.PutInt32(s.GroupCallID)
 	b.PutString(s.Title)
+	b.PutBool(s.RecordVideo)
+	b.PutBool(s.UsePortraitOrientation)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *StartGroupCallRecordingRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode startGroupCallRecording#efd6f310 to nil")
+		return fmt.Errorf("can't decode startGroupCallRecording#68c5847b to nil")
 	}
 	if err := b.ConsumeID(StartGroupCallRecordingRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode startGroupCallRecording#efd6f310: %w", err)
+		return fmt.Errorf("unable to decode startGroupCallRecording#68c5847b: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -141,21 +161,35 @@ func (s *StartGroupCallRecordingRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StartGroupCallRecordingRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode startGroupCallRecording#efd6f310 to nil")
+		return fmt.Errorf("can't decode startGroupCallRecording#68c5847b to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode startGroupCallRecording#efd6f310: field group_call_id: %w", err)
+			return fmt.Errorf("unable to decode startGroupCallRecording#68c5847b: field group_call_id: %w", err)
 		}
 		s.GroupCallID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode startGroupCallRecording#efd6f310: field title: %w", err)
+			return fmt.Errorf("unable to decode startGroupCallRecording#68c5847b: field title: %w", err)
 		}
 		s.Title = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode startGroupCallRecording#68c5847b: field record_video: %w", err)
+		}
+		s.RecordVideo = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode startGroupCallRecording#68c5847b: field use_portrait_orientation: %w", err)
+		}
+		s.UsePortraitOrientation = value
 	}
 	return nil
 }
@@ -163,7 +197,7 @@ func (s *StartGroupCallRecordingRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StartGroupCallRecordingRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode startGroupCallRecording#efd6f310 as nil")
+		return fmt.Errorf("can't encode startGroupCallRecording#68c5847b as nil")
 	}
 	b.ObjStart()
 	b.PutID("startGroupCallRecording")
@@ -171,6 +205,10 @@ func (s *StartGroupCallRecordingRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.PutInt32(s.GroupCallID)
 	b.FieldStart("title")
 	b.PutString(s.Title)
+	b.FieldStart("record_video")
+	b.PutBool(s.RecordVideo)
+	b.FieldStart("use_portrait_orientation")
+	b.PutBool(s.UsePortraitOrientation)
 	b.ObjEnd()
 	return nil
 }
@@ -178,27 +216,39 @@ func (s *StartGroupCallRecordingRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StartGroupCallRecordingRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode startGroupCallRecording#efd6f310 to nil")
+		return fmt.Errorf("can't decode startGroupCallRecording#68c5847b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("startGroupCallRecording"); err != nil {
-				return fmt.Errorf("unable to decode startGroupCallRecording#efd6f310: %w", err)
+				return fmt.Errorf("unable to decode startGroupCallRecording#68c5847b: %w", err)
 			}
 		case "group_call_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode startGroupCallRecording#efd6f310: field group_call_id: %w", err)
+				return fmt.Errorf("unable to decode startGroupCallRecording#68c5847b: field group_call_id: %w", err)
 			}
 			s.GroupCallID = value
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode startGroupCallRecording#efd6f310: field title: %w", err)
+				return fmt.Errorf("unable to decode startGroupCallRecording#68c5847b: field title: %w", err)
 			}
 			s.Title = value
+		case "record_video":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode startGroupCallRecording#68c5847b: field record_video: %w", err)
+			}
+			s.RecordVideo = value
+		case "use_portrait_orientation":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode startGroupCallRecording#68c5847b: field use_portrait_orientation: %w", err)
+			}
+			s.UsePortraitOrientation = value
 		default:
 			return b.Skip()
 		}
@@ -216,7 +266,17 @@ func (s *StartGroupCallRecordingRequest) GetTitle() (value string) {
 	return s.Title
 }
 
-// StartGroupCallRecording invokes method startGroupCallRecording#efd6f310 returning error if any.
+// GetRecordVideo returns value of RecordVideo field.
+func (s *StartGroupCallRecordingRequest) GetRecordVideo() (value bool) {
+	return s.RecordVideo
+}
+
+// GetUsePortraitOrientation returns value of UsePortraitOrientation field.
+func (s *StartGroupCallRecordingRequest) GetUsePortraitOrientation() (value bool) {
+	return s.UsePortraitOrientation
+}
+
+// StartGroupCallRecording invokes method startGroupCallRecording#68c5847b returning error if any.
 func (c *Client) StartGroupCallRecording(ctx context.Context, request *StartGroupCallRecordingRequest) error {
 	var ok Ok
 

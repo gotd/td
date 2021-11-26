@@ -35,10 +35,9 @@ var (
 type EditInlineMessageLiveLocationRequest struct {
 	// Inline message identifier
 	InlineMessageID string
-	// The new message reply markup
+	// The new message reply markup; pass null if none
 	ReplyMarkup ReplyMarkupClass
-	// New location content of the message; may be null. Pass null to stop sharing the live
-	// location
+	// New location content of the message; pass null to stop sharing the live location
 	Location Location
 	// The new direction in which the location moves, in degrees; 1-360. Pass 0 if unknown
 	Heading int32

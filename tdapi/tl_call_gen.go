@@ -31,12 +31,12 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Call represents TL type `call#59a64c86`.
+// Call represents TL type `call#36db9764`.
 type Call struct {
 	// Call identifier, not persistent
 	ID int32
 	// Peer user identifier
-	UserID int32
+	UserID int64
 	// True, if the call is outgoing
 	IsOutgoing bool
 	// True, if the call is a video call
@@ -46,7 +46,7 @@ type Call struct {
 }
 
 // CallTypeID is TL type id of Call.
-const CallTypeID = 0x59a64c86
+const CallTypeID = 0x36db9764
 
 // Ensuring interfaces in compile-time for Call.
 var (
@@ -138,7 +138,7 @@ func (c *Call) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *Call) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode call#59a64c86 as nil")
+		return fmt.Errorf("can't encode call#36db9764 as nil")
 	}
 	b.PutID(CallTypeID)
 	return c.EncodeBare(b)
@@ -147,17 +147,17 @@ func (c *Call) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *Call) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode call#59a64c86 as nil")
+		return fmt.Errorf("can't encode call#36db9764 as nil")
 	}
 	b.PutInt32(c.ID)
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	b.PutBool(c.IsOutgoing)
 	b.PutBool(c.IsVideo)
 	if c.State == nil {
-		return fmt.Errorf("unable to encode call#59a64c86: field state is nil")
+		return fmt.Errorf("unable to encode call#36db9764: field state is nil")
 	}
 	if err := c.State.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode call#59a64c86: field state: %w", err)
+		return fmt.Errorf("unable to encode call#36db9764: field state: %w", err)
 	}
 	return nil
 }
@@ -165,10 +165,10 @@ func (c *Call) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *Call) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode call#59a64c86 to nil")
+		return fmt.Errorf("can't decode call#36db9764 to nil")
 	}
 	if err := b.ConsumeID(CallTypeID); err != nil {
-		return fmt.Errorf("unable to decode call#59a64c86: %w", err)
+		return fmt.Errorf("unable to decode call#36db9764: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -176,40 +176,40 @@ func (c *Call) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *Call) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode call#59a64c86 to nil")
+		return fmt.Errorf("can't decode call#36db9764 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode call#59a64c86: field id: %w", err)
+			return fmt.Errorf("unable to decode call#36db9764: field id: %w", err)
 		}
 		c.ID = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode call#59a64c86: field user_id: %w", err)
+			return fmt.Errorf("unable to decode call#36db9764: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode call#59a64c86: field is_outgoing: %w", err)
+			return fmt.Errorf("unable to decode call#36db9764: field is_outgoing: %w", err)
 		}
 		c.IsOutgoing = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode call#59a64c86: field is_video: %w", err)
+			return fmt.Errorf("unable to decode call#36db9764: field is_video: %w", err)
 		}
 		c.IsVideo = value
 	}
 	{
 		value, err := DecodeCallState(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode call#59a64c86: field state: %w", err)
+			return fmt.Errorf("unable to decode call#36db9764: field state: %w", err)
 		}
 		c.State = value
 	}
@@ -219,24 +219,24 @@ func (c *Call) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *Call) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode call#59a64c86 as nil")
+		return fmt.Errorf("can't encode call#36db9764 as nil")
 	}
 	b.ObjStart()
 	b.PutID("call")
 	b.FieldStart("id")
 	b.PutInt32(c.ID)
 	b.FieldStart("user_id")
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	b.FieldStart("is_outgoing")
 	b.PutBool(c.IsOutgoing)
 	b.FieldStart("is_video")
 	b.PutBool(c.IsVideo)
 	b.FieldStart("state")
 	if c.State == nil {
-		return fmt.Errorf("unable to encode call#59a64c86: field state is nil")
+		return fmt.Errorf("unable to encode call#36db9764: field state is nil")
 	}
 	if err := c.State.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode call#59a64c86: field state: %w", err)
+		return fmt.Errorf("unable to encode call#36db9764: field state: %w", err)
 	}
 	b.ObjEnd()
 	return nil
@@ -245,43 +245,43 @@ func (c *Call) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *Call) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode call#59a64c86 to nil")
+		return fmt.Errorf("can't decode call#36db9764 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("call"); err != nil {
-				return fmt.Errorf("unable to decode call#59a64c86: %w", err)
+				return fmt.Errorf("unable to decode call#36db9764: %w", err)
 			}
 		case "id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode call#59a64c86: field id: %w", err)
+				return fmt.Errorf("unable to decode call#36db9764: field id: %w", err)
 			}
 			c.ID = value
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode call#59a64c86: field user_id: %w", err)
+				return fmt.Errorf("unable to decode call#36db9764: field user_id: %w", err)
 			}
 			c.UserID = value
 		case "is_outgoing":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode call#59a64c86: field is_outgoing: %w", err)
+				return fmt.Errorf("unable to decode call#36db9764: field is_outgoing: %w", err)
 			}
 			c.IsOutgoing = value
 		case "is_video":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode call#59a64c86: field is_video: %w", err)
+				return fmt.Errorf("unable to decode call#36db9764: field is_video: %w", err)
 			}
 			c.IsVideo = value
 		case "state":
 			value, err := DecodeTDLibJSONCallState(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode call#59a64c86: field state: %w", err)
+				return fmt.Errorf("unable to decode call#36db9764: field state: %w", err)
 			}
 			c.State = value
 		default:
@@ -297,7 +297,7 @@ func (c *Call) GetID() (value int32) {
 }
 
 // GetUserID returns value of UserID field.
-func (c *Call) GetUserID() (value int32) {
+func (c *Call) GetUserID() (value int64) {
 	return c.UserID
 }
 

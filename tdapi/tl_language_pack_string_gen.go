@@ -35,7 +35,8 @@ var (
 type LanguagePackString struct {
 	// String key
 	Key string
-	// String value
+	// String value; pass null if the string needs to be taken from the built-in English
+	// language pack
 	Value LanguagePackStringValueClass
 }
 

@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotCommands represents TL type `botCommands#f479c572`.
+// BotCommands represents TL type `botCommands#4f9aa2c5`.
 type BotCommands struct {
 	// Bot's user identifier
-	BotUserID int32
+	BotUserID int64
 	// List of bot commands
 	Commands []BotCommand
 }
 
 // BotCommandsTypeID is TL type id of BotCommands.
-const BotCommandsTypeID = 0xf479c572
+const BotCommandsTypeID = 0x4f9aa2c5
 
 // Ensuring interfaces in compile-time for BotCommands.
 var (
@@ -111,7 +111,7 @@ func (b *BotCommands) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotCommands) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommands#f479c572 as nil")
+		return fmt.Errorf("can't encode botCommands#4f9aa2c5 as nil")
 	}
 	buf.PutID(BotCommandsTypeID)
 	return b.EncodeBare(buf)
@@ -120,13 +120,13 @@ func (b *BotCommands) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotCommands) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommands#f479c572 as nil")
+		return fmt.Errorf("can't encode botCommands#4f9aa2c5 as nil")
 	}
-	buf.PutInt32(b.BotUserID)
+	buf.PutLong(b.BotUserID)
 	buf.PutInt(len(b.Commands))
 	for idx, v := range b.Commands {
 		if err := v.EncodeBare(buf); err != nil {
-			return fmt.Errorf("unable to encode bare botCommands#f479c572: field commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare botCommands#4f9aa2c5: field commands element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -135,10 +135,10 @@ func (b *BotCommands) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BotCommands) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommands#f479c572 to nil")
+		return fmt.Errorf("can't decode botCommands#4f9aa2c5 to nil")
 	}
 	if err := buf.ConsumeID(BotCommandsTypeID); err != nil {
-		return fmt.Errorf("unable to decode botCommands#f479c572: %w", err)
+		return fmt.Errorf("unable to decode botCommands#4f9aa2c5: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -146,19 +146,19 @@ func (b *BotCommands) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotCommands) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommands#f479c572 to nil")
+		return fmt.Errorf("can't decode botCommands#4f9aa2c5 to nil")
 	}
 	{
-		value, err := buf.Int32()
+		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode botCommands#f479c572: field bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode botCommands#4f9aa2c5: field bot_user_id: %w", err)
 		}
 		b.BotUserID = value
 	}
 	{
 		headerLen, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode botCommands#f479c572: field commands: %w", err)
+			return fmt.Errorf("unable to decode botCommands#4f9aa2c5: field commands: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -167,7 +167,7 @@ func (b *BotCommands) DecodeBare(buf *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand
 			if err := value.DecodeBare(buf); err != nil {
-				return fmt.Errorf("unable to decode bare botCommands#f479c572: field commands: %w", err)
+				return fmt.Errorf("unable to decode bare botCommands#4f9aa2c5: field commands: %w", err)
 			}
 			b.Commands = append(b.Commands, value)
 		}
@@ -178,17 +178,17 @@ func (b *BotCommands) DecodeBare(buf *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (b *BotCommands) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommands#f479c572 as nil")
+		return fmt.Errorf("can't encode botCommands#4f9aa2c5 as nil")
 	}
 	buf.ObjStart()
 	buf.PutID("botCommands")
 	buf.FieldStart("bot_user_id")
-	buf.PutInt32(b.BotUserID)
+	buf.PutLong(b.BotUserID)
 	buf.FieldStart("commands")
 	buf.ArrStart()
 	for idx, v := range b.Commands {
 		if err := v.EncodeTDLibJSON(buf); err != nil {
-			return fmt.Errorf("unable to encode botCommands#f479c572: field commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode botCommands#4f9aa2c5: field commands element with index %d: %w", idx, err)
 		}
 	}
 	buf.ArrEnd()
@@ -199,31 +199,31 @@ func (b *BotCommands) EncodeTDLibJSON(buf tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (b *BotCommands) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommands#f479c572 to nil")
+		return fmt.Errorf("can't decode botCommands#4f9aa2c5 to nil")
 	}
 
 	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := buf.ConsumeID("botCommands"); err != nil {
-				return fmt.Errorf("unable to decode botCommands#f479c572: %w", err)
+				return fmt.Errorf("unable to decode botCommands#4f9aa2c5: %w", err)
 			}
 		case "bot_user_id":
-			value, err := buf.Int32()
+			value, err := buf.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode botCommands#f479c572: field bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode botCommands#4f9aa2c5: field bot_user_id: %w", err)
 			}
 			b.BotUserID = value
 		case "commands":
 			if err := buf.Arr(func(buf tdjson.Decoder) error {
 				var value BotCommand
 				if err := value.DecodeTDLibJSON(buf); err != nil {
-					return fmt.Errorf("unable to decode botCommands#f479c572: field commands: %w", err)
+					return fmt.Errorf("unable to decode botCommands#4f9aa2c5: field commands: %w", err)
 				}
 				b.Commands = append(b.Commands, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode botCommands#f479c572: field commands: %w", err)
+				return fmt.Errorf("unable to decode botCommands#4f9aa2c5: field commands: %w", err)
 			}
 		default:
 			return buf.Skip()
@@ -233,7 +233,7 @@ func (b *BotCommands) DecodeTDLibJSON(buf tdjson.Decoder) error {
 }
 
 // GetBotUserID returns value of BotUserID field.
-func (b *BotCommands) GetBotUserID() (value int32) {
+func (b *BotCommands) GetBotUserID() (value int64) {
 	return b.BotUserID
 }
 

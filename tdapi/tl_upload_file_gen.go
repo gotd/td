@@ -35,7 +35,7 @@ var (
 type UploadFileRequest struct {
 	// File to upload
 	File InputFileClass
-	// File type
+	// File type; pass null if unknown
 	FileType FileTypeClass
 	// Priority of the upload (1-32). The higher the priority, the earlier the file will be
 	// uploaded. If the priorities of two files are equal, then the first one for which

@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Users represents TL type `users#9ae2fb6f`.
+// Users represents TL type `users#9d955a12`.
 type Users struct {
 	// Approximate total count of users found
 	TotalCount int32
 	// A list of user identifiers
-	UserIDs []int32
+	UserIDs []int64
 }
 
 // UsersTypeID is TL type id of Users.
-const UsersTypeID = 0x9ae2fb6f
+const UsersTypeID = 0x9d955a12
 
 // Ensuring interfaces in compile-time for Users.
 var (
@@ -111,7 +111,7 @@ func (u *Users) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *Users) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode users#9ae2fb6f as nil")
+		return fmt.Errorf("can't encode users#9d955a12 as nil")
 	}
 	b.PutID(UsersTypeID)
 	return u.EncodeBare(b)
@@ -120,12 +120,12 @@ func (u *Users) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *Users) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode users#9ae2fb6f as nil")
+		return fmt.Errorf("can't encode users#9d955a12 as nil")
 	}
 	b.PutInt32(u.TotalCount)
 	b.PutInt(len(u.UserIDs))
 	for _, v := range u.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -133,10 +133,10 @@ func (u *Users) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *Users) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode users#9ae2fb6f to nil")
+		return fmt.Errorf("can't decode users#9d955a12 to nil")
 	}
 	if err := b.ConsumeID(UsersTypeID); err != nil {
-		return fmt.Errorf("unable to decode users#9ae2fb6f: %w", err)
+		return fmt.Errorf("unable to decode users#9d955a12: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -144,28 +144,28 @@ func (u *Users) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *Users) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode users#9ae2fb6f to nil")
+		return fmt.Errorf("can't decode users#9d955a12 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode users#9ae2fb6f: field total_count: %w", err)
+			return fmt.Errorf("unable to decode users#9d955a12: field total_count: %w", err)
 		}
 		u.TotalCount = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode users#9ae2fb6f: field user_ids: %w", err)
+			return fmt.Errorf("unable to decode users#9d955a12: field user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			u.UserIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+			u.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode users#9ae2fb6f: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode users#9d955a12: field user_ids: %w", err)
 			}
 			u.UserIDs = append(u.UserIDs, value)
 		}
@@ -176,7 +176,7 @@ func (u *Users) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *Users) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode users#9ae2fb6f as nil")
+		return fmt.Errorf("can't encode users#9d955a12 as nil")
 	}
 	b.ObjStart()
 	b.PutID("users")
@@ -185,7 +185,7 @@ func (u *Users) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range u.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -195,31 +195,31 @@ func (u *Users) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *Users) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode users#9ae2fb6f to nil")
+		return fmt.Errorf("can't decode users#9d955a12 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("users"); err != nil {
-				return fmt.Errorf("unable to decode users#9ae2fb6f: %w", err)
+				return fmt.Errorf("unable to decode users#9d955a12: %w", err)
 			}
 		case "total_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode users#9ae2fb6f: field total_count: %w", err)
+				return fmt.Errorf("unable to decode users#9d955a12: field total_count: %w", err)
 			}
 			u.TotalCount = value
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Int32()
+				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode users#9ae2fb6f: field user_ids: %w", err)
+					return fmt.Errorf("unable to decode users#9d955a12: field user_ids: %w", err)
 				}
 				u.UserIDs = append(u.UserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode users#9ae2fb6f: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode users#9d955a12: field user_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -234,6 +234,6 @@ func (u *Users) GetTotalCount() (value int32) {
 }
 
 // GetUserIDs returns value of UserIDs field.
-func (u *Users) GetUserIDs() (value []int32) {
+func (u *Users) GetUserIDs() (value []int64) {
 	return u.UserIDs
 }

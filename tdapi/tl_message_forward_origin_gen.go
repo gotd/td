@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageForwardOriginUser represents TL type `messageForwardOriginUser#2a7150`.
+// MessageForwardOriginUser represents TL type `messageForwardOriginUser#ead478d1`.
 type MessageForwardOriginUser struct {
 	// Identifier of the user that originally sent the message
-	SenderUserID int32
+	SenderUserID int64
 }
 
 // MessageForwardOriginUserTypeID is TL type id of MessageForwardOriginUser.
-const MessageForwardOriginUserTypeID = 0x2a7150
+const MessageForwardOriginUserTypeID = 0xead478d1
 
 // construct implements constructor of MessageForwardOriginClass.
 func (m MessageForwardOriginUser) construct() MessageForwardOriginClass { return &m }
@@ -107,7 +107,7 @@ func (m *MessageForwardOriginUser) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageForwardOriginUser) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageForwardOriginUser#2a7150 as nil")
+		return fmt.Errorf("can't encode messageForwardOriginUser#ead478d1 as nil")
 	}
 	b.PutID(MessageForwardOriginUserTypeID)
 	return m.EncodeBare(b)
@@ -116,19 +116,19 @@ func (m *MessageForwardOriginUser) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageForwardOriginUser) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageForwardOriginUser#2a7150 as nil")
+		return fmt.Errorf("can't encode messageForwardOriginUser#ead478d1 as nil")
 	}
-	b.PutInt32(m.SenderUserID)
+	b.PutLong(m.SenderUserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageForwardOriginUser) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageForwardOriginUser#2a7150 to nil")
+		return fmt.Errorf("can't decode messageForwardOriginUser#ead478d1 to nil")
 	}
 	if err := b.ConsumeID(MessageForwardOriginUserTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageForwardOriginUser#2a7150: %w", err)
+		return fmt.Errorf("unable to decode messageForwardOriginUser#ead478d1: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -136,12 +136,12 @@ func (m *MessageForwardOriginUser) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageForwardOriginUser) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageForwardOriginUser#2a7150 to nil")
+		return fmt.Errorf("can't decode messageForwardOriginUser#ead478d1 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageForwardOriginUser#2a7150: field sender_user_id: %w", err)
+			return fmt.Errorf("unable to decode messageForwardOriginUser#ead478d1: field sender_user_id: %w", err)
 		}
 		m.SenderUserID = value
 	}
@@ -151,12 +151,12 @@ func (m *MessageForwardOriginUser) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageForwardOriginUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageForwardOriginUser#2a7150 as nil")
+		return fmt.Errorf("can't encode messageForwardOriginUser#ead478d1 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageForwardOriginUser")
 	b.FieldStart("sender_user_id")
-	b.PutInt32(m.SenderUserID)
+	b.PutLong(m.SenderUserID)
 	b.ObjEnd()
 	return nil
 }
@@ -164,19 +164,19 @@ func (m *MessageForwardOriginUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageForwardOriginUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageForwardOriginUser#2a7150 to nil")
+		return fmt.Errorf("can't decode messageForwardOriginUser#ead478d1 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageForwardOriginUser"); err != nil {
-				return fmt.Errorf("unable to decode messageForwardOriginUser#2a7150: %w", err)
+				return fmt.Errorf("unable to decode messageForwardOriginUser#ead478d1: %w", err)
 			}
 		case "sender_user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageForwardOriginUser#2a7150: field sender_user_id: %w", err)
+				return fmt.Errorf("unable to decode messageForwardOriginUser#ead478d1: field sender_user_id: %w", err)
 			}
 			m.SenderUserID = value
 		default:
@@ -187,7 +187,7 @@ func (m *MessageForwardOriginUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetSenderUserID returns value of SenderUserID field.
-func (m *MessageForwardOriginUser) GetSenderUserID() (value int32) {
+func (m *MessageForwardOriginUser) GetSenderUserID() (value int64) {
 	return m.SenderUserID
 }
 
@@ -929,7 +929,7 @@ func (m *MessageForwardOriginMessageImport) GetSenderName() (value string) {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tdapi.MessageForwardOriginUser: // messageForwardOriginUser#2a7150
+//  case *tdapi.MessageForwardOriginUser: // messageForwardOriginUser#ead478d1
 //  case *tdapi.MessageForwardOriginChat: // messageForwardOriginChat#5af51364
 //  case *tdapi.MessageForwardOriginHiddenUser: // messageForwardOriginHiddenUser#efd4eee3
 //  case *tdapi.MessageForwardOriginChannel: // messageForwardOriginChannel#58dabee3
@@ -966,7 +966,7 @@ func DecodeMessageForwardOrigin(buf *bin.Buffer) (MessageForwardOriginClass, err
 	}
 	switch id {
 	case MessageForwardOriginUserTypeID:
-		// Decoding messageForwardOriginUser#2a7150.
+		// Decoding messageForwardOriginUser#ead478d1.
 		v := MessageForwardOriginUser{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageForwardOriginClass: %w", err)
@@ -1013,7 +1013,7 @@ func DecodeTDLibJSONMessageForwardOrigin(buf tdjson.Decoder) (MessageForwardOrig
 	}
 	switch id {
 	case "messageForwardOriginUser":
-		// Decoding messageForwardOriginUser#2a7150.
+		// Decoding messageForwardOriginUser#ead478d1.
 		v := MessageForwardOriginUser{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageForwardOriginClass: %w", err)

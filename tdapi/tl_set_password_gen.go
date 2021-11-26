@@ -39,7 +39,7 @@ type SetPasswordRequest struct {
 	NewPassword string
 	// New password hint; may be empty
 	NewHint string
-	// Pass true if the recovery email address should be changed
+	// Pass true if the recovery email address must be changed
 	SetRecoveryEmailAddress bool
 	// New recovery email address; may be empty
 	NewRecoveryEmailAddress string

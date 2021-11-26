@@ -39,7 +39,7 @@ type ViewMessagesRequest struct {
 	MessageThreadID int64
 	// The identifiers of the messages being viewed
 	MessageIDs []int64
-	// True, if messages in closed chats should be marked as read by the request
+	// True, if messages in closed chats must be marked as read by the request
 	ForceRead bool
 }
 

@@ -33,7 +33,7 @@ var (
 
 // StorageStatistics represents TL type `storageStatistics#69b98672`.
 type StorageStatistics struct {
-	// Total size of files
+	// Total size of files, in bytes
 	Size int64
 	// Total number of files
 	Count int32

@@ -37,8 +37,8 @@ type SearchChatMessagesRequest struct {
 	ChatID int64
 	// Query to search for
 	Query string
-	// If not null, only messages sent by the specified sender will be returned. Not
-	// supported in secret chats
+	// Sender of messages to search for; pass null to search for messages from any sender.
+	// Not supported in secret chats
 	Sender MessageSenderClass
 	// Identifier of the message starting from which history must be fetched; use 0 to get
 	// results from the last message
@@ -51,7 +51,7 @@ type SearchChatMessagesRequest struct {
 	// optimal performance, the number of returned messages is chosen by TDLib and can be
 	// smaller than the specified limit
 	Limit int32
-	// Filter for message content in the search results
+	// Additional filter for messages to search; pass null to search for all messages
 	Filter SearchMessagesFilterClass
 	// If not 0, only messages in the specified thread will be returned; supergroups only
 	MessageThreadID int64
