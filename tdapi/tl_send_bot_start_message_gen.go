@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SendBotStartMessageRequest represents TL type `sendBotStartMessage#424a8a5b`.
+// SendBotStartMessageRequest represents TL type `sendBotStartMessage#aa6a3eee`.
 type SendBotStartMessageRequest struct {
 	// Identifier of the bot
-	BotUserID int32
+	BotUserID int64
 	// Identifier of the target chat
 	ChatID int64
 	// A hidden parameter sent to the bot for deep linking purposes (https://core.telegram
@@ -43,7 +43,7 @@ type SendBotStartMessageRequest struct {
 }
 
 // SendBotStartMessageRequestTypeID is TL type id of SendBotStartMessageRequest.
-const SendBotStartMessageRequestTypeID = 0x424a8a5b
+const SendBotStartMessageRequestTypeID = 0xaa6a3eee
 
 // Ensuring interfaces in compile-time for SendBotStartMessageRequest.
 var (
@@ -121,7 +121,7 @@ func (s *SendBotStartMessageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendBotStartMessageRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendBotStartMessage#424a8a5b as nil")
+		return fmt.Errorf("can't encode sendBotStartMessage#aa6a3eee as nil")
 	}
 	b.PutID(SendBotStartMessageRequestTypeID)
 	return s.EncodeBare(b)
@@ -130,9 +130,9 @@ func (s *SendBotStartMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendBotStartMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendBotStartMessage#424a8a5b as nil")
+		return fmt.Errorf("can't encode sendBotStartMessage#aa6a3eee as nil")
 	}
-	b.PutInt32(s.BotUserID)
+	b.PutLong(s.BotUserID)
 	b.PutLong(s.ChatID)
 	b.PutString(s.Parameter)
 	return nil
@@ -141,10 +141,10 @@ func (s *SendBotStartMessageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendBotStartMessageRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendBotStartMessage#424a8a5b to nil")
+		return fmt.Errorf("can't decode sendBotStartMessage#aa6a3eee to nil")
 	}
 	if err := b.ConsumeID(SendBotStartMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendBotStartMessage#424a8a5b: %w", err)
+		return fmt.Errorf("unable to decode sendBotStartMessage#aa6a3eee: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -152,26 +152,26 @@ func (s *SendBotStartMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendBotStartMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendBotStartMessage#424a8a5b to nil")
+		return fmt.Errorf("can't decode sendBotStartMessage#aa6a3eee to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBotStartMessage#424a8a5b: field bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode sendBotStartMessage#aa6a3eee: field bot_user_id: %w", err)
 		}
 		s.BotUserID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBotStartMessage#424a8a5b: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode sendBotStartMessage#aa6a3eee: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendBotStartMessage#424a8a5b: field parameter: %w", err)
+			return fmt.Errorf("unable to decode sendBotStartMessage#aa6a3eee: field parameter: %w", err)
 		}
 		s.Parameter = value
 	}
@@ -181,12 +181,12 @@ func (s *SendBotStartMessageRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SendBotStartMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendBotStartMessage#424a8a5b as nil")
+		return fmt.Errorf("can't encode sendBotStartMessage#aa6a3eee as nil")
 	}
 	b.ObjStart()
 	b.PutID("sendBotStartMessage")
 	b.FieldStart("bot_user_id")
-	b.PutInt32(s.BotUserID)
+	b.PutLong(s.BotUserID)
 	b.FieldStart("chat_id")
 	b.PutLong(s.ChatID)
 	b.FieldStart("parameter")
@@ -198,31 +198,31 @@ func (s *SendBotStartMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SendBotStartMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendBotStartMessage#424a8a5b to nil")
+		return fmt.Errorf("can't decode sendBotStartMessage#aa6a3eee to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sendBotStartMessage"); err != nil {
-				return fmt.Errorf("unable to decode sendBotStartMessage#424a8a5b: %w", err)
+				return fmt.Errorf("unable to decode sendBotStartMessage#aa6a3eee: %w", err)
 			}
 		case "bot_user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBotStartMessage#424a8a5b: field bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode sendBotStartMessage#aa6a3eee: field bot_user_id: %w", err)
 			}
 			s.BotUserID = value
 		case "chat_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBotStartMessage#424a8a5b: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode sendBotStartMessage#aa6a3eee: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "parameter":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendBotStartMessage#424a8a5b: field parameter: %w", err)
+				return fmt.Errorf("unable to decode sendBotStartMessage#aa6a3eee: field parameter: %w", err)
 			}
 			s.Parameter = value
 		default:
@@ -233,7 +233,7 @@ func (s *SendBotStartMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetBotUserID returns value of BotUserID field.
-func (s *SendBotStartMessageRequest) GetBotUserID() (value int32) {
+func (s *SendBotStartMessageRequest) GetBotUserID() (value int64) {
 	return s.BotUserID
 }
 
@@ -247,7 +247,7 @@ func (s *SendBotStartMessageRequest) GetParameter() (value string) {
 	return s.Parameter
 }
 
-// SendBotStartMessage invokes method sendBotStartMessage#424a8a5b returning error if any.
+// SendBotStartMessage invokes method sendBotStartMessage#aa6a3eee returning error if any.
 func (c *Client) SendBotStartMessage(ctx context.Context, request *SendBotStartMessageRequest) (*Message, error) {
 	var result Message
 

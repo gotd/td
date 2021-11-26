@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BasicGroup represents TL type `basicGroup#ed0e293b`.
+// BasicGroup represents TL type `basicGroup#f464168f`.
 type BasicGroup struct {
 	// Group identifier
-	ID int32
+	ID int64
 	// Number of members in the group
 	MemberCount int32
 	// Status of the current user in the group
@@ -42,11 +42,11 @@ type BasicGroup struct {
 	// True, if the group is active
 	IsActive bool
 	// Identifier of the supergroup to which this group was upgraded; 0 if none
-	UpgradedToSupergroupID int32
+	UpgradedToSupergroupID int64
 }
 
 // BasicGroupTypeID is TL type id of BasicGroup.
-const BasicGroupTypeID = 0xed0e293b
+const BasicGroupTypeID = 0xf464168f
 
 // Ensuring interfaces in compile-time for BasicGroup.
 var (
@@ -138,7 +138,7 @@ func (b *BasicGroup) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BasicGroup) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode basicGroup#ed0e293b as nil")
+		return fmt.Errorf("can't encode basicGroup#f464168f as nil")
 	}
 	buf.PutID(BasicGroupTypeID)
 	return b.EncodeBare(buf)
@@ -147,28 +147,28 @@ func (b *BasicGroup) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BasicGroup) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode basicGroup#ed0e293b as nil")
+		return fmt.Errorf("can't encode basicGroup#f464168f as nil")
 	}
-	buf.PutInt32(b.ID)
+	buf.PutLong(b.ID)
 	buf.PutInt32(b.MemberCount)
 	if b.Status == nil {
-		return fmt.Errorf("unable to encode basicGroup#ed0e293b: field status is nil")
+		return fmt.Errorf("unable to encode basicGroup#f464168f: field status is nil")
 	}
 	if err := b.Status.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode basicGroup#ed0e293b: field status: %w", err)
+		return fmt.Errorf("unable to encode basicGroup#f464168f: field status: %w", err)
 	}
 	buf.PutBool(b.IsActive)
-	buf.PutInt32(b.UpgradedToSupergroupID)
+	buf.PutLong(b.UpgradedToSupergroupID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (b *BasicGroup) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode basicGroup#ed0e293b to nil")
+		return fmt.Errorf("can't decode basicGroup#f464168f to nil")
 	}
 	if err := buf.ConsumeID(BasicGroupTypeID); err != nil {
-		return fmt.Errorf("unable to decode basicGroup#ed0e293b: %w", err)
+		return fmt.Errorf("unable to decode basicGroup#f464168f: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -176,40 +176,40 @@ func (b *BasicGroup) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BasicGroup) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode basicGroup#ed0e293b to nil")
+		return fmt.Errorf("can't decode basicGroup#f464168f to nil")
 	}
 	{
-		value, err := buf.Int32()
+		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode basicGroup#ed0e293b: field id: %w", err)
+			return fmt.Errorf("unable to decode basicGroup#f464168f: field id: %w", err)
 		}
 		b.ID = value
 	}
 	{
 		value, err := buf.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode basicGroup#ed0e293b: field member_count: %w", err)
+			return fmt.Errorf("unable to decode basicGroup#f464168f: field member_count: %w", err)
 		}
 		b.MemberCount = value
 	}
 	{
 		value, err := DecodeChatMemberStatus(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode basicGroup#ed0e293b: field status: %w", err)
+			return fmt.Errorf("unable to decode basicGroup#f464168f: field status: %w", err)
 		}
 		b.Status = value
 	}
 	{
 		value, err := buf.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode basicGroup#ed0e293b: field is_active: %w", err)
+			return fmt.Errorf("unable to decode basicGroup#f464168f: field is_active: %w", err)
 		}
 		b.IsActive = value
 	}
 	{
-		value, err := buf.Int32()
+		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode basicGroup#ed0e293b: field upgraded_to_supergroup_id: %w", err)
+			return fmt.Errorf("unable to decode basicGroup#f464168f: field upgraded_to_supergroup_id: %w", err)
 		}
 		b.UpgradedToSupergroupID = value
 	}
@@ -219,25 +219,25 @@ func (b *BasicGroup) DecodeBare(buf *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (b *BasicGroup) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
-		return fmt.Errorf("can't encode basicGroup#ed0e293b as nil")
+		return fmt.Errorf("can't encode basicGroup#f464168f as nil")
 	}
 	buf.ObjStart()
 	buf.PutID("basicGroup")
 	buf.FieldStart("id")
-	buf.PutInt32(b.ID)
+	buf.PutLong(b.ID)
 	buf.FieldStart("member_count")
 	buf.PutInt32(b.MemberCount)
 	buf.FieldStart("status")
 	if b.Status == nil {
-		return fmt.Errorf("unable to encode basicGroup#ed0e293b: field status is nil")
+		return fmt.Errorf("unable to encode basicGroup#f464168f: field status is nil")
 	}
 	if err := b.Status.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode basicGroup#ed0e293b: field status: %w", err)
+		return fmt.Errorf("unable to encode basicGroup#f464168f: field status: %w", err)
 	}
 	buf.FieldStart("is_active")
 	buf.PutBool(b.IsActive)
 	buf.FieldStart("upgraded_to_supergroup_id")
-	buf.PutInt32(b.UpgradedToSupergroupID)
+	buf.PutLong(b.UpgradedToSupergroupID)
 	buf.ObjEnd()
 	return nil
 }
@@ -245,43 +245,43 @@ func (b *BasicGroup) EncodeTDLibJSON(buf tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (b *BasicGroup) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
-		return fmt.Errorf("can't decode basicGroup#ed0e293b to nil")
+		return fmt.Errorf("can't decode basicGroup#f464168f to nil")
 	}
 
 	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := buf.ConsumeID("basicGroup"); err != nil {
-				return fmt.Errorf("unable to decode basicGroup#ed0e293b: %w", err)
+				return fmt.Errorf("unable to decode basicGroup#f464168f: %w", err)
 			}
 		case "id":
-			value, err := buf.Int32()
+			value, err := buf.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode basicGroup#ed0e293b: field id: %w", err)
+				return fmt.Errorf("unable to decode basicGroup#f464168f: field id: %w", err)
 			}
 			b.ID = value
 		case "member_count":
 			value, err := buf.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode basicGroup#ed0e293b: field member_count: %w", err)
+				return fmt.Errorf("unable to decode basicGroup#f464168f: field member_count: %w", err)
 			}
 			b.MemberCount = value
 		case "status":
 			value, err := DecodeTDLibJSONChatMemberStatus(buf)
 			if err != nil {
-				return fmt.Errorf("unable to decode basicGroup#ed0e293b: field status: %w", err)
+				return fmt.Errorf("unable to decode basicGroup#f464168f: field status: %w", err)
 			}
 			b.Status = value
 		case "is_active":
 			value, err := buf.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode basicGroup#ed0e293b: field is_active: %w", err)
+				return fmt.Errorf("unable to decode basicGroup#f464168f: field is_active: %w", err)
 			}
 			b.IsActive = value
 		case "upgraded_to_supergroup_id":
-			value, err := buf.Int32()
+			value, err := buf.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode basicGroup#ed0e293b: field upgraded_to_supergroup_id: %w", err)
+				return fmt.Errorf("unable to decode basicGroup#f464168f: field upgraded_to_supergroup_id: %w", err)
 			}
 			b.UpgradedToSupergroupID = value
 		default:
@@ -292,7 +292,7 @@ func (b *BasicGroup) DecodeTDLibJSON(buf tdjson.Decoder) error {
 }
 
 // GetID returns value of ID field.
-func (b *BasicGroup) GetID() (value int32) {
+func (b *BasicGroup) GetID() (value int64) {
 	return b.ID
 }
 
@@ -312,6 +312,6 @@ func (b *BasicGroup) GetIsActive() (value bool) {
 }
 
 // GetUpgradedToSupergroupID returns value of UpgradedToSupergroupID field.
-func (b *BasicGroup) GetUpgradedToSupergroupID() (value int32) {
+func (b *BasicGroup) GetUpgradedToSupergroupID() (value int64) {
 	return b.UpgradedToSupergroupID
 }

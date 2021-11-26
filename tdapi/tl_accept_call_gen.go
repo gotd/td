@@ -35,7 +35,7 @@ var (
 type AcceptCallRequest struct {
 	// Call identifier
 	CallID int32
-	// Description of the call protocols supported by the application
+	// The call protocols supported by the application
 	Protocol CallProtocol
 }
 

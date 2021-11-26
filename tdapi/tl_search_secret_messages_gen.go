@@ -35,7 +35,7 @@ var (
 type SearchSecretMessagesRequest struct {
 	// Identifier of the chat in which to search. Specify 0 to search in all secret chats
 	ChatID int64
-	// Query to search for. If empty, searchChatMessages should be used instead
+	// Query to search for. If empty, searchChatMessages must be used instead
 	Query string
 	// Offset of the first entry to return as received from the previous request; use empty
 	// string to get first chunk of results
@@ -44,7 +44,7 @@ type SearchSecretMessagesRequest struct {
 	// number of returned messages is chosen by TDLib and can be smaller than the specified
 	// limit
 	Limit int32
-	// A filter for message content in the search results
+	// Additional filter for messages to search; pass null to search for all messages
 	Filter SearchMessagesFilterClass
 }
 

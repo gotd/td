@@ -2185,9 +2185,9 @@ func (r *RichTextPhoneNumber) GetPhoneNumber() (value string) {
 type RichTextIcon struct {
 	// The image represented as a document. The image can be in GIF, JPEG or PNG format
 	Document Document
-	// Width of a bounding box in which the image should be shown; 0 if unknown
+	// Width of a bounding box in which the image must be shown; 0 if unknown
 	Width int32
-	// Height of a bounding box in which the image should be shown; 0 if unknown
+	// Height of a bounding box in which the image must be shown; 0 if unknown
 	Height int32
 }
 
@@ -2796,7 +2796,7 @@ func (r *RichTextAnchor) GetName() (value string) {
 type RichTextAnchorLink struct {
 	// The link text
 	Text RichTextClass
-	// The anchor name. If the name is empty, the link should bring back to top
+	// The anchor name. If the name is empty, the link must bring back to top
 	AnchorName string
 	// An HTTP URL, opening the anchor
 	URL string

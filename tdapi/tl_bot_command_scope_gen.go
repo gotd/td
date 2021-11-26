@@ -867,16 +867,16 @@ func (b *BotCommandScopeChatAdministrators) GetChatID() (value int64) {
 	return b.ChatID
 }
 
-// BotCommandScopeChatMember represents TL type `botCommandScopeChatMember#a0a78b7f`.
+// BotCommandScopeChatMember represents TL type `botCommandScopeChatMember#f36696f2`.
 type BotCommandScopeChatMember struct {
 	// Chat identifier
 	ChatID int64
 	// User identifier
-	UserID int32
+	UserID int64
 }
 
 // BotCommandScopeChatMemberTypeID is TL type id of BotCommandScopeChatMember.
-const BotCommandScopeChatMemberTypeID = 0xa0a78b7f
+const BotCommandScopeChatMemberTypeID = 0xf36696f2
 
 // construct implements constructor of BotCommandScopeClass.
 func (b BotCommandScopeChatMember) construct() BotCommandScopeClass { return &b }
@@ -952,7 +952,7 @@ func (b *BotCommandScopeChatMember) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotCommandScopeChatMember) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopeChatMember#a0a78b7f as nil")
+		return fmt.Errorf("can't encode botCommandScopeChatMember#f36696f2 as nil")
 	}
 	buf.PutID(BotCommandScopeChatMemberTypeID)
 	return b.EncodeBare(buf)
@@ -961,20 +961,20 @@ func (b *BotCommandScopeChatMember) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotCommandScopeChatMember) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopeChatMember#a0a78b7f as nil")
+		return fmt.Errorf("can't encode botCommandScopeChatMember#f36696f2 as nil")
 	}
 	buf.PutLong(b.ChatID)
-	buf.PutInt32(b.UserID)
+	buf.PutLong(b.UserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (b *BotCommandScopeChatMember) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopeChatMember#a0a78b7f to nil")
+		return fmt.Errorf("can't decode botCommandScopeChatMember#f36696f2 to nil")
 	}
 	if err := buf.ConsumeID(BotCommandScopeChatMemberTypeID); err != nil {
-		return fmt.Errorf("unable to decode botCommandScopeChatMember#a0a78b7f: %w", err)
+		return fmt.Errorf("unable to decode botCommandScopeChatMember#f36696f2: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -982,19 +982,19 @@ func (b *BotCommandScopeChatMember) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotCommandScopeChatMember) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopeChatMember#a0a78b7f to nil")
+		return fmt.Errorf("can't decode botCommandScopeChatMember#f36696f2 to nil")
 	}
 	{
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode botCommandScopeChatMember#a0a78b7f: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode botCommandScopeChatMember#f36696f2: field chat_id: %w", err)
 		}
 		b.ChatID = value
 	}
 	{
-		value, err := buf.Int32()
+		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode botCommandScopeChatMember#a0a78b7f: field user_id: %w", err)
+			return fmt.Errorf("unable to decode botCommandScopeChatMember#f36696f2: field user_id: %w", err)
 		}
 		b.UserID = value
 	}
@@ -1004,14 +1004,14 @@ func (b *BotCommandScopeChatMember) DecodeBare(buf *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (b *BotCommandScopeChatMember) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botCommandScopeChatMember#a0a78b7f as nil")
+		return fmt.Errorf("can't encode botCommandScopeChatMember#f36696f2 as nil")
 	}
 	buf.ObjStart()
 	buf.PutID("botCommandScopeChatMember")
 	buf.FieldStart("chat_id")
 	buf.PutLong(b.ChatID)
 	buf.FieldStart("user_id")
-	buf.PutInt32(b.UserID)
+	buf.PutLong(b.UserID)
 	buf.ObjEnd()
 	return nil
 }
@@ -1019,25 +1019,25 @@ func (b *BotCommandScopeChatMember) EncodeTDLibJSON(buf tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (b *BotCommandScopeChatMember) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botCommandScopeChatMember#a0a78b7f to nil")
+		return fmt.Errorf("can't decode botCommandScopeChatMember#f36696f2 to nil")
 	}
 
 	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := buf.ConsumeID("botCommandScopeChatMember"); err != nil {
-				return fmt.Errorf("unable to decode botCommandScopeChatMember#a0a78b7f: %w", err)
+				return fmt.Errorf("unable to decode botCommandScopeChatMember#f36696f2: %w", err)
 			}
 		case "chat_id":
 			value, err := buf.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode botCommandScopeChatMember#a0a78b7f: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode botCommandScopeChatMember#f36696f2: field chat_id: %w", err)
 			}
 			b.ChatID = value
 		case "user_id":
-			value, err := buf.Int32()
+			value, err := buf.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode botCommandScopeChatMember#a0a78b7f: field user_id: %w", err)
+				return fmt.Errorf("unable to decode botCommandScopeChatMember#f36696f2: field user_id: %w", err)
 			}
 			b.UserID = value
 		default:
@@ -1053,7 +1053,7 @@ func (b *BotCommandScopeChatMember) GetChatID() (value int64) {
 }
 
 // GetUserID returns value of UserID field.
-func (b *BotCommandScopeChatMember) GetUserID() (value int32) {
+func (b *BotCommandScopeChatMember) GetUserID() (value int64) {
 	return b.UserID
 }
 
@@ -1071,7 +1071,7 @@ func (b *BotCommandScopeChatMember) GetUserID() (value int32) {
 //  case *tdapi.BotCommandScopeAllChatAdministrators: // botCommandScopeAllChatAdministrators#771c1551
 //  case *tdapi.BotCommandScopeChat: // botCommandScopeChat#e65b22a5
 //  case *tdapi.BotCommandScopeChatAdministrators: // botCommandScopeChatAdministrators#42bcfe4e
-//  case *tdapi.BotCommandScopeChatMember: // botCommandScopeChatMember#a0a78b7f
+//  case *tdapi.BotCommandScopeChatMember: // botCommandScopeChatMember#f36696f2
 //  default: panic(v)
 //  }
 type BotCommandScopeClass interface {
@@ -1146,7 +1146,7 @@ func DecodeBotCommandScope(buf *bin.Buffer) (BotCommandScopeClass, error) {
 		}
 		return &v, nil
 	case BotCommandScopeChatMemberTypeID:
-		// Decoding botCommandScopeChatMember#a0a78b7f.
+		// Decoding botCommandScopeChatMember#f36696f2.
 		v := BotCommandScopeChatMember{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode BotCommandScopeClass: %w", err)
@@ -1207,7 +1207,7 @@ func DecodeTDLibJSONBotCommandScope(buf tdjson.Decoder) (BotCommandScopeClass, e
 		}
 		return &v, nil
 	case "botCommandScopeChatMember":
-		// Decoding botCommandScopeChatMember#a0a78b7f.
+		// Decoding botCommandScopeChatMember#f36696f2.
 		v := BotCommandScopeChatMember{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode BotCommandScopeClass: %w", err)

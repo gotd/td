@@ -31,16 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatInviteLinkMember represents TL type `chatInviteLinkMember#becac78d`.
+// ChatInviteLinkMember represents TL type `chatInviteLinkMember#ac03711a`.
 type ChatInviteLinkMember struct {
 	// User identifier
-	UserID int32
+	UserID int64
 	// Point in time (Unix timestamp) when the user joined the chat
 	JoinedChatDate int32
+	// User identifier of the chat administrator, approved user join request
+	ApproverUserID int64
 }
 
 // ChatInviteLinkMemberTypeID is TL type id of ChatInviteLinkMember.
-const ChatInviteLinkMemberTypeID = 0xbecac78d
+const ChatInviteLinkMemberTypeID = 0xac03711a
 
 // Ensuring interfaces in compile-time for ChatInviteLinkMember.
 var (
@@ -58,6 +60,9 @@ func (c *ChatInviteLinkMember) Zero() bool {
 		return false
 	}
 	if !(c.JoinedChatDate == 0) {
+		return false
+	}
+	if !(c.ApproverUserID == 0) {
 		return false
 	}
 
@@ -104,6 +109,10 @@ func (c *ChatInviteLinkMember) TypeInfo() tdp.Type {
 			Name:       "JoinedChatDate",
 			SchemaName: "joined_chat_date",
 		},
+		{
+			Name:       "ApproverUserID",
+			SchemaName: "approver_user_id",
+		},
 	}
 	return typ
 }
@@ -111,7 +120,7 @@ func (c *ChatInviteLinkMember) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatInviteLinkMember) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteLinkMember#becac78d as nil")
+		return fmt.Errorf("can't encode chatInviteLinkMember#ac03711a as nil")
 	}
 	b.PutID(ChatInviteLinkMemberTypeID)
 	return c.EncodeBare(b)
@@ -120,20 +129,21 @@ func (c *ChatInviteLinkMember) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatInviteLinkMember) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteLinkMember#becac78d as nil")
+		return fmt.Errorf("can't encode chatInviteLinkMember#ac03711a as nil")
 	}
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	b.PutInt32(c.JoinedChatDate)
+	b.PutLong(c.ApproverUserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatInviteLinkMember) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteLinkMember#becac78d to nil")
+		return fmt.Errorf("can't decode chatInviteLinkMember#ac03711a to nil")
 	}
 	if err := b.ConsumeID(ChatInviteLinkMemberTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatInviteLinkMember#becac78d: %w", err)
+		return fmt.Errorf("unable to decode chatInviteLinkMember#ac03711a: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -141,21 +151,28 @@ func (c *ChatInviteLinkMember) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatInviteLinkMember) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteLinkMember#becac78d to nil")
+		return fmt.Errorf("can't decode chatInviteLinkMember#ac03711a to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkMember#becac78d: field user_id: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkMember#ac03711a: field user_id: %w", err)
 		}
 		c.UserID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkMember#becac78d: field joined_chat_date: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkMember#ac03711a: field joined_chat_date: %w", err)
 		}
 		c.JoinedChatDate = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInviteLinkMember#ac03711a: field approver_user_id: %w", err)
+		}
+		c.ApproverUserID = value
 	}
 	return nil
 }
@@ -163,14 +180,16 @@ func (c *ChatInviteLinkMember) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatInviteLinkMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteLinkMember#becac78d as nil")
+		return fmt.Errorf("can't encode chatInviteLinkMember#ac03711a as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatInviteLinkMember")
 	b.FieldStart("user_id")
-	b.PutInt32(c.UserID)
+	b.PutLong(c.UserID)
 	b.FieldStart("joined_chat_date")
 	b.PutInt32(c.JoinedChatDate)
+	b.FieldStart("approver_user_id")
+	b.PutLong(c.ApproverUserID)
 	b.ObjEnd()
 	return nil
 }
@@ -178,27 +197,33 @@ func (c *ChatInviteLinkMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatInviteLinkMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteLinkMember#becac78d to nil")
+		return fmt.Errorf("can't decode chatInviteLinkMember#ac03711a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatInviteLinkMember"); err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkMember#becac78d: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkMember#ac03711a: %w", err)
 			}
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkMember#becac78d: field user_id: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkMember#ac03711a: field user_id: %w", err)
 			}
 			c.UserID = value
 		case "joined_chat_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkMember#becac78d: field joined_chat_date: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkMember#ac03711a: field joined_chat_date: %w", err)
 			}
 			c.JoinedChatDate = value
+		case "approver_user_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkMember#ac03711a: field approver_user_id: %w", err)
+			}
+			c.ApproverUserID = value
 		default:
 			return b.Skip()
 		}
@@ -207,11 +232,16 @@ func (c *ChatInviteLinkMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetUserID returns value of UserID field.
-func (c *ChatInviteLinkMember) GetUserID() (value int32) {
+func (c *ChatInviteLinkMember) GetUserID() (value int64) {
 	return c.UserID
 }
 
 // GetJoinedChatDate returns value of JoinedChatDate field.
 func (c *ChatInviteLinkMember) GetJoinedChatDate() (value int32) {
 	return c.JoinedChatDate
+}
+
+// GetApproverUserID returns value of ApproverUserID field.
+func (c *ChatInviteLinkMember) GetApproverUserID() (value int64) {
+	return c.ApproverUserID
 }

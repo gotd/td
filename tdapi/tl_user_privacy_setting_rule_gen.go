@@ -289,14 +289,14 @@ func (u *UserPrivacySettingRuleAllowContacts) DecodeTDLibJSON(b tdjson.Decoder) 
 	})
 }
 
-// UserPrivacySettingRuleAllowUsers represents TL type `userPrivacySettingRuleAllowUsers#ba671e7f`.
+// UserPrivacySettingRuleAllowUsers represents TL type `userPrivacySettingRuleAllowUsers#d1570b70`.
 type UserPrivacySettingRuleAllowUsers struct {
 	// The user identifiers, total number of users in all rules must not exceed 1000
-	UserIDs []int32
+	UserIDs []int64
 }
 
 // UserPrivacySettingRuleAllowUsersTypeID is TL type id of UserPrivacySettingRuleAllowUsers.
-const UserPrivacySettingRuleAllowUsersTypeID = 0xba671e7f
+const UserPrivacySettingRuleAllowUsersTypeID = 0xd1570b70
 
 // construct implements constructor of UserPrivacySettingRuleClass.
 func (u UserPrivacySettingRuleAllowUsers) construct() UserPrivacySettingRuleClass { return &u }
@@ -365,7 +365,7 @@ func (u *UserPrivacySettingRuleAllowUsers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserPrivacySettingRuleAllowUsers) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userPrivacySettingRuleAllowUsers#ba671e7f as nil")
+		return fmt.Errorf("can't encode userPrivacySettingRuleAllowUsers#d1570b70 as nil")
 	}
 	b.PutID(UserPrivacySettingRuleAllowUsersTypeID)
 	return u.EncodeBare(b)
@@ -374,11 +374,11 @@ func (u *UserPrivacySettingRuleAllowUsers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserPrivacySettingRuleAllowUsers) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userPrivacySettingRuleAllowUsers#ba671e7f as nil")
+		return fmt.Errorf("can't encode userPrivacySettingRuleAllowUsers#d1570b70 as nil")
 	}
 	b.PutInt(len(u.UserIDs))
 	for _, v := range u.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -386,10 +386,10 @@ func (u *UserPrivacySettingRuleAllowUsers) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UserPrivacySettingRuleAllowUsers) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userPrivacySettingRuleAllowUsers#ba671e7f to nil")
+		return fmt.Errorf("can't decode userPrivacySettingRuleAllowUsers#d1570b70 to nil")
 	}
 	if err := b.ConsumeID(UserPrivacySettingRuleAllowUsersTypeID); err != nil {
-		return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#ba671e7f: %w", err)
+		return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#d1570b70: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -397,21 +397,21 @@ func (u *UserPrivacySettingRuleAllowUsers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserPrivacySettingRuleAllowUsers) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userPrivacySettingRuleAllowUsers#ba671e7f to nil")
+		return fmt.Errorf("can't decode userPrivacySettingRuleAllowUsers#d1570b70 to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#ba671e7f: field user_ids: %w", err)
+			return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#d1570b70: field user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			u.UserIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+			u.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#ba671e7f: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#d1570b70: field user_ids: %w", err)
 			}
 			u.UserIDs = append(u.UserIDs, value)
 		}
@@ -422,14 +422,14 @@ func (u *UserPrivacySettingRuleAllowUsers) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UserPrivacySettingRuleAllowUsers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userPrivacySettingRuleAllowUsers#ba671e7f as nil")
+		return fmt.Errorf("can't encode userPrivacySettingRuleAllowUsers#d1570b70 as nil")
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingRuleAllowUsers")
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range u.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -439,25 +439,25 @@ func (u *UserPrivacySettingRuleAllowUsers) EncodeTDLibJSON(b tdjson.Encoder) err
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UserPrivacySettingRuleAllowUsers) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userPrivacySettingRuleAllowUsers#ba671e7f to nil")
+		return fmt.Errorf("can't decode userPrivacySettingRuleAllowUsers#d1570b70 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("userPrivacySettingRuleAllowUsers"); err != nil {
-				return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#ba671e7f: %w", err)
+				return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#d1570b70: %w", err)
 			}
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Int32()
+				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#ba671e7f: field user_ids: %w", err)
+					return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#d1570b70: field user_ids: %w", err)
 				}
 				u.UserIDs = append(u.UserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#ba671e7f: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#d1570b70: field user_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -467,7 +467,7 @@ func (u *UserPrivacySettingRuleAllowUsers) DecodeTDLibJSON(b tdjson.Decoder) err
 }
 
 // GetUserIDs returns value of UserIDs field.
-func (u *UserPrivacySettingRuleAllowUsers) GetUserIDs() (value []int32) {
+func (u *UserPrivacySettingRuleAllowUsers) GetUserIDs() (value []int64) {
 	return u.UserIDs
 }
 
@@ -911,14 +911,14 @@ func (u *UserPrivacySettingRuleRestrictContacts) DecodeTDLibJSON(b tdjson.Decode
 	})
 }
 
-// UserPrivacySettingRuleRestrictUsers represents TL type `userPrivacySettingRuleRestrictUsers#26093f9e`.
+// UserPrivacySettingRuleRestrictUsers represents TL type `userPrivacySettingRuleRestrictUsers#4d392a91`.
 type UserPrivacySettingRuleRestrictUsers struct {
 	// The user identifiers, total number of users in all rules must not exceed 1000
-	UserIDs []int32
+	UserIDs []int64
 }
 
 // UserPrivacySettingRuleRestrictUsersTypeID is TL type id of UserPrivacySettingRuleRestrictUsers.
-const UserPrivacySettingRuleRestrictUsersTypeID = 0x26093f9e
+const UserPrivacySettingRuleRestrictUsersTypeID = 0x4d392a91
 
 // construct implements constructor of UserPrivacySettingRuleClass.
 func (u UserPrivacySettingRuleRestrictUsers) construct() UserPrivacySettingRuleClass { return &u }
@@ -987,7 +987,7 @@ func (u *UserPrivacySettingRuleRestrictUsers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserPrivacySettingRuleRestrictUsers) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userPrivacySettingRuleRestrictUsers#26093f9e as nil")
+		return fmt.Errorf("can't encode userPrivacySettingRuleRestrictUsers#4d392a91 as nil")
 	}
 	b.PutID(UserPrivacySettingRuleRestrictUsersTypeID)
 	return u.EncodeBare(b)
@@ -996,11 +996,11 @@ func (u *UserPrivacySettingRuleRestrictUsers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserPrivacySettingRuleRestrictUsers) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userPrivacySettingRuleRestrictUsers#26093f9e as nil")
+		return fmt.Errorf("can't encode userPrivacySettingRuleRestrictUsers#4d392a91 as nil")
 	}
 	b.PutInt(len(u.UserIDs))
 	for _, v := range u.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -1008,10 +1008,10 @@ func (u *UserPrivacySettingRuleRestrictUsers) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UserPrivacySettingRuleRestrictUsers) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userPrivacySettingRuleRestrictUsers#26093f9e to nil")
+		return fmt.Errorf("can't decode userPrivacySettingRuleRestrictUsers#4d392a91 to nil")
 	}
 	if err := b.ConsumeID(UserPrivacySettingRuleRestrictUsersTypeID); err != nil {
-		return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#26093f9e: %w", err)
+		return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#4d392a91: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -1019,21 +1019,21 @@ func (u *UserPrivacySettingRuleRestrictUsers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserPrivacySettingRuleRestrictUsers) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userPrivacySettingRuleRestrictUsers#26093f9e to nil")
+		return fmt.Errorf("can't decode userPrivacySettingRuleRestrictUsers#4d392a91 to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#26093f9e: field user_ids: %w", err)
+			return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#4d392a91: field user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			u.UserIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+			u.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#26093f9e: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#4d392a91: field user_ids: %w", err)
 			}
 			u.UserIDs = append(u.UserIDs, value)
 		}
@@ -1044,14 +1044,14 @@ func (u *UserPrivacySettingRuleRestrictUsers) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UserPrivacySettingRuleRestrictUsers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userPrivacySettingRuleRestrictUsers#26093f9e as nil")
+		return fmt.Errorf("can't encode userPrivacySettingRuleRestrictUsers#4d392a91 as nil")
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingRuleRestrictUsers")
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range u.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -1061,25 +1061,25 @@ func (u *UserPrivacySettingRuleRestrictUsers) EncodeTDLibJSON(b tdjson.Encoder) 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UserPrivacySettingRuleRestrictUsers) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userPrivacySettingRuleRestrictUsers#26093f9e to nil")
+		return fmt.Errorf("can't decode userPrivacySettingRuleRestrictUsers#4d392a91 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("userPrivacySettingRuleRestrictUsers"); err != nil {
-				return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#26093f9e: %w", err)
+				return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#4d392a91: %w", err)
 			}
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Int32()
+				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#26093f9e: field user_ids: %w", err)
+					return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#4d392a91: field user_ids: %w", err)
 				}
 				u.UserIDs = append(u.UserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#26093f9e: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#4d392a91: field user_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -1089,7 +1089,7 @@ func (u *UserPrivacySettingRuleRestrictUsers) DecodeTDLibJSON(b tdjson.Decoder) 
 }
 
 // GetUserIDs returns value of UserIDs field.
-func (u *UserPrivacySettingRuleRestrictUsers) GetUserIDs() (value []int32) {
+func (u *UserPrivacySettingRuleRestrictUsers) GetUserIDs() (value []int64) {
 	return u.UserIDs
 }
 
@@ -1285,11 +1285,11 @@ func (u *UserPrivacySettingRuleRestrictChatMembers) GetChatIDs() (value []int64)
 //  switch v := g.(type) {
 //  case *tdapi.UserPrivacySettingRuleAllowAll: // userPrivacySettingRuleAllowAll#8abf1c3f
 //  case *tdapi.UserPrivacySettingRuleAllowContacts: // userPrivacySettingRuleAllowContacts#8f2f2d10
-//  case *tdapi.UserPrivacySettingRuleAllowUsers: // userPrivacySettingRuleAllowUsers#ba671e7f
+//  case *tdapi.UserPrivacySettingRuleAllowUsers: // userPrivacySettingRuleAllowUsers#d1570b70
 //  case *tdapi.UserPrivacySettingRuleAllowChatMembers: // userPrivacySettingRuleAllowChatMembers#f249b617
 //  case *tdapi.UserPrivacySettingRuleRestrictAll: // userPrivacySettingRuleRestrictAll#ac2a9550
 //  case *tdapi.UserPrivacySettingRuleRestrictContacts: // userPrivacySettingRuleRestrictContacts#3c1acd02
-//  case *tdapi.UserPrivacySettingRuleRestrictUsers: // userPrivacySettingRuleRestrictUsers#26093f9e
+//  case *tdapi.UserPrivacySettingRuleRestrictUsers: // userPrivacySettingRuleRestrictUsers#4d392a91
 //  case *tdapi.UserPrivacySettingRuleRestrictChatMembers: // userPrivacySettingRuleRestrictChatMembers#fc00b920
 //  default: panic(v)
 //  }
@@ -1337,7 +1337,7 @@ func DecodeUserPrivacySettingRule(buf *bin.Buffer) (UserPrivacySettingRuleClass,
 		}
 		return &v, nil
 	case UserPrivacySettingRuleAllowUsersTypeID:
-		// Decoding userPrivacySettingRuleAllowUsers#ba671e7f.
+		// Decoding userPrivacySettingRuleAllowUsers#d1570b70.
 		v := UserPrivacySettingRuleAllowUsers{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
@@ -1365,7 +1365,7 @@ func DecodeUserPrivacySettingRule(buf *bin.Buffer) (UserPrivacySettingRuleClass,
 		}
 		return &v, nil
 	case UserPrivacySettingRuleRestrictUsersTypeID:
-		// Decoding userPrivacySettingRuleRestrictUsers#26093f9e.
+		// Decoding userPrivacySettingRuleRestrictUsers#4d392a91.
 		v := UserPrivacySettingRuleRestrictUsers{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
@@ -1405,7 +1405,7 @@ func DecodeTDLibJSONUserPrivacySettingRule(buf tdjson.Decoder) (UserPrivacySetti
 		}
 		return &v, nil
 	case "userPrivacySettingRuleAllowUsers":
-		// Decoding userPrivacySettingRuleAllowUsers#ba671e7f.
+		// Decoding userPrivacySettingRuleAllowUsers#d1570b70.
 		v := UserPrivacySettingRuleAllowUsers{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)
@@ -1433,7 +1433,7 @@ func DecodeTDLibJSONUserPrivacySettingRule(buf tdjson.Decoder) (UserPrivacySetti
 		}
 		return &v, nil
 	case "userPrivacySettingRuleRestrictUsers":
-		// Decoding userPrivacySettingRuleRestrictUsers#26093f9e.
+		// Decoding userPrivacySettingRuleRestrictUsers#4d392a91.
 		v := UserPrivacySettingRuleRestrictUsers{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingRuleClass: %w", err)

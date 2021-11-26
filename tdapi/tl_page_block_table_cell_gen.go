@@ -33,13 +33,13 @@ var (
 
 // PageBlockTableCell represents TL type `pageBlockTableCell#547fbf66`.
 type PageBlockTableCell struct {
-	// Cell text; may be null. If the text is null, then the cell should be invisible
+	// Cell text; may be null. If the text is null, then the cell must be invisible
 	Text RichTextClass
 	// True, if it is a header cell
 	IsHeader bool
-	// The number of columns the cell should span
+	// The number of columns the cell spans
 	Colspan int32
-	// The number of rows the cell should span
+	// The number of rows the cell spans
 	Rowspan int32
 	// Horizontal cell content alignment
 	Align PageBlockHorizontalAlignmentClass

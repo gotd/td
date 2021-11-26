@@ -35,7 +35,7 @@ var (
 type EditInlineMessageReplyMarkupRequest struct {
 	// Inline message identifier
 	InlineMessageID string
-	// The new message reply markup
+	// The new message reply markup; pass null if none
 	ReplyMarkup ReplyMarkupClass
 }
 

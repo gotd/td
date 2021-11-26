@@ -37,10 +37,10 @@ type GetChatInviteLinkMembersRequest struct {
 	ChatID int64
 	// Invite link for which to return chat members
 	InviteLink string
-	// A chat member from which to return next chat members; use null to get results from the
-	// beginning
+	// A chat member from which to return next chat members; pass null to get results from
+	// the beginning
 	OffsetMember ChatInviteLinkMember
-	// The maximum number of chat members to return
+	// The maximum number of chat members to return; up to 100
 	Limit int32
 }
 

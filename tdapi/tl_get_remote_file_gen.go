@@ -35,7 +35,7 @@ var (
 type GetRemoteFileRequest struct {
 	// Remote identifier of the file to get
 	RemoteFileID string
-	// File type, if known
+	// File type; pass null if unknown
 	FileType FileTypeClass
 }
 

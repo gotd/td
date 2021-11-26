@@ -35,11 +35,11 @@ var (
 type IdentityDocument struct {
 	// Document number; 1-24 characters
 	Number string
-	// Document expiry date; may be null
+	// Document expiry date; may be null if not applicable
 	ExpiryDate Date
 	// Front side of the document
 	FrontSide DatedFile
-	// Reverse side of the document; only for driver license and identity card
+	// Reverse side of the document; only for driver license and identity card; may be null
 	ReverseSide DatedFile
 	// Selfie with the document; may be null
 	Selfie DatedFile

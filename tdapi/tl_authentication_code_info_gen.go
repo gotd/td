@@ -35,9 +35,9 @@ var (
 type AuthenticationCodeInfo struct {
 	// A phone number that is being authenticated
 	PhoneNumber string
-	// Describes the way the code was sent to the user
+	// The way the code was sent to the user
 	Type AuthenticationCodeTypeClass
-	// Describes the way the next code will be sent to the user; may be null
+	// The way the next code will be sent to the user; may be null
 	NextType AuthenticationCodeTypeClass
 	// Timeout before the code can be re-sent, in seconds
 	Timeout int32

@@ -31,18 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GameHighScore represents TL type `gameHighScore#fe2a5c0a`.
+// GameHighScore represents TL type `gameHighScore#146fcf1e`.
 type GameHighScore struct {
 	// Position in the high score table
 	Position int32
 	// User identifier
-	UserID int32
+	UserID int64
 	// User score
 	Score int32
 }
 
 // GameHighScoreTypeID is TL type id of GameHighScore.
-const GameHighScoreTypeID = 0xfe2a5c0a
+const GameHighScoreTypeID = 0x146fcf1e
 
 // Ensuring interfaces in compile-time for GameHighScore.
 var (
@@ -120,7 +120,7 @@ func (g *GameHighScore) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GameHighScore) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode gameHighScore#fe2a5c0a as nil")
+		return fmt.Errorf("can't encode gameHighScore#146fcf1e as nil")
 	}
 	b.PutID(GameHighScoreTypeID)
 	return g.EncodeBare(b)
@@ -129,10 +129,10 @@ func (g *GameHighScore) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GameHighScore) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode gameHighScore#fe2a5c0a as nil")
+		return fmt.Errorf("can't encode gameHighScore#146fcf1e as nil")
 	}
 	b.PutInt32(g.Position)
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	b.PutInt32(g.Score)
 	return nil
 }
@@ -140,10 +140,10 @@ func (g *GameHighScore) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GameHighScore) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode gameHighScore#fe2a5c0a to nil")
+		return fmt.Errorf("can't decode gameHighScore#146fcf1e to nil")
 	}
 	if err := b.ConsumeID(GameHighScoreTypeID); err != nil {
-		return fmt.Errorf("unable to decode gameHighScore#fe2a5c0a: %w", err)
+		return fmt.Errorf("unable to decode gameHighScore#146fcf1e: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -151,26 +151,26 @@ func (g *GameHighScore) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GameHighScore) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode gameHighScore#fe2a5c0a to nil")
+		return fmt.Errorf("can't decode gameHighScore#146fcf1e to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode gameHighScore#fe2a5c0a: field position: %w", err)
+			return fmt.Errorf("unable to decode gameHighScore#146fcf1e: field position: %w", err)
 		}
 		g.Position = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode gameHighScore#fe2a5c0a: field user_id: %w", err)
+			return fmt.Errorf("unable to decode gameHighScore#146fcf1e: field user_id: %w", err)
 		}
 		g.UserID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode gameHighScore#fe2a5c0a: field score: %w", err)
+			return fmt.Errorf("unable to decode gameHighScore#146fcf1e: field score: %w", err)
 		}
 		g.Score = value
 	}
@@ -180,14 +180,14 @@ func (g *GameHighScore) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GameHighScore) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode gameHighScore#fe2a5c0a as nil")
+		return fmt.Errorf("can't encode gameHighScore#146fcf1e as nil")
 	}
 	b.ObjStart()
 	b.PutID("gameHighScore")
 	b.FieldStart("position")
 	b.PutInt32(g.Position)
 	b.FieldStart("user_id")
-	b.PutInt32(g.UserID)
+	b.PutLong(g.UserID)
 	b.FieldStart("score")
 	b.PutInt32(g.Score)
 	b.ObjEnd()
@@ -197,31 +197,31 @@ func (g *GameHighScore) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GameHighScore) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode gameHighScore#fe2a5c0a to nil")
+		return fmt.Errorf("can't decode gameHighScore#146fcf1e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("gameHighScore"); err != nil {
-				return fmt.Errorf("unable to decode gameHighScore#fe2a5c0a: %w", err)
+				return fmt.Errorf("unable to decode gameHighScore#146fcf1e: %w", err)
 			}
 		case "position":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode gameHighScore#fe2a5c0a: field position: %w", err)
+				return fmt.Errorf("unable to decode gameHighScore#146fcf1e: field position: %w", err)
 			}
 			g.Position = value
 		case "user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode gameHighScore#fe2a5c0a: field user_id: %w", err)
+				return fmt.Errorf("unable to decode gameHighScore#146fcf1e: field user_id: %w", err)
 			}
 			g.UserID = value
 		case "score":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode gameHighScore#fe2a5c0a: field score: %w", err)
+				return fmt.Errorf("unable to decode gameHighScore#146fcf1e: field score: %w", err)
 			}
 			g.Score = value
 		default:
@@ -237,7 +237,7 @@ func (g *GameHighScore) GetPosition() (value int32) {
 }
 
 // GetUserID returns value of UserID field.
-func (g *GameHighScore) GetUserID() (value int32) {
+func (g *GameHighScore) GetUserID() (value int64) {
 	return g.UserID
 }
 

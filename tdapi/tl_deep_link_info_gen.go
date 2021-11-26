@@ -35,7 +35,7 @@ var (
 type DeepLinkInfo struct {
 	// Text to be shown to the user
 	Text FormattedText
-	// True, if user should be asked to update the application
+	// True, if the user must be asked to update the application
 	NeedUpdateApplication bool
 }
 

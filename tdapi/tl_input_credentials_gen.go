@@ -193,7 +193,7 @@ func (i *InputCredentialsSaved) GetSavedCredentialsID() (value string) {
 
 // InputCredentialsNew represents TL type `inputCredentialsNew#ce8bf12a`.
 type InputCredentialsNew struct {
-	// Contains JSON-encoded data with a credential identifier from the payment provider
+	// JSON-encoded data with the credential identifier from the payment provider
 	Data string
 	// True, if the credential identifier can be saved on the server side
 	AllowSave bool

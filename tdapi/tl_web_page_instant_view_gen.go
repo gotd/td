@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// WebPageInstantView represents TL type `webPageInstantView#5be32f69`.
+// WebPageInstantView represents TL type `webPageInstantView#2c0ec99c`.
 type WebPageInstantView struct {
 	// Content of the web page
 	PageBlocks []PageBlockClass
@@ -44,10 +44,12 @@ type WebPageInstantView struct {
 	// True, if the instant view contains the full page. A network request might be needed to
 	// get the full web page instant view
 	IsFull bool
+	// An internal link to be opened to leave feedback about the instant view
+	FeedbackLink InternalLinkTypeClass
 }
 
 // WebPageInstantViewTypeID is TL type id of WebPageInstantView.
-const WebPageInstantViewTypeID = 0x5be32f69
+const WebPageInstantViewTypeID = 0x2c0ec99c
 
 // Ensuring interfaces in compile-time for WebPageInstantView.
 var (
@@ -74,6 +76,9 @@ func (w *WebPageInstantView) Zero() bool {
 		return false
 	}
 	if !(w.IsFull == false) {
+		return false
+	}
+	if !(w.FeedbackLink == nil) {
 		return false
 	}
 
@@ -132,6 +137,10 @@ func (w *WebPageInstantView) TypeInfo() tdp.Type {
 			Name:       "IsFull",
 			SchemaName: "is_full",
 		},
+		{
+			Name:       "FeedbackLink",
+			SchemaName: "feedback_link",
+		},
 	}
 	return typ
 }
@@ -139,7 +148,7 @@ func (w *WebPageInstantView) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (w *WebPageInstantView) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageInstantView#5be32f69 as nil")
+		return fmt.Errorf("can't encode webPageInstantView#2c0ec99c as nil")
 	}
 	b.PutID(WebPageInstantViewTypeID)
 	return w.EncodeBare(b)
@@ -148,31 +157,37 @@ func (w *WebPageInstantView) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebPageInstantView) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageInstantView#5be32f69 as nil")
+		return fmt.Errorf("can't encode webPageInstantView#2c0ec99c as nil")
 	}
 	b.PutInt(len(w.PageBlocks))
 	for idx, v := range w.PageBlocks {
 		if v == nil {
-			return fmt.Errorf("unable to encode webPageInstantView#5be32f69: field page_blocks element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode webPageInstantView#2c0ec99c: field page_blocks element with index %d is nil", idx)
 		}
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare webPageInstantView#5be32f69: field page_blocks element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare webPageInstantView#2c0ec99c: field page_blocks element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt32(w.ViewCount)
 	b.PutInt32(w.Version)
 	b.PutBool(w.IsRtl)
 	b.PutBool(w.IsFull)
+	if w.FeedbackLink == nil {
+		return fmt.Errorf("unable to encode webPageInstantView#2c0ec99c: field feedback_link is nil")
+	}
+	if err := w.FeedbackLink.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode webPageInstantView#2c0ec99c: field feedback_link: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (w *WebPageInstantView) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageInstantView#5be32f69 to nil")
+		return fmt.Errorf("can't decode webPageInstantView#2c0ec99c to nil")
 	}
 	if err := b.ConsumeID(WebPageInstantViewTypeID); err != nil {
-		return fmt.Errorf("unable to decode webPageInstantView#5be32f69: %w", err)
+		return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: %w", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -180,12 +195,12 @@ func (w *WebPageInstantView) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebPageInstantView) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageInstantView#5be32f69 to nil")
+		return fmt.Errorf("can't decode webPageInstantView#2c0ec99c to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field page_blocks: %w", err)
+			return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field page_blocks: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -194,7 +209,7 @@ func (w *WebPageInstantView) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePageBlock(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field page_blocks: %w", err)
+				return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field page_blocks: %w", err)
 			}
 			w.PageBlocks = append(w.PageBlocks, value)
 		}
@@ -202,30 +217,37 @@ func (w *WebPageInstantView) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field view_count: %w", err)
+			return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field view_count: %w", err)
 		}
 		w.ViewCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field version: %w", err)
+			return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field version: %w", err)
 		}
 		w.Version = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field is_rtl: %w", err)
+			return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field is_rtl: %w", err)
 		}
 		w.IsRtl = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field is_full: %w", err)
+			return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field is_full: %w", err)
 		}
 		w.IsFull = value
+	}
+	{
+		value, err := DecodeInternalLinkType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field feedback_link: %w", err)
+		}
+		w.FeedbackLink = value
 	}
 	return nil
 }
@@ -233,7 +255,7 @@ func (w *WebPageInstantView) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (w *WebPageInstantView) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageInstantView#5be32f69 as nil")
+		return fmt.Errorf("can't encode webPageInstantView#2c0ec99c as nil")
 	}
 	b.ObjStart()
 	b.PutID("webPageInstantView")
@@ -241,10 +263,10 @@ func (w *WebPageInstantView) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range w.PageBlocks {
 		if v == nil {
-			return fmt.Errorf("unable to encode webPageInstantView#5be32f69: field page_blocks element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode webPageInstantView#2c0ec99c: field page_blocks element with index %d is nil", idx)
 		}
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode webPageInstantView#5be32f69: field page_blocks element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode webPageInstantView#2c0ec99c: field page_blocks element with index %d: %w", idx, err)
 		}
 	}
 	b.ArrEnd()
@@ -256,6 +278,13 @@ func (w *WebPageInstantView) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutBool(w.IsRtl)
 	b.FieldStart("is_full")
 	b.PutBool(w.IsFull)
+	b.FieldStart("feedback_link")
+	if w.FeedbackLink == nil {
+		return fmt.Errorf("unable to encode webPageInstantView#2c0ec99c: field feedback_link is nil")
+	}
+	if err := w.FeedbackLink.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode webPageInstantView#2c0ec99c: field feedback_link: %w", err)
+	}
 	b.ObjEnd()
 	return nil
 }
@@ -263,50 +292,56 @@ func (w *WebPageInstantView) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (w *WebPageInstantView) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageInstantView#5be32f69 to nil")
+		return fmt.Errorf("can't decode webPageInstantView#2c0ec99c to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("webPageInstantView"); err != nil {
-				return fmt.Errorf("unable to decode webPageInstantView#5be32f69: %w", err)
+				return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: %w", err)
 			}
 		case "page_blocks":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONPageBlock(b)
 				if err != nil {
-					return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field page_blocks: %w", err)
+					return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field page_blocks: %w", err)
 				}
 				w.PageBlocks = append(w.PageBlocks, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field page_blocks: %w", err)
+				return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field page_blocks: %w", err)
 			}
 		case "view_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field view_count: %w", err)
+				return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field view_count: %w", err)
 			}
 			w.ViewCount = value
 		case "version":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field version: %w", err)
+				return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field version: %w", err)
 			}
 			w.Version = value
 		case "is_rtl":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field is_rtl: %w", err)
+				return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field is_rtl: %w", err)
 			}
 			w.IsRtl = value
 		case "is_full":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode webPageInstantView#5be32f69: field is_full: %w", err)
+				return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field is_full: %w", err)
 			}
 			w.IsFull = value
+		case "feedback_link":
+			value, err := DecodeTDLibJSONInternalLinkType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode webPageInstantView#2c0ec99c: field feedback_link: %w", err)
+			}
+			w.FeedbackLink = value
 		default:
 			return b.Skip()
 		}
@@ -337,4 +372,9 @@ func (w *WebPageInstantView) GetIsRtl() (value bool) {
 // GetIsFull returns value of IsFull field.
 func (w *WebPageInstantView) GetIsFull() (value bool) {
 	return w.IsFull
+}
+
+// GetFeedbackLink returns value of FeedbackLink field.
+func (w *WebPageInstantView) GetFeedbackLink() (value InternalLinkTypeClass) {
+	return w.FeedbackLink
 }

@@ -33,10 +33,10 @@ var (
 
 // SetBackgroundRequest represents TL type `setBackground#c2487387`.
 type SetBackgroundRequest struct {
-	// The input background to use. Pass null to create a new filled backgrounds. Pass null
-	// to remove the current background
+	// The input background to use; pass null to create a new filled backgrounds or to remove
+	// the current background
 	Background InputBackgroundClass
-	// Background type. Pass null to use default type of the remote background. Pass null to
+	// Background type; pass null to use the default type of the remote background or to
 	// remove the current background
 	Type BackgroundTypeClass
 	// True, if the background is chosen for dark theme

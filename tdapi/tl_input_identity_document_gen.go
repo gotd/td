@@ -35,13 +35,14 @@ var (
 type InputIdentityDocument struct {
 	// Document number; 1-24 characters
 	Number string
-	// Document expiry date, if available
+	// Document expiry date; pass null if not applicable
 	ExpiryDate Date
 	// Front side of the document
 	FrontSide InputFileClass
-	// Reverse side of the document; only for driver license and identity card
+	// Reverse side of the document; only for driver license and identity card; pass null
+	// otherwise
 	ReverseSide InputFileClass
-	// Selfie with the document, if available
+	// Selfie with the document; pass null if unavailable
 	Selfie InputFileClass
 	// List of files containing a certified English translation of the document
 	Translation []InputFileClass

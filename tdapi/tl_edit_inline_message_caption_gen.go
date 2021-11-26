@@ -35,9 +35,10 @@ var (
 type EditInlineMessageCaptionRequest struct {
 	// Inline message identifier
 	InlineMessageID string
-	// The new message reply markup
+	// The new message reply markup; pass null if none
 	ReplyMarkup ReplyMarkupClass
-	// New message content caption; 0-GetOption("message_caption_length_max") characters
+	// New message content caption; pass null to remove caption;
+	// 0-GetOption("message_caption_length_max") characters
 	Caption FormattedText
 }
 

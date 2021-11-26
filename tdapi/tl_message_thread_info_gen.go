@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageThreadInfo represents TL type `messageThreadInfo#f356201b`.
+// MessageThreadInfo represents TL type `messageThreadInfo#683fd5ad`.
 type MessageThreadInfo struct {
 	// Identifier of the chat to which the message thread belongs
 	ChatID int64
 	// Message thread identifier, unique within the chat
 	MessageThreadID int64
-	// Contains information about the message thread
+	// Information about the message thread
 	ReplyInfo MessageReplyInfo
+	// Approximate number of unread messages in the message thread
+	UnreadMessageCount int32
 	// The messages from which the thread starts. The messages are returned in a reverse
 	// chronological order (i.e., in order of decreasing message_id)
 	Messages []Message
@@ -47,7 +49,7 @@ type MessageThreadInfo struct {
 }
 
 // MessageThreadInfoTypeID is TL type id of MessageThreadInfo.
-const MessageThreadInfoTypeID = 0xf356201b
+const MessageThreadInfoTypeID = 0x683fd5ad
 
 // Ensuring interfaces in compile-time for MessageThreadInfo.
 var (
@@ -68,6 +70,9 @@ func (m *MessageThreadInfo) Zero() bool {
 		return false
 	}
 	if !(m.ReplyInfo.Zero()) {
+		return false
+	}
+	if !(m.UnreadMessageCount == 0) {
 		return false
 	}
 	if !(m.Messages == nil) {
@@ -125,6 +130,10 @@ func (m *MessageThreadInfo) TypeInfo() tdp.Type {
 			SchemaName: "reply_info",
 		},
 		{
+			Name:       "UnreadMessageCount",
+			SchemaName: "unread_message_count",
+		},
+		{
 			Name:       "Messages",
 			SchemaName: "messages",
 		},
@@ -139,7 +148,7 @@ func (m *MessageThreadInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageThreadInfo) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageThreadInfo#f356201b as nil")
+		return fmt.Errorf("can't encode messageThreadInfo#683fd5ad as nil")
 	}
 	b.PutID(MessageThreadInfoTypeID)
 	return m.EncodeBare(b)
@@ -148,21 +157,22 @@ func (m *MessageThreadInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageThreadInfo) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageThreadInfo#f356201b as nil")
+		return fmt.Errorf("can't encode messageThreadInfo#683fd5ad as nil")
 	}
 	b.PutLong(m.ChatID)
 	b.PutLong(m.MessageThreadID)
 	if err := m.ReplyInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageThreadInfo#f356201b: field reply_info: %w", err)
+		return fmt.Errorf("unable to encode messageThreadInfo#683fd5ad: field reply_info: %w", err)
 	}
+	b.PutInt32(m.UnreadMessageCount)
 	b.PutInt(len(m.Messages))
 	for idx, v := range m.Messages {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare messageThreadInfo#f356201b: field messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare messageThreadInfo#683fd5ad: field messages element with index %d: %w", idx, err)
 		}
 	}
 	if err := m.DraftMessage.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageThreadInfo#f356201b: field draft_message: %w", err)
+		return fmt.Errorf("unable to encode messageThreadInfo#683fd5ad: field draft_message: %w", err)
 	}
 	return nil
 }
@@ -170,10 +180,10 @@ func (m *MessageThreadInfo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageThreadInfo) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageThreadInfo#f356201b to nil")
+		return fmt.Errorf("can't decode messageThreadInfo#683fd5ad to nil")
 	}
 	if err := b.ConsumeID(MessageThreadInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageThreadInfo#f356201b: %w", err)
+		return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -181,31 +191,38 @@ func (m *MessageThreadInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageThreadInfo) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageThreadInfo#f356201b to nil")
+		return fmt.Errorf("can't decode messageThreadInfo#683fd5ad to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field chat_id: %w", err)
 		}
 		m.ChatID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field message_thread_id: %w", err)
+			return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field message_thread_id: %w", err)
 		}
 		m.MessageThreadID = value
 	}
 	{
 		if err := m.ReplyInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field reply_info: %w", err)
+			return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field reply_info: %w", err)
 		}
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field unread_message_count: %w", err)
+		}
+		m.UnreadMessageCount = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field messages: %w", err)
+			return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field messages: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -214,14 +231,14 @@ func (m *MessageThreadInfo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value Message
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare messageThreadInfo#f356201b: field messages: %w", err)
+				return fmt.Errorf("unable to decode bare messageThreadInfo#683fd5ad: field messages: %w", err)
 			}
 			m.Messages = append(m.Messages, value)
 		}
 	}
 	{
 		if err := m.DraftMessage.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field draft_message: %w", err)
+			return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field draft_message: %w", err)
 		}
 	}
 	return nil
@@ -230,7 +247,7 @@ func (m *MessageThreadInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageThreadInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageThreadInfo#f356201b as nil")
+		return fmt.Errorf("can't encode messageThreadInfo#683fd5ad as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageThreadInfo")
@@ -240,19 +257,21 @@ func (m *MessageThreadInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutLong(m.MessageThreadID)
 	b.FieldStart("reply_info")
 	if err := m.ReplyInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageThreadInfo#f356201b: field reply_info: %w", err)
+		return fmt.Errorf("unable to encode messageThreadInfo#683fd5ad: field reply_info: %w", err)
 	}
+	b.FieldStart("unread_message_count")
+	b.PutInt32(m.UnreadMessageCount)
 	b.FieldStart("messages")
 	b.ArrStart()
 	for idx, v := range m.Messages {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode messageThreadInfo#f356201b: field messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messageThreadInfo#683fd5ad: field messages element with index %d: %w", idx, err)
 		}
 	}
 	b.ArrEnd()
 	b.FieldStart("draft_message")
 	if err := m.DraftMessage.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageThreadInfo#f356201b: field draft_message: %w", err)
+		return fmt.Errorf("unable to encode messageThreadInfo#683fd5ad: field draft_message: %w", err)
 	}
 	b.ObjEnd()
 	return nil
@@ -261,45 +280,51 @@ func (m *MessageThreadInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageThreadInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageThreadInfo#f356201b to nil")
+		return fmt.Errorf("can't decode messageThreadInfo#683fd5ad to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageThreadInfo"); err != nil {
-				return fmt.Errorf("unable to decode messageThreadInfo#f356201b: %w", err)
+				return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field chat_id: %w", err)
 			}
 			m.ChatID = value
 		case "message_thread_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field message_thread_id: %w", err)
+				return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field message_thread_id: %w", err)
 			}
 			m.MessageThreadID = value
 		case "reply_info":
 			if err := m.ReplyInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field reply_info: %w", err)
+				return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field reply_info: %w", err)
 			}
+		case "unread_message_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field unread_message_count: %w", err)
+			}
+			m.UnreadMessageCount = value
 		case "messages":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value Message
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field messages: %w", err)
+					return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field messages: %w", err)
 				}
 				m.Messages = append(m.Messages, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field messages: %w", err)
+				return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field messages: %w", err)
 			}
 		case "draft_message":
 			if err := m.DraftMessage.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageThreadInfo#f356201b: field draft_message: %w", err)
+				return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field draft_message: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -321,6 +346,11 @@ func (m *MessageThreadInfo) GetMessageThreadID() (value int64) {
 // GetReplyInfo returns value of ReplyInfo field.
 func (m *MessageThreadInfo) GetReplyInfo() (value MessageReplyInfo) {
 	return m.ReplyInfo
+}
+
+// GetUnreadMessageCount returns value of UnreadMessageCount field.
+func (m *MessageThreadInfo) GetUnreadMessageCount() (value int32) {
+	return m.UnreadMessageCount
 }
 
 // GetMessages returns value of Messages field.

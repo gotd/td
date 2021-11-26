@@ -37,7 +37,7 @@ type DraftMessage struct {
 	ReplyToMessageID int64
 	// Point in time (Unix timestamp) when the draft was created
 	Date int32
-	// Content of the message draft; this should always be of type inputMessageText
+	// Content of the message draft; must be of the type inputMessageText
 	InputMessageText InputMessageContentClass
 }
 

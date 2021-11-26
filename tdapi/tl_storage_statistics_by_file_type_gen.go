@@ -35,7 +35,7 @@ var (
 type StorageStatisticsByFileType struct {
 	// File type
 	FileType FileTypeClass
-	// Total size of the files
+	// Total size of the files, in bytes
 	Size int64
 	// Total number of files
 	Count int32

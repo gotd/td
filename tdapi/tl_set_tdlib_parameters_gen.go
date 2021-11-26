@@ -33,7 +33,7 @@ var (
 
 // SetTdlibParametersRequest represents TL type `setTdlibParameters#8e00ae53`.
 type SetTdlibParametersRequest struct {
-	// Parameters
+	// Parameters for TDLib initialization
 	Parameters TdlibParameters
 }
 

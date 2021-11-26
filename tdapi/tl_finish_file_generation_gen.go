@@ -35,7 +35,8 @@ var (
 type FinishFileGenerationRequest struct {
 	// The identifier of the generation process
 	GenerationID int64
-	// If set, means that file generation has failed and should be terminated
+	// If passed, the file generation has failed and must be terminated; pass null if the
+	// file generation succeeded
 	Error Error
 }
 

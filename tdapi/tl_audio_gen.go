@@ -46,7 +46,7 @@ type Audio struct {
 	// The minithumbnail of the album cover; may be null
 	AlbumCoverMinithumbnail Minithumbnail
 	// The thumbnail of the album cover in JPEG format; as defined by the sender. The full
-	// size thumbnail should be extracted from the downloaded file; may be null
+	// size thumbnail is supposed to be extracted from the downloaded file; may be null
 	AlbumCoverThumbnail Thumbnail
 	// File containing the audio
 	Audio File

@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// User represents TL type `user#d3da50d6`.
+// User represents TL type `user#dff1de69`.
 type User struct {
 	// User identifier
-	ID int32
+	ID int64
 	// First name of the user
 	FirstName string
 	// Last name of the user
@@ -73,7 +73,7 @@ type User struct {
 }
 
 // UserTypeID is TL type id of User.
-const UserTypeID = 0xd3da50d6
+const UserTypeID = 0xdff1de69
 
 // Ensuring interfaces in compile-time for User.
 var (
@@ -249,7 +249,7 @@ func (u *User) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *User) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode user#d3da50d6 as nil")
+		return fmt.Errorf("can't encode user#dff1de69 as nil")
 	}
 	b.PutID(UserTypeID)
 	return u.EncodeBare(b)
@@ -258,21 +258,21 @@ func (u *User) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *User) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode user#d3da50d6 as nil")
+		return fmt.Errorf("can't encode user#dff1de69 as nil")
 	}
-	b.PutInt32(u.ID)
+	b.PutLong(u.ID)
 	b.PutString(u.FirstName)
 	b.PutString(u.LastName)
 	b.PutString(u.Username)
 	b.PutString(u.PhoneNumber)
 	if u.Status == nil {
-		return fmt.Errorf("unable to encode user#d3da50d6: field status is nil")
+		return fmt.Errorf("unable to encode user#dff1de69: field status is nil")
 	}
 	if err := u.Status.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode user#d3da50d6: field status: %w", err)
+		return fmt.Errorf("unable to encode user#dff1de69: field status: %w", err)
 	}
 	if err := u.ProfilePhoto.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode user#d3da50d6: field profile_photo: %w", err)
+		return fmt.Errorf("unable to encode user#dff1de69: field profile_photo: %w", err)
 	}
 	b.PutBool(u.IsContact)
 	b.PutBool(u.IsMutualContact)
@@ -283,10 +283,10 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(u.IsFake)
 	b.PutBool(u.HaveAccess)
 	if u.Type == nil {
-		return fmt.Errorf("unable to encode user#d3da50d6: field type is nil")
+		return fmt.Errorf("unable to encode user#dff1de69: field type is nil")
 	}
 	if err := u.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode user#d3da50d6: field type: %w", err)
+		return fmt.Errorf("unable to encode user#dff1de69: field type: %w", err)
 	}
 	b.PutString(u.LanguageCode)
 	return nil
@@ -295,10 +295,10 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *User) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode user#d3da50d6 to nil")
+		return fmt.Errorf("can't decode user#dff1de69 to nil")
 	}
 	if err := b.ConsumeID(UserTypeID); err != nil {
-		return fmt.Errorf("unable to decode user#d3da50d6: %w", err)
+		return fmt.Errorf("unable to decode user#dff1de69: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -306,122 +306,122 @@ func (u *User) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *User) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode user#d3da50d6 to nil")
+		return fmt.Errorf("can't decode user#dff1de69 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field id: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field id: %w", err)
 		}
 		u.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field first_name: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field first_name: %w", err)
 		}
 		u.FirstName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field last_name: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field last_name: %w", err)
 		}
 		u.LastName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field username: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field username: %w", err)
 		}
 		u.Username = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field phone_number: %w", err)
 		}
 		u.PhoneNumber = value
 	}
 	{
 		value, err := DecodeUserStatus(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field status: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field status: %w", err)
 		}
 		u.Status = value
 	}
 	{
 		if err := u.ProfilePhoto.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field profile_photo: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field profile_photo: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field is_contact: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field is_contact: %w", err)
 		}
 		u.IsContact = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field is_mutual_contact: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field is_mutual_contact: %w", err)
 		}
 		u.IsMutualContact = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field is_verified: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field is_verified: %w", err)
 		}
 		u.IsVerified = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field is_support: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field is_support: %w", err)
 		}
 		u.IsSupport = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field restriction_reason: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field restriction_reason: %w", err)
 		}
 		u.RestrictionReason = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field is_scam: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field is_scam: %w", err)
 		}
 		u.IsScam = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field is_fake: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field is_fake: %w", err)
 		}
 		u.IsFake = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field have_access: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field have_access: %w", err)
 		}
 		u.HaveAccess = value
 	}
 	{
 		value, err := DecodeUserType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field type: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field type: %w", err)
 		}
 		u.Type = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#d3da50d6: field language_code: %w", err)
+			return fmt.Errorf("unable to decode user#dff1de69: field language_code: %w", err)
 		}
 		u.LanguageCode = value
 	}
@@ -431,12 +431,12 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *User) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode user#d3da50d6 as nil")
+		return fmt.Errorf("can't encode user#dff1de69 as nil")
 	}
 	b.ObjStart()
 	b.PutID("user")
 	b.FieldStart("id")
-	b.PutInt32(u.ID)
+	b.PutLong(u.ID)
 	b.FieldStart("first_name")
 	b.PutString(u.FirstName)
 	b.FieldStart("last_name")
@@ -447,14 +447,14 @@ func (u *User) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutString(u.PhoneNumber)
 	b.FieldStart("status")
 	if u.Status == nil {
-		return fmt.Errorf("unable to encode user#d3da50d6: field status is nil")
+		return fmt.Errorf("unable to encode user#dff1de69: field status is nil")
 	}
 	if err := u.Status.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode user#d3da50d6: field status: %w", err)
+		return fmt.Errorf("unable to encode user#dff1de69: field status: %w", err)
 	}
 	b.FieldStart("profile_photo")
 	if err := u.ProfilePhoto.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode user#d3da50d6: field profile_photo: %w", err)
+		return fmt.Errorf("unable to encode user#dff1de69: field profile_photo: %w", err)
 	}
 	b.FieldStart("is_contact")
 	b.PutBool(u.IsContact)
@@ -474,10 +474,10 @@ func (u *User) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutBool(u.HaveAccess)
 	b.FieldStart("type")
 	if u.Type == nil {
-		return fmt.Errorf("unable to encode user#d3da50d6: field type is nil")
+		return fmt.Errorf("unable to encode user#dff1de69: field type is nil")
 	}
 	if err := u.Type.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode user#d3da50d6: field type: %w", err)
+		return fmt.Errorf("unable to encode user#dff1de69: field type: %w", err)
 	}
 	b.FieldStart("language_code")
 	b.PutString(u.LanguageCode)
@@ -488,113 +488,113 @@ func (u *User) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *User) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode user#d3da50d6 to nil")
+		return fmt.Errorf("can't decode user#dff1de69 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("user"); err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: %w", err)
 			}
 		case "id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field id: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field id: %w", err)
 			}
 			u.ID = value
 		case "first_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field first_name: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field first_name: %w", err)
 			}
 			u.FirstName = value
 		case "last_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field last_name: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field last_name: %w", err)
 			}
 			u.LastName = value
 		case "username":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field username: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field username: %w", err)
 			}
 			u.Username = value
 		case "phone_number":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field phone_number: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field phone_number: %w", err)
 			}
 			u.PhoneNumber = value
 		case "status":
 			value, err := DecodeTDLibJSONUserStatus(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field status: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field status: %w", err)
 			}
 			u.Status = value
 		case "profile_photo":
 			if err := u.ProfilePhoto.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field profile_photo: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field profile_photo: %w", err)
 			}
 		case "is_contact":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field is_contact: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field is_contact: %w", err)
 			}
 			u.IsContact = value
 		case "is_mutual_contact":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field is_mutual_contact: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field is_mutual_contact: %w", err)
 			}
 			u.IsMutualContact = value
 		case "is_verified":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field is_verified: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field is_verified: %w", err)
 			}
 			u.IsVerified = value
 		case "is_support":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field is_support: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field is_support: %w", err)
 			}
 			u.IsSupport = value
 		case "restriction_reason":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field restriction_reason: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field restriction_reason: %w", err)
 			}
 			u.RestrictionReason = value
 		case "is_scam":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field is_scam: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field is_scam: %w", err)
 			}
 			u.IsScam = value
 		case "is_fake":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field is_fake: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field is_fake: %w", err)
 			}
 			u.IsFake = value
 		case "have_access":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field have_access: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field have_access: %w", err)
 			}
 			u.HaveAccess = value
 		case "type":
 			value, err := DecodeTDLibJSONUserType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field type: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field type: %w", err)
 			}
 			u.Type = value
 		case "language_code":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode user#d3da50d6: field language_code: %w", err)
+				return fmt.Errorf("unable to decode user#dff1de69: field language_code: %w", err)
 			}
 			u.LanguageCode = value
 		default:
@@ -605,7 +605,7 @@ func (u *User) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetID returns value of ID field.
-func (u *User) GetID() (value int32) {
+func (u *User) GetID() (value int64) {
 	return u.ID
 }
 

@@ -31,13 +31,13 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetInlineQueryResultsRequest represents TL type `getInlineQueryResults#b9844fbc`.
+// GetInlineQueryResultsRequest represents TL type `getInlineQueryResults#79dcf86c`.
 type GetInlineQueryResultsRequest struct {
 	// The identifier of the target bot
-	BotUserID int32
+	BotUserID int64
 	// Identifier of the chat where the query was sent
 	ChatID int64
-	// Location of the user, only if needed
+	// Location of the user; pass null if unknown or the bot doesn't need user's location
 	UserLocation Location
 	// Text of the query
 	Query string
@@ -46,7 +46,7 @@ type GetInlineQueryResultsRequest struct {
 }
 
 // GetInlineQueryResultsRequestTypeID is TL type id of GetInlineQueryResultsRequest.
-const GetInlineQueryResultsRequestTypeID = 0xb9844fbc
+const GetInlineQueryResultsRequestTypeID = 0x79dcf86c
 
 // Ensuring interfaces in compile-time for GetInlineQueryResultsRequest.
 var (
@@ -138,7 +138,7 @@ func (g *GetInlineQueryResultsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetInlineQueryResultsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getInlineQueryResults#b9844fbc as nil")
+		return fmt.Errorf("can't encode getInlineQueryResults#79dcf86c as nil")
 	}
 	b.PutID(GetInlineQueryResultsRequestTypeID)
 	return g.EncodeBare(b)
@@ -147,12 +147,12 @@ func (g *GetInlineQueryResultsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetInlineQueryResultsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getInlineQueryResults#b9844fbc as nil")
+		return fmt.Errorf("can't encode getInlineQueryResults#79dcf86c as nil")
 	}
-	b.PutInt32(g.BotUserID)
+	b.PutLong(g.BotUserID)
 	b.PutLong(g.ChatID)
 	if err := g.UserLocation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getInlineQueryResults#b9844fbc: field user_location: %w", err)
+		return fmt.Errorf("unable to encode getInlineQueryResults#79dcf86c: field user_location: %w", err)
 	}
 	b.PutString(g.Query)
 	b.PutString(g.Offset)
@@ -162,10 +162,10 @@ func (g *GetInlineQueryResultsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetInlineQueryResultsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getInlineQueryResults#b9844fbc to nil")
+		return fmt.Errorf("can't decode getInlineQueryResults#79dcf86c to nil")
 	}
 	if err := b.ConsumeID(GetInlineQueryResultsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: %w", err)
+		return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -173,38 +173,38 @@ func (g *GetInlineQueryResultsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetInlineQueryResultsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getInlineQueryResults#b9844fbc to nil")
+		return fmt.Errorf("can't decode getInlineQueryResults#79dcf86c to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field bot_user_id: %w", err)
 		}
 		g.BotUserID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		if err := g.UserLocation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field user_location: %w", err)
+			return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field user_location: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field query: %w", err)
+			return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field query: %w", err)
 		}
 		g.Query = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field offset: %w", err)
+			return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field offset: %w", err)
 		}
 		g.Offset = value
 	}
@@ -214,17 +214,17 @@ func (g *GetInlineQueryResultsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetInlineQueryResultsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getInlineQueryResults#b9844fbc as nil")
+		return fmt.Errorf("can't encode getInlineQueryResults#79dcf86c as nil")
 	}
 	b.ObjStart()
 	b.PutID("getInlineQueryResults")
 	b.FieldStart("bot_user_id")
-	b.PutInt32(g.BotUserID)
+	b.PutLong(g.BotUserID)
 	b.FieldStart("chat_id")
 	b.PutLong(g.ChatID)
 	b.FieldStart("user_location")
 	if err := g.UserLocation.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getInlineQueryResults#b9844fbc: field user_location: %w", err)
+		return fmt.Errorf("unable to encode getInlineQueryResults#79dcf86c: field user_location: %w", err)
 	}
 	b.FieldStart("query")
 	b.PutString(g.Query)
@@ -237,41 +237,41 @@ func (g *GetInlineQueryResultsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetInlineQueryResultsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getInlineQueryResults#b9844fbc to nil")
+		return fmt.Errorf("can't decode getInlineQueryResults#79dcf86c to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getInlineQueryResults"); err != nil {
-				return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: %w", err)
+				return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: %w", err)
 			}
 		case "bot_user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field bot_user_id: %w", err)
 			}
 			g.BotUserID = value
 		case "chat_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "user_location":
 			if err := g.UserLocation.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field user_location: %w", err)
+				return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field user_location: %w", err)
 			}
 		case "query":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field query: %w", err)
+				return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field query: %w", err)
 			}
 			g.Query = value
 		case "offset":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getInlineQueryResults#b9844fbc: field offset: %w", err)
+				return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field offset: %w", err)
 			}
 			g.Offset = value
 		default:
@@ -282,7 +282,7 @@ func (g *GetInlineQueryResultsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetBotUserID returns value of BotUserID field.
-func (g *GetInlineQueryResultsRequest) GetBotUserID() (value int32) {
+func (g *GetInlineQueryResultsRequest) GetBotUserID() (value int64) {
 	return g.BotUserID
 }
 
@@ -306,7 +306,7 @@ func (g *GetInlineQueryResultsRequest) GetOffset() (value string) {
 	return g.Offset
 }
 
-// GetInlineQueryResults invokes method getInlineQueryResults#b9844fbc returning error if any.
+// GetInlineQueryResults invokes method getInlineQueryResults#79dcf86c returning error if any.
 func (c *Client) GetInlineQueryResults(ctx context.Context, request *GetInlineQueryResultsRequest) (*InlineQueryResults, error) {
 	var result InlineQueryResults
 

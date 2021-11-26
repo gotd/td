@@ -35,7 +35,7 @@ var (
 type AddLocalMessageRequest struct {
 	// Target chat
 	ChatID int64
-	// The sender sender of the message
+	// The sender of the message
 	Sender MessageSenderClass
 	// Identifier of the message to reply to or 0
 	ReplyToMessageID int64

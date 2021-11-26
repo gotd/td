@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatMember represents TL type `chatMember#1265e1e8`.
+// ChatMember represents TL type `chatMember#6d12e175`.
 type ChatMember struct {
 	// Identifier of the chat member. Currently, other chats can be only Left or Banned. Only
 	// supergroups and channels can have other chats as Left or Banned members and these
@@ -39,7 +39,7 @@ type ChatMember struct {
 	MemberID MessageSenderClass
 	// Identifier of a user that invited/promoted/banned this member in the chat; 0 if
 	// unknown
-	InviterUserID int32
+	InviterUserID int64
 	// Point in time (Unix timestamp) when the user joined the chat
 	JoinedChatDate int32
 	// Status of the member in the chat
@@ -47,7 +47,7 @@ type ChatMember struct {
 }
 
 // ChatMemberTypeID is TL type id of ChatMember.
-const ChatMemberTypeID = 0x1265e1e8
+const ChatMemberTypeID = 0x6d12e175
 
 // Ensuring interfaces in compile-time for ChatMember.
 var (
@@ -132,7 +132,7 @@ func (c *ChatMember) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatMember) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatMember#1265e1e8 as nil")
+		return fmt.Errorf("can't encode chatMember#6d12e175 as nil")
 	}
 	b.PutID(ChatMemberTypeID)
 	return c.EncodeBare(b)
@@ -141,21 +141,21 @@ func (c *ChatMember) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatMember) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatMember#1265e1e8 as nil")
+		return fmt.Errorf("can't encode chatMember#6d12e175 as nil")
 	}
 	if c.MemberID == nil {
-		return fmt.Errorf("unable to encode chatMember#1265e1e8: field member_id is nil")
+		return fmt.Errorf("unable to encode chatMember#6d12e175: field member_id is nil")
 	}
 	if err := c.MemberID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatMember#1265e1e8: field member_id: %w", err)
+		return fmt.Errorf("unable to encode chatMember#6d12e175: field member_id: %w", err)
 	}
-	b.PutInt32(c.InviterUserID)
+	b.PutLong(c.InviterUserID)
 	b.PutInt32(c.JoinedChatDate)
 	if c.Status == nil {
-		return fmt.Errorf("unable to encode chatMember#1265e1e8: field status is nil")
+		return fmt.Errorf("unable to encode chatMember#6d12e175: field status is nil")
 	}
 	if err := c.Status.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatMember#1265e1e8: field status: %w", err)
+		return fmt.Errorf("unable to encode chatMember#6d12e175: field status: %w", err)
 	}
 	return nil
 }
@@ -163,10 +163,10 @@ func (c *ChatMember) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatMember) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatMember#1265e1e8 to nil")
+		return fmt.Errorf("can't decode chatMember#6d12e175 to nil")
 	}
 	if err := b.ConsumeID(ChatMemberTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatMember#1265e1e8: %w", err)
+		return fmt.Errorf("unable to decode chatMember#6d12e175: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -174,33 +174,33 @@ func (c *ChatMember) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatMember) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatMember#1265e1e8 to nil")
+		return fmt.Errorf("can't decode chatMember#6d12e175 to nil")
 	}
 	{
 		value, err := DecodeMessageSender(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatMember#1265e1e8: field member_id: %w", err)
+			return fmt.Errorf("unable to decode chatMember#6d12e175: field member_id: %w", err)
 		}
 		c.MemberID = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatMember#1265e1e8: field inviter_user_id: %w", err)
+			return fmt.Errorf("unable to decode chatMember#6d12e175: field inviter_user_id: %w", err)
 		}
 		c.InviterUserID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatMember#1265e1e8: field joined_chat_date: %w", err)
+			return fmt.Errorf("unable to decode chatMember#6d12e175: field joined_chat_date: %w", err)
 		}
 		c.JoinedChatDate = value
 	}
 	{
 		value, err := DecodeChatMemberStatus(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatMember#1265e1e8: field status: %w", err)
+			return fmt.Errorf("unable to decode chatMember#6d12e175: field status: %w", err)
 		}
 		c.Status = value
 	}
@@ -210,27 +210,27 @@ func (c *ChatMember) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatMember#1265e1e8 as nil")
+		return fmt.Errorf("can't encode chatMember#6d12e175 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatMember")
 	b.FieldStart("member_id")
 	if c.MemberID == nil {
-		return fmt.Errorf("unable to encode chatMember#1265e1e8: field member_id is nil")
+		return fmt.Errorf("unable to encode chatMember#6d12e175: field member_id is nil")
 	}
 	if err := c.MemberID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatMember#1265e1e8: field member_id: %w", err)
+		return fmt.Errorf("unable to encode chatMember#6d12e175: field member_id: %w", err)
 	}
 	b.FieldStart("inviter_user_id")
-	b.PutInt32(c.InviterUserID)
+	b.PutLong(c.InviterUserID)
 	b.FieldStart("joined_chat_date")
 	b.PutInt32(c.JoinedChatDate)
 	b.FieldStart("status")
 	if c.Status == nil {
-		return fmt.Errorf("unable to encode chatMember#1265e1e8: field status is nil")
+		return fmt.Errorf("unable to encode chatMember#6d12e175: field status is nil")
 	}
 	if err := c.Status.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatMember#1265e1e8: field status: %w", err)
+		return fmt.Errorf("unable to encode chatMember#6d12e175: field status: %w", err)
 	}
 	b.ObjEnd()
 	return nil
@@ -239,37 +239,37 @@ func (c *ChatMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatMember#1265e1e8 to nil")
+		return fmt.Errorf("can't decode chatMember#6d12e175 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatMember"); err != nil {
-				return fmt.Errorf("unable to decode chatMember#1265e1e8: %w", err)
+				return fmt.Errorf("unable to decode chatMember#6d12e175: %w", err)
 			}
 		case "member_id":
 			value, err := DecodeTDLibJSONMessageSender(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatMember#1265e1e8: field member_id: %w", err)
+				return fmt.Errorf("unable to decode chatMember#6d12e175: field member_id: %w", err)
 			}
 			c.MemberID = value
 		case "inviter_user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatMember#1265e1e8: field inviter_user_id: %w", err)
+				return fmt.Errorf("unable to decode chatMember#6d12e175: field inviter_user_id: %w", err)
 			}
 			c.InviterUserID = value
 		case "joined_chat_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatMember#1265e1e8: field joined_chat_date: %w", err)
+				return fmt.Errorf("unable to decode chatMember#6d12e175: field joined_chat_date: %w", err)
 			}
 			c.JoinedChatDate = value
 		case "status":
 			value, err := DecodeTDLibJSONChatMemberStatus(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatMember#1265e1e8: field status: %w", err)
+				return fmt.Errorf("unable to decode chatMember#6d12e175: field status: %w", err)
 			}
 			c.Status = value
 		default:
@@ -285,7 +285,7 @@ func (c *ChatMember) GetMemberID() (value MessageSenderClass) {
 }
 
 // GetInviterUserID returns value of InviterUserID field.
-func (c *ChatMember) GetInviterUserID() (value int32) {
+func (c *ChatMember) GetInviterUserID() (value int64) {
 	return c.InviterUserID
 }
 

@@ -35,7 +35,7 @@ var (
 type CallbackQueryAnswer struct {
 	// Text of the answer
 	Text string
-	// True, if an alert should be shown to the user instead of a toast notification
+	// True, if an alert must be shown to the user instead of a toast notification
 	ShowAlert bool
 	// URL to be opened
 	URL string

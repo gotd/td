@@ -31,22 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetChatsRequest represents TL type `getChats#6e18f5c1`.
+// GetChatsRequest represents TL type `getChats#c604bac2`.
 type GetChatsRequest struct {
-	// The chat list in which to return chats
+	// The chat list in which to return chats; pass null to get chats from the main chat list
 	ChatList ChatListClass
-	// Chat order to return chats from
-	OffsetOrder int64
-	// Chat identifier to return chats from
-	OffsetChatID int64
-	// The maximum number of chats to be returned. For optimal performance, the number of
-	// returned chats is chosen by TDLib and can be smaller than the specified limit, even if
-	// the end of the list is not reached
+	// The maximum number of chats to be returned
 	Limit int32
 }
 
 // GetChatsRequestTypeID is TL type id of GetChatsRequest.
-const GetChatsRequestTypeID = 0x6e18f5c1
+const GetChatsRequestTypeID = 0xc604bac2
 
 // Ensuring interfaces in compile-time for GetChatsRequest.
 var (
@@ -61,12 +55,6 @@ func (g *GetChatsRequest) Zero() bool {
 		return true
 	}
 	if !(g.ChatList == nil) {
-		return false
-	}
-	if !(g.OffsetOrder == 0) {
-		return false
-	}
-	if !(g.OffsetChatID == 0) {
 		return false
 	}
 	if !(g.Limit == 0) {
@@ -113,14 +101,6 @@ func (g *GetChatsRequest) TypeInfo() tdp.Type {
 			SchemaName: "chat_list",
 		},
 		{
-			Name:       "OffsetOrder",
-			SchemaName: "offset_order",
-		},
-		{
-			Name:       "OffsetChatID",
-			SchemaName: "offset_chat_id",
-		},
-		{
 			Name:       "Limit",
 			SchemaName: "limit",
 		},
@@ -131,7 +111,7 @@ func (g *GetChatsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetChatsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChats#6e18f5c1 as nil")
+		return fmt.Errorf("can't encode getChats#c604bac2 as nil")
 	}
 	b.PutID(GetChatsRequestTypeID)
 	return g.EncodeBare(b)
@@ -140,16 +120,14 @@ func (g *GetChatsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetChatsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChats#6e18f5c1 as nil")
+		return fmt.Errorf("can't encode getChats#c604bac2 as nil")
 	}
 	if g.ChatList == nil {
-		return fmt.Errorf("unable to encode getChats#6e18f5c1: field chat_list is nil")
+		return fmt.Errorf("unable to encode getChats#c604bac2: field chat_list is nil")
 	}
 	if err := g.ChatList.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getChats#6e18f5c1: field chat_list: %w", err)
+		return fmt.Errorf("unable to encode getChats#c604bac2: field chat_list: %w", err)
 	}
-	b.PutLong(g.OffsetOrder)
-	b.PutLong(g.OffsetChatID)
 	b.PutInt32(g.Limit)
 	return nil
 }
@@ -157,10 +135,10 @@ func (g *GetChatsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetChatsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChats#6e18f5c1 to nil")
+		return fmt.Errorf("can't decode getChats#c604bac2 to nil")
 	}
 	if err := b.ConsumeID(GetChatsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getChats#6e18f5c1: %w", err)
+		return fmt.Errorf("unable to decode getChats#c604bac2: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -168,33 +146,19 @@ func (g *GetChatsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetChatsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChats#6e18f5c1 to nil")
+		return fmt.Errorf("can't decode getChats#c604bac2 to nil")
 	}
 	{
 		value, err := DecodeChatList(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode getChats#6e18f5c1: field chat_list: %w", err)
+			return fmt.Errorf("unable to decode getChats#c604bac2: field chat_list: %w", err)
 		}
 		g.ChatList = value
 	}
 	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode getChats#6e18f5c1: field offset_order: %w", err)
-		}
-		g.OffsetOrder = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode getChats#6e18f5c1: field offset_chat_id: %w", err)
-		}
-		g.OffsetChatID = value
-	}
-	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChats#6e18f5c1: field limit: %w", err)
+			return fmt.Errorf("unable to decode getChats#c604bac2: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -204,21 +168,17 @@ func (g *GetChatsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetChatsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChats#6e18f5c1 as nil")
+		return fmt.Errorf("can't encode getChats#c604bac2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getChats")
 	b.FieldStart("chat_list")
 	if g.ChatList == nil {
-		return fmt.Errorf("unable to encode getChats#6e18f5c1: field chat_list is nil")
+		return fmt.Errorf("unable to encode getChats#c604bac2: field chat_list is nil")
 	}
 	if err := g.ChatList.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getChats#6e18f5c1: field chat_list: %w", err)
+		return fmt.Errorf("unable to encode getChats#c604bac2: field chat_list: %w", err)
 	}
-	b.FieldStart("offset_order")
-	b.PutLong(g.OffsetOrder)
-	b.FieldStart("offset_chat_id")
-	b.PutLong(g.OffsetChatID)
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
 	b.ObjEnd()
@@ -228,37 +188,25 @@ func (g *GetChatsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetChatsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChats#6e18f5c1 to nil")
+		return fmt.Errorf("can't decode getChats#c604bac2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getChats"); err != nil {
-				return fmt.Errorf("unable to decode getChats#6e18f5c1: %w", err)
+				return fmt.Errorf("unable to decode getChats#c604bac2: %w", err)
 			}
 		case "chat_list":
 			value, err := DecodeTDLibJSONChatList(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode getChats#6e18f5c1: field chat_list: %w", err)
+				return fmt.Errorf("unable to decode getChats#c604bac2: field chat_list: %w", err)
 			}
 			g.ChatList = value
-		case "offset_order":
-			value, err := b.Long()
-			if err != nil {
-				return fmt.Errorf("unable to decode getChats#6e18f5c1: field offset_order: %w", err)
-			}
-			g.OffsetOrder = value
-		case "offset_chat_id":
-			value, err := b.Long()
-			if err != nil {
-				return fmt.Errorf("unable to decode getChats#6e18f5c1: field offset_chat_id: %w", err)
-			}
-			g.OffsetChatID = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChats#6e18f5c1: field limit: %w", err)
+				return fmt.Errorf("unable to decode getChats#c604bac2: field limit: %w", err)
 			}
 			g.Limit = value
 		default:
@@ -273,22 +221,12 @@ func (g *GetChatsRequest) GetChatList() (value ChatListClass) {
 	return g.ChatList
 }
 
-// GetOffsetOrder returns value of OffsetOrder field.
-func (g *GetChatsRequest) GetOffsetOrder() (value int64) {
-	return g.OffsetOrder
-}
-
-// GetOffsetChatID returns value of OffsetChatID field.
-func (g *GetChatsRequest) GetOffsetChatID() (value int64) {
-	return g.OffsetChatID
-}
-
 // GetLimit returns value of Limit field.
 func (g *GetChatsRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetChats invokes method getChats#6e18f5c1 returning error if any.
+// GetChats invokes method getChats#c604bac2 returning error if any.
 func (c *Client) GetChats(ctx context.Context, request *GetChatsRequest) (*Chats, error) {
 	var result Chats
 

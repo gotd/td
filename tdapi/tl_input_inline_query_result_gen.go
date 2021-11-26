@@ -52,7 +52,8 @@ type InputInlineQueryResultAnimation struct {
 	VideoWidth int32
 	// Height of the video
 	VideoHeight int32
-	// The message reply markup. Must be of type replyMarkupInlineKeyboard or null
+	// The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard
+	// or null
 	ReplyMarkup ReplyMarkupClass
 	// The content of the message to be sent. Must be one of the following types:
 	// inputMessageText, inputMessageAnimation, inputMessageInvoice, inputMessageLocation,
@@ -532,7 +533,8 @@ type InputInlineQueryResultArticle struct {
 	ThumbnailWidth int32
 	// Thumbnail height, if known
 	ThumbnailHeight int32
-	// The message reply markup. Must be of type replyMarkupInlineKeyboard or null
+	// The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard
+	// or null
 	ReplyMarkup ReplyMarkupClass
 	// The content of the message to be sent. Must be one of the following types:
 	// inputMessageText, inputMessageInvoice, inputMessageLocation, inputMessageVenue or
@@ -978,7 +980,8 @@ type InputInlineQueryResultAudio struct {
 	AudioURL string
 	// Audio file duration, in seconds
 	AudioDuration int32
-	// The message reply markup. Must be of type replyMarkupInlineKeyboard or null
+	// The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard
+	// or null
 	ReplyMarkup ReplyMarkupClass
 	// The content of the message to be sent. Must be one of the following types:
 	// inputMessageText, inputMessageAudio, inputMessageInvoice, inputMessageLocation,
@@ -1340,7 +1343,8 @@ type InputInlineQueryResultContact struct {
 	ThumbnailWidth int32
 	// Thumbnail height, if known
 	ThumbnailHeight int32
-	// The message reply markup. Must be of type replyMarkupInlineKeyboard or null
+	// The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard
+	// or null
 	ReplyMarkup ReplyMarkupClass
 	// The content of the message to be sent. Must be one of the following types:
 	// inputMessageText, inputMessageInvoice, inputMessageLocation, inputMessageVenue or
@@ -1709,7 +1713,8 @@ type InputInlineQueryResultDocument struct {
 	ThumbnailWidth int32
 	// Height of the thumbnail
 	ThumbnailHeight int32
-	// The message reply markup. Must be of type replyMarkupInlineKeyboard or null
+	// The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard
+	// or null
 	ReplyMarkup ReplyMarkupClass
 	// The content of the message to be sent. Must be one of the following types:
 	// inputMessageText, inputMessageDocument, inputMessageInvoice, inputMessageLocation,
@@ -2149,7 +2154,8 @@ type InputInlineQueryResultGame struct {
 	ID string
 	// Short name of the game
 	GameShortName string
-	// Message reply markup. Must be of type replyMarkupInlineKeyboard or null
+	// The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard
+	// or null
 	ReplyMarkup ReplyMarkupClass
 }
 
@@ -2390,7 +2396,8 @@ type InputInlineQueryResultLocation struct {
 	ThumbnailWidth int32
 	// Thumbnail height, if known
 	ThumbnailHeight int32
-	// The message reply markup. Must be of type replyMarkupInlineKeyboard or null
+	// The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard
+	// or null
 	ReplyMarkup ReplyMarkupClass
 	// The content of the message to be sent. Must be one of the following types:
 	// inputMessageText, inputMessageInvoice, inputMessageLocation, inputMessageVenue or
@@ -2812,7 +2819,8 @@ type InputInlineQueryResultPhoto struct {
 	PhotoWidth int32
 	// Height of the photo
 	PhotoHeight int32
-	// The message reply markup. Must be of type replyMarkupInlineKeyboard or null
+	// The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard
+	// or null
 	ReplyMarkup ReplyMarkupClass
 	// The content of the message to be sent. Must be one of the following types:
 	// inputMessageText, inputMessagePhoto, inputMessageInvoice, inputMessageLocation,
@@ -3230,7 +3238,8 @@ type InputInlineQueryResultSticker struct {
 	StickerWidth int32
 	// Height of the sticker
 	StickerHeight int32
-	// The message reply markup. Must be of type replyMarkupInlineKeyboard or null
+	// The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard
+	// or null
 	ReplyMarkup ReplyMarkupClass
 	// The content of the message to be sent. Must be one of the following types:
 	// inputMessageText, inputMessageSticker, inputMessageInvoice, inputMessageLocation,
@@ -3592,7 +3601,8 @@ type InputInlineQueryResultVenue struct {
 	ThumbnailWidth int32
 	// Thumbnail height, if known
 	ThumbnailHeight int32
-	// The message reply markup. Must be of type replyMarkupInlineKeyboard or null
+	// The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard
+	// or null
 	ReplyMarkup ReplyMarkupClass
 	// The content of the message to be sent. Must be one of the following types:
 	// inputMessageText, inputMessageInvoice, inputMessageLocation, inputMessageVenue or
@@ -3963,7 +3973,8 @@ type InputInlineQueryResultVideo struct {
 	VideoHeight int32
 	// Video duration, in seconds
 	VideoDuration int32
-	// The message reply markup. Must be of type replyMarkupInlineKeyboard or null
+	// The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard
+	// or null
 	ReplyMarkup ReplyMarkupClass
 	// The content of the message to be sent. Must be one of the following types:
 	// inputMessageText, inputMessageVideo, inputMessageInvoice, inputMessageLocation,
@@ -4435,7 +4446,8 @@ type InputInlineQueryResultVoiceNote struct {
 	VoiceNoteURL string
 	// Duration of the voice note, in seconds
 	VoiceNoteDuration int32
-	// The message reply markup. Must be of type replyMarkupInlineKeyboard or null
+	// The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard
+	// or null
 	ReplyMarkup ReplyMarkupClass
 	// The content of the message to be sent. Must be one of the following types:
 	// inputMessageText, inputMessageVoiceNote, inputMessageInvoice, inputMessageLocation,
@@ -4802,7 +4814,8 @@ type InputInlineQueryResultClass interface {
 
 	// Unique identifier of the query result
 	GetID() (value string)
-	// The message reply markup. Must be of type replyMarkupInlineKeyboard or null
+	// The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard
+	// or null
 	GetReplyMarkup() (value ReplyMarkupClass)
 }
 

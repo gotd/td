@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// InviteGroupCallParticipantsRequest represents TL type `inviteGroupCallParticipants#36d83295`.
+// InviteGroupCallParticipantsRequest represents TL type `inviteGroupCallParticipants#56c030a6`.
 type InviteGroupCallParticipantsRequest struct {
 	// Group call identifier
 	GroupCallID int32
 	// User identifiers. At most 10 users can be invited simultaneously
-	UserIDs []int32
+	UserIDs []int64
 }
 
 // InviteGroupCallParticipantsRequestTypeID is TL type id of InviteGroupCallParticipantsRequest.
-const InviteGroupCallParticipantsRequestTypeID = 0x36d83295
+const InviteGroupCallParticipantsRequestTypeID = 0x56c030a6
 
 // Ensuring interfaces in compile-time for InviteGroupCallParticipantsRequest.
 var (
@@ -111,7 +111,7 @@ func (i *InviteGroupCallParticipantsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InviteGroupCallParticipantsRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inviteGroupCallParticipants#36d83295 as nil")
+		return fmt.Errorf("can't encode inviteGroupCallParticipants#56c030a6 as nil")
 	}
 	b.PutID(InviteGroupCallParticipantsRequestTypeID)
 	return i.EncodeBare(b)
@@ -120,12 +120,12 @@ func (i *InviteGroupCallParticipantsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InviteGroupCallParticipantsRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inviteGroupCallParticipants#36d83295 as nil")
+		return fmt.Errorf("can't encode inviteGroupCallParticipants#56c030a6 as nil")
 	}
 	b.PutInt32(i.GroupCallID)
 	b.PutInt(len(i.UserIDs))
 	for _, v := range i.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -133,10 +133,10 @@ func (i *InviteGroupCallParticipantsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InviteGroupCallParticipantsRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inviteGroupCallParticipants#36d83295 to nil")
+		return fmt.Errorf("can't decode inviteGroupCallParticipants#56c030a6 to nil")
 	}
 	if err := b.ConsumeID(InviteGroupCallParticipantsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: %w", err)
+		return fmt.Errorf("unable to decode inviteGroupCallParticipants#56c030a6: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -144,28 +144,28 @@ func (i *InviteGroupCallParticipantsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InviteGroupCallParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inviteGroupCallParticipants#36d83295 to nil")
+		return fmt.Errorf("can't decode inviteGroupCallParticipants#56c030a6 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: field group_call_id: %w", err)
+			return fmt.Errorf("unable to decode inviteGroupCallParticipants#56c030a6: field group_call_id: %w", err)
 		}
 		i.GroupCallID = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: field user_ids: %w", err)
+			return fmt.Errorf("unable to decode inviteGroupCallParticipants#56c030a6: field user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			i.UserIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+			i.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode inviteGroupCallParticipants#56c030a6: field user_ids: %w", err)
 			}
 			i.UserIDs = append(i.UserIDs, value)
 		}
@@ -176,7 +176,7 @@ func (i *InviteGroupCallParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InviteGroupCallParticipantsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inviteGroupCallParticipants#36d83295 as nil")
+		return fmt.Errorf("can't encode inviteGroupCallParticipants#56c030a6 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inviteGroupCallParticipants")
@@ -185,7 +185,7 @@ func (i *InviteGroupCallParticipantsRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range i.UserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -195,31 +195,31 @@ func (i *InviteGroupCallParticipantsRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InviteGroupCallParticipantsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inviteGroupCallParticipants#36d83295 to nil")
+		return fmt.Errorf("can't decode inviteGroupCallParticipants#56c030a6 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inviteGroupCallParticipants"); err != nil {
-				return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: %w", err)
+				return fmt.Errorf("unable to decode inviteGroupCallParticipants#56c030a6: %w", err)
 			}
 		case "group_call_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: field group_call_id: %w", err)
+				return fmt.Errorf("unable to decode inviteGroupCallParticipants#56c030a6: field group_call_id: %w", err)
 			}
 			i.GroupCallID = value
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Int32()
+				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: field user_ids: %w", err)
+					return fmt.Errorf("unable to decode inviteGroupCallParticipants#56c030a6: field user_ids: %w", err)
 				}
 				i.UserIDs = append(i.UserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode inviteGroupCallParticipants#36d83295: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode inviteGroupCallParticipants#56c030a6: field user_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -234,11 +234,11 @@ func (i *InviteGroupCallParticipantsRequest) GetGroupCallID() (value int32) {
 }
 
 // GetUserIDs returns value of UserIDs field.
-func (i *InviteGroupCallParticipantsRequest) GetUserIDs() (value []int32) {
+func (i *InviteGroupCallParticipantsRequest) GetUserIDs() (value []int64) {
 	return i.UserIDs
 }
 
-// InviteGroupCallParticipants invokes method inviteGroupCallParticipants#36d83295 returning error if any.
+// InviteGroupCallParticipants invokes method inviteGroupCallParticipants#56c030a6 returning error if any.
 func (c *Client) InviteGroupCallParticipants(ctx context.Context, request *InviteGroupCallParticipantsRequest) error {
 	var ok Ok
 

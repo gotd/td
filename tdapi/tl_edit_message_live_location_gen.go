@@ -37,10 +37,9 @@ type EditMessageLiveLocationRequest struct {
 	ChatID int64
 	// Identifier of the message
 	MessageID int64
-	// The new message reply markup; for bots only
+	// The new message reply markup; pass null if none; for bots only
 	ReplyMarkup ReplyMarkupClass
-	// New location content of the message; may be null. Pass null to stop sharing the live
-	// location
+	// New location content of the message; pass null to stop sharing the live location
 	Location Location
 	// The new direction in which the location moves, in degrees; 1-360. Pass 0 if unknown
 	Heading int32

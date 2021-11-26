@@ -35,7 +35,7 @@ var (
 type GetGroupCallInviteLinkRequest struct {
 	// Group call identifier
 	GroupCallID int32
-	// Pass true if the invite_link should contain an invite hash, passing which to
+	// Pass true if the invite link needs to contain an invite hash, passing which to
 	// joinGroupCall would allow the invited user to unmute themselves. Requires groupCall
 	// can_be_managed group call flag
 	CanSelfUnmute bool

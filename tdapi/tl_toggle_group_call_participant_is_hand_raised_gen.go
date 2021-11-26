@@ -37,8 +37,8 @@ type ToggleGroupCallParticipantIsHandRaisedRequest struct {
 	GroupCallID int32
 	// Participant identifier
 	ParticipantID MessageSenderClass
-	// Pass true if the user's hand should be raised. Only self hand can be raised. Requires
-	// groupCall.can_be_managed group call flag to lower other's hand
+	// Pass true if the user's hand needs to be raised. Only self hand can be raised.
+	// Requires groupCall.can_be_managed group call flag to lower other's hand
 	IsHandRaised bool
 }
 

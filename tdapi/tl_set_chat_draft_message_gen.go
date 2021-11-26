@@ -37,7 +37,7 @@ type SetChatDraftMessageRequest struct {
 	ChatID int64
 	// If not 0, a message thread identifier in which the draft was changed
 	MessageThreadID int64
-	// New draft message; may be null
+	// New draft message; pass null to remove the draft
 	DraftMessage DraftMessage
 }
 

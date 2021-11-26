@@ -37,7 +37,7 @@ type AnswerCallbackQueryRequest struct {
 	CallbackQueryID int64
 	// Text of the answer
 	Text string
-	// If true, an alert should be shown to the user instead of a toast notification
+	// If true, an alert must be shown to the user instead of a toast notification
 	ShowAlert bool
 	// URL to be opened
 	URL string

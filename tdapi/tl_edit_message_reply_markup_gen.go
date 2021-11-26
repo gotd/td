@@ -37,7 +37,7 @@ type EditMessageReplyMarkupRequest struct {
 	ChatID int64
 	// Identifier of the message
 	MessageID int64
-	// The new message reply markup
+	// The new message reply markup; pass null if none
 	ReplyMarkup ReplyMarkupClass
 }
 

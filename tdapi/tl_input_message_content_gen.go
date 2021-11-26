@@ -37,9 +37,9 @@ type InputMessageText struct {
 	// Bold, Italic, Underline, Strikethrough, Code, Pre, PreCode, TextUrl and MentionName
 	// entities are allowed to be specified manually
 	Text FormattedText
-	// True, if rich web page previews for URLs in the message text should be disabled
+	// True, if rich web page previews for URLs in the message text must be disabled
 	DisableWebPagePreview bool
-	// True, if a chat message draft should be deleted
+	// True, if a chat message draft must be deleted
 	ClearDraft bool
 }
 
@@ -257,7 +257,7 @@ func (i *InputMessageText) GetClearDraft() (value bool) {
 type InputMessageAnimation struct {
 	// Animation file to be sent
 	Animation InputFileClass
-	// Animation thumbnail, if available
+	// Animation thumbnail; pass null to skip thumbnail uploading
 	Thumbnail InputThumbnail
 	// File identifiers of the stickers added to the animation, if applicable
 	AddedStickerFileIDs []int32
@@ -267,7 +267,8 @@ type InputMessageAnimation struct {
 	Width int32
 	// Height of the animation; may be replaced by the server
 	Height int32
-	// Animation caption; 0-GetOption("message_caption_length_max") characters
+	// Animation caption; pass null to use an empty caption;
+	// 0-GetOption("message_caption_length_max") characters
 	Caption FormattedText
 }
 
@@ -629,7 +630,7 @@ func (i *InputMessageAnimation) GetCaption() (value FormattedText) {
 type InputMessageAudio struct {
 	// Audio file to be sent
 	Audio InputFileClass
-	// Thumbnail of the cover for the album, if available
+	// Thumbnail of the cover for the album; pass null to skip thumbnail uploading
 	AlbumCoverThumbnail InputThumbnail
 	// Duration of the audio, in seconds; may be replaced by the server
 	Duration int32
@@ -637,7 +638,8 @@ type InputMessageAudio struct {
 	Title string
 	// Performer of the audio; 0-64 characters, may be replaced by the server
 	Performer string
-	// Audio caption; 0-GetOption("message_caption_length_max") characters
+	// Audio caption; pass null to use an empty caption;
+	// 0-GetOption("message_caption_length_max") characters
 	Caption FormattedText
 }
 
@@ -949,12 +951,13 @@ func (i *InputMessageAudio) GetCaption() (value FormattedText) {
 type InputMessageDocument struct {
 	// Document to be sent
 	Document InputFileClass
-	// Document thumbnail, if available
+	// Document thumbnail; pass null to skip thumbnail uploading
 	Thumbnail InputThumbnail
 	// If true, automatic file type detection will be disabled and the document will be
 	// always sent as file. Always true for files sent to secret chats
 	DisableContentTypeDetection bool
-	// Document caption; 0-GetOption("message_caption_length_max") characters
+	// Document caption; pass null to use an empty caption;
+	// 0-GetOption("message_caption_length_max") characters
 	Caption FormattedText
 }
 
@@ -1210,7 +1213,8 @@ func (i *InputMessageDocument) GetCaption() (value FormattedText) {
 type InputMessagePhoto struct {
 	// Photo to send
 	Photo InputFileClass
-	// Photo thumbnail to be sent, this is sent to the other party in secret chats only
+	// Photo thumbnail to be sent; pass null to skip thumbnail uploading. The thumbnail is
+	// sent to the other party only in secret chats
 	Thumbnail InputThumbnail
 	// File identifiers of the stickers added to the photo, if applicable
 	AddedStickerFileIDs []int32
@@ -1218,7 +1222,8 @@ type InputMessagePhoto struct {
 	Width int32
 	// Photo height
 	Height int32
-	// Photo caption; 0-GetOption("message_caption_length_max") characters
+	// Photo caption; pass null to use an empty caption;
+	// 0-GetOption("message_caption_length_max") characters
 	Caption FormattedText
 	// Photo TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in
 	// private chats
@@ -1583,7 +1588,7 @@ func (i *InputMessagePhoto) GetTTL() (value int32) {
 type InputMessageSticker struct {
 	// Sticker to be sent
 	Sticker InputFileClass
-	// Sticker thumbnail, if available
+	// Sticker thumbnail; pass null to skip thumbnail uploading
 	Thumbnail InputThumbnail
 	// Sticker width
 	Width int32
@@ -1873,7 +1878,7 @@ func (i *InputMessageSticker) GetEmoji() (value string) {
 type InputMessageVideo struct {
 	// Video to be sent
 	Video InputFileClass
-	// Video thumbnail, if available
+	// Video thumbnail; pass null to skip thumbnail uploading
 	Thumbnail InputThumbnail
 	// File identifiers of the stickers added to the video, if applicable
 	AddedStickerFileIDs []int32
@@ -1883,9 +1888,10 @@ type InputMessageVideo struct {
 	Width int32
 	// Video height
 	Height int32
-	// True, if the video should be tried to be streamed
+	// True, if the video is supposed to be streamed
 	SupportsStreaming bool
-	// Video caption; 0-GetOption("message_caption_length_max") characters
+	// Video caption; pass null to use an empty caption;
+	// 0-GetOption("message_caption_length_max") characters
 	Caption FormattedText
 	// Video TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in
 	// private chats
@@ -2306,7 +2312,7 @@ func (i *InputMessageVideo) GetTTL() (value int32) {
 type InputMessageVideoNote struct {
 	// Video note to be sent
 	VideoNote InputFileClass
-	// Video thumbnail, if available
+	// Video thumbnail; pass null to skip thumbnail uploading
 	Thumbnail InputThumbnail
 	// Duration of the video, in seconds
 	Duration int32
@@ -2570,7 +2576,8 @@ type InputMessageVoiceNote struct {
 	Duration int32
 	// Waveform representation of the voice note, in 5-bit format
 	Waveform []byte
-	// Voice note caption; 0-GetOption("message_caption_length_max") characters
+	// Voice note caption; pass null to use an empty caption;
+	// 0-GetOption("message_caption_length_max") characters
 	Caption FormattedText
 }
 
@@ -2826,8 +2833,8 @@ func (i *InputMessageVoiceNote) GetCaption() (value FormattedText) {
 type InputMessageLocation struct {
 	// Location to be sent
 	Location Location
-	// Period for which the location can be updated, in seconds; should be between 60 and
-	// 86400 for a live location and 0 otherwise
+	// Period for which the location can be updated, in seconds; must be between 60 and 86400
+	// for a live location and 0 otherwise
 	LivePeriod int32
 	// For live locations, a direction in which the location moves, in degrees; 1-360. Pass 0
 	// if unknown
@@ -3400,7 +3407,7 @@ func (i *InputMessageContact) GetContact() (value Contact) {
 type InputMessageDice struct {
 	// Emoji on which the dice throw animation is based
 	Emoji string
-	// True, if a chat message draft should be deleted
+	// True, if the chat message draft must be deleted
 	ClearDraft bool
 }
 
@@ -3586,16 +3593,16 @@ func (i *InputMessageDice) GetClearDraft() (value bool) {
 	return i.ClearDraft
 }
 
-// InputMessageGame represents TL type `inputMessageGame#9900cc6e`.
+// InputMessageGame represents TL type `inputMessageGame#4aae6ae2`.
 type InputMessageGame struct {
 	// User identifier of the bot that owns the game
-	BotUserID int32
+	BotUserID int64
 	// Short name of the game
 	GameShortName string
 }
 
 // InputMessageGameTypeID is TL type id of InputMessageGame.
-const InputMessageGameTypeID = 0x9900cc6e
+const InputMessageGameTypeID = 0x4aae6ae2
 
 // construct implements constructor of InputMessageContentClass.
 func (i InputMessageGame) construct() InputMessageContentClass { return &i }
@@ -3671,7 +3678,7 @@ func (i *InputMessageGame) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessageGame) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageGame#9900cc6e as nil")
+		return fmt.Errorf("can't encode inputMessageGame#4aae6ae2 as nil")
 	}
 	b.PutID(InputMessageGameTypeID)
 	return i.EncodeBare(b)
@@ -3680,9 +3687,9 @@ func (i *InputMessageGame) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessageGame) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageGame#9900cc6e as nil")
+		return fmt.Errorf("can't encode inputMessageGame#4aae6ae2 as nil")
 	}
-	b.PutInt32(i.BotUserID)
+	b.PutLong(i.BotUserID)
 	b.PutString(i.GameShortName)
 	return nil
 }
@@ -3690,10 +3697,10 @@ func (i *InputMessageGame) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessageGame) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageGame#9900cc6e to nil")
+		return fmt.Errorf("can't decode inputMessageGame#4aae6ae2 to nil")
 	}
 	if err := b.ConsumeID(InputMessageGameTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessageGame#9900cc6e: %w", err)
+		return fmt.Errorf("unable to decode inputMessageGame#4aae6ae2: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -3701,19 +3708,19 @@ func (i *InputMessageGame) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessageGame) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageGame#9900cc6e to nil")
+		return fmt.Errorf("can't decode inputMessageGame#4aae6ae2 to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageGame#9900cc6e: field bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode inputMessageGame#4aae6ae2: field bot_user_id: %w", err)
 		}
 		i.BotUserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageGame#9900cc6e: field game_short_name: %w", err)
+			return fmt.Errorf("unable to decode inputMessageGame#4aae6ae2: field game_short_name: %w", err)
 		}
 		i.GameShortName = value
 	}
@@ -3723,12 +3730,12 @@ func (i *InputMessageGame) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputMessageGame) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageGame#9900cc6e as nil")
+		return fmt.Errorf("can't encode inputMessageGame#4aae6ae2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputMessageGame")
 	b.FieldStart("bot_user_id")
-	b.PutInt32(i.BotUserID)
+	b.PutLong(i.BotUserID)
 	b.FieldStart("game_short_name")
 	b.PutString(i.GameShortName)
 	b.ObjEnd()
@@ -3738,25 +3745,25 @@ func (i *InputMessageGame) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputMessageGame) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageGame#9900cc6e to nil")
+		return fmt.Errorf("can't decode inputMessageGame#4aae6ae2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputMessageGame"); err != nil {
-				return fmt.Errorf("unable to decode inputMessageGame#9900cc6e: %w", err)
+				return fmt.Errorf("unable to decode inputMessageGame#4aae6ae2: %w", err)
 			}
 		case "bot_user_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageGame#9900cc6e: field bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode inputMessageGame#4aae6ae2: field bot_user_id: %w", err)
 			}
 			i.BotUserID = value
 		case "game_short_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageGame#9900cc6e: field game_short_name: %w", err)
+				return fmt.Errorf("unable to decode inputMessageGame#4aae6ae2: field game_short_name: %w", err)
 			}
 			i.GameShortName = value
 		default:
@@ -3767,7 +3774,7 @@ func (i *InputMessageGame) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetBotUserID returns value of BotUserID field.
-func (i *InputMessageGame) GetBotUserID() (value int32) {
+func (i *InputMessageGame) GetBotUserID() (value int64) {
 	return i.BotUserID
 }
 
@@ -4617,11 +4624,11 @@ type InputMessageForwarded struct {
 	FromChatID int64
 	// Identifier of the message to forward
 	MessageID int64
-	// True, if a game message should be shared within a launched game; applies only to game
+	// True, if a game message is being shared from a launched game; applies only to game
 	// messages
 	InGameShare bool
-	// Options to be used to copy content of the message without a link to the original
-	// message
+	// Options to be used to copy content of the message without reference to the original
+	// sender; pass null to try to forward the message as usual
 	CopyOptions MessageCopyOptions
 }
 
@@ -4884,7 +4891,7 @@ func (i *InputMessageForwarded) GetCopyOptions() (value MessageCopyOptions) {
 //  case *tdapi.InputMessageVenue: // inputMessageVenue#564d99fd
 //  case *tdapi.InputMessageContact: // inputMessageContact#c5710cff
 //  case *tdapi.InputMessageDice: // inputMessageDice#322967a9
-//  case *tdapi.InputMessageGame: // inputMessageGame#9900cc6e
+//  case *tdapi.InputMessageGame: // inputMessageGame#4aae6ae2
 //  case *tdapi.InputMessageInvoice: // inputMessageInvoice#3deb040f
 //  case *tdapi.InputMessagePoll: // inputMessagePoll#fe79770
 //  case *tdapi.InputMessageForwarded: // inputMessageForwarded#651a73f8
@@ -5011,7 +5018,7 @@ func DecodeInputMessageContent(buf *bin.Buffer) (InputMessageContentClass, error
 		}
 		return &v, nil
 	case InputMessageGameTypeID:
-		// Decoding inputMessageGame#9900cc6e.
+		// Decoding inputMessageGame#4aae6ae2.
 		v := InputMessageGame{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
@@ -5142,7 +5149,7 @@ func DecodeTDLibJSONInputMessageContent(buf tdjson.Decoder) (InputMessageContent
 		}
 		return &v, nil
 	case "inputMessageGame":
-		// Decoding inputMessageGame#9900cc6e.
+		// Decoding inputMessageGame#4aae6ae2.
 		v := InputMessageGame{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)

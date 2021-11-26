@@ -35,7 +35,7 @@ var (
 type GetRepliedMessageRequest struct {
 	// Identifier of the chat the message belongs to
 	ChatID int64
-	// Identifier of the message reply to which to get
+	// Identifier of the reply message
 	MessageID int64
 }
 

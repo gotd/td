@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatInviteLinkInfo represents TL type `chatInviteLinkInfo#2c27a74b`.
+// ChatInviteLinkInfo represents TL type `chatInviteLinkInfo#eca8a094`.
 type ChatInviteLinkInfo struct {
 	// Chat identifier of the invite link; 0 if the user has no access to the chat before
 	// joining
@@ -39,23 +39,27 @@ type ChatInviteLinkInfo struct {
 	// If non-zero, the amount of time for which read access to the chat will remain
 	// available, in seconds
 	AccessibleFor int32
-	// Contains information about the type of the chat
+	// Type of the chat
 	Type ChatTypeClass
 	// Title of the chat
 	Title string
 	// Chat photo; may be null
 	Photo ChatPhotoInfo
+	// Contains information about a chat invite link
+	Description string
 	// Number of members in the chat
 	MemberCount int32
 	// User identifiers of some chat members that may be known to the current user
-	MemberUserIDs []int32
+	MemberUserIDs []int64
+	// True, if the link only creates join request
+	CreatesJoinRequest bool
 	// True, if the chat is a public supergroup or channel, i.e. it has a username or it is a
 	// location-based supergroup
 	IsPublic bool
 }
 
 // ChatInviteLinkInfoTypeID is TL type id of ChatInviteLinkInfo.
-const ChatInviteLinkInfoTypeID = 0x2c27a74b
+const ChatInviteLinkInfoTypeID = 0xeca8a094
 
 // Ensuring interfaces in compile-time for ChatInviteLinkInfo.
 var (
@@ -84,10 +88,16 @@ func (c *ChatInviteLinkInfo) Zero() bool {
 	if !(c.Photo.Zero()) {
 		return false
 	}
+	if !(c.Description == "") {
+		return false
+	}
 	if !(c.MemberCount == 0) {
 		return false
 	}
 	if !(c.MemberUserIDs == nil) {
+		return false
+	}
+	if !(c.CreatesJoinRequest == false) {
 		return false
 	}
 	if !(c.IsPublic == false) {
@@ -150,12 +160,20 @@ func (c *ChatInviteLinkInfo) TypeInfo() tdp.Type {
 			SchemaName: "photo",
 		},
 		{
+			Name:       "Description",
+			SchemaName: "description",
+		},
+		{
 			Name:       "MemberCount",
 			SchemaName: "member_count",
 		},
 		{
 			Name:       "MemberUserIDs",
 			SchemaName: "member_user_ids",
+		},
+		{
+			Name:       "CreatesJoinRequest",
+			SchemaName: "creates_join_request",
 		},
 		{
 			Name:       "IsPublic",
@@ -168,7 +186,7 @@ func (c *ChatInviteLinkInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatInviteLinkInfo) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteLinkInfo#2c27a74b as nil")
+		return fmt.Errorf("can't encode chatInviteLinkInfo#eca8a094 as nil")
 	}
 	b.PutID(ChatInviteLinkInfoTypeID)
 	return c.EncodeBare(b)
@@ -177,25 +195,27 @@ func (c *ChatInviteLinkInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatInviteLinkInfo) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteLinkInfo#2c27a74b as nil")
+		return fmt.Errorf("can't encode chatInviteLinkInfo#eca8a094 as nil")
 	}
 	b.PutLong(c.ChatID)
 	b.PutInt32(c.AccessibleFor)
 	if c.Type == nil {
-		return fmt.Errorf("unable to encode chatInviteLinkInfo#2c27a74b: field type is nil")
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field type is nil")
 	}
 	if err := c.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatInviteLinkInfo#2c27a74b: field type: %w", err)
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field type: %w", err)
 	}
 	b.PutString(c.Title)
 	if err := c.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatInviteLinkInfo#2c27a74b: field photo: %w", err)
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field photo: %w", err)
 	}
+	b.PutString(c.Description)
 	b.PutInt32(c.MemberCount)
 	b.PutInt(len(c.MemberUserIDs))
 	for _, v := range c.MemberUserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
+	b.PutBool(c.CreatesJoinRequest)
 	b.PutBool(c.IsPublic)
 	return nil
 }
@@ -203,10 +223,10 @@ func (c *ChatInviteLinkInfo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatInviteLinkInfo) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteLinkInfo#2c27a74b to nil")
+		return fmt.Errorf("can't decode chatInviteLinkInfo#eca8a094 to nil")
 	}
 	if err := b.ConsumeID(ChatInviteLinkInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: %w", err)
+		return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -214,61 +234,68 @@ func (c *ChatInviteLinkInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatInviteLinkInfo) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteLinkInfo#2c27a74b to nil")
+		return fmt.Errorf("can't decode chatInviteLinkInfo#eca8a094 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field chat_id: %w", err)
 		}
 		c.ChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field accessible_for: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field accessible_for: %w", err)
 		}
 		c.AccessibleFor = value
 	}
 	{
 		value, err := DecodeChatType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field type: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field type: %w", err)
 		}
 		c.Type = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field title: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field title: %w", err)
 		}
 		c.Title = value
 	}
 	{
 		if err := c.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field photo: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field photo: %w", err)
 		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field description: %w", err)
+		}
+		c.Description = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field member_count: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_count: %w", err)
 		}
 		c.MemberCount = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field member_user_ids: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			c.MemberUserIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+			c.MemberUserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field member_user_ids: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_user_ids: %w", err)
 			}
 			c.MemberUserIDs = append(c.MemberUserIDs, value)
 		}
@@ -276,7 +303,14 @@ func (c *ChatInviteLinkInfo) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field is_public: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field creates_join_request: %w", err)
+		}
+		c.CreatesJoinRequest = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field is_public: %w", err)
 		}
 		c.IsPublic = value
 	}
@@ -286,7 +320,7 @@ func (c *ChatInviteLinkInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteLinkInfo#2c27a74b as nil")
+		return fmt.Errorf("can't encode chatInviteLinkInfo#eca8a094 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatInviteLinkInfo")
@@ -296,25 +330,29 @@ func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutInt32(c.AccessibleFor)
 	b.FieldStart("type")
 	if c.Type == nil {
-		return fmt.Errorf("unable to encode chatInviteLinkInfo#2c27a74b: field type is nil")
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field type is nil")
 	}
 	if err := c.Type.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatInviteLinkInfo#2c27a74b: field type: %w", err)
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field type: %w", err)
 	}
 	b.FieldStart("title")
 	b.PutString(c.Title)
 	b.FieldStart("photo")
 	if err := c.Photo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatInviteLinkInfo#2c27a74b: field photo: %w", err)
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field photo: %w", err)
 	}
+	b.FieldStart("description")
+	b.PutString(c.Description)
 	b.FieldStart("member_count")
 	b.PutInt32(c.MemberCount)
 	b.FieldStart("member_user_ids")
 	b.ArrStart()
 	for _, v := range c.MemberUserIDs {
-		b.PutInt32(v)
+		b.PutLong(v)
 	}
 	b.ArrEnd()
+	b.FieldStart("creates_join_request")
+	b.PutBool(c.CreatesJoinRequest)
 	b.FieldStart("is_public")
 	b.PutBool(c.IsPublic)
 	b.ObjEnd()
@@ -324,64 +362,76 @@ func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatInviteLinkInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteLinkInfo#2c27a74b to nil")
+		return fmt.Errorf("can't decode chatInviteLinkInfo#eca8a094 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatInviteLinkInfo"); err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field chat_id: %w", err)
 			}
 			c.ChatID = value
 		case "accessible_for":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field accessible_for: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field accessible_for: %w", err)
 			}
 			c.AccessibleFor = value
 		case "type":
 			value, err := DecodeTDLibJSONChatType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field type: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field type: %w", err)
 			}
 			c.Type = value
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field title: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field title: %w", err)
 			}
 			c.Title = value
 		case "photo":
 			if err := c.Photo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field photo: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field photo: %w", err)
 			}
+		case "description":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field description: %w", err)
+			}
+			c.Description = value
 		case "member_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field member_count: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_count: %w", err)
 			}
 			c.MemberCount = value
 		case "member_user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Int32()
+				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field member_user_ids: %w", err)
+					return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_user_ids: %w", err)
 				}
 				c.MemberUserIDs = append(c.MemberUserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field member_user_ids: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_user_ids: %w", err)
 			}
+		case "creates_join_request":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field creates_join_request: %w", err)
+			}
+			c.CreatesJoinRequest = value
 		case "is_public":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#2c27a74b: field is_public: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field is_public: %w", err)
 			}
 			c.IsPublic = value
 		default:
@@ -416,14 +466,24 @@ func (c *ChatInviteLinkInfo) GetPhoto() (value ChatPhotoInfo) {
 	return c.Photo
 }
 
+// GetDescription returns value of Description field.
+func (c *ChatInviteLinkInfo) GetDescription() (value string) {
+	return c.Description
+}
+
 // GetMemberCount returns value of MemberCount field.
 func (c *ChatInviteLinkInfo) GetMemberCount() (value int32) {
 	return c.MemberCount
 }
 
 // GetMemberUserIDs returns value of MemberUserIDs field.
-func (c *ChatInviteLinkInfo) GetMemberUserIDs() (value []int32) {
+func (c *ChatInviteLinkInfo) GetMemberUserIDs() (value []int64) {
 	return c.MemberUserIDs
+}
+
+// GetCreatesJoinRequest returns value of CreatesJoinRequest field.
+func (c *ChatInviteLinkInfo) GetCreatesJoinRequest() (value bool) {
+	return c.CreatesJoinRequest
 }
 
 // GetIsPublic returns value of IsPublic field.

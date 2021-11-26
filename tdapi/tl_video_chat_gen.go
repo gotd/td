@@ -31,29 +31,29 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// VoiceChat represents TL type `voiceChat#f0d4c45b`.
-type VoiceChat struct {
-	// Group call identifier of an active voice chat; 0 if none. Full informationa about the
-	// voice chat can be received through the method getGroupCall
+// VideoChat represents TL type `videoChat#ae158d28`.
+type VideoChat struct {
+	// Group call identifier of an active video chat; 0 if none. Full information about the
+	// video chat can be received through the method getGroupCall
 	GroupCallID int32
-	// True, if the voice chat has participants
+	// True, if the video chat has participants
 	HasParticipants bool
-	// Default group call participant identifier to join the voice chat; may be null
+	// Default group call participant identifier to join the video chat; may be null
 	DefaultParticipantID MessageSenderClass
 }
 
-// VoiceChatTypeID is TL type id of VoiceChat.
-const VoiceChatTypeID = 0xf0d4c45b
+// VideoChatTypeID is TL type id of VideoChat.
+const VideoChatTypeID = 0xae158d28
 
-// Ensuring interfaces in compile-time for VoiceChat.
+// Ensuring interfaces in compile-time for VideoChat.
 var (
-	_ bin.Encoder     = &VoiceChat{}
-	_ bin.Decoder     = &VoiceChat{}
-	_ bin.BareEncoder = &VoiceChat{}
-	_ bin.BareDecoder = &VoiceChat{}
+	_ bin.Encoder     = &VideoChat{}
+	_ bin.Decoder     = &VideoChat{}
+	_ bin.BareEncoder = &VideoChat{}
+	_ bin.BareDecoder = &VideoChat{}
 )
 
-func (v *VoiceChat) Zero() bool {
+func (v *VideoChat) Zero() bool {
 	if v == nil {
 		return true
 	}
@@ -71,31 +71,31 @@ func (v *VoiceChat) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (v *VoiceChat) String() string {
+func (v *VideoChat) String() string {
 	if v == nil {
-		return "VoiceChat(nil)"
+		return "VideoChat(nil)"
 	}
-	type Alias VoiceChat
-	return fmt.Sprintf("VoiceChat%+v", Alias(*v))
+	type Alias VideoChat
+	return fmt.Sprintf("VideoChat%+v", Alias(*v))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*VoiceChat) TypeID() uint32 {
-	return VoiceChatTypeID
+func (*VideoChat) TypeID() uint32 {
+	return VideoChatTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*VoiceChat) TypeName() string {
-	return "voiceChat"
+func (*VideoChat) TypeName() string {
+	return "videoChat"
 }
 
 // TypeInfo returns info about TL type.
-func (v *VoiceChat) TypeInfo() tdp.Type {
+func (v *VideoChat) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "voiceChat",
-		ID:   VoiceChatTypeID,
+		Name: "videoChat",
+		ID:   VideoChatTypeID,
 	}
 	if v == nil {
 		typ.Null = true
@@ -119,64 +119,64 @@ func (v *VoiceChat) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (v *VoiceChat) Encode(b *bin.Buffer) error {
+func (v *VideoChat) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode voiceChat#f0d4c45b as nil")
+		return fmt.Errorf("can't encode videoChat#ae158d28 as nil")
 	}
-	b.PutID(VoiceChatTypeID)
+	b.PutID(VideoChatTypeID)
 	return v.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (v *VoiceChat) EncodeBare(b *bin.Buffer) error {
+func (v *VideoChat) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode voiceChat#f0d4c45b as nil")
+		return fmt.Errorf("can't encode videoChat#ae158d28 as nil")
 	}
 	b.PutInt32(v.GroupCallID)
 	b.PutBool(v.HasParticipants)
 	if v.DefaultParticipantID == nil {
-		return fmt.Errorf("unable to encode voiceChat#f0d4c45b: field default_participant_id is nil")
+		return fmt.Errorf("unable to encode videoChat#ae158d28: field default_participant_id is nil")
 	}
 	if err := v.DefaultParticipantID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode voiceChat#f0d4c45b: field default_participant_id: %w", err)
+		return fmt.Errorf("unable to encode videoChat#ae158d28: field default_participant_id: %w", err)
 	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (v *VoiceChat) Decode(b *bin.Buffer) error {
+func (v *VideoChat) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode voiceChat#f0d4c45b to nil")
+		return fmt.Errorf("can't decode videoChat#ae158d28 to nil")
 	}
-	if err := b.ConsumeID(VoiceChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode voiceChat#f0d4c45b: %w", err)
+	if err := b.ConsumeID(VideoChatTypeID); err != nil {
+		return fmt.Errorf("unable to decode videoChat#ae158d28: %w", err)
 	}
 	return v.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (v *VoiceChat) DecodeBare(b *bin.Buffer) error {
+func (v *VideoChat) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode voiceChat#f0d4c45b to nil")
+		return fmt.Errorf("can't decode videoChat#ae158d28 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode voiceChat#f0d4c45b: field group_call_id: %w", err)
+			return fmt.Errorf("unable to decode videoChat#ae158d28: field group_call_id: %w", err)
 		}
 		v.GroupCallID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode voiceChat#f0d4c45b: field has_participants: %w", err)
+			return fmt.Errorf("unable to decode videoChat#ae158d28: field has_participants: %w", err)
 		}
 		v.HasParticipants = value
 	}
 	{
 		value, err := DecodeMessageSender(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode voiceChat#f0d4c45b: field default_participant_id: %w", err)
+			return fmt.Errorf("unable to decode videoChat#ae158d28: field default_participant_id: %w", err)
 		}
 		v.DefaultParticipantID = value
 	}
@@ -184,55 +184,55 @@ func (v *VoiceChat) DecodeBare(b *bin.Buffer) error {
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (v *VoiceChat) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (v *VideoChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if v == nil {
-		return fmt.Errorf("can't encode voiceChat#f0d4c45b as nil")
+		return fmt.Errorf("can't encode videoChat#ae158d28 as nil")
 	}
 	b.ObjStart()
-	b.PutID("voiceChat")
+	b.PutID("videoChat")
 	b.FieldStart("group_call_id")
 	b.PutInt32(v.GroupCallID)
 	b.FieldStart("has_participants")
 	b.PutBool(v.HasParticipants)
 	b.FieldStart("default_participant_id")
 	if v.DefaultParticipantID == nil {
-		return fmt.Errorf("unable to encode voiceChat#f0d4c45b: field default_participant_id is nil")
+		return fmt.Errorf("unable to encode videoChat#ae158d28: field default_participant_id is nil")
 	}
 	if err := v.DefaultParticipantID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode voiceChat#f0d4c45b: field default_participant_id: %w", err)
+		return fmt.Errorf("unable to encode videoChat#ae158d28: field default_participant_id: %w", err)
 	}
 	b.ObjEnd()
 	return nil
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (v *VoiceChat) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (v *VideoChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if v == nil {
-		return fmt.Errorf("can't decode voiceChat#f0d4c45b to nil")
+		return fmt.Errorf("can't decode videoChat#ae158d28 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("voiceChat"); err != nil {
-				return fmt.Errorf("unable to decode voiceChat#f0d4c45b: %w", err)
+			if err := b.ConsumeID("videoChat"); err != nil {
+				return fmt.Errorf("unable to decode videoChat#ae158d28: %w", err)
 			}
 		case "group_call_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode voiceChat#f0d4c45b: field group_call_id: %w", err)
+				return fmt.Errorf("unable to decode videoChat#ae158d28: field group_call_id: %w", err)
 			}
 			v.GroupCallID = value
 		case "has_participants":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode voiceChat#f0d4c45b: field has_participants: %w", err)
+				return fmt.Errorf("unable to decode videoChat#ae158d28: field has_participants: %w", err)
 			}
 			v.HasParticipants = value
 		case "default_participant_id":
 			value, err := DecodeTDLibJSONMessageSender(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode voiceChat#f0d4c45b: field default_participant_id: %w", err)
+				return fmt.Errorf("unable to decode videoChat#ae158d28: field default_participant_id: %w", err)
 			}
 			v.DefaultParticipantID = value
 		default:
@@ -243,16 +243,16 @@ func (v *VoiceChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetGroupCallID returns value of GroupCallID field.
-func (v *VoiceChat) GetGroupCallID() (value int32) {
+func (v *VideoChat) GetGroupCallID() (value int32) {
 	return v.GroupCallID
 }
 
 // GetHasParticipants returns value of HasParticipants field.
-func (v *VoiceChat) GetHasParticipants() (value bool) {
+func (v *VideoChat) GetHasParticipants() (value bool) {
 	return v.HasParticipants
 }
 
 // GetDefaultParticipantID returns value of DefaultParticipantID field.
-func (v *VoiceChat) GetDefaultParticipantID() (value MessageSenderClass) {
+func (v *VideoChat) GetDefaultParticipantID() (value MessageSenderClass) {
 	return v.DefaultParticipantID
 }

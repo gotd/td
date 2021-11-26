@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetBasicGroupFullInfoRequest represents TL type `getBasicGroupFullInfo#6987f591`.
+// GetBasicGroupFullInfoRequest represents TL type `getBasicGroupFullInfo#9365e32b`.
 type GetBasicGroupFullInfoRequest struct {
 	// Basic group identifier
-	BasicGroupID int32
+	BasicGroupID int64
 }
 
 // GetBasicGroupFullInfoRequestTypeID is TL type id of GetBasicGroupFullInfoRequest.
-const GetBasicGroupFullInfoRequestTypeID = 0x6987f591
+const GetBasicGroupFullInfoRequestTypeID = 0x9365e32b
 
 // Ensuring interfaces in compile-time for GetBasicGroupFullInfoRequest.
 var (
@@ -102,7 +102,7 @@ func (g *GetBasicGroupFullInfoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetBasicGroupFullInfoRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getBasicGroupFullInfo#6987f591 as nil")
+		return fmt.Errorf("can't encode getBasicGroupFullInfo#9365e32b as nil")
 	}
 	b.PutID(GetBasicGroupFullInfoRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,19 +111,19 @@ func (g *GetBasicGroupFullInfoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetBasicGroupFullInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getBasicGroupFullInfo#6987f591 as nil")
+		return fmt.Errorf("can't encode getBasicGroupFullInfo#9365e32b as nil")
 	}
-	b.PutInt32(g.BasicGroupID)
+	b.PutLong(g.BasicGroupID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetBasicGroupFullInfoRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getBasicGroupFullInfo#6987f591 to nil")
+		return fmt.Errorf("can't decode getBasicGroupFullInfo#9365e32b to nil")
 	}
 	if err := b.ConsumeID(GetBasicGroupFullInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getBasicGroupFullInfo#6987f591: %w", err)
+		return fmt.Errorf("unable to decode getBasicGroupFullInfo#9365e32b: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -131,12 +131,12 @@ func (g *GetBasicGroupFullInfoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetBasicGroupFullInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getBasicGroupFullInfo#6987f591 to nil")
+		return fmt.Errorf("can't decode getBasicGroupFullInfo#9365e32b to nil")
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getBasicGroupFullInfo#6987f591: field basic_group_id: %w", err)
+			return fmt.Errorf("unable to decode getBasicGroupFullInfo#9365e32b: field basic_group_id: %w", err)
 		}
 		g.BasicGroupID = value
 	}
@@ -146,12 +146,12 @@ func (g *GetBasicGroupFullInfoRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetBasicGroupFullInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getBasicGroupFullInfo#6987f591 as nil")
+		return fmt.Errorf("can't encode getBasicGroupFullInfo#9365e32b as nil")
 	}
 	b.ObjStart()
 	b.PutID("getBasicGroupFullInfo")
 	b.FieldStart("basic_group_id")
-	b.PutInt32(g.BasicGroupID)
+	b.PutLong(g.BasicGroupID)
 	b.ObjEnd()
 	return nil
 }
@@ -159,19 +159,19 @@ func (g *GetBasicGroupFullInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetBasicGroupFullInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getBasicGroupFullInfo#6987f591 to nil")
+		return fmt.Errorf("can't decode getBasicGroupFullInfo#9365e32b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getBasicGroupFullInfo"); err != nil {
-				return fmt.Errorf("unable to decode getBasicGroupFullInfo#6987f591: %w", err)
+				return fmt.Errorf("unable to decode getBasicGroupFullInfo#9365e32b: %w", err)
 			}
 		case "basic_group_id":
-			value, err := b.Int32()
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getBasicGroupFullInfo#6987f591: field basic_group_id: %w", err)
+				return fmt.Errorf("unable to decode getBasicGroupFullInfo#9365e32b: field basic_group_id: %w", err)
 			}
 			g.BasicGroupID = value
 		default:
@@ -182,12 +182,12 @@ func (g *GetBasicGroupFullInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetBasicGroupID returns value of BasicGroupID field.
-func (g *GetBasicGroupFullInfoRequest) GetBasicGroupID() (value int32) {
+func (g *GetBasicGroupFullInfoRequest) GetBasicGroupID() (value int64) {
 	return g.BasicGroupID
 }
 
-// GetBasicGroupFullInfo invokes method getBasicGroupFullInfo#6987f591 returning error if any.
-func (c *Client) GetBasicGroupFullInfo(ctx context.Context, basicgroupid int32) (*BasicGroupFullInfo, error) {
+// GetBasicGroupFullInfo invokes method getBasicGroupFullInfo#9365e32b returning error if any.
+func (c *Client) GetBasicGroupFullInfo(ctx context.Context, basicgroupid int64) (*BasicGroupFullInfo, error) {
 	var result BasicGroupFullInfo
 
 	request := &GetBasicGroupFullInfoRequest{

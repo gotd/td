@@ -1255,7 +1255,7 @@ func (p *PageBlockParagraph) GetText() (value RichTextClass) {
 type PageBlockPreformatted struct {
 	// Paragraph text
 	Text RichTextClass
-	// Programming language for which the text should be formatted
+	// Programming language for which the text needs to be formatted
 	Language string
 }
 
@@ -2522,7 +2522,7 @@ type PageBlockAnimation struct {
 	Animation Animation
 	// Animation caption
 	Caption PageBlockCaption
-	// True, if the animation should be played automatically
+	// True, if the animation must be played automatically
 	NeedAutoplay bool
 }
 
@@ -3152,9 +3152,9 @@ type PageBlockVideo struct {
 	Video Video
 	// Video caption
 	Caption PageBlockCaption
-	// True, if the video should be played automatically
+	// True, if the video must be played automatically
 	NeedAutoplay bool
-	// True, if the video should be looped
+	// True, if the video must be looped
 	IsLooped bool
 }
 
@@ -3770,9 +3770,9 @@ type PageBlockEmbedded struct {
 	Height int32
 	// Block caption
 	Caption PageBlockCaption
-	// True, if the block should be full width
+	// True, if the block must be full width
 	IsFullWidth bool
-	// True, if scrolling should be allowed
+	// True, if scrolling needs to be allowed
 	AllowScrolling bool
 }
 
@@ -4918,7 +4918,7 @@ type PageBlockChatLink struct {
 	Title string
 	// Chat photo; may be null
 	Photo ChatPhotoInfo
-	// Chat username, by which all other information about the chat should be resolved
+	// Chat username, by which all other information about the chat can be resolved
 	Username string
 }
 

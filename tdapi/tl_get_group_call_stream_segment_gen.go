@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetGroupCallStreamSegmentRequest represents TL type `getGroupCallStreamSegment#6bbcb0a7`.
+// GetGroupCallStreamSegmentRequest represents TL type `getGroupCallStreamSegment#8424daa5`.
 type GetGroupCallStreamSegmentRequest struct {
 	// Group call identifier
 	GroupCallID int32
@@ -39,10 +39,14 @@ type GetGroupCallStreamSegmentRequest struct {
 	TimeOffset int64
 	// Segment duration scale; 0-1. Segment's duration is 1000/(2**scale) milliseconds
 	Scale int32
+	// Identifier of an audio/video channel to get as received from tgcalls
+	ChannelID int32
+	// Video quality as received from tgcalls; pass null to get the worst available quality
+	VideoQuality GroupCallVideoQualityClass
 }
 
 // GetGroupCallStreamSegmentRequestTypeID is TL type id of GetGroupCallStreamSegmentRequest.
-const GetGroupCallStreamSegmentRequestTypeID = 0x6bbcb0a7
+const GetGroupCallStreamSegmentRequestTypeID = 0x8424daa5
 
 // Ensuring interfaces in compile-time for GetGroupCallStreamSegmentRequest.
 var (
@@ -63,6 +67,12 @@ func (g *GetGroupCallStreamSegmentRequest) Zero() bool {
 		return false
 	}
 	if !(g.Scale == 0) {
+		return false
+	}
+	if !(g.ChannelID == 0) {
+		return false
+	}
+	if !(g.VideoQuality == nil) {
 		return false
 	}
 
@@ -113,6 +123,14 @@ func (g *GetGroupCallStreamSegmentRequest) TypeInfo() tdp.Type {
 			Name:       "Scale",
 			SchemaName: "scale",
 		},
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "VideoQuality",
+			SchemaName: "video_quality",
+		},
 	}
 	return typ
 }
@@ -120,7 +138,7 @@ func (g *GetGroupCallStreamSegmentRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetGroupCallStreamSegmentRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getGroupCallStreamSegment#6bbcb0a7 as nil")
+		return fmt.Errorf("can't encode getGroupCallStreamSegment#8424daa5 as nil")
 	}
 	b.PutID(GetGroupCallStreamSegmentRequestTypeID)
 	return g.EncodeBare(b)
@@ -129,21 +147,28 @@ func (g *GetGroupCallStreamSegmentRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetGroupCallStreamSegmentRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getGroupCallStreamSegment#6bbcb0a7 as nil")
+		return fmt.Errorf("can't encode getGroupCallStreamSegment#8424daa5 as nil")
 	}
 	b.PutInt32(g.GroupCallID)
 	b.PutLong(g.TimeOffset)
 	b.PutInt32(g.Scale)
+	b.PutInt32(g.ChannelID)
+	if g.VideoQuality == nil {
+		return fmt.Errorf("unable to encode getGroupCallStreamSegment#8424daa5: field video_quality is nil")
+	}
+	if err := g.VideoQuality.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode getGroupCallStreamSegment#8424daa5: field video_quality: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetGroupCallStreamSegmentRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getGroupCallStreamSegment#6bbcb0a7 to nil")
+		return fmt.Errorf("can't decode getGroupCallStreamSegment#8424daa5 to nil")
 	}
 	if err := b.ConsumeID(GetGroupCallStreamSegmentRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getGroupCallStreamSegment#6bbcb0a7: %w", err)
+		return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -151,28 +176,42 @@ func (g *GetGroupCallStreamSegmentRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetGroupCallStreamSegmentRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getGroupCallStreamSegment#6bbcb0a7 to nil")
+		return fmt.Errorf("can't decode getGroupCallStreamSegment#8424daa5 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getGroupCallStreamSegment#6bbcb0a7: field group_call_id: %w", err)
+			return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: field group_call_id: %w", err)
 		}
 		g.GroupCallID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getGroupCallStreamSegment#6bbcb0a7: field time_offset: %w", err)
+			return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: field time_offset: %w", err)
 		}
 		g.TimeOffset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getGroupCallStreamSegment#6bbcb0a7: field scale: %w", err)
+			return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: field scale: %w", err)
 		}
 		g.Scale = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: field channel_id: %w", err)
+		}
+		g.ChannelID = value
+	}
+	{
+		value, err := DecodeGroupCallVideoQuality(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: field video_quality: %w", err)
+		}
+		g.VideoQuality = value
 	}
 	return nil
 }
@@ -180,7 +219,7 @@ func (g *GetGroupCallStreamSegmentRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetGroupCallStreamSegmentRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getGroupCallStreamSegment#6bbcb0a7 as nil")
+		return fmt.Errorf("can't encode getGroupCallStreamSegment#8424daa5 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getGroupCallStreamSegment")
@@ -190,6 +229,15 @@ func (g *GetGroupCallStreamSegmentRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	b.PutLong(g.TimeOffset)
 	b.FieldStart("scale")
 	b.PutInt32(g.Scale)
+	b.FieldStart("channel_id")
+	b.PutInt32(g.ChannelID)
+	b.FieldStart("video_quality")
+	if g.VideoQuality == nil {
+		return fmt.Errorf("unable to encode getGroupCallStreamSegment#8424daa5: field video_quality is nil")
+	}
+	if err := g.VideoQuality.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getGroupCallStreamSegment#8424daa5: field video_quality: %w", err)
+	}
 	b.ObjEnd()
 	return nil
 }
@@ -197,33 +245,45 @@ func (g *GetGroupCallStreamSegmentRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetGroupCallStreamSegmentRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getGroupCallStreamSegment#6bbcb0a7 to nil")
+		return fmt.Errorf("can't decode getGroupCallStreamSegment#8424daa5 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getGroupCallStreamSegment"); err != nil {
-				return fmt.Errorf("unable to decode getGroupCallStreamSegment#6bbcb0a7: %w", err)
+				return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: %w", err)
 			}
 		case "group_call_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getGroupCallStreamSegment#6bbcb0a7: field group_call_id: %w", err)
+				return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: field group_call_id: %w", err)
 			}
 			g.GroupCallID = value
 		case "time_offset":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getGroupCallStreamSegment#6bbcb0a7: field time_offset: %w", err)
+				return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: field time_offset: %w", err)
 			}
 			g.TimeOffset = value
 		case "scale":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getGroupCallStreamSegment#6bbcb0a7: field scale: %w", err)
+				return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: field scale: %w", err)
 			}
 			g.Scale = value
+		case "channel_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: field channel_id: %w", err)
+			}
+			g.ChannelID = value
+		case "video_quality":
+			value, err := DecodeTDLibJSONGroupCallVideoQuality(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: field video_quality: %w", err)
+			}
+			g.VideoQuality = value
 		default:
 			return b.Skip()
 		}
@@ -246,7 +306,17 @@ func (g *GetGroupCallStreamSegmentRequest) GetScale() (value int32) {
 	return g.Scale
 }
 
-// GetGroupCallStreamSegment invokes method getGroupCallStreamSegment#6bbcb0a7 returning error if any.
+// GetChannelID returns value of ChannelID field.
+func (g *GetGroupCallStreamSegmentRequest) GetChannelID() (value int32) {
+	return g.ChannelID
+}
+
+// GetVideoQuality returns value of VideoQuality field.
+func (g *GetGroupCallStreamSegmentRequest) GetVideoQuality() (value GroupCallVideoQualityClass) {
+	return g.VideoQuality
+}
+
+// GetGroupCallStreamSegment invokes method getGroupCallStreamSegment#8424daa5 returning error if any.
 func (c *Client) GetGroupCallStreamSegment(ctx context.Context, request *GetGroupCallStreamSegmentRequest) (*FilePart, error) {
 	var result FilePart
 

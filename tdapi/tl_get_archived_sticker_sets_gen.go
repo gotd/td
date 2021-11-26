@@ -37,7 +37,7 @@ type GetArchivedStickerSetsRequest struct {
 	IsMasks bool
 	// Identifier of the sticker set from which to return the result
 	OffsetStickerSetID int64
-	// The maximum number of sticker sets to return
+	// The maximum number of sticker sets to return; up to 100
 	Limit int32
 }
 

@@ -33,7 +33,7 @@ var (
 
 // SearchPublicChatsRequest represents TL type `searchPublicChats#39d6e7b9`.
 type SearchPublicChatsRequest struct {
-	// Query to search for
+	// Query field of SearchPublicChatsRequest.
 	Query string
 }
 

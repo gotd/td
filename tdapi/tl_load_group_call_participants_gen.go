@@ -36,7 +36,7 @@ type LoadGroupCallParticipantsRequest struct {
 	// Group call identifier. The group call must be previously received through getGroupCall
 	// and must be joined or being joined
 	GroupCallID int32
-	// The maximum number of participants to load
+	// The maximum number of participants to load; up to 100
 	Limit int32
 }
 
