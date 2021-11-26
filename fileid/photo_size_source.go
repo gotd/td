@@ -244,22 +244,22 @@ func (p *PhotoSizeSource) decode(b *bin.Buffer, subVersion byte) error {
 	return nil
 }
 
-func (p *PhotoSizeSource) writeLocalIDVolumeID(b *bin.Buffer)  {
+func (p *PhotoSizeSource) writeLocalIDVolumeID(b *bin.Buffer) {
 	b.PutLong(p.VolumeID)
 	b.PutInt(p.LocalID)
 }
 
-func (p *PhotoSizeSource) writeDialog(b *bin.Buffer)  {
+func (p *PhotoSizeSource) writeDialog(b *bin.Buffer) {
 	b.PutLong(p.DialogID)
 	b.PutLong(p.DialogAccessHash)
 }
 
-func (p *PhotoSizeSource) writeStickerSet(b *bin.Buffer)  {
+func (p *PhotoSizeSource) writeStickerSet(b *bin.Buffer) {
 	b.PutLong(p.StickerSetID)
 	b.PutLong(p.StickerSetAccessHash)
 }
 
-func (p *PhotoSizeSource) encode(b *bin.Buffer)  {
+func (p *PhotoSizeSource) encode(b *bin.Buffer) {
 	b.PutInt(int(p.Type))
 	switch p.Type {
 	case PhotoSizeSourceLegacy:

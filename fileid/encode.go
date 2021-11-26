@@ -18,4 +18,3 @@ func EncodeFileID(id FileID) (string, error) {
 func base64Encode(s []byte) string {
 	return base64.RawURLEncoding.EncodeToString(s)
 }
-

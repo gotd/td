@@ -5,6 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	"github.com/gotd/td/constant"
 	"github.com/gotd/td/tg"
 )
 
@@ -123,6 +124,137 @@ func TestFileID_AsInputFileLocation(t *testing.T) {
 			true,
 		},
 		{
+			"Secure",
+			FileID{
+				Type:       Secure,
+				ID:         10,
+				AccessHash: 10,
+			},
+			&tg.InputSecureFileLocation{
+				ID:         10,
+				AccessHash: 10,
+			},
+			true,
+		},
+		{
+			"Encrypted",
+			FileID{
+				Type:       Encrypted,
+				ID:         10,
+				AccessHash: 10,
+			},
+			&tg.InputEncryptedFileLocation{
+				ID:         10,
+				AccessHash: 10,
+			},
+			true,
+		},
+		{
+			"PhotoSizeSourceFullLegacy",
+			FileID{
+				Type:          Photo,
+				ID:            10,
+				AccessHash:    11,
+				FileReference: []byte{12},
+				PhotoSizeSource: PhotoSizeSource{
+					Type:     PhotoSizeSourceFullLegacy,
+					VolumeID: 13,
+					LocalID:  14,
+					Secret:   15,
+				},
+			},
+			&tg.InputPhotoLegacyFileLocation{
+				ID:            10,
+				AccessHash:    11,
+				FileReference: []byte{12},
+				VolumeID:      13,
+				LocalID:       14,
+				Secret:        15,
+			},
+			true,
+		},
+		{
+			name: "PhotoSizeSourceDialogPhotoBigLegacy",
+			fileID: FileID{
+				Type: ProfilePhoto,
+				PhotoSizeSource: PhotoSizeSource{
+					Type:             PhotoSizeSourceDialogPhotoBigLegacy,
+					VolumeID:         13,
+					LocalID:          14,
+					DialogID:         constant.MaxUserID - 1,
+					DialogAccessHash: 15,
+				},
+			},
+			want: &tg.InputPeerPhotoFileLocationLegacy{
+				Big: true,
+				Peer: &tg.InputPeerUser{
+					UserID:     constant.MaxUserID - 1,
+					AccessHash: 15,
+				},
+				VolumeID: 13,
+				LocalID:  14,
+			},
+			wantOk: true,
+		},
+		{
+			name: "PhotoSizeSourceStickerSetThumbnailLegacy",
+			fileID: FileID{
+				Type: Thumbnail,
+				PhotoSizeSource: PhotoSizeSource{
+					Type:                 PhotoSizeSourceStickerSetThumbnailLegacy,
+					VolumeID:             10,
+					LocalID:              11,
+					StickerSetID:         12,
+					StickerSetAccessHash: 13,
+				},
+			},
+			want: &tg.InputStickerSetThumbLegacy{
+				Stickerset: &tg.InputStickerSetID{
+					ID:         12,
+					AccessHash: 13,
+				},
+				VolumeID: 10,
+				LocalID:  11,
+			},
+			wantOk: true,
+		},
+		{
+			name: "PhotoSizeSourceStickerSetThumbnailLegacy",
+			fileID: FileID{
+				Type: Thumbnail,
+				PhotoSizeSource: PhotoSizeSource{
+					Type:                 PhotoSizeSourceStickerSetThumbnailVersion,
+					StickerSetID:         12,
+					StickerSetAccessHash: 13,
+					StickerVersion:       1,
+				},
+			},
+			want: &tg.InputStickerSetThumb{
+				Stickerset: &tg.InputStickerSetID{
+					ID:         12,
+					AccessHash: 13,
+				},
+				ThumbVersion: 1,
+			},
+			wantOk: true,
+		},
+		{
+			"PhotoSizeSourceLegacy",
+			FileID{Type: Photo, PhotoSizeSource: PhotoSizeSource{
+				Type: PhotoSizeSourceLegacy,
+			}},
+			nil,
+			false,
+		},
+		{
+			"PhotoSizeSourceStickerSetThumbnail",
+			FileID{Type: Thumbnail, PhotoSizeSource: PhotoSizeSource{
+				Type: PhotoSizeSourceStickerSetThumbnail,
+			}},
+			nil,
+			false,
+		},
+		{
 			"Temp",
 			FileID{Type: Temp},
 			nil,
@@ -137,4 +269,23 @@ func TestFileID_AsInputFileLocation(t *testing.T) {
 			a.Equal(tt.want, got)
 		})
 	}
+}
+
+func TestFileID_AsInputWebFileLocation(t *testing.T) {
+	a := require.New(t)
+	fileID := FileID{
+		AccessHash: 10,
+	}
+
+	loc, ok := fileID.AsInputWebFileLocation()
+	a.False(ok)
+	a.Nil(loc)
+
+	fileID.URL = "a"
+	loc, ok = fileID.AsInputWebFileLocation()
+	a.True(ok)
+	a.Equal(&tg.InputWebFileLocation{
+		URL:        "a",
+		AccessHash: 10,
+	}, loc)
 }
