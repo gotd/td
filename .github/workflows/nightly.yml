@@ -6,33 +6,30 @@ on:
 
 jobs:
   telegram:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: gotd/td/.github/workflows/update-schema.yml@main
-        with:
-          schema-name: "Telegram"
-          make-command: "download_schema"
-          APP_ID: "${{ secrets.APP_ID }}"
-          APP_PRIVATE_KEY: "${{ secrets.APP_PRIVATE_KEY }}"
+    uses: gotd/td/.github/workflows/update-schema.yml@main
+    with:
+      schema-name: "Telegram"
+      make-command: "download_schema"
+    secrets:
+      APP_ID: ${{ secrets.APP_ID }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
 
   encrypted:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: gotd/td/.github/workflows/update-schema.yml@main
-        with:
-          schema-name: "E2E"
-          branch: "feat/update-e2e-schema"
-          make-command: "download_e2e_schema"
-          APP_ID: "${{ secrets.APP_ID }}"
-          APP_PRIVATE_KEY: "${{ secrets.APP_PRIVATE_KEY }}"
+    uses: gotd/td/.github/workflows/update-schema.yml@main
+    with:
+      schema-name: "E2E"
+      branch: "feat/update-e2e-schema"
+      make-command: "download_e2e_schema"
+    secrets:
+      APP_ID: ${{ secrets.APP_ID }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
 
   tdlib:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: gotd/td/.github/workflows/update-schema.yml@main
-        with:
-          schema-name: "TDLib"
-          branch: "feat/update-tdlib-schema"
-          make-command: "download_tdlib_schema"
-          APP_ID: "${{ secrets.APP_ID }}"
-          APP_PRIVATE_KEY: "${{ secrets.APP_PRIVATE_KEY }}"
+    uses: gotd/td/.github/workflows/update-schema.yml@main
+    with:
+      schema-name: "TDLib"
+      branch: "feat/update-tdlib-schema"
+      make-command: "download_tdlib_schema"
+    secrets:
+      APP_ID: ${{ secrets.APP_ID }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
