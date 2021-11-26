@@ -2,6 +2,11 @@ name: Update schema
 
 on:
   workflow_call:
+    secrets:
+      APP_ID:
+        required: true
+      APP_PRIVATE_KEY:
+        required: true
     inputs:
       schema-name:
         type: string
