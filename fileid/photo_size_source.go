@@ -108,6 +108,8 @@ func (p *PhotoSizeSource) readStickerSet(b *bin.Buffer) error {
 	return nil
 }
 
+const latestSubVersion = 34
+
 func (p *PhotoSizeSource) decode(b *bin.Buffer, subVersion byte) error {
 	if subVersion < 32 {
 		{
@@ -240,4 +242,47 @@ func (p *PhotoSizeSource) decode(b *bin.Buffer, subVersion byte) error {
 		p.LocalID = v
 	}
 	return nil
+}
+
+func (p *PhotoSizeSource) writeLocalIDVolumeID(b *bin.Buffer) {
+	b.PutLong(p.VolumeID)
+	b.PutInt(p.LocalID)
+}
+
+func (p *PhotoSizeSource) writeDialog(b *bin.Buffer) {
+	b.PutLong(p.DialogID)
+	b.PutLong(p.DialogAccessHash)
+}
+
+func (p *PhotoSizeSource) writeStickerSet(b *bin.Buffer) {
+	b.PutLong(p.StickerSetID)
+	b.PutLong(p.StickerSetAccessHash)
+}
+
+func (p *PhotoSizeSource) encode(b *bin.Buffer) {
+	b.PutInt(int(p.Type))
+	switch p.Type {
+	case PhotoSizeSourceLegacy:
+		b.PutLong(p.Secret)
+	case PhotoSizeSourceThumbnail:
+		b.PutUint32(uint32(p.FileType))
+		b.PutInt32(p.ThumbnailType)
+	case PhotoSizeSourceDialogPhotoBig, PhotoSizeSourceDialogPhotoSmall:
+		p.writeDialog(b)
+	case PhotoSizeSourceStickerSetThumbnail:
+		p.writeStickerSet(b)
+	case PhotoSizeSourceFullLegacy:
+		b.PutLong(p.VolumeID)
+		b.PutLong(p.Secret)
+		b.PutInt(p.LocalID)
+	case PhotoSizeSourceDialogPhotoBigLegacy, PhotoSizeSourceDialogPhotoSmallLegacy:
+		p.writeDialog(b)
+		p.writeLocalIDVolumeID(b)
+	case PhotoSizeSourceStickerSetThumbnailLegacy:
+		p.writeStickerSet(b)
+		p.writeLocalIDVolumeID(b)
+	case PhotoSizeSourceStickerSetThumbnailVersion:
+		p.writeStickerSet(b)
+		b.PutInt32(p.StickerVersion)
+	}
 }

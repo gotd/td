@@ -22,7 +22,7 @@ type FileID struct {
 
 // AsInputWebFileLocation converts file ID to tg.InputWebFileLocationClass.
 func (f FileID) AsInputWebFileLocation() (tg.InputWebFileLocationClass, bool) {
-	if f.URL != "" {
+	if f.URL == "" {
 		return nil, false
 	}
 
@@ -89,7 +89,7 @@ func (f FileID) asPhotoLocation() (tg.InputFileLocationClass, bool) {
 // AsInputFileLocation converts file ID to tg.InputFileLocationClass.
 func (f FileID) AsInputFileLocation() (tg.InputFileLocationClass, bool) {
 	switch f.Type {
-	case Photo:
+	case Thumbnail, ProfilePhoto, Photo:
 		return f.asPhotoLocation()
 	case Encrypted:
 		return &tg.InputEncryptedFileLocation{
@@ -198,4 +198,37 @@ func (f *FileID) decodeLatestFileID(b *bin.Buffer) error {
 		return errors.Wrap(err, "decode photo_size")
 	}
 	return nil
+}
+
+func (f *FileID) encodeLatestFileID(b *bin.Buffer) {
+	hasWebLocation := f.URL != ""
+	hasReference := len(f.FileReference) != 0
+
+	{
+		typeID := f.Type
+		if hasWebLocation {
+			typeID |= webLocationFlag
+		}
+		if hasReference {
+			typeID |= fileReferenceFlag
+		}
+		b.PutUint32(uint32(typeID))
+	}
+	b.PutUint32(uint32(f.DC))
+	if hasReference {
+		b.PutBytes(f.FileReference)
+	}
+	if hasWebLocation {
+		b.PutString(f.URL)
+		return
+	}
+	b.PutLong(f.ID)
+	b.PutLong(f.AccessHash)
+
+	switch f.Type {
+	case Thumbnail, Photo, ProfilePhoto:
+		f.PhotoSizeSource.encode(b)
+	}
+
+	b.Buf = append(b.Buf, latestSubVersion)
 }
