@@ -1,4 +1,4 @@
-name: lint
+name: check
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  golangci-lint:
+  lint:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -50,7 +50,7 @@ jobs:
           skip-go-installation: true
 
   # Check if there are any dirty changes after go mod tidy
-  check-mod:
+  mod:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -76,17 +76,11 @@ jobs:
           restore-keys: |
             check-mod-${{ runner.os }}-go-
 
-      - name: Download dependencies
-        run: go mod tidy
-      - name: Download tools
-        run: go mod tidy
-        working-directory: _tools
-
       - name: Check git diff
         run: git diff --exit-code
 
   # Check if there are any dirty changes after go generate
-  check-generate:
+  gen:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -111,12 +105,6 @@ jobs:
           key: check-generate-${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             check-generate-${{ runner.os }}-go-
-
-      - name: Download dependencies
-        run: go mod tidy
-      - name: Download tools
-        run: go mod tidy
-        working-directory: _tools
 
       - name: Generate files
         run: make generate

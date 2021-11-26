@@ -1,7 +1,12 @@
 name: tip
 
 on:
+  push:
+    branches: [main]
   pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '36 9 * * *'
 
 jobs:
   test:
