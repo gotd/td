@@ -23,6 +23,10 @@ download_e2e_schema:
 	go run ./cmd/dltl -f secret_api.tl -o _schema/encrypted.tl
 .PHONY: download_e2e_schema
 
+download_tdlib_schema:
+	go run ./cmd/dltl -f td_api.tl -o _schema/tdapi.tl
+.PHONY: download_tdlib_schema
+
 check_generated: generate
 	git diff --exit-code
 .PHONY: check_generated
