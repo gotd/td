@@ -25,10 +25,10 @@ jobs:
           - arch: 386
             runner: ubuntu-latest
           - arch: amd64
-            runner: self-hosted
+            runner: [self-hosted, linux, x64]
             flags: "-race"
           - arch: arm64
-            runner: self-hosted
+            runner: [self-hosted, linux, arm64]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2.4.0
