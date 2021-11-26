@@ -38,9 +38,6 @@ jobs:
       - name: Install latest mtg proxy
         run: go install -v github.com/9seconds/mtg/v2@latest
 
-      - name: Download dependencies
-        run: go mod download && go mod tidy
-
       # Run all tests that start with "TestExternalE2E".
       - name: Run tests
         run: go test -v -run ^TestExternalE2E ./...

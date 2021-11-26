@@ -31,9 +31,6 @@ jobs:
           restore-keys: |
             benchmark-${{ runner.os }}-go-
 
-      - name: Download dependencies
-        run: go mod download && go mod tidy
-
       # Run all benchmarks.
       - name: Run benchmarks
         run: go test -v -bench . -run ^$ ./... | tee benchmark.txt
