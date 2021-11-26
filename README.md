@@ -53,7 +53,7 @@ See [examples](examples) for more info.
 ## Status
 
 Work is still in progress (mostly helpers and convenience wrappers), but basic functionality were tested in production and works fine.
-Only go1.16 is supported and no backward compatibility is provided for now.
+Only go1.17 is supported and no backward compatibility is provided for now.
 
 The goal of this project is to implement a stable, performant and safe client for Telegram in pure Go while
 having a simple and convenient API and a feature parity with TDLib.
