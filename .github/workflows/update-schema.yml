@@ -1,4 +1,4 @@
-name: Update schema
+name: update schema
 
 on:
   workflow_call:

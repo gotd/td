@@ -1,15 +1,13 @@
-name: Extra
+name: nancy
+
 on:
   push:
-    tags:
-      - v*
-    branches:
-      - main
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
 jobs:
-  vulns:
+  run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

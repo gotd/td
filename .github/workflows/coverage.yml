@@ -1,10 +1,8 @@
 name: Coverage
+
 on:
   push:
-    tags:
-      - v*
-    branches:
-      - main
+    branches: [main]
   pull_request:
 
 jobs:
