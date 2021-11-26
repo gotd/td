@@ -2,9 +2,12 @@ package crypto
 
 import (
 	"crypto/sha1" // #nosec
+	"encoding/binary"
 	"encoding/hex"
 	"fmt"
 
+	"github.com/go-faster/errors"
+	"github.com/go-faster/jx"
 	"go.uber.org/zap/zapcore"
 )
 
@@ -53,9 +56,68 @@ type AuthKey struct {
 	ID    [8]byte
 }
 
+// DecodeJSON decode AuthKey from object with base64-encoded key and integer ID.
+func (a *AuthKey) DecodeJSON(d *jx.Decoder) error {
+	return d.ObjBytes(func(d *jx.Decoder, key []byte) error {
+		switch string(key) {
+		case "value":
+			data, err := d.Base64()
+			if err != nil {
+				return errors.Wrap(err, "decode value")
+			}
+			copy(a.Value[:], data)
+		case "id":
+			id, err := d.Int64()
+			if err != nil {
+				return errors.Wrap(err, "decode id")
+			}
+			a.SetIntID(id)
+		default:
+			return d.Skip()
+		}
+
+		return nil
+	})
+}
+
+// UnmarshalJSON implements json.Unmarshaler.
+func (a *AuthKey) UnmarshalJSON(data []byte) error {
+	return a.DecodeJSON(jx.DecodeBytes(data))
+}
+
+// EncodeJSON encodes AuthKey as object with base64-encoded key and integer ID.
+func (a AuthKey) EncodeJSON(e *jx.Encoder) error {
+	e.ObjStart()
+	e.FieldStart("value")
+	e.Base64(a.Value[:])
+	e.FieldStart("id")
+	e.Int64(a.IntID())
+	e.ObjEnd()
+	return nil
+}
+
+// MarshalJSON implements json.Marshaler.
+func (a AuthKey) MarshalJSON() ([]byte, error) {
+	e := jx.GetEncoder()
+	if err := a.EncodeJSON(e); err != nil {
+		return nil, err
+	}
+	return e.Bytes(), nil
+}
+
 // Zero reports whether Key is zero value.
 func (a AuthKey) Zero() bool {
 	return a == AuthKey{}
+}
+
+// IntID returns key fingerprint (ID) as int64.
+func (a AuthKey) IntID() int64 {
+	return int64(binary.LittleEndian.Uint64(a.ID[:]))
+}
+
+// SetIntID sets key fingerprint (ID) as int64.
+func (a *AuthKey) SetIntID(v int64) {
+	binary.LittleEndian.PutUint64(a.ID[:], uint64(v))
 }
 
 // String implements fmt.Stringer.

@@ -1,7 +1,11 @@
 package crypto
 
 import (
+	"bytes"
+	"encoding/json"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
 )
@@ -60,4 +64,45 @@ func TestCalcKey(t *testing.T) {
 			t.Error("bad iv")
 		}
 	})
+}
+
+func TestAuthKeyJSON(t *testing.T) {
+	a := require.New(t)
+	var k Key
+	for i := 0; i < 256; i++ {
+		k[i] = byte(i)
+	}
+	key := k.WithID()
+
+	var buf bytes.Buffer
+	a.NoError(json.NewEncoder(&buf).Encode(key))
+	var got AuthKey
+	a.NoError(json.NewDecoder(&buf).Decode(&got))
+
+	a.Equal(key, got)
+}
+
+func TestAuthKey_UnmarshalJSON(t *testing.T) {
+	tests := []struct {
+		name    string
+		data    string
+		want    AuthKey
+		wantErr bool
+	}{
+		{"BadValue", `{"value":1, "id":1}`, AuthKey{}, true},
+		{"BadID", `{"unknown": false, "value":"Cg==", "id":true}`, AuthKey{}, true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			a := require.New(t)
+			var key AuthKey
+			err := key.UnmarshalJSON([]byte(tt.data))
+			if tt.wantErr {
+				a.Error(err)
+			} else {
+				a.NoError(err)
+				a.Equal(tt.want, key)
+			}
+		})
+	}
 }
