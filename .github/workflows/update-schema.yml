@@ -63,7 +63,7 @@ jobs:
           commit-message: 'feat(schema): update ${{ inputs.schema-name }} to the latest layer'
           branch: ${{ inputs.branch }}
           delete-branch: true
-
+          token: ${{ steps.generate-token.outputs.token }}
           title: Update ${{ inputs.schema-name }} schema to the latest layer
           body: |
             Update ${{ inputs.schema-name }} schema to the latest layer.
