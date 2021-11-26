@@ -25,7 +25,7 @@ jobs:
           - arch: 386
             runner: ubuntu-latest
           - arch: amd64
-            runner: ubuntu-latest
+            runner: self-hosted
             flags: "-race"
           - arch: arm64
             runner: self-hosted
