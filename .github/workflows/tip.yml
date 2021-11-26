@@ -22,6 +22,21 @@ jobs:
           sudo tar -C /usr/local -xzf go.tar.gz
           sudo ln -s /usr/local/go/bin/* /usr/local/bin/
       - uses: actions/checkout@v2
+
+      - name: Get Go environment
+        id: go-env
+        run: |
+          echo "::set-output name=modcache::$(go env GOMODCACHE)"
+
+      - name: Set up mode cache
+        uses: actions/cache@v2.1.7
+        with:
+          path: |
+            ${{ steps.go-env.outputs.modcache }}
+          key: tip-${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            tip-${{ runner.os }}-go-
+
       - name: partial tip test
         # NB: go test ./... fails with
         # github.com/rogpeppe/go-internal/testscript
