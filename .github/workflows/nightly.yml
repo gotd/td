@@ -2,7 +2,7 @@ name: Nightly
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '36 7 * * *'
 
 jobs:
   telegram:
