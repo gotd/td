@@ -7,7 +7,6 @@ on:
 jobs:
   telegram:
     runs-on: ubuntu-latest
-    environment: production
     steps:
       - uses: gotd/td/.github/workflows/update-schema.yml@main
         with:
@@ -18,7 +17,6 @@ jobs:
 
   encrypted:
     runs-on: ubuntu-latest
-    environment: production
     steps:
       - uses: gotd/td/.github/workflows/update-schema.yml@main
         with:
@@ -30,7 +28,6 @@ jobs:
 
   tdlib:
     runs-on: ubuntu-latest
-    environment: production
     steps:
       - uses: gotd/td/.github/workflows/update-schema.yml@main
         with:
