@@ -19,6 +19,12 @@ jobs:
   update-schema:
     runs-on: ubuntu-latest
     steps:
+      - uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Checkout latest code
         uses: actions/checkout@v2.4.0
 
@@ -41,13 +47,6 @@ jobs:
           key: update-schema-${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             update-schema-${{ runner.os }}-go-
-
-      - name: Download dependencies
-        run: go mod download && go mod tidy
-
-      - name: Download tools
-        run: go mod download && go mod tidy
-        working-directory: _tools
 
       - name: Update schema
         run: make ${{ inputs.make-command }}
