@@ -296,13 +296,13 @@ Status by 11.07.2021
    <td colspan="2">12 unit tests, 41 including sub-tests</td>
   <tr>
    <td align="center">⭐<br>GitHub Stargazers</td>
-   <td align="center" width="20%">Has only 192 stars</td>
+   <td align="center" width="20%">Has only 318 stars</td>
    <td align="center" width="20%">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/gotd/td?style=for-the-badge">
     <br>
     <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/gotd/td?style=for-the-badge">
    </td>
-   <td align="center" width="20%">Has 643 stars, which is much higher</td>
+   <td align="center" width="20%">Has 723 stars, which is much higher</td>
    <td align="center" width="20%">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/xelaj/mtproto?style=for-the-badge">
     <br>
