@@ -3,7 +3,6 @@ package deeplink
 
 import (
 	"net/url"
-	"path"
 	"strings"
 
 	"github.com/go-faster/errors"
@@ -28,6 +27,7 @@ const (
 	// 	tg://join?invite={hash}
 	// 	https://t.me/joinchat/{hash}
 	// 	https://telegram.me/joinchat/{hash}
+	// 	t.me/+{hash}
 	//
 	Join Type = "join"
 )
@@ -75,40 +75,66 @@ func parseTg(u *url.URL) (DeepLink, error) {
 }
 
 func parseHTTPS(u *url.URL) (DeepLink, error) {
-	query := u.Query()
-	root, base := path.Split(path.Clean(u.Path))
-	root = strings.TrimPrefix(root, "/")
-	root = strings.TrimSuffix(root, "/")
+	cleanInviteHash := func(root string) string {
+		hash := strings.Trim(root, "+ ")
+		if u.RawPath == "" {
+			hash = url.PathEscape(hash)
+		}
+		return hash
+	}
+
+	query := url.Values{}
+	p := strings.TrimPrefix(u.Path, "/")
+	p = strings.TrimSuffix(p, "/")
+	split := strings.Split(p, "/")
+	var (
+		root = split[0]
+		base string
+	)
+	if len(split) > 1 {
+		base = split[1]
+	}
 
 	switch root {
-	case "":
-		if len(base) > 0 && base[0] == '+' {
-			query.Set("invite", base[1:])
-			return DeepLink{
-				Type: Join,
-				Args: query,
-			}, nil
-		}
-		query.Set("domain", base)
-		return DeepLink{
-			Type: Resolve,
-			Args: query,
-		}, nil
 	case "joinchat":
-		query.Set("invite", base)
+		query.Set("invite", cleanInviteHash(base))
 		return DeepLink{
 			Type: Join,
 			Args: query,
 		}, nil
+	case "":
+		return DeepLink{}, errors.Errorf("unsupported deeplink %q", u.String())
 	}
 
-	return DeepLink{}, errors.Errorf("unsupported deeplink %q", u.String())
+	switch root[0] {
+	case ' ', '+':
+		query.Set("invite", cleanInviteHash(root))
+		return DeepLink{
+			Type: Join,
+			Args: query,
+		}, nil
+	default:
+		if err := ValidateDomain(root); err != nil {
+			return DeepLink{}, err
+		}
+		query.Set("domain", root)
+		return DeepLink{
+			Type: Resolve,
+			Args: query,
+		}, nil
+	}
+}
+
+func hasTelegramPrefix(link string) bool {
+	return strings.HasPrefix(link, "t.me") ||
+		strings.HasPrefix(link, "telegram.me") ||
+		strings.HasPrefix(link, "telegram.dog")
 }
 
 // IsDeeplinkLike returns true if string may be a valid deeplink.
 func IsDeeplinkLike(link string) bool {
 	return strings.HasPrefix(link, "tg:") ||
-		strings.HasPrefix(link, "t.me") ||
+		hasTelegramPrefix(link) ||
 		strings.HasPrefix(link, "https://")
 }
 
@@ -116,7 +142,7 @@ func IsDeeplinkLike(link string) bool {
 func Parse(link string) (DeepLink, error) {
 	switch {
 	// Normalize case like t.me/gotd.
-	case strings.HasPrefix(link, "t.me"):
+	case hasTelegramPrefix(link):
 		link = strings.TrimSuffix("https://"+link, "/")
 	// Normalize case like tg:resolve?domain=gotd.
 	case !strings.HasPrefix(link, "tg://") && strings.HasPrefix(link, "tg:"):
@@ -130,8 +156,13 @@ func Parse(link string) (DeepLink, error) {
 
 	var d DeepLink
 	switch {
-	case u.Scheme == "https" && u.Hostname() == "t.me":
-		d, err = parseHTTPS(u)
+	case u.Scheme == "https":
+		switch strings.TrimPrefix(u.Hostname(), "www.") {
+		case "t.me", "telegram.me", "telegram.dog":
+			d, err = parseHTTPS(u)
+		default:
+			return DeepLink{}, errors.Errorf("invalid domain %q", link)
+		}
 	case u.Scheme == "tg":
 		d, err = parseTg(u)
 	default:

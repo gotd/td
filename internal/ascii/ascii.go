@@ -11,3 +11,9 @@ func IsDigit(r rune) bool {
 func IsLatinLetter(r rune) bool {
 	return (r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z')
 }
+
+// IsLatinLower reports whether the rune is lower ASCII latin letter.
+func IsLatinLower(r rune) bool {
+	r |= 0x20
+	return 'a' <= r && r <= 'z'
+}
