@@ -11,7 +11,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func resolver(t *testing.T, expectedDomain string, wantErr bool, expected tg.InputPeerClass) Resolver {
+func resolver(t *testing.T, expectedDomain string, expected tg.InputPeerClass) Resolver {
 	return &mockResolver{
 		domain: expectedDomain,
 		peer:   expected,
@@ -68,7 +68,7 @@ func TestSender_Resolve(t *testing.T) {
 					a := require.New(t)
 
 					p, err := Resolve(
-						resolver(t, tt.domain, tt.wantErr, expected),
+						resolver(t, tt.domain, expected),
 						fmt.Sprintf(format.fmt, tt.domain),
 					)(context.Background())
 					if tt.wantErr || format.wantErr {
