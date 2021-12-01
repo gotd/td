@@ -130,7 +130,7 @@ var typeSuites = map[string]map[string][]testCase{
 }
 
 func TestParseDeeplink(t *testing.T) {
-	runSuite := func( suite []testCase) func(t *testing.T) {
+	runSuite := func(suite []testCase) func(t *testing.T) {
 		return func(t *testing.T) {
 			for i, test := range suite {
 				t.Run(fmt.Sprintf("Test%d (%s)", i, test.input), func(t *testing.T) {
