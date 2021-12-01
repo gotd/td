@@ -14,6 +14,8 @@ import (
 // JoinLink joins to private chat using given link or hash.
 // Input examples:
 //
+//  t.me/+AAAAAAAAAAAAAAAA
+//  https://t.me/+AAAAAAAAAAAAAAAA
 //  t.me/joinchat/AAAAAAAAAAAAAAAA
 //  https://t.me/joinchat/AAAAAAAAAAAAAAAA
 //  tg:join?invite=AAAAAAAAAAAAAAAA

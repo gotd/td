@@ -102,29 +102,7 @@ func ResolveDomain(r Resolver, domain string) Promise {
 }
 
 func validateDomain(domain string) error {
-	return checkDomainSymbols(domain)
-}
-
-// checkDomainSymbols check that domain contains only a-z, A-Z, 0-9 and '_'
-// symbols.
-func checkDomainSymbols(domain string) error {
-	last := len(domain) - 1
-	for i, r := range domain {
-		if ascii.IsLatinLetter(r) {
-			continue
-		}
-
-		switch {
-		case i == 0:
-			return errors.Errorf("domain should start with latin letter, got %c in %q", r, domain)
-		case i == last && r == '_':
-			return errors.Errorf("domain should end with latin letter or digit, got %c in %q", r, domain)
-		case !ascii.IsDigit(r) && r != '_':
-			return errors.Errorf("unexpected rune %[1]c (%[1]U) in %[2]q domain", r, domain)
-		}
-	}
-
-	return nil
+	return deeplink.ValidateDomain(domain)
 }
 
 // ResolveDeeplink uses given deeplink to create new peer promise.

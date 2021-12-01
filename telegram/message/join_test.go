@@ -15,6 +15,10 @@ func TestSender_JoinLink(t *testing.T) {
 		fmt     string
 		wantErr bool
 	}{
+		{`t.me/+%s`, false},
+		{`t.me/+%s/`, false},
+		{`https://t.me/+%s`, false},
+		{`https://t.me/+%s/`, false},
 		{`t.me/joinchat/%s`, false},
 		{`t.me/joinchat/%s/`, false},
 		{`https://t.me/joinchat/%s`, false},

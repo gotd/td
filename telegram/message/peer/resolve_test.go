@@ -50,7 +50,6 @@ func TestSender_Resolve(t *testing.T) {
 		{"Bad", "gotd_test_", true},
 		{"Bad", "_gotd_test123", true},
 		{"Bad", "gotd.test", true},
-		{"Bad", "gotd/test", true},
 	}
 
 	for _, format := range formats {
