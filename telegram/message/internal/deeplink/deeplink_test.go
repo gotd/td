@@ -124,12 +124,12 @@ func resolveSuite() map[string][]testCase {
 	}
 }
 
-func TestParseDeeplink(t *testing.T) {
-	types := map[string]map[string][]testCase{
-		"Join":    joinSuite(),
-		"Resolve": resolveSuite(),
-	}
+var typeSuites = map[string]map[string][]testCase{
+	"Join":    joinSuite(),
+	"Resolve": resolveSuite(),
+}
 
+func TestParseDeeplink(t *testing.T) {
 	runSuite := func( suite []testCase) func(t *testing.T) {
 		return func(t *testing.T) {
 			for i, test := range suite {
@@ -148,7 +148,7 @@ func TestParseDeeplink(t *testing.T) {
 		}
 	}
 
-	for typeName, typeSuite := range types {
+	for typeName, typeSuite := range typeSuites {
 		t.Run(typeName, func(t *testing.T) {
 			for suiteName, suite := range typeSuite {
 				t.Run(suiteName, runSuite(suite))
