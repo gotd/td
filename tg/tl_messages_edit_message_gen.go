@@ -231,20 +231,8 @@ func (e *MessagesEditMessageRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (e *MessagesEditMessageRequest) Encode(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't encode messages.editMessage#48f71778 as nil")
-	}
-	b.PutID(MessagesEditMessageRequestTypeID)
-	return e.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (e *MessagesEditMessageRequest) EncodeBare(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't encode messages.editMessage#48f71778 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (e *MessagesEditMessageRequest) SetFlags() {
 	if !(e.NoWebpage == false) {
 		e.Flags.Set(1)
 	}
@@ -263,6 +251,23 @@ func (e *MessagesEditMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if !(e.ScheduleDate == 0) {
 		e.Flags.Set(15)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (e *MessagesEditMessageRequest) Encode(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editMessage#48f71778 as nil")
+	}
+	b.PutID(MessagesEditMessageRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesEditMessageRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editMessage#48f71778 as nil")
+	}
+	e.SetFlags()
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.editMessage#48f71778: field flags: %w", err)
 	}

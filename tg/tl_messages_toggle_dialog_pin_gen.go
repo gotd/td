@@ -129,6 +129,13 @@ func (t *MessagesToggleDialogPinRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (t *MessagesToggleDialogPinRequest) SetFlags() {
+	if !(t.Pinned == false) {
+		t.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (t *MessagesToggleDialogPinRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -143,9 +150,7 @@ func (t *MessagesToggleDialogPinRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode messages.toggleDialogPin#a731e257 as nil")
 	}
-	if !(t.Pinned == false) {
-		t.Flags.Set(0)
-	}
+	t.SetFlags()
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.toggleDialogPin#a731e257: field flags: %w", err)
 	}

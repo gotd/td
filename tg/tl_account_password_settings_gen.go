@@ -150,6 +150,16 @@ func (p *AccountPasswordSettings) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *AccountPasswordSettings) SetFlags() {
+	if !(p.Email == "") {
+		p.Flags.Set(0)
+	}
+	if !(p.SecureSettings.Zero()) {
+		p.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *AccountPasswordSettings) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -164,12 +174,7 @@ func (p *AccountPasswordSettings) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode account.passwordSettings#9a5c33e5 as nil")
 	}
-	if !(p.Email == "") {
-		p.Flags.Set(0)
-	}
-	if !(p.SecureSettings.Zero()) {
-		p.Flags.Set(1)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.passwordSettings#9a5c33e5: field flags: %w", err)
 	}

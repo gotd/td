@@ -235,20 +235,8 @@ func (e *PhoneEditGroupCallParticipantRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (e *PhoneEditGroupCallParticipantRequest) Encode(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't encode phone.editGroupCallParticipant#a5273abf as nil")
-	}
-	b.PutID(PhoneEditGroupCallParticipantRequestTypeID)
-	return e.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (e *PhoneEditGroupCallParticipantRequest) EncodeBare(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't encode phone.editGroupCallParticipant#a5273abf as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (e *PhoneEditGroupCallParticipantRequest) SetFlags() {
 	if !(e.Muted == false) {
 		e.Flags.Set(0)
 	}
@@ -267,6 +255,23 @@ func (e *PhoneEditGroupCallParticipantRequest) EncodeBare(b *bin.Buffer) error {
 	if !(e.PresentationPaused == false) {
 		e.Flags.Set(5)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (e *PhoneEditGroupCallParticipantRequest) Encode(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode phone.editGroupCallParticipant#a5273abf as nil")
+	}
+	b.PutID(PhoneEditGroupCallParticipantRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *PhoneEditGroupCallParticipantRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode phone.editGroupCallParticipant#a5273abf as nil")
+	}
+	e.SetFlags()
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.editGroupCallParticipant#a5273abf: field flags: %w", err)
 	}

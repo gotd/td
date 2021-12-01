@@ -1143,6 +1143,13 @@ func (i *InputMessagesFilterPhoneCalls) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputMessagesFilterPhoneCalls) SetFlags() {
+	if !(i.Missed == false) {
+		i.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterPhoneCalls) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1157,9 +1164,7 @@ func (i *InputMessagesFilterPhoneCalls) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessagesFilterPhoneCalls#80c99768 as nil")
 	}
-	if !(i.Missed == false) {
-		i.Flags.Set(0)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMessagesFilterPhoneCalls#80c99768: field flags: %w", err)
 	}

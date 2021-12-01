@@ -223,20 +223,8 @@ func (m *MessageReplies) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (m *MessageReplies) Encode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageReplies#83d60fc2 as nil")
-	}
-	b.PutID(MessageRepliesTypeID)
-	return m.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageReplies#83d60fc2 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (m *MessageReplies) SetFlags() {
 	if !(m.Comments == false) {
 		m.Flags.Set(0)
 	}
@@ -252,6 +240,23 @@ func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
 	if !(m.ReadMaxID == 0) {
 		m.Flags.Set(3)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageReplies) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageReplies#83d60fc2 as nil")
+	}
+	b.PutID(MessageRepliesTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageReplies#83d60fc2 as nil")
+	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageReplies#83d60fc2: field flags: %w", err)
 	}

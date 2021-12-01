@@ -200,20 +200,8 @@ func (p *AccountPasswordInputSettings) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (p *AccountPasswordInputSettings) Encode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode account.passwordInputSettings#c23727c9 as nil")
-	}
-	b.PutID(AccountPasswordInputSettingsTypeID)
-	return p.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (p *AccountPasswordInputSettings) EncodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode account.passwordInputSettings#c23727c9 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (p *AccountPasswordInputSettings) SetFlags() {
 	if !(p.NewAlgo == nil) {
 		p.Flags.Set(0)
 	}
@@ -229,6 +217,23 @@ func (p *AccountPasswordInputSettings) EncodeBare(b *bin.Buffer) error {
 	if !(p.NewSecureSettings.Zero()) {
 		p.Flags.Set(2)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (p *AccountPasswordInputSettings) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode account.passwordInputSettings#c23727c9 as nil")
+	}
+	b.PutID(AccountPasswordInputSettingsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *AccountPasswordInputSettings) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode account.passwordInputSettings#c23727c9 as nil")
+	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.passwordInputSettings#c23727c9: field flags: %w", err)
 	}

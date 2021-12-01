@@ -277,20 +277,8 @@ func (c *ChatInviteExported) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (c *ChatInviteExported) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatInviteExported#ab4a819 as nil")
-	}
-	b.PutID(ChatInviteExportedTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatInviteExported) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatInviteExported#ab4a819 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (c *ChatInviteExported) SetFlags() {
 	if !(c.Revoked == false) {
 		c.Flags.Set(0)
 	}
@@ -318,6 +306,23 @@ func (c *ChatInviteExported) EncodeBare(b *bin.Buffer) error {
 	if !(c.Title == "") {
 		c.Flags.Set(8)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatInviteExported) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInviteExported#ab4a819 as nil")
+	}
+	b.PutID(ChatInviteExportedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatInviteExported) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInviteExported#ab4a819 as nil")
+	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatInviteExported#ab4a819: field flags: %w", err)
 	}

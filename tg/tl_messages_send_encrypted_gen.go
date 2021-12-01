@@ -155,6 +155,13 @@ func (s *MessagesSendEncryptedRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *MessagesSendEncryptedRequest) SetFlags() {
+	if !(s.Silent == false) {
+		s.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSendEncryptedRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -169,9 +176,7 @@ func (s *MessagesSendEncryptedRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode messages.sendEncrypted#44fa7a15 as nil")
 	}
-	if !(s.Silent == false) {
-		s.Flags.Set(0)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.sendEncrypted#44fa7a15: field flags: %w", err)
 	}

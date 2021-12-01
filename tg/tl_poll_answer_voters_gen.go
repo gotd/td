@@ -155,6 +155,16 @@ func (p *PollAnswerVoters) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PollAnswerVoters) SetFlags() {
+	if !(p.Chosen == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Correct == false) {
+		p.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PollAnswerVoters) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -169,12 +179,7 @@ func (p *PollAnswerVoters) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pollAnswerVoters#3b6ddad2 as nil")
 	}
-	if !(p.Chosen == false) {
-		p.Flags.Set(0)
-	}
-	if !(p.Correct == false) {
-		p.Flags.Set(1)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pollAnswerVoters#3b6ddad2: field flags: %w", err)
 	}

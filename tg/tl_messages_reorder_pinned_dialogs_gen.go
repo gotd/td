@@ -143,6 +143,13 @@ func (r *MessagesReorderPinnedDialogsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (r *MessagesReorderPinnedDialogsRequest) SetFlags() {
+	if !(r.Force == false) {
+		r.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesReorderPinnedDialogsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -157,9 +164,7 @@ func (r *MessagesReorderPinnedDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode messages.reorderPinnedDialogs#3b1adf37 as nil")
 	}
-	if !(r.Force == false) {
-		r.Flags.Set(0)
-	}
+	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.reorderPinnedDialogs#3b1adf37: field flags: %w", err)
 	}

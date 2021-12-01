@@ -142,6 +142,13 @@ func (a *AuthAuthorization) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (a *AuthAuthorization) SetFlags() {
+	if !(a.TmpSessions == 0) {
+		a.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (a *AuthAuthorization) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -156,9 +163,7 @@ func (a *AuthAuthorization) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode auth.authorization#cd050916 as nil")
 	}
-	if !(a.TmpSessions == 0) {
-		a.Flags.Set(0)
-	}
+	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode auth.authorization#cd050916: field flags: %w", err)
 	}
@@ -334,6 +339,13 @@ func (a *AuthAuthorizationSignUpRequired) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (a *AuthAuthorizationSignUpRequired) SetFlags() {
+	if !(a.TermsOfService.Zero()) {
+		a.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (a *AuthAuthorizationSignUpRequired) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -348,9 +360,7 @@ func (a *AuthAuthorizationSignUpRequired) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode auth.authorizationSignUpRequired#44747e9a as nil")
 	}
-	if !(a.TermsOfService.Zero()) {
-		a.Flags.Set(0)
-	}
+	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode auth.authorizationSignUpRequired#44747e9a: field flags: %w", err)
 	}

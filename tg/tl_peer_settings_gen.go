@@ -225,20 +225,8 @@ func (p *PeerSettings) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (p *PeerSettings) Encode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode peerSettings#733f2961 as nil")
-	}
-	b.PutID(PeerSettingsTypeID)
-	return p.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (p *PeerSettings) EncodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode peerSettings#733f2961 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (p *PeerSettings) SetFlags() {
 	if !(p.ReportSpam == false) {
 		p.Flags.Set(0)
 	}
@@ -266,6 +254,23 @@ func (p *PeerSettings) EncodeBare(b *bin.Buffer) error {
 	if !(p.GeoDistance == 0) {
 		p.Flags.Set(6)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (p *PeerSettings) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode peerSettings#733f2961 as nil")
+	}
+	b.PutID(PeerSettingsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PeerSettings) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode peerSettings#733f2961 as nil")
+	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode peerSettings#733f2961: field flags: %w", err)
 	}

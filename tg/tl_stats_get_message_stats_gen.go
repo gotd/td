@@ -143,6 +143,13 @@ func (g *StatsGetMessageStatsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *StatsGetMessageStatsRequest) SetFlags() {
+	if !(g.Dark == false) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *StatsGetMessageStatsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -157,9 +164,7 @@ func (g *StatsGetMessageStatsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode stats.getMessageStats#b6e0a3f5 as nil")
 	}
-	if !(g.Dark == false) {
-		g.Flags.Set(0)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode stats.getMessageStats#b6e0a3f5: field flags: %w", err)
 	}

@@ -153,6 +153,19 @@ func (h *MessagesHistoryImportParsed) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (h *MessagesHistoryImportParsed) SetFlags() {
+	if !(h.Pm == false) {
+		h.Flags.Set(0)
+	}
+	if !(h.Group == false) {
+		h.Flags.Set(1)
+	}
+	if !(h.Title == "") {
+		h.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (h *MessagesHistoryImportParsed) Encode(b *bin.Buffer) error {
 	if h == nil {
@@ -167,15 +180,7 @@ func (h *MessagesHistoryImportParsed) EncodeBare(b *bin.Buffer) error {
 	if h == nil {
 		return fmt.Errorf("can't encode messages.historyImportParsed#5e0fb7b9 as nil")
 	}
-	if !(h.Pm == false) {
-		h.Flags.Set(0)
-	}
-	if !(h.Group == false) {
-		h.Flags.Set(1)
-	}
-	if !(h.Title == "") {
-		h.Flags.Set(2)
-	}
+	h.SetFlags()
 	if err := h.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.historyImportParsed#5e0fb7b9: field flags: %w", err)
 	}

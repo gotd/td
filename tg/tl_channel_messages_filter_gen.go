@@ -236,6 +236,13 @@ func (c *ChannelMessagesFilter) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *ChannelMessagesFilter) SetFlags() {
+	if !(c.ExcludeNewMessages == false) {
+		c.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelMessagesFilter) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -250,9 +257,7 @@ func (c *ChannelMessagesFilter) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode channelMessagesFilter#cd77d957 as nil")
 	}
-	if !(c.ExcludeNewMessages == false) {
-		c.Flags.Set(1)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelMessagesFilter#cd77d957: field flags: %w", err)
 	}

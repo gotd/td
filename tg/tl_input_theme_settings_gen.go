@@ -212,20 +212,8 @@ func (i *InputThemeSettings) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (i *InputThemeSettings) Encode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode inputThemeSettings#8fde504f as nil")
-	}
-	b.PutID(InputThemeSettingsTypeID)
-	return i.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (i *InputThemeSettings) EncodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode inputThemeSettings#8fde504f as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (i *InputThemeSettings) SetFlags() {
 	if !(i.MessageColorsAnimated == false) {
 		i.Flags.Set(2)
 	}
@@ -241,6 +229,23 @@ func (i *InputThemeSettings) EncodeBare(b *bin.Buffer) error {
 	if !(i.WallpaperSettings.Zero()) {
 		i.Flags.Set(1)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (i *InputThemeSettings) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputThemeSettings#8fde504f as nil")
+	}
+	b.PutID(InputThemeSettingsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputThemeSettings) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputThemeSettings#8fde504f as nil")
+	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputThemeSettings#8fde504f: field flags: %w", err)
 	}

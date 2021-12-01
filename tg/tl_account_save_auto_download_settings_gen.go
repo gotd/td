@@ -141,6 +141,16 @@ func (s *AccountSaveAutoDownloadSettingsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *AccountSaveAutoDownloadSettingsRequest) SetFlags() {
+	if !(s.Low == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.High == false) {
+		s.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *AccountSaveAutoDownloadSettingsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -155,12 +165,7 @@ func (s *AccountSaveAutoDownloadSettingsRequest) EncodeBare(b *bin.Buffer) error
 	if s == nil {
 		return fmt.Errorf("can't encode account.saveAutoDownloadSettings#76f36233 as nil")
 	}
-	if !(s.Low == false) {
-		s.Flags.Set(0)
-	}
-	if !(s.High == false) {
-		s.Flags.Set(1)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.saveAutoDownloadSettings#76f36233: field flags: %w", err)
 	}

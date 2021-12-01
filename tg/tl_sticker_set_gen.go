@@ -289,20 +289,8 @@ func (s *StickerSet) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (s *StickerSet) Encode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode stickerSet#d7df217a as nil")
-	}
-	b.PutID(StickerSetTypeID)
-	return s.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (s *StickerSet) EncodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode stickerSet#d7df217a as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (s *StickerSet) SetFlags() {
 	if !(s.Archived == false) {
 		s.Flags.Set(1)
 	}
@@ -327,6 +315,23 @@ func (s *StickerSet) EncodeBare(b *bin.Buffer) error {
 	if !(s.ThumbVersion == 0) {
 		s.Flags.Set(4)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (s *StickerSet) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerSet#d7df217a as nil")
+	}
+	b.PutID(StickerSetTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StickerSet) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerSet#d7df217a as nil")
+	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode stickerSet#d7df217a: field flags: %w", err)
 	}

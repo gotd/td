@@ -195,6 +195,22 @@ func (t *ThemeSettings) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (t *ThemeSettings) SetFlags() {
+	if !(t.MessageColorsAnimated == false) {
+		t.Flags.Set(2)
+	}
+	if !(t.OutboxAccentColor == 0) {
+		t.Flags.Set(3)
+	}
+	if !(t.MessageColors == nil) {
+		t.Flags.Set(0)
+	}
+	if !(t.Wallpaper == nil) {
+		t.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (t *ThemeSettings) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -209,18 +225,7 @@ func (t *ThemeSettings) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode themeSettings#fa58b6d4 as nil")
 	}
-	if !(t.MessageColorsAnimated == false) {
-		t.Flags.Set(2)
-	}
-	if !(t.OutboxAccentColor == 0) {
-		t.Flags.Set(3)
-	}
-	if !(t.MessageColors == nil) {
-		t.Flags.Set(0)
-	}
-	if !(t.Wallpaper == nil) {
-		t.Flags.Set(1)
-	}
+	t.SetFlags()
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode themeSettings#fa58b6d4: field flags: %w", err)
 	}

@@ -161,6 +161,16 @@ func (m *MessageReplyHeader) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessageReplyHeader) SetFlags() {
+	if !(m.ReplyToPeerID == nil) {
+		m.Flags.Set(0)
+	}
+	if !(m.ReplyToTopID == 0) {
+		m.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageReplyHeader) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -175,12 +185,7 @@ func (m *MessageReplyHeader) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageReplyHeader#a6d57763 as nil")
 	}
-	if !(m.ReplyToPeerID == nil) {
-		m.Flags.Set(0)
-	}
-	if !(m.ReplyToTopID == 0) {
-		m.Flags.Set(1)
-	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageReplyHeader#a6d57763: field flags: %w", err)
 	}

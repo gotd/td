@@ -157,6 +157,16 @@ func (g *GroupCallParticipantVideo) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *GroupCallParticipantVideo) SetFlags() {
+	if !(g.Paused == false) {
+		g.Flags.Set(0)
+	}
+	if !(g.AudioSource == 0) {
+		g.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *GroupCallParticipantVideo) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -171,12 +181,7 @@ func (g *GroupCallParticipantVideo) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode groupCallParticipantVideo#67753ac8 as nil")
 	}
-	if !(g.Paused == false) {
-		g.Flags.Set(0)
-	}
-	if !(g.AudioSource == 0) {
-		g.Flags.Set(1)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode groupCallParticipantVideo#67753ac8: field flags: %w", err)
 	}

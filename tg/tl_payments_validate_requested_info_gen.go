@@ -151,6 +151,13 @@ func (v *PaymentsValidateRequestedInfoRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (v *PaymentsValidateRequestedInfoRequest) SetFlags() {
+	if !(v.Save == false) {
+		v.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (v *PaymentsValidateRequestedInfoRequest) Encode(b *bin.Buffer) error {
 	if v == nil {
@@ -165,9 +172,7 @@ func (v *PaymentsValidateRequestedInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
 		return fmt.Errorf("can't encode payments.validateRequestedInfo#db103170 as nil")
 	}
-	if !(v.Save == false) {
-		v.Flags.Set(0)
-	}
+	v.SetFlags()
 	if err := v.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode payments.validateRequestedInfo#db103170: field flags: %w", err)
 	}

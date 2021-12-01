@@ -189,6 +189,13 @@ func (r *AccountRegisterDeviceRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (r *AccountRegisterDeviceRequest) SetFlags() {
+	if !(r.NoMuted == false) {
+		r.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (r *AccountRegisterDeviceRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -203,9 +210,7 @@ func (r *AccountRegisterDeviceRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode account.registerDevice#ec86017a as nil")
 	}
-	if !(r.NoMuted == false) {
-		r.Flags.Set(0)
-	}
+	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.registerDevice#ec86017a: field flags: %w", err)
 	}

@@ -143,6 +143,13 @@ func (u *MessagesUpdateDialogFilterRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *MessagesUpdateDialogFilterRequest) SetFlags() {
+	if !(u.Filter.Zero()) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *MessagesUpdateDialogFilterRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -157,9 +164,7 @@ func (u *MessagesUpdateDialogFilterRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode messages.updateDialogFilter#1ad4a04a as nil")
 	}
-	if !(u.Filter.Zero()) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.updateDialogFilter#1ad4a04a: field flags: %w", err)
 	}

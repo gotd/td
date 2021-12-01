@@ -254,20 +254,8 @@ func (m *MessageFwdHeader) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (m *MessageFwdHeader) Encode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageFwdHeader#5f777dce as nil")
-	}
-	b.PutID(MessageFwdHeaderTypeID)
-	return m.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (m *MessageFwdHeader) EncodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageFwdHeader#5f777dce as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (m *MessageFwdHeader) SetFlags() {
 	if !(m.Imported == false) {
 		m.Flags.Set(7)
 	}
@@ -292,6 +280,23 @@ func (m *MessageFwdHeader) EncodeBare(b *bin.Buffer) error {
 	if !(m.PsaType == "") {
 		m.Flags.Set(6)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageFwdHeader) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageFwdHeader#5f777dce as nil")
+	}
+	b.PutID(MessageFwdHeaderTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageFwdHeader) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageFwdHeader#5f777dce as nil")
+	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageFwdHeader#5f777dce: field flags: %w", err)
 	}

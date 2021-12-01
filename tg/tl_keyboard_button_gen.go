@@ -443,6 +443,13 @@ func (k *KeyboardButtonCallback) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (k *KeyboardButtonCallback) SetFlags() {
+	if !(k.RequiresPassword == false) {
+		k.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonCallback) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -457,9 +464,7 @@ func (k *KeyboardButtonCallback) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
 		return fmt.Errorf("can't encode keyboardButtonCallback#35bbdb6b as nil")
 	}
-	if !(k.RequiresPassword == false) {
-		k.Flags.Set(0)
-	}
+	k.SetFlags()
 	if err := k.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode keyboardButtonCallback#35bbdb6b: field flags: %w", err)
 	}
@@ -914,6 +919,13 @@ func (k *KeyboardButtonSwitchInline) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (k *KeyboardButtonSwitchInline) SetFlags() {
+	if !(k.SamePeer == false) {
+		k.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonSwitchInline) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -928,9 +940,7 @@ func (k *KeyboardButtonSwitchInline) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
 		return fmt.Errorf("can't encode keyboardButtonSwitchInline#568a748 as nil")
 	}
-	if !(k.SamePeer == false) {
-		k.Flags.Set(0)
-	}
+	k.SetFlags()
 	if err := k.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode keyboardButtonSwitchInline#568a748: field flags: %w", err)
 	}
@@ -1428,6 +1438,13 @@ func (k *KeyboardButtonURLAuth) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (k *KeyboardButtonURLAuth) SetFlags() {
+	if !(k.FwdText == "") {
+		k.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonURLAuth) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -1442,9 +1459,7 @@ func (k *KeyboardButtonURLAuth) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
 		return fmt.Errorf("can't encode keyboardButtonUrlAuth#10b78d29 as nil")
 	}
-	if !(k.FwdText == "") {
-		k.Flags.Set(0)
-	}
+	k.SetFlags()
 	if err := k.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode keyboardButtonUrlAuth#10b78d29: field flags: %w", err)
 	}
@@ -1701,6 +1716,16 @@ func (i *InputKeyboardButtonURLAuth) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputKeyboardButtonURLAuth) SetFlags() {
+	if !(i.RequestWriteAccess == false) {
+		i.Flags.Set(0)
+	}
+	if !(i.FwdText == "") {
+		i.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputKeyboardButtonURLAuth) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1715,12 +1740,7 @@ func (i *InputKeyboardButtonURLAuth) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputKeyboardButtonUrlAuth#d02e7fd4 as nil")
 	}
-	if !(i.RequestWriteAccess == false) {
-		i.Flags.Set(0)
-	}
-	if !(i.FwdText == "") {
-		i.Flags.Set(1)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputKeyboardButtonUrlAuth#d02e7fd4: field flags: %w", err)
 	}
@@ -1946,6 +1966,13 @@ func (k *KeyboardButtonRequestPoll) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (k *KeyboardButtonRequestPoll) SetFlags() {
+	if !(k.Quiz == false) {
+		k.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRequestPoll) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -1960,9 +1987,7 @@ func (k *KeyboardButtonRequestPoll) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
 		return fmt.Errorf("can't encode keyboardButtonRequestPoll#bbc7515d as nil")
 	}
-	if !(k.Quiz == false) {
-		k.Flags.Set(0)
-	}
+	k.SetFlags()
 	if err := k.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode keyboardButtonRequestPoll#bbc7515d: field flags: %w", err)
 	}

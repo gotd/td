@@ -129,6 +129,13 @@ func (m *MessagesMarkDialogUnreadRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessagesMarkDialogUnreadRequest) SetFlags() {
+	if !(m.Unread == false) {
+		m.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessagesMarkDialogUnreadRequest) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -143,9 +150,7 @@ func (m *MessagesMarkDialogUnreadRequest) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messages.markDialogUnread#c286d98f as nil")
 	}
-	if !(m.Unread == false) {
-		m.Flags.Set(0)
-	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.markDialogUnread#c286d98f: field flags: %w", err)
 	}

@@ -166,6 +166,13 @@ func (s *MessagesSendEncryptedFileRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *MessagesSendEncryptedFileRequest) SetFlags() {
+	if !(s.Silent == false) {
+		s.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSendEncryptedFileRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -180,9 +187,7 @@ func (s *MessagesSendEncryptedFileRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode messages.sendEncryptedFile#5559481d as nil")
 	}
-	if !(s.Silent == false) {
-		s.Flags.Set(0)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.sendEncryptedFile#5559481d: field flags: %w", err)
 	}

@@ -167,6 +167,13 @@ func (g *MessagesGetInlineBotResultsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetInlineBotResultsRequest) SetFlags() {
+	if !(g.GeoPoint == nil) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -181,9 +188,7 @@ func (g *MessagesGetInlineBotResultsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode messages.getInlineBotResults#514e999d as nil")
 	}
-	if !(g.GeoPoint == nil) {
-		g.Flags.Set(0)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getInlineBotResults#514e999d: field flags: %w", err)
 	}

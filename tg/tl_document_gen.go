@@ -368,6 +368,16 @@ func (d *Document) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *Document) SetFlags() {
+	if !(d.Thumbs == nil) {
+		d.Flags.Set(0)
+	}
+	if !(d.VideoThumbs == nil) {
+		d.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *Document) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -382,12 +392,7 @@ func (d *Document) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode document#1e87342b as nil")
 	}
-	if !(d.Thumbs == nil) {
-		d.Flags.Set(0)
-	}
-	if !(d.VideoThumbs == nil) {
-		d.Flags.Set(1)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode document#1e87342b: field flags: %w", err)
 	}

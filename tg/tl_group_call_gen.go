@@ -508,20 +508,8 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (g *GroupCall) Encode(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't encode groupCall#d597650c as nil")
-	}
-	b.PutID(GroupCallTypeID)
-	return g.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't encode groupCall#d597650c as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (g *GroupCall) SetFlags() {
 	if !(g.JoinMuted == false) {
 		g.Flags.Set(1)
 	}
@@ -555,6 +543,23 @@ func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
 	if !(g.UnmutedVideoCount == 0) {
 		g.Flags.Set(10)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (g *GroupCall) Encode(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode groupCall#d597650c as nil")
+	}
+	b.PutID(GroupCallTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode groupCall#d597650c as nil")
+	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode groupCall#d597650c: field flags: %w", err)
 	}

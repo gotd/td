@@ -262,20 +262,8 @@ func (c *ChatBannedRights) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (c *ChatBannedRights) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatBannedRights#9f120418 as nil")
-	}
-	b.PutID(ChatBannedRightsTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatBannedRights) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatBannedRights#9f120418 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (c *ChatBannedRights) SetFlags() {
 	if !(c.ViewMessages == false) {
 		c.Flags.Set(0)
 	}
@@ -312,6 +300,23 @@ func (c *ChatBannedRights) EncodeBare(b *bin.Buffer) error {
 	if !(c.PinMessages == false) {
 		c.Flags.Set(17)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatBannedRights) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatBannedRights#9f120418 as nil")
+	}
+	b.PutID(ChatBannedRightsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatBannedRights) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatBannedRights#9f120418 as nil")
+	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatBannedRights#9f120418: field flags: %w", err)
 	}

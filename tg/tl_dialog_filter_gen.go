@@ -319,20 +319,8 @@ func (d *DialogFilter) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (d *DialogFilter) Encode(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't encode dialogFilter#7438f7e8 as nil")
-	}
-	b.PutID(DialogFilterTypeID)
-	return d.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (d *DialogFilter) EncodeBare(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't encode dialogFilter#7438f7e8 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (d *DialogFilter) SetFlags() {
 	if !(d.Contacts == false) {
 		d.Flags.Set(0)
 	}
@@ -360,6 +348,23 @@ func (d *DialogFilter) EncodeBare(b *bin.Buffer) error {
 	if !(d.Emoticon == "") {
 		d.Flags.Set(25)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (d *DialogFilter) Encode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialogFilter#7438f7e8 as nil")
+	}
+	b.PutID(DialogFilterTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DialogFilter) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialogFilter#7438f7e8 as nil")
+	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode dialogFilter#7438f7e8: field flags: %w", err)
 	}

@@ -129,6 +129,13 @@ func (d *MessagesDiscardEncryptionRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *MessagesDiscardEncryptionRequest) SetFlags() {
+	if !(d.DeleteHistory == false) {
+		d.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDiscardEncryptionRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -143,9 +150,7 @@ func (d *MessagesDiscardEncryptionRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode messages.discardEncryption#f393aea0 as nil")
 	}
-	if !(d.DeleteHistory == false) {
-		d.Flags.Set(0)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.discardEncryption#f393aea0: field flags: %w", err)
 	}

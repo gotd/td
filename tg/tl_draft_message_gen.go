@@ -128,6 +128,13 @@ func (d *DraftMessageEmpty) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *DraftMessageEmpty) SetFlags() {
+	if !(d.Date == 0) {
+		d.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *DraftMessageEmpty) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -142,9 +149,7 @@ func (d *DraftMessageEmpty) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode draftMessageEmpty#1b0c841a as nil")
 	}
-	if !(d.Date == 0) {
-		d.Flags.Set(0)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode draftMessageEmpty#1b0c841a: field flags: %w", err)
 	}
@@ -354,6 +359,19 @@ func (d *DraftMessage) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *DraftMessage) SetFlags() {
+	if !(d.NoWebpage == false) {
+		d.Flags.Set(1)
+	}
+	if !(d.ReplyToMsgID == 0) {
+		d.Flags.Set(0)
+	}
+	if !(d.Entities == nil) {
+		d.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *DraftMessage) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -368,15 +386,7 @@ func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode draftMessage#fd8e711f as nil")
 	}
-	if !(d.NoWebpage == false) {
-		d.Flags.Set(1)
-	}
-	if !(d.ReplyToMsgID == 0) {
-		d.Flags.Set(0)
-	}
-	if !(d.Entities == nil) {
-		d.Flags.Set(3)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode draftMessage#fd8e711f: field flags: %w", err)
 	}

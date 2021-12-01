@@ -184,20 +184,8 @@ func (d *DCOption) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (d *DCOption) Encode(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't encode dcOption#18b7a10d as nil")
-	}
-	b.PutID(DCOptionTypeID)
-	return d.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (d *DCOption) EncodeBare(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't encode dcOption#18b7a10d as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (d *DCOption) SetFlags() {
 	if !(d.Ipv6 == false) {
 		d.Flags.Set(0)
 	}
@@ -216,6 +204,23 @@ func (d *DCOption) EncodeBare(b *bin.Buffer) error {
 	if !(d.Secret == nil) {
 		d.Flags.Set(10)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (d *DCOption) Encode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dcOption#18b7a10d as nil")
+	}
+	b.PutID(DCOptionTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DCOption) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dcOption#18b7a10d as nil")
+	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode dcOption#18b7a10d: field flags: %w", err)
 	}

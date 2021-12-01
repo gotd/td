@@ -200,20 +200,8 @@ func (e *MessagesEditInlineBotMessageRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (e *MessagesEditInlineBotMessageRequest) Encode(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't encode messages.editInlineBotMessage#83557dba as nil")
-	}
-	b.PutID(MessagesEditInlineBotMessageRequestTypeID)
-	return e.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (e *MessagesEditInlineBotMessageRequest) EncodeBare(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't encode messages.editInlineBotMessage#83557dba as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (e *MessagesEditInlineBotMessageRequest) SetFlags() {
 	if !(e.NoWebpage == false) {
 		e.Flags.Set(1)
 	}
@@ -229,6 +217,23 @@ func (e *MessagesEditInlineBotMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if !(e.Entities == nil) {
 		e.Flags.Set(3)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (e *MessagesEditInlineBotMessageRequest) Encode(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editInlineBotMessage#83557dba as nil")
+	}
+	b.PutID(MessagesEditInlineBotMessageRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesEditInlineBotMessageRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editInlineBotMessage#83557dba as nil")
+	}
+	e.SetFlags()
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.editInlineBotMessage#83557dba: field flags: %w", err)
 	}

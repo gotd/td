@@ -118,6 +118,13 @@ func (m *MessagesMessageEditData) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessagesMessageEditData) SetFlags() {
+	if !(m.Caption == false) {
+		m.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessagesMessageEditData) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -132,9 +139,7 @@ func (m *MessagesMessageEditData) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messages.messageEditData#26b5dde6 as nil")
 	}
-	if !(m.Caption == false) {
-		m.Flags.Set(0)
-	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.messageEditData#26b5dde6: field flags: %w", err)
 	}

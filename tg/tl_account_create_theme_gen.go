@@ -162,6 +162,16 @@ func (c *AccountCreateThemeRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *AccountCreateThemeRequest) SetFlags() {
+	if !(c.Document == nil) {
+		c.Flags.Set(2)
+	}
+	if !(c.Settings == nil) {
+		c.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *AccountCreateThemeRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -176,12 +186,7 @@ func (c *AccountCreateThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode account.createTheme#652e4400 as nil")
 	}
-	if !(c.Document == nil) {
-		c.Flags.Set(2)
-	}
-	if !(c.Settings == nil) {
-		c.Flags.Set(3)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.createTheme#652e4400: field flags: %w", err)
 	}

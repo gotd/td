@@ -267,6 +267,19 @@ func (i *InputChatUploadedPhoto) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputChatUploadedPhoto) SetFlags() {
+	if !(i.File == nil) {
+		i.Flags.Set(0)
+	}
+	if !(i.Video == nil) {
+		i.Flags.Set(1)
+	}
+	if !(i.VideoStartTs == 0) {
+		i.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputChatUploadedPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -281,15 +294,7 @@ func (i *InputChatUploadedPhoto) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputChatUploadedPhoto#c642724e as nil")
 	}
-	if !(i.File == nil) {
-		i.Flags.Set(0)
-	}
-	if !(i.Video == nil) {
-		i.Flags.Set(1)
-	}
-	if !(i.VideoStartTs == 0) {
-		i.Flags.Set(2)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputChatUploadedPhoto#c642724e: field flags: %w", err)
 	}

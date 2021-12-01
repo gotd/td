@@ -118,6 +118,13 @@ func (f *AccountFinishTakeoutSessionRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (f *AccountFinishTakeoutSessionRequest) SetFlags() {
+	if !(f.Success == false) {
+		f.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (f *AccountFinishTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -132,9 +139,7 @@ func (f *AccountFinishTakeoutSessionRequest) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't encode account.finishTakeoutSession#1d2652ee as nil")
 	}
-	if !(f.Success == false) {
-		f.Flags.Set(0)
-	}
+	f.SetFlags()
 	if err := f.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.finishTakeoutSession#1d2652ee: field flags: %w", err)
 	}

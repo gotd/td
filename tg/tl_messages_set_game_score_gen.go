@@ -177,6 +177,16 @@ func (s *MessagesSetGameScoreRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *MessagesSetGameScoreRequest) SetFlags() {
+	if !(s.EditMessage == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.Force == false) {
+		s.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSetGameScoreRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -191,12 +201,7 @@ func (s *MessagesSetGameScoreRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode messages.setGameScore#8ef8ecc0 as nil")
 	}
-	if !(s.EditMessage == false) {
-		s.Flags.Set(0)
-	}
-	if !(s.Force == false) {
-		s.Flags.Set(1)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.setGameScore#8ef8ecc0: field flags: %w", err)
 	}

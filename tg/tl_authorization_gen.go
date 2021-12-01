@@ -277,6 +277,19 @@ func (a *Authorization) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (a *Authorization) SetFlags() {
+	if !(a.Current == false) {
+		a.Flags.Set(0)
+	}
+	if !(a.OfficialApp == false) {
+		a.Flags.Set(1)
+	}
+	if !(a.PasswordPending == false) {
+		a.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (a *Authorization) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -291,15 +304,7 @@ func (a *Authorization) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode authorization#ad01d61d as nil")
 	}
-	if !(a.Current == false) {
-		a.Flags.Set(0)
-	}
-	if !(a.OfficialApp == false) {
-		a.Flags.Set(1)
-	}
-	if !(a.PasswordPending == false) {
-		a.Flags.Set(2)
-	}
+	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode authorization#ad01d61d: field flags: %w", err)
 	}

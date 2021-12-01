@@ -187,6 +187,22 @@ func (d *MessagesDeleteHistoryRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *MessagesDeleteHistoryRequest) SetFlags() {
+	if !(d.JustClear == false) {
+		d.Flags.Set(0)
+	}
+	if !(d.Revoke == false) {
+		d.Flags.Set(1)
+	}
+	if !(d.MinDate == 0) {
+		d.Flags.Set(2)
+	}
+	if !(d.MaxDate == 0) {
+		d.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -201,18 +217,7 @@ func (d *MessagesDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode messages.deleteHistory#b08f922a as nil")
 	}
-	if !(d.JustClear == false) {
-		d.Flags.Set(0)
-	}
-	if !(d.Revoke == false) {
-		d.Flags.Set(1)
-	}
-	if !(d.MinDate == 0) {
-		d.Flags.Set(2)
-	}
-	if !(d.MaxDate == 0) {
-		d.Flags.Set(3)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.deleteHistory#b08f922a: field flags: %w", err)
 	}

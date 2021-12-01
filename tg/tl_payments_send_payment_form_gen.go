@@ -210,6 +210,19 @@ func (s *PaymentsSendPaymentFormRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *PaymentsSendPaymentFormRequest) SetFlags() {
+	if !(s.RequestedInfoID == "") {
+		s.Flags.Set(0)
+	}
+	if !(s.ShippingOptionID == "") {
+		s.Flags.Set(1)
+	}
+	if !(s.TipAmount == 0) {
+		s.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *PaymentsSendPaymentFormRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -224,15 +237,7 @@ func (s *PaymentsSendPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode payments.sendPaymentForm#30c3bc9d as nil")
 	}
-	if !(s.RequestedInfoID == "") {
-		s.Flags.Set(0)
-	}
-	if !(s.ShippingOptionID == "") {
-		s.Flags.Set(1)
-	}
-	if !(s.TipAmount == 0) {
-		s.Flags.Set(2)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode payments.sendPaymentForm#30c3bc9d: field flags: %w", err)
 	}

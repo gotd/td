@@ -137,6 +137,13 @@ func (g *MessagesGetWebPagePreviewRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetWebPagePreviewRequest) SetFlags() {
+	if !(g.Entities == nil) {
+		g.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetWebPagePreviewRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -151,9 +158,7 @@ func (g *MessagesGetWebPagePreviewRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode messages.getWebPagePreview#8b68b0cc as nil")
 	}
-	if !(g.Entities == nil) {
-		g.Flags.Set(3)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getWebPagePreview#8b68b0cc: field flags: %w", err)
 	}

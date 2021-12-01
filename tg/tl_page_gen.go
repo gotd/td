@@ -213,6 +213,22 @@ func (p *Page) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *Page) SetFlags() {
+	if !(p.Part == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Rtl == false) {
+		p.Flags.Set(1)
+	}
+	if !(p.V2 == false) {
+		p.Flags.Set(2)
+	}
+	if !(p.Views == 0) {
+		p.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *Page) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -227,18 +243,7 @@ func (p *Page) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode page#98657f0d as nil")
 	}
-	if !(p.Part == false) {
-		p.Flags.Set(0)
-	}
-	if !(p.Rtl == false) {
-		p.Flags.Set(1)
-	}
-	if !(p.V2 == false) {
-		p.Flags.Set(2)
-	}
-	if !(p.Views == 0) {
-		p.Flags.Set(3)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode page#98657f0d: field flags: %w", err)
 	}

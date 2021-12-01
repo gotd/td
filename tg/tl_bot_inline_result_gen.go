@@ -232,20 +232,8 @@ func (b *BotInlineResult) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (b *BotInlineResult) Encode(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't encode botInlineResult#11965f3a as nil")
-	}
-	buf.PutID(BotInlineResultTypeID)
-	return b.EncodeBare(buf)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (b *BotInlineResult) EncodeBare(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't encode botInlineResult#11965f3a as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (b *BotInlineResult) SetFlags() {
 	if !(b.Title == "") {
 		b.Flags.Set(1)
 	}
@@ -261,6 +249,23 @@ func (b *BotInlineResult) EncodeBare(buf *bin.Buffer) error {
 	if !(b.Content == nil) {
 		b.Flags.Set(5)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (b *BotInlineResult) Encode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botInlineResult#11965f3a as nil")
+	}
+	buf.PutID(BotInlineResultTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BotInlineResult) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botInlineResult#11965f3a as nil")
+	}
+	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineResult#11965f3a: field flags: %w", err)
 	}
@@ -658,6 +663,22 @@ func (b *BotInlineMediaResult) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (b *BotInlineMediaResult) SetFlags() {
+	if !(b.Photo == nil) {
+		b.Flags.Set(0)
+	}
+	if !(b.Document == nil) {
+		b.Flags.Set(1)
+	}
+	if !(b.Title == "") {
+		b.Flags.Set(2)
+	}
+	if !(b.Description == "") {
+		b.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (b *BotInlineMediaResult) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -672,18 +693,7 @@ func (b *BotInlineMediaResult) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botInlineMediaResult#17db940b as nil")
 	}
-	if !(b.Photo == nil) {
-		b.Flags.Set(0)
-	}
-	if !(b.Document == nil) {
-		b.Flags.Set(1)
-	}
-	if !(b.Title == "") {
-		b.Flags.Set(2)
-	}
-	if !(b.Description == "") {
-		b.Flags.Set(3)
-	}
+	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineMediaResult#17db940b: field flags: %w", err)
 	}

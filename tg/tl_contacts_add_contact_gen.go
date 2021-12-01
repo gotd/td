@@ -167,6 +167,13 @@ func (a *ContactsAddContactRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (a *ContactsAddContactRequest) SetFlags() {
+	if !(a.AddPhonePrivacyException == false) {
+		a.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (a *ContactsAddContactRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -181,9 +188,7 @@ func (a *ContactsAddContactRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode contacts.addContact#e8f463d0 as nil")
 	}
-	if !(a.AddPhonePrivacyException == false) {
-		a.Flags.Set(0)
-	}
+	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode contacts.addContact#e8f463d0: field flags: %w", err)
 	}

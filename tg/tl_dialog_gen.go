@@ -272,20 +272,8 @@ func (d *Dialog) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (d *Dialog) Encode(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't encode dialog#2c171f72 as nil")
-	}
-	b.PutID(DialogTypeID)
-	return d.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (d *Dialog) EncodeBare(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't encode dialog#2c171f72 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (d *Dialog) SetFlags() {
 	if !(d.Pinned == false) {
 		d.Flags.Set(2)
 	}
@@ -301,6 +289,23 @@ func (d *Dialog) EncodeBare(b *bin.Buffer) error {
 	if !(d.FolderID == 0) {
 		d.Flags.Set(4)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (d *Dialog) Encode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialog#2c171f72 as nil")
+	}
+	b.PutID(DialogTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *Dialog) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialog#2c171f72 as nil")
+	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode dialog#2c171f72: field flags: %w", err)
 	}
@@ -710,6 +715,13 @@ func (d *DialogFolder) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *DialogFolder) SetFlags() {
+	if !(d.Pinned == false) {
+		d.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *DialogFolder) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -724,9 +736,7 @@ func (d *DialogFolder) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode dialogFolder#71bd134c as nil")
 	}
-	if !(d.Pinned == false) {
-		d.Flags.Set(2)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode dialogFolder#71bd134c: field flags: %w", err)
 	}

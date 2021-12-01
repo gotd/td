@@ -261,6 +261,16 @@ func (i *InputMediaUploadedPhoto) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputMediaUploadedPhoto) SetFlags() {
+	if !(i.Stickers == nil) {
+		i.Flags.Set(0)
+	}
+	if !(i.TTLSeconds == 0) {
+		i.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaUploadedPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -275,12 +285,7 @@ func (i *InputMediaUploadedPhoto) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMediaUploadedPhoto#1e287d04 as nil")
 	}
-	if !(i.Stickers == nil) {
-		i.Flags.Set(0)
-	}
-	if !(i.TTLSeconds == 0) {
-		i.Flags.Set(1)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaUploadedPhoto#1e287d04: field flags: %w", err)
 	}
@@ -513,6 +518,13 @@ func (i *InputMediaPhoto) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputMediaPhoto) SetFlags() {
+	if !(i.TTLSeconds == 0) {
+		i.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -527,9 +539,7 @@ func (i *InputMediaPhoto) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMediaPhoto#b3ba0635 as nil")
 	}
-	if !(i.TTLSeconds == 0) {
-		i.Flags.Set(0)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaPhoto#b3ba0635: field flags: %w", err)
 	}
@@ -1136,20 +1146,8 @@ func (i *InputMediaUploadedDocument) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (i *InputMediaUploadedDocument) Encode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode inputMediaUploadedDocument#5b38c6c1 as nil")
-	}
-	b.PutID(InputMediaUploadedDocumentTypeID)
-	return i.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (i *InputMediaUploadedDocument) EncodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode inputMediaUploadedDocument#5b38c6c1 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (i *InputMediaUploadedDocument) SetFlags() {
 	if !(i.NosoundVideo == false) {
 		i.Flags.Set(3)
 	}
@@ -1165,6 +1163,23 @@ func (i *InputMediaUploadedDocument) EncodeBare(b *bin.Buffer) error {
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(1)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (i *InputMediaUploadedDocument) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaUploadedDocument#5b38c6c1 as nil")
+	}
+	b.PutID(InputMediaUploadedDocumentTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaUploadedDocument) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaUploadedDocument#5b38c6c1 as nil")
+	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field flags: %w", err)
 	}
@@ -1528,6 +1543,16 @@ func (i *InputMediaDocument) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputMediaDocument) SetFlags() {
+	if !(i.TTLSeconds == 0) {
+		i.Flags.Set(0)
+	}
+	if !(i.Query == "") {
+		i.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1542,12 +1567,7 @@ func (i *InputMediaDocument) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMediaDocument#33473058 as nil")
 	}
-	if !(i.TTLSeconds == 0) {
-		i.Flags.Set(0)
-	}
-	if !(i.Query == "") {
-		i.Flags.Set(1)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaDocument#33473058: field flags: %w", err)
 	}
@@ -2011,6 +2031,13 @@ func (i *InputMediaPhotoExternal) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputMediaPhotoExternal) SetFlags() {
+	if !(i.TTLSeconds == 0) {
+		i.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaPhotoExternal) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -2025,9 +2052,7 @@ func (i *InputMediaPhotoExternal) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMediaPhotoExternal#e5bbfe1a as nil")
 	}
-	if !(i.TTLSeconds == 0) {
-		i.Flags.Set(0)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaPhotoExternal#e5bbfe1a: field flags: %w", err)
 	}
@@ -2204,6 +2229,13 @@ func (i *InputMediaDocumentExternal) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputMediaDocumentExternal) SetFlags() {
+	if !(i.TTLSeconds == 0) {
+		i.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaDocumentExternal) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -2218,9 +2250,7 @@ func (i *InputMediaDocumentExternal) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMediaDocumentExternal#fb52dc99 as nil")
 	}
-	if !(i.TTLSeconds == 0) {
-		i.Flags.Set(0)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaDocumentExternal#fb52dc99: field flags: %w", err)
 	}
@@ -2615,6 +2645,16 @@ func (i *InputMediaInvoice) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputMediaInvoice) SetFlags() {
+	if !(i.Photo.Zero()) {
+		i.Flags.Set(0)
+	}
+	if !(i.StartParam == "") {
+		i.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaInvoice) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -2629,12 +2669,7 @@ func (i *InputMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMediaInvoice#d9799874 as nil")
 	}
-	if !(i.Photo.Zero()) {
-		i.Flags.Set(0)
-	}
-	if !(i.StartParam == "") {
-		i.Flags.Set(1)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaInvoice#d9799874: field flags: %w", err)
 	}
@@ -2957,6 +2992,22 @@ func (i *InputMediaGeoLive) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputMediaGeoLive) SetFlags() {
+	if !(i.Stopped == false) {
+		i.Flags.Set(0)
+	}
+	if !(i.Heading == 0) {
+		i.Flags.Set(2)
+	}
+	if !(i.Period == 0) {
+		i.Flags.Set(1)
+	}
+	if !(i.ProximityNotificationRadius == 0) {
+		i.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaGeoLive) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -2971,18 +3022,7 @@ func (i *InputMediaGeoLive) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMediaGeoLive#971fa843 as nil")
 	}
-	if !(i.Stopped == false) {
-		i.Flags.Set(0)
-	}
-	if !(i.Heading == 0) {
-		i.Flags.Set(2)
-	}
-	if !(i.Period == 0) {
-		i.Flags.Set(1)
-	}
-	if !(i.ProximityNotificationRadius == 0) {
-		i.Flags.Set(3)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaGeoLive#971fa843: field flags: %w", err)
 	}
@@ -3268,6 +3308,19 @@ func (i *InputMediaPoll) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputMediaPoll) SetFlags() {
+	if !(i.CorrectAnswers == nil) {
+		i.Flags.Set(0)
+	}
+	if !(i.Solution == "") {
+		i.Flags.Set(1)
+	}
+	if !(i.SolutionEntities == nil) {
+		i.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaPoll) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -3282,15 +3335,7 @@ func (i *InputMediaPoll) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMediaPoll#f94e5f1 as nil")
 	}
-	if !(i.CorrectAnswers == nil) {
-		i.Flags.Set(0)
-	}
-	if !(i.Solution == "") {
-		i.Flags.Set(1)
-	}
-	if !(i.SolutionEntities == nil) {
-		i.Flags.Set(1)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaPoll#f94e5f1: field flags: %w", err)
 	}

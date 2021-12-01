@@ -167,6 +167,13 @@ func (g *UpdatesGetChannelDifferenceRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *UpdatesGetChannelDifferenceRequest) SetFlags() {
+	if !(g.Force == false) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *UpdatesGetChannelDifferenceRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -181,9 +188,7 @@ func (g *UpdatesGetChannelDifferenceRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode updates.getChannelDifference#3173d78 as nil")
 	}
-	if !(g.Force == false) {
-		g.Flags.Set(0)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updates.getChannelDifference#3173d78: field flags: %w", err)
 	}

@@ -372,20 +372,8 @@ func (g *GroupCallParticipant) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't encode groupCallParticipant#eba636fe as nil")
-	}
-	b.PutID(GroupCallParticipantTypeID)
-	return g.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (g *GroupCallParticipant) EncodeBare(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't encode groupCallParticipant#eba636fe as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (g *GroupCallParticipant) SetFlags() {
 	if !(g.Muted == false) {
 		g.Flags.Set(0)
 	}
@@ -434,6 +422,23 @@ func (g *GroupCallParticipant) EncodeBare(b *bin.Buffer) error {
 	if !(g.Presentation.Zero()) {
 		g.Flags.Set(14)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode groupCallParticipant#eba636fe as nil")
+	}
+	b.PutID(GroupCallParticipantTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *GroupCallParticipant) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode groupCallParticipant#eba636fe as nil")
+	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode groupCallParticipant#eba636fe: field flags: %w", err)
 	}

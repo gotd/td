@@ -174,6 +174,13 @@ func (g *UpdatesGetDifferenceRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *UpdatesGetDifferenceRequest) SetFlags() {
+	if !(g.PtsTotalLimit == 0) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *UpdatesGetDifferenceRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -188,9 +195,7 @@ func (g *UpdatesGetDifferenceRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode updates.getDifference#25939651 as nil")
 	}
-	if !(g.PtsTotalLimit == 0) {
-		g.Flags.Set(0)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updates.getDifference#25939651: field flags: %w", err)
 	}

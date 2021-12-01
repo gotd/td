@@ -172,6 +172,16 @@ func (p *PhoneCallProtocol) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PhoneCallProtocol) SetFlags() {
+	if !(p.UDPP2P == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.UDPReflector == false) {
+		p.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallProtocol) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -186,12 +196,7 @@ func (p *PhoneCallProtocol) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode phoneCallProtocol#fc878fc8 as nil")
 	}
-	if !(p.UDPP2P == false) {
-		p.Flags.Set(0)
-	}
-	if !(p.UDPReflector == false) {
-		p.Flags.Set(1)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneCallProtocol#fc878fc8: field flags: %w", err)
 	}

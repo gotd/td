@@ -207,6 +207,16 @@ func (g *ChannelsGetAdminLogRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *ChannelsGetAdminLogRequest) SetFlags() {
+	if !(g.EventsFilter.Zero()) {
+		g.Flags.Set(0)
+	}
+	if !(g.Admins == nil) {
+		g.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *ChannelsGetAdminLogRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -221,12 +231,7 @@ func (g *ChannelsGetAdminLogRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode channels.getAdminLog#33ddf480 as nil")
 	}
-	if !(g.EventsFilter.Zero()) {
-		g.Flags.Set(0)
-	}
-	if !(g.Admins == nil) {
-		g.Flags.Set(1)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channels.getAdminLog#33ddf480: field flags: %w", err)
 	}

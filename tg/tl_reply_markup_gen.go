@@ -128,6 +128,13 @@ func (r *ReplyKeyboardHide) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (r *ReplyKeyboardHide) SetFlags() {
+	if !(r.Selective == false) {
+		r.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (r *ReplyKeyboardHide) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -142,9 +149,7 @@ func (r *ReplyKeyboardHide) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode replyKeyboardHide#a03e5b85 as nil")
 	}
-	if !(r.Selective == false) {
-		r.Flags.Set(2)
-	}
+	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode replyKeyboardHide#a03e5b85: field flags: %w", err)
 	}
@@ -321,6 +326,19 @@ func (r *ReplyKeyboardForceReply) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (r *ReplyKeyboardForceReply) SetFlags() {
+	if !(r.SingleUse == false) {
+		r.Flags.Set(1)
+	}
+	if !(r.Selective == false) {
+		r.Flags.Set(2)
+	}
+	if !(r.Placeholder == "") {
+		r.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (r *ReplyKeyboardForceReply) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -335,15 +353,7 @@ func (r *ReplyKeyboardForceReply) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode replyKeyboardForceReply#86b40b08 as nil")
 	}
-	if !(r.SingleUse == false) {
-		r.Flags.Set(1)
-	}
-	if !(r.Selective == false) {
-		r.Flags.Set(2)
-	}
-	if !(r.Placeholder == "") {
-		r.Flags.Set(3)
-	}
+	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode replyKeyboardForceReply#86b40b08: field flags: %w", err)
 	}
@@ -587,6 +597,22 @@ func (r *ReplyKeyboardMarkup) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (r *ReplyKeyboardMarkup) SetFlags() {
+	if !(r.Resize == false) {
+		r.Flags.Set(0)
+	}
+	if !(r.SingleUse == false) {
+		r.Flags.Set(1)
+	}
+	if !(r.Selective == false) {
+		r.Flags.Set(2)
+	}
+	if !(r.Placeholder == "") {
+		r.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (r *ReplyKeyboardMarkup) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -601,18 +627,7 @@ func (r *ReplyKeyboardMarkup) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode replyKeyboardMarkup#85dd99d1 as nil")
 	}
-	if !(r.Resize == false) {
-		r.Flags.Set(0)
-	}
-	if !(r.SingleUse == false) {
-		r.Flags.Set(1)
-	}
-	if !(r.Selective == false) {
-		r.Flags.Set(2)
-	}
-	if !(r.Placeholder == "") {
-		r.Flags.Set(3)
-	}
+	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode replyKeyboardMarkup#85dd99d1: field flags: %w", err)
 	}

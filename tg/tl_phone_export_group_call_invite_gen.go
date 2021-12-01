@@ -130,6 +130,13 @@ func (e *PhoneExportGroupCallInviteRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (e *PhoneExportGroupCallInviteRequest) SetFlags() {
+	if !(e.CanSelfUnmute == false) {
+		e.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (e *PhoneExportGroupCallInviteRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -144,9 +151,7 @@ func (e *PhoneExportGroupCallInviteRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't encode phone.exportGroupCallInvite#e6aa647f as nil")
 	}
-	if !(e.CanSelfUnmute == false) {
-		e.Flags.Set(0)
-	}
+	e.SetFlags()
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.exportGroupCallInvite#e6aa647f: field flags: %w", err)
 	}

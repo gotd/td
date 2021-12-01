@@ -228,20 +228,8 @@ func (f *MessagesForwardMessagesRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (f *MessagesForwardMessagesRequest) Encode(b *bin.Buffer) error {
-	if f == nil {
-		return fmt.Errorf("can't encode messages.forwardMessages#d9fee60e as nil")
-	}
-	b.PutID(MessagesForwardMessagesRequestTypeID)
-	return f.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
-	if f == nil {
-		return fmt.Errorf("can't encode messages.forwardMessages#d9fee60e as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (f *MessagesForwardMessagesRequest) SetFlags() {
 	if !(f.Silent == false) {
 		f.Flags.Set(5)
 	}
@@ -260,6 +248,23 @@ func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if !(f.ScheduleDate == 0) {
 		f.Flags.Set(10)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (f *MessagesForwardMessagesRequest) Encode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode messages.forwardMessages#d9fee60e as nil")
+	}
+	b.PutID(MessagesForwardMessagesRequestTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode messages.forwardMessages#d9fee60e as nil")
+	}
+	f.SetFlags()
 	if err := f.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.forwardMessages#d9fee60e: field flags: %w", err)
 	}

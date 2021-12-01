@@ -136,6 +136,13 @@ func (h *MessagesHideChatJoinRequestRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (h *MessagesHideChatJoinRequestRequest) SetFlags() {
+	if !(h.Approved == false) {
+		h.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (h *MessagesHideChatJoinRequestRequest) Encode(b *bin.Buffer) error {
 	if h == nil {
@@ -150,9 +157,7 @@ func (h *MessagesHideChatJoinRequestRequest) EncodeBare(b *bin.Buffer) error {
 	if h == nil {
 		return fmt.Errorf("can't encode messages.hideChatJoinRequest#7fe7e815 as nil")
 	}
-	if !(h.Approved == false) {
-		h.Flags.Set(0)
-	}
+	h.SetFlags()
 	if err := h.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.hideChatJoinRequest#7fe7e815: field flags: %w", err)
 	}

@@ -140,6 +140,16 @@ func (w *WebPageAttributeTheme) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (w *WebPageAttributeTheme) SetFlags() {
+	if !(w.Documents == nil) {
+		w.Flags.Set(0)
+	}
+	if !(w.Settings.Zero()) {
+		w.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (w *WebPageAttributeTheme) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -154,12 +164,7 @@ func (w *WebPageAttributeTheme) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
 		return fmt.Errorf("can't encode webPageAttributeTheme#54b56617 as nil")
 	}
-	if !(w.Documents == nil) {
-		w.Flags.Set(0)
-	}
-	if !(w.Settings.Zero()) {
-		w.Flags.Set(1)
-	}
+	w.SetFlags()
 	if err := w.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode webPageAttributeTheme#54b56617: field flags: %w", err)
 	}

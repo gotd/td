@@ -155,6 +155,13 @@ func (s *MessagesSetTypingRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *MessagesSetTypingRequest) SetFlags() {
+	if !(s.TopMsgID == 0) {
+		s.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSetTypingRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -169,9 +176,7 @@ func (s *MessagesSetTypingRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode messages.setTyping#58943ee2 as nil")
 	}
-	if !(s.TopMsgID == 0) {
-		s.Flags.Set(0)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.setTyping#58943ee2: field flags: %w", err)
 	}

@@ -221,6 +221,22 @@ func (a *HelpAppUpdate) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (a *HelpAppUpdate) SetFlags() {
+	if !(a.CanNotSkip == false) {
+		a.Flags.Set(0)
+	}
+	if !(a.Document == nil) {
+		a.Flags.Set(1)
+	}
+	if !(a.URL == "") {
+		a.Flags.Set(2)
+	}
+	if !(a.Sticker == nil) {
+		a.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (a *HelpAppUpdate) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -235,18 +251,7 @@ func (a *HelpAppUpdate) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode help.appUpdate#ccbbce30 as nil")
 	}
-	if !(a.CanNotSkip == false) {
-		a.Flags.Set(0)
-	}
-	if !(a.Document == nil) {
-		a.Flags.Set(1)
-	}
-	if !(a.URL == "") {
-		a.Flags.Set(2)
-	}
-	if !(a.Sticker == nil) {
-		a.Flags.Set(3)
-	}
+	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.appUpdate#ccbbce30: field flags: %w", err)
 	}

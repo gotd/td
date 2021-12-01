@@ -171,6 +171,19 @@ func (c *ChatInviteImporter) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *ChatInviteImporter) SetFlags() {
+	if !(c.Requested == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.About == "") {
+		c.Flags.Set(2)
+	}
+	if !(c.ApprovedBy == 0) {
+		c.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatInviteImporter) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -185,15 +198,7 @@ func (c *ChatInviteImporter) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatInviteImporter#8c5adfd9 as nil")
 	}
-	if !(c.Requested == false) {
-		c.Flags.Set(0)
-	}
-	if !(c.About == "") {
-		c.Flags.Set(2)
-	}
-	if !(c.ApprovedBy == 0) {
-		c.Flags.Set(1)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatInviteImporter#8c5adfd9: field flags: %w", err)
 	}

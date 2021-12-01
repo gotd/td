@@ -247,6 +247,16 @@ func (m *MessageMediaPhoto) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessageMediaPhoto) SetFlags() {
+	if !(m.Photo == nil) {
+		m.Flags.Set(0)
+	}
+	if !(m.TTLSeconds == 0) {
+		m.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageMediaPhoto) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -261,12 +271,7 @@ func (m *MessageMediaPhoto) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageMediaPhoto#695150d7 as nil")
 	}
-	if !(m.Photo == nil) {
-		m.Flags.Set(0)
-	}
-	if !(m.TTLSeconds == 0) {
-		m.Flags.Set(2)
-	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageMediaPhoto#695150d7: field flags: %w", err)
 	}
@@ -933,6 +938,16 @@ func (m *MessageMediaDocument) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessageMediaDocument) SetFlags() {
+	if !(m.Document == nil) {
+		m.Flags.Set(0)
+	}
+	if !(m.TTLSeconds == 0) {
+		m.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageMediaDocument) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -947,12 +962,7 @@ func (m *MessageMediaDocument) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageMediaDocument#9cb070d7 as nil")
 	}
-	if !(m.Document == nil) {
-		m.Flags.Set(0)
-	}
-	if !(m.TTLSeconds == 0) {
-		m.Flags.Set(2)
-	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageMediaDocument#9cb070d7: field flags: %w", err)
 	}
@@ -1773,6 +1783,22 @@ func (m *MessageMediaInvoice) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessageMediaInvoice) SetFlags() {
+	if !(m.ShippingAddressRequested == false) {
+		m.Flags.Set(1)
+	}
+	if !(m.Test == false) {
+		m.Flags.Set(3)
+	}
+	if !(m.Photo == nil) {
+		m.Flags.Set(0)
+	}
+	if !(m.ReceiptMsgID == 0) {
+		m.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageMediaInvoice) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1787,18 +1813,7 @@ func (m *MessageMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageMediaInvoice#84551347 as nil")
 	}
-	if !(m.ShippingAddressRequested == false) {
-		m.Flags.Set(1)
-	}
-	if !(m.Test == false) {
-		m.Flags.Set(3)
-	}
-	if !(m.Photo == nil) {
-		m.Flags.Set(0)
-	}
-	if !(m.ReceiptMsgID == 0) {
-		m.Flags.Set(2)
-	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageMediaInvoice#84551347: field flags: %w", err)
 	}
@@ -2129,6 +2144,16 @@ func (m *MessageMediaGeoLive) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessageMediaGeoLive) SetFlags() {
+	if !(m.Heading == 0) {
+		m.Flags.Set(0)
+	}
+	if !(m.ProximityNotificationRadius == 0) {
+		m.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageMediaGeoLive) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -2143,12 +2168,7 @@ func (m *MessageMediaGeoLive) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageMediaGeoLive#b940c666 as nil")
 	}
-	if !(m.Heading == 0) {
-		m.Flags.Set(0)
-	}
-	if !(m.ProximityNotificationRadius == 0) {
-		m.Flags.Set(1)
-	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageMediaGeoLive#b940c666: field flags: %w", err)
 	}

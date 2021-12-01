@@ -159,6 +159,16 @@ func (i *InputBotInlineMessageMediaAuto) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputBotInlineMessageMediaAuto) SetFlags() {
+	if !(i.Entities == nil) {
+		i.Flags.Set(1)
+	}
+	if !(i.ReplyMarkup == nil) {
+		i.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaAuto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -173,12 +183,7 @@ func (i *InputBotInlineMessageMediaAuto) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputBotInlineMessageMediaAuto#3380c786 as nil")
 	}
-	if !(i.Entities == nil) {
-		i.Flags.Set(1)
-	}
-	if !(i.ReplyMarkup == nil) {
-		i.Flags.Set(2)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputBotInlineMessageMediaAuto#3380c786: field flags: %w", err)
 	}
@@ -443,6 +448,19 @@ func (i *InputBotInlineMessageText) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputBotInlineMessageText) SetFlags() {
+	if !(i.NoWebpage == false) {
+		i.Flags.Set(0)
+	}
+	if !(i.Entities == nil) {
+		i.Flags.Set(1)
+	}
+	if !(i.ReplyMarkup == nil) {
+		i.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageText) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -457,15 +475,7 @@ func (i *InputBotInlineMessageText) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputBotInlineMessageText#3dcd7a87 as nil")
 	}
-	if !(i.NoWebpage == false) {
-		i.Flags.Set(0)
-	}
-	if !(i.Entities == nil) {
-		i.Flags.Set(1)
-	}
-	if !(i.ReplyMarkup == nil) {
-		i.Flags.Set(2)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputBotInlineMessageText#3dcd7a87: field flags: %w", err)
 	}
@@ -773,6 +783,22 @@ func (i *InputBotInlineMessageMediaGeo) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputBotInlineMessageMediaGeo) SetFlags() {
+	if !(i.Heading == 0) {
+		i.Flags.Set(0)
+	}
+	if !(i.Period == 0) {
+		i.Flags.Set(1)
+	}
+	if !(i.ProximityNotificationRadius == 0) {
+		i.Flags.Set(3)
+	}
+	if !(i.ReplyMarkup == nil) {
+		i.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaGeo) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -787,18 +813,7 @@ func (i *InputBotInlineMessageMediaGeo) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputBotInlineMessageMediaGeo#96929a85 as nil")
 	}
-	if !(i.Heading == 0) {
-		i.Flags.Set(0)
-	}
-	if !(i.Period == 0) {
-		i.Flags.Set(1)
-	}
-	if !(i.ProximityNotificationRadius == 0) {
-		i.Flags.Set(3)
-	}
-	if !(i.ReplyMarkup == nil) {
-		i.Flags.Set(2)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputBotInlineMessageMediaGeo#96929a85: field flags: %w", err)
 	}
@@ -1115,6 +1130,13 @@ func (i *InputBotInlineMessageMediaVenue) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputBotInlineMessageMediaVenue) SetFlags() {
+	if !(i.ReplyMarkup == nil) {
+		i.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaVenue) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1129,9 +1151,7 @@ func (i *InputBotInlineMessageMediaVenue) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputBotInlineMessageMediaVenue#417bbf11 as nil")
 	}
-	if !(i.ReplyMarkup == nil) {
-		i.Flags.Set(2)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputBotInlineMessageMediaVenue#417bbf11: field flags: %w", err)
 	}
@@ -1416,6 +1436,13 @@ func (i *InputBotInlineMessageMediaContact) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputBotInlineMessageMediaContact) SetFlags() {
+	if !(i.ReplyMarkup == nil) {
+		i.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaContact) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1430,9 +1457,7 @@ func (i *InputBotInlineMessageMediaContact) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputBotInlineMessageMediaContact#a6edbffd as nil")
 	}
-	if !(i.ReplyMarkup == nil) {
-		i.Flags.Set(2)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputBotInlineMessageMediaContact#a6edbffd: field flags: %w", err)
 	}
@@ -1642,6 +1667,13 @@ func (i *InputBotInlineMessageGame) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputBotInlineMessageGame) SetFlags() {
+	if !(i.ReplyMarkup == nil) {
+		i.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageGame) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1656,9 +1688,7 @@ func (i *InputBotInlineMessageGame) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputBotInlineMessageGame#4b425864 as nil")
 	}
-	if !(i.ReplyMarkup == nil) {
-		i.Flags.Set(2)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputBotInlineMessageGame#4b425864: field flags: %w", err)
 	}
@@ -1905,6 +1935,16 @@ func (i *InputBotInlineMessageMediaInvoice) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputBotInlineMessageMediaInvoice) SetFlags() {
+	if !(i.Photo.Zero()) {
+		i.Flags.Set(0)
+	}
+	if !(i.ReplyMarkup == nil) {
+		i.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaInvoice) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1919,12 +1959,7 @@ func (i *InputBotInlineMessageMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputBotInlineMessageMediaInvoice#d7e78225 as nil")
 	}
-	if !(i.Photo.Zero()) {
-		i.Flags.Set(0)
-	}
-	if !(i.ReplyMarkup == nil) {
-		i.Flags.Set(2)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d7e78225: field flags: %w", err)
 	}

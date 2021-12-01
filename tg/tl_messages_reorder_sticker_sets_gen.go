@@ -129,6 +129,13 @@ func (r *MessagesReorderStickerSetsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (r *MessagesReorderStickerSetsRequest) SetFlags() {
+	if !(r.Masks == false) {
+		r.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesReorderStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -143,9 +150,7 @@ func (r *MessagesReorderStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode messages.reorderStickerSets#78337739 as nil")
 	}
-	if !(r.Masks == false) {
-		r.Flags.Set(0)
-	}
+	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.reorderStickerSets#78337739: field flags: %w", err)
 	}

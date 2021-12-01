@@ -130,6 +130,16 @@ func (c *PaymentsClearSavedInfoRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *PaymentsClearSavedInfoRequest) SetFlags() {
+	if !(c.Credentials == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Info == false) {
+		c.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *PaymentsClearSavedInfoRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -144,12 +154,7 @@ func (c *PaymentsClearSavedInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode payments.clearSavedInfo#d83d70c1 as nil")
 	}
-	if !(c.Credentials == false) {
-		c.Flags.Set(0)
-	}
-	if !(c.Info == false) {
-		c.Flags.Set(1)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode payments.clearSavedInfo#d83d70c1: field flags: %w", err)
 	}

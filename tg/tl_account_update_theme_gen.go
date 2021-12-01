@@ -196,6 +196,22 @@ func (u *AccountUpdateThemeRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *AccountUpdateThemeRequest) SetFlags() {
+	if !(u.Slug == "") {
+		u.Flags.Set(0)
+	}
+	if !(u.Title == "") {
+		u.Flags.Set(1)
+	}
+	if !(u.Document == nil) {
+		u.Flags.Set(2)
+	}
+	if !(u.Settings == nil) {
+		u.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *AccountUpdateThemeRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -210,18 +226,7 @@ func (u *AccountUpdateThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode account.updateTheme#2bf40ccc as nil")
 	}
-	if !(u.Slug == "") {
-		u.Flags.Set(0)
-	}
-	if !(u.Title == "") {
-		u.Flags.Set(1)
-	}
-	if !(u.Document == nil) {
-		u.Flags.Set(2)
-	}
-	if !(u.Settings == nil) {
-		u.Flags.Set(3)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.updateTheme#2bf40ccc: field flags: %w", err)
 	}

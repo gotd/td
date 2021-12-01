@@ -155,6 +155,16 @@ func (c *UpdatesChannelDifferenceEmpty) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *UpdatesChannelDifferenceEmpty) SetFlags() {
+	if !(c.Final == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Timeout == 0) {
+		c.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *UpdatesChannelDifferenceEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -169,12 +179,7 @@ func (c *UpdatesChannelDifferenceEmpty) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode updates.channelDifferenceEmpty#3e11affb as nil")
 	}
-	if !(c.Final == false) {
-		c.Flags.Set(0)
-	}
-	if !(c.Timeout == 0) {
-		c.Flags.Set(1)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updates.channelDifferenceEmpty#3e11affb: field flags: %w", err)
 	}
@@ -419,6 +424,16 @@ func (c *UpdatesChannelDifferenceTooLong) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *UpdatesChannelDifferenceTooLong) SetFlags() {
+	if !(c.Final == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Timeout == 0) {
+		c.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *UpdatesChannelDifferenceTooLong) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -433,12 +448,7 @@ func (c *UpdatesChannelDifferenceTooLong) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode updates.channelDifferenceTooLong#a4bcc6fe as nil")
 	}
-	if !(c.Final == false) {
-		c.Flags.Set(0)
-	}
-	if !(c.Timeout == 0) {
-		c.Flags.Set(1)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updates.channelDifferenceTooLong#a4bcc6fe: field flags: %w", err)
 	}
@@ -806,6 +816,16 @@ func (c *UpdatesChannelDifference) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *UpdatesChannelDifference) SetFlags() {
+	if !(c.Final == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Timeout == 0) {
+		c.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *UpdatesChannelDifference) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -820,12 +840,7 @@ func (c *UpdatesChannelDifference) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode updates.channelDifference#2064674e as nil")
 	}
-	if !(c.Final == false) {
-		c.Flags.Set(0)
-	}
-	if !(c.Timeout == 0) {
-		c.Flags.Set(1)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updates.channelDifference#2064674e: field flags: %w", err)
 	}

@@ -414,6 +414,13 @@ func (s *StatsGraph) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *StatsGraph) SetFlags() {
+	if !(s.ZoomToken == "") {
+		s.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *StatsGraph) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -428,9 +435,7 @@ func (s *StatsGraph) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode statsGraph#8ea464b6 as nil")
 	}
-	if !(s.ZoomToken == "") {
-		s.Flags.Set(0)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode statsGraph#8ea464b6: field flags: %w", err)
 	}

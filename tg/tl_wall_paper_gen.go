@@ -220,20 +220,8 @@ func (w *WallPaper) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (w *WallPaper) Encode(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't encode wallPaper#a437c3ed as nil")
-	}
-	b.PutID(WallPaperTypeID)
-	return w.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (w *WallPaper) EncodeBare(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't encode wallPaper#a437c3ed as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (w *WallPaper) SetFlags() {
 	if !(w.Creator == false) {
 		w.Flags.Set(0)
 	}
@@ -249,6 +237,23 @@ func (w *WallPaper) EncodeBare(b *bin.Buffer) error {
 	if !(w.Settings.Zero()) {
 		w.Flags.Set(2)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (w *WallPaper) Encode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode wallPaper#a437c3ed as nil")
+	}
+	b.PutID(WallPaperTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WallPaper) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode wallPaper#a437c3ed as nil")
+	}
+	w.SetFlags()
 	b.PutLong(w.ID)
 	if err := w.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode wallPaper#a437c3ed: field flags: %w", err)
@@ -566,6 +571,19 @@ func (w *WallPaperNoFile) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (w *WallPaperNoFile) SetFlags() {
+	if !(w.Default == false) {
+		w.Flags.Set(1)
+	}
+	if !(w.Dark == false) {
+		w.Flags.Set(4)
+	}
+	if !(w.Settings.Zero()) {
+		w.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (w *WallPaperNoFile) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -580,15 +598,7 @@ func (w *WallPaperNoFile) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
 		return fmt.Errorf("can't encode wallPaperNoFile#e0804116 as nil")
 	}
-	if !(w.Default == false) {
-		w.Flags.Set(1)
-	}
-	if !(w.Dark == false) {
-		w.Flags.Set(4)
-	}
-	if !(w.Settings.Zero()) {
-		w.Flags.Set(2)
-	}
+	w.SetFlags()
 	b.PutLong(w.ID)
 	if err := w.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode wallPaperNoFile#e0804116: field flags: %w", err)

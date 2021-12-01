@@ -257,20 +257,8 @@ func (t *Theme) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (t *Theme) Encode(b *bin.Buffer) error {
-	if t == nil {
-		return fmt.Errorf("can't encode theme#a00e67d6 as nil")
-	}
-	b.PutID(ThemeTypeID)
-	return t.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (t *Theme) EncodeBare(b *bin.Buffer) error {
-	if t == nil {
-		return fmt.Errorf("can't encode theme#a00e67d6 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (t *Theme) SetFlags() {
 	if !(t.Creator == false) {
 		t.Flags.Set(0)
 	}
@@ -292,6 +280,23 @@ func (t *Theme) EncodeBare(b *bin.Buffer) error {
 	if !(t.InstallsCount == 0) {
 		t.Flags.Set(4)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (t *Theme) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode theme#a00e67d6 as nil")
+	}
+	b.PutID(ThemeTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *Theme) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode theme#a00e67d6 as nil")
+	}
+	t.SetFlags()
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode theme#a00e67d6: field flags: %w", err)
 	}

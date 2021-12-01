@@ -576,6 +576,16 @@ func (f *FieldsMessage) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (f *FieldsMessage) SetFlags() {
+	if !(f.Escape == false) {
+		f.Flags.Set(0)
+	}
+	if !(f.TTLSeconds == 0) {
+		f.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (f *FieldsMessage) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -590,12 +600,7 @@ func (f *FieldsMessage) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't encode fieldsMessage#947225b5 as nil")
 	}
-	if !(f.Escape == false) {
-		f.Flags.Set(0)
-	}
-	if !(f.TTLSeconds == 0) {
-		f.Flags.Set(1)
-	}
+	f.SetFlags()
 	if err := f.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode fieldsMessage#947225b5: field flags: %w", err)
 	}

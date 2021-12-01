@@ -140,6 +140,13 @@ func (l *StatsLoadAsyncGraphRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (l *StatsLoadAsyncGraphRequest) SetFlags() {
+	if !(l.X == 0) {
+		l.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (l *StatsLoadAsyncGraphRequest) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -154,9 +161,7 @@ func (l *StatsLoadAsyncGraphRequest) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
 		return fmt.Errorf("can't encode stats.loadAsyncGraph#621d5fa0 as nil")
 	}
-	if !(l.X == 0) {
-		l.Flags.Set(0)
-	}
+	l.SetFlags()
 	if err := l.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode stats.loadAsyncGraph#621d5fa0: field flags: %w", err)
 	}

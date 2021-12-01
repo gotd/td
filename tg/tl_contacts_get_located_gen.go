@@ -151,6 +151,16 @@ func (g *ContactsGetLocatedRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *ContactsGetLocatedRequest) SetFlags() {
+	if !(g.Background == false) {
+		g.Flags.Set(1)
+	}
+	if !(g.SelfExpires == 0) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *ContactsGetLocatedRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -165,12 +175,7 @@ func (g *ContactsGetLocatedRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode contacts.getLocated#d348bc44 as nil")
 	}
-	if !(g.Background == false) {
-		g.Flags.Set(1)
-	}
-	if !(g.SelfExpires == 0) {
-		g.Flags.Set(0)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode contacts.getLocated#d348bc44: field flags: %w", err)
 	}

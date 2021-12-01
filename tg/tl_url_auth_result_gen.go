@@ -153,6 +153,13 @@ func (u *URLAuthResultRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *URLAuthResultRequest) SetFlags() {
+	if !(u.RequestWriteAccess == false) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *URLAuthResultRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -167,9 +174,7 @@ func (u *URLAuthResultRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode urlAuthResultRequest#92d33a0e as nil")
 	}
-	if !(u.RequestWriteAccess == false) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode urlAuthResultRequest#92d33a0e: field flags: %w", err)
 	}

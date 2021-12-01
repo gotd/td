@@ -132,6 +132,13 @@ func (g *MessagesGetRecentStickersRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetRecentStickersRequest) SetFlags() {
+	if !(g.Attached == false) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetRecentStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -146,9 +153,7 @@ func (g *MessagesGetRecentStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode messages.getRecentStickers#9da9403b as nil")
 	}
-	if !(g.Attached == false) {
-		g.Flags.Set(0)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getRecentStickers#9da9403b: field flags: %w", err)
 	}

@@ -273,6 +273,16 @@ func (u *UserProfilePhoto) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UserProfilePhoto) SetFlags() {
+	if !(u.HasVideo == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.StrippedThumb == nil) {
+		u.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UserProfilePhoto) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -287,12 +297,7 @@ func (u *UserProfilePhoto) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode userProfilePhoto#82d1f706 as nil")
 	}
-	if !(u.HasVideo == false) {
-		u.Flags.Set(0)
-	}
-	if !(u.StrippedThumb == nil) {
-		u.Flags.Set(1)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode userProfilePhoto#82d1f706: field flags: %w", err)
 	}

@@ -164,6 +164,19 @@ func (u *MessagesUpdatePinnedMessageRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *MessagesUpdatePinnedMessageRequest) SetFlags() {
+	if !(u.Silent == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.Unpin == false) {
+		u.Flags.Set(1)
+	}
+	if !(u.PmOneside == false) {
+		u.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *MessagesUpdatePinnedMessageRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -178,15 +191,7 @@ func (u *MessagesUpdatePinnedMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode messages.updatePinnedMessage#d2aaf7ec as nil")
 	}
-	if !(u.Silent == false) {
-		u.Flags.Set(0)
-	}
-	if !(u.Unpin == false) {
-		u.Flags.Set(1)
-	}
-	if !(u.PmOneside == false) {
-		u.Flags.Set(2)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.updatePinnedMessage#d2aaf7ec: field flags: %w", err)
 	}

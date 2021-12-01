@@ -189,6 +189,13 @@ func (g *Game) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *Game) SetFlags() {
+	if !(g.Document == nil) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *Game) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -203,9 +210,7 @@ func (g *Game) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode game#bdf9653b as nil")
 	}
-	if !(g.Document == nil) {
-		g.Flags.Set(0)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode game#bdf9653b: field flags: %w", err)
 	}

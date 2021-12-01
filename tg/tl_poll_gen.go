@@ -228,20 +228,8 @@ func (p *Poll) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (p *Poll) Encode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode poll#86e18161 as nil")
-	}
-	b.PutID(PollTypeID)
-	return p.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (p *Poll) EncodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode poll#86e18161 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (p *Poll) SetFlags() {
 	if !(p.Closed == false) {
 		p.Flags.Set(0)
 	}
@@ -260,6 +248,23 @@ func (p *Poll) EncodeBare(b *bin.Buffer) error {
 	if !(p.CloseDate == 0) {
 		p.Flags.Set(5)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (p *Poll) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode poll#86e18161 as nil")
+	}
+	b.PutID(PollTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *Poll) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode poll#86e18161 as nil")
+	}
+	p.SetFlags()
 	b.PutLong(p.ID)
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode poll#86e18161: field flags: %w", err)

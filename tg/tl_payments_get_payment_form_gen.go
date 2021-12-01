@@ -149,6 +149,13 @@ func (g *PaymentsGetPaymentFormRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *PaymentsGetPaymentFormRequest) SetFlags() {
+	if !(g.ThemeParams.Zero()) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *PaymentsGetPaymentFormRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -163,9 +170,7 @@ func (g *PaymentsGetPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode payments.getPaymentForm#8a333c8d as nil")
 	}
-	if !(g.ThemeParams.Zero()) {
-		g.Flags.Set(0)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode payments.getPaymentForm#8a333c8d: field flags: %w", err)
 	}

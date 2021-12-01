@@ -180,6 +180,19 @@ func (s *MessagesSaveDraftRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *MessagesSaveDraftRequest) SetFlags() {
+	if !(s.NoWebpage == false) {
+		s.Flags.Set(1)
+	}
+	if !(s.ReplyToMsgID == 0) {
+		s.Flags.Set(0)
+	}
+	if !(s.Entities == nil) {
+		s.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSaveDraftRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -194,15 +207,7 @@ func (s *MessagesSaveDraftRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode messages.saveDraft#bc39e14b as nil")
 	}
-	if !(s.NoWebpage == false) {
-		s.Flags.Set(1)
-	}
-	if !(s.ReplyToMsgID == 0) {
-		s.Flags.Set(0)
-	}
-	if !(s.Entities == nil) {
-		s.Flags.Set(3)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.saveDraft#bc39e14b: field flags: %w", err)
 	}

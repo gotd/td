@@ -271,20 +271,8 @@ func (i *Invoice) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (i *Invoice) Encode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode invoice#cd886e0 as nil")
-	}
-	b.PutID(InvoiceTypeID)
-	return i.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (i *Invoice) EncodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode invoice#cd886e0 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (i *Invoice) SetFlags() {
 	if !(i.Test == false) {
 		i.Flags.Set(0)
 	}
@@ -315,6 +303,23 @@ func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 	if !(i.SuggestedTipAmounts == nil) {
 		i.Flags.Set(8)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (i *Invoice) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode invoice#cd886e0 as nil")
+	}
+	b.PutID(InvoiceTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *Invoice) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode invoice#cd886e0 as nil")
+	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode invoice#cd886e0: field flags: %w", err)
 	}

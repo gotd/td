@@ -379,20 +379,8 @@ func (c *ChatFull) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (c *ChatFull) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatFull#46a6ffb4 as nil")
-	}
-	b.PutID(ChatFullTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatFull) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatFull#46a6ffb4 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (c *ChatFull) SetFlags() {
 	if !(c.CanSetUsername == false) {
 		c.Flags.Set(7)
 	}
@@ -432,6 +420,23 @@ func (c *ChatFull) EncodeBare(b *bin.Buffer) error {
 	if !(c.RecentRequesters == nil) {
 		c.Flags.Set(17)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatFull) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatFull#46a6ffb4 as nil")
+	}
+	b.PutID(ChatFullTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatFull) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatFull#46a6ffb4 as nil")
+	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatFull#46a6ffb4: field flags: %w", err)
 	}
@@ -1596,20 +1601,8 @@ func (c *ChannelFull) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (c *ChannelFull) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode channelFull#59cff963 as nil")
-	}
-	b.PutID(ChannelFullTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChannelFull) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode channelFull#59cff963 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (c *ChannelFull) SetFlags() {
 	if !(c.CanViewParticipants == false) {
 		c.Flags.Set(3)
 	}
@@ -1706,6 +1699,23 @@ func (c *ChannelFull) EncodeBare(b *bin.Buffer) error {
 	if !(c.RecentRequesters == nil) {
 		c.Flags.Set(28)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelFull) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelFull#59cff963 as nil")
+	}
+	b.PutID(ChannelFullTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelFull) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelFull#59cff963 as nil")
+	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelFull#59cff963: field flags: %w", err)
 	}

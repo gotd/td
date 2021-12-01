@@ -153,6 +153,19 @@ func (t *MessagesToggleStickerSetsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (t *MessagesToggleStickerSetsRequest) SetFlags() {
+	if !(t.Uninstall == false) {
+		t.Flags.Set(0)
+	}
+	if !(t.Archive == false) {
+		t.Flags.Set(1)
+	}
+	if !(t.Unarchive == false) {
+		t.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (t *MessagesToggleStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -167,15 +180,7 @@ func (t *MessagesToggleStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode messages.toggleStickerSets#b5052fea as nil")
 	}
-	if !(t.Uninstall == false) {
-		t.Flags.Set(0)
-	}
-	if !(t.Archive == false) {
-		t.Flags.Set(1)
-	}
-	if !(t.Unarchive == false) {
-		t.Flags.Set(2)
-	}
+	t.SetFlags()
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.toggleStickerSets#b5052fea: field flags: %w", err)
 	}

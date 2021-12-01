@@ -2134,6 +2134,16 @@ func (p *PageBlockPhoto) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PageBlockPhoto) SetFlags() {
+	if !(p.URL == "") {
+		p.Flags.Set(0)
+	}
+	if !(p.WebpageID == 0) {
+		p.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockPhoto) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -2148,12 +2158,7 @@ func (p *PageBlockPhoto) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockPhoto#1759c560 as nil")
 	}
-	if !(p.URL == "") {
-		p.Flags.Set(0)
-	}
-	if !(p.WebpageID == 0) {
-		p.Flags.Set(0)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockPhoto#1759c560: field flags: %w", err)
 	}
@@ -2386,6 +2391,16 @@ func (p *PageBlockVideo) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PageBlockVideo) SetFlags() {
+	if !(p.Autoplay == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Loop == false) {
+		p.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockVideo) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -2400,12 +2415,7 @@ func (p *PageBlockVideo) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockVideo#7c8fe7b6 as nil")
 	}
-	if !(p.Autoplay == false) {
-		p.Flags.Set(0)
-	}
-	if !(p.Loop == false) {
-		p.Flags.Set(1)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockVideo#7c8fe7b6: field flags: %w", err)
 	}
@@ -2833,20 +2843,8 @@ func (p *PageBlockEmbed) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (p *PageBlockEmbed) Encode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode pageBlockEmbed#a8718dc5 as nil")
-	}
-	b.PutID(PageBlockEmbedTypeID)
-	return p.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (p *PageBlockEmbed) EncodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode pageBlockEmbed#a8718dc5 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (p *PageBlockEmbed) SetFlags() {
 	if !(p.FullWidth == false) {
 		p.Flags.Set(0)
 	}
@@ -2868,6 +2866,23 @@ func (p *PageBlockEmbed) EncodeBare(b *bin.Buffer) error {
 	if !(p.H == 0) {
 		p.Flags.Set(5)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (p *PageBlockEmbed) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockEmbed#a8718dc5 as nil")
+	}
+	b.PutID(PageBlockEmbedTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockEmbed) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockEmbed#a8718dc5 as nil")
+	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockEmbed#a8718dc5: field flags: %w", err)
 	}
@@ -4286,6 +4301,16 @@ func (p *PageBlockTable) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PageBlockTable) SetFlags() {
+	if !(p.Bordered == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Striped == false) {
+		p.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockTable) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -4300,12 +4325,7 @@ func (p *PageBlockTable) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockTable#bf4dea82 as nil")
 	}
-	if !(p.Bordered == false) {
-		p.Flags.Set(0)
-	}
-	if !(p.Striped == false) {
-		p.Flags.Set(1)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockTable#bf4dea82: field flags: %w", err)
 	}
@@ -4685,6 +4705,13 @@ func (p *PageBlockDetails) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PageBlockDetails) SetFlags() {
+	if !(p.Open == false) {
+		p.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockDetails) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -4699,9 +4726,7 @@ func (p *PageBlockDetails) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pageBlockDetails#76768bed as nil")
 	}
-	if !(p.Open == false) {
-		p.Flags.Set(0)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockDetails#76768bed: field flags: %w", err)
 	}

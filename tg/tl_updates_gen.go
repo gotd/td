@@ -431,20 +431,8 @@ func (u *UpdateShortMessage) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (u *UpdateShortMessage) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateShortMessage#313bc7f8 as nil")
-	}
-	b.PutID(UpdateShortMessageTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateShortMessage) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateShortMessage#313bc7f8 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateShortMessage) SetFlags() {
 	if !(u.Out == false) {
 		u.Flags.Set(1)
 	}
@@ -472,6 +460,23 @@ func (u *UpdateShortMessage) EncodeBare(b *bin.Buffer) error {
 	if !(u.TTLPeriod == 0) {
 		u.Flags.Set(25)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateShortMessage) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateShortMessage#313bc7f8 as nil")
+	}
+	b.PutID(UpdateShortMessageTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateShortMessage) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateShortMessage#313bc7f8 as nil")
+	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateShortMessage#313bc7f8: field flags: %w", err)
 	}
@@ -1103,20 +1108,8 @@ func (u *UpdateShortChatMessage) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (u *UpdateShortChatMessage) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateShortChatMessage#4d6deea5 as nil")
-	}
-	b.PutID(UpdateShortChatMessageTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateShortChatMessage) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateShortChatMessage#4d6deea5 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateShortChatMessage) SetFlags() {
 	if !(u.Out == false) {
 		u.Flags.Set(1)
 	}
@@ -1144,6 +1137,23 @@ func (u *UpdateShortChatMessage) EncodeBare(b *bin.Buffer) error {
 	if !(u.TTLPeriod == 0) {
 		u.Flags.Set(25)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateShortChatMessage) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateShortChatMessage#4d6deea5 as nil")
+	}
+	b.PutID(UpdateShortChatMessageTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateShortChatMessage) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateShortChatMessage#4d6deea5 as nil")
+	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateShortChatMessage#4d6deea5: field flags: %w", err)
 	}
@@ -2463,6 +2473,22 @@ func (u *UpdateShortSentMessage) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateShortSentMessage) SetFlags() {
+	if !(u.Out == false) {
+		u.Flags.Set(1)
+	}
+	if !(u.Media == nil) {
+		u.Flags.Set(9)
+	}
+	if !(u.Entities == nil) {
+		u.Flags.Set(7)
+	}
+	if !(u.TTLPeriod == 0) {
+		u.Flags.Set(25)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateShortSentMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2477,18 +2503,7 @@ func (u *UpdateShortSentMessage) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateShortSentMessage#9015e101 as nil")
 	}
-	if !(u.Out == false) {
-		u.Flags.Set(1)
-	}
-	if !(u.Media == nil) {
-		u.Flags.Set(9)
-	}
-	if !(u.Entities == nil) {
-		u.Flags.Set(7)
-	}
-	if !(u.TTLPeriod == 0) {
-		u.Flags.Set(25)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateShortSentMessage#9015e101: field flags: %w", err)
 	}

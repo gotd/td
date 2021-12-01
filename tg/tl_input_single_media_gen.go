@@ -163,6 +163,13 @@ func (i *InputSingleMedia) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputSingleMedia) SetFlags() {
+	if !(i.Entities == nil) {
+		i.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputSingleMedia) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -177,9 +184,7 @@ func (i *InputSingleMedia) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputSingleMedia#1cc6e91f as nil")
 	}
-	if !(i.Entities == nil) {
-		i.Flags.Set(0)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputSingleMedia#1cc6e91f: field flags: %w", err)
 	}

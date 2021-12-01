@@ -352,20 +352,8 @@ func (u *UserFull) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (u *UserFull) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode userFull#d697ff05 as nil")
-	}
-	b.PutID(UserFullTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UserFull) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode userFull#d697ff05 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (u *UserFull) SetFlags() {
 	if !(u.Blocked == false) {
 		u.Flags.Set(0)
 	}
@@ -405,6 +393,23 @@ func (u *UserFull) EncodeBare(b *bin.Buffer) error {
 	if !(u.ThemeEmoticon == "") {
 		u.Flags.Set(15)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UserFull) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userFull#d697ff05 as nil")
+	}
+	b.PutID(UserFullTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserFull) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userFull#d697ff05 as nil")
+	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode userFull#d697ff05: field flags: %w", err)
 	}

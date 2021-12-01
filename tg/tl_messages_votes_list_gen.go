@@ -164,6 +164,13 @@ func (v *MessagesVotesList) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (v *MessagesVotesList) SetFlags() {
+	if !(v.NextOffset == "") {
+		v.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (v *MessagesVotesList) Encode(b *bin.Buffer) error {
 	if v == nil {
@@ -178,9 +185,7 @@ func (v *MessagesVotesList) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
 		return fmt.Errorf("can't encode messages.votesList#823f649 as nil")
 	}
-	if !(v.NextOffset == "") {
-		v.Flags.Set(0)
-	}
+	v.SetFlags()
 	if err := v.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.votesList#823f649: field flags: %w", err)
 	}

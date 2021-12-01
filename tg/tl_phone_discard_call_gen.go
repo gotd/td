@@ -162,6 +162,13 @@ func (d *PhoneDiscardCallRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *PhoneDiscardCallRequest) SetFlags() {
+	if !(d.Video == false) {
+		d.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *PhoneDiscardCallRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -176,9 +183,7 @@ func (d *PhoneDiscardCallRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode phone.discardCall#b2cbc1c0 as nil")
 	}
-	if !(d.Video == false) {
-		d.Flags.Set(0)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.discardCall#b2cbc1c0: field flags: %w", err)
 	}

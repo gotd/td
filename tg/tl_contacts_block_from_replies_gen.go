@@ -159,6 +159,19 @@ func (b *ContactsBlockFromRepliesRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (b *ContactsBlockFromRepliesRequest) SetFlags() {
+	if !(b.DeleteMessage == false) {
+		b.Flags.Set(0)
+	}
+	if !(b.DeleteHistory == false) {
+		b.Flags.Set(1)
+	}
+	if !(b.ReportSpam == false) {
+		b.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (b *ContactsBlockFromRepliesRequest) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -173,15 +186,7 @@ func (b *ContactsBlockFromRepliesRequest) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't encode contacts.blockFromReplies#29a8962c as nil")
 	}
-	if !(b.DeleteMessage == false) {
-		b.Flags.Set(0)
-	}
-	if !(b.DeleteHistory == false) {
-		b.Flags.Set(1)
-	}
-	if !(b.ReportSpam == false) {
-		b.Flags.Set(2)
-	}
+	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode contacts.blockFromReplies#29a8962c: field flags: %w", err)
 	}

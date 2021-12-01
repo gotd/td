@@ -205,6 +205,16 @@ func (g *MessagesGetDialogsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetDialogsRequest) SetFlags() {
+	if !(g.ExcludePinned == false) {
+		g.Flags.Set(0)
+	}
+	if !(g.FolderID == 0) {
+		g.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetDialogsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -219,12 +229,7 @@ func (g *MessagesGetDialogsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode messages.getDialogs#a0f4cb4f as nil")
 	}
-	if !(g.ExcludePinned == false) {
-		g.Flags.Set(0)
-	}
-	if !(g.FolderID == 0) {
-		g.Flags.Set(1)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getDialogs#a0f4cb4f: field flags: %w", err)
 	}

@@ -211,20 +211,8 @@ func (c *ChannelsCreateChannelRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (c *ChannelsCreateChannelRequest) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode channels.createChannel#3d5fb10f as nil")
-	}
-	b.PutID(ChannelsCreateChannelRequestTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChannelsCreateChannelRequest) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode channels.createChannel#3d5fb10f as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (c *ChannelsCreateChannelRequest) SetFlags() {
 	if !(c.Broadcast == false) {
 		c.Flags.Set(0)
 	}
@@ -240,6 +228,23 @@ func (c *ChannelsCreateChannelRequest) EncodeBare(b *bin.Buffer) error {
 	if !(c.Address == "") {
 		c.Flags.Set(2)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelsCreateChannelRequest) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channels.createChannel#3d5fb10f as nil")
+	}
+	b.PutID(ChannelsCreateChannelRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelsCreateChannelRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channels.createChannel#3d5fb10f as nil")
+	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channels.createChannel#3d5fb10f: field flags: %w", err)
 	}
