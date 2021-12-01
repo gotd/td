@@ -10,6 +10,7 @@
 {{ template "string_derive" $s }}
 {{ if $.Flags.Mapping }}{{ template "fill_from" $s }}{{ end }}
 {{ template "type_info" $s }}
+{{ template "set_flags" $s }}
 {{ template "encode" $s }}
 {{ template "decode" $s }}
 {{- if $.Flags.TDLibJSON }}

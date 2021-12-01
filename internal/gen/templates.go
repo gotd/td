@@ -82,6 +82,14 @@ func Funcs() template.FuncMap {
 			}
 			return lower
 		},
+		"hasFlags": func(def structDef) bool {
+			for _, field := range def.Fields {
+				if field.Type == flagsType {
+					return true
+				}
+			}
+			return false
+		},
 
 		// Argument constructors
 		"newStructConfig":    newStructConfig,
