@@ -444,20 +444,8 @@ func (c *Chat) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (c *Chat) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chat#41cbf256 as nil")
-	}
-	b.PutID(ChatTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *Chat) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chat#41cbf256 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (c *Chat) SetFlags() {
 	if !(c.Creator == false) {
 		c.Flags.Set(0)
 	}
@@ -485,6 +473,23 @@ func (c *Chat) EncodeBare(b *bin.Buffer) error {
 	if !(c.DefaultBannedRights.Zero()) {
 		c.Flags.Set(18)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (c *Chat) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chat#41cbf256 as nil")
+	}
+	b.PutID(ChatTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *Chat) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chat#41cbf256 as nil")
+	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chat#41cbf256: field flags: %w", err)
 	}
@@ -1392,20 +1397,8 @@ func (c *Channel) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (c *Channel) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode channel#8261ac61 as nil")
-	}
-	b.PutID(ChannelTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *Channel) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode channel#8261ac61 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (c *Channel) SetFlags() {
 	if !(c.Creator == false) {
 		c.Flags.Set(0)
 	}
@@ -1475,6 +1468,23 @@ func (c *Channel) EncodeBare(b *bin.Buffer) error {
 	if !(c.ParticipantsCount == 0) {
 		c.Flags.Set(17)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (c *Channel) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channel#8261ac61 as nil")
+	}
+	b.PutID(ChannelTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *Channel) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channel#8261ac61 as nil")
+	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channel#8261ac61: field flags: %w", err)
 	}
@@ -2179,6 +2189,19 @@ func (c *ChannelForbidden) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *ChannelForbidden) SetFlags() {
+	if !(c.Broadcast == false) {
+		c.Flags.Set(5)
+	}
+	if !(c.Megagroup == false) {
+		c.Flags.Set(8)
+	}
+	if !(c.UntilDate == 0) {
+		c.Flags.Set(16)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelForbidden) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -2193,15 +2216,7 @@ func (c *ChannelForbidden) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode channelForbidden#17d493d5 as nil")
 	}
-	if !(c.Broadcast == false) {
-		c.Flags.Set(5)
-	}
-	if !(c.Megagroup == false) {
-		c.Flags.Set(8)
-	}
-	if !(c.UntilDate == 0) {
-		c.Flags.Set(16)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelForbidden#17d493d5: field flags: %w", err)
 	}

@@ -162,6 +162,16 @@ func (b *BotInlineMessageMediaAuto) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (b *BotInlineMessageMediaAuto) SetFlags() {
+	if !(b.Entities == nil) {
+		b.Flags.Set(1)
+	}
+	if !(b.ReplyMarkup == nil) {
+		b.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (b *BotInlineMessageMediaAuto) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -176,12 +186,7 @@ func (b *BotInlineMessageMediaAuto) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botInlineMessageMediaAuto#764cf810 as nil")
 	}
-	if !(b.Entities == nil) {
-		b.Flags.Set(1)
-	}
-	if !(b.ReplyMarkup == nil) {
-		b.Flags.Set(2)
-	}
+	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineMessageMediaAuto#764cf810: field flags: %w", err)
 	}
@@ -446,6 +451,19 @@ func (b *BotInlineMessageText) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (b *BotInlineMessageText) SetFlags() {
+	if !(b.NoWebpage == false) {
+		b.Flags.Set(0)
+	}
+	if !(b.Entities == nil) {
+		b.Flags.Set(1)
+	}
+	if !(b.ReplyMarkup == nil) {
+		b.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (b *BotInlineMessageText) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -460,15 +478,7 @@ func (b *BotInlineMessageText) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botInlineMessageText#8c7f65e2 as nil")
 	}
-	if !(b.NoWebpage == false) {
-		b.Flags.Set(0)
-	}
-	if !(b.Entities == nil) {
-		b.Flags.Set(1)
-	}
-	if !(b.ReplyMarkup == nil) {
-		b.Flags.Set(2)
-	}
+	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineMessageText#8c7f65e2: field flags: %w", err)
 	}
@@ -776,6 +786,22 @@ func (b *BotInlineMessageMediaGeo) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (b *BotInlineMessageMediaGeo) SetFlags() {
+	if !(b.Heading == 0) {
+		b.Flags.Set(0)
+	}
+	if !(b.Period == 0) {
+		b.Flags.Set(1)
+	}
+	if !(b.ProximityNotificationRadius == 0) {
+		b.Flags.Set(3)
+	}
+	if !(b.ReplyMarkup == nil) {
+		b.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (b *BotInlineMessageMediaGeo) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -790,18 +816,7 @@ func (b *BotInlineMessageMediaGeo) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botInlineMessageMediaGeo#51846fd as nil")
 	}
-	if !(b.Heading == 0) {
-		b.Flags.Set(0)
-	}
-	if !(b.Period == 0) {
-		b.Flags.Set(1)
-	}
-	if !(b.ProximityNotificationRadius == 0) {
-		b.Flags.Set(3)
-	}
-	if !(b.ReplyMarkup == nil) {
-		b.Flags.Set(2)
-	}
+	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineMessageMediaGeo#51846fd: field flags: %w", err)
 	}
@@ -1118,6 +1133,13 @@ func (b *BotInlineMessageMediaVenue) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (b *BotInlineMessageMediaVenue) SetFlags() {
+	if !(b.ReplyMarkup == nil) {
+		b.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (b *BotInlineMessageMediaVenue) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -1132,9 +1154,7 @@ func (b *BotInlineMessageMediaVenue) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botInlineMessageMediaVenue#8a86659c as nil")
 	}
-	if !(b.ReplyMarkup == nil) {
-		b.Flags.Set(2)
-	}
+	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineMessageMediaVenue#8a86659c: field flags: %w", err)
 	}
@@ -1419,6 +1439,13 @@ func (b *BotInlineMessageMediaContact) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (b *BotInlineMessageMediaContact) SetFlags() {
+	if !(b.ReplyMarkup == nil) {
+		b.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (b *BotInlineMessageMediaContact) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -1433,9 +1460,7 @@ func (b *BotInlineMessageMediaContact) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botInlineMessageMediaContact#18d1cdc2 as nil")
 	}
-	if !(b.ReplyMarkup == nil) {
-		b.Flags.Set(2)
-	}
+	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineMessageMediaContact#18d1cdc2: field flags: %w", err)
 	}
@@ -1739,6 +1764,22 @@ func (b *BotInlineMessageMediaInvoice) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (b *BotInlineMessageMediaInvoice) SetFlags() {
+	if !(b.ShippingAddressRequested == false) {
+		b.Flags.Set(1)
+	}
+	if !(b.Test == false) {
+		b.Flags.Set(3)
+	}
+	if !(b.Photo == nil) {
+		b.Flags.Set(0)
+	}
+	if !(b.ReplyMarkup == nil) {
+		b.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (b *BotInlineMessageMediaInvoice) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -1753,18 +1794,7 @@ func (b *BotInlineMessageMediaInvoice) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botInlineMessageMediaInvoice#354a9b09 as nil")
 	}
-	if !(b.ShippingAddressRequested == false) {
-		b.Flags.Set(1)
-	}
-	if !(b.Test == false) {
-		b.Flags.Set(3)
-	}
-	if !(b.Photo == nil) {
-		b.Flags.Set(0)
-	}
-	if !(b.ReplyMarkup == nil) {
-		b.Flags.Set(2)
-	}
+	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineMessageMediaInvoice#354a9b09: field flags: %w", err)
 	}

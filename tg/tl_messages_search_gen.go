@@ -285,6 +285,16 @@ func (s *MessagesSearchRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *MessagesSearchRequest) SetFlags() {
+	if !(s.FromID == nil) {
+		s.Flags.Set(0)
+	}
+	if !(s.TopMsgID == 0) {
+		s.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSearchRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -299,12 +309,7 @@ func (s *MessagesSearchRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode messages.search#a0fda762 as nil")
 	}
-	if !(s.FromID == nil) {
-		s.Flags.Set(0)
-	}
-	if !(s.TopMsgID == 0) {
-		s.Flags.Set(1)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.search#a0fda762: field flags: %w", err)
 	}

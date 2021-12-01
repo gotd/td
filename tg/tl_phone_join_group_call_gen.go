@@ -180,6 +180,19 @@ func (j *PhoneJoinGroupCallRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (j *PhoneJoinGroupCallRequest) SetFlags() {
+	if !(j.Muted == false) {
+		j.Flags.Set(0)
+	}
+	if !(j.VideoStopped == false) {
+		j.Flags.Set(2)
+	}
+	if !(j.InviteHash == "") {
+		j.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (j *PhoneJoinGroupCallRequest) Encode(b *bin.Buffer) error {
 	if j == nil {
@@ -194,15 +207,7 @@ func (j *PhoneJoinGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't encode phone.joinGroupCall#b132ff7b as nil")
 	}
-	if !(j.Muted == false) {
-		j.Flags.Set(0)
-	}
-	if !(j.VideoStopped == false) {
-		j.Flags.Set(2)
-	}
-	if !(j.InviteHash == "") {
-		j.Flags.Set(1)
-	}
+	j.SetFlags()
 	if err := j.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.joinGroupCall#b132ff7b: field flags: %w", err)
 	}

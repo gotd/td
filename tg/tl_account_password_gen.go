@@ -302,20 +302,8 @@ func (p *AccountPassword) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (p *AccountPassword) Encode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode account.password#185b184f as nil")
-	}
-	b.PutID(AccountPasswordTypeID)
-	return p.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (p *AccountPassword) EncodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode account.password#185b184f as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (p *AccountPassword) SetFlags() {
 	if !(p.HasRecovery == false) {
 		p.Flags.Set(0)
 	}
@@ -343,6 +331,23 @@ func (p *AccountPassword) EncodeBare(b *bin.Buffer) error {
 	if !(p.PendingResetDate == 0) {
 		p.Flags.Set(5)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (p *AccountPassword) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode account.password#185b184f as nil")
+	}
+	b.PutID(AccountPasswordTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *AccountPassword) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode account.password#185b184f as nil")
+	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.password#185b184f: field flags: %w", err)
 	}

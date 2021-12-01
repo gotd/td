@@ -256,6 +256,16 @@ func (d *HelpDeepLinkInfo) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *HelpDeepLinkInfo) SetFlags() {
+	if !(d.UpdateApp == false) {
+		d.Flags.Set(0)
+	}
+	if !(d.Entities == nil) {
+		d.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *HelpDeepLinkInfo) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -270,12 +280,7 @@ func (d *HelpDeepLinkInfo) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode help.deepLinkInfo#6a4ee832 as nil")
 	}
-	if !(d.UpdateApp == false) {
-		d.Flags.Set(0)
-	}
-	if !(d.Entities == nil) {
-		d.Flags.Set(1)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.deepLinkInfo#6a4ee832: field flags: %w", err)
 	}

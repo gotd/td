@@ -261,20 +261,8 @@ func (s *MessagesSendMessageRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (s *MessagesSendMessageRequest) Encode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMessage#520c3870 as nil")
-	}
-	b.PutID(MessagesSendMessageRequestTypeID)
-	return s.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMessage#520c3870 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (s *MessagesSendMessageRequest) SetFlags() {
 	if !(s.NoWebpage == false) {
 		s.Flags.Set(1)
 	}
@@ -299,6 +287,23 @@ func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if !(s.ScheduleDate == 0) {
 		s.Flags.Set(10)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (s *MessagesSendMessageRequest) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.sendMessage#520c3870 as nil")
+	}
+	b.PutID(MessagesSendMessageRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.sendMessage#520c3870 as nil")
+	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field flags: %w", err)
 	}

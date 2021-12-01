@@ -151,6 +151,16 @@ func (c *HelpCountryCode) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *HelpCountryCode) SetFlags() {
+	if !(c.Prefixes == nil) {
+		c.Flags.Set(0)
+	}
+	if !(c.Patterns == nil) {
+		c.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *HelpCountryCode) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -165,12 +175,7 @@ func (c *HelpCountryCode) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode help.countryCode#4203c5ef as nil")
 	}
-	if !(c.Prefixes == nil) {
-		c.Flags.Set(0)
-	}
-	if !(c.Patterns == nil) {
-		c.Flags.Set(1)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.countryCode#4203c5ef: field flags: %w", err)
 	}

@@ -208,20 +208,8 @@ func (e *MessagesEditExportedChatInviteRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (e *MessagesEditExportedChatInviteRequest) Encode(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't encode messages.editExportedChatInvite#bdca2f75 as nil")
-	}
-	b.PutID(MessagesEditExportedChatInviteRequestTypeID)
-	return e.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (e *MessagesEditExportedChatInviteRequest) EncodeBare(b *bin.Buffer) error {
-	if e == nil {
-		return fmt.Errorf("can't encode messages.editExportedChatInvite#bdca2f75 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (e *MessagesEditExportedChatInviteRequest) SetFlags() {
 	if !(e.Revoked == false) {
 		e.Flags.Set(2)
 	}
@@ -237,6 +225,23 @@ func (e *MessagesEditExportedChatInviteRequest) EncodeBare(b *bin.Buffer) error 
 	if !(e.Title == "") {
 		e.Flags.Set(4)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (e *MessagesEditExportedChatInviteRequest) Encode(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editExportedChatInvite#bdca2f75 as nil")
+	}
+	b.PutID(MessagesEditExportedChatInviteRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesEditExportedChatInviteRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editExportedChatInvite#bdca2f75 as nil")
+	}
+	e.SetFlags()
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.editExportedChatInvite#bdca2f75: field flags: %w", err)
 	}

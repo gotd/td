@@ -164,6 +164,19 @@ func (u *PhotosUploadProfilePhotoRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *PhotosUploadProfilePhotoRequest) SetFlags() {
+	if !(u.File == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.Video == nil) {
+		u.Flags.Set(1)
+	}
+	if !(u.VideoStartTs == 0) {
+		u.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *PhotosUploadProfilePhotoRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -178,15 +191,7 @@ func (u *PhotosUploadProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode photos.uploadProfilePhoto#89f30f69 as nil")
 	}
-	if !(u.File == nil) {
-		u.Flags.Set(0)
-	}
-	if !(u.Video == nil) {
-		u.Flags.Set(1)
-	}
-	if !(u.VideoStartTs == 0) {
-		u.Flags.Set(2)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode photos.uploadProfilePhoto#89f30f69: field flags: %w", err)
 	}

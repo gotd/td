@@ -181,6 +181,22 @@ func (f *Folder) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (f *Folder) SetFlags() {
+	if !(f.AutofillNewBroadcasts == false) {
+		f.Flags.Set(0)
+	}
+	if !(f.AutofillPublicGroups == false) {
+		f.Flags.Set(1)
+	}
+	if !(f.AutofillNewCorrespondents == false) {
+		f.Flags.Set(2)
+	}
+	if !(f.Photo == nil) {
+		f.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (f *Folder) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -195,18 +211,7 @@ func (f *Folder) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't encode folder#ff544e65 as nil")
 	}
-	if !(f.AutofillNewBroadcasts == false) {
-		f.Flags.Set(0)
-	}
-	if !(f.AutofillPublicGroups == false) {
-		f.Flags.Set(1)
-	}
-	if !(f.AutofillNewCorrespondents == false) {
-		f.Flags.Set(2)
-	}
-	if !(f.Photo == nil) {
-		f.Flags.Set(3)
-	}
+	f.SetFlags()
 	if err := f.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode folder#ff544e65: field flags: %w", err)
 	}

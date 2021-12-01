@@ -155,6 +155,19 @@ func (c *CodeSettings) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *CodeSettings) SetFlags() {
+	if !(c.AllowFlashcall == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.CurrentNumber == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.AllowAppHash == false) {
+		c.Flags.Set(4)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *CodeSettings) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -169,15 +182,7 @@ func (c *CodeSettings) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode codeSettings#debebe83 as nil")
 	}
-	if !(c.AllowFlashcall == false) {
-		c.Flags.Set(0)
-	}
-	if !(c.CurrentNumber == false) {
-		c.Flags.Set(1)
-	}
-	if !(c.AllowAppHash == false) {
-		c.Flags.Set(4)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode codeSettings#debebe83: field flags: %w", err)
 	}

@@ -388,20 +388,8 @@ func (c *ChatInvite) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (c *ChatInvite) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatInvite#300c44c1 as nil")
-	}
-	b.PutID(ChatInviteTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatInvite) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatInvite#300c44c1 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (c *ChatInvite) SetFlags() {
 	if !(c.Channel == false) {
 		c.Flags.Set(0)
 	}
@@ -423,6 +411,23 @@ func (c *ChatInvite) EncodeBare(b *bin.Buffer) error {
 	if !(c.Participants == nil) {
 		c.Flags.Set(4)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatInvite) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInvite#300c44c1 as nil")
+	}
+	b.PutID(ChatInviteTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatInvite) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInvite#300c44c1 as nil")
+	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatInvite#300c44c1: field flags: %w", err)
 	}

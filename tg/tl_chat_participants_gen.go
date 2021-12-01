@@ -139,6 +139,13 @@ func (c *ChatParticipantsForbidden) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *ChatParticipantsForbidden) SetFlags() {
+	if !(c.SelfParticipant == nil) {
+		c.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatParticipantsForbidden) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -153,9 +160,7 @@ func (c *ChatParticipantsForbidden) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatParticipantsForbidden#8763d3e1 as nil")
 	}
-	if !(c.SelfParticipant == nil) {
-		c.Flags.Set(0)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatParticipantsForbidden#8763d3e1: field flags: %w", err)
 	}

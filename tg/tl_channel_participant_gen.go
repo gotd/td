@@ -309,6 +309,13 @@ func (c *ChannelParticipantSelf) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *ChannelParticipantSelf) SetFlags() {
+	if !(c.ViaInvite == false) {
+		c.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantSelf) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -323,9 +330,7 @@ func (c *ChannelParticipantSelf) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode channelParticipantSelf#35a8bfa7 as nil")
 	}
-	if !(c.ViaInvite == false) {
-		c.Flags.Set(0)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelParticipantSelf#35a8bfa7: field flags: %w", err)
 	}
@@ -532,6 +537,13 @@ func (c *ChannelParticipantCreator) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *ChannelParticipantCreator) SetFlags() {
+	if !(c.Rank == "") {
+		c.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantCreator) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -546,9 +558,7 @@ func (c *ChannelParticipantCreator) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode channelParticipantCreator#2fe601d3 as nil")
 	}
-	if !(c.Rank == "") {
-		c.Flags.Set(0)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelParticipantCreator#2fe601d3: field flags: %w", err)
 	}
@@ -815,6 +825,22 @@ func (c *ChannelParticipantAdmin) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *ChannelParticipantAdmin) SetFlags() {
+	if !(c.CanEdit == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Self == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.InviterID == 0) {
+		c.Flags.Set(1)
+	}
+	if !(c.Rank == "") {
+		c.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantAdmin) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -829,18 +855,7 @@ func (c *ChannelParticipantAdmin) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode channelParticipantAdmin#34c3bb53 as nil")
 	}
-	if !(c.CanEdit == false) {
-		c.Flags.Set(0)
-	}
-	if !(c.Self == false) {
-		c.Flags.Set(1)
-	}
-	if !(c.InviterID == 0) {
-		c.Flags.Set(1)
-	}
-	if !(c.Rank == "") {
-		c.Flags.Set(2)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelParticipantAdmin#34c3bb53: field flags: %w", err)
 	}
@@ -1146,6 +1161,13 @@ func (c *ChannelParticipantBanned) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *ChannelParticipantBanned) SetFlags() {
+	if !(c.Left == false) {
+		c.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantBanned) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1160,9 +1182,7 @@ func (c *ChannelParticipantBanned) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode channelParticipantBanned#6df8014e as nil")
 	}
-	if !(c.Left == false) {
-		c.Flags.Set(0)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelParticipantBanned#6df8014e: field flags: %w", err)
 	}

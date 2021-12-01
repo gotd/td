@@ -194,6 +194,19 @@ func (g *MessagesGetExportedChatInvitesRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetExportedChatInvitesRequest) SetFlags() {
+	if !(g.Revoked == false) {
+		g.Flags.Set(3)
+	}
+	if !(g.OffsetDate == 0) {
+		g.Flags.Set(2)
+	}
+	if !(g.OffsetLink == "") {
+		g.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetExportedChatInvitesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -208,15 +221,7 @@ func (g *MessagesGetExportedChatInvitesRequest) EncodeBare(b *bin.Buffer) error 
 	if g == nil {
 		return fmt.Errorf("can't encode messages.getExportedChatInvites#a2b5a3f6 as nil")
 	}
-	if !(g.Revoked == false) {
-		g.Flags.Set(3)
-	}
-	if !(g.OffsetDate == 0) {
-		g.Flags.Set(2)
-	}
-	if !(g.OffsetLink == "") {
-		g.Flags.Set(2)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getExportedChatInvites#a2b5a3f6: field flags: %w", err)
 	}

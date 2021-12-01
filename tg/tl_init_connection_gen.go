@@ -232,6 +232,16 @@ func (i *InitConnectionRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InitConnectionRequest) SetFlags() {
+	if !(i.Proxy.Zero()) {
+		i.Flags.Set(0)
+	}
+	if !(i.Params == nil) {
+		i.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InitConnectionRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -246,12 +256,7 @@ func (i *InitConnectionRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode initConnection#c1cd5ea9 as nil")
 	}
-	if !(i.Proxy.Zero()) {
-		i.Flags.Set(0)
-	}
-	if !(i.Params == nil) {
-		i.Flags.Set(1)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode initConnection#c1cd5ea9: field flags: %w", err)
 	}

@@ -344,6 +344,16 @@ func (p *Photo) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *Photo) SetFlags() {
+	if !(p.HasStickers == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.VideoSizes == nil) {
+		p.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *Photo) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -358,12 +368,7 @@ func (p *Photo) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode photo#fb197a65 as nil")
 	}
-	if !(p.HasStickers == false) {
-		p.Flags.Set(0)
-	}
-	if !(p.VideoSizes == nil) {
-		p.Flags.Set(1)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode photo#fb197a65: field flags: %w", err)
 	}

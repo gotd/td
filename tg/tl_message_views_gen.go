@@ -160,6 +160,19 @@ func (m *MessageViews) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessageViews) SetFlags() {
+	if !(m.Views == 0) {
+		m.Flags.Set(0)
+	}
+	if !(m.Forwards == 0) {
+		m.Flags.Set(1)
+	}
+	if !(m.Replies.Zero()) {
+		m.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageViews) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -174,15 +187,7 @@ func (m *MessageViews) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageViews#455b853d as nil")
 	}
-	if !(m.Views == 0) {
-		m.Flags.Set(0)
-	}
-	if !(m.Forwards == 0) {
-		m.Flags.Set(1)
-	}
-	if !(m.Replies.Zero()) {
-		m.Flags.Set(2)
-	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageViews#455b853d: field flags: %w", err)
 	}

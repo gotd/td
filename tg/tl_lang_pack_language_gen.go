@@ -242,6 +242,22 @@ func (l *LangPackLanguage) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (l *LangPackLanguage) SetFlags() {
+	if !(l.Official == false) {
+		l.Flags.Set(0)
+	}
+	if !(l.Rtl == false) {
+		l.Flags.Set(2)
+	}
+	if !(l.Beta == false) {
+		l.Flags.Set(3)
+	}
+	if !(l.BaseLangCode == "") {
+		l.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (l *LangPackLanguage) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -256,18 +272,7 @@ func (l *LangPackLanguage) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
 		return fmt.Errorf("can't encode langPackLanguage#eeca5ce3 as nil")
 	}
-	if !(l.Official == false) {
-		l.Flags.Set(0)
-	}
-	if !(l.Rtl == false) {
-		l.Flags.Set(2)
-	}
-	if !(l.Beta == false) {
-		l.Flags.Set(3)
-	}
-	if !(l.BaseLangCode == "") {
-		l.Flags.Set(1)
-	}
+	l.SetFlags()
 	if err := l.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode langPackLanguage#eeca5ce3: field flags: %w", err)
 	}

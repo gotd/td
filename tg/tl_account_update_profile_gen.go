@@ -157,6 +157,19 @@ func (u *AccountUpdateProfileRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *AccountUpdateProfileRequest) SetFlags() {
+	if !(u.FirstName == "") {
+		u.Flags.Set(0)
+	}
+	if !(u.LastName == "") {
+		u.Flags.Set(1)
+	}
+	if !(u.About == "") {
+		u.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *AccountUpdateProfileRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -171,15 +184,7 @@ func (u *AccountUpdateProfileRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode account.updateProfile#78515775 as nil")
 	}
-	if !(u.FirstName == "") {
-		u.Flags.Set(0)
-	}
-	if !(u.LastName == "") {
-		u.Flags.Set(1)
-	}
-	if !(u.About == "") {
-		u.Flags.Set(2)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.updateProfile#78515775: field flags: %w", err)
 	}

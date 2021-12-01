@@ -204,20 +204,8 @@ func (i *AccountInitTakeoutSessionRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (i *AccountInitTakeoutSessionRequest) Encode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode account.initTakeoutSession#f05b4804 as nil")
-	}
-	b.PutID(AccountInitTakeoutSessionRequestTypeID)
-	return i.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (i *AccountInitTakeoutSessionRequest) EncodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode account.initTakeoutSession#f05b4804 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (i *AccountInitTakeoutSessionRequest) SetFlags() {
 	if !(i.Contacts == false) {
 		i.Flags.Set(0)
 	}
@@ -239,6 +227,23 @@ func (i *AccountInitTakeoutSessionRequest) EncodeBare(b *bin.Buffer) error {
 	if !(i.FileMaxSize == 0) {
 		i.Flags.Set(5)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (i *AccountInitTakeoutSessionRequest) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode account.initTakeoutSession#f05b4804 as nil")
+	}
+	b.PutID(AccountInitTakeoutSessionRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *AccountInitTakeoutSessionRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode account.initTakeoutSession#f05b4804 as nil")
+	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.initTakeoutSession#f05b4804: field flags: %w", err)
 	}

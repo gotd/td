@@ -179,6 +179,13 @@ func (a *AccountAuthorizationForm) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (a *AccountAuthorizationForm) SetFlags() {
+	if !(a.PrivacyPolicyURL == "") {
+		a.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (a *AccountAuthorizationForm) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -193,9 +200,7 @@ func (a *AccountAuthorizationForm) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode account.authorizationForm#ad2e1cd8 as nil")
 	}
-	if !(a.PrivacyPolicyURL == "") {
-		a.Flags.Set(0)
-	}
+	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.authorizationForm#ad2e1cd8: field flags: %w", err)
 	}

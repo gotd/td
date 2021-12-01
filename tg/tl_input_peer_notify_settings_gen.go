@@ -174,6 +174,22 @@ func (i *InputPeerNotifySettings) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputPeerNotifySettings) SetFlags() {
+	if !(i.ShowPreviews == false) {
+		i.Flags.Set(0)
+	}
+	if !(i.Silent == false) {
+		i.Flags.Set(1)
+	}
+	if !(i.MuteUntil == 0) {
+		i.Flags.Set(2)
+	}
+	if !(i.Sound == "") {
+		i.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPeerNotifySettings) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -188,18 +204,7 @@ func (i *InputPeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputPeerNotifySettings#9c3d198e as nil")
 	}
-	if !(i.ShowPreviews == false) {
-		i.Flags.Set(0)
-	}
-	if !(i.Silent == false) {
-		i.Flags.Set(1)
-	}
-	if !(i.MuteUntil == 0) {
-		i.Flags.Set(2)
-	}
-	if !(i.Sound == "") {
-		i.Flags.Set(3)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputPeerNotifySettings#9c3d198e: field flags: %w", err)
 	}

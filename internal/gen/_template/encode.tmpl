@@ -16,12 +16,8 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) EncodeBare({{ $s.BufArg }} *bin.Buffer) 
     if {{ $s.Receiver }} == nil {
         return fmt.Errorf("can't encode {{ $s.RawType }} as nil")
     }
-{{- range $f := $s.Fields }}
-    {{- if $f.Conditional }}
-    if !({{ $s.Receiver }}.{{template "compare_zero" $f}}) {
-        {{ $s.Receiver }}.{{ $f.ConditionalField }}.Set({{ $f.ConditionalIndex }})
-    }
-    {{- end }}
+{{- if hasFlags $s }}
+    {{ $s.Receiver }}.SetFlags()
 {{- end }}
 {{- range $f := $s.Fields }}
     {{- if not $f.ConditionalBool }}

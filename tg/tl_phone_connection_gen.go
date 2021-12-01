@@ -429,6 +429,16 @@ func (p *PhoneConnectionWebrtc) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PhoneConnectionWebrtc) SetFlags() {
+	if !(p.Turn == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Stun == false) {
+		p.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneConnectionWebrtc) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -443,12 +453,7 @@ func (p *PhoneConnectionWebrtc) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode phoneConnectionWebrtc#635fe375 as nil")
 	}
-	if !(p.Turn == false) {
-		p.Flags.Set(0)
-	}
-	if !(p.Stun == false) {
-		p.Flags.Set(1)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneConnectionWebrtc#635fe375: field flags: %w", err)
 	}

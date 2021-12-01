@@ -158,6 +158,16 @@ func (s *MessagesSetBotShippingResultsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *MessagesSetBotShippingResultsRequest) SetFlags() {
+	if !(s.Error == "") {
+		s.Flags.Set(0)
+	}
+	if !(s.ShippingOptions == nil) {
+		s.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSetBotShippingResultsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -172,12 +182,7 @@ func (s *MessagesSetBotShippingResultsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode messages.setBotShippingResults#e5f672fa as nil")
 	}
-	if !(s.Error == "") {
-		s.Flags.Set(0)
-	}
-	if !(s.ShippingOptions == nil) {
-		s.Flags.Set(1)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.setBotShippingResults#e5f672fa: field flags: %w", err)
 	}

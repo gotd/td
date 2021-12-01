@@ -176,6 +176,22 @@ func (t *PhoneToggleGroupCallRecordRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (t *PhoneToggleGroupCallRecordRequest) SetFlags() {
+	if !(t.Start == false) {
+		t.Flags.Set(0)
+	}
+	if !(t.Video == false) {
+		t.Flags.Set(2)
+	}
+	if !(t.Title == "") {
+		t.Flags.Set(1)
+	}
+	if !(t.VideoPortrait == false) {
+		t.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (t *PhoneToggleGroupCallRecordRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -190,18 +206,7 @@ func (t *PhoneToggleGroupCallRecordRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode phone.toggleGroupCallRecord#f128c708 as nil")
 	}
-	if !(t.Start == false) {
-		t.Flags.Set(0)
-	}
-	if !(t.Video == false) {
-		t.Flags.Set(2)
-	}
-	if !(t.Title == "") {
-		t.Flags.Set(1)
-	}
-	if !(t.VideoPortrait == false) {
-		t.Flags.Set(2)
-	}
+	t.SetFlags()
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.toggleGroupCallRecord#f128c708: field flags: %w", err)
 	}

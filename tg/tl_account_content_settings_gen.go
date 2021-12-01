@@ -131,6 +131,16 @@ func (c *AccountContentSettings) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *AccountContentSettings) SetFlags() {
+	if !(c.SensitiveEnabled == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.SensitiveCanChange == false) {
+		c.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *AccountContentSettings) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -145,12 +155,7 @@ func (c *AccountContentSettings) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode account.contentSettings#57e28221 as nil")
 	}
-	if !(c.SensitiveEnabled == false) {
-		c.Flags.Set(0)
-	}
-	if !(c.SensitiveCanChange == false) {
-		c.Flags.Set(1)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.contentSettings#57e28221: field flags: %w", err)
 	}

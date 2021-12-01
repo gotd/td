@@ -187,20 +187,8 @@ func (b *MessagesBotCallbackAnswer) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (b *MessagesBotCallbackAnswer) Encode(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't encode messages.botCallbackAnswer#36585ea4 as nil")
-	}
-	buf.PutID(MessagesBotCallbackAnswerTypeID)
-	return b.EncodeBare(buf)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (b *MessagesBotCallbackAnswer) EncodeBare(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("can't encode messages.botCallbackAnswer#36585ea4 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (b *MessagesBotCallbackAnswer) SetFlags() {
 	if !(b.Alert == false) {
 		b.Flags.Set(1)
 	}
@@ -216,6 +204,23 @@ func (b *MessagesBotCallbackAnswer) EncodeBare(buf *bin.Buffer) error {
 	if !(b.URL == "") {
 		b.Flags.Set(2)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (b *MessagesBotCallbackAnswer) Encode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode messages.botCallbackAnswer#36585ea4 as nil")
+	}
+	buf.PutID(MessagesBotCallbackAnswerTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *MessagesBotCallbackAnswer) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode messages.botCallbackAnswer#36585ea4 as nil")
+	}
+	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode messages.botCallbackAnswer#36585ea4: field flags: %w", err)
 	}

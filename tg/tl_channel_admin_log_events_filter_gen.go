@@ -351,20 +351,8 @@ func (c *ChannelAdminLogEventsFilter) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (c *ChannelAdminLogEventsFilter) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode channelAdminLogEventsFilter#ea107ae4 as nil")
-	}
-	b.PutID(ChannelAdminLogEventsFilterTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChannelAdminLogEventsFilter) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode channelAdminLogEventsFilter#ea107ae4 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (c *ChannelAdminLogEventsFilter) SetFlags() {
 	if !(c.Join == false) {
 		c.Flags.Set(0)
 	}
@@ -413,6 +401,23 @@ func (c *ChannelAdminLogEventsFilter) EncodeBare(b *bin.Buffer) error {
 	if !(c.Invites == false) {
 		c.Flags.Set(15)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventsFilter) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventsFilter#ea107ae4 as nil")
+	}
+	b.PutID(ChannelAdminLogEventsFilterTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventsFilter) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventsFilter#ea107ae4 as nil")
+	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventsFilter#ea107ae4: field flags: %w", err)
 	}

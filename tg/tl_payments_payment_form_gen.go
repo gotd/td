@@ -274,20 +274,8 @@ func (p *PaymentsPaymentForm) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (p *PaymentsPaymentForm) Encode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode payments.paymentForm#1694761b as nil")
-	}
-	b.PutID(PaymentsPaymentFormTypeID)
-	return p.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (p *PaymentsPaymentForm) EncodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode payments.paymentForm#1694761b as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (p *PaymentsPaymentForm) SetFlags() {
 	if !(p.CanSaveCredentials == false) {
 		p.Flags.Set(2)
 	}
@@ -306,6 +294,23 @@ func (p *PaymentsPaymentForm) EncodeBare(b *bin.Buffer) error {
 	if !(p.SavedCredentials.Zero()) {
 		p.Flags.Set(1)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (p *PaymentsPaymentForm) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode payments.paymentForm#1694761b as nil")
+	}
+	b.PutID(PaymentsPaymentFormTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PaymentsPaymentForm) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode payments.paymentForm#1694761b as nil")
+	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode payments.paymentForm#1694761b: field flags: %w", err)
 	}

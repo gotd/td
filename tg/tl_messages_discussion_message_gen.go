@@ -213,6 +213,19 @@ func (d *MessagesDiscussionMessage) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *MessagesDiscussionMessage) SetFlags() {
+	if !(d.MaxID == 0) {
+		d.Flags.Set(0)
+	}
+	if !(d.ReadInboxMaxID == 0) {
+		d.Flags.Set(1)
+	}
+	if !(d.ReadOutboxMaxID == 0) {
+		d.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDiscussionMessage) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -227,15 +240,7 @@ func (d *MessagesDiscussionMessage) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode messages.discussionMessage#a6341782 as nil")
 	}
-	if !(d.MaxID == 0) {
-		d.Flags.Set(0)
-	}
-	if !(d.ReadInboxMaxID == 0) {
-		d.Flags.Set(1)
-	}
-	if !(d.ReadOutboxMaxID == 0) {
-		d.Flags.Set(2)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.discussionMessage#a6341782: field flags: %w", err)
 	}

@@ -244,20 +244,8 @@ func (g *ContactsGetTopPeersRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (g *ContactsGetTopPeersRequest) Encode(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't encode contacts.getTopPeers#973478b6 as nil")
-	}
-	b.PutID(ContactsGetTopPeersRequestTypeID)
-	return g.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (g *ContactsGetTopPeersRequest) EncodeBare(b *bin.Buffer) error {
-	if g == nil {
-		return fmt.Errorf("can't encode contacts.getTopPeers#973478b6 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (g *ContactsGetTopPeersRequest) SetFlags() {
 	if !(g.Correspondents == false) {
 		g.Flags.Set(0)
 	}
@@ -282,6 +270,23 @@ func (g *ContactsGetTopPeersRequest) EncodeBare(b *bin.Buffer) error {
 	if !(g.Channels == false) {
 		g.Flags.Set(15)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (g *ContactsGetTopPeersRequest) Encode(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode contacts.getTopPeers#973478b6 as nil")
+	}
+	b.PutID(ContactsGetTopPeersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *ContactsGetTopPeersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode contacts.getTopPeers#973478b6 as nil")
+	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode contacts.getTopPeers#973478b6: field flags: %w", err)
 	}

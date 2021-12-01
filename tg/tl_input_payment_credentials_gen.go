@@ -290,6 +290,13 @@ func (i *InputPaymentCredentials) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputPaymentCredentials) SetFlags() {
+	if !(i.Save == false) {
+		i.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPaymentCredentials) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -304,9 +311,7 @@ func (i *InputPaymentCredentials) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputPaymentCredentials#3417d728 as nil")
 	}
-	if !(i.Save == false) {
-		i.Flags.Set(0)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputPaymentCredentials#3417d728: field flags: %w", err)
 	}

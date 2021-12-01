@@ -891,6 +891,22 @@ func (d *DecryptedMessage46) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *DecryptedMessage46) SetFlags() {
+	if !(d.Media == nil) {
+		d.Flags.Set(9)
+	}
+	if !(d.Entities == nil) {
+		d.Flags.Set(7)
+	}
+	if !(d.ViaBotName == "") {
+		d.Flags.Set(11)
+	}
+	if !(d.ReplyToRandomID == 0) {
+		d.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *DecryptedMessage46) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -905,18 +921,7 @@ func (d *DecryptedMessage46) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode decryptedMessage46#36b091de as nil")
 	}
-	if !(d.Media == nil) {
-		d.Flags.Set(9)
-	}
-	if !(d.Entities == nil) {
-		d.Flags.Set(7)
-	}
-	if !(d.ViaBotName == "") {
-		d.Flags.Set(11)
-	}
-	if !(d.ReplyToRandomID == 0) {
-		d.Flags.Set(3)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode decryptedMessage46#36b091de: field flags: %w", err)
 	}
@@ -1277,20 +1282,8 @@ func (d *DecryptedMessage) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (d *DecryptedMessage) Encode(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessage#91cc4674 as nil")
-	}
-	b.PutID(DecryptedMessageTypeID)
-	return d.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (d *DecryptedMessage) EncodeBare(b *bin.Buffer) error {
-	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessage#91cc4674 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (d *DecryptedMessage) SetFlags() {
 	if !(d.Silent == false) {
 		d.Flags.Set(5)
 	}
@@ -1309,6 +1302,23 @@ func (d *DecryptedMessage) EncodeBare(b *bin.Buffer) error {
 	if !(d.GroupedID == 0) {
 		d.Flags.Set(17)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (d *DecryptedMessage) Encode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessage#91cc4674 as nil")
+	}
+	b.PutID(DecryptedMessageTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessage) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessage#91cc4674 as nil")
+	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode decryptedMessage#91cc4674: field flags: %w", err)
 	}

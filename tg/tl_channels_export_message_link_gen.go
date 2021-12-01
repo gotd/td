@@ -155,6 +155,16 @@ func (e *ChannelsExportMessageLinkRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (e *ChannelsExportMessageLinkRequest) SetFlags() {
+	if !(e.Grouped == false) {
+		e.Flags.Set(0)
+	}
+	if !(e.Thread == false) {
+		e.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (e *ChannelsExportMessageLinkRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -169,12 +179,7 @@ func (e *ChannelsExportMessageLinkRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't encode channels.exportMessageLink#e63fadeb as nil")
 	}
-	if !(e.Grouped == false) {
-		e.Flags.Set(0)
-	}
-	if !(e.Thread == false) {
-		e.Flags.Set(1)
-	}
+	e.SetFlags()
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channels.exportMessageLink#e63fadeb: field flags: %w", err)
 	}

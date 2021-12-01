@@ -1249,6 +1249,22 @@ func (d *DocumentAttributeAudio) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *DocumentAttributeAudio) SetFlags() {
+	if !(d.Voice == false) {
+		d.Flags.Set(10)
+	}
+	if !(d.Title == "") {
+		d.Flags.Set(0)
+	}
+	if !(d.Performer == "") {
+		d.Flags.Set(1)
+	}
+	if !(d.Waveform == nil) {
+		d.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeAudio) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -1263,18 +1279,7 @@ func (d *DocumentAttributeAudio) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode documentAttributeAudio#9852f9c6 as nil")
 	}
-	if !(d.Voice == false) {
-		d.Flags.Set(10)
-	}
-	if !(d.Title == "") {
-		d.Flags.Set(0)
-	}
-	if !(d.Performer == "") {
-		d.Flags.Set(1)
-	}
-	if !(d.Waveform == nil) {
-		d.Flags.Set(2)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode documentAttributeAudio#9852f9c6: field flags: %w", err)
 	}
@@ -1518,6 +1523,13 @@ func (d *DocumentAttributeVideo66) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *DocumentAttributeVideo66) SetFlags() {
+	if !(d.RoundMessage == false) {
+		d.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeVideo66) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -1532,9 +1544,7 @@ func (d *DocumentAttributeVideo66) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode documentAttributeVideo66#ef02ce6 as nil")
 	}
-	if !(d.RoundMessage == false) {
-		d.Flags.Set(0)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode documentAttributeVideo66#ef02ce6: field flags: %w", err)
 	}

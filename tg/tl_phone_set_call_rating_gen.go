@@ -151,6 +151,13 @@ func (s *PhoneSetCallRatingRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *PhoneSetCallRatingRequest) SetFlags() {
+	if !(s.UserInitiative == false) {
+		s.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *PhoneSetCallRatingRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -165,9 +172,7 @@ func (s *PhoneSetCallRatingRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode phone.setCallRating#59ead627 as nil")
 	}
-	if !(s.UserInitiative == false) {
-		s.Flags.Set(0)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.setCallRating#59ead627: field flags: %w", err)
 	}

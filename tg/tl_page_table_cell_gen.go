@@ -217,20 +217,8 @@ func (p *PageTableCell) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (p *PageTableCell) Encode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode pageTableCell#34566b6a as nil")
-	}
-	b.PutID(PageTableCellTypeID)
-	return p.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (p *PageTableCell) EncodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode pageTableCell#34566b6a as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (p *PageTableCell) SetFlags() {
 	if !(p.Header == false) {
 		p.Flags.Set(0)
 	}
@@ -255,6 +243,23 @@ func (p *PageTableCell) EncodeBare(b *bin.Buffer) error {
 	if !(p.Rowspan == 0) {
 		p.Flags.Set(2)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (p *PageTableCell) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageTableCell#34566b6a as nil")
+	}
+	b.PutID(PageTableCellTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageTableCell) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageTableCell#34566b6a as nil")
+	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageTableCell#34566b6a: field flags: %w", err)
 	}

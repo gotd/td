@@ -180,6 +180,16 @@ func (g *MessagesGetPollVotesRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetPollVotesRequest) SetFlags() {
+	if !(g.Option == nil) {
+		g.Flags.Set(0)
+	}
+	if !(g.Offset == "") {
+		g.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetPollVotesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -194,12 +204,7 @@ func (g *MessagesGetPollVotesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode messages.getPollVotes#b86e380e as nil")
 	}
-	if !(g.Option == nil) {
-		g.Flags.Set(0)
-	}
-	if !(g.Offset == "") {
-		g.Flags.Set(1)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getPollVotes#b86e380e: field flags: %w", err)
 	}

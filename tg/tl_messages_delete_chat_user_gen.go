@@ -140,6 +140,13 @@ func (d *MessagesDeleteChatUserRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *MessagesDeleteChatUserRequest) SetFlags() {
+	if !(d.RevokeHistory == false) {
+		d.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteChatUserRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -154,9 +161,7 @@ func (d *MessagesDeleteChatUserRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode messages.deleteChatUser#a2185cab as nil")
 	}
-	if !(d.RevokeHistory == false) {
-		d.Flags.Set(0)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.deleteChatUser#a2185cab: field flags: %w", err)
 	}

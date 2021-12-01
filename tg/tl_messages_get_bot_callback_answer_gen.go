@@ -179,6 +179,19 @@ func (g *MessagesGetBotCallbackAnswerRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetBotCallbackAnswerRequest) SetFlags() {
+	if !(g.Game == false) {
+		g.Flags.Set(1)
+	}
+	if !(g.Data == nil) {
+		g.Flags.Set(0)
+	}
+	if !(g.Password == nil) {
+		g.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetBotCallbackAnswerRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -193,15 +206,7 @@ func (g *MessagesGetBotCallbackAnswerRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode messages.getBotCallbackAnswer#9342ca07 as nil")
 	}
-	if !(g.Game == false) {
-		g.Flags.Set(1)
-	}
-	if !(g.Data == nil) {
-		g.Flags.Set(0)
-	}
-	if !(g.Password == nil) {
-		g.Flags.Set(2)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getBotCallbackAnswer#9342ca07: field flags: %w", err)
 	}

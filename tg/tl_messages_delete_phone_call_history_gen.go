@@ -118,6 +118,13 @@ func (d *MessagesDeletePhoneCallHistoryRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *MessagesDeletePhoneCallHistoryRequest) SetFlags() {
+	if !(d.Revoke == false) {
+		d.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDeletePhoneCallHistoryRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -132,9 +139,7 @@ func (d *MessagesDeletePhoneCallHistoryRequest) EncodeBare(b *bin.Buffer) error 
 	if d == nil {
 		return fmt.Errorf("can't encode messages.deletePhoneCallHistory#f9cbe409 as nil")
 	}
-	if !(d.Revoke == false) {
-		d.Flags.Set(0)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.deletePhoneCallHistory#f9cbe409: field flags: %w", err)
 	}

@@ -263,6 +263,13 @@ func (g *GeoPoint) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *GeoPoint) SetFlags() {
+	if !(g.AccuracyRadius == 0) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *GeoPoint) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -277,9 +284,7 @@ func (g *GeoPoint) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode geoPoint#b2a2f663 as nil")
 	}
-	if !(g.AccuracyRadius == 0) {
-		g.Flags.Set(0)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode geoPoint#b2a2f663: field flags: %w", err)
 	}

@@ -159,6 +159,16 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *MessagesSetBotPrecheckoutResultsRequest) SetFlags() {
+	if !(s.Success == false) {
+		s.Flags.Set(1)
+	}
+	if !(s.Error == "") {
+		s.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSetBotPrecheckoutResultsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -173,12 +183,7 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) EncodeBare(b *bin.Buffer) erro
 	if s == nil {
 		return fmt.Errorf("can't encode messages.setBotPrecheckoutResults#9c2dd95 as nil")
 	}
-	if !(s.Success == false) {
-		s.Flags.Set(1)
-	}
-	if !(s.Error == "") {
-		s.Flags.Set(0)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.setBotPrecheckoutResults#9c2dd95: field flags: %w", err)
 	}

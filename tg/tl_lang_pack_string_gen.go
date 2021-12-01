@@ -379,20 +379,8 @@ func (l *LangPackStringPluralized) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (l *LangPackStringPluralized) Encode(b *bin.Buffer) error {
-	if l == nil {
-		return fmt.Errorf("can't encode langPackStringPluralized#6c47ac9f as nil")
-	}
-	b.PutID(LangPackStringPluralizedTypeID)
-	return l.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (l *LangPackStringPluralized) EncodeBare(b *bin.Buffer) error {
-	if l == nil {
-		return fmt.Errorf("can't encode langPackStringPluralized#6c47ac9f as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (l *LangPackStringPluralized) SetFlags() {
 	if !(l.ZeroValue == "") {
 		l.Flags.Set(0)
 	}
@@ -408,6 +396,23 @@ func (l *LangPackStringPluralized) EncodeBare(b *bin.Buffer) error {
 	if !(l.ManyValue == "") {
 		l.Flags.Set(4)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (l *LangPackStringPluralized) Encode(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode langPackStringPluralized#6c47ac9f as nil")
+	}
+	b.PutID(LangPackStringPluralizedTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *LangPackStringPluralized) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode langPackStringPluralized#6c47ac9f as nil")
+	}
+	l.SetFlags()
 	if err := l.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode langPackStringPluralized#6c47ac9f: field flags: %w", err)
 	}

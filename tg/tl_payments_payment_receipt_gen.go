@@ -293,6 +293,22 @@ func (p *PaymentsPaymentReceipt) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PaymentsPaymentReceipt) SetFlags() {
+	if !(p.Photo == nil) {
+		p.Flags.Set(2)
+	}
+	if !(p.Info.Zero()) {
+		p.Flags.Set(0)
+	}
+	if !(p.Shipping.Zero()) {
+		p.Flags.Set(1)
+	}
+	if !(p.TipAmount == 0) {
+		p.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PaymentsPaymentReceipt) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -307,18 +323,7 @@ func (p *PaymentsPaymentReceipt) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode payments.paymentReceipt#70c4fe03 as nil")
 	}
-	if !(p.Photo == nil) {
-		p.Flags.Set(2)
-	}
-	if !(p.Info.Zero()) {
-		p.Flags.Set(0)
-	}
-	if !(p.Shipping.Zero()) {
-		p.Flags.Set(1)
-	}
-	if !(p.TipAmount == 0) {
-		p.Flags.Set(3)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode payments.paymentReceipt#70c4fe03: field flags: %w", err)
 	}

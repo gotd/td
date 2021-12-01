@@ -333,6 +333,19 @@ func (p *HelpPromoData) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *HelpPromoData) SetFlags() {
+	if !(p.Proxy == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.PsaType == "") {
+		p.Flags.Set(1)
+	}
+	if !(p.PsaMessage == "") {
+		p.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *HelpPromoData) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -347,15 +360,7 @@ func (p *HelpPromoData) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode help.promoData#8c39793f as nil")
 	}
-	if !(p.Proxy == false) {
-		p.Flags.Set(0)
-	}
-	if !(p.PsaType == "") {
-		p.Flags.Set(1)
-	}
-	if !(p.PsaMessage == "") {
-		p.Flags.Set(2)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.promoData#8c39793f: field flags: %w", err)
 	}

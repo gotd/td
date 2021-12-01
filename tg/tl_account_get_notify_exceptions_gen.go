@@ -135,6 +135,16 @@ func (g *AccountGetNotifyExceptionsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *AccountGetNotifyExceptionsRequest) SetFlags() {
+	if !(g.CompareSound == false) {
+		g.Flags.Set(1)
+	}
+	if !(g.Peer == nil) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetNotifyExceptionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -149,12 +159,7 @@ func (g *AccountGetNotifyExceptionsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode account.getNotifyExceptions#53577479 as nil")
 	}
-	if !(g.CompareSound == false) {
-		g.Flags.Set(1)
-	}
-	if !(g.Peer == nil) {
-		g.Flags.Set(0)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.getNotifyExceptions#53577479: field flags: %w", err)
 	}

@@ -3183,6 +3183,16 @@ func (u *UpdateServiceNotification) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateServiceNotification) SetFlags() {
+	if !(u.Popup == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.InboxDate == 0) {
+		u.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateServiceNotification) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3197,12 +3207,7 @@ func (u *UpdateServiceNotification) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateServiceNotification#ebe46819 as nil")
 	}
-	if !(u.Popup == false) {
-		u.Flags.Set(0)
-	}
-	if !(u.InboxDate == 0) {
-		u.Flags.Set(1)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateServiceNotification#ebe46819: field flags: %w", err)
 	}
@@ -3856,6 +3861,13 @@ func (u *UpdateReadHistoryInbox) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateReadHistoryInbox) SetFlags() {
+	if !(u.FolderID == 0) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadHistoryInbox) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3870,9 +3882,7 @@ func (u *UpdateReadHistoryInbox) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateReadHistoryInbox#9c974fdf as nil")
 	}
-	if !(u.FolderID == 0) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateReadHistoryInbox#9c974fdf: field flags: %w", err)
 	}
@@ -4722,6 +4732,13 @@ func (u *UpdateChannelTooLong) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateChannelTooLong) SetFlags() {
+	if !(u.Pts == 0) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelTooLong) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -4736,9 +4753,7 @@ func (u *UpdateChannelTooLong) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChannelTooLong#108d941f as nil")
 	}
-	if !(u.Pts == 0) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateChannelTooLong#108d941f: field flags: %w", err)
 	}
@@ -5283,6 +5298,13 @@ func (u *UpdateReadChannelInbox) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateReadChannelInbox) SetFlags() {
+	if !(u.FolderID == 0) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadChannelInbox) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5297,9 +5319,7 @@ func (u *UpdateReadChannelInbox) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateReadChannelInbox#922e6e10 as nil")
 	}
-	if !(u.FolderID == 0) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateReadChannelInbox#922e6e10: field flags: %w", err)
 	}
@@ -6255,6 +6275,13 @@ func (u *UpdateStickerSetsOrder) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateStickerSetsOrder) SetFlags() {
+	if !(u.Masks == false) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateStickerSetsOrder) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6269,9 +6296,7 @@ func (u *UpdateStickerSetsOrder) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateStickerSetsOrder#bb2d201 as nil")
 	}
-	if !(u.Masks == false) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateStickerSetsOrder#bb2d201: field flags: %w", err)
 	}
@@ -6715,6 +6740,16 @@ func (u *UpdateBotInlineQuery) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateBotInlineQuery) SetFlags() {
+	if !(u.Geo == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.PeerType == nil) {
+		u.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateBotInlineQuery) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6729,12 +6764,7 @@ func (u *UpdateBotInlineQuery) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateBotInlineQuery#496f379c as nil")
 	}
-	if !(u.Geo == nil) {
-		u.Flags.Set(0)
-	}
-	if !(u.PeerType == nil) {
-		u.Flags.Set(1)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateBotInlineQuery#496f379c: field flags: %w", err)
 	}
@@ -7031,6 +7061,16 @@ func (u *UpdateBotInlineSend) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateBotInlineSend) SetFlags() {
+	if !(u.Geo == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.MsgID == nil) {
+		u.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateBotInlineSend) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -7045,12 +7085,7 @@ func (u *UpdateBotInlineSend) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateBotInlineSend#12f12a07 as nil")
 	}
-	if !(u.Geo == nil) {
-		u.Flags.Set(0)
-	}
-	if !(u.MsgID == nil) {
-		u.Flags.Set(1)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateBotInlineSend#12f12a07: field flags: %w", err)
 	}
@@ -7545,6 +7580,16 @@ func (u *UpdateBotCallbackQuery) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateBotCallbackQuery) SetFlags() {
+	if !(u.Data == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.GameShortName == "") {
+		u.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateBotCallbackQuery) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -7559,12 +7604,7 @@ func (u *UpdateBotCallbackQuery) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateBotCallbackQuery#b9cfc48d as nil")
 	}
-	if !(u.Data == nil) {
-		u.Flags.Set(0)
-	}
-	if !(u.GameShortName == "") {
-		u.Flags.Set(1)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateBotCallbackQuery#b9cfc48d: field flags: %w", err)
 	}
@@ -8066,6 +8106,16 @@ func (u *UpdateInlineBotCallbackQuery) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateInlineBotCallbackQuery) SetFlags() {
+	if !(u.Data == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.GameShortName == "") {
+		u.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateInlineBotCallbackQuery) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -8080,12 +8130,7 @@ func (u *UpdateInlineBotCallbackQuery) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateInlineBotCallbackQuery#691e9052 as nil")
 	}
-	if !(u.Data == nil) {
-		u.Flags.Set(0)
-	}
-	if !(u.GameShortName == "") {
-		u.Flags.Set(1)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateInlineBotCallbackQuery#691e9052: field flags: %w", err)
 	}
@@ -9312,6 +9357,16 @@ func (u *UpdateDialogPinned) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateDialogPinned) SetFlags() {
+	if !(u.Pinned == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.FolderID == 0) {
+		u.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDialogPinned) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -9326,12 +9381,7 @@ func (u *UpdateDialogPinned) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateDialogPinned#6e6fe51c as nil")
 	}
-	if !(u.Pinned == false) {
-		u.Flags.Set(0)
-	}
-	if !(u.FolderID == 0) {
-		u.Flags.Set(1)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateDialogPinned#6e6fe51c: field flags: %w", err)
 	}
@@ -9539,6 +9589,16 @@ func (u *UpdatePinnedDialogs) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdatePinnedDialogs) SetFlags() {
+	if !(u.FolderID == 0) {
+		u.Flags.Set(1)
+	}
+	if !(u.Order == nil) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePinnedDialogs) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -9553,12 +9613,7 @@ func (u *UpdatePinnedDialogs) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updatePinnedDialogs#fa0f3ca2 as nil")
 	}
-	if !(u.FolderID == 0) {
-		u.Flags.Set(1)
-	}
-	if !(u.Order == nil) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updatePinnedDialogs#fa0f3ca2: field flags: %w", err)
 	}
@@ -10359,6 +10414,16 @@ func (u *UpdateBotPrecheckoutQuery) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateBotPrecheckoutQuery) SetFlags() {
+	if !(u.Info.Zero()) {
+		u.Flags.Set(0)
+	}
+	if !(u.ShippingOptionID == "") {
+		u.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateBotPrecheckoutQuery) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -10373,12 +10438,7 @@ func (u *UpdateBotPrecheckoutQuery) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateBotPrecheckoutQuery#8caa9a96 as nil")
 	}
-	if !(u.Info.Zero()) {
-		u.Flags.Set(0)
-	}
-	if !(u.ShippingOptionID == "") {
-		u.Flags.Set(1)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateBotPrecheckoutQuery#8caa9a96: field flags: %w", err)
 	}
@@ -11574,6 +11634,13 @@ func (u *UpdateDialogUnreadMark) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateDialogUnreadMark) SetFlags() {
+	if !(u.Unread == false) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDialogUnreadMark) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -11588,9 +11655,7 @@ func (u *UpdateDialogUnreadMark) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateDialogUnreadMark#e16459c3 as nil")
 	}
-	if !(u.Unread == false) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateDialogUnreadMark#e16459c3: field flags: %w", err)
 	}
@@ -11775,6 +11840,13 @@ func (u *UpdateMessagePoll) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateMessagePoll) SetFlags() {
+	if !(u.Poll.Zero()) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateMessagePoll) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -11789,9 +11861,7 @@ func (u *UpdateMessagePoll) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateMessagePoll#aca1657b as nil")
 	}
-	if !(u.Poll.Zero()) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateMessagePoll#aca1657b: field flags: %w", err)
 	}
@@ -13630,6 +13700,13 @@ func (u *UpdateDialogFilter) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateDialogFilter) SetFlags() {
+	if !(u.Filter.Zero()) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDialogFilter) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -13644,9 +13721,7 @@ func (u *UpdateDialogFilter) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateDialogFilter#26ffde7d as nil")
 	}
-	if !(u.Filter.Zero()) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateDialogFilter#26ffde7d: field flags: %w", err)
 	}
@@ -14474,6 +14549,16 @@ func (u *UpdateReadChannelDiscussionInbox) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateReadChannelDiscussionInbox) SetFlags() {
+	if !(u.BroadcastID == 0) {
+		u.Flags.Set(0)
+	}
+	if !(u.BroadcastPost == 0) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadChannelDiscussionInbox) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -14488,12 +14573,7 @@ func (u *UpdateReadChannelDiscussionInbox) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateReadChannelDiscussionInbox#d6b19546 as nil")
 	}
-	if !(u.BroadcastID == 0) {
-		u.Flags.Set(0)
-	}
-	if !(u.BroadcastPost == 0) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateReadChannelDiscussionInbox#d6b19546: field flags: %w", err)
 	}
@@ -15103,6 +15183,13 @@ func (u *UpdateChannelUserTyping) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateChannelUserTyping) SetFlags() {
+	if !(u.TopMsgID == 0) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelUserTyping) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -15117,9 +15204,7 @@ func (u *UpdateChannelUserTyping) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChannelUserTyping#8c88c923 as nil")
 	}
-	if !(u.TopMsgID == 0) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateChannelUserTyping#8c88c923: field flags: %w", err)
 	}
@@ -15366,6 +15451,13 @@ func (u *UpdatePinnedMessages) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdatePinnedMessages) SetFlags() {
+	if !(u.Pinned == false) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePinnedMessages) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -15380,9 +15472,7 @@ func (u *UpdatePinnedMessages) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updatePinnedMessages#ed85eab5 as nil")
 	}
-	if !(u.Pinned == false) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updatePinnedMessages#ed85eab5: field flags: %w", err)
 	}
@@ -15645,6 +15735,13 @@ func (u *UpdatePinnedChannelMessages) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdatePinnedChannelMessages) SetFlags() {
+	if !(u.Pinned == false) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePinnedChannelMessages) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -15659,9 +15756,7 @@ func (u *UpdatePinnedChannelMessages) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updatePinnedChannelMessages#5bb98608 as nil")
 	}
-	if !(u.Pinned == false) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updatePinnedChannelMessages#5bb98608: field flags: %w", err)
 	}
@@ -16373,6 +16468,13 @@ func (u *UpdatePeerHistoryTTL) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdatePeerHistoryTTL) SetFlags() {
+	if !(u.TTLPeriod == 0) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePeerHistoryTTL) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -16387,9 +16489,7 @@ func (u *UpdatePeerHistoryTTL) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updatePeerHistoryTTL#bb9bb9a5 as nil")
 	}
-	if !(u.TTLPeriod == 0) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updatePeerHistoryTTL#bb9bb9a5: field flags: %w", err)
 	}
@@ -16656,6 +16756,19 @@ func (u *UpdateChatParticipant) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateChatParticipant) SetFlags() {
+	if !(u.PrevParticipant == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.NewParticipant == nil) {
+		u.Flags.Set(1)
+	}
+	if !(u.Invite.Zero()) {
+		u.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChatParticipant) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -16670,15 +16783,7 @@ func (u *UpdateChatParticipant) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChatParticipant#d087663a as nil")
 	}
-	if !(u.PrevParticipant == nil) {
-		u.Flags.Set(0)
-	}
-	if !(u.NewParticipant == nil) {
-		u.Flags.Set(1)
-	}
-	if !(u.Invite.Zero()) {
-		u.Flags.Set(2)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatParticipant#d087663a: field flags: %w", err)
 	}
@@ -17055,6 +17160,19 @@ func (u *UpdateChannelParticipant) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateChannelParticipant) SetFlags() {
+	if !(u.PrevParticipant == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.NewParticipant == nil) {
+		u.Flags.Set(1)
+	}
+	if !(u.Invite.Zero()) {
+		u.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelParticipant) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -17069,15 +17187,7 @@ func (u *UpdateChannelParticipant) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateChannelParticipant#985d3abb as nil")
 	}
-	if !(u.PrevParticipant == nil) {
-		u.Flags.Set(0)
-	}
-	if !(u.NewParticipant == nil) {
-		u.Flags.Set(1)
-	}
-	if !(u.Invite.Zero()) {
-		u.Flags.Set(2)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateChannelParticipant#985d3abb: field flags: %w", err)
 	}
@@ -17568,6 +17678,13 @@ func (u *UpdateGroupCallConnection) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateGroupCallConnection) SetFlags() {
+	if !(u.Presentation == false) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateGroupCallConnection) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -17582,9 +17699,7 @@ func (u *UpdateGroupCallConnection) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateGroupCallConnection#b783982 as nil")
 	}
-	if !(u.Presentation == false) {
-		u.Flags.Set(0)
-	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateGroupCallConnection#b783982: field flags: %w", err)
 	}

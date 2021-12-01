@@ -202,6 +202,22 @@ func (s *MessagesSetInlineBotResultsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *MessagesSetInlineBotResultsRequest) SetFlags() {
+	if !(s.Gallery == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.Private == false) {
+		s.Flags.Set(1)
+	}
+	if !(s.NextOffset == "") {
+		s.Flags.Set(2)
+	}
+	if !(s.SwitchPm.Zero()) {
+		s.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -216,18 +232,7 @@ func (s *MessagesSetInlineBotResultsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode messages.setInlineBotResults#eb5ea206 as nil")
 	}
-	if !(s.Gallery == false) {
-		s.Flags.Set(0)
-	}
-	if !(s.Private == false) {
-		s.Flags.Set(1)
-	}
-	if !(s.NextOffset == "") {
-		s.Flags.Set(2)
-	}
-	if !(s.SwitchPm.Zero()) {
-		s.Flags.Set(3)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.setInlineBotResults#eb5ea206: field flags: %w", err)
 	}

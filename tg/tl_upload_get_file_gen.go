@@ -167,6 +167,16 @@ func (g *UploadGetFileRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *UploadGetFileRequest) SetFlags() {
+	if !(g.Precise == false) {
+		g.Flags.Set(0)
+	}
+	if !(g.CDNSupported == false) {
+		g.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *UploadGetFileRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -181,12 +191,7 @@ func (g *UploadGetFileRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode upload.getFile#b15a9afc as nil")
 	}
-	if !(g.Precise == false) {
-		g.Flags.Set(0)
-	}
-	if !(g.CDNSupported == false) {
-		g.Flags.Set(1)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode upload.getFile#b15a9afc: field flags: %w", err)
 	}

@@ -2035,6 +2035,16 @@ func (m *MessageActionPaymentSentMe) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionPaymentSentMe) SetFlags() {
+	if !(m.Info.Zero()) {
+		m.Flags.Set(0)
+	}
+	if !(m.ShippingOptionID == "") {
+		m.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionPaymentSentMe) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -2049,12 +2059,7 @@ func (m *MessageActionPaymentSentMe) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageActionPaymentSentMe#8f31b327 as nil")
 	}
-	if !(m.Info.Zero()) {
-		m.Flags.Set(0)
-	}
-	if !(m.ShippingOptionID == "") {
-		m.Flags.Set(1)
-	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageActionPaymentSentMe#8f31b327: field flags: %w", err)
 	}
@@ -2489,6 +2494,19 @@ func (m *MessageActionPhoneCall) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionPhoneCall) SetFlags() {
+	if !(m.Video == false) {
+		m.Flags.Set(2)
+	}
+	if !(m.Reason == nil) {
+		m.Flags.Set(0)
+	}
+	if !(m.Duration == 0) {
+		m.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionPhoneCall) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -2503,15 +2521,7 @@ func (m *MessageActionPhoneCall) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageActionPhoneCall#80e11a7f as nil")
 	}
-	if !(m.Video == false) {
-		m.Flags.Set(2)
-	}
-	if !(m.Reason == nil) {
-		m.Flags.Set(0)
-	}
-	if !(m.Duration == 0) {
-		m.Flags.Set(1)
-	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageActionPhoneCall#80e11a7f: field flags: %w", err)
 	}
@@ -3734,6 +3744,13 @@ func (m *MessageActionGroupCall) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionGroupCall) SetFlags() {
+	if !(m.Duration == 0) {
+		m.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionGroupCall) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -3748,9 +3765,7 @@ func (m *MessageActionGroupCall) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageActionGroupCall#7a0d7f42 as nil")
 	}
-	if !(m.Duration == 0) {
-		m.Flags.Set(0)
-	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageActionGroupCall#7a0d7f42: field flags: %w", err)
 	}

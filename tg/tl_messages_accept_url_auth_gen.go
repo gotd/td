@@ -193,20 +193,8 @@ func (a *MessagesAcceptURLAuthRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (a *MessagesAcceptURLAuthRequest) Encode(b *bin.Buffer) error {
-	if a == nil {
-		return fmt.Errorf("can't encode messages.acceptUrlAuth#b12c7125 as nil")
-	}
-	b.PutID(MessagesAcceptURLAuthRequestTypeID)
-	return a.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (a *MessagesAcceptURLAuthRequest) EncodeBare(b *bin.Buffer) error {
-	if a == nil {
-		return fmt.Errorf("can't encode messages.acceptUrlAuth#b12c7125 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (a *MessagesAcceptURLAuthRequest) SetFlags() {
 	if !(a.WriteAllowed == false) {
 		a.Flags.Set(0)
 	}
@@ -222,6 +210,23 @@ func (a *MessagesAcceptURLAuthRequest) EncodeBare(b *bin.Buffer) error {
 	if !(a.URL == "") {
 		a.Flags.Set(2)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (a *MessagesAcceptURLAuthRequest) Encode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode messages.acceptUrlAuth#b12c7125 as nil")
+	}
+	b.PutID(MessagesAcceptURLAuthRequestTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *MessagesAcceptURLAuthRequest) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode messages.acceptUrlAuth#b12c7125 as nil")
+	}
+	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.acceptUrlAuth#b12c7125: field flags: %w", err)
 	}

@@ -146,6 +146,13 @@ func (g *MessagesGetArchivedStickersRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetArchivedStickersRequest) SetFlags() {
+	if !(g.Masks == false) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetArchivedStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -160,9 +167,7 @@ func (g *MessagesGetArchivedStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode messages.getArchivedStickers#57f17692 as nil")
 	}
-	if !(g.Masks == false) {
-		g.Flags.Set(0)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getArchivedStickers#57f17692: field flags: %w", err)
 	}

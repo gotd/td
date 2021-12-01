@@ -688,20 +688,8 @@ func (w *WebPage) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (w *WebPage) Encode(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't encode webPage#e89c45b2 as nil")
-	}
-	b.PutID(WebPageTypeID)
-	return w.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (w *WebPage) EncodeBare(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't encode webPage#e89c45b2 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (w *WebPage) SetFlags() {
 	if !(w.Type == "") {
 		w.Flags.Set(0)
 	}
@@ -744,6 +732,23 @@ func (w *WebPage) EncodeBare(b *bin.Buffer) error {
 	if !(w.Attributes == nil) {
 		w.Flags.Set(12)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (w *WebPage) Encode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPage#e89c45b2 as nil")
+	}
+	b.PutID(WebPageTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WebPage) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPage#e89c45b2 as nil")
+	}
+	w.SetFlags()
 	if err := w.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode webPage#e89c45b2: field flags: %w", err)
 	}
@@ -1298,6 +1303,13 @@ func (w *WebPageNotModified) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (w *WebPageNotModified) SetFlags() {
+	if !(w.CachedPageViews == 0) {
+		w.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (w *WebPageNotModified) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -1312,9 +1324,7 @@ func (w *WebPageNotModified) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
 		return fmt.Errorf("can't encode webPageNotModified#7311ca11 as nil")
 	}
-	if !(w.CachedPageViews == 0) {
-		w.Flags.Set(0)
-	}
+	w.SetFlags()
 	if err := w.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode webPageNotModified#7311ca11: field flags: %w", err)
 	}

@@ -172,6 +172,16 @@ func (t *HelpTermsOfService) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (t *HelpTermsOfService) SetFlags() {
+	if !(t.Popup == false) {
+		t.Flags.Set(0)
+	}
+	if !(t.MinAgeConfirm == 0) {
+		t.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (t *HelpTermsOfService) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -186,12 +196,7 @@ func (t *HelpTermsOfService) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode help.termsOfService#780a0310 as nil")
 	}
-	if !(t.Popup == false) {
-		t.Flags.Set(0)
-	}
-	if !(t.MinAgeConfirm == 0) {
-		t.Flags.Set(1)
-	}
+	t.SetFlags()
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.termsOfService#780a0310: field flags: %w", err)
 	}

@@ -198,6 +198,22 @@ func (a *AutoDownloadSettings) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (a *AutoDownloadSettings) SetFlags() {
+	if !(a.Disabled == false) {
+		a.Flags.Set(0)
+	}
+	if !(a.VideoPreloadLarge == false) {
+		a.Flags.Set(1)
+	}
+	if !(a.AudioPreloadNext == false) {
+		a.Flags.Set(2)
+	}
+	if !(a.PhonecallsLessData == false) {
+		a.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (a *AutoDownloadSettings) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -212,18 +228,7 @@ func (a *AutoDownloadSettings) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode autoDownloadSettings#e04232f3 as nil")
 	}
-	if !(a.Disabled == false) {
-		a.Flags.Set(0)
-	}
-	if !(a.VideoPreloadLarge == false) {
-		a.Flags.Set(1)
-	}
-	if !(a.AudioPreloadNext == false) {
-		a.Flags.Set(2)
-	}
-	if !(a.PhonecallsLessData == false) {
-		a.Flags.Set(3)
-	}
+	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode autoDownloadSettings#e04232f3: field flags: %w", err)
 	}

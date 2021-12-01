@@ -628,20 +628,8 @@ func (u *User) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (u *User) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode user#3ff6ecb0 as nil")
-	}
-	b.PutID(UserTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *User) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode user#3ff6ecb0 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (u *User) SetFlags() {
 	if !(u.Self == false) {
 		u.Flags.Set(10)
 	}
@@ -720,6 +708,23 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 	if !(u.LangCode == "") {
 		u.Flags.Set(22)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (u *User) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode user#3ff6ecb0 as nil")
+	}
+	b.PutID(UserTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *User) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode user#3ff6ecb0 as nil")
+	}
+	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode user#3ff6ecb0: field flags: %w", err)
 	}

@@ -193,6 +193,19 @@ func (s *SponsoredMessage) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *SponsoredMessage) SetFlags() {
+	if !(s.ChannelPost == 0) {
+		s.Flags.Set(2)
+	}
+	if !(s.StartParam == "") {
+		s.Flags.Set(0)
+	}
+	if !(s.Entities == nil) {
+		s.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *SponsoredMessage) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -207,15 +220,7 @@ func (s *SponsoredMessage) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sponsoredMessage#d151e19a as nil")
 	}
-	if !(s.ChannelPost == 0) {
-		s.Flags.Set(2)
-	}
-	if !(s.StartParam == "") {
-		s.Flags.Set(0)
-	}
-	if !(s.Entities == nil) {
-		s.Flags.Set(1)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode sponsoredMessage#d151e19a: field flags: %w", err)
 	}

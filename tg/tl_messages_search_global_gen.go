@@ -228,6 +228,13 @@ func (s *MessagesSearchGlobalRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *MessagesSearchGlobalRequest) SetFlags() {
+	if !(s.FolderID == 0) {
+		s.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSearchGlobalRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -242,9 +249,7 @@ func (s *MessagesSearchGlobalRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode messages.searchGlobal#4bc6589a as nil")
 	}
-	if !(s.FolderID == 0) {
-		s.Flags.Set(0)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.searchGlobal#4bc6589a: field flags: %w", err)
 	}

@@ -338,6 +338,16 @@ func (p *PhoneCallWaiting) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PhoneCallWaiting) SetFlags() {
+	if !(p.Video == false) {
+		p.Flags.Set(6)
+	}
+	if !(p.ReceiveDate == 0) {
+		p.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallWaiting) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -352,12 +362,7 @@ func (p *PhoneCallWaiting) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode phoneCallWaiting#c5226f17 as nil")
 	}
-	if !(p.Video == false) {
-		p.Flags.Set(6)
-	}
-	if !(p.ReceiveDate == 0) {
-		p.Flags.Set(0)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneCallWaiting#c5226f17: field flags: %w", err)
 	}
@@ -680,6 +685,13 @@ func (p *PhoneCallRequested) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PhoneCallRequested) SetFlags() {
+	if !(p.Video == false) {
+		p.Flags.Set(6)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallRequested) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -694,9 +706,7 @@ func (p *PhoneCallRequested) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode phoneCallRequested#14b0ed0c as nil")
 	}
-	if !(p.Video == false) {
-		p.Flags.Set(6)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneCallRequested#14b0ed0c: field flags: %w", err)
 	}
@@ -1007,6 +1017,13 @@ func (p *PhoneCallAccepted) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PhoneCallAccepted) SetFlags() {
+	if !(p.Video == false) {
+		p.Flags.Set(6)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallAccepted) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1021,9 +1038,7 @@ func (p *PhoneCallAccepted) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode phoneCallAccepted#3660c311 as nil")
 	}
-	if !(p.Video == false) {
-		p.Flags.Set(6)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneCallAccepted#3660c311: field flags: %w", err)
 	}
@@ -1382,6 +1397,16 @@ func (p *PhoneCall) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PhoneCall) SetFlags() {
+	if !(p.P2PAllowed == false) {
+		p.Flags.Set(5)
+	}
+	if !(p.Video == false) {
+		p.Flags.Set(6)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCall) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1396,12 +1421,7 @@ func (p *PhoneCall) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode phoneCall#967f7c67 as nil")
 	}
-	if !(p.P2PAllowed == false) {
-		p.Flags.Set(5)
-	}
-	if !(p.Video == false) {
-		p.Flags.Set(6)
-	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneCall#967f7c67: field flags: %w", err)
 	}
@@ -1786,20 +1806,8 @@ func (p *PhoneCallDiscarded) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (p *PhoneCallDiscarded) Encode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode phoneCallDiscarded#50ca4de1 as nil")
-	}
-	b.PutID(PhoneCallDiscardedTypeID)
-	return p.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (p *PhoneCallDiscarded) EncodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode phoneCallDiscarded#50ca4de1 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (p *PhoneCallDiscarded) SetFlags() {
 	if !(p.NeedRating == false) {
 		p.Flags.Set(2)
 	}
@@ -1815,6 +1823,23 @@ func (p *PhoneCallDiscarded) EncodeBare(b *bin.Buffer) error {
 	if !(p.Duration == 0) {
 		p.Flags.Set(1)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (p *PhoneCallDiscarded) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode phoneCallDiscarded#50ca4de1 as nil")
+	}
+	b.PutID(PhoneCallDiscardedTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhoneCallDiscarded) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode phoneCallDiscarded#50ca4de1 as nil")
+	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneCallDiscarded#50ca4de1: field flags: %w", err)
 	}

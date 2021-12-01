@@ -135,6 +135,13 @@ func (g *StatsGetMegagroupStatsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *StatsGetMegagroupStatsRequest) SetFlags() {
+	if !(g.Dark == false) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *StatsGetMegagroupStatsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -149,9 +156,7 @@ func (g *StatsGetMegagroupStatsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode stats.getMegagroupStats#dcdf8607 as nil")
 	}
-	if !(g.Dark == false) {
-		g.Flags.Set(0)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode stats.getMegagroupStats#dcdf8607: field flags: %w", err)
 	}

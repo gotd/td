@@ -170,6 +170,13 @@ func (v *VideoSize) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (v *VideoSize) SetFlags() {
+	if !(v.VideoStartTs == 0) {
+		v.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (v *VideoSize) Encode(b *bin.Buffer) error {
 	if v == nil {
@@ -184,9 +191,7 @@ func (v *VideoSize) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
 		return fmt.Errorf("can't encode videoSize#de33b094 as nil")
 	}
-	if !(v.VideoStartTs == 0) {
-		v.Flags.Set(0)
-	}
+	v.SetFlags()
 	if err := v.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode videoSize#de33b094: field flags: %w", err)
 	}

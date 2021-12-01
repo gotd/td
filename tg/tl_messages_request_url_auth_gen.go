@@ -181,6 +181,22 @@ func (r *MessagesRequestURLAuthRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (r *MessagesRequestURLAuthRequest) SetFlags() {
+	if !(r.Peer == nil) {
+		r.Flags.Set(1)
+	}
+	if !(r.MsgID == 0) {
+		r.Flags.Set(1)
+	}
+	if !(r.ButtonID == 0) {
+		r.Flags.Set(1)
+	}
+	if !(r.URL == "") {
+		r.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesRequestURLAuthRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -195,18 +211,7 @@ func (r *MessagesRequestURLAuthRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode messages.requestUrlAuth#198fb446 as nil")
 	}
-	if !(r.Peer == nil) {
-		r.Flags.Set(1)
-	}
-	if !(r.MsgID == 0) {
-		r.Flags.Set(1)
-	}
-	if !(r.ButtonID == 0) {
-		r.Flags.Set(1)
-	}
-	if !(r.URL == "") {
-		r.Flags.Set(2)
-	}
+	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.requestUrlAuth#198fb446: field flags: %w", err)
 	}

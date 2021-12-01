@@ -158,6 +158,19 @@ func (s *SecureRequiredType) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *SecureRequiredType) SetFlags() {
+	if !(s.NativeNames == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.SelfieRequired == false) {
+		s.Flags.Set(1)
+	}
+	if !(s.TranslationRequired == false) {
+		s.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureRequiredType) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -172,15 +185,7 @@ func (s *SecureRequiredType) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode secureRequiredType#829d99da as nil")
 	}
-	if !(s.NativeNames == false) {
-		s.Flags.Set(0)
-	}
-	if !(s.SelfieRequired == false) {
-		s.Flags.Set(1)
-	}
-	if !(s.TranslationRequired == false) {
-		s.Flags.Set(2)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode secureRequiredType#829d99da: field flags: %w", err)
 	}

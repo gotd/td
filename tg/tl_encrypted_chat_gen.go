@@ -560,6 +560,13 @@ func (e *EncryptedChatRequested) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (e *EncryptedChatRequested) SetFlags() {
+	if !(e.FolderID == 0) {
+		e.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedChatRequested) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -574,9 +581,7 @@ func (e *EncryptedChatRequested) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't encode encryptedChatRequested#48f1d94c as nil")
 	}
-	if !(e.FolderID == 0) {
-		e.Flags.Set(0)
-	}
+	e.SetFlags()
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode encryptedChatRequested#48f1d94c: field flags: %w", err)
 	}
@@ -1093,6 +1098,13 @@ func (e *EncryptedChatDiscarded) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (e *EncryptedChatDiscarded) SetFlags() {
+	if !(e.HistoryDeleted == false) {
+		e.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedChatDiscarded) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -1107,9 +1119,7 @@ func (e *EncryptedChatDiscarded) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't encode encryptedChatDiscarded#1e1c7c45 as nil")
 	}
-	if !(e.HistoryDeleted == false) {
-		e.Flags.Set(0)
-	}
+	e.SetFlags()
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode encryptedChatDiscarded#1e1c7c45: field flags: %w", err)
 	}

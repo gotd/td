@@ -147,6 +147,16 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *ChannelsGetAdminedPublicChannelsRequest) SetFlags() {
+	if !(g.ByLocation == false) {
+		g.Flags.Set(0)
+	}
+	if !(g.CheckLimit == false) {
+		g.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *ChannelsGetAdminedPublicChannelsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -161,12 +171,7 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) EncodeBare(b *bin.Buffer) erro
 	if g == nil {
 		return fmt.Errorf("can't encode channels.getAdminedPublicChannels#f8b036af as nil")
 	}
-	if !(g.ByLocation == false) {
-		g.Flags.Set(0)
-	}
-	if !(g.CheckLimit == false) {
-		g.Flags.Set(1)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channels.getAdminedPublicChannels#f8b036af: field flags: %w", err)
 	}

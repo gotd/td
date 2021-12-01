@@ -123,6 +123,13 @@ func (g *GlobalPrivacySettings) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *GlobalPrivacySettings) SetFlags() {
+	if !(g.ArchiveAndMuteNewNoncontactPeers == false) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *GlobalPrivacySettings) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -137,9 +144,7 @@ func (g *GlobalPrivacySettings) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode globalPrivacySettings#bea2f424 as nil")
 	}
-	if !(g.ArchiveAndMuteNewNoncontactPeers == false) {
-		g.Flags.Set(0)
-	}
+	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode globalPrivacySettings#bea2f424: field flags: %w", err)
 	}

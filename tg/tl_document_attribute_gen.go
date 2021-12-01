@@ -420,6 +420,16 @@ func (d *DocumentAttributeSticker) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *DocumentAttributeSticker) SetFlags() {
+	if !(d.Mask == false) {
+		d.Flags.Set(1)
+	}
+	if !(d.MaskCoords.Zero()) {
+		d.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeSticker) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -434,12 +444,7 @@ func (d *DocumentAttributeSticker) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode documentAttributeSticker#6319d612 as nil")
 	}
-	if !(d.Mask == false) {
-		d.Flags.Set(1)
-	}
-	if !(d.MaskCoords.Zero()) {
-		d.Flags.Set(0)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode documentAttributeSticker#6319d612: field flags: %w", err)
 	}
@@ -680,6 +685,16 @@ func (d *DocumentAttributeVideo) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *DocumentAttributeVideo) SetFlags() {
+	if !(d.RoundMessage == false) {
+		d.Flags.Set(0)
+	}
+	if !(d.SupportsStreaming == false) {
+		d.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeVideo) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -694,12 +709,7 @@ func (d *DocumentAttributeVideo) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode documentAttributeVideo#ef02ce6 as nil")
 	}
-	if !(d.RoundMessage == false) {
-		d.Flags.Set(0)
-	}
-	if !(d.SupportsStreaming == false) {
-		d.Flags.Set(1)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode documentAttributeVideo#ef02ce6: field flags: %w", err)
 	}
@@ -957,6 +967,22 @@ func (d *DocumentAttributeAudio) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *DocumentAttributeAudio) SetFlags() {
+	if !(d.Voice == false) {
+		d.Flags.Set(10)
+	}
+	if !(d.Title == "") {
+		d.Flags.Set(0)
+	}
+	if !(d.Performer == "") {
+		d.Flags.Set(1)
+	}
+	if !(d.Waveform == nil) {
+		d.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeAudio) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -971,18 +997,7 @@ func (d *DocumentAttributeAudio) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode documentAttributeAudio#9852f9c6 as nil")
 	}
-	if !(d.Voice == false) {
-		d.Flags.Set(10)
-	}
-	if !(d.Title == "") {
-		d.Flags.Set(0)
-	}
-	if !(d.Performer == "") {
-		d.Flags.Set(1)
-	}
-	if !(d.Waveform == nil) {
-		d.Flags.Set(2)
-	}
+	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode documentAttributeAudio#9852f9c6: field flags: %w", err)
 	}

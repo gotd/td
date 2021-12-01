@@ -238,20 +238,8 @@ func (w *WallPaperSettings) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (w *WallPaperSettings) Encode(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't encode wallPaperSettings#1dc1bca4 as nil")
-	}
-	b.PutID(WallPaperSettingsTypeID)
-	return w.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (w *WallPaperSettings) EncodeBare(b *bin.Buffer) error {
-	if w == nil {
-		return fmt.Errorf("can't encode wallPaperSettings#1dc1bca4 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (w *WallPaperSettings) SetFlags() {
 	if !(w.Blur == false) {
 		w.Flags.Set(1)
 	}
@@ -276,6 +264,23 @@ func (w *WallPaperSettings) EncodeBare(b *bin.Buffer) error {
 	if !(w.Rotation == 0) {
 		w.Flags.Set(4)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (w *WallPaperSettings) Encode(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode wallPaperSettings#1dc1bca4 as nil")
+	}
+	b.PutID(WallPaperSettingsTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WallPaperSettings) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode wallPaperSettings#1dc1bca4 as nil")
+	}
+	w.SetFlags()
 	if err := w.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode wallPaperSettings#1dc1bca4: field flags: %w", err)
 	}

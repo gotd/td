@@ -208,6 +208,16 @@ func (s *MessagesSearchResultsCalendar) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *MessagesSearchResultsCalendar) SetFlags() {
+	if !(s.Inexact == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.OffsetIDOffset == 0) {
+		s.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSearchResultsCalendar) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -222,12 +232,7 @@ func (s *MessagesSearchResultsCalendar) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode messages.searchResultsCalendar#147ee23c as nil")
 	}
-	if !(s.Inexact == false) {
-		s.Flags.Set(0)
-	}
-	if !(s.OffsetIDOffset == 0) {
-		s.Flags.Set(1)
-	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.searchResultsCalendar#147ee23c: field flags: %w", err)
 	}

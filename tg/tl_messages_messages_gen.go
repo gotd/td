@@ -456,6 +456,19 @@ func (m *MessagesMessagesSlice) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessagesMessagesSlice) SetFlags() {
+	if !(m.Inexact == false) {
+		m.Flags.Set(1)
+	}
+	if !(m.NextRate == 0) {
+		m.Flags.Set(0)
+	}
+	if !(m.OffsetIDOffset == 0) {
+		m.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessagesMessagesSlice) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -470,15 +483,7 @@ func (m *MessagesMessagesSlice) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messages.messagesSlice#3a54685e as nil")
 	}
-	if !(m.Inexact == false) {
-		m.Flags.Set(1)
-	}
-	if !(m.NextRate == 0) {
-		m.Flags.Set(0)
-	}
-	if !(m.OffsetIDOffset == 0) {
-		m.Flags.Set(2)
-	}
+	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.messagesSlice#3a54685e: field flags: %w", err)
 	}
@@ -867,6 +872,16 @@ func (c *MessagesChannelMessages) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *MessagesChannelMessages) SetFlags() {
+	if !(c.Inexact == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.OffsetIDOffset == 0) {
+		c.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *MessagesChannelMessages) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -881,12 +896,7 @@ func (c *MessagesChannelMessages) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode messages.channelMessages#64479808 as nil")
 	}
-	if !(c.Inexact == false) {
-		c.Flags.Set(1)
-	}
-	if !(c.OffsetIDOffset == 0) {
-		c.Flags.Set(2)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.channelMessages#64479808: field flags: %w", err)
 	}

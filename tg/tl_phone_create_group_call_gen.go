@@ -166,6 +166,16 @@ func (c *PhoneCreateGroupCallRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *PhoneCreateGroupCallRequest) SetFlags() {
+	if !(c.Title == "") {
+		c.Flags.Set(0)
+	}
+	if !(c.ScheduleDate == 0) {
+		c.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *PhoneCreateGroupCallRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -180,12 +190,7 @@ func (c *PhoneCreateGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode phone.createGroupCall#48cdc6d8 as nil")
 	}
-	if !(c.Title == "") {
-		c.Flags.Set(0)
-	}
-	if !(c.ScheduleDate == 0) {
-		c.Flags.Set(1)
-	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.createGroupCall#48cdc6d8: field flags: %w", err)
 	}

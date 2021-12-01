@@ -204,20 +204,8 @@ func (s *MessagesSendMultiMediaRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (s *MessagesSendMultiMediaRequest) Encode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMultiMedia#cc0110cb as nil")
-	}
-	b.PutID(MessagesSendMultiMediaRequestTypeID)
-	return s.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (s *MessagesSendMultiMediaRequest) EncodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMultiMedia#cc0110cb as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (s *MessagesSendMultiMediaRequest) SetFlags() {
 	if !(s.Silent == false) {
 		s.Flags.Set(5)
 	}
@@ -233,6 +221,23 @@ func (s *MessagesSendMultiMediaRequest) EncodeBare(b *bin.Buffer) error {
 	if !(s.ScheduleDate == 0) {
 		s.Flags.Set(10)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (s *MessagesSendMultiMediaRequest) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.sendMultiMedia#cc0110cb as nil")
+	}
+	b.PutID(MessagesSendMultiMediaRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSendMultiMediaRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.sendMultiMedia#cc0110cb as nil")
+	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.sendMultiMedia#cc0110cb: field flags: %w", err)
 	}

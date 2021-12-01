@@ -232,20 +232,8 @@ func (i *InputBotInlineResult) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (i *InputBotInlineResult) Encode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineResult#88bf9319 as nil")
-	}
-	b.PutID(InputBotInlineResultTypeID)
-	return i.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (i *InputBotInlineResult) EncodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode inputBotInlineResult#88bf9319 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (i *InputBotInlineResult) SetFlags() {
 	if !(i.Title == "") {
 		i.Flags.Set(1)
 	}
@@ -261,6 +249,23 @@ func (i *InputBotInlineResult) EncodeBare(b *bin.Buffer) error {
 	if !(i.Content.Zero()) {
 		i.Flags.Set(5)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (i *InputBotInlineResult) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBotInlineResult#88bf9319 as nil")
+	}
+	b.PutID(InputBotInlineResultTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputBotInlineResult) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBotInlineResult#88bf9319 as nil")
+	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputBotInlineResult#88bf9319: field flags: %w", err)
 	}
@@ -838,6 +843,16 @@ func (i *InputBotInlineResultDocument) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputBotInlineResultDocument) SetFlags() {
+	if !(i.Title == "") {
+		i.Flags.Set(1)
+	}
+	if !(i.Description == "") {
+		i.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineResultDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -852,12 +867,7 @@ func (i *InputBotInlineResultDocument) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputBotInlineResultDocument#fff8fdc4 as nil")
 	}
-	if !(i.Title == "") {
-		i.Flags.Set(1)
-	}
-	if !(i.Description == "") {
-		i.Flags.Set(2)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputBotInlineResultDocument#fff8fdc4: field flags: %w", err)
 	}

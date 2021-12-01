@@ -772,20 +772,8 @@ func (c *Config) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (c *Config) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode config#330b4067 as nil")
-	}
-	b.PutID(ConfigTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *Config) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode config#330b4067 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (c *Config) SetFlags() {
 	if !(c.PhonecallsEnabled == false) {
 		c.Flags.Set(1)
 	}
@@ -834,6 +822,23 @@ func (c *Config) EncodeBare(b *bin.Buffer) error {
 	if !(c.BaseLangPackVersion == 0) {
 		c.Flags.Set(2)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (c *Config) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode config#330b4067 as nil")
+	}
+	b.PutID(ConfigTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *Config) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode config#330b4067 as nil")
+	}
+	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode config#330b4067: field flags: %w", err)
 	}

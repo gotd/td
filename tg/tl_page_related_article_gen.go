@@ -213,20 +213,8 @@ func (p *PageRelatedArticle) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (p *PageRelatedArticle) Encode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode pageRelatedArticle#b390dc08 as nil")
-	}
-	b.PutID(PageRelatedArticleTypeID)
-	return p.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (p *PageRelatedArticle) EncodeBare(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode pageRelatedArticle#b390dc08 as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (p *PageRelatedArticle) SetFlags() {
 	if !(p.Title == "") {
 		p.Flags.Set(0)
 	}
@@ -242,6 +230,23 @@ func (p *PageRelatedArticle) EncodeBare(b *bin.Buffer) error {
 	if !(p.PublishedDate == 0) {
 		p.Flags.Set(4)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (p *PageRelatedArticle) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageRelatedArticle#b390dc08 as nil")
+	}
+	b.PutID(PageRelatedArticleTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageRelatedArticle) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageRelatedArticle#b390dc08 as nil")
+	}
+	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageRelatedArticle#b390dc08: field flags: %w", err)
 	}

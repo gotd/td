@@ -271,20 +271,8 @@ func (s *SecureValue) TypeInfo() tdp.Type {
 	return typ
 }
 
-// Encode implements bin.Encoder.
-func (s *SecureValue) Encode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode secureValue#187fa0ca as nil")
-	}
-	b.PutID(SecureValueTypeID)
-	return s.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (s *SecureValue) EncodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode secureValue#187fa0ca as nil")
-	}
+// SetFlags sets flags for non-zero fields.
+func (s *SecureValue) SetFlags() {
 	if !(s.Data.Zero()) {
 		s.Flags.Set(0)
 	}
@@ -306,6 +294,23 @@ func (s *SecureValue) EncodeBare(b *bin.Buffer) error {
 	if !(s.PlainData == nil) {
 		s.Flags.Set(5)
 	}
+}
+
+// Encode implements bin.Encoder.
+func (s *SecureValue) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValue#187fa0ca as nil")
+	}
+	b.PutID(SecureValueTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValue) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValue#187fa0ca as nil")
+	}
+	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode secureValue#187fa0ca: field flags: %w", err)
 	}

@@ -152,6 +152,13 @@ func (i *InputPeerPhotoFileLocationLegacy) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputPeerPhotoFileLocationLegacy) SetFlags() {
+	if !(i.Big == false) {
+		i.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPeerPhotoFileLocationLegacy) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -166,9 +173,7 @@ func (i *InputPeerPhotoFileLocationLegacy) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputPeerPhotoFileLocationLegacy#27d69997 as nil")
 	}
-	if !(i.Big == false) {
-		i.Flags.Set(0)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputPeerPhotoFileLocationLegacy#27d69997: field flags: %w", err)
 	}
@@ -1877,6 +1882,13 @@ func (i *InputPeerPhotoFileLocation) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputPeerPhotoFileLocation) SetFlags() {
+	if !(i.Big == false) {
+		i.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPeerPhotoFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1891,9 +1903,7 @@ func (i *InputPeerPhotoFileLocation) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputPeerPhotoFileLocation#37257e99 as nil")
 	}
-	if !(i.Big == false) {
-		i.Flags.Set(0)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputPeerPhotoFileLocation#37257e99: field flags: %w", err)
 	}
@@ -2284,6 +2294,16 @@ func (i *InputGroupCallStream) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (i *InputGroupCallStream) SetFlags() {
+	if !(i.VideoChannel == 0) {
+		i.Flags.Set(0)
+	}
+	if !(i.VideoQuality == 0) {
+		i.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (i *InputGroupCallStream) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -2298,12 +2318,7 @@ func (i *InputGroupCallStream) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputGroupCallStream#598a92a as nil")
 	}
-	if !(i.VideoChannel == 0) {
-		i.Flags.Set(0)
-	}
-	if !(i.VideoQuality == 0) {
-		i.Flags.Set(0)
-	}
+	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputGroupCallStream#598a92a: field flags: %w", err)
 	}
