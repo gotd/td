@@ -87,17 +87,24 @@ func (p *htmlParser) startTag() error {
 		}
 	case "code":
 		e.format = Code()
+		if len(p.stack) < 1 {
+			break
+		}
 
 		// BotAPI docs says:
 		// > Use nested <pre> and <code> tags, to define programming language for <pre> entity.
-		if len(p.stack) > 0 && p.stack[len(p.stack)-1].tag == pre {
-			lang, ok := p.attr["class"]
-			if ok {
-				e.format = Pre(strings.TrimPrefix(lang, "language-"))
-			}
+		last := &p.stack[len(p.stack)-1]
+		if last.tag != pre {
+			break
+		}
+
+		const langPrefix = "language-"
+		if lang := p.attr["class"]; strings.HasPrefix(lang, langPrefix) {
+			// Set language parameter.
+			last.format = Pre(lang[len(langPrefix):])
 		}
 	case pre:
-		e.format = Code()
+		e.format = Pre("")
 	}
 
 	p.stack.push(e)
