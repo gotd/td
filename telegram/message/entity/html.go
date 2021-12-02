@@ -111,34 +111,32 @@ func (p *htmlParser) startTag() error {
 	return nil
 }
 
-func (p *htmlParser) endTag() error {
+func (p *htmlParser) endTag(checkName bool) error {
 	tn, _ := p.tokenizer.TagName()
 	if len(p.stack) == 0 {
-		return errors.Errorf("unexpected end tag %q", string(tn))
+		return errors.Errorf("unexpected end tag %q", tn)
 	}
 
 	var s stackElem
 	// Pop from SliceTricks.
 	s, p.stack = p.stack[len(p.stack)-1], p.stack[:len(p.stack)-1]
-	if s.tag != string(tn) {
+	if checkName && s.tag != string(tn) {
 		return errors.Errorf("expected tag %q, got %q", s.tag, tn)
 	}
 
 	// Compute UTF-16 length of entity.
 	length := ComputeLength(p.builder.message.String()) - s.offset
 	// Do not add empty entities.
-	if length == 0 {
+	if length == 0 || s.format == nil {
 		return nil
 	}
 
 	utf8Length := p.builder.message.Len() - s.utf8offset
-	if s.format != nil {
-		u8 := utf8entity{
-			offset: s.utf8offset,
-			length: utf8Length,
-		}
-		p.builder.appendEntities(s.offset, length, u8, s.format)
+	u8 := utf8entity{
+		offset: s.utf8offset,
+		length: utf8Length,
 	}
+	p.builder.appendEntities(s.offset, length, u8, s.format)
 	return nil
 }
 
@@ -160,8 +158,15 @@ func (p *htmlParser) parse() error {
 				return err
 			}
 		case html.EndTagToken:
-			if err := p.endTag(); err != nil {
+			if err := p.endTag(true); err != nil {
 				return err
+			}
+		case html.CommentToken:
+			raw := p.tokenizer.Raw()
+			if len(raw) >= 3 && string(raw[:2]) == "</" && raw[len(raw)-1] == '>' {
+				if err := p.endTag(false); err != nil {
+					return err
+				}
 			}
 		}
 	}
