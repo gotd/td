@@ -121,16 +121,23 @@ func (p *htmlParser) endTag() error {
 	// Pop from SliceTricks.
 	s, p.stack = p.stack[len(p.stack)-1], p.stack[:len(p.stack)-1]
 	if s.tag != string(tn) {
-		return errors.Errorf("expected tag %q, got %q", s.tag, string(tn))
+		return errors.Errorf("expected tag %q, got %q", s.tag, tn)
 	}
 
-	length := ComputeLength(p.builder.message.String())
+	// Compute UTF-16 length of entity.
+	length := ComputeLength(p.builder.message.String()) - s.offset
+	// Do not add empty entities.
+	if length == 0 {
+		return nil
+	}
+
+	utf8Length := p.builder.message.Len() - s.utf8offset
 	if s.format != nil {
 		u8 := utf8entity{
 			offset: s.utf8offset,
-			length: p.builder.message.Len() - s.utf8offset,
+			length: utf8Length,
 		}
-		p.builder.appendEntities(s.offset, length-s.offset, u8, s.format)
+		p.builder.appendEntities(s.offset, length, u8, s.format)
 	}
 	return nil
 }
