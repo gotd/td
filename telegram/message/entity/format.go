@@ -74,9 +74,11 @@ func (b *Builder) Complete() (string, []tg.MessageEntityClass) {
 		for idx := range entities[b.lastFormatIndex:] {
 			setLength(idx, length, entities[b.lastFormatIndex:])
 		}
-		return msg[:offset+len(trimmed)], entities
+
+		msg = msg[:offset+len(trimmed)]
 	}
 
+	sortEntities(entities)
 	return msg, entities
 }
 
