@@ -12,18 +12,11 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-type stackElem struct {
-	offset     int
-	utf8offset int
-	tag        string
-	format     Formatter
-}
-
 type htmlParser struct {
 	tokenizer    *html.Tokenizer
 	builder      *Builder
 	offset       int
-	stack        []stackElem
+	stack        stack
 	attr         map[string]string
 	userResolver func(id int64) (tg.InputUserClass, error)
 }
@@ -107,19 +100,17 @@ func (p *htmlParser) startTag() error {
 		e.format = Code()
 	}
 
-	p.stack = append(p.stack, e)
+	p.stack.push(e)
 	return nil
 }
 
 func (p *htmlParser) endTag(checkName bool) error {
 	tn, _ := p.tokenizer.TagName()
-	if len(p.stack) == 0 {
+
+	s, ok := p.stack.pop()
+	if !ok {
 		return errors.Errorf("unexpected end tag %q", tn)
 	}
-
-	var s stackElem
-	// Pop from SliceTricks.
-	s, p.stack = p.stack[len(p.stack)-1], p.stack[:len(p.stack)-1]
 	if checkName && s.tag != string(tn) {
 		return errors.Errorf("expected tag %q, got %q", s.tag, tn)
 	}
