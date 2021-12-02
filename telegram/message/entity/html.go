@@ -2,8 +2,6 @@ package entity
 
 import (
 	"io"
-	"net/url"
-	"strconv"
 	"strings"
 
 	"github.com/go-faster/errors"
@@ -18,7 +16,7 @@ type htmlParser struct {
 	offset       int
 	stack        stack
 	attr         map[string]string
-	userResolver func(id int64) (tg.InputUserClass, error)
+	userResolver UserResolver
 }
 
 func (p *htmlParser) fillAttrs() {
@@ -65,26 +63,11 @@ func (p *htmlParser) startTag() error {
 			return errors.Errorf("tag %q must have attribute href", e.tag)
 		}
 
-		u, err := url.Parse(href)
+		f, err := getURLFormatter(href, p.userResolver)
 		if err != nil {
 			return errors.Errorf("href must be a valid URL, got %q", href)
 		}
-
-		if u.Scheme == "tg" && u.Host == "user" {
-			id, err := strconv.ParseInt(u.Query().Get("id"), 10, 64)
-			if err != nil {
-				return errors.Wrapf(err, "invalid user ID %q", id)
-			}
-
-			user, err := p.userResolver(id)
-			if err != nil {
-				return errors.Wrapf(err, "can't resolve user %q", id)
-			}
-
-			e.format = MentionName(user)
-		} else {
-			e.format = TextURL(href)
-		}
+		e.format = f
 	case "code":
 		e.format = Code()
 		if len(p.stack) < 1 {
@@ -178,7 +161,7 @@ func (p *htmlParser) parse() error {
 // Notice that it's okay for bots, but not for users.
 //
 // See https://core.telegram.org/bots/api#html-style.
-func HTML(r io.Reader, b *Builder, userResolver func(id int64) (tg.InputUserClass, error)) error {
+func HTML(r io.Reader, b *Builder, userResolver UserResolver) error {
 	if userResolver == nil {
 		userResolver = func(id int64) (tg.InputUserClass, error) {
 			return &tg.InputUser{
