@@ -11,12 +11,12 @@ import (
 )
 
 type htmlParser struct {
-	tokenizer    *html.Tokenizer
-	builder      *Builder
-	offset       int
-	stack        stack
-	attr         map[string]string
-	userResolver UserResolver
+	tokenizer *html.Tokenizer
+	builder   *Builder
+	offset    int
+	stack     stack
+	attr      map[string]string
+	opts      HTMLOptions
 }
 
 func (p *htmlParser) fillAttrs() {
@@ -63,7 +63,7 @@ func (p *htmlParser) startTag() error {
 			return errors.Errorf("tag %q must have attribute href", e.tag)
 		}
 
-		f, err := getURLFormatter(href, p.userResolver)
+		f, err := getURLFormatter(href, p.opts.UserResolver)
 		if err != nil {
 			return errors.Errorf("href must be a valid URL, got %q", href)
 		}
@@ -131,7 +131,12 @@ func (p *htmlParser) parse() error {
 			}
 			return nil
 		case html.TextToken:
-			text := p.tokenizer.Text()
+			var text []byte
+			if p.opts.DisableTelegramEscape {
+				text = p.tokenizer.Text()
+			} else {
+				text = telegramUnescape(p.tokenizer.Raw())
+			}
 			p.builder.message.Write(text)
 			p.offset += ComputeLength(string(text))
 		case html.StartTagToken:
@@ -153,6 +158,28 @@ func (p *htmlParser) parse() error {
 	}
 }
 
+// HTMLOptions is options of HTML.
+type HTMLOptions struct {
+	// UserResolver is used to resolve user by ID during formatting. May be nil.
+	//
+	// If userResolver is nil, formatter will create tg.InputUser using only ID.
+	// Notice that it's okay for bots, but not for users.
+	UserResolver UserResolver
+	// DisableTelegramEscape disable Telegram BotAPI escaping and uses default
+	// golang.org/x/net/html escape.
+	DisableTelegramEscape bool
+}
+
+func (o *HTMLOptions) setDefaults() {
+	if o.UserResolver == nil {
+		o.UserResolver = func(id int64) (tg.InputUserClass, error) {
+			return &tg.InputUser{
+				UserID: id,
+			}, nil
+		}
+	}
+}
+
 // HTML parses given input from reader and adds parsed entities to given builder.
 // Notice that this parser ignores unsupported tags.
 //
@@ -161,21 +188,13 @@ func (p *htmlParser) parse() error {
 // Notice that it's okay for bots, but not for users.
 //
 // See https://core.telegram.org/bots/api#html-style.
-func HTML(r io.Reader, b *Builder, userResolver UserResolver) error {
-	if userResolver == nil {
-		userResolver = func(id int64) (tg.InputUserClass, error) {
-			return &tg.InputUser{
-				UserID: id,
-			}, nil
-		}
-	}
-
+func HTML(r io.Reader, b *Builder, opts HTMLOptions) error {
+	opts.setDefaults()
 	p := htmlParser{
-		tokenizer:    html.NewTokenizer(r),
-		builder:      b,
-		attr:         map[string]string{},
-		userResolver: userResolver,
+		tokenizer: html.NewTokenizer(r),
+		builder:   b,
+		attr:      map[string]string{},
+		opts:      opts,
 	}
-
 	return p.parse()
 }
