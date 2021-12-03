@@ -81,12 +81,12 @@ func TestComplete(t *testing.T) {
 			e.Bold("bold").Plain("plain").Bold("bold2\n\n\n\n")
 		}, "boldplainbold2", []tg.MessageEntityClass{
 			&tg.MessageEntityBold{
-				Offset: 0,
-				Length: ComputeLength("bold"),
-			},
-			&tg.MessageEntityBold{
 				Offset: ComputeLength("boldplain"),
 				Length: ComputeLength("bold2"),
+			},
+			&tg.MessageEntityBold{
+				Offset: 0,
+				Length: ComputeLength("bold"),
 			},
 		}},
 		{"BoldBold", func(e *Builder) {
