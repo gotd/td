@@ -304,7 +304,7 @@ func tdlibHTMLTests() []htmlTestCase {
 			"telegram.org ",
 			nil,
 			false,
-			"URL parsing from text is incomplete",
+			"",
 		},
 		{
 			"<a>telegram.org</a>", "telegram.org",
@@ -314,7 +314,7 @@ func tdlibHTMLTests() []htmlTestCase {
 				URL:    "http://telegram.org/",
 			}),
 			false,
-			"URL parsing from text is incomplete",
+			"",
 		},
 		{
 			"<a>https://telegram.org/asdsa?asdasdwe#12e3we</a>",
@@ -325,7 +325,7 @@ func tdlibHTMLTests() []htmlTestCase {
 				URL:    "https://telegram.org/asdsa?asdasdwe#12e3we",
 			}),
 			false,
-			"URL parsing from text is incomplete",
+			"",
 		},
 		// <pre> and <code> handling
 		{

@@ -58,14 +58,15 @@ func (p *htmlParser) startTag() error {
 	case "s", "strike", "del":
 		e.format = Strike()
 	case "a":
-		href, ok := p.attr["href"]
-		if !ok {
-			return errors.Errorf("tag %q must have attribute href", e.tag)
+		href := p.attr["href"]
+		if href == "" {
+			e.tryURL = true
+			break
 		}
 
 		f, err := getURLFormatter(href, p.opts.UserResolver)
 		if err != nil {
-			return errors.Errorf("href must be a valid URL, got %q", href)
+			f = nil
 		}
 		e.format = f
 	case "code":
@@ -98,21 +99,28 @@ func (p *htmlParser) endTag(checkName bool) error {
 	tn, _ := p.tokenizer.TagName()
 
 	s, ok := p.stack.pop()
-	if !ok {
+	switch  {
+	case !ok:
 		return errors.Errorf("unexpected end tag %q", tn)
-	}
-	if checkName && s.tag != string(tn) {
+	case checkName && s.tag != string(tn) :
 		return errors.Errorf("expected tag %q, got %q", s.tag, tn)
 	}
 
 	// Compute UTF-16 length of entity.
 	length := ComputeLength(p.builder.message.String()) - s.offset
+	utf8Length := p.builder.message.Len() - s.utf8offset
+	if s.tag == "a" && s.tryURL {
+		msg := p.builder.message.String()[s.utf8offset : s.utf8offset+utf8Length]
+		if f, err := getURLFormatter(msg, p.opts.UserResolver); err == nil {
+			s.format = f
+		}
+	}
+
 	// Do not add empty entities.
 	if length == 0 || s.format == nil {
 		return nil
 	}
 
-	utf8Length := p.builder.message.Len() - s.utf8offset
 	u8 := utf8entity{
 		offset: s.utf8offset,
 		length: utf8Length,

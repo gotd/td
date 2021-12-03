@@ -5,6 +5,7 @@ type stackElem struct {
 	utf8offset int
 	tag        string
 	format     Formatter
+	tryURL     bool
 }
 
 type stack []stackElem
