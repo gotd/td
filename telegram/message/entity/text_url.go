@@ -25,6 +25,12 @@ func getURLFormatter(rawURL string, resolver UserResolver) (Formatter, error) {
 
 		return MentionName(user), nil
 	}
+	if u.Scheme == "" {
+		u.Scheme = "http"
+		u.Host = u.Path
+		u.Path = "/"
+		rawURL = u.String()
+	}
 
 	return TextURL(rawURL), nil
 }
