@@ -371,7 +371,15 @@ func (e *AppConfig) DecodeJSON(d *jx.Decoder) error {
 			}
 			e.ChatReadMarkSizeThreshold = v
 		default:
-			return d.Skip()
+			if e.Unparsed == nil {
+				e.Unparsed = map[string]tg.JSONValueClass{}
+			}
+			v, err := Decode(d)
+			if err != nil {
+				return errors.Wrapf(err, "decode %q", key)
+			}
+			e.Unparsed[string(key)] = v
+			return nil
 		}
 
 		return nil

@@ -5,6 +5,8 @@ import (
 
 	"github.com/go-faster/jx"
 	"github.com/stretchr/testify/require"
+
+	"github.com/gotd/td/tg"
 )
 
 const example = `{
@@ -140,7 +142,8 @@ const example = `{
         "max_size": 12582912
     },
     "chat_read_mark_size_threshold": 50,
-    "chat_read_mark_expire_period": 604800
+    "chat_read_mark_expire_period": 604800,
+	"unknown": null
 }`
 
 func TestDecodeAppConfig(t *testing.T) {
@@ -312,7 +315,8 @@ func TestDecodeAppConfig(t *testing.T) {
 		},
 		ChatReadMarkExpirePeriod:  604800,
 		ChatReadMarkSizeThreshold: 50,
-		Unparsed:                  nil,
+		Unparsed: map[string]tg.JSONValueClass{
+			"unknown": &tg.JSONNull{},
+		},
 	}, appConfig)
-
 }
