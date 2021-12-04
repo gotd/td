@@ -150,7 +150,10 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 	case "double":
 		f.Func = "Double"
 		f.Type = "float64"
-	case "long", "int53", "int64":
+	case "int53":
+		f.Func = "Int53"
+		f.Type = "int64"
+	case "long", "int64":
 		f.Func = "Long"
 		f.Type = "int64"
 	case "string":

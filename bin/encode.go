@@ -69,6 +69,11 @@ func (b *Buffer) PutUint32(v uint32) {
 	b.Buf = append(b.Buf, t...)
 }
 
+// PutInt53 serializes v as signed integer.
+func (b *Buffer) PutInt53(v int64) {
+	b.PutLong(v)
+}
+
 // PutLong serializes v as signed integer.
 func (b *Buffer) PutLong(v int64) {
 	b.PutUint64(uint64(v))
