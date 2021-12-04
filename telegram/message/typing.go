@@ -47,6 +47,11 @@ func (b *TypingActionBuilder) send(ctx context.Context, action tg.SendMessageAct
 	return nil
 }
 
+// Custom sends given action.
+func (b *TypingActionBuilder) Custom(ctx context.Context, action tg.SendMessageActionClass) error {
+	return b.send(ctx, &tg.SendMessageTypingAction{})
+}
+
 // Typing sends SendMessageTypingAction.
 func (b *TypingActionBuilder) Typing(ctx context.Context) error {
 	return b.send(ctx, &tg.SendMessageTypingAction{})
@@ -120,6 +125,30 @@ func (b *TypingActionBuilder) SpeakingInGroupCall(ctx context.Context) error {
 // HistoryImport sends SendMessageHistoryImportAction.
 func (b *TypingActionBuilder) HistoryImport(ctx context.Context, progress int) error {
 	return b.send(ctx, &tg.SendMessageHistoryImportAction{Progress: progress})
+}
+
+// ChooseSticker sends SendMessageChooseStickerAction.
+func (b *TypingActionBuilder) ChooseSticker(ctx context.Context) error {
+	return b.send(ctx, &tg.SendMessageChooseStickerAction{})
+}
+
+// EmojiInteraction sends SendMessageEmojiInteraction.
+func (b *TypingActionBuilder) EmojiInteraction(
+	ctx context.Context,
+	emoticon string,
+	msgID int,
+	interaction tg.DataJSON,
+) error {
+	return b.send(ctx, &tg.SendMessageEmojiInteraction{
+		Emoticon:    emoticon,
+		MsgID:       msgID,
+		Interaction: interaction,
+	})
+}
+
+// EmojiInteractionSeen sends SendMessageEmojiInteractionSeen.
+func (b *TypingActionBuilder) EmojiInteractionSeen(ctx context.Context, emoticon string) error {
+	return b.send(ctx, &tg.SendMessageEmojiInteractionSeen{Emoticon: emoticon})
 }
 
 // TypingAction creates TypingActionBuilder.
