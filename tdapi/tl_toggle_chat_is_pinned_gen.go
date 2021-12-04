@@ -137,7 +137,7 @@ func (t *ToggleChatIsPinnedRequest) EncodeBare(b *bin.Buffer) error {
 	if err := t.ChatList.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode toggleChatIsPinned#a776263e: field chat_list: %w", err)
 	}
-	b.PutLong(t.ChatID)
+	b.PutInt53(t.ChatID)
 	b.PutBool(t.IsPinned)
 	return nil
 }
@@ -166,7 +166,7 @@ func (t *ToggleChatIsPinnedRequest) DecodeBare(b *bin.Buffer) error {
 		t.ChatList = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode toggleChatIsPinned#a776263e: field chat_id: %w", err)
 		}
@@ -197,7 +197,7 @@ func (t *ToggleChatIsPinnedRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 		return fmt.Errorf("unable to encode toggleChatIsPinned#a776263e: field chat_list: %w", err)
 	}
 	b.FieldStart("chat_id")
-	b.PutLong(t.ChatID)
+	b.PutInt53(t.ChatID)
 	b.FieldStart("is_pinned")
 	b.PutBool(t.IsPinned)
 	b.ObjEnd()
@@ -223,7 +223,7 @@ func (t *ToggleChatIsPinnedRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			t.ChatList = value
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode toggleChatIsPinned#a776263e: field chat_id: %w", err)
 			}

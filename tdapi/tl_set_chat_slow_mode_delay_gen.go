@@ -123,7 +123,7 @@ func (s *SetChatSlowModeDelayRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatSlowModeDelay#dfcae63e as nil")
 	}
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.PutInt32(s.SlowModeDelay)
 	return nil
 }
@@ -145,7 +145,7 @@ func (s *SetChatSlowModeDelayRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setChatSlowModeDelay#dfcae63e to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setChatSlowModeDelay#dfcae63e: field chat_id: %w", err)
 		}
@@ -169,7 +169,7 @@ func (s *SetChatSlowModeDelayRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("setChatSlowModeDelay")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("slow_mode_delay")
 	b.PutInt32(s.SlowModeDelay)
 	b.ObjEnd()
@@ -189,7 +189,7 @@ func (s *SetChatSlowModeDelayRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode setChatSlowModeDelay#dfcae63e: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setChatSlowModeDelay#dfcae63e: field chat_id: %w", err)
 			}

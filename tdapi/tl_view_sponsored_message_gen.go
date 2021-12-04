@@ -122,7 +122,7 @@ func (v *ViewSponsoredMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
 		return fmt.Errorf("can't encode viewSponsoredMessage#463a997b as nil")
 	}
-	b.PutLong(v.ChatID)
+	b.PutInt53(v.ChatID)
 	b.PutInt32(v.SponsoredMessageID)
 	return nil
 }
@@ -144,7 +144,7 @@ func (v *ViewSponsoredMessageRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode viewSponsoredMessage#463a997b to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode viewSponsoredMessage#463a997b: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (v *ViewSponsoredMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("viewSponsoredMessage")
 	b.FieldStart("chat_id")
-	b.PutLong(v.ChatID)
+	b.PutInt53(v.ChatID)
 	b.FieldStart("sponsored_message_id")
 	b.PutInt32(v.SponsoredMessageID)
 	b.ObjEnd()
@@ -188,7 +188,7 @@ func (v *ViewSponsoredMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode viewSponsoredMessage#463a997b: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode viewSponsoredMessage#463a997b: field chat_id: %w", err)
 			}

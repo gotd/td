@@ -152,8 +152,8 @@ func (g *GetPollVotersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getPollVoters#7bb2649e as nil")
 	}
-	b.PutLong(g.ChatID)
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.ChatID)
+	b.PutInt53(g.MessageID)
 	b.PutInt32(g.OptionID)
 	b.PutInt32(g.Offset)
 	b.PutInt32(g.Limit)
@@ -177,14 +177,14 @@ func (g *GetPollVotersRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getPollVoters#7bb2649e to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getPollVoters#7bb2649e: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getPollVoters#7bb2649e: field message_id: %w", err)
 		}
@@ -222,9 +222,9 @@ func (g *GetPollVotersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getPollVoters")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.MessageID)
 	b.FieldStart("option_id")
 	b.PutInt32(g.OptionID)
 	b.FieldStart("offset")
@@ -248,13 +248,13 @@ func (g *GetPollVotersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getPollVoters#7bb2649e: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getPollVoters#7bb2649e: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getPollVoters#7bb2649e: field message_id: %w", err)
 			}

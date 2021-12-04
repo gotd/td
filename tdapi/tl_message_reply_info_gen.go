@@ -159,9 +159,9 @@ func (m *MessageReplyInfo) EncodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to encode bare messageReplyInfo#d1b3673b: field recent_repliers element with index %d: %w", idx, err)
 		}
 	}
-	b.PutLong(m.LastReadInboxMessageID)
-	b.PutLong(m.LastReadOutboxMessageID)
-	b.PutLong(m.LastMessageID)
+	b.PutInt53(m.LastReadInboxMessageID)
+	b.PutInt53(m.LastReadOutboxMessageID)
+	b.PutInt53(m.LastMessageID)
 	return nil
 }
 
@@ -206,21 +206,21 @@ func (m *MessageReplyInfo) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field last_read_inbox_message_id: %w", err)
 		}
 		m.LastReadInboxMessageID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field last_read_outbox_message_id: %w", err)
 		}
 		m.LastReadOutboxMessageID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field last_message_id: %w", err)
 		}
@@ -250,11 +250,11 @@ func (m *MessageReplyInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ArrEnd()
 	b.FieldStart("last_read_inbox_message_id")
-	b.PutLong(m.LastReadInboxMessageID)
+	b.PutInt53(m.LastReadInboxMessageID)
 	b.FieldStart("last_read_outbox_message_id")
-	b.PutLong(m.LastReadOutboxMessageID)
+	b.PutInt53(m.LastReadOutboxMessageID)
 	b.FieldStart("last_message_id")
-	b.PutLong(m.LastMessageID)
+	b.PutInt53(m.LastMessageID)
 	b.ObjEnd()
 	return nil
 }
@@ -289,19 +289,19 @@ func (m *MessageReplyInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field recent_repliers: %w", err)
 			}
 		case "last_read_inbox_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field last_read_inbox_message_id: %w", err)
 			}
 			m.LastReadInboxMessageID = value
 		case "last_read_outbox_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field last_read_outbox_message_id: %w", err)
 			}
 			m.LastReadOutboxMessageID = value
 		case "last_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageReplyInfo#d1b3673b: field last_message_id: %w", err)
 			}

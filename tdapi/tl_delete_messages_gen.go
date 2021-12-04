@@ -132,10 +132,10 @@ func (d *DeleteMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteMessages#c3ed9de2 as nil")
 	}
-	b.PutLong(d.ChatID)
+	b.PutInt53(d.ChatID)
 	b.PutInt(len(d.MessageIDs))
 	for _, v := range d.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.PutBool(d.Revoke)
 	return nil
@@ -158,7 +158,7 @@ func (d *DeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode deleteMessages#c3ed9de2 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode deleteMessages#c3ed9de2: field chat_id: %w", err)
 		}
@@ -174,7 +174,7 @@ func (d *DeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
 			d.MessageIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode deleteMessages#c3ed9de2: field message_ids: %w", err)
 			}
@@ -199,11 +199,11 @@ func (d *DeleteMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("deleteMessages")
 	b.FieldStart("chat_id")
-	b.PutLong(d.ChatID)
+	b.PutInt53(d.ChatID)
 	b.FieldStart("message_ids")
 	b.ArrStart()
 	for _, v := range d.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("revoke")
@@ -225,14 +225,14 @@ func (d *DeleteMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode deleteMessages#c3ed9de2: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode deleteMessages#c3ed9de2: field chat_id: %w", err)
 			}
 			d.ChatID = value
 		case "message_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode deleteMessages#c3ed9de2: field message_ids: %w", err)
 				}

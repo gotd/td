@@ -122,7 +122,7 @@ func (s *SetChatPermissionsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatPermissions#7f7706fe as nil")
 	}
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	if err := s.Permissions.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode setChatPermissions#7f7706fe: field permissions: %w", err)
 	}
@@ -146,7 +146,7 @@ func (s *SetChatPermissionsRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setChatPermissions#7f7706fe to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setChatPermissions#7f7706fe: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (s *SetChatPermissionsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("setChatPermissions")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("permissions")
 	if err := s.Permissions.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setChatPermissions#7f7706fe: field permissions: %w", err)
@@ -190,7 +190,7 @@ func (s *SetChatPermissionsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode setChatPermissions#7f7706fe: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setChatPermissions#7f7706fe: field chat_id: %w", err)
 			}

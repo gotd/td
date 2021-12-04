@@ -131,7 +131,7 @@ func (c *CreateCallRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createCall#be282e10 as nil")
 	}
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	if err := c.Protocol.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode createCall#be282e10: field protocol: %w", err)
 	}
@@ -156,7 +156,7 @@ func (c *CreateCallRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode createCall#be282e10 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode createCall#be282e10: field user_id: %w", err)
 		}
@@ -185,7 +185,7 @@ func (c *CreateCallRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("createCall")
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.FieldStart("protocol")
 	if err := c.Protocol.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode createCall#be282e10: field protocol: %w", err)
@@ -209,7 +209,7 @@ func (c *CreateCallRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode createCall#be282e10: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode createCall#be282e10: field user_id: %w", err)
 			}

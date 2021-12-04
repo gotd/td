@@ -113,7 +113,7 @@ func (a *AddRecentlyFoundChatRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addRecentlyFoundChat#97e8198d as nil")
 	}
-	b.PutLong(a.ChatID)
+	b.PutInt53(a.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (a *AddRecentlyFoundChatRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode addRecentlyFoundChat#97e8198d to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode addRecentlyFoundChat#97e8198d: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (a *AddRecentlyFoundChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("addRecentlyFoundChat")
 	b.FieldStart("chat_id")
-	b.PutLong(a.ChatID)
+	b.PutInt53(a.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (a *AddRecentlyFoundChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode addRecentlyFoundChat#97e8198d: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode addRecentlyFoundChat#97e8198d: field chat_id: %w", err)
 			}

@@ -165,7 +165,7 @@ func (g *GetMapThumbnailFileRequest) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(g.Width)
 	b.PutInt32(g.Height)
 	b.PutInt32(g.Scale)
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	return nil
 }
 
@@ -219,7 +219,7 @@ func (g *GetMapThumbnailFileRequest) DecodeBare(b *bin.Buffer) error {
 		g.Scale = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMapThumbnailFile#f6e6979a: field chat_id: %w", err)
 		}
@@ -248,7 +248,7 @@ func (g *GetMapThumbnailFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("scale")
 	b.PutInt32(g.Scale)
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -294,7 +294,7 @@ func (g *GetMapThumbnailFileRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			g.Scale = value
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMapThumbnailFile#f6e6979a: field chat_id: %w", err)
 			}

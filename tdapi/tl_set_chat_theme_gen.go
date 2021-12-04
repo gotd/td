@@ -122,7 +122,7 @@ func (s *SetChatThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatTheme#8f090293 as nil")
 	}
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.PutString(s.ThemeName)
 	return nil
 }
@@ -144,7 +144,7 @@ func (s *SetChatThemeRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setChatTheme#8f090293 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setChatTheme#8f090293: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (s *SetChatThemeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("setChatTheme")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("theme_name")
 	b.PutString(s.ThemeName)
 	b.ObjEnd()
@@ -188,7 +188,7 @@ func (s *SetChatThemeRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode setChatTheme#8f090293: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setChatTheme#8f090293: field chat_id: %w", err)
 			}

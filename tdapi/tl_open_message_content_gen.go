@@ -122,8 +122,8 @@ func (o *OpenMessageContentRequest) EncodeBare(b *bin.Buffer) error {
 	if o == nil {
 		return fmt.Errorf("can't encode openMessageContent#d3f2697b as nil")
 	}
-	b.PutLong(o.ChatID)
-	b.PutLong(o.MessageID)
+	b.PutInt53(o.ChatID)
+	b.PutInt53(o.MessageID)
 	return nil
 }
 
@@ -144,14 +144,14 @@ func (o *OpenMessageContentRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode openMessageContent#d3f2697b to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode openMessageContent#d3f2697b: field chat_id: %w", err)
 		}
 		o.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode openMessageContent#d3f2697b: field message_id: %w", err)
 		}
@@ -168,9 +168,9 @@ func (o *OpenMessageContentRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("openMessageContent")
 	b.FieldStart("chat_id")
-	b.PutLong(o.ChatID)
+	b.PutInt53(o.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(o.MessageID)
+	b.PutInt53(o.MessageID)
 	b.ObjEnd()
 	return nil
 }
@@ -188,13 +188,13 @@ func (o *OpenMessageContentRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode openMessageContent#d3f2697b: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode openMessageContent#d3f2697b: field chat_id: %w", err)
 			}
 			o.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode openMessageContent#d3f2697b: field message_id: %w", err)
 			}

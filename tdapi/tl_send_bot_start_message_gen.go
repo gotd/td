@@ -132,8 +132,8 @@ func (s *SendBotStartMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sendBotStartMessage#aa6a3eee as nil")
 	}
-	b.PutLong(s.BotUserID)
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.BotUserID)
+	b.PutInt53(s.ChatID)
 	b.PutString(s.Parameter)
 	return nil
 }
@@ -155,14 +155,14 @@ func (s *SendBotStartMessageRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode sendBotStartMessage#aa6a3eee to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode sendBotStartMessage#aa6a3eee: field bot_user_id: %w", err)
 		}
 		s.BotUserID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode sendBotStartMessage#aa6a3eee: field chat_id: %w", err)
 		}
@@ -186,9 +186,9 @@ func (s *SendBotStartMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("sendBotStartMessage")
 	b.FieldStart("bot_user_id")
-	b.PutLong(s.BotUserID)
+	b.PutInt53(s.BotUserID)
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("parameter")
 	b.PutString(s.Parameter)
 	b.ObjEnd()
@@ -208,13 +208,13 @@ func (s *SendBotStartMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode sendBotStartMessage#aa6a3eee: %w", err)
 			}
 		case "bot_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode sendBotStartMessage#aa6a3eee: field bot_user_id: %w", err)
 			}
 			s.BotUserID = value
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode sendBotStartMessage#aa6a3eee: field chat_id: %w", err)
 			}

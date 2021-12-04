@@ -143,7 +143,7 @@ func (b *BanChatMemberRequest) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't encode banChatMember#cb107d7c as nil")
 	}
-	buf.PutLong(b.ChatID)
+	buf.PutInt53(b.ChatID)
 	if b.MemberID == nil {
 		return fmt.Errorf("unable to encode banChatMember#cb107d7c: field member_id is nil")
 	}
@@ -172,7 +172,7 @@ func (b *BanChatMemberRequest) DecodeBare(buf *bin.Buffer) error {
 		return fmt.Errorf("can't decode banChatMember#cb107d7c to nil")
 	}
 	{
-		value, err := buf.Long()
+		value, err := buf.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode banChatMember#cb107d7c: field chat_id: %w", err)
 		}
@@ -210,7 +210,7 @@ func (b *BanChatMemberRequest) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	buf.ObjStart()
 	buf.PutID("banChatMember")
 	buf.FieldStart("chat_id")
-	buf.PutLong(b.ChatID)
+	buf.PutInt53(b.ChatID)
 	buf.FieldStart("member_id")
 	if b.MemberID == nil {
 		return fmt.Errorf("unable to encode banChatMember#cb107d7c: field member_id is nil")
@@ -239,7 +239,7 @@ func (b *BanChatMemberRequest) DecodeTDLibJSON(buf tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode banChatMember#cb107d7c: %w", err)
 			}
 		case "chat_id":
-			value, err := buf.Long()
+			value, err := buf.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode banChatMember#cb107d7c: field chat_id: %w", err)
 			}

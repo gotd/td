@@ -113,7 +113,7 @@ func (j *JoinChatRequest) EncodeBare(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't encode joinChat#137a1aa1 as nil")
 	}
-	b.PutLong(j.ChatID)
+	b.PutInt53(j.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (j *JoinChatRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode joinChat#137a1aa1 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode joinChat#137a1aa1: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (j *JoinChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("joinChat")
 	b.FieldStart("chat_id")
-	b.PutLong(j.ChatID)
+	b.PutInt53(j.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (j *JoinChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode joinChat#137a1aa1: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode joinChat#137a1aa1: field chat_id: %w", err)
 			}

@@ -228,15 +228,15 @@ func (c *ChatFilter) EncodeBare(b *bin.Buffer) error {
 	b.PutString(c.IconName)
 	b.PutInt(len(c.PinnedChatIDs))
 	for _, v := range c.PinnedChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.PutInt(len(c.IncludedChatIDs))
 	for _, v := range c.IncludedChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.PutInt(len(c.ExcludedChatIDs))
 	for _, v := range c.ExcludedChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.PutBool(c.ExcludeMuted)
 	b.PutBool(c.ExcludeRead)
@@ -289,7 +289,7 @@ func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
 			c.PinnedChatIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatFilter#9a7344af: field pinned_chat_ids: %w", err)
 			}
@@ -306,7 +306,7 @@ func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
 			c.IncludedChatIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatFilter#9a7344af: field included_chat_ids: %w", err)
 			}
@@ -323,7 +323,7 @@ func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
 			c.ExcludedChatIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatFilter#9a7344af: field excluded_chat_ids: %w", err)
 			}
@@ -403,19 +403,19 @@ func (c *ChatFilter) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("pinned_chat_ids")
 	b.ArrStart()
 	for _, v := range c.PinnedChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("included_chat_ids")
 	b.ArrStart()
 	for _, v := range c.IncludedChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("excluded_chat_ids")
 	b.ArrStart()
 	for _, v := range c.ExcludedChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("exclude_muted")
@@ -464,7 +464,7 @@ func (c *ChatFilter) DecodeTDLibJSON(b tdjson.Decoder) error {
 			c.IconName = value
 		case "pinned_chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode chatFilter#9a7344af: field pinned_chat_ids: %w", err)
 				}
@@ -475,7 +475,7 @@ func (c *ChatFilter) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 		case "included_chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode chatFilter#9a7344af: field included_chat_ids: %w", err)
 				}
@@ -486,7 +486,7 @@ func (c *ChatFilter) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 		case "excluded_chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode chatFilter#9a7344af: field excluded_chat_ids: %w", err)
 				}

@@ -118,7 +118,7 @@ func (t *TMeURLTypeUser) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode tMeUrlTypeUser#7787c1a as nil")
 	}
-	b.PutLong(t.UserID)
+	b.PutInt53(t.UserID)
 	return nil
 }
 
@@ -139,7 +139,7 @@ func (t *TMeURLTypeUser) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode tMeUrlTypeUser#7787c1a to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode tMeUrlTypeUser#7787c1a: field user_id: %w", err)
 		}
@@ -156,7 +156,7 @@ func (t *TMeURLTypeUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("tMeUrlTypeUser")
 	b.FieldStart("user_id")
-	b.PutLong(t.UserID)
+	b.PutInt53(t.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -174,7 +174,7 @@ func (t *TMeURLTypeUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode tMeUrlTypeUser#7787c1a: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode tMeUrlTypeUser#7787c1a: field user_id: %w", err)
 			}
@@ -278,7 +278,7 @@ func (t *TMeURLTypeSupergroup) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode tMeUrlTypeSupergroup#af5536a8 as nil")
 	}
-	b.PutLong(t.SupergroupID)
+	b.PutInt53(t.SupergroupID)
 	return nil
 }
 
@@ -299,7 +299,7 @@ func (t *TMeURLTypeSupergroup) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode tMeUrlTypeSupergroup#af5536a8 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode tMeUrlTypeSupergroup#af5536a8: field supergroup_id: %w", err)
 		}
@@ -316,7 +316,7 @@ func (t *TMeURLTypeSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("tMeUrlTypeSupergroup")
 	b.FieldStart("supergroup_id")
-	b.PutLong(t.SupergroupID)
+	b.PutInt53(t.SupergroupID)
 	b.ObjEnd()
 	return nil
 }
@@ -334,7 +334,7 @@ func (t *TMeURLTypeSupergroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode tMeUrlTypeSupergroup#af5536a8: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode tMeUrlTypeSupergroup#af5536a8: field supergroup_id: %w", err)
 			}

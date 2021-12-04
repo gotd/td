@@ -113,7 +113,7 @@ func (c *CloseChatRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode closeChat#25e86e9 as nil")
 	}
-	b.PutLong(c.ChatID)
+	b.PutInt53(c.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (c *CloseChatRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode closeChat#25e86e9 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode closeChat#25e86e9: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (c *CloseChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("closeChat")
 	b.FieldStart("chat_id")
-	b.PutLong(c.ChatID)
+	b.PutInt53(c.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (c *CloseChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode closeChat#25e86e9: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode closeChat#25e86e9: field chat_id: %w", err)
 			}

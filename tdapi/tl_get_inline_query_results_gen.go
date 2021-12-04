@@ -149,8 +149,8 @@ func (g *GetInlineQueryResultsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getInlineQueryResults#79dcf86c as nil")
 	}
-	b.PutLong(g.BotUserID)
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.BotUserID)
+	b.PutInt53(g.ChatID)
 	if err := g.UserLocation.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode getInlineQueryResults#79dcf86c: field user_location: %w", err)
 	}
@@ -176,14 +176,14 @@ func (g *GetInlineQueryResultsRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getInlineQueryResults#79dcf86c to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field bot_user_id: %w", err)
 		}
 		g.BotUserID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field chat_id: %w", err)
 		}
@@ -219,9 +219,9 @@ func (g *GetInlineQueryResultsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getInlineQueryResults")
 	b.FieldStart("bot_user_id")
-	b.PutLong(g.BotUserID)
+	b.PutInt53(g.BotUserID)
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("user_location")
 	if err := g.UserLocation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getInlineQueryResults#79dcf86c: field user_location: %w", err)
@@ -247,13 +247,13 @@ func (g *GetInlineQueryResultsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: %w", err)
 			}
 		case "bot_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field bot_user_id: %w", err)
 			}
 			g.BotUserID = value
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getInlineQueryResults#79dcf86c: field chat_id: %w", err)
 			}

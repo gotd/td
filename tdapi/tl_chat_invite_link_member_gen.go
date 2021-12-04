@@ -131,9 +131,9 @@ func (c *ChatInviteLinkMember) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatInviteLinkMember#ac03711a as nil")
 	}
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.PutInt32(c.JoinedChatDate)
-	b.PutLong(c.ApproverUserID)
+	b.PutInt53(c.ApproverUserID)
 	return nil
 }
 
@@ -154,7 +154,7 @@ func (c *ChatInviteLinkMember) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatInviteLinkMember#ac03711a to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatInviteLinkMember#ac03711a: field user_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (c *ChatInviteLinkMember) DecodeBare(b *bin.Buffer) error {
 		c.JoinedChatDate = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatInviteLinkMember#ac03711a: field approver_user_id: %w", err)
 		}
@@ -185,11 +185,11 @@ func (c *ChatInviteLinkMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("chatInviteLinkMember")
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.FieldStart("joined_chat_date")
 	b.PutInt32(c.JoinedChatDate)
 	b.FieldStart("approver_user_id")
-	b.PutLong(c.ApproverUserID)
+	b.PutInt53(c.ApproverUserID)
 	b.ObjEnd()
 	return nil
 }
@@ -207,7 +207,7 @@ func (c *ChatInviteLinkMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode chatInviteLinkMember#ac03711a: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatInviteLinkMember#ac03711a: field user_id: %w", err)
 			}
@@ -219,7 +219,7 @@ func (c *ChatInviteLinkMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			c.JoinedChatDate = value
 		case "approver_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatInviteLinkMember#ac03711a: field approver_user_id: %w", err)
 			}

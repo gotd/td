@@ -338,7 +338,7 @@ func (l *LoginURLInfoRequestConfirmation) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutString(l.URL)
 	b.PutString(l.Domain)
-	b.PutLong(l.BotUserID)
+	b.PutInt53(l.BotUserID)
 	b.PutBool(l.RequestWriteAccess)
 	return nil
 }
@@ -374,7 +374,7 @@ func (l *LoginURLInfoRequestConfirmation) DecodeBare(b *bin.Buffer) error {
 		l.Domain = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#7edb242f: field bot_user_id: %w", err)
 		}
@@ -402,7 +402,7 @@ func (l *LoginURLInfoRequestConfirmation) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.FieldStart("domain")
 	b.PutString(l.Domain)
 	b.FieldStart("bot_user_id")
-	b.PutLong(l.BotUserID)
+	b.PutInt53(l.BotUserID)
 	b.FieldStart("request_write_access")
 	b.PutBool(l.RequestWriteAccess)
 	b.ObjEnd()
@@ -434,7 +434,7 @@ func (l *LoginURLInfoRequestConfirmation) DecodeTDLibJSON(b tdjson.Decoder) erro
 			}
 			l.Domain = value
 		case "bot_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode loginUrlInfoRequestConfirmation#7edb242f: field bot_user_id: %w", err)
 			}

@@ -140,7 +140,7 @@ func (s *SearchChatMembersRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchChatMembers#e56d46c5 as nil")
 	}
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.PutString(s.Query)
 	b.PutInt32(s.Limit)
 	if s.Filter == nil {
@@ -169,7 +169,7 @@ func (s *SearchChatMembersRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode searchChatMembers#e56d46c5 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode searchChatMembers#e56d46c5: field chat_id: %w", err)
 		}
@@ -207,7 +207,7 @@ func (s *SearchChatMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("searchChatMembers")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("query")
 	b.PutString(s.Query)
 	b.FieldStart("limit")
@@ -236,7 +236,7 @@ func (s *SearchChatMembersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode searchChatMembers#e56d46c5: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode searchChatMembers#e56d46c5: field chat_id: %w", err)
 			}

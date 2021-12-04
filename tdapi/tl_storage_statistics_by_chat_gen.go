@@ -140,8 +140,8 @@ func (s *StorageStatisticsByChat) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode storageStatisticsByChat#a5498fe4 as nil")
 	}
-	b.PutLong(s.ChatID)
-	b.PutLong(s.Size)
+	b.PutInt53(s.ChatID)
+	b.PutInt53(s.Size)
 	b.PutInt32(s.Count)
 	b.PutInt(len(s.ByFileType))
 	for idx, v := range s.ByFileType {
@@ -169,14 +169,14 @@ func (s *StorageStatisticsByChat) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode storageStatisticsByChat#a5498fe4 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode storageStatisticsByChat#a5498fe4: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode storageStatisticsByChat#a5498fe4: field size: %w", err)
 		}
@@ -217,9 +217,9 @@ func (s *StorageStatisticsByChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("storageStatisticsByChat")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("size")
-	b.PutLong(s.Size)
+	b.PutInt53(s.Size)
 	b.FieldStart("count")
 	b.PutInt32(s.Count)
 	b.FieldStart("by_file_type")
@@ -247,13 +247,13 @@ func (s *StorageStatisticsByChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode storageStatisticsByChat#a5498fe4: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode storageStatisticsByChat#a5498fe4: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "size":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode storageStatisticsByChat#a5498fe4: field size: %w", err)
 			}

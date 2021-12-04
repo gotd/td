@@ -143,14 +143,14 @@ func (g *GetChatSparseMessagePositionsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatSparseMessagePositions#e472f784 as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	if g.Filter == nil {
 		return fmt.Errorf("unable to encode getChatSparseMessagePositions#e472f784: field filter is nil")
 	}
 	if err := g.Filter.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode getChatSparseMessagePositions#e472f784: field filter: %w", err)
 	}
-	b.PutLong(g.FromMessageID)
+	b.PutInt53(g.FromMessageID)
 	b.PutInt32(g.Limit)
 	return nil
 }
@@ -172,7 +172,7 @@ func (g *GetChatSparseMessagePositionsRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getChatSparseMessagePositions#e472f784 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatSparseMessagePositions#e472f784: field chat_id: %w", err)
 		}
@@ -186,7 +186,7 @@ func (g *GetChatSparseMessagePositionsRequest) DecodeBare(b *bin.Buffer) error {
 		g.Filter = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatSparseMessagePositions#e472f784: field from_message_id: %w", err)
 		}
@@ -210,7 +210,7 @@ func (g *GetChatSparseMessagePositionsRequest) EncodeTDLibJSON(b tdjson.Encoder)
 	b.ObjStart()
 	b.PutID("getChatSparseMessagePositions")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("filter")
 	if g.Filter == nil {
 		return fmt.Errorf("unable to encode getChatSparseMessagePositions#e472f784: field filter is nil")
@@ -219,7 +219,7 @@ func (g *GetChatSparseMessagePositionsRequest) EncodeTDLibJSON(b tdjson.Encoder)
 		return fmt.Errorf("unable to encode getChatSparseMessagePositions#e472f784: field filter: %w", err)
 	}
 	b.FieldStart("from_message_id")
-	b.PutLong(g.FromMessageID)
+	b.PutInt53(g.FromMessageID)
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
 	b.ObjEnd()
@@ -239,7 +239,7 @@ func (g *GetChatSparseMessagePositionsRequest) DecodeTDLibJSON(b tdjson.Decoder)
 				return fmt.Errorf("unable to decode getChatSparseMessagePositions#e472f784: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatSparseMessagePositions#e472f784: field chat_id: %w", err)
 			}
@@ -251,7 +251,7 @@ func (g *GetChatSparseMessagePositionsRequest) DecodeTDLibJSON(b tdjson.Decoder)
 			}
 			g.Filter = value
 		case "from_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatSparseMessagePositions#e472f784: field from_message_id: %w", err)
 			}

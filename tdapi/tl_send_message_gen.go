@@ -158,9 +158,9 @@ func (s *SendMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sendMessage#393f599d as nil")
 	}
-	b.PutLong(s.ChatID)
-	b.PutLong(s.MessageThreadID)
-	b.PutLong(s.ReplyToMessageID)
+	b.PutInt53(s.ChatID)
+	b.PutInt53(s.MessageThreadID)
+	b.PutInt53(s.ReplyToMessageID)
 	if err := s.Options.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode sendMessage#393f599d: field options: %w", err)
 	}
@@ -196,21 +196,21 @@ func (s *SendMessageRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode sendMessage#393f599d to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode sendMessage#393f599d: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode sendMessage#393f599d: field message_thread_id: %w", err)
 		}
 		s.MessageThreadID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode sendMessage#393f599d: field reply_to_message_id: %w", err)
 		}
@@ -246,11 +246,11 @@ func (s *SendMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("sendMessage")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("message_thread_id")
-	b.PutLong(s.MessageThreadID)
+	b.PutInt53(s.MessageThreadID)
 	b.FieldStart("reply_to_message_id")
-	b.PutLong(s.ReplyToMessageID)
+	b.PutInt53(s.ReplyToMessageID)
 	b.FieldStart("options")
 	if err := s.Options.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sendMessage#393f599d: field options: %w", err)
@@ -286,19 +286,19 @@ func (s *SendMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode sendMessage#393f599d: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode sendMessage#393f599d: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "message_thread_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode sendMessage#393f599d: field message_thread_id: %w", err)
 			}
 			s.MessageThreadID = value
 		case "reply_to_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode sendMessage#393f599d: field reply_to_message_id: %w", err)
 			}

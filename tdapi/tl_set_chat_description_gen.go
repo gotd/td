@@ -123,7 +123,7 @@ func (s *SetChatDescriptionRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatDescription#74a8b45d as nil")
 	}
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.PutString(s.Description)
 	return nil
 }
@@ -145,7 +145,7 @@ func (s *SetChatDescriptionRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setChatDescription#74a8b45d to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setChatDescription#74a8b45d: field chat_id: %w", err)
 		}
@@ -169,7 +169,7 @@ func (s *SetChatDescriptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("setChatDescription")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("description")
 	b.PutString(s.Description)
 	b.ObjEnd()
@@ -189,7 +189,7 @@ func (s *SetChatDescriptionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode setChatDescription#74a8b45d: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setChatDescription#74a8b45d: field chat_id: %w", err)
 			}

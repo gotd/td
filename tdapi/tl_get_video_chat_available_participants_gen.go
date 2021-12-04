@@ -113,7 +113,7 @@ func (g *GetVideoChatAvailableParticipantsRequest) EncodeBare(b *bin.Buffer) err
 	if g == nil {
 		return fmt.Errorf("can't encode getVideoChatAvailableParticipants#c45da305 as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (g *GetVideoChatAvailableParticipantsRequest) DecodeBare(b *bin.Buffer) err
 		return fmt.Errorf("can't decode getVideoChatAvailableParticipants#c45da305 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getVideoChatAvailableParticipants#c45da305: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (g *GetVideoChatAvailableParticipantsRequest) EncodeTDLibJSON(b tdjson.Enco
 	b.ObjStart()
 	b.PutID("getVideoChatAvailableParticipants")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (g *GetVideoChatAvailableParticipantsRequest) DecodeTDLibJSON(b tdjson.Deco
 				return fmt.Errorf("unable to decode getVideoChatAvailableParticipants#c45da305: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getVideoChatAvailableParticipants#c45da305: field chat_id: %w", err)
 			}

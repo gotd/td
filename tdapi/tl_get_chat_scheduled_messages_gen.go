@@ -113,7 +113,7 @@ func (g *GetChatScheduledMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatScheduledMessages#df3d2ffb as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (g *GetChatScheduledMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getChatScheduledMessages#df3d2ffb to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatScheduledMessages#df3d2ffb: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (g *GetChatScheduledMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.ObjStart()
 	b.PutID("getChatScheduledMessages")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (g *GetChatScheduledMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 				return fmt.Errorf("unable to decode getChatScheduledMessages#df3d2ffb: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatScheduledMessages#df3d2ffb: field chat_id: %w", err)
 			}

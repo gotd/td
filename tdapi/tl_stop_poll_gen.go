@@ -131,8 +131,8 @@ func (s *StopPollRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode stopPoll#62e80aad as nil")
 	}
-	b.PutLong(s.ChatID)
-	b.PutLong(s.MessageID)
+	b.PutInt53(s.ChatID)
+	b.PutInt53(s.MessageID)
 	if s.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode stopPoll#62e80aad: field reply_markup is nil")
 	}
@@ -159,14 +159,14 @@ func (s *StopPollRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode stopPoll#62e80aad to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode stopPoll#62e80aad: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode stopPoll#62e80aad: field message_id: %w", err)
 		}
@@ -190,9 +190,9 @@ func (s *StopPollRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("stopPoll")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(s.MessageID)
+	b.PutInt53(s.MessageID)
 	b.FieldStart("reply_markup")
 	if s.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode stopPoll#62e80aad: field reply_markup is nil")
@@ -217,13 +217,13 @@ func (s *StopPollRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode stopPoll#62e80aad: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode stopPoll#62e80aad: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode stopPoll#62e80aad: field message_id: %w", err)
 			}

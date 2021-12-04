@@ -122,7 +122,7 @@ func (c *ChatNearby) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatNearby#2de4255 as nil")
 	}
-	b.PutLong(c.ChatID)
+	b.PutInt53(c.ChatID)
 	b.PutInt32(c.Distance)
 	return nil
 }
@@ -144,7 +144,7 @@ func (c *ChatNearby) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatNearby#2de4255 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatNearby#2de4255: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (c *ChatNearby) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("chatNearby")
 	b.FieldStart("chat_id")
-	b.PutLong(c.ChatID)
+	b.PutInt53(c.ChatID)
 	b.FieldStart("distance")
 	b.PutInt32(c.Distance)
 	b.ObjEnd()
@@ -188,7 +188,7 @@ func (c *ChatNearby) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode chatNearby#2de4255: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatNearby#2de4255: field chat_id: %w", err)
 			}

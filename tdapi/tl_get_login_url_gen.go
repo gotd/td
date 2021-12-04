@@ -140,9 +140,9 @@ func (g *GetLoginURLRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getLoginUrl#2f3295d1 as nil")
 	}
-	b.PutLong(g.ChatID)
-	b.PutLong(g.MessageID)
-	b.PutLong(g.ButtonID)
+	b.PutInt53(g.ChatID)
+	b.PutInt53(g.MessageID)
+	b.PutInt53(g.ButtonID)
 	b.PutBool(g.AllowWriteAccess)
 	return nil
 }
@@ -164,21 +164,21 @@ func (g *GetLoginURLRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getLoginUrl#2f3295d1 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getLoginUrl#2f3295d1: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getLoginUrl#2f3295d1: field message_id: %w", err)
 		}
 		g.MessageID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getLoginUrl#2f3295d1: field button_id: %w", err)
 		}
@@ -202,11 +202,11 @@ func (g *GetLoginURLRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getLoginUrl")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.MessageID)
 	b.FieldStart("button_id")
-	b.PutLong(g.ButtonID)
+	b.PutInt53(g.ButtonID)
 	b.FieldStart("allow_write_access")
 	b.PutBool(g.AllowWriteAccess)
 	b.ObjEnd()
@@ -226,19 +226,19 @@ func (g *GetLoginURLRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getLoginUrl#2f3295d1: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getLoginUrl#2f3295d1: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getLoginUrl#2f3295d1: field message_id: %w", err)
 			}
 			g.MessageID = value
 		case "button_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getLoginUrl#2f3295d1: field button_id: %w", err)
 			}

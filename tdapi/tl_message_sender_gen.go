@@ -118,7 +118,7 @@ func (m *MessageSenderUser) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageSenderUser#ebf760e3 as nil")
 	}
-	b.PutLong(m.UserID)
+	b.PutInt53(m.UserID)
 	return nil
 }
 
@@ -139,7 +139,7 @@ func (m *MessageSenderUser) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messageSenderUser#ebf760e3 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageSenderUser#ebf760e3: field user_id: %w", err)
 		}
@@ -156,7 +156,7 @@ func (m *MessageSenderUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("messageSenderUser")
 	b.FieldStart("user_id")
-	b.PutLong(m.UserID)
+	b.PutInt53(m.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -174,7 +174,7 @@ func (m *MessageSenderUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode messageSenderUser#ebf760e3: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageSenderUser#ebf760e3: field user_id: %w", err)
 			}
@@ -278,7 +278,7 @@ func (m *MessageSenderChat) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageSenderChat#f1b71131 as nil")
 	}
-	b.PutLong(m.ChatID)
+	b.PutInt53(m.ChatID)
 	return nil
 }
 
@@ -299,7 +299,7 @@ func (m *MessageSenderChat) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messageSenderChat#f1b71131 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageSenderChat#f1b71131: field chat_id: %w", err)
 		}
@@ -316,7 +316,7 @@ func (m *MessageSenderChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("messageSenderChat")
 	b.FieldStart("chat_id")
-	b.PutLong(m.ChatID)
+	b.PutInt53(m.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -334,7 +334,7 @@ func (m *MessageSenderChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode messageSenderChat#f1b71131: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageSenderChat#f1b71131: field chat_id: %w", err)
 			}

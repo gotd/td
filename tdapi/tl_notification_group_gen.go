@@ -156,7 +156,7 @@ func (n *NotificationGroup) EncodeBare(b *bin.Buffer) error {
 	if err := n.Type.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode notificationGroup#d02a41ba: field type: %w", err)
 	}
-	b.PutLong(n.ChatID)
+	b.PutInt53(n.ChatID)
 	b.PutInt32(n.TotalCount)
 	b.PutInt(len(n.Notifications))
 	for idx, v := range n.Notifications {
@@ -198,7 +198,7 @@ func (n *NotificationGroup) DecodeBare(b *bin.Buffer) error {
 		n.Type = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode notificationGroup#d02a41ba: field chat_id: %w", err)
 		}
@@ -248,7 +248,7 @@ func (n *NotificationGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 		return fmt.Errorf("unable to encode notificationGroup#d02a41ba: field type: %w", err)
 	}
 	b.FieldStart("chat_id")
-	b.PutLong(n.ChatID)
+	b.PutInt53(n.ChatID)
 	b.FieldStart("total_count")
 	b.PutInt32(n.TotalCount)
 	b.FieldStart("notifications")
@@ -288,7 +288,7 @@ func (n *NotificationGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			n.Type = value
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode notificationGroup#d02a41ba: field chat_id: %w", err)
 			}

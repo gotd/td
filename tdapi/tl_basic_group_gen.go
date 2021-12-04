@@ -149,7 +149,7 @@ func (b *BasicGroup) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't encode basicGroup#f464168f as nil")
 	}
-	buf.PutLong(b.ID)
+	buf.PutInt53(b.ID)
 	buf.PutInt32(b.MemberCount)
 	if b.Status == nil {
 		return fmt.Errorf("unable to encode basicGroup#f464168f: field status is nil")
@@ -158,7 +158,7 @@ func (b *BasicGroup) EncodeBare(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode basicGroup#f464168f: field status: %w", err)
 	}
 	buf.PutBool(b.IsActive)
-	buf.PutLong(b.UpgradedToSupergroupID)
+	buf.PutInt53(b.UpgradedToSupergroupID)
 	return nil
 }
 
@@ -179,7 +179,7 @@ func (b *BasicGroup) DecodeBare(buf *bin.Buffer) error {
 		return fmt.Errorf("can't decode basicGroup#f464168f to nil")
 	}
 	{
-		value, err := buf.Long()
+		value, err := buf.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode basicGroup#f464168f: field id: %w", err)
 		}
@@ -207,7 +207,7 @@ func (b *BasicGroup) DecodeBare(buf *bin.Buffer) error {
 		b.IsActive = value
 	}
 	{
-		value, err := buf.Long()
+		value, err := buf.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode basicGroup#f464168f: field upgraded_to_supergroup_id: %w", err)
 		}
@@ -224,7 +224,7 @@ func (b *BasicGroup) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	buf.ObjStart()
 	buf.PutID("basicGroup")
 	buf.FieldStart("id")
-	buf.PutLong(b.ID)
+	buf.PutInt53(b.ID)
 	buf.FieldStart("member_count")
 	buf.PutInt32(b.MemberCount)
 	buf.FieldStart("status")
@@ -237,7 +237,7 @@ func (b *BasicGroup) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	buf.FieldStart("is_active")
 	buf.PutBool(b.IsActive)
 	buf.FieldStart("upgraded_to_supergroup_id")
-	buf.PutLong(b.UpgradedToSupergroupID)
+	buf.PutInt53(b.UpgradedToSupergroupID)
 	buf.ObjEnd()
 	return nil
 }
@@ -255,7 +255,7 @@ func (b *BasicGroup) DecodeTDLibJSON(buf tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode basicGroup#f464168f: %w", err)
 			}
 		case "id":
-			value, err := buf.Long()
+			value, err := buf.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode basicGroup#f464168f: field id: %w", err)
 			}
@@ -279,7 +279,7 @@ func (b *BasicGroup) DecodeTDLibJSON(buf tdjson.Decoder) error {
 			}
 			b.IsActive = value
 		case "upgraded_to_supergroup_id":
-			value, err := buf.Long()
+			value, err := buf.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode basicGroup#f464168f: field upgraded_to_supergroup_id: %w", err)
 			}

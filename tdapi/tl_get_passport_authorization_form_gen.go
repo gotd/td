@@ -140,7 +140,7 @@ func (g *GetPassportAuthorizationFormRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getPassportAuthorizationForm#61850486 as nil")
 	}
-	b.PutLong(g.BotUserID)
+	b.PutInt53(g.BotUserID)
 	b.PutString(g.Scope)
 	b.PutString(g.PublicKey)
 	b.PutString(g.Nonce)
@@ -164,7 +164,7 @@ func (g *GetPassportAuthorizationFormRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getPassportAuthorizationForm#61850486 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getPassportAuthorizationForm#61850486: field bot_user_id: %w", err)
 		}
@@ -202,7 +202,7 @@ func (g *GetPassportAuthorizationFormRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	b.ObjStart()
 	b.PutID("getPassportAuthorizationForm")
 	b.FieldStart("bot_user_id")
-	b.PutLong(g.BotUserID)
+	b.PutInt53(g.BotUserID)
 	b.FieldStart("scope")
 	b.PutString(g.Scope)
 	b.FieldStart("public_key")
@@ -226,7 +226,7 @@ func (g *GetPassportAuthorizationFormRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 				return fmt.Errorf("unable to decode getPassportAuthorizationForm#61850486: %w", err)
 			}
 		case "bot_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getPassportAuthorizationForm#61850486: field bot_user_id: %w", err)
 			}

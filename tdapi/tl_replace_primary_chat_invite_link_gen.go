@@ -113,7 +113,7 @@ func (r *ReplacePrimaryChatInviteLinkRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode replacePrimaryChatInviteLink#3f9e7b9d as nil")
 	}
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (r *ReplacePrimaryChatInviteLinkRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode replacePrimaryChatInviteLink#3f9e7b9d to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode replacePrimaryChatInviteLink#3f9e7b9d: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (r *ReplacePrimaryChatInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	b.ObjStart()
 	b.PutID("replacePrimaryChatInviteLink")
 	b.FieldStart("chat_id")
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (r *ReplacePrimaryChatInviteLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 				return fmt.Errorf("unable to decode replacePrimaryChatInviteLink#3f9e7b9d: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode replacePrimaryChatInviteLink#3f9e7b9d: field chat_id: %w", err)
 			}

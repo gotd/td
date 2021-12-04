@@ -205,7 +205,7 @@ func (p *Poll) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(p.TotalVoterCount)
 	b.PutInt(len(p.RecentVoterUserIDs))
 	for _, v := range p.RecentVoterUserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.PutBool(p.IsAnonymous)
 	if p.Type == nil {
@@ -284,7 +284,7 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 			p.RecentVoterUserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode poll#834d7ae2: field recent_voter_user_ids: %w", err)
 			}
@@ -353,7 +353,7 @@ func (p *Poll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("recent_voter_user_ids")
 	b.ArrStart()
 	for _, v := range p.RecentVoterUserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("is_anonymous")
@@ -418,7 +418,7 @@ func (p *Poll) DecodeTDLibJSON(b tdjson.Decoder) error {
 			p.TotalVoterCount = value
 		case "recent_voter_user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode poll#834d7ae2: field recent_voter_user_ids: %w", err)
 				}

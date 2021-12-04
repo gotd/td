@@ -113,7 +113,7 @@ func (g *GetChatPinnedMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatPinnedMessage#15731ab0 as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (g *GetChatPinnedMessageRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getChatPinnedMessage#15731ab0 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatPinnedMessage#15731ab0: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (g *GetChatPinnedMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getChatPinnedMessage")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (g *GetChatPinnedMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getChatPinnedMessage#15731ab0: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatPinnedMessage#15731ab0: field chat_id: %w", err)
 			}

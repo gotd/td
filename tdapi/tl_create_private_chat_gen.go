@@ -123,7 +123,7 @@ func (c *CreatePrivateChatRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createPrivateChat#c7825b09 as nil")
 	}
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.PutBool(c.Force)
 	return nil
 }
@@ -145,7 +145,7 @@ func (c *CreatePrivateChatRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode createPrivateChat#c7825b09 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode createPrivateChat#c7825b09: field user_id: %w", err)
 		}
@@ -169,7 +169,7 @@ func (c *CreatePrivateChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("createPrivateChat")
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.FieldStart("force")
 	b.PutBool(c.Force)
 	b.ObjEnd()
@@ -189,7 +189,7 @@ func (c *CreatePrivateChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode createPrivateChat#c7825b09: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode createPrivateChat#c7825b09: field user_id: %w", err)
 			}

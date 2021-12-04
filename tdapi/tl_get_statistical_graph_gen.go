@@ -131,9 +131,9 @@ func (g *GetStatisticalGraphRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getStatisticalGraph#419f8d9b as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.PutString(g.Token)
-	b.PutLong(g.X)
+	b.PutInt53(g.X)
 	return nil
 }
 
@@ -154,7 +154,7 @@ func (g *GetStatisticalGraphRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getStatisticalGraph#419f8d9b to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getStatisticalGraph#419f8d9b: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (g *GetStatisticalGraphRequest) DecodeBare(b *bin.Buffer) error {
 		g.Token = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getStatisticalGraph#419f8d9b: field x: %w", err)
 		}
@@ -185,11 +185,11 @@ func (g *GetStatisticalGraphRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getStatisticalGraph")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("token")
 	b.PutString(g.Token)
 	b.FieldStart("x")
-	b.PutLong(g.X)
+	b.PutInt53(g.X)
 	b.ObjEnd()
 	return nil
 }
@@ -207,7 +207,7 @@ func (g *GetStatisticalGraphRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getStatisticalGraph#419f8d9b: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getStatisticalGraph#419f8d9b: field chat_id: %w", err)
 			}
@@ -219,7 +219,7 @@ func (g *GetStatisticalGraphRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			g.Token = value
 		case "x":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getStatisticalGraph#419f8d9b: field x: %w", err)
 			}

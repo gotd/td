@@ -113,7 +113,7 @@ func (r *ReadAllChatMentionsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode readAllChatMentions#50eab2b5 as nil")
 	}
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (r *ReadAllChatMentionsRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode readAllChatMentions#50eab2b5 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode readAllChatMentions#50eab2b5: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (r *ReadAllChatMentionsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("readAllChatMentions")
 	b.FieldStart("chat_id")
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (r *ReadAllChatMentionsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode readAllChatMentions#50eab2b5: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode readAllChatMentions#50eab2b5: field chat_id: %w", err)
 			}

@@ -115,7 +115,7 @@ func (r *RemoveContactsRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(len(r.UserIDs))
 	for _, v := range r.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -146,7 +146,7 @@ func (r *RemoveContactsRequest) DecodeBare(b *bin.Buffer) error {
 			r.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode removeContacts#b464dfff: field user_ids: %w", err)
 			}
@@ -166,7 +166,7 @@ func (r *RemoveContactsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range r.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -187,7 +187,7 @@ func (r *RemoveContactsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode removeContacts#b464dfff: field user_ids: %w", err)
 				}

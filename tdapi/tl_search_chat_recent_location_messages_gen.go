@@ -122,7 +122,7 @@ func (s *SearchChatRecentLocationMessagesRequest) EncodeBare(b *bin.Buffer) erro
 	if s == nil {
 		return fmt.Errorf("can't encode searchChatRecentLocationMessages#38a37ee6 as nil")
 	}
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.PutInt32(s.Limit)
 	return nil
 }
@@ -144,7 +144,7 @@ func (s *SearchChatRecentLocationMessagesRequest) DecodeBare(b *bin.Buffer) erro
 		return fmt.Errorf("can't decode searchChatRecentLocationMessages#38a37ee6 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode searchChatRecentLocationMessages#38a37ee6: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (s *SearchChatRecentLocationMessagesRequest) EncodeTDLibJSON(b tdjson.Encod
 	b.ObjStart()
 	b.PutID("searchChatRecentLocationMessages")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
 	b.ObjEnd()
@@ -188,7 +188,7 @@ func (s *SearchChatRecentLocationMessagesRequest) DecodeTDLibJSON(b tdjson.Decod
 				return fmt.Errorf("unable to decode searchChatRecentLocationMessages#38a37ee6: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode searchChatRecentLocationMessages#38a37ee6: field chat_id: %w", err)
 			}

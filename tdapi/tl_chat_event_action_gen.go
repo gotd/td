@@ -1246,7 +1246,7 @@ func (c *ChatEventMemberJoinedByRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatEventMemberJoinedByRequest#9dc87e3f as nil")
 	}
-	b.PutLong(c.ApproverUserID)
+	b.PutInt53(c.ApproverUserID)
 	if err := c.InviteLink.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatEventMemberJoinedByRequest#9dc87e3f: field invite_link: %w", err)
 	}
@@ -1270,7 +1270,7 @@ func (c *ChatEventMemberJoinedByRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatEventMemberJoinedByRequest#9dc87e3f to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatEventMemberJoinedByRequest#9dc87e3f: field approver_user_id: %w", err)
 		}
@@ -1292,7 +1292,7 @@ func (c *ChatEventMemberJoinedByRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.ObjStart()
 	b.PutID("chatEventMemberJoinedByRequest")
 	b.FieldStart("approver_user_id")
-	b.PutLong(c.ApproverUserID)
+	b.PutInt53(c.ApproverUserID)
 	b.FieldStart("invite_link")
 	if err := c.InviteLink.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatEventMemberJoinedByRequest#9dc87e3f: field invite_link: %w", err)
@@ -1314,7 +1314,7 @@ func (c *ChatEventMemberJoinedByRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 				return fmt.Errorf("unable to decode chatEventMemberJoinedByRequest#9dc87e3f: %w", err)
 			}
 		case "approver_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatEventMemberJoinedByRequest#9dc87e3f: field approver_user_id: %w", err)
 			}
@@ -1565,7 +1565,7 @@ func (c *ChatEventMemberInvited) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatEventMemberInvited#38d7bfc9 as nil")
 	}
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	if c.Status == nil {
 		return fmt.Errorf("unable to encode chatEventMemberInvited#38d7bfc9: field status is nil")
 	}
@@ -1592,7 +1592,7 @@ func (c *ChatEventMemberInvited) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatEventMemberInvited#38d7bfc9 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatEventMemberInvited#38d7bfc9: field user_id: %w", err)
 		}
@@ -1616,7 +1616,7 @@ func (c *ChatEventMemberInvited) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("chatEventMemberInvited")
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.FieldStart("status")
 	if c.Status == nil {
 		return fmt.Errorf("unable to encode chatEventMemberInvited#38d7bfc9: field status is nil")
@@ -1641,7 +1641,7 @@ func (c *ChatEventMemberInvited) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode chatEventMemberInvited#38d7bfc9: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatEventMemberInvited#38d7bfc9: field user_id: %w", err)
 			}
@@ -1774,7 +1774,7 @@ func (c *ChatEventMemberPromoted) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatEventMemberPromoted#1f4f6861 as nil")
 	}
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	if c.OldStatus == nil {
 		return fmt.Errorf("unable to encode chatEventMemberPromoted#1f4f6861: field old_status is nil")
 	}
@@ -1807,7 +1807,7 @@ func (c *ChatEventMemberPromoted) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatEventMemberPromoted#1f4f6861 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatEventMemberPromoted#1f4f6861: field user_id: %w", err)
 		}
@@ -1838,7 +1838,7 @@ func (c *ChatEventMemberPromoted) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("chatEventMemberPromoted")
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.FieldStart("old_status")
 	if c.OldStatus == nil {
 		return fmt.Errorf("unable to encode chatEventMemberPromoted#1f4f6861: field old_status is nil")
@@ -1870,7 +1870,7 @@ func (c *ChatEventMemberPromoted) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode chatEventMemberPromoted#1f4f6861: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatEventMemberPromoted#1f4f6861: field user_id: %w", err)
 			}
@@ -3365,8 +3365,8 @@ func (c *ChatEventLinkedChatChanged) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatEventLinkedChatChanged#6b2271af as nil")
 	}
-	b.PutLong(c.OldLinkedChatID)
-	b.PutLong(c.NewLinkedChatID)
+	b.PutInt53(c.OldLinkedChatID)
+	b.PutInt53(c.NewLinkedChatID)
 	return nil
 }
 
@@ -3387,14 +3387,14 @@ func (c *ChatEventLinkedChatChanged) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatEventLinkedChatChanged#6b2271af to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatEventLinkedChatChanged#6b2271af: field old_linked_chat_id: %w", err)
 		}
 		c.OldLinkedChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatEventLinkedChatChanged#6b2271af: field new_linked_chat_id: %w", err)
 		}
@@ -3411,9 +3411,9 @@ func (c *ChatEventLinkedChatChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("chatEventLinkedChatChanged")
 	b.FieldStart("old_linked_chat_id")
-	b.PutLong(c.OldLinkedChatID)
+	b.PutInt53(c.OldLinkedChatID)
 	b.FieldStart("new_linked_chat_id")
-	b.PutLong(c.NewLinkedChatID)
+	b.PutInt53(c.NewLinkedChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -3431,13 +3431,13 @@ func (c *ChatEventLinkedChatChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode chatEventLinkedChatChanged#6b2271af: %w", err)
 			}
 		case "old_linked_chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatEventLinkedChatChanged#6b2271af: field old_linked_chat_id: %w", err)
 			}
 			c.OldLinkedChatID = value
 		case "new_linked_chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatEventLinkedChatChanged#6b2271af: field new_linked_chat_id: %w", err)
 			}

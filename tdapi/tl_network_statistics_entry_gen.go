@@ -158,8 +158,8 @@ func (n *NetworkStatisticsEntryFile) EncodeBare(b *bin.Buffer) error {
 	if err := n.NetworkType.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode networkStatisticsEntryFile#b3b8f62: field network_type: %w", err)
 	}
-	b.PutLong(n.SentBytes)
-	b.PutLong(n.ReceivedBytes)
+	b.PutInt53(n.SentBytes)
+	b.PutInt53(n.ReceivedBytes)
 	return nil
 }
 
@@ -194,14 +194,14 @@ func (n *NetworkStatisticsEntryFile) DecodeBare(b *bin.Buffer) error {
 		n.NetworkType = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode networkStatisticsEntryFile#b3b8f62: field sent_bytes: %w", err)
 		}
 		n.SentBytes = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode networkStatisticsEntryFile#b3b8f62: field received_bytes: %w", err)
 		}
@@ -232,9 +232,9 @@ func (n *NetworkStatisticsEntryFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 		return fmt.Errorf("unable to encode networkStatisticsEntryFile#b3b8f62: field network_type: %w", err)
 	}
 	b.FieldStart("sent_bytes")
-	b.PutLong(n.SentBytes)
+	b.PutInt53(n.SentBytes)
 	b.FieldStart("received_bytes")
-	b.PutLong(n.ReceivedBytes)
+	b.PutInt53(n.ReceivedBytes)
 	b.ObjEnd()
 	return nil
 }
@@ -264,13 +264,13 @@ func (n *NetworkStatisticsEntryFile) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			n.NetworkType = value
 		case "sent_bytes":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode networkStatisticsEntryFile#b3b8f62: field sent_bytes: %w", err)
 			}
 			n.SentBytes = value
 		case "received_bytes":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode networkStatisticsEntryFile#b3b8f62: field received_bytes: %w", err)
 			}
@@ -423,8 +423,8 @@ func (n *NetworkStatisticsEntryCall) EncodeBare(b *bin.Buffer) error {
 	if err := n.NetworkType.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode networkStatisticsEntryCall#2bedbbad: field network_type: %w", err)
 	}
-	b.PutLong(n.SentBytes)
-	b.PutLong(n.ReceivedBytes)
+	b.PutInt53(n.SentBytes)
+	b.PutInt53(n.ReceivedBytes)
 	b.PutDouble(n.Duration)
 	return nil
 }
@@ -453,14 +453,14 @@ func (n *NetworkStatisticsEntryCall) DecodeBare(b *bin.Buffer) error {
 		n.NetworkType = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode networkStatisticsEntryCall#2bedbbad: field sent_bytes: %w", err)
 		}
 		n.SentBytes = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode networkStatisticsEntryCall#2bedbbad: field received_bytes: %w", err)
 		}
@@ -491,9 +491,9 @@ func (n *NetworkStatisticsEntryCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 		return fmt.Errorf("unable to encode networkStatisticsEntryCall#2bedbbad: field network_type: %w", err)
 	}
 	b.FieldStart("sent_bytes")
-	b.PutLong(n.SentBytes)
+	b.PutInt53(n.SentBytes)
 	b.FieldStart("received_bytes")
-	b.PutLong(n.ReceivedBytes)
+	b.PutInt53(n.ReceivedBytes)
 	b.FieldStart("duration")
 	b.PutDouble(n.Duration)
 	b.ObjEnd()
@@ -519,13 +519,13 @@ func (n *NetworkStatisticsEntryCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			n.NetworkType = value
 		case "sent_bytes":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode networkStatisticsEntryCall#2bedbbad: field sent_bytes: %w", err)
 			}
 			n.SentBytes = value
 		case "received_bytes":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode networkStatisticsEntryCall#2bedbbad: field received_bytes: %w", err)
 			}

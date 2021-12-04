@@ -122,7 +122,7 @@ func (g *GetChatInviteLinkRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatInviteLink#e36a41fd as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.PutString(g.InviteLink)
 	return nil
 }
@@ -144,7 +144,7 @@ func (g *GetChatInviteLinkRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getChatInviteLink#e36a41fd to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatInviteLink#e36a41fd: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (g *GetChatInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getChatInviteLink")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("invite_link")
 	b.PutString(g.InviteLink)
 	b.ObjEnd()
@@ -188,7 +188,7 @@ func (g *GetChatInviteLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getChatInviteLink#e36a41fd: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatInviteLink#e36a41fd: field chat_id: %w", err)
 			}

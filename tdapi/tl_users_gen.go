@@ -125,7 +125,7 @@ func (u *Users) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(u.TotalCount)
 	b.PutInt(len(u.UserIDs))
 	for _, v := range u.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -163,7 +163,7 @@ func (u *Users) DecodeBare(b *bin.Buffer) error {
 			u.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode users#9d955a12: field user_ids: %w", err)
 			}
@@ -185,7 +185,7 @@ func (u *Users) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range u.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -212,7 +212,7 @@ func (u *Users) DecodeTDLibJSON(b tdjson.Decoder) error {
 			u.TotalCount = value
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode users#9d955a12: field user_ids: %w", err)
 				}

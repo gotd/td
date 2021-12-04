@@ -310,7 +310,7 @@ func (s *SupergroupFullInfo) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(s.AdministratorCount)
 	b.PutInt32(s.RestrictedCount)
 	b.PutInt32(s.BannedCount)
-	b.PutLong(s.LinkedChatID)
+	b.PutInt53(s.LinkedChatID)
 	b.PutInt32(s.SlowModeDelay)
 	b.PutDouble(s.SlowModeDelayExpiresIn)
 	b.PutBool(s.CanGetMembers)
@@ -332,8 +332,8 @@ func (s *SupergroupFullInfo) EncodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to encode bare supergroupFullInfo#9c9c1807: field bot_commands element with index %d: %w", idx, err)
 		}
 	}
-	b.PutLong(s.UpgradedFromBasicGroupID)
-	b.PutLong(s.UpgradedFromMaxMessageID)
+	b.PutInt53(s.UpgradedFromBasicGroupID)
+	b.PutInt53(s.UpgradedFromMaxMessageID)
 	return nil
 }
 
@@ -394,7 +394,7 @@ func (s *SupergroupFullInfo) DecodeBare(b *bin.Buffer) error {
 		s.BannedCount = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode supergroupFullInfo#9c9c1807: field linked_chat_id: %w", err)
 		}
@@ -491,14 +491,14 @@ func (s *SupergroupFullInfo) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode supergroupFullInfo#9c9c1807: field upgraded_from_basic_group_id: %w", err)
 		}
 		s.UpgradedFromBasicGroupID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode supergroupFullInfo#9c9c1807: field upgraded_from_max_message_id: %w", err)
 		}
@@ -529,7 +529,7 @@ func (s *SupergroupFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("banned_count")
 	b.PutInt32(s.BannedCount)
 	b.FieldStart("linked_chat_id")
-	b.PutLong(s.LinkedChatID)
+	b.PutInt53(s.LinkedChatID)
 	b.FieldStart("slow_mode_delay")
 	b.PutInt32(s.SlowModeDelay)
 	b.FieldStart("slow_mode_delay_expires_in")
@@ -565,9 +565,9 @@ func (s *SupergroupFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ArrEnd()
 	b.FieldStart("upgraded_from_basic_group_id")
-	b.PutLong(s.UpgradedFromBasicGroupID)
+	b.PutInt53(s.UpgradedFromBasicGroupID)
 	b.FieldStart("upgraded_from_max_message_id")
-	b.PutLong(s.UpgradedFromMaxMessageID)
+	b.PutInt53(s.UpgradedFromMaxMessageID)
 	b.ObjEnd()
 	return nil
 }
@@ -619,7 +619,7 @@ func (s *SupergroupFullInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			s.BannedCount = value
 		case "linked_chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode supergroupFullInfo#9c9c1807: field linked_chat_id: %w", err)
 			}
@@ -698,13 +698,13 @@ func (s *SupergroupFullInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode supergroupFullInfo#9c9c1807: field bot_commands: %w", err)
 			}
 		case "upgraded_from_basic_group_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode supergroupFullInfo#9c9c1807: field upgraded_from_basic_group_id: %w", err)
 			}
 			s.UpgradedFromBasicGroupID = value
 		case "upgraded_from_max_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode supergroupFullInfo#9c9c1807: field upgraded_from_max_message_id: %w", err)
 			}

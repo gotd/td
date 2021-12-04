@@ -357,7 +357,7 @@ func (c *Chat) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chat#ac5453a2 as nil")
 	}
-	b.PutLong(c.ID)
+	b.PutInt53(c.ID)
 	if c.Type == nil {
 		return fmt.Errorf("unable to encode chat#ac5453a2: field type is nil")
 	}
@@ -388,8 +388,8 @@ func (c *Chat) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(c.CanBeReported)
 	b.PutBool(c.DefaultDisableNotification)
 	b.PutInt32(c.UnreadCount)
-	b.PutLong(c.LastReadInboxMessageID)
-	b.PutLong(c.LastReadOutboxMessageID)
+	b.PutInt53(c.LastReadInboxMessageID)
+	b.PutInt53(c.LastReadOutboxMessageID)
 	b.PutInt32(c.UnreadMentionCount)
 	if err := c.NotificationSettings.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chat#ac5453a2: field notification_settings: %w", err)
@@ -408,7 +408,7 @@ func (c *Chat) EncodeBare(b *bin.Buffer) error {
 	if err := c.PendingJoinRequests.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chat#ac5453a2: field pending_join_requests: %w", err)
 	}
-	b.PutLong(c.ReplyMarkupMessageID)
+	b.PutInt53(c.ReplyMarkupMessageID)
 	if err := c.DraftMessage.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chat#ac5453a2: field draft_message: %w", err)
 	}
@@ -433,7 +433,7 @@ func (c *Chat) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chat#ac5453a2 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chat#ac5453a2: field id: %w", err)
 		}
@@ -542,14 +542,14 @@ func (c *Chat) DecodeBare(b *bin.Buffer) error {
 		c.UnreadCount = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chat#ac5453a2: field last_read_inbox_message_id: %w", err)
 		}
 		c.LastReadInboxMessageID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chat#ac5453a2: field last_read_outbox_message_id: %w", err)
 		}
@@ -599,7 +599,7 @@ func (c *Chat) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chat#ac5453a2: field reply_markup_message_id: %w", err)
 		}
@@ -628,7 +628,7 @@ func (c *Chat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("chat")
 	b.FieldStart("id")
-	b.PutLong(c.ID)
+	b.PutInt53(c.ID)
 	b.FieldStart("type")
 	if c.Type == nil {
 		return fmt.Errorf("unable to encode chat#ac5453a2: field type is nil")
@@ -675,9 +675,9 @@ func (c *Chat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("unread_count")
 	b.PutInt32(c.UnreadCount)
 	b.FieldStart("last_read_inbox_message_id")
-	b.PutLong(c.LastReadInboxMessageID)
+	b.PutInt53(c.LastReadInboxMessageID)
 	b.FieldStart("last_read_outbox_message_id")
-	b.PutLong(c.LastReadOutboxMessageID)
+	b.PutInt53(c.LastReadOutboxMessageID)
 	b.FieldStart("unread_mention_count")
 	b.PutInt32(c.UnreadMentionCount)
 	b.FieldStart("notification_settings")
@@ -704,7 +704,7 @@ func (c *Chat) EncodeTDLibJSON(b tdjson.Encoder) error {
 		return fmt.Errorf("unable to encode chat#ac5453a2: field pending_join_requests: %w", err)
 	}
 	b.FieldStart("reply_markup_message_id")
-	b.PutLong(c.ReplyMarkupMessageID)
+	b.PutInt53(c.ReplyMarkupMessageID)
 	b.FieldStart("draft_message")
 	if err := c.DraftMessage.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chat#ac5453a2: field draft_message: %w", err)
@@ -728,7 +728,7 @@ func (c *Chat) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode chat#ac5453a2: %w", err)
 			}
 		case "id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chat#ac5453a2: field id: %w", err)
 			}
@@ -817,13 +817,13 @@ func (c *Chat) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			c.UnreadCount = value
 		case "last_read_inbox_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chat#ac5453a2: field last_read_inbox_message_id: %w", err)
 			}
 			c.LastReadInboxMessageID = value
 		case "last_read_outbox_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chat#ac5453a2: field last_read_outbox_message_id: %w", err)
 			}
@@ -865,7 +865,7 @@ func (c *Chat) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode chat#ac5453a2: field pending_join_requests: %w", err)
 			}
 		case "reply_markup_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chat#ac5453a2: field reply_markup_message_id: %w", err)
 			}

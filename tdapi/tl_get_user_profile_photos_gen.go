@@ -131,7 +131,7 @@ func (g *GetUserProfilePhotosRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getUserProfilePhotos#c9defe42 as nil")
 	}
-	b.PutLong(g.UserID)
+	b.PutInt53(g.UserID)
 	b.PutInt32(g.Offset)
 	b.PutInt32(g.Limit)
 	return nil
@@ -154,7 +154,7 @@ func (g *GetUserProfilePhotosRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getUserProfilePhotos#c9defe42 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getUserProfilePhotos#c9defe42: field user_id: %w", err)
 		}
@@ -185,7 +185,7 @@ func (g *GetUserProfilePhotosRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getUserProfilePhotos")
 	b.FieldStart("user_id")
-	b.PutLong(g.UserID)
+	b.PutInt53(g.UserID)
 	b.FieldStart("offset")
 	b.PutInt32(g.Offset)
 	b.FieldStart("limit")
@@ -207,7 +207,7 @@ func (g *GetUserProfilePhotosRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getUserProfilePhotos#c9defe42: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getUserProfilePhotos#c9defe42: field user_id: %w", err)
 			}

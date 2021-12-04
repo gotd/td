@@ -113,7 +113,7 @@ func (d *DeleteChatRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteChat#f5cae05e as nil")
 	}
-	b.PutLong(d.ChatID)
+	b.PutInt53(d.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (d *DeleteChatRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode deleteChat#f5cae05e to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode deleteChat#f5cae05e: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (d *DeleteChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("deleteChat")
 	b.FieldStart("chat_id")
-	b.PutLong(d.ChatID)
+	b.PutInt53(d.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (d *DeleteChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode deleteChat#f5cae05e: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode deleteChat#f5cae05e: field chat_id: %w", err)
 			}

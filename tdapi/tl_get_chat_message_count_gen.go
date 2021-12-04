@@ -132,7 +132,7 @@ func (g *GetChatMessageCountRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatMessageCount#c3eb1ac as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	if g.Filter == nil {
 		return fmt.Errorf("unable to encode getChatMessageCount#c3eb1ac: field filter is nil")
 	}
@@ -160,7 +160,7 @@ func (g *GetChatMessageCountRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getChatMessageCount#c3eb1ac to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatMessageCount#c3eb1ac: field chat_id: %w", err)
 		}
@@ -191,7 +191,7 @@ func (g *GetChatMessageCountRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getChatMessageCount")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("filter")
 	if g.Filter == nil {
 		return fmt.Errorf("unable to encode getChatMessageCount#c3eb1ac: field filter is nil")
@@ -218,7 +218,7 @@ func (g *GetChatMessageCountRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getChatMessageCount#c3eb1ac: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatMessageCount#c3eb1ac: field chat_id: %w", err)
 			}

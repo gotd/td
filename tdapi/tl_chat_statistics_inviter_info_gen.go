@@ -122,7 +122,7 @@ func (c *ChatStatisticsInviterInfo) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatStatisticsInviterInfo#2583d48b as nil")
 	}
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.PutInt32(c.AddedMemberCount)
 	return nil
 }
@@ -144,7 +144,7 @@ func (c *ChatStatisticsInviterInfo) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatStatisticsInviterInfo#2583d48b to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatStatisticsInviterInfo#2583d48b: field user_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (c *ChatStatisticsInviterInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("chatStatisticsInviterInfo")
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.FieldStart("added_member_count")
 	b.PutInt32(c.AddedMemberCount)
 	b.ObjEnd()
@@ -188,7 +188,7 @@ func (c *ChatStatisticsInviterInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode chatStatisticsInviterInfo#2583d48b: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatStatisticsInviterInfo#2583d48b: field user_id: %w", err)
 			}

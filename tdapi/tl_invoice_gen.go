@@ -219,10 +219,10 @@ func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to encode bare invoice#eed5ccb4: field price_parts element with index %d: %w", idx, err)
 		}
 	}
-	b.PutLong(i.MaxTipAmount)
+	b.PutInt53(i.MaxTipAmount)
 	b.PutInt(len(i.SuggestedTipAmounts))
 	for _, v := range i.SuggestedTipAmounts {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.PutBool(i.IsTest)
 	b.PutBool(i.NeedName)
@@ -276,7 +276,7 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode invoice#eed5ccb4: field max_tip_amount: %w", err)
 		}
@@ -292,7 +292,7 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 			i.SuggestedTipAmounts = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode invoice#eed5ccb4: field suggested_tip_amounts: %w", err)
 			}
@@ -376,11 +376,11 @@ func (i *Invoice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ArrEnd()
 	b.FieldStart("max_tip_amount")
-	b.PutLong(i.MaxTipAmount)
+	b.PutInt53(i.MaxTipAmount)
 	b.FieldStart("suggested_tip_amounts")
 	b.ArrStart()
 	for _, v := range i.SuggestedTipAmounts {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("is_test")
@@ -433,14 +433,14 @@ func (i *Invoice) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode invoice#eed5ccb4: field price_parts: %w", err)
 			}
 		case "max_tip_amount":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode invoice#eed5ccb4: field max_tip_amount: %w", err)
 			}
 			i.MaxTipAmount = value
 		case "suggested_tip_amounts":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode invoice#eed5ccb4: field suggested_tip_amounts: %w", err)
 				}

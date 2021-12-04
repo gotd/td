@@ -140,8 +140,8 @@ func (e *EditMessageTextRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editMessageText#bb2e1b7 as nil")
 	}
-	b.PutLong(e.ChatID)
-	b.PutLong(e.MessageID)
+	b.PutInt53(e.ChatID)
+	b.PutInt53(e.MessageID)
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editMessageText#bb2e1b7: field reply_markup is nil")
 	}
@@ -174,14 +174,14 @@ func (e *EditMessageTextRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode editMessageText#bb2e1b7 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode editMessageText#bb2e1b7: field chat_id: %w", err)
 		}
 		e.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode editMessageText#bb2e1b7: field message_id: %w", err)
 		}
@@ -212,9 +212,9 @@ func (e *EditMessageTextRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("editMessageText")
 	b.FieldStart("chat_id")
-	b.PutLong(e.ChatID)
+	b.PutInt53(e.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(e.MessageID)
+	b.PutInt53(e.MessageID)
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editMessageText#bb2e1b7: field reply_markup is nil")
@@ -246,13 +246,13 @@ func (e *EditMessageTextRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode editMessageText#bb2e1b7: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode editMessageText#bb2e1b7: field chat_id: %w", err)
 			}
 			e.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode editMessageText#bb2e1b7: field message_id: %w", err)
 			}

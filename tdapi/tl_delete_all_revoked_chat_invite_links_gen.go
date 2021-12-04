@@ -123,8 +123,8 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) EncodeBare(b *bin.Buffer) error
 	if d == nil {
 		return fmt.Errorf("can't encode deleteAllRevokedChatInviteLinks#424816da as nil")
 	}
-	b.PutLong(d.ChatID)
-	b.PutLong(d.CreatorUserID)
+	b.PutInt53(d.ChatID)
+	b.PutInt53(d.CreatorUserID)
 	return nil
 }
 
@@ -145,14 +145,14 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) DecodeBare(b *bin.Buffer) error
 		return fmt.Errorf("can't decode deleteAllRevokedChatInviteLinks#424816da to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#424816da: field chat_id: %w", err)
 		}
 		d.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#424816da: field creator_user_id: %w", err)
 		}
@@ -169,9 +169,9 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) EncodeTDLibJSON(b tdjson.Encode
 	b.ObjStart()
 	b.PutID("deleteAllRevokedChatInviteLinks")
 	b.FieldStart("chat_id")
-	b.PutLong(d.ChatID)
+	b.PutInt53(d.ChatID)
 	b.FieldStart("creator_user_id")
-	b.PutLong(d.CreatorUserID)
+	b.PutInt53(d.CreatorUserID)
 	b.ObjEnd()
 	return nil
 }
@@ -189,13 +189,13 @@ func (d *DeleteAllRevokedChatInviteLinksRequest) DecodeTDLibJSON(b tdjson.Decode
 				return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#424816da: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#424816da: field chat_id: %w", err)
 			}
 			d.ChatID = value
 		case "creator_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode deleteAllRevokedChatInviteLinks#424816da: field creator_user_id: %w", err)
 			}

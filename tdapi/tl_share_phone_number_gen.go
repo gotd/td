@@ -114,7 +114,7 @@ func (s *SharePhoneNumberRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sharePhoneNumber#4164e055 as nil")
 	}
-	b.PutLong(s.UserID)
+	b.PutInt53(s.UserID)
 	return nil
 }
 
@@ -135,7 +135,7 @@ func (s *SharePhoneNumberRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode sharePhoneNumber#4164e055 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode sharePhoneNumber#4164e055: field user_id: %w", err)
 		}
@@ -152,7 +152,7 @@ func (s *SharePhoneNumberRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("sharePhoneNumber")
 	b.FieldStart("user_id")
-	b.PutLong(s.UserID)
+	b.PutInt53(s.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -170,7 +170,7 @@ func (s *SharePhoneNumberRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode sharePhoneNumber#4164e055: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode sharePhoneNumber#4164e055: field user_id: %w", err)
 			}

@@ -161,7 +161,7 @@ func (m *MessageLinkInfo) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageLinkInfo#c57d442a as nil")
 	}
 	b.PutBool(m.IsPublic)
-	b.PutLong(m.ChatID)
+	b.PutInt53(m.ChatID)
 	if err := m.Message.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageLinkInfo#c57d442a: field message: %w", err)
 	}
@@ -195,7 +195,7 @@ func (m *MessageLinkInfo) DecodeBare(b *bin.Buffer) error {
 		m.IsPublic = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field chat_id: %w", err)
 		}
@@ -240,7 +240,7 @@ func (m *MessageLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("is_public")
 	b.PutBool(m.IsPublic)
 	b.FieldStart("chat_id")
-	b.PutLong(m.ChatID)
+	b.PutInt53(m.ChatID)
 	b.FieldStart("message")
 	if err := m.Message.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageLinkInfo#c57d442a: field message: %w", err)
@@ -274,7 +274,7 @@ func (m *MessageLinkInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			m.IsPublic = value
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field chat_id: %w", err)
 			}

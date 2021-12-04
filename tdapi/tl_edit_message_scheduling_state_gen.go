@@ -131,8 +131,8 @@ func (e *EditMessageSchedulingStateRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editMessageSchedulingState#ae2a0bc0 as nil")
 	}
-	b.PutLong(e.ChatID)
-	b.PutLong(e.MessageID)
+	b.PutInt53(e.ChatID)
+	b.PutInt53(e.MessageID)
 	if e.SchedulingState == nil {
 		return fmt.Errorf("unable to encode editMessageSchedulingState#ae2a0bc0: field scheduling_state is nil")
 	}
@@ -159,14 +159,14 @@ func (e *EditMessageSchedulingStateRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode editMessageSchedulingState#ae2a0bc0 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode editMessageSchedulingState#ae2a0bc0: field chat_id: %w", err)
 		}
 		e.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode editMessageSchedulingState#ae2a0bc0: field message_id: %w", err)
 		}
@@ -190,9 +190,9 @@ func (e *EditMessageSchedulingStateRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	b.ObjStart()
 	b.PutID("editMessageSchedulingState")
 	b.FieldStart("chat_id")
-	b.PutLong(e.ChatID)
+	b.PutInt53(e.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(e.MessageID)
+	b.PutInt53(e.MessageID)
 	b.FieldStart("scheduling_state")
 	if e.SchedulingState == nil {
 		return fmt.Errorf("unable to encode editMessageSchedulingState#ae2a0bc0: field scheduling_state is nil")
@@ -217,13 +217,13 @@ func (e *EditMessageSchedulingStateRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 				return fmt.Errorf("unable to decode editMessageSchedulingState#ae2a0bc0: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode editMessageSchedulingState#ae2a0bc0: field chat_id: %w", err)
 			}
 			e.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode editMessageSchedulingState#ae2a0bc0: field message_id: %w", err)
 			}

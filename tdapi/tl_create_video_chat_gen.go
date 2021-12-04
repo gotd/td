@@ -133,7 +133,7 @@ func (c *CreateVideoChatRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createVideoChat#c94de806 as nil")
 	}
-	b.PutLong(c.ChatID)
+	b.PutInt53(c.ChatID)
 	b.PutString(c.Title)
 	b.PutInt32(c.StartDate)
 	return nil
@@ -156,7 +156,7 @@ func (c *CreateVideoChatRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode createVideoChat#c94de806 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode createVideoChat#c94de806: field chat_id: %w", err)
 		}
@@ -187,7 +187,7 @@ func (c *CreateVideoChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("createVideoChat")
 	b.FieldStart("chat_id")
-	b.PutLong(c.ChatID)
+	b.PutInt53(c.ChatID)
 	b.FieldStart("title")
 	b.PutString(c.Title)
 	b.FieldStart("start_date")
@@ -209,7 +209,7 @@ func (c *CreateVideoChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode createVideoChat#c94de806: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode createVideoChat#c94de806: field chat_id: %w", err)
 			}

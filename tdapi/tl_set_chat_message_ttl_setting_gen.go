@@ -123,7 +123,7 @@ func (s *SetChatMessageTTLSettingRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatMessageTtlSetting#12d6f2f7 as nil")
 	}
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.PutInt32(s.TTL)
 	return nil
 }
@@ -145,7 +145,7 @@ func (s *SetChatMessageTTLSettingRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setChatMessageTtlSetting#12d6f2f7 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setChatMessageTtlSetting#12d6f2f7: field chat_id: %w", err)
 		}
@@ -169,7 +169,7 @@ func (s *SetChatMessageTTLSettingRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.ObjStart()
 	b.PutID("setChatMessageTtlSetting")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("ttl")
 	b.PutInt32(s.TTL)
 	b.ObjEnd()
@@ -189,7 +189,7 @@ func (s *SetChatMessageTTLSettingRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 				return fmt.Errorf("unable to decode setChatMessageTtlSetting#12d6f2f7: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setChatMessageTtlSetting#12d6f2f7: field chat_id: %w", err)
 			}

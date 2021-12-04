@@ -134,14 +134,14 @@ func (g *GetChatMessageCalendarRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatMessageCalendar#ec8f2114 as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	if g.Filter == nil {
 		return fmt.Errorf("unable to encode getChatMessageCalendar#ec8f2114: field filter is nil")
 	}
 	if err := g.Filter.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode getChatMessageCalendar#ec8f2114: field filter: %w", err)
 	}
-	b.PutLong(g.FromMessageID)
+	b.PutInt53(g.FromMessageID)
 	return nil
 }
 
@@ -162,7 +162,7 @@ func (g *GetChatMessageCalendarRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getChatMessageCalendar#ec8f2114 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatMessageCalendar#ec8f2114: field chat_id: %w", err)
 		}
@@ -176,7 +176,7 @@ func (g *GetChatMessageCalendarRequest) DecodeBare(b *bin.Buffer) error {
 		g.Filter = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatMessageCalendar#ec8f2114: field from_message_id: %w", err)
 		}
@@ -193,7 +193,7 @@ func (g *GetChatMessageCalendarRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	b.ObjStart()
 	b.PutID("getChatMessageCalendar")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("filter")
 	if g.Filter == nil {
 		return fmt.Errorf("unable to encode getChatMessageCalendar#ec8f2114: field filter is nil")
@@ -202,7 +202,7 @@ func (g *GetChatMessageCalendarRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 		return fmt.Errorf("unable to encode getChatMessageCalendar#ec8f2114: field filter: %w", err)
 	}
 	b.FieldStart("from_message_id")
-	b.PutLong(g.FromMessageID)
+	b.PutInt53(g.FromMessageID)
 	b.ObjEnd()
 	return nil
 }
@@ -220,7 +220,7 @@ func (g *GetChatMessageCalendarRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 				return fmt.Errorf("unable to decode getChatMessageCalendar#ec8f2114: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatMessageCalendar#ec8f2114: field chat_id: %w", err)
 			}
@@ -232,7 +232,7 @@ func (g *GetChatMessageCalendarRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 			}
 			g.Filter = value
 		case "from_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatMessageCalendar#ec8f2114: field from_message_id: %w", err)
 			}

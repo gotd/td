@@ -505,7 +505,7 @@ func (c *ChatMembersFilterMention) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatMembersFilterMention#330bedf7 as nil")
 	}
-	b.PutLong(c.MessageThreadID)
+	b.PutInt53(c.MessageThreadID)
 	return nil
 }
 
@@ -526,7 +526,7 @@ func (c *ChatMembersFilterMention) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatMembersFilterMention#330bedf7 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatMembersFilterMention#330bedf7: field message_thread_id: %w", err)
 		}
@@ -543,7 +543,7 @@ func (c *ChatMembersFilterMention) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("chatMembersFilterMention")
 	b.FieldStart("message_thread_id")
-	b.PutLong(c.MessageThreadID)
+	b.PutInt53(c.MessageThreadID)
 	b.ObjEnd()
 	return nil
 }
@@ -561,7 +561,7 @@ func (c *ChatMembersFilterMention) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode chatMembersFilterMention#330bedf7: %w", err)
 			}
 		case "message_thread_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatMembersFilterMention#330bedf7: field message_thread_id: %w", err)
 			}

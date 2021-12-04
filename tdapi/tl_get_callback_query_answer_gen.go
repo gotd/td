@@ -131,8 +131,8 @@ func (g *GetCallbackQueryAnswerRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getCallbackQueryAnswer#6ef7a5f as nil")
 	}
-	b.PutLong(g.ChatID)
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.ChatID)
+	b.PutInt53(g.MessageID)
 	if g.Payload == nil {
 		return fmt.Errorf("unable to encode getCallbackQueryAnswer#6ef7a5f: field payload is nil")
 	}
@@ -159,14 +159,14 @@ func (g *GetCallbackQueryAnswerRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getCallbackQueryAnswer#6ef7a5f to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getCallbackQueryAnswer#6ef7a5f: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getCallbackQueryAnswer#6ef7a5f: field message_id: %w", err)
 		}
@@ -190,9 +190,9 @@ func (g *GetCallbackQueryAnswerRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	b.ObjStart()
 	b.PutID("getCallbackQueryAnswer")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.MessageID)
 	b.FieldStart("payload")
 	if g.Payload == nil {
 		return fmt.Errorf("unable to encode getCallbackQueryAnswer#6ef7a5f: field payload is nil")
@@ -217,13 +217,13 @@ func (g *GetCallbackQueryAnswerRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 				return fmt.Errorf("unable to decode getCallbackQueryAnswer#6ef7a5f: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getCallbackQueryAnswer#6ef7a5f: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getCallbackQueryAnswer#6ef7a5f: field message_id: %w", err)
 			}

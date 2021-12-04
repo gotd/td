@@ -140,7 +140,7 @@ func (c *ChatStatisticsAdministratorActionsInfo) EncodeBare(b *bin.Buffer) error
 	if c == nil {
 		return fmt.Errorf("can't encode chatStatisticsAdministratorActionsInfo#e7c5cd7e as nil")
 	}
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.PutInt32(c.DeletedMessageCount)
 	b.PutInt32(c.BannedUserCount)
 	b.PutInt32(c.RestrictedUserCount)
@@ -164,7 +164,7 @@ func (c *ChatStatisticsAdministratorActionsInfo) DecodeBare(b *bin.Buffer) error
 		return fmt.Errorf("can't decode chatStatisticsAdministratorActionsInfo#e7c5cd7e to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatStatisticsAdministratorActionsInfo#e7c5cd7e: field user_id: %w", err)
 		}
@@ -202,7 +202,7 @@ func (c *ChatStatisticsAdministratorActionsInfo) EncodeTDLibJSON(b tdjson.Encode
 	b.ObjStart()
 	b.PutID("chatStatisticsAdministratorActionsInfo")
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.FieldStart("deleted_message_count")
 	b.PutInt32(c.DeletedMessageCount)
 	b.FieldStart("banned_user_count")
@@ -226,7 +226,7 @@ func (c *ChatStatisticsAdministratorActionsInfo) DecodeTDLibJSON(b tdjson.Decode
 				return fmt.Errorf("unable to decode chatStatisticsAdministratorActionsInfo#e7c5cd7e: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatStatisticsAdministratorActionsInfo#e7c5cd7e: field user_id: %w", err)
 			}

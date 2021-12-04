@@ -378,7 +378,7 @@ func (u *UserPrivacySettingRuleAllowUsers) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(len(u.UserIDs))
 	for _, v := range u.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -409,7 +409,7 @@ func (u *UserPrivacySettingRuleAllowUsers) DecodeBare(b *bin.Buffer) error {
 			u.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#d1570b70: field user_ids: %w", err)
 			}
@@ -429,7 +429,7 @@ func (u *UserPrivacySettingRuleAllowUsers) EncodeTDLibJSON(b tdjson.Encoder) err
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range u.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -450,7 +450,7 @@ func (u *UserPrivacySettingRuleAllowUsers) DecodeTDLibJSON(b tdjson.Decoder) err
 			}
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode userPrivacySettingRuleAllowUsers#d1570b70: field user_ids: %w", err)
 				}
@@ -560,7 +560,7 @@ func (u *UserPrivacySettingRuleAllowChatMembers) EncodeBare(b *bin.Buffer) error
 	}
 	b.PutInt(len(u.ChatIDs))
 	for _, v := range u.ChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -591,7 +591,7 @@ func (u *UserPrivacySettingRuleAllowChatMembers) DecodeBare(b *bin.Buffer) error
 			u.ChatIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode userPrivacySettingRuleAllowChatMembers#f249b617: field chat_ids: %w", err)
 			}
@@ -611,7 +611,7 @@ func (u *UserPrivacySettingRuleAllowChatMembers) EncodeTDLibJSON(b tdjson.Encode
 	b.FieldStart("chat_ids")
 	b.ArrStart()
 	for _, v := range u.ChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -632,7 +632,7 @@ func (u *UserPrivacySettingRuleAllowChatMembers) DecodeTDLibJSON(b tdjson.Decode
 			}
 		case "chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode userPrivacySettingRuleAllowChatMembers#f249b617: field chat_ids: %w", err)
 				}
@@ -1000,7 +1000,7 @@ func (u *UserPrivacySettingRuleRestrictUsers) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(len(u.UserIDs))
 	for _, v := range u.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -1031,7 +1031,7 @@ func (u *UserPrivacySettingRuleRestrictUsers) DecodeBare(b *bin.Buffer) error {
 			u.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#4d392a91: field user_ids: %w", err)
 			}
@@ -1051,7 +1051,7 @@ func (u *UserPrivacySettingRuleRestrictUsers) EncodeTDLibJSON(b tdjson.Encoder) 
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range u.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -1072,7 +1072,7 @@ func (u *UserPrivacySettingRuleRestrictUsers) DecodeTDLibJSON(b tdjson.Decoder) 
 			}
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictUsers#4d392a91: field user_ids: %w", err)
 				}
@@ -1182,7 +1182,7 @@ func (u *UserPrivacySettingRuleRestrictChatMembers) EncodeBare(b *bin.Buffer) er
 	}
 	b.PutInt(len(u.ChatIDs))
 	for _, v := range u.ChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -1213,7 +1213,7 @@ func (u *UserPrivacySettingRuleRestrictChatMembers) DecodeBare(b *bin.Buffer) er
 			u.ChatIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictChatMembers#fc00b920: field chat_ids: %w", err)
 			}
@@ -1233,7 +1233,7 @@ func (u *UserPrivacySettingRuleRestrictChatMembers) EncodeTDLibJSON(b tdjson.Enc
 	b.FieldStart("chat_ids")
 	b.ArrStart()
 	for _, v := range u.ChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -1254,7 +1254,7 @@ func (u *UserPrivacySettingRuleRestrictChatMembers) DecodeTDLibJSON(b tdjson.Dec
 			}
 		case "chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode userPrivacySettingRuleRestrictChatMembers#fc00b920: field chat_ids: %w", err)
 				}

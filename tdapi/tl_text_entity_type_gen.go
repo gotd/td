@@ -2244,7 +2244,7 @@ func (t *TextEntityTypeMentionName) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeMentionName#a25cd5af as nil")
 	}
-	b.PutLong(t.UserID)
+	b.PutInt53(t.UserID)
 	return nil
 }
 
@@ -2265,7 +2265,7 @@ func (t *TextEntityTypeMentionName) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode textEntityTypeMentionName#a25cd5af to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode textEntityTypeMentionName#a25cd5af: field user_id: %w", err)
 		}
@@ -2282,7 +2282,7 @@ func (t *TextEntityTypeMentionName) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("textEntityTypeMentionName")
 	b.FieldStart("user_id")
-	b.PutLong(t.UserID)
+	b.PutInt53(t.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -2300,7 +2300,7 @@ func (t *TextEntityTypeMentionName) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode textEntityTypeMentionName#a25cd5af: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode textEntityTypeMentionName#a25cd5af: field user_id: %w", err)
 			}

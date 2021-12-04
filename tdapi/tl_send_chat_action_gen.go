@@ -131,8 +131,8 @@ func (s *SendChatActionRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sendChatAction#7cfce154 as nil")
 	}
-	b.PutLong(s.ChatID)
-	b.PutLong(s.MessageThreadID)
+	b.PutInt53(s.ChatID)
+	b.PutInt53(s.MessageThreadID)
 	if s.Action == nil {
 		return fmt.Errorf("unable to encode sendChatAction#7cfce154: field action is nil")
 	}
@@ -159,14 +159,14 @@ func (s *SendChatActionRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode sendChatAction#7cfce154 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode sendChatAction#7cfce154: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode sendChatAction#7cfce154: field message_thread_id: %w", err)
 		}
@@ -190,9 +190,9 @@ func (s *SendChatActionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("sendChatAction")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("message_thread_id")
-	b.PutLong(s.MessageThreadID)
+	b.PutInt53(s.MessageThreadID)
 	b.FieldStart("action")
 	if s.Action == nil {
 		return fmt.Errorf("unable to encode sendChatAction#7cfce154: field action is nil")
@@ -217,13 +217,13 @@ func (s *SendChatActionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode sendChatAction#7cfce154: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode sendChatAction#7cfce154: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "message_thread_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode sendChatAction#7cfce154: field message_thread_id: %w", err)
 			}

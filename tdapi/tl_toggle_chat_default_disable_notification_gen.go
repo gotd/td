@@ -122,7 +122,7 @@ func (t *ToggleChatDefaultDisableNotificationRequest) EncodeBare(b *bin.Buffer) 
 	if t == nil {
 		return fmt.Errorf("can't encode toggleChatDefaultDisableNotification#12c36012 as nil")
 	}
-	b.PutLong(t.ChatID)
+	b.PutInt53(t.ChatID)
 	b.PutBool(t.DefaultDisableNotification)
 	return nil
 }
@@ -144,7 +144,7 @@ func (t *ToggleChatDefaultDisableNotificationRequest) DecodeBare(b *bin.Buffer) 
 		return fmt.Errorf("can't decode toggleChatDefaultDisableNotification#12c36012 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode toggleChatDefaultDisableNotification#12c36012: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (t *ToggleChatDefaultDisableNotificationRequest) EncodeTDLibJSON(b tdjson.E
 	b.ObjStart()
 	b.PutID("toggleChatDefaultDisableNotification")
 	b.FieldStart("chat_id")
-	b.PutLong(t.ChatID)
+	b.PutInt53(t.ChatID)
 	b.FieldStart("default_disable_notification")
 	b.PutBool(t.DefaultDisableNotification)
 	b.ObjEnd()
@@ -188,7 +188,7 @@ func (t *ToggleChatDefaultDisableNotificationRequest) DecodeTDLibJSON(b tdjson.D
 				return fmt.Errorf("unable to decode toggleChatDefaultDisableNotification#12c36012: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode toggleChatDefaultDisableNotification#12c36012: field chat_id: %w", err)
 			}

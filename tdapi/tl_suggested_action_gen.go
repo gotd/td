@@ -634,7 +634,7 @@ func (s *SuggestedActionConvertToBroadcastGroup) EncodeBare(b *bin.Buffer) error
 	if s == nil {
 		return fmt.Errorf("can't encode suggestedActionConvertToBroadcastGroup#c67a2e38 as nil")
 	}
-	b.PutLong(s.SupergroupID)
+	b.PutInt53(s.SupergroupID)
 	return nil
 }
 
@@ -655,7 +655,7 @@ func (s *SuggestedActionConvertToBroadcastGroup) DecodeBare(b *bin.Buffer) error
 		return fmt.Errorf("can't decode suggestedActionConvertToBroadcastGroup#c67a2e38 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode suggestedActionConvertToBroadcastGroup#c67a2e38: field supergroup_id: %w", err)
 		}
@@ -672,7 +672,7 @@ func (s *SuggestedActionConvertToBroadcastGroup) EncodeTDLibJSON(b tdjson.Encode
 	b.ObjStart()
 	b.PutID("suggestedActionConvertToBroadcastGroup")
 	b.FieldStart("supergroup_id")
-	b.PutLong(s.SupergroupID)
+	b.PutInt53(s.SupergroupID)
 	b.ObjEnd()
 	return nil
 }
@@ -690,7 +690,7 @@ func (s *SuggestedActionConvertToBroadcastGroup) DecodeTDLibJSON(b tdjson.Decode
 				return fmt.Errorf("unable to decode suggestedActionConvertToBroadcastGroup#c67a2e38: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode suggestedActionConvertToBroadcastGroup#c67a2e38: field supergroup_id: %w", err)
 			}

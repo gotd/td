@@ -131,7 +131,7 @@ func (c *ChatAdministrator) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatAdministrator#7277bd2c as nil")
 	}
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.PutString(c.CustomTitle)
 	b.PutBool(c.IsOwner)
 	return nil
@@ -154,7 +154,7 @@ func (c *ChatAdministrator) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatAdministrator#7277bd2c to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatAdministrator#7277bd2c: field user_id: %w", err)
 		}
@@ -185,7 +185,7 @@ func (c *ChatAdministrator) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("chatAdministrator")
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.FieldStart("custom_title")
 	b.PutString(c.CustomTitle)
 	b.FieldStart("is_owner")
@@ -207,7 +207,7 @@ func (c *ChatAdministrator) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode chatAdministrator#7277bd2c: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatAdministrator#7277bd2c: field user_id: %w", err)
 			}

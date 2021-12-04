@@ -124,7 +124,7 @@ func (c *CreateNewBasicGroupChatRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(len(c.UserIDs))
 	for _, v := range c.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.PutString(c.Title)
 	return nil
@@ -156,7 +156,7 @@ func (c *CreateNewBasicGroupChatRequest) DecodeBare(b *bin.Buffer) error {
 			c.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode createNewBasicGroupChat#eb575429: field user_ids: %w", err)
 			}
@@ -183,7 +183,7 @@ func (c *CreateNewBasicGroupChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range c.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("title")
@@ -206,7 +206,7 @@ func (c *CreateNewBasicGroupChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 			}
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode createNewBasicGroupChat#eb575429: field user_ids: %w", err)
 				}

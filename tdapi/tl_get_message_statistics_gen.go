@@ -131,8 +131,8 @@ func (g *GetMessageStatisticsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getMessageStatistics#4bb5a1d8 as nil")
 	}
-	b.PutLong(g.ChatID)
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.ChatID)
+	b.PutInt53(g.MessageID)
 	b.PutBool(g.IsDark)
 	return nil
 }
@@ -154,14 +154,14 @@ func (g *GetMessageStatisticsRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getMessageStatistics#4bb5a1d8 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMessageStatistics#4bb5a1d8: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMessageStatistics#4bb5a1d8: field message_id: %w", err)
 		}
@@ -185,9 +185,9 @@ func (g *GetMessageStatisticsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getMessageStatistics")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.MessageID)
 	b.FieldStart("is_dark")
 	b.PutBool(g.IsDark)
 	b.ObjEnd()
@@ -207,13 +207,13 @@ func (g *GetMessageStatisticsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getMessageStatistics#4bb5a1d8: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessageStatistics#4bb5a1d8: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessageStatistics#4bb5a1d8: field message_id: %w", err)
 			}

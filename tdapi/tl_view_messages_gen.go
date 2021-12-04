@@ -140,11 +140,11 @@ func (v *ViewMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
 		return fmt.Errorf("can't encode viewMessages#d6e1005d as nil")
 	}
-	b.PutLong(v.ChatID)
-	b.PutLong(v.MessageThreadID)
+	b.PutInt53(v.ChatID)
+	b.PutInt53(v.MessageThreadID)
 	b.PutInt(len(v.MessageIDs))
 	for _, v := range v.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.PutBool(v.ForceRead)
 	return nil
@@ -167,14 +167,14 @@ func (v *ViewMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode viewMessages#d6e1005d to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode viewMessages#d6e1005d: field chat_id: %w", err)
 		}
 		v.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_thread_id: %w", err)
 		}
@@ -190,7 +190,7 @@ func (v *ViewMessagesRequest) DecodeBare(b *bin.Buffer) error {
 			v.MessageIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_ids: %w", err)
 			}
@@ -215,13 +215,13 @@ func (v *ViewMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("viewMessages")
 	b.FieldStart("chat_id")
-	b.PutLong(v.ChatID)
+	b.PutInt53(v.ChatID)
 	b.FieldStart("message_thread_id")
-	b.PutLong(v.MessageThreadID)
+	b.PutInt53(v.MessageThreadID)
 	b.FieldStart("message_ids")
 	b.ArrStart()
 	for _, v := range v.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("force_read")
@@ -243,20 +243,20 @@ func (v *ViewMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode viewMessages#d6e1005d: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode viewMessages#d6e1005d: field chat_id: %w", err)
 			}
 			v.ChatID = value
 		case "message_thread_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_thread_id: %w", err)
 			}
 			v.MessageThreadID = value
 		case "message_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_ids: %w", err)
 				}

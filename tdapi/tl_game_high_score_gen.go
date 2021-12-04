@@ -132,7 +132,7 @@ func (g *GameHighScore) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode gameHighScore#146fcf1e as nil")
 	}
 	b.PutInt32(g.Position)
-	b.PutLong(g.UserID)
+	b.PutInt53(g.UserID)
 	b.PutInt32(g.Score)
 	return nil
 }
@@ -161,7 +161,7 @@ func (g *GameHighScore) DecodeBare(b *bin.Buffer) error {
 		g.Position = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode gameHighScore#146fcf1e: field user_id: %w", err)
 		}
@@ -187,7 +187,7 @@ func (g *GameHighScore) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("position")
 	b.PutInt32(g.Position)
 	b.FieldStart("user_id")
-	b.PutLong(g.UserID)
+	b.PutInt53(g.UserID)
 	b.FieldStart("score")
 	b.PutInt32(g.Score)
 	b.ObjEnd()
@@ -213,7 +213,7 @@ func (g *GameHighScore) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			g.Position = value
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode gameHighScore#146fcf1e: field user_id: %w", err)
 			}

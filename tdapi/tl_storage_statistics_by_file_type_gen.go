@@ -137,7 +137,7 @@ func (s *StorageStatisticsByFileType) EncodeBare(b *bin.Buffer) error {
 	if err := s.FileType.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode storageStatisticsByFileType#2a8ef8a8: field file_type: %w", err)
 	}
-	b.PutLong(s.Size)
+	b.PutInt53(s.Size)
 	b.PutInt32(s.Count)
 	return nil
 }
@@ -166,7 +166,7 @@ func (s *StorageStatisticsByFileType) DecodeBare(b *bin.Buffer) error {
 		s.FileType = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode storageStatisticsByFileType#2a8ef8a8: field size: %w", err)
 		}
@@ -197,7 +197,7 @@ func (s *StorageStatisticsByFileType) EncodeTDLibJSON(b tdjson.Encoder) error {
 		return fmt.Errorf("unable to encode storageStatisticsByFileType#2a8ef8a8: field file_type: %w", err)
 	}
 	b.FieldStart("size")
-	b.PutLong(s.Size)
+	b.PutInt53(s.Size)
 	b.FieldStart("count")
 	b.PutInt32(s.Count)
 	b.ObjEnd()
@@ -223,7 +223,7 @@ func (s *StorageStatisticsByFileType) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			s.FileType = value
 		case "size":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode storageStatisticsByFileType#2a8ef8a8: field size: %w", err)
 			}

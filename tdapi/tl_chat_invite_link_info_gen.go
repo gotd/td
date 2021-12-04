@@ -197,7 +197,7 @@ func (c *ChatInviteLinkInfo) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatInviteLinkInfo#eca8a094 as nil")
 	}
-	b.PutLong(c.ChatID)
+	b.PutInt53(c.ChatID)
 	b.PutInt32(c.AccessibleFor)
 	if c.Type == nil {
 		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field type is nil")
@@ -213,7 +213,7 @@ func (c *ChatInviteLinkInfo) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(c.MemberCount)
 	b.PutInt(len(c.MemberUserIDs))
 	for _, v := range c.MemberUserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.PutBool(c.CreatesJoinRequest)
 	b.PutBool(c.IsPublic)
@@ -237,7 +237,7 @@ func (c *ChatInviteLinkInfo) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatInviteLinkInfo#eca8a094 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field chat_id: %w", err)
 		}
@@ -293,7 +293,7 @@ func (c *ChatInviteLinkInfo) DecodeBare(b *bin.Buffer) error {
 			c.MemberUserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_user_ids: %w", err)
 			}
@@ -325,7 +325,7 @@ func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("chatInviteLinkInfo")
 	b.FieldStart("chat_id")
-	b.PutLong(c.ChatID)
+	b.PutInt53(c.ChatID)
 	b.FieldStart("accessible_for")
 	b.PutInt32(c.AccessibleFor)
 	b.FieldStart("type")
@@ -348,7 +348,7 @@ func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("member_user_ids")
 	b.ArrStart()
 	for _, v := range c.MemberUserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("creates_join_request")
@@ -372,7 +372,7 @@ func (c *ChatInviteLinkInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field chat_id: %w", err)
 			}
@@ -413,7 +413,7 @@ func (c *ChatInviteLinkInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 			c.MemberCount = value
 		case "member_user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_user_ids: %w", err)
 				}

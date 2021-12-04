@@ -122,7 +122,7 @@ func (t *ToggleSupergroupSignMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleSupergroupSignMessages#44efd524 as nil")
 	}
-	b.PutLong(t.SupergroupID)
+	b.PutInt53(t.SupergroupID)
 	b.PutBool(t.SignMessages)
 	return nil
 }
@@ -144,7 +144,7 @@ func (t *ToggleSupergroupSignMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode toggleSupergroupSignMessages#44efd524 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode toggleSupergroupSignMessages#44efd524: field supergroup_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (t *ToggleSupergroupSignMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	b.ObjStart()
 	b.PutID("toggleSupergroupSignMessages")
 	b.FieldStart("supergroup_id")
-	b.PutLong(t.SupergroupID)
+	b.PutInt53(t.SupergroupID)
 	b.FieldStart("sign_messages")
 	b.PutBool(t.SignMessages)
 	b.ObjEnd()
@@ -188,7 +188,7 @@ func (t *ToggleSupergroupSignMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 				return fmt.Errorf("unable to decode toggleSupergroupSignMessages#44efd524: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode toggleSupergroupSignMessages#44efd524: field supergroup_id: %w", err)
 			}

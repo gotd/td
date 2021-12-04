@@ -149,14 +149,14 @@ func (a *AddLocalMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addLocalMessage#330b9dda as nil")
 	}
-	b.PutLong(a.ChatID)
+	b.PutInt53(a.ChatID)
 	if a.Sender == nil {
 		return fmt.Errorf("unable to encode addLocalMessage#330b9dda: field sender is nil")
 	}
 	if err := a.Sender.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode addLocalMessage#330b9dda: field sender: %w", err)
 	}
-	b.PutLong(a.ReplyToMessageID)
+	b.PutInt53(a.ReplyToMessageID)
 	b.PutBool(a.DisableNotification)
 	if a.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode addLocalMessage#330b9dda: field input_message_content is nil")
@@ -184,7 +184,7 @@ func (a *AddLocalMessageRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode addLocalMessage#330b9dda to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode addLocalMessage#330b9dda: field chat_id: %w", err)
 		}
@@ -198,7 +198,7 @@ func (a *AddLocalMessageRequest) DecodeBare(b *bin.Buffer) error {
 		a.Sender = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode addLocalMessage#330b9dda: field reply_to_message_id: %w", err)
 		}
@@ -229,7 +229,7 @@ func (a *AddLocalMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("addLocalMessage")
 	b.FieldStart("chat_id")
-	b.PutLong(a.ChatID)
+	b.PutInt53(a.ChatID)
 	b.FieldStart("sender")
 	if a.Sender == nil {
 		return fmt.Errorf("unable to encode addLocalMessage#330b9dda: field sender is nil")
@@ -238,7 +238,7 @@ func (a *AddLocalMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 		return fmt.Errorf("unable to encode addLocalMessage#330b9dda: field sender: %w", err)
 	}
 	b.FieldStart("reply_to_message_id")
-	b.PutLong(a.ReplyToMessageID)
+	b.PutInt53(a.ReplyToMessageID)
 	b.FieldStart("disable_notification")
 	b.PutBool(a.DisableNotification)
 	b.FieldStart("input_message_content")
@@ -265,7 +265,7 @@ func (a *AddLocalMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode addLocalMessage#330b9dda: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode addLocalMessage#330b9dda: field chat_id: %w", err)
 			}
@@ -277,7 +277,7 @@ func (a *AddLocalMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			a.Sender = value
 		case "reply_to_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode addLocalMessage#330b9dda: field reply_to_message_id: %w", err)
 			}

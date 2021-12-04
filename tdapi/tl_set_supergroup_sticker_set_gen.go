@@ -123,7 +123,7 @@ func (s *SetSupergroupStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setSupergroupStickerSet#856ead69 as nil")
 	}
-	b.PutLong(s.SupergroupID)
+	b.PutInt53(s.SupergroupID)
 	b.PutLong(s.StickerSetID)
 	return nil
 }
@@ -145,7 +145,7 @@ func (s *SetSupergroupStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setSupergroupStickerSet#856ead69 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setSupergroupStickerSet#856ead69: field supergroup_id: %w", err)
 		}
@@ -169,7 +169,7 @@ func (s *SetSupergroupStickerSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.ObjStart()
 	b.PutID("setSupergroupStickerSet")
 	b.FieldStart("supergroup_id")
-	b.PutLong(s.SupergroupID)
+	b.PutInt53(s.SupergroupID)
 	b.FieldStart("sticker_set_id")
 	b.PutLong(s.StickerSetID)
 	b.ObjEnd()
@@ -189,7 +189,7 @@ func (s *SetSupergroupStickerSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 				return fmt.Errorf("unable to decode setSupergroupStickerSet#856ead69: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setSupergroupStickerSet#856ead69: field supergroup_id: %w", err)
 			}

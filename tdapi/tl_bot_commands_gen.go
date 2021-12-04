@@ -122,7 +122,7 @@ func (b *BotCommands) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't encode botCommands#4f9aa2c5 as nil")
 	}
-	buf.PutLong(b.BotUserID)
+	buf.PutInt53(b.BotUserID)
 	buf.PutInt(len(b.Commands))
 	for idx, v := range b.Commands {
 		if err := v.EncodeBare(buf); err != nil {
@@ -149,7 +149,7 @@ func (b *BotCommands) DecodeBare(buf *bin.Buffer) error {
 		return fmt.Errorf("can't decode botCommands#4f9aa2c5 to nil")
 	}
 	{
-		value, err := buf.Long()
+		value, err := buf.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode botCommands#4f9aa2c5: field bot_user_id: %w", err)
 		}
@@ -183,7 +183,7 @@ func (b *BotCommands) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	buf.ObjStart()
 	buf.PutID("botCommands")
 	buf.FieldStart("bot_user_id")
-	buf.PutLong(b.BotUserID)
+	buf.PutInt53(b.BotUserID)
 	buf.FieldStart("commands")
 	buf.ArrStart()
 	for idx, v := range b.Commands {
@@ -209,7 +209,7 @@ func (b *BotCommands) DecodeTDLibJSON(buf tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode botCommands#4f9aa2c5: %w", err)
 			}
 		case "bot_user_id":
-			value, err := buf.Long()
+			value, err := buf.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode botCommands#4f9aa2c5: field bot_user_id: %w", err)
 			}

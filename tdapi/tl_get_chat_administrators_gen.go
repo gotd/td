@@ -113,7 +113,7 @@ func (g *GetChatAdministratorsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatAdministrators#5c0eb6bb as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (g *GetChatAdministratorsRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getChatAdministrators#5c0eb6bb to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatAdministrators#5c0eb6bb: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (g *GetChatAdministratorsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getChatAdministrators")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (g *GetChatAdministratorsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getChatAdministrators#5c0eb6bb: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatAdministrators#5c0eb6bb: field chat_id: %w", err)
 			}

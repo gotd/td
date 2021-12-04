@@ -140,7 +140,7 @@ func (g *GetSupergroupMembersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getSupergroupMembers#ddf821c8 as nil")
 	}
-	b.PutLong(g.SupergroupID)
+	b.PutInt53(g.SupergroupID)
 	if g.Filter == nil {
 		return fmt.Errorf("unable to encode getSupergroupMembers#ddf821c8: field filter is nil")
 	}
@@ -169,7 +169,7 @@ func (g *GetSupergroupMembersRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getSupergroupMembers#ddf821c8 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getSupergroupMembers#ddf821c8: field supergroup_id: %w", err)
 		}
@@ -207,7 +207,7 @@ func (g *GetSupergroupMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getSupergroupMembers")
 	b.FieldStart("supergroup_id")
-	b.PutLong(g.SupergroupID)
+	b.PutInt53(g.SupergroupID)
 	b.FieldStart("filter")
 	if g.Filter == nil {
 		return fmt.Errorf("unable to encode getSupergroupMembers#ddf821c8: field filter is nil")
@@ -236,7 +236,7 @@ func (g *GetSupergroupMembersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getSupergroupMembers#ddf821c8: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getSupergroupMembers#ddf821c8: field supergroup_id: %w", err)
 			}

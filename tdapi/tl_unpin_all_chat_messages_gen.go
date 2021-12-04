@@ -113,7 +113,7 @@ func (u *UnpinAllChatMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode unpinAllChatMessages#aa4cd4b7 as nil")
 	}
-	b.PutLong(u.ChatID)
+	b.PutInt53(u.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (u *UnpinAllChatMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode unpinAllChatMessages#aa4cd4b7 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode unpinAllChatMessages#aa4cd4b7: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (u *UnpinAllChatMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("unpinAllChatMessages")
 	b.FieldStart("chat_id")
-	b.PutLong(u.ChatID)
+	b.PutInt53(u.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (u *UnpinAllChatMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode unpinAllChatMessages#aa4cd4b7: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode unpinAllChatMessages#aa4cd4b7: field chat_id: %w", err)
 			}

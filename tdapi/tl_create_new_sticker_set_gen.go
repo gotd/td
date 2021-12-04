@@ -162,7 +162,7 @@ func (c *CreateNewStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createNewStickerSet#982c0b07 as nil")
 	}
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.PutString(c.Title)
 	b.PutString(c.Name)
 	b.PutBool(c.IsMasks)
@@ -196,7 +196,7 @@ func (c *CreateNewStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode createNewStickerSet#982c0b07 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode createNewStickerSet#982c0b07: field user_id: %w", err)
 		}
@@ -258,7 +258,7 @@ func (c *CreateNewStickerSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("createNewStickerSet")
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.FieldStart("title")
 	b.PutString(c.Title)
 	b.FieldStart("name")
@@ -295,7 +295,7 @@ func (c *CreateNewStickerSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode createNewStickerSet#982c0b07: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode createNewStickerSet#982c0b07: field user_id: %w", err)
 			}

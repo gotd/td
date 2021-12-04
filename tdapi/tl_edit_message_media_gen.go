@@ -141,8 +141,8 @@ func (e *EditMessageMediaRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editMessageMedia#bb4b8713 as nil")
 	}
-	b.PutLong(e.ChatID)
-	b.PutLong(e.MessageID)
+	b.PutInt53(e.ChatID)
+	b.PutInt53(e.MessageID)
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editMessageMedia#bb4b8713: field reply_markup is nil")
 	}
@@ -175,14 +175,14 @@ func (e *EditMessageMediaRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode editMessageMedia#bb4b8713 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode editMessageMedia#bb4b8713: field chat_id: %w", err)
 		}
 		e.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode editMessageMedia#bb4b8713: field message_id: %w", err)
 		}
@@ -213,9 +213,9 @@ func (e *EditMessageMediaRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("editMessageMedia")
 	b.FieldStart("chat_id")
-	b.PutLong(e.ChatID)
+	b.PutInt53(e.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(e.MessageID)
+	b.PutInt53(e.MessageID)
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editMessageMedia#bb4b8713: field reply_markup is nil")
@@ -247,13 +247,13 @@ func (e *EditMessageMediaRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode editMessageMedia#bb4b8713: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode editMessageMedia#bb4b8713: field chat_id: %w", err)
 			}
 			e.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode editMessageMedia#bb4b8713: field message_id: %w", err)
 			}

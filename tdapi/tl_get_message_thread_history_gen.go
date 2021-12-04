@@ -154,9 +154,9 @@ func (g *GetMessageThreadHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getMessageThreadHistory#9435d428 as nil")
 	}
-	b.PutLong(g.ChatID)
-	b.PutLong(g.MessageID)
-	b.PutLong(g.FromMessageID)
+	b.PutInt53(g.ChatID)
+	b.PutInt53(g.MessageID)
+	b.PutInt53(g.FromMessageID)
 	b.PutInt32(g.Offset)
 	b.PutInt32(g.Limit)
 	return nil
@@ -179,21 +179,21 @@ func (g *GetMessageThreadHistoryRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getMessageThreadHistory#9435d428 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMessageThreadHistory#9435d428: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMessageThreadHistory#9435d428: field message_id: %w", err)
 		}
 		g.MessageID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMessageThreadHistory#9435d428: field from_message_id: %w", err)
 		}
@@ -224,11 +224,11 @@ func (g *GetMessageThreadHistoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.ObjStart()
 	b.PutID("getMessageThreadHistory")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.MessageID)
 	b.FieldStart("from_message_id")
-	b.PutLong(g.FromMessageID)
+	b.PutInt53(g.FromMessageID)
 	b.FieldStart("offset")
 	b.PutInt32(g.Offset)
 	b.FieldStart("limit")
@@ -250,19 +250,19 @@ func (g *GetMessageThreadHistoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 				return fmt.Errorf("unable to decode getMessageThreadHistory#9435d428: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessageThreadHistory#9435d428: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessageThreadHistory#9435d428: field message_id: %w", err)
 			}
 			g.MessageID = value
 		case "from_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessageThreadHistory#9435d428: field from_message_id: %w", err)
 			}

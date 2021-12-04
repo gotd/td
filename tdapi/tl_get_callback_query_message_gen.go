@@ -131,8 +131,8 @@ func (g *GetCallbackQueryMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getCallbackQueryMessage#bd209172 as nil")
 	}
-	b.PutLong(g.ChatID)
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.ChatID)
+	b.PutInt53(g.MessageID)
 	b.PutLong(g.CallbackQueryID)
 	return nil
 }
@@ -154,14 +154,14 @@ func (g *GetCallbackQueryMessageRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getCallbackQueryMessage#bd209172 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getCallbackQueryMessage#bd209172: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getCallbackQueryMessage#bd209172: field message_id: %w", err)
 		}
@@ -185,9 +185,9 @@ func (g *GetCallbackQueryMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.ObjStart()
 	b.PutID("getCallbackQueryMessage")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.MessageID)
 	b.FieldStart("callback_query_id")
 	b.PutLong(g.CallbackQueryID)
 	b.ObjEnd()
@@ -207,13 +207,13 @@ func (g *GetCallbackQueryMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 				return fmt.Errorf("unable to decode getCallbackQueryMessage#bd209172: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getCallbackQueryMessage#bd209172: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getCallbackQueryMessage#bd209172: field message_id: %w", err)
 			}
