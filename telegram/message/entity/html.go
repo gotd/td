@@ -60,7 +60,7 @@ func (p *htmlParser) startTag() error {
 	case "a":
 		href := p.attr["href"]
 		if href == "" {
-			e.tryURL = true
+			e.attr = href
 			break
 		}
 
@@ -70,7 +70,10 @@ func (p *htmlParser) startTag() error {
 		}
 		e.format = f
 	case "code":
+		const langPrefix = "language-"
+
 		e.format = Code()
+		e.attr = strings.TrimPrefix(p.attr["class"], langPrefix)
 		if len(p.stack) < 1 {
 			break
 		}
@@ -82,13 +85,25 @@ func (p *htmlParser) startTag() error {
 			break
 		}
 
-		const langPrefix = "language-"
-		if lang := p.attr["class"]; strings.HasPrefix(lang, langPrefix) {
+		if lang := e.attr; lang != "" {
 			// Set language parameter.
-			last.format = Pre(lang[len(langPrefix):])
+			last.format = Pre(lang)
 		}
 	case pre:
 		e.format = Pre("")
+		if len(p.stack) < 1 {
+			break
+		}
+
+		last := &p.stack[len(p.stack)-1]
+		if last.tag != "code" {
+			break
+		}
+
+		if lang := last.attr; lang != "" {
+			// Set language parameter.
+			e.format = Pre(lang)
+		}
 	}
 
 	p.stack.push(e)
@@ -99,23 +114,40 @@ func (p *htmlParser) endTag(checkName bool) error {
 	tn, _ := p.tokenizer.TagName()
 
 	s, ok := p.stack.pop()
-	switch  {
+	switch {
 	case !ok:
 		return errors.Errorf("unexpected end tag %q", tn)
-	case checkName && s.tag != string(tn) :
+	case checkName && s.tag != string(tn):
 		return errors.Errorf("expected tag %q, got %q", s.tag, tn)
 	}
 
 	// Compute UTF-16 length of entity.
 	length := ComputeLength(p.builder.message.String()) - s.offset
 	utf8Length := p.builder.message.Len() - s.utf8offset
-	if s.tag == "a" && s.tryURL {
-		msg := p.builder.message.String()[s.utf8offset : s.utf8offset+utf8Length]
-		if f, err := getURLFormatter(msg, p.opts.UserResolver); err == nil {
-			s.format = f
+
+	switch s.tag {
+	case "a":
+		// TDLib tries to parse link from <a> body, so we should too.
+		if s.attr == "" {
+			msg := p.builder.message.String()[s.utf8offset : s.utf8offset+utf8Length]
+			if f, err := getURLFormatter(msg, p.opts.UserResolver); err == nil {
+				s.format = f
+			}
+		}
+	case "code":
+		l := len(p.builder.entities)
+		if l < 1 {
+			break
+		}
+		last, ok := p.builder.entities[l-1].(*tg.MessageEntityPre)
+		if !ok {
+			break
+		}
+		// Do not add Code entity, if last entity is Pre with same offset.
+		if last.GetOffset() == s.offset && last.GetLength() == length {
+			return nil
 		}
 	}
-
 	// Do not add empty entities.
 	if length == 0 || s.format == nil {
 		return nil
@@ -156,6 +188,7 @@ func (p *htmlParser) parse() error {
 				return err
 			}
 		case html.CommentToken:
+			// html.Tokenizer returns comment token for empty closing tags.
 			raw := p.tokenizer.Raw()
 			if len(raw) >= 3 && string(raw[:2]) == "</" && raw[len(raw)-1] == '>' {
 				if err := p.endTag(false); err != nil {
@@ -204,5 +237,10 @@ func HTML(r io.Reader, b *Builder, opts HTMLOptions) error {
 		attr:      map[string]string{},
 		opts:      opts,
 	}
-	return p.parse()
+
+	if err := p.parse(); err != nil {
+		return errors.Wrap(err, "parse")
+	}
+	b.entities = shrinkPreCode(b.entities)
+	return nil
 }

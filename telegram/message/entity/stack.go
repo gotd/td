@@ -4,8 +4,8 @@ type stackElem struct {
 	offset     int
 	utf8offset int
 	tag        string
+	attr       string
 	format     Formatter
-	tryURL     bool
 }
 
 type stack []stackElem
