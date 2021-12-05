@@ -30,8 +30,10 @@ func BotFromEnvironment(
 		return errors.Wrap(err, "create client")
 	}
 
-	if err := setup(ctx, client); err != nil {
-		return errors.Wrap(err, "setup")
+	if setup != nil {
+		if err := setup(ctx, client); err != nil {
+			return errors.Wrap(err, "setup")
+		}
 	}
 
 	return client.Run(ctx, func(ctx context.Context) error {
