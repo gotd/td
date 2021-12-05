@@ -36,5 +36,16 @@ return map[uint32]func() bin.Object {
   }
 }
 
-
+// ClassConstructorsMap maps class schema name to constructors type ids.
+func ClassConstructorsMap() map[string][]uint32 {
+return map[string][]uint32 {
+{{- range $elem := $.Interfaces }}
+    {{ $elem.Name }}Name: {
+    {{- range $c := $elem.Constructors }}
+        {{ $c.Name }}TypeID,
+    {{- end }}
+    },
+{{- end }}
+}
+}
 {{ end }}

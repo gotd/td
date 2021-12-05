@@ -1,5 +1,9 @@
 {{- /*gotype: github.com/gotd/td/internal/gen.interfaceConfig*/ -}}
 {{ define "interface" }}{{ $f := .Interface }}
+
+// {{ $f.Name }}Name is schema name of {{ $f.Name }}.
+const {{ $f.Name }}Name = "{{ $f.RawType }}"
+
 // {{ $f.Name }} represents {{ $f.RawType }} generic type.
 //
 {{- if $f.URL }}
