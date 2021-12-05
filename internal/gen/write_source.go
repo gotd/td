@@ -179,7 +179,6 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 		}
 	}
 
-
 	sort.SliceStable(g.interfaces, func(i, j int) bool {
 		return g.interfaces[i].Name < g.interfaces[j].Name
 	})
