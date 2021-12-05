@@ -62,7 +62,8 @@ var (
 {{- range $typ := $.Types }}
 {{ $helperName := trimSuffix (trimPrefix $typ.Name "SendMessage") "Action" -}}
 // {{ $helperName }} sends {{ $typ.Name }}.
-func (b *TypingActionBuilder) {{ $helperName }}(ctx context.Context, {{ range $f := $typ.Fields }}{{ lowerFirst $f.Name }} {{ $f.Type }},{{ end }}) error {
+func (b *TypingActionBuilder) {{ $helperName }}(ctx context.Context,
+{{- range $f := $typ.Fields }}{{ lowerFirst $f.Name }} {{ $f.Type }},{{ end }}) error {
 	return b.send(ctx, &tg.{{ $typ.Name }}{
 		{{- range $f := $typ.Fields }}
 		{{ $f.Name }}: {{ lowerFirst $f.Name }},
