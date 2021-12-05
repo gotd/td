@@ -630,6 +630,9 @@ func (l *LanguagePackStringValueDeleted) DecodeTDLibJSON(b tdjson.Decoder) error
 	})
 }
 
+// LanguagePackStringValueClassName is schema name of LanguagePackStringValueClass.
+const LanguagePackStringValueClassName = "LanguagePackStringValue"
+
 // LanguagePackStringValueClass represents LanguagePackStringValue generic type.
 //
 // Example:

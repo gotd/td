@@ -1063,6 +1063,9 @@ func (c *ChatReportReasonCustom) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// ChatReportReasonClassName is schema name of ChatReportReasonClass.
+const ChatReportReasonClassName = "ChatReportReason"
+
 // ChatReportReasonClass represents ChatReportReason generic type.
 //
 // Example:

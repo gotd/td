@@ -671,6 +671,9 @@ func (a *AuthenticationCodeTypeFlashCall) GetPattern() (value string) {
 	return a.Pattern
 }
 
+// AuthenticationCodeTypeClassName is schema name of AuthenticationCodeTypeClass.
+const AuthenticationCodeTypeClassName = "AuthenticationCodeType"
+
 // AuthenticationCodeTypeClass represents AuthenticationCodeType generic type.
 //
 // Example:

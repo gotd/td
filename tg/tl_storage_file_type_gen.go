@@ -1051,6 +1051,9 @@ func (f *StorageFileWebp) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// StorageFileTypeClassName is schema name of StorageFileTypeClass.
+const StorageFileTypeClassName = "storage.FileType"
+
 // StorageFileTypeClass represents storage.FileType generic type.
 //
 // See https://core.telegram.org/type/storage.FileType for reference.

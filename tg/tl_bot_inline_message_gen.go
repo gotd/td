@@ -1971,6 +1971,9 @@ func (b *BotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupClass,
 	return b.ReplyMarkup, true
 }
 
+// BotInlineMessageClassName is schema name of BotInlineMessageClass.
+const BotInlineMessageClassName = "BotInlineMessage"
+
 // BotInlineMessageClass represents BotInlineMessage generic type.
 //
 // See https://core.telegram.org/type/BotInlineMessage for reference.

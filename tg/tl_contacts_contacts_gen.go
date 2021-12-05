@@ -351,6 +351,9 @@ func (c *ContactsContacts) MapUsers() (value UserClassArray) {
 	return UserClassArray(c.Users)
 }
 
+// ContactsContactsClassName is schema name of ContactsContactsClass.
+const ContactsContactsClassName = "contacts.Contacts"
+
 // ContactsContactsClass represents contacts.Contacts generic type.
 //
 // See https://core.telegram.org/type/contacts.Contacts for reference.

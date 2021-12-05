@@ -1751,6 +1751,9 @@ func (d *DecryptedMessageActionNoop) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// DecryptedMessageActionClassName is schema name of DecryptedMessageActionClass.
+const DecryptedMessageActionClassName = "DecryptedMessageAction"
+
 // DecryptedMessageActionClass represents DecryptedMessageAction generic type.
 //
 // See https://core.telegram.org/type/DecryptedMessageAction for reference.

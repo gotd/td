@@ -319,6 +319,9 @@ func (i *InputPhoto) GetFileReference() (value []byte) {
 	return i.FileReference
 }
 
+// InputPhotoClassName is schema name of InputPhotoClass.
+const InputPhotoClassName = "InputPhoto"
+
 // InputPhotoClass represents InputPhoto generic type.
 //
 // See https://core.telegram.org/type/InputPhoto for reference.

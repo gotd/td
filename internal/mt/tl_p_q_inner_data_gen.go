@@ -517,6 +517,9 @@ func (p *PQInnerDataDC) GetDC() (value int) {
 	return p.DC
 }
 
+// PQInnerDataClassName is schema name of PQInnerDataClass.
+const PQInnerDataClassName = "P_Q_inner_data"
+
 // PQInnerDataClass represents P_Q_inner_data generic type.
 //
 // Example:

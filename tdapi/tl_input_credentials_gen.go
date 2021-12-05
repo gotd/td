@@ -701,6 +701,9 @@ func (i *InputCredentialsGooglePay) GetData() (value string) {
 	return i.Data
 }
 
+// InputCredentialsClassName is schema name of InputCredentialsClass.
+const InputCredentialsClassName = "InputCredentials"
+
 // InputCredentialsClass represents InputCredentials generic type.
 //
 // Example:

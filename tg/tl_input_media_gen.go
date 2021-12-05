@@ -3628,6 +3628,9 @@ func (i *InputMediaDice) GetEmoticon() (value string) {
 	return i.Emoticon
 }
 
+// InputMediaClassName is schema name of InputMediaClass.
+const InputMediaClassName = "InputMedia"
+
 // InputMediaClass represents InputMedia generic type.
 //
 // See https://core.telegram.org/type/InputMedia for reference.

@@ -293,6 +293,9 @@ func (s *MessagesStickerSetInstallResultArchive) MapSets() (value StickerSetCove
 	return StickerSetCoveredClassArray(s.Sets)
 }
 
+// MessagesStickerSetInstallResultClassName is schema name of MessagesStickerSetInstallResultClass.
+const MessagesStickerSetInstallResultClassName = "messages.StickerSetInstallResult"
+
 // MessagesStickerSetInstallResultClass represents messages.StickerSetInstallResult generic type.
 //
 // See https://core.telegram.org/type/messages.StickerSetInstallResult for reference.

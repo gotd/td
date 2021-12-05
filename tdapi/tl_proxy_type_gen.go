@@ -602,6 +602,9 @@ func (p *ProxyTypeMtproto) GetSecret() (value string) {
 	return p.Secret
 }
 
+// ProxyTypeClassName is schema name of ProxyTypeClass.
+const ProxyTypeClassName = "ProxyType"
+
 // ProxyTypeClass represents ProxyType generic type.
 //
 // Example:

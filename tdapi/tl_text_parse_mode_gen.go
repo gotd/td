@@ -321,6 +321,9 @@ func (t *TextParseModeHTML) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// TextParseModeClassName is schema name of TextParseModeClass.
+const TextParseModeClassName = "TextParseMode"
+
 // TextParseModeClass represents TextParseMode generic type.
 //
 // Example:

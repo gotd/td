@@ -474,6 +474,9 @@ func (n *NotifyBroadcasts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// NotifyPeerClassName is schema name of NotifyPeerClass.
+const NotifyPeerClassName = "NotifyPeer"
+
 // NotifyPeerClass represents NotifyPeer generic type.
 //
 // See https://core.telegram.org/type/NotifyPeer for reference.

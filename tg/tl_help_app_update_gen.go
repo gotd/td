@@ -561,6 +561,9 @@ func (n *HelpNoAppUpdate) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// HelpAppUpdateClassName is schema name of HelpAppUpdateClass.
+const HelpAppUpdateClassName = "help.AppUpdate"
+
 // HelpAppUpdateClass represents help.AppUpdate generic type.
 //
 // See https://core.telegram.org/type/help.AppUpdate for reference.

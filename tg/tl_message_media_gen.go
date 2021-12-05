@@ -2598,6 +2598,9 @@ func (m *MessageMediaDice) GetEmoticon() (value string) {
 	return m.Emoticon
 }
 
+// MessageMediaClassName is schema name of MessageMediaClass.
+const MessageMediaClassName = "MessageMedia"
+
 // MessageMediaClass represents MessageMedia generic type.
 //
 // See https://core.telegram.org/type/MessageMedia for reference.

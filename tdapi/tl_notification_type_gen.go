@@ -781,6 +781,9 @@ func (n *NotificationTypeNewPushMessage) GetContent() (value PushMessageContentC
 	return n.Content
 }
 
+// NotificationTypeClassName is schema name of NotificationTypeClass.
+const NotificationTypeClassName = "NotificationType"
+
 // NotificationTypeClass represents NotificationType generic type.
 //
 // Example:

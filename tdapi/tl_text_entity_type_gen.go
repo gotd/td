@@ -2479,6 +2479,9 @@ func (t *TextEntityTypeMediaTimestamp) GetMediaTimestamp() (value int32) {
 	return t.MediaTimestamp
 }
 
+// TextEntityTypeClassName is schema name of TextEntityTypeClass.
+const TextEntityTypeClassName = "TextEntityType"
+
 // TextEntityTypeClass represents TextEntityType generic type.
 //
 // Example:

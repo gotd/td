@@ -289,6 +289,9 @@ func (b *BoolTrue) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	})
 }
 
+// BoolClassName is schema name of BoolClass.
+const BoolClassName = "Bool"
+
 // BoolClass represents Bool generic type.
 //
 // Example:

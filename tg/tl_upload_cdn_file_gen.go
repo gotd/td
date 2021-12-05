@@ -305,6 +305,9 @@ func (c *UploadCDNFile) GetBytes() (value []byte) {
 	return c.Bytes
 }
 
+// UploadCDNFileClassName is schema name of UploadCDNFileClass.
+const UploadCDNFileClassName = "upload.CdnFile"
+
 // UploadCDNFileClass represents upload.CdnFile generic type.
 //
 // See https://core.telegram.org/type/upload.CdnFile for reference.

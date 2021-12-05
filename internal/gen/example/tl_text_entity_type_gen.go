@@ -1817,6 +1817,9 @@ func (t *TextEntityTypeMentionName) GetUserID() (value int32) {
 	return t.UserID
 }
 
+// TextEntityTypeClassName is schema name of TextEntityTypeClass.
+const TextEntityTypeClassName = "TextEntityType"
+
 // TextEntityTypeClass represents TextEntityType generic type.
 //
 // See https://localhost:80/doc/type/TextEntityType for reference.

@@ -1989,6 +1989,9 @@ func (p *PhoneCallDiscarded) GetDuration() (value int, ok bool) {
 	return p.Duration, true
 }
 
+// PhoneCallClassName is schema name of PhoneCallClass.
+const PhoneCallClassName = "PhoneCall"
+
 // PhoneCallClass represents PhoneCall generic type.
 //
 // See https://core.telegram.org/type/PhoneCall for reference.

@@ -449,6 +449,9 @@ func (c *ChatListFilter) GetChatFilterID() (value int32) {
 	return c.ChatFilterID
 }
 
+// ChatListClassName is schema name of ChatListClass.
+const ChatListClassName = "ChatList"
+
 // ChatListClass represents ChatList generic type.
 //
 // Example:

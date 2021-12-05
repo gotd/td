@@ -523,6 +523,9 @@ func (c *ChatParticipantAdmin) GetDate() (value int) {
 	return c.Date
 }
 
+// ChatParticipantClassName is schema name of ChatParticipantClass.
+const ChatParticipantClassName = "ChatParticipant"
+
 // ChatParticipantClass represents ChatParticipant generic type.
 //
 // See https://core.telegram.org/type/ChatParticipant for reference.

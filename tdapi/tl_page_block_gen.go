@@ -6212,6 +6212,9 @@ func (p *PageBlockMap) GetCaption() (value PageBlockCaption) {
 	return p.Caption
 }
 
+// PageBlockClassName is schema name of PageBlockClass.
+const PageBlockClassName = "PageBlock"
+
 // PageBlockClass represents PageBlock generic type.
 //
 // Example:

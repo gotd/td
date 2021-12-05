@@ -596,6 +596,9 @@ func (p *PhoneConnectionWebrtc) GetPassword() (value string) {
 	return p.Password
 }
 
+// PhoneConnectionClassName is schema name of PhoneConnectionClass.
+const PhoneConnectionClassName = "PhoneConnection"
+
 // PhoneConnectionClass represents PhoneConnection generic type.
 //
 // See https://core.telegram.org/type/PhoneConnection for reference.

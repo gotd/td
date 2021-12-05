@@ -608,6 +608,9 @@ func (k *KeyboardButtonTypeRequestPoll) GetForceQuiz() (value bool) {
 	return k.ForceQuiz
 }
 
+// KeyboardButtonTypeClassName is schema name of KeyboardButtonTypeClass.
+const KeyboardButtonTypeClassName = "KeyboardButtonType"
+
 // KeyboardButtonTypeClass represents KeyboardButtonType generic type.
 //
 // Example:

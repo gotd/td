@@ -307,6 +307,9 @@ func (c *HelpCountriesList) GetHash() (value int) {
 	return c.Hash
 }
 
+// HelpCountriesListClassName is schema name of HelpCountriesListClass.
+const HelpCountriesListClassName = "help.CountriesList"
+
 // HelpCountriesListClass represents help.CountriesList generic type.
 //
 // See https://core.telegram.org/type/help.CountriesList for reference.

@@ -563,6 +563,9 @@ func (i *InputChatPhotoAnimation) GetMainFrameTimestamp() (value float64) {
 	return i.MainFrameTimestamp
 }
 
+// InputChatPhotoClassName is schema name of InputChatPhotoClass.
+const InputChatPhotoClassName = "InputChatPhoto"
+
 // InputChatPhotoClass represents InputChatPhoto generic type.
 //
 // Example:

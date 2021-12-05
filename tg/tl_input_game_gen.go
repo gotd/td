@@ -354,6 +354,9 @@ func (i *InputGameShortName) GetShortName() (value string) {
 	return i.ShortName
 }
 
+// InputGameClassName is schema name of InputGameClass.
+const InputGameClassName = "InputGame"
+
 // InputGameClass represents InputGame generic type.
 //
 // See https://core.telegram.org/type/InputGame for reference.

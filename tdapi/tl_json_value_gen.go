@@ -1018,6 +1018,9 @@ func (j *JSONValueObject) GetMembers() (value []JSONObjectMember) {
 	return j.Members
 }
 
+// JSONValueClassName is schema name of JSONValueClass.
+const JSONValueClassName = "JsonValue"
+
 // JSONValueClass represents JsonValue generic type.
 //
 // Example:

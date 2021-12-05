@@ -362,6 +362,9 @@ func (i *InputBackgroundRemote) GetBackgroundID() (value int64) {
 	return i.BackgroundID
 }
 
+// InputBackgroundClassName is schema name of InputBackgroundClass.
+const InputBackgroundClassName = "InputBackground"
+
 // InputBackgroundClass represents InputBackground generic type.
 //
 // Example:

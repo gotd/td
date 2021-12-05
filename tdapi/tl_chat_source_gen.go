@@ -350,6 +350,9 @@ func (c *ChatSourcePublicServiceAnnouncement) GetText() (value string) {
 	return c.Text
 }
 
+// ChatSourceClassName is schema name of ChatSourceClass.
+const ChatSourceClassName = "ChatSource"
+
 // ChatSourceClass represents ChatSource generic type.
 //
 // Example:

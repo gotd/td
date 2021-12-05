@@ -399,6 +399,9 @@ func (r *AccountResetPasswordOk) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// AccountResetPasswordResultClassName is schema name of AccountResetPasswordResultClass.
+const AccountResetPasswordResultClassName = "account.ResetPasswordResult"
+
 // AccountResetPasswordResultClass represents account.ResetPasswordResult generic type.
 //
 // See https://core.telegram.org/type/account.ResetPasswordResult for reference.

@@ -9316,6 +9316,9 @@ func (m *MessageUnsupported) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// MessageContentClassName is schema name of MessageContentClass.
+const MessageContentClassName = "MessageContent"
+
 // MessageContentClass represents MessageContent generic type.
 //
 // Example:

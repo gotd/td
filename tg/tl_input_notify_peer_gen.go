@@ -477,6 +477,9 @@ func (i *InputNotifyBroadcasts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// InputNotifyPeerClassName is schema name of InputNotifyPeerClass.
+const InputNotifyPeerClassName = "InputNotifyPeer"
+
 // InputNotifyPeerClass represents InputNotifyPeer generic type.
 //
 // See https://core.telegram.org/type/InputNotifyPeer for reference.

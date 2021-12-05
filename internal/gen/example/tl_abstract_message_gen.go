@@ -805,6 +805,9 @@ func (b *BytesMessage) GetData() (value []byte) {
 	return b.Data
 }
 
+// AbstractMessageClassName is schema name of AbstractMessageClass.
+const AbstractMessageClassName = "AbstractMessage"
+
 // AbstractMessageClass represents AbstractMessage generic type.
 //
 // See https://localhost:80/doc/type/AbstractMessage for reference.

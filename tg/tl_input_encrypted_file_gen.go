@@ -687,6 +687,9 @@ func (i *InputEncryptedFileBigUploaded) GetKeyFingerprint() (value int) {
 	return i.KeyFingerprint
 }
 
+// InputEncryptedFileClassName is schema name of InputEncryptedFileClass.
+const InputEncryptedFileClassName = "InputEncryptedFile"
+
 // InputEncryptedFileClass represents InputEncryptedFile generic type.
 //
 // See https://core.telegram.org/type/InputEncryptedFile for reference.

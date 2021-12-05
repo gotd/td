@@ -582,6 +582,9 @@ func (i *InputUserFromMessage) GetUserID() (value int64) {
 	return i.UserID
 }
 
+// InputUserClassName is schema name of InputUserClass.
+const InputUserClassName = "InputUser"
+
 // InputUserClass represents InputUser generic type.
 //
 // See https://core.telegram.org/type/InputUser for reference.

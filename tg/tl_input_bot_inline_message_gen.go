@@ -2123,6 +2123,9 @@ func (i *InputBotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupC
 	return i.ReplyMarkup, true
 }
 
+// InputBotInlineMessageClassName is schema name of InputBotInlineMessageClass.
+const InputBotInlineMessageClassName = "InputBotInlineMessage"
+
 // InputBotInlineMessageClass represents InputBotInlineMessage generic type.
 //
 // See https://core.telegram.org/type/InputBotInlineMessage for reference.

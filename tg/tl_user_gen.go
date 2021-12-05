@@ -1323,6 +1323,9 @@ func (u *User) GetLangCode() (value string, ok bool) {
 	return u.LangCode, true
 }
 
+// UserClassName is schema name of UserClass.
+const UserClassName = "User"
+
 // UserClass represents User generic type.
 //
 // See https://core.telegram.org/type/User for reference.

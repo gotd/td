@@ -1248,6 +1248,9 @@ func (s *SupergroupMembersFilterBots) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// SupergroupMembersFilterClassName is schema name of SupergroupMembersFilterClass.
+const SupergroupMembersFilterClassName = "SupergroupMembersFilter"
+
 // SupergroupMembersFilterClass represents SupergroupMembersFilter generic type.
 //
 // Example:

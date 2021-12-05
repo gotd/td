@@ -18833,6 +18833,9 @@ func (u *UpdateNewChatJoinRequest) GetInviteLink() (value ChatInviteLink) {
 	return u.InviteLink
 }
 
+// UpdateClassName is schema name of UpdateClass.
+const UpdateClassName = "Update"
+
 // UpdateClass represents Update generic type.
 //
 // Example:

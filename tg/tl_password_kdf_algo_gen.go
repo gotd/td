@@ -355,6 +355,9 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetP
 	return p.P
 }
 
+// PasswordKdfAlgoClassName is schema name of PasswordKdfAlgoClass.
+const PasswordKdfAlgoClassName = "PasswordKdfAlgo"
+
 // PasswordKdfAlgoClass represents PasswordKdfAlgo generic type.
 //
 // See https://core.telegram.org/type/PasswordKdfAlgo for reference.

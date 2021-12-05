@@ -418,6 +418,9 @@ func (p *PageBlockHorizontalAlignmentRight) DecodeTDLibJSON(b tdjson.Decoder) er
 	})
 }
 
+// PageBlockHorizontalAlignmentClassName is schema name of PageBlockHorizontalAlignmentClass.
+const PageBlockHorizontalAlignmentClassName = "PageBlockHorizontalAlignment"
+
 // PageBlockHorizontalAlignmentClass represents PageBlockHorizontalAlignment generic type.
 //
 // Example:

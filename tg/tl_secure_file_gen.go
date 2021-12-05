@@ -413,6 +413,9 @@ func (s *SecureFile) GetSecret() (value []byte) {
 	return s.Secret
 }
 
+// SecureFileClassName is schema name of SecureFileClass.
+const SecureFileClassName = "SecureFile"
+
 // SecureFileClass represents SecureFile generic type.
 //
 // See https://core.telegram.org/type/SecureFile for reference.

@@ -594,6 +594,9 @@ func (b *BackgroundFillFreeformGradient) GetColors() (value []int32) {
 	return b.Colors
 }
 
+// BackgroundFillClassName is schema name of BackgroundFillClass.
+const BackgroundFillClassName = "BackgroundFill"
+
 // BackgroundFillClass represents BackgroundFill generic type.
 //
 // Example:

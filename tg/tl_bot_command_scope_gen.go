@@ -894,6 +894,9 @@ func (b *BotCommandScopePeerUser) GetUserID() (value InputUserClass) {
 	return b.UserID
 }
 
+// BotCommandScopeClassName is schema name of BotCommandScopeClass.
+const BotCommandScopeClassName = "BotCommandScope"
+
 // BotCommandScopeClass represents BotCommandScope generic type.
 //
 // See https://core.telegram.org/type/BotCommandScope for reference.

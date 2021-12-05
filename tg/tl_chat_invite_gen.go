@@ -825,6 +825,9 @@ func (c *ChatInvitePeek) GetExpires() (value int) {
 	return c.Expires
 }
 
+// ChatInviteClassName is schema name of ChatInviteClass.
+const ChatInviteClassName = "ChatInvite"
+
 // ChatInviteClass represents ChatInvite generic type.
 //
 // See https://core.telegram.org/type/ChatInvite for reference.

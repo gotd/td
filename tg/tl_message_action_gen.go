@@ -4524,6 +4524,9 @@ func (m *MessageActionChatJoinedByRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// MessageActionClassName is schema name of MessageActionClass.
+const MessageActionClassName = "MessageAction"
+
 // MessageActionClass represents MessageAction generic type.
 //
 // See https://core.telegram.org/type/MessageAction for reference.

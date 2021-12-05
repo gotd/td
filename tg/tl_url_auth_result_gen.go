@@ -493,6 +493,9 @@ func (u *URLAuthResultDefault) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// URLAuthResultClassName is schema name of URLAuthResultClass.
+const URLAuthResultClassName = "UrlAuthResult"
+
 // URLAuthResultClass represents UrlAuthResult generic type.
 //
 // See https://core.telegram.org/type/UrlAuthResult for reference.

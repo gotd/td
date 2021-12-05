@@ -1363,6 +1363,9 @@ func (s *SecureValueTypeEmail) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// SecureValueTypeClassName is schema name of SecureValueTypeClass.
+const SecureValueTypeClassName = "SecureValueType"
+
 // SecureValueTypeClass represents SecureValueType generic type.
 //
 // See https://core.telegram.org/type/SecureValueType for reference.

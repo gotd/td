@@ -333,6 +333,9 @@ func (c *ChannelMessagesFilter) GetRanges() (value []MessageRange) {
 	return c.Ranges
 }
 
+// ChannelMessagesFilterClassName is schema name of ChannelMessagesFilterClass.
+const ChannelMessagesFilterClassName = "ChannelMessagesFilter"
+
 // ChannelMessagesFilterClass represents ChannelMessagesFilter generic type.
 //
 // See https://core.telegram.org/type/ChannelMessagesFilter for reference.

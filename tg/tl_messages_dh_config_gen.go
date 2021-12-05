@@ -373,6 +373,9 @@ func (d *MessagesDhConfig) GetRandom() (value []byte) {
 	return d.Random
 }
 
+// MessagesDhConfigClassName is schema name of MessagesDhConfigClass.
+const MessagesDhConfigClassName = "messages.DhConfig"
+
 // MessagesDhConfigClass represents messages.DhConfig generic type.
 //
 // See https://core.telegram.org/type/messages.DhConfig for reference.

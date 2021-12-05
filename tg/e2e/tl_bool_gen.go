@@ -235,6 +235,9 @@ func (b *BoolTrue) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// BoolClassName is schema name of BoolClass.
+const BoolClassName = "Bool"
+
 // BoolClass represents Bool generic type.
 //
 // See https://core.telegram.org/type/Bool for reference.

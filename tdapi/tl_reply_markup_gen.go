@@ -932,6 +932,9 @@ func (r *ReplyMarkupInlineKeyboard) GetRows() (value [][]InlineKeyboardButton) {
 	return r.Rows
 }
 
+// ReplyMarkupClassName is schema name of ReplyMarkupClass.
+const ReplyMarkupClassName = "ReplyMarkup"
+
 // ReplyMarkupClass represents ReplyMarkup generic type.
 //
 // Example:

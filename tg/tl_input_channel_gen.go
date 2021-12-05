@@ -480,6 +480,9 @@ func (i *InputChannelFromMessage) GetChannelID() (value int64) {
 	return i.ChannelID
 }
 
+// InputChannelClassName is schema name of InputChannelClass.
+const InputChannelClassName = "InputChannel"
+
 // InputChannelClass represents InputChannel generic type.
 //
 // See https://core.telegram.org/type/InputChannel for reference.

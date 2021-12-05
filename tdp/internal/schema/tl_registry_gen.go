@@ -34,23 +34,28 @@ var (
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
 	return map[uint32]string{
-		0x18b7a10d: "dcOption#18b7a10d",
-		0x330b4067: "config#330b4067",
+		DCOptionTypeID: "dcOption#18b7a10d",
+		ConfigTypeID:   "config#330b4067",
 	}
 }
 
 // NamesMap returns mapping from type names to TL type ids.
 func NamesMap() map[string]uint32 {
 	return map[string]uint32{
-		"dcOption": 0x18b7a10d,
-		"config":   0x330b4067,
+		"dcOption": DCOptionTypeID,
+		"config":   ConfigTypeID,
 	}
 }
 
 // TypesConstructorMap maps type ids to constructors.
 func TypesConstructorMap() map[uint32]func() bin.Object {
 	return map[uint32]func() bin.Object{
-		0x18b7a10d: func() bin.Object { return &DCOption{} },
-		0x330b4067: func() bin.Object { return &Config{} },
+		DCOptionTypeID: func() bin.Object { return &DCOption{} },
+		ConfigTypeID:   func() bin.Object { return &Config{} },
 	}
+}
+
+// ClassConstructorsMap maps class schema name to constructors type ids.
+func ClassConstructorsMap() map[string][]uint32 {
+	return map[string][]uint32{}
 }

@@ -1380,6 +1380,9 @@ func (w *WebPageNotModified) GetCachedPageViews() (value int, ok bool) {
 	return w.CachedPageViews, true
 }
 
+// WebPageClassName is schema name of WebPageClass.
+const WebPageClassName = "WebPage"
+
 // WebPageClass represents WebPage generic type.
 //
 // See https://core.telegram.org/type/WebPage for reference.

@@ -847,6 +847,9 @@ func (t *TopPeerCategoryForwardChats) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// TopPeerCategoryClassName is schema name of TopPeerCategoryClass.
+const TopPeerCategoryClassName = "TopPeerCategory"
+
 // TopPeerCategoryClass represents TopPeerCategory generic type.
 //
 // See https://core.telegram.org/type/TopPeerCategory for reference.

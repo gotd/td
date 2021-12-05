@@ -348,6 +348,9 @@ func (p *PeerSelfLocated) GetExpires() (value int) {
 	return p.Expires
 }
 
+// PeerLocatedClassName is schema name of PeerLocatedClass.
+const PeerLocatedClassName = "PeerLocated"
+
 // PeerLocatedClass represents PeerLocated generic type.
 //
 // See https://core.telegram.org/type/PeerLocated for reference.

@@ -2056,6 +2056,9 @@ func (k *KeyboardButtonRequestPoll) GetText() (value string) {
 	return k.Text
 }
 
+// KeyboardButtonClassName is schema name of KeyboardButtonClass.
+const KeyboardButtonClassName = "KeyboardButton"
+
 // KeyboardButtonClass represents KeyboardButton generic type.
 //
 // See https://core.telegram.org/type/KeyboardButton for reference.

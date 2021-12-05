@@ -379,6 +379,9 @@ func (g *GeoPoint) GetAccuracyRadius() (value int, ok bool) {
 	return g.AccuracyRadius, true
 }
 
+// GeoPointClassName is schema name of GeoPointClass.
+const GeoPointClassName = "GeoPoint"
+
 // GeoPointClass represents GeoPoint generic type.
 //
 // See https://core.telegram.org/type/GeoPoint for reference.

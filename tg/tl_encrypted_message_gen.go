@@ -476,6 +476,9 @@ func (e *EncryptedMessageService) GetBytes() (value []byte) {
 	return e.Bytes
 }
 
+// EncryptedMessageClassName is schema name of EncryptedMessageClass.
+const EncryptedMessageClassName = "EncryptedMessage"
+
 // EncryptedMessageClass represents EncryptedMessage generic type.
 //
 // See https://core.telegram.org/type/EncryptedMessage for reference.

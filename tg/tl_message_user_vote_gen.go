@@ -564,6 +564,9 @@ func (m *MessageUserVoteMultiple) GetDate() (value int) {
 	return m.Date
 }
 
+// MessageUserVoteClassName is schema name of MessageUserVoteClass.
+const MessageUserVoteClassName = "MessageUserVote"
+
 // MessageUserVoteClass represents MessageUserVote generic type.
 //
 // See https://core.telegram.org/type/MessageUserVote for reference.

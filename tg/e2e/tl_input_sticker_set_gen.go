@@ -258,6 +258,9 @@ func (i *InputStickerSetEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// InputStickerSetClassName is schema name of InputStickerSetClass.
+const InputStickerSetClassName = "InputStickerSet"
+
 // InputStickerSetClass represents InputStickerSet generic type.
 //
 // See https://core.telegram.org/type/InputStickerSet for reference.

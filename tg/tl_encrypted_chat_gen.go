@@ -1180,6 +1180,9 @@ func (e *EncryptedChatDiscarded) GetID() (value int) {
 	return e.ID
 }
 
+// EncryptedChatClassName is schema name of EncryptedChatClass.
+const EncryptedChatClassName = "EncryptedChat"
+
 // EncryptedChatClass represents EncryptedChat generic type.
 //
 // See https://core.telegram.org/type/EncryptedChat for reference.

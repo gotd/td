@@ -295,6 +295,9 @@ func (p *HelpPassportConfig) GetCountriesLangs() (value DataJSON) {
 	return p.CountriesLangs
 }
 
+// HelpPassportConfigClassName is schema name of HelpPassportConfigClass.
+const HelpPassportConfigClassName = "help.PassportConfig"
+
 // HelpPassportConfigClass represents help.PassportConfig generic type.
 //
 // See https://core.telegram.org/type/help.PassportConfig for reference.

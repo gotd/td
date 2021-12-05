@@ -1827,6 +1827,9 @@ func (i *InputMessagesFilterPinned) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// MessagesFilterClassName is schema name of MessagesFilterClass.
+const MessagesFilterClassName = "MessagesFilter"
+
 // MessagesFilterClass represents MessagesFilter generic type.
 //
 // See https://core.telegram.org/type/MessagesFilter for reference.

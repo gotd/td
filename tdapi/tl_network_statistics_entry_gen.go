@@ -563,6 +563,9 @@ func (n *NetworkStatisticsEntryCall) GetDuration() (value float64) {
 	return n.Duration
 }
 
+// NetworkStatisticsEntryClassName is schema name of NetworkStatisticsEntryClass.
+const NetworkStatisticsEntryClassName = "NetworkStatisticsEntry"
+
 // NetworkStatisticsEntryClass represents NetworkStatisticsEntry generic type.
 //
 // Example:

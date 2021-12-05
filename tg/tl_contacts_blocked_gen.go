@@ -537,6 +537,9 @@ func (b *ContactsBlockedSlice) MapUsers() (value UserClassArray) {
 	return UserClassArray(b.Users)
 }
 
+// ContactsBlockedClassName is schema name of ContactsBlockedClass.
+const ContactsBlockedClassName = "contacts.Blocked"
+
 // ContactsBlockedClass represents contacts.Blocked generic type.
 //
 // See https://core.telegram.org/type/contacts.Blocked for reference.

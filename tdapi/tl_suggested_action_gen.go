@@ -707,6 +707,9 @@ func (s *SuggestedActionConvertToBroadcastGroup) GetSupergroupID() (value int64)
 	return s.SupergroupID
 }
 
+// SuggestedActionClassName is schema name of SuggestedActionClass.
+const SuggestedActionClassName = "SuggestedAction"
+
 // SuggestedActionClass represents SuggestedAction generic type.
 //
 // Example:

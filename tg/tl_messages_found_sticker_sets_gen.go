@@ -315,6 +315,9 @@ func (f *MessagesFoundStickerSets) MapSets() (value StickerSetCoveredClassArray)
 	return StickerSetCoveredClassArray(f.Sets)
 }
 
+// MessagesFoundStickerSetsClassName is schema name of MessagesFoundStickerSetsClass.
+const MessagesFoundStickerSetsClassName = "messages.FoundStickerSets"
+
 // MessagesFoundStickerSetsClass represents messages.FoundStickerSets generic type.
 //
 // See https://core.telegram.org/type/messages.FoundStickerSets for reference.

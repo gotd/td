@@ -390,6 +390,9 @@ func (c *ChatPhoto) GetDCID() (value int) {
 	return c.DCID
 }
 
+// ChatPhotoClassName is schema name of ChatPhotoClass.
+const ChatPhotoClassName = "ChatPhoto"
+
 // ChatPhotoClass represents ChatPhoto generic type.
 //
 // See https://core.telegram.org/type/ChatPhoto for reference.

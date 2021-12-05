@@ -441,6 +441,9 @@ func (c *CallServerTypeWebrtc) GetSupportsStun() (value bool) {
 	return c.SupportsStun
 }
 
+// CallServerTypeClassName is schema name of CallServerTypeClass.
+const CallServerTypeClassName = "CallServerType"
+
 // CallServerTypeClass represents CallServerType generic type.
 //
 // Example:

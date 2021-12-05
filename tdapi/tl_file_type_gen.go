@@ -2095,6 +2095,9 @@ func (f *FileTypeWallpaper) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// FileTypeClassName is schema name of FileTypeClass.
+const FileTypeClassName = "FileType"
+
 // FileTypeClass represents FileType generic type.
 //
 // Example:

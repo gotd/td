@@ -480,6 +480,9 @@ func (m *MessageFileTypeUnknown) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// MessageFileTypeClassName is schema name of MessageFileTypeClass.
+const MessageFileTypeClassName = "MessageFileType"
+
 // MessageFileTypeClass represents MessageFileType generic type.
 //
 // Example:

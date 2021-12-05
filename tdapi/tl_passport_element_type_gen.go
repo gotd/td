@@ -1708,6 +1708,9 @@ func (p *PassportElementTypeEmailAddress) DecodeTDLibJSON(b tdjson.Decoder) erro
 	})
 }
 
+// PassportElementTypeClassName is schema name of PassportElementTypeClass.
+const PassportElementTypeClassName = "PassportElementType"
+
 // PassportElementTypeClass represents PassportElementType generic type.
 //
 // Example:

@@ -371,6 +371,9 @@ func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassArray) {
 	return DocumentClassArray(s.Covers)
 }
 
+// StickerSetCoveredClassName is schema name of StickerSetCoveredClass.
+const StickerSetCoveredClassName = "StickerSetCovered"
+
 // StickerSetCoveredClass represents StickerSetCovered generic type.
 //
 // See https://core.telegram.org/type/StickerSetCovered for reference.

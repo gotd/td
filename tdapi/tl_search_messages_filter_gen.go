@@ -2353,6 +2353,9 @@ func (s *SearchMessagesFilterPinned) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// SearchMessagesFilterClassName is schema name of SearchMessagesFilterClass.
+const SearchMessagesFilterClassName = "SearchMessagesFilter"
+
 // SearchMessagesFilterClass represents SearchMessagesFilter generic type.
 //
 // Example:

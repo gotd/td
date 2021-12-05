@@ -2655,6 +2655,9 @@ func (c *ChannelFull) GetRecentRequesters() (value []int64, ok bool) {
 	return c.RecentRequesters, true
 }
 
+// ChatFullClassName is schema name of ChatFullClass.
+const ChatFullClassName = "ChatFull"
+
 // ChatFullClass represents ChatFull generic type.
 //
 // See https://core.telegram.org/type/ChatFull for reference.

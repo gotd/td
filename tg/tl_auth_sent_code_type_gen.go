@@ -565,6 +565,9 @@ func (s *AuthSentCodeTypeFlashCall) GetPattern() (value string) {
 	return s.Pattern
 }
 
+// AuthSentCodeTypeClassName is schema name of AuthSentCodeTypeClass.
+const AuthSentCodeTypeClassName = "auth.SentCodeType"
+
 // AuthSentCodeTypeClass represents auth.SentCodeType generic type.
 //
 // See https://core.telegram.org/type/auth.SentCodeType for reference.

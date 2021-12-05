@@ -1974,6 +1974,9 @@ func (d *DeviceTokenTizenPush) GetRegID() (value string) {
 	return d.RegID
 }
 
+// DeviceTokenClassName is schema name of DeviceTokenClass.
+const DeviceTokenClassName = "DeviceToken"
+
 // DeviceTokenClass represents DeviceToken generic type.
 //
 // Example:

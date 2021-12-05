@@ -504,6 +504,9 @@ func (s *StatsGraph) GetZoomToken() (value string, ok bool) {
 	return s.ZoomToken, true
 }
 
+// StatsGraphClassName is schema name of StatsGraphClass.
+const StatsGraphClassName = "StatsGraph"
+
 // StatsGraphClass represents StatsGraph generic type.
 //
 // See https://core.telegram.org/type/StatsGraph for reference.

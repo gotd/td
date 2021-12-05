@@ -1228,6 +1228,9 @@ func (c *CallStateError) GetError() (value Error) {
 	return c.Error
 }
 
+// CallStateClassName is schema name of CallStateClass.
+const CallStateClassName = "CallState"
+
 // CallStateClass represents CallState generic type.
 //
 // Example:

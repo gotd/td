@@ -3214,6 +3214,9 @@ func (r *RichTexts) GetTexts() (value []RichTextClass) {
 	return r.Texts
 }
 
+// RichTextClassName is schema name of RichTextClass.
+const RichTextClassName = "RichText"
+
 // RichTextClass represents RichText generic type.
 //
 // Example:

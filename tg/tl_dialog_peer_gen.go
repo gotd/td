@@ -306,6 +306,9 @@ func (d *DialogPeerFolder) GetFolderID() (value int) {
 	return d.FolderID
 }
 
+// DialogPeerClassName is schema name of DialogPeerClass.
+const DialogPeerClassName = "DialogPeer"
+
 // DialogPeerClass represents DialogPeer generic type.
 //
 // See https://core.telegram.org/type/DialogPeer for reference.

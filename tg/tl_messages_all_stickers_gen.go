@@ -307,6 +307,9 @@ func (a *MessagesAllStickers) GetSets() (value []StickerSet) {
 	return a.Sets
 }
 
+// MessagesAllStickersClassName is schema name of MessagesAllStickersClass.
+const MessagesAllStickersClassName = "messages.AllStickers"
+
 // MessagesAllStickersClass represents messages.AllStickers generic type.
 //
 // See https://core.telegram.org/type/messages.AllStickers for reference.

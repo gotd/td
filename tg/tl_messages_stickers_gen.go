@@ -315,6 +315,9 @@ func (s *MessagesStickers) MapStickers() (value DocumentClassArray) {
 	return DocumentClassArray(s.Stickers)
 }
 
+// MessagesStickersClassName is schema name of MessagesStickersClass.
+const MessagesStickersClassName = "messages.Stickers"
+
 // MessagesStickersClass represents messages.Stickers generic type.
 //
 // See https://core.telegram.org/type/messages.Stickers for reference.

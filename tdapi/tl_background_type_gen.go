@@ -653,6 +653,9 @@ func (b *BackgroundTypeFill) GetFill() (value BackgroundFillClass) {
 	return b.Fill
 }
 
+// BackgroundTypeClassName is schema name of BackgroundTypeClass.
+const BackgroundTypeClassName = "BackgroundType"
+
 // BackgroundTypeClass represents BackgroundType generic type.
 //
 // Example:

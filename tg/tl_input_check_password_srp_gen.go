@@ -325,6 +325,9 @@ func (i *InputCheckPasswordSRP) GetM1() (value []byte) {
 	return i.M1
 }
 
+// InputCheckPasswordSRPClassName is schema name of InputCheckPasswordSRPClass.
+const InputCheckPasswordSRPClassName = "InputCheckPasswordSRP"
+
 // InputCheckPasswordSRPClass represents InputCheckPasswordSRP generic type.
 //
 // See https://core.telegram.org/type/InputCheckPasswordSRP for reference.

@@ -547,6 +547,9 @@ func (i *InputChatPhoto) GetID() (value InputPhotoClass) {
 	return i.ID
 }
 
+// InputChatPhotoClassName is schema name of InputChatPhotoClass.
+const InputChatPhotoClassName = "InputChatPhoto"
+
 // InputChatPhotoClass represents InputChatPhoto generic type.
 //
 // See https://core.telegram.org/type/InputChatPhoto for reference.

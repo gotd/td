@@ -477,6 +477,9 @@ func (f *UploadFileCDNRedirect) GetFileHashes() (value []FileHash) {
 	return f.FileHashes
 }
 
+// UploadFileClassName is schema name of UploadFileClass.
+const UploadFileClassName = "upload.File"
+
 // UploadFileClass represents upload.File generic type.
 //
 // See https://core.telegram.org/type/upload.File for reference.

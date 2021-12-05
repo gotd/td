@@ -382,6 +382,9 @@ func (p *PollTypeQuiz) GetExplanation() (value FormattedText) {
 	return p.Explanation
 }
 
+// PollTypeClassName is schema name of PollTypeClass.
+const PollTypeClassName = "PollType"
+
 // PollTypeClass represents PollType generic type.
 //
 // Example:

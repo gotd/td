@@ -2073,6 +2073,9 @@ func (m *MessageService) GetTTLPeriod() (value int, ok bool) {
 	return m.TTLPeriod, true
 }
 
+// MessageClassName is schema name of MessageClass.
+const MessageClassName = "Message"
+
 // MessageClass represents Message generic type.
 //
 // See https://core.telegram.org/type/Message for reference.

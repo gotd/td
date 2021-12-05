@@ -303,6 +303,9 @@ func (s *SecurePlainEmail) GetEmail() (value string) {
 	return s.Email
 }
 
+// SecurePlainDataClassName is schema name of SecurePlainDataClass.
+const SecurePlainDataClassName = "SecurePlainData"
+
 // SecurePlainDataClass represents SecurePlainData generic type.
 //
 // See https://core.telegram.org/type/SecurePlainData for reference.

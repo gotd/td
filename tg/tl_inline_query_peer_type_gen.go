@@ -550,6 +550,9 @@ func (i *InlineQueryPeerTypeBroadcast) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// InlineQueryPeerTypeClassName is schema name of InlineQueryPeerTypeClass.
+const InlineQueryPeerTypeClassName = "InlineQueryPeerType"
+
 // InlineQueryPeerTypeClass represents InlineQueryPeerType generic type.
 //
 // See https://core.telegram.org/type/InlineQueryPeerType for reference.

@@ -18416,6 +18416,9 @@ func (u *UpdateBotChatInviteRequester) GetQts() (value int) {
 	return u.Qts
 }
 
+// UpdateClassName is schema name of UpdateClass.
+const UpdateClassName = "Update"
+
 // UpdateClass represents Update generic type.
 //
 // See https://core.telegram.org/type/Update for reference.

@@ -418,6 +418,9 @@ func (c *CheckStickerSetNameResultNameOccupied) DecodeTDLibJSON(b tdjson.Decoder
 	})
 }
 
+// CheckStickerSetNameResultClassName is schema name of CheckStickerSetNameResultClass.
+const CheckStickerSetNameResultClassName = "CheckStickerSetNameResult"
+
 // CheckStickerSetNameResultClass represents CheckStickerSetNameResult generic type.
 //
 // Example:

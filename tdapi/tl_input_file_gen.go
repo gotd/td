@@ -734,6 +734,9 @@ func (i *InputFileGenerated) GetExpectedSize() (value int32) {
 	return i.ExpectedSize
 }
 
+// InputFileClassName is schema name of InputFileClass.
+const InputFileClassName = "InputFile"
+
 // InputFileClass represents InputFile generic type.
 //
 // Example:

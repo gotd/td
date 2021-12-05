@@ -2167,6 +2167,9 @@ func (s *SendMessageEmojiInteractionSeen) GetEmoticon() (value string) {
 	return s.Emoticon
 }
 
+// SendMessageActionClassName is schema name of SendMessageActionClass.
+const SendMessageActionClassName = "SendMessageAction"
+
 // SendMessageActionClass represents SendMessageAction generic type.
 //
 // See https://core.telegram.org/type/SendMessageAction for reference.

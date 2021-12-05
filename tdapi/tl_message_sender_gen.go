@@ -351,6 +351,9 @@ func (m *MessageSenderChat) GetChatID() (value int64) {
 	return m.ChatID
 }
 
+// MessageSenderClassName is schema name of MessageSenderClass.
+const MessageSenderClassName = "MessageSender"
+
 // MessageSenderClass represents MessageSender generic type.
 //
 // Example:

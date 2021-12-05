@@ -391,6 +391,9 @@ func (r *MessagesRecentStickers) MapStickers() (value DocumentClassArray) {
 	return DocumentClassArray(r.Stickers)
 }
 
+// MessagesRecentStickersClassName is schema name of MessagesRecentStickersClass.
+const MessagesRecentStickersClassName = "messages.RecentStickers"
+
 // MessagesRecentStickersClass represents messages.RecentStickers generic type.
 //
 // See https://core.telegram.org/type/messages.RecentStickers for reference.

@@ -463,6 +463,9 @@ func (i *InputStickerAnimated) GetEmojis() (value string) {
 	return i.Emojis
 }
 
+// InputStickerClassName is schema name of InputStickerClass.
+const InputStickerClassName = "InputSticker"
+
 // InputStickerClass represents InputSticker generic type.
 //
 // Example:

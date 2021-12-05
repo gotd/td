@@ -279,6 +279,9 @@ func (a *UserAuthPassword) GetPwd() (value string) {
 	return a.Pwd
 }
 
+// UserAuthClassName is schema name of UserAuthClass.
+const UserAuthClassName = "user.Auth"
+
 // UserAuthClass represents user.Auth generic type.
 //
 // See https://localhost:80/doc/type/user.Auth for reference.

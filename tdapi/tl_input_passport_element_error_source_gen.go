@@ -1563,6 +1563,9 @@ func (i *InputPassportElementErrorSourceFiles) GetFileHashes() (value [][]byte) 
 	return i.FileHashes
 }
 
+// InputPassportElementErrorSourceClassName is schema name of InputPassportElementErrorSourceClass.
+const InputPassportElementErrorSourceClassName = "InputPassportElementErrorSource"
+
 // InputPassportElementErrorSourceClass represents InputPassportElementErrorSource generic type.
 //
 // Example:

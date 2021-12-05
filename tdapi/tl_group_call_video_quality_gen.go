@@ -418,6 +418,9 @@ func (g *GroupCallVideoQualityFull) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// GroupCallVideoQualityClassName is schema name of GroupCallVideoQualityClass.
+const GroupCallVideoQualityClassName = "GroupCallVideoQuality"
+
 // GroupCallVideoQualityClass represents GroupCallVideoQuality generic type.
 //
 // Example:

@@ -1059,6 +1059,9 @@ func (d *UpdatesDifferenceTooLong) GetPts() (value int) {
 	return d.Pts
 }
 
+// UpdatesDifferenceClassName is schema name of UpdatesDifferenceClass.
+const UpdatesDifferenceClassName = "updates.Difference"
+
 // UpdatesDifferenceClass represents updates.Difference generic type.
 //
 // See https://core.telegram.org/type/updates.Difference for reference.

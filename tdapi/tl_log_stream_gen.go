@@ -510,6 +510,9 @@ func (l *LogStreamEmpty) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// LogStreamClassName is schema name of LogStreamClass.
+const LogStreamClassName = "LogStream"
+
 // LogStreamClass represents LogStream generic type.
 //
 // Example:

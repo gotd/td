@@ -4060,6 +4060,9 @@ func (i *InternalLinkTypeVideoChat) GetIsLiveStream() (value bool) {
 	return i.IsLiveStream
 }
 
+// InternalLinkTypeClassName is schema name of InternalLinkTypeClass.
+const InternalLinkTypeClassName = "InternalLinkType"
+
 // InternalLinkTypeClass represents InternalLinkType generic type.
 //
 // Example:

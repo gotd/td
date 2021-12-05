@@ -374,6 +374,9 @@ func (p *PageListOrderedItemBlocks) MapBlocks() (value PageBlockClassArray) {
 	return PageBlockClassArray(p.Blocks)
 }
 
+// PageListOrderedItemClassName is schema name of PageListOrderedItemClass.
+const PageListOrderedItemClassName = "PageListOrderedItem"
+
 // PageListOrderedItemClass represents PageListOrderedItem generic type.
 //
 // See https://core.telegram.org/type/PageListOrderedItem for reference.

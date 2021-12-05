@@ -2152,6 +2152,9 @@ func (c *ChatActionCancel) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// ChatActionClassName is schema name of ChatActionClass.
+const ChatActionClassName = "ChatAction"
+
 // ChatActionClass represents ChatAction generic type.
 //
 // Example:

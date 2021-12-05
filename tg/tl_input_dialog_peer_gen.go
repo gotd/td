@@ -306,6 +306,9 @@ func (i *InputDialogPeerFolder) GetFolderID() (value int) {
 	return i.FolderID
 }
 
+// InputDialogPeerClassName is schema name of InputDialogPeerClass.
+const InputDialogPeerClassName = "InputDialogPeer"
+
 // InputDialogPeerClass represents InputDialogPeer generic type.
 //
 // See https://core.telegram.org/type/InputDialogPeer for reference.

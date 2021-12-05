@@ -4849,6 +4849,9 @@ func (c *ChannelAdminLogEventActionParticipantJoinByRequest) GetApprovedBy() (va
 	return c.ApprovedBy
 }
 
+// ChannelAdminLogEventActionClassName is schema name of ChannelAdminLogEventActionClass.
+const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
+
 // ChannelAdminLogEventActionClass represents ChannelAdminLogEventAction generic type.
 //
 // See https://core.telegram.org/type/ChannelAdminLogEventAction for reference.

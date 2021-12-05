@@ -444,6 +444,9 @@ func (i *InputWebFileGeoPointLocation) GetScale() (value int) {
 	return i.Scale
 }
 
+// InputWebFileLocationClassName is schema name of InputWebFileLocationClass.
+const InputWebFileLocationClassName = "InputWebFileLocation"
+
 // InputWebFileLocationClass represents InputWebFileLocation generic type.
 //
 // See https://core.telegram.org/type/InputWebFileLocation for reference.

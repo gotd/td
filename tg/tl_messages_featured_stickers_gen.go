@@ -406,6 +406,9 @@ func (f *MessagesFeaturedStickers) MapSets() (value StickerSetCoveredClassArray)
 	return StickerSetCoveredClassArray(f.Sets)
 }
 
+// MessagesFeaturedStickersClassName is schema name of MessagesFeaturedStickersClass.
+const MessagesFeaturedStickersClassName = "messages.FeaturedStickers"
+
 // MessagesFeaturedStickersClass represents messages.FeaturedStickers generic type.
 //
 // See https://core.telegram.org/type/messages.FeaturedStickers for reference.
