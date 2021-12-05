@@ -676,6 +676,9 @@ func (c *ConnectionStateReady) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// ConnectionStateClassName is schema name of ConnectionStateClass.
+const ConnectionStateClassName = "ConnectionState"
+
 // ConnectionStateClass represents ConnectionState generic type.
 //
 // Example:

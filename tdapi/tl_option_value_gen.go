@@ -640,6 +640,9 @@ func (o *OptionValueString) GetValue() (value string) {
 	return o.Value
 }
 
+// OptionValueClassName is schema name of OptionValueClass.
+const OptionValueClassName = "OptionValue"
+
 // OptionValueClass represents OptionValue generic type.
 //
 // Example:

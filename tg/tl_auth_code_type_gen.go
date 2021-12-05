@@ -340,6 +340,9 @@ func (c *AuthCodeTypeFlashCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// AuthCodeTypeClassName is schema name of AuthCodeTypeClass.
+const AuthCodeTypeClassName = "auth.CodeType"
+
 // AuthCodeTypeClass represents auth.CodeType generic type.
 //
 // See https://core.telegram.org/type/auth.CodeType for reference.

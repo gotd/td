@@ -459,6 +459,9 @@ func (p *PhotosPhotosSlice) MapUsers() (value UserClassArray) {
 	return UserClassArray(p.Users)
 }
 
+// PhotosPhotosClassName is schema name of PhotosPhotosClass.
+const PhotosPhotosClassName = "photos.Photos"
+
 // PhotosPhotosClass represents photos.Photos generic type.
 //
 // See https://core.telegram.org/type/photos.Photos for reference.

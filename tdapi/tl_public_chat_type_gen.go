@@ -289,6 +289,9 @@ func (p *PublicChatTypeIsLocationBased) DecodeTDLibJSON(b tdjson.Decoder) error 
 	})
 }
 
+// PublicChatTypeClassName is schema name of PublicChatTypeClass.
+const PublicChatTypeClassName = "PublicChatType"
+
 // PublicChatTypeClass represents PublicChatType generic type.
 //
 // Example:

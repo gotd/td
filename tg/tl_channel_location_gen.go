@@ -294,6 +294,9 @@ func (c *ChannelLocation) GetAddress() (value string) {
 	return c.Address
 }
 
+// ChannelLocationClassName is schema name of ChannelLocationClass.
+const ChannelLocationClassName = "ChannelLocation"
+
 // ChannelLocationClass represents ChannelLocation generic type.
 //
 // See https://core.telegram.org/type/ChannelLocation for reference.

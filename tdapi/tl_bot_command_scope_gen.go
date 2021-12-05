@@ -1057,6 +1057,9 @@ func (b *BotCommandScopeChatMember) GetUserID() (value int64) {
 	return b.UserID
 }
 
+// BotCommandScopeClassName is schema name of BotCommandScopeClass.
+const BotCommandScopeClassName = "BotCommandScope"
+
 // BotCommandScopeClass represents BotCommandScope generic type.
 //
 // Example:

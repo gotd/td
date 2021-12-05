@@ -831,6 +831,9 @@ func (j *JSONObject) GetValue() (value []JSONObjectValue) {
 	return j.Value
 }
 
+// JSONValueClassName is schema name of JSONValueClass.
+const JSONValueClassName = "JSONValue"
+
 // JSONValueClass represents JSONValue generic type.
 //
 // See https://core.telegram.org/type/JSONValue for reference.

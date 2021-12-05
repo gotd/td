@@ -279,6 +279,9 @@ func (r *ResponseText) GetText() (value string) {
 	return r.Text
 }
 
+// ResponseClassName is schema name of ResponseClass.
+const ResponseClassName = "Response"
+
 // ResponseClass represents Response generic type.
 //
 // See https://localhost:80/doc/type/Response for reference.

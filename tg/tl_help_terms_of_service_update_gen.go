@@ -332,6 +332,9 @@ func (t *HelpTermsOfServiceUpdate) GetTermsOfService() (value HelpTermsOfService
 	return t.TermsOfService
 }
 
+// HelpTermsOfServiceUpdateClassName is schema name of HelpTermsOfServiceUpdateClass.
+const HelpTermsOfServiceUpdateClassName = "help.TermsOfServiceUpdate"
+
 // HelpTermsOfServiceUpdateClass represents help.TermsOfServiceUpdate generic type.
 //
 // See https://core.telegram.org/type/help.TermsOfServiceUpdate for reference.

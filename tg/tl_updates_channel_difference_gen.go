@@ -1070,6 +1070,9 @@ func (c *UpdatesChannelDifference) MapUsers() (value UserClassArray) {
 	return UserClassArray(c.Users)
 }
 
+// UpdatesChannelDifferenceClassName is schema name of UpdatesChannelDifferenceClass.
+const UpdatesChannelDifferenceClassName = "updates.ChannelDifference"
+
 // UpdatesChannelDifferenceClass represents updates.ChannelDifference generic type.
 //
 // See https://core.telegram.org/type/updates.ChannelDifference for reference.

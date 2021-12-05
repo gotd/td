@@ -1666,6 +1666,9 @@ func (a *AuthorizationStateClosed) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// AuthorizationStateClassName is schema name of AuthorizationStateClass.
+const AuthorizationStateClassName = "AuthorizationState"
+
 // AuthorizationStateClass represents AuthorizationState generic type.
 //
 // Example:

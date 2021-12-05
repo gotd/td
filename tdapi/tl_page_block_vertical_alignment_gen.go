@@ -418,6 +418,9 @@ func (p *PageBlockVerticalAlignmentBottom) DecodeTDLibJSON(b tdjson.Decoder) err
 	})
 }
 
+// PageBlockVerticalAlignmentClassName is schema name of PageBlockVerticalAlignmentClass.
+const PageBlockVerticalAlignmentClassName = "PageBlockVerticalAlignment"
+
 // PageBlockVerticalAlignmentClass represents PageBlockVerticalAlignment generic type.
 //
 // Example:

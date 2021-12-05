@@ -418,6 +418,9 @@ func (s *SecretChatStateClosed) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// SecretChatStateClassName is schema name of SecretChatStateClass.
+const SecretChatStateClassName = "SecretChatState"
+
 // SecretChatStateClass represents SecretChatState generic type.
 //
 // Example:

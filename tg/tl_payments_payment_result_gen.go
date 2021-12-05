@@ -300,6 +300,9 @@ func (p *PaymentsPaymentVerificationNeeded) GetURL() (value string) {
 	return p.URL
 }
 
+// PaymentsPaymentResultClassName is schema name of PaymentsPaymentResultClass.
+const PaymentsPaymentResultClassName = "payments.PaymentResult"
+
 // PaymentsPaymentResultClass represents payments.PaymentResult generic type.
 //
 // See https://core.telegram.org/type/payments.PaymentResult for reference.

@@ -2111,6 +2111,9 @@ func (i *InputPassportElementEmailAddress) GetEmailAddress() (value string) {
 	return i.EmailAddress
 }
 
+// InputPassportElementClassName is schema name of InputPassportElementClass.
+const InputPassportElementClassName = "InputPassportElement"
+
 // InputPassportElementClass represents InputPassportElement generic type.
 //
 // Example:

@@ -867,6 +867,9 @@ func (u *UserStatusLastMonth) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// UserStatusClassName is schema name of UserStatusClass.
+const UserStatusClassName = "UserStatus"
+
 // UserStatusClass represents UserStatus generic type.
 //
 // Example:

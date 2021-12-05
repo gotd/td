@@ -395,6 +395,9 @@ func (r *RPCAnswerDropped) GetBytes() (value int) {
 	return r.Bytes
 }
 
+// RPCDropAnswerClassName is schema name of RPCDropAnswerClass.
+const RPCDropAnswerClassName = "RpcDropAnswer"
+
 // RPCDropAnswerClass represents RpcDropAnswer generic type.
 //
 // Example:

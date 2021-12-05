@@ -2767,6 +2767,9 @@ func (m *MessageEntityBlockquote) GetLength() (value int) {
 	return m.Length
 }
 
+// MessageEntityClassName is schema name of MessageEntityClass.
+const MessageEntityClassName = "MessageEntity"
+
 // MessageEntityClass represents MessageEntity generic type.
 //
 // See https://core.telegram.org/type/MessageEntity for reference.

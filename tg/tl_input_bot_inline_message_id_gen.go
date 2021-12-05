@@ -416,6 +416,9 @@ func (i *InputBotInlineMessageID64) GetAccessHash() (value int64) {
 	return i.AccessHash
 }
 
+// InputBotInlineMessageIDClassName is schema name of InputBotInlineMessageIDClass.
+const InputBotInlineMessageIDClassName = "InputBotInlineMessageID"
+
 // InputBotInlineMessageIDClass represents InputBotInlineMessageID generic type.
 //
 // See https://core.telegram.org/type/InputBotInlineMessageID for reference.

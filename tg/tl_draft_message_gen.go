@@ -536,6 +536,9 @@ func (d *DraftMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
 	return MessageEntityClassArray(d.Entities), true
 }
 
+// DraftMessageClassName is schema name of DraftMessageClass.
+const DraftMessageClassName = "DraftMessage"
+
 // DraftMessageClass represents DraftMessage generic type.
 //
 // See https://core.telegram.org/type/DraftMessage for reference.

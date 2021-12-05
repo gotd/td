@@ -680,6 +680,9 @@ func (c *CheckChatUsernameResultPublicGroupsUnavailable) DecodeTDLibJSON(b tdjso
 	})
 }
 
+// CheckChatUsernameResultClassName is schema name of CheckChatUsernameResultClass.
+const CheckChatUsernameResultClassName = "CheckChatUsernameResult"
+
 // CheckChatUsernameResultClass represents CheckChatUsernameResult generic type.
 //
 // Example:

@@ -2364,6 +2364,9 @@ func (t *TextAnchor) GetName() (value string) {
 	return t.Name
 }
 
+// RichTextClassName is schema name of RichTextClass.
+const RichTextClassName = "RichText"
+
 // RichTextClass represents RichText generic type.
 //
 // See https://core.telegram.org/type/RichText for reference.

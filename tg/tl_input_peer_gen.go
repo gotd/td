@@ -1061,6 +1061,9 @@ func (i *InputPeerChannelFromMessage) GetChannelID() (value int64) {
 	return i.ChannelID
 }
 
+// InputPeerClassName is schema name of InputPeerClass.
+const InputPeerClassName = "InputPeer"
+
 // InputPeerClass represents InputPeer generic type.
 //
 // See https://core.telegram.org/type/InputPeer for reference.

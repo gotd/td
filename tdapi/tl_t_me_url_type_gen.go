@@ -671,6 +671,9 @@ func (t *TMeURLTypeStickerSet) GetStickerSetID() (value int64) {
 	return t.StickerSetID
 }
 
+// TMeURLTypeClassName is schema name of TMeURLTypeClass.
+const TMeURLTypeClassName = "TMeUrlType"
+
 // TMeURLTypeClass represents TMeUrlType generic type.
 //
 // Example:

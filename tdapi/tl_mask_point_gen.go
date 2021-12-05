@@ -547,6 +547,9 @@ func (m *MaskPointChin) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// MaskPointClassName is schema name of MaskPointClass.
+const MaskPointClassName = "MaskPoint"
+
 // MaskPointClass represents MaskPoint generic type.
 //
 // Example:

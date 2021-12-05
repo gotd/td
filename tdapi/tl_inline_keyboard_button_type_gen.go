@@ -1181,6 +1181,9 @@ func (i *InlineKeyboardButtonTypeBuy) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// InlineKeyboardButtonTypeClassName is schema name of InlineKeyboardButtonTypeClass.
+const InlineKeyboardButtonTypeClassName = "InlineKeyboardButtonType"
+
 // InlineKeyboardButtonTypeClass represents InlineKeyboardButtonType generic type.
 //
 // Example:

@@ -315,6 +315,9 @@ func (w *AccountWallPapers) MapWallpapers() (value WallPaperClassArray) {
 	return WallPaperClassArray(w.Wallpapers)
 }
 
+// AccountWallPapersClassName is schema name of AccountWallPapersClass.
+const AccountWallPapersClassName = "account.WallPapers"
+
 // AccountWallPapersClass represents account.WallPapers generic type.
 //
 // See https://core.telegram.org/type/account.WallPapers for reference.

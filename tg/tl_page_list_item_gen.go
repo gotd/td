@@ -323,6 +323,9 @@ func (p *PageListItemBlocks) MapBlocks() (value PageBlockClassArray) {
 	return PageBlockClassArray(p.Blocks)
 }
 
+// PageListItemClassName is schema name of PageListItemClass.
+const PageListItemClassName = "PageListItem"
+
 // PageListItemClass represents PageListItem generic type.
 //
 // See https://core.telegram.org/type/PageListItem for reference.

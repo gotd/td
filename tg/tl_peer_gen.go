@@ -427,6 +427,9 @@ func (p *PeerChannel) GetChannelID() (value int64) {
 	return p.ChannelID
 }
 
+// PeerClassName is schema name of PeerClass.
+const PeerClassName = "Peer"
+
 // PeerClass represents Peer generic type.
 //
 // See https://core.telegram.org/type/Peer for reference.

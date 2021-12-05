@@ -5256,6 +5256,9 @@ func (p *PushMessageContentMediaAlbum) GetHasDocuments() (value bool) {
 	return p.HasDocuments
 }
 
+// PushMessageContentClassName is schema name of PushMessageContentClass.
+const PushMessageContentClassName = "PushMessageContent"
+
 // PushMessageContentClass represents PushMessageContent generic type.
 //
 // Example:

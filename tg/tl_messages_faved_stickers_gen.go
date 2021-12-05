@@ -354,6 +354,9 @@ func (f *MessagesFavedStickers) MapStickers() (value DocumentClassArray) {
 	return DocumentClassArray(f.Stickers)
 }
 
+// MessagesFavedStickersClassName is schema name of MessagesFavedStickersClass.
+const MessagesFavedStickersClassName = "messages.FavedStickers"
+
 // MessagesFavedStickersClass represents messages.FavedStickers generic type.
 //
 // See https://core.telegram.org/type/messages.FavedStickers for reference.

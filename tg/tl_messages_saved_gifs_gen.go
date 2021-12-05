@@ -315,6 +315,9 @@ func (s *MessagesSavedGifs) MapGifs() (value DocumentClassArray) {
 	return DocumentClassArray(s.Gifs)
 }
 
+// MessagesSavedGifsClassName is schema name of MessagesSavedGifsClass.
+const MessagesSavedGifsClassName = "messages.SavedGifs"
+
 // MessagesSavedGifsClass represents messages.SavedGifs generic type.
 //
 // See https://core.telegram.org/type/messages.SavedGifs for reference.

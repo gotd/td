@@ -5931,6 +5931,9 @@ func (c *ChatEventVideoChatMuteNewParticipantsToggled) GetMuteNewParticipants() 
 	return c.MuteNewParticipants
 }
 
+// ChatEventActionClassName is schema name of ChatEventActionClass.
+const ChatEventActionClassName = "ChatEventAction"
+
 // ChatEventActionClass represents ChatEventAction generic type.
 //
 // Example:

@@ -2345,6 +2345,9 @@ func (c *ChannelForbidden) GetUntilDate() (value int, ok bool) {
 	return c.UntilDate, true
 }
 
+// ChatClassName is schema name of ChatClass.
+const ChatClassName = "Chat"
+
 // ChatClass represents Chat generic type.
 //
 // See https://core.telegram.org/type/Chat for reference.

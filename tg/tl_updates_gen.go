@@ -2709,6 +2709,9 @@ func (u *UpdateShortSentMessage) MapEntities() (value MessageEntityClassArray, o
 	return MessageEntityClassArray(u.Entities), true
 }
 
+// UpdatesClassName is schema name of UpdatesClass.
+const UpdatesClassName = "Updates"
+
 // UpdatesClass represents Updates generic type.
 //
 // See https://core.telegram.org/type/Updates for reference.

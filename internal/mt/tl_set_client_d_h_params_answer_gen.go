@@ -529,6 +529,9 @@ func (d *DhGenFail) GetNewNonceHash3() (value bin.Int128) {
 	return d.NewNonceHash3
 }
 
+// SetClientDHParamsAnswerClassName is schema name of SetClientDHParamsAnswerClass.
+const SetClientDHParamsAnswerClassName = "Set_client_DH_params_answer"
+
 // SetClientDHParamsAnswerClass represents Set_client_DH_params_answer generic type.
 //
 // Example:

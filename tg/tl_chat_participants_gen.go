@@ -437,6 +437,9 @@ func (c *ChatParticipants) MapParticipants() (value ChatParticipantClassArray) {
 	return ChatParticipantClassArray(c.Participants)
 }
 
+// ChatParticipantsClassName is schema name of ChatParticipantsClass.
+const ChatParticipantsClassName = "ChatParticipants"
+
 // ChatParticipantsClass represents ChatParticipants generic type.
 //
 // See https://core.telegram.org/type/ChatParticipants for reference.

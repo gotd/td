@@ -615,6 +615,9 @@ func (c *CanTransferOwnershipResultSessionTooFresh) GetRetryAfter() (value int32
 	return c.RetryAfter
 }
 
+// CanTransferOwnershipResultClassName is schema name of CanTransferOwnershipResultClass.
+const CanTransferOwnershipResultClassName = "CanTransferOwnershipResult"
+
 // CanTransferOwnershipResultClass represents CanTransferOwnershipResult generic type.
 //
 // Example:

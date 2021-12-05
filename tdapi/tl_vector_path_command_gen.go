@@ -411,6 +411,9 @@ func (v *VectorPathCommandCubicBezierCurve) GetEndPoint() (value Point) {
 	return v.EndPoint
 }
 
+// VectorPathCommandClassName is schema name of VectorPathCommandClass.
+const VectorPathCommandClassName = "VectorPathCommand"
+
 // VectorPathCommandClass represents VectorPathCommand generic type.
 //
 // Example:

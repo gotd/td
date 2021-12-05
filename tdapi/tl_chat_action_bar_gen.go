@@ -902,6 +902,9 @@ func (c *ChatActionBarSharePhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) error 
 	})
 }
 
+// ChatActionBarClassName is schema name of ChatActionBarClass.
+const ChatActionBarClassName = "ChatActionBar"
+
 // ChatActionBarClass represents ChatActionBar generic type.
 //
 // Example:

@@ -541,6 +541,9 @@ func (b *BaseThemeArctic) DecodeBare(buf *bin.Buffer) error {
 	return nil
 }
 
+// BaseThemeClassName is schema name of BaseThemeClass.
+const BaseThemeClassName = "BaseTheme"
+
 // BaseThemeClass represents BaseTheme generic type.
 //
 // See https://core.telegram.org/type/BaseTheme for reference.

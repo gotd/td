@@ -3669,6 +3669,9 @@ func (d *DecryptedMessageMediaWebPage) GetURL() (value string) {
 	return d.URL
 }
 
+// DecryptedMessageMediaClassName is schema name of DecryptedMessageMediaClass.
+const DecryptedMessageMediaClassName = "DecryptedMessageMedia"
+
 // DecryptedMessageMediaClass represents DecryptedMessageMedia generic type.
 //
 // See https://core.telegram.org/type/DecryptedMessageMedia for reference.

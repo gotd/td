@@ -363,6 +363,9 @@ func (s *ServerDHParamsOk) GetEncryptedAnswer() (value []byte) {
 	return s.EncryptedAnswer
 }
 
+// ServerDHParamsClassName is schema name of ServerDHParamsClass.
+const ServerDHParamsClassName = "Server_DH_Params"
+
 // ServerDHParamsClass represents Server_DH_Params generic type.
 //
 // Example:

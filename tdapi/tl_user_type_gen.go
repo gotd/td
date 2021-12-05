@@ -701,6 +701,9 @@ func (u *UserTypeUnknown) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// UserTypeClassName is schema name of UserTypeClass.
+const UserTypeClassName = "UserType"
+
 // UserTypeClass represents UserType generic type.
 //
 // Example:

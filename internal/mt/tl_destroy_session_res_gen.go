@@ -275,6 +275,9 @@ func (d *DestroySessionNone) GetSessionID() (value int64) {
 	return d.SessionID
 }
 
+// DestroySessionResClassName is schema name of DestroySessionResClass.
+const DestroySessionResClassName = "DestroySessionRes"
+
 // DestroySessionResClass represents DestroySessionRes generic type.
 //
 // Example:

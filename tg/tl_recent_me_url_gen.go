@@ -797,6 +797,9 @@ func (r *RecentMeURLStickerSet) GetSet() (value StickerSetCoveredClass) {
 	return r.Set
 }
 
+// RecentMeURLClassName is schema name of RecentMeURLClass.
+const RecentMeURLClassName = "RecentMeUrl"
+
 // RecentMeURLClass represents RecentMeUrl generic type.
 //
 // See https://core.telegram.org/type/RecentMeUrl for reference.

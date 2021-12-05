@@ -439,6 +439,9 @@ func (p *PhoneCallDiscardReasonBusy) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// PhoneCallDiscardReasonClassName is schema name of PhoneCallDiscardReasonClass.
+const PhoneCallDiscardReasonClassName = "PhoneCallDiscardReason"
+
 // PhoneCallDiscardReasonClass represents PhoneCallDiscardReason generic type.
 //
 // See https://core.telegram.org/type/PhoneCallDiscardReason for reference.

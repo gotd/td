@@ -369,6 +369,9 @@ func (e *EmojiKeywordDeleted) GetEmoticons() (value []string) {
 	return e.Emoticons
 }
 
+// EmojiKeywordClassName is schema name of EmojiKeywordClass.
+const EmojiKeywordClassName = "EmojiKeyword"
+
 // EmojiKeywordClass represents EmojiKeyword generic type.
 //
 // See https://core.telegram.org/type/EmojiKeyword for reference.

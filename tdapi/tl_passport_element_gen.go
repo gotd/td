@@ -2111,6 +2111,9 @@ func (p *PassportElementEmailAddress) GetEmailAddress() (value string) {
 	return p.EmailAddress
 }
 
+// PassportElementClassName is schema name of PassportElementClass.
+const PassportElementClassName = "PassportElement"
+
 // PassportElementClass represents PassportElement generic type.
 //
 // Example:

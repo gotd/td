@@ -416,6 +416,9 @@ func (a *AuthAuthorizationSignUpRequired) GetTermsOfService() (value HelpTermsOf
 	return a.TermsOfService, true
 }
 
+// AuthAuthorizationClassName is schema name of AuthAuthorizationClass.
+const AuthAuthorizationClassName = "auth.Authorization"
+
 // AuthAuthorizationClass represents auth.Authorization generic type.
 //
 // See https://core.telegram.org/type/auth.Authorization for reference.

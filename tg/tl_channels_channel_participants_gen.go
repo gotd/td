@@ -408,6 +408,9 @@ func (c *ChannelsChannelParticipantsNotModified) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
+// ChannelsChannelParticipantsClassName is schema name of ChannelsChannelParticipantsClass.
+const ChannelsChannelParticipantsClassName = "channels.ChannelParticipants"
+
 // ChannelsChannelParticipantsClass represents channels.ChannelParticipants generic type.
 //
 // See https://core.telegram.org/type/channels.ChannelParticipants for reference.

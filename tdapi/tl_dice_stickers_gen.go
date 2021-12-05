@@ -473,6 +473,9 @@ func (d *DiceStickersSlotMachine) GetRightReel() (value Sticker) {
 	return d.RightReel
 }
 
+// DiceStickersClassName is schema name of DiceStickersClass.
+const DiceStickersClassName = "DiceStickers"
+
 // DiceStickersClass represents DiceStickers generic type.
 //
 // Example:

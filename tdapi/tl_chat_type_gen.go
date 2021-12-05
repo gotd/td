@@ -731,6 +731,9 @@ func (c *ChatTypeSecret) GetUserID() (value int64) {
 	return c.UserID
 }
 
+// ChatTypeClassName is schema name of ChatTypeClass.
+const ChatTypeClassName = "ChatType"
+
 // ChatTypeClass represents ChatType generic type.
 //
 // Example:

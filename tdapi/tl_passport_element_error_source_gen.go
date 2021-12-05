@@ -1289,6 +1289,9 @@ func (p *PassportElementErrorSourceFiles) DecodeTDLibJSON(b tdjson.Decoder) erro
 	})
 }
 
+// PassportElementErrorSourceClassName is schema name of PassportElementErrorSourceClass.
+const PassportElementErrorSourceClassName = "PassportElementErrorSource"
+
 // PassportElementErrorSourceClass represents PassportElementErrorSource generic type.
 //
 // Example:

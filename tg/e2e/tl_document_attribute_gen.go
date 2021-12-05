@@ -1631,6 +1631,9 @@ func (d *DocumentAttributeVideo66) GetH() (value int) {
 	return d.H
 }
 
+// DocumentAttributeClassName is schema name of DocumentAttributeClass.
+const DocumentAttributeClassName = "DocumentAttribute"
+
 // DocumentAttributeClass represents DocumentAttribute generic type.
 //
 // See https://core.telegram.org/type/DocumentAttribute for reference.

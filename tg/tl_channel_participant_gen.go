@@ -1424,6 +1424,9 @@ func (c *ChannelParticipantLeft) GetPeer() (value PeerClass) {
 	return c.Peer
 }
 
+// ChannelParticipantClassName is schema name of ChannelParticipantClass.
+const ChannelParticipantClassName = "ChannelParticipant"
+
 // ChannelParticipantClass represents ChannelParticipant generic type.
 //
 // See https://core.telegram.org/type/ChannelParticipant for reference.

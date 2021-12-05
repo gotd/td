@@ -805,6 +805,9 @@ func (t *ThumbnailFormatMpeg4) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// ThumbnailFormatClassName is schema name of ThumbnailFormatClass.
+const ThumbnailFormatClassName = "ThumbnailFormat"
+
 // ThumbnailFormatClass represents ThumbnailFormat generic type.
 //
 // Example:

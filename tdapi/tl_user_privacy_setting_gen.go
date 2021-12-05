@@ -1063,6 +1063,9 @@ func (u *UserPrivacySettingAllowFindingByPhoneNumber) DecodeTDLibJSON(b tdjson.D
 	})
 }
 
+// UserPrivacySettingClassName is schema name of UserPrivacySettingClass.
+const UserPrivacySettingClassName = "UserPrivacySetting"
+
 // UserPrivacySettingClass represents UserPrivacySetting generic type.
 //
 // Example:

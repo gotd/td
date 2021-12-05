@@ -847,6 +847,9 @@ func (i *InputReportReasonFake) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// ReportReasonClassName is schema name of ReportReasonClass.
+const ReportReasonClassName = "ReportReason"
+
 // ReportReasonClass represents ReportReason generic type.
 //
 // See https://core.telegram.org/type/ReportReason for reference.

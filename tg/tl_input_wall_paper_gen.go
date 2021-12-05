@@ -455,6 +455,9 @@ func (i *InputWallPaperNoFile) GetID() (value int64) {
 	return i.ID
 }
 
+// InputWallPaperClassName is schema name of InputWallPaperClass.
+const InputWallPaperClassName = "InputWallPaper"
+
 // InputWallPaperClass represents InputWallPaper generic type.
 //
 // See https://core.telegram.org/type/InputWallPaper for reference.

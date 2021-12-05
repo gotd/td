@@ -965,6 +965,9 @@ func (c *ChatMembersFilterBots) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// ChatMembersFilterClassName is schema name of ChatMembersFilterClass.
+const ChatMembersFilterClassName = "ChatMembersFilter"
+
 // ChatMembersFilterClass represents ChatMembersFilter generic type.
 //
 // Example:

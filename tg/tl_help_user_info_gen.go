@@ -363,6 +363,9 @@ func (u *HelpUserInfo) MapEntities() (value MessageEntityClassArray) {
 	return MessageEntityClassArray(u.Entities)
 }
 
+// HelpUserInfoClassName is schema name of HelpUserInfoClass.
+const HelpUserInfoClassName = "help.UserInfo"
+
 // HelpUserInfoClass represents help.UserInfo generic type.
 //
 // See https://core.telegram.org/type/help.UserInfo for reference.

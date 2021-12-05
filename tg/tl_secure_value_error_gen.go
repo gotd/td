@@ -1833,6 +1833,9 @@ func (s *SecureValueErrorTranslationFiles) GetText() (value string) {
 	return s.Text
 }
 
+// SecureValueErrorClassName is schema name of SecureValueErrorClass.
+const SecureValueErrorClassName = "SecureValueError"
+
 // SecureValueErrorClass represents SecureValueError generic type.
 //
 // See https://core.telegram.org/type/SecureValueError for reference.

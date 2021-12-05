@@ -355,6 +355,9 @@ func (i *InputGeoPoint) GetAccuracyRadius() (value int, ok bool) {
 	return i.AccuracyRadius, true
 }
 
+// InputGeoPointClassName is schema name of InputGeoPointClass.
+const InputGeoPointClassName = "InputGeoPoint"
+
 // InputGeoPointClass represents InputGeoPoint generic type.
 //
 // See https://core.telegram.org/type/InputGeoPoint for reference.

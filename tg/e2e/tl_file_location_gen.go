@@ -389,6 +389,9 @@ func (f *FileLocation) GetSecret() (value int64) {
 	return f.Secret
 }
 
+// FileLocationClassName is schema name of FileLocationClass.
+const FileLocationClassName = "FileLocation"
+
 // FileLocationClass represents FileLocation generic type.
 //
 // See https://core.telegram.org/type/FileLocation for reference.

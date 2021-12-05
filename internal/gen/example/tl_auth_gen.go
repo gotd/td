@@ -301,6 +301,9 @@ func (a *AuthPassword) GetPassword() (value string) {
 	return a.Password
 }
 
+// AuthClassName is schema name of AuthClass.
+const AuthClassName = "Auth"
+
 // AuthClass represents Auth generic type.
 //
 // See https://localhost:80/doc/type/Auth for reference.

@@ -1275,6 +1275,9 @@ func (u *UserPrivacySettingRuleRestrictChatMembers) GetChatIDs() (value []int64)
 	return u.ChatIDs
 }
 
+// UserPrivacySettingRuleClassName is schema name of UserPrivacySettingRuleClass.
+const UserPrivacySettingRuleClassName = "UserPrivacySettingRule"
+
 // UserPrivacySettingRuleClass represents UserPrivacySettingRule generic type.
 //
 // Example:

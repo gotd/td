@@ -2791,6 +2791,9 @@ func (i *InlineQueryResultVoiceNote) GetTitle() (value string) {
 	return i.Title
 }
 
+// InlineQueryResultClassName is schema name of InlineQueryResultClass.
+const InlineQueryResultClassName = "InlineQueryResult"
+
 // InlineQueryResultClass represents InlineQueryResult generic type.
 //
 // Example:

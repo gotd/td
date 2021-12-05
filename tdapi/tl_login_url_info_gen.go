@@ -472,6 +472,9 @@ func (l *LoginURLInfoRequestConfirmation) GetRequestWriteAccess() (value bool) {
 	return l.RequestWriteAccess
 }
 
+// LoginURLInfoClassName is schema name of LoginURLInfoClass.
+const LoginURLInfoClassName = "LoginUrlInfo"
+
 // LoginURLInfoClass represents LoginUrlInfo generic type.
 //
 // Example:

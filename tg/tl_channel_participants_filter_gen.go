@@ -1094,6 +1094,9 @@ func (c *ChannelParticipantsMentions) GetTopMsgID() (value int, ok bool) {
 	return c.TopMsgID, true
 }
 
+// ChannelParticipantsFilterClassName is schema name of ChannelParticipantsFilterClass.
+const ChannelParticipantsFilterClassName = "ChannelParticipantsFilter"
+
 // ChannelParticipantsFilterClass represents ChannelParticipantsFilter generic type.
 //
 // See https://core.telegram.org/type/ChannelParticipantsFilter for reference.

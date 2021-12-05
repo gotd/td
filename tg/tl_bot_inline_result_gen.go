@@ -878,6 +878,9 @@ func (b *BotInlineMediaResult) GetSendMessage() (value BotInlineMessageClass) {
 	return b.SendMessage
 }
 
+// BotInlineResultClassName is schema name of BotInlineResultClass.
+const BotInlineResultClassName = "BotInlineResult"
+
 // BotInlineResultClass represents BotInlineResult generic type.
 //
 // See https://core.telegram.org/type/BotInlineResult for reference.

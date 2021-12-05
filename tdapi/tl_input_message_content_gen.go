@@ -4870,6 +4870,9 @@ func (i *InputMessageForwarded) GetCopyOptions() (value MessageCopyOptions) {
 	return i.CopyOptions
 }
 
+// InputMessageContentClassName is schema name of InputMessageContentClass.
+const InputMessageContentClassName = "InputMessageContent"
+
 // InputMessageContentClass represents InputMessageContent generic type.
 //
 // Example:

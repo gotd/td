@@ -426,6 +426,9 @@ func (i *InputFileBig) GetName() (value string) {
 	return i.Name
 }
 
+// InputFileClassName is schema name of InputFileClass.
+const InputFileClassName = "InputFile"
+
 // InputFileClass represents InputFile generic type.
 //
 // See https://core.telegram.org/type/InputFile for reference.

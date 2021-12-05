@@ -368,6 +368,9 @@ func (c *MessagesChatsSlice) MapChats() (value ChatClassArray) {
 	return ChatClassArray(c.Chats)
 }
 
+// MessagesChatsClassName is schema name of MessagesChatsClass.
+const MessagesChatsClassName = "messages.Chats"
+
 // MessagesChatsClass represents messages.Chats generic type.
 //
 // See https://core.telegram.org/type/messages.Chats for reference.

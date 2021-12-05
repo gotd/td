@@ -2438,6 +2438,9 @@ func (i *InputGroupCallStream) GetVideoQuality() (value int, ok bool) {
 	return i.VideoQuality, true
 }
 
+// InputFileLocationClassName is schema name of InputFileLocationClass.
+const InputFileLocationClassName = "InputFileLocation"
+
 // InputFileLocationClass represents InputFileLocation generic type.
 //
 // See https://core.telegram.org/type/InputFileLocation for reference.

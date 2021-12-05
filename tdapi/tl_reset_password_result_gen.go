@@ -481,6 +481,9 @@ func (r *ResetPasswordResultDeclined) GetRetryDate() (value int32) {
 	return r.RetryDate
 }
 
+// ResetPasswordResultClassName is schema name of ResetPasswordResultClass.
+const ResetPasswordResultClassName = "ResetPasswordResult"
+
 // ResetPasswordResultClass represents ResetPasswordResult generic type.
 //
 // Example:

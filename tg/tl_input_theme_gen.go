@@ -319,6 +319,9 @@ func (i *InputThemeSlug) GetSlug() (value string) {
 	return i.Slug
 }
 
+// InputThemeClassName is schema name of InputThemeClass.
+const InputThemeClassName = "InputTheme"
+
 // InputThemeClass represents InputTheme generic type.
 //
 // See https://core.telegram.org/type/InputTheme for reference.

@@ -476,6 +476,9 @@ func (t *ContactsTopPeersDisabled) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// ContactsTopPeersClassName is schema name of ContactsTopPeersClass.
+const ContactsTopPeersClassName = "contacts.TopPeers"
+
 // ContactsTopPeersClass represents contacts.TopPeers generic type.
 //
 // See https://core.telegram.org/type/contacts.TopPeers for reference.

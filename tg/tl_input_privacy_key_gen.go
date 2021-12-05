@@ -850,6 +850,9 @@ func (i *InputPrivacyKeyAddedByPhone) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// InputPrivacyKeyClassName is schema name of InputPrivacyKeyClass.
+const InputPrivacyKeyClassName = "InputPrivacyKey"
+
 // InputPrivacyKeyClass represents InputPrivacyKey generic type.
 //
 // See https://core.telegram.org/type/InputPrivacyKey for reference.

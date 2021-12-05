@@ -641,6 +641,9 @@ func (d *Document) MapAttributes() (value DocumentAttributeClassArray) {
 	return DocumentAttributeClassArray(d.Attributes)
 }
 
+// DocumentClassName is schema name of DocumentClass.
+const DocumentClassName = "Document"
+
 // DocumentClass represents Document generic type.
 //
 // See https://core.telegram.org/type/Document for reference.

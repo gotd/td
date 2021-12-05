@@ -921,6 +921,9 @@ func (m *MessageForwardOriginMessageImport) GetSenderName() (value string) {
 	return m.SenderName
 }
 
+// MessageForwardOriginClassName is schema name of MessageForwardOriginClass.
+const MessageForwardOriginClassName = "MessageForwardOrigin"
+
 // MessageForwardOriginClass represents MessageForwardOrigin generic type.
 //
 // Example:

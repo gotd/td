@@ -676,6 +676,9 @@ func (n *NetworkTypeOther) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// NetworkTypeClassName is schema name of NetworkTypeClass.
+const NetworkTypeClassName = "NetworkType"
+
 // NetworkTypeClass represents NetworkType generic type.
 //
 // Example:

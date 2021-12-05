@@ -3,6 +3,7 @@ package gen
 import (
 	"bytes"
 	"os"
+	"sort"
 	"strings"
 	"text/template"
 
@@ -178,11 +179,15 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 		}
 	}
 
+	sort.SliceStable(g.interfaces, func(i, j int) bool {
+		return g.interfaces[i].Name < g.interfaces[j].Name
+	})
 	cfg := config{
-		Registry: g.registry,
-		Layer:    g.schema.Layer,
-		Errors:   g.errorChecks,
-		Flags:    g.generateFlags,
+		Registry:   g.registry,
+		Interfaces: g.interfaces,
+		Layer:      g.schema.Layer,
+		Errors:     g.errorChecks,
+		Flags:      g.generateFlags,
 	}
 
 	if g.generateFlags.Registry {

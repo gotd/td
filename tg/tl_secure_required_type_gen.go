@@ -440,6 +440,9 @@ func (s *SecureRequiredTypeOneOf) MapTypes() (value SecureRequiredTypeClassArray
 	return SecureRequiredTypeClassArray(s.Types)
 }
 
+// SecureRequiredTypeClassName is schema name of SecureRequiredTypeClass.
+const SecureRequiredTypeClassName = "SecureRequiredType"
+
 // SecureRequiredTypeClass represents SecureRequiredType generic type.
 //
 // See https://core.telegram.org/type/SecureRequiredType for reference.

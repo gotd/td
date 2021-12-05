@@ -324,6 +324,9 @@ func (s *MessagesSentEncryptedFile) GetFile() (value EncryptedFileClass) {
 	return s.File
 }
 
+// MessagesSentEncryptedMessageClassName is schema name of MessagesSentEncryptedMessageClass.
+const MessagesSentEncryptedMessageClassName = "messages.SentEncryptedMessage"
+
 // MessagesSentEncryptedMessageClass represents messages.SentEncryptedMessage generic type.
 //
 // See https://core.telegram.org/type/messages.SentEncryptedMessage for reference.

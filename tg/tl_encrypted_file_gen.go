@@ -361,6 +361,9 @@ func (e *EncryptedFile) GetKeyFingerprint() (value int) {
 	return e.KeyFingerprint
 }
 
+// EncryptedFileClassName is schema name of EncryptedFileClass.
+const EncryptedFileClassName = "EncryptedFile"
+
 // EncryptedFileClass represents EncryptedFile generic type.
 //
 // See https://core.telegram.org/type/EncryptedFile for reference.

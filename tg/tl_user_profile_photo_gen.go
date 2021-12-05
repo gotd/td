@@ -396,6 +396,9 @@ func (u *UserProfilePhoto) GetDCID() (value int) {
 	return u.DCID
 }
 
+// UserProfilePhotoClassName is schema name of UserProfilePhotoClass.
+const UserProfilePhotoClassName = "UserProfilePhoto"
+
 // UserProfilePhotoClass represents UserProfilePhoto generic type.
 //
 // See https://core.telegram.org/type/UserProfilePhoto for reference.

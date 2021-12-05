@@ -547,6 +547,9 @@ func (n *NotificationGroupTypeCalls) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// NotificationGroupTypeClassName is schema name of NotificationGroupTypeClass.
+const NotificationGroupTypeClassName = "NotificationGroupType"
+
 // NotificationGroupTypeClass represents NotificationGroupType generic type.
 //
 // Example:

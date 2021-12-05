@@ -385,6 +385,9 @@ func (m *MsgNewDetailedInfo) GetStatus() (value int) {
 	return m.Status
 }
 
+// MsgDetailedInfoClassName is schema name of MsgDetailedInfoClass.
+const MsgDetailedInfoClassName = "MsgDetailedInfo"
+
 // MsgDetailedInfoClass represents MsgDetailedInfo generic type.
 //
 // Example:

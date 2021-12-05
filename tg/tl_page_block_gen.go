@@ -5237,6 +5237,9 @@ func (p *PageBlockMap) GetCaption() (value PageCaption) {
 	return p.Caption
 }
 
+// PageBlockClassName is schema name of PageBlockClass.
+const PageBlockClassName = "PageBlock"
+
 // PageBlockClass represents PageBlock generic type.
 //
 // See https://core.telegram.org/type/PageBlock for reference.

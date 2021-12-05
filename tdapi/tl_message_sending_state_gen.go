@@ -411,6 +411,9 @@ func (m *MessageSendingStateFailed) GetRetryAfter() (value float64) {
 	return m.RetryAfter
 }
 
+// MessageSendingStateClassName is schema name of MessageSendingStateClass.
+const MessageSendingStateClassName = "MessageSendingState"
+
 // MessageSendingStateClass represents MessageSendingState generic type.
 //
 // Example:

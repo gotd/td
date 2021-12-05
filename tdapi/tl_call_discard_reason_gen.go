@@ -676,6 +676,9 @@ func (c *CallDiscardReasonHungUp) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// CallDiscardReasonClassName is schema name of CallDiscardReasonClass.
+const CallDiscardReasonClassName = "CallDiscardReason"
+
 // CallDiscardReasonClass represents CallDiscardReason generic type.
 //
 // Example:

@@ -909,6 +909,9 @@ func (r *ReplyInlineMarkup) GetRows() (value []KeyboardButtonRow) {
 	return r.Rows
 }
 
+// ReplyMarkupClassName is schema name of ReplyMarkupClass.
+const ReplyMarkupClassName = "ReplyMarkup"
+
 // ReplyMarkupClass represents ReplyMarkup generic type.
 //
 // See https://core.telegram.org/type/ReplyMarkup for reference.

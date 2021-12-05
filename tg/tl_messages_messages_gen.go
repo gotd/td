@@ -1235,6 +1235,9 @@ func (m *MessagesMessagesNotModified) GetCount() (value int) {
 	return m.Count
 }
 
+// MessagesMessagesClassName is schema name of MessagesMessagesClass.
+const MessagesMessagesClassName = "messages.Messages"
+
 // MessagesMessagesClass represents messages.Messages generic type.
 //
 // See https://core.telegram.org/type/messages.Messages for reference.

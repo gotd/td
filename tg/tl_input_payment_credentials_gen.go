@@ -636,6 +636,9 @@ func (i *InputPaymentCredentialsGooglePay) GetPaymentToken() (value DataJSON) {
 	return i.PaymentToken
 }
 
+// InputPaymentCredentialsClassName is schema name of InputPaymentCredentialsClass.
+const InputPaymentCredentialsClassName = "InputPaymentCredentials"
+
 // InputPaymentCredentialsClass represents InputPaymentCredentials generic type.
 //
 // See https://core.telegram.org/type/InputPaymentCredentials for reference.

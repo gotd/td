@@ -413,6 +413,9 @@ func (e *MessagesExportedChatInviteReplaced) MapUsers() (value UserClassArray) {
 	return UserClassArray(e.Users)
 }
 
+// MessagesExportedChatInviteClassName is schema name of MessagesExportedChatInviteClass.
+const MessagesExportedChatInviteClassName = "messages.ExportedChatInvite"
+
 // MessagesExportedChatInviteClass represents messages.ExportedChatInvite generic type.
 //
 // See https://core.telegram.org/type/messages.ExportedChatInvite for reference.

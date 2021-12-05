@@ -365,6 +365,9 @@ func (i *IPPortSecret) GetSecret() (value []byte) {
 	return i.Secret
 }
 
+// IPPortClassName is schema name of IPPortClass.
+const IPPortClassName = "IpPort"
+
 // IPPortClass represents IpPort generic type.
 //
 // See https://core.telegram.org/type/IpPort for reference.

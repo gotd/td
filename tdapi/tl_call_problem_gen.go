@@ -1192,6 +1192,9 @@ func (c *CallProblemPixelatedVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// CallProblemClassName is schema name of CallProblemClass.
+const CallProblemClassName = "CallProblem"
+
 // CallProblemClass represents CallProblem generic type.
 //
 // Example:

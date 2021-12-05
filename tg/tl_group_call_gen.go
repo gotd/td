@@ -882,6 +882,9 @@ func (g *GroupCall) GetVersion() (value int) {
 	return g.Version
 }
 
+// GroupCallClassName is schema name of GroupCallClass.
+const GroupCallClassName = "GroupCall"
+
 // GroupCallClass represents GroupCall generic type.
 //
 // See https://core.telegram.org/type/GroupCall for reference.

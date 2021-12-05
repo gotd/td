@@ -554,6 +554,9 @@ func (i *InputMessageCallbackQuery) GetQueryID() (value int64) {
 	return i.QueryID
 }
 
+// InputMessageClassName is schema name of InputMessageClass.
+const InputMessageClassName = "InputMessage"
+
 // InputMessageClass represents InputMessage generic type.
 //
 // See https://core.telegram.org/type/InputMessage for reference.

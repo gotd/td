@@ -1019,6 +1019,9 @@ func (p *PrivacyValueDisallowChatParticipants) GetChats() (value []int64) {
 	return p.Chats
 }
 
+// PrivacyRuleClassName is schema name of PrivacyRuleClass.
+const PrivacyRuleClassName = "PrivacyRule"
+
 // PrivacyRuleClass represents PrivacyRule generic type.
 //
 // See https://core.telegram.org/type/PrivacyRule for reference.

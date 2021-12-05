@@ -1367,6 +1367,9 @@ func (d *DocumentAttributeHasStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// DocumentAttributeClassName is schema name of DocumentAttributeClass.
+const DocumentAttributeClassName = "DocumentAttribute"
+
 // DocumentAttributeClass represents DocumentAttribute generic type.
 //
 // See https://core.telegram.org/type/DocumentAttribute for reference.

@@ -541,6 +541,9 @@ func (s *StatisticalGraphError) GetErrorMessage() (value string) {
 	return s.ErrorMessage
 }
 
+// StatisticalGraphClassName is schema name of StatisticalGraphClass.
+const StatisticalGraphClassName = "StatisticalGraph"
+
 // StatisticalGraphClass represents StatisticalGraph generic type.
 //
 // Example:

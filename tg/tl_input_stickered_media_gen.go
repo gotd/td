@@ -305,6 +305,9 @@ func (i *InputStickeredMediaDocument) GetID() (value InputDocumentClass) {
 	return i.ID
 }
 
+// InputStickeredMediaClassName is schema name of InputStickeredMediaClass.
+const InputStickeredMediaClassName = "InputStickeredMedia"
+
 // InputStickeredMediaClass represents InputStickeredMedia generic type.
 //
 // See https://core.telegram.org/type/InputStickeredMedia for reference.

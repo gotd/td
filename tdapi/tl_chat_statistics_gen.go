@@ -1495,6 +1495,9 @@ func (c *ChatStatisticsChannel) GetRecentMessageInteractions() (value []ChatStat
 	return c.RecentMessageInteractions
 }
 
+// ChatStatisticsClassName is schema name of ChatStatisticsClass.
+const ChatStatisticsClassName = "ChatStatistics"
+
 // ChatStatisticsClass represents ChatStatistics generic type.
 //
 // Example:

@@ -399,6 +399,9 @@ func (s *SecurePasswordKdfAlgoSHA512) GetSalt() (value []byte) {
 	return s.Salt
 }
 
+// SecurePasswordKdfAlgoClassName is schema name of SecurePasswordKdfAlgoClass.
+const SecurePasswordKdfAlgoClassName = "SecurePasswordKdfAlgo"
+
 // SecurePasswordKdfAlgoClass represents SecurePasswordKdfAlgo generic type.
 //
 // See https://core.telegram.org/type/SecurePasswordKdfAlgo for reference.

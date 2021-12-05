@@ -557,6 +557,9 @@ func (p *Photo) MapSizes() (value PhotoSizeClassArray) {
 	return PhotoSizeClassArray(p.Sizes)
 }
 
+// PhotoClassName is schema name of PhotoClass.
+const PhotoClassName = "Photo"
+
 // PhotoClass represents Photo generic type.
 //
 // See https://core.telegram.org/type/Photo for reference.

@@ -392,6 +392,9 @@ func (d *HelpDeepLinkInfo) MapEntities() (value MessageEntityClassArray, ok bool
 	return MessageEntityClassArray(d.Entities), true
 }
 
+// HelpDeepLinkInfoClassName is schema name of HelpDeepLinkInfoClass.
+const HelpDeepLinkInfoClassName = "help.DeepLinkInfo"
+
 // HelpDeepLinkInfoClass represents help.DeepLinkInfo generic type.
 //
 // See https://core.telegram.org/type/help.DeepLinkInfo for reference.

@@ -561,6 +561,9 @@ func (p *HelpPromoData) MapUsers() (value UserClassArray) {
 	return UserClassArray(p.Users)
 }
 
+// HelpPromoDataClassName is schema name of HelpPromoDataClass.
+const HelpPromoDataClassName = "help.PromoData"
+
 // HelpPromoDataClass represents help.PromoData generic type.
 //
 // See https://core.telegram.org/type/help.PromoData for reference.

@@ -320,6 +320,9 @@ func (m *MessageSchedulingStateSendWhenOnline) DecodeTDLibJSON(b tdjson.Decoder)
 	})
 }
 
+// MessageSchedulingStateClassName is schema name of MessageSchedulingStateClass.
+const MessageSchedulingStateClassName = "MessageSchedulingState"
+
 // MessageSchedulingStateClass represents MessageSchedulingState generic type.
 //
 // Example:

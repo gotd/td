@@ -934,6 +934,9 @@ func (t *TopChatCategoryForwardChats) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// TopChatCategoryClassName is schema name of TopChatCategoryClass.
+const TopChatCategoryClassName = "TopChatCategory"
+
 // TopChatCategoryClass represents TopChatCategory generic type.
 //
 // Example:

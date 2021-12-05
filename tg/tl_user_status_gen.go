@@ -703,6 +703,9 @@ func (u *UserStatusLastMonth) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// UserStatusClassName is schema name of UserStatusClass.
+const UserStatusClassName = "UserStatus"
+
 // UserStatusClass represents UserStatus generic type.
 //
 // See https://core.telegram.org/type/UserStatus for reference.

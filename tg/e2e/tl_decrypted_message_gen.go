@@ -1553,6 +1553,9 @@ func (d *DecryptedMessage) GetGroupedID() (value int64, ok bool) {
 	return d.GroupedID, true
 }
 
+// DecryptedMessageClassName is schema name of DecryptedMessageClass.
+const DecryptedMessageClassName = "DecryptedMessage"
+
 // DecryptedMessageClass represents DecryptedMessage generic type.
 //
 // See https://core.telegram.org/type/DecryptedMessage for reference.

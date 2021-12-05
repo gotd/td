@@ -418,6 +418,9 @@ func (n *NotificationSettingsScopeChannelChats) DecodeTDLibJSON(b tdjson.Decoder
 	})
 }
 
+// NotificationSettingsScopeClassName is schema name of NotificationSettingsScopeClass.
+const NotificationSettingsScopeClassName = "NotificationSettingsScope"
+
 // NotificationSettingsScopeClass represents NotificationSettingsScope generic type.
 //
 // Example:

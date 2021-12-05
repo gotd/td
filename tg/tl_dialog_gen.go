@@ -880,6 +880,9 @@ func (d *DialogFolder) GetUnreadUnmutedMessagesCount() (value int) {
 	return d.UnreadUnmutedMessagesCount
 }
 
+// DialogClassName is schema name of DialogClass.
+const DialogClassName = "Dialog"
+
 // DialogClass represents Dialog generic type.
 //
 // See https://core.telegram.org/type/Dialog for reference.

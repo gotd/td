@@ -1111,6 +1111,9 @@ func (p *PhotoPathSize) GetBytes() (value []byte) {
 	return p.Bytes
 }
 
+// PhotoSizeClassName is schema name of PhotoSizeClass.
+const PhotoSizeClassName = "PhotoSize"
+
 // PhotoSizeClass represents PhotoSize generic type.
 //
 // See https://core.telegram.org/type/PhotoSize for reference.

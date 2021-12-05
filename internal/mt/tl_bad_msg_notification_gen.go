@@ -385,6 +385,9 @@ func (b *BadServerSalt) GetNewServerSalt() (value int64) {
 	return b.NewServerSalt
 }
 
+// BadMsgNotificationClassName is schema name of BadMsgNotificationClass.
+const BadMsgNotificationClassName = "BadMsgNotification"
+
 // BadMsgNotificationClass represents BadMsgNotification generic type.
 //
 // Example:

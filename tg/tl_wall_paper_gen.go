@@ -701,6 +701,9 @@ func (w *WallPaperNoFile) GetSettings() (value WallPaperSettings, ok bool) {
 	return w.Settings, true
 }
 
+// WallPaperClassName is schema name of WallPaperClass.
+const WallPaperClassName = "WallPaper"
+
 // WallPaperClass represents WallPaper generic type.
 //
 // See https://core.telegram.org/type/WallPaper for reference.

@@ -307,6 +307,9 @@ func (t *AccountThemes) GetThemes() (value []Theme) {
 	return t.Themes
 }
 
+// AccountThemesClassName is schema name of AccountThemesClass.
+const AccountThemesClassName = "account.Themes"
+
 // AccountThemesClass represents account.Themes generic type.
 //
 // See https://core.telegram.org/type/account.Themes for reference.

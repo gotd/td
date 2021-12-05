@@ -4769,6 +4769,9 @@ func (i *InputInlineQueryResultVoiceNote) GetInputMessageContent() (value InputM
 	return i.InputMessageContent
 }
 
+// InputInlineQueryResultClassName is schema name of InputInlineQueryResultClass.
+const InputInlineQueryResultClassName = "InputInlineQueryResult"
+
 // InputInlineQueryResultClass represents InputInlineQueryResult generic type.
 //
 // Example:

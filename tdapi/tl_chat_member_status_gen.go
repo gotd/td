@@ -1424,6 +1424,9 @@ func (c *ChatMemberStatusBanned) GetBannedUntilDate() (value int32) {
 	return c.BannedUntilDate
 }
 
+// ChatMemberStatusClassName is schema name of ChatMemberStatusClass.
+const ChatMemberStatusClassName = "ChatMemberStatus"
+
 // ChatMemberStatusClass represents ChatMemberStatus generic type.
 //
 // Example:

@@ -1195,6 +1195,9 @@ func (i *InputBotInlineResultGame) GetSendMessage() (value InputBotInlineMessage
 	return i.SendMessage
 }
 
+// InputBotInlineResultClassName is schema name of InputBotInlineResultClass.
+const InputBotInlineResultClassName = "InputBotInlineResult"
+
 // InputBotInlineResultClass represents InputBotInlineResult generic type.
 //
 // See https://core.telegram.org/type/InputBotInlineResult for reference.

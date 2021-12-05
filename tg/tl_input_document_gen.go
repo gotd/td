@@ -319,6 +319,9 @@ func (i *InputDocument) GetFileReference() (value []byte) {
 	return i.FileReference
 }
 
+// InputDocumentClassName is schema name of InputDocumentClass.
+const InputDocumentClassName = "InputDocument"
+
 // InputDocumentClass represents InputDocument generic type.
 //
 // See https://core.telegram.org/type/InputDocument for reference.

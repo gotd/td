@@ -779,6 +779,9 @@ func (d *MessagesDialogsNotModified) GetCount() (value int) {
 	return d.Count
 }
 
+// MessagesDialogsClassName is schema name of MessagesDialogsClass.
+const MessagesDialogsClassName = "messages.Dialogs"
+
 // MessagesDialogsClass represents messages.Dialogs generic type.
 //
 // See https://core.telegram.org/type/messages.Dialogs for reference.

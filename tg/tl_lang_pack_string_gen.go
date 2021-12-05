@@ -726,6 +726,9 @@ func (l *LangPackStringDeleted) GetKey() (value string) {
 	return l.Key
 }
 
+// LangPackStringClassName is schema name of LangPackStringClass.
+const LangPackStringClassName = "LangPackString"
+
 // LangPackStringClass represents LangPackString generic type.
 //
 // See https://core.telegram.org/type/LangPackString for reference.

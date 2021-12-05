@@ -850,6 +850,9 @@ func (p *PrivacyKeyAddedByPhone) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// PrivacyKeyClassName is schema name of PrivacyKeyClass.
+const PrivacyKeyClassName = "PrivacyKey"
+
 // PrivacyKeyClass represents PrivacyKey generic type.
 //
 // See https://core.telegram.org/type/PrivacyKey for reference.

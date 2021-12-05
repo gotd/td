@@ -483,6 +483,9 @@ func (l *AuthLoginTokenSuccess) GetAuthorization() (value AuthAuthorizationClass
 	return l.Authorization
 }
 
+// AuthLoginTokenClassName is schema name of AuthLoginTokenClass.
+const AuthLoginTokenClassName = "auth.LoginToken"
+
 // AuthLoginTokenClass represents auth.LoginToken generic type.
 //
 // See https://core.telegram.org/type/auth.LoginToken for reference.

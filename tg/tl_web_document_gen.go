@@ -512,6 +512,9 @@ func (w *WebDocumentNoProxy) MapAttributes() (value DocumentAttributeClassArray)
 	return DocumentAttributeClassArray(w.Attributes)
 }
 
+// WebDocumentClassName is schema name of WebDocumentClass.
+const WebDocumentClassName = "WebDocument"
+
 // WebDocumentClass represents WebDocument generic type.
 //
 // See https://core.telegram.org/type/WebDocument for reference.

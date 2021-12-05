@@ -422,6 +422,9 @@ func (i *InputSecureFile) GetAccessHash() (value int64) {
 	return i.AccessHash
 }
 
+// InputSecureFileClassName is schema name of InputSecureFileClass.
+const InputSecureFileClassName = "InputSecureFile"
+
 // InputSecureFileClass represents InputSecureFile generic type.
 //
 // See https://core.telegram.org/type/InputSecureFile for reference.

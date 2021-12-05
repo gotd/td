@@ -1039,6 +1039,9 @@ func (i *InputPrivacyValueDisallowChatParticipants) GetChats() (value []int64) {
 	return i.Chats
 }
 
+// InputPrivacyRuleClassName is schema name of InputPrivacyRuleClass.
+const InputPrivacyRuleClassName = "InputPrivacyRule"
+
 // InputPrivacyRuleClass represents InputPrivacyRule generic type.
 //
 // See https://core.telegram.org/type/InputPrivacyRule for reference.

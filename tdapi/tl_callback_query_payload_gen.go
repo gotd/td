@@ -541,6 +541,9 @@ func (c *CallbackQueryPayloadGame) GetGameShortName() (value string) {
 	return c.GameShortName
 }
 
+// CallbackQueryPayloadClassName is schema name of CallbackQueryPayloadClass.
+const CallbackQueryPayloadClassName = "CallbackQueryPayload"
+
 // CallbackQueryPayloadClass represents CallbackQueryPayload generic type.
 //
 // Example:
