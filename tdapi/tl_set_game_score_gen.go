@@ -159,10 +159,10 @@ func (s *SetGameScoreRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setGameScore#7eccedc6 as nil")
 	}
-	b.PutLong(s.ChatID)
-	b.PutLong(s.MessageID)
+	b.PutInt53(s.ChatID)
+	b.PutInt53(s.MessageID)
 	b.PutBool(s.EditMessage)
-	b.PutLong(s.UserID)
+	b.PutInt53(s.UserID)
 	b.PutInt32(s.Score)
 	b.PutBool(s.Force)
 	return nil
@@ -185,14 +185,14 @@ func (s *SetGameScoreRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setGameScore#7eccedc6 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setGameScore#7eccedc6: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setGameScore#7eccedc6: field message_id: %w", err)
 		}
@@ -206,7 +206,7 @@ func (s *SetGameScoreRequest) DecodeBare(b *bin.Buffer) error {
 		s.EditMessage = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setGameScore#7eccedc6: field user_id: %w", err)
 		}
@@ -237,13 +237,13 @@ func (s *SetGameScoreRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("setGameScore")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(s.MessageID)
+	b.PutInt53(s.MessageID)
 	b.FieldStart("edit_message")
 	b.PutBool(s.EditMessage)
 	b.FieldStart("user_id")
-	b.PutLong(s.UserID)
+	b.PutInt53(s.UserID)
 	b.FieldStart("score")
 	b.PutInt32(s.Score)
 	b.FieldStart("force")
@@ -265,13 +265,13 @@ func (s *SetGameScoreRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode setGameScore#7eccedc6: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setGameScore#7eccedc6: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setGameScore#7eccedc6: field message_id: %w", err)
 			}
@@ -283,7 +283,7 @@ func (s *SetGameScoreRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			s.EditMessage = value
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setGameScore#7eccedc6: field user_id: %w", err)
 			}

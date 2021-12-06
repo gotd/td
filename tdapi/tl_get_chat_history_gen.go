@@ -155,8 +155,8 @@ func (g *GetChatHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatHistory#d051927d as nil")
 	}
-	b.PutLong(g.ChatID)
-	b.PutLong(g.FromMessageID)
+	b.PutInt53(g.ChatID)
+	b.PutInt53(g.FromMessageID)
 	b.PutInt32(g.Offset)
 	b.PutInt32(g.Limit)
 	b.PutBool(g.OnlyLocal)
@@ -180,14 +180,14 @@ func (g *GetChatHistoryRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getChatHistory#d051927d to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatHistory#d051927d: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatHistory#d051927d: field from_message_id: %w", err)
 		}
@@ -225,9 +225,9 @@ func (g *GetChatHistoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getChatHistory")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("from_message_id")
-	b.PutLong(g.FromMessageID)
+	b.PutInt53(g.FromMessageID)
 	b.FieldStart("offset")
 	b.PutInt32(g.Offset)
 	b.FieldStart("limit")
@@ -251,13 +251,13 @@ func (g *GetChatHistoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getChatHistory#d051927d: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatHistory#d051927d: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "from_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatHistory#d051927d: field from_message_id: %w", err)
 			}

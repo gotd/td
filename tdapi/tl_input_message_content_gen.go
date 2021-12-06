@@ -3689,7 +3689,7 @@ func (i *InputMessageGame) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageGame#4aae6ae2 as nil")
 	}
-	b.PutLong(i.BotUserID)
+	b.PutInt53(i.BotUserID)
 	b.PutString(i.GameShortName)
 	return nil
 }
@@ -3711,7 +3711,7 @@ func (i *InputMessageGame) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode inputMessageGame#4aae6ae2 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode inputMessageGame#4aae6ae2: field bot_user_id: %w", err)
 		}
@@ -3735,7 +3735,7 @@ func (i *InputMessageGame) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("inputMessageGame")
 	b.FieldStart("bot_user_id")
-	b.PutLong(i.BotUserID)
+	b.PutInt53(i.BotUserID)
 	b.FieldStart("game_short_name")
 	b.PutString(i.GameShortName)
 	b.ObjEnd()
@@ -3755,7 +3755,7 @@ func (i *InputMessageGame) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode inputMessageGame#4aae6ae2: %w", err)
 			}
 		case "bot_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode inputMessageGame#4aae6ae2: field bot_user_id: %w", err)
 			}
@@ -4734,8 +4734,8 @@ func (i *InputMessageForwarded) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessageForwarded#651a73f8 as nil")
 	}
-	b.PutLong(i.FromChatID)
-	b.PutLong(i.MessageID)
+	b.PutInt53(i.FromChatID)
+	b.PutInt53(i.MessageID)
 	b.PutBool(i.InGameShare)
 	if err := i.CopyOptions.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMessageForwarded#651a73f8: field copy_options: %w", err)
@@ -4760,14 +4760,14 @@ func (i *InputMessageForwarded) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode inputMessageForwarded#651a73f8 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode inputMessageForwarded#651a73f8: field from_chat_id: %w", err)
 		}
 		i.FromChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode inputMessageForwarded#651a73f8: field message_id: %w", err)
 		}
@@ -4796,9 +4796,9 @@ func (i *InputMessageForwarded) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("inputMessageForwarded")
 	b.FieldStart("from_chat_id")
-	b.PutLong(i.FromChatID)
+	b.PutInt53(i.FromChatID)
 	b.FieldStart("message_id")
-	b.PutLong(i.MessageID)
+	b.PutInt53(i.MessageID)
 	b.FieldStart("in_game_share")
 	b.PutBool(i.InGameShare)
 	b.FieldStart("copy_options")
@@ -4822,13 +4822,13 @@ func (i *InputMessageForwarded) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode inputMessageForwarded#651a73f8: %w", err)
 			}
 		case "from_chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode inputMessageForwarded#651a73f8: field from_chat_id: %w", err)
 			}
 			i.FromChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode inputMessageForwarded#651a73f8: field message_id: %w", err)
 			}

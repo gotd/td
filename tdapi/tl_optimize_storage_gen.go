@@ -192,7 +192,7 @@ func (o *OptimizeStorageRequest) EncodeBare(b *bin.Buffer) error {
 	if o == nil {
 		return fmt.Errorf("can't encode optimizeStorage#ef73c8c5 as nil")
 	}
-	b.PutLong(o.Size)
+	b.PutInt53(o.Size)
 	b.PutInt32(o.TTL)
 	b.PutInt32(o.Count)
 	b.PutInt32(o.ImmunityDelay)
@@ -207,11 +207,11 @@ func (o *OptimizeStorageRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(len(o.ChatIDs))
 	for _, v := range o.ChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.PutInt(len(o.ExcludeChatIDs))
 	for _, v := range o.ExcludeChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.PutBool(o.ReturnDeletedFileStatistics)
 	b.PutInt32(o.ChatLimit)
@@ -235,7 +235,7 @@ func (o *OptimizeStorageRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode optimizeStorage#ef73c8c5 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field size: %w", err)
 		}
@@ -289,7 +289,7 @@ func (o *OptimizeStorageRequest) DecodeBare(b *bin.Buffer) error {
 			o.ChatIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field chat_ids: %w", err)
 			}
@@ -306,7 +306,7 @@ func (o *OptimizeStorageRequest) DecodeBare(b *bin.Buffer) error {
 			o.ExcludeChatIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field exclude_chat_ids: %w", err)
 			}
@@ -338,7 +338,7 @@ func (o *OptimizeStorageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("optimizeStorage")
 	b.FieldStart("size")
-	b.PutLong(o.Size)
+	b.PutInt53(o.Size)
 	b.FieldStart("ttl")
 	b.PutInt32(o.TTL)
 	b.FieldStart("count")
@@ -359,13 +359,13 @@ func (o *OptimizeStorageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("chat_ids")
 	b.ArrStart()
 	for _, v := range o.ChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("exclude_chat_ids")
 	b.ArrStart()
 	for _, v := range o.ExcludeChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("return_deleted_file_statistics")
@@ -389,7 +389,7 @@ func (o *OptimizeStorageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: %w", err)
 			}
 		case "size":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field size: %w", err)
 			}
@@ -425,7 +425,7 @@ func (o *OptimizeStorageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 		case "chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field chat_ids: %w", err)
 				}
@@ -436,7 +436,7 @@ func (o *OptimizeStorageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 		case "exclude_chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode optimizeStorage#ef73c8c5: field exclude_chat_ids: %w", err)
 				}

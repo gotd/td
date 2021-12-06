@@ -123,7 +123,7 @@ func (c *CheckChatUsernameRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode checkChatUsername#f8e66210 as nil")
 	}
-	b.PutLong(c.ChatID)
+	b.PutInt53(c.ChatID)
 	b.PutString(c.Username)
 	return nil
 }
@@ -145,7 +145,7 @@ func (c *CheckChatUsernameRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode checkChatUsername#f8e66210 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode checkChatUsername#f8e66210: field chat_id: %w", err)
 		}
@@ -169,7 +169,7 @@ func (c *CheckChatUsernameRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("checkChatUsername")
 	b.FieldStart("chat_id")
-	b.PutLong(c.ChatID)
+	b.PutInt53(c.ChatID)
 	b.FieldStart("username")
 	b.PutString(c.Username)
 	b.ObjEnd()
@@ -189,7 +189,7 @@ func (c *CheckChatUsernameRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode checkChatUsername#f8e66210: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode checkChatUsername#f8e66210: field chat_id: %w", err)
 			}

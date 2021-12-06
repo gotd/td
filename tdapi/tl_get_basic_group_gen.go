@@ -113,7 +113,7 @@ func (g *GetBasicGroupRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getBasicGroup#9e893654 as nil")
 	}
-	b.PutLong(g.BasicGroupID)
+	b.PutInt53(g.BasicGroupID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (g *GetBasicGroupRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getBasicGroup#9e893654 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getBasicGroup#9e893654: field basic_group_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (g *GetBasicGroupRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getBasicGroup")
 	b.FieldStart("basic_group_id")
-	b.PutLong(g.BasicGroupID)
+	b.PutInt53(g.BasicGroupID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (g *GetBasicGroupRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getBasicGroup#9e893654: %w", err)
 			}
 		case "basic_group_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getBasicGroup#9e893654: field basic_group_id: %w", err)
 			}

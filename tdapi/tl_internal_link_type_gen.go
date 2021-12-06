@@ -2105,7 +2105,7 @@ func (i *InternalLinkTypePassportDataRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode internalLinkTypePassportDataRequest#c50fce81 as nil")
 	}
-	b.PutLong(i.BotUserID)
+	b.PutInt53(i.BotUserID)
 	b.PutString(i.Scope)
 	b.PutString(i.PublicKey)
 	b.PutString(i.Nonce)
@@ -2130,7 +2130,7 @@ func (i *InternalLinkTypePassportDataRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode internalLinkTypePassportDataRequest#c50fce81 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode internalLinkTypePassportDataRequest#c50fce81: field bot_user_id: %w", err)
 		}
@@ -2175,7 +2175,7 @@ func (i *InternalLinkTypePassportDataRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	b.ObjStart()
 	b.PutID("internalLinkTypePassportDataRequest")
 	b.FieldStart("bot_user_id")
-	b.PutLong(i.BotUserID)
+	b.PutInt53(i.BotUserID)
 	b.FieldStart("scope")
 	b.PutString(i.Scope)
 	b.FieldStart("public_key")
@@ -2201,7 +2201,7 @@ func (i *InternalLinkTypePassportDataRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 				return fmt.Errorf("unable to decode internalLinkTypePassportDataRequest#c50fce81: %w", err)
 			}
 		case "bot_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode internalLinkTypePassportDataRequest#c50fce81: field bot_user_id: %w", err)
 			}

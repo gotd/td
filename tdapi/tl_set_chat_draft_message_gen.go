@@ -131,8 +131,8 @@ func (s *SetChatDraftMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatDraftMessage#645e1f1a as nil")
 	}
-	b.PutLong(s.ChatID)
-	b.PutLong(s.MessageThreadID)
+	b.PutInt53(s.ChatID)
+	b.PutInt53(s.MessageThreadID)
 	if err := s.DraftMessage.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode setChatDraftMessage#645e1f1a: field draft_message: %w", err)
 	}
@@ -156,14 +156,14 @@ func (s *SetChatDraftMessageRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setChatDraftMessage#645e1f1a to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setChatDraftMessage#645e1f1a: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setChatDraftMessage#645e1f1a: field message_thread_id: %w", err)
 		}
@@ -185,9 +185,9 @@ func (s *SetChatDraftMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("setChatDraftMessage")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("message_thread_id")
-	b.PutLong(s.MessageThreadID)
+	b.PutInt53(s.MessageThreadID)
 	b.FieldStart("draft_message")
 	if err := s.DraftMessage.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setChatDraftMessage#645e1f1a: field draft_message: %w", err)
@@ -209,13 +209,13 @@ func (s *SetChatDraftMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode setChatDraftMessage#645e1f1a: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setChatDraftMessage#645e1f1a: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "message_thread_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setChatDraftMessage#645e1f1a: field message_thread_id: %w", err)
 			}

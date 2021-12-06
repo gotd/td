@@ -260,7 +260,7 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode user#dff1de69 as nil")
 	}
-	b.PutLong(u.ID)
+	b.PutInt53(u.ID)
 	b.PutString(u.FirstName)
 	b.PutString(u.LastName)
 	b.PutString(u.Username)
@@ -309,7 +309,7 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode user#dff1de69 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode user#dff1de69: field id: %w", err)
 		}
@@ -436,7 +436,7 @@ func (u *User) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("user")
 	b.FieldStart("id")
-	b.PutLong(u.ID)
+	b.PutInt53(u.ID)
 	b.FieldStart("first_name")
 	b.PutString(u.FirstName)
 	b.FieldStart("last_name")
@@ -498,7 +498,7 @@ func (u *User) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode user#dff1de69: %w", err)
 			}
 		case "id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode user#dff1de69: field id: %w", err)
 			}

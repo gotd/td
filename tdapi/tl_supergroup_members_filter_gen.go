@@ -1026,7 +1026,7 @@ func (s *SupergroupMembersFilterMention) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode supergroupMembersFilterMention#3880091c as nil")
 	}
 	b.PutString(s.Query)
-	b.PutLong(s.MessageThreadID)
+	b.PutInt53(s.MessageThreadID)
 	return nil
 }
 
@@ -1054,7 +1054,7 @@ func (s *SupergroupMembersFilterMention) DecodeBare(b *bin.Buffer) error {
 		s.Query = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode supergroupMembersFilterMention#3880091c: field message_thread_id: %w", err)
 		}
@@ -1073,7 +1073,7 @@ func (s *SupergroupMembersFilterMention) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.FieldStart("query")
 	b.PutString(s.Query)
 	b.FieldStart("message_thread_id")
-	b.PutLong(s.MessageThreadID)
+	b.PutInt53(s.MessageThreadID)
 	b.ObjEnd()
 	return nil
 }
@@ -1097,7 +1097,7 @@ func (s *SupergroupMembersFilterMention) DecodeTDLibJSON(b tdjson.Decoder) error
 			}
 			s.Query = value
 		case "message_thread_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode supergroupMembersFilterMention#3880091c: field message_thread_id: %w", err)
 			}

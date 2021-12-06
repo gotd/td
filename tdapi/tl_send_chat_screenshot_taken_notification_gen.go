@@ -113,7 +113,7 @@ func (s *SendChatScreenshotTakenNotificationRequest) EncodeBare(b *bin.Buffer) e
 	if s == nil {
 		return fmt.Errorf("can't encode sendChatScreenshotTakenNotification#1aba0861 as nil")
 	}
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (s *SendChatScreenshotTakenNotificationRequest) DecodeBare(b *bin.Buffer) e
 		return fmt.Errorf("can't decode sendChatScreenshotTakenNotification#1aba0861 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode sendChatScreenshotTakenNotification#1aba0861: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (s *SendChatScreenshotTakenNotificationRequest) EncodeTDLibJSON(b tdjson.En
 	b.ObjStart()
 	b.PutID("sendChatScreenshotTakenNotification")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (s *SendChatScreenshotTakenNotificationRequest) DecodeTDLibJSON(b tdjson.De
 				return fmt.Errorf("unable to decode sendChatScreenshotTakenNotification#1aba0861: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode sendChatScreenshotTakenNotification#1aba0861: field chat_id: %w", err)
 			}

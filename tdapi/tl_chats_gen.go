@@ -125,7 +125,7 @@ func (c *Chats) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(c.TotalCount)
 	b.PutInt(len(c.ChatIDs))
 	for _, v := range c.ChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -163,7 +163,7 @@ func (c *Chats) DecodeBare(b *bin.Buffer) error {
 			c.ChatIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chats#9b93e3eb: field chat_ids: %w", err)
 			}
@@ -185,7 +185,7 @@ func (c *Chats) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("chat_ids")
 	b.ArrStart()
 	for _, v := range c.ChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -212,7 +212,7 @@ func (c *Chats) DecodeTDLibJSON(b tdjson.Decoder) error {
 			c.TotalCount = value
 		case "chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode chats#9b93e3eb: field chat_ids: %w", err)
 				}

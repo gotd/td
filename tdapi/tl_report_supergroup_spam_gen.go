@@ -132,11 +132,11 @@ func (r *ReportSupergroupSpamRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode reportSupergroupSpam#d0c20173 as nil")
 	}
-	b.PutLong(r.SupergroupID)
-	b.PutLong(r.UserID)
+	b.PutInt53(r.SupergroupID)
+	b.PutInt53(r.UserID)
 	b.PutInt(len(r.MessageIDs))
 	for _, v := range r.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -158,14 +158,14 @@ func (r *ReportSupergroupSpamRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode reportSupergroupSpam#d0c20173 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field supergroup_id: %w", err)
 		}
 		r.SupergroupID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field user_id: %w", err)
 		}
@@ -181,7 +181,7 @@ func (r *ReportSupergroupSpamRequest) DecodeBare(b *bin.Buffer) error {
 			r.MessageIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field message_ids: %w", err)
 			}
@@ -199,13 +199,13 @@ func (r *ReportSupergroupSpamRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("reportSupergroupSpam")
 	b.FieldStart("supergroup_id")
-	b.PutLong(r.SupergroupID)
+	b.PutInt53(r.SupergroupID)
 	b.FieldStart("user_id")
-	b.PutLong(r.UserID)
+	b.PutInt53(r.UserID)
 	b.FieldStart("message_ids")
 	b.ArrStart()
 	for _, v := range r.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -225,20 +225,20 @@ func (r *ReportSupergroupSpamRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field supergroup_id: %w", err)
 			}
 			r.SupergroupID = value
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field user_id: %w", err)
 			}
 			r.UserID = value
 		case "message_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field message_ids: %w", err)
 				}

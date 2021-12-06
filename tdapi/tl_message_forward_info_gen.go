@@ -161,8 +161,8 @@ func (m *MessageForwardInfo) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt32(m.Date)
 	b.PutString(m.PublicServiceAnnouncementType)
-	b.PutLong(m.FromChatID)
-	b.PutLong(m.FromMessageID)
+	b.PutInt53(m.FromChatID)
+	b.PutInt53(m.FromMessageID)
 	return nil
 }
 
@@ -204,14 +204,14 @@ func (m *MessageForwardInfo) DecodeBare(b *bin.Buffer) error {
 		m.PublicServiceAnnouncementType = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field from_chat_id: %w", err)
 		}
 		m.FromChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field from_message_id: %w", err)
 		}
@@ -239,9 +239,9 @@ func (m *MessageForwardInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("public_service_announcement_type")
 	b.PutString(m.PublicServiceAnnouncementType)
 	b.FieldStart("from_chat_id")
-	b.PutLong(m.FromChatID)
+	b.PutInt53(m.FromChatID)
 	b.FieldStart("from_message_id")
-	b.PutLong(m.FromMessageID)
+	b.PutInt53(m.FromMessageID)
 	b.ObjEnd()
 	return nil
 }
@@ -277,13 +277,13 @@ func (m *MessageForwardInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			m.PublicServiceAnnouncementType = value
 		case "from_chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field from_chat_id: %w", err)
 			}
 			m.FromChatID = value
 		case "from_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field from_message_id: %w", err)
 			}

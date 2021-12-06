@@ -140,7 +140,7 @@ func (d *DeleteChatMessagesByDateRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteChatMessagesByDate#9e44e0bf as nil")
 	}
-	b.PutLong(d.ChatID)
+	b.PutInt53(d.ChatID)
 	b.PutInt32(d.MinDate)
 	b.PutInt32(d.MaxDate)
 	b.PutBool(d.Revoke)
@@ -164,7 +164,7 @@ func (d *DeleteChatMessagesByDateRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode deleteChatMessagesByDate#9e44e0bf to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode deleteChatMessagesByDate#9e44e0bf: field chat_id: %w", err)
 		}
@@ -202,7 +202,7 @@ func (d *DeleteChatMessagesByDateRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.ObjStart()
 	b.PutID("deleteChatMessagesByDate")
 	b.FieldStart("chat_id")
-	b.PutLong(d.ChatID)
+	b.PutInt53(d.ChatID)
 	b.FieldStart("min_date")
 	b.PutInt32(d.MinDate)
 	b.FieldStart("max_date")
@@ -226,7 +226,7 @@ func (d *DeleteChatMessagesByDateRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 				return fmt.Errorf("unable to decode deleteChatMessagesByDate#9e44e0bf: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode deleteChatMessagesByDate#9e44e0bf: field chat_id: %w", err)
 			}

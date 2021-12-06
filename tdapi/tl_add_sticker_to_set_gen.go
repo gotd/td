@@ -131,7 +131,7 @@ func (a *AddStickerToSetRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addStickerToSet#3b0b81 as nil")
 	}
-	b.PutLong(a.UserID)
+	b.PutInt53(a.UserID)
 	b.PutString(a.Name)
 	if a.Sticker == nil {
 		return fmt.Errorf("unable to encode addStickerToSet#3b0b81: field sticker is nil")
@@ -159,7 +159,7 @@ func (a *AddStickerToSetRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode addStickerToSet#3b0b81 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode addStickerToSet#3b0b81: field user_id: %w", err)
 		}
@@ -190,7 +190,7 @@ func (a *AddStickerToSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("addStickerToSet")
 	b.FieldStart("user_id")
-	b.PutLong(a.UserID)
+	b.PutInt53(a.UserID)
 	b.FieldStart("name")
 	b.PutString(a.Name)
 	b.FieldStart("sticker")
@@ -217,7 +217,7 @@ func (a *AddStickerToSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode addStickerToSet#3b0b81: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode addStickerToSet#3b0b81: field user_id: %w", err)
 			}

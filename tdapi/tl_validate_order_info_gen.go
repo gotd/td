@@ -140,8 +140,8 @@ func (v *ValidateOrderInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
 		return fmt.Errorf("can't encode validateOrderInfo#90a9c4 as nil")
 	}
-	b.PutLong(v.ChatID)
-	b.PutLong(v.MessageID)
+	b.PutInt53(v.ChatID)
+	b.PutInt53(v.MessageID)
 	if err := v.OrderInfo.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode validateOrderInfo#90a9c4: field order_info: %w", err)
 	}
@@ -166,14 +166,14 @@ func (v *ValidateOrderInfoRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode validateOrderInfo#90a9c4 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field chat_id: %w", err)
 		}
 		v.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field message_id: %w", err)
 		}
@@ -202,9 +202,9 @@ func (v *ValidateOrderInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("validateOrderInfo")
 	b.FieldStart("chat_id")
-	b.PutLong(v.ChatID)
+	b.PutInt53(v.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(v.MessageID)
+	b.PutInt53(v.MessageID)
 	b.FieldStart("order_info")
 	if err := v.OrderInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode validateOrderInfo#90a9c4: field order_info: %w", err)
@@ -228,13 +228,13 @@ func (v *ValidateOrderInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field chat_id: %w", err)
 			}
 			v.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field message_id: %w", err)
 			}

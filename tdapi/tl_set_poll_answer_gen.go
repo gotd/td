@@ -132,8 +132,8 @@ func (s *SetPollAnswerRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setPollAnswer#5303b916 as nil")
 	}
-	b.PutLong(s.ChatID)
-	b.PutLong(s.MessageID)
+	b.PutInt53(s.ChatID)
+	b.PutInt53(s.MessageID)
 	b.PutInt(len(s.OptionIDs))
 	for _, v := range s.OptionIDs {
 		b.PutInt32(v)
@@ -158,14 +158,14 @@ func (s *SetPollAnswerRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setPollAnswer#5303b916 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setPollAnswer#5303b916: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setPollAnswer#5303b916: field message_id: %w", err)
 		}
@@ -199,9 +199,9 @@ func (s *SetPollAnswerRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("setPollAnswer")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(s.MessageID)
+	b.PutInt53(s.MessageID)
 	b.FieldStart("option_ids")
 	b.ArrStart()
 	for _, v := range s.OptionIDs {
@@ -225,13 +225,13 @@ func (s *SetPollAnswerRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode setPollAnswer#5303b916: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setPollAnswer#5303b916: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setPollAnswer#5303b916: field message_id: %w", err)
 			}

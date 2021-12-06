@@ -188,7 +188,7 @@ func (c *ConnectedWebsite) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutLong(c.ID)
 	b.PutString(c.DomainName)
-	b.PutLong(c.BotUserID)
+	b.PutInt53(c.BotUserID)
 	b.PutString(c.Browser)
 	b.PutString(c.Platform)
 	b.PutInt32(c.LogInDate)
@@ -229,7 +229,7 @@ func (c *ConnectedWebsite) DecodeBare(b *bin.Buffer) error {
 		c.DomainName = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode connectedWebsite#324ea36d: field bot_user_id: %w", err)
 		}
@@ -292,7 +292,7 @@ func (c *ConnectedWebsite) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("domain_name")
 	b.PutString(c.DomainName)
 	b.FieldStart("bot_user_id")
-	b.PutLong(c.BotUserID)
+	b.PutInt53(c.BotUserID)
 	b.FieldStart("browser")
 	b.PutString(c.Browser)
 	b.FieldStart("platform")
@@ -334,7 +334,7 @@ func (c *ConnectedWebsite) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			c.DomainName = value
 		case "bot_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode connectedWebsite#324ea36d: field bot_user_id: %w", err)
 			}

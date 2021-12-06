@@ -115,7 +115,7 @@ func (g *GetMessageImportConfirmationTextRequest) EncodeBare(b *bin.Buffer) erro
 	if g == nil {
 		return fmt.Errorf("can't encode getMessageImportConfirmationText#174881a8 as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	return nil
 }
 
@@ -136,7 +136,7 @@ func (g *GetMessageImportConfirmationTextRequest) DecodeBare(b *bin.Buffer) erro
 		return fmt.Errorf("can't decode getMessageImportConfirmationText#174881a8 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMessageImportConfirmationText#174881a8: field chat_id: %w", err)
 		}
@@ -153,7 +153,7 @@ func (g *GetMessageImportConfirmationTextRequest) EncodeTDLibJSON(b tdjson.Encod
 	b.ObjStart()
 	b.PutID("getMessageImportConfirmationText")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -171,7 +171,7 @@ func (g *GetMessageImportConfirmationTextRequest) DecodeTDLibJSON(b tdjson.Decod
 				return fmt.Errorf("unable to decode getMessageImportConfirmationText#174881a8: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessageImportConfirmationText#174881a8: field chat_id: %w", err)
 			}

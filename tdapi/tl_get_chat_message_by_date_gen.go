@@ -122,7 +122,7 @@ func (g *GetChatMessageByDateRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatMessageByDate#3f557136 as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.PutInt32(g.Date)
 	return nil
 }
@@ -144,7 +144,7 @@ func (g *GetChatMessageByDateRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getChatMessageByDate#3f557136 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatMessageByDate#3f557136: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (g *GetChatMessageByDateRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getChatMessageByDate")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("date")
 	b.PutInt32(g.Date)
 	b.ObjEnd()
@@ -188,7 +188,7 @@ func (g *GetChatMessageByDateRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getChatMessageByDate#3f557136: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatMessageByDate#3f557136: field chat_id: %w", err)
 			}

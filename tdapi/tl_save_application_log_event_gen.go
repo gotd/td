@@ -132,7 +132,7 @@ func (s *SaveApplicationLogEventRequest) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode saveApplicationLogEvent#cfa6c20e as nil")
 	}
 	b.PutString(s.Type)
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	if s.Data == nil {
 		return fmt.Errorf("unable to encode saveApplicationLogEvent#cfa6c20e: field data is nil")
 	}
@@ -166,7 +166,7 @@ func (s *SaveApplicationLogEventRequest) DecodeBare(b *bin.Buffer) error {
 		s.Type = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode saveApplicationLogEvent#cfa6c20e: field chat_id: %w", err)
 		}
@@ -192,7 +192,7 @@ func (s *SaveApplicationLogEventRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.FieldStart("type")
 	b.PutString(s.Type)
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("data")
 	if s.Data == nil {
 		return fmt.Errorf("unable to encode saveApplicationLogEvent#cfa6c20e: field data is nil")
@@ -223,7 +223,7 @@ func (s *SaveApplicationLogEventRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 			}
 			s.Type = value
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode saveApplicationLogEvent#cfa6c20e: field chat_id: %w", err)
 			}

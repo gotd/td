@@ -149,7 +149,7 @@ func (c *ChatMember) EncodeBare(b *bin.Buffer) error {
 	if err := c.MemberID.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatMember#6d12e175: field member_id: %w", err)
 	}
-	b.PutLong(c.InviterUserID)
+	b.PutInt53(c.InviterUserID)
 	b.PutInt32(c.JoinedChatDate)
 	if c.Status == nil {
 		return fmt.Errorf("unable to encode chatMember#6d12e175: field status is nil")
@@ -184,7 +184,7 @@ func (c *ChatMember) DecodeBare(b *bin.Buffer) error {
 		c.MemberID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatMember#6d12e175: field inviter_user_id: %w", err)
 		}
@@ -222,7 +222,7 @@ func (c *ChatMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 		return fmt.Errorf("unable to encode chatMember#6d12e175: field member_id: %w", err)
 	}
 	b.FieldStart("inviter_user_id")
-	b.PutLong(c.InviterUserID)
+	b.PutInt53(c.InviterUserID)
 	b.FieldStart("joined_chat_date")
 	b.PutInt32(c.JoinedChatDate)
 	b.FieldStart("status")
@@ -255,7 +255,7 @@ func (c *ChatMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			c.MemberID = value
 		case "inviter_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatMember#6d12e175: field inviter_user_id: %w", err)
 			}

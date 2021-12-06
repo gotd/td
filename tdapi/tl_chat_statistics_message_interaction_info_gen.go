@@ -131,7 +131,7 @@ func (c *ChatStatisticsMessageInteractionInfo) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatStatisticsMessageInteractionInfo#d25e2a2c as nil")
 	}
-	b.PutLong(c.MessageID)
+	b.PutInt53(c.MessageID)
 	b.PutInt32(c.ViewCount)
 	b.PutInt32(c.ForwardCount)
 	return nil
@@ -154,7 +154,7 @@ func (c *ChatStatisticsMessageInteractionInfo) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatStatisticsMessageInteractionInfo#d25e2a2c to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatStatisticsMessageInteractionInfo#d25e2a2c: field message_id: %w", err)
 		}
@@ -185,7 +185,7 @@ func (c *ChatStatisticsMessageInteractionInfo) EncodeTDLibJSON(b tdjson.Encoder)
 	b.ObjStart()
 	b.PutID("chatStatisticsMessageInteractionInfo")
 	b.FieldStart("message_id")
-	b.PutLong(c.MessageID)
+	b.PutInt53(c.MessageID)
 	b.FieldStart("view_count")
 	b.PutInt32(c.ViewCount)
 	b.FieldStart("forward_count")
@@ -207,7 +207,7 @@ func (c *ChatStatisticsMessageInteractionInfo) DecodeTDLibJSON(b tdjson.Decoder)
 				return fmt.Errorf("unable to decode chatStatisticsMessageInteractionInfo#d25e2a2c: %w", err)
 			}
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatStatisticsMessageInteractionInfo#d25e2a2c: field message_id: %w", err)
 			}

@@ -123,7 +123,7 @@ func (l *LabeledPricePart) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode labeledPricePart#20f2e726 as nil")
 	}
 	b.PutString(l.Label)
-	b.PutLong(l.Amount)
+	b.PutInt53(l.Amount)
 	return nil
 }
 
@@ -151,7 +151,7 @@ func (l *LabeledPricePart) DecodeBare(b *bin.Buffer) error {
 		l.Label = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode labeledPricePart#20f2e726: field amount: %w", err)
 		}
@@ -170,7 +170,7 @@ func (l *LabeledPricePart) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("label")
 	b.PutString(l.Label)
 	b.FieldStart("amount")
-	b.PutLong(l.Amount)
+	b.PutInt53(l.Amount)
 	b.ObjEnd()
 	return nil
 }
@@ -194,7 +194,7 @@ func (l *LabeledPricePart) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			l.Label = value
 		case "amount":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode labeledPricePart#20f2e726: field amount: %w", err)
 			}

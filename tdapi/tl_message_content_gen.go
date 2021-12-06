@@ -3706,11 +3706,11 @@ func (m *MessageInvoice) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messageInvoice#8dc1ea0c: field photo: %w", err)
 	}
 	b.PutString(m.Currency)
-	b.PutLong(m.TotalAmount)
+	b.PutInt53(m.TotalAmount)
 	b.PutString(m.StartParameter)
 	b.PutBool(m.IsTest)
 	b.PutBool(m.NeedShippingAddress)
-	b.PutLong(m.ReceiptMessageID)
+	b.PutInt53(m.ReceiptMessageID)
 	return nil
 }
 
@@ -3757,7 +3757,7 @@ func (m *MessageInvoice) DecodeBare(b *bin.Buffer) error {
 		m.Currency = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageInvoice#8dc1ea0c: field total_amount: %w", err)
 		}
@@ -3785,7 +3785,7 @@ func (m *MessageInvoice) DecodeBare(b *bin.Buffer) error {
 		m.NeedShippingAddress = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageInvoice#8dc1ea0c: field receipt_message_id: %w", err)
 		}
@@ -3812,7 +3812,7 @@ func (m *MessageInvoice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("currency")
 	b.PutString(m.Currency)
 	b.FieldStart("total_amount")
-	b.PutLong(m.TotalAmount)
+	b.PutInt53(m.TotalAmount)
 	b.FieldStart("start_parameter")
 	b.PutString(m.StartParameter)
 	b.FieldStart("is_test")
@@ -3820,7 +3820,7 @@ func (m *MessageInvoice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("need_shipping_address")
 	b.PutBool(m.NeedShippingAddress)
 	b.FieldStart("receipt_message_id")
-	b.PutLong(m.ReceiptMessageID)
+	b.PutInt53(m.ReceiptMessageID)
 	b.ObjEnd()
 	return nil
 }
@@ -3860,7 +3860,7 @@ func (m *MessageInvoice) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			m.Currency = value
 		case "total_amount":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageInvoice#8dc1ea0c: field total_amount: %w", err)
 			}
@@ -3884,7 +3884,7 @@ func (m *MessageInvoice) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			m.NeedShippingAddress = value
 		case "receipt_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageInvoice#8dc1ea0c: field receipt_message_id: %w", err)
 			}
@@ -4784,7 +4784,7 @@ func (m *MessageInviteVideoChatParticipants) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(m.GroupCallID)
 	b.PutInt(len(m.UserIDs))
 	for _, v := range m.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -4822,7 +4822,7 @@ func (m *MessageInviteVideoChatParticipants) DecodeBare(b *bin.Buffer) error {
 			m.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageInviteVideoChatParticipants#f58d603: field user_ids: %w", err)
 			}
@@ -4844,7 +4844,7 @@ func (m *MessageInviteVideoChatParticipants) EncodeTDLibJSON(b tdjson.Encoder) e
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range m.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -4871,7 +4871,7 @@ func (m *MessageInviteVideoChatParticipants) DecodeTDLibJSON(b tdjson.Decoder) e
 			m.GroupCallID = value
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode messageInviteVideoChatParticipants#f58d603: field user_ids: %w", err)
 				}
@@ -4996,7 +4996,7 @@ func (m *MessageBasicGroupChatCreate) EncodeBare(b *bin.Buffer) error {
 	b.PutString(m.Title)
 	b.PutInt(len(m.MemberUserIDs))
 	for _, v := range m.MemberUserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -5034,7 +5034,7 @@ func (m *MessageBasicGroupChatCreate) DecodeBare(b *bin.Buffer) error {
 			m.MemberUserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageBasicGroupChatCreate#8b60f757: field member_user_ids: %w", err)
 			}
@@ -5056,7 +5056,7 @@ func (m *MessageBasicGroupChatCreate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("member_user_ids")
 	b.ArrStart()
 	for _, v := range m.MemberUserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -5083,7 +5083,7 @@ func (m *MessageBasicGroupChatCreate) DecodeTDLibJSON(b tdjson.Decoder) error {
 			m.Title = value
 		case "member_user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode messageBasicGroupChatCreate#8b60f757: field member_user_ids: %w", err)
 				}
@@ -5807,7 +5807,7 @@ func (m *MessageChatAddMembers) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(len(m.MemberUserIDs))
 	for _, v := range m.MemberUserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -5838,7 +5838,7 @@ func (m *MessageChatAddMembers) DecodeBare(b *bin.Buffer) error {
 			m.MemberUserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageChatAddMembers#1e95b1cd: field member_user_ids: %w", err)
 			}
@@ -5858,7 +5858,7 @@ func (m *MessageChatAddMembers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("member_user_ids")
 	b.ArrStart()
 	for _, v := range m.MemberUserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -5879,7 +5879,7 @@ func (m *MessageChatAddMembers) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 		case "member_user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode messageChatAddMembers#1e95b1cd: field member_user_ids: %w", err)
 				}
@@ -6245,7 +6245,7 @@ func (m *MessageChatDeleteMember) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageChatDeleteMember#37e931a9 as nil")
 	}
-	b.PutLong(m.UserID)
+	b.PutInt53(m.UserID)
 	return nil
 }
 
@@ -6266,7 +6266,7 @@ func (m *MessageChatDeleteMember) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messageChatDeleteMember#37e931a9 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageChatDeleteMember#37e931a9: field user_id: %w", err)
 		}
@@ -6283,7 +6283,7 @@ func (m *MessageChatDeleteMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("messageChatDeleteMember")
 	b.FieldStart("user_id")
-	b.PutLong(m.UserID)
+	b.PutInt53(m.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -6301,7 +6301,7 @@ func (m *MessageChatDeleteMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode messageChatDeleteMember#37e931a9: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageChatDeleteMember#37e931a9: field user_id: %w", err)
 			}
@@ -6405,7 +6405,7 @@ func (m *MessageChatUpgradeTo) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageChatUpgradeTo#63f549b as nil")
 	}
-	b.PutLong(m.SupergroupID)
+	b.PutInt53(m.SupergroupID)
 	return nil
 }
 
@@ -6426,7 +6426,7 @@ func (m *MessageChatUpgradeTo) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messageChatUpgradeTo#63f549b to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageChatUpgradeTo#63f549b: field supergroup_id: %w", err)
 		}
@@ -6443,7 +6443,7 @@ func (m *MessageChatUpgradeTo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("messageChatUpgradeTo")
 	b.FieldStart("supergroup_id")
-	b.PutLong(m.SupergroupID)
+	b.PutInt53(m.SupergroupID)
 	b.ObjEnd()
 	return nil
 }
@@ -6461,7 +6461,7 @@ func (m *MessageChatUpgradeTo) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode messageChatUpgradeTo#63f549b: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageChatUpgradeTo#63f549b: field supergroup_id: %w", err)
 			}
@@ -6575,7 +6575,7 @@ func (m *MessageChatUpgradeFrom) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageChatUpgradeFrom#136daadc as nil")
 	}
 	b.PutString(m.Title)
-	b.PutLong(m.BasicGroupID)
+	b.PutInt53(m.BasicGroupID)
 	return nil
 }
 
@@ -6603,7 +6603,7 @@ func (m *MessageChatUpgradeFrom) DecodeBare(b *bin.Buffer) error {
 		m.Title = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageChatUpgradeFrom#136daadc: field basic_group_id: %w", err)
 		}
@@ -6622,7 +6622,7 @@ func (m *MessageChatUpgradeFrom) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("title")
 	b.PutString(m.Title)
 	b.FieldStart("basic_group_id")
-	b.PutLong(m.BasicGroupID)
+	b.PutInt53(m.BasicGroupID)
 	b.ObjEnd()
 	return nil
 }
@@ -6646,7 +6646,7 @@ func (m *MessageChatUpgradeFrom) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			m.Title = value
 		case "basic_group_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageChatUpgradeFrom#136daadc: field basic_group_id: %w", err)
 			}
@@ -6755,7 +6755,7 @@ func (m *MessagePinMessage) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messagePinMessage#38d55039 as nil")
 	}
-	b.PutLong(m.MessageID)
+	b.PutInt53(m.MessageID)
 	return nil
 }
 
@@ -6776,7 +6776,7 @@ func (m *MessagePinMessage) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messagePinMessage#38d55039 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messagePinMessage#38d55039: field message_id: %w", err)
 		}
@@ -6793,7 +6793,7 @@ func (m *MessagePinMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("messagePinMessage")
 	b.FieldStart("message_id")
-	b.PutLong(m.MessageID)
+	b.PutInt53(m.MessageID)
 	b.ObjEnd()
 	return nil
 }
@@ -6811,7 +6811,7 @@ func (m *MessagePinMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode messagePinMessage#38d55039: %w", err)
 			}
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messagePinMessage#38d55039: field message_id: %w", err)
 			}
@@ -7544,7 +7544,7 @@ func (m *MessageGameScore) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageGameScore#50299d7f as nil")
 	}
-	b.PutLong(m.GameMessageID)
+	b.PutInt53(m.GameMessageID)
 	b.PutLong(m.GameID)
 	b.PutInt32(m.Score)
 	return nil
@@ -7567,7 +7567,7 @@ func (m *MessageGameScore) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messageGameScore#50299d7f to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageGameScore#50299d7f: field game_message_id: %w", err)
 		}
@@ -7598,7 +7598,7 @@ func (m *MessageGameScore) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("messageGameScore")
 	b.FieldStart("game_message_id")
-	b.PutLong(m.GameMessageID)
+	b.PutInt53(m.GameMessageID)
 	b.FieldStart("game_id")
 	b.PutLong(m.GameID)
 	b.FieldStart("score")
@@ -7620,7 +7620,7 @@ func (m *MessageGameScore) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode messageGameScore#50299d7f: %w", err)
 			}
 		case "game_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageGameScore#50299d7f: field game_message_id: %w", err)
 			}
@@ -7774,10 +7774,10 @@ func (m *MessagePaymentSuccessful) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messagePaymentSuccessful#56016d52 as nil")
 	}
-	b.PutLong(m.InvoiceChatID)
-	b.PutLong(m.InvoiceMessageID)
+	b.PutInt53(m.InvoiceChatID)
+	b.PutInt53(m.InvoiceMessageID)
 	b.PutString(m.Currency)
-	b.PutLong(m.TotalAmount)
+	b.PutInt53(m.TotalAmount)
 	return nil
 }
 
@@ -7798,14 +7798,14 @@ func (m *MessagePaymentSuccessful) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messagePaymentSuccessful#56016d52 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messagePaymentSuccessful#56016d52: field invoice_chat_id: %w", err)
 		}
 		m.InvoiceChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messagePaymentSuccessful#56016d52: field invoice_message_id: %w", err)
 		}
@@ -7819,7 +7819,7 @@ func (m *MessagePaymentSuccessful) DecodeBare(b *bin.Buffer) error {
 		m.Currency = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messagePaymentSuccessful#56016d52: field total_amount: %w", err)
 		}
@@ -7836,13 +7836,13 @@ func (m *MessagePaymentSuccessful) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("messagePaymentSuccessful")
 	b.FieldStart("invoice_chat_id")
-	b.PutLong(m.InvoiceChatID)
+	b.PutInt53(m.InvoiceChatID)
 	b.FieldStart("invoice_message_id")
-	b.PutLong(m.InvoiceMessageID)
+	b.PutInt53(m.InvoiceMessageID)
 	b.FieldStart("currency")
 	b.PutString(m.Currency)
 	b.FieldStart("total_amount")
-	b.PutLong(m.TotalAmount)
+	b.PutInt53(m.TotalAmount)
 	b.ObjEnd()
 	return nil
 }
@@ -7860,13 +7860,13 @@ func (m *MessagePaymentSuccessful) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode messagePaymentSuccessful#56016d52: %w", err)
 			}
 		case "invoice_chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messagePaymentSuccessful#56016d52: field invoice_chat_id: %w", err)
 			}
 			m.InvoiceChatID = value
 		case "invoice_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messagePaymentSuccessful#56016d52: field invoice_message_id: %w", err)
 			}
@@ -7878,7 +7878,7 @@ func (m *MessagePaymentSuccessful) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			m.Currency = value
 		case "total_amount":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messagePaymentSuccessful#56016d52: field total_amount: %w", err)
 			}
@@ -8052,7 +8052,7 @@ func (m *MessagePaymentSuccessfulBot) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messagePaymentSuccessfulBot#e5de169e as nil")
 	}
 	b.PutString(m.Currency)
-	b.PutLong(m.TotalAmount)
+	b.PutInt53(m.TotalAmount)
 	b.PutBytes(m.InvoicePayload)
 	b.PutString(m.ShippingOptionID)
 	if err := m.OrderInfo.Encode(b); err != nil {
@@ -8087,7 +8087,7 @@ func (m *MessagePaymentSuccessfulBot) DecodeBare(b *bin.Buffer) error {
 		m.Currency = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messagePaymentSuccessfulBot#e5de169e: field total_amount: %w", err)
 		}
@@ -8139,7 +8139,7 @@ func (m *MessagePaymentSuccessfulBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("currency")
 	b.PutString(m.Currency)
 	b.FieldStart("total_amount")
-	b.PutLong(m.TotalAmount)
+	b.PutInt53(m.TotalAmount)
 	b.FieldStart("invoice_payload")
 	b.PutBytes(m.InvoicePayload)
 	b.FieldStart("shipping_option_id")
@@ -8175,7 +8175,7 @@ func (m *MessagePaymentSuccessfulBot) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			m.Currency = value
 		case "total_amount":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messagePaymentSuccessfulBot#e5de169e: field total_amount: %w", err)
 			}

@@ -122,7 +122,7 @@ func (a *AddChatToListRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addChatToList#fb334eb5 as nil")
 	}
-	b.PutLong(a.ChatID)
+	b.PutInt53(a.ChatID)
 	if a.ChatList == nil {
 		return fmt.Errorf("unable to encode addChatToList#fb334eb5: field chat_list is nil")
 	}
@@ -149,7 +149,7 @@ func (a *AddChatToListRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode addChatToList#fb334eb5 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode addChatToList#fb334eb5: field chat_id: %w", err)
 		}
@@ -173,7 +173,7 @@ func (a *AddChatToListRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("addChatToList")
 	b.FieldStart("chat_id")
-	b.PutLong(a.ChatID)
+	b.PutInt53(a.ChatID)
 	b.FieldStart("chat_list")
 	if a.ChatList == nil {
 		return fmt.Errorf("unable to encode addChatToList#fb334eb5: field chat_list is nil")
@@ -198,7 +198,7 @@ func (a *AddChatToListRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode addChatToList#fb334eb5: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode addChatToList#fb334eb5: field chat_id: %w", err)
 			}

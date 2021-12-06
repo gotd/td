@@ -131,7 +131,7 @@ func (c *ChatJoinRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatJoinRequest#3897a68 as nil")
 	}
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.PutInt32(c.Date)
 	b.PutString(c.Bio)
 	return nil
@@ -154,7 +154,7 @@ func (c *ChatJoinRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatJoinRequest#3897a68 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatJoinRequest#3897a68: field user_id: %w", err)
 		}
@@ -185,7 +185,7 @@ func (c *ChatJoinRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("chatJoinRequest")
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.FieldStart("date")
 	b.PutInt32(c.Date)
 	b.FieldStart("bio")
@@ -207,7 +207,7 @@ func (c *ChatJoinRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode chatJoinRequest#3897a68: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatJoinRequest#3897a68: field user_id: %w", err)
 			}

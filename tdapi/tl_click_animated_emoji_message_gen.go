@@ -122,8 +122,8 @@ func (c *ClickAnimatedEmojiMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode clickAnimatedEmojiMessage#bb17662 as nil")
 	}
-	b.PutLong(c.ChatID)
-	b.PutLong(c.MessageID)
+	b.PutInt53(c.ChatID)
+	b.PutInt53(c.MessageID)
 	return nil
 }
 
@@ -144,14 +144,14 @@ func (c *ClickAnimatedEmojiMessageRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode clickAnimatedEmojiMessage#bb17662 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode clickAnimatedEmojiMessage#bb17662: field chat_id: %w", err)
 		}
 		c.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode clickAnimatedEmojiMessage#bb17662: field message_id: %w", err)
 		}
@@ -168,9 +168,9 @@ func (c *ClickAnimatedEmojiMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	b.ObjStart()
 	b.PutID("clickAnimatedEmojiMessage")
 	b.FieldStart("chat_id")
-	b.PutLong(c.ChatID)
+	b.PutInt53(c.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(c.MessageID)
+	b.PutInt53(c.MessageID)
 	b.ObjEnd()
 	return nil
 }
@@ -188,13 +188,13 @@ func (c *ClickAnimatedEmojiMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) err
 				return fmt.Errorf("unable to decode clickAnimatedEmojiMessage#bb17662: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode clickAnimatedEmojiMessage#bb17662: field chat_id: %w", err)
 			}
 			c.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode clickAnimatedEmojiMessage#bb17662: field message_id: %w", err)
 			}

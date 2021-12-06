@@ -122,10 +122,10 @@ func (g *GetMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getMessages#d5dd28bf as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.PutInt(len(g.MessageIDs))
 	for _, v := range g.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -147,7 +147,7 @@ func (g *GetMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getMessages#d5dd28bf to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMessages#d5dd28bf: field chat_id: %w", err)
 		}
@@ -163,7 +163,7 @@ func (g *GetMessagesRequest) DecodeBare(b *bin.Buffer) error {
 			g.MessageIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessages#d5dd28bf: field message_ids: %w", err)
 			}
@@ -181,11 +181,11 @@ func (g *GetMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getMessages")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("message_ids")
 	b.ArrStart()
 	for _, v := range g.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -205,14 +205,14 @@ func (g *GetMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getMessages#d5dd28bf: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessages#d5dd28bf: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode getMessages#d5dd28bf: field message_ids: %w", err)
 				}

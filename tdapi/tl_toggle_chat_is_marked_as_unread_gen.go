@@ -122,7 +122,7 @@ func (t *ToggleChatIsMarkedAsUnreadRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode toggleChatIsMarkedAsUnread#c538dadf as nil")
 	}
-	b.PutLong(t.ChatID)
+	b.PutInt53(t.ChatID)
 	b.PutBool(t.IsMarkedAsUnread)
 	return nil
 }
@@ -144,7 +144,7 @@ func (t *ToggleChatIsMarkedAsUnreadRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode toggleChatIsMarkedAsUnread#c538dadf to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode toggleChatIsMarkedAsUnread#c538dadf: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (t *ToggleChatIsMarkedAsUnreadRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	b.ObjStart()
 	b.PutID("toggleChatIsMarkedAsUnread")
 	b.FieldStart("chat_id")
-	b.PutLong(t.ChatID)
+	b.PutInt53(t.ChatID)
 	b.FieldStart("is_marked_as_unread")
 	b.PutBool(t.IsMarkedAsUnread)
 	b.ObjEnd()
@@ -188,7 +188,7 @@ func (t *ToggleChatIsMarkedAsUnreadRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 				return fmt.Errorf("unable to decode toggleChatIsMarkedAsUnread#c538dadf: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode toggleChatIsMarkedAsUnread#c538dadf: field chat_id: %w", err)
 			}

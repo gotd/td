@@ -113,7 +113,7 @@ func (g *GetChatSponsoredMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatSponsoredMessages#50a84098 as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (g *GetChatSponsoredMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getChatSponsoredMessages#50a84098 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatSponsoredMessages#50a84098: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (g *GetChatSponsoredMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.ObjStart()
 	b.PutID("getChatSponsoredMessages")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (g *GetChatSponsoredMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 				return fmt.Errorf("unable to decode getChatSponsoredMessages#50a84098: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatSponsoredMessages#50a84098: field chat_id: %w", err)
 			}

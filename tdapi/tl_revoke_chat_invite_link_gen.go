@@ -122,7 +122,7 @@ func (r *RevokeChatInviteLinkRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode revokeChatInviteLink#d1b755a9 as nil")
 	}
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	b.PutString(r.InviteLink)
 	return nil
 }
@@ -144,7 +144,7 @@ func (r *RevokeChatInviteLinkRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode revokeChatInviteLink#d1b755a9 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode revokeChatInviteLink#d1b755a9: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (r *RevokeChatInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("revokeChatInviteLink")
 	b.FieldStart("chat_id")
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	b.FieldStart("invite_link")
 	b.PutString(r.InviteLink)
 	b.ObjEnd()
@@ -188,7 +188,7 @@ func (r *RevokeChatInviteLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode revokeChatInviteLink#d1b755a9: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode revokeChatInviteLink#d1b755a9: field chat_id: %w", err)
 			}

@@ -170,11 +170,11 @@ func (f *ForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't encode forwardMessages#e68eedda as nil")
 	}
-	b.PutLong(f.ChatID)
-	b.PutLong(f.FromChatID)
+	b.PutInt53(f.ChatID)
+	b.PutInt53(f.FromChatID)
 	b.PutInt(len(f.MessageIDs))
 	for _, v := range f.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	if err := f.Options.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode forwardMessages#e68eedda: field options: %w", err)
@@ -202,14 +202,14 @@ func (f *ForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode forwardMessages#e68eedda to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode forwardMessages#e68eedda: field chat_id: %w", err)
 		}
 		f.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode forwardMessages#e68eedda: field from_chat_id: %w", err)
 		}
@@ -225,7 +225,7 @@ func (f *ForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 			f.MessageIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode forwardMessages#e68eedda: field message_ids: %w", err)
 			}
@@ -269,13 +269,13 @@ func (f *ForwardMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("forwardMessages")
 	b.FieldStart("chat_id")
-	b.PutLong(f.ChatID)
+	b.PutInt53(f.ChatID)
 	b.FieldStart("from_chat_id")
-	b.PutLong(f.FromChatID)
+	b.PutInt53(f.FromChatID)
 	b.FieldStart("message_ids")
 	b.ArrStart()
 	for _, v := range f.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("options")
@@ -305,20 +305,20 @@ func (f *ForwardMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode forwardMessages#e68eedda: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode forwardMessages#e68eedda: field chat_id: %w", err)
 			}
 			f.ChatID = value
 		case "from_chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode forwardMessages#e68eedda: field from_chat_id: %w", err)
 			}
 			f.FromChatID = value
 		case "message_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode forwardMessages#e68eedda: field message_ids: %w", err)
 				}

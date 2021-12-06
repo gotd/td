@@ -140,7 +140,7 @@ func (b *BlockMessageSenderFromRepliesRequest) EncodeBare(buf *bin.Buffer) error
 	if b == nil {
 		return fmt.Errorf("can't encode blockMessageSenderFromReplies#b79df58b as nil")
 	}
-	buf.PutLong(b.MessageID)
+	buf.PutInt53(b.MessageID)
 	buf.PutBool(b.DeleteMessage)
 	buf.PutBool(b.DeleteAllMessages)
 	buf.PutBool(b.ReportSpam)
@@ -164,7 +164,7 @@ func (b *BlockMessageSenderFromRepliesRequest) DecodeBare(buf *bin.Buffer) error
 		return fmt.Errorf("can't decode blockMessageSenderFromReplies#b79df58b to nil")
 	}
 	{
-		value, err := buf.Long()
+		value, err := buf.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode blockMessageSenderFromReplies#b79df58b: field message_id: %w", err)
 		}
@@ -202,7 +202,7 @@ func (b *BlockMessageSenderFromRepliesRequest) EncodeTDLibJSON(buf tdjson.Encode
 	buf.ObjStart()
 	buf.PutID("blockMessageSenderFromReplies")
 	buf.FieldStart("message_id")
-	buf.PutLong(b.MessageID)
+	buf.PutInt53(b.MessageID)
 	buf.FieldStart("delete_message")
 	buf.PutBool(b.DeleteMessage)
 	buf.FieldStart("delete_all_messages")
@@ -226,7 +226,7 @@ func (b *BlockMessageSenderFromRepliesRequest) DecodeTDLibJSON(buf tdjson.Decode
 				return fmt.Errorf("unable to decode blockMessageSenderFromReplies#b79df58b: %w", err)
 			}
 		case "message_id":
-			value, err := buf.Long()
+			value, err := buf.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode blockMessageSenderFromReplies#b79df58b: field message_id: %w", err)
 			}

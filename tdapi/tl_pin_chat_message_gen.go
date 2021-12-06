@@ -141,8 +141,8 @@ func (p *PinChatMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
 		return fmt.Errorf("can't encode pinChatMessage#79475baf as nil")
 	}
-	b.PutLong(p.ChatID)
-	b.PutLong(p.MessageID)
+	b.PutInt53(p.ChatID)
+	b.PutInt53(p.MessageID)
 	b.PutBool(p.DisableNotification)
 	b.PutBool(p.OnlyForSelf)
 	return nil
@@ -165,14 +165,14 @@ func (p *PinChatMessageRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode pinChatMessage#79475baf to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode pinChatMessage#79475baf: field chat_id: %w", err)
 		}
 		p.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode pinChatMessage#79475baf: field message_id: %w", err)
 		}
@@ -203,9 +203,9 @@ func (p *PinChatMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("pinChatMessage")
 	b.FieldStart("chat_id")
-	b.PutLong(p.ChatID)
+	b.PutInt53(p.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(p.MessageID)
+	b.PutInt53(p.MessageID)
 	b.FieldStart("disable_notification")
 	b.PutBool(p.DisableNotification)
 	b.FieldStart("only_for_self")
@@ -227,13 +227,13 @@ func (p *PinChatMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode pinChatMessage#79475baf: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode pinChatMessage#79475baf: field chat_id: %w", err)
 			}
 			p.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode pinChatMessage#79475baf: field message_id: %w", err)
 			}

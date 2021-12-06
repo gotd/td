@@ -122,8 +122,8 @@ func (d *DeleteChatMessagesFromUserRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteChatMessagesFromUser#82a488e as nil")
 	}
-	b.PutLong(d.ChatID)
-	b.PutLong(d.UserID)
+	b.PutInt53(d.ChatID)
+	b.PutInt53(d.UserID)
 	return nil
 }
 
@@ -144,14 +144,14 @@ func (d *DeleteChatMessagesFromUserRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode deleteChatMessagesFromUser#82a488e to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode deleteChatMessagesFromUser#82a488e: field chat_id: %w", err)
 		}
 		d.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode deleteChatMessagesFromUser#82a488e: field user_id: %w", err)
 		}
@@ -168,9 +168,9 @@ func (d *DeleteChatMessagesFromUserRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	b.ObjStart()
 	b.PutID("deleteChatMessagesFromUser")
 	b.FieldStart("chat_id")
-	b.PutLong(d.ChatID)
+	b.PutInt53(d.ChatID)
 	b.FieldStart("user_id")
-	b.PutLong(d.UserID)
+	b.PutInt53(d.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -188,13 +188,13 @@ func (d *DeleteChatMessagesFromUserRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 				return fmt.Errorf("unable to decode deleteChatMessagesFromUser#82a488e: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode deleteChatMessagesFromUser#82a488e: field chat_id: %w", err)
 			}
 			d.ChatID = value
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode deleteChatMessagesFromUser#82a488e: field user_id: %w", err)
 			}

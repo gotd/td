@@ -171,6 +171,11 @@ func (b *Buffer) Double() (float64, error) {
 	return math.Float64frombits(uint64(v)), nil
 }
 
+// Int53 decodes 53-bit signed integer from Buffer.
+func (b *Buffer) Int53() (int64, error) {
+	return b.Long()
+}
+
 // Long decodes 64-bit signed integer from Buffer.
 func (b *Buffer) Long() (int64, error) {
 	v, err := b.Uint64()

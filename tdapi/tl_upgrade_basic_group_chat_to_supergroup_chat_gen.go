@@ -113,7 +113,7 @@ func (u *UpgradeBasicGroupChatToSupergroupChatRequest) EncodeBare(b *bin.Buffer)
 	if u == nil {
 		return fmt.Errorf("can't encode upgradeBasicGroupChatToSupergroupChat#11e915ba as nil")
 	}
-	b.PutLong(u.ChatID)
+	b.PutInt53(u.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (u *UpgradeBasicGroupChatToSupergroupChatRequest) DecodeBare(b *bin.Buffer)
 		return fmt.Errorf("can't decode upgradeBasicGroupChatToSupergroupChat#11e915ba to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode upgradeBasicGroupChatToSupergroupChat#11e915ba: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (u *UpgradeBasicGroupChatToSupergroupChatRequest) EncodeTDLibJSON(b tdjson.
 	b.ObjStart()
 	b.PutID("upgradeBasicGroupChatToSupergroupChat")
 	b.FieldStart("chat_id")
-	b.PutLong(u.ChatID)
+	b.PutInt53(u.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (u *UpgradeBasicGroupChatToSupergroupChatRequest) DecodeTDLibJSON(b tdjson.
 				return fmt.Errorf("unable to decode upgradeBasicGroupChatToSupergroupChat#11e915ba: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode upgradeBasicGroupChatToSupergroupChat#11e915ba: field chat_id: %w", err)
 			}

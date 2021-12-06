@@ -149,9 +149,9 @@ func (s *SendMessageAlbumRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode sendMessageAlbum#ae6f51e6 as nil")
 	}
-	b.PutLong(s.ChatID)
-	b.PutLong(s.MessageThreadID)
-	b.PutLong(s.ReplyToMessageID)
+	b.PutInt53(s.ChatID)
+	b.PutInt53(s.MessageThreadID)
+	b.PutInt53(s.ReplyToMessageID)
 	if err := s.Options.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode sendMessageAlbum#ae6f51e6: field options: %w", err)
 	}
@@ -184,21 +184,21 @@ func (s *SendMessageAlbumRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode sendMessageAlbum#ae6f51e6 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field message_thread_id: %w", err)
 		}
 		s.MessageThreadID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field reply_to_message_id: %w", err)
 		}
@@ -237,11 +237,11 @@ func (s *SendMessageAlbumRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("sendMessageAlbum")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("message_thread_id")
-	b.PutLong(s.MessageThreadID)
+	b.PutInt53(s.MessageThreadID)
 	b.FieldStart("reply_to_message_id")
-	b.PutLong(s.ReplyToMessageID)
+	b.PutInt53(s.ReplyToMessageID)
 	b.FieldStart("options")
 	if err := s.Options.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sendMessageAlbum#ae6f51e6: field options: %w", err)
@@ -274,19 +274,19 @@ func (s *SendMessageAlbumRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "message_thread_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field message_thread_id: %w", err)
 			}
 			s.MessageThreadID = value
 		case "reply_to_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode sendMessageAlbum#ae6f51e6: field reply_to_message_id: %w", err)
 			}

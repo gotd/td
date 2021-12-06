@@ -123,7 +123,7 @@ issues:
       text: G(307|304)
 
     - linters: [ goconst ]
-      text: 'string `bool`'
+      text: 'string `(bool|int64)`'
 
     - path: tgtest
       linters: [ revive, golint ]

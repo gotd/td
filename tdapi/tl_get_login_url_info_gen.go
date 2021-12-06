@@ -131,9 +131,9 @@ func (g *GetLoginURLInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getLoginUrlInfo#ccc99db3 as nil")
 	}
-	b.PutLong(g.ChatID)
-	b.PutLong(g.MessageID)
-	b.PutLong(g.ButtonID)
+	b.PutInt53(g.ChatID)
+	b.PutInt53(g.MessageID)
+	b.PutInt53(g.ButtonID)
 	return nil
 }
 
@@ -154,21 +154,21 @@ func (g *GetLoginURLInfoRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getLoginUrlInfo#ccc99db3 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: field message_id: %w", err)
 		}
 		g.MessageID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: field button_id: %w", err)
 		}
@@ -185,11 +185,11 @@ func (g *GetLoginURLInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getLoginUrlInfo")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.MessageID)
 	b.FieldStart("button_id")
-	b.PutLong(g.ButtonID)
+	b.PutInt53(g.ButtonID)
 	b.ObjEnd()
 	return nil
 }
@@ -207,19 +207,19 @@ func (g *GetLoginURLInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: field message_id: %w", err)
 			}
 			g.MessageID = value
 		case "button_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getLoginUrlInfo#ccc99db3: field button_id: %w", err)
 			}

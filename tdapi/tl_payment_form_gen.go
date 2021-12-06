@@ -200,8 +200,8 @@ func (p *PaymentForm) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode paymentForm#572da1e6: field invoice: %w", err)
 	}
 	b.PutString(p.URL)
-	b.PutLong(p.SellerBotUserID)
-	b.PutLong(p.PaymentsProviderUserID)
+	b.PutInt53(p.SellerBotUserID)
+	b.PutInt53(p.PaymentsProviderUserID)
 	if err := p.PaymentsProvider.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode paymentForm#572da1e6: field payments_provider: %w", err)
 	}
@@ -252,14 +252,14 @@ func (p *PaymentForm) DecodeBare(b *bin.Buffer) error {
 		p.URL = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode paymentForm#572da1e6: field seller_bot_user_id: %w", err)
 		}
 		p.SellerBotUserID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode paymentForm#572da1e6: field payments_provider_user_id: %w", err)
 		}
@@ -313,9 +313,9 @@ func (p *PaymentForm) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("url")
 	b.PutString(p.URL)
 	b.FieldStart("seller_bot_user_id")
-	b.PutLong(p.SellerBotUserID)
+	b.PutInt53(p.SellerBotUserID)
 	b.FieldStart("payments_provider_user_id")
-	b.PutLong(p.PaymentsProviderUserID)
+	b.PutInt53(p.PaymentsProviderUserID)
 	b.FieldStart("payments_provider")
 	if err := p.PaymentsProvider.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode paymentForm#572da1e6: field payments_provider: %w", err)
@@ -365,13 +365,13 @@ func (p *PaymentForm) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			p.URL = value
 		case "seller_bot_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode paymentForm#572da1e6: field seller_bot_user_id: %w", err)
 			}
 			p.SellerBotUserID = value
 		case "payments_provider_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode paymentForm#572da1e6: field payments_provider_user_id: %w", err)
 			}

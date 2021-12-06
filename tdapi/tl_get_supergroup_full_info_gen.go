@@ -113,7 +113,7 @@ func (g *GetSupergroupFullInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getSupergroupFullInfo#418d4038 as nil")
 	}
-	b.PutLong(g.SupergroupID)
+	b.PutInt53(g.SupergroupID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (g *GetSupergroupFullInfoRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getSupergroupFullInfo#418d4038 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getSupergroupFullInfo#418d4038: field supergroup_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (g *GetSupergroupFullInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getSupergroupFullInfo")
 	b.FieldStart("supergroup_id")
-	b.PutLong(g.SupergroupID)
+	b.PutInt53(g.SupergroupID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (g *GetSupergroupFullInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getSupergroupFullInfo#418d4038: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getSupergroupFullInfo#418d4038: field supergroup_id: %w", err)
 			}

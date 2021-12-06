@@ -134,7 +134,7 @@ func (s *SearchCallMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchCallMessages#bfcac31c as nil")
 	}
-	b.PutLong(s.FromMessageID)
+	b.PutInt53(s.FromMessageID)
 	b.PutInt32(s.Limit)
 	b.PutBool(s.OnlyMissed)
 	return nil
@@ -157,7 +157,7 @@ func (s *SearchCallMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode searchCallMessages#bfcac31c to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode searchCallMessages#bfcac31c: field from_message_id: %w", err)
 		}
@@ -188,7 +188,7 @@ func (s *SearchCallMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("searchCallMessages")
 	b.FieldStart("from_message_id")
-	b.PutLong(s.FromMessageID)
+	b.PutInt53(s.FromMessageID)
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
 	b.FieldStart("only_missed")
@@ -210,7 +210,7 @@ func (s *SearchCallMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode searchCallMessages#bfcac31c: %w", err)
 			}
 		case "from_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode searchCallMessages#bfcac31c: field from_message_id: %w", err)
 			}

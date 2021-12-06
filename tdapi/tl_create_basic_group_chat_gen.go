@@ -123,7 +123,7 @@ func (c *CreateBasicGroupChatRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createBasicGroupChat#758ab4e4 as nil")
 	}
-	b.PutLong(c.BasicGroupID)
+	b.PutInt53(c.BasicGroupID)
 	b.PutBool(c.Force)
 	return nil
 }
@@ -145,7 +145,7 @@ func (c *CreateBasicGroupChatRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode createBasicGroupChat#758ab4e4 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode createBasicGroupChat#758ab4e4: field basic_group_id: %w", err)
 		}
@@ -169,7 +169,7 @@ func (c *CreateBasicGroupChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("createBasicGroupChat")
 	b.FieldStart("basic_group_id")
-	b.PutLong(c.BasicGroupID)
+	b.PutInt53(c.BasicGroupID)
 	b.FieldStart("force")
 	b.PutBool(c.Force)
 	b.ObjEnd()
@@ -189,7 +189,7 @@ func (c *CreateBasicGroupChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode createBasicGroupChat#758ab4e4: %w", err)
 			}
 		case "basic_group_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode createBasicGroupChat#758ab4e4: field basic_group_id: %w", err)
 			}

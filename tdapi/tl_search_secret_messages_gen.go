@@ -152,7 +152,7 @@ func (s *SearchSecretMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode searchSecretMessages#cd2a4c9c as nil")
 	}
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.PutString(s.Query)
 	b.PutString(s.Offset)
 	b.PutInt32(s.Limit)
@@ -182,7 +182,7 @@ func (s *SearchSecretMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode searchSecretMessages#cd2a4c9c to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode searchSecretMessages#cd2a4c9c: field chat_id: %w", err)
 		}
@@ -227,7 +227,7 @@ func (s *SearchSecretMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("searchSecretMessages")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("query")
 	b.PutString(s.Query)
 	b.FieldStart("offset")
@@ -258,7 +258,7 @@ func (s *SearchSecretMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode searchSecretMessages#cd2a4c9c: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode searchSecretMessages#cd2a4c9c: field chat_id: %w", err)
 			}

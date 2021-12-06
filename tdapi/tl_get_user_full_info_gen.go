@@ -113,7 +113,7 @@ func (g *GetUserFullInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getUserFullInfo#d1b29c58 as nil")
 	}
-	b.PutLong(g.UserID)
+	b.PutInt53(g.UserID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (g *GetUserFullInfoRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getUserFullInfo#d1b29c58 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getUserFullInfo#d1b29c58: field user_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (g *GetUserFullInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getUserFullInfo")
 	b.FieldStart("user_id")
-	b.PutLong(g.UserID)
+	b.PutInt53(g.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (g *GetUserFullInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getUserFullInfo#d1b29c58: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getUserFullInfo#d1b29c58: field user_id: %w", err)
 			}

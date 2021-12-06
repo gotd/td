@@ -135,7 +135,7 @@ func (i *ImportMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode importMessages#7e98592b as nil")
 	}
-	b.PutLong(i.ChatID)
+	b.PutInt53(i.ChatID)
 	if i.MessageFile == nil {
 		return fmt.Errorf("unable to encode importMessages#7e98592b: field message_file is nil")
 	}
@@ -171,7 +171,7 @@ func (i *ImportMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode importMessages#7e98592b to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode importMessages#7e98592b: field chat_id: %w", err)
 		}
@@ -212,7 +212,7 @@ func (i *ImportMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("importMessages")
 	b.FieldStart("chat_id")
-	b.PutLong(i.ChatID)
+	b.PutInt53(i.ChatID)
 	b.FieldStart("message_file")
 	if i.MessageFile == nil {
 		return fmt.Errorf("unable to encode importMessages#7e98592b: field message_file is nil")
@@ -248,7 +248,7 @@ func (i *ImportMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode importMessages#7e98592b: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode importMessages#7e98592b: field chat_id: %w", err)
 			}

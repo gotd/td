@@ -201,8 +201,8 @@ func (s *SearchMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutString(s.Query)
 	b.PutInt32(s.OffsetDate)
-	b.PutLong(s.OffsetChatID)
-	b.PutLong(s.OffsetMessageID)
+	b.PutInt53(s.OffsetChatID)
+	b.PutInt53(s.OffsetMessageID)
 	b.PutInt32(s.Limit)
 	if s.Filter == nil {
 		return fmt.Errorf("unable to encode searchMessages#f2938192: field filter is nil")
@@ -253,14 +253,14 @@ func (s *SearchMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		s.OffsetDate = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode searchMessages#f2938192: field offset_chat_id: %w", err)
 		}
 		s.OffsetChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode searchMessages#f2938192: field offset_message_id: %w", err)
 		}
@@ -316,9 +316,9 @@ func (s *SearchMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("offset_date")
 	b.PutInt32(s.OffsetDate)
 	b.FieldStart("offset_chat_id")
-	b.PutLong(s.OffsetChatID)
+	b.PutInt53(s.OffsetChatID)
 	b.FieldStart("offset_message_id")
-	b.PutLong(s.OffsetMessageID)
+	b.PutInt53(s.OffsetMessageID)
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
 	b.FieldStart("filter")
@@ -367,13 +367,13 @@ func (s *SearchMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			s.OffsetDate = value
 		case "offset_chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode searchMessages#f2938192: field offset_chat_id: %w", err)
 			}
 			s.OffsetChatID = value
 		case "offset_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode searchMessages#f2938192: field offset_message_id: %w", err)
 			}

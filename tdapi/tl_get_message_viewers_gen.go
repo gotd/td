@@ -122,8 +122,8 @@ func (g *GetMessageViewersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getMessageViewers#8ff92a5d as nil")
 	}
-	b.PutLong(g.ChatID)
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.ChatID)
+	b.PutInt53(g.MessageID)
 	return nil
 }
 
@@ -144,14 +144,14 @@ func (g *GetMessageViewersRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getMessageViewers#8ff92a5d to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMessageViewers#8ff92a5d: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMessageViewers#8ff92a5d: field message_id: %w", err)
 		}
@@ -168,9 +168,9 @@ func (g *GetMessageViewersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getMessageViewers")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.MessageID)
 	b.ObjEnd()
 	return nil
 }
@@ -188,13 +188,13 @@ func (g *GetMessageViewersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getMessageViewers#8ff92a5d: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessageViewers#8ff92a5d: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessageViewers#8ff92a5d: field message_id: %w", err)
 			}

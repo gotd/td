@@ -113,7 +113,7 @@ func (l *LeaveChatRequest) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
 		return fmt.Errorf("can't encode leaveChat#93377a61 as nil")
 	}
-	b.PutLong(l.ChatID)
+	b.PutInt53(l.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (l *LeaveChatRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode leaveChat#93377a61 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode leaveChat#93377a61: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (l *LeaveChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("leaveChat")
 	b.FieldStart("chat_id")
-	b.PutLong(l.ChatID)
+	b.PutInt53(l.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (l *LeaveChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode leaveChat#93377a61: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode leaveChat#93377a61: field chat_id: %w", err)
 			}

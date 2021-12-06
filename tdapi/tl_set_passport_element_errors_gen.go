@@ -122,7 +122,7 @@ func (s *SetPassportElementErrorsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setPassportElementErrors#80fa80bf as nil")
 	}
-	b.PutLong(s.UserID)
+	b.PutInt53(s.UserID)
 	b.PutInt(len(s.Errors))
 	for idx, v := range s.Errors {
 		if err := v.EncodeBare(b); err != nil {
@@ -149,7 +149,7 @@ func (s *SetPassportElementErrorsRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setPassportElementErrors#80fa80bf to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setPassportElementErrors#80fa80bf: field user_id: %w", err)
 		}
@@ -183,7 +183,7 @@ func (s *SetPassportElementErrorsRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.ObjStart()
 	b.PutID("setPassportElementErrors")
 	b.FieldStart("user_id")
-	b.PutLong(s.UserID)
+	b.PutInt53(s.UserID)
 	b.FieldStart("errors")
 	b.ArrStart()
 	for idx, v := range s.Errors {
@@ -209,7 +209,7 @@ func (s *SetPassportElementErrorsRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 				return fmt.Errorf("unable to decode setPassportElementErrors#80fa80bf: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setPassportElementErrors#80fa80bf: field user_id: %w", err)
 			}

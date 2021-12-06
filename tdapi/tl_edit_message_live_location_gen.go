@@ -159,8 +159,8 @@ func (e *EditMessageLiveLocationRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't encode editMessageLiveLocation#ff29a512 as nil")
 	}
-	b.PutLong(e.ChatID)
-	b.PutLong(e.MessageID)
+	b.PutInt53(e.ChatID)
+	b.PutInt53(e.MessageID)
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editMessageLiveLocation#ff29a512: field reply_markup is nil")
 	}
@@ -192,14 +192,14 @@ func (e *EditMessageLiveLocationRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode editMessageLiveLocation#ff29a512 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field chat_id: %w", err)
 		}
 		e.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field message_id: %w", err)
 		}
@@ -242,9 +242,9 @@ func (e *EditMessageLiveLocationRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.ObjStart()
 	b.PutID("editMessageLiveLocation")
 	b.FieldStart("chat_id")
-	b.PutLong(e.ChatID)
+	b.PutInt53(e.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(e.MessageID)
+	b.PutInt53(e.MessageID)
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editMessageLiveLocation#ff29a512: field reply_markup is nil")
@@ -277,13 +277,13 @@ func (e *EditMessageLiveLocationRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field chat_id: %w", err)
 			}
 			e.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode editMessageLiveLocation#ff29a512: field message_id: %w", err)
 			}

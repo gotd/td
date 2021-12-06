@@ -131,7 +131,7 @@ func (s *SetChatMemberStatusRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatMemberStatus#4e0171f as nil")
 	}
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	if s.MemberID == nil {
 		return fmt.Errorf("unable to encode setChatMemberStatus#4e0171f: field member_id is nil")
 	}
@@ -164,7 +164,7 @@ func (s *SetChatMemberStatusRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setChatMemberStatus#4e0171f to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setChatMemberStatus#4e0171f: field chat_id: %w", err)
 		}
@@ -195,7 +195,7 @@ func (s *SetChatMemberStatusRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("setChatMemberStatus")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("member_id")
 	if s.MemberID == nil {
 		return fmt.Errorf("unable to encode setChatMemberStatus#4e0171f: field member_id is nil")
@@ -227,7 +227,7 @@ func (s *SetChatMemberStatusRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode setChatMemberStatus#4e0171f: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setChatMemberStatus#4e0171f: field chat_id: %w", err)
 			}

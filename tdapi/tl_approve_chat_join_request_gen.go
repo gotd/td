@@ -122,8 +122,8 @@ func (a *ApproveChatJoinRequestRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode approveChatJoinRequest#bcb04b05 as nil")
 	}
-	b.PutLong(a.ChatID)
-	b.PutLong(a.UserID)
+	b.PutInt53(a.ChatID)
+	b.PutInt53(a.UserID)
 	return nil
 }
 
@@ -144,14 +144,14 @@ func (a *ApproveChatJoinRequestRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode approveChatJoinRequest#bcb04b05 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode approveChatJoinRequest#bcb04b05: field chat_id: %w", err)
 		}
 		a.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode approveChatJoinRequest#bcb04b05: field user_id: %w", err)
 		}
@@ -168,9 +168,9 @@ func (a *ApproveChatJoinRequestRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	b.ObjStart()
 	b.PutID("approveChatJoinRequest")
 	b.FieldStart("chat_id")
-	b.PutLong(a.ChatID)
+	b.PutInt53(a.ChatID)
 	b.FieldStart("user_id")
-	b.PutLong(a.UserID)
+	b.PutInt53(a.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -188,13 +188,13 @@ func (a *ApproveChatJoinRequestRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 				return fmt.Errorf("unable to decode approveChatJoinRequest#bcb04b05: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode approveChatJoinRequest#bcb04b05: field chat_id: %w", err)
 			}
 			a.ChatID = value
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode approveChatJoinRequest#bcb04b05: field user_id: %w", err)
 			}

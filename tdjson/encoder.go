@@ -3,6 +3,7 @@ package tdjson
 import (
 	"encoding/base64"
 	"encoding/hex"
+	"strconv"
 
 	"github.com/go-faster/jx"
 
@@ -45,13 +46,24 @@ func (b Encoder) PutUint32(v uint32) {
 	b.Encoder.Uint32(v)
 }
 
-// PutLong serializes v as signed integer.
-func (b Encoder) PutLong(v int64) {
+// PutInt53 serializes v as int53.
+func (b Encoder) PutInt53(v int64) {
 	b.Encoder.Int64(v)
+}
+
+// PutLong serializes v as int64.
+func (b Encoder) PutLong(v int64) {
+	var buf [32]byte
+	r := append(buf[:0], '"')
+	r = strconv.AppendInt(r, v, 10)
+	r = append(r, '"')
+	b.Encoder.Raw(r)
 }
 
 // PutUint64 serializes v as unsigned 64-bit integer.
 func (b Encoder) PutUint64(v uint64) {
+	// FIXME(tdakkota): TDLib API has no uint64 fields
+	// 	so this encoding may incorrect.
 	b.Encoder.Uint64(v)
 }
 
@@ -62,7 +74,7 @@ func (b Encoder) PutDouble(v float64) {
 
 // PutInt128 serializes v as 128-bit signed integer.
 func (b Encoder) PutInt128(v bin.Int128) {
-	// FIXME(tdakkota): neither TDLib API not Telegram API has no Int128/Int256 fields
+	// FIXME(tdakkota): neither TDLib API nor Telegram API has no Int128/Int256 fields
 	// 	so this encoding may incorrect.
 	b.Encoder.Str(hex.EncodeToString(v[:]))
 }

@@ -267,7 +267,7 @@ func (l *LogStreamFile) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode logStreamFile#5b528de5 as nil")
 	}
 	b.PutString(l.Path)
-	b.PutLong(l.MaxFileSize)
+	b.PutInt53(l.MaxFileSize)
 	b.PutBool(l.RedirectStderr)
 	return nil
 }
@@ -296,7 +296,7 @@ func (l *LogStreamFile) DecodeBare(b *bin.Buffer) error {
 		l.Path = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode logStreamFile#5b528de5: field max_file_size: %w", err)
 		}
@@ -322,7 +322,7 @@ func (l *LogStreamFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("path")
 	b.PutString(l.Path)
 	b.FieldStart("max_file_size")
-	b.PutLong(l.MaxFileSize)
+	b.PutInt53(l.MaxFileSize)
 	b.FieldStart("redirect_stderr")
 	b.PutBool(l.RedirectStderr)
 	b.ObjEnd()
@@ -348,7 +348,7 @@ func (l *LogStreamFile) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			l.Path = value
 		case "max_file_size":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode logStreamFile#5b528de5: field max_file_size: %w", err)
 			}

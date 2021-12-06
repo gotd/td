@@ -126,7 +126,7 @@ func (i *ImportedContacts) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(len(i.UserIDs))
 	for _, v := range i.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.PutInt(len(i.ImporterCount))
 	for _, v := range i.ImporterCount {
@@ -161,7 +161,7 @@ func (i *ImportedContacts) DecodeBare(b *bin.Buffer) error {
 			i.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode importedContacts#1119a03e: field user_ids: %w", err)
 			}
@@ -198,7 +198,7 @@ func (i *ImportedContacts) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range i.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("importer_count")
@@ -225,7 +225,7 @@ func (i *ImportedContacts) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode importedContacts#1119a03e: field user_ids: %w", err)
 				}

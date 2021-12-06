@@ -123,10 +123,10 @@ func (r *ResendMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode resendMessages#60d350b8 as nil")
 	}
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	b.PutInt(len(r.MessageIDs))
 	for _, v := range r.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -148,7 +148,7 @@ func (r *ResendMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode resendMessages#60d350b8 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode resendMessages#60d350b8: field chat_id: %w", err)
 		}
@@ -164,7 +164,7 @@ func (r *ResendMessagesRequest) DecodeBare(b *bin.Buffer) error {
 			r.MessageIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode resendMessages#60d350b8: field message_ids: %w", err)
 			}
@@ -182,11 +182,11 @@ func (r *ResendMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("resendMessages")
 	b.FieldStart("chat_id")
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	b.FieldStart("message_ids")
 	b.ArrStart()
 	for _, v := range r.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -206,14 +206,14 @@ func (r *ResendMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode resendMessages#60d350b8: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode resendMessages#60d350b8: field chat_id: %w", err)
 			}
 			r.ChatID = value
 		case "message_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode resendMessages#60d350b8: field message_ids: %w", err)
 				}

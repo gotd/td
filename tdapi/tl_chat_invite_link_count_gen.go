@@ -131,7 +131,7 @@ func (c *ChatInviteLinkCount) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode chatInviteLinkCount#c3158796 as nil")
 	}
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.PutInt32(c.InviteLinkCount)
 	b.PutInt32(c.RevokedInviteLinkCount)
 	return nil
@@ -154,7 +154,7 @@ func (c *ChatInviteLinkCount) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode chatInviteLinkCount#c3158796 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatInviteLinkCount#c3158796: field user_id: %w", err)
 		}
@@ -185,7 +185,7 @@ func (c *ChatInviteLinkCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("chatInviteLinkCount")
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.FieldStart("invite_link_count")
 	b.PutInt32(c.InviteLinkCount)
 	b.FieldStart("revoked_invite_link_count")
@@ -207,7 +207,7 @@ func (c *ChatInviteLinkCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode chatInviteLinkCount#c3158796: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatInviteLinkCount#c3158796: field user_id: %w", err)
 			}

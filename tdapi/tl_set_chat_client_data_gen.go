@@ -122,7 +122,7 @@ func (s *SetChatClientDataRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatClientData#ceb3273d as nil")
 	}
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.PutString(s.ClientData)
 	return nil
 }
@@ -144,7 +144,7 @@ func (s *SetChatClientDataRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setChatClientData#ceb3273d to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setChatClientData#ceb3273d: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (s *SetChatClientDataRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("setChatClientData")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("client_data")
 	b.PutString(s.ClientData)
 	b.ObjEnd()
@@ -188,7 +188,7 @@ func (s *SetChatClientDataRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode setChatClientData#ceb3273d: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setChatClientData#ceb3273d: field chat_id: %w", err)
 			}

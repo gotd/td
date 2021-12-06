@@ -163,7 +163,7 @@ func (b *BasicGroupFullInfo) EncodeBare(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode basicGroupFullInfo#f191cfca: field photo: %w", err)
 	}
 	buf.PutString(b.Description)
-	buf.PutLong(b.CreatorUserID)
+	buf.PutInt53(b.CreatorUserID)
 	buf.PutInt(len(b.Members))
 	for idx, v := range b.Members {
 		if err := v.EncodeBare(buf); err != nil {
@@ -211,7 +211,7 @@ func (b *BasicGroupFullInfo) DecodeBare(buf *bin.Buffer) error {
 		b.Description = value
 	}
 	{
-		value, err := buf.Long()
+		value, err := buf.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field creator_user_id: %w", err)
 		}
@@ -273,7 +273,7 @@ func (b *BasicGroupFullInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	buf.FieldStart("description")
 	buf.PutString(b.Description)
 	buf.FieldStart("creator_user_id")
-	buf.PutLong(b.CreatorUserID)
+	buf.PutInt53(b.CreatorUserID)
 	buf.FieldStart("members")
 	buf.ArrStart()
 	for idx, v := range b.Members {
@@ -321,7 +321,7 @@ func (b *BasicGroupFullInfo) DecodeTDLibJSON(buf tdjson.Decoder) error {
 			}
 			b.Description = value
 		case "creator_user_id":
-			value, err := buf.Long()
+			value, err := buf.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field creator_user_id: %w", err)
 			}

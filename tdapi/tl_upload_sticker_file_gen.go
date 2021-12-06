@@ -122,7 +122,7 @@ func (u *UploadStickerFileRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode uploadStickerFile#23a0f58e as nil")
 	}
-	b.PutLong(u.UserID)
+	b.PutInt53(u.UserID)
 	if u.Sticker == nil {
 		return fmt.Errorf("unable to encode uploadStickerFile#23a0f58e: field sticker is nil")
 	}
@@ -149,7 +149,7 @@ func (u *UploadStickerFileRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode uploadStickerFile#23a0f58e to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode uploadStickerFile#23a0f58e: field user_id: %w", err)
 		}
@@ -173,7 +173,7 @@ func (u *UploadStickerFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("uploadStickerFile")
 	b.FieldStart("user_id")
-	b.PutLong(u.UserID)
+	b.PutInt53(u.UserID)
 	b.FieldStart("sticker")
 	if u.Sticker == nil {
 		return fmt.Errorf("unable to encode uploadStickerFile#23a0f58e: field sticker is nil")
@@ -198,7 +198,7 @@ func (u *UploadStickerFileRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode uploadStickerFile#23a0f58e: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode uploadStickerFile#23a0f58e: field user_id: %w", err)
 			}

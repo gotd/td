@@ -128,7 +128,7 @@ func (r *RemoveTopChatRequest) EncodeBare(b *bin.Buffer) error {
 	if err := r.Category.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode removeTopChat#8e481e55: field category: %w", err)
 	}
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	return nil
 }
 
@@ -156,7 +156,7 @@ func (r *RemoveTopChatRequest) DecodeBare(b *bin.Buffer) error {
 		r.Category = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode removeTopChat#8e481e55: field chat_id: %w", err)
 		}
@@ -180,7 +180,7 @@ func (r *RemoveTopChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 		return fmt.Errorf("unable to encode removeTopChat#8e481e55: field category: %w", err)
 	}
 	b.FieldStart("chat_id")
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -204,7 +204,7 @@ func (r *RemoveTopChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			r.Category = value
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode removeTopChat#8e481e55: field chat_id: %w", err)
 			}

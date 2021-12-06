@@ -113,7 +113,7 @@ func (t *ToggleSupergroupIsBroadcastGroupRequest) EncodeBare(b *bin.Buffer) erro
 	if t == nil {
 		return fmt.Errorf("can't encode toggleSupergroupIsBroadcastGroup#34b22215 as nil")
 	}
-	b.PutLong(t.SupergroupID)
+	b.PutInt53(t.SupergroupID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (t *ToggleSupergroupIsBroadcastGroupRequest) DecodeBare(b *bin.Buffer) erro
 		return fmt.Errorf("can't decode toggleSupergroupIsBroadcastGroup#34b22215 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode toggleSupergroupIsBroadcastGroup#34b22215: field supergroup_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (t *ToggleSupergroupIsBroadcastGroupRequest) EncodeTDLibJSON(b tdjson.Encod
 	b.ObjStart()
 	b.PutID("toggleSupergroupIsBroadcastGroup")
 	b.FieldStart("supergroup_id")
-	b.PutLong(t.SupergroupID)
+	b.PutInt53(t.SupergroupID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (t *ToggleSupergroupIsBroadcastGroupRequest) DecodeTDLibJSON(b tdjson.Decod
 				return fmt.Errorf("unable to decode toggleSupergroupIsBroadcastGroup#34b22215: %w", err)
 			}
 		case "supergroup_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode toggleSupergroupIsBroadcastGroup#34b22215: field supergroup_id: %w", err)
 			}

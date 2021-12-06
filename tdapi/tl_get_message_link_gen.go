@@ -151,8 +151,8 @@ func (g *GetMessageLinkRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getMessageLink#a0312f6f as nil")
 	}
-	b.PutLong(g.ChatID)
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.ChatID)
+	b.PutInt53(g.MessageID)
 	b.PutInt32(g.MediaTimestamp)
 	b.PutBool(g.ForAlbum)
 	b.PutBool(g.ForComment)
@@ -176,14 +176,14 @@ func (g *GetMessageLinkRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getMessageLink#a0312f6f to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field message_id: %w", err)
 		}
@@ -221,9 +221,9 @@ func (g *GetMessageLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getMessageLink")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.MessageID)
 	b.FieldStart("media_timestamp")
 	b.PutInt32(g.MediaTimestamp)
 	b.FieldStart("for_album")
@@ -247,13 +247,13 @@ func (g *GetMessageLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getMessageLink#a0312f6f: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field message_id: %w", err)
 			}

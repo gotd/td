@@ -150,7 +150,7 @@ func (c *Call) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode call#36db9764 as nil")
 	}
 	b.PutInt32(c.ID)
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.PutBool(c.IsOutgoing)
 	b.PutBool(c.IsVideo)
 	if c.State == nil {
@@ -186,7 +186,7 @@ func (c *Call) DecodeBare(b *bin.Buffer) error {
 		c.ID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode call#36db9764: field user_id: %w", err)
 		}
@@ -226,7 +226,7 @@ func (c *Call) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("id")
 	b.PutInt32(c.ID)
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.FieldStart("is_outgoing")
 	b.PutBool(c.IsOutgoing)
 	b.FieldStart("is_video")
@@ -261,7 +261,7 @@ func (c *Call) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			c.ID = value
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode call#36db9764: field user_id: %w", err)
 			}

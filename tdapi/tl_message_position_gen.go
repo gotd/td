@@ -132,7 +132,7 @@ func (m *MessagePosition) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messagePosition#4d0540ef as nil")
 	}
 	b.PutInt32(m.Position)
-	b.PutLong(m.MessageID)
+	b.PutInt53(m.MessageID)
 	b.PutInt32(m.Date)
 	return nil
 }
@@ -161,7 +161,7 @@ func (m *MessagePosition) DecodeBare(b *bin.Buffer) error {
 		m.Position = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messagePosition#4d0540ef: field message_id: %w", err)
 		}
@@ -187,7 +187,7 @@ func (m *MessagePosition) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("position")
 	b.PutInt32(m.Position)
 	b.FieldStart("message_id")
-	b.PutLong(m.MessageID)
+	b.PutInt53(m.MessageID)
 	b.FieldStart("date")
 	b.PutInt32(m.Date)
 	b.ObjEnd()
@@ -213,7 +213,7 @@ func (m *MessagePosition) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			m.Position = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messagePosition#4d0540ef: field message_id: %w", err)
 			}

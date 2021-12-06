@@ -125,7 +125,7 @@ func (i *InviteGroupCallParticipantsRequest) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(i.GroupCallID)
 	b.PutInt(len(i.UserIDs))
 	for _, v := range i.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -163,7 +163,7 @@ func (i *InviteGroupCallParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 			i.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode inviteGroupCallParticipants#56c030a6: field user_ids: %w", err)
 			}
@@ -185,7 +185,7 @@ func (i *InviteGroupCallParticipantsRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range i.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -212,7 +212,7 @@ func (i *InviteGroupCallParticipantsRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 			i.GroupCallID = value
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode inviteGroupCallParticipants#56c030a6: field user_ids: %w", err)
 				}

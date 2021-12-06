@@ -150,7 +150,7 @@ func (g *GetGroupCallStreamSegmentRequest) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode getGroupCallStreamSegment#8424daa5 as nil")
 	}
 	b.PutInt32(g.GroupCallID)
-	b.PutLong(g.TimeOffset)
+	b.PutInt53(g.TimeOffset)
 	b.PutInt32(g.Scale)
 	b.PutInt32(g.ChannelID)
 	if g.VideoQuality == nil {
@@ -186,7 +186,7 @@ func (g *GetGroupCallStreamSegmentRequest) DecodeBare(b *bin.Buffer) error {
 		g.GroupCallID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: field time_offset: %w", err)
 		}
@@ -226,7 +226,7 @@ func (g *GetGroupCallStreamSegmentRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	b.FieldStart("group_call_id")
 	b.PutInt32(g.GroupCallID)
 	b.FieldStart("time_offset")
-	b.PutLong(g.TimeOffset)
+	b.PutInt53(g.TimeOffset)
 	b.FieldStart("scale")
 	b.PutInt32(g.Scale)
 	b.FieldStart("channel_id")
@@ -261,7 +261,7 @@ func (g *GetGroupCallStreamSegmentRequest) DecodeTDLibJSON(b tdjson.Decoder) err
 			}
 			g.GroupCallID = value
 		case "time_offset":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getGroupCallStreamSegment#8424daa5: field time_offset: %w", err)
 			}

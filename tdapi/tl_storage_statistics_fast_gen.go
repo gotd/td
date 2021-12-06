@@ -149,11 +149,11 @@ func (s *StorageStatisticsFast) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode storageStatisticsFast#cb412861 as nil")
 	}
-	b.PutLong(s.FilesSize)
+	b.PutInt53(s.FilesSize)
 	b.PutInt32(s.FileCount)
-	b.PutLong(s.DatabaseSize)
-	b.PutLong(s.LanguagePackDatabaseSize)
-	b.PutLong(s.LogSize)
+	b.PutInt53(s.DatabaseSize)
+	b.PutInt53(s.LanguagePackDatabaseSize)
+	b.PutInt53(s.LogSize)
 	return nil
 }
 
@@ -174,7 +174,7 @@ func (s *StorageStatisticsFast) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode storageStatisticsFast#cb412861 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: field files_size: %w", err)
 		}
@@ -188,21 +188,21 @@ func (s *StorageStatisticsFast) DecodeBare(b *bin.Buffer) error {
 		s.FileCount = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: field database_size: %w", err)
 		}
 		s.DatabaseSize = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: field language_pack_database_size: %w", err)
 		}
 		s.LanguagePackDatabaseSize = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: field log_size: %w", err)
 		}
@@ -219,15 +219,15 @@ func (s *StorageStatisticsFast) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("storageStatisticsFast")
 	b.FieldStart("files_size")
-	b.PutLong(s.FilesSize)
+	b.PutInt53(s.FilesSize)
 	b.FieldStart("file_count")
 	b.PutInt32(s.FileCount)
 	b.FieldStart("database_size")
-	b.PutLong(s.DatabaseSize)
+	b.PutInt53(s.DatabaseSize)
 	b.FieldStart("language_pack_database_size")
-	b.PutLong(s.LanguagePackDatabaseSize)
+	b.PutInt53(s.LanguagePackDatabaseSize)
 	b.FieldStart("log_size")
-	b.PutLong(s.LogSize)
+	b.PutInt53(s.LogSize)
 	b.ObjEnd()
 	return nil
 }
@@ -245,7 +245,7 @@ func (s *StorageStatisticsFast) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: %w", err)
 			}
 		case "files_size":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: field files_size: %w", err)
 			}
@@ -257,19 +257,19 @@ func (s *StorageStatisticsFast) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			s.FileCount = value
 		case "database_size":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: field database_size: %w", err)
 			}
 			s.DatabaseSize = value
 		case "language_pack_database_size":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: field language_pack_database_size: %w", err)
 			}
 			s.LanguagePackDatabaseSize = value
 		case "log_size":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode storageStatisticsFast#cb412861: field log_size: %w", err)
 			}

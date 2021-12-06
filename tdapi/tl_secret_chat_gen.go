@@ -163,7 +163,7 @@ func (s *SecretChat) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secretChat#d7a70bcb as nil")
 	}
 	b.PutInt32(s.ID)
-	b.PutLong(s.UserID)
+	b.PutInt53(s.UserID)
 	if s.State == nil {
 		return fmt.Errorf("unable to encode secretChat#d7a70bcb: field state is nil")
 	}
@@ -200,7 +200,7 @@ func (s *SecretChat) DecodeBare(b *bin.Buffer) error {
 		s.ID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode secretChat#d7a70bcb: field user_id: %w", err)
 		}
@@ -247,7 +247,7 @@ func (s *SecretChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("id")
 	b.PutInt32(s.ID)
 	b.FieldStart("user_id")
-	b.PutLong(s.UserID)
+	b.PutInt53(s.UserID)
 	b.FieldStart("state")
 	if s.State == nil {
 		return fmt.Errorf("unable to encode secretChat#d7a70bcb: field state is nil")
@@ -284,7 +284,7 @@ func (s *SecretChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			s.ID = value
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode secretChat#d7a70bcb: field user_id: %w", err)
 			}

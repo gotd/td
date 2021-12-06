@@ -122,8 +122,8 @@ func (d *DeleteChatReplyMarkupRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode deleteChatReplyMarkup#5ff9b5b as nil")
 	}
-	b.PutLong(d.ChatID)
-	b.PutLong(d.MessageID)
+	b.PutInt53(d.ChatID)
+	b.PutInt53(d.MessageID)
 	return nil
 }
 
@@ -144,14 +144,14 @@ func (d *DeleteChatReplyMarkupRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode deleteChatReplyMarkup#5ff9b5b to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode deleteChatReplyMarkup#5ff9b5b: field chat_id: %w", err)
 		}
 		d.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode deleteChatReplyMarkup#5ff9b5b: field message_id: %w", err)
 		}
@@ -168,9 +168,9 @@ func (d *DeleteChatReplyMarkupRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("deleteChatReplyMarkup")
 	b.FieldStart("chat_id")
-	b.PutLong(d.ChatID)
+	b.PutInt53(d.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(d.MessageID)
+	b.PutInt53(d.MessageID)
 	b.ObjEnd()
 	return nil
 }
@@ -188,13 +188,13 @@ func (d *DeleteChatReplyMarkupRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode deleteChatReplyMarkup#5ff9b5b: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode deleteChatReplyMarkup#5ff9b5b: field chat_id: %w", err)
 			}
 			d.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode deleteChatReplyMarkup#5ff9b5b: field message_id: %w", err)
 			}

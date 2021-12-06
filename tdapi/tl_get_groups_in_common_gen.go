@@ -131,8 +131,8 @@ func (g *GetGroupsInCommonRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getGroupsInCommon#16bdd36a as nil")
 	}
-	b.PutLong(g.UserID)
-	b.PutLong(g.OffsetChatID)
+	b.PutInt53(g.UserID)
+	b.PutInt53(g.OffsetChatID)
 	b.PutInt32(g.Limit)
 	return nil
 }
@@ -154,14 +154,14 @@ func (g *GetGroupsInCommonRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getGroupsInCommon#16bdd36a to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getGroupsInCommon#16bdd36a: field user_id: %w", err)
 		}
 		g.UserID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getGroupsInCommon#16bdd36a: field offset_chat_id: %w", err)
 		}
@@ -185,9 +185,9 @@ func (g *GetGroupsInCommonRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getGroupsInCommon")
 	b.FieldStart("user_id")
-	b.PutLong(g.UserID)
+	b.PutInt53(g.UserID)
 	b.FieldStart("offset_chat_id")
-	b.PutLong(g.OffsetChatID)
+	b.PutInt53(g.OffsetChatID)
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
 	b.ObjEnd()
@@ -207,13 +207,13 @@ func (g *GetGroupsInCommonRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getGroupsInCommon#16bdd36a: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getGroupsInCommon#16bdd36a: field user_id: %w", err)
 			}
 			g.UserID = value
 		case "offset_chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getGroupsInCommon#16bdd36a: field offset_chat_id: %w", err)
 			}

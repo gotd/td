@@ -142,7 +142,7 @@ func (s *SponsoredMessage) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sponsoredMessage#cfbd422 as nil")
 	}
 	b.PutInt32(s.ID)
-	b.PutLong(s.SponsorChatID)
+	b.PutInt53(s.SponsorChatID)
 	if s.Link == nil {
 		return fmt.Errorf("unable to encode sponsoredMessage#cfbd422: field link is nil")
 	}
@@ -182,7 +182,7 @@ func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 		s.ID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode sponsoredMessage#cfbd422: field sponsor_chat_id: %w", err)
 		}
@@ -215,7 +215,7 @@ func (s *SponsoredMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("id")
 	b.PutInt32(s.ID)
 	b.FieldStart("sponsor_chat_id")
-	b.PutLong(s.SponsorChatID)
+	b.PutInt53(s.SponsorChatID)
 	b.FieldStart("link")
 	if s.Link == nil {
 		return fmt.Errorf("unable to encode sponsoredMessage#cfbd422: field link is nil")
@@ -253,7 +253,7 @@ func (s *SponsoredMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			s.ID = value
 		case "sponsor_chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode sponsoredMessage#cfbd422: field sponsor_chat_id: %w", err)
 			}

@@ -122,7 +122,7 @@ func (s *SetChatLocationRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatLocation#d2471daa as nil")
 	}
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	if err := s.Location.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode setChatLocation#d2471daa: field location: %w", err)
 	}
@@ -146,7 +146,7 @@ func (s *SetChatLocationRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setChatLocation#d2471daa to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setChatLocation#d2471daa: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (s *SetChatLocationRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("setChatLocation")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("location")
 	if err := s.Location.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setChatLocation#d2471daa: field location: %w", err)
@@ -190,7 +190,7 @@ func (s *SetChatLocationRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode setChatLocation#d2471daa: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setChatLocation#d2471daa: field chat_id: %w", err)
 			}

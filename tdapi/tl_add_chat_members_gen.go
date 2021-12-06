@@ -123,10 +123,10 @@ func (a *AddChatMembersRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode addChatMembers#b4f60138 as nil")
 	}
-	b.PutLong(a.ChatID)
+	b.PutInt53(a.ChatID)
 	b.PutInt(len(a.UserIDs))
 	for _, v := range a.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -148,7 +148,7 @@ func (a *AddChatMembersRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode addChatMembers#b4f60138 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode addChatMembers#b4f60138: field chat_id: %w", err)
 		}
@@ -164,7 +164,7 @@ func (a *AddChatMembersRequest) DecodeBare(b *bin.Buffer) error {
 			a.UserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode addChatMembers#b4f60138: field user_ids: %w", err)
 			}
@@ -182,11 +182,11 @@ func (a *AddChatMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("addChatMembers")
 	b.FieldStart("chat_id")
-	b.PutLong(a.ChatID)
+	b.PutInt53(a.ChatID)
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range a.UserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -206,14 +206,14 @@ func (a *AddChatMembersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode addChatMembers#b4f60138: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode addChatMembers#b4f60138: field chat_id: %w", err)
 			}
 			a.ChatID = value
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode addChatMembers#b4f60138: field user_ids: %w", err)
 				}

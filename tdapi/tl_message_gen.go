@@ -416,14 +416,14 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode message#e31da9f9 as nil")
 	}
-	b.PutLong(m.ID)
+	b.PutInt53(m.ID)
 	if m.Sender == nil {
 		return fmt.Errorf("unable to encode message#e31da9f9: field sender is nil")
 	}
 	if err := m.Sender.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode message#e31da9f9: field sender: %w", err)
 	}
-	b.PutLong(m.ChatID)
+	b.PutInt53(m.ChatID)
 	if m.SendingState == nil {
 		return fmt.Errorf("unable to encode message#e31da9f9: field sending_state is nil")
 	}
@@ -457,12 +457,12 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	if err := m.InteractionInfo.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode message#e31da9f9: field interaction_info: %w", err)
 	}
-	b.PutLong(m.ReplyInChatID)
-	b.PutLong(m.ReplyToMessageID)
-	b.PutLong(m.MessageThreadID)
+	b.PutInt53(m.ReplyInChatID)
+	b.PutInt53(m.ReplyToMessageID)
+	b.PutInt53(m.MessageThreadID)
 	b.PutInt32(m.TTL)
 	b.PutDouble(m.TTLExpiresIn)
-	b.PutLong(m.ViaBotUserID)
+	b.PutInt53(m.ViaBotUserID)
 	b.PutString(m.AuthorSignature)
 	b.PutLong(m.MediaAlbumID)
 	b.PutString(m.RestrictionReason)
@@ -498,7 +498,7 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode message#e31da9f9 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode message#e31da9f9: field id: %w", err)
 		}
@@ -512,7 +512,7 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 		m.Sender = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode message#e31da9f9: field chat_id: %w", err)
 		}
@@ -648,21 +648,21 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode message#e31da9f9: field reply_in_chat_id: %w", err)
 		}
 		m.ReplyInChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode message#e31da9f9: field reply_to_message_id: %w", err)
 		}
 		m.ReplyToMessageID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode message#e31da9f9: field message_thread_id: %w", err)
 		}
@@ -683,7 +683,7 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 		m.TTLExpiresIn = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode message#e31da9f9: field via_bot_user_id: %w", err)
 		}
@@ -735,7 +735,7 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("message")
 	b.FieldStart("id")
-	b.PutLong(m.ID)
+	b.PutInt53(m.ID)
 	b.FieldStart("sender")
 	if m.Sender == nil {
 		return fmt.Errorf("unable to encode message#e31da9f9: field sender is nil")
@@ -744,7 +744,7 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 		return fmt.Errorf("unable to encode message#e31da9f9: field sender: %w", err)
 	}
 	b.FieldStart("chat_id")
-	b.PutLong(m.ChatID)
+	b.PutInt53(m.ChatID)
 	b.FieldStart("sending_state")
 	if m.SendingState == nil {
 		return fmt.Errorf("unable to encode message#e31da9f9: field sending_state is nil")
@@ -798,17 +798,17 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 		return fmt.Errorf("unable to encode message#e31da9f9: field interaction_info: %w", err)
 	}
 	b.FieldStart("reply_in_chat_id")
-	b.PutLong(m.ReplyInChatID)
+	b.PutInt53(m.ReplyInChatID)
 	b.FieldStart("reply_to_message_id")
-	b.PutLong(m.ReplyToMessageID)
+	b.PutInt53(m.ReplyToMessageID)
 	b.FieldStart("message_thread_id")
-	b.PutLong(m.MessageThreadID)
+	b.PutInt53(m.MessageThreadID)
 	b.FieldStart("ttl")
 	b.PutInt32(m.TTL)
 	b.FieldStart("ttl_expires_in")
 	b.PutDouble(m.TTLExpiresIn)
 	b.FieldStart("via_bot_user_id")
-	b.PutLong(m.ViaBotUserID)
+	b.PutInt53(m.ViaBotUserID)
 	b.FieldStart("author_signature")
 	b.PutString(m.AuthorSignature)
 	b.FieldStart("media_album_id")
@@ -846,7 +846,7 @@ func (m *Message) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode message#e31da9f9: %w", err)
 			}
 		case "id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode message#e31da9f9: field id: %w", err)
 			}
@@ -858,7 +858,7 @@ func (m *Message) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			m.Sender = value
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode message#e31da9f9: field chat_id: %w", err)
 			}
@@ -974,19 +974,19 @@ func (m *Message) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode message#e31da9f9: field interaction_info: %w", err)
 			}
 		case "reply_in_chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode message#e31da9f9: field reply_in_chat_id: %w", err)
 			}
 			m.ReplyInChatID = value
 		case "reply_to_message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode message#e31da9f9: field reply_to_message_id: %w", err)
 			}
 			m.ReplyToMessageID = value
 		case "message_thread_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode message#e31da9f9: field message_thread_id: %w", err)
 			}
@@ -1004,7 +1004,7 @@ func (m *Message) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			m.TTLExpiresIn = value
 		case "via_bot_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode message#e31da9f9: field via_bot_user_id: %w", err)
 			}

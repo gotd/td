@@ -130,7 +130,7 @@ func (s *SetPinnedChatsRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(len(s.ChatIDs))
 	for _, v := range s.ChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -168,7 +168,7 @@ func (s *SetPinnedChatsRequest) DecodeBare(b *bin.Buffer) error {
 			s.ChatIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setPinnedChats#c6c6edf1: field chat_ids: %w", err)
 			}
@@ -195,7 +195,7 @@ func (s *SetPinnedChatsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("chat_ids")
 	b.ArrStart()
 	for _, v := range s.ChatIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -222,7 +222,7 @@ func (s *SetPinnedChatsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 			s.ChatList = value
 		case "chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode setPinnedChats#c6c6edf1: field chat_ids: %w", err)
 				}

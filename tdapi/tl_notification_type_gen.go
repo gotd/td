@@ -604,7 +604,7 @@ func (n *NotificationTypeNewPushMessage) EncodeBare(b *bin.Buffer) error {
 	if n == nil {
 		return fmt.Errorf("can't encode notificationTypeNewPushMessage#88ccb27e as nil")
 	}
-	b.PutLong(n.MessageID)
+	b.PutInt53(n.MessageID)
 	if n.Sender == nil {
 		return fmt.Errorf("unable to encode notificationTypeNewPushMessage#88ccb27e: field sender is nil")
 	}
@@ -639,7 +639,7 @@ func (n *NotificationTypeNewPushMessage) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode notificationTypeNewPushMessage#88ccb27e to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode notificationTypeNewPushMessage#88ccb27e: field message_id: %w", err)
 		}
@@ -684,7 +684,7 @@ func (n *NotificationTypeNewPushMessage) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.ObjStart()
 	b.PutID("notificationTypeNewPushMessage")
 	b.FieldStart("message_id")
-	b.PutLong(n.MessageID)
+	b.PutInt53(n.MessageID)
 	b.FieldStart("sender")
 	if n.Sender == nil {
 		return fmt.Errorf("unable to encode notificationTypeNewPushMessage#88ccb27e: field sender is nil")
@@ -720,7 +720,7 @@ func (n *NotificationTypeNewPushMessage) DecodeTDLibJSON(b tdjson.Decoder) error
 				return fmt.Errorf("unable to decode notificationTypeNewPushMessage#88ccb27e: %w", err)
 			}
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode notificationTypeNewPushMessage#88ccb27e: field message_id: %w", err)
 			}

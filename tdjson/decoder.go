@@ -105,9 +105,18 @@ func (b Decoder) Uint32() (uint32, error) {
 	return b.Decoder.Uint32()
 }
 
-// Long deserializes signed integer.
-func (b Decoder) Long() (int64, error) {
+// Int53 deserializes int53.
+func (b Decoder) Int53() (int64, error) {
 	return b.Decoder.Int64()
+}
+
+// Long deserializes int64.
+func (b Decoder) Long() (int64, error) {
+	n, err := b.Decoder.Num()
+	if err != nil {
+		return 0, err
+	}
+	return n.Int64()
 }
 
 // Uint64 deserializes unsigned 64-bit integer.

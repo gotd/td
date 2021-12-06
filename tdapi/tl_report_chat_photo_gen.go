@@ -140,7 +140,7 @@ func (r *ReportChatPhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode reportChatPhoto#2bc9e924 as nil")
 	}
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	b.PutInt32(r.FileID)
 	if r.Reason == nil {
 		return fmt.Errorf("unable to encode reportChatPhoto#2bc9e924: field reason is nil")
@@ -169,7 +169,7 @@ func (r *ReportChatPhotoRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode reportChatPhoto#2bc9e924 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field chat_id: %w", err)
 		}
@@ -207,7 +207,7 @@ func (r *ReportChatPhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("reportChatPhoto")
 	b.FieldStart("chat_id")
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	b.FieldStart("file_id")
 	b.PutInt32(r.FileID)
 	b.FieldStart("reason")
@@ -236,7 +236,7 @@ func (r *ReportChatPhotoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field chat_id: %w", err)
 			}

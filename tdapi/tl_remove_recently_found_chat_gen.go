@@ -113,7 +113,7 @@ func (r *RemoveRecentlyFoundChatRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode removeRecentlyFoundChat#2ac1bf1c as nil")
 	}
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (r *RemoveRecentlyFoundChatRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode removeRecentlyFoundChat#2ac1bf1c to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode removeRecentlyFoundChat#2ac1bf1c: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (r *RemoveRecentlyFoundChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.ObjStart()
 	b.PutID("removeRecentlyFoundChat")
 	b.FieldStart("chat_id")
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (r *RemoveRecentlyFoundChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 				return fmt.Errorf("unable to decode removeRecentlyFoundChat#2ac1bf1c: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode removeRecentlyFoundChat#2ac1bf1c: field chat_id: %w", err)
 			}

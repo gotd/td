@@ -152,7 +152,7 @@ func (s *SetInlineGameScoreRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutString(s.InlineMessageID)
 	b.PutBool(s.EditMessage)
-	b.PutLong(s.UserID)
+	b.PutInt53(s.UserID)
 	b.PutInt32(s.Score)
 	b.PutBool(s.Force)
 	return nil
@@ -189,7 +189,7 @@ func (s *SetInlineGameScoreRequest) DecodeBare(b *bin.Buffer) error {
 		s.EditMessage = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: field user_id: %w", err)
 		}
@@ -224,7 +224,7 @@ func (s *SetInlineGameScoreRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("edit_message")
 	b.PutBool(s.EditMessage)
 	b.FieldStart("user_id")
-	b.PutLong(s.UserID)
+	b.PutInt53(s.UserID)
 	b.FieldStart("score")
 	b.PutInt32(s.Score)
 	b.FieldStart("force")
@@ -258,7 +258,7 @@ func (s *SetInlineGameScoreRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			s.EditMessage = value
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setInlineGameScore#c7715d8b: field user_id: %w", err)
 			}

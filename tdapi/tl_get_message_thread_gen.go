@@ -122,8 +122,8 @@ func (g *GetMessageThreadRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getMessageThread#7af23e3e as nil")
 	}
-	b.PutLong(g.ChatID)
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.ChatID)
+	b.PutInt53(g.MessageID)
 	return nil
 }
 
@@ -144,14 +144,14 @@ func (g *GetMessageThreadRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getMessageThread#7af23e3e to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMessageThread#7af23e3e: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getMessageThread#7af23e3e: field message_id: %w", err)
 		}
@@ -168,9 +168,9 @@ func (g *GetMessageThreadRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getMessageThread")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.MessageID)
 	b.ObjEnd()
 	return nil
 }
@@ -188,13 +188,13 @@ func (g *GetMessageThreadRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getMessageThread#7af23e3e: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessageThread#7af23e3e: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getMessageThread#7af23e3e: field message_id: %w", err)
 			}

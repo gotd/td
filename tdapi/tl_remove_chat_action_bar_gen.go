@@ -113,7 +113,7 @@ func (r *RemoveChatActionBarRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode removeChatActionBar#9d9839fa as nil")
 	}
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (r *RemoveChatActionBarRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode removeChatActionBar#9d9839fa to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode removeChatActionBar#9d9839fa: field chat_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (r *RemoveChatActionBarRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("removeChatActionBar")
 	b.FieldStart("chat_id")
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (r *RemoveChatActionBarRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode removeChatActionBar#9d9839fa: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode removeChatActionBar#9d9839fa: field chat_id: %w", err)
 			}

@@ -122,7 +122,7 @@ func (g *GetChatStatisticsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatStatistics#137e8198 as nil")
 	}
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.PutBool(g.IsDark)
 	return nil
 }
@@ -144,7 +144,7 @@ func (g *GetChatStatisticsRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getChatStatistics#137e8198 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatStatistics#137e8198: field chat_id: %w", err)
 		}
@@ -168,7 +168,7 @@ func (g *GetChatStatisticsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getChatStatistics")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("is_dark")
 	b.PutBool(g.IsDark)
 	b.ObjEnd()
@@ -188,7 +188,7 @@ func (g *GetChatStatisticsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getChatStatistics#137e8198: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatStatistics#137e8198: field chat_id: %w", err)
 			}

@@ -122,8 +122,8 @@ func (d *DeclineChatJoinRequestRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode declineChatJoinRequest#70411b66 as nil")
 	}
-	b.PutLong(d.ChatID)
-	b.PutLong(d.UserID)
+	b.PutInt53(d.ChatID)
+	b.PutInt53(d.UserID)
 	return nil
 }
 
@@ -144,14 +144,14 @@ func (d *DeclineChatJoinRequestRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode declineChatJoinRequest#70411b66 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode declineChatJoinRequest#70411b66: field chat_id: %w", err)
 		}
 		d.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode declineChatJoinRequest#70411b66: field user_id: %w", err)
 		}
@@ -168,9 +168,9 @@ func (d *DeclineChatJoinRequestRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	b.ObjStart()
 	b.PutID("declineChatJoinRequest")
 	b.FieldStart("chat_id")
-	b.PutLong(d.ChatID)
+	b.PutInt53(d.ChatID)
 	b.FieldStart("user_id")
-	b.PutLong(d.UserID)
+	b.PutInt53(d.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -188,13 +188,13 @@ func (d *DeclineChatJoinRequestRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 				return fmt.Errorf("unable to decode declineChatJoinRequest#70411b66: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode declineChatJoinRequest#70411b66: field chat_id: %w", err)
 			}
 			d.ChatID = value
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode declineChatJoinRequest#70411b66: field user_id: %w", err)
 			}

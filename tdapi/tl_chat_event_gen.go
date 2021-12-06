@@ -142,7 +142,7 @@ func (c *ChatEvent) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutLong(c.ID)
 	b.PutInt32(c.Date)
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	if c.Action == nil {
 		return fmt.Errorf("unable to encode chatEvent#fa17d3f9: field action is nil")
 	}
@@ -183,7 +183,7 @@ func (c *ChatEvent) DecodeBare(b *bin.Buffer) error {
 		c.Date = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatEvent#fa17d3f9: field user_id: %w", err)
 		}
@@ -211,7 +211,7 @@ func (c *ChatEvent) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("date")
 	b.PutInt32(c.Date)
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.FieldStart("action")
 	if c.Action == nil {
 		return fmt.Errorf("unable to encode chatEvent#fa17d3f9: field action is nil")
@@ -248,7 +248,7 @@ func (c *ChatEvent) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			c.Date = value
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatEvent#fa17d3f9: field user_id: %w", err)
 			}

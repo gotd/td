@@ -2,6 +2,8 @@ package tdjson_test
 
 import (
 	"encoding/json"
+	"math"
+	"strconv"
 	"testing"
 
 	"github.com/go-faster/jx"
@@ -57,11 +59,38 @@ func TestEncodeDecode(t *testing.T) {
 				IgnoreFileNames:        true,
 			},
 		},
+		&tdapi.ProfilePhoto{
+			ID: 1,
+		},
 	}
 
 	for _, typ := range types {
 		t.Run(typ.TypeInfo().Name, test(func() obj {
 			return typ
 		}))
+	}
+}
+
+func TestEncoder_PutLong(t *testing.T) {
+	for _, tt := range []int64{
+		-1,
+		0,
+		1,
+		10,
+		math.MaxInt64,
+		math.MinInt64,
+	} {
+		t.Run(strconv.FormatInt(tt, 10), func(t *testing.T) {
+			a := require.New(t)
+			e := tdjson.Encoder{Encoder: jx.GetEncoder()}
+			e.PutLong(tt)
+			data := e.Bytes()
+			a.Equal(strconv.Quote(strconv.FormatInt(tt, 10)), string(data))
+
+			d := tdjson.Decoder{Decoder: jx.DecodeBytes(data)}
+			v, err := d.Long()
+			a.NoError(err)
+			a.Equal(tt, v)
+		})
 	}
 }

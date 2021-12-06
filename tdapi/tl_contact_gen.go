@@ -153,7 +153,7 @@ func (c *Contact) EncodeBare(b *bin.Buffer) error {
 	b.PutString(c.FirstName)
 	b.PutString(c.LastName)
 	b.PutString(c.Vcard)
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	return nil
 }
 
@@ -202,7 +202,7 @@ func (c *Contact) DecodeBare(b *bin.Buffer) error {
 		c.Vcard = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode contact#89285774: field user_id: %w", err)
 		}
@@ -227,7 +227,7 @@ func (c *Contact) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("vcard")
 	b.PutString(c.Vcard)
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -269,7 +269,7 @@ func (c *Contact) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			c.Vcard = value
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode contact#89285774: field user_id: %w", err)
 			}

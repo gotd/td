@@ -161,8 +161,8 @@ func (g *GetChatInviteLinksRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getChatInviteLinks#34a55cac as nil")
 	}
-	b.PutLong(g.ChatID)
-	b.PutLong(g.CreatorUserID)
+	b.PutInt53(g.ChatID)
+	b.PutInt53(g.CreatorUserID)
 	b.PutBool(g.IsRevoked)
 	b.PutInt32(g.OffsetDate)
 	b.PutString(g.OffsetInviteLink)
@@ -187,14 +187,14 @@ func (g *GetChatInviteLinksRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getChatInviteLinks#34a55cac to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatInviteLinks#34a55cac: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getChatInviteLinks#34a55cac: field creator_user_id: %w", err)
 		}
@@ -239,9 +239,9 @@ func (g *GetChatInviteLinksRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getChatInviteLinks")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("creator_user_id")
-	b.PutLong(g.CreatorUserID)
+	b.PutInt53(g.CreatorUserID)
 	b.FieldStart("is_revoked")
 	b.PutBool(g.IsRevoked)
 	b.FieldStart("offset_date")
@@ -267,13 +267,13 @@ func (g *GetChatInviteLinksRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getChatInviteLinks#34a55cac: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatInviteLinks#34a55cac: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "creator_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getChatInviteLinks#34a55cac: field creator_user_id: %w", err)
 			}

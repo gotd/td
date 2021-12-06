@@ -159,8 +159,8 @@ func (m *MessageThreadInfo) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageThreadInfo#683fd5ad as nil")
 	}
-	b.PutLong(m.ChatID)
-	b.PutLong(m.MessageThreadID)
+	b.PutInt53(m.ChatID)
+	b.PutInt53(m.MessageThreadID)
 	if err := m.ReplyInfo.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageThreadInfo#683fd5ad: field reply_info: %w", err)
 	}
@@ -194,14 +194,14 @@ func (m *MessageThreadInfo) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messageThreadInfo#683fd5ad to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field chat_id: %w", err)
 		}
 		m.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field message_thread_id: %w", err)
 		}
@@ -252,9 +252,9 @@ func (m *MessageThreadInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("messageThreadInfo")
 	b.FieldStart("chat_id")
-	b.PutLong(m.ChatID)
+	b.PutInt53(m.ChatID)
 	b.FieldStart("message_thread_id")
-	b.PutLong(m.MessageThreadID)
+	b.PutInt53(m.MessageThreadID)
 	b.FieldStart("reply_info")
 	if err := m.ReplyInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageThreadInfo#683fd5ad: field reply_info: %w", err)
@@ -290,13 +290,13 @@ func (m *MessageThreadInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field chat_id: %w", err)
 			}
 			m.ChatID = value
 		case "message_thread_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageThreadInfo#683fd5ad: field message_thread_id: %w", err)
 			}

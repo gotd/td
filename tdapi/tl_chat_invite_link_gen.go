@@ -218,7 +218,7 @@ func (c *ChatInviteLink) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutString(c.InviteLink)
 	b.PutString(c.Name)
-	b.PutLong(c.CreatorUserID)
+	b.PutInt53(c.CreatorUserID)
 	b.PutInt32(c.Date)
 	b.PutInt32(c.EditDate)
 	b.PutInt32(c.ExpireDate)
@@ -262,7 +262,7 @@ func (c *ChatInviteLink) DecodeBare(b *bin.Buffer) error {
 		c.Name = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode chatInviteLink#1a7751f: field creator_user_id: %w", err)
 		}
@@ -346,7 +346,7 @@ func (c *ChatInviteLink) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("name")
 	b.PutString(c.Name)
 	b.FieldStart("creator_user_id")
-	b.PutLong(c.CreatorUserID)
+	b.PutInt53(c.CreatorUserID)
 	b.FieldStart("date")
 	b.PutInt32(c.Date)
 	b.FieldStart("edit_date")
@@ -394,7 +394,7 @@ func (c *ChatInviteLink) DecodeTDLibJSON(b tdjson.Decoder) error {
 			}
 			c.Name = value
 		case "creator_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode chatInviteLink#1a7751f: field creator_user_id: %w", err)
 			}

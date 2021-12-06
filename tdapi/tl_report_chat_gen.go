@@ -140,10 +140,10 @@ func (r *ReportChatRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode reportChat#a19024af as nil")
 	}
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	b.PutInt(len(r.MessageIDs))
 	for _, v := range r.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	if r.Reason == nil {
 		return fmt.Errorf("unable to encode reportChat#a19024af: field reason is nil")
@@ -172,7 +172,7 @@ func (r *ReportChatRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode reportChat#a19024af to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode reportChat#a19024af: field chat_id: %w", err)
 		}
@@ -188,7 +188,7 @@ func (r *ReportChatRequest) DecodeBare(b *bin.Buffer) error {
 			r.MessageIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode reportChat#a19024af: field message_ids: %w", err)
 			}
@@ -220,11 +220,11 @@ func (r *ReportChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("reportChat")
 	b.FieldStart("chat_id")
-	b.PutLong(r.ChatID)
+	b.PutInt53(r.ChatID)
 	b.FieldStart("message_ids")
 	b.ArrStart()
 	for _, v := range r.MessageIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.FieldStart("reason")
@@ -253,14 +253,14 @@ func (r *ReportChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode reportChat#a19024af: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode reportChat#a19024af: field chat_id: %w", err)
 			}
 			r.ChatID = value
 		case "message_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode reportChat#a19024af: field message_ids: %w", err)
 				}

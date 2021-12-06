@@ -122,7 +122,7 @@ func (s *SetVideoChatDefaultParticipantRequest) EncodeBare(b *bin.Buffer) error 
 	if s == nil {
 		return fmt.Errorf("can't encode setVideoChatDefaultParticipant#f1a672b3 as nil")
 	}
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	if s.DefaultParticipantID == nil {
 		return fmt.Errorf("unable to encode setVideoChatDefaultParticipant#f1a672b3: field default_participant_id is nil")
 	}
@@ -149,7 +149,7 @@ func (s *SetVideoChatDefaultParticipantRequest) DecodeBare(b *bin.Buffer) error 
 		return fmt.Errorf("can't decode setVideoChatDefaultParticipant#f1a672b3 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setVideoChatDefaultParticipant#f1a672b3: field chat_id: %w", err)
 		}
@@ -173,7 +173,7 @@ func (s *SetVideoChatDefaultParticipantRequest) EncodeTDLibJSON(b tdjson.Encoder
 	b.ObjStart()
 	b.PutID("setVideoChatDefaultParticipant")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("default_participant_id")
 	if s.DefaultParticipantID == nil {
 		return fmt.Errorf("unable to encode setVideoChatDefaultParticipant#f1a672b3: field default_participant_id is nil")
@@ -198,7 +198,7 @@ func (s *SetVideoChatDefaultParticipantRequest) DecodeTDLibJSON(b tdjson.Decoder
 				return fmt.Errorf("unable to decode setVideoChatDefaultParticipant#f1a672b3: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setVideoChatDefaultParticipant#f1a672b3: field chat_id: %w", err)
 			}

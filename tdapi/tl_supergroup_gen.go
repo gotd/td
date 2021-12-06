@@ -249,7 +249,7 @@ func (s *Supergroup) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode supergroup#d4f3e735 as nil")
 	}
-	b.PutLong(s.ID)
+	b.PutInt53(s.ID)
 	b.PutString(s.Username)
 	b.PutInt32(s.Date)
 	if s.Status == nil {
@@ -289,7 +289,7 @@ func (s *Supergroup) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode supergroup#d4f3e735 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode supergroup#d4f3e735: field id: %w", err)
 		}
@@ -404,7 +404,7 @@ func (s *Supergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("supergroup")
 	b.FieldStart("id")
-	b.PutLong(s.ID)
+	b.PutInt53(s.ID)
 	b.FieldStart("username")
 	b.PutString(s.Username)
 	b.FieldStart("date")
@@ -455,7 +455,7 @@ func (s *Supergroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode supergroup#d4f3e735: %w", err)
 			}
 		case "id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode supergroup#d4f3e735: field id: %w", err)
 			}

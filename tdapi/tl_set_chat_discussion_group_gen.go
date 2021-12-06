@@ -124,8 +124,8 @@ func (s *SetChatDiscussionGroupRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode setChatDiscussionGroup#c93c32b8 as nil")
 	}
-	b.PutLong(s.ChatID)
-	b.PutLong(s.DiscussionChatID)
+	b.PutInt53(s.ChatID)
+	b.PutInt53(s.DiscussionChatID)
 	return nil
 }
 
@@ -146,14 +146,14 @@ func (s *SetChatDiscussionGroupRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode setChatDiscussionGroup#c93c32b8 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setChatDiscussionGroup#c93c32b8: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode setChatDiscussionGroup#c93c32b8: field discussion_chat_id: %w", err)
 		}
@@ -170,9 +170,9 @@ func (s *SetChatDiscussionGroupRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	b.ObjStart()
 	b.PutID("setChatDiscussionGroup")
 	b.FieldStart("chat_id")
-	b.PutLong(s.ChatID)
+	b.PutInt53(s.ChatID)
 	b.FieldStart("discussion_chat_id")
-	b.PutLong(s.DiscussionChatID)
+	b.PutInt53(s.DiscussionChatID)
 	b.ObjEnd()
 	return nil
 }
@@ -190,13 +190,13 @@ func (s *SetChatDiscussionGroupRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 				return fmt.Errorf("unable to decode setChatDiscussionGroup#c93c32b8: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setChatDiscussionGroup#c93c32b8: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "discussion_chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode setChatDiscussionGroup#c93c32b8: field discussion_chat_id: %w", err)
 			}

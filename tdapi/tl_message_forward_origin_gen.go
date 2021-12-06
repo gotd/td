@@ -118,7 +118,7 @@ func (m *MessageForwardOriginUser) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageForwardOriginUser#ead478d1 as nil")
 	}
-	b.PutLong(m.SenderUserID)
+	b.PutInt53(m.SenderUserID)
 	return nil
 }
 
@@ -139,7 +139,7 @@ func (m *MessageForwardOriginUser) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messageForwardOriginUser#ead478d1 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageForwardOriginUser#ead478d1: field sender_user_id: %w", err)
 		}
@@ -156,7 +156,7 @@ func (m *MessageForwardOriginUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("messageForwardOriginUser")
 	b.FieldStart("sender_user_id")
-	b.PutLong(m.SenderUserID)
+	b.PutInt53(m.SenderUserID)
 	b.ObjEnd()
 	return nil
 }
@@ -174,7 +174,7 @@ func (m *MessageForwardOriginUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode messageForwardOriginUser#ead478d1: %w", err)
 			}
 		case "sender_user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageForwardOriginUser#ead478d1: field sender_user_id: %w", err)
 			}
@@ -287,7 +287,7 @@ func (m *MessageForwardOriginChat) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageForwardOriginChat#5af51364 as nil")
 	}
-	b.PutLong(m.SenderChatID)
+	b.PutInt53(m.SenderChatID)
 	b.PutString(m.AuthorSignature)
 	return nil
 }
@@ -309,7 +309,7 @@ func (m *MessageForwardOriginChat) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messageForwardOriginChat#5af51364 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageForwardOriginChat#5af51364: field sender_chat_id: %w", err)
 		}
@@ -333,7 +333,7 @@ func (m *MessageForwardOriginChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("messageForwardOriginChat")
 	b.FieldStart("sender_chat_id")
-	b.PutLong(m.SenderChatID)
+	b.PutInt53(m.SenderChatID)
 	b.FieldStart("author_signature")
 	b.PutString(m.AuthorSignature)
 	b.ObjEnd()
@@ -353,7 +353,7 @@ func (m *MessageForwardOriginChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode messageForwardOriginChat#5af51364: %w", err)
 			}
 		case "sender_chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageForwardOriginChat#5af51364: field sender_chat_id: %w", err)
 			}
@@ -646,8 +646,8 @@ func (m *MessageForwardOriginChannel) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageForwardOriginChannel#58dabee3 as nil")
 	}
-	b.PutLong(m.ChatID)
-	b.PutLong(m.MessageID)
+	b.PutInt53(m.ChatID)
+	b.PutInt53(m.MessageID)
 	b.PutString(m.AuthorSignature)
 	return nil
 }
@@ -669,14 +669,14 @@ func (m *MessageForwardOriginChannel) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messageForwardOriginChannel#58dabee3 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageForwardOriginChannel#58dabee3: field chat_id: %w", err)
 		}
 		m.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode messageForwardOriginChannel#58dabee3: field message_id: %w", err)
 		}
@@ -700,9 +700,9 @@ func (m *MessageForwardOriginChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("messageForwardOriginChannel")
 	b.FieldStart("chat_id")
-	b.PutLong(m.ChatID)
+	b.PutInt53(m.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(m.MessageID)
+	b.PutInt53(m.MessageID)
 	b.FieldStart("author_signature")
 	b.PutString(m.AuthorSignature)
 	b.ObjEnd()
@@ -722,13 +722,13 @@ func (m *MessageForwardOriginChannel) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode messageForwardOriginChannel#58dabee3: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageForwardOriginChannel#58dabee3: field chat_id: %w", err)
 			}
 			m.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode messageForwardOriginChannel#58dabee3: field message_id: %w", err)
 			}

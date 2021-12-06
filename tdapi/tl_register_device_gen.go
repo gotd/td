@@ -130,7 +130,7 @@ func (r *RegisterDeviceRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(len(r.OtherUserIDs))
 	for _, v := range r.OtherUserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -168,7 +168,7 @@ func (r *RegisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
 			r.OtherUserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode registerDevice#ff140196: field other_user_ids: %w", err)
 			}
@@ -195,7 +195,7 @@ func (r *RegisterDeviceRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("other_user_ids")
 	b.ArrStart()
 	for _, v := range r.OtherUserIDs {
-		b.PutLong(v)
+		b.PutInt53(v)
 	}
 	b.ArrEnd()
 	b.ObjEnd()
@@ -222,7 +222,7 @@ func (r *RegisterDeviceRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 			r.DeviceToken = value
 		case "other_user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Long()
+				value, err := b.Int53()
 				if err != nil {
 					return fmt.Errorf("unable to decode registerDevice#ff140196: field other_user_ids: %w", err)
 				}

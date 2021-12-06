@@ -113,7 +113,7 @@ func (c *CreateNewSecretChatRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode createNewSecretChat#db012265 as nil")
 	}
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	return nil
 }
 
@@ -134,7 +134,7 @@ func (c *CreateNewSecretChatRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode createNewSecretChat#db012265 to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode createNewSecretChat#db012265: field user_id: %w", err)
 		}
@@ -151,7 +151,7 @@ func (c *CreateNewSecretChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("createNewSecretChat")
 	b.FieldStart("user_id")
-	b.PutLong(c.UserID)
+	b.PutInt53(c.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -169,7 +169,7 @@ func (c *CreateNewSecretChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode createNewSecretChat#db012265: %w", err)
 			}
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode createNewSecretChat#db012265: field user_id: %w", err)
 			}

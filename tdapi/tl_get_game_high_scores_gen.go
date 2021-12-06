@@ -131,9 +131,9 @@ func (g *GetGameHighScoresRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode getGameHighScores#f0459b as nil")
 	}
-	b.PutLong(g.ChatID)
-	b.PutLong(g.MessageID)
-	b.PutLong(g.UserID)
+	b.PutInt53(g.ChatID)
+	b.PutInt53(g.MessageID)
+	b.PutInt53(g.UserID)
 	return nil
 }
 
@@ -154,21 +154,21 @@ func (g *GetGameHighScoresRequest) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode getGameHighScores#f0459b to nil")
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getGameHighScores#f0459b: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getGameHighScores#f0459b: field message_id: %w", err)
 		}
 		g.MessageID = value
 	}
 	{
-		value, err := b.Long()
+		value, err := b.Int53()
 		if err != nil {
 			return fmt.Errorf("unable to decode getGameHighScores#f0459b: field user_id: %w", err)
 		}
@@ -185,11 +185,11 @@ func (g *GetGameHighScoresRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ObjStart()
 	b.PutID("getGameHighScores")
 	b.FieldStart("chat_id")
-	b.PutLong(g.ChatID)
+	b.PutInt53(g.ChatID)
 	b.FieldStart("message_id")
-	b.PutLong(g.MessageID)
+	b.PutInt53(g.MessageID)
 	b.FieldStart("user_id")
-	b.PutLong(g.UserID)
+	b.PutInt53(g.UserID)
 	b.ObjEnd()
 	return nil
 }
@@ -207,19 +207,19 @@ func (g *GetGameHighScoresRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 				return fmt.Errorf("unable to decode getGameHighScores#f0459b: %w", err)
 			}
 		case "chat_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getGameHighScores#f0459b: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getGameHighScores#f0459b: field message_id: %w", err)
 			}
 			g.MessageID = value
 		case "user_id":
-			value, err := b.Long()
+			value, err := b.Int53()
 			if err != nil {
 				return fmt.Errorf("unable to decode getGameHighScores#f0459b: field user_id: %w", err)
 			}
