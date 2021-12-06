@@ -58,13 +58,12 @@ func (p *htmlParser) startTag() error {
 	case "s", "strike", "del":
 		e.format = Strike()
 	case "a":
-		href := p.attr["href"]
-		if href == "" {
-			e.attr = href
+		e.attr = p.attr["href"]
+		if e.attr == "" {
 			break
 		}
 
-		f, err := getURLFormatter(href, p.opts.UserResolver)
+		f, err := getURLFormatter(e.attr, p.opts.UserResolver)
 		if err != nil {
 			f = nil
 		}
