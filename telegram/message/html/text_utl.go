@@ -1,4 +1,4 @@
-package entity
+package html
 
 import (
 	"net"
@@ -10,6 +10,7 @@ import (
 	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/internal/ascii"
+	"github.com/gotd/td/telegram/message/entity"
 )
 
 func isIPv6(str string) bool {
@@ -49,7 +50,7 @@ func validateHostname(u *url.URL) error {
 	return nil
 }
 
-func getURLFormatter(rawURL string, resolver UserResolver) (Formatter, error) {
+func getURLFormatter(rawURL string, resolver entity.UserResolver) (entity.Formatter, error) {
 	const defaultProtocol = "http"
 	if rawURL == "" {
 		return nil, errors.New("empty URL")
@@ -71,7 +72,7 @@ func getURLFormatter(rawURL string, resolver UserResolver) (Formatter, error) {
 			return nil, errors.Wrapf(err, "can't resolve user %q", id)
 		}
 
-		return MentionName(user), nil
+		return entity.MentionName(user), nil
 	}
 	if u.Scheme == "" {
 		u.Scheme = defaultProtocol
@@ -84,5 +85,5 @@ func getURLFormatter(rawURL string, resolver UserResolver) (Formatter, error) {
 		return nil, err
 	}
 
-	return TextURL(rawURL), nil
+	return entity.TextURL(rawURL), nil
 }

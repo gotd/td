@@ -1,4 +1,4 @@
-package entity
+package html
 
 import (
 	"io"
@@ -7,16 +7,16 @@ import (
 	"github.com/go-faster/errors"
 	"golang.org/x/net/html"
 
+	"github.com/gotd/td/telegram/message/entity"
 	"github.com/gotd/td/tg"
 )
 
 type htmlParser struct {
 	tokenizer *html.Tokenizer
-	builder   *Builder
-	offset    int
+	builder   *entity.Builder
 	stack     stack
 	attr      map[string]string
-	opts      HTMLOptions
+	opts      Options
 }
 
 func (p *htmlParser) fillAttrs() {
@@ -36,7 +36,10 @@ func (p *htmlParser) fillAttrs() {
 }
 
 func (p *htmlParser) startTag() error {
-	const pre = "pre"
+	const (
+		pre  = "pre"
+		code = "code"
+	)
 
 	var e stackElem
 	tn, hasAttr := p.tokenizer.TagName()
@@ -45,18 +48,17 @@ func (p *htmlParser) startTag() error {
 		p.fillAttrs()
 	}
 
-	e.offset = p.offset
-	e.utf8offset = p.builder.message.Len()
+	e.token = p.builder.Token()
 	// See https://core.telegram.org/bots/api#html-style.
 	switch e.tag {
 	case "b", "strong":
-		e.format = Bold()
+		e.format = entity.Bold()
 	case "i", "em":
-		e.format = Italic()
+		e.format = entity.Italic()
 	case "u", "ins":
-		e.format = Underline()
+		e.format = entity.Underline()
 	case "s", "strike", "del":
-		e.format = Strike()
+		e.format = entity.Strike()
 	case "a":
 		e.attr = p.attr["href"]
 		if e.attr == "" {
@@ -68,10 +70,10 @@ func (p *htmlParser) startTag() error {
 			f = nil
 		}
 		e.format = f
-	case "code":
+	case code:
 		const langPrefix = "language-"
 
-		e.format = Code()
+		e.format = entity.Code()
 		e.attr = strings.TrimPrefix(p.attr["class"], langPrefix)
 		if len(p.stack) < 1 {
 			break
@@ -86,22 +88,22 @@ func (p *htmlParser) startTag() error {
 
 		if lang := e.attr; lang != "" {
 			// Set language parameter.
-			last.format = Pre(lang)
+			last.format = entity.Pre(lang)
 		}
 	case pre:
-		e.format = Pre("")
+		e.format = entity.Pre("")
 		if len(p.stack) < 1 {
 			break
 		}
 
 		last := &p.stack[len(p.stack)-1]
-		if last.tag != "code" {
+		if last.tag != code {
 			break
 		}
 
 		if lang := last.attr; lang != "" {
 			// Set language parameter.
-			e.format = Pre(lang)
+			e.format = entity.Pre(lang)
 		}
 	}
 
@@ -121,29 +123,28 @@ func (p *htmlParser) endTag(checkName bool) error {
 	}
 
 	// Compute UTF-16 length of entity.
-	length := ComputeLength(p.builder.message.String()) - s.offset
-	utf8Length := p.builder.message.Len() - s.utf8offset
+	length := s.token.UTF16Length(p.builder)
 
 	switch s.tag {
 	case "a":
 		// TDLib tries to parse link from <a> body, so we should too.
 		if s.attr == "" {
-			msg := p.builder.message.String()[s.utf8offset : s.utf8offset+utf8Length]
+			msg := s.token.Text(p.builder)
 			if f, err := getURLFormatter(msg, p.opts.UserResolver); err == nil {
 				s.format = f
 			}
 		}
 	case "code":
-		l := len(p.builder.entities)
-		if l < 1 {
+		l, ok := p.builder.LastEntity()
+		if !ok {
 			break
 		}
-		last, ok := p.builder.entities[l-1].(*tg.MessageEntityPre)
+		last, ok := l.(*tg.MessageEntityPre)
 		if !ok {
 			break
 		}
 		// Do not add Code entity, if last entity is Pre with same offset.
-		if last.GetOffset() == s.offset && last.GetLength() == length {
+		if last.GetOffset() == s.token.UTF16Offset() && last.GetLength() == length {
 			return nil
 		}
 	}
@@ -152,11 +153,7 @@ func (p *htmlParser) endTag(checkName bool) error {
 		return nil
 	}
 
-	u8 := utf8entity{
-		offset: s.utf8offset,
-		length: utf8Length,
-	}
-	p.builder.appendEntities(s.offset, length, u8, s.format)
+	s.token.Apply(p.builder, s.format)
 	return nil
 }
 
@@ -176,8 +173,7 @@ func (p *htmlParser) parse() error {
 			} else {
 				text = telegramUnescape(p.tokenizer.Raw())
 			}
-			p.builder.message.Write(text)
-			p.offset += ComputeLength(string(text))
+			_, _ = p.builder.Write(text)
 		case html.StartTagToken:
 			if err := p.startTag(); err != nil {
 				return err
@@ -198,28 +194,6 @@ func (p *htmlParser) parse() error {
 	}
 }
 
-// HTMLOptions is options of HTML.
-type HTMLOptions struct {
-	// UserResolver is used to resolve user by ID during formatting. May be nil.
-	//
-	// If userResolver is nil, formatter will create tg.InputUser using only ID.
-	// Notice that it's okay for bots, but not for users.
-	UserResolver UserResolver
-	// DisableTelegramEscape disable Telegram BotAPI escaping and uses default
-	// golang.org/x/net/html escape.
-	DisableTelegramEscape bool
-}
-
-func (o *HTMLOptions) setDefaults() {
-	if o.UserResolver == nil {
-		o.UserResolver = func(id int64) (tg.InputUserClass, error) {
-			return &tg.InputUser{
-				UserID: id,
-			}, nil
-		}
-	}
-}
-
 // HTML parses given input from reader and adds parsed entities to given builder.
 // Notice that this parser ignores unsupported tags.
 //
@@ -228,7 +202,7 @@ func (o *HTMLOptions) setDefaults() {
 // Notice that it's okay for bots, but not for users.
 //
 // See https://core.telegram.org/bots/api#html-style.
-func HTML(r io.Reader, b *Builder, opts HTMLOptions) error {
+func HTML(r io.Reader, b *entity.Builder, opts Options) error {
 	opts.setDefaults()
 	p := htmlParser{
 		tokenizer: html.NewTokenizer(r),
@@ -240,6 +214,6 @@ func HTML(r io.Reader, b *Builder, opts HTMLOptions) error {
 	if err := p.parse(); err != nil {
 		return errors.Wrap(err, "parse")
 	}
-	b.entities = shrinkPreCode(b.entities)
+	b.ShrinkPreCode()
 	return nil
 }

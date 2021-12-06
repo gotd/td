@@ -33,7 +33,7 @@ func Format(resolver func(id int64) (tg.InputUserClass, error), format string, a
 		if err != nil {
 			return err
 		}
-		return entity.HTML(&buf, eb, entity.HTMLOptions{
+		return HTML(&buf, eb, Options{
 			UserResolver: resolver,
 		})
 	})
@@ -43,7 +43,7 @@ func Format(resolver func(id int64) (tg.InputUserClass, error), format string, a
 // to build styled text block.
 func Reader(resolver func(id int64) (tg.InputUserClass, error), r io.Reader) styling.StyledTextOption {
 	return styling.Custom(func(eb *entity.Builder) error {
-		return entity.HTML(r, eb, entity.HTMLOptions{
+		return HTML(r, eb, Options{
 			UserResolver: resolver,
 		})
 	})

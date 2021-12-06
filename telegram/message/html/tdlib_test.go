@@ -1,4 +1,4 @@
-package entity
+package html
 
 import "github.com/gotd/td/tg"
 
@@ -369,3 +369,4 @@ func tdlibHTMLTests() []htmlTestCase {
 		},
 	}
 }
+

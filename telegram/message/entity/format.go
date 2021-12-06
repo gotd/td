@@ -1,9 +1,7 @@
 package entity
 
 import (
-	"reflect"
 	"strings"
-	"unicode"
 
 	"github.com/gotd/td/tg"
 )
@@ -16,12 +14,15 @@ type utf8entity struct {
 // Builder builds message string and text entities.
 type Builder struct {
 	entities []tg.MessageEntityClass
-	// lengths stores offset/length data too, but in UTF-8 codepoints
+	// lengths stores offset/length of entities too, but in UTF-8 codepoints.
 	lengths []utf8entity
 	// We store index of first entity added at last Format call.
 	// It needed to trim space in all entities of last text block.
 	lastFormatIndex int
-	message         strings.Builder
+	// utf16length stores length in UTF-16 codepoints.
+	utf16length int
+	// message is message string builder.
+	message strings.Builder
 }
 
 // GrowText grows internal buffer capacity.
@@ -40,99 +41,40 @@ func (b *Builder) GrowEntities(n int) {
 	b.entities = buf
 }
 
-func (b *Builder) reset() {
+// Reset resets the Builder to be empty.
+func (b *Builder) Reset() {
 	b.message.Reset()
 	b.entities = nil
+	b.utf16length = 0
 }
 
-// Complete returns build result and resets builder.
-func (b *Builder) Complete() (string, []tg.MessageEntityClass) {
-	msg := b.message.String()
-	entities := b.entities
-	b.reset()
-
-	// If there are no entities or last text block does not have entities,
-	// so we just return built message.
-	if len(b.lengths) == 0 || b.lastFormatIndex >= len(entities) {
-		return msg, entities
-	}
-
-	// Since Telegram client does not handle space after formatted message
-	// we should compute length of the last block to trim it.
-	// Get first entity of last text block.
-	entity := b.lengths[len(b.lengths)-1]
-	offset := entity.offset
-	length := entity.length
-	// Get last text block.
-	lastBlock := msg[offset:]
-	// Trim this block.
-	trimmed := strings.TrimRightFunc(lastBlock, unicode.IsSpace)
-
-	// If there are a difference, we should change length of the all entities.
-	if length >= len(lastBlock) && len(trimmed) != len(lastBlock) {
-		length := ComputeLength(trimmed)
-		for idx := range entities[b.lastFormatIndex:] {
-			setLength(idx, length, entities[b.lastFormatIndex:])
-		}
-
-		msg = msg[:offset+len(trimmed)]
-	}
-
-	sortEntities(entities)
-	return msg, entities
+// UTF8Len returns length of text in bytes.
+func (b *Builder) UTF8Len() int {
+	return b.message.Len()
 }
 
-// setLength sets Length field of entity.
-func setLength(index, value int, slice []tg.MessageEntityClass) {
-	reflect.ValueOf(&slice[index]).
-		Elem().Elem().Elem().
-		FieldByName("Length").
-		SetInt(int64(value))
+// UTF16Len returns length of text in UTF-16 codepoints.
+func (b *Builder) UTF16Len() int {
+	return b.utf16length
 }
 
-// ComputeLength returns length of s encoded as UTF-16 string.
+// EntitiesLen return length of added entities.
+func (b *Builder) EntitiesLen() int {
+	return len(b.entities)
+}
+
+// TextRange returns message text of given byte (UTF-8) range.
 //
-// While Telegram API docs state that they expect the number of UTF-8
-// code points, in fact they are talking about UTF-16 code units.
-func ComputeLength(s string) int {
-	const (
-		surrSelf = 0x10000
-		maxRune  = '\U0010FFFF' // Maximum valid Unicode code point.
-	)
-
-	// From utf16 package.
-	n := 0
-	for _, v := range s {
-		if surrSelf <= v && v <= maxRune {
-			n += 2
-		} else {
-			n++
-		}
-	}
-	return n
+// If range is invalid, it will panic.
+func (b *Builder) TextRange(from, to int) string {
+	return b.message.String()[from:to]
 }
 
-func (b *Builder) appendMessage(s string, formats ...Formatter) *Builder {
-	if s == "" {
-		return b
+// LastEntity returns last entity if any.
+func (b *Builder) LastEntity() (tg.MessageEntityClass, bool) {
+	l := b.EntitiesLen()
+	if l < 1 {
+		return nil, false
 	}
-
-	offset := ComputeLength(b.message.String())
-	length := ComputeLength(s)
-
-	b.appendEntities(offset, length, utf8entity{
-		offset: b.message.Len(),
-		length: len(s),
-	}, formats...)
-	b.message.WriteString(s)
-	return b
-}
-
-func (b *Builder) appendEntities(offset, length int, u utf8entity, formats ...Formatter) *Builder {
-	b.lastFormatIndex = len(b.entities)
-	for i := range formats {
-		b.entities = append(b.entities, formats[i](offset, length))
-		b.lengths = append(b.lengths, u)
-	}
-	return b
+	return b.entities[l-1], true
 }

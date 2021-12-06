@@ -1,14 +1,6 @@
-// This file contains x/net/html package adaption for Telegram-specific HTML unescape.
+package html
 
-// Copyright 2010 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package entity
-
-import (
-	"unicode/utf8"
-)
+import "unicode/utf8"
 
 // unescapeEntity reads an entity like "&lt;" from b[src:] and writes the
 // corresponding "<" to b[dst:], returning the incremented dst and src cursors.
@@ -42,13 +34,14 @@ func unescapeEntity(b []byte, dst, src int) (dst1, src1 int) {
 			c = s[i]
 			i++
 			if hex {
-				if '0' <= c && c <= '9' {
+				switch {
+				case '0' <= c && c <= '9':
 					x = 16*x + rune(c) - '0'
 					continue
-				} else if 'a' <= c && c <= 'f' {
+				case 'a' <= c && c <= 'f':
 					x = 16*x + rune(c) - 'a' + 10
 					continue
-				} else if 'A' <= c && c <= 'F' {
+				case 'A' <= c && c <= 'F':
 					x = 16*x + rune(c) - 'A' + 10
 					continue
 				}
@@ -93,7 +86,7 @@ func unescapeEntity(b []byte, dst, src int) (dst1, src1 int) {
 
 	var x rune
 	tagEnd := i
-	if i>0 && s[tagEnd-1] == ';' {
+	if i > 0 && s[tagEnd-1] == ';' {
 		tagEnd--
 	}
 	switch string(s[1:tagEnd]) {

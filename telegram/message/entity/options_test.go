@@ -16,15 +16,16 @@ func TestBuilder(t *testing.T) {
 	})
 	t.Run("Format", func(t *testing.T) {
 		_, ent := b.Format("abc", Bold(), Italic()).Complete()
-		require.Len(t, ent, 2)
-		require.Equal(t, &tg.MessageEntityBold{
-			Offset: 0,
-			Length: len("abc"),
-		}, ent[0])
-		require.Equal(t, &tg.MessageEntityItalic{
-			Offset: 0,
-			Length: len("abc"),
-		}, ent[1])
+		require.Equal(t, []tg.MessageEntityClass{
+			&tg.MessageEntityBold{
+				Offset: 0,
+				Length: len("abc"),
+			},
+			&tg.MessageEntityItalic{
+				Offset: 0,
+				Length: len("abc"),
+			},
+		}, ent)
 	})
 	t.Run("Mention", func(t *testing.T) {
 		_, ent := b.Mention("abc").Complete()

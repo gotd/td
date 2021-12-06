@@ -1,4 +1,4 @@
-package entity
+package html
 
 import (
 	"fmt"
@@ -8,6 +8,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/net/html"
 
+	"github.com/gotd/td/telegram/message/entity"
 	"github.com/gotd/td/tg"
 )
 
@@ -19,9 +20,9 @@ type htmlTestCase struct {
 	skipReason string
 }
 
-func getEntities(formats ...Formatter) func(msg string) []tg.MessageEntityClass {
+func getEntities(formats ...entity.Formatter) func(msg string) []tg.MessageEntityClass {
 	return func(msg string) []tg.MessageEntityClass {
-		length := ComputeLength(msg)
+		length := entity.ComputeLength(msg)
 		r := make([]tg.MessageEntityClass, len(formats))
 		for i := range formats {
 			r[i] = formats[i](0, length)
@@ -44,14 +45,14 @@ func TestHTML(t *testing.T) {
 						t.Skip(test.skipReason)
 					}
 					a := require.New(t)
-					b := Builder{}
+					b := entity.Builder{}
 
-					if err := HTML(strings.NewReader(test.html), &b, HTMLOptions{}); test.wantErr {
+					err := HTML(strings.NewReader(test.html), &b, Options{})
+					if test.wantErr {
 						a.Error(err)
 						return
-					} else {
-						a.NoError(err)
 					}
+					a.NoError(err)
 
 					var (
 						msg      string
@@ -60,8 +61,8 @@ func TestHTML(t *testing.T) {
 					if strings.TrimSpace(test.msg) != test.msg {
 						// Complete cuts spaces and fixes entities, but TDLib test expects
 						// that it happens after parsing.
-						msg, entities = b.message.String(), b.entities
-						sortEntities(entities)
+						msg, entities = b.Raw()
+						entity.SortEntities(entities)
 					} else {
 						msg, entities = b.Complete()
 					}
@@ -81,26 +82,26 @@ func TestHTML(t *testing.T) {
 
 	{
 		tests := []htmlTestCase{
-			{html: "<b>bold</b>", msg: "bold", entities: getEntities(Bold())},
-			{html: "<strong>bold</strong>", msg: "bold", entities: getEntities(Bold())},
-			{html: "<i>italic</i>", msg: "italic", entities: getEntities(Italic())},
-			{html: "<em>italic</em>", msg: "italic", entities: getEntities(Italic())},
-			{html: "<u>underline</u>", msg: "underline", entities: getEntities(Underline())},
-			{html: "<ins>underline</ins>", msg: "underline", entities: getEntities(Underline())},
-			{html: "<s>strikethrough</s>", msg: "strikethrough", entities: getEntities(Strike())},
-			{html: "<strike>strikethrough</strike>", msg: "strikethrough", entities: getEntities(Strike())},
-			{html: "<del>strikethrough</del>", msg: "strikethrough", entities: getEntities(Strike())},
-			{html: "<code>code</code>", msg: "code", entities: getEntities(Code())},
-			{html: "<pre>abc</pre>", msg: "abc", entities: getEntities(Pre(""))},
+			{html: "<b>bold</b>", msg: "bold", entities: getEntities(entity.Bold())},
+			{html: "<strong>bold</strong>", msg: "bold", entities: getEntities(entity.Bold())},
+			{html: "<i>italic</i>", msg: "italic", entities: getEntities(entity.Italic())},
+			{html: "<em>italic</em>", msg: "italic", entities: getEntities(entity.Italic())},
+			{html: "<u>underline</u>", msg: "underline", entities: getEntities(entity.Underline())},
+			{html: "<ins>underline</ins>", msg: "underline", entities: getEntities(entity.Underline())},
+			{html: "<s>strikethrough</s>", msg: "strikethrough", entities: getEntities(entity.Strike())},
+			{html: "<strike>strikethrough</strike>", msg: "strikethrough", entities: getEntities(entity.Strike())},
+			{html: "<del>strikethrough</del>", msg: "strikethrough", entities: getEntities(entity.Strike())},
+			{html: "<code>code</code>", msg: "code", entities: getEntities(entity.Code())},
+			{html: "<pre>abc</pre>", msg: "abc", entities: getEntities(entity.Pre(""))},
 			{html: `<a href="http://www.example.com/">inline URL</a>`, msg: "inline URL",
-				entities: getEntities(TextURL("http://www.example.com/"))},
+				entities: getEntities(entity.TextURL("http://www.example.com/"))},
 			{html: `<a href="tg://user?id=123456789">inline mention of a user</a>`, msg: "inline mention of a user",
-				entities: getEntities(MentionName(&tg.InputUser{
+				entities: getEntities(entity.MentionName(&tg.InputUser{
 					UserID: 123456789,
 				}))},
 			{html: `<pre><code class="language-python">python code</code></pre>`, msg: "python code",
-				entities: getEntities(Pre("python"))},
-			{html: "<b>&lt;</b>", msg: "<", entities: getEntities(Bold())},
+				entities: getEntities(entity.Pre("python"))},
+			{html: "<b>&lt;</b>", msg: "<", entities: getEntities(entity.Bold())},
 		}
 		t.Run("Common", runTests(tests, false))
 	}
@@ -136,7 +137,7 @@ func TestIssue525(t *testing.T) {
 		return func(t *testing.T) {
 			a := require.New(t)
 
-			b := Builder{}
+			b := entity.Builder{}
 			p := htmlParser{
 				tokenizer: html.NewTokenizer(strings.NewReader(text)),
 				builder:   &b,
@@ -199,30 +200,4 @@ One more line.
 			},
 		}),
 	)
-}
-
-func BenchmarkHTML(b *testing.B) {
-	input := `<b>bold</b>, <strong>bold</strong>
-<i>italic</i>, <em>italic</em>
-	<u>underline</u>, <ins>underline</ins>
-	<s>strikethrough</s>, <strike>strikethrough</strike>, <del>strikethrough</del>
-	<b>bold <i>italic bold <s>italic bold strikethrough</s> <u>underline italic bold</u></i> bold</b>
-	<a href="http://www.example.com/">inline URL</a>
-	<a href="tg://user?id=123456789">inline mention of a user</a>
-	<code>inline fixed-width code</code>
-	<pre>pre-formatted fixed-width code block</pre>
-	<pre><code class="language-python">pre-formatted fixed-width code block written in the Python programming language</code></pre>`
-	reader := strings.NewReader(input)
-
-	b.ReportAllocs()
-	b.ResetTimer()
-
-	for i := 0; i < b.N; i++ {
-		reader.Reset(input)
-		builder := Builder{}
-
-		if err := HTML(reader, &builder, HTMLOptions{}); err != nil {
-			b.Fatal(err)
-		}
-	}
 }

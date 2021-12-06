@@ -1,11 +1,12 @@
-package entity
+package html
+
+import "github.com/gotd/td/telegram/message/entity"
 
 type stackElem struct {
-	offset     int
-	utf8offset int
-	tag        string
-	attr       string
-	format     Formatter
+	token  entity.Token
+	tag    string
+	attr   string
+	format entity.Formatter
 }
 
 type stack []stackElem

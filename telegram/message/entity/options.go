@@ -4,7 +4,7 @@ import "github.com/gotd/td/tg"
 
 // Plain formats message as plain text.
 func (b *Builder) Plain(s string) *Builder {
-	b.message.WriteString(s)
+	_, _ = b.WriteString(s)
 	b.lastFormatIndex = len(b.entities)
 	return b
 }
