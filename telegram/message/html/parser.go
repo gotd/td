@@ -38,6 +38,11 @@ func (p *htmlParser) fillAttrs() {
 const (
 	pre  = "pre"
 	code = "code"
+	em = "em"
+	ins = "ins"
+	strike = "strike"
+	del = "del"
+	strong = "strong"
 )
 
 func (p *htmlParser) tag(tn []byte) string {
@@ -45,22 +50,22 @@ func (p *htmlParser) tag(tn []byte) string {
 	switch string(tn) {
 	case "b":
 		return "b"
-	case "strong":
-		return "strong"
+	case strong:
+		return strong
 	case "i":
 		return "i"
-	case "em":
-		return "em"
+	case em:
+		return em
 	case "u":
 		return "u"
-	case "ins":
-		return "ins"
+	case ins:
+		return ins
 	case "s":
 		return "s"
-	case "strike":
-		return "strike"
-	case "del":
-		return "del"
+	case strike:
+		return strike
+	case del:
+		return del
 	case "a":
 		return "a"
 	case pre:
@@ -83,13 +88,13 @@ func (p *htmlParser) startTag() error {
 	e.token = p.builder.Token()
 	// See https://core.telegram.org/bots/api#html-style.
 	switch e.tag {
-	case "b", "strong":
+	case "b", strong:
 		e.format = entity.Bold()
-	case "i", "em":
+	case "i", em:
 		e.format = entity.Italic()
-	case "u", "ins":
+	case "u", ins:
 		e.format = entity.Underline()
-	case "s", "strike", "del":
+	case "s", strike, del:
 		e.format = entity.Strike()
 	case "a":
 		e.attr = p.attr["href"]
