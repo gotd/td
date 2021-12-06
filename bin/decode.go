@@ -172,7 +172,7 @@ func (b *Buffer) Double() (float64, error) {
 }
 
 // Int53 decodes 53-bit signed integer from Buffer.
-func (b *Buffer) Int53() (int64, error)  {
+func (b *Buffer) Int53() (int64, error) {
 	return b.Long()
 }
 

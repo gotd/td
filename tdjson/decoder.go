@@ -106,7 +106,7 @@ func (b Decoder) Uint32() (uint32, error) {
 }
 
 // Int53 deserializes int53.
-func (b Decoder) Int53() (int64, error)  {
+func (b Decoder) Int53() (int64, error) {
 	return b.Decoder.Int64()
 }
 
