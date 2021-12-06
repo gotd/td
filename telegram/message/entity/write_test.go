@@ -18,11 +18,17 @@ func TestComputeLength(t *testing.T) {
 		{string([]int32{97, 128104, 8205, 128102, 8205, 128102}), 9},
 	}
 	for _, tt := range tests {
+		r := []byte(tt.s)
 		testutil.ZeroAlloc(t, func() {
 			_ = ComputeLength(tt.s)
 		})
+		testutil.ZeroAlloc(t, func() {
+			_ = ComputeLengthBytes(r)
+		})
 		t.Run(tt.s, func(t *testing.T) {
 			require.Equal(t, tt.want, ComputeLength(tt.s))
+			require.Equal(t, tt.want, ComputeLengthBytes(r))
 		})
 	}
 }
+

@@ -35,15 +35,47 @@ func (p *htmlParser) fillAttrs() {
 	}
 }
 
-func (p *htmlParser) startTag() error {
-	const (
-		pre  = "pre"
-		code = "code"
-	)
+const (
+	pre  = "pre"
+	code = "code"
+)
 
+func (p *htmlParser) tag(tn []byte) string {
+	// Here we intern some well-known tags.
+	switch string(tn) {
+	case "b":
+		return "b"
+	case "strong":
+		return "strong"
+	case "i":
+		return "i"
+	case "em":
+		return "em"
+	case "u":
+		return "u"
+	case "ins":
+		return "ins"
+	case "s":
+		return "s"
+	case "strike":
+		return "strike"
+	case "del":
+		return "del"
+	case "a":
+		return "a"
+	case pre:
+		return pre
+	case code:
+		return code
+	default:
+		return string(tn)
+	}
+}
+
+func (p *htmlParser) startTag() error {
 	var e stackElem
 	tn, hasAttr := p.tokenizer.TagName()
-	e.tag = string(tn)
+	e.tag = p.tag(tn)
 	if hasAttr {
 		p.fillAttrs()
 	}

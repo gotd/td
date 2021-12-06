@@ -1,6 +1,9 @@
 package entity
 
-import "io"
+import (
+	"io"
+	"unicode/utf8"
+)
 
 // ComputeLength returns length of s encoded as UTF-16 string.
 //
@@ -12,6 +15,21 @@ func ComputeLength(s string) int {
 	for _, v := range s {
 		n += utf16RuneLen(v)
 
+	}
+	return n
+}
+
+// ComputeLengthBytes returns length of s encoded as UTF-16 string.
+//
+// While Telegram API docs state that they expect the number of UTF-8
+// code points, in fact they are talking about UTF-16 code units.
+func ComputeLengthBytes(s []byte) (n int) {
+	// From utf16 package.
+	var i int
+	for i < len(s) {
+		v, size := utf8.DecodeRune(s[i:])
+		i += size
+		n += utf16RuneLen(v)
 	}
 	return n
 }
@@ -66,7 +84,7 @@ var _ = []interface {
 // Write implements io.Writer.
 func (b *Builder) Write(s []byte) (int, error) {
 	n, err := b.message.Write(s)
-	b.utf16length += ComputeLength(string(s))
+	b.utf16length += ComputeLengthBytes(s)
 	return n, err
 }
 
