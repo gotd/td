@@ -1,6 +1,5 @@
 ignore:
   # Ignore generated files.
-  - "**/tl_*_gen.go"
   - "**/rsagen_*.go"
   - "**/*_gen.go"
   - "**/*.gen.go"
@@ -13,6 +12,8 @@ ignore:
   - "gorules/**"
   # Ignore testing utilities
   - "telegram/internal/*test/*"
+  # Ignore some helper generators
+  - "telegram/message/internal/mk*/*"
 
 coverage:
   status:
