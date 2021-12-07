@@ -58,8 +58,8 @@ type channelStateConfig struct {
 	Logger           *zap.Logger
 }
 
-func newChannelState(cfg channelStateConfig) *channelState {
-	ctx, cancel := context.WithCancel(context.Background())
+func newChannelState(ctx context.Context, cfg channelStateConfig) *channelState {
+	ctx, cancel := context.WithCancel(ctx)
 	state := &channelState{
 		uchan:   make(chan channelUpdate, 10),
 		outchan: cfg.Outchan,
