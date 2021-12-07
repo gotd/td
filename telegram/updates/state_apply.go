@@ -91,7 +91,7 @@ func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (pt
 	}
 
 	if len(others) > 0 {
-		if err := s.handler.Handle(s.ctx, &tg.Updates{
+		if err := s.handler.Handle(ctx, &tg.Updates{
 			Updates: others,
 			Users:   ents.Users,
 			Chats:   ents.Chats,
@@ -136,7 +136,7 @@ func (s *state) applyPts(ctx context.Context, state int, updates []update) error
 		ents.Merge(update.Ents)
 	}
 
-	if err := s.handler.Handle(s.ctx, &tg.Updates{
+	if err := s.handler.Handle(ctx, &tg.Updates{
 		Updates: converted,
 		Users:   ents.Users,
 		Chats:   ents.Chats,
