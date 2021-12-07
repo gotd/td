@@ -14,7 +14,6 @@ func ComputeLength(s string) int {
 	n := 0
 	for _, v := range s {
 		n += utf16RuneLen(v)
-
 	}
 	return n
 }
@@ -42,9 +41,8 @@ func utf16RuneLen(v rune) int {
 
 	if surrSelf <= v && v <= maxRune {
 		return 2
-	} else {
-		return 1
 	}
+	return 1
 }
 
 func (b *Builder) appendMessage(s string, formats ...Formatter) *Builder {

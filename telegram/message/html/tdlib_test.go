@@ -369,4 +369,3 @@ func tdlibHTMLTests() []htmlTestCase {
 		},
 	}
 }
-

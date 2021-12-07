@@ -36,12 +36,12 @@ func (p *htmlParser) fillAttrs() {
 }
 
 const (
-	pre  = "pre"
-	code = "code"
-	em = "em"
-	ins = "ins"
+	pre    = "pre"
+	code   = "code"
+	em     = "em"
+	ins    = "ins"
 	strike = "strike"
-	del = "del"
+	del    = "del"
 	strong = "strong"
 )
 
