@@ -94,6 +94,7 @@ func main() {
 	}
 	collectInfoTime := time.Since(start)
 
+	start = time.Now()
 	if err := g.WriteSource(fs, *packageName, gen.Template()); err != nil {
 		panic(fmt.Sprintf("%+v", err))
 	}

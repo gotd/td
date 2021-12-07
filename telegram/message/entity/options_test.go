@@ -14,17 +14,31 @@ func TestBuilder(t *testing.T) {
 		_, ent := b.Plain("abc").Complete()
 		require.Empty(t, ent)
 	})
+	t.Run("EmptyString", func(t *testing.T) {
+		msg, ent := b.Bold("").Complete()
+		require.Empty(t, msg)
+		require.Empty(t, ent)
+	})
 	t.Run("Format", func(t *testing.T) {
 		_, ent := b.Format("abc", Bold(), Italic()).Complete()
-		require.Len(t, ent, 2)
-		require.Equal(t, &tg.MessageEntityBold{
+		require.Equal(t, []tg.MessageEntityClass{
+			&tg.MessageEntityBold{
+				Offset: 0,
+				Length: len("abc"),
+			},
+			&tg.MessageEntityItalic{
+				Offset: 0,
+				Length: len("abc"),
+			},
+		}, ent)
+	})
+	t.Run("Unknown", func(t *testing.T) {
+		_, ent := b.Unknown("abc").Complete()
+		r := ent[0]
+		require.Equal(t, &tg.MessageEntityUnknown{
 			Offset: 0,
 			Length: len("abc"),
-		}, ent[0])
-		require.Equal(t, &tg.MessageEntityItalic{
-			Offset: 0,
-			Length: len("abc"),
-		}, ent[1])
+		}, r)
 	})
 	t.Run("Mention", func(t *testing.T) {
 		_, ent := b.Mention("abc").Complete()
