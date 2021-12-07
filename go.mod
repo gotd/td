@@ -21,9 +21,9 @@ require (
 	go.uber.org/multierr v1.7.0
 	go.uber.org/zap v1.19.1
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
-	golang.org/x/net v0.0.0-20210916014120-12bc252f5db8
+	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/tools v0.1.7
+	golang.org/x/tools v0.1.8
 	nhooyr.io/websocket v1.8.7
 	rsc.io/qr v0.2.0
 )
