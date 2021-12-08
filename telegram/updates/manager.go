@@ -49,7 +49,7 @@ func (m *Manager) Handle(ctx context.Context, u tg.UpdatesClass) error {
 		return m.cfg.Handler.Handle(ctx, u)
 	}
 
-	m.state.PushUpdates(ctx, u)
+	m.state.PushUpdates(m.state.ctx, u)
 	return nil
 }
 

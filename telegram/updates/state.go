@@ -114,7 +114,7 @@ func newState(ctx context.Context, cfg stateConfig) *state {
 	})
 
 	for id, info := range cfg.Channels {
-		state := s.newChannelState(id, info.AccessHash, info.Pts)
+		state := s.newChannelState(ctx, id, info.AccessHash, info.Pts)
 		s.channels[id] = state
 		go state.Run()
 	}
@@ -228,10 +228,11 @@ func (s *state) handleSeq(ctx context.Context, u *tg.UpdatesCombined) error {
 		Value: u,
 		State: u.Seq,
 		Count: u.Seq - u.SeqStart + 1,
+		Ctx:   ctx,
 	})
 }
 
-func (s *state) handlePts(pts, ptsCount int, u tg.UpdateClass, ents entities) error {
+func (s *state) handlePts(ctx context.Context, pts, ptsCount int, u tg.UpdateClass, ents entities) error {
 	if err := validatePts(pts, ptsCount); err != nil {
 		s.log.Error("Pts validation failed", zap.Error(err), zap.Any("update", u))
 		return nil
@@ -242,10 +243,11 @@ func (s *state) handlePts(pts, ptsCount int, u tg.UpdateClass, ents entities) er
 		State: pts,
 		Count: ptsCount,
 		Ents:  ents,
+		Ctx:   ctx,
 	})
 }
 
-func (s *state) handleQts(qts int, u tg.UpdateClass, ents entities) error {
+func (s *state) handleQts(ctx context.Context, qts int, u tg.UpdateClass, ents entities) error {
 	if err := validateQts(qts); err != nil {
 		s.log.Error("Qts validation failed", zap.Error(err), zap.Any("update", u))
 		return nil
@@ -256,6 +258,7 @@ func (s *state) handleQts(qts int, u tg.UpdateClass, ents entities) error {
 		State: qts,
 		Count: 1,
 		Ents:  ents,
+		Ctx:   ctx,
 	})
 }
 
@@ -304,7 +307,7 @@ func (s *state) handleChannel(channelID int64, date, pts, ptsCount int, cu chann
 			}
 		}
 
-		state = s.newChannelState(channelID, accessHash, localPts)
+		state = s.newChannelState(s.ctx, channelID, accessHash, localPts)
 		s.channels[channelID] = state
 		go state.Run()
 	}
@@ -312,8 +315,8 @@ func (s *state) handleChannel(channelID int64, date, pts, ptsCount int, cu chann
 	state.PushUpdate(cu)
 }
 
-func (s *state) newChannelState(channelID, accessHash int64, initialPts int) *channelState {
-	return newChannelState(channelStateConfig{
+func (s *state) newChannelState(ctx context.Context, channelID, accessHash int64, initialPts int) *channelState {
+	return newChannelState(ctx, channelStateConfig{
 		Outchan:          s.internalQueue,
 		InitialPts:       initialPts,
 		ChannelID:        channelID,

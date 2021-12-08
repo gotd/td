@@ -58,7 +58,7 @@ func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (pt
 		}
 
 		if pts, ptsCount, ok := isCommonPtsUpdate(u); ok {
-			if err := s.handlePts(pts, ptsCount, u, ents); err != nil {
+			if err := s.handlePts(ctx, pts, ptsCount, u, ents); err != nil {
 				return false, err
 			}
 
@@ -80,7 +80,7 @@ func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (pt
 		}
 
 		if qts, ok := isCommonQtsUpdate(u); ok {
-			if err := s.handleQts(qts, u, ents); err != nil {
+			if err := s.handleQts(ctx, qts, u, ents); err != nil {
 				return false, err
 			}
 
