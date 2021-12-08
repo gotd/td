@@ -31,19 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ReportSupergroupSpamRequest represents TL type `reportSupergroupSpam#d0c20173`.
+// ReportSupergroupSpamRequest represents TL type `reportSupergroupSpam#383e26f2`.
 type ReportSupergroupSpamRequest struct {
 	// Supergroup identifier
 	SupergroupID int64
-	// User identifier
-	UserID int64
-	// Identifiers of messages sent in the supergroup by the user. This list must be
-	// non-empty
+	// Identifiers of messages sent in the supergroup. All messages must be sent by the same
+	// sender. This list must be non-empty
 	MessageIDs []int64
 }
 
 // ReportSupergroupSpamRequestTypeID is TL type id of ReportSupergroupSpamRequest.
-const ReportSupergroupSpamRequestTypeID = 0xd0c20173
+const ReportSupergroupSpamRequestTypeID = 0x383e26f2
 
 // Ensuring interfaces in compile-time for ReportSupergroupSpamRequest.
 var (
@@ -58,9 +56,6 @@ func (r *ReportSupergroupSpamRequest) Zero() bool {
 		return true
 	}
 	if !(r.SupergroupID == 0) {
-		return false
-	}
-	if !(r.UserID == 0) {
 		return false
 	}
 	if !(r.MessageIDs == nil) {
@@ -107,10 +102,6 @@ func (r *ReportSupergroupSpamRequest) TypeInfo() tdp.Type {
 			SchemaName: "supergroup_id",
 		},
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
-		},
-		{
 			Name:       "MessageIDs",
 			SchemaName: "message_ids",
 		},
@@ -121,7 +112,7 @@ func (r *ReportSupergroupSpamRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReportSupergroupSpamRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportSupergroupSpam#d0c20173 as nil")
+		return fmt.Errorf("can't encode reportSupergroupSpam#383e26f2 as nil")
 	}
 	b.PutID(ReportSupergroupSpamRequestTypeID)
 	return r.EncodeBare(b)
@@ -130,10 +121,9 @@ func (r *ReportSupergroupSpamRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReportSupergroupSpamRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportSupergroupSpam#d0c20173 as nil")
+		return fmt.Errorf("can't encode reportSupergroupSpam#383e26f2 as nil")
 	}
 	b.PutInt53(r.SupergroupID)
-	b.PutInt53(r.UserID)
 	b.PutInt(len(r.MessageIDs))
 	for _, v := range r.MessageIDs {
 		b.PutInt53(v)
@@ -144,10 +134,10 @@ func (r *ReportSupergroupSpamRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ReportSupergroupSpamRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportSupergroupSpam#d0c20173 to nil")
+		return fmt.Errorf("can't decode reportSupergroupSpam#383e26f2 to nil")
 	}
 	if err := b.ConsumeID(ReportSupergroupSpamRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: %w", err)
+		return fmt.Errorf("unable to decode reportSupergroupSpam#383e26f2: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -155,26 +145,19 @@ func (r *ReportSupergroupSpamRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReportSupergroupSpamRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportSupergroupSpam#d0c20173 to nil")
+		return fmt.Errorf("can't decode reportSupergroupSpam#383e26f2 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field supergroup_id: %w", err)
+			return fmt.Errorf("unable to decode reportSupergroupSpam#383e26f2: field supergroup_id: %w", err)
 		}
 		r.SupergroupID = value
 	}
 	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field user_id: %w", err)
-		}
-		r.UserID = value
-	}
-	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field message_ids: %w", err)
+			return fmt.Errorf("unable to decode reportSupergroupSpam#383e26f2: field message_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -183,7 +166,7 @@ func (r *ReportSupergroupSpamRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field message_ids: %w", err)
+				return fmt.Errorf("unable to decode reportSupergroupSpam#383e26f2: field message_ids: %w", err)
 			}
 			r.MessageIDs = append(r.MessageIDs, value)
 		}
@@ -194,14 +177,12 @@ func (r *ReportSupergroupSpamRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *ReportSupergroupSpamRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportSupergroupSpam#d0c20173 as nil")
+		return fmt.Errorf("can't encode reportSupergroupSpam#383e26f2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("reportSupergroupSpam")
 	b.FieldStart("supergroup_id")
 	b.PutInt53(r.SupergroupID)
-	b.FieldStart("user_id")
-	b.PutInt53(r.UserID)
 	b.FieldStart("message_ids")
 	b.ArrStart()
 	for _, v := range r.MessageIDs {
@@ -215,37 +196,31 @@ func (r *ReportSupergroupSpamRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *ReportSupergroupSpamRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportSupergroupSpam#d0c20173 to nil")
+		return fmt.Errorf("can't decode reportSupergroupSpam#383e26f2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("reportSupergroupSpam"); err != nil {
-				return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: %w", err)
+				return fmt.Errorf("unable to decode reportSupergroupSpam#383e26f2: %w", err)
 			}
 		case "supergroup_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field supergroup_id: %w", err)
+				return fmt.Errorf("unable to decode reportSupergroupSpam#383e26f2: field supergroup_id: %w", err)
 			}
 			r.SupergroupID = value
-		case "user_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field user_id: %w", err)
-			}
-			r.UserID = value
 		case "message_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field message_ids: %w", err)
+					return fmt.Errorf("unable to decode reportSupergroupSpam#383e26f2: field message_ids: %w", err)
 				}
 				r.MessageIDs = append(r.MessageIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode reportSupergroupSpam#d0c20173: field message_ids: %w", err)
+				return fmt.Errorf("unable to decode reportSupergroupSpam#383e26f2: field message_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -259,17 +234,12 @@ func (r *ReportSupergroupSpamRequest) GetSupergroupID() (value int64) {
 	return r.SupergroupID
 }
 
-// GetUserID returns value of UserID field.
-func (r *ReportSupergroupSpamRequest) GetUserID() (value int64) {
-	return r.UserID
-}
-
 // GetMessageIDs returns value of MessageIDs field.
 func (r *ReportSupergroupSpamRequest) GetMessageIDs() (value []int64) {
 	return r.MessageIDs
 }
 
-// ReportSupergroupSpam invokes method reportSupergroupSpam#d0c20173 returning error if any.
+// ReportSupergroupSpam invokes method reportSupergroupSpam#383e26f2 returning error if any.
 func (c *Client) ReportSupergroupSpam(ctx context.Context, request *ReportSupergroupSpamRequest) error {
 	var ok Ok
 

@@ -49,7 +49,7 @@ type Poll struct {
 	Type PollTypeClass
 	// Amount of time the poll will be active after creation, in seconds
 	OpenPeriod int32
-	// Point in time (Unix timestamp) when the poll will be automatically closed
+	// Point in time (Unix timestamp) when the poll will automatically be closed
 	CloseDate int32
 	// True, if the poll is closed
 	IsClosed bool

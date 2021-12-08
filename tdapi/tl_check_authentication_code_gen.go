@@ -33,7 +33,7 @@ var (
 
 // CheckAuthenticationCodeRequest represents TL type `checkAuthenticationCode#edfe44aa`.
 type CheckAuthenticationCodeRequest struct {
-	// The verification code received via SMS, Telegram message, phone call, or flash call
+	// Authentication code to check
 	Code string
 }
 

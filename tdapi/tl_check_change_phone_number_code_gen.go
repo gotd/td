@@ -33,7 +33,7 @@ var (
 
 // CheckChangePhoneNumberCodeRequest represents TL type `checkChangePhoneNumberCode#9976a263`.
 type CheckChangePhoneNumberCodeRequest struct {
-	// Verification code received by SMS, phone call or flash call
+	// Authentication code to check
 	Code string
 }
 

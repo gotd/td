@@ -31,14 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Sessions represents TL type `sessions#1da11c6e`.
+// Sessions represents TL type `sessions#997833aa`.
 type Sessions struct {
 	// List of sessions
 	Sessions []Session
+	// Number of days of inactivity before sessions will automatically be terminated; 1-366
+	// days
+	InactiveSessionTTLDays int32
 }
 
 // SessionsTypeID is TL type id of Sessions.
-const SessionsTypeID = 0x1da11c6e
+const SessionsTypeID = 0x997833aa
 
 // Ensuring interfaces in compile-time for Sessions.
 var (
@@ -53,6 +56,9 @@ func (s *Sessions) Zero() bool {
 		return true
 	}
 	if !(s.Sessions == nil) {
+		return false
+	}
+	if !(s.InactiveSessionTTLDays == 0) {
 		return false
 	}
 
@@ -95,6 +101,10 @@ func (s *Sessions) TypeInfo() tdp.Type {
 			Name:       "Sessions",
 			SchemaName: "sessions",
 		},
+		{
+			Name:       "InactiveSessionTTLDays",
+			SchemaName: "inactive_session_ttl_days",
+		},
 	}
 	return typ
 }
@@ -102,7 +112,7 @@ func (s *Sessions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *Sessions) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sessions#1da11c6e as nil")
+		return fmt.Errorf("can't encode sessions#997833aa as nil")
 	}
 	b.PutID(SessionsTypeID)
 	return s.EncodeBare(b)
@@ -111,24 +121,25 @@ func (s *Sessions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *Sessions) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sessions#1da11c6e as nil")
+		return fmt.Errorf("can't encode sessions#997833aa as nil")
 	}
 	b.PutInt(len(s.Sessions))
 	for idx, v := range s.Sessions {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare sessions#1da11c6e: field sessions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare sessions#997833aa: field sessions element with index %d: %w", idx, err)
 		}
 	}
+	b.PutInt32(s.InactiveSessionTTLDays)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *Sessions) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sessions#1da11c6e to nil")
+		return fmt.Errorf("can't decode sessions#997833aa to nil")
 	}
 	if err := b.ConsumeID(SessionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode sessions#1da11c6e: %w", err)
+		return fmt.Errorf("unable to decode sessions#997833aa: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -136,12 +147,12 @@ func (s *Sessions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *Sessions) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sessions#1da11c6e to nil")
+		return fmt.Errorf("can't decode sessions#997833aa to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sessions#1da11c6e: field sessions: %w", err)
+			return fmt.Errorf("unable to decode sessions#997833aa: field sessions: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -150,10 +161,17 @@ func (s *Sessions) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value Session
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare sessions#1da11c6e: field sessions: %w", err)
+				return fmt.Errorf("unable to decode bare sessions#997833aa: field sessions: %w", err)
 			}
 			s.Sessions = append(s.Sessions, value)
 		}
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode sessions#997833aa: field inactive_session_ttl_days: %w", err)
+		}
+		s.InactiveSessionTTLDays = value
 	}
 	return nil
 }
@@ -161,7 +179,7 @@ func (s *Sessions) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *Sessions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sessions#1da11c6e as nil")
+		return fmt.Errorf("can't encode sessions#997833aa as nil")
 	}
 	b.ObjStart()
 	b.PutID("sessions")
@@ -169,10 +187,12 @@ func (s *Sessions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range s.Sessions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode sessions#1da11c6e: field sessions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode sessions#997833aa: field sessions element with index %d: %w", idx, err)
 		}
 	}
 	b.ArrEnd()
+	b.FieldStart("inactive_session_ttl_days")
+	b.PutInt32(s.InactiveSessionTTLDays)
 	b.ObjEnd()
 	return nil
 }
@@ -180,26 +200,32 @@ func (s *Sessions) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *Sessions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sessions#1da11c6e to nil")
+		return fmt.Errorf("can't decode sessions#997833aa to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sessions"); err != nil {
-				return fmt.Errorf("unable to decode sessions#1da11c6e: %w", err)
+				return fmt.Errorf("unable to decode sessions#997833aa: %w", err)
 			}
 		case "sessions":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value Session
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode sessions#1da11c6e: field sessions: %w", err)
+					return fmt.Errorf("unable to decode sessions#997833aa: field sessions: %w", err)
 				}
 				s.Sessions = append(s.Sessions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode sessions#1da11c6e: field sessions: %w", err)
+				return fmt.Errorf("unable to decode sessions#997833aa: field sessions: %w", err)
 			}
+		case "inactive_session_ttl_days":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode sessions#997833aa: field inactive_session_ttl_days: %w", err)
+			}
+			s.InactiveSessionTTLDays = value
 		default:
 			return b.Skip()
 		}
@@ -210,4 +236,9 @@ func (s *Sessions) DecodeTDLibJSON(b tdjson.Decoder) error {
 // GetSessions returns value of Sessions field.
 func (s *Sessions) GetSessions() (value []Session) {
 	return s.Sessions
+}
+
+// GetInactiveSessionTTLDays returns value of InactiveSessionTTLDays field.
+func (s *Sessions) GetInactiveSessionTTLDays() (value int32) {
+	return s.InactiveSessionTTLDays
 }

@@ -165,7 +165,7 @@ type LogStreamFile struct {
 	// Path to the file to where the internal TDLib log will be written
 	Path string
 	// The maximum size of the file to where the internal TDLib log is written before the
-	// file will be auto-rotated, in bytes
+	// file will automatically be rotated, in bytes
 	MaxFileSize int64
 	// Pass true to additionally redirect stderr to the log file. Ignored on Windows
 	RedirectStderr bool

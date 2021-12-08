@@ -33,7 +33,7 @@ var (
 
 // CheckPhoneNumberConfirmationCodeRequest represents TL type `checkPhoneNumberConfirmationCode#afa638da`.
 type CheckPhoneNumberConfirmationCodeRequest struct {
-	// The phone number confirmation code
+	// Confirmation code to check
 	Code string
 }
 

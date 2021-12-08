@@ -31,19 +31,19 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AnimatedEmoji represents TL type `animatedEmoji#55ad5033`.
+// AnimatedEmoji represents TL type `animatedEmoji#93b7fec9`.
 type AnimatedEmoji struct {
 	// Animated sticker for the emoji
 	Sticker Sticker
-	// List of colors to be replaced while the sticker is rendered
-	ColorReplacements []ColorReplacement
+	// Emoji modifier fitzpatrick type; 0-6; 0 if none
+	FitzpatrickType int32
 	// File containing the sound to be played when the animated emoji is clicked if any; may
 	// be null. The sound is encoded with the Opus codec, and stored inside an OGG container
 	Sound File
 }
 
 // AnimatedEmojiTypeID is TL type id of AnimatedEmoji.
-const AnimatedEmojiTypeID = 0x55ad5033
+const AnimatedEmojiTypeID = 0x93b7fec9
 
 // Ensuring interfaces in compile-time for AnimatedEmoji.
 var (
@@ -60,7 +60,7 @@ func (a *AnimatedEmoji) Zero() bool {
 	if !(a.Sticker.Zero()) {
 		return false
 	}
-	if !(a.ColorReplacements == nil) {
+	if !(a.FitzpatrickType == 0) {
 		return false
 	}
 	if !(a.Sound.Zero()) {
@@ -107,8 +107,8 @@ func (a *AnimatedEmoji) TypeInfo() tdp.Type {
 			SchemaName: "sticker",
 		},
 		{
-			Name:       "ColorReplacements",
-			SchemaName: "color_replacements",
+			Name:       "FitzpatrickType",
+			SchemaName: "fitzpatrick_type",
 		},
 		{
 			Name:       "Sound",
@@ -121,7 +121,7 @@ func (a *AnimatedEmoji) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AnimatedEmoji) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode animatedEmoji#55ad5033 as nil")
+		return fmt.Errorf("can't encode animatedEmoji#93b7fec9 as nil")
 	}
 	b.PutID(AnimatedEmojiTypeID)
 	return a.EncodeBare(b)
@@ -130,19 +130,14 @@ func (a *AnimatedEmoji) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AnimatedEmoji) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode animatedEmoji#55ad5033 as nil")
+		return fmt.Errorf("can't encode animatedEmoji#93b7fec9 as nil")
 	}
 	if err := a.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode animatedEmoji#55ad5033: field sticker: %w", err)
+		return fmt.Errorf("unable to encode animatedEmoji#93b7fec9: field sticker: %w", err)
 	}
-	b.PutInt(len(a.ColorReplacements))
-	for idx, v := range a.ColorReplacements {
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare animatedEmoji#55ad5033: field color_replacements element with index %d: %w", idx, err)
-		}
-	}
+	b.PutInt32(a.FitzpatrickType)
 	if err := a.Sound.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode animatedEmoji#55ad5033: field sound: %w", err)
+		return fmt.Errorf("unable to encode animatedEmoji#93b7fec9: field sound: %w", err)
 	}
 	return nil
 }
@@ -150,10 +145,10 @@ func (a *AnimatedEmoji) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AnimatedEmoji) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode animatedEmoji#55ad5033 to nil")
+		return fmt.Errorf("can't decode animatedEmoji#93b7fec9 to nil")
 	}
 	if err := b.ConsumeID(AnimatedEmojiTypeID); err != nil {
-		return fmt.Errorf("unable to decode animatedEmoji#55ad5033: %w", err)
+		return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -161,33 +156,23 @@ func (a *AnimatedEmoji) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AnimatedEmoji) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode animatedEmoji#55ad5033 to nil")
+		return fmt.Errorf("can't decode animatedEmoji#93b7fec9 to nil")
 	}
 	{
 		if err := a.Sticker.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode animatedEmoji#55ad5033: field sticker: %w", err)
+			return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: field sticker: %w", err)
 		}
 	}
 	{
-		headerLen, err := b.Int()
+		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode animatedEmoji#55ad5033: field color_replacements: %w", err)
+			return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: field fitzpatrick_type: %w", err)
 		}
-
-		if headerLen > 0 {
-			a.ColorReplacements = make([]ColorReplacement, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value ColorReplacement
-			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare animatedEmoji#55ad5033: field color_replacements: %w", err)
-			}
-			a.ColorReplacements = append(a.ColorReplacements, value)
-		}
+		a.FitzpatrickType = value
 	}
 	{
 		if err := a.Sound.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode animatedEmoji#55ad5033: field sound: %w", err)
+			return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: field sound: %w", err)
 		}
 	}
 	return nil
@@ -196,25 +181,19 @@ func (a *AnimatedEmoji) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AnimatedEmoji) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode animatedEmoji#55ad5033 as nil")
+		return fmt.Errorf("can't encode animatedEmoji#93b7fec9 as nil")
 	}
 	b.ObjStart()
 	b.PutID("animatedEmoji")
 	b.FieldStart("sticker")
 	if err := a.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode animatedEmoji#55ad5033: field sticker: %w", err)
+		return fmt.Errorf("unable to encode animatedEmoji#93b7fec9: field sticker: %w", err)
 	}
-	b.FieldStart("color_replacements")
-	b.ArrStart()
-	for idx, v := range a.ColorReplacements {
-		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode animatedEmoji#55ad5033: field color_replacements element with index %d: %w", idx, err)
-		}
-	}
-	b.ArrEnd()
+	b.FieldStart("fitzpatrick_type")
+	b.PutInt32(a.FitzpatrickType)
 	b.FieldStart("sound")
 	if err := a.Sound.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode animatedEmoji#55ad5033: field sound: %w", err)
+		return fmt.Errorf("unable to encode animatedEmoji#93b7fec9: field sound: %w", err)
 	}
 	b.ObjEnd()
 	return nil
@@ -223,33 +202,28 @@ func (a *AnimatedEmoji) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AnimatedEmoji) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode animatedEmoji#55ad5033 to nil")
+		return fmt.Errorf("can't decode animatedEmoji#93b7fec9 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("animatedEmoji"); err != nil {
-				return fmt.Errorf("unable to decode animatedEmoji#55ad5033: %w", err)
+				return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: %w", err)
 			}
 		case "sticker":
 			if err := a.Sticker.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode animatedEmoji#55ad5033: field sticker: %w", err)
+				return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: field sticker: %w", err)
 			}
-		case "color_replacements":
-			if err := b.Arr(func(b tdjson.Decoder) error {
-				var value ColorReplacement
-				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode animatedEmoji#55ad5033: field color_replacements: %w", err)
-				}
-				a.ColorReplacements = append(a.ColorReplacements, value)
-				return nil
-			}); err != nil {
-				return fmt.Errorf("unable to decode animatedEmoji#55ad5033: field color_replacements: %w", err)
+		case "fitzpatrick_type":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: field fitzpatrick_type: %w", err)
 			}
+			a.FitzpatrickType = value
 		case "sound":
 			if err := a.Sound.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode animatedEmoji#55ad5033: field sound: %w", err)
+				return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: field sound: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -263,9 +237,9 @@ func (a *AnimatedEmoji) GetSticker() (value Sticker) {
 	return a.Sticker
 }
 
-// GetColorReplacements returns value of ColorReplacements field.
-func (a *AnimatedEmoji) GetColorReplacements() (value []ColorReplacement) {
-	return a.ColorReplacements
+// GetFitzpatrickType returns value of FitzpatrickType field.
+func (a *AnimatedEmoji) GetFitzpatrickType() (value int32) {
+	return a.FitzpatrickType
 }
 
 // GetSound returns value of Sound field.

@@ -8947,18 +8947,18 @@ func (m *MessagePassportDataReceived) GetCredentials() (value EncryptedCredentia
 	return m.Credentials
 }
 
-// MessageProximityAlertTriggered represents TL type `messageProximityAlertTriggered#b1d24de6`.
+// MessageProximityAlertTriggered represents TL type `messageProximityAlertTriggered#409f6d3`.
 type MessageProximityAlertTriggered struct {
-	// The user or chat, which triggered the proximity alert
-	Traveler MessageSenderClass
-	// The user or chat, which subscribed for the proximity alert
-	Watcher MessageSenderClass
+	// The identifier of a user or chat that triggered the proximity alert
+	TravelerID MessageSenderClass
+	// The identifier of a user or chat that subscribed for the proximity alert
+	WatcherID MessageSenderClass
 	// The distance between the users
 	Distance int32
 }
 
 // MessageProximityAlertTriggeredTypeID is TL type id of MessageProximityAlertTriggered.
-const MessageProximityAlertTriggeredTypeID = 0xb1d24de6
+const MessageProximityAlertTriggeredTypeID = 0x409f6d3
 
 // construct implements constructor of MessageContentClass.
 func (m MessageProximityAlertTriggered) construct() MessageContentClass { return &m }
@@ -8977,10 +8977,10 @@ func (m *MessageProximityAlertTriggered) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.Traveler == nil) {
+	if !(m.TravelerID == nil) {
 		return false
 	}
-	if !(m.Watcher == nil) {
+	if !(m.WatcherID == nil) {
 		return false
 	}
 	if !(m.Distance == 0) {
@@ -9023,12 +9023,12 @@ func (m *MessageProximityAlertTriggered) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Traveler",
-			SchemaName: "traveler",
+			Name:       "TravelerID",
+			SchemaName: "traveler_id",
 		},
 		{
-			Name:       "Watcher",
-			SchemaName: "watcher",
+			Name:       "WatcherID",
+			SchemaName: "watcher_id",
 		},
 		{
 			Name:       "Distance",
@@ -9041,7 +9041,7 @@ func (m *MessageProximityAlertTriggered) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageProximityAlertTriggered) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageProximityAlertTriggered#b1d24de6 as nil")
+		return fmt.Errorf("can't encode messageProximityAlertTriggered#409f6d3 as nil")
 	}
 	b.PutID(MessageProximityAlertTriggeredTypeID)
 	return m.EncodeBare(b)
@@ -9050,19 +9050,19 @@ func (m *MessageProximityAlertTriggered) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageProximityAlertTriggered) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageProximityAlertTriggered#b1d24de6 as nil")
+		return fmt.Errorf("can't encode messageProximityAlertTriggered#409f6d3 as nil")
 	}
-	if m.Traveler == nil {
-		return fmt.Errorf("unable to encode messageProximityAlertTriggered#b1d24de6: field traveler is nil")
+	if m.TravelerID == nil {
+		return fmt.Errorf("unable to encode messageProximityAlertTriggered#409f6d3: field traveler_id is nil")
 	}
-	if err := m.Traveler.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageProximityAlertTriggered#b1d24de6: field traveler: %w", err)
+	if err := m.TravelerID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageProximityAlertTriggered#409f6d3: field traveler_id: %w", err)
 	}
-	if m.Watcher == nil {
-		return fmt.Errorf("unable to encode messageProximityAlertTriggered#b1d24de6: field watcher is nil")
+	if m.WatcherID == nil {
+		return fmt.Errorf("unable to encode messageProximityAlertTriggered#409f6d3: field watcher_id is nil")
 	}
-	if err := m.Watcher.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageProximityAlertTriggered#b1d24de6: field watcher: %w", err)
+	if err := m.WatcherID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageProximityAlertTriggered#409f6d3: field watcher_id: %w", err)
 	}
 	b.PutInt32(m.Distance)
 	return nil
@@ -9071,10 +9071,10 @@ func (m *MessageProximityAlertTriggered) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageProximityAlertTriggered) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageProximityAlertTriggered#b1d24de6 to nil")
+		return fmt.Errorf("can't decode messageProximityAlertTriggered#409f6d3 to nil")
 	}
 	if err := b.ConsumeID(MessageProximityAlertTriggeredTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageProximityAlertTriggered#b1d24de6: %w", err)
+		return fmt.Errorf("unable to decode messageProximityAlertTriggered#409f6d3: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -9082,26 +9082,26 @@ func (m *MessageProximityAlertTriggered) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageProximityAlertTriggered) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageProximityAlertTriggered#b1d24de6 to nil")
+		return fmt.Errorf("can't decode messageProximityAlertTriggered#409f6d3 to nil")
 	}
 	{
 		value, err := DecodeMessageSender(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProximityAlertTriggered#b1d24de6: field traveler: %w", err)
+			return fmt.Errorf("unable to decode messageProximityAlertTriggered#409f6d3: field traveler_id: %w", err)
 		}
-		m.Traveler = value
+		m.TravelerID = value
 	}
 	{
 		value, err := DecodeMessageSender(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProximityAlertTriggered#b1d24de6: field watcher: %w", err)
+			return fmt.Errorf("unable to decode messageProximityAlertTriggered#409f6d3: field watcher_id: %w", err)
 		}
-		m.Watcher = value
+		m.WatcherID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageProximityAlertTriggered#b1d24de6: field distance: %w", err)
+			return fmt.Errorf("unable to decode messageProximityAlertTriggered#409f6d3: field distance: %w", err)
 		}
 		m.Distance = value
 	}
@@ -9111,23 +9111,23 @@ func (m *MessageProximityAlertTriggered) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageProximityAlertTriggered) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageProximityAlertTriggered#b1d24de6 as nil")
+		return fmt.Errorf("can't encode messageProximityAlertTriggered#409f6d3 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageProximityAlertTriggered")
-	b.FieldStart("traveler")
-	if m.Traveler == nil {
-		return fmt.Errorf("unable to encode messageProximityAlertTriggered#b1d24de6: field traveler is nil")
+	b.FieldStart("traveler_id")
+	if m.TravelerID == nil {
+		return fmt.Errorf("unable to encode messageProximityAlertTriggered#409f6d3: field traveler_id is nil")
 	}
-	if err := m.Traveler.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageProximityAlertTriggered#b1d24de6: field traveler: %w", err)
+	if err := m.TravelerID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageProximityAlertTriggered#409f6d3: field traveler_id: %w", err)
 	}
-	b.FieldStart("watcher")
-	if m.Watcher == nil {
-		return fmt.Errorf("unable to encode messageProximityAlertTriggered#b1d24de6: field watcher is nil")
+	b.FieldStart("watcher_id")
+	if m.WatcherID == nil {
+		return fmt.Errorf("unable to encode messageProximityAlertTriggered#409f6d3: field watcher_id is nil")
 	}
-	if err := m.Watcher.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageProximityAlertTriggered#b1d24de6: field watcher: %w", err)
+	if err := m.WatcherID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageProximityAlertTriggered#409f6d3: field watcher_id: %w", err)
 	}
 	b.FieldStart("distance")
 	b.PutInt32(m.Distance)
@@ -9138,31 +9138,31 @@ func (m *MessageProximityAlertTriggered) EncodeTDLibJSON(b tdjson.Encoder) error
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageProximityAlertTriggered) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageProximityAlertTriggered#b1d24de6 to nil")
+		return fmt.Errorf("can't decode messageProximityAlertTriggered#409f6d3 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageProximityAlertTriggered"); err != nil {
-				return fmt.Errorf("unable to decode messageProximityAlertTriggered#b1d24de6: %w", err)
+				return fmt.Errorf("unable to decode messageProximityAlertTriggered#409f6d3: %w", err)
 			}
-		case "traveler":
+		case "traveler_id":
 			value, err := DecodeTDLibJSONMessageSender(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProximityAlertTriggered#b1d24de6: field traveler: %w", err)
+				return fmt.Errorf("unable to decode messageProximityAlertTriggered#409f6d3: field traveler_id: %w", err)
 			}
-			m.Traveler = value
-		case "watcher":
+			m.TravelerID = value
+		case "watcher_id":
 			value, err := DecodeTDLibJSONMessageSender(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProximityAlertTriggered#b1d24de6: field watcher: %w", err)
+				return fmt.Errorf("unable to decode messageProximityAlertTriggered#409f6d3: field watcher_id: %w", err)
 			}
-			m.Watcher = value
+			m.WatcherID = value
 		case "distance":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageProximityAlertTriggered#b1d24de6: field distance: %w", err)
+				return fmt.Errorf("unable to decode messageProximityAlertTriggered#409f6d3: field distance: %w", err)
 			}
 			m.Distance = value
 		default:
@@ -9172,14 +9172,14 @@ func (m *MessageProximityAlertTriggered) DecodeTDLibJSON(b tdjson.Decoder) error
 	})
 }
 
-// GetTraveler returns value of Traveler field.
-func (m *MessageProximityAlertTriggered) GetTraveler() (value MessageSenderClass) {
-	return m.Traveler
+// GetTravelerID returns value of TravelerID field.
+func (m *MessageProximityAlertTriggered) GetTravelerID() (value MessageSenderClass) {
+	return m.TravelerID
 }
 
-// GetWatcher returns value of Watcher field.
-func (m *MessageProximityAlertTriggered) GetWatcher() (value MessageSenderClass) {
-	return m.Watcher
+// GetWatcherID returns value of WatcherID field.
+func (m *MessageProximityAlertTriggered) GetWatcherID() (value MessageSenderClass) {
+	return m.WatcherID
 }
 
 // GetDistance returns value of Distance field.
@@ -9374,7 +9374,7 @@ const MessageContentClassName = "MessageContent"
 //  case *tdapi.MessageWebsiteConnected: // messageWebsiteConnected#bff3a408
 //  case *tdapi.MessagePassportDataSent: // messagePassportDataSent#26c5ed6b
 //  case *tdapi.MessagePassportDataReceived: // messagePassportDataReceived#e0b936b9
-//  case *tdapi.MessageProximityAlertTriggered: // messageProximityAlertTriggered#b1d24de6
+//  case *tdapi.MessageProximityAlertTriggered: // messageProximityAlertTriggered#409f6d3
 //  case *tdapi.MessageUnsupported: // messageUnsupported#93b6f585
 //  default: panic(v)
 //  }
@@ -9737,7 +9737,7 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 		}
 		return &v, nil
 	case MessageProximityAlertTriggeredTypeID:
-		// Decoding messageProximityAlertTriggered#b1d24de6.
+		// Decoding messageProximityAlertTriggered#409f6d3.
 		v := MessageProximityAlertTriggered{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -10092,7 +10092,7 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 		}
 		return &v, nil
 	case "messageProximityAlertTriggered":
-		// Decoding messageProximityAlertTriggered#b1d24de6.
+		// Decoding messageProximityAlertTriggered#409f6d3.
 		v := MessageProximityAlertTriggered{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)

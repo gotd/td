@@ -707,6 +707,167 @@ func (s *SuggestedActionConvertToBroadcastGroup) GetSupergroupID() (value int64)
 	return s.SupergroupID
 }
 
+// SuggestedActionSetPassword represents TL type `suggestedActionSetPassword#6f147d98`.
+type SuggestedActionSetPassword struct {
+	// The number of days to pass between consecutive authorizations if the user declines to
+	// set password
+	AuthorizationDelay int32
+}
+
+// SuggestedActionSetPasswordTypeID is TL type id of SuggestedActionSetPassword.
+const SuggestedActionSetPasswordTypeID = 0x6f147d98
+
+// construct implements constructor of SuggestedActionClass.
+func (s SuggestedActionSetPassword) construct() SuggestedActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SuggestedActionSetPassword.
+var (
+	_ bin.Encoder     = &SuggestedActionSetPassword{}
+	_ bin.Decoder     = &SuggestedActionSetPassword{}
+	_ bin.BareEncoder = &SuggestedActionSetPassword{}
+	_ bin.BareDecoder = &SuggestedActionSetPassword{}
+
+	_ SuggestedActionClass = &SuggestedActionSetPassword{}
+)
+
+func (s *SuggestedActionSetPassword) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.AuthorizationDelay == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SuggestedActionSetPassword) String() string {
+	if s == nil {
+		return "SuggestedActionSetPassword(nil)"
+	}
+	type Alias SuggestedActionSetPassword
+	return fmt.Sprintf("SuggestedActionSetPassword%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SuggestedActionSetPassword) TypeID() uint32 {
+	return SuggestedActionSetPasswordTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SuggestedActionSetPassword) TypeName() string {
+	return "suggestedActionSetPassword"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SuggestedActionSetPassword) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "suggestedActionSetPassword",
+		ID:   SuggestedActionSetPasswordTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "AuthorizationDelay",
+			SchemaName: "authorization_delay",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SuggestedActionSetPassword) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionSetPassword#6f147d98 as nil")
+	}
+	b.PutID(SuggestedActionSetPasswordTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SuggestedActionSetPassword) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionSetPassword#6f147d98 as nil")
+	}
+	b.PutInt32(s.AuthorizationDelay)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SuggestedActionSetPassword) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionSetPassword#6f147d98 to nil")
+	}
+	if err := b.ConsumeID(SuggestedActionSetPasswordTypeID); err != nil {
+		return fmt.Errorf("unable to decode suggestedActionSetPassword#6f147d98: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SuggestedActionSetPassword) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionSetPassword#6f147d98 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode suggestedActionSetPassword#6f147d98: field authorization_delay: %w", err)
+		}
+		s.AuthorizationDelay = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SuggestedActionSetPassword) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionSetPassword#6f147d98 as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionSetPassword")
+	b.FieldStart("authorization_delay")
+	b.PutInt32(s.AuthorizationDelay)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SuggestedActionSetPassword) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionSetPassword#6f147d98 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("suggestedActionSetPassword"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionSetPassword#6f147d98: %w", err)
+			}
+		case "authorization_delay":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode suggestedActionSetPassword#6f147d98: field authorization_delay: %w", err)
+			}
+			s.AuthorizationDelay = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetAuthorizationDelay returns value of AuthorizationDelay field.
+func (s *SuggestedActionSetPassword) GetAuthorizationDelay() (value int32) {
+	return s.AuthorizationDelay
+}
+
 // SuggestedActionClassName is schema name of SuggestedActionClass.
 const SuggestedActionClassName = "SuggestedAction"
 
@@ -723,6 +884,7 @@ const SuggestedActionClassName = "SuggestedAction"
 //  case *tdapi.SuggestedActionCheckPhoneNumber: // suggestedActionCheckPhoneNumber#26ab77eb
 //  case *tdapi.SuggestedActionSeeTicksHint: // suggestedActionSeeTicksHint#3f4ae062
 //  case *tdapi.SuggestedActionConvertToBroadcastGroup: // suggestedActionConvertToBroadcastGroup#c67a2e38
+//  case *tdapi.SuggestedActionSetPassword: // suggestedActionSetPassword#6f147d98
 //  default: panic(v)
 //  }
 type SuggestedActionClass interface {
@@ -789,6 +951,13 @@ func DecodeSuggestedAction(buf *bin.Buffer) (SuggestedActionClass, error) {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}
 		return &v, nil
+	case SuggestedActionSetPasswordTypeID:
+		// Decoding suggestedActionSetPassword#6f147d98.
+		v := SuggestedActionSetPassword{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -832,6 +1001,13 @@ func DecodeTDLibJSONSuggestedAction(buf tdjson.Decoder) (SuggestedActionClass, e
 	case "suggestedActionConvertToBroadcastGroup":
 		// Decoding suggestedActionConvertToBroadcastGroup#c67a2e38.
 		v := SuggestedActionConvertToBroadcastGroup{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case "suggestedActionSetPassword":
+		// Decoding suggestedActionSetPassword#6f147d98.
+		v := SuggestedActionSetPassword{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}
