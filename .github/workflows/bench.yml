@@ -35,7 +35,7 @@ jobs:
         run: go test -v -bench . -run ^$ ./... | tee benchmark.txt
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2.2.4
+        uses: actions/upload-artifact@v2.3.0
         with:
           name: benchmark-result
           path: benchmark.txt
