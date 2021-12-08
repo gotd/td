@@ -3999,6 +3999,166 @@ func (c *ChatEventSignMessagesToggled) GetSignMessages() (value bool) {
 	return c.SignMessages
 }
 
+// ChatEventHasProtectedContentToggled represents TL type `chatEventHasProtectedContentToggled#f5044201`.
+type ChatEventHasProtectedContentToggled struct {
+	// New value of has_protected_content
+	HasProtectedContent bool
+}
+
+// ChatEventHasProtectedContentToggledTypeID is TL type id of ChatEventHasProtectedContentToggled.
+const ChatEventHasProtectedContentToggledTypeID = 0xf5044201
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventHasProtectedContentToggled) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventHasProtectedContentToggled.
+var (
+	_ bin.Encoder     = &ChatEventHasProtectedContentToggled{}
+	_ bin.Decoder     = &ChatEventHasProtectedContentToggled{}
+	_ bin.BareEncoder = &ChatEventHasProtectedContentToggled{}
+	_ bin.BareDecoder = &ChatEventHasProtectedContentToggled{}
+
+	_ ChatEventActionClass = &ChatEventHasProtectedContentToggled{}
+)
+
+func (c *ChatEventHasProtectedContentToggled) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.HasProtectedContent == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventHasProtectedContentToggled) String() string {
+	if c == nil {
+		return "ChatEventHasProtectedContentToggled(nil)"
+	}
+	type Alias ChatEventHasProtectedContentToggled
+	return fmt.Sprintf("ChatEventHasProtectedContentToggled%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventHasProtectedContentToggled) TypeID() uint32 {
+	return ChatEventHasProtectedContentToggledTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventHasProtectedContentToggled) TypeName() string {
+	return "chatEventHasProtectedContentToggled"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventHasProtectedContentToggled) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventHasProtectedContentToggled",
+		ID:   ChatEventHasProtectedContentToggledTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "HasProtectedContent",
+			SchemaName: "has_protected_content",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventHasProtectedContentToggled) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventHasProtectedContentToggled#f5044201 as nil")
+	}
+	b.PutID(ChatEventHasProtectedContentToggledTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventHasProtectedContentToggled) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventHasProtectedContentToggled#f5044201 as nil")
+	}
+	b.PutBool(c.HasProtectedContent)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventHasProtectedContentToggled) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventHasProtectedContentToggled#f5044201 to nil")
+	}
+	if err := b.ConsumeID(ChatEventHasProtectedContentToggledTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventHasProtectedContentToggled#f5044201: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventHasProtectedContentToggled) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventHasProtectedContentToggled#f5044201 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventHasProtectedContentToggled#f5044201: field has_protected_content: %w", err)
+		}
+		c.HasProtectedContent = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventHasProtectedContentToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventHasProtectedContentToggled#f5044201 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventHasProtectedContentToggled")
+	b.FieldStart("has_protected_content")
+	b.PutBool(c.HasProtectedContent)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventHasProtectedContentToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventHasProtectedContentToggled#f5044201 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventHasProtectedContentToggled"); err != nil {
+				return fmt.Errorf("unable to decode chatEventHasProtectedContentToggled#f5044201: %w", err)
+			}
+		case "has_protected_content":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventHasProtectedContentToggled#f5044201: field has_protected_content: %w", err)
+			}
+			c.HasProtectedContent = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetHasProtectedContent returns value of HasProtectedContent field.
+func (c *ChatEventHasProtectedContentToggled) GetHasProtectedContent() (value bool) {
+	return c.HasProtectedContent
+}
+
 // ChatEventStickerSetChanged represents TL type `chatEventStickerSetChanged#b5e7558f`.
 type ChatEventStickerSetChanged struct {
 	// Previous identifier of the chat sticker set; 0 if none
@@ -5964,6 +6124,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //  case *tdapi.ChatEventSlowModeDelayChanged: // chatEventSlowModeDelayChanged#9d763c0b
 //  case *tdapi.ChatEventMessageTTLSettingChanged: // chatEventMessageTtlSettingChanged#b01e7caa
 //  case *tdapi.ChatEventSignMessagesToggled: // chatEventSignMessagesToggled#b1b9281e
+//  case *tdapi.ChatEventHasProtectedContentToggled: // chatEventHasProtectedContentToggled#f5044201
 //  case *tdapi.ChatEventStickerSetChanged: // chatEventStickerSetChanged#b5e7558f
 //  case *tdapi.ChatEventLocationChanged: // chatEventLocationChanged#e7cdfd4e
 //  case *tdapi.ChatEventIsAllHistoryAvailableToggled: // chatEventIsAllHistoryAvailableToggled#a0b03c15
@@ -6156,6 +6317,13 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 	case ChatEventSignMessagesToggledTypeID:
 		// Decoding chatEventSignMessagesToggled#b1b9281e.
 		v := ChatEventSignMessagesToggled{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventHasProtectedContentToggledTypeID:
+		// Decoding chatEventHasProtectedContentToggled#f5044201.
+		v := ChatEventHasProtectedContentToggled{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6399,6 +6567,13 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 	case "chatEventSignMessagesToggled":
 		// Decoding chatEventSignMessagesToggled#b1b9281e.
 		v := ChatEventSignMessagesToggled{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventHasProtectedContentToggled":
+		// Decoding chatEventHasProtectedContentToggled#f5044201.
+		v := ChatEventHasProtectedContentToggled{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}

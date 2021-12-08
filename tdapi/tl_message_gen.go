@@ -31,12 +31,12 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Message represents TL type `message#e31da9f9`.
+// Message represents TL type `message#c6b405b7`.
 type Message struct {
 	// Message identifier; unique for the chat to which the message belongs
 	ID int64
-	// The sender of the message
-	Sender MessageSenderClass
+	// Identifier of the sender of the message
+	SenderID MessageSenderClass
 	// Chat identifier
 	ChatID int64
 	// The sending state of the message; may be null
@@ -53,6 +53,8 @@ type Message struct {
 	CanBeEdited bool
 	// True, if the message can be forwarded
 	CanBeForwarded bool
+	// True, if content of the message can be saved locally or copied
+	CanBeSaved bool
 	// True, if the message can be deleted only for the current user while other users will
 	// continue to see it
 	CanBeDeletedOnlyForSelf bool
@@ -117,7 +119,7 @@ type Message struct {
 }
 
 // MessageTypeID is TL type id of Message.
-const MessageTypeID = 0xe31da9f9
+const MessageTypeID = 0xc6b405b7
 
 // Ensuring interfaces in compile-time for Message.
 var (
@@ -134,7 +136,7 @@ func (m *Message) Zero() bool {
 	if !(m.ID == 0) {
 		return false
 	}
-	if !(m.Sender == nil) {
+	if !(m.SenderID == nil) {
 		return false
 	}
 	if !(m.ChatID == 0) {
@@ -156,6 +158,9 @@ func (m *Message) Zero() bool {
 		return false
 	}
 	if !(m.CanBeForwarded == false) {
+		return false
+	}
+	if !(m.CanBeSaved == false) {
 		return false
 	}
 	if !(m.CanBeDeletedOnlyForSelf == false) {
@@ -271,8 +276,8 @@ func (m *Message) TypeInfo() tdp.Type {
 			SchemaName: "id",
 		},
 		{
-			Name:       "Sender",
-			SchemaName: "sender",
+			Name:       "SenderID",
+			SchemaName: "sender_id",
 		},
 		{
 			Name:       "ChatID",
@@ -301,6 +306,10 @@ func (m *Message) TypeInfo() tdp.Type {
 		{
 			Name:       "CanBeForwarded",
 			SchemaName: "can_be_forwarded",
+		},
+		{
+			Name:       "CanBeSaved",
+			SchemaName: "can_be_saved",
 		},
 		{
 			Name:       "CanBeDeletedOnlyForSelf",
@@ -405,7 +414,7 @@ func (m *Message) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *Message) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#e31da9f9 as nil")
+		return fmt.Errorf("can't encode message#c6b405b7 as nil")
 	}
 	b.PutID(MessageTypeID)
 	return m.EncodeBare(b)
@@ -414,32 +423,33 @@ func (m *Message) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *Message) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#e31da9f9 as nil")
+		return fmt.Errorf("can't encode message#c6b405b7 as nil")
 	}
 	b.PutInt53(m.ID)
-	if m.Sender == nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field sender is nil")
+	if m.SenderID == nil {
+		return fmt.Errorf("unable to encode message#c6b405b7: field sender_id is nil")
 	}
-	if err := m.Sender.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field sender: %w", err)
+	if err := m.SenderID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode message#c6b405b7: field sender_id: %w", err)
 	}
 	b.PutInt53(m.ChatID)
 	if m.SendingState == nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field sending_state is nil")
+		return fmt.Errorf("unable to encode message#c6b405b7: field sending_state is nil")
 	}
 	if err := m.SendingState.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field sending_state: %w", err)
+		return fmt.Errorf("unable to encode message#c6b405b7: field sending_state: %w", err)
 	}
 	if m.SchedulingState == nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field scheduling_state is nil")
+		return fmt.Errorf("unable to encode message#c6b405b7: field scheduling_state is nil")
 	}
 	if err := m.SchedulingState.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field scheduling_state: %w", err)
+		return fmt.Errorf("unable to encode message#c6b405b7: field scheduling_state: %w", err)
 	}
 	b.PutBool(m.IsOutgoing)
 	b.PutBool(m.IsPinned)
 	b.PutBool(m.CanBeEdited)
 	b.PutBool(m.CanBeForwarded)
+	b.PutBool(m.CanBeSaved)
 	b.PutBool(m.CanBeDeletedOnlyForSelf)
 	b.PutBool(m.CanBeDeletedForAllUsers)
 	b.PutBool(m.CanGetStatistics)
@@ -452,10 +462,10 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(m.Date)
 	b.PutInt32(m.EditDate)
 	if err := m.ForwardInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field forward_info: %w", err)
+		return fmt.Errorf("unable to encode message#c6b405b7: field forward_info: %w", err)
 	}
 	if err := m.InteractionInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field interaction_info: %w", err)
+		return fmt.Errorf("unable to encode message#c6b405b7: field interaction_info: %w", err)
 	}
 	b.PutInt53(m.ReplyInChatID)
 	b.PutInt53(m.ReplyToMessageID)
@@ -467,16 +477,16 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 	b.PutLong(m.MediaAlbumID)
 	b.PutString(m.RestrictionReason)
 	if m.Content == nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field content is nil")
+		return fmt.Errorf("unable to encode message#c6b405b7: field content is nil")
 	}
 	if err := m.Content.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field content: %w", err)
+		return fmt.Errorf("unable to encode message#c6b405b7: field content: %w", err)
 	}
 	if m.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field reply_markup is nil")
+		return fmt.Errorf("unable to encode message#c6b405b7: field reply_markup is nil")
 	}
 	if err := m.ReplyMarkup.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode message#c6b405b7: field reply_markup: %w", err)
 	}
 	return nil
 }
@@ -484,10 +494,10 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *Message) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#e31da9f9 to nil")
+		return fmt.Errorf("can't decode message#c6b405b7 to nil")
 	}
 	if err := b.ConsumeID(MessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode message#e31da9f9: %w", err)
+		return fmt.Errorf("unable to decode message#c6b405b7: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -495,232 +505,239 @@ func (m *Message) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *Message) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#e31da9f9 to nil")
+		return fmt.Errorf("can't decode message#c6b405b7 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field id: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field id: %w", err)
 		}
 		m.ID = value
 	}
 	{
 		value, err := DecodeMessageSender(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field sender: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field sender_id: %w", err)
 		}
-		m.Sender = value
+		m.SenderID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field chat_id: %w", err)
 		}
 		m.ChatID = value
 	}
 	{
 		value, err := DecodeMessageSendingState(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field sending_state: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field sending_state: %w", err)
 		}
 		m.SendingState = value
 	}
 	{
 		value, err := DecodeMessageSchedulingState(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field scheduling_state: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field scheduling_state: %w", err)
 		}
 		m.SchedulingState = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field is_outgoing: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field is_outgoing: %w", err)
 		}
 		m.IsOutgoing = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field is_pinned: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field is_pinned: %w", err)
 		}
 		m.IsPinned = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field can_be_edited: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field can_be_edited: %w", err)
 		}
 		m.CanBeEdited = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field can_be_forwarded: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field can_be_forwarded: %w", err)
 		}
 		m.CanBeForwarded = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field can_be_deleted_only_for_self: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field can_be_saved: %w", err)
+		}
+		m.CanBeSaved = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#c6b405b7: field can_be_deleted_only_for_self: %w", err)
 		}
 		m.CanBeDeletedOnlyForSelf = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field can_be_deleted_for_all_users: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field can_be_deleted_for_all_users: %w", err)
 		}
 		m.CanBeDeletedForAllUsers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field can_get_statistics: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field can_get_statistics: %w", err)
 		}
 		m.CanGetStatistics = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field can_get_message_thread: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field can_get_message_thread: %w", err)
 		}
 		m.CanGetMessageThread = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field can_get_viewers: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field can_get_viewers: %w", err)
 		}
 		m.CanGetViewers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field can_get_media_timestamp_links: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field can_get_media_timestamp_links: %w", err)
 		}
 		m.CanGetMediaTimestampLinks = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field has_timestamped_media: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field has_timestamped_media: %w", err)
 		}
 		m.HasTimestampedMedia = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field is_channel_post: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field is_channel_post: %w", err)
 		}
 		m.IsChannelPost = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field contains_unread_mention: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field contains_unread_mention: %w", err)
 		}
 		m.ContainsUnreadMention = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field date: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field date: %w", err)
 		}
 		m.Date = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field edit_date: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field edit_date: %w", err)
 		}
 		m.EditDate = value
 	}
 	{
 		if err := m.ForwardInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field forward_info: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field forward_info: %w", err)
 		}
 	}
 	{
 		if err := m.InteractionInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field interaction_info: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field interaction_info: %w", err)
 		}
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field reply_in_chat_id: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field reply_in_chat_id: %w", err)
 		}
 		m.ReplyInChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field reply_to_message_id: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field reply_to_message_id: %w", err)
 		}
 		m.ReplyToMessageID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field message_thread_id: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field message_thread_id: %w", err)
 		}
 		m.MessageThreadID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field ttl: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field ttl: %w", err)
 		}
 		m.TTL = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field ttl_expires_in: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field ttl_expires_in: %w", err)
 		}
 		m.TTLExpiresIn = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field via_bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field via_bot_user_id: %w", err)
 		}
 		m.ViaBotUserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field author_signature: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field author_signature: %w", err)
 		}
 		m.AuthorSignature = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field media_album_id: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field media_album_id: %w", err)
 		}
 		m.MediaAlbumID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field restriction_reason: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field restriction_reason: %w", err)
 		}
 		m.RestrictionReason = value
 	}
 	{
 		value, err := DecodeMessageContent(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field content: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field content: %w", err)
 		}
 		m.Content = value
 	}
 	{
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#e31da9f9: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode message#c6b405b7: field reply_markup: %w", err)
 		}
 		m.ReplyMarkup = value
 	}
@@ -730,34 +747,34 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#e31da9f9 as nil")
+		return fmt.Errorf("can't encode message#c6b405b7 as nil")
 	}
 	b.ObjStart()
 	b.PutID("message")
 	b.FieldStart("id")
 	b.PutInt53(m.ID)
-	b.FieldStart("sender")
-	if m.Sender == nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field sender is nil")
+	b.FieldStart("sender_id")
+	if m.SenderID == nil {
+		return fmt.Errorf("unable to encode message#c6b405b7: field sender_id is nil")
 	}
-	if err := m.Sender.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field sender: %w", err)
+	if err := m.SenderID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode message#c6b405b7: field sender_id: %w", err)
 	}
 	b.FieldStart("chat_id")
 	b.PutInt53(m.ChatID)
 	b.FieldStart("sending_state")
 	if m.SendingState == nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field sending_state is nil")
+		return fmt.Errorf("unable to encode message#c6b405b7: field sending_state is nil")
 	}
 	if err := m.SendingState.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field sending_state: %w", err)
+		return fmt.Errorf("unable to encode message#c6b405b7: field sending_state: %w", err)
 	}
 	b.FieldStart("scheduling_state")
 	if m.SchedulingState == nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field scheduling_state is nil")
+		return fmt.Errorf("unable to encode message#c6b405b7: field scheduling_state is nil")
 	}
 	if err := m.SchedulingState.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field scheduling_state: %w", err)
+		return fmt.Errorf("unable to encode message#c6b405b7: field scheduling_state: %w", err)
 	}
 	b.FieldStart("is_outgoing")
 	b.PutBool(m.IsOutgoing)
@@ -767,6 +784,8 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutBool(m.CanBeEdited)
 	b.FieldStart("can_be_forwarded")
 	b.PutBool(m.CanBeForwarded)
+	b.FieldStart("can_be_saved")
+	b.PutBool(m.CanBeSaved)
 	b.FieldStart("can_be_deleted_only_for_self")
 	b.PutBool(m.CanBeDeletedOnlyForSelf)
 	b.FieldStart("can_be_deleted_for_all_users")
@@ -791,11 +810,11 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutInt32(m.EditDate)
 	b.FieldStart("forward_info")
 	if err := m.ForwardInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field forward_info: %w", err)
+		return fmt.Errorf("unable to encode message#c6b405b7: field forward_info: %w", err)
 	}
 	b.FieldStart("interaction_info")
 	if err := m.InteractionInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field interaction_info: %w", err)
+		return fmt.Errorf("unable to encode message#c6b405b7: field interaction_info: %w", err)
 	}
 	b.FieldStart("reply_in_chat_id")
 	b.PutInt53(m.ReplyInChatID)
@@ -817,17 +836,17 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutString(m.RestrictionReason)
 	b.FieldStart("content")
 	if m.Content == nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field content is nil")
+		return fmt.Errorf("unable to encode message#c6b405b7: field content is nil")
 	}
 	if err := m.Content.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field content: %w", err)
+		return fmt.Errorf("unable to encode message#c6b405b7: field content: %w", err)
 	}
 	b.FieldStart("reply_markup")
 	if m.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field reply_markup is nil")
+		return fmt.Errorf("unable to encode message#c6b405b7: field reply_markup is nil")
 	}
 	if err := m.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode message#e31da9f9: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode message#c6b405b7: field reply_markup: %w", err)
 	}
 	b.ObjEnd()
 	return nil
@@ -836,207 +855,213 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *Message) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#e31da9f9 to nil")
+		return fmt.Errorf("can't decode message#c6b405b7 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("message"); err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: %w", err)
 			}
 		case "id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field id: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field id: %w", err)
 			}
 			m.ID = value
-		case "sender":
+		case "sender_id":
 			value, err := DecodeTDLibJSONMessageSender(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field sender: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field sender_id: %w", err)
 			}
-			m.Sender = value
+			m.SenderID = value
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field chat_id: %w", err)
 			}
 			m.ChatID = value
 		case "sending_state":
 			value, err := DecodeTDLibJSONMessageSendingState(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field sending_state: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field sending_state: %w", err)
 			}
 			m.SendingState = value
 		case "scheduling_state":
 			value, err := DecodeTDLibJSONMessageSchedulingState(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field scheduling_state: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field scheduling_state: %w", err)
 			}
 			m.SchedulingState = value
 		case "is_outgoing":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field is_outgoing: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field is_outgoing: %w", err)
 			}
 			m.IsOutgoing = value
 		case "is_pinned":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field is_pinned: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field is_pinned: %w", err)
 			}
 			m.IsPinned = value
 		case "can_be_edited":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field can_be_edited: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field can_be_edited: %w", err)
 			}
 			m.CanBeEdited = value
 		case "can_be_forwarded":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field can_be_forwarded: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field can_be_forwarded: %w", err)
 			}
 			m.CanBeForwarded = value
+		case "can_be_saved":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode message#c6b405b7: field can_be_saved: %w", err)
+			}
+			m.CanBeSaved = value
 		case "can_be_deleted_only_for_self":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field can_be_deleted_only_for_self: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field can_be_deleted_only_for_self: %w", err)
 			}
 			m.CanBeDeletedOnlyForSelf = value
 		case "can_be_deleted_for_all_users":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field can_be_deleted_for_all_users: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field can_be_deleted_for_all_users: %w", err)
 			}
 			m.CanBeDeletedForAllUsers = value
 		case "can_get_statistics":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field can_get_statistics: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field can_get_statistics: %w", err)
 			}
 			m.CanGetStatistics = value
 		case "can_get_message_thread":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field can_get_message_thread: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field can_get_message_thread: %w", err)
 			}
 			m.CanGetMessageThread = value
 		case "can_get_viewers":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field can_get_viewers: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field can_get_viewers: %w", err)
 			}
 			m.CanGetViewers = value
 		case "can_get_media_timestamp_links":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field can_get_media_timestamp_links: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field can_get_media_timestamp_links: %w", err)
 			}
 			m.CanGetMediaTimestampLinks = value
 		case "has_timestamped_media":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field has_timestamped_media: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field has_timestamped_media: %w", err)
 			}
 			m.HasTimestampedMedia = value
 		case "is_channel_post":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field is_channel_post: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field is_channel_post: %w", err)
 			}
 			m.IsChannelPost = value
 		case "contains_unread_mention":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field contains_unread_mention: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field contains_unread_mention: %w", err)
 			}
 			m.ContainsUnreadMention = value
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field date: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field date: %w", err)
 			}
 			m.Date = value
 		case "edit_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field edit_date: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field edit_date: %w", err)
 			}
 			m.EditDate = value
 		case "forward_info":
 			if err := m.ForwardInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field forward_info: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field forward_info: %w", err)
 			}
 		case "interaction_info":
 			if err := m.InteractionInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field interaction_info: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field interaction_info: %w", err)
 			}
 		case "reply_in_chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field reply_in_chat_id: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field reply_in_chat_id: %w", err)
 			}
 			m.ReplyInChatID = value
 		case "reply_to_message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field reply_to_message_id: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field reply_to_message_id: %w", err)
 			}
 			m.ReplyToMessageID = value
 		case "message_thread_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field message_thread_id: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field message_thread_id: %w", err)
 			}
 			m.MessageThreadID = value
 		case "ttl":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field ttl: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field ttl: %w", err)
 			}
 			m.TTL = value
 		case "ttl_expires_in":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field ttl_expires_in: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field ttl_expires_in: %w", err)
 			}
 			m.TTLExpiresIn = value
 		case "via_bot_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field via_bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field via_bot_user_id: %w", err)
 			}
 			m.ViaBotUserID = value
 		case "author_signature":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field author_signature: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field author_signature: %w", err)
 			}
 			m.AuthorSignature = value
 		case "media_album_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field media_album_id: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field media_album_id: %w", err)
 			}
 			m.MediaAlbumID = value
 		case "restriction_reason":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field restriction_reason: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field restriction_reason: %w", err)
 			}
 			m.RestrictionReason = value
 		case "content":
 			value, err := DecodeTDLibJSONMessageContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field content: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field content: %w", err)
 			}
 			m.Content = value
 		case "reply_markup":
 			value, err := DecodeTDLibJSONReplyMarkup(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#e31da9f9: field reply_markup: %w", err)
+				return fmt.Errorf("unable to decode message#c6b405b7: field reply_markup: %w", err)
 			}
 			m.ReplyMarkup = value
 		default:
@@ -1051,9 +1076,9 @@ func (m *Message) GetID() (value int64) {
 	return m.ID
 }
 
-// GetSender returns value of Sender field.
-func (m *Message) GetSender() (value MessageSenderClass) {
-	return m.Sender
+// GetSenderID returns value of SenderID field.
+func (m *Message) GetSenderID() (value MessageSenderClass) {
+	return m.SenderID
 }
 
 // GetChatID returns value of ChatID field.
@@ -1089,6 +1114,11 @@ func (m *Message) GetCanBeEdited() (value bool) {
 // GetCanBeForwarded returns value of CanBeForwarded field.
 func (m *Message) GetCanBeForwarded() (value bool) {
 	return m.CanBeForwarded
+}
+
+// GetCanBeSaved returns value of CanBeSaved field.
+func (m *Message) GetCanBeSaved() (value bool) {
+	return m.CanBeSaved
 }
 
 // GetCanBeDeletedOnlyForSelf returns value of CanBeDeletedOnlyForSelf field.

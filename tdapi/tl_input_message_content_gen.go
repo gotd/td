@@ -4257,7 +4257,7 @@ type InputMessagePoll struct {
 	Type PollTypeClass
 	// Amount of time the poll will be active after creation, in seconds; for bots only
 	OpenPeriod int32
-	// Point in time (Unix timestamp) when the poll will be automatically closed; for bots
+	// Point in time (Unix timestamp) when the poll will automatically be closed; for bots
 	// only
 	CloseDate int32
 	// True, if the poll needs to be sent already closed; for bots only

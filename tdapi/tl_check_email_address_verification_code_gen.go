@@ -33,7 +33,7 @@ var (
 
 // CheckEmailAddressVerificationCodeRequest represents TL type `checkEmailAddressVerificationCode#e695db03`.
 type CheckEmailAddressVerificationCodeRequest struct {
-	// Verification code
+	// Verification code to check
 	Code string
 }
 

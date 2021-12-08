@@ -671,6 +671,196 @@ func (a *AuthenticationCodeTypeFlashCall) GetPattern() (value string) {
 	return a.Pattern
 }
 
+// AuthenticationCodeTypeMissedCall represents TL type `authenticationCodeTypeMissedCall#29bb0a87`.
+type AuthenticationCodeTypeMissedCall struct {
+	// Prefix of the phone number from which the call will be made
+	PhoneNumberPrefix string
+	// Number of digits in the code, excluding the prefix
+	Length int32
+}
+
+// AuthenticationCodeTypeMissedCallTypeID is TL type id of AuthenticationCodeTypeMissedCall.
+const AuthenticationCodeTypeMissedCallTypeID = 0x29bb0a87
+
+// construct implements constructor of AuthenticationCodeTypeClass.
+func (a AuthenticationCodeTypeMissedCall) construct() AuthenticationCodeTypeClass { return &a }
+
+// Ensuring interfaces in compile-time for AuthenticationCodeTypeMissedCall.
+var (
+	_ bin.Encoder     = &AuthenticationCodeTypeMissedCall{}
+	_ bin.Decoder     = &AuthenticationCodeTypeMissedCall{}
+	_ bin.BareEncoder = &AuthenticationCodeTypeMissedCall{}
+	_ bin.BareDecoder = &AuthenticationCodeTypeMissedCall{}
+
+	_ AuthenticationCodeTypeClass = &AuthenticationCodeTypeMissedCall{}
+)
+
+func (a *AuthenticationCodeTypeMissedCall) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.PhoneNumberPrefix == "") {
+		return false
+	}
+	if !(a.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (a *AuthenticationCodeTypeMissedCall) String() string {
+	if a == nil {
+		return "AuthenticationCodeTypeMissedCall(nil)"
+	}
+	type Alias AuthenticationCodeTypeMissedCall
+	return fmt.Sprintf("AuthenticationCodeTypeMissedCall%+v", Alias(*a))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthenticationCodeTypeMissedCall) TypeID() uint32 {
+	return AuthenticationCodeTypeMissedCallTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthenticationCodeTypeMissedCall) TypeName() string {
+	return "authenticationCodeTypeMissedCall"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthenticationCodeTypeMissedCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "authenticationCodeTypeMissedCall",
+		ID:   AuthenticationCodeTypeMissedCallTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneNumberPrefix",
+			SchemaName: "phone_number_prefix",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (a *AuthenticationCodeTypeMissedCall) Encode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeMissedCall#29bb0a87 as nil")
+	}
+	b.PutID(AuthenticationCodeTypeMissedCallTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AuthenticationCodeTypeMissedCall) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeMissedCall#29bb0a87 as nil")
+	}
+	b.PutString(a.PhoneNumberPrefix)
+	b.PutInt32(a.Length)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (a *AuthenticationCodeTypeMissedCall) Decode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeMissedCall#29bb0a87 to nil")
+	}
+	if err := b.ConsumeID(AuthenticationCodeTypeMissedCallTypeID); err != nil {
+		return fmt.Errorf("unable to decode authenticationCodeTypeMissedCall#29bb0a87: %w", err)
+	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AuthenticationCodeTypeMissedCall) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeMissedCall#29bb0a87 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode authenticationCodeTypeMissedCall#29bb0a87: field phone_number_prefix: %w", err)
+		}
+		a.PhoneNumberPrefix = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode authenticationCodeTypeMissedCall#29bb0a87: field length: %w", err)
+		}
+		a.Length = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthenticationCodeTypeMissedCall) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeMissedCall#29bb0a87 as nil")
+	}
+	b.ObjStart()
+	b.PutID("authenticationCodeTypeMissedCall")
+	b.FieldStart("phone_number_prefix")
+	b.PutString(a.PhoneNumberPrefix)
+	b.FieldStart("length")
+	b.PutInt32(a.Length)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthenticationCodeTypeMissedCall) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeMissedCall#29bb0a87 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("authenticationCodeTypeMissedCall"); err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeMissedCall#29bb0a87: %w", err)
+			}
+		case "phone_number_prefix":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeMissedCall#29bb0a87: field phone_number_prefix: %w", err)
+			}
+			a.PhoneNumberPrefix = value
+		case "length":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeMissedCall#29bb0a87: field length: %w", err)
+			}
+			a.Length = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetPhoneNumberPrefix returns value of PhoneNumberPrefix field.
+func (a *AuthenticationCodeTypeMissedCall) GetPhoneNumberPrefix() (value string) {
+	return a.PhoneNumberPrefix
+}
+
+// GetLength returns value of Length field.
+func (a *AuthenticationCodeTypeMissedCall) GetLength() (value int32) {
+	return a.Length
+}
+
 // AuthenticationCodeTypeClassName is schema name of AuthenticationCodeTypeClass.
 const AuthenticationCodeTypeClassName = "AuthenticationCodeType"
 
@@ -686,6 +876,7 @@ const AuthenticationCodeTypeClassName = "AuthenticationCodeType"
 //  case *tdapi.AuthenticationCodeTypeSMS: // authenticationCodeTypeSms#3960e288
 //  case *tdapi.AuthenticationCodeTypeCall: // authenticationCodeTypeCall#61876c67
 //  case *tdapi.AuthenticationCodeTypeFlashCall: // authenticationCodeTypeFlashCall#533379a2
+//  case *tdapi.AuthenticationCodeTypeMissedCall: // authenticationCodeTypeMissedCall#29bb0a87
 //  default: panic(v)
 //  }
 type AuthenticationCodeTypeClass interface {
@@ -745,6 +936,13 @@ func DecodeAuthenticationCodeType(buf *bin.Buffer) (AuthenticationCodeTypeClass,
 			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
 		}
 		return &v, nil
+	case AuthenticationCodeTypeMissedCallTypeID:
+		// Decoding authenticationCodeTypeMissedCall#29bb0a87.
+		v := AuthenticationCodeTypeMissedCall{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -781,6 +979,13 @@ func DecodeTDLibJSONAuthenticationCodeType(buf tdjson.Decoder) (AuthenticationCo
 	case "authenticationCodeTypeFlashCall":
 		// Decoding authenticationCodeTypeFlashCall#533379a2.
 		v := AuthenticationCodeTypeFlashCall{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case "authenticationCodeTypeMissedCall":
+		// Decoding authenticationCodeTypeMissedCall#29bb0a87.
+		v := AuthenticationCodeTypeMissedCall{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
 		}

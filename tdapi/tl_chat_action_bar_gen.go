@@ -902,6 +902,226 @@ func (c *ChatActionBarSharePhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) error 
 	})
 }
 
+// ChatActionBarJoinRequest represents TL type `chatActionBarJoinRequest#3dd18308`.
+type ChatActionBarJoinRequest struct {
+	// Title of the chat to which the join request was sent
+	Title string
+	// True, if the join request was sent to a channel chat
+	IsChannel bool
+	// Point in time (Unix timestamp) when the join request was sent
+	RequestDate int32
+}
+
+// ChatActionBarJoinRequestTypeID is TL type id of ChatActionBarJoinRequest.
+const ChatActionBarJoinRequestTypeID = 0x3dd18308
+
+// construct implements constructor of ChatActionBarClass.
+func (c ChatActionBarJoinRequest) construct() ChatActionBarClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatActionBarJoinRequest.
+var (
+	_ bin.Encoder     = &ChatActionBarJoinRequest{}
+	_ bin.Decoder     = &ChatActionBarJoinRequest{}
+	_ bin.BareEncoder = &ChatActionBarJoinRequest{}
+	_ bin.BareDecoder = &ChatActionBarJoinRequest{}
+
+	_ ChatActionBarClass = &ChatActionBarJoinRequest{}
+)
+
+func (c *ChatActionBarJoinRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Title == "") {
+		return false
+	}
+	if !(c.IsChannel == false) {
+		return false
+	}
+	if !(c.RequestDate == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatActionBarJoinRequest) String() string {
+	if c == nil {
+		return "ChatActionBarJoinRequest(nil)"
+	}
+	type Alias ChatActionBarJoinRequest
+	return fmt.Sprintf("ChatActionBarJoinRequest%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatActionBarJoinRequest) TypeID() uint32 {
+	return ChatActionBarJoinRequestTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatActionBarJoinRequest) TypeName() string {
+	return "chatActionBarJoinRequest"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatActionBarJoinRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatActionBarJoinRequest",
+		ID:   ChatActionBarJoinRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "IsChannel",
+			SchemaName: "is_channel",
+		},
+		{
+			Name:       "RequestDate",
+			SchemaName: "request_date",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatActionBarJoinRequest) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionBarJoinRequest#3dd18308 as nil")
+	}
+	b.PutID(ChatActionBarJoinRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatActionBarJoinRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionBarJoinRequest#3dd18308 as nil")
+	}
+	b.PutString(c.Title)
+	b.PutBool(c.IsChannel)
+	b.PutInt32(c.RequestDate)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatActionBarJoinRequest) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatActionBarJoinRequest#3dd18308 to nil")
+	}
+	if err := b.ConsumeID(ChatActionBarJoinRequestTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatActionBarJoinRequest#3dd18308: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatActionBarJoinRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatActionBarJoinRequest#3dd18308 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatActionBarJoinRequest#3dd18308: field title: %w", err)
+		}
+		c.Title = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatActionBarJoinRequest#3dd18308: field is_channel: %w", err)
+		}
+		c.IsChannel = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatActionBarJoinRequest#3dd18308: field request_date: %w", err)
+		}
+		c.RequestDate = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatActionBarJoinRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatActionBarJoinRequest#3dd18308 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatActionBarJoinRequest")
+	b.FieldStart("title")
+	b.PutString(c.Title)
+	b.FieldStart("is_channel")
+	b.PutBool(c.IsChannel)
+	b.FieldStart("request_date")
+	b.PutInt32(c.RequestDate)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatActionBarJoinRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatActionBarJoinRequest#3dd18308 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatActionBarJoinRequest"); err != nil {
+				return fmt.Errorf("unable to decode chatActionBarJoinRequest#3dd18308: %w", err)
+			}
+		case "title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatActionBarJoinRequest#3dd18308: field title: %w", err)
+			}
+			c.Title = value
+		case "is_channel":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatActionBarJoinRequest#3dd18308: field is_channel: %w", err)
+			}
+			c.IsChannel = value
+		case "request_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatActionBarJoinRequest#3dd18308: field request_date: %w", err)
+			}
+			c.RequestDate = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetTitle returns value of Title field.
+func (c *ChatActionBarJoinRequest) GetTitle() (value string) {
+	return c.Title
+}
+
+// GetIsChannel returns value of IsChannel field.
+func (c *ChatActionBarJoinRequest) GetIsChannel() (value bool) {
+	return c.IsChannel
+}
+
+// GetRequestDate returns value of RequestDate field.
+func (c *ChatActionBarJoinRequest) GetRequestDate() (value int32) {
+	return c.RequestDate
+}
+
 // ChatActionBarClassName is schema name of ChatActionBarClass.
 const ChatActionBarClassName = "ChatActionBar"
 
@@ -919,6 +1139,7 @@ const ChatActionBarClassName = "ChatActionBar"
 //  case *tdapi.ChatActionBarReportAddBlock: // chatActionBarReportAddBlock#c9832bed
 //  case *tdapi.ChatActionBarAddContact: // chatActionBarAddContact#d44a5811
 //  case *tdapi.ChatActionBarSharePhoneNumber: // chatActionBarSharePhoneNumber#218efd9
+//  case *tdapi.ChatActionBarJoinRequest: // chatActionBarJoinRequest#3dd18308
 //  default: panic(v)
 //  }
 type ChatActionBarClass interface {
@@ -992,6 +1213,13 @@ func DecodeChatActionBar(buf *bin.Buffer) (ChatActionBarClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatActionBarClass: %w", err)
 		}
 		return &v, nil
+	case ChatActionBarJoinRequestTypeID:
+		// Decoding chatActionBarJoinRequest#3dd18308.
+		v := ChatActionBarJoinRequest{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatActionBarClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode ChatActionBarClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1042,6 +1270,13 @@ func DecodeTDLibJSONChatActionBar(buf tdjson.Decoder) (ChatActionBarClass, error
 	case "chatActionBarSharePhoneNumber":
 		// Decoding chatActionBarSharePhoneNumber#218efd9.
 		v := ChatActionBarSharePhoneNumber{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatActionBarClass: %w", err)
+		}
+		return &v, nil
+	case "chatActionBarJoinRequest":
+		// Decoding chatActionBarJoinRequest#3dd18308.
+		v := ChatActionBarJoinRequest{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatActionBarClass: %w", err)
 		}
