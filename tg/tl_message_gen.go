@@ -272,6 +272,8 @@ type Message struct {
 	// Links:
 	//  1) https://core.telegram.org/api/pin
 	Pinned bool
+	// Noforwards field of Message.
+	Noforwards bool
 	// ID of the message
 	ID int
 	// ID of the sender of the message
@@ -404,6 +406,9 @@ func (m *Message) Zero() bool {
 	if !(m.Pinned == false) {
 		return false
 	}
+	if !(m.Noforwards == false) {
+		return false
+	}
 	if !(m.ID == 0) {
 		return false
 	}
@@ -485,6 +490,7 @@ func (m *Message) FillFrom(from interface {
 	GetLegacy() (value bool)
 	GetEditHide() (value bool)
 	GetPinned() (value bool)
+	GetNoforwards() (value bool)
 	GetID() (value int)
 	GetFromID() (value PeerClass, ok bool)
 	GetPeerID() (value PeerClass)
@@ -514,6 +520,7 @@ func (m *Message) FillFrom(from interface {
 	m.Legacy = from.GetLegacy()
 	m.EditHide = from.GetEditHide()
 	m.Pinned = from.GetPinned()
+	m.Noforwards = from.GetNoforwards()
 	m.ID = from.GetID()
 	if val, ok := from.GetFromID(); ok {
 		m.FromID = val
@@ -649,6 +656,11 @@ func (m *Message) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(24),
 		},
 		{
+			Name:       "Noforwards",
+			SchemaName: "noforwards",
+			Null:       !m.Flags.Has(26),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -771,6 +783,9 @@ func (m *Message) SetFlags() {
 	}
 	if !(m.Pinned == false) {
 		m.Flags.Set(24)
+	}
+	if !(m.Noforwards == false) {
+		m.Flags.Set(26)
 	}
 	if !(m.FromID == nil) {
 		m.Flags.Set(8)
@@ -958,6 +973,7 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 	m.Legacy = m.Flags.Has(19)
 	m.EditHide = m.Flags.Has(21)
 	m.Pinned = m.Flags.Has(24)
+	m.Noforwards = m.Flags.Has(26)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1250,6 +1266,22 @@ func (m *Message) SetPinned(value bool) {
 // GetPinned returns value of Pinned conditional field.
 func (m *Message) GetPinned() (value bool) {
 	return m.Flags.Has(24)
+}
+
+// SetNoforwards sets value of Noforwards conditional field.
+func (m *Message) SetNoforwards(value bool) {
+	if value {
+		m.Flags.Set(26)
+		m.Noforwards = true
+	} else {
+		m.Flags.Unset(26)
+		m.Noforwards = false
+	}
+}
+
+// GetNoforwards returns value of Noforwards conditional field.
+func (m *Message) GetNoforwards() (value bool) {
+	return m.Flags.Has(26)
 }
 
 // GetID returns value of ID field.

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsReportSpamRequest represents TL type `channels.reportSpam#fe087810`.
+// ChannelsReportSpamRequest represents TL type `channels.reportSpam#f44a8315`.
 // Reports some messages from a user in a supergroup as spam; requires administrator
 // rights in the supergroup
 //
@@ -39,14 +39,14 @@ var (
 type ChannelsReportSpamRequest struct {
 	// Supergroup
 	Channel InputChannelClass
-	// ID of the user that sent the spam messages
-	UserID InputUserClass
+	// Participant field of ChannelsReportSpamRequest.
+	Participant InputPeerClass
 	// IDs of spam messages
 	ID []int
 }
 
 // ChannelsReportSpamRequestTypeID is TL type id of ChannelsReportSpamRequest.
-const ChannelsReportSpamRequestTypeID = 0xfe087810
+const ChannelsReportSpamRequestTypeID = 0xf44a8315
 
 // Ensuring interfaces in compile-time for ChannelsReportSpamRequest.
 var (
@@ -63,7 +63,7 @@ func (r *ChannelsReportSpamRequest) Zero() bool {
 	if !(r.Channel == nil) {
 		return false
 	}
-	if !(r.UserID == nil) {
+	if !(r.Participant == nil) {
 		return false
 	}
 	if !(r.ID == nil) {
@@ -85,11 +85,11 @@ func (r *ChannelsReportSpamRequest) String() string {
 // FillFrom fills ChannelsReportSpamRequest from given interface.
 func (r *ChannelsReportSpamRequest) FillFrom(from interface {
 	GetChannel() (value InputChannelClass)
-	GetUserID() (value InputUserClass)
+	GetParticipant() (value InputPeerClass)
 	GetID() (value []int)
 }) {
 	r.Channel = from.GetChannel()
-	r.UserID = from.GetUserID()
+	r.Participant = from.GetParticipant()
 	r.ID = from.GetID()
 }
 
@@ -121,8 +121,8 @@ func (r *ChannelsReportSpamRequest) TypeInfo() tdp.Type {
 			SchemaName: "channel",
 		},
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Participant",
+			SchemaName: "participant",
 		},
 		{
 			Name:       "ID",
@@ -135,7 +135,7 @@ func (r *ChannelsReportSpamRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ChannelsReportSpamRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode channels.reportSpam#fe087810 as nil")
+		return fmt.Errorf("can't encode channels.reportSpam#f44a8315 as nil")
 	}
 	b.PutID(ChannelsReportSpamRequestTypeID)
 	return r.EncodeBare(b)
@@ -144,19 +144,19 @@ func (r *ChannelsReportSpamRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ChannelsReportSpamRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode channels.reportSpam#fe087810 as nil")
+		return fmt.Errorf("can't encode channels.reportSpam#f44a8315 as nil")
 	}
 	if r.Channel == nil {
-		return fmt.Errorf("unable to encode channels.reportSpam#fe087810: field channel is nil")
+		return fmt.Errorf("unable to encode channels.reportSpam#f44a8315: field channel is nil")
 	}
 	if err := r.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.reportSpam#fe087810: field channel: %w", err)
+		return fmt.Errorf("unable to encode channels.reportSpam#f44a8315: field channel: %w", err)
 	}
-	if r.UserID == nil {
-		return fmt.Errorf("unable to encode channels.reportSpam#fe087810: field user_id is nil")
+	if r.Participant == nil {
+		return fmt.Errorf("unable to encode channels.reportSpam#f44a8315: field participant is nil")
 	}
-	if err := r.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.reportSpam#fe087810: field user_id: %w", err)
+	if err := r.Participant.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channels.reportSpam#f44a8315: field participant: %w", err)
 	}
 	b.PutVectorHeader(len(r.ID))
 	for _, v := range r.ID {
@@ -168,10 +168,10 @@ func (r *ChannelsReportSpamRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ChannelsReportSpamRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode channels.reportSpam#fe087810 to nil")
+		return fmt.Errorf("can't decode channels.reportSpam#f44a8315 to nil")
 	}
 	if err := b.ConsumeID(ChannelsReportSpamRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.reportSpam#fe087810: %w", err)
+		return fmt.Errorf("unable to decode channels.reportSpam#f44a8315: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -179,26 +179,26 @@ func (r *ChannelsReportSpamRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ChannelsReportSpamRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode channels.reportSpam#fe087810 to nil")
+		return fmt.Errorf("can't decode channels.reportSpam#f44a8315 to nil")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.reportSpam#fe087810: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.reportSpam#f44a8315: field channel: %w", err)
 		}
 		r.Channel = value
 	}
 	{
-		value, err := DecodeInputUser(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.reportSpam#fe087810: field user_id: %w", err)
+			return fmt.Errorf("unable to decode channels.reportSpam#f44a8315: field participant: %w", err)
 		}
-		r.UserID = value
+		r.Participant = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.reportSpam#fe087810: field id: %w", err)
+			return fmt.Errorf("unable to decode channels.reportSpam#f44a8315: field id: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -207,7 +207,7 @@ func (r *ChannelsReportSpamRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.reportSpam#fe087810: field id: %w", err)
+				return fmt.Errorf("unable to decode channels.reportSpam#f44a8315: field id: %w", err)
 			}
 			r.ID = append(r.ID, value)
 		}
@@ -220,9 +220,9 @@ func (r *ChannelsReportSpamRequest) GetChannel() (value InputChannelClass) {
 	return r.Channel
 }
 
-// GetUserID returns value of UserID field.
-func (r *ChannelsReportSpamRequest) GetUserID() (value InputUserClass) {
-	return r.UserID
+// GetParticipant returns value of Participant field.
+func (r *ChannelsReportSpamRequest) GetParticipant() (value InputPeerClass) {
+	return r.Participant
 }
 
 // GetID returns value of ID field.
@@ -235,7 +235,7 @@ func (r *ChannelsReportSpamRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel
 	return r.Channel.AsNotEmpty()
 }
 
-// ChannelsReportSpam invokes method channels.reportSpam#fe087810 returning error if any.
+// ChannelsReportSpam invokes method channels.reportSpam#f44a8315 returning error if any.
 // Reports some messages from a user in a supergroup as spam; requires administrator
 // rights in the supergroup
 //

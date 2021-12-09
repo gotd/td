@@ -194,8 +194,8 @@ func (c *ChannelParticipant) GetDate() (value int) {
 type ChannelParticipantSelf struct {
 	// Flags field of ChannelParticipantSelf.
 	Flags bin.Fields
-	// ViaInvite field of ChannelParticipantSelf.
-	ViaInvite bool
+	// ViaRequest field of ChannelParticipantSelf.
+	ViaRequest bool
 	// User ID
 	UserID int64
 	// User that invited me to the channel/supergroup
@@ -227,7 +227,7 @@ func (c *ChannelParticipantSelf) Zero() bool {
 	if !(c.Flags.Zero()) {
 		return false
 	}
-	if !(c.ViaInvite == false) {
+	if !(c.ViaRequest == false) {
 		return false
 	}
 	if !(c.UserID == 0) {
@@ -254,12 +254,12 @@ func (c *ChannelParticipantSelf) String() string {
 
 // FillFrom fills ChannelParticipantSelf from given interface.
 func (c *ChannelParticipantSelf) FillFrom(from interface {
-	GetViaInvite() (value bool)
+	GetViaRequest() (value bool)
 	GetUserID() (value int64)
 	GetInviterID() (value int64)
 	GetDate() (value int)
 }) {
-	c.ViaInvite = from.GetViaInvite()
+	c.ViaRequest = from.GetViaRequest()
 	c.UserID = from.GetUserID()
 	c.InviterID = from.GetInviterID()
 	c.Date = from.GetDate()
@@ -289,8 +289,8 @@ func (c *ChannelParticipantSelf) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "ViaInvite",
-			SchemaName: "via_invite",
+			Name:       "ViaRequest",
+			SchemaName: "via_request",
 			Null:       !c.Flags.Has(0),
 		},
 		{
@@ -311,7 +311,7 @@ func (c *ChannelParticipantSelf) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (c *ChannelParticipantSelf) SetFlags() {
-	if !(c.ViaInvite == false) {
+	if !(c.ViaRequest == false) {
 		c.Flags.Set(0)
 	}
 }
@@ -361,7 +361,7 @@ func (c *ChannelParticipantSelf) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode channelParticipantSelf#35a8bfa7: field flags: %w", err)
 		}
 	}
-	c.ViaInvite = c.Flags.Has(0)
+	c.ViaRequest = c.Flags.Has(0)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -386,19 +386,19 @@ func (c *ChannelParticipantSelf) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// SetViaInvite sets value of ViaInvite conditional field.
-func (c *ChannelParticipantSelf) SetViaInvite(value bool) {
+// SetViaRequest sets value of ViaRequest conditional field.
+func (c *ChannelParticipantSelf) SetViaRequest(value bool) {
 	if value {
 		c.Flags.Set(0)
-		c.ViaInvite = true
+		c.ViaRequest = true
 	} else {
 		c.Flags.Unset(0)
-		c.ViaInvite = false
+		c.ViaRequest = false
 	}
 }
 
-// GetViaInvite returns value of ViaInvite conditional field.
-func (c *ChannelParticipantSelf) GetViaInvite() (value bool) {
+// GetViaRequest returns value of ViaRequest conditional field.
+func (c *ChannelParticipantSelf) GetViaRequest() (value bool) {
 	return c.Flags.Has(0)
 }
 

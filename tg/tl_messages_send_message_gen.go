@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSendMessageRequest represents TL type `messages.sendMessage#520c3870`.
+// MessagesSendMessageRequest represents TL type `messages.sendMessage#d9d75a4`.
 // Sends a message to a chat
 //
 // See https://core.telegram.org/method/messages.sendMessage for reference.
@@ -77,10 +77,14 @@ type MessagesSendMessageRequest struct {
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
+	// SendAs field of MessagesSendMessageRequest.
+	//
+	// Use SetSendAs and GetSendAs helpers.
+	SendAs InputPeerClass
 }
 
 // MessagesSendMessageRequestTypeID is TL type id of MessagesSendMessageRequest.
-const MessagesSendMessageRequestTypeID = 0x520c3870
+const MessagesSendMessageRequestTypeID = 0xd9d75a4
 
 // Ensuring interfaces in compile-time for MessagesSendMessageRequest.
 var (
@@ -130,6 +134,9 @@ func (s *MessagesSendMessageRequest) Zero() bool {
 	if !(s.ScheduleDate == 0) {
 		return false
 	}
+	if !(s.SendAs == nil) {
+		return false
+	}
 
 	return true
 }
@@ -156,6 +163,7 @@ func (s *MessagesSendMessageRequest) FillFrom(from interface {
 	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetScheduleDate() (value int, ok bool)
+	GetSendAs() (value InputPeerClass, ok bool)
 }) {
 	s.NoWebpage = from.GetNoWebpage()
 	s.Silent = from.GetSilent()
@@ -178,6 +186,10 @@ func (s *MessagesSendMessageRequest) FillFrom(from interface {
 
 	if val, ok := from.GetScheduleDate(); ok {
 		s.ScheduleDate = val
+	}
+
+	if val, ok := from.GetSendAs(); ok {
+		s.SendAs = val
 	}
 
 }
@@ -257,6 +269,11 @@ func (s *MessagesSendMessageRequest) TypeInfo() tdp.Type {
 			SchemaName: "schedule_date",
 			Null:       !s.Flags.Has(10),
 		},
+		{
+			Name:       "SendAs",
+			SchemaName: "send_as",
+			Null:       !s.Flags.Has(13),
+		},
 	}
 	return typ
 }
@@ -287,12 +304,15 @@ func (s *MessagesSendMessageRequest) SetFlags() {
 	if !(s.ScheduleDate == 0) {
 		s.Flags.Set(10)
 	}
+	if !(s.SendAs == nil) {
+		s.Flags.Set(13)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *MessagesSendMessageRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMessage#520c3870 as nil")
+		return fmt.Errorf("can't encode messages.sendMessage#d9d75a4 as nil")
 	}
 	b.PutID(MessagesSendMessageRequestTypeID)
 	return s.EncodeBare(b)
@@ -301,17 +321,17 @@ func (s *MessagesSendMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMessage#520c3870 as nil")
+		return fmt.Errorf("can't encode messages.sendMessage#d9d75a4 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field flags: %w", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field peer is nil")
+		return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field peer: %w", err)
 	}
 	if s.Flags.Has(0) {
 		b.PutInt(s.ReplyToMsgID)
@@ -320,25 +340,33 @@ func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 	b.PutLong(s.RandomID)
 	if s.Flags.Has(2) {
 		if s.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field reply_markup is nil")
+			return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field reply_markup is nil")
 		}
 		if err := s.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field reply_markup: %w", err)
+			return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field reply_markup: %w", err)
 		}
 	}
 	if s.Flags.Has(3) {
 		b.PutVectorHeader(len(s.Entities))
 		for idx, v := range s.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field entities element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if s.Flags.Has(10) {
 		b.PutInt(s.ScheduleDate)
+	}
+	if s.Flags.Has(13) {
+		if s.SendAs == nil {
+			return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field send_as is nil")
+		}
+		if err := s.SendAs.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field send_as: %w", err)
+		}
 	}
 	return nil
 }
@@ -346,10 +374,10 @@ func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSendMessageRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMessage#520c3870 to nil")
+		return fmt.Errorf("can't decode messages.sendMessage#d9d75a4 to nil")
 	}
 	if err := b.ConsumeID(MessagesSendMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendMessage#520c3870: %w", err)
+		return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -357,11 +385,11 @@ func (s *MessagesSendMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMessage#520c3870 to nil")
+		return fmt.Errorf("can't decode messages.sendMessage#d9d75a4 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field flags: %w", err)
 		}
 	}
 	s.NoWebpage = s.Flags.Has(1)
@@ -371,42 +399,42 @@ func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field reply_to_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field reply_to_msg_id: %w", err)
 		}
 		s.ReplyToMsgID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field message: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field message: %w", err)
 		}
 		s.Message = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field random_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field random_id: %w", err)
 		}
 		s.RandomID = value
 	}
 	if s.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field reply_markup: %w", err)
 		}
 		s.ReplyMarkup = value
 	}
 	if s.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field entities: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -415,7 +443,7 @@ func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field entities: %w", err)
+				return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field entities: %w", err)
 			}
 			s.Entities = append(s.Entities, value)
 		}
@@ -423,9 +451,16 @@ func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field schedule_date: %w", err)
 		}
 		s.ScheduleDate = value
+	}
+	if s.Flags.Has(13) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field send_as: %w", err)
+		}
+		s.SendAs = value
 	}
 	return nil
 }
@@ -569,6 +604,21 @@ func (s *MessagesSendMessageRequest) GetScheduleDate() (value int, ok bool) {
 	return s.ScheduleDate, true
 }
 
+// SetSendAs sets value of SendAs conditional field.
+func (s *MessagesSendMessageRequest) SetSendAs(value InputPeerClass) {
+	s.Flags.Set(13)
+	s.SendAs = value
+}
+
+// GetSendAs returns value of SendAs conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSendMessageRequest) GetSendAs() (value InputPeerClass, ok bool) {
+	if !s.Flags.Has(13) {
+		return value, false
+	}
+	return s.SendAs, true
+}
+
 // MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
 func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !s.Flags.Has(3) {
@@ -577,7 +627,7 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 	return MessageEntityClassArray(s.Entities), true
 }
 
-// MessagesSendMessage invokes method messages.sendMessage#520c3870 returning error if any.
+// MessagesSendMessage invokes method messages.sendMessage#d9d75a4 returning error if any.
 // Sends a message to a chat
 //
 // Possible errors:

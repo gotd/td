@@ -188,6 +188,8 @@ type Chat struct {
 	CallActive bool
 	// Whether there's anyone in the group call
 	CallNotEmpty bool
+	// Noforwards field of Chat.
+	Noforwards bool
 	// ID of the group
 	ID int64
 	// Title
@@ -264,6 +266,9 @@ func (c *Chat) Zero() bool {
 	if !(c.CallNotEmpty == false) {
 		return false
 	}
+	if !(c.Noforwards == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -312,6 +317,7 @@ func (c *Chat) FillFrom(from interface {
 	GetDeactivated() (value bool)
 	GetCallActive() (value bool)
 	GetCallNotEmpty() (value bool)
+	GetNoforwards() (value bool)
 	GetID() (value int64)
 	GetTitle() (value string)
 	GetPhoto() (value ChatPhotoClass)
@@ -328,6 +334,7 @@ func (c *Chat) FillFrom(from interface {
 	c.Deactivated = from.GetDeactivated()
 	c.CallActive = from.GetCallActive()
 	c.CallNotEmpty = from.GetCallNotEmpty()
+	c.Noforwards = from.GetNoforwards()
 	c.ID = from.GetID()
 	c.Title = from.GetTitle()
 	c.Photo = from.GetPhoto()
@@ -402,6 +409,11 @@ func (c *Chat) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(24),
 		},
 		{
+			Name:       "Noforwards",
+			SchemaName: "noforwards",
+			Null:       !c.Flags.Has(25),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -463,6 +475,9 @@ func (c *Chat) SetFlags() {
 	}
 	if !(c.CallNotEmpty == false) {
 		c.Flags.Set(24)
+	}
+	if !(c.Noforwards == false) {
+		c.Flags.Set(25)
 	}
 	if !(c.MigratedTo == nil) {
 		c.Flags.Set(6)
@@ -552,6 +567,7 @@ func (c *Chat) DecodeBare(b *bin.Buffer) error {
 	c.Deactivated = c.Flags.Has(5)
 	c.CallActive = c.Flags.Has(23)
 	c.CallNotEmpty = c.Flags.Has(24)
+	c.Noforwards = c.Flags.Has(25)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -708,6 +724,22 @@ func (c *Chat) SetCallNotEmpty(value bool) {
 // GetCallNotEmpty returns value of CallNotEmpty conditional field.
 func (c *Chat) GetCallNotEmpty() (value bool) {
 	return c.Flags.Has(24)
+}
+
+// SetNoforwards sets value of Noforwards conditional field.
+func (c *Chat) SetNoforwards(value bool) {
+	if value {
+		c.Flags.Set(25)
+		c.Noforwards = true
+	} else {
+		c.Flags.Unset(25)
+		c.Noforwards = false
+	}
+}
+
+// GetNoforwards returns value of Noforwards conditional field.
+func (c *Chat) GetNoforwards() (value bool) {
+	return c.Flags.Has(25)
 }
 
 // GetID returns value of ID field.
@@ -994,6 +1026,8 @@ type Channel struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	Gigagroup bool
+	// Noforwards field of Channel.
+	Noforwards bool
 	// ID of the channel
 	ID int64
 	// Access hash
@@ -1113,6 +1147,9 @@ func (c *Channel) Zero() bool {
 	if !(c.Gigagroup == false) {
 		return false
 	}
+	if !(c.Noforwards == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -1177,6 +1214,7 @@ func (c *Channel) FillFrom(from interface {
 	GetCallNotEmpty() (value bool)
 	GetFake() (value bool)
 	GetGigagroup() (value bool)
+	GetNoforwards() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetTitle() (value string)
@@ -1205,6 +1243,7 @@ func (c *Channel) FillFrom(from interface {
 	c.CallNotEmpty = from.GetCallNotEmpty()
 	c.Fake = from.GetFake()
 	c.Gigagroup = from.GetGigagroup()
+	c.Noforwards = from.GetNoforwards()
 	c.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		c.AccessHash = val
@@ -1343,6 +1382,11 @@ func (c *Channel) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(26),
 		},
 		{
+			Name:       "Noforwards",
+			SchemaName: "noforwards",
+			Null:       !c.Flags.Has(27),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -1446,6 +1490,9 @@ func (c *Channel) SetFlags() {
 	}
 	if !(c.Gigagroup == false) {
 		c.Flags.Set(26)
+	}
+	if !(c.Noforwards == false) {
+		c.Flags.Set(27)
 	}
 	if !(c.AccessHash == 0) {
 		c.Flags.Set(13)
@@ -1569,6 +1616,7 @@ func (c *Channel) DecodeBare(b *bin.Buffer) error {
 	c.CallNotEmpty = c.Flags.Has(24)
 	c.Fake = c.Flags.Has(25)
 	c.Gigagroup = c.Flags.Has(26)
+	c.Noforwards = c.Flags.Has(27)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1907,6 +1955,22 @@ func (c *Channel) SetGigagroup(value bool) {
 // GetGigagroup returns value of Gigagroup conditional field.
 func (c *Channel) GetGigagroup() (value bool) {
 	return c.Flags.Has(26)
+}
+
+// SetNoforwards sets value of Noforwards conditional field.
+func (c *Channel) SetNoforwards(value bool) {
+	if value {
+		c.Flags.Set(27)
+		c.Noforwards = true
+	} else {
+		c.Flags.Unset(27)
+		c.Noforwards = false
+	}
+}
+
+// GetNoforwards returns value of Noforwards conditional field.
+func (c *Channel) GetNoforwards() (value bool) {
+	return c.Flags.Has(27)
 }
 
 // GetID returns value of ID field.
@@ -2563,6 +2627,9 @@ type FullChat interface {
 
 	// Whether there's anyone in the group call
 	GetCallNotEmpty() (value bool)
+
+	// Noforwards field of Chat.
+	GetNoforwards() (value bool)
 
 	// ID of the group
 	GetID() (value int64)

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AuthLogOutRequest represents TL type `auth.logOut#5717da40`.
+// AuthLogOutRequest represents TL type `auth.logOut#3e72ba19`.
 // Logs out the user.
 //
 // See https://core.telegram.org/method/auth.logOut for reference.
@@ -39,7 +39,7 @@ type AuthLogOutRequest struct {
 }
 
 // AuthLogOutRequestTypeID is TL type id of AuthLogOutRequest.
-const AuthLogOutRequestTypeID = 0x5717da40
+const AuthLogOutRequestTypeID = 0x3e72ba19
 
 // Ensuring interfaces in compile-time for AuthLogOutRequest.
 var (
@@ -95,7 +95,7 @@ func (l *AuthLogOutRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *AuthLogOutRequest) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode auth.logOut#5717da40 as nil")
+		return fmt.Errorf("can't encode auth.logOut#3e72ba19 as nil")
 	}
 	b.PutID(AuthLogOutRequestTypeID)
 	return l.EncodeBare(b)
@@ -104,7 +104,7 @@ func (l *AuthLogOutRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *AuthLogOutRequest) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode auth.logOut#5717da40 as nil")
+		return fmt.Errorf("can't encode auth.logOut#3e72ba19 as nil")
 	}
 	return nil
 }
@@ -112,10 +112,10 @@ func (l *AuthLogOutRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (l *AuthLogOutRequest) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode auth.logOut#5717da40 to nil")
+		return fmt.Errorf("can't decode auth.logOut#3e72ba19 to nil")
 	}
 	if err := b.ConsumeID(AuthLogOutRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.logOut#5717da40: %w", err)
+		return fmt.Errorf("unable to decode auth.logOut#3e72ba19: %w", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -123,23 +123,22 @@ func (l *AuthLogOutRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *AuthLogOutRequest) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode auth.logOut#5717da40 to nil")
+		return fmt.Errorf("can't decode auth.logOut#3e72ba19 to nil")
 	}
 	return nil
 }
 
-// AuthLogOut invokes method auth.logOut#5717da40 returning error if any.
+// AuthLogOut invokes method auth.logOut#3e72ba19 returning error if any.
 // Logs out the user.
 //
 // See https://core.telegram.org/method/auth.logOut for reference.
 // Can be used by bots.
-func (c *Client) AuthLogOut(ctx context.Context) (bool, error) {
-	var result BoolBox
+func (c *Client) AuthLogOut(ctx context.Context) (*AuthLoggedOut, error) {
+	var result AuthLoggedOut
 
 	request := &AuthLogOutRequest{}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return false, err
+		return nil, err
 	}
-	_, ok := result.Bool.(*BoolTrue)
-	return ok, nil
+	return &result, nil
 }

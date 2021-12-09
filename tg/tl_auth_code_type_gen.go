@@ -340,6 +340,107 @@ func (c *AuthCodeTypeFlashCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// AuthCodeTypeMissedCall represents TL type `auth.codeTypeMissedCall#d61ad6ee`.
+//
+// See https://core.telegram.org/constructor/auth.codeTypeMissedCall for reference.
+type AuthCodeTypeMissedCall struct {
+}
+
+// AuthCodeTypeMissedCallTypeID is TL type id of AuthCodeTypeMissedCall.
+const AuthCodeTypeMissedCallTypeID = 0xd61ad6ee
+
+// construct implements constructor of AuthCodeTypeClass.
+func (c AuthCodeTypeMissedCall) construct() AuthCodeTypeClass { return &c }
+
+// Ensuring interfaces in compile-time for AuthCodeTypeMissedCall.
+var (
+	_ bin.Encoder     = &AuthCodeTypeMissedCall{}
+	_ bin.Decoder     = &AuthCodeTypeMissedCall{}
+	_ bin.BareEncoder = &AuthCodeTypeMissedCall{}
+	_ bin.BareDecoder = &AuthCodeTypeMissedCall{}
+
+	_ AuthCodeTypeClass = &AuthCodeTypeMissedCall{}
+)
+
+func (c *AuthCodeTypeMissedCall) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *AuthCodeTypeMissedCall) String() string {
+	if c == nil {
+		return "AuthCodeTypeMissedCall(nil)"
+	}
+	type Alias AuthCodeTypeMissedCall
+	return fmt.Sprintf("AuthCodeTypeMissedCall%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthCodeTypeMissedCall) TypeID() uint32 {
+	return AuthCodeTypeMissedCallTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthCodeTypeMissedCall) TypeName() string {
+	return "auth.codeTypeMissedCall"
+}
+
+// TypeInfo returns info about TL type.
+func (c *AuthCodeTypeMissedCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.codeTypeMissedCall",
+		ID:   AuthCodeTypeMissedCallTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *AuthCodeTypeMissedCall) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode auth.codeTypeMissedCall#d61ad6ee as nil")
+	}
+	b.PutID(AuthCodeTypeMissedCallTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *AuthCodeTypeMissedCall) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode auth.codeTypeMissedCall#d61ad6ee as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *AuthCodeTypeMissedCall) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode auth.codeTypeMissedCall#d61ad6ee to nil")
+	}
+	if err := b.ConsumeID(AuthCodeTypeMissedCallTypeID); err != nil {
+		return fmt.Errorf("unable to decode auth.codeTypeMissedCall#d61ad6ee: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *AuthCodeTypeMissedCall) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode auth.codeTypeMissedCall#d61ad6ee to nil")
+	}
+	return nil
+}
+
 // AuthCodeTypeClassName is schema name of AuthCodeTypeClass.
 const AuthCodeTypeClassName = "auth.CodeType"
 
@@ -356,6 +457,7 @@ const AuthCodeTypeClassName = "auth.CodeType"
 //  case *tg.AuthCodeTypeSMS: // auth.codeTypeSms#72a3158c
 //  case *tg.AuthCodeTypeCall: // auth.codeTypeCall#741cd3e3
 //  case *tg.AuthCodeTypeFlashCall: // auth.codeTypeFlashCall#226ccefb
+//  case *tg.AuthCodeTypeMissedCall: // auth.codeTypeMissedCall#d61ad6ee
 //  default: panic(v)
 //  }
 type AuthCodeTypeClass interface {
@@ -401,6 +503,13 @@ func DecodeAuthCodeType(buf *bin.Buffer) (AuthCodeTypeClass, error) {
 	case AuthCodeTypeFlashCallTypeID:
 		// Decoding auth.codeTypeFlashCall#226ccefb.
 		v := AuthCodeTypeFlashCall{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case AuthCodeTypeMissedCallTypeID:
+		// Decoding auth.codeTypeMissedCall#d61ad6ee.
+		v := AuthCodeTypeMissedCall{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthCodeTypeClass: %w", err)
 		}

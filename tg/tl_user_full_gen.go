@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// UserFull represents TL type `userFull#d697ff05`.
+// UserFull represents TL type `userFull#cf366521`.
 // Extended user info
 //
 // See https://core.telegram.org/constructor/userFull for reference.
@@ -57,8 +57,8 @@ type UserFull struct {
 	HasScheduled bool
 	// Whether the user can receive video calls
 	VideoCallsAvailable bool
-	// Remaining user info
-	User UserClass
+	// ID field of UserFull.
+	ID int64
 	// Bio of the user
 	//
 	// Use SetAbout and GetAbout helpers.
@@ -100,10 +100,14 @@ type UserFull struct {
 	//
 	// Use SetThemeEmoticon and GetThemeEmoticon helpers.
 	ThemeEmoticon string
+	// PrivateForwardName field of UserFull.
+	//
+	// Use SetPrivateForwardName and GetPrivateForwardName helpers.
+	PrivateForwardName string
 }
 
 // UserFullTypeID is TL type id of UserFull.
-const UserFullTypeID = 0xd697ff05
+const UserFullTypeID = 0xcf366521
 
 // Ensuring interfaces in compile-time for UserFull.
 var (
@@ -138,7 +142,7 @@ func (u *UserFull) Zero() bool {
 	if !(u.VideoCallsAvailable == false) {
 		return false
 	}
-	if !(u.User == nil) {
+	if !(u.ID == 0) {
 		return false
 	}
 	if !(u.About == "") {
@@ -171,6 +175,9 @@ func (u *UserFull) Zero() bool {
 	if !(u.ThemeEmoticon == "") {
 		return false
 	}
+	if !(u.PrivateForwardName == "") {
+		return false
+	}
 
 	return true
 }
@@ -192,7 +199,7 @@ func (u *UserFull) FillFrom(from interface {
 	GetCanPinMessage() (value bool)
 	GetHasScheduled() (value bool)
 	GetVideoCallsAvailable() (value bool)
-	GetUser() (value UserClass)
+	GetID() (value int64)
 	GetAbout() (value string, ok bool)
 	GetSettings() (value PeerSettings)
 	GetProfilePhoto() (value PhotoClass, ok bool)
@@ -203,6 +210,7 @@ func (u *UserFull) FillFrom(from interface {
 	GetFolderID() (value int, ok bool)
 	GetTTLPeriod() (value int, ok bool)
 	GetThemeEmoticon() (value string, ok bool)
+	GetPrivateForwardName() (value string, ok bool)
 }) {
 	u.Blocked = from.GetBlocked()
 	u.PhoneCallsAvailable = from.GetPhoneCallsAvailable()
@@ -210,7 +218,7 @@ func (u *UserFull) FillFrom(from interface {
 	u.CanPinMessage = from.GetCanPinMessage()
 	u.HasScheduled = from.GetHasScheduled()
 	u.VideoCallsAvailable = from.GetVideoCallsAvailable()
-	u.User = from.GetUser()
+	u.ID = from.GetID()
 	if val, ok := from.GetAbout(); ok {
 		u.About = val
 	}
@@ -240,6 +248,10 @@ func (u *UserFull) FillFrom(from interface {
 
 	if val, ok := from.GetThemeEmoticon(); ok {
 		u.ThemeEmoticon = val
+	}
+
+	if val, ok := from.GetPrivateForwardName(); ok {
+		u.PrivateForwardName = val
 	}
 
 }
@@ -298,8 +310,8 @@ func (u *UserFull) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(13),
 		},
 		{
-			Name:       "User",
-			SchemaName: "user",
+			Name:       "ID",
+			SchemaName: "id",
 		},
 		{
 			Name:       "About",
@@ -348,6 +360,11 @@ func (u *UserFull) TypeInfo() tdp.Type {
 			SchemaName: "theme_emoticon",
 			Null:       !u.Flags.Has(15),
 		},
+		{
+			Name:       "PrivateForwardName",
+			SchemaName: "private_forward_name",
+			Null:       !u.Flags.Has(16),
+		},
 	}
 	return typ
 }
@@ -393,12 +410,15 @@ func (u *UserFull) SetFlags() {
 	if !(u.ThemeEmoticon == "") {
 		u.Flags.Set(15)
 	}
+	if !(u.PrivateForwardName == "") {
+		u.Flags.Set(16)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UserFull) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userFull#d697ff05 as nil")
+		return fmt.Errorf("can't encode userFull#cf366521 as nil")
 	}
 	b.PutID(UserFullTypeID)
 	return u.EncodeBare(b)
@@ -407,38 +427,33 @@ func (u *UserFull) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserFull) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userFull#d697ff05 as nil")
+		return fmt.Errorf("can't encode userFull#cf366521 as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#d697ff05: field flags: %w", err)
+		return fmt.Errorf("unable to encode userFull#cf366521: field flags: %w", err)
 	}
-	if u.User == nil {
-		return fmt.Errorf("unable to encode userFull#d697ff05: field user is nil")
-	}
-	if err := u.User.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#d697ff05: field user: %w", err)
-	}
+	b.PutLong(u.ID)
 	if u.Flags.Has(1) {
 		b.PutString(u.About)
 	}
 	if err := u.Settings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#d697ff05: field settings: %w", err)
+		return fmt.Errorf("unable to encode userFull#cf366521: field settings: %w", err)
 	}
 	if u.Flags.Has(2) {
 		if u.ProfilePhoto == nil {
-			return fmt.Errorf("unable to encode userFull#d697ff05: field profile_photo is nil")
+			return fmt.Errorf("unable to encode userFull#cf366521: field profile_photo is nil")
 		}
 		if err := u.ProfilePhoto.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d697ff05: field profile_photo: %w", err)
+			return fmt.Errorf("unable to encode userFull#cf366521: field profile_photo: %w", err)
 		}
 	}
 	if err := u.NotifySettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode userFull#d697ff05: field notify_settings: %w", err)
+		return fmt.Errorf("unable to encode userFull#cf366521: field notify_settings: %w", err)
 	}
 	if u.Flags.Has(3) {
 		if err := u.BotInfo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode userFull#d697ff05: field bot_info: %w", err)
+			return fmt.Errorf("unable to encode userFull#cf366521: field bot_info: %w", err)
 		}
 	}
 	if u.Flags.Has(6) {
@@ -454,16 +469,19 @@ func (u *UserFull) EncodeBare(b *bin.Buffer) error {
 	if u.Flags.Has(15) {
 		b.PutString(u.ThemeEmoticon)
 	}
+	if u.Flags.Has(16) {
+		b.PutString(u.PrivateForwardName)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UserFull) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userFull#d697ff05 to nil")
+		return fmt.Errorf("can't decode userFull#cf366521 to nil")
 	}
 	if err := b.ConsumeID(UserFullTypeID); err != nil {
-		return fmt.Errorf("unable to decode userFull#d697ff05: %w", err)
+		return fmt.Errorf("unable to decode userFull#cf366521: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -471,11 +489,11 @@ func (u *UserFull) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserFull) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userFull#d697ff05 to nil")
+		return fmt.Errorf("can't decode userFull#cf366521 to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d697ff05: field flags: %w", err)
+			return fmt.Errorf("unable to decode userFull#cf366521: field flags: %w", err)
 		}
 	}
 	u.Blocked = u.Flags.Has(0)
@@ -485,75 +503,82 @@ func (u *UserFull) DecodeBare(b *bin.Buffer) error {
 	u.HasScheduled = u.Flags.Has(12)
 	u.VideoCallsAvailable = u.Flags.Has(13)
 	{
-		value, err := DecodeUser(b)
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d697ff05: field user: %w", err)
+			return fmt.Errorf("unable to decode userFull#cf366521: field id: %w", err)
 		}
-		u.User = value
+		u.ID = value
 	}
 	if u.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d697ff05: field about: %w", err)
+			return fmt.Errorf("unable to decode userFull#cf366521: field about: %w", err)
 		}
 		u.About = value
 	}
 	{
 		if err := u.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d697ff05: field settings: %w", err)
+			return fmt.Errorf("unable to decode userFull#cf366521: field settings: %w", err)
 		}
 	}
 	if u.Flags.Has(2) {
 		value, err := DecodePhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d697ff05: field profile_photo: %w", err)
+			return fmt.Errorf("unable to decode userFull#cf366521: field profile_photo: %w", err)
 		}
 		u.ProfilePhoto = value
 	}
 	{
 		if err := u.NotifySettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d697ff05: field notify_settings: %w", err)
+			return fmt.Errorf("unable to decode userFull#cf366521: field notify_settings: %w", err)
 		}
 	}
 	if u.Flags.Has(3) {
 		if err := u.BotInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode userFull#d697ff05: field bot_info: %w", err)
+			return fmt.Errorf("unable to decode userFull#cf366521: field bot_info: %w", err)
 		}
 	}
 	if u.Flags.Has(6) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d697ff05: field pinned_msg_id: %w", err)
+			return fmt.Errorf("unable to decode userFull#cf366521: field pinned_msg_id: %w", err)
 		}
 		u.PinnedMsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d697ff05: field common_chats_count: %w", err)
+			return fmt.Errorf("unable to decode userFull#cf366521: field common_chats_count: %w", err)
 		}
 		u.CommonChatsCount = value
 	}
 	if u.Flags.Has(11) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d697ff05: field folder_id: %w", err)
+			return fmt.Errorf("unable to decode userFull#cf366521: field folder_id: %w", err)
 		}
 		u.FolderID = value
 	}
 	if u.Flags.Has(14) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d697ff05: field ttl_period: %w", err)
+			return fmt.Errorf("unable to decode userFull#cf366521: field ttl_period: %w", err)
 		}
 		u.TTLPeriod = value
 	}
 	if u.Flags.Has(15) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode userFull#d697ff05: field theme_emoticon: %w", err)
+			return fmt.Errorf("unable to decode userFull#cf366521: field theme_emoticon: %w", err)
 		}
 		u.ThemeEmoticon = value
+	}
+	if u.Flags.Has(16) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode userFull#cf366521: field private_forward_name: %w", err)
+		}
+		u.PrivateForwardName = value
 	}
 	return nil
 }
@@ -654,9 +679,9 @@ func (u *UserFull) GetVideoCallsAvailable() (value bool) {
 	return u.Flags.Has(13)
 }
 
-// GetUser returns value of User field.
-func (u *UserFull) GetUser() (value UserClass) {
-	return u.User
+// GetID returns value of ID field.
+func (u *UserFull) GetID() (value int64) {
+	return u.ID
 }
 
 // SetAbout sets value of About conditional field.
@@ -779,9 +804,19 @@ func (u *UserFull) GetThemeEmoticon() (value string, ok bool) {
 	return u.ThemeEmoticon, true
 }
 
-// GetUserAsNotEmpty returns mapped value of User field.
-func (u *UserFull) GetUserAsNotEmpty() (*User, bool) {
-	return u.User.AsNotEmpty()
+// SetPrivateForwardName sets value of PrivateForwardName conditional field.
+func (u *UserFull) SetPrivateForwardName(value string) {
+	u.Flags.Set(16)
+	u.PrivateForwardName = value
+}
+
+// GetPrivateForwardName returns value of PrivateForwardName conditional field and
+// boolean which is true if field was set.
+func (u *UserFull) GetPrivateForwardName() (value string, ok bool) {
+	if !u.Flags.Has(16) {
+		return value, false
+	}
+	return u.PrivateForwardName, true
 }
 
 // GetProfilePhotoAsNotEmpty returns mapped value of ProfilePhoto conditional field and

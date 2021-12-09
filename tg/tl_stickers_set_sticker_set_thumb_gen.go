@@ -207,11 +207,11 @@ func (s *StickersSetStickerSetThumbRequest) GetThumbAsNotEmpty() (*InputDocument
 //
 // See https://core.telegram.org/method/stickers.setStickerSetThumb for reference.
 // Can be used by bots.
-func (c *Client) StickersSetStickerSetThumb(ctx context.Context, request *StickersSetStickerSetThumbRequest) (*MessagesStickerSet, error) {
-	var result MessagesStickerSet
+func (c *Client) StickersSetStickerSetThumb(ctx context.Context, request *StickersSetStickerSetThumbRequest) (MessagesStickerSetClass, error) {
+	var result MessagesStickerSetBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.StickerSet, nil
 }

@@ -203,11 +203,11 @@ func (c *StickersChangeStickerPositionRequest) GetStickerAsNotEmpty() (*InputDoc
 //
 // See https://core.telegram.org/method/stickers.changeStickerPosition for reference.
 // Can be used by bots.
-func (c *Client) StickersChangeStickerPosition(ctx context.Context, request *StickersChangeStickerPositionRequest) (*MessagesStickerSet, error) {
-	var result MessagesStickerSet
+func (c *Client) StickersChangeStickerPosition(ctx context.Context, request *StickersChangeStickerPositionRequest) (MessagesStickerSetClass, error) {
+	var result MessagesStickerSetBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.StickerSet, nil
 }

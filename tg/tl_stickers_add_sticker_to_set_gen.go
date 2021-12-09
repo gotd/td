@@ -200,11 +200,11 @@ func (a *StickersAddStickerToSetRequest) GetSticker() (value InputStickerSetItem
 //
 // See https://core.telegram.org/method/stickers.addStickerToSet for reference.
 // Can be used by bots.
-func (c *Client) StickersAddStickerToSet(ctx context.Context, request *StickersAddStickerToSetRequest) (*MessagesStickerSet, error) {
-	var result MessagesStickerSet
+func (c *Client) StickersAddStickerToSet(ctx context.Context, request *StickersAddStickerToSetRequest) (MessagesStickerSetClass, error) {
+	var result MessagesStickerSetBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.StickerSet, nil
 }

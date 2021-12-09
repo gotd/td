@@ -2056,6 +2056,321 @@ func (k *KeyboardButtonRequestPoll) GetText() (value string) {
 	return k.Text
 }
 
+// InputKeyboardButtonUserProfile represents TL type `inputKeyboardButtonUserProfile#e988037b`.
+//
+// See https://core.telegram.org/constructor/inputKeyboardButtonUserProfile for reference.
+type InputKeyboardButtonUserProfile struct {
+	// Text field of InputKeyboardButtonUserProfile.
+	Text string
+	// UserID field of InputKeyboardButtonUserProfile.
+	UserID InputUserClass
+}
+
+// InputKeyboardButtonUserProfileTypeID is TL type id of InputKeyboardButtonUserProfile.
+const InputKeyboardButtonUserProfileTypeID = 0xe988037b
+
+// construct implements constructor of KeyboardButtonClass.
+func (i InputKeyboardButtonUserProfile) construct() KeyboardButtonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputKeyboardButtonUserProfile.
+var (
+	_ bin.Encoder     = &InputKeyboardButtonUserProfile{}
+	_ bin.Decoder     = &InputKeyboardButtonUserProfile{}
+	_ bin.BareEncoder = &InputKeyboardButtonUserProfile{}
+	_ bin.BareDecoder = &InputKeyboardButtonUserProfile{}
+
+	_ KeyboardButtonClass = &InputKeyboardButtonUserProfile{}
+)
+
+func (i *InputKeyboardButtonUserProfile) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Text == "") {
+		return false
+	}
+	if !(i.UserID == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputKeyboardButtonUserProfile) String() string {
+	if i == nil {
+		return "InputKeyboardButtonUserProfile(nil)"
+	}
+	type Alias InputKeyboardButtonUserProfile
+	return fmt.Sprintf("InputKeyboardButtonUserProfile%+v", Alias(*i))
+}
+
+// FillFrom fills InputKeyboardButtonUserProfile from given interface.
+func (i *InputKeyboardButtonUserProfile) FillFrom(from interface {
+	GetText() (value string)
+	GetUserID() (value InputUserClass)
+}) {
+	i.Text = from.GetText()
+	i.UserID = from.GetUserID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputKeyboardButtonUserProfile) TypeID() uint32 {
+	return InputKeyboardButtonUserProfileTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputKeyboardButtonUserProfile) TypeName() string {
+	return "inputKeyboardButtonUserProfile"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputKeyboardButtonUserProfile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputKeyboardButtonUserProfile",
+		ID:   InputKeyboardButtonUserProfileTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputKeyboardButtonUserProfile) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputKeyboardButtonUserProfile#e988037b as nil")
+	}
+	b.PutID(InputKeyboardButtonUserProfileTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputKeyboardButtonUserProfile) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputKeyboardButtonUserProfile#e988037b as nil")
+	}
+	b.PutString(i.Text)
+	if i.UserID == nil {
+		return fmt.Errorf("unable to encode inputKeyboardButtonUserProfile#e988037b: field user_id is nil")
+	}
+	if err := i.UserID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputKeyboardButtonUserProfile#e988037b: field user_id: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputKeyboardButtonUserProfile) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputKeyboardButtonUserProfile#e988037b to nil")
+	}
+	if err := b.ConsumeID(InputKeyboardButtonUserProfileTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputKeyboardButtonUserProfile#e988037b: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputKeyboardButtonUserProfile) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputKeyboardButtonUserProfile#e988037b to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputKeyboardButtonUserProfile#e988037b: field text: %w", err)
+		}
+		i.Text = value
+	}
+	{
+		value, err := DecodeInputUser(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputKeyboardButtonUserProfile#e988037b: field user_id: %w", err)
+		}
+		i.UserID = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (i *InputKeyboardButtonUserProfile) GetText() (value string) {
+	return i.Text
+}
+
+// GetUserID returns value of UserID field.
+func (i *InputKeyboardButtonUserProfile) GetUserID() (value InputUserClass) {
+	return i.UserID
+}
+
+// KeyboardButtonUserProfile represents TL type `keyboardButtonUserProfile#308660c1`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonUserProfile for reference.
+type KeyboardButtonUserProfile struct {
+	// Text field of KeyboardButtonUserProfile.
+	Text string
+	// UserID field of KeyboardButtonUserProfile.
+	UserID int64
+}
+
+// KeyboardButtonUserProfileTypeID is TL type id of KeyboardButtonUserProfile.
+const KeyboardButtonUserProfileTypeID = 0x308660c1
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonUserProfile) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonUserProfile.
+var (
+	_ bin.Encoder     = &KeyboardButtonUserProfile{}
+	_ bin.Decoder     = &KeyboardButtonUserProfile{}
+	_ bin.BareEncoder = &KeyboardButtonUserProfile{}
+	_ bin.BareDecoder = &KeyboardButtonUserProfile{}
+
+	_ KeyboardButtonClass = &KeyboardButtonUserProfile{}
+)
+
+func (k *KeyboardButtonUserProfile) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Text == "") {
+		return false
+	}
+	if !(k.UserID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonUserProfile) String() string {
+	if k == nil {
+		return "KeyboardButtonUserProfile(nil)"
+	}
+	type Alias KeyboardButtonUserProfile
+	return fmt.Sprintf("KeyboardButtonUserProfile%+v", Alias(*k))
+}
+
+// FillFrom fills KeyboardButtonUserProfile from given interface.
+func (k *KeyboardButtonUserProfile) FillFrom(from interface {
+	GetText() (value string)
+	GetUserID() (value int64)
+}) {
+	k.Text = from.GetText()
+	k.UserID = from.GetUserID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*KeyboardButtonUserProfile) TypeID() uint32 {
+	return KeyboardButtonUserProfileTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*KeyboardButtonUserProfile) TypeName() string {
+	return "keyboardButtonUserProfile"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonUserProfile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonUserProfile",
+		ID:   KeyboardButtonUserProfileTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (k *KeyboardButtonUserProfile) Encode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonUserProfile#308660c1 as nil")
+	}
+	b.PutID(KeyboardButtonUserProfileTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonUserProfile) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonUserProfile#308660c1 as nil")
+	}
+	b.PutString(k.Text)
+	b.PutLong(k.UserID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (k *KeyboardButtonUserProfile) Decode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonUserProfile#308660c1 to nil")
+	}
+	if err := b.ConsumeID(KeyboardButtonUserProfileTypeID); err != nil {
+		return fmt.Errorf("unable to decode keyboardButtonUserProfile#308660c1: %w", err)
+	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonUserProfile) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonUserProfile#308660c1 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonUserProfile#308660c1: field text: %w", err)
+		}
+		k.Text = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonUserProfile#308660c1: field user_id: %w", err)
+		}
+		k.UserID = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButtonUserProfile) GetText() (value string) {
+	return k.Text
+}
+
+// GetUserID returns value of UserID field.
+func (k *KeyboardButtonUserProfile) GetUserID() (value int64) {
+	return k.UserID
+}
+
 // KeyboardButtonClassName is schema name of KeyboardButtonClass.
 const KeyboardButtonClassName = "KeyboardButton"
 
@@ -2080,6 +2395,8 @@ const KeyboardButtonClassName = "KeyboardButton"
 //  case *tg.KeyboardButtonURLAuth: // keyboardButtonUrlAuth#10b78d29
 //  case *tg.InputKeyboardButtonURLAuth: // inputKeyboardButtonUrlAuth#d02e7fd4
 //  case *tg.KeyboardButtonRequestPoll: // keyboardButtonRequestPoll#bbc7515d
+//  case *tg.InputKeyboardButtonUserProfile: // inputKeyboardButtonUserProfile#e988037b
+//  case *tg.KeyboardButtonUserProfile: // keyboardButtonUserProfile#308660c1
 //  default: panic(v)
 //  }
 type KeyboardButtonClass interface {
@@ -2184,6 +2501,20 @@ func DecodeKeyboardButton(buf *bin.Buffer) (KeyboardButtonClass, error) {
 	case KeyboardButtonRequestPollTypeID:
 		// Decoding keyboardButtonRequestPoll#bbc7515d.
 		v := KeyboardButtonRequestPoll{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+		}
+		return &v, nil
+	case InputKeyboardButtonUserProfileTypeID:
+		// Decoding inputKeyboardButtonUserProfile#e988037b.
+		v := InputKeyboardButtonUserProfile{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+		}
+		return &v, nil
+	case KeyboardButtonUserProfileTypeID:
+		// Decoding keyboardButtonUserProfile#308660c1.
+		v := KeyboardButtonUserProfile{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
 		}

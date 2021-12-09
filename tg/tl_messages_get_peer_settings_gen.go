@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetPeerSettingsRequest represents TL type `messages.getPeerSettings#3672e09c`.
+// MessagesGetPeerSettingsRequest represents TL type `messages.getPeerSettings#efd9a6a2`.
 // Get peer settings
 //
 // See https://core.telegram.org/method/messages.getPeerSettings for reference.
@@ -41,7 +41,7 @@ type MessagesGetPeerSettingsRequest struct {
 }
 
 // MessagesGetPeerSettingsRequestTypeID is TL type id of MessagesGetPeerSettingsRequest.
-const MessagesGetPeerSettingsRequestTypeID = 0x3672e09c
+const MessagesGetPeerSettingsRequestTypeID = 0xefd9a6a2
 
 // Ensuring interfaces in compile-time for MessagesGetPeerSettingsRequest.
 var (
@@ -112,7 +112,7 @@ func (g *MessagesGetPeerSettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetPeerSettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPeerSettings#3672e09c as nil")
+		return fmt.Errorf("can't encode messages.getPeerSettings#efd9a6a2 as nil")
 	}
 	b.PutID(MessagesGetPeerSettingsRequestTypeID)
 	return g.EncodeBare(b)
@@ -121,13 +121,13 @@ func (g *MessagesGetPeerSettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetPeerSettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getPeerSettings#3672e09c as nil")
+		return fmt.Errorf("can't encode messages.getPeerSettings#efd9a6a2 as nil")
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getPeerSettings#3672e09c: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getPeerSettings#efd9a6a2: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getPeerSettings#3672e09c: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getPeerSettings#efd9a6a2: field peer: %w", err)
 	}
 	return nil
 }
@@ -135,10 +135,10 @@ func (g *MessagesGetPeerSettingsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetPeerSettingsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPeerSettings#3672e09c to nil")
+		return fmt.Errorf("can't decode messages.getPeerSettings#efd9a6a2 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetPeerSettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getPeerSettings#3672e09c: %w", err)
+		return fmt.Errorf("unable to decode messages.getPeerSettings#efd9a6a2: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -146,12 +146,12 @@ func (g *MessagesGetPeerSettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetPeerSettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getPeerSettings#3672e09c to nil")
+		return fmt.Errorf("can't decode messages.getPeerSettings#efd9a6a2 to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getPeerSettings#3672e09c: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getPeerSettings#efd9a6a2: field peer: %w", err)
 		}
 		g.Peer = value
 	}
@@ -163,7 +163,7 @@ func (g *MessagesGetPeerSettingsRequest) GetPeer() (value InputPeerClass) {
 	return g.Peer
 }
 
-// MessagesGetPeerSettings invokes method messages.getPeerSettings#3672e09c returning error if any.
+// MessagesGetPeerSettings invokes method messages.getPeerSettings#efd9a6a2 returning error if any.
 // Get peer settings
 //
 // Possible errors:
@@ -171,8 +171,8 @@ func (g *MessagesGetPeerSettingsRequest) GetPeer() (value InputPeerClass) {
 //  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getPeerSettings for reference.
-func (c *Client) MessagesGetPeerSettings(ctx context.Context, peer InputPeerClass) (*PeerSettings, error) {
-	var result PeerSettings
+func (c *Client) MessagesGetPeerSettings(ctx context.Context, peer InputPeerClass) (*MessagesPeerSettings, error) {
+	var result MessagesPeerSettings
 
 	request := &MessagesGetPeerSettingsRequest{
 		Peer: peer,

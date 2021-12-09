@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PeerSettings represents TL type `peerSettings#733f2961`.
+// PeerSettings represents TL type `peerSettings#a518110d`.
 // Peer settings
 //
 // See https://core.telegram.org/constructor/peerSettings for reference.
@@ -63,14 +63,24 @@ type PeerSettings struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	InviteMembers bool
+	// RequestChatBroadcast field of PeerSettings.
+	RequestChatBroadcast bool
 	// Distance in meters between us and this peer
 	//
 	// Use SetGeoDistance and GetGeoDistance helpers.
 	GeoDistance int
+	// RequestChatTitle field of PeerSettings.
+	//
+	// Use SetRequestChatTitle and GetRequestChatTitle helpers.
+	RequestChatTitle string
+	// RequestChatDate field of PeerSettings.
+	//
+	// Use SetRequestChatDate and GetRequestChatDate helpers.
+	RequestChatDate int
 }
 
 // PeerSettingsTypeID is TL type id of PeerSettings.
-const PeerSettingsTypeID = 0x733f2961
+const PeerSettingsTypeID = 0xa518110d
 
 // Ensuring interfaces in compile-time for PeerSettings.
 var (
@@ -111,7 +121,16 @@ func (p *PeerSettings) Zero() bool {
 	if !(p.InviteMembers == false) {
 		return false
 	}
+	if !(p.RequestChatBroadcast == false) {
+		return false
+	}
 	if !(p.GeoDistance == 0) {
+		return false
+	}
+	if !(p.RequestChatTitle == "") {
+		return false
+	}
+	if !(p.RequestChatDate == 0) {
 		return false
 	}
 
@@ -137,7 +156,10 @@ func (p *PeerSettings) FillFrom(from interface {
 	GetReportGeo() (value bool)
 	GetAutoarchived() (value bool)
 	GetInviteMembers() (value bool)
+	GetRequestChatBroadcast() (value bool)
 	GetGeoDistance() (value int, ok bool)
+	GetRequestChatTitle() (value string, ok bool)
+	GetRequestChatDate() (value int, ok bool)
 }) {
 	p.ReportSpam = from.GetReportSpam()
 	p.AddContact = from.GetAddContact()
@@ -147,8 +169,17 @@ func (p *PeerSettings) FillFrom(from interface {
 	p.ReportGeo = from.GetReportGeo()
 	p.Autoarchived = from.GetAutoarchived()
 	p.InviteMembers = from.GetInviteMembers()
+	p.RequestChatBroadcast = from.GetRequestChatBroadcast()
 	if val, ok := from.GetGeoDistance(); ok {
 		p.GeoDistance = val
+	}
+
+	if val, ok := from.GetRequestChatTitle(); ok {
+		p.RequestChatTitle = val
+	}
+
+	if val, ok := from.GetRequestChatDate(); ok {
+		p.RequestChatDate = val
 	}
 
 }
@@ -217,9 +248,24 @@ func (p *PeerSettings) TypeInfo() tdp.Type {
 			Null:       !p.Flags.Has(8),
 		},
 		{
+			Name:       "RequestChatBroadcast",
+			SchemaName: "request_chat_broadcast",
+			Null:       !p.Flags.Has(10),
+		},
+		{
 			Name:       "GeoDistance",
 			SchemaName: "geo_distance",
 			Null:       !p.Flags.Has(6),
+		},
+		{
+			Name:       "RequestChatTitle",
+			SchemaName: "request_chat_title",
+			Null:       !p.Flags.Has(9),
+		},
+		{
+			Name:       "RequestChatDate",
+			SchemaName: "request_chat_date",
+			Null:       !p.Flags.Has(9),
 		},
 	}
 	return typ
@@ -251,15 +297,24 @@ func (p *PeerSettings) SetFlags() {
 	if !(p.InviteMembers == false) {
 		p.Flags.Set(8)
 	}
+	if !(p.RequestChatBroadcast == false) {
+		p.Flags.Set(10)
+	}
 	if !(p.GeoDistance == 0) {
 		p.Flags.Set(6)
+	}
+	if !(p.RequestChatTitle == "") {
+		p.Flags.Set(9)
+	}
+	if !(p.RequestChatDate == 0) {
+		p.Flags.Set(9)
 	}
 }
 
 // Encode implements bin.Encoder.
 func (p *PeerSettings) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerSettings#733f2961 as nil")
+		return fmt.Errorf("can't encode peerSettings#a518110d as nil")
 	}
 	b.PutID(PeerSettingsTypeID)
 	return p.EncodeBare(b)
@@ -268,14 +323,20 @@ func (p *PeerSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PeerSettings) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerSettings#733f2961 as nil")
+		return fmt.Errorf("can't encode peerSettings#a518110d as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode peerSettings#733f2961: field flags: %w", err)
+		return fmt.Errorf("unable to encode peerSettings#a518110d: field flags: %w", err)
 	}
 	if p.Flags.Has(6) {
 		b.PutInt(p.GeoDistance)
+	}
+	if p.Flags.Has(9) {
+		b.PutString(p.RequestChatTitle)
+	}
+	if p.Flags.Has(9) {
+		b.PutInt(p.RequestChatDate)
 	}
 	return nil
 }
@@ -283,10 +344,10 @@ func (p *PeerSettings) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PeerSettings) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerSettings#733f2961 to nil")
+		return fmt.Errorf("can't decode peerSettings#a518110d to nil")
 	}
 	if err := b.ConsumeID(PeerSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode peerSettings#733f2961: %w", err)
+		return fmt.Errorf("unable to decode peerSettings#a518110d: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -294,11 +355,11 @@ func (p *PeerSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PeerSettings) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerSettings#733f2961 to nil")
+		return fmt.Errorf("can't decode peerSettings#a518110d to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode peerSettings#733f2961: field flags: %w", err)
+			return fmt.Errorf("unable to decode peerSettings#a518110d: field flags: %w", err)
 		}
 	}
 	p.ReportSpam = p.Flags.Has(0)
@@ -309,12 +370,27 @@ func (p *PeerSettings) DecodeBare(b *bin.Buffer) error {
 	p.ReportGeo = p.Flags.Has(5)
 	p.Autoarchived = p.Flags.Has(7)
 	p.InviteMembers = p.Flags.Has(8)
+	p.RequestChatBroadcast = p.Flags.Has(10)
 	if p.Flags.Has(6) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerSettings#733f2961: field geo_distance: %w", err)
+			return fmt.Errorf("unable to decode peerSettings#a518110d: field geo_distance: %w", err)
 		}
 		p.GeoDistance = value
+	}
+	if p.Flags.Has(9) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerSettings#a518110d: field request_chat_title: %w", err)
+		}
+		p.RequestChatTitle = value
+	}
+	if p.Flags.Has(9) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode peerSettings#a518110d: field request_chat_date: %w", err)
+		}
+		p.RequestChatDate = value
 	}
 	return nil
 }
@@ -447,6 +523,22 @@ func (p *PeerSettings) GetInviteMembers() (value bool) {
 	return p.Flags.Has(8)
 }
 
+// SetRequestChatBroadcast sets value of RequestChatBroadcast conditional field.
+func (p *PeerSettings) SetRequestChatBroadcast(value bool) {
+	if value {
+		p.Flags.Set(10)
+		p.RequestChatBroadcast = true
+	} else {
+		p.Flags.Unset(10)
+		p.RequestChatBroadcast = false
+	}
+}
+
+// GetRequestChatBroadcast returns value of RequestChatBroadcast conditional field.
+func (p *PeerSettings) GetRequestChatBroadcast() (value bool) {
+	return p.Flags.Has(10)
+}
+
 // SetGeoDistance sets value of GeoDistance conditional field.
 func (p *PeerSettings) SetGeoDistance(value int) {
 	p.Flags.Set(6)
@@ -460,4 +552,34 @@ func (p *PeerSettings) GetGeoDistance() (value int, ok bool) {
 		return value, false
 	}
 	return p.GeoDistance, true
+}
+
+// SetRequestChatTitle sets value of RequestChatTitle conditional field.
+func (p *PeerSettings) SetRequestChatTitle(value string) {
+	p.Flags.Set(9)
+	p.RequestChatTitle = value
+}
+
+// GetRequestChatTitle returns value of RequestChatTitle conditional field and
+// boolean which is true if field was set.
+func (p *PeerSettings) GetRequestChatTitle() (value string, ok bool) {
+	if !p.Flags.Has(9) {
+		return value, false
+	}
+	return p.RequestChatTitle, true
+}
+
+// SetRequestChatDate sets value of RequestChatDate conditional field.
+func (p *PeerSettings) SetRequestChatDate(value int) {
+	p.Flags.Set(9)
+	p.RequestChatDate = value
+}
+
+// GetRequestChatDate returns value of RequestChatDate conditional field and
+// boolean which is true if field was set.
+func (p *PeerSettings) GetRequestChatDate() (value int, ok bool) {
+	if !p.Flags.Has(9) {
+		return value, false
+	}
+	return p.RequestChatDate, true
 }
