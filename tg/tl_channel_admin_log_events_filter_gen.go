@@ -126,6 +126,8 @@ type ChannelAdminLogEventsFilter struct {
 	GroupCall bool
 	// Invite events
 	Invites bool
+	// Send field of ChannelAdminLogEventsFilter.
+	Send bool
 }
 
 // ChannelAdminLogEventsFilterTypeID is TL type id of ChannelAdminLogEventsFilter.
@@ -194,6 +196,9 @@ func (c *ChannelAdminLogEventsFilter) Zero() bool {
 	if !(c.Invites == false) {
 		return false
 	}
+	if !(c.Send == false) {
+		return false
+	}
 
 	return true
 }
@@ -225,6 +230,7 @@ func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
 	GetDelete() (value bool)
 	GetGroupCall() (value bool)
 	GetInvites() (value bool)
+	GetSend() (value bool)
 }) {
 	c.Join = from.GetJoin()
 	c.Leave = from.GetLeave()
@@ -242,6 +248,7 @@ func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
 	c.Delete = from.GetDelete()
 	c.GroupCall = from.GetGroupCall()
 	c.Invites = from.GetInvites()
+	c.Send = from.GetSend()
 }
 
 // TypeID returns type id in TL schema.
@@ -347,6 +354,11 @@ func (c *ChannelAdminLogEventsFilter) TypeInfo() tdp.Type {
 			SchemaName: "invites",
 			Null:       !c.Flags.Has(15),
 		},
+		{
+			Name:       "Send",
+			SchemaName: "send",
+			Null:       !c.Flags.Has(16),
+		},
 	}
 	return typ
 }
@@ -400,6 +412,9 @@ func (c *ChannelAdminLogEventsFilter) SetFlags() {
 	}
 	if !(c.Invites == false) {
 		c.Flags.Set(15)
+	}
+	if !(c.Send == false) {
+		c.Flags.Set(16)
 	}
 }
 
@@ -461,6 +476,7 @@ func (c *ChannelAdminLogEventsFilter) DecodeBare(b *bin.Buffer) error {
 	c.Delete = c.Flags.Has(13)
 	c.GroupCall = c.Flags.Has(14)
 	c.Invites = c.Flags.Has(15)
+	c.Send = c.Flags.Has(16)
 	return nil
 }
 
@@ -718,4 +734,20 @@ func (c *ChannelAdminLogEventsFilter) SetInvites(value bool) {
 // GetInvites returns value of Invites conditional field.
 func (c *ChannelAdminLogEventsFilter) GetInvites() (value bool) {
 	return c.Flags.Has(15)
+}
+
+// SetSend sets value of Send conditional field.
+func (c *ChannelAdminLogEventsFilter) SetSend(value bool) {
+	if value {
+		c.Flags.Set(16)
+		c.Send = true
+	} else {
+		c.Flags.Unset(16)
+		c.Send = false
+	}
+}
+
+// GetSend returns value of Send conditional field.
+func (c *ChannelAdminLogEventsFilter) GetSend() (value bool) {
+	return c.Flags.Has(16)
 }

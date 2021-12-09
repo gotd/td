@@ -179,8 +179,8 @@ func (r *StickersRemoveStickerFromSetRequest) GetStickerAsNotEmpty() (*InputDocu
 //
 // See https://core.telegram.org/method/stickers.removeStickerFromSet for reference.
 // Can be used by bots.
-func (c *Client) StickersRemoveStickerFromSet(ctx context.Context, sticker InputDocumentClass) (*MessagesStickerSet, error) {
-	var result MessagesStickerSet
+func (c *Client) StickersRemoveStickerFromSet(ctx context.Context, sticker InputDocumentClass) (MessagesStickerSetClass, error) {
+	var result MessagesStickerSetBox
 
 	request := &StickersRemoveStickerFromSetRequest{
 		Sticker: sticker,
@@ -188,5 +188,5 @@ func (c *Client) StickersRemoveStickerFromSet(ctx context.Context, sticker Input
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.StickerSet, nil
 }

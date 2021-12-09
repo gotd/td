@@ -565,6 +565,161 @@ func (s *AuthSentCodeTypeFlashCall) GetPattern() (value string) {
 	return s.Pattern
 }
 
+// AuthSentCodeTypeMissedCall represents TL type `auth.sentCodeTypeMissedCall#82006484`.
+//
+// See https://core.telegram.org/constructor/auth.sentCodeTypeMissedCall for reference.
+type AuthSentCodeTypeMissedCall struct {
+	// Prefix field of AuthSentCodeTypeMissedCall.
+	Prefix string
+	// Length field of AuthSentCodeTypeMissedCall.
+	Length int
+}
+
+// AuthSentCodeTypeMissedCallTypeID is TL type id of AuthSentCodeTypeMissedCall.
+const AuthSentCodeTypeMissedCallTypeID = 0x82006484
+
+// construct implements constructor of AuthSentCodeTypeClass.
+func (s AuthSentCodeTypeMissedCall) construct() AuthSentCodeTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for AuthSentCodeTypeMissedCall.
+var (
+	_ bin.Encoder     = &AuthSentCodeTypeMissedCall{}
+	_ bin.Decoder     = &AuthSentCodeTypeMissedCall{}
+	_ bin.BareEncoder = &AuthSentCodeTypeMissedCall{}
+	_ bin.BareDecoder = &AuthSentCodeTypeMissedCall{}
+
+	_ AuthSentCodeTypeClass = &AuthSentCodeTypeMissedCall{}
+)
+
+func (s *AuthSentCodeTypeMissedCall) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Prefix == "") {
+		return false
+	}
+	if !(s.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *AuthSentCodeTypeMissedCall) String() string {
+	if s == nil {
+		return "AuthSentCodeTypeMissedCall(nil)"
+	}
+	type Alias AuthSentCodeTypeMissedCall
+	return fmt.Sprintf("AuthSentCodeTypeMissedCall%+v", Alias(*s))
+}
+
+// FillFrom fills AuthSentCodeTypeMissedCall from given interface.
+func (s *AuthSentCodeTypeMissedCall) FillFrom(from interface {
+	GetPrefix() (value string)
+	GetLength() (value int)
+}) {
+	s.Prefix = from.GetPrefix()
+	s.Length = from.GetLength()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthSentCodeTypeMissedCall) TypeID() uint32 {
+	return AuthSentCodeTypeMissedCallTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthSentCodeTypeMissedCall) TypeName() string {
+	return "auth.sentCodeTypeMissedCall"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSentCodeTypeMissedCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.sentCodeTypeMissedCall",
+		ID:   AuthSentCodeTypeMissedCallTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Prefix",
+			SchemaName: "prefix",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *AuthSentCodeTypeMissedCall) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeTypeMissedCall#82006484 as nil")
+	}
+	b.PutID(AuthSentCodeTypeMissedCallTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AuthSentCodeTypeMissedCall) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeTypeMissedCall#82006484 as nil")
+	}
+	b.PutString(s.Prefix)
+	b.PutInt(s.Length)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *AuthSentCodeTypeMissedCall) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeTypeMissedCall#82006484 to nil")
+	}
+	if err := b.ConsumeID(AuthSentCodeTypeMissedCallTypeID); err != nil {
+		return fmt.Errorf("unable to decode auth.sentCodeTypeMissedCall#82006484: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AuthSentCodeTypeMissedCall) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeTypeMissedCall#82006484 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.sentCodeTypeMissedCall#82006484: field prefix: %w", err)
+		}
+		s.Prefix = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.sentCodeTypeMissedCall#82006484: field length: %w", err)
+		}
+		s.Length = value
+	}
+	return nil
+}
+
+// GetPrefix returns value of Prefix field.
+func (s *AuthSentCodeTypeMissedCall) GetPrefix() (value string) {
+	return s.Prefix
+}
+
+// GetLength returns value of Length field.
+func (s *AuthSentCodeTypeMissedCall) GetLength() (value int) {
+	return s.Length
+}
+
 // AuthSentCodeTypeClassName is schema name of AuthSentCodeTypeClass.
 const AuthSentCodeTypeClassName = "auth.SentCodeType"
 
@@ -582,6 +737,7 @@ const AuthSentCodeTypeClassName = "auth.SentCodeType"
 //  case *tg.AuthSentCodeTypeSMS: // auth.sentCodeTypeSms#c000bba2
 //  case *tg.AuthSentCodeTypeCall: // auth.sentCodeTypeCall#5353e5a7
 //  case *tg.AuthSentCodeTypeFlashCall: // auth.sentCodeTypeFlashCall#ab03c6d9
+//  case *tg.AuthSentCodeTypeMissedCall: // auth.sentCodeTypeMissedCall#82006484
 //  default: panic(v)
 //  }
 type AuthSentCodeTypeClass interface {
@@ -634,6 +790,13 @@ func DecodeAuthSentCodeType(buf *bin.Buffer) (AuthSentCodeTypeClass, error) {
 	case AuthSentCodeTypeFlashCallTypeID:
 		// Decoding auth.sentCodeTypeFlashCall#ab03c6d9.
 		v := AuthSentCodeTypeFlashCall{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthSentCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case AuthSentCodeTypeMissedCallTypeID:
+		// Decoding auth.sentCodeTypeMissedCall#82006484.
+		v := AuthSentCodeTypeMissedCall{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthSentCodeTypeClass: %w", err)
 		}

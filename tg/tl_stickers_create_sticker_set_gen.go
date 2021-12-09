@@ -467,11 +467,11 @@ func (c *StickersCreateStickerSetRequest) GetThumbAsNotEmpty() (*InputDocument, 
 //
 // See https://core.telegram.org/method/stickers.createStickerSet for reference.
 // Can be used by bots.
-func (c *Client) StickersCreateStickerSet(ctx context.Context, request *StickersCreateStickerSetRequest) (*MessagesStickerSet, error) {
-	var result MessagesStickerSet
+func (c *Client) StickersCreateStickerSet(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error) {
+	var result MessagesStickerSetBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.StickerSet, nil
 }

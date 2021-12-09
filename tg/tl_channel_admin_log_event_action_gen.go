@@ -4849,6 +4849,275 @@ func (c *ChannelAdminLogEventActionParticipantJoinByRequest) GetApprovedBy() (va
 	return c.ApprovedBy
 }
 
+// ChannelAdminLogEventActionToggleNoForwards represents TL type `channelAdminLogEventActionToggleNoForwards#cb2ac766`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionToggleNoForwards for reference.
+type ChannelAdminLogEventActionToggleNoForwards struct {
+	// NewValue field of ChannelAdminLogEventActionToggleNoForwards.
+	NewValue bool
+}
+
+// ChannelAdminLogEventActionToggleNoForwardsTypeID is TL type id of ChannelAdminLogEventActionToggleNoForwards.
+const ChannelAdminLogEventActionToggleNoForwardsTypeID = 0xcb2ac766
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionToggleNoForwards) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleNoForwards.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionToggleNoForwards{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionToggleNoForwards{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleNoForwards{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleNoForwards{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleNoForwards{}
+)
+
+func (c *ChannelAdminLogEventActionToggleNoForwards) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.NewValue == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionToggleNoForwards) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionToggleNoForwards(nil)"
+	}
+	type Alias ChannelAdminLogEventActionToggleNoForwards
+	return fmt.Sprintf("ChannelAdminLogEventActionToggleNoForwards%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionToggleNoForwards from given interface.
+func (c *ChannelAdminLogEventActionToggleNoForwards) FillFrom(from interface {
+	GetNewValue() (value bool)
+}) {
+	c.NewValue = from.GetNewValue()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionToggleNoForwards) TypeID() uint32 {
+	return ChannelAdminLogEventActionToggleNoForwardsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionToggleNoForwards) TypeName() string {
+	return "channelAdminLogEventActionToggleNoForwards"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionToggleNoForwards) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionToggleNoForwards",
+		ID:   ChannelAdminLogEventActionToggleNoForwardsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionToggleNoForwards) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionToggleNoForwards#cb2ac766 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionToggleNoForwardsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionToggleNoForwards) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionToggleNoForwards#cb2ac766 as nil")
+	}
+	b.PutBool(c.NewValue)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionToggleNoForwards) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionToggleNoForwards#cb2ac766 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionToggleNoForwardsTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionToggleNoForwards#cb2ac766: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionToggleNoForwards) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionToggleNoForwards#cb2ac766 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionToggleNoForwards#cb2ac766: field new_value: %w", err)
+		}
+		c.NewValue = value
+	}
+	return nil
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionToggleNoForwards) GetNewValue() (value bool) {
+	return c.NewValue
+}
+
+// ChannelAdminLogEventActionSendMessage represents TL type `channelAdminLogEventActionSendMessage#278f2868`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionSendMessage for reference.
+type ChannelAdminLogEventActionSendMessage struct {
+	// Message field of ChannelAdminLogEventActionSendMessage.
+	Message MessageClass
+}
+
+// ChannelAdminLogEventActionSendMessageTypeID is TL type id of ChannelAdminLogEventActionSendMessage.
+const ChannelAdminLogEventActionSendMessageTypeID = 0x278f2868
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionSendMessage) construct() ChannelAdminLogEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionSendMessage.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionSendMessage{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionSendMessage{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionSendMessage{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionSendMessage{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionSendMessage{}
+)
+
+func (c *ChannelAdminLogEventActionSendMessage) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Message == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionSendMessage) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionSendMessage(nil)"
+	}
+	type Alias ChannelAdminLogEventActionSendMessage
+	return fmt.Sprintf("ChannelAdminLogEventActionSendMessage%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionSendMessage from given interface.
+func (c *ChannelAdminLogEventActionSendMessage) FillFrom(from interface {
+	GetMessage() (value MessageClass)
+}) {
+	c.Message = from.GetMessage()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionSendMessage) TypeID() uint32 {
+	return ChannelAdminLogEventActionSendMessageTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionSendMessage) TypeName() string {
+	return "channelAdminLogEventActionSendMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionSendMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionSendMessage",
+		ID:   ChannelAdminLogEventActionSendMessageTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionSendMessage) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionSendMessage#278f2868 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionSendMessageTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionSendMessage) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionSendMessage#278f2868 as nil")
+	}
+	if c.Message == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionSendMessage#278f2868: field message is nil")
+	}
+	if err := c.Message.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionSendMessage#278f2868: field message: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionSendMessage) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionSendMessage#278f2868 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionSendMessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionSendMessage#278f2868: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionSendMessage) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionSendMessage#278f2868 to nil")
+	}
+	{
+		value, err := DecodeMessage(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionSendMessage#278f2868: field message: %w", err)
+		}
+		c.Message = value
+	}
+	return nil
+}
+
+// GetMessage returns value of Message field.
+func (c *ChannelAdminLogEventActionSendMessage) GetMessage() (value MessageClass) {
+	return c.Message
+}
+
 // ChannelAdminLogEventActionClassName is schema name of ChannelAdminLogEventActionClass.
 const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 
@@ -4895,6 +5164,8 @@ const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 //  case *tg.ChannelAdminLogEventActionParticipantVolume: // channelAdminLogEventActionParticipantVolume#3e7f6847
 //  case *tg.ChannelAdminLogEventActionChangeHistoryTTL: // channelAdminLogEventActionChangeHistoryTTL#6e941a38
 //  case *tg.ChannelAdminLogEventActionParticipantJoinByRequest: // channelAdminLogEventActionParticipantJoinByRequest#afb6144a
+//  case *tg.ChannelAdminLogEventActionToggleNoForwards: // channelAdminLogEventActionToggleNoForwards#cb2ac766
+//  case *tg.ChannelAdminLogEventActionSendMessage: // channelAdminLogEventActionSendMessage#278f2868
 //  default: panic(v)
 //  }
 type ChannelAdminLogEventActionClass interface {
@@ -5150,6 +5421,20 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 	case ChannelAdminLogEventActionParticipantJoinByRequestTypeID:
 		// Decoding channelAdminLogEventActionParticipantJoinByRequest#afb6144a.
 		v := ChannelAdminLogEventActionParticipantJoinByRequest{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionToggleNoForwardsTypeID:
+		// Decoding channelAdminLogEventActionToggleNoForwards#cb2ac766.
+		v := ChannelAdminLogEventActionToggleNoForwards{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionSendMessageTypeID:
+		// Decoding channelAdminLogEventActionSendMessage#278f2868.
+		v := ChannelAdminLogEventActionSendMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
 		}

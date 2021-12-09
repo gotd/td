@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// CodeSettings represents TL type `codeSettings#debebe83`.
+// CodeSettings represents TL type `codeSettings#8a6469c2`.
 // Settings used by telegram servers for sending the confirm code.
 // Example implementations: telegram for android¹, tdlib².
 //
@@ -60,10 +60,16 @@ type CodeSettings struct {
 	// Links:
 	//  1) https://developers.google.com/identity/sms-retriever/overview
 	AllowAppHash bool
+	// AllowMissedCall field of CodeSettings.
+	AllowMissedCall bool
+	// LogoutTokens field of CodeSettings.
+	//
+	// Use SetLogoutTokens and GetLogoutTokens helpers.
+	LogoutTokens [][]byte
 }
 
 // CodeSettingsTypeID is TL type id of CodeSettings.
-const CodeSettingsTypeID = 0xdebebe83
+const CodeSettingsTypeID = 0x8a6469c2
 
 // Ensuring interfaces in compile-time for CodeSettings.
 var (
@@ -89,6 +95,12 @@ func (c *CodeSettings) Zero() bool {
 	if !(c.AllowAppHash == false) {
 		return false
 	}
+	if !(c.AllowMissedCall == false) {
+		return false
+	}
+	if !(c.LogoutTokens == nil) {
+		return false
+	}
 
 	return true
 }
@@ -107,10 +119,17 @@ func (c *CodeSettings) FillFrom(from interface {
 	GetAllowFlashcall() (value bool)
 	GetCurrentNumber() (value bool)
 	GetAllowAppHash() (value bool)
+	GetAllowMissedCall() (value bool)
+	GetLogoutTokens() (value [][]byte, ok bool)
 }) {
 	c.AllowFlashcall = from.GetAllowFlashcall()
 	c.CurrentNumber = from.GetCurrentNumber()
 	c.AllowAppHash = from.GetAllowAppHash()
+	c.AllowMissedCall = from.GetAllowMissedCall()
+	if val, ok := from.GetLogoutTokens(); ok {
+		c.LogoutTokens = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -151,6 +170,16 @@ func (c *CodeSettings) TypeInfo() tdp.Type {
 			SchemaName: "allow_app_hash",
 			Null:       !c.Flags.Has(4),
 		},
+		{
+			Name:       "AllowMissedCall",
+			SchemaName: "allow_missed_call",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "LogoutTokens",
+			SchemaName: "logout_tokens",
+			Null:       !c.Flags.Has(6),
+		},
 	}
 	return typ
 }
@@ -166,12 +195,18 @@ func (c *CodeSettings) SetFlags() {
 	if !(c.AllowAppHash == false) {
 		c.Flags.Set(4)
 	}
+	if !(c.AllowMissedCall == false) {
+		c.Flags.Set(5)
+	}
+	if !(c.LogoutTokens == nil) {
+		c.Flags.Set(6)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (c *CodeSettings) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode codeSettings#debebe83 as nil")
+		return fmt.Errorf("can't encode codeSettings#8a6469c2 as nil")
 	}
 	b.PutID(CodeSettingsTypeID)
 	return c.EncodeBare(b)
@@ -180,11 +215,17 @@ func (c *CodeSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CodeSettings) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode codeSettings#debebe83 as nil")
+		return fmt.Errorf("can't encode codeSettings#8a6469c2 as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode codeSettings#debebe83: field flags: %w", err)
+		return fmt.Errorf("unable to encode codeSettings#8a6469c2: field flags: %w", err)
+	}
+	if c.Flags.Has(6) {
+		b.PutVectorHeader(len(c.LogoutTokens))
+		for _, v := range c.LogoutTokens {
+			b.PutBytes(v)
+		}
 	}
 	return nil
 }
@@ -192,10 +233,10 @@ func (c *CodeSettings) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *CodeSettings) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode codeSettings#debebe83 to nil")
+		return fmt.Errorf("can't decode codeSettings#8a6469c2 to nil")
 	}
 	if err := b.ConsumeID(CodeSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode codeSettings#debebe83: %w", err)
+		return fmt.Errorf("unable to decode codeSettings#8a6469c2: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -203,16 +244,34 @@ func (c *CodeSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CodeSettings) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode codeSettings#debebe83 to nil")
+		return fmt.Errorf("can't decode codeSettings#8a6469c2 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode codeSettings#debebe83: field flags: %w", err)
+			return fmt.Errorf("unable to decode codeSettings#8a6469c2: field flags: %w", err)
 		}
 	}
 	c.AllowFlashcall = c.Flags.Has(0)
 	c.CurrentNumber = c.Flags.Has(1)
 	c.AllowAppHash = c.Flags.Has(4)
+	c.AllowMissedCall = c.Flags.Has(5)
+	if c.Flags.Has(6) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode codeSettings#8a6469c2: field logout_tokens: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.LogoutTokens = make([][]byte, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode codeSettings#8a6469c2: field logout_tokens: %w", err)
+			}
+			c.LogoutTokens = append(c.LogoutTokens, value)
+		}
+	}
 	return nil
 }
 
@@ -262,4 +321,35 @@ func (c *CodeSettings) SetAllowAppHash(value bool) {
 // GetAllowAppHash returns value of AllowAppHash conditional field.
 func (c *CodeSettings) GetAllowAppHash() (value bool) {
 	return c.Flags.Has(4)
+}
+
+// SetAllowMissedCall sets value of AllowMissedCall conditional field.
+func (c *CodeSettings) SetAllowMissedCall(value bool) {
+	if value {
+		c.Flags.Set(5)
+		c.AllowMissedCall = true
+	} else {
+		c.Flags.Unset(5)
+		c.AllowMissedCall = false
+	}
+}
+
+// GetAllowMissedCall returns value of AllowMissedCall conditional field.
+func (c *CodeSettings) GetAllowMissedCall() (value bool) {
+	return c.Flags.Has(5)
+}
+
+// SetLogoutTokens sets value of LogoutTokens conditional field.
+func (c *CodeSettings) SetLogoutTokens(value [][]byte) {
+	c.Flags.Set(6)
+	c.LogoutTokens = value
+}
+
+// GetLogoutTokens returns value of LogoutTokens conditional field and
+// boolean which is true if field was set.
+func (c *CodeSettings) GetLogoutTokens() (value [][]byte, ok bool) {
+	if !c.Flags.Has(6) {
+		return value, false
+	}
+	return c.LogoutTokens, true
 }

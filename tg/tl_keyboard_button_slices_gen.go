@@ -259,6 +259,32 @@ func (s KeyboardButtonClassArray) AsKeyboardButtonRequestPoll() (to KeyboardButt
 	return to
 }
 
+// AsInputKeyboardButtonUserProfile returns copy with only InputKeyboardButtonUserProfile constructors.
+func (s KeyboardButtonClassArray) AsInputKeyboardButtonUserProfile() (to InputKeyboardButtonUserProfileArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputKeyboardButtonUserProfile)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsKeyboardButtonUserProfile returns copy with only KeyboardButtonUserProfile constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonUserProfile() (to KeyboardButtonUserProfileArray) {
+	for _, elem := range s {
+		value, ok := elem.(*KeyboardButtonUserProfile)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // KeyboardButtonArray is adapter for slice of KeyboardButton.
 type KeyboardButtonArray []KeyboardButton
 
@@ -1149,6 +1175,170 @@ func (s *KeyboardButtonRequestPollArray) PopFirst() (v KeyboardButtonRequestPoll
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *KeyboardButtonRequestPollArray) Pop() (v KeyboardButtonRequestPoll, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputKeyboardButtonUserProfileArray is adapter for slice of InputKeyboardButtonUserProfile.
+type InputKeyboardButtonUserProfileArray []InputKeyboardButtonUserProfile
+
+// Sort sorts slice of InputKeyboardButtonUserProfile.
+func (s InputKeyboardButtonUserProfileArray) Sort(less func(a, b InputKeyboardButtonUserProfile) bool) InputKeyboardButtonUserProfileArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputKeyboardButtonUserProfile.
+func (s InputKeyboardButtonUserProfileArray) SortStable(less func(a, b InputKeyboardButtonUserProfile) bool) InputKeyboardButtonUserProfileArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputKeyboardButtonUserProfile.
+func (s InputKeyboardButtonUserProfileArray) Retain(keep func(x InputKeyboardButtonUserProfile) bool) InputKeyboardButtonUserProfileArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputKeyboardButtonUserProfileArray) First() (v InputKeyboardButtonUserProfile, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputKeyboardButtonUserProfileArray) Last() (v InputKeyboardButtonUserProfile, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputKeyboardButtonUserProfileArray) PopFirst() (v InputKeyboardButtonUserProfile, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputKeyboardButtonUserProfile
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputKeyboardButtonUserProfileArray) Pop() (v InputKeyboardButtonUserProfile, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// KeyboardButtonUserProfileArray is adapter for slice of KeyboardButtonUserProfile.
+type KeyboardButtonUserProfileArray []KeyboardButtonUserProfile
+
+// Sort sorts slice of KeyboardButtonUserProfile.
+func (s KeyboardButtonUserProfileArray) Sort(less func(a, b KeyboardButtonUserProfile) bool) KeyboardButtonUserProfileArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButtonUserProfile.
+func (s KeyboardButtonUserProfileArray) SortStable(less func(a, b KeyboardButtonUserProfile) bool) KeyboardButtonUserProfileArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButtonUserProfile.
+func (s KeyboardButtonUserProfileArray) Retain(keep func(x KeyboardButtonUserProfile) bool) KeyboardButtonUserProfileArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonUserProfileArray) First() (v KeyboardButtonUserProfile, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonUserProfileArray) Last() (v KeyboardButtonUserProfile, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonUserProfileArray) PopFirst() (v KeyboardButtonUserProfile, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero KeyboardButtonUserProfile
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonUserProfileArray) Pop() (v KeyboardButtonUserProfile, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

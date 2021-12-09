@@ -142,7 +142,7 @@ func (s *ServerDispatcher) OnAuthSignIn(f func(ctx context.Context, request *Aut
 	s.handlers[AuthSignInRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnAuthLogOut(f func(ctx context.Context) (bool, error)) {
+func (s *ServerDispatcher) OnAuthLogOut(f func(ctx context.Context) (*AuthLoggedOut, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AuthLogOutRequest
 		if err := request.Decode(b); err != nil {
@@ -153,11 +153,7 @@ func (s *ServerDispatcher) OnAuthLogOut(f func(ctx context.Context) (bool, error
 		if err != nil {
 			return nil, err
 		}
-		if response {
-			return &BoolBox{Bool: &BoolTrue{}}, nil
-		}
-
-		return &BoolBox{Bool: &BoolFalse{}}, nil
+		return response, nil
 	}
 
 	s.handlers[AuthLogOutRequestTypeID] = handler
@@ -1781,6 +1777,48 @@ func (s *ServerDispatcher) OnAccountGetChatThemes(f func(ctx context.Context, ha
 	s.handlers[AccountGetChatThemesRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnAccountSetAuthorizationTTL(f func(ctx context.Context, authorizationttldays int) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountSetAuthorizationTTLRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.AuthorizationTTLDays)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountSetAuthorizationTTLRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountChangeAuthorizationSettings(f func(ctx context.Context, request *AccountChangeAuthorizationSettingsRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountChangeAuthorizationSettingsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountChangeAuthorizationSettingsRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUsersGetUsers(f func(ctx context.Context, id []InputUserClass) ([]UserClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UsersGetUsersRequest
@@ -1798,7 +1836,7 @@ func (s *ServerDispatcher) OnUsersGetUsers(f func(ctx context.Context, id []Inpu
 	s.handlers[UsersGetUsersRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnUsersGetFullUser(f func(ctx context.Context, id InputUserClass) (*UserFull, error)) {
+func (s *ServerDispatcher) OnUsersGetFullUser(f func(ctx context.Context, id InputUserClass) (*UsersUserFull, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UsersGetFullUserRequest
 		if err := request.Decode(b); err != nil {
@@ -2429,7 +2467,7 @@ func (s *ServerDispatcher) OnMessagesReportSpam(f func(ctx context.Context, peer
 	s.handlers[MessagesReportSpamRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetPeerSettings(f func(ctx context.Context, peer InputPeerClass) (*PeerSettings, error)) {
+func (s *ServerDispatcher) OnMessagesGetPeerSettings(f func(ctx context.Context, peer InputPeerClass) (*MessagesPeerSettings, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetPeerSettingsRequest
 		if err := request.Decode(b); err != nil {
@@ -2908,18 +2946,18 @@ func (s *ServerDispatcher) OnMessagesImportChatInvite(f func(ctx context.Context
 	s.handlers[MessagesImportChatInviteRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetStickerSet(f func(ctx context.Context, stickerset InputStickerSetClass) (*MessagesStickerSet, error)) {
+func (s *ServerDispatcher) OnMessagesGetStickerSet(f func(ctx context.Context, request *MessagesGetStickerSetRequest) (MessagesStickerSetClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetStickerSetRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Stickerset)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
-		return response, nil
+		return &MessagesStickerSetBox{StickerSet: response}, nil
 	}
 
 	s.handlers[MessagesGetStickerSetRequestTypeID] = handler
@@ -4826,6 +4864,61 @@ func (s *ServerDispatcher) OnMessagesHideChatJoinRequest(f func(ctx context.Cont
 	s.handlers[MessagesHideChatJoinRequestRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesHideAllChatJoinRequests(f func(ctx context.Context, request *MessagesHideAllChatJoinRequestsRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesHideAllChatJoinRequestsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesHideAllChatJoinRequestsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesToggleNoForwards(f func(ctx context.Context, request *MessagesToggleNoForwardsRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesToggleNoForwardsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesToggleNoForwardsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesSaveDefaultSendAs(f func(ctx context.Context, request *MessagesSaveDefaultSendAsRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSaveDefaultSendAsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesSaveDefaultSendAsRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -5521,23 +5614,6 @@ func (s *ServerDispatcher) OnChannelsDeleteMessages(f func(ctx context.Context, 
 	s.handlers[ChannelsDeleteMessagesRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnChannelsDeleteUserHistory(f func(ctx context.Context, request *ChannelsDeleteUserHistoryRequest) (*MessagesAffectedHistory, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request ChannelsDeleteUserHistoryRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, &request)
-		if err != nil {
-			return nil, err
-		}
-		return response, nil
-	}
-
-	s.handlers[ChannelsDeleteUserHistoryRequestTypeID] = handler
-}
-
 func (s *ServerDispatcher) OnChannelsReportSpam(f func(ctx context.Context, request *ChannelsReportSpamRequest) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ChannelsReportSpamRequest
@@ -6169,6 +6245,40 @@ func (s *ServerDispatcher) OnChannelsGetSponsoredMessages(f func(ctx context.Con
 	s.handlers[ChannelsGetSponsoredMessagesRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnChannelsGetSendAs(f func(ctx context.Context, peer InputPeerClass) (*ChannelsSendAsPeers, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsGetSendAsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Peer)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ChannelsGetSendAsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsDeleteParticipantHistory(f func(ctx context.Context, request *ChannelsDeleteParticipantHistoryRequest) (*MessagesAffectedHistory, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsDeleteParticipantHistoryRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ChannelsDeleteParticipantHistoryRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request BotsSendCustomRequestRequest
@@ -6389,7 +6499,7 @@ func (s *ServerDispatcher) OnPaymentsGetBankCardData(f func(ctx context.Context,
 	s.handlers[PaymentsGetBankCardDataRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (*MessagesStickerSet, error)) {
+func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request StickersCreateStickerSetRequest
 		if err := request.Decode(b); err != nil {
@@ -6400,13 +6510,13 @@ func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context
 		if err != nil {
 			return nil, err
 		}
-		return response, nil
+		return &MessagesStickerSetBox{StickerSet: response}, nil
 	}
 
 	s.handlers[StickersCreateStickerSetRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnStickersRemoveStickerFromSet(f func(ctx context.Context, sticker InputDocumentClass) (*MessagesStickerSet, error)) {
+func (s *ServerDispatcher) OnStickersRemoveStickerFromSet(f func(ctx context.Context, sticker InputDocumentClass) (MessagesStickerSetClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request StickersRemoveStickerFromSetRequest
 		if err := request.Decode(b); err != nil {
@@ -6417,13 +6527,13 @@ func (s *ServerDispatcher) OnStickersRemoveStickerFromSet(f func(ctx context.Con
 		if err != nil {
 			return nil, err
 		}
-		return response, nil
+		return &MessagesStickerSetBox{StickerSet: response}, nil
 	}
 
 	s.handlers[StickersRemoveStickerFromSetRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnStickersChangeStickerPosition(f func(ctx context.Context, request *StickersChangeStickerPositionRequest) (*MessagesStickerSet, error)) {
+func (s *ServerDispatcher) OnStickersChangeStickerPosition(f func(ctx context.Context, request *StickersChangeStickerPositionRequest) (MessagesStickerSetClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request StickersChangeStickerPositionRequest
 		if err := request.Decode(b); err != nil {
@@ -6434,13 +6544,13 @@ func (s *ServerDispatcher) OnStickersChangeStickerPosition(f func(ctx context.Co
 		if err != nil {
 			return nil, err
 		}
-		return response, nil
+		return &MessagesStickerSetBox{StickerSet: response}, nil
 	}
 
 	s.handlers[StickersChangeStickerPositionRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnStickersAddStickerToSet(f func(ctx context.Context, request *StickersAddStickerToSetRequest) (*MessagesStickerSet, error)) {
+func (s *ServerDispatcher) OnStickersAddStickerToSet(f func(ctx context.Context, request *StickersAddStickerToSetRequest) (MessagesStickerSetClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request StickersAddStickerToSetRequest
 		if err := request.Decode(b); err != nil {
@@ -6451,13 +6561,13 @@ func (s *ServerDispatcher) OnStickersAddStickerToSet(f func(ctx context.Context,
 		if err != nil {
 			return nil, err
 		}
-		return response, nil
+		return &MessagesStickerSetBox{StickerSet: response}, nil
 	}
 
 	s.handlers[StickersAddStickerToSetRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnStickersSetStickerSetThumb(f func(ctx context.Context, request *StickersSetStickerSetThumbRequest) (*MessagesStickerSet, error)) {
+func (s *ServerDispatcher) OnStickersSetStickerSetThumb(f func(ctx context.Context, request *StickersSetStickerSetThumbRequest) (MessagesStickerSetClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request StickersSetStickerSetThumbRequest
 		if err := request.Decode(b); err != nil {
@@ -6468,7 +6578,7 @@ func (s *ServerDispatcher) OnStickersSetStickerSetThumb(f func(ctx context.Conte
 		if err != nil {
 			return nil, err
 		}
-		return response, nil
+		return &MessagesStickerSetBox{StickerSet: response}, nil
 	}
 
 	s.handlers[StickersSetStickerSetThumbRequestTypeID] = handler

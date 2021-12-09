@@ -50,79 +50,24 @@ func TestRequestBuilder_PeerSettings(t *testing.T) {
 	ctx := context.Background()
 	sender, mock := testSender(t)
 
-	expected := &tg.PeerSettings{
+	expected := tg.PeerSettings{
 		ReportSpam: true,
 	}
+	expected.SetFlags()
 	mock.ExpectCall(&tg.MessagesGetPeerSettingsRequest{
 		Peer: &tg.InputPeerSelf{},
-	}).ThenResult(expected)
+	}).ThenResult(&tg.MessagesPeerSettings{
+		Settings: expected,
+	})
 
 	s, err := sender.Self().PeerSettings(ctx)
 	require.NoError(t, err)
-	require.Equal(t, expected, s)
+	require.Equal(t, expected, *s)
 
 	mock.ExpectCall(&tg.MessagesGetPeerSettingsRequest{
 		Peer: &tg.InputPeerSelf{},
 	}).ThenRPCErr(testRPCError())
 
 	_, err = sender.Self().PeerSettings(ctx)
-	require.Error(t, err)
-}
-
-func TestRequestBuilder_StartBot(t *testing.T) {
-	ctx := context.Background()
-	sender, mock := testSender(t)
-	var peer tg.InputPeerClass = &tg.InputPeerUser{
-		UserID:     10,
-		AccessHash: 10,
-	}
-
-	mock.ExpectFunc(func(b bin.Encoder) {
-		req, ok := b.(*tg.MessagesStartBotRequest)
-		require.True(t, ok)
-		require.Equal(t, peer, req.Peer)
-		require.Equal(t, &tg.InputUser{
-			UserID:     10,
-			AccessHash: 10,
-		}, req.Bot)
-		require.Equal(t, "abc", req.StartParam)
-		require.NotZero(t, req.RandomID)
-	}).ThenResult(&tg.Updates{})
-	_, err := sender.To(peer).StartBot(ctx, StartBotParam("abc"))
-	require.NoError(t, err)
-
-	inputUser := &tg.InputUserEmpty{}
-	mock.ExpectFunc(func(b bin.Encoder) {
-		req, ok := b.(*tg.MessagesStartBotRequest)
-		require.True(t, ok)
-		require.Equal(t, peer, req.Peer)
-		require.Equal(t, inputUser, req.Bot)
-		require.NotZero(t, req.RandomID)
-	}).ThenResult(&tg.Updates{})
-	_, err = sender.To(peer).StartBot(ctx, StartBotInputUser(inputUser))
-	require.NoError(t, err)
-
-	// Should not make RPC calls.
-	_, err = sender.To(&tg.InputPeerChannel{}).StartBot(ctx)
-	require.Error(t, err)
-
-	peerFromMsg := &tg.InputPeerUserFromMessage{
-		Peer:   peer,
-		UserID: 10,
-		MsgID:  10,
-	}
-	mock.ExpectFunc(func(b bin.Encoder) {
-		req, ok := b.(*tg.MessagesStartBotRequest)
-		require.True(t, ok)
-		require.Equal(t, peerFromMsg, req.Peer)
-		require.Equal(t, &tg.InputUserFromMessage{
-			Peer:   peer,
-			MsgID:  10,
-			UserID: 10,
-		}, req.Bot)
-		require.NotZero(t, req.RandomID)
-	}).ThenRPCErr(testRPCError())
-
-	_, err = sender.To(peerFromMsg).StartBot(ctx)
 	require.Error(t, err)
 }

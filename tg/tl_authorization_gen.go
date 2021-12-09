@@ -47,6 +47,10 @@ type Authorization struct {
 	OfficialApp bool
 	// Whether the session is still waiting for a 2FA password
 	PasswordPending bool
+	// EncryptedRequestsDisabled field of Authorization.
+	EncryptedRequestsDisabled bool
+	// CallRequestsDisabled field of Authorization.
+	CallRequestsDisabled bool
 	// Identifier
 	Hash int64
 	// Device model
@@ -103,6 +107,12 @@ func (a *Authorization) Zero() bool {
 	if !(a.PasswordPending == false) {
 		return false
 	}
+	if !(a.EncryptedRequestsDisabled == false) {
+		return false
+	}
+	if !(a.CallRequestsDisabled == false) {
+		return false
+	}
 	if !(a.Hash == 0) {
 		return false
 	}
@@ -157,6 +167,8 @@ func (a *Authorization) FillFrom(from interface {
 	GetCurrent() (value bool)
 	GetOfficialApp() (value bool)
 	GetPasswordPending() (value bool)
+	GetEncryptedRequestsDisabled() (value bool)
+	GetCallRequestsDisabled() (value bool)
 	GetHash() (value int64)
 	GetDeviceModel() (value string)
 	GetPlatform() (value string)
@@ -173,6 +185,8 @@ func (a *Authorization) FillFrom(from interface {
 	a.Current = from.GetCurrent()
 	a.OfficialApp = from.GetOfficialApp()
 	a.PasswordPending = from.GetPasswordPending()
+	a.EncryptedRequestsDisabled = from.GetEncryptedRequestsDisabled()
+	a.CallRequestsDisabled = from.GetCallRequestsDisabled()
 	a.Hash = from.GetHash()
 	a.DeviceModel = from.GetDeviceModel()
 	a.Platform = from.GetPlatform()
@@ -224,6 +238,16 @@ func (a *Authorization) TypeInfo() tdp.Type {
 			Name:       "PasswordPending",
 			SchemaName: "password_pending",
 			Null:       !a.Flags.Has(2),
+		},
+		{
+			Name:       "EncryptedRequestsDisabled",
+			SchemaName: "encrypted_requests_disabled",
+			Null:       !a.Flags.Has(3),
+		},
+		{
+			Name:       "CallRequestsDisabled",
+			SchemaName: "call_requests_disabled",
+			Null:       !a.Flags.Has(4),
 		},
 		{
 			Name:       "Hash",
@@ -288,6 +312,12 @@ func (a *Authorization) SetFlags() {
 	if !(a.PasswordPending == false) {
 		a.Flags.Set(2)
 	}
+	if !(a.EncryptedRequestsDisabled == false) {
+		a.Flags.Set(3)
+	}
+	if !(a.CallRequestsDisabled == false) {
+		a.Flags.Set(4)
+	}
 }
 
 // Encode implements bin.Encoder.
@@ -347,6 +377,8 @@ func (a *Authorization) DecodeBare(b *bin.Buffer) error {
 	a.Current = a.Flags.Has(0)
 	a.OfficialApp = a.Flags.Has(1)
 	a.PasswordPending = a.Flags.Has(2)
+	a.EncryptedRequestsDisabled = a.Flags.Has(3)
+	a.CallRequestsDisabled = a.Flags.Has(4)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -480,6 +512,38 @@ func (a *Authorization) SetPasswordPending(value bool) {
 // GetPasswordPending returns value of PasswordPending conditional field.
 func (a *Authorization) GetPasswordPending() (value bool) {
 	return a.Flags.Has(2)
+}
+
+// SetEncryptedRequestsDisabled sets value of EncryptedRequestsDisabled conditional field.
+func (a *Authorization) SetEncryptedRequestsDisabled(value bool) {
+	if value {
+		a.Flags.Set(3)
+		a.EncryptedRequestsDisabled = true
+	} else {
+		a.Flags.Unset(3)
+		a.EncryptedRequestsDisabled = false
+	}
+}
+
+// GetEncryptedRequestsDisabled returns value of EncryptedRequestsDisabled conditional field.
+func (a *Authorization) GetEncryptedRequestsDisabled() (value bool) {
+	return a.Flags.Has(3)
+}
+
+// SetCallRequestsDisabled sets value of CallRequestsDisabled conditional field.
+func (a *Authorization) SetCallRequestsDisabled(value bool) {
+	if value {
+		a.Flags.Set(4)
+		a.CallRequestsDisabled = true
+	} else {
+		a.Flags.Unset(4)
+		a.CallRequestsDisabled = false
+	}
+}
+
+// GetCallRequestsDisabled returns value of CallRequestsDisabled conditional field.
+func (a *Authorization) GetCallRequestsDisabled() (value bool) {
+	return a.Flags.Has(4)
 }
 
 // GetHash returns value of Hash field.

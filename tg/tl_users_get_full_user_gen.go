@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// UsersGetFullUserRequest represents TL type `users.getFullUser#ca30a5b1`.
+// UsersGetFullUserRequest represents TL type `users.getFullUser#b60f5918`.
 // Returns extended user info by ID.
 //
 // See https://core.telegram.org/method/users.getFullUser for reference.
@@ -41,7 +41,7 @@ type UsersGetFullUserRequest struct {
 }
 
 // UsersGetFullUserRequestTypeID is TL type id of UsersGetFullUserRequest.
-const UsersGetFullUserRequestTypeID = 0xca30a5b1
+const UsersGetFullUserRequestTypeID = 0xb60f5918
 
 // Ensuring interfaces in compile-time for UsersGetFullUserRequest.
 var (
@@ -112,7 +112,7 @@ func (g *UsersGetFullUserRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UsersGetFullUserRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode users.getFullUser#ca30a5b1 as nil")
+		return fmt.Errorf("can't encode users.getFullUser#b60f5918 as nil")
 	}
 	b.PutID(UsersGetFullUserRequestTypeID)
 	return g.EncodeBare(b)
@@ -121,13 +121,13 @@ func (g *UsersGetFullUserRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UsersGetFullUserRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode users.getFullUser#ca30a5b1 as nil")
+		return fmt.Errorf("can't encode users.getFullUser#b60f5918 as nil")
 	}
 	if g.ID == nil {
-		return fmt.Errorf("unable to encode users.getFullUser#ca30a5b1: field id is nil")
+		return fmt.Errorf("unable to encode users.getFullUser#b60f5918: field id is nil")
 	}
 	if err := g.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode users.getFullUser#ca30a5b1: field id: %w", err)
+		return fmt.Errorf("unable to encode users.getFullUser#b60f5918: field id: %w", err)
 	}
 	return nil
 }
@@ -135,10 +135,10 @@ func (g *UsersGetFullUserRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *UsersGetFullUserRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode users.getFullUser#ca30a5b1 to nil")
+		return fmt.Errorf("can't decode users.getFullUser#b60f5918 to nil")
 	}
 	if err := b.ConsumeID(UsersGetFullUserRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode users.getFullUser#ca30a5b1: %w", err)
+		return fmt.Errorf("unable to decode users.getFullUser#b60f5918: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -146,12 +146,12 @@ func (g *UsersGetFullUserRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UsersGetFullUserRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode users.getFullUser#ca30a5b1 to nil")
+		return fmt.Errorf("can't decode users.getFullUser#b60f5918 to nil")
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode users.getFullUser#ca30a5b1: field id: %w", err)
+			return fmt.Errorf("unable to decode users.getFullUser#b60f5918: field id: %w", err)
 		}
 		g.ID = value
 	}
@@ -163,7 +163,7 @@ func (g *UsersGetFullUserRequest) GetID() (value InputUserClass) {
 	return g.ID
 }
 
-// UsersGetFullUser invokes method users.getFullUser#ca30a5b1 returning error if any.
+// UsersGetFullUser invokes method users.getFullUser#b60f5918 returning error if any.
 // Returns extended user info by ID.
 //
 // Possible errors:
@@ -173,8 +173,8 @@ func (g *UsersGetFullUserRequest) GetID() (value InputUserClass) {
 //
 // See https://core.telegram.org/method/users.getFullUser for reference.
 // Can be used by bots.
-func (c *Client) UsersGetFullUser(ctx context.Context, id InputUserClass) (*UserFull, error) {
-	var result UserFull
+func (c *Client) UsersGetFullUser(ctx context.Context, id InputUserClass) (*UsersUserFull, error) {
+	var result UsersUserFull
 
 	request := &UsersGetFullUserRequest{
 		ID: id,

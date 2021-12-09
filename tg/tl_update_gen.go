@@ -6046,7 +6046,7 @@ func (u *UpdateChatParticipantAdmin) GetVersion() (value int) {
 // See https://core.telegram.org/constructor/updateNewStickerSet for reference.
 type UpdateNewStickerSet struct {
 	// The installed stickerset
-	Stickerset MessagesStickerSet
+	Stickerset MessagesStickerSetClass
 }
 
 // UpdateNewStickerSetTypeID is TL type id of UpdateNewStickerSet.
@@ -6069,7 +6069,7 @@ func (u *UpdateNewStickerSet) Zero() bool {
 	if u == nil {
 		return true
 	}
-	if !(u.Stickerset.Zero()) {
+	if !(u.Stickerset == nil) {
 		return false
 	}
 
@@ -6087,7 +6087,7 @@ func (u *UpdateNewStickerSet) String() string {
 
 // FillFrom fills UpdateNewStickerSet from given interface.
 func (u *UpdateNewStickerSet) FillFrom(from interface {
-	GetStickerset() (value MessagesStickerSet)
+	GetStickerset() (value MessagesStickerSetClass)
 }) {
 	u.Stickerset = from.GetStickerset()
 }
@@ -6137,6 +6137,9 @@ func (u *UpdateNewStickerSet) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateNewStickerSet#688a30aa as nil")
 	}
+	if u.Stickerset == nil {
+		return fmt.Errorf("unable to encode updateNewStickerSet#688a30aa: field stickerset is nil")
+	}
 	if err := u.Stickerset.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateNewStickerSet#688a30aa: field stickerset: %w", err)
 	}
@@ -6160,15 +6163,17 @@ func (u *UpdateNewStickerSet) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode updateNewStickerSet#688a30aa to nil")
 	}
 	{
-		if err := u.Stickerset.Decode(b); err != nil {
+		value, err := DecodeMessagesStickerSet(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode updateNewStickerSet#688a30aa: field stickerset: %w", err)
 		}
+		u.Stickerset = value
 	}
 	return nil
 }
 
 // GetStickerset returns value of Stickerset field.
-func (u *UpdateNewStickerSet) GetStickerset() (value MessagesStickerSet) {
+func (u *UpdateNewStickerSet) GetStickerset() (value MessagesStickerSetClass) {
 	return u.Stickerset
 }
 

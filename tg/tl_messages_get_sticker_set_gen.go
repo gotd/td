@@ -31,17 +31,19 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetStickerSetRequest represents TL type `messages.getStickerSet#2619a90e`.
+// MessagesGetStickerSetRequest represents TL type `messages.getStickerSet#c8a0ec74`.
 // Get info about a stickerset
 //
 // See https://core.telegram.org/method/messages.getStickerSet for reference.
 type MessagesGetStickerSetRequest struct {
 	// Stickerset
 	Stickerset InputStickerSetClass
+	// Hash field of MessagesGetStickerSetRequest.
+	Hash int
 }
 
 // MessagesGetStickerSetRequestTypeID is TL type id of MessagesGetStickerSetRequest.
-const MessagesGetStickerSetRequestTypeID = 0x2619a90e
+const MessagesGetStickerSetRequestTypeID = 0xc8a0ec74
 
 // Ensuring interfaces in compile-time for MessagesGetStickerSetRequest.
 var (
@@ -56,6 +58,9 @@ func (g *MessagesGetStickerSetRequest) Zero() bool {
 		return true
 	}
 	if !(g.Stickerset == nil) {
+		return false
+	}
+	if !(g.Hash == 0) {
 		return false
 	}
 
@@ -74,8 +79,10 @@ func (g *MessagesGetStickerSetRequest) String() string {
 // FillFrom fills MessagesGetStickerSetRequest from given interface.
 func (g *MessagesGetStickerSetRequest) FillFrom(from interface {
 	GetStickerset() (value InputStickerSetClass)
+	GetHash() (value int)
 }) {
 	g.Stickerset = from.GetStickerset()
+	g.Hash = from.GetHash()
 }
 
 // TypeID returns type id in TL schema.
@@ -105,6 +112,10 @@ func (g *MessagesGetStickerSetRequest) TypeInfo() tdp.Type {
 			Name:       "Stickerset",
 			SchemaName: "stickerset",
 		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
 	}
 	return typ
 }
@@ -112,7 +123,7 @@ func (g *MessagesGetStickerSetRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetStickerSetRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getStickerSet#2619a90e as nil")
+		return fmt.Errorf("can't encode messages.getStickerSet#c8a0ec74 as nil")
 	}
 	b.PutID(MessagesGetStickerSetRequestTypeID)
 	return g.EncodeBare(b)
@@ -121,24 +132,25 @@ func (g *MessagesGetStickerSetRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetStickerSetRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getStickerSet#2619a90e as nil")
+		return fmt.Errorf("can't encode messages.getStickerSet#c8a0ec74 as nil")
 	}
 	if g.Stickerset == nil {
-		return fmt.Errorf("unable to encode messages.getStickerSet#2619a90e: field stickerset is nil")
+		return fmt.Errorf("unable to encode messages.getStickerSet#c8a0ec74: field stickerset is nil")
 	}
 	if err := g.Stickerset.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getStickerSet#2619a90e: field stickerset: %w", err)
+		return fmt.Errorf("unable to encode messages.getStickerSet#c8a0ec74: field stickerset: %w", err)
 	}
+	b.PutInt(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *MessagesGetStickerSetRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getStickerSet#2619a90e to nil")
+		return fmt.Errorf("can't decode messages.getStickerSet#c8a0ec74 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetStickerSetRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getStickerSet#2619a90e: %w", err)
+		return fmt.Errorf("unable to decode messages.getStickerSet#c8a0ec74: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -146,14 +158,21 @@ func (g *MessagesGetStickerSetRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getStickerSet#2619a90e to nil")
+		return fmt.Errorf("can't decode messages.getStickerSet#c8a0ec74 to nil")
 	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getStickerSet#2619a90e: field stickerset: %w", err)
+			return fmt.Errorf("unable to decode messages.getStickerSet#c8a0ec74: field stickerset: %w", err)
 		}
 		g.Stickerset = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.getStickerSet#c8a0ec74: field hash: %w", err)
+		}
+		g.Hash = value
 	}
 	return nil
 }
@@ -163,7 +182,12 @@ func (g *MessagesGetStickerSetRequest) GetStickerset() (value InputStickerSetCla
 	return g.Stickerset
 }
 
-// MessagesGetStickerSet invokes method messages.getStickerSet#2619a90e returning error if any.
+// GetHash returns value of Hash field.
+func (g *MessagesGetStickerSetRequest) GetHash() (value int) {
+	return g.Hash
+}
+
+// MessagesGetStickerSet invokes method messages.getStickerSet#c8a0ec74 returning error if any.
 // Get info about a stickerset
 //
 // Possible errors:
@@ -172,14 +196,11 @@ func (g *MessagesGetStickerSetRequest) GetStickerset() (value InputStickerSetCla
 //
 // See https://core.telegram.org/method/messages.getStickerSet for reference.
 // Can be used by bots.
-func (c *Client) MessagesGetStickerSet(ctx context.Context, stickerset InputStickerSetClass) (*MessagesStickerSet, error) {
-	var result MessagesStickerSet
+func (c *Client) MessagesGetStickerSet(ctx context.Context, request *MessagesGetStickerSetRequest) (MessagesStickerSetClass, error) {
+	var result MessagesStickerSetBox
 
-	request := &MessagesGetStickerSetRequest{
-		Stickerset: stickerset,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.StickerSet, nil
 }

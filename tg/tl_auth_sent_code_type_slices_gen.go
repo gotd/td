@@ -168,6 +168,19 @@ func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeFlashCall() (to AuthSentCo
 	return to
 }
 
+// AsAuthSentCodeTypeMissedCall returns copy with only AuthSentCodeTypeMissedCall constructors.
+func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeMissedCall() (to AuthSentCodeTypeMissedCallArray) {
+	for _, elem := range s {
+		value, ok := elem.(*AuthSentCodeTypeMissedCall)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // AuthSentCodeTypeAppArray is adapter for slice of AuthSentCodeTypeApp.
 type AuthSentCodeTypeAppArray []AuthSentCodeTypeApp
 
@@ -484,6 +497,88 @@ func (s *AuthSentCodeTypeFlashCallArray) PopFirst() (v AuthSentCodeTypeFlashCall
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *AuthSentCodeTypeFlashCallArray) Pop() (v AuthSentCodeTypeFlashCall, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AuthSentCodeTypeMissedCallArray is adapter for slice of AuthSentCodeTypeMissedCall.
+type AuthSentCodeTypeMissedCallArray []AuthSentCodeTypeMissedCall
+
+// Sort sorts slice of AuthSentCodeTypeMissedCall.
+func (s AuthSentCodeTypeMissedCallArray) Sort(less func(a, b AuthSentCodeTypeMissedCall) bool) AuthSentCodeTypeMissedCallArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AuthSentCodeTypeMissedCall.
+func (s AuthSentCodeTypeMissedCallArray) SortStable(less func(a, b AuthSentCodeTypeMissedCall) bool) AuthSentCodeTypeMissedCallArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AuthSentCodeTypeMissedCall.
+func (s AuthSentCodeTypeMissedCallArray) Retain(keep func(x AuthSentCodeTypeMissedCall) bool) AuthSentCodeTypeMissedCallArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s AuthSentCodeTypeMissedCallArray) First() (v AuthSentCodeTypeMissedCall, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthSentCodeTypeMissedCallArray) Last() (v AuthSentCodeTypeMissedCall, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthSentCodeTypeMissedCallArray) PopFirst() (v AuthSentCodeTypeMissedCall, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero AuthSentCodeTypeMissedCall
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthSentCodeTypeMissedCallArray) Pop() (v AuthSentCodeTypeMissedCall, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
