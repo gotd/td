@@ -113,19 +113,6 @@ func (s *Sender) forwardMessages(ctx context.Context, req *tg.MessagesForwardMes
 	return s.raw.MessagesForwardMessages(ctx, req)
 }
 
-// startBot starts a conversation with a bot using a deep linking parameter.
-func (s *Sender) startBot(ctx context.Context, req *tg.MessagesStartBotRequest) (tg.UpdatesClass, error) {
-	if req.RandomID == 0 {
-		id, err := crypto.RandInt64(s.rand)
-		if err != nil {
-			return nil, errors.Wrap(err, "generate random_id")
-		}
-		req.RandomID = id
-	}
-
-	return s.raw.MessagesStartBot(ctx, req)
-}
-
 // sendInlineBotResult sends inline query result message to peer.
 func (s *Sender) sendInlineBotResult(
 	ctx context.Context,
@@ -183,7 +170,7 @@ func (s *Sender) reportSpam(ctx context.Context, p tg.InputPeerClass) (bool, err
 }
 
 // getPeerSettings returns peer settings.
-func (s *Sender) getPeerSettings(ctx context.Context, p tg.InputPeerClass) (*tg.PeerSettings, error) {
+func (s *Sender) getPeerSettings(ctx context.Context, p tg.InputPeerClass) (*tg.MessagesPeerSettings, error) {
 	return s.raw.MessagesGetPeerSettings(ctx, p)
 }
 
