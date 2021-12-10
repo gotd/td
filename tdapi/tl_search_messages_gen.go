@@ -50,8 +50,7 @@ type SearchMessagesRequest struct {
 	// limit
 	Limit int32
 	// Additional filter for messages to search; pass null to search for all messages.
-	// Filters searchMessagesFilterCall, searchMessagesFilterMissedCall,
-	// searchMessagesFilterMention, searchMessagesFilterUnreadMention,
+	// Filters searchMessagesFilterMention, searchMessagesFilterUnreadMention,
 	// searchMessagesFilterFailedToSend and searchMessagesFilterPinned are unsupported in
 	// this function
 	Filter SearchMessagesFilterClass

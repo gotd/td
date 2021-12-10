@@ -36,8 +36,8 @@ type GetChatSparseMessagePositionsRequest struct {
 	// Identifier of the chat in which to return information about message positions
 	ChatID int64
 	// Filter for message content. Filters searchMessagesFilterEmpty,
-	// searchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention
-	// and searchMessagesFilterUnreadMention are unsupported in this function
+	// searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in
+	// this function
 	Filter SearchMessagesFilterClass
 	// The message identifier from which to return information about message positions
 	FromMessageID int64
