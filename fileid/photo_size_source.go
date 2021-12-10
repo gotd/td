@@ -36,16 +36,18 @@ func (p *PhotoSizeSource) stickerSet() tg.InputStickerSetClass {
 
 func (p *PhotoSizeSource) dialogPeer() tg.InputPeerClass {
 	switch id := p.DialogID; {
-	case id > 0 && id <= constant.MaxUserID:
+	case id > 0 && id <= constant.MaxTDLibUserID:
 		return &tg.InputPeerUser{
 			UserID:     id,
 			AccessHash: p.DialogAccessHash,
 		}
-	case id < 0 && -constant.MaxChatID <= id:
+	case id < 0 && -constant.MaxTDLibChatID <= id:
 		return &tg.InputPeerChat{
 			ChatID: id,
 		}
-	case id < 0 && constant.ZeroChannelID-constant.MaxChannelID <= id && id != constant.ZeroChannelID:
+	case id < 0 &&
+			constant.ZeroTDLibChannelID-constant.MaxTDLibChannelID <= id &&
+			id != constant.ZeroTDLibChannelID:
 		return &tg.InputPeerChannel{
 			ChannelID:  id,
 			AccessHash: p.DialogAccessHash,
