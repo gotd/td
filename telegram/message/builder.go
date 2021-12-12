@@ -50,30 +50,26 @@ func (b *Builder) copy() *Builder {
 
 // Silent sets flag to send this message silently (no notifications for the receivers).
 func (b *Builder) Silent() *Builder {
-	r := b.copy()
-	r.silent = true
-	return r
+	b.silent = true
+	return b
 }
 
 // Background sets flag to send this message as background message.
 func (b *Builder) Background() *Builder {
-	r := b.copy()
-	r.background = true
-	return r
+	b.background = true
+	return b
 }
 
 // Clear sets flag to clear the draft field.
 func (b *Builder) Clear() *Builder {
-	r := b.copy()
-	r.clearDraft = true
-	return r
+	b.clearDraft = true
+	return b
 }
 
 // Reply sets message ID to reply.
 func (b *Builder) Reply(id int) *Builder {
-	r := b.copy()
-	r.replyToMsgID = id
-	return r
+	b.replyToMsgID = id
+	return b
 }
 
 // ReplyMsg sets message to reply.
@@ -83,9 +79,8 @@ func (b *Builder) ReplyMsg(msg tg.MessageClass) *Builder {
 
 // ScheduleTS sets scheduled message timestamp for scheduled messages.
 func (b *Builder) ScheduleTS(date int) *Builder {
-	r := b.copy()
-	r.scheduleDate = date
-	return r
+	b.scheduleDate = date
+	return b
 }
 
 // Schedule sets scheduled message date for scheduled messages.
@@ -95,17 +90,15 @@ func (b *Builder) Schedule(date time.Time) *Builder {
 
 // NoWebpage sets flag to disable generation of the webpage preview.
 func (b *Builder) NoWebpage() *Builder {
-	r := b.copy()
-	r.noWebpage = true
-	return r
+	b.noWebpage = true
+	return b
 }
 
 // Markup sets reply markup for sending bot buttons.
 // NB: markup will not be used, if you send multiple media attachments.
 func (b *Builder) Markup(m tg.ReplyMarkupClass) *Builder {
-	r := b.copy()
-	r.replyMarkup = m
-	return r
+	b.replyMarkup = m
+	return b
 }
 
 // Row sets single row keyboard markup  for sending bot buttons.
