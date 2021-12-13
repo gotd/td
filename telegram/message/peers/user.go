@@ -199,3 +199,15 @@ func (u User) Unblock(ctx context.Context) error {
 	}
 	return nil
 }
+
+// InviteTo invites User to given channel.
+func (u User) InviteTo(ctx context.Context, ch tg.InputChannelClass) error {
+	if _, err := u.m.api.ChannelsInviteToChannel(ctx, &tg.ChannelsInviteToChannelRequest{
+		Channel: ch,
+		Users:   []tg.InputUserClass{u.InputUser()},
+	}); err != nil {
+		return errors.Wrap(err, "invite to channel")
+	}
+
+	return nil
+}

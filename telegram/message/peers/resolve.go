@@ -121,7 +121,7 @@ func validateDomain(domain string) error {
 	return deeplink.ValidateDomain(domain)
 }
 
-func (m *Manager) extractPeer(p tg.PeerClass, users []tg.UserClass, chats []tg.ChatClass) (Peer, bool) {
+func (m *Manager) findPeerClass(p tg.PeerClass, users []tg.UserClass, chats []tg.ChatClass) (Peer, bool) {
 	switch p := p.(type) {
 	case *tg.PeerUser:
 		for _, user := range users {
@@ -173,7 +173,7 @@ func (m *Manager) ResolveDomain(ctx context.Context, domain string) (Peer, error
 		return nil, err
 	}
 
-	p, ok := m.extractPeer(result.Peer, result.Users, result.Chats)
+	p, ok := m.findPeerClass(result.Peer, result.Users, result.Chats)
 	if !ok {
 		return nil, &PeerNotFoundError{Peer: result.Peer}
 	}

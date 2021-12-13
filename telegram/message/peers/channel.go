@@ -134,6 +134,15 @@ func (c Channel) InputChannel() tg.InputChannelClass {
 	return c.raw.AsInput()
 }
 
+// Join joins this channel.
+func (c Channel) Join(ctx context.Context) error {
+	// TODO(tdakkota): returns join message?
+	if _, err := c.m.api.ChannelsJoinChannel(ctx, c.InputChannel()); err != nil {
+		return errors.Wrap(err, "join channel")
+	}
+	return nil
+}
+
 // Delete deletes this channel.
 func (c Channel) Delete(ctx context.Context) error {
 	if _, err := c.m.api.ChannelsDeleteChannel(ctx, c.InputChannel()); err != nil {
