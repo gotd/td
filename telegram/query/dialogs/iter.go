@@ -70,7 +70,7 @@ func (m *Iterator) OffsetPeer(offsetPeer tg.InputPeerClass) *Iterator {
 }
 
 // messageMap is a helper to store messages for multiple peers.
-type messageMap map[peer.DialogKey]tg.NotEmptyMessage
+type messageMap map[DialogKey]tg.NotEmptyMessage
 
 func (m messageMap) collect(messages tg.MessageClassArray) error {
 	for _, msg := range messages {
@@ -80,7 +80,7 @@ func (m messageMap) collect(messages tg.MessageClassArray) error {
 			continue
 		}
 
-		var key peer.DialogKey
+		var key DialogKey
 		if err := key.FromPeer(nonEmpty.GetPeerID()); err != nil {
 			return err
 		}
@@ -132,7 +132,7 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 
 	var last tg.NotEmptyMessage
 	for _, dlg := range dialogs {
-		var key peer.DialogKey
+		var key DialogKey
 		if err := key.FromPeer(dlg.GetPeer()); err == nil {
 			last = msgMap[key]
 		}
