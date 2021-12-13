@@ -25,24 +25,10 @@ func (m *Manager) User(u *tg.User) User {
 
 // GetUser gets User using given tg.InputUserClass.
 func (m *Manager) GetUser(ctx context.Context, p tg.InputUserClass) (User, error) {
-	users, err := m.api.UsersGetUsers(ctx, []tg.InputUserClass{p})
+	user, err := m.getUser(ctx, p)
 	if err != nil {
-		return User{}, errors.Wrap(err, "get users")
+		return User{}, err
 	}
-
-	if len(users) < 1 {
-		return User{}, errors.Errorf("got empty result for %+v", p)
-	}
-
-	if err := m.applyUsers(ctx, users...); err != nil {
-		return User{}, errors.Wrap(err, "update users")
-	}
-
-	user, ok := users[0].AsNotEmpty()
-	if !ok {
-		return User{}, errors.New("got empty user")
-	}
-
 	return m.User(user), nil
 }
 
@@ -68,11 +54,6 @@ func (u User) Username() (string, bool) {
 	return u.raw.GetUsername()
 }
 
-// InputPeer returns input peer for this peer.
-func (u User) InputPeer() tg.InputPeerClass {
-	return u.raw.AsInputPeer()
-}
-
 // Restricted whether this user/chat/channel is restricted.
 func (u User) Restricted() ([]tg.RestrictionReason, bool) {
 	reason, ok := u.raw.GetRestrictionReason()
@@ -93,6 +74,21 @@ func (u User) Scam() bool {
 // careful when interacting with it.
 func (u User) Fake() bool {
 	return u.raw.GetFake()
+}
+
+// InputPeer returns input peer for this peer.
+func (u User) InputPeer() tg.InputPeerClass {
+	return u.raw.AsInputPeer()
+}
+
+// Sync updates current object.
+func (u User) Sync(ctx context.Context) error {
+	raw, err := u.m.getUser(ctx, u.InputUser())
+	if err != nil {
+		return errors.Wrap(err, "get user")
+	}
+	*u.raw = *raw
+	return nil
 }
 
 // Report reports a peer for violation of telegram's Terms of Service.
@@ -132,7 +128,7 @@ func (u User) Photo(ctx context.Context) (*tg.Photo, bool, error) {
 
 // ToBot tries to convert this User to Bot.
 func (u User) ToBot() (Bot, bool) {
-	if !u.raw.Bot {
+	if !u.raw.GetBot() {
 		return Bot{}, false
 	}
 	return Bot{

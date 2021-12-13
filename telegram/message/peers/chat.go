@@ -24,26 +24,10 @@ func (m *Manager) Chat(u *tg.Chat) Chat {
 
 // GetChat gets Chat using given id.
 func (m *Manager) GetChat(ctx context.Context, id int64) (Chat, error) {
-	r, err := m.api.MessagesGetChats(ctx, []int64{id})
+	ch, err := m.getChat(ctx, id)
 	if err != nil {
-		return Chat{}, errors.Wrap(err, "get chats")
+		return Chat{}, err
 	}
-	chats := r.GetChats()
-
-	if len(chats) < 1 {
-		return Chat{}, errors.Errorf("got empty result for chat %d", id)
-	}
-
-	if err := m.applyChats(ctx, chats...); err != nil {
-		return Chat{}, errors.Wrap(err, "update chat")
-	}
-
-	ch, ok := chats[0].(*tg.Chat)
-	if !ok {
-		// TODO(tdakkota): get better error for forbidden.
-		return Chat{}, errors.Errorf("got unexpected type %T", chats[0])
-	}
-
 	return m.Chat(ch), nil
 }
 
@@ -62,11 +46,6 @@ func (c Chat) VisibleName() string {
 // Username returns peer username, if any.
 func (c Chat) Username() (string, bool) {
 	return "", false
-}
-
-// InputPeer returns input peer for this peer.
-func (c Chat) InputPeer() tg.InputPeerClass {
-	return c.raw.AsInputPeer()
 }
 
 // Restricted whether this user/chat/channel is restricted.
@@ -88,6 +67,21 @@ func (c Chat) Scam() bool {
 // careful when interacting with it.
 func (c Chat) Fake() bool {
 	return false
+}
+
+// InputPeer returns input peer for this peer.
+func (c Chat) InputPeer() tg.InputPeerClass {
+	return c.raw.AsInputPeer()
+}
+
+// Sync updates current object.
+func (c Chat) Sync(ctx context.Context) error {
+	raw, err := c.m.getChat(ctx, c.raw.ID)
+	if err != nil {
+		return errors.Wrap(err, "get chat")
+	}
+	*c.raw = *raw
+	return nil
 }
 
 // Report reports a peer for violation of telegram's Terms of Service.
@@ -126,9 +120,16 @@ func (c Chat) Photo(ctx context.Context) (*tg.Photo, bool, error) {
 	return p, ok, nil
 }
 
+// ID returns chat ID.
+func (c *Chat) ID() int64 {
+	return c.raw.GetID()
+}
+
+// TODO(tdakkota): add more getters, helpers and convertors
+
 // Leave leaves this chat.
 //
-// Parameter deleteMyMessages denotes to remove the entire chat history of the this user in this chat.
+// Parameter deleteMyMessages denotes to remove the entire chat history of this user in this chat.
 func (c Chat) Leave(ctx context.Context, deleteMyMessages bool) error {
 	_, err := c.m.api.MessagesDeleteChatUser(ctx, &tg.MessagesDeleteChatUserRequest{
 		RevokeHistory: deleteMyMessages,

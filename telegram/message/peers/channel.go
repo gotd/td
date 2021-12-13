@@ -24,26 +24,10 @@ func (m *Manager) Channel(u *tg.Channel) Channel {
 
 // GetChannel gets Channel using given tg.InputChannelClass.
 func (m *Manager) GetChannel(ctx context.Context, p tg.InputChannelClass) (Channel, error) {
-	r, err := m.api.ChannelsGetChannels(ctx, []tg.InputChannelClass{p})
+	ch, err := m.getChannel(ctx, p)
 	if err != nil {
-		return Channel{}, errors.Wrap(err, "get chats")
+		return Channel{}, err
 	}
-	chats := r.GetChats()
-
-	if len(chats) < 1 {
-		return Channel{}, errors.Errorf("got empty result for %+v", p)
-	}
-
-	if err := m.applyChats(ctx, chats...); err != nil {
-		return Channel{}, errors.Wrap(err, "update chat")
-	}
-
-	ch, ok := chats[0].(*tg.Channel)
-	if !ok {
-		// TODO(tdakkota): get better error for forbidden.
-		return Channel{}, errors.Errorf("got unexpected type %T", chats[0])
-	}
-
 	return m.Channel(ch), nil
 }
 
@@ -91,6 +75,16 @@ func (c Channel) Fake() bool {
 	return c.raw.GetFake()
 }
 
+// Sync updates current object.
+func (c Channel) Sync(ctx context.Context) error {
+	raw, err := c.m.getChannel(ctx, c.raw.AsInput())
+	if err != nil {
+		return errors.Wrap(err, "get channel")
+	}
+	*c.raw = *raw
+	return nil
+}
+
 // Report reports a peer for violation of telegram's Terms of Service.
 func (c Channel) Report(ctx context.Context, reason tg.ReportReasonClass, message string) error {
 	if _, err := c.m.api.AccountReportPeer(ctx, &tg.AccountReportPeerRequest{
@@ -133,6 +127,7 @@ func (c Channel) ToBroadcast() (Broadcast, bool) {
 	}, true
 }
 
+// TODO(tdakkota): add more getters, helpers and convertors
 
 // InputChannel returns input user for this user.
 func (c Channel) InputChannel() tg.InputChannelClass {
@@ -140,7 +135,7 @@ func (c Channel) InputChannel() tg.InputChannelClass {
 }
 
 // Delete deletes this channel.
-func (c Channel) Delete(ctx context.Context) error  {
+func (c Channel) Delete(ctx context.Context) error {
 	if _, err := c.m.api.ChannelsDeleteChannel(ctx, c.InputChannel()); err != nil {
 		return errors.Wrap(err, "delete channel")
 	}

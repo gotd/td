@@ -16,10 +16,6 @@ type Peer interface {
 	VisibleName() string
 	// Username returns peer username, if any.
 	Username() (string, bool)
-
-	// InputPeer returns input peer for this peer.
-	InputPeer() tg.InputPeerClass
-
 	// Restricted whether this user/chat/channel is restricted.
 	Restricted() ([]tg.RestrictionReason, bool)
 	// Verified whether this user/chat/channel is verified by Telegram.
@@ -29,6 +25,11 @@ type Peer interface {
 	// Fake whether this user/chat/channel was reported by many users as a fake or scam: be
 	// careful when interacting with it.
 	Fake() bool
+
+	// InputPeer returns input peer for this peer.
+	InputPeer() tg.InputPeerClass
+	// Sync updates current object.
+	Sync(ctx context.Context) error
 
 	// Report reports a peer for violation of telegram's Terms of Service.
 	Report(ctx context.Context, reason tg.ReportReasonClass, message string) error
