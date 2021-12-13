@@ -141,3 +141,11 @@ func (c Channel) Delete(ctx context.Context) error {
 	}
 	return nil
 }
+
+// Leave leaves this channel.
+func (c Channel) Leave(ctx context.Context) error {
+	if _, err := c.m.api.ChannelsLeaveChannel(ctx, c.InputChannel()); err != nil {
+		return errors.Wrap(err, "leave channel")
+	}
+	return nil
+}
