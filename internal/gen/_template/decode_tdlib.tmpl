@@ -62,9 +62,11 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) DecodeTDLibJSON({{ $s.BufArg }} tdjson.D
             }
             {{ $s.Receiver }}.{{ $f.Name }} = value
         {{- else if $f.Encoder }}
+            {{- if not (eq $f.Type "bin.Fields") }}
             if err := {{ $s.Receiver }}.{{ $f.Name }}.DecodeTDLibJSON({{ $s.BufArg }}); err != nil {
                 return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
             }
+            {{- end }}
         {{- else }}
             value, err := {{ $s.BufArg }}.{{ $f.Func }}()
             if err != nil {

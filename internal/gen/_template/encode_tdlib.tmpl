@@ -47,10 +47,12 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) EncodeTDLibJSON({{ $s.BufArg }} tdjson.E
     if {{ $s.Receiver }}.{{ $f.Name }} == nil {
         return fmt.Errorf("unable to encode {{ $s.RawType }}: field {{ $f.RawName }} is nil")
     }
-    {{- end}}
-    if err := {{ $s.Receiver }}.{{ $f.Name }}.EncodeTDLibJSON({{ $s.BufArg }}); err != nil {
-        return fmt.Errorf("unable to encode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
-    }
+    {{- end }}
+        {{- if not (eq $f.Type "bin.Fields") }}
+        if err := {{ $s.Receiver }}.{{ $f.Name }}.EncodeTDLibJSON({{ $s.BufArg }}); err != nil {
+            return fmt.Errorf("unable to encode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
+        }
+        {{- end }}
     {{- else }}
     {{ $s.BufArg }}.Put{{ $f.Func }}({{ $s.Receiver }}.{{ $f.Name }})
     {{- end }}
