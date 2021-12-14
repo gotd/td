@@ -181,14 +181,14 @@ func TestFileID_AsInputFileLocation(t *testing.T) {
 					Type:             PhotoSizeSourceDialogPhotoBigLegacy,
 					VolumeID:         13,
 					LocalID:          14,
-					DialogID:         constant.MaxUserID - 1,
+					DialogID:         constant.MaxTDLibUserID - 1,
 					DialogAccessHash: 15,
 				},
 			},
 			want: &tg.InputPeerPhotoFileLocationLegacy{
 				Big: true,
 				Peer: &tg.InputPeerUser{
-					UserID:     constant.MaxUserID - 1,
+					UserID:     constant.MaxTDLibUserID - 1,
 					AccessHash: 15,
 				},
 				VolumeID: 13,
