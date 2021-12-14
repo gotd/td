@@ -13,21 +13,52 @@ const (
 	MaxTDLibUserID = (1 << 40) - 1
 )
 
-// IsUserTDLibID whether that given ID is user ID.
-func IsUserTDLibID(id int64) bool {
+// TDLibPeerID is TDLib's peer ID.
+type TDLibPeerID int64
+
+// User sets TDLibPeerID value as user.
+func (id *TDLibPeerID) User(p int64) {
+	*id = TDLibPeerID(p)
+}
+
+// Chat sets TDLibPeerID value as chat.
+func (id *TDLibPeerID) Chat(p int64) {
+	*id = TDLibPeerID(-p)
+}
+
+// Channel sets TDLibPeerID value as channel.
+func (id *TDLibPeerID) Channel(p int64) {
+	*id = TDLibPeerID(ZeroTDLibChannelID + (p * -1))
+}
+
+// ToPlain converts TDLib ID to plain ID.
+func (id TDLibPeerID) ToPlain() (r int64) {
+	switch {
+	case id.IsUser():
+		r = int64(id)
+	case id.IsChat():
+		r = int64(-id)
+	case id.IsChannel():
+		r = int64(id) - ZeroTDLibChannelID
+		r = -r
+	}
+	return r
+}
+
+// IsUser whether that given ID is user ID.
+func (id TDLibPeerID) IsUser() bool {
 	return id > 0 && id <= MaxTDLibUserID
 }
 
-// IsChatTDLibID whether that given ID is chat ID.
-func IsChatTDLibID(id int64) bool {
+// IsChat whether that given ID is chat ID.
+func (id TDLibPeerID) IsChat() bool {
 	return id < 0 && -MaxTDLibChatID <= id
 }
 
-// IsChannelTDLibID whether that given ID is channel ID.
-func IsChannelTDLibID(id int64) bool {
+// IsChannel whether that given ID is channel ID.
+func (id TDLibPeerID) IsChannel() bool {
 	return id < 0 &&
 		id != ZeroTDLibChannelID &&
-		!IsChatTDLibID(id) &&
-		ZeroTDLibChannelID-MaxTDLibChannelID <= id
-
+		!id.IsChat() &&
+		ZeroTDLibChannelID-TDLibPeerID(MaxTDLibChannelID) <= id
 }

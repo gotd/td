@@ -46,8 +46,8 @@ func (p *PhotoSizeSource) dialogPeer() tg.InputPeerClass {
 			ChatID: id,
 		}
 	case id < 0 &&
-			constant.ZeroTDLibChannelID-constant.MaxTDLibChannelID <= id &&
-			id != constant.ZeroTDLibChannelID:
+		constant.ZeroTDLibChannelID-constant.MaxTDLibChannelID <= id &&
+		id != constant.ZeroTDLibChannelID:
 		return &tg.InputPeerChannel{
 			ChannelID:  id,
 			AccessHash: p.DialogAccessHash,
