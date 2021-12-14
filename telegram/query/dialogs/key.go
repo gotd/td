@@ -20,8 +20,8 @@ const (
 
 // DialogKey is a generic peer key.
 type DialogKey struct {
-	Kind PeerKind
-	ID   int64
+	Kind       PeerKind
+	ID         int64
 	AccessHash int64
 }
 
@@ -64,4 +64,3 @@ func (d *DialogKey) FromPeer(peer tg.PeerClass) error {
 
 	return nil
 }
-

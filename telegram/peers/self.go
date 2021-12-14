@@ -11,7 +11,7 @@ func (m *Manager) Self(ctx context.Context) (User, error) {
 	return m.GetUser(ctx, &tg.InputUserSelf{})
 }
 
-func (m *Manager) selfIsBot() bool  {
+func (m *Manager) selfIsBot() bool {
 	u, ok := m.me.Load()
 	return ok && u.Bot
 }

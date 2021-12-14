@@ -48,11 +48,6 @@ func (c Channel) Username() (string, bool) {
 	return c.raw.GetUsername()
 }
 
-// InputPeer returns input peer for this peer.
-func (c Channel) InputPeer() tg.InputPeerClass {
-	return c.raw.AsInputPeer()
-}
-
 // Restricted whether this user/chat/channel is restricted.
 func (c Channel) Restricted() ([]tg.RestrictionReason, bool) {
 	reason, ok := c.raw.GetRestrictionReason()
@@ -75,9 +70,14 @@ func (c Channel) Fake() bool {
 	return c.raw.GetFake()
 }
 
+// InputPeer returns input peer for this peer.
+func (c Channel) InputPeer() tg.InputPeerClass {
+	return c.raw.AsInputPeer()
+}
+
 // Sync updates current object.
 func (c Channel) Sync(ctx context.Context) error {
-	raw, err := c.m.getChannel(ctx, c.raw.AsInput())
+	raw, err := c.m.updateChannel(ctx, c.raw.AsInput())
 	if err != nil {
 		return errors.Wrap(err, "get channel")
 	}
@@ -118,6 +118,16 @@ func (c Channel) ToBroadcast() (Broadcast, bool) {
 	}, true
 }
 
+// ToSupergroup tries to convert this Channel to Supergroup.
+func (c Channel) ToSupergroup() (Supergroup, bool) {
+	if !c.raw.Megagroup {
+		return Supergroup{}, false
+	}
+	return Supergroup{
+		Channel: c,
+	}, true
+}
+
 // TODO(tdakkota): add more getters, helpers and convertors
 
 // InputChannel returns input user for this user.
@@ -125,9 +135,71 @@ func (c Channel) InputChannel() tg.InputChannelClass {
 	return c.raw.AsInput()
 }
 
+// Creator whether the current user is the creator of this channel.
+func (c Channel) Creator() bool {
+	return c.raw.GetCreator()
+}
+
+// Left whether the current user has left this channel.
+func (c Channel) Left() bool {
+	return c.raw.GetLeft()
+}
+
+// HasLink whether this channel has a private join link.
+func (c Channel) HasLink() bool {
+	return c.raw.GetHasLink()
+}
+
+// HasGeo whether this channel has a geoposition.
+func (c Channel) HasGeo() bool {
+	return c.raw.GetHasGeo()
+}
+
+// CallActive whether a group call or livestream is currently active.
+func (c Channel) CallActive() bool {
+	return c.raw.GetCallActive()
+}
+
+// CallNotEmpty whether there's anyone in the group call or livestream.
+func (c Channel) CallNotEmpty() bool {
+	return c.raw.GetCallNotEmpty()
+}
+
+// NoForwards whether that message forwarding from this channel is not allowed.
+func (c Channel) NoForwards() bool {
+	return c.raw.GetNoforwards()
+}
+
+// AdminRights returns admin rights of the user in this channel.
+//
+// See https://core.telegram.org/api/rights.
+func (c Channel) AdminRights() (tg.ChatAdminRights, bool) {
+	return c.raw.GetAdminRights()
+}
+
+// BannedRights returns banned rights of the user in this channel.
+//
+// See https://core.telegram.org/api/rights.
+func (c Channel) BannedRights() (tg.ChatBannedRights, bool) {
+	return c.raw.GetBannedRights()
+}
+
+// DefaultBannedRights returns default chat rights.
+//
+// See https://core.telegram.org/api/rights.
+func (c Channel) DefaultBannedRights() (tg.ChatBannedRights, bool) {
+	return c.raw.GetDefaultBannedRights()
+}
+
+// ParticipantsCount returns count of participants.
+func (c Channel) ParticipantsCount() int {
+	v, _ := c.raw.GetParticipantsCount()
+	return v
+}
+
 // Join joins this channel.
 func (c Channel) Join(ctx context.Context) error {
-	// TODO(tdakkota): returns join message?
+	// TODO(tdakkota): return join message?
 	if _, err := c.m.api.ChannelsJoinChannel(ctx, c.InputChannel()); err != nil {
 		return errors.Wrap(err, "join channel")
 	}

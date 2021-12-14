@@ -10,11 +10,59 @@ import (
 )
 
 func (m *Manager) applyUsers(ctx context.Context, users ...tg.UserClass) error {
-	return saveUsers(ctx, m.storage, users...)
+	for _, user := range users {
+		user, ok := user.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		id := user.GetID()
+		v := Value{
+			AccessHash: user.AccessHash,
+		}
+		if err := m.storage.Save(ctx, usersPrefix, id, v); err != nil {
+			// FIXME(tdakkota): just log errors?
+			return errors.Wrapf(err, "save user %d", user.ID)
+		}
+		if err := m.storage.SavePhone(ctx, user.Phone, id, v); err != nil {
+			return errors.Wrapf(err, "save user %d", user.ID)
+		}
+	}
+
+	return nil
 }
 
 func (m *Manager) applyChats(ctx context.Context, chats ...tg.ChatClass) error {
-	return saveChats(ctx, m.storage, chats...)
+	for _, chat := range chats {
+		var (
+			prefix []byte
+			id     int64
+			v      Value
+		)
+		switch chat := chat.(type) {
+		case *tg.ChatEmpty:
+			continue
+		case *tg.Chat:
+			id = chat.ID
+		case *tg.ChatForbidden:
+			id = chat.ID
+			prefix = chatsPrefix
+		case *tg.Channel:
+			id = chat.ID
+			v.AccessHash = chat.AccessHash
+			prefix = channelPrefix
+		case *tg.ChannelForbidden:
+			id = chat.ID
+			v.AccessHash = chat.AccessHash
+			prefix = channelPrefix
+		}
+
+		if err := m.storage.Save(ctx, prefix, id, v); err != nil {
+			// FIXME(tdakkota): just log errors?
+			return errors.Wrapf(err, "save chat %d", id)
+		}
+	}
+
+	return nil
 }
 
 func (m *Manager) applyEntities(ctx context.Context, users []tg.UserClass, chats []tg.ChatClass) error {

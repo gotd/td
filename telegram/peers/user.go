@@ -83,7 +83,7 @@ func (u User) InputPeer() tg.InputPeerClass {
 
 // Sync updates current object.
 func (u User) Sync(ctx context.Context) error {
-	raw, err := u.m.getUser(ctx, u.InputUser())
+	raw, err := u.m.updateUser(ctx, u.InputUser())
 	if err != nil {
 		return errors.Wrap(err, "get user")
 	}

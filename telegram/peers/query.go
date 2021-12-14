@@ -10,6 +10,12 @@ import (
 
 // getUser gets tg.User using given tg.InputUserClass.
 func (m *Manager) getUser(ctx context.Context, p tg.InputUserClass) (*tg.User, error) {
+	// TODO(tdakkota): use cache.
+	return m.updateUser(ctx, p)
+}
+
+// updateUser forcibly updates tg.User using given tg.InputUserClass.
+func (m *Manager) updateUser(ctx context.Context, p tg.InputUserClass) (*tg.User, error) {
 	// TODO(tdakkota): batch requests.
 	users, err := m.api.UsersGetUsers(ctx, []tg.InputUserClass{p})
 	if err != nil {
@@ -38,9 +44,14 @@ func (m *Manager) getUser(ctx context.Context, p tg.InputUserClass) (*tg.User, e
 	return user, nil
 }
 
-
 // getUserFull gets tg.UserFull using given tg.InputUserClass.
 func (m *Manager) getUserFull(ctx context.Context, p tg.InputUserClass) (*tg.UserFull, error) {
+	// TODO(tdakkota): use cache.
+	return m.updateUserFull(ctx, p)
+}
+
+// updateUserFull forcibly updates tg.UserFull using given tg.InputUserClass.
+func (m *Manager) updateUserFull(ctx context.Context, p tg.InputUserClass) (*tg.UserFull, error) {
 	r, err := m.api.UsersGetFullUser(ctx, p)
 	if err != nil {
 		return nil, errors.Wrap(err, "get full user")
@@ -59,7 +70,12 @@ func (m *Manager) getUserFull(ctx context.Context, p tg.InputUserClass) (*tg.Use
 }
 
 // getChat gets tg.Chat using given id.
-func (m *Manager) getChat(ctx context.Context, id int64) (*tg.Chat, error) {
+func (m *Manager) getChat(ctx context.Context, p int64) (*tg.Chat, error) {
+	return m.updateChat(ctx, p)
+}
+
+// updateChat forcibly updates tg.Chat using given id.
+func (m *Manager) updateChat(ctx context.Context, id int64) (*tg.Chat, error) {
 	r, err := m.api.MessagesGetChats(ctx, []int64{id})
 	if err != nil {
 		return nil, errors.Wrap(err, "get chats")
@@ -84,7 +100,12 @@ func (m *Manager) getChat(ctx context.Context, id int64) (*tg.Chat, error) {
 }
 
 // getChatFull gets tg.ChatFull using given id.
-func (m *Manager) getChatFull(ctx context.Context, id int64) (*tg.ChatFull, error) {
+func (m *Manager) getChatFull(ctx context.Context, p int64) (*tg.ChatFull, error) {
+	return m.updateChatFull(ctx, p)
+}
+
+// updateChatFull forcibly updates tg.ChatFull using given id.
+func (m *Manager) updateChatFull(ctx context.Context, id int64) (*tg.ChatFull, error) {
 	r, err := m.api.MessagesGetFullChat(ctx, id)
 	if err != nil {
 		return nil, errors.Wrap(err, "get full chat")
@@ -108,6 +129,11 @@ func (m *Manager) getChatFull(ctx context.Context, id int64) (*tg.ChatFull, erro
 
 // getChannel gets tg.Channel using given tg.InputChannelClass.
 func (m *Manager) getChannel(ctx context.Context, p tg.InputChannelClass) (*tg.Channel, error) {
+	return m.updateChannel(ctx, p)
+}
+
+// updateChannel forcibly updates tg.Channel using given tg.InputChannelClass.
+func (m *Manager) updateChannel(ctx context.Context, p tg.InputChannelClass) (*tg.Channel, error) {
 	r, err := m.api.ChannelsGetChannels(ctx, []tg.InputChannelClass{p})
 	if err != nil {
 		return nil, errors.Wrap(err, "get channels")
@@ -131,8 +157,13 @@ func (m *Manager) getChannel(ctx context.Context, p tg.InputChannelClass) (*tg.C
 	return ch, nil
 }
 
-// getChannelFull gets tg.Channel using given tg.InputChannelClass.
+// getChannelFull gets tg.ChannelFull using given tg.InputChannelClass.
 func (m *Manager) getChannelFull(ctx context.Context, p tg.InputChannelClass) (*tg.ChannelFull, error) {
+	return m.updateChannelFull(ctx, p)
+}
+
+// updateChannelFull forcibly updates tg.ChannelFull using given tg.InputChannelClass.
+func (m *Manager) updateChannelFull(ctx context.Context, p tg.InputChannelClass) (*tg.ChannelFull, error) {
 	r, err := m.api.ChannelsGetFullChannel(ctx, p)
 	if err != nil {
 		return nil, errors.Wrap(err, "get full channel")

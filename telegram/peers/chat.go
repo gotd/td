@@ -76,7 +76,7 @@ func (c Chat) InputPeer() tg.InputPeerClass {
 
 // Sync updates current object.
 func (c Chat) Sync(ctx context.Context) error {
-	raw, err := c.m.getChat(ctx, c.raw.ID)
+	raw, err := c.m.updateChat(ctx, c.raw.ID)
 	if err != nil {
 		return errors.Wrap(err, "get chat")
 	}
@@ -113,8 +113,67 @@ func (c Chat) Photo(ctx context.Context) (*tg.Photo, bool, error) {
 }
 
 // ID returns chat ID.
-func (c *Chat) ID() int64 {
+func (c Chat) ID() int64 {
 	return c.raw.GetID()
+}
+
+// Creator whether the current user is the creator of this group.
+func (c Chat) Creator() bool {
+	return c.raw.GetCreator()
+}
+
+// Kicked the current user was kicked from the group.
+func (c Chat) Kicked() bool {
+	return c.raw.GetKicked()
+}
+
+// Left whether the current user has left this group.
+func (c Chat) Left() bool {
+	return c.raw.GetLeft()
+}
+
+// Deactivated whether the group was migrated.
+func (c Chat) Deactivated() bool {
+	return c.raw.GetDeactivated()
+}
+
+// CallActive whether a group call or livestream is currently active.
+func (c Chat) CallActive() bool {
+	return c.raw.GetCallActive()
+}
+
+// CallNotEmpty whether there's anyone in the group call or livestream.
+func (c Chat) CallNotEmpty() bool {
+	return c.raw.GetCallNotEmpty()
+}
+
+// NoForwards whether that message forwarding from this channel is not allowed.
+func (c Chat) NoForwards() bool {
+	return c.raw.GetNoforwards()
+}
+
+// MigratedTo returns a supergroup to which this chat migrated.
+func (c Chat) MigratedTo() (tg.InputChannelClass, bool) {
+	return c.raw.GetMigratedTo()
+}
+
+// ParticipantsCount returns count of participants.
+func (c Chat) ParticipantsCount() int {
+	return c.raw.GetParticipantsCount()
+}
+
+// AdminRights returns admin rights of the user in this channel.
+//
+// See https://core.telegram.org/api/rights.
+func (c Chat) AdminRights() (tg.ChatAdminRights, bool) {
+	return c.raw.GetAdminRights()
+}
+
+// DefaultBannedRights returns default chat rights.
+//
+// See https://core.telegram.org/api/rights.
+func (c Chat) DefaultBannedRights() (tg.ChatBannedRights, bool) {
+	return c.raw.GetDefaultBannedRights()
 }
 
 // TODO(tdakkota): add more getters, helpers and convertors

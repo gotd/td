@@ -13,6 +13,11 @@ type Broadcast struct {
 	Channel
 }
 
+// Signatures whether signatures are enabled (channels).
+func (b Broadcast) Signatures() bool {
+	return b.raw.GetSignatures()
+}
+
 // SetDiscussionGroup associates a group to a channel as discussion group for that channel.
 func (b Broadcast) SetDiscussionGroup(ctx context.Context, p tg.InputChannelClass) error {
 	if _, err := b.m.api.ChannelsSetDiscussionGroup(ctx, &tg.ChannelsSetDiscussionGroupRequest{

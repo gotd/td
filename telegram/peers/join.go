@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-faster/errors"
 
-	"github.com/gotd/td/telegram/message/internal/deeplink"
+	"github.com/gotd/td/telegram/internal/deeplink"
 	"github.com/gotd/td/tg"
 )
 
@@ -45,7 +45,7 @@ func (m *Manager) ImportInvite(ctx context.Context, hash string) (Peer, error) {
 	}
 
 	var (
-		chat tg.ChatClass
+		chat  tg.ChatClass
 		apply = true
 	)
 	switch inviteInfo := inviteInfo.(type) {

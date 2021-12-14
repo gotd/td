@@ -9,7 +9,7 @@ import (
 )
 
 // Support returns support User.
-func (m *Manager) Support(ctx context.Context) (User, error)  {
+func (m *Manager) Support(ctx context.Context) (User, error) {
 	r, err := m.api.HelpGetSupport(ctx)
 	if err != nil {
 		return User{}, errors.Wrap(err, "get support")
