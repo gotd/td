@@ -1,6 +1,10 @@
 package bin
 
-import "strconv"
+import (
+	"strconv"
+
+	"github.com/gotd/td/tdjson"
+)
 
 // Fields represent a bitfield value that compactly encodes
 // information about provided conditional fields, e.g. says
@@ -27,9 +31,21 @@ func (f *Fields) Decode(b *Buffer) error {
 	return nil
 }
 
+// DecodeTDLibJSON implements tdjson.TDLibDecoder
+func (f Fields) DecodeTDLibJSON(e tdjson.Decoder) error {
+	// No-op implementation.
+	return nil
+}
+
 // Encode implements Encoder.
 func (f Fields) Encode(b *Buffer) error {
 	b.PutUint32(uint32(f))
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder
+func (f Fields) EncodeTDLibJSON(e tdjson.Encoder) error {
+	// No-op implementation.
 	return nil
 }
 
