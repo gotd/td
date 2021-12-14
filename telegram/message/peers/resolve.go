@@ -102,6 +102,9 @@ func (m *Manager) ResolvePhone(ctx context.Context, phone string) (User, error) 
 				AccessHash: value.AccessHash,
 			})
 		}
+		if m.selfIsBot() {
+			return User{}, &PhoneNotFoundError{Phone: phone}
+		}
 		tried = true
 
 		users, err := m.updateContacts(ctx)

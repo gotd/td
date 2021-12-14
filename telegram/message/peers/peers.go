@@ -6,6 +6,7 @@ import (
 	"github.com/go-faster/errors"
 
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 // Peer represents generic peer.
@@ -43,24 +44,23 @@ var _ = []Peer{
 	Channel{},
 }
 
-// Peer creates Peer using given tg.PeerClass.
-func (m *Manager) Peer(ctx context.Context, p tg.PeerClass) (Peer, error) {
+// ResolvePeer creates Peer using given tg.PeerClass.
+func (m *Manager) ResolvePeer(ctx context.Context, p tg.PeerClass) (Peer, error) {
 	switch p := p.(type) {
 	case *tg.PeerUser:
 		v, ok, err := m.storage.Find(ctx, usersPrefix, p.UserID)
 		if err != nil {
 			return nil, err
 		}
-		if !ok {
-			return nil, &PeerNotFoundError{
-				Peer: p,
-			}
-		}
-
 		u, err := m.GetUser(ctx, &tg.InputUser{
 			UserID:     p.UserID,
 			AccessHash: v.AccessHash,
 		})
+		if !ok && tgerr.Is(err, tg.ErrUserIDInvalid) {
+			return nil, &PeerNotFoundError{
+				Peer: p,
+			}
+		}
 		return u, err
 	case *tg.PeerChat:
 		c, err := m.GetChat(ctx, p.ChatID)
@@ -70,17 +70,50 @@ func (m *Manager) Peer(ctx context.Context, p tg.PeerClass) (Peer, error) {
 		if err != nil {
 			return nil, err
 		}
-		if !ok {
-			return nil, &PeerNotFoundError{
-				Peer: p,
-			}
-		}
-
 		c, err := m.GetChannel(ctx, &tg.InputChannel{
 			ChannelID:  p.ChannelID,
 			AccessHash: v.AccessHash,
 		})
+		if !ok && tgerr.Is(err, tg.ErrChannelInvalid) {
+			return nil, &PeerNotFoundError{
+				Peer: p,
+			}
+		}
 		return c, err
+	default:
+		return nil, errors.Errorf("unexpected type %T", p)
+	}
+}
+
+// FromInputPeer gets Peer from tg.InputPeerClass.
+func (m *Manager) FromInputPeer(ctx context.Context, p tg.InputPeerClass) (Peer, error) {
+	switch p := p.(type) {
+	case *tg.InputPeerSelf:
+		return m.Self(ctx)
+	case *tg.InputPeerChat:
+		return m.GetChat(ctx, p.ChatID)
+	case *tg.InputPeerUser:
+		return m.GetUser(ctx, &tg.InputUser{
+			UserID:     p.UserID,
+			AccessHash: p.AccessHash,
+		})
+	case *tg.InputPeerChannel:
+		return m.GetChannel(ctx, &tg.InputChannel{
+			ChannelID:  p.ChannelID,
+			AccessHash: p.AccessHash,
+		})
+	case *tg.InputPeerUserFromMessage:
+		return m.GetUser(ctx, &tg.InputUserFromMessage{
+			Peer:   p.Peer,
+			MsgID:  p.MsgID,
+			UserID: p.UserID,
+		})
+	case *tg.InputPeerChannelFromMessage:
+		return m.GetChannel(ctx, &tg.InputChannelFromMessage{
+			Peer:      p.Peer,
+			MsgID:     p.MsgID,
+			ChannelID: p.ChannelID,
+		})
 	default:
 		return nil, errors.Errorf("unexpected type %T", p)
 	}

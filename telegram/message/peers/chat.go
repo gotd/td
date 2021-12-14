@@ -98,19 +98,11 @@ func (c Chat) Report(ctx context.Context, reason tg.ReportReasonClass, message s
 
 // Photo returns peer photo, if any.
 func (c Chat) Photo(ctx context.Context) (*tg.Photo, bool, error) {
-	r, err := c.m.api.MessagesGetFullChat(ctx, c.raw.GetID())
+	full, err := c.m.getChatFull(ctx, c.raw.GetID())
 	if err != nil {
 		return nil, false, errors.Wrap(err, "get full chat")
 	}
 
-	if err := c.m.applyEntities(ctx, r.GetUsers(), r.GetChats()); err != nil {
-		return nil, false, err
-	}
-
-	full, ok := r.FullChat.(*tg.ChatFull)
-	if !ok {
-		return nil, false, errors.Errorf("unexpected type %T", r.FullChat)
-	}
 	chatPhoto, ok := full.GetChatPhoto()
 	if !ok {
 		return nil, false, nil

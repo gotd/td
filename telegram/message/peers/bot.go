@@ -3,8 +3,6 @@ package peers
 import (
 	"context"
 
-	"github.com/go-faster/errors"
-
 	"github.com/gotd/td/tg"
 )
 
@@ -41,14 +39,10 @@ func (b Bot) SupportsInline() bool {
 
 // BotInfo returns bot info.
 func (b Bot) BotInfo(ctx context.Context) (tg.BotInfo, error) {
-	full, err := b.m.api.UsersGetFullUser(ctx, b.InputUser())
+	full, err := b.m.getUserFull(ctx, b.InputUser())
 	if err != nil {
-		return tg.BotInfo{}, errors.Wrap(err, "get full user")
-	}
-
-	if err := b.m.applyEntities(ctx, full.GetUsers(), full.GetChats()); err != nil {
 		return tg.BotInfo{}, err
 	}
 
-	return full.FullUser.BotInfo, nil
+	return full.BotInfo, nil
 }

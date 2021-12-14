@@ -21,6 +21,21 @@ func (m *Manager) applyEntities(ctx context.Context, users []tg.UserClass, chats
 	return multierr.Append(m.applyUsers(ctx, users...), m.applyChats(ctx, chats...))
 }
 
+func (m *Manager) applyFullUser(ctx context.Context, user *tg.UserFull) error {
+	// TODO(tdakkota): save to storage.
+	return nil
+}
+
+func (m *Manager) applyFullChat(ctx context.Context, chat *tg.ChatFull) error {
+	// TODO(tdakkota): save to storage.
+	return nil
+}
+
+func (m *Manager) applyFullChannel(ctx context.Context, ch *tg.ChannelFull) error {
+	// TODO(tdakkota): save to storage.
+	return nil
+}
+
 func (m *Manager) updateContacts(ctx context.Context) ([]tg.UserClass, error) {
 	if err := m.phone.Acquire(ctx, 1); err != nil {
 		return nil, errors.Wrap(err, "acquire phone")

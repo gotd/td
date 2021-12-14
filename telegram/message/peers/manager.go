@@ -11,20 +11,23 @@ import (
 type Manager struct {
 	api     *tg.Client
 	storage Storage
+
 	me      *atomicUser
+	support *atomicUser
 
 	phone *semaphore.Weighted
 	sg    singleflight.Group
 }
 
 // NewManager creates new Manager.
-func NewManager(api *tg.Client, storage Storage) *Manager {
+func NewManager(api *tg.Client, opts Options) *Manager {
+	opts.setDefaults()
 	return &Manager{
 		api:     api,
-		storage: storage,
+		storage: opts.Storage,
 		me:      new(atomicUser),
+		support: new(atomicUser),
 		phone:   semaphore.NewWeighted(1),
 		sg:      singleflight.Group{},
 	}
 }
-

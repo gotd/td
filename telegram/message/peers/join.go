@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-faster/errors"
 
+	"github.com/gotd/td/telegram/message/internal/deeplink"
 	"github.com/gotd/td/tg"
 )
 
@@ -16,6 +17,24 @@ type updateWithChats interface {
 var _ = []updateWithChats{
 	(*tg.Updates)(nil),
 	(*tg.UpdatesCombined)(nil),
+}
+
+// JoinLink joins to private chat using given link or hash.
+// Input examples:
+//
+//  t.me/+AAAAAAAAAAAAAAAA
+//  https://t.me/+AAAAAAAAAAAAAAAA
+//  t.me/joinchat/AAAAAAAAAAAAAAAA
+//  https://t.me/joinchat/AAAAAAAAAAAAAAAA
+//  tg:join?invite=AAAAAAAAAAAAAAAA
+//  tg://join?invite=AAAAAAAAAAAAAAAA
+//
+func (m *Manager) JoinLink(ctx context.Context, link string) (Peer, error) {
+	l, err := deeplink.Expect(link, deeplink.Join)
+	if err != nil {
+		return nil, err
+	}
+	return m.ImportInvite(ctx, l.Args.Get("invite"))
 }
 
 // ImportInvite imports given hash invite.
