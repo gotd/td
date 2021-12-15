@@ -223,3 +223,5 @@ func (u User) InviteTo(ctx context.Context, ch tg.InputChannelClass) error {
 
 	return nil
 }
+
+// TODO(tdakkota): add more getters, helpers and convertors

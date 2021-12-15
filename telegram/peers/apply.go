@@ -123,12 +123,12 @@ func (m *Manager) updateContacts(ctx context.Context) ([]tg.UserClass, error) {
 				return nil, errors.Wrap(err, "update users")
 			}
 
-			me, ok := m.me.Load()
-			if !ok || me.Bot {
-				return nil, nil
+			myID, ok := m.myID()
+			if !ok {
+				return c.Users, nil
 			}
 
-			if err := m.storage.SaveContactsHash(ctx, contactsHash(me.ID, c)); err != nil {
+			if err := m.storage.SaveContactsHash(ctx, contactsHash(myID, c)); err != nil {
 				return nil, errors.Wrap(err, "update contacts hash")
 			}
 			return c.Users, nil

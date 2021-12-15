@@ -140,8 +140,6 @@ func (c Channel) ToSupergroup() (Supergroup, bool) {
 	}, true
 }
 
-// TODO(tdakkota): add more getters, helpers and convertors
-
 // InputChannel returns input user for this user.
 func (c Channel) InputChannel() tg.InputChannelClass {
 	return c.raw.AsInput()
@@ -211,7 +209,6 @@ func (c Channel) ParticipantsCount() int {
 
 // Join joins this channel.
 func (c Channel) Join(ctx context.Context) error {
-	// TODO(tdakkota): return join message?
 	if _, err := c.m.api.ChannelsJoinChannel(ctx, c.InputChannel()); err != nil {
 		return errors.Wrap(err, "join channel")
 	}
@@ -233,3 +230,5 @@ func (c Channel) Leave(ctx context.Context) error {
 	}
 	return nil
 }
+
+// TODO(tdakkota): add more getters, helpers and convertors

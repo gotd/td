@@ -35,7 +35,7 @@ func (m *Manager) Resolve(ctx context.Context, from string) (Peer, error) {
 	if isPhoneNumber(from) {
 		return m.ResolvePhone(ctx, from)
 	}
-	return m.ResolvePhone(ctx, from)
+	return m.ResolveDomain(ctx, from)
 }
 
 func isPhoneNumber(s string) bool {

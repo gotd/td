@@ -20,7 +20,7 @@ func (c Supergroup) SlowmodeEnabled() bool {
 
 // DisableSlowMode disables slow mode.
 func (c Supergroup) DisableSlowMode(ctx context.Context) error {
-	return c.ToggleSlowMode(ctx, 0)
+	return c.ToggleSlowMode(ctx, -1)
 }
 
 // ToggleSlowMode Toggle supergroup slow mode: if enabled, users will only be able to send one message per seconds.

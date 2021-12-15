@@ -183,8 +183,6 @@ func (c Chat) DefaultBannedRights() (tg.ChatBannedRights, bool) {
 	return c.raw.GetDefaultBannedRights()
 }
 
-// TODO(tdakkota): add more getters, helpers and convertors
-
 // Leave leaves this chat.
 //
 // Parameter deleteMyMessages denotes to remove the entire chat history of this user in this chat.
@@ -196,3 +194,5 @@ func (c Chat) Leave(ctx context.Context, deleteMyMessages bool) error {
 	})
 	return err
 }
+
+// TODO(tdakkota): add more getters, helpers and convertors
