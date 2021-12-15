@@ -64,8 +64,7 @@ type WebPage struct {
 	Animation Animation
 	// Preview of the content as an audio file, if available; may be null
 	Audio Audio
-	// Preview of the content as a document, if available (currently only available for small
-	// PDF files and ZIP archives); may be null
+	// Preview of the content as a document, if available; may be null
 	Document Document
 	// Preview of the content as a sticker for small WEBP files, if available; may be null
 	Sticker Sticker
@@ -75,7 +74,7 @@ type WebPage struct {
 	VideoNote VideoNote
 	// Preview of the content as a voice note, if available; may be null
 	VoiceNote VoiceNote
-	// Version of instant view, available for the web page (currently can be 1 or 2), 0 if
+	// Version of instant view, available for the web page (currently, can be 1 or 2), 0 if
 	// none
 	InstantViewVersion int32
 }

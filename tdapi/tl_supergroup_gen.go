@@ -43,7 +43,7 @@ type Supergroup struct {
 	// Status of the current user in the supergroup or channel; custom title will be always
 	// empty
 	Status ChatMemberStatusClass
-	// Number of members in the supergroup or channel; 0 if unknown. Currently it is
+	// Number of members in the supergroup or channel; 0 if unknown. Currently, it is
 	// guaranteed to be known only if the supergroup or channel was received through
 	// searchPublicChats, searchChatsNearby, getInactiveSupergroupChats,
 	// getSuitableDiscussionChats, getGroupsInCommon, or getUserPrivacySettingRules

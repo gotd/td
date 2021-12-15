@@ -39,7 +39,7 @@ type Venue struct {
 	Title string
 	// Venue address; as defined by the sender
 	Address string
-	// Provider of the venue database; as defined by the sender. Currently only "foursquare"
+	// Provider of the venue database; as defined by the sender. Currently, only "foursquare"
 	// and "gplaces" (Google Places) need to be supported
 	Provider string
 	// Identifier of the venue in the provider database; as defined by the sender
