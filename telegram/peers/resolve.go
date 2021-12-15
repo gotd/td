@@ -92,14 +92,14 @@ func (m *Manager) ResolvePhone(ctx context.Context, phone string) (User, error) 
 			return User{}, &PhoneNotFoundError{Phone: phone}
 		}
 
-		id, value, found, err := m.storage.FindPhone(ctx, phone)
+		key, v, found, err := m.storage.FindPhone(ctx, phone)
 		if err != nil {
 			return User{}, errors.Wrap(err, "find by phone")
 		}
 		if found {
 			return m.GetUser(ctx, &tg.InputUser{
-				UserID:     id,
-				AccessHash: value.AccessHash,
+				UserID:     key.ID,
+				AccessHash: v.AccessHash,
 			})
 		}
 		if m.selfIsBot() {

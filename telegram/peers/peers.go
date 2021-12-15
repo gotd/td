@@ -70,7 +70,10 @@ func (m *Manager) ResolveTDLibID(ctx context.Context, peerID constant.TDLibPeerI
 func (m *Manager) ResolvePeer(ctx context.Context, p tg.PeerClass) (Peer, error) {
 	switch p := p.(type) {
 	case *tg.PeerUser:
-		v, ok, err := m.storage.Find(ctx, usersPrefix, p.UserID)
+		v, ok, err := m.storage.Find(ctx, Key{
+			Prefix: usersPrefix,
+			ID:     p.UserID,
+		})
 		if err != nil {
 			return nil, err
 		}
@@ -88,7 +91,10 @@ func (m *Manager) ResolvePeer(ctx context.Context, p tg.PeerClass) (Peer, error)
 		c, err := m.GetChat(ctx, p.ChatID)
 		return c, err
 	case *tg.PeerChannel:
-		v, ok, err := m.storage.Find(ctx, usersPrefix, p.ChannelID)
+		v, ok, err := m.storage.Find(ctx, Key{
+			Prefix: channelPrefix,
+			ID:     p.ChannelID,
+		})
 		if err != nil {
 			return nil, err
 		}

@@ -9,59 +9,83 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func (m *Manager) applyUsers(ctx context.Context, users ...tg.UserClass) error {
-	for _, user := range users {
+func (m *Manager) applyUsers(ctx context.Context, input ...tg.UserClass) error {
+	var users []*tg.User
+	for _, user := range input {
 		user, ok := user.AsNotEmpty()
 		if !ok {
 			continue
 		}
+		// FIXME(tdakkota): check min constructors
+		users = append(users, user)
+
 		id := user.GetID()
+		k := Key{
+			Prefix: usersPrefix,
+			ID:     id,
+		}
 		v := Value{
 			AccessHash: user.AccessHash,
 		}
-		if err := m.storage.Save(ctx, usersPrefix, id, v); err != nil {
+		if err := m.storage.Save(ctx, k, v); err != nil {
 			// FIXME(tdakkota): just log errors?
 			return errors.Wrapf(err, "save user %d", user.ID)
 		}
-		if err := m.storage.SavePhone(ctx, user.Phone, id, v); err != nil {
+		if err := m.storage.SavePhone(ctx, user.Phone, k); err != nil {
 			return errors.Wrapf(err, "save user %d", user.ID)
 		}
 	}
 
+	if err := m.cache.SaveUsers(ctx, users...); err != nil {
+		return errors.Wrap(err, "cache users")
+	}
 	return nil
 }
 
-func (m *Manager) applyChats(ctx context.Context, chats ...tg.ChatClass) error {
-	for _, chat := range chats {
+func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
+	var (
+		chats    []*tg.Chat
+		channels []*tg.Channel
+	)
+
+	for _, ch := range input {
 		var (
-			prefix []byte
-			id     int64
-			v      Value
+			k Key
+			v Value
 		)
-		switch chat := chat.(type) {
+		// FIXME(tdakkota): check min constructors
+		switch ch := ch.(type) {
 		case *tg.ChatEmpty:
 			continue
 		case *tg.Chat:
-			id = chat.ID
+			k.ID = ch.ID
+			chats = append(chats, ch)
 		case *tg.ChatForbidden:
-			id = chat.ID
-			prefix = chatsPrefix
+			k.ID = ch.ID
+			k.Prefix = chatsPrefix
 		case *tg.Channel:
-			id = chat.ID
-			v.AccessHash = chat.AccessHash
-			prefix = channelPrefix
+			k.ID = ch.ID
+			v.AccessHash = ch.AccessHash
+			k.Prefix = channelPrefix
+			channels = append(channels, ch)
 		case *tg.ChannelForbidden:
-			id = chat.ID
-			v.AccessHash = chat.AccessHash
-			prefix = channelPrefix
+			k.ID = ch.ID
+			v.AccessHash = ch.AccessHash
+			k.Prefix = channelPrefix
 		}
 
-		if err := m.storage.Save(ctx, prefix, id, v); err != nil {
+		if err := m.storage.Save(ctx, k, v); err != nil {
 			// FIXME(tdakkota): just log errors?
-			return errors.Wrapf(err, "save chat %d", id)
+			return errors.Wrapf(err, "save chat %d", k.ID)
 		}
 	}
 
+	if err := m.cache.SaveChats(ctx, chats...); err != nil {
+		return errors.Wrap(err, "cache chats")
+	}
+	if err := m.cache.SaveChannels(ctx, channels...); err != nil {
+		return errors.Wrap(err, "cache channels")
+	}
 	return nil
 }
 
@@ -70,18 +94,15 @@ func (m *Manager) applyEntities(ctx context.Context, users []tg.UserClass, chats
 }
 
 func (m *Manager) applyFullUser(ctx context.Context, user *tg.UserFull) error {
-	// TODO(tdakkota): save to storage.
-	return nil
+	return m.cache.SaveUserFulls(ctx, user)
 }
 
 func (m *Manager) applyFullChat(ctx context.Context, chat *tg.ChatFull) error {
-	// TODO(tdakkota): save to storage.
-	return nil
+	return m.cache.SaveChatFulls(ctx, chat)
 }
 
 func (m *Manager) applyFullChannel(ctx context.Context, ch *tg.ChannelFull) error {
-	// TODO(tdakkota): save to storage.
-	return nil
+	return m.cache.SaveChannelFulls(ctx, ch)
 }
 
 func (m *Manager) updateContacts(ctx context.Context) ([]tg.UserClass, error) {

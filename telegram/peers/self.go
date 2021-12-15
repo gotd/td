@@ -15,3 +15,11 @@ func (m *Manager) selfIsBot() bool {
 	u, ok := m.me.Load()
 	return ok && u.Bot
 }
+
+func (m *Manager) myID() (int64, bool) {
+	u, ok := m.me.Load()
+	if !ok {
+		return 0, false
+	}
+	return u.ID, true
+}
