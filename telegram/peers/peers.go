@@ -50,6 +50,22 @@ var _ = []Peer{
 	Channel{},
 }
 
+// ResolveTDLibID creates Peer using given constant.TDLibPeerID.
+func (m *Manager) ResolveTDLibID(ctx context.Context, peerID constant.TDLibPeerID) (Peer, error) {
+	var p tg.PeerClass
+	switch {
+	case peerID.IsUser():
+		p = &tg.PeerUser{UserID: peerID.ToPlain()}
+	case peerID.IsChat():
+		p = &tg.PeerChat{ChatID: peerID.ToPlain()}
+	case peerID.IsChannel():
+		p = &tg.PeerChannel{ChannelID: peerID.ToPlain()}
+	default:
+		return nil, errors.Errorf("invalid ID %d", peerID)
+	}
+	return m.ResolvePeer(ctx, p)
+}
+
 // ResolvePeer creates Peer using given tg.PeerClass.
 func (m *Manager) ResolvePeer(ctx context.Context, p tg.PeerClass) (Peer, error) {
 	switch p := p.(type) {
