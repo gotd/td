@@ -64,7 +64,7 @@ func (m *Manager) ImportInvite(ctx context.Context, hash string) (Peer, error) {
 
 		updates, ok := u.(updateWithChats)
 		if !ok {
-			return nil, errors.Errorf("bad result %T type")
+			return nil, errors.Errorf("bad result %T type", u)
 		}
 
 		// Do not apply it, update hook already did it.

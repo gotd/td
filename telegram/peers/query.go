@@ -71,9 +71,6 @@ func (m *Manager) updateUser(ctx context.Context, p tg.InputUserClass) (*tg.User
 	if user.Self {
 		m.me.Store(user)
 	}
-	if user.Support {
-		m.support.Store(user)
-	}
 
 	return user, nil
 }

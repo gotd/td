@@ -17,12 +17,11 @@ type Manager struct {
 	storage Storage
 	cache   Cache
 
-	me      *atomicUser
-	support *atomicUser
+	me *atomicUser
 
 	logger *zap.Logger
-	phone *semaphore.Weighted
-	sg    singleflight.Group
+	phone  *semaphore.Weighted
+	sg     singleflight.Group
 }
 
 // NewManager creates new Manager.
@@ -33,7 +32,6 @@ func NewManager(api *tg.Client, opts Options) *Manager {
 		storage: opts.Storage,
 		cache:   opts.Cache,
 		me:      new(atomicUser),
-		support: new(atomicUser),
 		logger:  opts.Logger,
 		phone:   semaphore.NewWeighted(1),
 		sg:      singleflight.Group{},
@@ -75,5 +73,3 @@ func (m *Manager) GetChannelAccessHash(userID, channelID int64) (accessHash int6
 	})
 	return v.AccessHash, found, err
 }
-
-

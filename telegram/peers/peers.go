@@ -1,3 +1,4 @@
+// Package peers contains helpers to work with Telegram peers
 package peers
 
 import (

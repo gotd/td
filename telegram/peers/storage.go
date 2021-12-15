@@ -117,4 +117,3 @@ func (n NoopCache) FindChannel(ctx context.Context, id int64) (*tg.Channel, bool
 func (n NoopCache) FindChannelFull(ctx context.Context, id int64) (*tg.ChannelFull, bool, error) {
 	return nil, false, nil
 }
-
