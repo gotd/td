@@ -37,7 +37,7 @@ type WebPageInstantView struct {
 	PageBlocks []PageBlockClass
 	// Number of the instant view views; 0 if unknown
 	ViewCount int32
-	// Version of the instant view, currently can be 1 or 2
+	// Version of the instant view; currently, can be 1 or 2
 	Version int32
 	// True, if the instant view must be shown from right to left
 	IsRtl bool
