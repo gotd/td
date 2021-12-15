@@ -106,40 +106,51 @@ func (m *Manager) applyFullChannel(ctx context.Context, ch *tg.ChannelFull) erro
 }
 
 func (m *Manager) updateContacts(ctx context.Context) ([]tg.UserClass, error) {
-	if err := m.phone.Acquire(ctx, 1); err != nil {
-		return nil, errors.Wrap(err, "acquire phone")
-	}
-	defer m.phone.Release(1)
-
-	hash, err := m.storage.GetContactsHash(ctx)
-	if err != nil {
-		return nil, errors.Wrap(err, "get contacts hash")
-	}
-
-	r, err := m.api.ContactsGetContacts(ctx, hash)
-	if err != nil {
-		return nil, errors.Wrap(err, "get contacts")
-	}
-
-	switch c := r.(type) {
-	case *tg.ContactsContacts:
-		if err := m.applyUsers(ctx, c.Users...); err != nil {
-			return nil, errors.Wrap(err, "update users")
+	ch := m.sg.DoChan("_contacts", func() (interface{}, error) {
+		hash, err := m.storage.GetContactsHash(ctx)
+		if err != nil {
+			return nil, errors.Wrap(err, "get contacts hash")
 		}
 
-		me, ok := m.me.Load()
+		r, err := m.api.ContactsGetContacts(ctx, hash)
+		if err != nil {
+			return nil, errors.Wrap(err, "get contacts")
+		}
+
+		switch c := r.(type) {
+		case *tg.ContactsContacts:
+			if err := m.applyUsers(ctx, c.Users...); err != nil {
+				return nil, errors.Wrap(err, "update users")
+			}
+
+			me, ok := m.me.Load()
+			if !ok || me.Bot {
+				return nil, nil
+			}
+
+			if err := m.storage.SaveContactsHash(ctx, contactsHash(me.ID, c)); err != nil {
+				return nil, errors.Wrap(err, "update contacts hash")
+			}
+			return c.Users, nil
+		case *tg.ContactsContactsNotModified:
+			return nil, nil
+		default:
+			return nil, errors.Errorf("unexpected type %T", r)
+		}
+	})
+
+	select {
+	case r := <-ch:
+		if err := r.Err; err != nil {
+			return nil, err
+		}
+		users, ok := r.Val.([]tg.UserClass)
 		if !ok {
 			return nil, nil
 		}
-
-		if err := m.storage.SaveContactsHash(ctx, contactsHash(me.ID, c)); err != nil {
-			return nil, errors.Wrap(err, "update contacts hash")
-		}
-		return c.Users, nil
-	case *tg.ContactsContactsNotModified:
-		return nil, nil
-	default:
-		return nil, errors.Errorf("unexpected type %T", r)
+		return users, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
 	}
 }
 

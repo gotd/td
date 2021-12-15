@@ -5,7 +5,6 @@ import (
 
 	"github.com/go-faster/errors"
 	"go.uber.org/zap"
-	"golang.org/x/sync/semaphore"
 	"golang.org/x/sync/singleflight"
 
 	"github.com/gotd/td/tg"
@@ -20,7 +19,6 @@ type Manager struct {
 	me *atomicUser
 
 	logger *zap.Logger
-	phone  *semaphore.Weighted
 	sg     singleflight.Group
 }
 
@@ -33,7 +31,6 @@ func NewManager(api *tg.Client, opts Options) *Manager {
 		cache:   opts.Cache,
 		me:      new(atomicUser),
 		logger:  opts.Logger,
-		phone:   semaphore.NewWeighted(1),
 		sg:      singleflight.Group{},
 	}
 }

@@ -167,9 +167,23 @@ func (m *Manager) ResolveDomain(ctx context.Context, domain string) (Peer, error
 		return nil, errors.Wrap(err, "validate domain")
 	}
 
-	result, err := m.api.ContactsResolveUsername(ctx, domain)
-	if err != nil {
-		return nil, errors.Wrap(err, "resolve")
+	ch := m.sg.DoChan(domain, func() (interface{}, error) {
+		result, err := m.api.ContactsResolveUsername(ctx, domain)
+		if err != nil {
+			return nil, errors.Wrap(err, "resolve")
+		}
+		return result, nil
+	})
+
+	var result *tg.ContactsResolvedPeer
+	select {
+	case r := <-ch:
+		if err := r.Err; err != nil {
+			return nil, r.Err
+		}
+		result = r.Val.(*tg.ContactsResolvedPeer)
+	case <-ctx.Done():
+		return nil, ctx.Err()
 	}
 
 	if err := m.applyEntities(ctx, result.Users, result.Chats); err != nil {
