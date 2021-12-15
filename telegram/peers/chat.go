@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-faster/errors"
 
+	"github.com/gotd/td/constant"
 	"github.com/gotd/td/tg"
 )
 
@@ -34,6 +35,17 @@ func (m *Manager) GetChat(ctx context.Context, id int64) (Chat, error) {
 // Raw returns raw *tg.Chat.
 func (c Chat) Raw() *tg.Chat {
 	return c.raw
+}
+
+// ID returns entity ID.
+func (c Chat) ID() int64 {
+	return c.raw.GetID()
+}
+
+// TDLibPeerID returns TDLibPeerID for this entity.
+func (c Chat) TDLibPeerID() (r constant.TDLibPeerID) {
+	r.Chat(c.raw.GetID())
+	return r
 }
 
 // VisibleName returns visible name of peer.
@@ -110,11 +122,6 @@ func (c Chat) Photo(ctx context.Context) (*tg.Photo, bool, error) {
 
 	p, ok := chatPhoto.AsNotEmpty()
 	return p, ok, nil
-}
-
-// ID returns chat ID.
-func (c Chat) ID() int64 {
-	return c.raw.GetID()
 }
 
 // Creator whether the current user is the creator of this group.

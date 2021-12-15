@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-faster/errors"
 
+	"github.com/gotd/td/constant"
 	"github.com/gotd/td/tg"
 )
 
@@ -34,6 +35,17 @@ func (m *Manager) GetChannel(ctx context.Context, p tg.InputChannelClass) (Chann
 // Raw returns raw *tg.Channel.
 func (c Channel) Raw() *tg.Channel {
 	return c.raw
+}
+
+// ID returns entity ID.
+func (c Channel) ID() int64 {
+	return c.raw.GetID()
+}
+
+// TDLibPeerID returns TDLibPeerID for this entity.
+func (c Channel) TDLibPeerID() (r constant.TDLibPeerID) {
+	r.Channel(c.raw.GetID())
+	return r
 }
 
 // VisibleName returns visible name of peer.

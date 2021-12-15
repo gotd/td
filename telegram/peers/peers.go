@@ -5,12 +5,18 @@ import (
 
 	"github.com/go-faster/errors"
 
+	"github.com/gotd/td/constant"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 )
 
 // Peer represents generic peer.
 type Peer interface {
+	// ID returns entity ID.
+	ID() int64
+	// TDLibPeerID returns TDLibPeerID for this entity.
+	TDLibPeerID() constant.TDLibPeerID
+
 	// VisibleName returns visible name of peer.
 	//
 	// It returns FirstName + " " + LastName for users, and title for chats and channels.

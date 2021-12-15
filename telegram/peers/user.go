@@ -6,6 +6,7 @@ import (
 
 	"github.com/go-faster/errors"
 
+	"github.com/gotd/td/constant"
 	"github.com/gotd/td/tg"
 )
 
@@ -35,6 +36,17 @@ func (m *Manager) GetUser(ctx context.Context, p tg.InputUserClass) (User, error
 // Raw returns raw *tg.User.
 func (u User) Raw() *tg.User {
 	return u.raw
+}
+
+// ID returns entity ID.
+func (u User) ID() int64 {
+	return u.raw.GetID()
+}
+
+// TDLibPeerID returns TDLibPeerID for this entity.
+func (u User) TDLibPeerID() (r constant.TDLibPeerID) {
+	r.User(u.raw.GetID())
+	return r
 }
 
 // VisibleName returns visible name of peer.
