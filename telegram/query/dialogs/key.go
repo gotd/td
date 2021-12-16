@@ -1,4 +1,4 @@
-package peer
+package dialogs
 
 import (
 	"github.com/go-faster/errors"
@@ -6,12 +6,12 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// Kind represents peer kind.
-type Kind int
+// PeerKind represents peer kind.
+type PeerKind int
 
 const (
 	// User is a private chat with user.
-	User Kind = iota
+	User PeerKind = iota
 	// Chat is a legacy chat.
 	Chat
 	// Channel is a supergroup/channel.
@@ -20,7 +20,7 @@ const (
 
 // DialogKey is a generic peer key.
 type DialogKey struct {
-	Kind       Kind
+	Kind       PeerKind
 	ID         int64
 	AccessHash int64
 }
