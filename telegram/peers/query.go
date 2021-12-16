@@ -36,6 +36,10 @@ func (m *Manager) getUser(ctx context.Context, p tg.InputUserClass) (*tg.User, e
 			break
 		}
 
+		if me, ok := m.me.Load(); ok && me.GetID() == userID {
+			return me, nil
+		}
+
 		u, found, err := m.cache.FindUser(ctx, userID)
 		if err == nil && found {
 			return u, nil
