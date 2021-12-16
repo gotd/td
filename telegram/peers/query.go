@@ -42,6 +42,7 @@ func (m *Manager) getUser(ctx context.Context, p tg.InputUserClass) (*tg.User, e
 
 		u, found, err := m.cache.FindUser(ctx, userID)
 		if err == nil && found {
+			u.SetFlags()
 			return u, nil
 		}
 		if err != nil {
@@ -85,6 +86,7 @@ func (m *Manager) getUserFull(ctx context.Context, p tg.InputUserClass) (*tg.Use
 	if ok {
 		u, found, err := m.cache.FindUserFull(ctx, userID)
 		if err == nil && found {
+			u.SetFlags()
 			return u, nil
 		}
 		if err != nil {
@@ -117,6 +119,7 @@ func (m *Manager) updateUserFull(ctx context.Context, p tg.InputUserClass) (*tg.
 func (m *Manager) getChat(ctx context.Context, p int64) (*tg.Chat, error) {
 	c, found, err := m.cache.FindChat(ctx, p)
 	if err == nil && found {
+		c.SetFlags()
 		return c, nil
 	}
 	if err != nil {
@@ -154,6 +157,7 @@ func (m *Manager) updateChat(ctx context.Context, id int64) (*tg.Chat, error) {
 func (m *Manager) getChatFull(ctx context.Context, p int64) (*tg.ChatFull, error) {
 	c, found, err := m.cache.FindChatFull(ctx, p)
 	if err == nil && found {
+		c.SetFlags()
 		return c, nil
 	}
 	if err != nil {
@@ -201,6 +205,7 @@ func (m *Manager) getChannel(ctx context.Context, p tg.InputChannelClass) (*tg.C
 	if id, ok := getIDFromInputChannel(p); ok {
 		c, found, err := m.cache.FindChannel(ctx, id)
 		if err == nil && found {
+			c.SetFlags()
 			return c, nil
 		}
 		if err != nil {
@@ -240,6 +245,7 @@ func (m *Manager) getChannelFull(ctx context.Context, p tg.InputChannelClass) (*
 	if id, ok := getIDFromInputChannel(p); ok {
 		c, found, err := m.cache.FindChannelFull(ctx, id)
 		if err == nil && found {
+			c.SetFlags()
 			return c, nil
 		}
 		if err != nil {
