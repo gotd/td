@@ -68,23 +68,26 @@ func (c Channel) Restricted() ([]tg.RestrictionReason, bool) {
 
 // Verified whether this user/chat/channel is verified by Telegram.
 func (c Channel) Verified() bool {
-	return c.raw.GetVerified()
+	return c.raw.Verified
 }
 
 // Scam whether this user/chat/channel is probably a scam.
 func (c Channel) Scam() bool {
-	return c.raw.GetScam()
+	return c.raw.Scam
 }
 
 // Fake whether this user/chat/channel was reported by many users as a fake or scam: be
 // careful when interacting with it.
 func (c Channel) Fake() bool {
-	return c.raw.GetFake()
+	return c.raw.Fake
 }
 
 // InputPeer returns input peer for this peer.
 func (c Channel) InputPeer() tg.InputPeerClass {
-	return c.raw.AsInputPeer()
+	return &tg.InputPeerChannel{
+		ChannelID:  c.raw.ID,
+		AccessHash: c.raw.AccessHash,
+	}
 }
 
 // Sync updates current object.
@@ -142,42 +145,45 @@ func (c Channel) ToSupergroup() (Supergroup, bool) {
 
 // InputChannel returns input user for this user.
 func (c Channel) InputChannel() tg.InputChannelClass {
-	return c.raw.AsInput()
+	return &tg.InputChannel{
+		ChannelID:  c.raw.ID,
+		AccessHash: c.raw.AccessHash,
+	}
 }
 
 // Creator whether the current user is the creator of this channel.
 func (c Channel) Creator() bool {
-	return c.raw.GetCreator()
+	return c.raw.Creator
 }
 
 // Left whether the current user has left this channel.
 func (c Channel) Left() bool {
-	return c.raw.GetLeft()
+	return c.raw.Left
 }
 
 // HasLink whether this channel has a private join link.
 func (c Channel) HasLink() bool {
-	return c.raw.GetHasLink()
+	return c.raw.HasLink
 }
 
 // HasGeo whether this channel has a geoposition.
 func (c Channel) HasGeo() bool {
-	return c.raw.GetHasGeo()
+	return c.raw.HasGeo
 }
 
 // CallActive whether a group call or livestream is currently active.
 func (c Channel) CallActive() bool {
-	return c.raw.GetCallActive()
+	return c.raw.CallActive
 }
 
 // CallNotEmpty whether there's anyone in the group call or livestream.
 func (c Channel) CallNotEmpty() bool {
-	return c.raw.GetCallNotEmpty()
+	return c.raw.CallNotEmpty
 }
 
 // NoForwards whether that message forwarding from this channel is not allowed.
 func (c Channel) NoForwards() bool {
-	return c.raw.GetNoforwards()
+	return c.raw.Noforwards
 }
 
 // AdminRights returns admin rights of the user in this channel.

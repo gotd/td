@@ -7,13 +7,10 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgerr"
 )
 
 func TestManager_findPeerClass(t *testing.T) {
-	user := &tg.User{
-		ID: 10,
-	}
+	user := getTestSelf()
 	chat := &tg.Chat{
 		ID: 10,
 	}
@@ -36,7 +33,7 @@ func TestManager_findPeerClass(t *testing.T) {
 		{
 			name: "User",
 			args: args{
-				p:     &tg.PeerUser{UserID: 10},
+				p:     &tg.PeerUser{UserID: user.GetID()},
 				users: []tg.UserClass{user},
 			},
 			want: User{
@@ -86,8 +83,9 @@ func TestManager_findPeerClass(t *testing.T) {
 }
 
 func TestManager_Resolve(t *testing.T) {
-	inputs := []struct{
-		Name string
+	testUser := getTestSelf()
+	inputs := []struct {
+		Name  string
 		Input string
 	}{
 		{"Domain", "@gotduser"},
@@ -102,24 +100,20 @@ func TestManager_Resolve(t *testing.T) {
 			mock.ExpectCall(&tg.ContactsResolveUsernameRequest{
 				Username: username,
 			}).ThenResult(&tg.ContactsResolvedPeer{
-				Peer: &tg.PeerUser{UserID: 10},
+				Peer: &tg.PeerUser{UserID: testUser.GetID()},
 				Users: []tg.UserClass{
-					&tg.User{ID: 10, AccessHash: 10, Username: username},
+					&tg.User{ID: testUser.GetID(), AccessHash: 10, Username: username},
 				},
 			}).ExpectCall(&tg.ContactsResolveUsernameRequest{
 				Username: username,
-			}).ThenRPCErr(&tgerr.Error{
-				Code:    1337,
-				Message: "TEST_ERROR",
-				Type:    "TEST_ERROR",
-			})
+			}).ThenRPCErr(getTestError())
 
 			ctx := context.Background()
 
 			r, err := m.Resolve(ctx, tt.Input)
 			a.NoError(err)
 			a.IsType(&tg.InputPeerUser{}, r.InputPeer())
-			a.Equal(int64(10), r.ID())
+			a.Equal(testUser.GetID(), r.ID())
 
 			_, err = m.Resolve(ctx, tt.Input)
 			a.Error(err)
@@ -130,23 +124,22 @@ func TestManager_Resolve(t *testing.T) {
 func TestManager_ResolvePhone(t *testing.T) {
 	a := require.New(t)
 	mock, m := testManager(t)
+	// To count contacts hash.
+	m.me.Store(&tg.User{
+		ID: 1,
+	})
 
 	phone := "+79001234567"
+	phone2 := "+79011234567"
 	mock.ExpectCall(&tg.ContactsGetContactsRequest{
 		Hash: 0,
-	}).ThenRPCErr(&tgerr.Error{
-		Code:    1337,
-		Message: "TEST_ERROR",
-		Type:    "TEST_ERROR",
-	})
+	}).ThenRPCErr(getTestError())
 	ctx := context.Background()
 
 	_, err := m.Resolve(ctx, phone)
 	a.Error(err)
 
-	mock.ExpectCall(&tg.ContactsGetContactsRequest{
-		Hash: 0,
-	}).ThenResult(&tg.ContactsContacts{
+	resp := &tg.ContactsContacts{
 		Contacts: []tg.Contact{{
 			UserID: 10,
 			Mutual: false,
@@ -155,10 +148,20 @@ func TestManager_ResolvePhone(t *testing.T) {
 		Users: []tg.UserClass{
 			&tg.User{ID: 10, AccessHash: 10, Username: "rustmustdie", Phone: cleanupPhone(phone)},
 		},
-	})
+	}
+	mock.ExpectCall(&tg.ContactsGetContactsRequest{
+		Hash: 0,
+	}).ThenResult(resp)
 
 	r, err := m.Resolve(ctx, phone)
 	a.NoError(err)
 	a.IsType(&tg.InputPeerUser{}, r.InputPeer())
 	a.Equal(int64(10), r.ID())
+
+	mock.ExpectCall(&tg.ContactsGetContactsRequest{
+		Hash: contactsHash(1, resp),
+	}).ThenResult(&tg.ContactsContactsNotModified{})
+
+	_, err = m.Resolve(ctx, phone2)
+	a.Error(err)
 }

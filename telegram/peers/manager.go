@@ -43,30 +43,3 @@ func (m *Manager) Init(ctx context.Context) error {
 	}
 	return nil
 }
-
-// SetChannelAccessHash implements updates.ChannelAccessHasher.
-func (m *Manager) SetChannelAccessHash(userID, channelID, accessHash int64) error {
-	myID, ok := m.myID()
-	if !ok || myID != userID {
-		return nil
-	}
-	return m.storage.Save(context.TODO(), Key{
-		Prefix: channelPrefix,
-		ID:     channelID,
-	}, Value{
-		AccessHash: accessHash,
-	})
-}
-
-// GetChannelAccessHash implements updates.ChannelAccessHasher.
-func (m *Manager) GetChannelAccessHash(userID, channelID int64) (accessHash int64, found bool, err error) {
-	myID, ok := m.myID()
-	if !ok || myID != userID {
-		return 0, false, nil
-	}
-	v, found, err := m.storage.Find(context.TODO(), Key{
-		Prefix: channelPrefix,
-		ID:     channelID,
-	})
-	return v.AccessHash, found, err
-}

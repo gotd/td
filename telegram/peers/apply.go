@@ -90,6 +90,11 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 	return nil
 }
 
+// Apply adds given entities to manager state.
+func (m *Manager) Apply(ctx context.Context, users []tg.UserClass, chats []tg.ChatClass) error {
+	return m.applyEntities(ctx, users, chats)
+}
+
 func (m *Manager) applyEntities(ctx context.Context, users []tg.UserClass, chats []tg.ChatClass) error {
 	return multierr.Append(m.applyUsers(ctx, users...), m.applyChats(ctx, chats...))
 }

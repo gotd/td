@@ -53,8 +53,8 @@ func (u User) TDLibPeerID() (r constant.TDLibPeerID) {
 //
 // It returns FirstName + " " + LastName for users, and title for chats and channels.
 func (u User) VisibleName() string {
-	firstName, _ := u.raw.GetFirstName()
-	lastName, _ := u.raw.GetLastName()
+	firstName := u.raw.FirstName
+	lastName := u.raw.LastName
 	if lastName == "" {
 		return firstName
 	}
@@ -74,23 +74,29 @@ func (u User) Restricted() ([]tg.RestrictionReason, bool) {
 
 // Verified whether this user/chat/channel is verified by Telegram.
 func (u User) Verified() bool {
-	return u.raw.GetVerified()
+	return u.raw.Verified
 }
 
 // Scam whether this user/chat/channel is probably a scam.
 func (u User) Scam() bool {
-	return u.raw.GetScam()
+	return u.raw.Scam
 }
 
 // Fake whether this user/chat/channel was reported by many users as a fake or scam: be
 // careful when interacting with it.
 func (u User) Fake() bool {
-	return u.raw.GetFake()
+	return u.raw.Fake
 }
 
 // InputPeer returns input peer for this peer.
 func (u User) InputPeer() tg.InputPeerClass {
-	return u.raw.AsInputPeer()
+	if u.Self() {
+		return &tg.InputPeerSelf{}
+	}
+	return &tg.InputPeerUser{
+		UserID:     u.raw.ID,
+		AccessHash: u.raw.AccessHash,
+	}
 }
 
 // Sync updates current object.
@@ -140,7 +146,7 @@ func (u User) Photo(ctx context.Context) (*tg.Photo, bool, error) {
 
 // ToBot tries to convert this User to Bot.
 func (u User) ToBot() (Bot, bool) {
-	if !u.raw.GetBot() {
+	if !u.raw.Bot {
 		return Bot{}, false
 	}
 	return Bot{
@@ -148,14 +154,30 @@ func (u User) ToBot() (Bot, bool) {
 	}, true
 }
 
+// Self whether this user indicates the currently logged-in user.
+func (u User) Self() bool {
+	// TODO(tdakkota): return helper instead?
+	return u.raw.Self
+}
+
 // Contact whether this user is a contact.
 func (u User) Contact() bool {
-	return u.raw.GetContact()
+	return u.raw.Contact
 }
 
 // MutualContact whether this user is a mutual contact.
 func (u User) MutualContact() bool {
-	return u.raw.GetMutualContact()
+	return u.raw.MutualContact
+}
+
+// Deleted whether the account of this user was deleted.
+func (u User) Deleted() bool {
+	return u.raw.Deleted
+}
+
+// Support whether this is an official support user.
+func (u User) Support() bool {
+	return u.raw.Support
 }
 
 // FirstName returns first name.
@@ -184,8 +206,14 @@ func (u User) LangCode() (string, bool) {
 }
 
 // InputUser returns input user for this user.
-func (u User) InputUser() *tg.InputUser {
-	return u.raw.AsInput()
+func (u User) InputUser() tg.InputUserClass {
+	if u.Self() {
+		return &tg.InputUserSelf{}
+	}
+	return &tg.InputUser{
+		UserID:     u.raw.ID,
+		AccessHash: u.raw.AccessHash,
+	}
 }
 
 // ReportSpam reports a new incoming chat for spam, if the peer settings of the chat allow us to do that.

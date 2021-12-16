@@ -38,7 +38,7 @@ func (m *Manager) GetChannelAccessHash(userID, channelID int64) (accessHash int6
 }
 
 // UpdateHook returns update middleware hook for collecting entities.
-func (m *Manager) UpdateHook(next telegram.UpdateHandler)  telegram.UpdateHandler {
+func (m *Manager) UpdateHook(next telegram.UpdateHandler) telegram.UpdateHandler {
 	f := func(ctx context.Context, u tg.UpdatesClass) error {
 		var (
 			users []tg.UserClass

@@ -13,15 +13,7 @@ func TestManager_Self(t *testing.T) {
 	a := require.New(t)
 	ctx := context.Background()
 	mock, m := testManager(t)
-	testUser := &tg.User{
-		Self:       true,
-		Bot:        true,
-		ID:         10,
-		AccessHash: 10,
-		FirstName:  "Lana",
-		LastName:   "Rhoades",
-		Username:   "thebot",
-	}
+	testUser := getTestSelf()
 
 	_, ok := m.myID()
 	a.False(ok)
@@ -29,7 +21,7 @@ func TestManager_Self(t *testing.T) {
 
 	mock.ExpectCall(&tg.UsersGetUsersRequest{
 		ID: []tg.InputUserClass{&tg.InputUserSelf{}},
-	}).ThenFlood(1)
+	}).ThenRPCErr(getTestError())
 	u, err := m.Self(ctx)
 	a.Error(err)
 	a.Zero(u)
