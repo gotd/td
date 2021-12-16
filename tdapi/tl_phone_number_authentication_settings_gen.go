@@ -46,8 +46,8 @@ type PhoneNumberAuthenticationSettings struct {
 	// authentication code from the SMS. See https://developers.google
 	// com/identity/sms-retriever/ for more details
 	AllowSMSRetrieverAPI bool
-	// List of authentication tokens, received in updateOption("authentication_token") in
-	// previously logged out sessions
+	// List of up to 20 authentication tokens, recently received in
+	// updateOption("authentication_token") in previously logged out sessions
 	AuthenticationTokens []string
 }
 
