@@ -59,6 +59,7 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 			continue
 		case *tg.Chat:
 			k.ID = ch.ID
+			k.Prefix = chatsPrefix
 			chats = append(chats, ch)
 		case *tg.ChatForbidden:
 			k.ID = ch.ID
