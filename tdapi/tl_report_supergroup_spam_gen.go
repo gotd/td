@@ -35,8 +35,7 @@ var (
 type ReportSupergroupSpamRequest struct {
 	// Supergroup identifier
 	SupergroupID int64
-	// Identifiers of messages sent in the supergroup. All messages must be sent by the same
-	// sender. This list must be non-empty
+	// Identifiers of messages to report
 	MessageIDs []int64
 }
 
