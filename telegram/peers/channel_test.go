@@ -1,6 +1,7 @@
 package peers
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -72,4 +73,64 @@ func TestChannelGetters(t *testing.T) {
 		a.Equal(b.raw.Broadcast, ok)
 		a.Equal(b.raw.Signatures, b.Signatures())
 	}
+}
+
+func TestChannel_Leave(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	ch := m.Channel(getTestChannel())
+
+	mock.ExpectCall(&tg.ChannelsLeaveChannelRequest{
+		Channel: ch.InputChannel(),
+	}).ThenRPCErr(getTestError())
+	a.Error(ch.Leave(ctx))
+
+	mock.ExpectCall(&tg.ChannelsLeaveChannelRequest{
+		Channel: ch.InputChannel(),
+	}).ThenResult(&tg.Updates{})
+	a.NoError(ch.Leave(ctx))
+}
+
+func TestChannel_SetTitle(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	title := "title"
+	ch := m.Channel(getTestChannel())
+
+	mock.ExpectCall(&tg.ChannelsEditTitleRequest{
+		Channel: ch.InputChannel(),
+		Title:   title,
+	}).ThenRPCErr(getTestError())
+	a.Error(ch.SetTitle(ctx, title))
+
+	mock.ExpectCall(&tg.ChannelsEditTitleRequest{
+		Channel: ch.InputChannel(),
+		Title:   title,
+	}).ThenResult(&tg.Updates{})
+	a.NoError(ch.SetTitle(ctx, title))
+}
+
+func TestChannel_SetDescription(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	about := "about"
+	ch := m.Channel(getTestChannel())
+
+	mock.ExpectCall(&tg.MessagesEditChatAboutRequest{
+		Peer:  ch.InputPeer(),
+		About: about,
+	}).ThenRPCErr(getTestError())
+	a.Error(ch.SetDescription(ctx, about))
+
+	mock.ExpectCall(&tg.MessagesEditChatAboutRequest{
+		Peer:  ch.InputPeer(),
+		About: about,
+	}).ThenTrue()
+	a.NoError(ch.SetDescription(ctx, about))
 }

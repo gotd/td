@@ -114,13 +114,18 @@ func (c Channel) Report(ctx context.Context, reason tg.ReportReasonClass, messag
 
 // Photo returns peer photo, if any.
 func (c Channel) Photo(ctx context.Context) (*tg.Photo, bool, error) {
-	full, err := c.m.getChannelFull(ctx, c.InputChannel())
+	full, err := c.Full(ctx)
 	if err != nil {
 		return nil, false, err
 	}
 
 	p, ok := full.ChatPhoto.AsNotEmpty()
 	return p, ok, nil
+}
+
+// Full returns *tg.ChannelFull for this Channel.
+func (c Channel) Full(ctx context.Context) (*tg.ChannelFull, error) {
+	return c.m.getChannelFull(ctx, c.InputChannel())
 }
 
 // ToBroadcast tries to convert this Channel to Broadcast.
@@ -233,6 +238,28 @@ func (c Channel) Delete(ctx context.Context) error {
 func (c Channel) Leave(ctx context.Context) error {
 	if _, err := c.m.api.ChannelsLeaveChannel(ctx, c.InputChannel()); err != nil {
 		return errors.Wrap(err, "leave channel")
+	}
+	return nil
+}
+
+// SetTitle sets new title for this Chat.
+func (c Channel) SetTitle(ctx context.Context, title string) error {
+	if _, err := c.m.api.ChannelsEditTitle(ctx, &tg.ChannelsEditTitleRequest{
+		Channel: c.InputChannel(),
+		Title:   title,
+	}); err != nil {
+		return errors.Wrap(err, "edit channel title")
+	}
+	return nil
+}
+
+// SetDescription sets new description for this Chat.
+func (c Channel) SetDescription(ctx context.Context, about string) error {
+	if _, err := c.m.api.MessagesEditChatAbout(ctx, &tg.MessagesEditChatAboutRequest{
+		Peer:  c.InputPeer(),
+		About: about,
+	}); err != nil {
+		return errors.Wrap(err, "edit channel about")
 	}
 	return nil
 }

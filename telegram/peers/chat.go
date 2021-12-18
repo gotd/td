@@ -110,7 +110,7 @@ func (c Chat) Report(ctx context.Context, reason tg.ReportReasonClass, message s
 
 // Photo returns peer photo, if any.
 func (c Chat) Photo(ctx context.Context) (*tg.Photo, bool, error) {
-	full, err := c.m.getChatFull(ctx, c.raw.GetID())
+	full, err := c.Full(ctx)
 	if err != nil {
 		return nil, false, errors.Wrap(err, "get full chat")
 	}
@@ -122,6 +122,11 @@ func (c Chat) Photo(ctx context.Context) (*tg.Photo, bool, error) {
 
 	p, ok := chatPhoto.AsNotEmpty()
 	return p, ok, nil
+}
+
+// Full returns *tg.ChatFull for this Chat.
+func (c Chat) Full(ctx context.Context) (*tg.ChatFull, error) {
+	return c.m.getChatFull(ctx, c.ID())
 }
 
 // Creator whether the current user is the creator of this group.
@@ -184,15 +189,46 @@ func (c Chat) DefaultBannedRights() (tg.ChatBannedRights, bool) {
 }
 
 // Leave leaves this chat.
-//
-// Parameter deleteMyMessages denotes to remove the entire chat history of this user in this chat.
-func (c Chat) Leave(ctx context.Context, deleteMyMessages bool) error {
-	_, err := c.m.api.MessagesDeleteChatUser(ctx, &tg.MessagesDeleteChatUserRequest{
-		RevokeHistory: deleteMyMessages,
+func (c Chat) Leave(ctx context.Context) error {
+	return c.deleteMe(ctx, false)
+}
+
+// SetTitle sets new title for this Chat.
+func (c Chat) SetTitle(ctx context.Context, title string) error {
+	if _, err := c.m.api.MessagesEditChatTitle(ctx, &tg.MessagesEditChatTitleRequest{
+		ChatID: c.ID(),
+		Title:  title,
+	}); err != nil {
+		return errors.Wrap(err, "edit chat title")
+	}
+	return nil
+}
+
+// SetDescription sets new description for this Chat.
+func (c Chat) SetDescription(ctx context.Context, about string) error {
+	if _, err := c.m.api.MessagesEditChatAbout(ctx, &tg.MessagesEditChatAboutRequest{
+		Peer:  c.InputPeer(),
+		About: about,
+	}); err != nil {
+		return errors.Wrap(err, "edit chat about")
+	}
+	return nil
+}
+
+// LeaveAndDelete leaves this chat and removes the entire chat history of this user in this chat.
+func (c Chat) LeaveAndDelete(ctx context.Context) error {
+	return c.deleteMe(ctx, true)
+}
+
+func (c Chat) deleteMe(ctx context.Context, revokeHistory bool) error {
+	if _, err := c.m.api.MessagesDeleteChatUser(ctx, &tg.MessagesDeleteChatUserRequest{
+		RevokeHistory: revokeHistory,
 		ChatID:        c.raw.GetID(),
 		UserID:        &tg.InputUserSelf{},
-	})
-	return err
+	}); err != nil {
+		return errors.Wrapf(err, "leave (revoke: %v)", revokeHistory)
+	}
+	return nil
 }
 
 // TODO(tdakkota): add more getters, helpers and convertors
