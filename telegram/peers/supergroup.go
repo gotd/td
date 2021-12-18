@@ -39,3 +39,20 @@ func (c Supergroup) ToggleSlowMode(ctx context.Context, seconds int) error {
 
 	return nil
 }
+
+// SetStickerSet associates a sticker set to this supergroup.
+func (c Supergroup) SetStickerSet(ctx context.Context, set tg.InputStickerSetClass) error {
+	if _, err := c.m.api.ChannelsSetStickers(ctx, &tg.ChannelsSetStickersRequest{
+		Channel:    c.InputChannel(),
+		Stickerset: set,
+	}); err != nil {
+		return errors.Wrap(err, "set stickers")
+	}
+
+	return nil
+}
+
+// ResetStickerSet resets associated sticker set of this supergroup.
+func (c Supergroup) ResetStickerSet(ctx context.Context) error {
+	return c.SetStickerSet(ctx, &tg.InputStickerSetEmpty{})
+}

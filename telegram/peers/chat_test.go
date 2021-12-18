@@ -1,6 +1,7 @@
 package peers
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -46,4 +47,90 @@ func TestChatGetters(t *testing.T) {
 	a.Equal(u.raw.CallActive, u.CallActive())
 	a.Equal(u.raw.CallNotEmpty, u.CallNotEmpty())
 	a.Equal(u.raw.Noforwards, u.NoForwards())
+}
+
+func TestChat_Leave(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	ch := m.Chat(getTestChat())
+
+	mock.ExpectCall(&tg.MessagesDeleteChatUserRequest{
+		RevokeHistory: false,
+		ChatID:        ch.ID(),
+		UserID:        &tg.InputUserSelf{},
+	}).ThenRPCErr(getTestError())
+	a.Error(ch.Leave(ctx))
+
+	mock.ExpectCall(&tg.MessagesDeleteChatUserRequest{
+		RevokeHistory: false,
+		ChatID:        ch.ID(),
+		UserID:        &tg.InputUserSelf{},
+	}).ThenResult(&tg.Updates{})
+	a.NoError(ch.Leave(ctx))
+}
+
+func TestChat_SetTitle(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	title := "title"
+	ch := m.Chat(getTestChat())
+
+	mock.ExpectCall(&tg.MessagesEditChatTitleRequest{
+		ChatID: ch.ID(),
+		Title:  title,
+	}).ThenRPCErr(getTestError())
+	a.Error(ch.SetTitle(ctx, title))
+
+	mock.ExpectCall(&tg.MessagesEditChatTitleRequest{
+		ChatID: ch.ID(),
+		Title:  title,
+	}).ThenResult(&tg.Updates{})
+	a.NoError(ch.SetTitle(ctx, title))
+}
+
+func TestChat_SetDescription(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	about := "about"
+	ch := m.Chat(getTestChat())
+
+	mock.ExpectCall(&tg.MessagesEditChatAboutRequest{
+		Peer:  ch.InputPeer(),
+		About: about,
+	}).ThenRPCErr(getTestError())
+	a.Error(ch.SetDescription(ctx, about))
+
+	mock.ExpectCall(&tg.MessagesEditChatAboutRequest{
+		Peer:  ch.InputPeer(),
+		About: about,
+	}).ThenTrue()
+	a.NoError(ch.SetDescription(ctx, about))
+}
+
+func TestChat_LeaveAndDelete(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	ch := m.Chat(getTestChat())
+
+	mock.ExpectCall(&tg.MessagesDeleteChatUserRequest{
+		RevokeHistory: true,
+		ChatID:        ch.ID(),
+		UserID:        &tg.InputUserSelf{},
+	}).ThenRPCErr(getTestError())
+	a.Error(ch.LeaveAndDelete(ctx))
+
+	mock.ExpectCall(&tg.MessagesDeleteChatUserRequest{
+		RevokeHistory: true,
+		ChatID:        ch.ID(),
+		UserID:        &tg.InputUserSelf{},
+	}).ThenResult(&tg.Updates{})
+	a.NoError(ch.LeaveAndDelete(ctx))
 }

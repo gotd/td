@@ -1,6 +1,7 @@
 package peers
 
 import (
+	"context"
 	"testing"
 	"time"
 
@@ -10,6 +11,16 @@ import (
 	"github.com/gotd/td/tgerr"
 	"github.com/gotd/td/tgmock"
 )
+
+var _ = []interface {
+	ParticipantsCount() int
+	Leave(ctx context.Context) error
+	SetTitle(ctx context.Context, title string) error
+	SetDescription(ctx context.Context, about string) error
+}{
+	Chat{},
+	Channel{},
+}
 
 func testManager(t *testing.T) (*tgmock.Mock, *Manager) {
 	mock := tgmock.New(t)
