@@ -13,10 +13,10 @@ import (
 
 func testManager(t *testing.T) (*tgmock.Mock, *Manager) {
 	mock := tgmock.New(t)
-	return mock, NewManager(tg.NewClient(mock), Options{
+	return mock, Options{
 		Logger: zaptest.NewLogger(t),
 		Cache:  &InmemoryCache{},
-	})
+	}.Build(tg.NewClient(mock))
 }
 
 func getTestSelf() *tg.User {

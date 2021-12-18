@@ -22,19 +22,6 @@ type Manager struct {
 	sg     singleflight.Group
 }
 
-// NewManager creates new Manager.
-func NewManager(api *tg.Client, opts Options) *Manager {
-	opts.setDefaults()
-	return &Manager{
-		api:     api,
-		storage: opts.Storage,
-		cache:   opts.Cache,
-		me:      new(atomicUser),
-		logger:  opts.Logger,
-		sg:      singleflight.Group{},
-	}
-}
-
 // Init initializes Manager.
 func (m *Manager) Init(ctx context.Context) error {
 	_, err := m.Self(ctx)
