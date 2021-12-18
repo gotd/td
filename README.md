@@ -261,55 +261,6 @@ formal security audit were performed.
 * [Lonami/grammers](https://github.com/Lonami/grammers) (Great Telegram client in Rust, many test vectors were used as reference)
 * [sdidyk/mtproto](https://github.com/sdidyk/mtproto), [cjongseok/mtproto](https://github.com/cjongseok/mtproto), [xelaj/mtproto](https://github.com/xelaj/mtproto) (MTProto 1.0 in go)
 
-## Difference to other projects
-
-Status by 11.07.2021
-
-<table>
-  <tr>
-   <th>Topic</th>
-   <th colspan="2">gotd</th>
-   <th colspan="2"><a href="https://github.com/xelaj/mtproto">xelaj/mtproto</a></th>
-  <tr>
-   <td align="center">🚧<br>Maintainers</td>
-   <td colspan="2">At least 3 core contributors, 1.7K commits, actively maintained, <a href="https://github.com/gotd/td/pull/409">automatically updated to latest layer</a></td>
-   <td colspan="2">Single core contributor, 150 commits, effectively not maintaned from March 2021, <a href="https://github.com/xelaj/mtproto/issues/88">failed to update</a> to 129 layer</td>
-  <tr>
-   <td align="center">🔒️<br>Security</td>
-   <td colspan="2">MTProto v2, <a href="https://github.com/gotd/td/issues/155">conforms</a> to security guidelines</td>
-   <td colspan="2">MTProto v1 that is insecure and <a href="https://core.telegram.org/mtproto_v1">deprecated</a> since 2017 (SHA-1 <a href="https://github.com/xelaj/mtproto/blob/216789b95a5d644ebbdd1acb7eb46ff61647960a/internal/aes_ige/ige_cipher.go#L194-L197">is used</a> instead of SHA-256), code was probably copied from <a href="https://github.com/sdidyk/mtproto">sdidyk/mtproto</a> or <a href="https://github.com/cjongseok/mtproto">cjongseok/mtproto</a> with <a href="https://github.com/xelaj/mtproto/blob/216789b95a5d644ebbdd1acb7eb46ff61647960a/internal/aes_ige/ige_cipher.go#L160">little understanding</a></td>
-  <tr>
-   <td align="center">🚀<br>Features</td>
-   <td colspan="2">MTProxy support, WebSocket transport, helpers for uploads, downloads, messages, text styling, datacenter redirects handling and more, but you can still use the raw API</td>
-   <td colspan="2">Raw MTProto API</td>
-  <tr>
-   <td align="center">🔨<br>Platforms</td>
-   <td colspan="2">All platforms including WASM and special stability features for Windows that considers clock resolution</td>
-   <td colspan="2">Limited support for Windows</td>
-  <tr>
-   <td align="center">⚡️<br>Performance</td>
-   <td colspan="2">Multiple optimizations for zero allocations</td>
-   <td colspan="2">Uses reflection in runtime</td>
-  <tr>
-   <td align="center">🧪<br>Stability</td>
-   <td colspan="2">Lots of unit tests (237 tests, 943 including subtests), end-to-end tests with self-made Telegram server in Go, end-to-end tests with real test servers, fuzzing</td>
-   <td colspan="2">12 unit tests, 41 including sub-tests</td>
-  <tr>
-   <td align="center">⭐<br>GitHub Stargazers</td>
-   <td align="center" width="20%">Has only 192 stars</td>
-   <td align="center" width="20%">
-    <img alt="GitHub stars" src="https://img.shields.io/github/stars/gotd/td?style=for-the-badge">
-    <br>
-    <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/gotd/td?style=for-the-badge">
-   </td>
-   <td align="center" width="20%">Has 643 stars, which is much higher</td>
-   <td align="center" width="20%">
-    <img alt="GitHub stars" src="https://img.shields.io/github/stars/xelaj/mtproto?style=for-the-badge">
-    <br>
-    <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/xelaj/mtproto?style=for-the-badge">
-   </td>
-</table>
-
 ## Who is using gotd?
 
 [<img src="https://user-images.githubusercontent.com/43930873/142855897-7091ced0-4fe8-4f8d-ad43-e9db2723bacc.png" width="150">](https://telq.org)

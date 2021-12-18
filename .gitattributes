@@ -1,2 +1,4 @@
 tg/* linguist-vendored
 tdapi/* linguist-vendored
+tl_*_gen.go linguist-vendored
+*.gen.go linguist-vendored
