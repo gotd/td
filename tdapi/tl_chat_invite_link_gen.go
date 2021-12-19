@@ -55,7 +55,7 @@ type ChatInviteLink struct {
 	// True, if the link only creates join request. If true, total number of joining members
 	// will be unlimited
 	CreatesJoinRequest bool
-	// True, if the link is primary. Primary invite link can't have name, expire date or
+	// True, if the link is primary. Primary invite link can't have name, expiration date, or
 	// usage limit. There is exactly one primary invite link for each administrator with
 	// can_invite_users right at a given time
 	IsPrimary bool
