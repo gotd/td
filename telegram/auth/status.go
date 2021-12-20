@@ -19,7 +19,7 @@ type Status struct {
 // Status gets authorization status of client.
 func (c *Client) Status(ctx context.Context) (*Status, error) {
 	u, err := c.self(ctx)
-	if IsKeyUnregistered(err) {
+	if IsUnauthorized(err) {
 		return &Status{}, nil
 	}
 	if err != nil {
