@@ -13,10 +13,16 @@ import (
 )
 
 var _ = []interface {
+	Peer
+	Left() bool
+	NoForwards() bool
 	ParticipantsCount() int
 	Leave(ctx context.Context) error
 	SetTitle(ctx context.Context, title string) error
 	SetDescription(ctx context.Context, about string) error
+
+	ToSupergroup() (Supergroup, bool)
+	ToBroadcast() (Broadcast, bool)
 }{
 	Chat{},
 	Channel{},

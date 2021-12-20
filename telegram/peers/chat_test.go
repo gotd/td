@@ -47,6 +47,14 @@ func TestChatGetters(t *testing.T) {
 	a.Equal(u.raw.CallActive, u.CallActive())
 	a.Equal(u.raw.CallNotEmpty, u.CallNotEmpty())
 	a.Equal(u.raw.Noforwards, u.NoForwards())
+	{
+		_, ok := u.ToSupergroup()
+		a.False(ok)
+	}
+	{
+		_, ok := u.ToBroadcast()
+		a.False(ok)
+	}
 }
 
 func TestChat_Leave(t *testing.T) {
@@ -133,4 +141,24 @@ func TestChat_LeaveAndDelete(t *testing.T) {
 		UserID:        &tg.InputUserSelf{},
 	}).ThenResult(&tg.Updates{})
 	a.NoError(ch.LeaveAndDelete(ctx))
+}
+
+func TestChat_ActualChat(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	_, m := testManager(t)
+
+	ch := m.Chat(getTestChat())
+	_, ok, err := ch.ActualChat(ctx)
+	a.NoError(err)
+	a.False(ok)
+
+	newChat := m.Channel(getTestChannel())
+	a.NoError(m.applyChats(ctx, newChat.raw))
+	ch.raw.SetMigratedTo(newChat.InputChannel())
+
+	actual, ok, err := ch.ActualChat(ctx)
+	a.NoError(err)
+	a.True(ok)
+	a.Equal(newChat.ID(), actual.ID())
 }

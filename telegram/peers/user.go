@@ -144,6 +144,11 @@ func (u User) Photo(ctx context.Context) (*tg.Photo, bool, error) {
 	return p, ok, nil
 }
 
+// FullRaw returns *tg.UserFull for this User.
+func (u User) FullRaw(ctx context.Context) (*tg.UserFull, error) {
+	return u.m.getUserFull(ctx, u.InputUser())
+}
+
 // ToBot tries to convert this User to Bot.
 func (u User) ToBot() (Bot, bool) {
 	if !u.raw.Bot {

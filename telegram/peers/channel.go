@@ -114,7 +114,7 @@ func (c Channel) Report(ctx context.Context, reason tg.ReportReasonClass, messag
 
 // Photo returns peer photo, if any.
 func (c Channel) Photo(ctx context.Context) (*tg.Photo, bool, error) {
-	full, err := c.Full(ctx)
+	full, err := c.FullRaw(ctx)
 	if err != nil {
 		return nil, false, err
 	}
@@ -123,8 +123,8 @@ func (c Channel) Photo(ctx context.Context) (*tg.Photo, bool, error) {
 	return p, ok, nil
 }
 
-// Full returns *tg.ChannelFull for this Channel.
-func (c Channel) Full(ctx context.Context) (*tg.ChannelFull, error) {
+// FullRaw returns *tg.ChannelFull for this Channel.
+func (c Channel) FullRaw(ctx context.Context) (*tg.ChannelFull, error) {
 	return c.m.getChannelFull(ctx, c.InputChannel())
 }
 

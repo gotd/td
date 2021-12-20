@@ -11,6 +11,7 @@ import (
 
 func getTestSuperGroup() *tg.Channel {
 	testChannel := getTestChannel()
+	testChannel.ID *= 2
 	testChannel.Broadcast = false
 	testChannel.Megagroup = true
 	return testChannel
