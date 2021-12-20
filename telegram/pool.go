@@ -8,6 +8,7 @@ import (
 
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/pool"
+	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/manager"
 	"github.com/gotd/td/tg"
@@ -96,7 +97,7 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dia
 	_, err = c.transfer(ctx, tg.NewClient(p), dcID)
 	if err != nil {
 		// Ignore case then we are not authorized.
-		if unauthorized(err) {
+		if auth.IsUnauthorized(err) {
 			return p, nil
 		}
 

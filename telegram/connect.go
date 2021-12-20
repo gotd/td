@@ -11,6 +11,7 @@ import (
 
 	"github.com/gotd/td/internal/exchange"
 	"github.com/gotd/td/internal/tdsync"
+	"github.com/gotd/td/telegram/auth"
 )
 
 func (c *Client) runUntilRestart(ctx context.Context) error {
@@ -25,7 +26,7 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 			self, err := c.Self(ctx)
 			if err != nil {
 				// Ignore unauthorized errors.
-				if !unauthorized(err) {
+				if !auth.IsUnauthorized(err) {
 					c.log.Warn("Got error on self", zap.Error(err))
 				}
 				return nil

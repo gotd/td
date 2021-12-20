@@ -21,7 +21,3 @@ func (c *Client) QR() qrlogin.QR {
 		qrlogin.Options{Migrate: c.MigrateTo},
 	)
 }
-
-func unauthorized(err error) bool {
-	return auth.IsKeyUnregistered(err)
-}
