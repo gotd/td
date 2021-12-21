@@ -56,7 +56,7 @@ type GroupCall struct {
 	ParticipantCount int32
 	// True, if all group call participants are loaded
 	LoadedAllParticipants bool
-	// Recently speaking users in the group call
+	// At most 3 recently speaking users in the group call
 	RecentSpeakers []GroupCallRecentSpeaker
 	// True, if the current user's video is enabled
 	IsMyVideoEnabled bool

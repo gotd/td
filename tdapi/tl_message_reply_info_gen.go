@@ -35,8 +35,8 @@ var (
 type MessageReplyInfo struct {
 	// Number of times the message was directly or indirectly replied
 	ReplyCount int32
-	// Identifiers of recent repliers to the message; available in channels with a discussion
-	// supergroup
+	// Identifiers of at most 3 recent repliers to the message; available in channels with a
+	// discussion supergroup
 	RecentReplierIDs []MessageSenderClass
 	// Identifier of the last read incoming reply to the message
 	LastReadInboxMessageID int64
