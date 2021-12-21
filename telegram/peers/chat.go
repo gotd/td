@@ -129,6 +129,14 @@ func (c Chat) FullRaw(ctx context.Context) (*tg.ChatFull, error) {
 	return c.m.getChatFull(ctx, c.ID())
 }
 
+// InviteLinks returns InviteLinks for this peer.
+func (c Chat) InviteLinks() InviteLinks {
+	return InviteLinks{
+		peer: c,
+		m:    c.m,
+	}
+}
+
 // ToBroadcast tries to convert this Chat to Broadcast.
 func (c Chat) ToBroadcast() (Broadcast, bool) {
 	return Broadcast{}, false

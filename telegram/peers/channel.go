@@ -148,6 +148,14 @@ func (c Channel) ToSupergroup() (Supergroup, bool) {
 	}, true
 }
 
+// InviteLinks returns InviteLinks for this peer.
+func (c Channel) InviteLinks() InviteLinks {
+	return InviteLinks{
+		peer: c,
+		m:    c.m,
+	}
+}
+
 // InputChannel returns input user for this user.
 func (c Channel) InputChannel() tg.InputChannelClass {
 	return &tg.InputChannel{
