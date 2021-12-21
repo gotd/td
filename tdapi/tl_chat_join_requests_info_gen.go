@@ -35,7 +35,7 @@ var (
 type ChatJoinRequestsInfo struct {
 	// Total number of pending join requests
 	TotalCount int32
-	// Identifiers of users sent the newest pending join requests
+	// Identifiers of at most 3 users sent the newest pending join requests
 	UserIDs []int64
 }
 
