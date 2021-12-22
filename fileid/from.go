@@ -1,6 +1,9 @@
 package fileid
 
-import "github.com/gotd/td/tg"
+import (
+	"github.com/gotd/td/constant"
+	"github.com/gotd/td/tg"
+)
 
 // FromDocument creates FileID from tg.Document.
 func FromDocument(doc *tg.Document) FileID {
@@ -44,6 +47,35 @@ func FromPhoto(photo *tg.Photo, thumbType rune) FileID {
 			Type:          PhotoSizeSourceThumbnail,
 			FileType:      Photo,
 			ThumbnailType: thumbType,
+		},
+	}
+}
+
+// ChatPhoto is interface for user profile photo and chat photo structures.
+type ChatPhoto interface {
+	GetDCID() int
+	GetPhotoID() int64
+}
+
+var _ = []ChatPhoto{
+	(*tg.ChatPhoto)(nil),
+	(*tg.UserProfilePhoto)(nil),
+}
+
+// FromChatPhoto creates new FileID from ChatPhoto.
+func FromChatPhoto(id constant.TDLibPeerID, accessHash int64, photo ChatPhoto, big bool) FileID {
+	typ := PhotoSizeSourceDialogPhotoSmall
+	if big {
+		typ = PhotoSizeSourceDialogPhotoBig
+	}
+	return FileID{
+		Type: ProfilePhoto,
+		DC:   photo.GetDCID(),
+		ID:   photo.GetPhotoID(),
+		PhotoSizeSource: PhotoSizeSource{
+			Type:             typ,
+			DialogID:         id,
+			DialogAccessHash: accessHash,
 		},
 	}
 }

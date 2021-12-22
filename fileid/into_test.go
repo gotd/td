@@ -96,7 +96,7 @@ func TestFileID_AsInputFileLocation(t *testing.T) {
 			&tg.InputPeerPhotoFileLocation{
 				Big: true,
 				Peer: &tg.InputPeerChannel{
-					ChannelID:  -1001228418968,
+					ChannelID:  1228418968,
 					AccessHash: -3299551084991488399,
 				},
 				PhotoID: 5291818339590582253,

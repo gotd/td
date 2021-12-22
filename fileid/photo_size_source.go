@@ -19,7 +19,7 @@ type PhotoSizeSource struct {
 	FileType      Type
 	ThumbnailType rune
 
-	DialogID         int64
+	DialogID         constant.TDLibPeerID
 	DialogAccessHash int64
 
 	StickerSetID         int64
@@ -36,20 +36,18 @@ func (p *PhotoSizeSource) stickerSet() tg.InputStickerSetClass {
 
 func (p *PhotoSizeSource) dialogPeer() tg.InputPeerClass {
 	switch id := p.DialogID; {
-	case id > 0 && id <= constant.MaxTDLibUserID:
+	case id.IsUser():
 		return &tg.InputPeerUser{
-			UserID:     id,
+			UserID:     id.ToPlain(),
 			AccessHash: p.DialogAccessHash,
 		}
-	case id < 0 && -constant.MaxTDLibChatID <= id:
+	case id.IsChat():
 		return &tg.InputPeerChat{
-			ChatID: id,
+			ChatID: id.ToPlain(),
 		}
-	case id < 0 &&
-		constant.ZeroTDLibChannelID-constant.MaxTDLibChannelID <= id &&
-		id != constant.ZeroTDLibChannelID:
+	case id.IsChannel():
 		return &tg.InputPeerChannel{
-			ChannelID:  id,
+			ChannelID:  id.ToPlain(),
 			AccessHash: p.DialogAccessHash,
 		}
 	}
@@ -80,7 +78,7 @@ func (p *PhotoSizeSource) readDialog(b *bin.Buffer) error {
 		if err != nil {
 			return errors.Wrap(err, "read dialog_id")
 		}
-		p.DialogID = v
+		p.DialogID = constant.TDLibPeerID(v)
 	}
 	{
 		v, err := b.Long()
@@ -252,7 +250,7 @@ func (p *PhotoSizeSource) writeLocalIDVolumeID(b *bin.Buffer) {
 }
 
 func (p *PhotoSizeSource) writeDialog(b *bin.Buffer) {
-	b.PutLong(p.DialogID)
+	b.PutLong(int64(p.DialogID))
 	b.PutLong(p.DialogAccessHash)
 }
 
