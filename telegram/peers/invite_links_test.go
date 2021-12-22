@@ -165,3 +165,27 @@ func TestInviteLinks_Delete(t *testing.T) {
 	}).ThenTrue()
 	a.NoError(links.Delete(ctx, link))
 }
+
+func TestInviteLinks_hideJoinRequest(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	user := getTestUser().AsInput()
+	ch := m.Chat(getTestChat())
+	links := ch.InviteLinks()
+
+	mock.ExpectCall(&tg.MessagesHideChatJoinRequestRequest{
+		Approved: true,
+		Peer:     ch.InputPeer(),
+		UserID:   user,
+	}).ThenRPCErr(getTestError())
+	a.Error(links.ApproveJoin(ctx, user))
+
+	mock.ExpectCall(&tg.MessagesHideChatJoinRequestRequest{
+		Approved: false,
+		Peer:     ch.InputPeer(),
+		UserID:   user,
+	}).ThenResult(&tg.Updates{})
+	a.NoError(links.DeclineJoin(ctx, user))
+}

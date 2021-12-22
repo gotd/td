@@ -115,6 +115,27 @@ func (e InviteLinks) Delete(ctx context.Context, link string) error {
 	return nil
 }
 
+// ApproveJoin approves join request for given user.
+func (e InviteLinks) ApproveJoin(ctx context.Context, user tg.InputUserClass) error {
+	return e.hideJoinRequest(ctx, true, user)
+}
+
+// DeclineJoin declines join request for given user.
+func (e InviteLinks) DeclineJoin(ctx context.Context, user tg.InputUserClass) error {
+	return e.hideJoinRequest(ctx, false, user)
+}
+
+func (e InviteLinks) hideJoinRequest(ctx context.Context, approved bool, user tg.InputUserClass) error {
+	if _, err := e.m.api.MessagesHideChatJoinRequest(ctx, &tg.MessagesHideChatJoinRequestRequest{
+		Approved: approved,
+		Peer:     e.peer.InputPeer(),
+		UserID:   user,
+	}); err != nil {
+		return errors.Wrapf(err, "hide join (approved: %t)", approved)
+	}
+	return nil
+}
+
 func (e InviteLinks) applyExportedInvite(
 	ctx context.Context,
 	r tg.MessagesExportedChatInviteClass,
