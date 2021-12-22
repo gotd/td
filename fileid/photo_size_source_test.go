@@ -29,7 +29,7 @@ func TestPhotoSizeSourceEncodeDecode(t *testing.T) {
 			Type:             PhotoSizeSourceDialogPhotoBigLegacy,
 			VolumeID:         13,
 			LocalID:          14,
-			DialogID:         1099511627774,
+			DialogID:         -1001228418968,
 			DialogAccessHash: 15,
 		},
 		{
